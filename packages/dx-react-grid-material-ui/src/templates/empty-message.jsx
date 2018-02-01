@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ToolbarMUI from 'material-ui/Toolbar';
+import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
 export const EmptyMessage = ({ getMessage, ...restProps }) => (
-  <ToolbarMUI
+  <Toolbar
     {...restProps}
   >
     <Typography>
       {getMessage('noColumns')}
     </Typography>
-  </ToolbarMUI>
+  </Toolbar>
 );
 
 EmptyMessage.propTypes = {

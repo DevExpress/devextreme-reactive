@@ -6,9 +6,10 @@ import pkg from './package.json';
 
 export default {
   input: 'src/index.js',
+  sourcemap: true,
   output: [
-    { file: pkg.main, format: 'cjs', sourcemap: true },
-    { file: pkg.module, format: 'es', sourcemap: true },
+    { file: pkg.main, format: 'cjs' },
+    { file: pkg.module, format: 'es' },
   ],
   external: external(__dirname),
   plugins: [

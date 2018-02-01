@@ -6,17 +6,20 @@ import { SortingIndicator } from '../parts/sorting-indicator';
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
+const getProps = (sortingDirection, onClick) => ({
+  className: sortingDirection ? 'text-primary' : '',
+  tabIndex: 0,
+  onMouseDown: handleMouseDown,
+  onBlur: handleBlur,
+  onKeyDown: onClick,
+});
+
 export const SortingControl = ({
   align, sortingDirection, columnTitle, onClick,
-}) =>
-  (align === 'right' ? (
-    <span
-      className={sortingDirection ? 'text-primary' : ''}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-    >
+}) => {
+  const props = getProps(sortingDirection, onClick);
+  return (align === 'right' ? (
+    <span {...props}>
       <SortingIndicator
         direction={sortingDirection}
         style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
@@ -25,13 +28,7 @@ export const SortingControl = ({
       {columnTitle}
     </span>
   ) : (
-    <span
-      className={sortingDirection ? 'text-primary' : ''}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-    >
+    <span {...props}>
       {columnTitle}
       &nbsp;
       <SortingIndicator
@@ -40,6 +37,7 @@ export const SortingControl = ({
       />
     </span>
   ));
+};
 
 SortingControl.propTypes = {
   align: PropTypes.string.isRequired,

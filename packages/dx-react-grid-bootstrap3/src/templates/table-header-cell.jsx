@@ -39,11 +39,10 @@ export class TableHeaderCell extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection,
-      sortingEnabled,
+      showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
-      draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      draggingEnabled, resizingEnabled,
+      onWidthChange, onWidthDraft, onWidthDraftCancel,
       tableRow, getMessage, onSort,
       ...restProps
     } = this.props;

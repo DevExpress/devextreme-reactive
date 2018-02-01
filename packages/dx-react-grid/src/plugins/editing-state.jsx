@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
 
@@ -119,8 +119,8 @@ export class EditingState extends React.PureComponent {
     } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="EditingState"
+      <Plugin
+        name="EditingState"
       >
         <Getter
           name="createRowChange"
@@ -146,7 +146,7 @@ export class EditingState extends React.PureComponent {
         <Action name="deleteRows" action={this.deleteRows} />
         <Action name="cancelDeletedRows" action={this.cancelDeletedRows} />
         <Action name="commitDeletedRows" action={this.commitDeletedRows} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

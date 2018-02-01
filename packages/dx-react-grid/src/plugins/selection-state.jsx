@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { toggleSelection } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -37,12 +37,12 @@ export class SelectionState extends React.PureComponent {
     const { selection } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="SelectionState"
+      <Plugin
+        name="SelectionState"
       >
         <Getter name="selection" value={selection} />
         <Action name="toggleSelection" action={this.toggleSelection} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
@@ -30,9 +29,6 @@ const Cell = (props) => {
     return <HighlightedCell {...props} />;
   }
   return <VirtualTable.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;

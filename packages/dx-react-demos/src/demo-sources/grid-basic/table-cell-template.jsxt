@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -27,25 +26,12 @@ const HighlightedCell = ({ value, style }) => (
     </span>
   </Table.Cell>
 );
-HighlightedCell.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  style: PropTypes.object,
-};
-HighlightedCell.defaultProps = {
-  style: {},
-};
 
 const Cell = (props) => {
   if (props.column.name === 'amount') {
     return <HighlightedCell {...props} />;
   }
   return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {

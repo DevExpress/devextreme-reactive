@@ -33,7 +33,7 @@ describe('RowDetailState', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide expandedRowIds defined in defaultExpandedRowIds property', () => {
+  it('should provide expandedDetailRowIds defined in defaultExpandedRowIds property', () => {
     const defaultExpandedRowIds = [{ columnName: 'a', value: 'a' }];
 
     const tree = mount((
@@ -45,11 +45,11 @@ describe('RowDetailState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).expandedRowIds)
+    expect(getComputedState(tree).expandedDetailRowIds)
       .toBe(defaultExpandedRowIds);
   });
 
-  it('should provide expandedRowIds defined in expandedRowIds property', () => {
+  it('should provide expandedDetailRowIds defined in expandedRowIds property', () => {
     const expandedRowIds = [{ columnName: 'a', value: 'a' }];
 
     const tree = mount((
@@ -61,11 +61,11 @@ describe('RowDetailState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).expandedRowIds)
+    expect(getComputedState(tree).expandedDetailRowIds)
       .toBe(expandedRowIds);
   });
 
-  it('should fire the "onExpandedRowIdsChange" callback and should change expandedRowIds in uncontrolled mode after the "toggleDetailRowExpanded" action is fired', () => {
+  it('should fire the "onExpandedRowIdsChange" callback and should change expandedDetailRowIds in uncontrolled mode after the "toggleDetailRowExpanded" action is fired', () => {
     const defaultExpandedRowIds = [{ columnName: 'a', value: 'a' }];
     const newExpandedRowIds = [{ columnName: 'b', value: 'a' }];
 
@@ -87,14 +87,14 @@ describe('RowDetailState', () => {
     expect(toggleDetailRowExpanded)
       .toBeCalledWith(defaultExpandedRowIds, payload);
 
-    expect(getComputedState(tree).expandedRowIds)
+    expect(getComputedState(tree).expandedDetailRowIds)
       .toBe(newExpandedRowIds);
 
     expect(expandedRowIdsChange)
       .toBeCalledWith(newExpandedRowIds);
   });
 
-  it('should fire the "onExpandedRowIdsChange" callback and should change expandedRowIds in controlled mode after the "toggleDetailRowExpanded" action is fired', () => {
+  it('should fire the "onExpandedRowIdsChange" callback and should change expandedDetailRowIds in controlled mode after the "toggleDetailRowExpanded" action is fired', () => {
     const expandedRowIds = [{ columnName: 'a', value: 'a' }];
     const newExpandedRowIds = [{ columnName: 'b', value: 'a' }];
 
@@ -116,7 +116,7 @@ describe('RowDetailState', () => {
     expect(toggleDetailRowExpanded)
       .toBeCalledWith(expandedRowIds, payload);
 
-    expect(getComputedState(tree).expandedRowIds)
+    expect(getComputedState(tree).expandedDetailRowIds)
       .toBe(expandedRowIds);
 
     expect(expandedRowIdsChange)

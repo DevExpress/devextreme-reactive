@@ -43,12 +43,7 @@ export const globals = () => {
   return (moduleId) => {
       if (moduleId in knownGlobals) return knownGlobals[moduleId];
 
-      let modulePkg;
-      try {
-        modulePkg = JSON.parse(readFileSync(require.resolve(join(moduleId, 'package.json'))));
-      } catch(e) {
-        modulePkg = {};
-      }
+      const modulePkg = JSON.parse(readFileSync(require.resolve(join(moduleId, 'package.json'))));
       return modulePkg.globalName;
     }
 };

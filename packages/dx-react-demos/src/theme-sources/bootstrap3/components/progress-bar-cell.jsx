@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   OverlayTrigger,
   Tooltip,
@@ -42,6 +41,7 @@ export const ProgressBarCell = ({ value, style }) => {
     </td>
   );
 };
+
 ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
   style: PropTypes.object,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer, TemplateConnector,
+  Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
@@ -26,14 +26,14 @@ export class TableHeaderRow extends React.PureComponent {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <PluginContainer
-        pluginName="TableHeaderRow"
+      <Plugin
+        name="TableHeaderRow"
         dependencies={[
-          { pluginName: 'Table' },
-          { pluginName: 'SortingState', optional: !showSortingControls },
-          { pluginName: 'GroupingState', optional: !showGroupingControls },
-          { pluginName: 'DragDropProvider', optional: true },
-          { pluginName: 'TableColumnResizing', optional: true },
+          { name: 'Table' },
+          { name: 'SortingState', optional: !showSortingControls },
+          { name: 'GroupingState', optional: !showGroupingControls },
+          { name: 'DragDropProvider', optional: true },
+          { name: 'TableColumnResizing', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -83,7 +83,7 @@ export class TableHeaderRow extends React.PureComponent {
         >
           {params => <HeaderRow {...params} />}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

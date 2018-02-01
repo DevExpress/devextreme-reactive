@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { changeColumnSorting } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -37,12 +37,12 @@ export class SortingState extends React.PureComponent {
     const { sorting } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="SortingState"
+      <Plugin
+        name="SortingState"
       >
         <Getter name="sorting" value={sorting} />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

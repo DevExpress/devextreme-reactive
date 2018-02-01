@@ -56,6 +56,8 @@ Field | Type | Description
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
 showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
+groupingEnabled | boolean | Specifies whether grouping by column is enabled.
+sortingEnabled | boolean | Specifies whether sorting by column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by column.

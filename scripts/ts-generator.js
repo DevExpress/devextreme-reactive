@@ -28,7 +28,8 @@ const cleanElement = element => element.trim()
 
 const tsReplace = element => element
   .replace(/ReactElement/g, 'React.ReactNode')
-  .replace(/ElementType/g, 'React.ComponentType');
+  .replace(/ElementType/g, 'React.ComponentType')
+  .replace(/ReactInstance/g, 'React.ReactInstance');
 
 const getFormattedLine = (line, level = 1) => {
   const elements = line.split('|')

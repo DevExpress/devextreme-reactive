@@ -28,7 +28,7 @@ Describes properties passed to a component that renders the column chooser overl
 Field | Type | Description
 ------|------|------------
 visible | boolean | Specifies whether the overlay is visible.
-target | ReactElement | A React component that is used for overlay positioning.
+target | ReactInstance | The mounted instance a React component or DOM element that is used for overlay positioning.
 onHide | () => void | An event that initiates overlay hiding.
 children | Array&lt;ReactElement&gt; | React elements used to render overlay content.
 

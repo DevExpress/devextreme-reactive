@@ -40,7 +40,7 @@ export class RowDetailState extends React.PureComponent {
       <Plugin
         name="RowDetailState"
       >
-        <Getter name="expandedRowIds" value={expandedRowIds} />
+        <Getter name="expandedDetailRowIds" value={expandedRowIds} />
         <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />
       </Plugin>
     );

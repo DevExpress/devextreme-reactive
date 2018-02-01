@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 
 const pluginDependencies = [
-  { pluginName: 'PagingState' },
+  { name: 'PagingState' },
 ];
 
 export class CustomPaging extends React.PureComponent {
@@ -11,12 +11,12 @@ export class CustomPaging extends React.PureComponent {
     const { totalCount } = this.props;
 
     return (
-      <PluginContainer
-        pluginName="CustomPaging"
+      <Plugin
+        name="CustomPaging"
         dependencies={pluginDependencies}
       >
         <Getter name="totalCount" value={totalCount} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

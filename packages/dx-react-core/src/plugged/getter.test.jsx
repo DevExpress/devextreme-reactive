@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
-import { PluginContainer } from './plugin-container';
+import { Plugin } from './plugin';
 import { Template } from './template';
 import { Getter } from './getter';
 import { TemplateConnector } from './template-connector';
@@ -110,13 +110,13 @@ describe('Getter', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <PluginContainer>
+          <Plugin>
             <Template name="root">
               <TemplateConnector>
                 {({ test }) => <h1>{test}</h1>}
               </TemplateConnector>
             </Template>
-          </PluginContainer>
+          </Plugin>
         );
       }
     }
@@ -147,7 +147,7 @@ describe('Getter', () => {
     class EncapsulatedPlugin extends React.PureComponent {
       render() {
         return (
-          <PluginContainer>
+          <Plugin>
             <Getter
               name="test"
               computed={staticComputed}
@@ -161,7 +161,7 @@ describe('Getter', () => {
                 }}
               </TemplateConnector>
             </Template>
-          </PluginContainer>
+          </Plugin>
         );
       }
     }

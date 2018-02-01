@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginIndexer } from './plugin-indexer';
 
-export class PluginContainer extends React.PureComponent {
+export class Plugin extends React.PureComponent {
   componentWillMount() {
     const { pluginHost, positionContext: position } = this.context;
-    const { pluginName, dependencies } = this.props;
+    const { name, dependencies } = this.props;
     this.plugin = {
       position,
-      pluginName,
+      name,
       dependencies,
       container: true,
     };
@@ -31,21 +31,21 @@ export class PluginContainer extends React.PureComponent {
   }
 }
 
-PluginContainer.propTypes = {
+Plugin.propTypes = {
   children: PropTypes.node.isRequired,
-  pluginName: PropTypes.string,
+  name: PropTypes.string,
   dependencies: PropTypes.arrayOf(PropTypes.shape({
-    pluginName: PropTypes.string,
+    name: PropTypes.string,
     optional: PropTypes.bool,
   })),
 };
 
-PluginContainer.defaultProps = {
-  pluginName: '',
+Plugin.defaultProps = {
+  name: '',
   dependencies: [],
 };
 
-PluginContainer.contextTypes = {
+Plugin.contextTypes = {
   pluginHost: PropTypes.object.isRequired,
   positionContext: PropTypes.func.isRequired,
 };

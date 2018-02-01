@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer, TemplateConnector,
+  Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'Table' },
+  { name: 'Table' },
 ];
 
 export class TableRowDetail extends React.PureComponent {
@@ -32,8 +32,8 @@ export class TableRowDetail extends React.PureComponent {
       tableRowsWithExpandedDetail(tableBodyRows, expandedRowIds, rowHeight);
 
     return (
-      <PluginContainer
-        pluginName="TableRowDetail"
+      <Plugin
+        name="TableRowDetail"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
@@ -79,7 +79,7 @@ export class TableRowDetail extends React.PureComponent {
             />
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

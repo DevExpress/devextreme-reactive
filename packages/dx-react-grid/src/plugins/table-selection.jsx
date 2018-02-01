@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, PluginContainer,
+  Getter, Template, Plugin,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
@@ -28,12 +28,12 @@ export class TableSelection extends React.PureComponent {
       tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
     return (
-      <PluginContainer
-        pluginName="TableSelection"
+      <Plugin
+        name="TableSelection"
         dependencies={[
-          { pluginName: 'Table' },
-          { pluginName: 'SelectionState' },
-          { pluginName: 'IntegratedSelection', optional: !showSelectAll },
+          { name: 'Table' },
+          { name: 'SelectionState' },
+          { name: 'IntegratedSelection', optional: !showSelectAll },
         ]}
       >
         {showSelectionColumn && (
@@ -98,7 +98,7 @@ export class TableSelection extends React.PureComponent {
             )}
           </Template>
         )}
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

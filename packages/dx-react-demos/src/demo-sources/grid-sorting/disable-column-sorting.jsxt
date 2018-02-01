@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
       rows,
       columns,
       defaultSorting,
-      sortingStateColumnExtensions
+      sortingStateColumnExtensions,
     } = this.state;
 
     return (

@@ -38,8 +38,8 @@ export class GroupingPanel extends React.PureComponent {
             { sorting, isColumnSortingEnabled, isColumnGroupingEnabled },
             { changeColumnGrouping, changeColumnSorting },
           ) => {
-            const sortingEnabled = isColumnSortingEnabled(columnName);
-            const groupingEnabled = isColumnGroupingEnabled(columnName);
+            const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+            const groupingEnabled = isColumnGroupingEnabled && isColumnGroupingEnabled(columnName);
 
             return (
               <Item

@@ -106,7 +106,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumnNames | Getter | Array&lt;string&gt; | Names of columns to be hidden.
-columnTogglingEnabled | Getter | (columnName: string) => boolean | A function used to define if a column visibility can be changed by end-user.
+isColumnTogglingEnabled | Getter | (columnName: string) => boolean | A function used to define if a column visibility can be changed by end-user.
 toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
 toolbarContent | Template | Object? | A template that renders toolbar content.
 

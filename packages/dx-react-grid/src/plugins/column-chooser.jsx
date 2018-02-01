@@ -51,7 +51,7 @@ export class ColumnChooser extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {(
-              { columns, hiddenColumnNames, columnTogglingEnabled },
+              { columns, hiddenColumnNames, isColumnTogglingEnabled },
               { toggleColumnVisibility },
             ) => (
               <React.Fragment>
@@ -69,7 +69,7 @@ export class ColumnChooser extends React.PureComponent {
                     {columnChooserItems(columns, hiddenColumnNames)
                       .map((item) => {
                         const { name: columnName } = item.column;
-                        const togglingEnabled = columnTogglingEnabled(columnName);
+                        const togglingEnabled = isColumnTogglingEnabled(columnName);
                         return (
                           <Item
                             key={columnName}

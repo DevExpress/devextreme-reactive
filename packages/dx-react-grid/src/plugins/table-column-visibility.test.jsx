@@ -7,7 +7,7 @@ import {
   columnChooserItems,
   toggleColumn,
   tableDataColumnsExist,
-  getColumnExtensionValue,
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
@@ -19,7 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
   toggleColumn: jest.fn(),
   tableDataColumnsExist: jest.fn(),
-  getColumnExtensionValue: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -62,7 +62,7 @@ describe('TableColumnVisibility', () => {
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
     tableDataColumnsExist.mockImplementation(() => false);
-    getColumnExtensionValue.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -175,49 +175,21 @@ describe('TableColumnVisibility', () => {
   });
 
   describe('column extensions', () => {
-    it('should correctly call getColumnExtensionValue by default', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableColumnVisibility
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'togglingEnabled', true);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnTogglingEnabled prop is false', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableColumnVisibility
-            {...defaultProps}
-            columnTogglingEnabled={false}
-          />
-        </PluginHost>
-      ));
-
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(undefined, 'togglingEnabled', false);
-    });
-
-    it('should correctly call getColumnExtensionValue if columnExtensions prop is defined', () => {
+    it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
       const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
             {...defaultProps}
+            columnTogglingEnabled={false}
             columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
-      expect(getColumnExtensionValue)
-        .toBeCalledWith(columnExtensions, 'togglingEnabled', true);
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'togglingEnabled', false);
     });
   });
 });

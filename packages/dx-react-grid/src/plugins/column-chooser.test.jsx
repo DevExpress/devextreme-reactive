@@ -18,7 +18,7 @@ const defaultDeps = {
       { name: 'c' },
     ],
     hiddenColumnNames: ['a'],
-    columnTogglingEnabled: () => true,
+    isColumnTogglingEnabled: () => true,
   },
   action: {
     toggleVisibility: () => { },
@@ -90,12 +90,12 @@ describe('ColumnChooser', () => {
       });
   });
 
-  it('should pass correct parameters to the ItemComponent if columnTogglingEnabled is false', () => {
+  it('should pass correct parameters to the ItemComponent if toggling is not allowed', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            columnTogglingEnabled: () => false,
+            isColumnTogglingEnabled: () => false,
           },
         })}
         <ColumnChooser

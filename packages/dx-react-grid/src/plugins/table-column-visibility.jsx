@@ -13,7 +13,7 @@ import {
   toggleColumn,
   visibleTableColumns,
   tableDataColumnsExist,
-  getColumnExtensionValue,
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -24,8 +24,8 @@ const pluginDependencies = [
 const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
   visibleTableColumns(tableColumns, hiddenColumnNames);
 
-const getColumnTogglingEnabled = (columnExtensions, defaultValue) =>
-  getColumnExtensionValue(columnExtensions, 'togglingEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
+  getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
 
 export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
@@ -71,8 +71,8 @@ export class TableColumnVisibility extends React.PureComponent {
         <Getter name="hiddenColumnNames" value={hiddenColumnNames} />
         <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
         <Getter
-          name="columnTogglingEnabled"
-          value={getColumnTogglingEnabled(columnExtensions, columnTogglingEnabled)}
+          name="isColumnTogglingEnabled"
+          value={columnExtensionValueGetter(columnExtensions, columnTogglingEnabled)}
         />
         <Action
           name="toggleColumnVisibility"

@@ -72,6 +72,7 @@ export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';
 
 export * from './plugins/searching-state/reducers';
+export * from './plugins/integrated-searching/computeds';
 
 export { getColumnExtension } from './utils/column';
 

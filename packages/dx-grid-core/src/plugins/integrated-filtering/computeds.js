@@ -1,5 +1,8 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
+const any = () => true;
+const none = () => false;
+
 const toLowerCase = value => String(value).toLowerCase();
 
 const defaultPredicate = (value, filter) =>
@@ -55,21 +58,27 @@ export const filteredRows = (
   getColumnPredicate,
   isGroupRow,
   getRowLevelKey,
+  anyInRow = false,
 ) => {
   if (!filters.length || !rows.length) return rows;
 
-  const predicate = filters.reduce(
-    (prevPredicate, filter) => {
-      const { columnName, ...filterConfig } = filter;
-      const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
-      const columnPredicate = customPredicate || defaultPredicate;
+  const predicateGenerator = operator => (prevPredicate, filter) => (row) => {
+    const { columnName, ...filterConfig } = filter;
+    const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
+    const columnPredicate = customPredicate || defaultPredicate;
 
-      return (row) => {
-        const result = columnPredicate(getCellValue(row, columnName), filterConfig, row);
-        return result && prevPredicate(row);
-      };
-    },
-    () => true,
+    return operator(
+      columnPredicate(getCellValue(row, columnName), filterConfig, row),
+      prevPredicate(row),
+    );
+  };
+
+  const orPredicate = predicateGenerator((a, b) => a || b);
+  const andPredicate = predicateGenerator((a, b) => a && b);
+
+  const predicate = filters.reduce(
+    anyInRow ? orPredicate : andPredicate,
+    anyInRow ? none : any,
   );
 
   if (!getRowLevelKey) {

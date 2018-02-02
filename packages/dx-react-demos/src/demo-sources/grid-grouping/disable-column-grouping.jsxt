@@ -17,10 +17,6 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
-const groupingStateColumnExtensions = [
-  { columnName: 'name', groupingEnabled: false },
-];
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -34,10 +30,18 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 8 }),
       grouping: [{ columnName: 'city' }],
+      groupingStateColumnExtensions: [
+        { columnName: 'name', groupingEnabled: false },
+      ],
     };
   }
   render() {
-    const { rows, columns, grouping } = this.state;
+    const {
+      rows,
+      columns,
+      grouping,
+      groupingStateColumnExtensions,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>

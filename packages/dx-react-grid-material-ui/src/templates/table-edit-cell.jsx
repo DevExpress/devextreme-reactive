@@ -7,7 +7,6 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   cell: {
-    verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
   },

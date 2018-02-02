@@ -11,10 +11,6 @@ import {
   generateRows,
 } from '../../../demo-data/generator';
 
-const tableColumnVisibilityColumnExtensions = [
-  { columnName: 'city', togglingEnabled: false },
-];
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -28,11 +24,19 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 6 }),
       defaultHiddenColumnNames: ['sex', 'car'],
+      tableColumnVisibilityColumnExtensions: [
+        { columnName: 'city', togglingEnabled: false },
+      ],
     };
   }
 
   render() {
-    const { columns, rows, defaultHiddenColumnNames } = this.state;
+    const {
+      columns,
+      rows,
+      defaultHiddenColumnNames,
+      tableColumnVisibilityColumnExtensions,
+    } = this.state;
     return (
       <<%&wrapperTag%>>
         <Grid

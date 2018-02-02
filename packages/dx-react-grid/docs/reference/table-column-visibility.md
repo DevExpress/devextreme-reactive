@@ -16,7 +16,7 @@ hiddenColumnNames? | Array&lt;string&gt; | | Hidden column names.
 defaultHiddenColumnNames? | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
 onHiddenColumnNamesChange? | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[TableColumnVisibility.EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
-messages? | object | | An object that specifies [localization messages](#localization-messages).
+messages? | [TableColumnVisibility.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
 

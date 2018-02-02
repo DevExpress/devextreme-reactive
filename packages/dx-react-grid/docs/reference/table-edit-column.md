@@ -20,7 +20,7 @@ showAddCommand? | boolean | false | Specifies whether to render the 'New' comman
 showEditCommand? | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 showDeleteCommand? | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
 width? | number &#124; string | | Specifies the command column's width.
-messages? | object | | An object that specifies the [localization messages](#localization-messages).
+messages? | [TableEditColumn.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 

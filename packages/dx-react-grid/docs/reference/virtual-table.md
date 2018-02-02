@@ -22,15 +22,7 @@ noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](table.md#tablenodat
 noDataRowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
 stubCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
-messages? | object | | An object that specifies the [localization messages](#localization-messages).
-
-## Localization Messages
-
-An object with the following shape:
-
-Field | Type | Default | Description
-------|------|---------|------------
-noData? | string | 'No data' | Specifies text that is displayed when the Grid does not contain data.
+messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
 
 ## Plugin Components
 

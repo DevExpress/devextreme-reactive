@@ -70,10 +70,16 @@ const parseFile = (source) => {
   componentsBlock = componentsBlock.slice(0, componentsBlock.findIndex(el => el.indexOf('## ') === 0))
     .filter(line => line.match(/.+\|.+\|.+/));
 
+  let messagesBlock = source.slice(source.indexOf('## Localization Messages') + 1);
+  messagesBlock = messagesBlock
+    .slice(0, messagesBlock.findIndex(el => el.indexOf('## ') === 0))
+    .filter(line => line.match(/.+\|.+\|.+/));
+
   return {
     properties: propertiesBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
+    localizationMessages: messagesBlock,
   };
 };
 
@@ -106,13 +112,27 @@ const generateTypeScript = (data, componentName) => {
     }
     return `${acc}${getInterfaceExport(currentInterface)}\n`;
   }, '');
-  const properties = data.properties.reduce((acc, line) => acc + getFormattedLine(line), '');
+  const localizationMessages = data.localizationMessages
+    .reduce((acc, line) => acc + getFormattedLine(line, 2), '');
+  const properties = data.properties
+    .reduce((acc, line) => acc + getFormattedLine(line), '');
 
-  return `${interfaces}`
-    + `export interface ${componentName}Props {\n`
+  let result = interfaces;
+
+  if (localizationMessages.length) {
+    result += `export namespace ${componentName} {\n`
+    + '  export interface LocalizationMessages {\n'
+    + `${localizationMessages}`
+    + '  }\n'
+    + '}\n\n';
+  }
+
+  result += `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>;\n`;
+
+  return result;
 };
 
 const getThemesTypeScript = (data, componentName) => {

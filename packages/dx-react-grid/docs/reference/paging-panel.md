@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 containerComponent | ElementType&lt;[PagingPanel.ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
 pageSizes? | Array&lt;number&gt; | [] | The page sizes that a user can select.
-messages? | object | | An object that specifies the [localization messages](#localization-messages).
+messages? | [PagingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 
@@ -40,7 +40,7 @@ Field | Type | Default | Description
 ------|------|---------|------------
 showAll? | string | 'All' | Specifies the page size selector's 'All' item text.
 rowsPerPage? | string | 'Rows per page:' | Specifies the 'Rows per page' label's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
-info? | string &#124; ({ from: number, to: number, count: number }) => string | {from}-{to} of {count} | Specifies the 'Row count' text template.
+info? | (parameters: { from: number, to: number, count: number }) => string &#124; string | {from}-{to} of {count} | Specifies the 'Row count' text template.
 
 ## Plugin Components
 

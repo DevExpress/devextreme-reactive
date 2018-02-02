@@ -20,7 +20,7 @@ noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](#tablenodatacellpro
 noDataRowComponent | ElementType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
 stubCellComponent | ElementType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ElementType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
-messages? | object | | An object that specifies the [localization messages](#localization-messages).
+messages? | [Table.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 

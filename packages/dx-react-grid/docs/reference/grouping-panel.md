@@ -22,7 +22,7 @@ showGroupingControls? | boolean | false | Specifies whether column headers displ
 containerComponent | ElementType&lt;[GroupingPanel.ContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
 itemComponent | ElementType&lt;[GroupingPanel.ItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
 emptyMessageComponent | ElementType&lt;[GroupingPanel.EmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
-messages? | object | | An object that specifies the [localization messages](#localization-messages).
+messages? | [GroupingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 

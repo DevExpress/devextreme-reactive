@@ -1,3 +1,20 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-rc.2...v1.0.0) (2018-02-02)
+
+
+### Code Refactoring
+
+* **react-core:** rename PluginContainer to Plugin ([#712](https://github.com/DevExpress/devextreme-reactive/issues/712)) ([30734d8](https://github.com/DevExpress/devextreme-reactive/commit/30734d8))
+* **react-grid:** rename expanded details getter ([#713](https://github.com/DevExpress/devextreme-reactive/issues/713)) ([771eb3f](https://github.com/DevExpress/devextreme-reactive/commit/771eb3f))
+
+
+### BREAKING CHANGES
+
+* **react-core:** The `PluginContainer` component has been renamed to `Plugin`.
+* **react-grid:** The `expandedRowIds` getter of the RowDetailState plugin has been renamed to `expandedDetailRowIds`.
+
+
+
 <a name="1.0.0-rc.2"></a>
 # [1.0.0-rc.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2018-01-26)
 

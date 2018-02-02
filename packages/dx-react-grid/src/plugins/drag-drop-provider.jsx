@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  PluginContainer, Getter, Template, TemplatePlaceholder,
+  Plugin, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
   DragDropProvider as DragDropProviderCore,
 } from '@devexpress/dx-react-core';
@@ -32,8 +32,8 @@ export class DragDropProvider extends React.PureComponent {
     } = this.state;
 
     return (
-      <PluginContainer
-        pluginName="DragDropProvider"
+      <Plugin
+        name="DragDropProvider"
       >
         <Getter name="draggingEnabled" value />
         <Template name="root">
@@ -61,7 +61,7 @@ export class DragDropProvider extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

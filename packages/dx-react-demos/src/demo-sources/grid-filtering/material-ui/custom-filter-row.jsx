@@ -23,7 +23,7 @@ const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     width: '100%',
-    paddingTop: theme.spacing.unit + 4,
+    paddingTop: theme.spacing.unit * 1.875,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },

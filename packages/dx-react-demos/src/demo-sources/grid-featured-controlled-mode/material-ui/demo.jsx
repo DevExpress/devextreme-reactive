@@ -44,7 +44,7 @@ const styles = theme => ({
   lookupEditCell: {
     verticalAlign: 'top',
     paddingRight: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 1.25,
+    paddingTop: theme.spacing.unit * 0.875,
     paddingLeft: theme.spacing.unit,
   },
   dialog: {

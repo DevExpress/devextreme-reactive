@@ -21,9 +21,7 @@ import {
 
 const styles = theme => ({
   cell: {
-    verticalAlign: 'top',
     width: '100%',
-    paddingTop: theme.spacing.unit + 4,
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
@@ -41,7 +39,7 @@ const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
       onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       placeholder="Filter..."
       inputProps={{
-        style: { textAlign: 'right' },
+        style: { textAlign: 'right', height: 'inherit' },
         min: 1,
         max: 4,
       }}

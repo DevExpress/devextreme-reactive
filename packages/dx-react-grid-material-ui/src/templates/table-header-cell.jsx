@@ -107,6 +107,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {showGroupingControls && (
           <GroupingControl
             align={align}
+            disabled={!groupingEnabled}
             onGroup={onGroup}
           />
         )}

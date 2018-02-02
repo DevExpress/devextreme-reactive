@@ -56,21 +56,19 @@ export class TableFilterRow extends React.PureComponent {
                       onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
                     }}
                   >
-                    {(content) => {
-                      const filteringEnabled = isColumnFilteringEnabled(columnName);
-                      return (
-                        <FilterCell
-                          {...params}
-                          getMessage={getMessage}
-                          column={params.tableColumn.column}
-                          filter={filter}
-                          filteringEnabled={filteringEnabled}
-                          onFilter={onFilter}
-                        >
-                          {content}
-                        </FilterCell>
-                      );
-                    }}
+                    {content => (
+                      <FilterCell
+                        {...params}
+                        getMessage={getMessage}
+                        column={params.tableColumn.column}
+                        filter={filter}
+                        filteringEnabled={isColumnFilteringEnabled(columnName)}
+                        onFilter={onFilter}
+                      >
+                        {content}
+                      </FilterCell>
+                      )
+                    }
                   </TemplatePlaceholder>
                 );
               }}

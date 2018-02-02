@@ -31,7 +31,7 @@ const BooleanEditor = ({ value, onValueChange }) => (
     input={<Input />}
     value={value ? 'Yes' : 'No'}
     onChange={event => onValueChange(event.target.value === 'Yes')}
-    style={{ width: '100%' }}
+    style={{ width: '100%', marginTop: '4px' }}
   >
     <MenuItem value="Yes">Yes</MenuItem>
     <MenuItem value="No">No</MenuItem>

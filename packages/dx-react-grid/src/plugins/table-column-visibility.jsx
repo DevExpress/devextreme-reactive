@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Action,
   Getter,
-  PluginContainer,
+  Plugin,
   Template,
   TemplateConnector,
   TemplatePlaceholder,
@@ -18,7 +18,7 @@ import {
 import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
-  { pluginName: 'Table' },
+  { name: 'Table' },
 ];
 
 const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
@@ -64,8 +64,8 @@ export class TableColumnVisibility extends React.PureComponent {
     const { columnExtensions, columnTogglingEnabled } = this.props;
 
     return (
-      <PluginContainer
-        pluginName="TableColumnVisibility"
+      <Plugin
+        name="TableColumnVisibility"
         dependencies={pluginDependencies}
       >
         <Getter name="hiddenColumnNames" value={hiddenColumnNames} />
@@ -93,7 +93,7 @@ export class TableColumnVisibility extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

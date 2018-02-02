@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
@@ -17,10 +16,6 @@ import {
 const CurrencyFormatter = ({ value }) =>
   <b style={{ color: 'darkblue' }}>${value}</b>;
 
-CurrencyFormatter.propTypes = {
-  value: PropTypes.number.isRequired,
-};
-
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
     formatterComponent={CurrencyFormatter}
@@ -30,10 +25,6 @@ const CurrencyTypeProvider = props => (
 
 const DateFormatter = ({ value }) =>
   value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3.$2.$1');
-
-DateFormatter.propTypes = {
-  value: PropTypes.string.isRequired,
-};
 
 const DateTypeProvider = props => (
   <DataTypeProvider

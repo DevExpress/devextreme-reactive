@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   PagingState,
   SortingState,
@@ -23,18 +22,12 @@ const SaleAmountCell = ({ value }) => (
     ${value}
   </Table.Cell>
 );
-SaleAmountCell.propTypes = {
-  value: PropTypes.any.isRequired,
-};
 
 const Cell = (props) => {
   if (props.column.name === 'SaleAmount') {
     return <SaleAmountCell {...props} />;
   }
   return <Table.Cell {...props} />;
-};
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {

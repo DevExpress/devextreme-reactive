@@ -27,4 +27,4 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 toggleDetailRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
+expandedDetailRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.

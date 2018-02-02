@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Template, TemplatePlaceholder, PluginContainer,
+  Template, TemplatePlaceholder, Plugin,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'PagingState' },
+  { name: 'PagingState' },
 ];
 
 export class PagingPanel extends React.PureComponent {
@@ -20,8 +20,8 @@ export class PagingPanel extends React.PureComponent {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <PluginContainer
-        pluginName="PagingPanel"
+      <Plugin
+        name="PagingPanel"
         dependencies={pluginDependencies}
       >
         <Template name="footer">
@@ -41,7 +41,7 @@ export class PagingPanel extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

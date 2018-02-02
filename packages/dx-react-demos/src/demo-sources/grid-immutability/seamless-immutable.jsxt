@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState,
   IntegratedSorting,
@@ -71,11 +70,6 @@ const Sorting = ({
   />
 );
 
-Sorting.propTypes = {
-  sorting: PropTypes.array.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
-};
-
 const mapSortingStateToProps = ({ sorting }) => ({
   sorting: sorting.data,
 });
@@ -99,11 +93,6 @@ const Selection = ({
     onSelectionChange={onSelectionChange}
   />
 );
-
-Selection.propTypes = {
-  selection: PropTypes.array.isRequired,
-  onSelectionChange: PropTypes.func.isRequired,
-};
 
 const mapSelectionStateToProps = ({ selection }) => ({
   selection: selection.data,

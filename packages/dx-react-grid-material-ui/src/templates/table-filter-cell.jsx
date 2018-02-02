@@ -9,7 +9,6 @@ const styles = (theme) => {
   const { spacing } = theme;
   return {
     cell: {
-      verticalAlign: 'middle',
       paddingRight: spacing.unit,
       paddingLeft: spacing.unit,
       '&:first-child': {

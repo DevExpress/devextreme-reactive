@@ -2,8 +2,6 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/DevExpress/devextreme-reactive/master.svg)](https://circleci.com/gh/DevExpress/devextreme-reactive)
 
-Project Status: **RC**
-
 ## Business Components for React
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/)

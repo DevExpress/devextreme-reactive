@@ -81,7 +81,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Expanded rows IDs.
+expandedDetailRowIds | Getter | Array&lt;number &#124; string&gt; | Expanded rows IDs.
 toggleDetailRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.

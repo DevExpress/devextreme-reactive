@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PluginContainer, Getter, Action } from '@devexpress/dx-react-core';
+import { Plugin, Getter, Action } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   changeTableColumnWidth,
@@ -10,7 +10,7 @@ import {
 import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
-  { pluginName: 'Table' },
+  { name: 'Table' },
 ];
 
 export class TableColumnResizing extends React.PureComponent {
@@ -54,8 +54,8 @@ export class TableColumnResizing extends React.PureComponent {
       tableColumnsWithWidths(tableColumns, columnWidths, draftColumnWidths);
 
     return (
-      <PluginContainer
-        pluginName="TableColumnResizing"
+      <Plugin
+        name="TableColumnResizing"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumnResizingEnabled" value />
@@ -63,7 +63,7 @@ export class TableColumnResizing extends React.PureComponent {
         <Action name="changeTableColumnWidth" action={this.changeTableColumnWidth} />
         <Action name="draftTableColumnWidth" action={this.draftTableColumnWidth} />
         <Action name="cancelTableColumnWidthDraft" action={this.cancelTableColumnWidthDraft} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

@@ -1,13 +1,13 @@
 export const toggleDetailRowExpanded = (prevExpanded, { rowId, state }) => {
-  const expandedRowIds = prevExpanded.slice();
-  const expandedIndex = expandedRowIds.indexOf(rowId);
+  const expandedDetailRowIds = prevExpanded.slice();
+  const expandedIndex = expandedDetailRowIds.indexOf(rowId);
   const rowState = state !== undefined ? state : expandedIndex === -1;
 
   if (expandedIndex > -1 && !rowState) {
-    expandedRowIds.splice(expandedIndex, 1);
+    expandedDetailRowIds.splice(expandedIndex, 1);
   } else if (expandedIndex === -1 && rowState) {
-    expandedRowIds.push(rowId);
+    expandedDetailRowIds.push(rowId);
   }
 
-  return expandedRowIds;
+  return expandedDetailRowIds;
 };

@@ -15,23 +15,23 @@ export class PluginHost {
     this.plugins
       .filter(plugin => plugin.container)
       .forEach((plugin) => {
-        if (knownOptionals.has(plugin.pluginName)) {
-          throw (getDependencyError(knownOptionals.get(plugin.pluginName), plugin.pluginName));
+        if (knownOptionals.has(plugin.name)) {
+          throw (getDependencyError(knownOptionals.get(plugin.name), plugin.name));
         }
 
         plugin.dependencies
           .forEach((dependency) => {
-            if (defined.has(dependency.pluginName)) return;
+            if (defined.has(dependency.name)) return;
             if (dependency.optional) {
-              if (!knownOptionals.has(dependency.pluginName)) {
-                knownOptionals.set(dependency.pluginName, plugin.pluginName);
+              if (!knownOptionals.has(dependency.name)) {
+                knownOptionals.set(dependency.name, plugin.name);
               }
               return;
             }
-            throw (getDependencyError(plugin.pluginName, dependency.pluginName));
+            throw (getDependencyError(plugin.name, dependency.name));
           });
 
-        defined.add(plugin.pluginName);
+        defined.add(plugin.name);
       });
   }
   registerPlugin(plugin) {

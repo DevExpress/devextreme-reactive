@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PluginContainer, Template } from '@devexpress/dx-react-core';
+import { Plugin, Template } from '@devexpress/dx-react-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class DataTypeProvider extends React.PureComponent {
@@ -11,7 +11,7 @@ export class DataTypeProvider extends React.PureComponent {
       editorComponent: Editor,
     } = this.props;
     return (
-      <PluginContainer name="DataTypeProvider">
+      <Plugin name="DataTypeProvider">
         {Formatter
           ? (
             <Template
@@ -34,7 +34,7 @@ export class DataTypeProvider extends React.PureComponent {
           )
           : null
         }
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

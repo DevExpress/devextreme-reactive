@@ -5,7 +5,7 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  PluginContainer,
+  Plugin,
 } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
@@ -27,7 +27,7 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 
 const pluginDependencies = [
-  { pluginName: 'DataTypeProvider', optional: true },
+  { name: 'DataTypeProvider', optional: true },
 ];
 
 export class Table extends React.PureComponent {
@@ -49,8 +49,8 @@ export class Table extends React.PureComponent {
       tableColumnsWithDataRows(columns, columnExtensions);
 
     return (
-      <PluginContainer
-        pluginName="Table"
+      <Plugin
+        name="Table"
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
@@ -142,7 +142,7 @@ export class Table extends React.PureComponent {
         >
           {params => <NoDataRow {...params} />}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

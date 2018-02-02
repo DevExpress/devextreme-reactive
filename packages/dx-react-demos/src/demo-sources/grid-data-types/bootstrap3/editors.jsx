@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   DataTypeProvider,
   EditingState,
@@ -22,10 +21,6 @@ const getRowId = row => row.id;
 const BooleanFormatter = ({ value }) =>
   <span className="label label-default">{value ? 'Yes' : 'No'}</span>;
 
-BooleanFormatter.propTypes = {
-  value: PropTypes.bool.isRequired,
-};
-
 const BooleanEditor = ({ value, onValueChange }) => (
   <select
     className="form-control"
@@ -36,11 +31,6 @@ const BooleanEditor = ({ value, onValueChange }) => (
     <option value>Yes</option>
   </select>
 );
-
-BooleanEditor.propTypes = {
-  value: PropTypes.bool.isRequired,
-  onValueChange: PropTypes.func.isRequired,
-};
 
 const BooleanTypeProvider = props => (
   <DataTypeProvider

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   groupingPanelItems,
@@ -61,12 +61,12 @@ export class GroupingPanel extends React.PureComponent {
     };
 
     return (
-      <PluginContainer
-        pluginName="GroupingPanel"
+      <Plugin
+        name="GroupingPanel"
         dependencies={[
-          { pluginName: 'GroupingState' },
-          { pluginName: 'Toolbar' },
-          { pluginName: 'SortingState', optional: !showSortingControls },
+          { name: 'GroupingState' },
+          { name: 'Toolbar' },
+          { name: 'SortingState', optional: !showSortingControls },
         ]}
       >
         <Template name="toolbarContent">
@@ -91,7 +91,7 @@ export class GroupingPanel extends React.PureComponent {
           </TemplateConnector>
           <TemplatePlaceholder />
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

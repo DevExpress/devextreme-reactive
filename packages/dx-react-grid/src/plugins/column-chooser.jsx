@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Template, TemplatePlaceholder, PluginContainer, TemplateConnector,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
 import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'TableColumnVisibility' },
-  { pluginName: 'Toolbar' },
+  { name: 'TableColumnVisibility' },
+  { name: 'Toolbar' },
 ];
 export class ColumnChooser extends React.PureComponent {
   constructor(props) {
@@ -43,8 +43,8 @@ export class ColumnChooser extends React.PureComponent {
     const { visible } = this.state;
 
     return (
-      <PluginContainer
-        pluginName="ColumnChooser"
+      <Plugin
+        name="ColumnChooser"
         dependencies={pluginDependencies}
       >
         <Template name="toolbarContent">
@@ -77,7 +77,7 @@ export class ColumnChooser extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

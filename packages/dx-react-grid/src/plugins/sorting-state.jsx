@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { changeColumnSorting, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
+
 import { createStateHelper } from '../utils/state-helper';
 
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
@@ -41,8 +42,8 @@ export class SortingState extends React.PureComponent {
     const { columnExtensions, columnSortingEnabled } = this.props;
 
     return (
-      <PluginContainer
-        pluginName="SortingState"
+      <Plugin
+        name="SortingState"
       >
         <Getter name="sorting" value={sorting} />
         <Getter
@@ -50,7 +51,7 @@ export class SortingState extends React.PureComponent {
           value={columnExtensionValueGetter(columnExtensions, columnSortingEnabled)}
         />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

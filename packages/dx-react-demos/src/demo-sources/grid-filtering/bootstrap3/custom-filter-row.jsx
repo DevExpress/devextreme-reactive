@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   FilteringState,
   IntegratedFiltering,
@@ -28,27 +27,12 @@ const UnitsFilterCell = ({ filter, onFilter }) => (
     />
   </th>
 );
-UnitsFilterCell.propTypes = {
-  filter: PropTypes.shape({
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-  }),
-  onFilter: PropTypes.func.isRequired,
-};
-UnitsFilterCell.defaultProps = {
-  filter: null,
-};
 
 const FilterCell = (props) => {
   if (props.column.name === 'units') {
     return <UnitsFilterCell {...props} />;
   }
   return <TableFilterRow.Cell {...props} />;
-};
-FilterCell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 export default class Demo extends React.PureComponent {

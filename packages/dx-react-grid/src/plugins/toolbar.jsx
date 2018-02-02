@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   Template,
-  PluginContainer,
+  Plugin,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
@@ -14,8 +14,8 @@ export class Toolbar extends React.PureComponent {
       flexibleSpaceComponent: FlexibleSpaceComponent,
     } = this.props;
     return (
-      <PluginContainer
-        pluginName="Toolbar"
+      <Plugin
+        name="Toolbar"
       >
         <Template name="header">
           <Root>
@@ -26,7 +26,7 @@ export class Toolbar extends React.PureComponent {
         <Template name="toolbarContent">
           <FlexibleSpaceComponent />
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
@@ -11,7 +11,7 @@ import {
 import { createStateHelper } from '../utils/state-helper';
 
 const dependencies = [
-  { pluginName: 'SortingState', optional: true },
+  { name: 'SortingState', optional: true },
 ];
 
 const adjustSortIndex = (sortIndex, grouping, sorting) =>
@@ -144,8 +144,8 @@ export class GroupingState extends React.PureComponent {
     const { columnExtensions, columnGroupingEnabled } = this.props;
 
     return (
-      <PluginContainer
-        pluginName="GroupingState"
+      <Plugin
+        name="GroupingState"
         dependencies={dependencies}
       >
         <Getter name="grouping" value={grouping} />
@@ -162,7 +162,7 @@ export class GroupingState extends React.PureComponent {
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
 
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

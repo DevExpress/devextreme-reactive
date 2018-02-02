@@ -47,10 +47,10 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-rc.2",
-    "@devexpress/dx-react-core": "1.0.0-rc.2",
-    "@devexpress/dx-react-grid": "1.0.0-rc.2",
-    "@devexpress/dx-testing": "1.0.0-rc.2",
+    "@devexpress/dx-grid-core": "1.0.0",
+    "@devexpress/dx-react-core": "1.0.0",
+    "@devexpress/dx-react-grid": "1.0.0",
+    "@devexpress/dx-testing": "1.0.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -84,9 +84,9 @@
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0-rc.2",
-    "@devexpress/dx-react-core": "1.0.0-rc.2",
-    "@devexpress/dx-react-grid": "1.0.0-rc.2",
+    "@devexpress/dx-grid-core": "1.0.0",
+    "@devexpress/dx-react-core": "1.0.0",
+    "@devexpress/dx-react-grid": "1.0.0",
     "react": "^16.2.0",
     "reactstrap": "^5.0.0-alpha.4"
   }

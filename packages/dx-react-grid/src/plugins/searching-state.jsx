@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { changeSearchValue } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -36,12 +36,12 @@ export class SearchingState extends React.PureComponent {
     const { searchValue } = this.getState();
 
     return (
-      <PluginContainer
-        pluginName="SearchingState"
+      <Plugin
+        name="SearchingState"
       >
         <Getter name="searchValue" value={searchValue} />
         <Action name="changeSearchValue" action={this.changeSearchValue} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

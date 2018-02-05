@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import {
   Template,
   TemplatePlaceholder,
-  PluginContainer,
+  Plugin,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 
-const pluginDependencies = [{ pluginName: 'Toolbar' }];
+const pluginDependencies = [{ name: 'Toolbar' }];
 export const SearchBox = ({ rootComponent: Root, messages }) => {
   const getMessage = getMessagesFormatter(messages);
 
   return (
-    <PluginContainer
-      pluginName="ColumnChooser"
+    <Plugin
+      name="ColumnChooser"
       dependencies={pluginDependencies}
     >
       <Template name="toolbarContent">
@@ -29,7 +29,7 @@ export const SearchBox = ({ rootComponent: Root, messages }) => {
             )}
         </TemplateConnector>
       </Template>
-    </PluginContainer>
+    </Plugin>
   );
 };
 

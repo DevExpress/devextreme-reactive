@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Getter, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { searchCells, getColumnExtension } from '@devexpress/dx-grid-core';
 
-const pluginDependencies = [{ pluginName: 'SearchingState' }];
+const pluginDependencies = [{ name: 'SearchingState' }];
 
 export class IntegratedSearching extends React.PureComponent {
   render() {
@@ -30,12 +30,12 @@ export class IntegratedSearching extends React.PureComponent {
       );
 
     return (
-      <PluginContainer
-        pluginName="IntegratedSearching"
+      <Plugin
+        name="IntegratedSearching"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

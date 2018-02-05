@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { TableColumnReordering as TableColumnReorderingBase } from '@devexpress/dx-react-grid';
 import { TableRow } from '../templates/table-row';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { getClasses, createShallow } from 'material-ui/test-utils';
 import { Toolbar } from './toolbar';
 

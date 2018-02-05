@@ -14,7 +14,7 @@ const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math
 const renderPageButtons = (
   currentPage,
   totalPageCount,
-  onCurrentPageChange,
+  currentPageChange,
 ) => {
   const pageButtons = [];
   const maxButtonCount = 3;
@@ -27,11 +27,12 @@ const renderPageButtons = (
   }
   if (startPage > 1) {
     pageButtons.push((
-      <PaginationItem
-        key={1}
-        onClick={() => onCurrentPageChange(0)}
-      >
-        <PaginationLink tabIndex={0} href="#">
+      <PaginationItem key={1}>
+        <PaginationLink
+          tabIndex={0}
+          href="#"
+          onClick={e => currentPageChange(e, 0)}
+        >
           {1}
         </PaginationLink>
       </PaginationItem>
@@ -52,11 +53,14 @@ const renderPageButtons = (
     pageButtons.push((
       <PaginationItem
         key={page}
-        onClick={() => onCurrentPageChange(page - 1)}
         active={page === currentPage + 1}
         disabled={startPage === endPage}
       >
-        <PaginationLink tabIndex={0} href="#">
+        <PaginationLink
+          tabIndex={0}
+          href="#"
+          onClick={e => currentPageChange(e, page - 1)}
+        >
           {page}
         </PaginationLink>
       </PaginationItem>
@@ -75,11 +79,12 @@ const renderPageButtons = (
     }
 
     pageButtons.push((
-      <PaginationItem
-        key={totalPageCount}
-        onClick={() => onCurrentPageChange(totalPageCount - 1)}
-      >
-        <PaginationLink tabIndex={0} href="#">
+      <PaginationItem key={totalPageCount}>
+        <PaginationLink
+          tabIndex={0}
+          href="#"
+          onClick={e => currentPageChange(e, totalPageCount - 1)}
+        >
           {totalPageCount}
         </PaginationLink>
       </PaginationItem>
@@ -99,6 +104,10 @@ export const Pagination = ({
 }) => {
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
+  const currentPageChange = (e, nextPage) => {
+    e.preventDefault();
+    onCurrentPageChange(nextPage);
+  };
   return (
     <React.Fragment>
       <PaginationBS4
@@ -108,18 +117,20 @@ export const Pagination = ({
         }}
         className="float-right d-none d-sm-flex"
       >
-        <PaginationItem
-          disabled={currentPage === 0}
-          onClick={() => onCurrentPageChange(currentPage - 1)}
-        >
-          <PaginationLink previous href="#" />
+        <PaginationItem disabled={currentPage === 0}>
+          <PaginationLink
+            previous
+            href="#"
+            onClick={e => currentPageChange(e, currentPage - 1)}
+          />
         </PaginationItem>
-        {renderPageButtons(currentPage, totalPages, onCurrentPageChange)}
-        <PaginationItem
-          disabled={currentPage === totalPages - 1 || totalCount === 0}
-          onClick={() => onCurrentPageChange(currentPage + 1)}
-        >
-          <PaginationLink next href="#" />
+        {renderPageButtons(currentPage, totalPages, currentPageChange)}
+        <PaginationItem disabled={currentPage === totalPages - 1 || totalCount === 0}>
+          <PaginationLink
+            next
+            href="#"
+            onClick={e => currentPageChange(e, currentPage + 1)}
+          />
         </PaginationItem>
       </PaginationBS4>
 
@@ -127,18 +138,20 @@ export const Pagination = ({
         className="float-right d-sm-none"
         style={{ margin: 0 }}
       >
-        <PaginationItem
-          disabled={currentPage === 0}
-          onClick={() => onCurrentPageChange(currentPage - 1)}
-        >
-          <PaginationLink previous href="#" />
+        <PaginationItem disabled={currentPage === 0}>
+          <PaginationLink
+            previous
+            href="#"
+            onClick={e => currentPageChange(e, currentPage - 1)}
+          />
         </PaginationItem>
         &nbsp;
-        <PaginationItem
-          disabled={currentPage === totalPages - 1 || totalCount === 0}
-          onClick={() => onCurrentPageChange(currentPage + 1)}
-        >
-          <PaginationLink next href="#" />
+        <PaginationItem disabled={currentPage === totalPages - 1 || totalCount === 0}>
+          <PaginationLink
+            next
+            href="#"
+            onClick={e => currentPageChange(e, currentPage + 1)}
+          />
         </PaginationItem>
       </PaginationBS4>
       <span className="float-right d-sm-none" style={{ marginRight: '20px' }}>

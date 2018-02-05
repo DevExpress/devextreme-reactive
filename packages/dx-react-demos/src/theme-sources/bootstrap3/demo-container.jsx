@@ -25,7 +25,7 @@ const THEMES = [{
   name: 'united',
   link: 'https://bootswatch.com/3/united/bootstrap.min.css',
 }];
-const CUSTOM_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css';
+const CUSTOM_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
 
 class DemoFrame extends React.PureComponent {
   constructor(props, context) {

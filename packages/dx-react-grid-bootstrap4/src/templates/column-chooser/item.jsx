@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
+const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
+
 export const Item = ({
   item: { column, hidden },
   onToggle, className, style,
@@ -16,6 +19,8 @@ export const Item = ({
     }}
     type="button"
     onClick={onToggle}
+    onMouseDown={handleMouseDown}
+    onBlur={handleBlur}
     {...restProps}
   >
     <input

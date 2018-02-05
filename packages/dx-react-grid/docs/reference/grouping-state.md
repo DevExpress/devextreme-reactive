@@ -18,7 +18,7 @@ onGroupingChange | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Ha
 expandedGroups | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
 defaultExpandedGroups | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
 columnGroupingEnabled | boolean | true | Specifies whether grouping is enabled for all columns.
-columnExtensions | Array&lt;[GroupingColumnExtension](#groupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions | Array&lt;[GroupingStateColumnExtension](#groupingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onExpandedGroupsChange | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
@@ -39,7 +39,7 @@ Describes a group that can be nested in another one.
 
 A string value that consists of values by which rows are grouped, separated by the `|` character. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 
-### GroupingColumnExtension
+### GroupingStateColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

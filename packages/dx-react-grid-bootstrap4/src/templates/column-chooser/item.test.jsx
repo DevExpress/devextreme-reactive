@@ -84,7 +84,7 @@ describe('Item', () => {
       />
     ));
 
-    expect(tree.is('.list-group-item'))
+    expect(tree.is('.dropdown-item'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();
@@ -111,10 +111,8 @@ describe('Item', () => {
     ));
     expect(tree.find('button').prop('style'))
       .toEqual({
-        outline: 'none',
         cursor: 'pointer',
-        border: 0,
-        padding: '10px 24px',
+        fontSize: 'initial',
         width: '40px',
       });
   });

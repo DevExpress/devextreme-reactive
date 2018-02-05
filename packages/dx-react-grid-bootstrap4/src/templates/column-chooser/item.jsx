@@ -8,12 +8,10 @@ export const Item = ({
   ...restProps
 }) => (
   <button
-    className={classNames('list-group-item list-group-item-action', className)}
+    className={classNames('dropdown-item', className)}
     style={{
-      outline: 'none',
       cursor: 'pointer',
-      border: 0,
-      padding: '10px 24px',
+      fontSize: 'initial',
       ...style,
     }}
     type="button"

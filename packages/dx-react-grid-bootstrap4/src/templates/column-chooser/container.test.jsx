@@ -13,7 +13,7 @@ describe('Container', () => {
       </Container>
     ));
 
-    expect(tree.is('.list-group'))
+    expect(tree.is('.py-2'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

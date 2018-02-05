@@ -8,8 +8,7 @@ export const Container = ({
   ...restProps
 }) => (
   <div
-    className={classNames('list-group', className)}
-    style={{ padding: '10px 0px' }}
+    className={classNames('py-2', className)}
     {...restProps}
   >
     {children}

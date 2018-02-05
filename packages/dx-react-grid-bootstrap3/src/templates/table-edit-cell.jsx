@@ -27,6 +27,7 @@ export const EditCell = ({
     )}
   </td>
 );
+
 EditCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.object,
@@ -40,12 +41,13 @@ EditCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
   ]),
 };
+
 EditCell.defaultProps = {
   column: undefined,
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,
   value: '',
-  style: {},
+  style: null,
   children: undefined,
 };

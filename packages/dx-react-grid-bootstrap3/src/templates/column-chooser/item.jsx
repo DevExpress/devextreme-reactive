@@ -6,11 +6,12 @@ export const Item = ({
   item: { column, hidden },
   onToggle,
   className,
+  style,
   ...restProps
 }) => (
   <button
     className={classNames('list-group-item', className)}
-    style={{ outline: 'none' }}
+    style={{ outline: 'none', ...style }}
     type="button"
     onClick={onToggle}
     {...restProps}
@@ -37,9 +38,11 @@ Item.propTypes = {
   }).isRequired,
   onToggle: PropTypes.func,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Item.defaultProps = {
   onToggle: () => {},
   className: undefined,
+  style: null,
 };

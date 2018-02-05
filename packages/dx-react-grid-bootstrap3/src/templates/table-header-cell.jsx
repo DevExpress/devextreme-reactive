@@ -58,7 +58,7 @@ export class TableHeaderCell extends React.PureComponent {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
-          } : {}),
+          } : null),
           ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           padding: '5px',

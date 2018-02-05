@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-export const Root = ({ children, className, ...restProps }) => (
+export const Root = ({ children, ...restProps }) => (
   <div
-    className={classNames('card', className)}
-    style={{ border: 0 }}
     {...restProps}
   >
     {children}
@@ -17,10 +14,8 @@ Root.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  className: PropTypes.string,
 };
 
 Root.defaultProps = {
   children: undefined,
-  className: undefined,
 };

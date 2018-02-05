@@ -15,9 +15,8 @@ export const Toolbar = ({
       alignItems: 'center',
       position: 'relative',
       minHeight: '55px',
-      padding: '0px 15px',
-      marginBottom: 0,
-      borderRadius: 0,
+      paddingTop: 'calc(1.25rem - 13px)',
+      paddingBottom: 'calc(1.25rem - 13px)',
       ...style,
     }}
     {...restProps}

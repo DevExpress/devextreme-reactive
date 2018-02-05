@@ -50,3 +50,7 @@ export { StaticTableLayout } from './components/table-layout/static-table-layout
 export { GroupPanelLayout } from './components/group-panel-layout';
 
 export { Toolbar } from './plugins/toolbar';
+
+export { SearchingState } from './plugins/searching-state';
+export { IntegratedSearching } from './plugins/integrated-searching';
+export { SearchBox } from './plugins/search-box';

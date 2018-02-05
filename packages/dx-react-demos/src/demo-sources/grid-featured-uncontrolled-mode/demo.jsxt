@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';<%&additionalImports%>
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, SearchingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
+  IntegratedSearching,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
-  TableColumnVisibility, ColumnChooser,
+  TableColumnVisibility, ColumnChooser, SearchBox,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -89,9 +90,12 @@ export default class Demo extends React.PureComponent {
             defaultPageSize={10}
           />
 
+          <SearchingState />
+
           <IntegratedGrouping />
           <IntegratedFiltering />
           <IntegratedSorting />
+          <IntegratedSearching />
           <IntegratedPaging />
           <IntegratedSelection />
 
@@ -117,6 +121,7 @@ export default class Demo extends React.PureComponent {
           />
           <Toolbar />
           <GroupingPanel showSortingControls />
+          <SearchBox />
           <ColumnChooser />
         </Grid>
       </<%&wrapperTag%>>

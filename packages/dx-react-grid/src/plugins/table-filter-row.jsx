@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, PluginContainer,
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
 } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
@@ -12,9 +12,9 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'FilteringState' },
-  { pluginName: 'Table' },
-  { pluginName: 'DataTypeProvider', optional: true },
+  { name: 'FilteringState' },
+  { name: 'Table' },
+  { name: 'DataTypeProvider', optional: true },
 ];
 
 export class TableFilterRow extends React.PureComponent {
@@ -32,8 +32,8 @@ export class TableFilterRow extends React.PureComponent {
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
-      <PluginContainer
-        pluginName="TableFilterRow"
+      <Plugin
+        name="TableFilterRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -79,7 +79,7 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => <FilterRow {...params} />}
         </Template>
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

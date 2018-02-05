@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -20,18 +19,12 @@ const NameGroupCell = props => (
     from {props.row.value.from} to {props.row.value.to}
   </TableGroupRow.Cell>
 );
-NameGroupCell.propTypes = {
-  row: PropTypes.object.isRequired,
-};
 
 const GroupCell = (props) => {
   if (props.column.name === 'name') {
     return <NameGroupCell {...props} />;
   }
   return <TableGroupRow.Cell {...props} />;
-};
-GroupCell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const nameGroupCriteria = (value) => {

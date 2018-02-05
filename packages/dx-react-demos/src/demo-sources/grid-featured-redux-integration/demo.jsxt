@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';<%&additionalImports%>
+import React from 'react';<%&additionalImports%>
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -11,6 +10,7 @@ import {
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+import { withStyles } from 'material-ui/styles';
 
 import {
   generateRows,
@@ -40,12 +40,18 @@ const tableDetailColumnExtensions = [
   { columnName: 'status', width: 125 },
 ];
 
+const styles = theme => ({
+  title: {
+    color: theme.palette.text.primary,
+  },
+});
+
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainer = ({ row }) => (
+const GridDetailContainerBase = ({ row, classes }) => (
   <div style={{ margin: 20 }}>
     <div>
-      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
     <<%&wrapperTag%>>
       <Grid
@@ -60,9 +66,8 @@ const GridDetailContainer = ({ row }) => (
     </<%&wrapperTag%>>
   </div>
 );
-GridDetailContainer.propTypes = {
-  row: PropTypes.object.isRequired,
-};
+
+const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
 const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 
@@ -160,31 +165,6 @@ const GridContainer = ({
   </<%&wrapperTag%>>
 );
 
-GridContainer.propTypes = {
-  rows: PropTypes.array.isRequired,
-  sorting: PropTypes.array.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
-  selection: PropTypes.array.isRequired,
-  onSelectionChange: PropTypes.func.isRequired,
-  expandedRowIds: PropTypes.array.isRequired,
-  onExpandedRowIdsChange: PropTypes.func.isRequired,
-  grouping: PropTypes.array.isRequired,
-  onGroupingChange: PropTypes.func.isRequired,
-  expandedGroups: PropTypes.array.isRequired,
-  onExpandedGroupsChange: PropTypes.func.isRequired,
-  filters: PropTypes.array.isRequired,
-  onFiltersChange: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  onCurrentPageChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  onPageSizeChange: PropTypes.func.isRequired,
-  pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  columnOrder: PropTypes.array.isRequired,
-  onColumnOrderChange: PropTypes.func.isRequired,
-  columnWidths: PropTypes.array.isRequired,
-  onColumnWidthsChange: PropTypes.func.isRequired,
-};
-
 const gridInitialState = {
   rows: generateRows({
     columnValues: {
@@ -208,7 +188,7 @@ const gridInitialState = {
   pageSizes: [5, 10, 15],
   columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
   columnWidths: [
-    { columnName: 'prefix', width: 75 },
+    { columnName: 'prefix', width: 70 },
     { columnName: 'firstName', width: 130 },
     { columnName: 'lastName', width: 130 },
     { columnName: 'position', width: 170 },

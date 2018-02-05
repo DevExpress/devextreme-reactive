@@ -1,5 +1,5 @@
 import React from 'react';
-import { Getter, Action, PluginContainer } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   getAvailableToSelect,
   someSelected,
@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { pluginName: 'SelectionState' },
+  { name: 'SelectionState' },
 ];
 
 export class IntegratedSelection extends React.PureComponent {
@@ -37,8 +37,8 @@ export class IntegratedSelection extends React.PureComponent {
       someSelected({ selection, availableToSelect });
 
     return (
-      <PluginContainer
-        pluginName="IntegratedSelection"
+      <Plugin
+        name="IntegratedSelection"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={this.availableToSelect} />
@@ -47,7 +47,7 @@ export class IntegratedSelection extends React.PureComponent {
         <Getter name="selectAllAvailable" value={!!availableToSelect.length} />
 
         <Action name="toggleSelectAll" action={this.toggleSelectAll} />
-      </PluginContainer>
+      </Plugin>
     );
   }
 }

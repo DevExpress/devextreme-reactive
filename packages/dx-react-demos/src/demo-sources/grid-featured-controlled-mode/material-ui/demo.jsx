@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
   IntegratedPaging, IntegratedSorting,
@@ -43,9 +42,8 @@ import {
 
 const styles = theme => ({
   lookupEditCell: {
-    verticalAlign: 'top',
+    paddingTop: theme.spacing.unit * 0.875,
     paddingRight: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 1.25,
     paddingLeft: theme.spacing.unit,
   },
   dialog: {
@@ -67,45 +65,30 @@ const AddButton = ({ onExecute }) => (
     </Button>
   </div>
 );
-AddButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
 const EditButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Edit row">
     <EditIcon />
   </IconButton>
 );
-EditButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
 const DeleteButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Delete row">
     <DeleteIcon />
   </IconButton>
 );
-DeleteButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
 const CommitButton = ({ onExecute }) => (
   <IconButton onClick={onExecute} title="Save changes">
     <SaveIcon />
   </IconButton>
 );
-CommitButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
 const CancelButton = ({ onExecute }) => (
-  <IconButton color="accent" onClick={onExecute} title="Cancel changes">
+  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
     <CancelIcon />
   </IconButton>
 );
-CancelButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-};
 
 const commandComponents = {
   add: AddButton,
@@ -122,10 +105,6 @@ const Command = ({ id, onExecute }) => {
       onExecute={onExecute}
     />
   );
-};
-Command.propTypes = {
-  id: PropTypes.string.isRequired,
-  onExecute: PropTypes.func.isRequired,
 };
 
 const availableValues = {
@@ -155,15 +134,6 @@ const LookupEditCellBase = ({
     </Select>
   </TableCell>
 );
-LookupEditCellBase.propTypes = {
-  availableColumnValues: PropTypes.array.isRequired,
-  value: PropTypes.any,
-  onValueChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-};
-LookupEditCellBase.defaultProps = {
-  value: undefined,
-};
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const Cell = (props) => {
@@ -175,9 +145,6 @@ const Cell = (props) => {
   }
   return <Table.Cell {...props} />;
 };
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
 
 const EditCell = (props) => {
   const availableColumnValues = availableValues[props.column.name];
@@ -185,9 +152,6 @@ const EditCell = (props) => {
     return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
   }
   return <TableEditRow.Cell {...props} />;
-};
-EditCell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;
@@ -373,16 +337,12 @@ class DemoBase extends React.PureComponent {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
-            <Button onClick={this.deleteRows} color="accent">Delete</Button>
+            <Button onClick={this.deleteRows} color="secondary">Delete</Button>
           </DialogActions>
         </Dialog>
       </Paper>
     );
   }
 }
-
-DemoBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles, { name: 'ControlledModeDemo' })(DemoBase);

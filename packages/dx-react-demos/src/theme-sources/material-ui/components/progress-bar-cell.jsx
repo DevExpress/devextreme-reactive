@@ -7,7 +7,6 @@ const styles = theme => ({
   progressBarCell: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
-    borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
   },
   progressBar: {
     backgroundColor: theme.palette.primary[300],
@@ -31,6 +30,7 @@ export const ProgressBarCellBase = ({ value, classes, style }) => {
     </TableCell>
   );
 };
+
 ProgressBarCellBase.propTypes = {
   value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,

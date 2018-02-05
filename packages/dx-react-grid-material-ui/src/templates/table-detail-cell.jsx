@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   active: {
-    backgroundColor: theme.palette.background.contentFrame,
+    backgroundColor: theme.palette.background.default,
   },
 });
 

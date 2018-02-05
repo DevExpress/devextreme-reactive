@@ -35,7 +35,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, filters } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&openWrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableFilterRow />
         </Grid>
-      </<%&wrapperTag%>>
+      </<%&closeWrapperTag%>>
     );
   }
 }

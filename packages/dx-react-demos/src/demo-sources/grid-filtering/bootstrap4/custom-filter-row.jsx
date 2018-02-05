@@ -72,20 +72,22 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, tableColumnExtensions } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
-        <IntegratedFiltering />
-        <Table
-          columnExtensions={tableColumnExtensions}
-        />
-        <TableHeaderRow />
-        <TableFilterRow
-          cellComponent={FilterCell}
-        />
-      </Grid>
+      <div className="card">
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <FilteringState defaultFilters={[{ columnName: 'units', value: 2 }]} />
+          <IntegratedFiltering />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableHeaderRow />
+          <TableFilterRow
+            cellComponent={FilterCell}
+          />
+        </Grid>
+      </div>
     );
   }
 }

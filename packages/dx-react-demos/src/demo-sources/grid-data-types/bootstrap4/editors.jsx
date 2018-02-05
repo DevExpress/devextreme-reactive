@@ -94,27 +94,29 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, booleanColumns } = this.state;
 
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-        getRowId={getRowId}
-      >
-        <BooleanTypeProvider
-          for={booleanColumns}
-        />
-        <EditingState
-          onCommitChanges={this.commitChanges}
-          defaultEditingRowIds={[0]}
-        />
-        <Table />
-        <TableHeaderRow />
-        <TableEditRow />
-        <TableEditColumn
-          showAddCommand
-          showEditCommand
-          showDeleteCommand
-        />
-      </Grid>
+      <div className="card">
+        <Grid
+          rows={rows}
+          columns={columns}
+          getRowId={getRowId}
+        >
+          <BooleanTypeProvider
+            for={booleanColumns}
+          />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+            defaultEditingRowIds={[0]}
+          />
+          <Table />
+          <TableHeaderRow />
+          <TableEditRow />
+          <TableEditColumn
+            showAddCommand
+            showEditCommand
+            showDeleteCommand
+          />
+        </Grid>
+      </div>
     );
   }
 }

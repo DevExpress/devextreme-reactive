@@ -249,7 +249,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <div className="card">
         <Grid
           rows={rows}
           columns={columns}

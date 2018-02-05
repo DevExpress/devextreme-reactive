@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&openWrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -72,7 +72,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow showSortingControls />
         </Grid>
-      </<%&wrapperTag%>>
+      </<%&closeWrapperTag%>>
     );
   }
 }

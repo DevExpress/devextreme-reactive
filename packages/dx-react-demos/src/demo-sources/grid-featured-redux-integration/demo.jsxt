@@ -53,7 +53,7 @@ const GridDetailContainerBase = ({ row, classes }) => (
     <div>
       <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
-    <<%&wrapperTag%>>
+    <<%&openWrapperTag%>>
       <Grid
         rows={row.tasks}
         columns={detailColumns}
@@ -63,7 +63,7 @@ const GridDetailContainerBase = ({ row, classes }) => (
         />
         <TableHeaderRow />
       </Grid>
-    </<%&wrapperTag%>>
+    </<%&closeWrapperTag%>>
   </div>
 );
 
@@ -95,7 +95,7 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <<%&wrapperTag%>>
+  <<%&openWrapperTag%>>
     <Grid
       rows={rows}
       columns={columns}
@@ -162,7 +162,7 @@ const GridContainer = ({
         pageSizes={pageSizes}
       />
     </Grid>
-  </<%&wrapperTag%>>
+  </<%&closeWrapperTag%>>
 );
 
 const gridInitialState = {

@@ -1,4 +1,5 @@
 {
   "additionalImports": "",
-  "wrapperTag": "div"
+  "openWrapperTag": "div className='card'",
+  "closeWrapperTag": "div"
 }

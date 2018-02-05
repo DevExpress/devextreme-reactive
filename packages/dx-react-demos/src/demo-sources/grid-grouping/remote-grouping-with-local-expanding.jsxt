@@ -102,7 +102,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <<%&wrapperTag%> style={{ position: 'relative' }}>
+      <<%&openWrapperTag%> style={{ position: 'relative' }}>
         <Grid
           rows={data}
           columns={columns}
@@ -127,7 +127,7 @@ export default class Demo extends React.PureComponent {
           <GroupingPanel />
         </Grid>
         {loading && <Loading />}
-      </<%&wrapperTag%>>
+      </<%&closeWrapperTag%>>
     );
   }
 }

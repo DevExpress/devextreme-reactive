@@ -12,11 +12,11 @@ A plugin that performs built-in grouping and group expanding/collapsing.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions? | Array&lt;[IntegratedGroupingColumnExtension](#integratedgroupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[IntegratedGrouping.ColumnExtension](#integratedgroupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
-### IntegratedGroupingColumnExtension
+### IntegratedGrouping.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

@@ -13,7 +13,7 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions? | Array&lt;[TableColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 cellComponent | ElementType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ElementType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -24,7 +24,7 @@ messages? | [Table.LocalizationMessages](#localization-messages) | | An object t
 
 ## Interfaces
 
-### TableColumnExtension
+### Table.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

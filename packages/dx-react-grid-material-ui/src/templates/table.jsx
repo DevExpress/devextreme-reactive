@@ -21,13 +21,14 @@ const styles = theme => ({
 });
 
 const TableBase = ({
-  children, classes, use, ...restProps
+  children, classes, className, use,
+  ...restProps
 }) => (
   <TableMUI
     className={classNames({
       [classes.table]: true,
       [classes.headTable]: use === 'head',
-    })}
+    }, className)}
     {...restProps}
   >
     {children}
@@ -41,10 +42,12 @@ TableBase.propTypes = {
     PropTypes.node,
   ]).isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 TableBase.defaultProps = {
   use: undefined,
+  className: undefined,
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

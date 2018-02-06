@@ -54,7 +54,7 @@ ContainerBase.propTypes = {
 };
 
 ContainerBase.defaultProps = {
-  style: {},
+  style: null,
   className: undefined,
   children: undefined,
 };

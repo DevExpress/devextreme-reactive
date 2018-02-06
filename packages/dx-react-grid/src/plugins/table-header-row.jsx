@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Getter, Template, Plugin, TemplateConnector,
+  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
@@ -43,38 +43,48 @@ export class TableHeaderRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
-              {({
-                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-              }, {
-                changeColumnSorting, changeColumnGrouping,
-                changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
-              }) => {
-                const { name: columnName } = params.tableColumn.column;
-                const atLeastOneDataColumn = tableColumns
-                  .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
-
-                return (
-                  <HeaderCell
-                    {...params}
-                    column={params.tableColumn.column}
-                    getMessage={getMessage}
-                    showSortingControls={showSortingControls && sorting !== undefined}
-                    showGroupingControls={showGroupingControls && atLeastOneDataColumn}
-                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                    resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls && sorting !== undefined
-                      ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    onSort={({ direction, keepOther }) =>
-                      changeColumnSorting({ columnName, direction, keepOther })}
-                    onGroup={() => changeColumnGrouping({ columnName })}
-                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
-                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
-                    onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
-                  />
-                );
+            <TemplatePlaceholder
+              name="tableHeaderCellBefore"
+              params={{
+                column: params.tableColumn.column,
               }}
-            </TemplateConnector>
+            >
+              {beforeContent => (
+                <TemplateConnector>
+                  {({
+                    sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                  }, {
+                    changeColumnSorting, changeColumnGrouping,
+                    changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
+                  }) => {
+                    const { name: columnName } = params.tableColumn.column;
+                    const atLeastOneDataColumn = tableColumns
+                      .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
+
+                    return (
+                      <HeaderCell
+                        {...params}
+                        column={params.tableColumn.column}
+                        getMessage={getMessage}
+                        showSortingControls={showSortingControls && sorting !== undefined}
+                        showGroupingControls={showGroupingControls && atLeastOneDataColumn}
+                        draggingEnabled={draggingEnabled && atLeastOneDataColumn}
+                        resizingEnabled={tableColumnResizingEnabled}
+                        sortingDirection={showSortingControls && sorting !== undefined
+                          ? getColumnSortingDirection(sorting, columnName) : undefined}
+                        onSort={({ direction, keepOther }) =>
+                          changeColumnSorting({ columnName, direction, keepOther })}
+                        onGroup={() => changeColumnGrouping({ columnName })}
+                        onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
+                        onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
+                        onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                        before={beforeContent}
+                      />
+                    );
+                  }}
+                </TemplateConnector>
+              )}
+            </TemplatePlaceholder>
           )}
         </Template>
         <Template

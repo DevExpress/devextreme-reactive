@@ -1,5 +1,7 @@
 import React from 'react';<%&additionalImports%>
 import {
+  SelectionState,
+  IntegratedSelection,
   TreeingState,
   CustomTreeing,
 } from '@devexpress/dx-react-grid';
@@ -53,15 +55,19 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
+          <SelectionState />
           <TreeingState />
           <CustomTreeing
             getChildRows={getChildRows}
           />
+          <IntegratedSelection />
           <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableTreeing />
+          <TableTreeing
+            showSelectionControls
+          />
         </Grid>
       </<%&wrapperTag%>>
     );

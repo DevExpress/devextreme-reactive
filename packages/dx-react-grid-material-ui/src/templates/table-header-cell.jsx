@@ -80,7 +80,7 @@ class TableHeaderCellBase extends React.PureComponent {
       showGroupingControls, onGroup,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
-      classes, getMessage, tableRow, className, onSort,
+      classes, getMessage, tableRow, className, onSort, before,
       ...restProps
     } = this.props;
 
@@ -102,6 +102,7 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
+        {before}
         {showGroupingControls && (
           <GroupingControl
             align={align}
@@ -117,9 +118,9 @@ class TableHeaderCellBase extends React.PureComponent {
             getMessage={getMessage}
           />
         ) : (
-          <div className={classes.plainTitle}>
+          <span className={classes.plainTitle}>
             {columnTitle}
-          </div>
+          </span>
         )}
         {resizingEnabled && (
           <ResizingControl

@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   tooltipRoot: {
-    display: 'block',
+    display: 'inline-block',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

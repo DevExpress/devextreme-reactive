@@ -34,6 +34,9 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'name', width: 360 },
+      ],
       defaultFilters: [{ columnName: 'sex', value: 'female' }],
       data: generateRows({
         columnValues: {
@@ -46,7 +49,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { data, columns, defaultFilters } = this.state;
+    const {
+      data, columns, tableColumnExtensions, defaultFilters,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -62,7 +67,9 @@ export default class Demo extends React.PureComponent {
             getChildRows={getChildRows}
           />
           <IntegratedFiltering />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow />
           <TableFilterRow />
           <TableTreeing />

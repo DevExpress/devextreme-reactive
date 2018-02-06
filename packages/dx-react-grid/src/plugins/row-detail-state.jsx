@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
@@ -40,7 +40,7 @@ export class RowDetailState extends React.PureComponent {
       <Plugin
         name="RowDetailState"
       >
-        <Getter name="expandedRowIds" value={expandedRowIds} />
+        <Getter name="expandedDetailRowIds" value={expandedRowIds} />
         <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />
       </Plugin>
     );

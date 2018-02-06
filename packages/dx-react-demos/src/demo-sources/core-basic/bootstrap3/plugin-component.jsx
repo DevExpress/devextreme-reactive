@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { PluginHost, Plugin, Template } from '@devexpress/dx-react-core';
 
 export default class Demo extends React.PureComponent {
@@ -34,12 +33,6 @@ const TasksList = ({ children, ...restProps }) => (
     {children}
   </PluginHost>
 );
-TasksList.propTypes = {
-  children: PropTypes.node,
-};
-TasksList.defaultProps = {
-  children: null,
-};
 
 const TasksListCore = ({ tasks }) => (
   <Plugin>
@@ -57,6 +50,3 @@ const TasksListCore = ({ tasks }) => (
     </Template>
   </Plugin>
 );
-TasksListCore.propTypes = {
-  tasks: PropTypes.array.isRequired,
-};

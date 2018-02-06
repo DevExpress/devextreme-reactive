@@ -1,7 +1,7 @@
 /* globals document:true window:true */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {

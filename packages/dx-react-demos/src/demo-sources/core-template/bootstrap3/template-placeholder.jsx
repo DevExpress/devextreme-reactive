@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 const ENTER_KEY = 13;
@@ -40,12 +39,6 @@ const TasksList = ({ children, ...restProps }) => (
     {children}
   </PluginHost>
 );
-TasksList.propTypes = {
-  children: PropTypes.node,
-};
-TasksList.defaultProps = {
-  children: null,
-};
 
 const TasksListCore = ({ tasks }) => (
   <Plugin>
@@ -64,9 +57,6 @@ const TasksListCore = ({ tasks }) => (
     </Template>
   </Plugin>
 );
-TasksListCore.propTypes = {
-  tasks: PropTypes.array.isRequired,
-};
 
 const NewTaskForm = ({ onCreate }) => (
   <Plugin>
@@ -83,6 +73,3 @@ const NewTaskForm = ({ onCreate }) => (
     </Template>
   </Plugin>
 );
-NewTaskForm.propTypes = {
-  onCreate: PropTypes.func.isRequired,
-};

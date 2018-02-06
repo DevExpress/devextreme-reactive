@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
@@ -7,8 +7,6 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   cell: {
-    verticalAlign: 'top',
-    paddingTop: theme.spacing.unit + 2,
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
   },

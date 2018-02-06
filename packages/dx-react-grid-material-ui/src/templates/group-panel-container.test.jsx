@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelContainer } from './group-panel-container';
 

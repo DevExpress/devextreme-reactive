@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 
 export default class Demo extends React.PureComponent {
@@ -42,6 +41,3 @@ const TasksList = ({ tasks }) => (
     </Template>
   </PluginHost>
 );
-TasksList.propTypes = {
-  tasks: PropTypes.array.isRequired,
-};

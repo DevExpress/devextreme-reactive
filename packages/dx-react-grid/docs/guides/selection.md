@@ -30,7 +30,7 @@ In some scenarios, it is useful to highlight selected rows instead of using chec
 
 ## Select All
 
-Perform the following steps to enable the "select/deselect all" capability:
+Perform the following steps to enable the Select All capability:
 
 - Add the `IntegratedSelection` plugin above the `TableSelection` one.
 - Add the `TableHeaderRow` plugin.

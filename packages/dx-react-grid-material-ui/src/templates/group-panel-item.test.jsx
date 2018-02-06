@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Chip from 'material-ui/Chip';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';

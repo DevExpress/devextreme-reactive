@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { TableRow } from '../templates/table-row';

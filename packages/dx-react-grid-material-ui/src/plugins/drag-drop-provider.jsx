@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { DragDropProvider as DragDropProviderBase } from '@devexpress/dx-react-grid';
 import { Container, Column } from '../templates/drag-drop';
 

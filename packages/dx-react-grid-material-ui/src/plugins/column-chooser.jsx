@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { ColumnChooser as ColumnChooserBase } from '@devexpress/dx-react-grid';
 import { Overlay } from '../templates/column-chooser/overlay';
 import { Container } from '../templates/column-chooser/container';

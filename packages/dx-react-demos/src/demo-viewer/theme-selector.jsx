@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
 import './theme-selector.css';

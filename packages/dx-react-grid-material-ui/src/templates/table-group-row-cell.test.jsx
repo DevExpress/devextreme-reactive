@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { TableCell } from 'material-ui/Table';
 import { setupConsole } from '@devexpress/dx-testing';

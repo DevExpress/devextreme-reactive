@@ -41,3 +41,9 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
 .embedded-demo(grid-editing/edit-row-controlled)
+
+### Disable Editing by a Column
+
+The [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property allows you to prevent editing by a specific column.
+
+.embedded-demo(grid-editing/disable-column-editing)

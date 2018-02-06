@@ -72,6 +72,7 @@ export default class Demo extends React.PureComponent {
         >
           <EditingState
             onCommitChanges={this.commitChanges}
+            defaultEditingRowIds={[0]}
             columnExtensions={editingStateColumnExtensions}
           />
           <Table />

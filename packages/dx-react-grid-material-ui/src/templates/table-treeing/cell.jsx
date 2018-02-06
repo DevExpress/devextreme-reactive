@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TableCell as TableCellMUI } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';

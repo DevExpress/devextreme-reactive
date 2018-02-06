@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TableTreeing as TableTreeingBase } from '@devexpress/dx-react-grid';
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 

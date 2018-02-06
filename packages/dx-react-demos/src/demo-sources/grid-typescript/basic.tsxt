@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import { Column, TableColumnExtension } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { generateRows } from '../../../demo-data/generator';
 
 const rows = generateRows({ length: 5 });
@@ -17,13 +17,15 @@ const tableColumnExtensions: Array<TableColumnExtension> = [
 export default class Demo extends React.Component {
   render() {
     return (
-      <Grid
-        rows={rows}
-        columns={columns}
-      >
-        <Table columnExtensions={tableColumnExtensions} />
-        <TableHeaderRow />
-      </Grid>
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <Table columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+        </Grid>
+      </<%&wrapperTag%>>
     );
   }
 }

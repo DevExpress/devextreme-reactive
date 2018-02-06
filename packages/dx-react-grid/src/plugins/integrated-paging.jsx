@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
 

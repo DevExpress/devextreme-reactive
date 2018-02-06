@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import Input from 'material-ui/Input';

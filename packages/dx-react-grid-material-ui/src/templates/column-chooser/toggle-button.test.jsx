@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import Tooltip from 'material-ui/Tooltip';
 import { ToggleButton } from './toggle-button';

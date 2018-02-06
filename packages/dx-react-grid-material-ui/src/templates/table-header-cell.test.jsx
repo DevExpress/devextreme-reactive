@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TableCell, TableSortLabel } from 'material-ui/Table';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';

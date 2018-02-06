@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';

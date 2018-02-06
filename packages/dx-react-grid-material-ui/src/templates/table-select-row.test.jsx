@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TableRow as TableRowMUI } from 'material-ui/Table';
 import { createShallow } from 'material-ui/test-utils';
 import { TableSelectRow } from './table-select-row';

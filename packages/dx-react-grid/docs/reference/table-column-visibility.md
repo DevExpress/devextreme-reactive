@@ -30,8 +30,6 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 noColumns? | string | 'Nothing to show' | Specifies the text that is displayed when the plugin does not contain visible columns.

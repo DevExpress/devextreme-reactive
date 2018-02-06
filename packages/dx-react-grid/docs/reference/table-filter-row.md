@@ -36,8 +36,6 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.

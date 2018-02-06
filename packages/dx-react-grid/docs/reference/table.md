@@ -111,8 +111,6 @@ row | any | A row.
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.

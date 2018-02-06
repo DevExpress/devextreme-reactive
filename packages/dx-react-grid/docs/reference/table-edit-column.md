@@ -57,8 +57,6 @@ onExecute | () => void | An event initiating the command execution.
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 addCommand? | string | 'New' | Specifies the add command button text.

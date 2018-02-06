@@ -70,8 +70,6 @@ hidden | boolean | Specifies whether the associated column is hidden.
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 showColumnChooser? | string | 'Show Column Chooser' | The toggle button's tooltip text. Available in the "@devexpress/dx-react-grid-material-ui" package.

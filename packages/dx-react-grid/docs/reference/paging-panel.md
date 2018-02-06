@@ -34,8 +34,6 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 showAll? | string | 'All' | Specifies the page size selector's 'All' item text.

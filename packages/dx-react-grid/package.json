@@ -31,7 +31,7 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts",
+  "types": "dist/dx-react-grid.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

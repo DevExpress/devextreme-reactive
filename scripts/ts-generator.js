@@ -226,14 +226,14 @@ const ensureDirectory = (dir) => {
 console.log('Building TypeScript definitions for \'dx-react-grid\'.');
 const distFolder = join(PACKAGE_PATH, TARGET_FOLDER);
 ensureDirectory(distFolder);
-writeFileSync(join(distFolder, 'index.d.ts'), indexContent);
+writeFileSync(join(distFolder, 'dx-react-grid.d.ts'), indexContent);
 
 themes.forEach((theme) => {
   console.log(`Building TypeScript definitions for 'dx-react-grid-${theme}'.`);
   const themeDistFolder = join(ROOT_PATH, `dx-react-grid-${theme}`, TARGET_FOLDER);
   ensureDirectory(themeDistFolder);
   writeFileSync(
-    join(themeDistFolder, 'index.d.ts'),
+    join(themeDistFolder, `dx-react-grid-${theme}.d.ts`),
     themesIndexContent,
   );
 });

@@ -18,8 +18,13 @@ import {
 
   deleteRows,
   cancelDeletedRows,
+
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
+
+const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
+  getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
 export class EditingState extends React.PureComponent {
   constructor(props) {
@@ -113,7 +118,7 @@ export class EditingState extends React.PureComponent {
     }
   }
   render() {
-    const { createRowChange, columnExtensions } = this.props;
+    const { createRowChange, columnExtensions, columnEditingEnabled } = this.props;
     const {
       editingRowIds, rowChanges, addedRows, deletedRowIds,
     } = this.getState();
@@ -146,6 +151,11 @@ export class EditingState extends React.PureComponent {
         <Action name="deleteRows" action={this.deleteRows} />
         <Action name="cancelDeletedRows" action={this.cancelDeletedRows} />
         <Action name="commitDeletedRows" action={this.commitDeletedRows} />
+
+        <Getter
+          name="isColumnEditingEnabled"
+          value={columnExtensionValueGetter(columnExtensions, columnEditingEnabled)}
+        />
       </Plugin>
     );
   }
@@ -153,6 +163,7 @@ export class EditingState extends React.PureComponent {
 
 EditingState.propTypes = {
   createRowChange: PropTypes.func,
+  columnEditingEnabled: PropTypes.bool,
   columnExtensions: PropTypes.array,
 
   editingRowIds: PropTypes.array,
@@ -176,6 +187,7 @@ EditingState.propTypes = {
 
 EditingState.defaultProps = {
   createRowChange: undefined,
+  columnEditingEnabled: true,
   columnExtensions: undefined,
 
   editingRowIds: undefined,

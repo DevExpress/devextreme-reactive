@@ -1,5 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
-import { Column, TableColumnExtension } from '@devexpress/dx-react-grid';
+import { Column, Table as TableBase } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { generateRows } from '../../../demo-data/generator';
 
@@ -10,7 +10,7 @@ const columns: Array<Column> = [
   { name: 'city', title: 'City' },
   { name: 'car', title: 'Car' },
 ];
-const tableColumnExtensions: Array<TableColumnExtension> = [
+const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
   { columnName: 'sex', width: 100 },
 ];
 

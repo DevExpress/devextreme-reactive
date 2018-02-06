@@ -22,12 +22,18 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
     },
+    "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx"],
     "setupFiles": [
       "<rootDir>/setup-enzyme.js"
-    ]
+    ],
+    "testMatch": ["**/*.test.(ts|tsx|js|jsx)"]
   },
   "dependencies": {
     "@devexpress/dx-react-core": "1.0.0",
@@ -52,8 +58,9 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.4.1",
     "@devexpress/dx-testing": "1.0.0",
+    "@types/jest": "^22.1.1",
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",
@@ -80,6 +87,7 @@
     "react-test-renderer": "^16.2.0",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.1",
+    "ts-jest": "^22.0.3",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1",

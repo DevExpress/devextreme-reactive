@@ -59,7 +59,7 @@ const loadDemosToGenerate = () => {
               sectionName,
               demoName,
               themeName: file,
-              generateTest: demoExtension === JSX_EXT,
+              generateTest: true,
               generateSsrTest,
               demoExtension,
             });
@@ -77,7 +77,7 @@ const loadDemosToGenerate = () => {
               demoName,
               themeName,
               generateDemo: true,
-              generateTest: demoExtension === JSX_EXT,
+              generateTest: true,
               generateSsrTest,
               demoExtension,
             });

@@ -28,6 +28,7 @@ const defaultDeps = {
     rowChanges: [{ 1: { a: 'text' } }],
     getCellValue: jest.fn(),
     createRowChange: jest.fn(),
+    isColumnEditingEnabled: () => true,
   },
   action: {
     changeAddRow: jest.fn(),

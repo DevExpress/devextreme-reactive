@@ -11,9 +11,6 @@ const styles = theme => ({
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
     },
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
   cellRightAlign: {
     textAlign: 'right',
@@ -28,6 +25,9 @@ const styles = theme => ({
   },
   content: {
     flex: 'auto 1 1',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 });
 

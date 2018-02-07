@@ -9,8 +9,8 @@ import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
   button: {
-    marginTop: '-5px',
-    marginBottom: '-5px',
+    marginTop: -theme.spacing.unit,
+    marginBottom: -theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
   placeholder: {
@@ -20,15 +20,12 @@ const styles = theme => ({
   },
 });
 
-const ToggleBase = ({
-  disabled, expanded, classes, onToggle,
+const ToggleButtonBase = ({
+  visible, expanded, classes, onToggle,
   className,
   ...restProps
-}) => (disabled ? (
-  <span className={classes.placeholder} />
-) : (
+}) => (visible ? (
   <IconButton
-    disabled={disabled}
     className={classNames(classes.button, className)}
     onClick={(e) => {
       e.stopPropagation();
@@ -42,21 +39,23 @@ const ToggleBase = ({
         : <ChevronRight />
     }
   </IconButton>
+) : (
+  <span className={classes.placeholder} />
 ));
 
-ToggleBase.propTypes = {
-  disabled: PropTypes.bool,
+ToggleButtonBase.propTypes = {
+  visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };
 
-ToggleBase.defaultProps = {
-  disabled: false,
+ToggleButtonBase.defaultProps = {
+  visible: false,
   expanded: false,
   onToggle: () => {},
   className: undefined,
 };
 
-export const Toggle = withStyles(styles)(ToggleBase);
+export const ToggleButton = withStyles(styles)(ToggleButtonBase);

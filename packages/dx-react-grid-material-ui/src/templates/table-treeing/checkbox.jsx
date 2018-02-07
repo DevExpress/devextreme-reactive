@@ -1,23 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Checkbox from 'material-ui/Checkbox';
+import CheckboxMUI from 'material-ui/Checkbox';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   checkbox: {
-    marginTop: '-5px',
-    marginBottom: '-5px',
+    marginTop: -theme.spacing.unit,
+    marginBottom: -theme.spacing.unit,
     marginRight: theme.spacing.unit,
     marginLeft: -theme.spacing.unit,
   },
 });
 
-export const SelectBase = ({
+export const CheckboxBase = ({
   disabled, selected, indeterminate, onToggle, classes,
   className, ...restProps
 }) => (
-  <Checkbox
+  <CheckboxMUI
     className={classNames(classes.checkbox, className)}
     checked={selected}
     indeterminate={indeterminate}
@@ -30,7 +30,7 @@ export const SelectBase = ({
   />
 );
 
-SelectBase.propTypes = {
+CheckboxBase.propTypes = {
   disabled: PropTypes.bool,
   selected: PropTypes.bool,
   indeterminate: PropTypes.bool,
@@ -39,7 +39,7 @@ SelectBase.propTypes = {
   className: PropTypes.string,
 };
 
-SelectBase.defaultProps = {
+CheckboxBase.defaultProps = {
   disabled: false,
   selected: false,
   indeterminate: false,
@@ -47,4 +47,4 @@ SelectBase.defaultProps = {
   className: undefined,
 };
 
-export const Select = withStyles(styles)(SelectBase);
+export const Checkbox = withStyles(styles)(CheckboxBase);

@@ -31,9 +31,9 @@ export class TableTreeing extends React.PureComponent {
   render() {
     const {
       showSelectionControls,
-      stepperComponent: Stepper,
-      toggleComponent: Toggle,
-      selectComponent: Select,
+      indentComponent: Indent,
+      toggleButtonComponent: ToggleButton,
+      checkboxComponent: Checkbox,
       cellComponent: Cell,
     } = this.props;
     return (
@@ -46,13 +46,13 @@ export class TableTreeing extends React.PureComponent {
           name="tableHeaderCellBefore"
           predicate={({ column }) => column.name === 'name'}
         >
-          <Toggle
+          <ToggleButton
             disabled
           />
           {showSelectionControls && (
             <TemplateConnector>
               {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
-                <Select
+                <Checkbox
                   disabled={!selectAllAvailable}
                   selected={allSelected}
                   indeterminate={someSelected}
@@ -90,16 +90,16 @@ export class TableTreeing extends React.PureComponent {
                             value={value}
                             controls={
                               <React.Fragment>
-                                <Stepper
+                                <Indent
                                   level={params.tableRow.level}
                                 />
-                                <Toggle
-                                  disabled={!(!!getCollapsedRows(params.tableRow.row) || expandedRowIds.indexOf(params.tableRow.rowId) > -1)}
+                                <ToggleButton
+                                  visible={!!getCollapsedRows(params.tableRow.row) || expandedRowIds.indexOf(params.tableRow.rowId) > -1}
                                   expanded={expandedRowIds.indexOf(params.tableRow.rowId) > -1}
                                   onToggle={() => toggleRowExpanded({ rowId: params.tableRow.rowId })}
                                 />
                                 {showSelectionControls && (
-                                  <Select
+                                  <Checkbox
                                     disabled={false}
                                     selected={selection.indexOf(params.tableRow.rowId) > -1}
                                     indeterminate={false}
@@ -127,9 +127,9 @@ export class TableTreeing extends React.PureComponent {
 
 TableTreeing.propTypes = {
   showSelectionControls: PropTypes.bool,
-  stepperComponent: PropTypes.func.isRequired,
-  toggleComponent: PropTypes.func.isRequired,
-  selectComponent: PropTypes.func.isRequired,
+  indentComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
+  checkboxComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
 };
 

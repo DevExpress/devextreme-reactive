@@ -1,22 +1,25 @@
 import * as React from 'react';
 import { TableTreeing as TableTreeingBase } from '@devexpress/dx-react-grid';
-import { Toggle } from '../templates/table-treeing/toggle';
-import { Select } from '../templates/table-treeing/select';
-import { Stepper } from '../templates/table-treeing/stepper';
+import { ToggleButton } from '../templates/table-treeing/toggle-button';
+import { Checkbox } from '../templates/table-treeing/checkbox';
+import { Indent } from '../templates/table-treeing/indent';
 import { Cell } from '../templates/table-treeing/cell';
 
 export class TableTreeing extends React.PureComponent {
   render() {
     return (
       <TableTreeingBase
-        toggleComponent={Toggle}
-        selectComponent={Select}
-        stepperComponent={Stepper}
         cellComponent={Cell}
+        indentComponent={Indent}
+        toggleButtonComponent={ToggleButton}
+        checkboxComponent={Checkbox}
         {...this.props}
       />
     );
   }
 }
 
-TableTreeing.Toggle = Toggle;
+TableTreeing.Cell = Cell;
+TableTreeing.Indent = Indent;
+TableTreeing.ToggleButton = ToggleButton;
+TableTreeing.Checkbox = Checkbox;

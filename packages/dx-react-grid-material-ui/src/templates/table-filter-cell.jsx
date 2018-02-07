@@ -5,21 +5,18 @@ import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
-const styles = (theme) => {
-  const { spacing } = theme;
-  return {
-    cell: {
-      paddingRight: spacing.unit,
-      paddingLeft: spacing.unit,
-      '&:first-child': {
-        paddingLeft: spacing.unit * 3,
-      },
+const styles = ({ spacing }) => ({
+  cell: {
+    paddingRight: spacing.unit,
+    paddingLeft: spacing.unit,
+    '&:first-child': {
+      paddingLeft: spacing.unit * 3,
     },
-    input: {
-      width: '100%',
-    },
-  };
-};
+  },
+  input: {
+    width: '100%',
+  },
+});
 
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,
@@ -32,7 +29,7 @@ const TableFilterCellBase = ({
     style={style}
     {...restProps}
   >
-    {(children || (
+    {children || (
       <Input
         className={classes.input}
         value={filter ? filter.value : ''}
@@ -40,7 +37,7 @@ const TableFilterCellBase = ({
         disabled={!filteringEnabled}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       />
-    ))}
+    )}
   </TableCell>
 );
 

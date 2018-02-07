@@ -29,7 +29,7 @@ describe('FilteringState', () => {
 
   beforeEach(() => {
     changeColumnFilter.mockImplementation(() => []);
-    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();

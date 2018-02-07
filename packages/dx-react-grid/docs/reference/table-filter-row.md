@@ -14,8 +14,8 @@ A plugin that renders a filter row.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ElementType&lt;[TableFilterRow.CellProps](#tablefilterrowcellprops)&gt; | | A component that renders a filter cell.
-rowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
+cellComponent | ComponentType&lt;[TableFilterRow.CellProps](#tablefilterrowcellprops)&gt; | | A component that renders a filter cell.
+rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
 rowHeight? | number | | The filter row's height.
 messages? | [TableFilterRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 

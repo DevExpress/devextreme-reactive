@@ -19,9 +19,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-containerComponent | ElementType&lt;[GroupingPanel.ContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
-itemComponent | ElementType&lt;[GroupingPanel.ItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
-emptyMessageComponent | ElementType&lt;[GroupingPanel.EmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
+containerComponent | ComponentType&lt;[GroupingPanel.ContainerProps](#groupingpanelcontainerprops)&gt; | | A component that renders a group panel container.
+itemComponent | ComponentType&lt;[GroupingPanel.ItemProps](#groupingpanelitemprops)&gt; | | A component that renders a group panel item.
+emptyMessageComponent | ComponentType&lt;[GroupingPanel.EmptyMessageProps](#groupingpanelemptymessageprops)&gt; | | A component that renders an empty group panel message.
 messages? | [GroupingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
@@ -41,7 +41,7 @@ Describes properties passed to a component that renders a group panel container.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed in the root layout.
+children? | ReactNode | A React node to be placed in the root layout.
 
 ### GroupingPanel.ItemProps
 

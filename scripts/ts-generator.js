@@ -27,8 +27,8 @@ const cleanElement = element => element.trim()
   .replace(/\([/#.\w\s-]+\)/g, '');
 
 const tsReplace = element => element
-  .replace(/ReactElement/g, 'React.ReactNode')
-  .replace(/ElementType/g, 'React.ComponentType')
+  .replace(/ReactNode/g, 'React.ReactNode')
+  .replace(/ComponentType/g, 'React.ComponentType')
   .replace(/ReactInstance/g, 'React.ReactInstance');
 
 const getFormattedLine = (line, level = 1) => {

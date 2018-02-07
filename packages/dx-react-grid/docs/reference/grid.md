@@ -12,7 +12,7 @@ rows | Array&lt;any&gt; | | An array containing custom data. A user defines the 
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId? | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue? | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
-rootComponent | ElementType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.
+rootComponent | ComponentType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.
 
 ## Interfaces
 
@@ -32,7 +32,7 @@ Describes properties passed to a component that renders the grid root layout.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed in the root layout.
+children? | ReactNode | A React node to be placed in the root layout.
 
 ## Plugin Components
 

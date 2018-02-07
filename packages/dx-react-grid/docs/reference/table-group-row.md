@@ -16,9 +16,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
 columnExtensions? | Array&lt;[TableGroupRow.ColumnExtension](#tablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | ElementType&lt;[TableGroupRow.CellProps](#tablegrouprowcellprops)&gt; | | A component that renders a group cell.
-rowComponent | ElementType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)&gt; | | A component that renders a group row.
-indentCellComponent? | ElementType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
+cellComponent | ComponentType&lt;[TableGroupRow.CellProps](#tablegrouprowcellprops)&gt; | | A component that renders a group cell.
+rowComponent | ComponentType&lt;[TableGroupRow.RowProps](#tablegrouprowrowprops)&gt; | | A component that renders a group row.
+indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegrouprowindentcellprops)&gt; | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
 ## Interfaces

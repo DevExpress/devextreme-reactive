@@ -14,12 +14,12 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | ElementType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
-rowComponent | ElementType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
-noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
-noDataRowComponent | ElementType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
-stubCellComponent | ElementType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
-stubHeaderCellComponent | ElementType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
+cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
+rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
+noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
+noDataRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
+stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
@@ -96,7 +96,7 @@ Describes properties passed to a component that renders a generic table row.
 Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | A table row.
-children | ReactElement | A React element used to render a table row.
+children | ReactNode | A React node used to render a table row.
 style? | Object | Styles that should be applied to the root row element.
 
 ### Table.DataRowProps

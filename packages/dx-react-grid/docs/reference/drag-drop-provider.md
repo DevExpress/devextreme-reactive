@@ -12,8 +12,8 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerComponent | ElementType&lt;[DragDropProvider.ContainerProps](#dragdropprovidercontainerprops)&gt; | | A component that renders a container for columns being dragged.
-columnComponent | ElementType&lt;[DragDropProvider.ColumnProps](#dragdropprovidercolumnprops)&gt; | | A component that renders a column being dragged.
+containerComponent | ComponentType&lt;[DragDropProvider.ContainerProps](#dragdropprovidercontainerprops)&gt; | | A component that renders a container for columns being dragged.
+columnComponent | ComponentType&lt;[DragDropProvider.ColumnProps](#dragdropprovidercolumnprops)&gt; | | A component that renders a column being dragged.
 
 ## Interfaces
 
@@ -24,7 +24,7 @@ Describes properties of the component that renders a container for columns being
 Field | Type | Description
 ------|------|------------
 clientOffset | { x: number, y: number } | The current offset of a column that is being dragged. The offset is measured against the application's client area.
-children | ReactElement &#124; Array&lt;ReactElement&gt; | A React element or a React element array representing columns being dragged.
+children | ReactNode | A React node representing columns being dragged.
 
 ### DragDropProvider.ColumnProps
 

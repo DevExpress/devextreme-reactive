@@ -13,9 +13,9 @@ A plugin that renders a command column. This column contains controls used for r
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ElementType&lt;[TableEditColumn.CellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
-headerCellComponent | ElementType&lt;[TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
-commandComponent | ElementType&lt;[TableEditColumn.CommandProps](#tableeditcolumncommandprops)&gt; | | A component that renders command control within a command cell.
+cellComponent | ComponentType&lt;[TableEditColumn.CellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
+headerCellComponent | ComponentType&lt;[TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
+commandComponent | ComponentType&lt;[TableEditColumn.CommandProps](#tableeditcolumncommandprops)&gt; | | A component that renders command control within a command cell.
 showAddCommand? | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
 showEditCommand? | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 showDeleteCommand? | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
@@ -33,7 +33,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 row | any | Specifies an edited table row with the applied changes.
-children? | ReactElement | A React element to be placed in the command cell.
+children? | ReactNode | A React node to be placed in the command cell.
 
 ### TableEditColumn.HeaderCellProps
 
@@ -43,7 +43,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed in the command cell.
+children? | ReactNode | A React node to be placed in the command cell.
 
 ### TableEditColumn.CommandProps
 

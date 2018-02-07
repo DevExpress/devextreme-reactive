@@ -16,12 +16,12 @@ Name | Type | Default | Description
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
 columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
-cellComponent | ElementType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
-rowComponent | ElementType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
-noDataCellComponent | ElementType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
-noDataRowComponent | ElementType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
-stubCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
-stubHeaderCellComponent | ElementType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
+cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
+rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
+noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
+noDataRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
+stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
 
 ## Plugin Components

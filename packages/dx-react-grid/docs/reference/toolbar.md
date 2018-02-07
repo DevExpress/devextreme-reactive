@@ -12,7 +12,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rootComponent | ElementType&lt;[Toolbar.RootProps](#toolbarrootprops)&gt; | | A component that renders the toolbar root element.
+rootComponent | ComponentType&lt;[Toolbar.RootProps](#toolbarrootprops)&gt; | | A component that renders the toolbar root element.
 
 ## Interfaces
 
@@ -22,7 +22,7 @@ Describes properties passed to a component that renders the toolbar root element
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed in the toolbar.
+children? | ReactNode | A React node to be placed in the toolbar.
 
 ## Plugin Components
 

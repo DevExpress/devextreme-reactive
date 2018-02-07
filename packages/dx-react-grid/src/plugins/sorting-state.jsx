@@ -1,27 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeColumnSorting, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
+import {
+  changeColumnSorting,
+  getColumnExtensionValueGetter,
+  calculatePersistentSorting,
+} from '@devexpress/dx-grid-core';
 
 import { createStateHelper } from '../utils/state-helper';
 
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
-
-
-const calculatePersistentSorting = (initialSorting, columnExtensions) => {
-  if (columnExtensions) {
-    return columnExtensions.reduce((acc, ext) => {
-      if (ext.sortingEnabled === false) {
-        if (initialSorting.findIndex(sortItem => sortItem.columnName === ext.columnName) > -1) {
-          acc.push(ext.columnName);
-        }
-      }
-      return acc;
-    }, []);
-  }
-  return [];
-};
 
 export class SortingState extends React.PureComponent {
   constructor(props) {

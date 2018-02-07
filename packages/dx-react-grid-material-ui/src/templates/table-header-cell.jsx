@@ -58,7 +58,7 @@ const styles = theme => ({
     flex: 'auto 0 0',
   },
   content: {
-    flex: 'auto 1 1',
+    flex: '1 1 auto',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

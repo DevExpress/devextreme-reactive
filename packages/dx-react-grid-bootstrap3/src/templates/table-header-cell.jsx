@@ -38,7 +38,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
   render() {
     const {
-      style, column, tableColumn,
+      style, column, tableColumn, before,
       showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
@@ -61,39 +61,62 @@ export class TableHeaderCell extends React.PureComponent {
           } : {}),
           ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
-          padding: '5px',
           ...style,
         }}
         onClick={this.onClick}
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            onGroup={onGroup}
-          />
-        )}
         <div
           style={{
-            ...(showGroupingControls
-              ? { [`margin${align === 'right' ? 'Left' : 'Right'}`]: '14px' }
-              : null),
-            textAlign: align,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            padding: '3px',
+            display: 'flex',
+            justifyContent: 'center',
+            direction: 'row',
           }}
         >
-          {showSortingControls ? (
-            <SortingControl
-              align={align}
-              sortingDirection={sortingDirection}
-              columnTitle={columnTitle}
-              onClick={this.onClick}
-            />
-          ) : (
-            columnTitle
+          {before && (
+            <div
+              style={{
+                flex: '0 0 auto',
+              }}
+            >
+              {before}
+            </div>
+          )}
+          <div
+            style={{
+              flex: '1 1 auto',
+              textAlign: align,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              ...(showSortingControls ? {
+                margin: '-3px',
+                padding: '3px',
+              } : null),
+            }}
+          >
+            {showSortingControls ? (
+              <SortingControl
+                align={align}
+                sortingDirection={sortingDirection}
+                columnTitle={columnTitle}
+                onClick={this.onClick}
+              />
+            ) : (
+              columnTitle
+            )}
+          </div>
+          {showGroupingControls && (
+            <div
+              style={{
+                flex: '0 0 auto',
+              }}
+            >
+              <GroupingControl
+                align={align}
+                onGroup={onGroup}
+              />
+            </div>
           )}
         </div>
         {resizingEnabled && (
@@ -135,6 +158,7 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
+  before: PropTypes.node,
 };
 
 TableHeaderCell.defaultProps = {
@@ -153,4 +177,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
+  before: undefined,
 };

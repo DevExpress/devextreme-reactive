@@ -8,38 +8,47 @@ const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 export const SortingControl = ({
   align, sortingDirection, columnTitle, onClick,
-}) =>
-  (align === 'right' ? (
+}) => {
+  const content = [
+    <span
+      key="title"
+      style={{
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      }}
+    >
+      {columnTitle}
+    </span>,
+    <SortingIndicator
+      key="indicator"
+      direction={sortingDirection}
+      style={{
+        visibility: sortingDirection ? 'visible' : 'hidden',
+        margin: '0 5px',
+        display: 'inline-block',
+      }}
+    />,
+  ];
+
+  return (
     <span
       className={sortingDirection ? 'text-primary' : ''}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
+      style={{
+        display: 'inline-flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+      }}
     >
-      <SortingIndicator
-        direction={sortingDirection}
-        style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
-      />
-      &nbsp;
-      {columnTitle}
+      {align === 'right' ? content.reverse() : content}
     </span>
-  ) : (
-    <span
-      className={sortingDirection ? 'text-primary' : ''}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-    >
-      {columnTitle}
-      &nbsp;
-      <SortingIndicator
-        direction={sortingDirection}
-        style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
-      />
-    </span>
-  ));
+  );
+};
 
 SortingControl.propTypes = {
   align: PropTypes.string.isRequired,

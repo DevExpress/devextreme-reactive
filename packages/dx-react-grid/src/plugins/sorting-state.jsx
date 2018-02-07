@@ -8,6 +8,21 @@ import { createStateHelper } from '../utils/state-helper';
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
 
+
+const calculatePersistentSorting = (initialSorting, columnExtensions) => {
+  if (columnExtensions) {
+    return columnExtensions.reduce((acc, ext) => {
+      if (ext.sortingEnabled === false) {
+        if (initialSorting.findIndex(sortItem => sortItem.columnName === ext.columnName) > -1) {
+          acc.push(ext.columnName);
+        }
+      }
+      return acc;
+    }, []);
+  }
+  return [];
+};
+
 export class SortingState extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -16,10 +31,28 @@ export class SortingState extends React.PureComponent {
       sorting: props.defaultSorting,
     };
 
+    const persistentSorting =
+      calculatePersistentSorting(this.state.sorting, props.columnExtensions);
+
     const stateHelper = createStateHelper(this);
 
     this.changeColumnSorting = stateHelper.applyReducer
-      .bind(stateHelper, changeColumnSorting);
+      .bind(stateHelper, (prevState, payload) => {
+        let { keepOther } = payload;
+        if (persistentSorting.length) {
+          if (keepOther) {
+            keepOther = Array.isArray(keepOther)
+              ? [...new Set([...keepOther, ...persistentSorting])]
+              : [...new Set([
+                ...prevState.sorting.map(item => item.columnName),
+                ...persistentSorting,
+              ])];
+          } else {
+            keepOther = persistentSorting;
+          }
+        }
+        return changeColumnSorting(prevState, { ...payload, keepOther });
+      });
   }
   getState() {
     const {

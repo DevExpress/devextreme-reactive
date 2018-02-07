@@ -33,7 +33,7 @@ GroupPanelContainerBase.propTypes = {
 };
 
 GroupPanelContainerBase.defaultProps = {
-  children: null,
+  children: undefined,
   className: undefined,
 };
 

@@ -18,6 +18,6 @@ GroupPanelContainer.propTypes = {
 };
 
 GroupPanelContainer.defaultProps = {
-  children: null,
+  children: undefined,
 };
 

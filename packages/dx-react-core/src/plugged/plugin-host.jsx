@@ -37,7 +37,7 @@ PluginHost.propTypes = {
 };
 
 PluginHost.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 PluginHost.childContextTypes = {

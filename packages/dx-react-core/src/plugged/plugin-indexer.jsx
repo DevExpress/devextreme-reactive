@@ -37,7 +37,7 @@ PluginIndexer.propTypes = {
 };
 
 PluginIndexer.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 PluginIndexer.contextTypes = {

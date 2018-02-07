@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Pagination as PaginationBS3, Pager as PagerBS3 } from 'react-bootstrap';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 

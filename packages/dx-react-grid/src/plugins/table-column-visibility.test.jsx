@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn, tableDataColumnsExist } from '@devexpress/dx-grid-core';

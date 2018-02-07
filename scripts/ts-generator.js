@@ -55,18 +55,19 @@ const parseFile = (source) => {
     .reduce((acc, line) => {
       const nameMatches = /^###\s([\w.]+)/.exec(line);
       const name = nameMatches && nameMatches[1];
+      const lastItemIndex = acc.length - 1;
       if (name) {
         return [...acc, { name, description: '', properties: [] }];
       }
-      if (acc[acc.length - 1].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
+      if (acc[lastItemIndex].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
         if (line.indexOf('Extends ') === 0) {
-          acc[acc.length - 1].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
+          acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {
-          acc[acc.length - 1].description += cleanElement(line);
+          acc[lastItemIndex].description += cleanElement(line);
         }
         return acc;
       }
-      acc[acc.length - 1].properties.push(line);
+      acc[lastItemIndex].properties.push(line);
       return acc;
     }, []);
 

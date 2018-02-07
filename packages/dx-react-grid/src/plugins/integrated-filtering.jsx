@@ -15,12 +15,39 @@ export class IntegratedFiltering extends React.PureComponent {
 
     const rowsComputed = ({
       rows,
+      columns,
       filters,
+      searchValue,
       getCellValue,
       isGroupRow,
       getRowLevelKey,
-    }) =>
-      filteredRows(rows, filters, getCellValue, getColumnPredicate, isGroupRow, getRowLevelKey);
+    }) => {
+      let computedRows = rows;
+      if (searchValue) {
+        const searchFilters = columns.map(({ name }) => ({
+          columnName: name,
+          value: searchValue,
+        }));
+        computedRows = filteredRows(
+          rows,
+          searchFilters,
+          getCellValue,
+          getColumnPredicate,
+          isGroupRow,
+          getRowLevelKey,
+          true,
+        );
+      }
+
+      return filteredRows(
+        computedRows,
+        filters,
+        getCellValue,
+        getColumnPredicate,
+        isGroupRow,
+        getRowLevelKey,
+      );
+    };
 
     return (
       <Plugin
@@ -40,4 +67,3 @@ IntegratedFiltering.propTypes = {
 IntegratedFiltering.defaultProps = {
   columnExtensions: undefined,
 };
-

@@ -40,6 +40,10 @@ const getFormattedLine = (line, level = 1) => {
 };
 
 const parseFile = (source) => {
+  let description = cleanElement(source
+    .slice(1, source.findIndex(el => el.indexOf('## ') === 0))
+    .join(''));
+
   let propertiesBlock = source.slice(source.indexOf('### Properties') + 1);
   propertiesBlock = propertiesBlock
     .slice(0, propertiesBlock.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0))
@@ -76,6 +80,7 @@ const parseFile = (source) => {
     .filter(line => line.match(/.+\|.+\|.+/));
 
   return {
+    description,
     properties: propertiesBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
@@ -130,6 +135,7 @@ const generateTypeScript = (data, componentName) => {
   result += `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
+    + `/** ${data.description} */\n`
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>;\n`;
 
   return result;
@@ -163,6 +169,7 @@ const getThemesTypeScript = (data, componentName) => {
     + `\nexport interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
+    + `/** ${data.description} */\n`
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
     + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
 };

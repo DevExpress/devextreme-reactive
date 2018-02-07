@@ -35,8 +35,6 @@ onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles ro
 
 Describes additional column properties that the plugin can handle.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.

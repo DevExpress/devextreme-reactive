@@ -105,13 +105,13 @@ describe('ColumnChooser', () => {
     ));
 
     expect(tree.find(ItemComponent).props())
-      .toEqual({
+      .toMatchObject({
         disabled: true,
         item: {
           column: { name: 'a' },
           hidden: true,
         },
-        onToggle: undefined,
+        onToggle: expect.any(Function),
       });
   });
 

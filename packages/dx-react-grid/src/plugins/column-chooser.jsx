@@ -75,11 +75,7 @@ export class ColumnChooser extends React.PureComponent {
                             key={columnName}
                             item={item}
                             disabled={!togglingEnabled}
-                            onToggle={(
-                              togglingEnabled
-                                ? () => toggleColumnVisibility(columnName)
-                                : undefined
-                            )}
+                            onToggle={() => toggleColumnVisibility(columnName)}
                           />
                       );
                     })}

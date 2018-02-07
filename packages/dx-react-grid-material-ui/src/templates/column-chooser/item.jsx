@@ -11,7 +11,8 @@ export const Item = ({
   <ListItem
     key={column.name}
     button={!disabled}
-    onClick={onToggle}
+    disabled={disabled}
+    onClick={!disabled ? onToggle : null}
     {...restProps}
   >
     <Checkbox

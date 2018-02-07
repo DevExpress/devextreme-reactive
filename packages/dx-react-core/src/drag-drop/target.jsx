@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { findDOMNode } from 'react-dom';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Toolbar as ToolbarBase } from '@devexpress/dx-react-grid';
 import { Toolbar as Root } from '../templates/toolbar/toolbar';
 import { FlexibleSpace } from '../templates/toolbar/flexible-space';

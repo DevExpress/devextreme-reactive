@@ -2,7 +2,6 @@ import React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, SearchingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
-  IntegratedSearching,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -90,7 +89,6 @@ export default class Demo extends React.PureComponent {
           <IntegratedGrouping />
           <IntegratedFiltering />
           <IntegratedSorting />
-          <IntegratedSearching />
           <IntegratedPaging />
           <IntegratedSelection />
 

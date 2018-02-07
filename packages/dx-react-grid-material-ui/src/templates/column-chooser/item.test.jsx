@@ -81,11 +81,11 @@ describe('Item', () => {
       />
     ));
     expect(tree.find(ListItem).props())
-      .toMatchObject(expect.objectContaining({
+      .toMatchObject({
         disabled: true,
         button: false,
         onClick: null,
-      }));
+      });
     expect(tree.find(Checkbox).props().disabled)
       .toBeTruthy();
   });

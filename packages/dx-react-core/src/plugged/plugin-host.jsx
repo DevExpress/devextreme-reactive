@@ -32,8 +32,7 @@ export class PluginHost extends React.PureComponent {
 }
 
 PluginHost.propTypes = {
-  children:
-    PropTypes.node,
+  children: PropTypes.node,
 };
 
 PluginHost.defaultProps = {

@@ -5,28 +5,35 @@ import classNames from 'classnames';
 export const ToggleButton = ({
   onToggle, className,
   getMessage, buttonRef,
-  style, ...restProps
-}) => (
-  <button
-    className={classNames('btn btn-outline-secondary', className)}
-    style={{ borderColor: 'transparent', ...style }}
-    onClick={onToggle}
-    ref={buttonRef}
-    {...restProps}
-  >
-    <span className="oi oi-eye" />
-  </button>
-);
+  active, ...restProps
+}) => {
+  const buttonClasses = classNames({
+    btn: true,
+    'btn-outline-secondary': true,
+    'border-0': true,
+    active,
+  }, className);
+  return (
+    <button
+      className={buttonClasses}
+      onClick={onToggle}
+      ref={buttonRef}
+      {...restProps}
+    >
+      <span className="oi oi-eye" />
+    </button>
+  );
+};
 
 ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   buttonRef: PropTypes.func.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
+  active: PropTypes.bool,
 };
 
 ToggleButton.defaultProps = {
   className: undefined,
-  style: undefined,
+  active: false,
 };

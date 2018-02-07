@@ -77,7 +77,7 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-license": "^0.5.0",
     "rollup-plugin-node-resolve": "^3.0.2",
-    "reactstrap": "^5.0.0-alpha.4"
+    "reactstrap": "^5.0.0-beta"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -88,6 +88,6 @@
     "@devexpress/dx-react-core": "1.0.0",
     "@devexpress/dx-react-grid": "1.0.0",
     "react": "^16.2.0",
-    "reactstrap": "^5.0.0-alpha.4"
+    "reactstrap": "^5.0.0-beta"
   }
 }

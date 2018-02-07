@@ -42,7 +42,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
-    "reactstrap": "^5.0.0-alpha.4",
+    "reactstrap": "^5.0.0-beta",
     "react-dom": "^16.2.0",
     "react-frame-component": "^2.0.2",
     "react-redux": "^5.0.6",

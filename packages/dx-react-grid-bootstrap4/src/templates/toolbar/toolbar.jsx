@@ -9,14 +9,12 @@ export const Toolbar = ({
   ...restProps
 }) => (
   <div
-    className={classNames('card-header', className)}
+    className={classNames('card-header py-2', className)}
     style={{
       display: 'flex',
       alignItems: 'center',
       position: 'relative',
       minHeight: '55px',
-      paddingTop: 'calc(1.25rem - 13px)',
-      paddingBottom: 'calc(1.25rem - 13px)',
       ...style,
     }}
     {...restProps}

@@ -56,6 +56,7 @@ export class ColumnChooser extends React.PureComponent {
                   buttonRef={this.buttonRef}
                   onToggle={this.handleToggle}
                   getMessage={getMessage}
+                  active={visible}
                 />
                 <Overlay
                   visible={visible}

@@ -1,3 +1,3 @@
-# DevExtreme React Grid Bootstrap3
+# DevExtreme React Grid Bootstrap4
 
-A template suite used to render the React Grid based on Bootstrap 3 components.
+A template suite used to render the React Grid based on Bootstrap 4 components.

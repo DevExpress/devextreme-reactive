@@ -1,7 +1,8 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
-const any = () => true;
-const none = () => false;
+const proxy = a => a;
+const OR = a => b => c => a(c) || b(c);
+const AND = a => b => c => a(c) && b(c);
 
 const toLowerCase = value => String(value).toLowerCase();
 
@@ -58,28 +59,45 @@ export const filteredRows = (
   getColumnPredicate,
   isGroupRow,
   getRowLevelKey,
-  anyInRow = false,
 ) => {
   if (!filters.length || !rows.length) return rows;
 
-  const predicateGenerator = operator => (prevPredicate, filter) => (row) => {
+  const getPredicateFromFilter = (filter) => {
     const { columnName, ...filterConfig } = filter;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
     const columnPredicate = customPredicate || defaultPredicate;
 
-    return operator(
-      columnPredicate(getCellValue(row, columnName), filterConfig, row),
-      prevPredicate(row),
-    );
+    return row => columnPredicate(getCellValue(row, columnName), filterConfig, row);
   };
 
-  const orPredicate = predicateGenerator((a, b) => a || b);
-  const andPredicate = predicateGenerator((a, b) => a && b);
+  const predicateGenerator = filterss => filterss.reduce(
+    (prevPredicate, filter) => {
+      let operator = AND;
+      if (typeof (filter) === 'string') {
+        if (filter === 'AND') {
+          operator = AND;
+        } else if (filter === 'OR') {
+          operator = OR;
+        }
+        return operator(prevPredicate);
+      }
 
-  const predicate = filters.reduce(
-    anyInRow ? orPredicate : andPredicate,
-    anyInRow ? none : any,
+      if (Array.isArray(filter)) {
+        return prevPredicate(predicateGenerator(filter));
+      }
+
+      return prevPredicate(getPredicateFromFilter(filter));
+    }
+    , proxy,
   );
+
+  const predicate = predicateGenerator(filters.reduce((acc, filter) => {
+    if (typeof (acc[acc.length - 1]) === 'object' && typeof (filter) === 'object') {
+      acc.push('AND');
+    }
+    acc.push(filter);
+    return acc;
+  }, []));
 
   if (!getRowLevelKey) {
     return rows.filter(predicate);

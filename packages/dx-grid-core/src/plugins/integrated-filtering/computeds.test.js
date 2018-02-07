@@ -42,6 +42,16 @@ describe('IntegratedFiltering computeds', () => {
           ]);
       });
 
+      it('can filter by several fields with custom operand AND', () => {
+        const filters = [{ columnName: 'a', value: 1 }, 'AND', { columnName: 'b', value: 2 }];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+        expect(filtered)
+          .toEqual([
+            { a: 1, b: 2 },
+          ]);
+      });
+
       it('can filter using custom predicate', () => {
         const getColumnPredicate = jest.fn();
 
@@ -68,6 +78,33 @@ describe('IntegratedFiltering computeds', () => {
             { a: 1, b: 1 },
             { a: 1, b: 2 },
           ]);
+      });
+
+      it('should filter with OR group operand', () => {
+        const filters = [{ columnName: 'a', value: '1' }, 'OR', { columnName: 'b', value: '1' }];
+        const filtered = filteredRows(rows, filters, getCellValue);
+
+        expect(filtered).toEqual([
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
+          { a: 2, b: 1 },
+        ]);
+      });
+
+
+      it('should filter with two group filters', () => {
+        const filters = [
+          [{ columnName: 'a', value: '1' }, 'AND', { columnName: 'b', value: '1' }],
+          'OR',
+          [{ columnName: 'a', value: '2' }, 'AND', { columnName: 'b', value: '2' }],
+        ];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+
+        expect(filtered).toEqual([
+          { a: 1, b: 1 },
+          { a: 2, b: 2 },
+        ]);
       });
     });
 

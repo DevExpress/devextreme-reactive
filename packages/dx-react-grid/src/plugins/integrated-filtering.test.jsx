@@ -9,7 +9,6 @@ const defaultDeps = {
   getter: {
     rows: [{ id: 0 }, { id: 1 }],
     columns: ['a', 'b'],
-    searchValue: '',
     getCellValue: jest.fn(),
     isGroupRow: true,
     getRowLevelKey: jest.fn(),
@@ -19,7 +18,7 @@ const defaultDeps = {
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  filteredRows: jest.fn().mockReturnValue([{ id: 0 }, { id: 1 } ])
+  filteredRows: jest.fn().mockReturnValue([{ id: 0 }, { id: 1 }]),
 }));
 
 describe('IntegratedFiltering', () => {
@@ -34,27 +33,6 @@ describe('IntegratedFiltering', () => {
     expect(filteredRows).toHaveBeenCalledTimes(1);
 
     expect(filteredRows).toBeCalledWith(
-      defaultDeps.getter.rows,
-      defaultDeps.getter.filters,
-      defaultDeps.getter.getCellValue,
-      expect.any(Function),
-      defaultDeps.getter.isGroupRow,
-      defaultDeps.getter.getRowLevelKey,
-    );
-  });
-
-  it('should exec filteredRows for searching and filtering', () => {
-    const options = Object.assign({}, defaultDeps, {
-      getter: { ...defaultDeps.getter, searchValue: 'searchValue' },
-    });
-
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(options)} <IntegratedFiltering />
-      </PluginHost>));
-
-    expect(filteredRows).toHaveBeenCalledTimes(2);
-    expect(filteredRows).toHaveBeenLastCalledWith(
       defaultDeps.getter.rows,
       defaultDeps.getter.filters,
       defaultDeps.getter.getCellValue,

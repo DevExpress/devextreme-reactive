@@ -32,10 +32,8 @@ export class PluginHost extends React.PureComponent {
 }
 
 PluginHost.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
+  children:
     PropTypes.node,
-  ]),
 };
 
 PluginHost.defaultProps = {

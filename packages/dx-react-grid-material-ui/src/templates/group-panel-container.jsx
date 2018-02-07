@@ -28,10 +28,7 @@ const GroupPanelContainerBase = ({
 
 GroupPanelContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 

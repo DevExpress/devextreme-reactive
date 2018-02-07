@@ -33,10 +33,7 @@ export const PluginIndexer = (
 );
 
 PluginIndexer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 PluginIndexer.defaultProps = {

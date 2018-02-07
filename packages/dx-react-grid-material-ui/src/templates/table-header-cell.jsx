@@ -46,6 +46,23 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  containerRight: {
+    flexDirection: 'row-reversed',
+  },
+  controls: {
+    flex: 'auto 0 0',
+  },
+  content: {
+    flex: 'auto 1 1',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -95,6 +112,10 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
+    const containerClassses = classNames({
+      [classes.container]: true,
+      [classes.containerRight]: align === 'right',
+    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -102,26 +123,35 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        {before}
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            onGroup={onGroup}
-          />
-        )}
-        {showSortingControls ? (
-          <SortingControl
-            align={align}
-            sortingDirection={sortingDirection}
-            columnTitle={columnTitle}
-            onClick={this.onClick}
-            getMessage={getMessage}
-          />
-        ) : (
-          <span className={classes.plainTitle}>
-            {columnTitle}
-          </span>
-        )}
+        <div className={containerClassses}>
+          {before && (
+            <div className={classes.controls}>
+              {before}
+            </div>
+          )}
+          <div className={classes.content}>
+            {showSortingControls ? (
+              <SortingControl
+                align={align}
+                sortingDirection={sortingDirection}
+                columnTitle={columnTitle}
+                onClick={this.onClick}
+                getMessage={getMessage}
+              />
+            ) : (
+              <span className={classes.plainTitle}>
+                {columnTitle}
+              </span>
+            )}
+          </div>
+          {showGroupingControls && (
+            <div className={classes.controls}>
+              <GroupingControl
+                onGroup={onGroup}
+              />
+            </div>
+          )}
+        </div>
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -163,6 +193,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  before: PropTypes.node,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -181,6 +212,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
+  before: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

@@ -29,12 +29,13 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'sex', title: 'SexSexSexSexSexSexSexSexSexSexSexSexSex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
       tableColumnExtensions: [
         { columnName: 'name', width: 360 },
+        // { columnName: 'sex', align: 'right' },
       ],
       defaultSorting: [{ columnName: 'sex', direction: 'asc' }],
       data: generateRows({

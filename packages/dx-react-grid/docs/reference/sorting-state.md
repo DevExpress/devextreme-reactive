@@ -35,8 +35,6 @@ direction | 'asc' &#124; 'desc' | Specifies a column's sort order.
 
 Describes additional column properties that the plugin can handle.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.

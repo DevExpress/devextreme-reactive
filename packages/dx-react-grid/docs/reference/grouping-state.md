@@ -43,8 +43,6 @@ A string value that consists of values by which rows are grouped, separated by t
 
 Describes additional column properties that the plugin can handle.
 
-A value with the following shape:
-
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.

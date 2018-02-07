@@ -1,13 +1,13 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  TreeingState,
-  CustomTreeing,
+  TreeDataState,
+  CustomTreeData,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
-  TableTreeing,
+  TableTreeData,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -53,15 +53,15 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <TreeingState />
-          <CustomTreeing
+          <TreeDataState />
+          <CustomTreeData
             getChildRows={getChildRows}
           />
           <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableTreeing />
+          <TableTreeData />
         </Grid>
       </<%&wrapperTag%>>
     );

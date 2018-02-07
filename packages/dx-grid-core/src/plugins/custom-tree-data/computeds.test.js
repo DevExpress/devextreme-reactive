@@ -7,7 +7,7 @@ import {
   collapsedTreeRowsGetter,
 } from './computeds';
 
-describe('CustomTreeing Plugin computeds', () => {
+describe('CustomTreeData Plugin computeds', () => {
   describe('#customTreeedRowsWithMeta', () => {
     it('should process hierarchical data', () => {
       const hierarchicalSource = [

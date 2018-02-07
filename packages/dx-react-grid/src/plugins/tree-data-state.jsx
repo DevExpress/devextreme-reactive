@@ -4,7 +4,7 @@ import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-export class TreeingState extends React.PureComponent {
+export class TreeDataState extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -38,7 +38,7 @@ export class TreeingState extends React.PureComponent {
 
     return (
       <Plugin
-        name="TreeingState"
+        name="TreeDataState"
       >
         <Getter name="expandedRowIds" value={expandedRowIds} /> {/* collision =( */}
         <Action name="toggleRowExpanded" action={this.toggleDetailRowExpanded} />
@@ -47,13 +47,13 @@ export class TreeingState extends React.PureComponent {
   }
 }
 
-TreeingState.propTypes = {
+TreeDataState.propTypes = {
   expandedRowIds: PropTypes.array,
   defaultExpandedRowIds: PropTypes.array,
   onExpandedRowIdsChange: PropTypes.func,
 };
 
-TreeingState.defaultProps = {
+TreeDataState.defaultProps = {
   expandedRowIds: undefined,
   defaultExpandedRowIds: [],
   onExpandedRowIdsChange: undefined,

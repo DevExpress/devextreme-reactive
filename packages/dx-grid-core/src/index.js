@@ -71,7 +71,7 @@ export * from './plugins/table-column-visibility/helpers';
 export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';
 
-export * from './plugins/custom-treeing/computeds';
+export * from './plugins/custom-tree-data/computeds';
 
 export { getColumnExtension } from './utils/column';
 

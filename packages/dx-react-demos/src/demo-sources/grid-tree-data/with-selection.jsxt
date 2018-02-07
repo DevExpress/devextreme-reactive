@@ -1,15 +1,15 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState,
-  IntegratedSorting,
-  TreeingState,
-  CustomTreeing,
+  SelectionState,
+  IntegratedSelection,
+  TreeDataState,
+  CustomTreeData,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
-  TableTreeing,
+  TableTreeData,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -36,7 +36,6 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions: [
         { columnName: 'name', width: 300 },
       ],
-      defaultSorting: [{ columnName: 'sex', direction: 'asc' }],
       data: generateRows({
         columnValues: {
           id: ({ index }) => index,
@@ -48,9 +47,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const {
-      data, columns, tableColumnExtensions, defaultSorting,
-    } = this.state;
+    const { data, columns, tableColumnExtensions } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -58,21 +55,19 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <SortingState
-            defaultSorting={defaultSorting}
-          />
-          <TreeingState />
-          <CustomTreeing
+          <SelectionState />
+          <TreeDataState />
+          <CustomTreeData
             getChildRows={getChildRows}
           />
-          <IntegratedSorting />
+          <IntegratedSelection />
           <Table
             columnExtensions={tableColumnExtensions}
           />
-          <TableHeaderRow
-            showSortingControls
+          <TableHeaderRow />
+          <TableTreeData
+            showSelectionControls
           />
-          <TableTreeing />
         </Grid>
       </<%&wrapperTag%>>
     );

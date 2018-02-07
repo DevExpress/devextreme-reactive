@@ -1,16 +1,15 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  FilteringState,
-  IntegratedFiltering,
-  TreeingState,
-  CustomTreeing,
+  SelectionState,
+  TreeDataState,
+  CustomTreeData,
+  IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
-  TableTreeing,
-  TableFilterRow,
+  TableTreeData,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -18,10 +17,8 @@ import {
   defaultColumnValues,
 } from '../../../demo-data/generator';
 
-const getChildRows = (rows, rootRows) => ((rootRows === rows)
-  ? rootRows.filter(row => row.parentId === null)
-  : rows)
-    .map(row => ({ row, childRows: rootRows.filter(r => r.parentId === row.id) }));
+const getChildRows = rows => rows
+  .map(row => ({ row, childRows: row.items }));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -37,21 +34,30 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions: [
         { columnName: 'name', width: 300 },
       ],
-      defaultFilters: [{ columnName: 'sex', value: 'female' }],
       data: generateRows({
         columnValues: {
-          id: ({ index }) => index,
-          parentId: ({ index, random }) => index > 0 ? Math.trunc(random() * index / 2) : null,
           ...defaultColumnValues,
+          items: ({ random }) => generateRows({
+            columnValues: {
+              ...defaultColumnValues,
+              items: () => generateRows({
+                columnValues: {
+                  ...defaultColumnValues,
+                },
+                length: Math.trunc(random() * 5),
+                random,
+              }),
+            },
+            length: Math.trunc(random() * 3),
+            random,
+          }),
         },
-        length: 20,
+        length: 3,
       }),
     };
   }
   render() {
-    const {
-      data, columns, tableColumnExtensions, defaultFilters,
-    } = this.state;
+    const { data, columns, tableColumnExtensions } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -59,20 +65,17 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <FilteringState
-            defaultFilters={defaultFilters}
-          />
-          <TreeingState />
-          <CustomTreeing
+          <SelectionState />
+          <TreeDataState />
+          <CustomTreeData
             getChildRows={getChildRows}
           />
-          <IntegratedFiltering />
+          <IntegratedSelection />
           <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableFilterRow />
-          <TableTreeing />
+          <TableTreeData />
         </Grid>
       </<%&wrapperTag%>>
     );

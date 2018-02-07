@@ -6,7 +6,7 @@ import {
 import {} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'TreeingState' },
+  { name: 'TreeDataState' },
   { name: 'Table' },
 ];
 
@@ -27,7 +27,7 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
     return acc;
   }, []);
 
-export class TableTreeing extends React.PureComponent {
+export class TableTreeData extends React.PureComponent {
   render() {
     const {
       showSelectionControls,
@@ -38,7 +38,7 @@ export class TableTreeing extends React.PureComponent {
     } = this.props;
     return (
       <Plugin
-        name="TableTreeing"
+        name="TableTreeData"
         dependencies={pluginDependencies}
       >
         <Getter name="tableBodyRows" computed={(tableBodyRowsComputed)} />
@@ -125,7 +125,7 @@ export class TableTreeing extends React.PureComponent {
   }
 }
 
-TableTreeing.propTypes = {
+TableTreeData.propTypes = {
   showSelectionControls: PropTypes.bool,
   indentComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
@@ -133,6 +133,6 @@ TableTreeing.propTypes = {
   cellComponent: PropTypes.func.isRequired,
 };
 
-TableTreeing.defaultProps = {
+TableTreeData.defaultProps = {
   showSelectionControls: false,
 };

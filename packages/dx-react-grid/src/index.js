@@ -31,9 +31,9 @@ export * from './plugins/grouping-panel';
 export * from './plugins/data-type-provider';
 export * from './plugins/table-column-visibility';
 export * from './plugins/toolbar';
-export * from './plugins/treeing-state';
-export * from './plugins/custom-treeing';
-export * from './plugins/table-treeing';
+export * from './plugins/tree-data-state';
+export * from './plugins/custom-tree-data';
+export * from './plugins/table-tree-data';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';

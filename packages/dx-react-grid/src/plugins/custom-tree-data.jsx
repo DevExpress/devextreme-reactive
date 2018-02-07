@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'TreeingState' },
+  { name: 'TreeDataState' },
 ];
 
 const expandedTreeRowsComputed = ({ rows, getRowId, expandedRowIds }) =>
@@ -22,7 +22,7 @@ const getRowLevelKeyComputed = ({ getRowLevelKey, rows }) =>
 const collapsedTreeRowsGetterComputed = ({ rows, getCollapsedRows }) =>
   collapsedTreeRowsGetter(getCollapsedRows, rows);
 
-export class CustomTreeing extends React.PureComponent {
+export class CustomTreeData extends React.PureComponent {
   render() {
     const {
       getChildRows,
@@ -32,7 +32,7 @@ export class CustomTreeing extends React.PureComponent {
 
     return (
       <Plugin
-        name="CustomTreeing"
+        name="CustomTreeData"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={groupedRowsComputed} />
@@ -46,6 +46,6 @@ export class CustomTreeing extends React.PureComponent {
   }
 }
 
-CustomTreeing.propTypes = {
+CustomTreeData.propTypes = {
   getChildRows: PropTypes.func.isRequired,
 };

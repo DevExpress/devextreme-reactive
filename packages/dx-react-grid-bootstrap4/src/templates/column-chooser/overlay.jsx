@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover } from 'reactstrap';
 
-const modifiers = {
-  arrow: {
-    enabled: false,
-    element: null,
-  },
-};
-
 export const Overlay = ({
   visible, children, toggle, target, onHide, ...restProps
 }) => (
@@ -19,7 +12,6 @@ export const Overlay = ({
       target={target}
       toggle={toggle}
       container={target ? target.parentElement : undefined}
-      modifiers={modifiers}
       {...restProps}
     >
       {children}

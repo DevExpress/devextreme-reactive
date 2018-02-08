@@ -54,6 +54,15 @@ class TableHeaderCellBase extends React.PureComponent {
 
     this.state = {
       dragging: false,
+      hover: false,
+    };
+
+    this.onMouseOver = () => {
+      this.setState({ hover: true });
+    };
+
+    this.onMouseLeave = () => {
+      this.setState({ hover: false });
     };
 
     this.onClick = (e) => {
@@ -100,6 +109,8 @@ class TableHeaderCellBase extends React.PureComponent {
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
+        onMouseOver={this.onMouseOver}
+        onMouseLeave={this.onMouseLeave}
         {...restProps}
       >
         {showGroupingControls && (
@@ -126,6 +137,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            hover={this.state.hover}
           />
         )}
       </TableCell>

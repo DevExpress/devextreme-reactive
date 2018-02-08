@@ -5,6 +5,9 @@ import { Draggable } from '@devexpress/dx-react-core';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
+  visible: {
+    opacity: '1 !important',
+  },
   resizeHandle: {
     position: 'absolute',
     userSelect: 'none',
@@ -77,7 +80,7 @@ export class ResizingControlBase extends React.PureComponent {
     };
   }
   render() {
-    const { classes } = this.props;
+    const { classes, hover } = this.props;
     const { resizing } = this.state;
 
     return (
@@ -94,12 +97,14 @@ export class ResizingControlBase extends React.PureComponent {
         >
           <div
             className={classNames({
+              [classes.visible]: hover,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleFirstLine]: true,
             })}
           />
           <div
             className={classNames({
+              [classes.visible]: hover,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleSecondLine]: true,
             })}
@@ -115,6 +120,7 @@ ResizingControlBase.propTypes = {
   onWidthDraft: PropTypes.func.isRequired,
   onWidthDraftCancel: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  hover: PropTypes.bool.isRequired,
 };
 
 export const ResizingControl = withStyles(styles, { name: 'ResizingControl' })(ResizingControlBase);

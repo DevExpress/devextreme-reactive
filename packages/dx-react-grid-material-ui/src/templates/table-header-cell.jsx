@@ -30,6 +30,27 @@ const styles = theme => ({
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
     },
+    '&:hover $resizeHandleLine': {
+      opacity: 1,
+    },
+  },
+  resizeHandleLine: {
+    opacity: 0,
+  },
+  '@media (pointer: fine)': {
+    resizeHandleLine: {
+      opacity: 0,
+    },
+    resizeHandleActive: {
+      '& $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
+    resizeHandle: {
+      '&:hover $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
   },
   cellNoUserSelect: {
     userSelect: 'none',
@@ -54,15 +75,6 @@ class TableHeaderCellBase extends React.PureComponent {
 
     this.state = {
       dragging: false,
-      hover: false,
-    };
-
-    this.onMouseOver = () => {
-      this.setState({ hover: true });
-    };
-
-    this.onMouseLeave = () => {
-      this.setState({ hover: false });
     };
 
     this.onClick = (e) => {
@@ -93,7 +105,7 @@ class TableHeaderCellBase extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const { dragging, hover } = this.state;
+    const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
 
@@ -105,13 +117,10 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
     const cellLayout = (
-      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <TableCell
         style={style}
         className={tableCellClasses}
         numeric={align === 'right'}
-        onMouseOver={this.onMouseOver}
-        onMouseLeave={this.onMouseLeave}
         {...restProps}
       >
         {showGroupingControls && (
@@ -138,7 +147,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
-            hover={hover}
+            resizeHandleLineClass={classes.resizeHandleLine}
           />
         )}
       </TableCell>

@@ -5,9 +5,6 @@ import { Draggable } from '@devexpress/dx-react-core';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-  visibleOnCellHover: {
-    opacity: '1 !important',
-  },
   resizeHandle: {
     position: 'absolute',
     userSelect: 'none',
@@ -36,22 +33,8 @@ const styles = theme => ({
   },
   resizeHandleActive: {
     '& $resizeHandleLine': {
+      opacity: '1',
       backgroundColor: theme.palette.primary[300],
-    },
-  },
-  '@media (pointer: fine)': {
-    resizeHandleLine: {
-      opacity: 0,
-    },
-    resizeHandleActive: {
-      '& $resizeHandleLine': {
-        opacity: 1,
-      },
-    },
-    resizeHandle: {
-      '&:hover $resizeHandleLine': {
-        opacity: 1,
-      },
     },
   },
 });
@@ -80,7 +63,7 @@ export class ResizingControlBase extends React.PureComponent {
     };
   }
   render() {
-    const { classes, hover } = this.props;
+    const { classes, resizeHandleLineClass } = this.props;
     const { resizing } = this.state;
 
     return (
@@ -97,14 +80,14 @@ export class ResizingControlBase extends React.PureComponent {
         >
           <div
             className={classNames({
-              [classes.visibleOnCellHover]: hover,
+              [resizeHandleLineClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleFirstLine]: true,
             })}
           />
           <div
             className={classNames({
-              [classes.visibleOnCellHover]: hover,
+              [resizeHandleLineClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleSecondLine]: true,
             })}
@@ -120,7 +103,7 @@ ResizingControlBase.propTypes = {
   onWidthDraft: PropTypes.func.isRequired,
   onWidthDraftCancel: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  hover: PropTypes.bool.isRequired,
+  resizeHandleLineClass: PropTypes.string.isRequired,
 };
 
 export const ResizingControl = withStyles(styles, { name: 'ResizingControl' })(ResizingControlBase);

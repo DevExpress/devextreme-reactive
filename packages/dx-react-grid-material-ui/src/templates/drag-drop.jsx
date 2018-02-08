@@ -1,13 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
+import Chip from 'material-ui/Chip';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   container: {
-    cursor: 'move',
     position: 'fixed',
     zIndex: 1000,
     left: 0,
@@ -20,6 +18,7 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     float: 'right',
+    cursor: 'move',
   },
 });
 
@@ -27,7 +26,7 @@ const ContainerBase = ({
   clientOffset, classes, style, className, children,
   ...restProps
 }) => (
-  <Paper
+  <div
     className={classNames(classes.container, className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
@@ -36,7 +35,7 @@ const ContainerBase = ({
     {...restProps}
   >
     {children}
-  </Paper>
+  </div>
 );
 
 ContainerBase.propTypes = {
@@ -67,14 +66,11 @@ const ColumnBase = ({
   className,
   ...restProps
 }) => (
-  <Typography
+  <Chip
     className={classNames(classes.column, className)}
-    type="body1"
-    component="p"
+    label={column.title}
     {...restProps}
-  >
-    {column.title}
-  </Typography>
+  />
 );
 
 ColumnBase.propTypes = {

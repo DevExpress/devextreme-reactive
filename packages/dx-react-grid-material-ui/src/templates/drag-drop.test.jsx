@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Container, Column } from './drag-drop';
 
@@ -23,7 +22,7 @@ describe('DragDrop', () => {
         />
       ));
 
-      expect(tree.find(Paper).hasClass(classes.container))
+      expect(tree.find('div').hasClass(classes.container))
         .toBeTruthy();
     });
 
@@ -35,7 +34,7 @@ describe('DragDrop', () => {
         />
       ));
 
-      expect(tree.find(Paper).prop('style'))
+      expect(tree.find('div').prop('style'))
         .toMatchObject({
           transform: 'translate(calc(10px - 50%), calc(20px - 50%))',
           color: 'red',

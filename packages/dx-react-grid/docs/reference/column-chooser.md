@@ -1,6 +1,6 @@
 # ColumnChooser Plugin Reference
 
-The ColumnChooser plugin allows a user to show and hide grid columns at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
+The ColumnChooser plugin allows a user to toggle grid columns' visibility at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
 
 ## User reference
 
@@ -57,7 +57,8 @@ Describes properties passed to a component that renders a column chooser item.
 Field | Type | Description
 ------|------|------------
 item | [ColumnChooserItem](#columnchooseritem) | A column chooser item.
-onToggle | () => void | Handles an associated column's visibility changes.
+disabled | boolean | Specifies whether a column chooser item is disabled.
+onToggle | () => void | Handles an associated column's visbility changes.
 
 ### ColumnChooserItem
 
@@ -83,7 +84,7 @@ ColumnChooser.Overlay | [ColumnChooser.OverlayProps](#columnchooseroverlayprops)
 ColumnChooser.Container | [ColumnChooser.ContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
 ColumnChooser.Item | [ColumnChooser.ItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
 
-If you specify additional properties, they are added to a component's root element.
+Additional properties are added to a component's root element.
 
 ## Plugin Developer Reference
 
@@ -93,6 +94,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumnNames | Getter | Array&lt;string&gt; | Names of columns to be hidden.
+isColumnTogglingEnabled | Getter | (columnName: string) => boolean | A function used to define if an end-user can change column visibility.
 toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
 toolbarContent | Template | Object? | A template that renders toolbar content.
 

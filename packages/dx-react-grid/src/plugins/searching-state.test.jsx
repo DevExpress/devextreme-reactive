@@ -13,6 +13,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     rows: [{ id: 1 }],
+    columns: [{ name: 'a' }, { name: 'b' }],
+    filters: [{ columnName: 'column', value: 'value' }],
   },
 };
 
@@ -92,5 +94,24 @@ describe('Searching state', () => {
 
     expect(searchChange)
       .toBeCalledWith(newSearchValue);
+  });
+
+  it('should provide filters defined in filters property', () => {
+    const searchValue = 'abc';
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <SearchingState
+          searchValue={searchValue}
+        />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).filters).toEqual([
+      defaultDeps.getter.filters,
+      'AND',
+      [{ columnName: 'a', value: 'abc' }, 'OR', { columnName: 'b', value: 'abc' }],
+    ]);
   });
 });

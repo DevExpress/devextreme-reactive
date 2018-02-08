@@ -34,11 +34,20 @@ export class SearchingState extends React.PureComponent {
   }
   render() {
     const { searchValue } = this.getState();
+    const pushFilters = ({ filters, columns }) => [filters, 'AND', columns.reduce((acc, column, index) => {
+      if (index !== 0) {
+        acc.push('OR');
+      }
+
+      acc.push({ columnName: column.name, value: searchValue });
+      return acc;
+    }, [])];
 
     return (
       <Plugin
         name="SearchingState"
       >
+        <Getter name="filters" computed={pushFilters} />
         <Getter name="searchValue" value={searchValue} />
         <Action name="changeSearchValue" action={this.changeSearchValue} />
       </Plugin>

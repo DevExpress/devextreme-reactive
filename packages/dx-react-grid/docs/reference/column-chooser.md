@@ -28,9 +28,9 @@ Describes properties passed to a component that renders the column chooser overl
 Field | Type | Description
 ------|------|------------
 visible | boolean | Specifies whether the overlay is visible.
-target | ReactInstance | The mounted instance a React component or DOM element that is used for overlay positioning.
+target | ReactInstance | A React component instance or a DOM element that is used for overlay positioning.
 onHide | () => void | An event that initiates overlay hiding.
-children | ReactNode | React node used to render overlay content.
+children | ReactNode | A React node used to render overlay content.
 
 ### ColumnChooser.ToggleButtonProps
 
@@ -48,7 +48,7 @@ Describes properties passed to a component that renders the column chooser conta
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | React node used to render column chooser items.
+children | ReactNode | A React node used to render column chooser items.
 
 ### ColumnChooser.ItemProps
 

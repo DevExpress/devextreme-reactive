@@ -4,7 +4,8 @@ import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
-  calculatePersistentSorting,
+  getPersistentSortedColumns,
+  culculateKeepOther,
 } from '@devexpress/dx-grid-core';
 
 import { createStateHelper } from '../utils/state-helper';
@@ -20,26 +21,15 @@ export class SortingState extends React.PureComponent {
       sorting: props.defaultSorting,
     };
 
-    const persistentSorting =
-      calculatePersistentSorting(this.state.sorting, props.columnExtensions);
+    const persistentSortedColumns =
+      getPersistentSortedColumns(this.state.sorting, props.columnExtensions);
 
     const stateHelper = createStateHelper(this);
 
     this.changeColumnSorting = stateHelper.applyReducer
       .bind(stateHelper, (prevState, payload) => {
-        let { keepOther } = payload;
-        if (persistentSorting.length) {
-          if (keepOther) {
-            keepOther = Array.isArray(keepOther)
-              ? [...new Set([...keepOther, ...persistentSorting])]
-              : [...new Set([
-                ...prevState.sorting.map(item => item.columnName),
-                ...persistentSorting,
-              ])];
-          } else {
-            keepOther = persistentSorting;
-          }
-        }
+        const keepOther =
+          culculateKeepOther(prevState.sorting, payload.keepOther, persistentSortedColumns);
         return changeColumnSorting(prevState, { ...payload, keepOther });
       });
   }

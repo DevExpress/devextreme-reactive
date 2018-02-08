@@ -2,14 +2,20 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { changeColumnSorting, getColumnExtensionValueGetter, calculatePersistentSorting } from '@devexpress/dx-grid-core';
+import {
+  changeColumnSorting,
+  getColumnExtensionValueGetter,
+  getPersistentSortedColumns,
+  culculateKeepOther,
+} from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnSorting: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
-  calculatePersistentSorting: jest.fn(),
+  getPersistentSortedColumns: jest.fn(),
+  culculateKeepOther: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -32,7 +38,8 @@ describe('SortingState', () => {
   beforeEach(() => {
     changeColumnSorting.mockImplementation(() => ({}));
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
-    calculatePersistentSorting.mockImplementation(() => []);
+    getPersistentSortedColumns.mockImplementation(() => []);
+    culculateKeepOther.mockImplementation((sorting, keepOther) => keepOther);
   });
   afterEach(() => {
     jest.resetAllMocks();

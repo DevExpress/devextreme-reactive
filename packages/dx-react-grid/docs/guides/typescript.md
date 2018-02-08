@@ -1,7 +1,7 @@
 # React Grid - TypeScript
 
-[TypeScript](https://www.typescriptlang.org) is a strict syntactical superset of JavaScript developed by Microsoft. It adds optional static typing to JavaScript and enables catching errors and bugs at build time.
+[TypeScript](https://www.typescriptlang.org) is a JavaScript superset with a strict syntax, developed by Microsoft. It supports static typing and enables catching errors at build time.
 
-TypeScript became popular and is used in many projects. So we provide React Grid with TypeScript definitions to enable easy and comfortable usage in TypeScript projects.
+React Grid comes with TypeScript definitions that facilitate its use in TypeScript projects.
 
 .embedded-demo(grid-typescript/basic)

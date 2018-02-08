@@ -8,7 +8,7 @@ export const SearchBoxInput = ({
   className="form-control"
   onChange={e => changeSearchValue({ searchValue: e.target.value })}
   value={searchValue}
-  style={{ maxWidth: '30%', ...style }}
+  style={{ maxWidth: '25%', ...style }}
   {...restProps}
 />);
 

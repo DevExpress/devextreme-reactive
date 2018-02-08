@@ -9,6 +9,19 @@ const toLowerCase = value => String(value).toLowerCase();
 const defaultPredicate = (value, filter) =>
   toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
 
+const fillGaps = filters => filters.reduce((acc, filter) => {
+  if (Array.isArray(filter)) {
+    acc.push(fillGaps(filter));
+    return acc;
+  }
+  if (typeof (acc[acc.length - 1]) === 'object' && typeof (filter) === 'object') {
+    acc.push('AND');
+  }
+  acc.push(filter);
+  return acc;
+}, []);
+
+
 const filterTree = (tree, predicate) =>
   tree.reduce(
     (acc, node) => {
@@ -70,7 +83,7 @@ export const filteredRows = (
     return row => columnPredicate(getCellValue(row, columnName), filterConfig, row);
   };
 
-  const predicateGenerator = filterss => filterss.reduce(
+  const predicateGenerator = filterExprs => filterExprs.reduce(
     (prevPredicate, filter) => {
       let operator = AND;
       if (typeof (filter) === 'string') {
@@ -91,13 +104,7 @@ export const filteredRows = (
     , proxy,
   );
 
-  const predicate = predicateGenerator(filters.reduce((acc, filter) => {
-    if (typeof (acc[acc.length - 1]) === 'object' && typeof (filter) === 'object') {
-      acc.push('AND');
-    }
-    acc.push(filter);
-    return acc;
-  }, []));
+  const predicate = predicateGenerator(fillGaps(filters));
 
   if (!getRowLevelKey) {
     return rows.filter(predicate);

@@ -106,6 +106,21 @@ describe('IntegratedFiltering computeds', () => {
           { a: 2, b: 2 },
         ]);
       });
+
+      it('should filter with two group filters', () => {
+        const filters = [
+          [{ columnName: 'a', value: '1' }, { columnName: 'b', value: '1' }],
+          'OR',
+          [{ columnName: 'a', value: '2' }, { columnName: 'b', value: '2' }],
+        ];
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+
+        expect(filtered).toEqual([
+          { a: 1, b: 1 },
+          { a: 2, b: 2 },
+        ]);
+      });
     });
 
     describe('grouped rows', () => {

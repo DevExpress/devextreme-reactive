@@ -18,7 +18,8 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
     }
     let rowLevel = getRowLevelKey(tableRow.row) && parseInt(getRowLevelKey(tableRow.row).replace('treeNode_', ''), 10);
     if (rowLevel === undefined) {
-      rowLevel = (acc.length && acc[acc.length - 1].level + (getRowLevelKey(acc[acc.length - 1].row) ? 1 : 0)) || 0;
+      rowLevel = (acc.length && acc[acc.length - 1].level
+        + (getRowLevelKey(acc[acc.length - 1].row) ? 1 : 0)) || 0;
     }
     acc.push({
       ...tableRow,
@@ -82,7 +83,11 @@ export class TableTreeData extends React.PureComponent {
                   >
                     {content => (
                       <TemplateConnector>
-                        {({ getCollapsedRows, expandedRowIds, selection }, { toggleRowExpanded, toggleSelection }) => (
+                        {({
+                          getCollapsedRows, expandedRowIds, selection, isLeafRow,
+                        }, {
+                          toggleRowExpanded, toggleSelection,
+                        }) => (
                           <Cell
                             {...params}
                             row={params.tableRow.row}
@@ -94,16 +99,19 @@ export class TableTreeData extends React.PureComponent {
                                   level={params.tableRow.level}
                                 />
                                 <ToggleButton
-                                  visible={!!getCollapsedRows(params.tableRow.row) || expandedRowIds.indexOf(params.tableRow.rowId) > -1}
+                                  visible={!!getCollapsedRows(params.tableRow.row)
+                                    || !isLeafRow(params.tableRow.row)}
                                   expanded={expandedRowIds.indexOf(params.tableRow.rowId) > -1}
-                                  onToggle={() => toggleRowExpanded({ rowId: params.tableRow.rowId })}
+                                  onToggle={() =>
+                                    toggleRowExpanded({ rowId: params.tableRow.rowId })}
                                 />
                                 {showSelectionControls && (
                                   <Checkbox
                                     disabled={false}
                                     selected={selection.indexOf(params.tableRow.rowId) > -1}
                                     indeterminate={false}
-                                    onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
+                                    onToggle={() =>
+                                      toggleSelection({ rowIds: [params.tableRow.rowId] })}
                                   />
                                 )}
                               </React.Fragment>

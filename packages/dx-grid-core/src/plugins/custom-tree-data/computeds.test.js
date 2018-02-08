@@ -40,6 +40,11 @@ describe('CustomTreeData Plugin computeds', () => {
           [hierarchicalSource[2].items[1], 1],
           [hierarchicalSource[3], 0],
         ]),
+        leafsMeta: new Map([
+          [hierarchicalSource[1], false],
+          [hierarchicalSource[2], false],
+          [hierarchicalSource[2].items[0], false],
+        ]),
       };
 
       const getChildGroups = jest.fn(getHierarchicalChildRows);

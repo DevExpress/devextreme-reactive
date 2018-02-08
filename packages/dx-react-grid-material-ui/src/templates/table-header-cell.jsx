@@ -93,7 +93,7 @@ class TableHeaderCellBase extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const { dragging } = this.state;
+    const { dragging, hover } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
 
@@ -105,6 +105,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
     const cellLayout = (
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <TableCell
         style={style}
         className={tableCellClasses}
@@ -137,7 +138,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
-            hover={this.state.hover}
+            hover={hover}
           />
         )}
       </TableCell>

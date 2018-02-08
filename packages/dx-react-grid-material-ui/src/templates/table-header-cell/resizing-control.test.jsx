@@ -8,6 +8,7 @@ const defaultProps = {
   onWidthChange: () => {},
   onWidthDraft: () => {},
   onWidthDraftCancel: () => {},
+  hover: false,
 };
 
 describe('ResizingControl', () => {

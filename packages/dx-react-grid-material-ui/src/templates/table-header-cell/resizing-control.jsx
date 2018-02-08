@@ -5,7 +5,7 @@ import { Draggable } from '@devexpress/dx-react-core';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-  visible: {
+  visibleOnCellHover: {
     opacity: '1 !important',
   },
   resizeHandle: {
@@ -97,14 +97,14 @@ export class ResizingControlBase extends React.PureComponent {
         >
           <div
             className={classNames({
-              [classes.visible]: hover,
+              [classes.visibleOnCellHover]: hover,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleFirstLine]: true,
             })}
           />
           <div
             className={classNames({
-              [classes.visible]: hover,
+              [classes.visibleOnCellHover]: hover,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleSecondLine]: true,
             })}

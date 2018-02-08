@@ -58,7 +58,7 @@ Field | Type | Description
 ------|------|------------
 item | [ColumnChooserItem](#columnchooseritem) | A column chooser item.
 disabled | boolean | Specifies whether a column chooser item is disabled.
-onToggle | () => void | Handles an associated column's visbility changes.
+onToggle | () => void | Handles an associated column's visibility changes.
 
 ### ColumnChooserItem
 

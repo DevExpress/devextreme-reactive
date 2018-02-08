@@ -1,6 +1,6 @@
 # ColumnChooser Plugin Reference
 
-The ColumnChooser plugin allows a user to show and hide grid columns at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
+The ColumnChooser plugin allows a user to toggle grid columns' visibility at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
 
 ## User reference
 
@@ -96,7 +96,7 @@ ColumnChooser.Overlay | [ColumnChooserOverlayProps](#columnchooseroverlayprops) 
 ColumnChooser.Container | [ColumnChooserContainerProps](#columnchoosercontainerprops) | A component that renders the column chooser container.
 ColumnChooser.Item | [ColumnChooserItemProps](#columnchooseritemprops) | A component that renders a column chooser item.
 
-If you specify additional properties, they are added to a component's root element.
+Additional properties are added to a component's root element.
 
 ## Plugin Developer Reference
 

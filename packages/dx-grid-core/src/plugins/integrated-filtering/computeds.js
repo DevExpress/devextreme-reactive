@@ -16,10 +16,12 @@ const filterTree = (tree, predicate) =>
             children: filteredChildren,
           });
           return acc;
-        } else if (predicate(node.root)) {
+        }
+        if (predicate(node.root, true)) {
           acc.push(node.root);
           return acc;
         }
+        return acc;
       }
 
       if (predicate(node)) {
@@ -34,15 +36,26 @@ const filterTree = (tree, predicate) =>
 
 const filterHierarchicalRows = (rows, predicate, getRowLevelKey, getCollapsedRows) => {
   const tree = rowsToTree(rows, getRowLevelKey);
+  const collapsedRowsMeta = [];
 
-  const filteredTree = filterTree(tree, (row) => {
-    if (getCollapsedRows && getCollapsedRows(row)) {
-      return getCollapsedRows(row).findIndex(predicate) > -1 || predicate(row);
+  const filteredTree = filterTree(tree, (row, isNode) => {
+    if (isNode) {
+      const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+      if (collapsedRows && collapsedRows.length) {
+        const filteredCollapsedRows = collapsedRows.filter(predicate);
+        collapsedRowsMeta.push([row, filteredCollapsedRows]);
+        return !!filteredCollapsedRows.length || predicate(row);
+      }
+      if (predicate(row)) {
+        collapsedRowsMeta.push([row, []]);
+        return true;
+      }
+      return false;
     }
     return predicate(row);
   });
 
-  return treeToRows(filteredTree);
+  return { rows: treeToRows(filteredTree), collapsedRowsMeta: new Map(collapsedRowsMeta) };
 };
 
 export const filteredRows = (
@@ -53,7 +66,7 @@ export const filteredRows = (
   getRowLevelKey,
   getCollapsedRows,
 ) => {
-  if (!filters.length || !rows.length) return rows;
+  if (!filters.length || !rows.length) return { rows };
 
   const predicate = filters.reduce(
     (prevPredicate, filter) => {
@@ -70,7 +83,7 @@ export const filteredRows = (
   );
 
   if (!getRowLevelKey) {
-    return rows.filter(predicate);
+    return { rows: rows.filter(predicate) };
   }
 
   return filterHierarchicalRows(rows, predicate, getRowLevelKey, getCollapsedRows);

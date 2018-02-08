@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   filteredRows,
-  filteredCollapsedRowsGetter,
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
@@ -12,7 +11,6 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   filteredRows: jest.fn(),
-  filteredCollapsedRowsGetter: jest.fn(),
   getColumnExtension: jest.fn(),
 }));
 
@@ -37,8 +35,7 @@ describe('IntegratedFiltering', () => {
   });
 
   beforeEach(() => {
-    filteredRows.mockImplementation(() => 'filteredRows');
-    filteredCollapsedRowsGetter.mockImplementation(() => 'filteredCollapsedRowsGetter');
+    filteredRows.mockImplementation(() => ({ rows: 'filteredRows' }));
     getColumnExtension.mockImplementation(() => ({}));
   });
   afterEach(() => {
@@ -54,7 +51,7 @@ describe('IntegratedFiltering', () => {
     ));
 
     expect(getComputedState(tree).rows)
-      .toBe(filteredRows());
+      .toBe(filteredRows().rows);
 
     expect(filteredRows)
       .toBeCalledWith(
@@ -67,23 +64,12 @@ describe('IntegratedFiltering', () => {
       );
   });
 
-  it('should provide getCollapsedRows getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedFiltering />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getCollapsedRows)
-      .toBe(filteredCollapsedRowsGetter());
-
-    expect(filteredCollapsedRowsGetter)
-      .toBeCalledWith(
-        defaultDeps.getter.getCollapsedRows,
-        defaultDeps.getter.filters,
-        defaultDeps.getter.getCellValue,
-        expect.any(Function),
-      );
-  });
+  // it('should provide getCollapsedRows getter', () => {
+  //   const tree = mount((
+  //     <PluginHost>
+  //       {pluginDepsToComponents(defaultDeps)}
+  //       <IntegratedFiltering />
+  //     </PluginHost>
+  //   ));
+  // });
 });

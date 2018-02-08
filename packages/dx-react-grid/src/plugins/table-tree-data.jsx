@@ -65,18 +65,19 @@ export class TableTreeData extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.column && tableColumn.column.name === 'name'}
+          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === 'name'}
         >
           {params => (
             <TemplateConnector>
               {({ getCellValue }) => {
+                const { level, row, rowId } = params.tableRow;
                 const columnName = params.tableColumn.column.name;
-                const value = getCellValue(params.tableRow.row, columnName);
+                const value = getCellValue(row, columnName);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
                     params={{
-                      row: params.tableRow.row,
+                      row,
                       column: params.tableColumn.column,
                       value,
                     }}
@@ -87,39 +88,41 @@ export class TableTreeData extends React.PureComponent {
                           getCollapsedRows, expandedRowIds, selection, isLeafRow,
                         }, {
                           toggleRowExpanded, toggleSelection,
-                        }) => (
-                          <Cell
-                            {...params}
-                            row={params.tableRow.row}
-                            column={params.tableColumn.column}
-                            value={value}
-                            controls={
-                              <React.Fragment>
-                                <Indent
-                                  level={params.tableRow.level}
-                                />
-                                <ToggleButton
-                                  visible={!!getCollapsedRows(params.tableRow.row)
-                                    || !isLeafRow(params.tableRow.row)}
-                                  expanded={expandedRowIds.indexOf(params.tableRow.rowId) > -1}
-                                  onToggle={() =>
-                                    toggleRowExpanded({ rowId: params.tableRow.rowId })}
-                                />
-                                {showSelectionControls && (
-                                  <Checkbox
-                                    disabled={false}
-                                    selected={selection.indexOf(params.tableRow.rowId) > -1}
-                                    indeterminate={false}
-                                    onToggle={() =>
-                                      toggleSelection({ rowIds: [params.tableRow.rowId] })}
+                        }) => {
+                          const collapsedRows = getCollapsedRows(row);
+                          return (
+                            <Cell
+                              {...params}
+                              row={row}
+                              column={params.tableColumn.column}
+                              value={value}
+                              controls={
+                                <React.Fragment>
+                                  <Indent
+                                    level={level}
                                   />
-                                )}
-                              </React.Fragment>
-                            }
-                          >
-                            {content}
-                          </Cell>
-                        )}
+                                  <ToggleButton
+                                    visible={collapsedRows ? !!collapsedRows.length : !isLeafRow(row)}
+                                    expanded={expandedRowIds.indexOf(rowId) > -1}
+                                    onToggle={() =>
+                                      toggleRowExpanded({ rowId })}
+                                  />
+                                  {showSelectionControls && (
+                                    <Checkbox
+                                      disabled={false}
+                                      selected={selection.indexOf(rowId) > -1}
+                                      indeterminate={false}
+                                      onToggle={() =>
+                                        toggleSelection({ rowIds: [rowId] })}
+                                    />
+                                  )}
+                                </React.Fragment>
+                              }
+                            >
+                              {content}
+                            </Cell>
+                          );
+                      }}
                       </TemplateConnector>
                     )}
                   </TemplatePlaceholder>

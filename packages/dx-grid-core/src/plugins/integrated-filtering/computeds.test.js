@@ -19,7 +19,7 @@ describe('IntegratedFiltering computeds', () => {
         const filters = [];
 
         const filtered = filteredRows(rows, filters, getCellValue);
-        expect(filtered).toBe(rows);
+        expect(filtered).toEqual({ rows });
       });
 
       it('can filter by one field', () => {
@@ -27,10 +27,12 @@ describe('IntegratedFiltering computeds', () => {
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered)
-          .toEqual([
-            { a: 1, b: 1 },
-            { a: 1, b: 2 },
-          ]);
+          .toEqual({
+            rows: [
+              { a: 1, b: 1 },
+              { a: 1, b: 2 },
+            ],
+          });
       });
 
       it('can filter by several fields', () => {
@@ -38,9 +40,11 @@ describe('IntegratedFiltering computeds', () => {
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered)
-          .toEqual([
-            { a: 1, b: 2 },
-          ]);
+          .toEqual({
+            rows: [
+              { a: 1, b: 2 },
+            ],
+          });
       });
 
       it('can filter using custom predicate', () => {
@@ -54,9 +58,11 @@ describe('IntegratedFiltering computeds', () => {
 
         expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
         expect(filtered)
-          .toEqual([
-            { a: 1, b: 2 },
-          ]);
+          .toEqual({
+            rows: [
+              { a: 1, b: 2 },
+            ],
+          });
       });
 
       it('should filter using default predicate if custom predicate returns nothing', () => {
@@ -65,10 +71,12 @@ describe('IntegratedFiltering computeds', () => {
         const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
         expect(filtered)
-          .toEqual([
-            { a: 1, b: 1 },
-            { a: 1, b: 2 },
-          ]);
+          .toEqual({
+            rows: [
+              { a: 1, b: 1 },
+              { a: 1, b: 2 },
+            ],
+          });
       });
     });
 
@@ -97,13 +105,18 @@ describe('IntegratedFiltering computeds', () => {
         /* eslint-enable indent */
         const filters = [{ columnName: 'a', value: 1 }];
         /* eslint-disable indent */
-        const filteredGroupedRows = [
-          groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
-          groupRow({ groupedBy: 'a' }),
-            groupRow({ groupedBy: 'b' }),
-              { a: 1, b: 1 },
-              { a: 1, b: 2 },
-        ];
+        const filteredGroupedRows = {
+          rows: [
+            groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
+            groupRow({ groupedBy: 'a' }),
+              groupRow({ groupedBy: 'b' }),
+                { a: 1, b: 1 },
+                { a: 1, b: 2 },
+          ],
+          collapsedRowsMeta: new Map([
+            [groupRow({ groupedBy: 'a', collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }), [{ a: 1, b: 1 }]],
+          ]),
+        };
         /* eslint-enable indent */
 
         expect(filteredRows(
@@ -126,7 +139,7 @@ describe('IntegratedFiltering computeds', () => {
       const getRowLevelKey = row => row.levelKey;
       const getCollapsedRows = row => row.collapsedRows;
 
-      it('should sort grouped rows', () => {
+      it('should sort tree rows', () => {
         /* eslint-disable indent */
         const hierarchicalRows = [
           rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
@@ -135,6 +148,9 @@ describe('IntegratedFiltering computeds', () => {
               { a: 1, b: 1 },
               { a: 1, b: 2 },
             rowNode({ level: 1, a: 1, collapsedRows: [{ a: 2, b: 2 }] }),
+            rowNode({ level: 1, a: 1 }),
+              { a: 2, b: 1 },
+              { a: 2, b: 2 },
           rowNode({ level: 0 }),
             rowNode({ level: 1 }),
               { a: 2, b: 1 },
@@ -143,14 +159,25 @@ describe('IntegratedFiltering computeds', () => {
         /* eslint-enabke indent */
         const filters = [{ columnName: 'a', value: 1 }];
         /* eslint-disable indent */
-        const sortedGroupedRows = [
-          rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
-          rowNode({ level: 0 }),
-            rowNode({ level: 1 }),
-              { a: 1, b: 1 },
-              { a: 1, b: 2 },
-            rowNode({ level: 1, a: 1, collapsedRows: [{ a: 2, b: 2 }] }),
-        ];
+        const sortedGroupedRows = {
+          rows: [
+            rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
+            rowNode({ level: 0 }),
+              rowNode({ level: 1 }),
+                { a: 1, b: 1 },
+                { a: 1, b: 2 },
+              rowNode({ level: 1, a: 1, collapsedRows: [{ a: 2, b: 2 }] }),
+              rowNode({ level: 1, a: 1 }),
+          ],
+          collapsedRowsMeta: new Map([
+            [
+              rowNode({ level: 0, collapsedRows: [{ a: 1, b: 1 }, { a: 2, b: 2 }] }),
+              [{ a: 1, b: 1 }],
+            ],
+            [rowNode({ level: 1, a: 1, collapsedRows: [{ a: 2, b: 2 }] }), []],
+            [rowNode({ level: 1, a: 1 }), []],
+          ]),
+        };
         /* eslint-enable indent */
 
         expect(filteredRows(
@@ -162,44 +189,6 @@ describe('IntegratedFiltering computeds', () => {
           getCollapsedRows,
         ))
           .toEqual(sortedGroupedRows);
-      });
-    });
-  });
-
-  describe('#filteredCollapsedRowsGetter', () => {
-    describe('plain rows', () => {
-      const testRow = {};
-      const rows = [
-        { a: 1, b: 1 },
-        { a: 1, b: 2 },
-        { a: 2, b: 1 },
-        { a: 2, b: 2 },
-      ];
-      const getCellValue = (row, columnName) => row[columnName];
-      const getCollapsedRows = row => (row === testRow ? rows : undefined);
-      const getColumnPredicate = () => (value, filter, row) => value === 1 && row.b === 2;
-      const filters = [{ columnName: 'a', value: 1 }];
-
-      it('should filter rows', () => {
-        expect(filteredCollapsedRowsGetter(
-          getCollapsedRows,
-          filters,
-          getCellValue,
-          getColumnPredicate,
-        )(testRow))
-          .toEqual([
-            { a: 1, b: 2 },
-          ]);
-      });
-
-      it('should not fail when rows is empty', () => {
-        expect(filteredCollapsedRowsGetter(
-          getCollapsedRows,
-          filters,
-          getCellValue,
-          getColumnPredicate,
-        )(undefined))
-          .toEqual(undefined);
       });
     });
   });

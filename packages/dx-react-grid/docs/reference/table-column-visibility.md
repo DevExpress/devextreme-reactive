@@ -14,7 +14,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 hiddenColumnNames | Array&lt;string&gt; | | Hidden column names.
 defaultHiddenColumnNames | Array&lt;string&gt; | [] | Names of initially hidden columns in uncontrolled mode.
-columnTogglingEnabled | boolean | true | Specifies whether a column visibility can be changed by end-user.
+columnTogglingEnabled | boolean | true | Specifies whether an end-user can change column visibility.
 columnExtensions | Array&lt;[TableColumnVisibilityColumnExtension](#tablecolumnvisibilitycolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onHiddenColumnNamesChange | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
@@ -37,7 +37,7 @@ Describes additional column properties that the plugin can handle.
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
-togglingEnabled | boolean | Specifies whether a column visibility can be changed by end-user.
+togglingEnabled | boolean | Specifies whether an end-user can change column visibility.
 
 ## Localization Messages
 

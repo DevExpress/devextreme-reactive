@@ -1,6 +1,6 @@
 /* globals window:true document:true Event:true */
 
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
 import { Draggable } from './draggable';
 import { clear } from './draggable/selection-utils';

@@ -1,6 +1,6 @@
 # React Grid - Column Visibility
 
-The Grid component with the [TableColumnVisibility](../reference/table-column-visibility.md) and [ColumnChooser](../reference/column-chooser.md) plugins provides the capability to hide or show table columns at runtime.
+A Grid component with the [TableColumnVisibility](../reference/table-column-visibility.md) and [ColumnChooser](../reference/column-chooser.md) plugins provides the capability to hide or show table columns at runtime.
 
 ## Related Plugins
 
@@ -14,12 +14,18 @@ Import the plugins listed above to enable a user to hide or show columns at runt
 
 ### Uncontrolled Mode
 
-In [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), specify initially hidden column names via the `TableColumnVisibility` plugin's `defaultHiddenColumnNames` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), specify initially hidden column names via the `TableColumnVisibility` plugin's `defaultHiddenColumnNames` property.
 
 .embedded-demo(grid-column-chooser/uncontrolled)
 
 ### Controlled Mode
 
-In [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
+In the [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
 
 .embedded-demo(grid-column-chooser/controlled)
+
+### Disable Column Visibility Toggling
+
+The [TableColumnVisibility](../reference/table-column-visibility.md) plugin's `columnExtensions` property allows you to prevent changing a specific column's visibility.
+
+.embedded-demo(grid-column-chooser/disable-toggling-column-visibility)

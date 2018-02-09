@@ -26,10 +26,10 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ length: 8 }),
       defaultSorting: [
-        { columnName: 'name', direction: 'desc' },
+        { columnName: 'sex', direction: 'desc' },
       ],
       sortingStateColumnExtensions: [
-        { columnName: 'name', sortingEnabled: false },
+        { columnName: 'sex', sortingEnabled: false },
       ],
     };
   }

@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, selection } = this.state;
 
     return (
-      <<%&openWrapperTag%>>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -45,7 +45,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableSelection />
         </Grid>
-      </<%&closeWrapperTag%>>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -41,14 +41,14 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <<%&openWrapperTag%>>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
         >
           <Table />
         </Grid>
-      </<%&closeWrapperTag%>>
+      </<%&wrapperTag%>>
     );
   }
 }

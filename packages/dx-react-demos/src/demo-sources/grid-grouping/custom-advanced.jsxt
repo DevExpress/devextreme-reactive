@@ -67,7 +67,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <<%&openWrapperTag%>>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
             cellComponent={GroupCell}
           />
         </Grid>
-      </<%&closeWrapperTag%>>
+      </<%&wrapperTag%>>
     );
   }
 }

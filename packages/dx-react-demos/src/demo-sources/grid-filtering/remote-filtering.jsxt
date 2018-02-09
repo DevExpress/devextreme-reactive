@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, loading } = this.state;
 
     return (
-      <<%&openWrapperTag%> style={{ position: 'relative' }}>
+      <<%&wrapperTag%> style={{ position: 'relative' }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -92,7 +92,7 @@ export default class Demo extends React.PureComponent {
           <TableFilterRow />
         </Grid>
         {loading && <Loading />}
-      </<%&closeWrapperTag%>>
+      </<%&wrapperTag%>>
     );
   }
 }

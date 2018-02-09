@@ -1,5 +1,4 @@
 {
   "additionalImports": "",
-  "openWrapperTag": "div",
-  "closeWrapperTag": "div"
+  "wrapperTag": "div"
 }

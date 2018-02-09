@@ -110,7 +110,7 @@ const SelectionStateContainer =
 
 export default () => (
   <Provider store={store}>
-    <<%&openWrapperTag%>>
+    <<%&wrapperTag%>>
       <Grid
         rows={rows}
         columns={columns}
@@ -122,6 +122,6 @@ export default () => (
         <TableHeaderRow showSortingControls />
         <TableSelection />
       </Grid>
-    </<%&closeWrapperTag%>>
+    </<%&wrapperTag%>>
   </Provider>
 );

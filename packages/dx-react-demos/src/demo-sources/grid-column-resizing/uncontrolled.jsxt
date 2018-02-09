@@ -34,7 +34,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns, defaultColumnWidths } = this.state;
 
     return (
-      <<%&openWrapperTag%>>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
           <TableHeaderRow />
         </Grid>
-      </<%&closeWrapperTag%>>
+      </<%&wrapperTag%>>
     );
   }
 }

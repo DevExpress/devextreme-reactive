@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
         <span>Total rows selected: {selection.length}</span>
-        <<%&openWrapperTag%>>
+        <<%&wrapperTag%>>
           <Grid
             rows={rows}
             columns={columns}
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
             <TableHeaderRow />
             <TableSelection showSelectAll />
           </Grid>
-        </<%&closeWrapperTag%>>
+        </<%&wrapperTag%>>
       </div>
     );
   }

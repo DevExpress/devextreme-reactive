@@ -1,5 +1,4 @@
 {
   "additionalImports": "\nimport Paper from 'material-ui/Paper';",
-  "openWrapperTag": "Paper",
-  "closeWrapperTag": "Paper"
+  "wrapperTag": "Paper"
 }

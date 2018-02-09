@@ -8,13 +8,10 @@ describe('GroupPanelEmptyMessage', () => {
       <GroupPanelEmptyMessage
         getMessage={() => {}}
         data={{ a: 1 }}
-        className="custom-class"
       />
     ));
 
     expect(tree.prop('data'))
       .toEqual({ a: 1 });
-    expect(tree.hasClass('custom-class'))
-      .toBeTruthy();
   });
 });

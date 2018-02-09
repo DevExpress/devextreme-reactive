@@ -128,6 +128,10 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
+    expect(tree.hasClass('mb-1'))
+      .toBeTruthy();
+    expect(tree.hasClass('mr-1'))
+      .toBeTruthy();
   });
 
   it('should pass style to the root element', () => {
@@ -136,16 +140,12 @@ describe('GroupPanelItem', () => {
         item={{ column: { name: 'test' } }}
         style={{
           width: '40px',
-          height: '10px',
         }}
       />
     ));
     expect(tree.find('.btn-group').prop('style'))
-      .toEqual({
-        marginRight: '5px',
-        marginBottom: '5px',
+      .toMatchObject({
         width: '40px',
-        height: '10px',
       });
   });
 });

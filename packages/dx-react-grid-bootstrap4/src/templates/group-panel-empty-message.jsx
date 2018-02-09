@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const GroupPanelEmptyMessage = ({ getMessage, ...restProps }) => (
   <div
     style={{
-      padding: '12px 0',
+      padding: '11px 0',
     }}
     {...restProps}
   >

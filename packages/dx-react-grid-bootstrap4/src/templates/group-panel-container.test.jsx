@@ -14,6 +14,8 @@ describe('GroupPanelContainer', () => {
 
     expect(tree.prop('data'))
       .toEqual({ a: 1 });
+    expect(tree.hasClass('w-100'))
+      .toBeTruthy();
     expect(tree.hasClass('custom-class'))
       .toBeTruthy();
   });

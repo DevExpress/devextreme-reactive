@@ -40,10 +40,8 @@ export const GroupPanelItem = ({
   };
   return (
     <div
-      className={classNames('btn-group', className)}
+      className={classNames('btn-group mb-1 mr-1', className)}
       style={{
-        marginRight: '5px',
-        marginBottom: '5px',
         ...draft ? { opacity: 0.3 } : null,
         ...style,
       }}

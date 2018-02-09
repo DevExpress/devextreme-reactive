@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const GroupPanelContainer = ({ children, style, ...restProps }) => (
+export const GroupPanelContainer = ({ children, className, ...restProps }) => (
   <div
-    style={{
-      width: '100%',
-      marginTop: '5px',
-      ...style,
-    }}
+    className={classNames('w-100 mt-1', className)}
     {...restProps}
   >
     {children}
@@ -19,11 +16,11 @@ GroupPanelContainer.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 GroupPanelContainer.defaultProps = {
   children: null,
-  style: null,
+  className: undefined,
 };
 

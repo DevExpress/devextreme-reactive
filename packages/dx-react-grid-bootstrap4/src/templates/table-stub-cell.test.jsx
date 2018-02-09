@@ -10,5 +10,7 @@ describe('TableStubCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.p-0'))
+      .toBeTruthy();
   });
 });

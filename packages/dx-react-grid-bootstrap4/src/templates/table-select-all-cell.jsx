@@ -24,11 +24,8 @@ export const TableSelectAllCell = ({
       {...restProps}
     >
       <input
-        style={{
-          cursor: !disabled && 'pointer',
-          margin: '0 auto',
-          display: 'block',
-        }}
+        className="d-block m-auto"
+        style={{ cursor: !disabled && 'pointer' }}
         type="checkbox"
         disabled={disabled}
         checked={allSelected}

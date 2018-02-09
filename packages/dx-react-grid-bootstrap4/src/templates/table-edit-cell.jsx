@@ -16,11 +16,10 @@ export const EditCell = ({
     {children || (
       <input
         type="text"
-        className="form-control"
+        className="form-control w-100"
         value={value}
         onChange={e => onValueChange(e.target.value)}
         style={{
-          width: '100%',
           textAlign: tableColumn && tableColumn.align,
         }}
       />

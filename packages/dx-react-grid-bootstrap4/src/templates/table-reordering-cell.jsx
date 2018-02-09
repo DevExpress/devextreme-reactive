@@ -9,7 +9,8 @@ export const TableReorderingCell = ({ style, getCellDimensions }) => {
   return (
     <td
       ref={refHandler}
-      style={{ ...style, padding: 0, border: 'none' }}
+      className="p-0 border-0"
+      style={style}
     />
   );
 };

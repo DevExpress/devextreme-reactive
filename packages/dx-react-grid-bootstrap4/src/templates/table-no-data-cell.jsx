@@ -1,20 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableNoDataCell = ({
-  style,
-  colSpan,
-  getMessage,
-  tableRow,
-  tableColumn,
-  ...restProps
+  className, colSpan,
+  getMessage, tableRow,
+  tableColumn, ...restProps
 }) => (
   <td
-    style={{
-      textAlign: 'center',
-      padding: '40px 0',
-      ...style,
-    }}
+    className={classNames('py-5 text-center', className)}
     colSpan={colSpan}
     {...restProps}
   >
@@ -23,15 +17,15 @@ export const TableNoDataCell = ({
 );
 
 TableNoDataCell.propTypes = {
-  style: PropTypes.object,
   colSpan: PropTypes.number,
   getMessage: PropTypes.func.isRequired,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableNoDataCell.defaultProps = {
-  style: null,
+  className: undefined,
   colSpan: 1,
   tableRow: undefined,
   tableColumn: undefined,

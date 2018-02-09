@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { Pagination as PaginationBS3, PaginationItem, PaginationLink } from 'reactstrap';
+import { shallow } from 'enzyme';
+import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
 import { Pagination } from './pagination';
 
 const defaultProps = {
@@ -30,19 +30,19 @@ describe('Pagination', () => {
 
   it('can render pagination arrows', () => {
     const onCurrentPageChange = jest.fn();
-    const paginations = mount((
+    const paginations = shallow((
       <Pagination
         {...defaultProps}
         onCurrentPageChange={onCurrentPageChange}
       />
-    )).find(PaginationBS3);
+    )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);
     const next = arrows.at(1);
 
-    prew.find(PaginationLink).simulate('click');
-    next.find(PaginationLink).simulate('click');
+    prew.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+    next.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
 
     expect(arrows).toHaveLength(2);
     expect(prew.props('previews')).toBeTruthy();
@@ -56,7 +56,7 @@ describe('Pagination', () => {
         {...defaultProps}
         currentPage={0}
       />
-    )).find(PaginationBS3);
+    )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);
@@ -73,7 +73,7 @@ describe('Pagination', () => {
         currentPage={9}
         pageSize={5}
       />
-    )).find(PaginationBS3);
+    )).find(PaginationBS4);
 
     const arrows = paginations.at(1).find(PaginationItem);
     const prew = arrows.at(0);

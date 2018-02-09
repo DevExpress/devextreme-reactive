@@ -1,29 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableStubCell = ({
-  style,
+  className,
   tableRow,
   tableColumn,
   ...restProps
 }) => (
   <td
-    style={{
-      padding: 0,
-      ...style,
-    }}
+    className={classNames('p-0', className)}
     {...restProps}
   />
 );
 
 TableStubCell.propTypes = {
-  style: PropTypes.object,
+  className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };
 
 TableStubCell.defaultProps = {
-  style: null,
+  className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
 };

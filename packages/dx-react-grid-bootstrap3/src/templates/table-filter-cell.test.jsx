@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { TableFilterCell } from './table-filter-cell';
 
@@ -36,6 +36,15 @@ describe('TableFilterCell', () => {
     ));
 
     expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should render readonly filtering editor if filtering is not allowed', () => {
+    const tree = shallow((
+      <TableFilterCell filteringEnabled={false} getMessage={key => key} />
+    ));
+
+    expect(tree.find('input').prop('readOnly'))
       .toBeTruthy();
   });
 });

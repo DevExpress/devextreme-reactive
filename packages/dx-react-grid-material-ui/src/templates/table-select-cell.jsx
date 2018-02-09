@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from 'material-ui/Checkbox';
 import { TableCell } from 'material-ui/Table';

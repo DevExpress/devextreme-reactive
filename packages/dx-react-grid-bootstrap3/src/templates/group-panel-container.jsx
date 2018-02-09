@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export const GroupPanelContainer = ({ children, ...restProps }) => (
   <div
@@ -14,13 +14,10 @@ export const GroupPanelContainer = ({ children, ...restProps }) => (
 );
 
 GroupPanelContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 GroupPanelContainer.defaultProps = {
-  children: null,
+  children: undefined,
 };
 

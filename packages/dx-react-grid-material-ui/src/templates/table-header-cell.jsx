@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
@@ -29,6 +29,27 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
+    },
+    '&:hover $resizeHandleLine': {
+      opacity: 1,
+    },
+  },
+  resizeHandleLine: {
+    opacity: 0,
+  },
+  '@media (pointer: fine)': {
+    resizeHandleLine: {
+      opacity: 0,
+    },
+    resizeHandleActive: {
+      '& $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
+    resizeHandle: {
+      '&:hover $resizeHandleLine': {
+        opacity: 1,
+      },
     },
   },
   cellNoUserSelect: {
@@ -126,6 +147,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}
       </TableCell>

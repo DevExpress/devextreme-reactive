@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export const TableSelectRow = ({
   selected,
@@ -30,7 +30,7 @@ TableSelectRow.propTypes = {
 };
 
 TableSelectRow.defaultProps = {
-  children: null,
+  children: undefined,
   onToggle: () => {},
   selected: false,
   selectByRowClick: false,

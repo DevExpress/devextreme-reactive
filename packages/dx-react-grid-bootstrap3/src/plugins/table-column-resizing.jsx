@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TableColumnResizing as TableColumnResizingBase } from '@devexpress/dx-react-grid';
 
 export class TableColumnResizing extends React.PureComponent {

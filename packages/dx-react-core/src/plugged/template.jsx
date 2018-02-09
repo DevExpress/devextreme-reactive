@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const RERENDER_TEMPLATE = 'rerenderTemplate';
@@ -51,9 +51,9 @@ Template.propTypes = {
 };
 
 Template.defaultProps = {
-  predicate: null,
-  children: null,
-  position: null,
+  predicate: undefined,
+  children: undefined,
+  position: undefined,
 };
 
 Template.contextTypes = {

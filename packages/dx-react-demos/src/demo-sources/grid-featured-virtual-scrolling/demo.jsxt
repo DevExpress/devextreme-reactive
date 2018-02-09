@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import * as React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,

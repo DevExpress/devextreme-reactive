@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { TableRow as TableRowMUI } from 'material-ui/Table';
 
 export const TableRow = ({
@@ -22,7 +22,7 @@ TableRow.propTypes = {
 };
 
 TableRow.defaultProps = {
-  children: null,
+  children: undefined,
   row: undefined,
   tableRow: undefined,
   tableColumn: undefined,

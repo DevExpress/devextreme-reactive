@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   getAvailableToSelect,

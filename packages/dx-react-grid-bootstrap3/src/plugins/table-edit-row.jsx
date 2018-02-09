@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TableEditRow as TableEditRowBase } from '@devexpress/dx-react-grid';
 import { EditCell } from '../templates/table-edit-cell';
 import { TableRow } from '../templates/table-row';

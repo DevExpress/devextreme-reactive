@@ -1,29 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 
 export const Item = ({
   item: { column, hidden },
-  onToggle,
+  disabled, onToggle,
   ...restProps
 }) => (
   <ListItem
     key={column.name}
-    button
-    onClick={onToggle}
+    button={!disabled}
+    disabled={disabled}
+    onClick={!disabled ? onToggle : null}
     {...restProps}
   >
     <Checkbox
       checked={!hidden}
       tabIndex={-1}
       disableRipple
+      disabled={disabled}
       style={{ width: 'auto', height: 'auto' }}
     />
     <ListItemText primary={column.title || column.name} />
   </ListItem>
 );
-
 
 Item.propTypes = {
   item: PropTypes.shape({
@@ -32,9 +33,11 @@ Item.propTypes = {
     }),
     hidden: PropTypes.bool,
   }).isRequired,
+  disabled: PropTypes.bool,
   onToggle: PropTypes.func,
 };
 
 Item.defaultProps = {
   onToggle: () => { },
+  disabled: false,
 };

@@ -1,26 +1,17 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
-const proxy = a => a;
-const OR = a => b => c => a(c) || b(c);
-const AND = a => b => c => a(c) && b(c);
+const AND = predicates => row =>
+  predicates.reduce((acc, predicate) => acc && predicate(row), true);
+
+const OR = predicates => row =>
+  predicates.reduce((acc, predicate) => acc || predicate(row), false);
+
+const operators = { or: OR, and: AND };
 
 const toLowerCase = value => String(value).toLowerCase();
 
 const defaultPredicate = (value, filter) =>
   toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
-
-const fillGaps = filters => filters.reduce((acc, filter) => {
-  if (Array.isArray(filter)) {
-    acc.push(fillGaps(filter));
-    return acc;
-  }
-  if (typeof (acc[acc.length - 1]) === 'object' && typeof (filter) === 'object') {
-    acc.push('AND');
-  }
-  acc.push(filter);
-  return acc;
-}, []);
-
 
 const filterTree = (tree, predicate) =>
   tree.reduce(
@@ -67,13 +58,13 @@ const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => 
 
 export const filteredRows = (
   rows,
-  filters,
+  filterExpressions,
   getCellValue,
   getColumnPredicate,
   isGroupRow,
   getRowLevelKey,
 ) => {
-  if (!filters.length || !rows.length) return rows;
+  if (!Object.keys(filterExpressions).length || !rows.length) return rows;
 
   const getPredicateFromFilter = (filter) => {
     const { columnName, ...filterConfig } = filter;
@@ -83,28 +74,18 @@ export const filteredRows = (
     return row => columnPredicate(getCellValue(row, columnName), filterConfig, row);
   };
 
-  const predicateGenerator = filterExprs => filterExprs.reduce(
-    (prevPredicate, filter) => {
-      let operator = AND;
-      if (typeof (filter) === 'string') {
-        if (filter === 'AND') {
-          operator = AND;
-        } else if (filter === 'OR') {
-          operator = OR;
-        }
-        return operator(prevPredicate);
-      }
+  const predicateGenerator = (filterExpression) => {
+    const { filters } = filterExpression;
+    const operator = operators[toLowerCase(filterExpression.operator)];
 
-      if (Array.isArray(filter)) {
-        return prevPredicate(predicateGenerator(filter));
-      }
-
-      return prevPredicate(getPredicateFromFilter(filter));
+    if (operator) {
+      return operator(filters.map(filter => predicateGenerator(filter)));
     }
-    , proxy,
-  );
 
-  const predicate = predicateGenerator(fillGaps(filters));
+    return getPredicateFromFilter(filterExpression);
+  };
+
+  const predicate = predicateGenerator(filterExpressions);
 
   if (!getRowLevelKey) {
     return rows.filter(predicate);

@@ -47,7 +47,7 @@ const GroupPanelItemBase = ({
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
-    if (!showSortingControls) return;
+    if (!sortingEnabled) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
@@ -66,7 +66,7 @@ const GroupPanelItemBase = ({
       label={label(showSortingControls, sortingEnabled, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
-        ? { onDelete: onGroup }
+        ? { onDelete: groupingEnabled ? onGroup : () => {} }
         : null}
       onClick={onClick}
       {...restProps}

@@ -4,13 +4,15 @@ import classNames from 'classnames';
 import List from 'material-ui-icons/List';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
+export const styles = theme => ({
   groupingControl: {
     paddingLeft: 0,
     height: theme.spacing.unit * 3,
-  },
-  activeGroupingControl: {
     cursor: 'pointer',
+  },
+  disabledGroupingControl: {
+    cursor: 'default',
+    opacity: 0.5,
   },
   floatLeft: {
     float: 'left',
@@ -31,7 +33,7 @@ const GroupingControlBase = ({
   const invertedAlign = align === 'left' ? 'right' : 'left';
   const groupingControlClasses = classNames({
     [classes.groupingControl]: true,
-    [classes.activeGroupingControl]: !disabled,
+    [classes.disabledGroupingControl]: disabled,
     [classes.floatLeft]: invertedAlign === 'left',
     [classes.floatRight]: invertedAlign === 'right',
   });

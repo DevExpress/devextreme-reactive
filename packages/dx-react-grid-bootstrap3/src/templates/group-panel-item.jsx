@@ -56,7 +56,7 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className={getButtonClasses(!sortingEnabled)}
+        className={getButtonClasses(!sortingEnabled && showSortingControls)}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
         {...sortingEnabled ? { tabIndex: 0 } : null}

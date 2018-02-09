@@ -136,6 +136,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
         showGroupingControls
+        showSortingControls
       />
     ));
     const buttons = tree.find('.btn-default.disabled');

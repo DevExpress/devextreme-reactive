@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { PageSizeSelector } from './page-size-selector';

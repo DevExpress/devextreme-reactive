@@ -71,10 +71,7 @@ export class Table extends React.Component {
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head']),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Table.defaultProps = {

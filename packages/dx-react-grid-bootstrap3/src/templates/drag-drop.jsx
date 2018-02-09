@@ -31,10 +31,7 @@ Container.propTypes = {
   }).isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
 };
 
 Container.defaultProps = {

@@ -20,7 +20,7 @@ TableRow.propTypes = {
 };
 
 TableRow.defaultProps = {
-  children: null,
+  children: undefined,
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,

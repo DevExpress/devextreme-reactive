@@ -36,10 +36,7 @@ const TableBase = ({
 
 TableBase.propTypes = {
   use: PropTypes.oneOf(['head']),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

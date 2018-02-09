@@ -25,10 +25,7 @@ TableCell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };

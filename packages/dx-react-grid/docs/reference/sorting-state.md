@@ -12,19 +12,17 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
-defaultSorting | Array&lt;[Sorting](#sorting)&gt; | [] | Specifies initial sorting in the uncontrolled mode.
-columnSortingEnabled | boolean | true | Specifies whether sorting is enabled for all columns.
-columnExtensions | Array&lt;[SortingStateColumnExtension](#sortingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-onSortingChange | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes.
+sorting? | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
+defaultSorting? | Array&lt;[Sorting](#sorting)&gt; | [] | Specifies initial sorting in the uncontrolled mode.
+columnSortingEnabled? | boolean | true | Specifies whether sorting is enabled for all columns.
+columnExtensions? | Array&lt;[SortingStateColumnExtension](#sortingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+onSortingChange? | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes.
 
 ## Interfaces
 
 ### Sorting
 
 Describes the sorting applied to a column
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

@@ -8,7 +8,7 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const ToggleButton = ({
-  visible, expanded, classes, onToggle,
+  visible, expanded, onToggle,
   className,
   ...restProps
 }) => {

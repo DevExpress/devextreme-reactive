@@ -1,6 +1,5 @@
 import {
   filteredRows,
-  filteredCollapsedRowsGetter,
 } from './computeds';
 
 describe('IntegratedFiltering computeds', () => {

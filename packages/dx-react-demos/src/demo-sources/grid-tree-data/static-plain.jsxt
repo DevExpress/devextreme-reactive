@@ -62,7 +62,9 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableTreeData />
+          <TableTreeData
+            columnName="name"
+          />
         </Grid>
       </<%&wrapperTag%>>
     );

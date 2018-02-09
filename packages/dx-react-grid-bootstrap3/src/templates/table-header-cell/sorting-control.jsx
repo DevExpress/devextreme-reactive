@@ -20,15 +20,17 @@ export const SortingControl = ({
     >
       {columnTitle}
     </span>,
-    <SortingIndicator
-      key="indicator"
-      direction={sortingDirection}
-      style={{
-        visibility: sortingDirection ? 'visible' : 'hidden',
-        margin: '0 5px',
-        display: 'inline-block',
-      }}
-    />,
+    sortingDirection && (
+      <SortingIndicator
+        key="indicator"
+        direction={sortingDirection}
+        style={{
+          visibility: sortingDirection ? 'visible' : 'hidden',
+          margin: '0 5px',
+          display: 'inline-block',
+        }}
+      />
+    ),
   ];
 
   return (
@@ -42,7 +44,7 @@ export const SortingControl = ({
         display: 'inline-flex',
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
+        maxWidth: '100%',
       }}
     >
       {align === 'right' ? content.reverse() : content}

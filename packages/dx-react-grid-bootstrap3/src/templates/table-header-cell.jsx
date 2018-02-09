@@ -90,8 +90,8 @@ export class TableHeaderCell extends React.PureComponent {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               ...(showSortingControls ? {
-                margin: '-3px',
-                padding: '3px',
+                margin: '-5px',
+                padding: '5px',
               } : null),
             }}
           >

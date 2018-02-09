@@ -150,69 +150,27 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct styles when grouping by click is not allowed and column align is left', () => {
+  it('should have correct styles when column align is left', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
-        showGroupingControls={false}
       />
     ));
-    expect(tree.find('th > div').prop('style'))
+    expect(tree.find('th > div > div').prop('style'))
       .toMatchObject({
         textAlign: 'left',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
       });
   });
 
-  it('should have correct styles when grouping by click is allowed and column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-        marginRight: '14px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
-  });
-
-  it('should have correct styles when grouping by click is not allowed and column align is right', () => {
+  it('should have correct styles when column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
         tableColumn={{ align: 'right' }}
-        showGroupingControls={false}
       />
     ));
-    expect(tree.find('th > div').prop('style'))
+    expect(tree.find('th > div > div').prop('style'))
       .toMatchObject({
         textAlign: 'right',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
-  });
-
-  it('should have correct styles when grouping by click is allowed and column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-        marginLeft: '14px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
       });
   });
 

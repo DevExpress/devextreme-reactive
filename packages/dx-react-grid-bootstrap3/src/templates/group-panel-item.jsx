@@ -40,11 +40,11 @@ export const GroupPanelItem = ({
     if (!isActionKeyDown && !isMouseClick) return;
     onGroup();
   };
-  const groupButtonClasses = classNames({
+  const getButtonClasses = isDisabled => (classNames({
     btn: true,
     'btn-default': true,
-    disabled: !groupingEnabled,
-  });
+    disabled: isDisabled,
+  }));
   return (
     <div
       className={classNames('btn-group', className)}
@@ -56,7 +56,7 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className={groupButtonClasses}
+        className={getButtonClasses(!sortingEnabled)}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
         {...sortingEnabled ? { tabIndex: 0 } : null}
@@ -74,7 +74,7 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className={groupButtonClasses}
+          className={getButtonClasses(!groupingEnabled)}
           onClick={handleUngroup}
         >
           &nbsp;

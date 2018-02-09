@@ -131,15 +131,27 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
   });
 
-  it('should apply the disabled class if grouping is not allowed', () => {
+  it('should apply the disabled class if grouping and sorting are not allowed', () => {
     const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}
-        groupingEnabled={false}
         showGroupingControls
       />
     ));
     const buttons = tree.find('.btn-default.disabled');
     expect(buttons).toHaveLength(2);
+  });
+
+  it('should not apply the disabled class if grouping and sorting are not allowed', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        groupingEnabled
+        sortingEnabled
+        showGroupingControls
+      />
+    ));
+    const buttons = tree.find('.btn-default.disabled');
+    expect(buttons).toHaveLength(0);
   });
 });

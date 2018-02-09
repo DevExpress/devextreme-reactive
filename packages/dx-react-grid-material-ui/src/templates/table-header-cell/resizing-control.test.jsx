@@ -8,7 +8,7 @@ const defaultProps = {
   onWidthChange: () => {},
   onWidthDraft: () => {},
   onWidthDraftCancel: () => {},
-  resizeHandleLineClass: 'test',
+  resizeHandleOpacityClass: 'test',
 };
 
 describe('ResizingControl', () => {

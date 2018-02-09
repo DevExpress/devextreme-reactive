@@ -147,7 +147,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
-            resizeHandleLineClass={classes.resizeHandleLine}
+            resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}
       </TableCell>

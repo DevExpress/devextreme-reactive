@@ -1,6 +1,6 @@
 # React Grid - Filtering
 
-The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.
+The Grid component supports filtering data by a column value programmatically or using the value an end user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.
 
 ## Related Plugins
 
@@ -34,19 +34,25 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 
 .embedded-demo(grid-filtering/custom-filtering-algorithm)
 
+### Disable Filtering by a Column
+
+The [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property allows you to prevent filtering by a specific column.
+
+.embedded-demo(grid-filtering/disable-column-filtering)
+
 ## Remote Filtering
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 
-Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
+Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote filtering, you do not need to use the `IntegratedFiltering` plugin.
+Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
 
 .embedded-demo(grid-filtering/remote-filtering)
 
 ## Customizing Filter Row Appearance
 
-Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, you should also delegate the component's state management to the `TableFilterRow` plugin assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
+Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
 
 .embedded-demo(grid-filtering/custom-filter-row)
 

@@ -9,10 +9,7 @@ export const Root = ({ children, className, ...restProps }) => (
 );
 
 Root.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 

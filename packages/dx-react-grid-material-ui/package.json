@@ -32,6 +32,7 @@
   "files": [
     "dist"
   ],
+  "types": "dist/dx-react-grid-material-ui.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

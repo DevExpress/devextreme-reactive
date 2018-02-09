@@ -13,43 +13,41 @@ A plugin that renders a command column. This column contains controls used for r
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ElementType&lt;[TableEditColumnCellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
-headerCellComponent | ElementType&lt;[TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
-commandComponent | ElementType&lt;[EditCommandProps](#editcommandprops)&gt; | | A component that renders command control within a command cell.
-showAddCommand | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
-showEditCommand | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
-showDeleteCommand | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
-width | number &#124; string | | Specifies the command column's width.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+cellComponent | ComponentType&lt;[TableEditColumn.CellProps](#tableeditcolumncellprops)&gt; | | A component that renders a command cell within a data row.
+headerCellComponent | ComponentType&lt;[TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops)&gt; | | A component that renders a command cell within the header row.
+commandComponent | ComponentType&lt;[TableEditColumn.CommandProps](#tableeditcolumncommandprops)&gt; | | A component that renders command control within a command cell.
+showAddCommand? | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
+showEditCommand? | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
+showDeleteCommand? | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
+width? | number &#124; string | | Specifies the command column's width.
+messages? | [TableEditColumn.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 
-### TableEditColumnCellProps
+### TableEditColumn.CellProps
 
 Describes properties passed to a data row's command cell component.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
 row | any | Specifies an edited table row with the applied changes.
-children? | ReactElement | A React element to be placed in the command cell.
+children? | ReactNode | A React node to be placed in the command cell.
 
-### TableEditColumnHeaderCellProps
+### TableEditColumn.HeaderCellProps
 
 Describes properties passed to a component that renders a command cell within the header row.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-children? | ReactElement | A React element to be placed in the command cell.
+children? | ReactNode | A React node to be placed in the command cell.
 
-### EditCommandProps
+### TableEditColumn.CommandProps
 
 Describes properties passed to a component that renders command control within a command cell.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -58,8 +56,6 @@ text | string | The command action description.
 onExecute | () => void | An event initiating the command execution.
 
 ## Localization Messages
-
-An object with the following shape:
 
 Field | Type | Default | Description
 ------|------|---------|------------
@@ -73,9 +69,9 @@ cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 
 Name | Properties | Description
 -----|------------|------------
-TableEditColumn.Command | [EditCommandProps](#editcommandprops) | A component that renders a command control within a command cell.
-TableEditColumn.Cell | [TableEditColumnCellProps](#tableeditcolumncellprops) | A component that renders a command cell within a data row.
-TableEditColumn.HeaderCell | [TableEditColumnHeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
+TableEditColumn.Command | [TableEditColumn.CommandProps](#tableeditcolumncommandprops) | A component that renders a command control within a command cell.
+TableEditColumn.Cell | [TableEditColumn.CellProps](#tableeditcolumncellprops) | A component that renders a command cell within a data row.
+TableEditColumn.HeaderCell | [TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -95,7 +91,7 @@ cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => 
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `rowChanges` array.
 deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Prepares rows with the specified ID for deletion by adding them to the `deletedRows` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `deletedRowIds` array.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports
 

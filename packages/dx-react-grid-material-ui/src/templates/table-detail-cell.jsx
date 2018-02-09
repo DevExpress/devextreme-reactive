@@ -29,10 +29,7 @@ const TableDetailCellBase = ({
 TableDetailCellBase.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableColumn: PropTypes.object,

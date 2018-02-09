@@ -14,7 +14,6 @@ const defaultDeps = {
   getter: {
     rows: [{ id: 1 }],
     columns: [{ name: 'a' }, { name: 'b' }],
-    filters: [{ columnName: 'column', value: 'value' }],
   },
 };
 
@@ -96,7 +95,7 @@ describe('Searching state', () => {
       .toBeCalledWith(newSearchValue);
   });
 
-  it('should provide filters defined in filters property', () => {
+  it('should provide filter expressions', () => {
     const searchValue = 'abc';
 
     const tree = mount((
@@ -108,10 +107,45 @@ describe('Searching state', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).filters).toEqual([
-      defaultDeps.getter.filters,
-      'AND',
-      [{ columnName: 'a', value: 'abc' }, 'OR', { columnName: 'b', value: 'abc' }],
-    ]);
+    expect(getComputedState(tree).filterExpressions).toEqual({
+      operator: 'or',
+      filters: [
+        { columnName: 'a', value: 'abc' },
+        { columnName: 'b', value: 'abc' },
+      ],
+    });
+  });
+
+  it('should push filter expressions', () => {
+    const searchValue = 'abc';
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            filterExpressions: {
+              operator: 'and',
+              filters: [{ columnName: 'a', value: 'a' }],
+            },
+          },
+        })}
+        <SearchingState searchValue={searchValue} />
+      </PluginHost>));
+
+    expect(getComputedState(tree).filterExpressions).toEqual({
+      operator: 'and',
+      filters: [
+        { operator: 'and', filters: [{ columnName: 'a', value: 'a' }] },
+        {
+          operator: 'or',
+          filters: [
+            { columnName: 'a', value: 'abc' },
+            { columnName: 'b', value: 'abc' },
+          ],
+        },
+      ],
+    });
   });
 });

@@ -186,4 +186,43 @@ describe('FilteringState', () => {
         .toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('filtering expression', () => {
+    it('should provide filter expression', () => {
+      const defaultFilters = [{ columnName: 'a', value: 'a' }];
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState
+            defaultFilters={defaultFilters}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).filterExpressions)
+        .toEqual({ operator: 'and', filters: [{ columnName: 'a', value: 'a' }] });
+    });
+
+    it('should provide filter expression', () => {
+      const defaultFilters = [{ columnName: 'a', value: 'a' }];
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({ ...defaultDeps, getter: { filterExpressions: { operator: 'or', filters: [] } } })}
+          <FilteringState
+            defaultFilters={defaultFilters}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).filterExpressions).toEqual({
+        operator: 'and',
+        filters: [
+          { operator: 'or', filters: [] },
+          { operator: 'and', filters: [{ columnName: 'a', value: 'a' }] },
+        ],
+      });
+    });
+  });
 });

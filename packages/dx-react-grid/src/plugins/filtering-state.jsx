@@ -34,12 +34,24 @@ export class FilteringState extends React.PureComponent {
   }
   render() {
     const { filters } = this.getState();
+    const pushFilterExpressions = ({ filterExpressions }) => {
+      const filterExpr = { operator: 'and', filters };
+      if (!filterExpressions) {
+        return filterExpr;
+      }
+      return {
+        operator: 'and',
+        filters: [filterExpressions, filterExpr],
+      };
+    };
+
 
     return (
       <Plugin
         name="FilteringState"
       >
         <Getter name="filters" value={filters} />
+        <Getter name="filterExpressions" computed={pushFilterExpressions} />
         <Action name="changeColumnFilter" action={this.changeColumnFilter} />
       </Plugin>
     );

@@ -18,26 +18,26 @@ The plugin also allows you to manage a column's sorting and grouping state and i
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ElementType&lt;[TableHeaderCellProps](#tableheadercellprops)&gt; | | A component that renders a header cell.
-rowComponent | ElementType&lt;[TableRowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
-showSortingControls | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
-showGroupingControls | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
-messages | object | | An object that specifies [localization messages](#localization-messages).
+cellComponent | ComponentType&lt;[TableHeaderRow.CellProps](#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
+rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
+showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
+showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
+messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
 
-### TableHeaderCellProps
+### TableHeaderRow.CellProps
 
 Describes properties used to render a table header cell.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with a header cell.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
-onSort | ({ direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
+onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 onGroup | () => void | An event that invokes grouping by the associated column.
 resizingEnabled | boolean | Specifies whether table column resizing is enabled.
@@ -49,8 +49,6 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
@@ -59,8 +57,8 @@ sortingHint? | string | 'Sort' | Specifies the 'Sort' hint's text. Available in 
 
 Name | Properties | Description
 -----|------------|------------
-TableHeaderRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a header row.
-TableHeaderRow.Cell | [TableHeaderCellProps](#tableheadercellprops) | A component that renders a header cell.
+TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
+TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -80,8 +78,8 @@ changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => voi
 draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 cancelTableColumnWidthDraft | Action | () => void | Cancels changes to the column width used for preview.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

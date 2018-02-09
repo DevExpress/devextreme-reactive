@@ -14,13 +14,10 @@ export const GroupPanelContainer = ({ children, ...restProps }) => (
 );
 
 GroupPanelContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 GroupPanelContainer.defaultProps = {
-  children: null,
+  children: undefined,
 };
 

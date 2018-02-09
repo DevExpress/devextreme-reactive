@@ -21,10 +21,7 @@ const TableContainerBase = ({
 );
 
 TableContainerBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

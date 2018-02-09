@@ -21,7 +21,7 @@ export const Checkbox = ({
         checkbox.indeterminate = indeterminate;
       }
     }}
-    onChange={onToggle}
+    onChange={() => onToggle()}
     onClick={e => e.stopPropagation()}
     {...restProps}
   />

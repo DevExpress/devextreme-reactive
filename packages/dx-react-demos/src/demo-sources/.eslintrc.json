@@ -1,6 +1,5 @@
 {
   "rules": {
-    "react/prop-types": "off",
-    "jsx-quotes": "off"
+    "react/prop-types": "off"
   }
 }

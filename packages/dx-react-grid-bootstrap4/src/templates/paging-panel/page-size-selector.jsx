@@ -10,10 +10,9 @@ export const PageSizeSelector = ({
 }) => {
   const showAll = getMessage('showAll');
   return (
-    <div style={{ display: 'inline-block' }}>
+    <div className="d-inline-block">
       <select
         className="form-control d-sm-none"
-        style={{ width: 'auto' }}
         value={pageSize}
         onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
       >
@@ -23,10 +22,7 @@ export const PageSizeSelector = ({
           </option>
         ))}
       </select>
-      <Pagination
-        className="d-none d-sm-flex"
-        style={{ margin: 0 }}
-      >
+      <Pagination className="d-none d-sm-flex m-0">
         {pageSizes.map(item => (
           <PaginationItem key={item} active={item === pageSize && true}>
             <PaginationLink

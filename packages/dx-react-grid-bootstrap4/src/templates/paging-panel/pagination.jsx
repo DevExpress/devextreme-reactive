@@ -29,7 +29,6 @@ const renderPageButtons = (
     pageButtons.push((
       <PaginationItem key={1}>
         <PaginationLink
-          tabIndex={0}
           href="#"
           onClick={e => currentPageChange(e, 0)}
         >
@@ -57,7 +56,6 @@ const renderPageButtons = (
         disabled={startPage === endPage}
       >
         <PaginationLink
-          tabIndex={0}
           href="#"
           onClick={e => currentPageChange(e, page - 1)}
         >
@@ -81,7 +79,6 @@ const renderPageButtons = (
     pageButtons.push((
       <PaginationItem key={totalPageCount}>
         <PaginationLink
-          tabIndex={0}
           href="#"
           onClick={e => currentPageChange(e, totalPageCount - 1)}
         >
@@ -110,13 +107,7 @@ export const Pagination = ({
   };
   return (
     <React.Fragment>
-      <PaginationBS4
-        style={{
-          margin: 0,
-          verticalAlign: 'bottom',
-        }}
-        className="float-right d-none d-sm-flex"
-      >
+      <PaginationBS4 className="float-right d-none d-sm-flex m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous
@@ -134,10 +125,7 @@ export const Pagination = ({
         </PaginationItem>
       </PaginationBS4>
 
-      <PaginationBS4
-        className="float-right d-sm-none"
-        style={{ margin: 0 }}
-      >
+      <PaginationBS4 className="float-right d-sm-none m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous
@@ -154,8 +142,8 @@ export const Pagination = ({
           />
         </PaginationItem>
       </PaginationBS4>
-      <span className="float-right d-sm-none" style={{ marginRight: '20px' }}>
-        <span style={{ display: 'inline-block', verticalAlign: 'middle', lineHeight: '32px' }}>
+      <span className="float-right d-sm-none mr-4">
+        <span className="d-inline-block align-middle">
           {getMessage('info', { from, to, count: totalCount })}
         </span>
       </span>

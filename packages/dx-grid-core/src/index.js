@@ -73,7 +73,7 @@ export * from './plugins/column-chooser/reducers';
 
 export * from './plugins/custom-tree-data/computeds';
 
-export { getColumnExtension } from './utils/column';
+export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column';
 
 export {
   getTableRowColumnsWithColSpan,

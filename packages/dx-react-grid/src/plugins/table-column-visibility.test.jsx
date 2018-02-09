@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn, tableDataColumnsExist } from '@devexpress/dx-grid-core';
+import {
+  visibleTableColumns,
+  getMessagesFormatter,
+  columnChooserItems,
+  toggleColumn,
+  tableDataColumnsExist,
+  getColumnExtensionValueGetter,
+} from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
@@ -12,6 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
   toggleColumn: jest.fn(),
   tableDataColumnsExist: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -35,6 +43,10 @@ const defaultDeps = {
 
 const DefaultEmptyMessage = () => null;
 
+const defaultProps = {
+  emptyMessageComponent: DefaultEmptyMessage,
+};
+
 describe('TableColumnVisibility', () => {
   let resetConsole;
   beforeAll(() => {
@@ -50,6 +62,7 @@ describe('TableColumnVisibility', () => {
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
     tableDataColumnsExist.mockImplementation(() => false);
+    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -62,8 +75,8 @@ describe('TableColumnVisibility', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
+            {...defaultProps}
             hiddenColumnNames={hiddenColumnNames}
-            emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
@@ -78,8 +91,8 @@ describe('TableColumnVisibility', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
+            {...defaultProps}
             defaultHiddenColumnNames={hiddenColumnNames}
-            emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
@@ -94,8 +107,8 @@ describe('TableColumnVisibility', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
+            {...defaultProps}
             hiddenColumnNames={hiddenColumnNames}
-            emptyMessageComponent={DefaultEmptyMessage}
           />
         </PluginHost>
       ));
@@ -111,8 +124,8 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
+          {...defaultProps}
           hiddenColumnNames={hiddenColumnNames}
-          emptyMessageComponent={DefaultEmptyMessage}
         />
       </PluginHost>
     ));
@@ -128,7 +141,7 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
-          emptyMessageComponent={DefaultEmptyMessage}
+          {...defaultProps}
           messages={{
             noColumns: 'Nothing to show',
           }}
@@ -147,8 +160,8 @@ describe('TableColumnVisibility', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableColumnVisibility
+          {...defaultProps}
           hiddenColumnNames={[]}
-          emptyMessageComponent={DefaultEmptyMessage}
           messages={{
             noColumns: 'Nothing to show',
           }}
@@ -159,5 +172,24 @@ describe('TableColumnVisibility', () => {
     executeComputedAction(tree, actions => actions.toggleColumnVisibility(defaultDeps.getter.tableColumns, 'test'));
     expect(toggleColumn)
       .toHaveBeenCalled();
+  });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnVisibility
+            {...defaultProps}
+            columnTogglingEnabled={false}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'togglingEnabled', false);
+    });
   });
 });

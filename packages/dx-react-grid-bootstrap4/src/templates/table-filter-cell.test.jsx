@@ -48,4 +48,13 @@ describe('TableFilterCell', () => {
         width: '40px',
       });
   });
+
+  it('should render readonly filtering editor if filtering is not allowed', () => {
+    const tree = shallow((
+      <TableFilterCell filteringEnabled={false} getMessage={key => key} />
+    ));
+
+    expect(tree.find('input').prop('readOnly'))
+      .toBeTruthy();
+  });
 });

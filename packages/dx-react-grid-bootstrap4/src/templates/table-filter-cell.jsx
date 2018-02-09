@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export const TableFilterCell = ({
   filter, onFilter, children,
   column, tableRow, tableColumn, getMessage,
-  ...restProps
+  filteringEnabled, ...restProps
 }) => (
   <th {...restProps}>
     {children || (
@@ -13,6 +13,7 @@ export const TableFilterCell = ({
         className="form-control"
         value={filter ? filter.value : ''}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
+        readOnly={!filteringEnabled}
       />
     )}
   </th>
@@ -29,6 +30,7 @@ TableFilterCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   getMessage: PropTypes.func,
+  filteringEnabled: PropTypes.bool,
 };
 
 TableFilterCell.defaultProps = {
@@ -39,4 +41,5 @@ TableFilterCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   getMessage: undefined,
+  filteringEnabled: true,
 };

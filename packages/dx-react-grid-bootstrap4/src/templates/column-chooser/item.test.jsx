@@ -116,4 +116,17 @@ describe('Item', () => {
         width: '40px',
       });
   });
+
+  it('should process the disabled prop', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        disabled
+      />
+    ));
+    expect(tree.find('button').prop('disabled'))
+      .toBeTruthy();
+    expect(tree.find('input[type="checkbox"]').prop('disabled'))
+      .toBeTruthy();
+  });
 });

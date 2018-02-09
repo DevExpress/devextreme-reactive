@@ -32,6 +32,7 @@ Field | Type | Description
 filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
 onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
 column | [Column](grid.md#column) | A column.
+filteringEnabled | boolean | Specifies whether filtering by a column is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Localization Messages
@@ -49,7 +50,7 @@ Name | Properties | Description
 TableFilterRow.Cell | [TableFilterCellProps](#tablefiltercellprops) | A component that renders a filter row cell.
 TableFilterRow.Row | [TableRowProps](table.md#tablerowprops) | A component that renders a filter row.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 
@@ -59,6 +60,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
+isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
 changeColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
 tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.

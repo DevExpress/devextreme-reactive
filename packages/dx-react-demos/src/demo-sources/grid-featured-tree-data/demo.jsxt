@@ -1,0 +1,137 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  DataTypeProvider,
+  TreeDataState, SortingState, SelectionState, FilteringState, PagingState,
+  CustomTreeData, IntegratedFiltering, IntegratedPaging, IntegratedSorting, IntegratedSelection,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table, TableHeaderRow, TableFilterRow, TableTreeData,
+  PagingPanel, TableColumnResizing, Toolbar, TableColumnVisibility, ColumnChooser,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import { tasks, employees, priorities } from '../data.json';
+
+const getChildRows = (rows, rootRows) => (
+  (rootRows === rows)
+    ? rootRows.filter(row => row.Task_Parent_ID === 0)
+    : rows)
+  .map(row => ({ row, childRows: rootRows.filter(r => r.Task_Parent_ID === row.Task_ID) }));
+
+const EmployeeFormatter = ({ row }) => (
+  <span>
+    <div
+      style={{
+        display: 'inline-block',
+        background: 'white',
+        borderRadius: '3px',
+        width: '30px',
+        height: '30px',
+        margin: '-8px 8px -8px 0',
+        textAlign: 'center',
+        border: '1px solid rgba(0, 0, 0, 0.2)',
+      }}
+    >
+      <img
+        src={`https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/${employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Picture}`}
+        style={{
+          height: '28px',
+          margin: '0 auto',
+        }}
+        alt="Avatar"
+      />
+    </div>
+    {employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Name}
+  </span>
+);
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'Task_Subject', title: 'Task Subject' },
+        { name: 'Task_Assigned_Employee_ID', title: 'Assigned', getCellValue: row => employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Name },
+        { name: 'Task_Status', title: 'Status' },
+        { name: 'Task_Priority', title: 'Priority', getCellValue: row => priorities.find(p => p.ID === row.Task_Priority).Value },
+        { name: 'Task_Completion', title: '% Completed', getCellValue: row => `${row.Task_Completion}%` },
+        { name: 'Task_Start_Date', title: 'Start Date', getCellValue: row => row.Task_Start_Date.split('T')[0] },
+        { name: 'Task_Due_Date', title: 'Due Date', getCellValue: row => row.Task_Due_Date.split('T')[0] },
+      ],
+      rows: tasks,
+      pageSizes: [5, 10, 20],
+    };
+  }
+  render() {
+    const {
+      rows, columns, pageSizes,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <DataTypeProvider
+            for={['Task_Assigned_Employee_ID']}
+            formatterComponent={EmployeeFormatter}
+          />
+
+          <TreeDataState />
+          <FilteringState />
+          <SortingState />
+          <SelectionState />
+          <PagingState
+            defaultCurrentPage={0}
+            defaultPageSize={pageSizes[1]}
+          />
+
+          <CustomTreeData
+            getChildRows={getChildRows}
+          />
+          <IntegratedFiltering />
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSelection />
+
+          <Table
+            columnExtensions={[
+              { columnName: 'Task_Completion', align: 'right' },
+            ]}
+          />
+          <TableColumnVisibility
+            defaultHiddenColumnNames={['Task_Priority', 'Task_Completion']}
+          />
+          <TableColumnResizing
+            defaultColumnWidths={[
+              { columnName: 'Task_Subject', width: 300 },
+              { columnName: 'Task_Assigned_Employee_ID', width: 180 },
+              { columnName: 'Task_Status', width: 100 },
+              { columnName: 'Task_Priority', width: 100 },
+              { columnName: 'Task_Completion', width: 100 },
+              { columnName: 'Task_Start_Date', width: 120 },
+              { columnName: 'Task_Due_Date', width: 120 },
+            ]}
+          />
+          <TableHeaderRow
+            showSortingControls
+          />
+          <TableFilterRow />
+          <TableTreeData
+            columnName="Task_Subject"
+            showSelectionControls
+          />
+
+          <Toolbar />
+          <ColumnChooser />
+
+          <PagingPanel
+            pageSizes={pageSizes}
+          />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

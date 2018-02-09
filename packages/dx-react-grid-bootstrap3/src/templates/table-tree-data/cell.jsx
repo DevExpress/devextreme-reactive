@@ -10,9 +10,6 @@ export const Cell = ({
 }) => (
   <td
     style={{
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
       textAlign: (tableColumn && tableColumn.align) || 'left',
       ...style,
     }}
@@ -35,6 +32,9 @@ export const Cell = ({
       <div
         style={{
           flex: '1 1 auto',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         {children || value}

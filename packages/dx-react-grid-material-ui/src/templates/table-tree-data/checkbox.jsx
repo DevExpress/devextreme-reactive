@@ -8,8 +8,7 @@ const styles = theme => ({
   checkbox: {
     marginTop: -theme.spacing.unit,
     marginBottom: -theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    marginLeft: -theme.spacing.unit,
+    marginRight: theme.spacing.unit * 2,
   },
 });
 

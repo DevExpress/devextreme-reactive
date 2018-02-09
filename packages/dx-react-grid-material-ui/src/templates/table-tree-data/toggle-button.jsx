@@ -11,12 +11,12 @@ const styles = theme => ({
   button: {
     marginTop: -theme.spacing.unit,
     marginBottom: -theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: -theme.spacing.unit,
   },
   placeholder: {
     display: 'inline-block',
     width: theme.spacing.unit * 6,
-    marginRight: theme.spacing.unit,
+    marginLeft: -theme.spacing.unit,
   },
 });
 

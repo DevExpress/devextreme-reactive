@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import {
   Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import {} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'TreeDataState' },
@@ -31,6 +30,7 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
 export class TableTreeData extends React.PureComponent {
   render() {
     const {
+      columnName: forColumnName,
       showSelectionControls,
       indentComponent: Indent,
       toggleButtonComponent: ToggleButton,
@@ -45,7 +45,7 @@ export class TableTreeData extends React.PureComponent {
         <Getter name="tableBodyRows" computed={(tableBodyRowsComputed)} />
         <Template
           name="tableHeaderCellBefore"
-          predicate={({ column }) => column.name === 'name'}
+          predicate={({ column }) => column.name === (forColumnName || 'name')}
         >
           <ToggleButton
             disabled
@@ -65,7 +65,7 @@ export class TableTreeData extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === 'name'}
+          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === (forColumnName || 'name')}
         >
           {params => (
             <TemplateConnector>
@@ -102,7 +102,8 @@ export class TableTreeData extends React.PureComponent {
                                     level={level}
                                   />
                                   <ToggleButton
-                                    visible={collapsedRows ? !!collapsedRows.length : !isLeafRow(row)}
+                                    visible={collapsedRows
+                                      ? !!collapsedRows.length : !isLeafRow(row)}
                                     expanded={expandedRowIds.indexOf(rowId) > -1}
                                     onToggle={() =>
                                       toggleRowExpanded({ rowId })}
@@ -137,6 +138,7 @@ export class TableTreeData extends React.PureComponent {
 }
 
 TableTreeData.propTypes = {
+  columnName: PropTypes.string.isRequired,
   showSelectionControls: PropTypes.bool,
   indentComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,

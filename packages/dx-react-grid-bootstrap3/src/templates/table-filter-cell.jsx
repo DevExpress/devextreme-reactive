@@ -30,10 +30,7 @@ TableFilterCell.propTypes = {
   style: PropTypes.object,
   filter: PropTypes.object,
   onFilter: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   column: PropTypes.object,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,

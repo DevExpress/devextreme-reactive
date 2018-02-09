@@ -24,10 +24,7 @@ const ToolbarBase = ({
 );
 
 ToolbarBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,

@@ -30,7 +30,7 @@ TableSelectRow.propTypes = {
 };
 
 TableSelectRow.defaultProps = {
-  children: null,
+  children: undefined,
   onToggle: () => {},
   selected: false,
   selectByRowClick: false,

@@ -53,10 +53,7 @@ EditCellBase.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 

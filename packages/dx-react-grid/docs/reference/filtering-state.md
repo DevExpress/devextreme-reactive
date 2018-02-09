@@ -12,19 +12,17 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters | Array&lt;[Filter](#filter)&gt; | | Specifies the applied filters.
-defaultFilters | Array&lt;[Filter](#filter)&gt; | [] | Specifies the filters initially applied in the uncontrolled mode.
-onFiltersChange | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes.
-columnFilteringEnabled | boolean | true | Specifies whether filtering is enabled for all columns.
-columnExtensions | Array&lt;[FilteringStateColumnExtension](#filteringstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+filters? | Array&lt;[Filter](#filter)&gt; | | Specifies the applied filters.
+defaultFilters? | Array&lt;[Filter](#filter)&gt; | [] | Specifies the filters initially applied in the uncontrolled mode.
+onFiltersChange? | (filters: Array&lt;[Filter](#filter)&gt;) => void | | Handles filter changes.
+columnFilteringEnabled? | boolean | true | Specifies whether filtering is enabled for all columns.
+columnExtensions? | Array&lt;[FilteringStateColumnExtension](#filteringstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
 ### Filter
 
 Describes a filter.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

@@ -57,10 +57,7 @@ TableGroupCell.propTypes = {
   column: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };

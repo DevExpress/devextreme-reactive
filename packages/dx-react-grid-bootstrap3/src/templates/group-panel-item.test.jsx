@@ -78,6 +78,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onGroup={onGroup}
         showGroupingControls
+        groupingEnabled
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -128,5 +129,17 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
+  });
+
+  it('should apply the disabled class if grouping is not allowed', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        groupingEnabled={false}
+        showGroupingControls
+      />
+    ));
+    const buttons = tree.find('.btn-default.disabled');
+    expect(buttons).toHaveLength(2);
   });
 });

@@ -33,12 +33,18 @@ export const GroupPanelItem = ({
     });
   };
   const handleUngroup = (e) => {
+    if (!groupingEnabled) return;
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
     if (!isActionKeyDown && !isMouseClick) return;
     onGroup();
   };
+  const groupButtonClasses = classNames({
+    btn: true,
+    'btn-default': true,
+    disabled: !groupingEnabled,
+  });
   return (
     <div
       className={classNames('btn-group', className)}
@@ -50,7 +56,7 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className="btn btn-default"
+        className={groupButtonClasses}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
         {...sortingEnabled ? { tabIndex: 0 } : null}
@@ -68,7 +74,7 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className="btn btn-default"
+          className={groupButtonClasses}
           onClick={handleUngroup}
         >
           &nbsp;

@@ -2,12 +2,13 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { changeColumnFilter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { FilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -28,6 +29,7 @@ describe('FilteringState', () => {
 
   beforeEach(() => {
     changeColumnFilter.mockImplementation(() => []);
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -184,6 +186,24 @@ describe('FilteringState', () => {
 
       expect(filtersChange)
         .toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValueGetter', () => {
+      const columnExtensions = [{ columnName: 'a', filteringEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState
+            columnFilteringEnabled={false}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'filteringEnabled', false);
     });
   });
 });

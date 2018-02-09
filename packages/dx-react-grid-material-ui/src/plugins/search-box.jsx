@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { SearchBox as SearchBoxBase } from '@devexpress/dx-react-grid';
 import { SearchBoxInput } from '../templates/search-box-input';
 

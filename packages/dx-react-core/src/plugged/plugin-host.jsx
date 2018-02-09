@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { Template } from './template';
@@ -32,14 +32,11 @@ export class PluginHost extends React.PureComponent {
 }
 
 PluginHost.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 PluginHost.defaultProps = {
-  children: null,
+  children: undefined,
 };
 
 PluginHost.childContextTypes = {

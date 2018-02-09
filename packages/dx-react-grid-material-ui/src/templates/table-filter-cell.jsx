@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
+const styles = ({ spacing }) => ({
   cell: {
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    paddingRight: spacing.unit,
+    paddingLeft: spacing.unit,
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: spacing.unit * 3,
     },
   },
   input: {
@@ -21,7 +21,7 @@ const styles = theme => ({
 const TableFilterCellBase = ({
   style, filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column,
+  tableRow, tableColumn, column, filteringEnabled,
   ...restProps
 }) => (
   <TableCell
@@ -34,6 +34,7 @@ const TableFilterCellBase = ({
         className={classes.input}
         value={filter ? filter.value : ''}
         placeholder={getMessage('filterPlaceholder')}
+        disabled={!filteringEnabled}
         onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
       />
     )}
@@ -45,15 +46,13 @@ TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
   onFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   column: PropTypes.object,
+  filteringEnabled: PropTypes.bool,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -65,6 +64,7 @@ TableFilterCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   column: undefined,
+  filteringEnabled: true,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -57,10 +57,7 @@ TableGroupCell.propTypes = {
   column: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };

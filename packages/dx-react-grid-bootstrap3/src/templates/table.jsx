@@ -1,7 +1,7 @@
 /* globals document:true window:true */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
@@ -71,10 +71,7 @@ export class Table extends React.Component {
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head']),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Table.defaultProps = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ColumnChooser as ColumnChooserBase } from '@devexpress/dx-react-grid';
 import { Overlay } from '../templates/column-chooser/overlay';
 import { Container } from '../templates/column-chooser/container';

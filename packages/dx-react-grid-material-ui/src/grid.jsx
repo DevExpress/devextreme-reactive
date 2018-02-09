@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Grid as GridBase } from '@devexpress/dx-react-grid';
 import { Root } from './templates/layout';
 
@@ -15,9 +15,6 @@ export const Grid = ({ children, ...props }) => (
 Grid.Root = Root;
 
 Grid.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
 const styles = {
@@ -21,10 +21,7 @@ const TableContainerBase = ({
 );
 
 TableContainerBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 export const TableDetailCell = ({
   colSpan,
@@ -23,10 +23,7 @@ export const TableDetailCell = ({
 TableDetailCell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,

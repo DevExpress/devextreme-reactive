@@ -5,6 +5,7 @@ const mustache = require('mustache');
 const THEMES_FOLDER = './src/theme-sources';
 const DEMOS_FOLDER = './src/demo-sources';
 const JSX_EXT = 'jsx';
+const TSX_EXT = 'tsx';
 const TEMPLATE_EXT_POSTFIX = 't';
 const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
 const TEST_FILE = 'demo.test.jsxt';
@@ -31,6 +32,12 @@ const cancelFileRemoving = (filename) => {
 const removePendingFiles = () => {
   filesToRemove.forEach(file => fs.unlinkSync(file));
 };
+const getDemoExtension = (source) => {
+  const nameReplaceRegex = new RegExp(`\\.(${JSX_EXT}|${TSX_EXT})`);
+  const extensionMatches = nameReplaceRegex.exec(source);
+  if (extensionMatches === null) return null;
+  return extensionMatches[1];
+};
 
 const demos = [];
 const loadDemosToGenerate = () => {
@@ -46,20 +53,23 @@ const loadDemosToGenerate = () => {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
             }
-            const demoName = nestedFile.replace(`.${JSX_EXT}`, '');
+            const demoExtension = getDemoExtension(nestedFile);
+            const demoName = nestedFile.replace(`.${demoExtension}`, '');
             demos.push({
               sectionName,
               demoName,
               themeName: file,
               generateTest: true,
               generateSsrTest,
+              demoExtension,
             });
           });
         }
-        if (file.endsWith(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`)) {
-          const demoName = file.replace(`.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`, '');
+        const demoExtension = getDemoExtension(file);
+        if (demoExtension && file.endsWith(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`)) {
+          const demoName = file.replace(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`, '');
           themeNames.forEach((themeName) => {
-            if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.jsx`))) {
+            if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.${demoExtension}`))) {
               return;
             }
             demos.push({
@@ -69,6 +79,7 @@ const loadDemosToGenerate = () => {
               generateDemo: true,
               generateTest: true,
               generateSsrTest,
+              demoExtension,
             });
           });
         }
@@ -94,7 +105,7 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
 };
 const generateDemos = () => {
   demos.forEach(({
-    sectionName, demoName, themeName, generateDemo, generateTest, generateSsrTest,
+    sectionName, demoName, demoExtension, themeName, generateDemo, generateTest, generateSsrTest,
   }) => {
     const demoSourceData = {
       themeName,
@@ -109,8 +120,8 @@ const generateDemos = () => {
 
     if (generateDemo) {
       createFromTemplate(
-        path.join(DEMOS_FOLDER, sectionName, `${demoName}.${JSX_EXT}${TEMPLATE_EXT_POSTFIX}`),
-        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.${JSX_EXT}`),
+        path.join(DEMOS_FOLDER, sectionName, `${demoName}.${demoExtension}${TEMPLATE_EXT_POSTFIX}`),
+        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.${demoExtension}`),
         demoSourceData,
       );
     }
@@ -118,7 +129,7 @@ const generateDemos = () => {
     if (generateTest) {
       createFromTemplate(
         path.join(DEMOS_FOLDER, TEST_FILE),
-        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.test.${JSX_EXT}`),
+        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.test.${demoExtension}`),
         demoSourceData,
       );
     }
@@ -126,7 +137,7 @@ const generateDemos = () => {
     if (generateSsrTest) {
       createFromTemplate(
         path.join(DEMOS_FOLDER, SSR_TEST_FILE),
-        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.ssr${GENERATED_SUFFIX}.test.${JSX_EXT}`),
+        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.ssr${GENERATED_SUFFIX}.test.${demoExtension}`),
         demoSourceData,
       );
     }
@@ -153,8 +164,8 @@ const generateDemoRegistry = () => {
   const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
     const demosString = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
       const themesString = structuredDemos[sectionName][demoName]
-        .reduce((themesAcc, { themeName, generateDemo }) => {
-          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.jsx`;
+        .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
+          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
           return `${themesAcc}\n${indent(`'${themeName}': {\n` +
           `  demo: require('.${fileName}').default,\n` +

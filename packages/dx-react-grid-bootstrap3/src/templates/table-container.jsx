@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export const TableContainer = ({ children, ...restProps }) => (
   <div
@@ -16,8 +16,5 @@ export const TableContainer = ({ children, ...restProps }) => (
 );
 
 TableContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 };

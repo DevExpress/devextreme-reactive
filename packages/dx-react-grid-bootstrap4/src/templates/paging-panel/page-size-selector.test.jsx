@@ -5,23 +5,17 @@ import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
   describe('#render', () => {
-    const shallowPageSizeSelector = ({
-      pageSize,
-      pageSizes,
-      getMessage = key => key,
-      onPageSizeChange = () => {},
-    }) => shallow(<PageSizeSelector
-      pageSize={pageSize}
-      pageSizes={pageSizes}
-      getMessage={getMessage}
-      onPageSizeChange={onPageSizeChange}
-    />);
+    const defaultProps = {
+      pageSize: 10,
+      pageSizes: [5, 10],
+      getMessage: key => key,
+      onPageSizeChange: () => undefined,
+    };
 
     it('can show info about page sizes', () => {
-      const tree = shallowPageSizeSelector({
-        pageSize: 10,
-        pageSizes: [5, 10],
-      });
+      const tree = shallow(<PageSizeSelector
+        {...defaultProps}
+      />);
 
       const mobileSelector = tree.find('select');
       const desktopSelector = tree.find(Pagination);
@@ -45,10 +39,10 @@ describe('PageSizeSelector', () => {
     });
 
     it('can render the "All" item', () => {
-      const tree = shallowPageSizeSelector({
-        pageSize: 10,
-        pageSizes: [5, 10, 0],
-      });
+      const tree = shallow(<PageSizeSelector
+        {...defaultProps}
+        pageSizes={[5, 10, 0]}
+      />);
 
       const mobileSelector = tree.find('select');
       const mobileSelectorItems = mobileSelector.find('option');
@@ -63,11 +57,11 @@ describe('PageSizeSelector', () => {
 
     it('can handle the \'onPageSizeChange\' event', () => {
       const onPageSizeChange = jest.fn();
-      const tree = shallowPageSizeSelector({
-        pageSize: 5,
-        pageSizes: [5, 10],
-        onPageSizeChange,
-      });
+      const tree = shallow(<PageSizeSelector
+        {...defaultProps}
+        pageSizes={[5, 10, 0]}
+        onPageSizeChange={onPageSizeChange}
+      />);
 
       const mobileSelector = tree.find('select');
       const desktopSelector = tree.find(Pagination);

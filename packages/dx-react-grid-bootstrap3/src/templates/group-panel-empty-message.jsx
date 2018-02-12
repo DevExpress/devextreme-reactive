@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const GroupPanelEmptyMessage = ({ getMessage, ...restProps }) => (
+export const GroupPanelEmptyMessage = ({ getMessage, style, ...restProps }) => (
   <div
     style={{
       padding: '7px 0',
+      ...style,
     }}
     {...restProps}
   >
@@ -14,4 +15,9 @@ export const GroupPanelEmptyMessage = ({ getMessage, ...restProps }) => (
 
 GroupPanelEmptyMessage.propTypes = {
   getMessage: PropTypes.func.isRequired,
+  style: PropTypes.object,
+};
+
+GroupPanelEmptyMessage.defaultProps = {
+  style: null,
 };

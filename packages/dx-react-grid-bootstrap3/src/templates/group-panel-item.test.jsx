@@ -155,4 +155,18 @@ describe('GroupPanelItem', () => {
     const buttons = tree.find('.btn-default.disabled');
     expect(buttons).toHaveLength(0);
   });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.find('div').prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
 });

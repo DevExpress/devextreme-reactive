@@ -34,7 +34,7 @@ TableStubCellBase.propTypes = {
 };
 
 TableStubCellBase.defaultProps = {
-  style: {},
+  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,

@@ -12,7 +12,7 @@ export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls, groupingEnabled,
   showSortingControls, sortingDirection, onSort, sortingEnabled,
-  className,
+  className, style,
   ...restProps
 }) => {
   const handleSortingChange = (e) => {
@@ -52,6 +52,7 @@ export const GroupPanelItem = ({
         marginRight: '5px',
         marginBottom: '5px',
         ...draft ? { opacity: 0.3 } : null,
+        ...style,
       }}
       {...restProps}
     >
@@ -106,6 +107,7 @@ GroupPanelItem.propTypes = {
   groupingEnabled: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   sortingEnabled: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 GroupPanelItem.defaultProps = {
@@ -117,4 +119,5 @@ GroupPanelItem.defaultProps = {
   showGroupingControls: false,
   sortingEnabled: false,
   groupingEnabled: false,
+  style: null,
 };

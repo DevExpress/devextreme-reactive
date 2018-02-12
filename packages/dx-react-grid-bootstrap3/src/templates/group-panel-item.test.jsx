@@ -47,6 +47,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         sortingEnabled
+        showSortingControls
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -96,6 +97,7 @@ describe('GroupPanelItem', () => {
         onSort={onSort}
         item={{ column: { name: 'test' } }}
         sortingEnabled
+        showSortingControls
       />
     ));
 
@@ -150,6 +152,7 @@ describe('GroupPanelItem', () => {
         groupingEnabled
         sortingEnabled
         showGroupingControls
+        showSortingControls
       />
     ));
     const buttons = tree.find('.btn-default.disabled');

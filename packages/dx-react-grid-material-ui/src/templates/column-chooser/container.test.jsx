@@ -9,7 +9,6 @@ describe('Container', () => {
         data={{ a: 1 }}
       >
         <div />
-        <div />
       </Container>
     ));
 

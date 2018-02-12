@@ -1,4 +1,4 @@
-const mergeWithUnique = (arr1, arr2) => [...new Set([...arr1, ...arr2])];
+const unique = arr => [...new Set(arr)];
 
 export const getColumnSortingDirection = (sorting, columnName) => {
   const columnSorting = sorting.filter(s => s.columnName === columnName)[0];
@@ -20,6 +20,6 @@ export const culculateKeepOther = (sorting, keepOther, persistentSortedColumns =
   if (!keepOther) return persistentSortedColumns;
 
   return Array.isArray(keepOther)
-    ? mergeWithUnique(keepOther, persistentSortedColumns)
-    : mergeWithUnique(sorting.map(item => item.columnName), persistentSortedColumns);
+    ? unique([...keepOther, ...persistentSortedColumns])
+    : unique([...sorting.map(item => item.columnName), ...persistentSortedColumns]);
 };

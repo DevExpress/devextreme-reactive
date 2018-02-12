@@ -12,17 +12,17 @@ A plugin that manages Grid columns' visibility.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-hiddenColumnNames | Array&lt;string&gt; | | Hidden column names.
-defaultHiddenColumnNames | Array&lt;string&gt; | [] | Names of initially hidden columns in the uncontrolled mode.
-columnTogglingEnabled | boolean | true | Specifies whether an end-user can change column visibility.
-columnExtensions | Array&lt;[TableColumnVisibilityColumnExtension](#tablecolumnvisibilitycolumnextension)&gt; | | Additional column properties that the plugin can handle.
-onHiddenColumnNamesChange | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
-emptyMessageComponent | ElementType&lt;[EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
-messages | object | | An object that specifies [localization messages](#localization-messages).
+hiddenColumnNames? | Array&lt;string&gt; | | Hidden column names.
+defaultHiddenColumnNames? | Array&lt;string&gt; | [] | Names of initially hidden columns in the uncontrolled mode.
+columnTogglingEnabled? | boolean | true | Specifies whether an end-user can change column visibility.
+columnExtensions? | Array&lt;[TableColumnVisibilityColumnExtension](#tablecolumnvisibilitycolumnextension)&gt; | | Additional column properties that the plugin can handle.
+onHiddenColumnNamesChange? | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
+emptyMessageComponent | ComponentType&lt;[TableColumnVisibility.EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
+messages? | [TableColumnVisibility.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
 
-### EmptyMessageProps
+### TableColumnVisibility.EmptyMessageProps
 
 Describes the empty message component's properties.
 
@@ -41,8 +41,6 @@ togglingEnabled | boolean | Specifies whether an end-user can change column visi
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 noColumns? | string | 'Nothing to show' | Specifies the text that is displayed when the plugin does not contain visible columns.
@@ -51,7 +49,7 @@ noColumns? | string | 'Nothing to show' | Specifies the text that is displayed w
 
 Name | Properties | Description
 -----|------------|------------
-TableColumnVisibility.EmptyMessage | [EmptyMessageProps](#emptymessageprops) | A component that renders a message displayed when all columns are hidden.
+TableColumnVisibility.EmptyMessage | [TableColumnVisibility.EmptyMessageProps](#emptymessageprops) | A component that renders a message displayed when all columns are hidden.
 
 Additional properties are added to the component's root element.
 

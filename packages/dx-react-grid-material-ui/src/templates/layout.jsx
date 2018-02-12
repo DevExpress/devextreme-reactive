@@ -6,10 +6,7 @@ export const Root = ({ children, ...restProps }) => (
 );
 
 Root.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
 };
 
 Root.defaultProps = {

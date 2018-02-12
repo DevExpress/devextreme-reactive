@@ -20,10 +20,7 @@ export const TableDetailCell = ({
 
 TableDetailCell.propTypes = {
   colSpan: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,

@@ -43,10 +43,7 @@ ContainerBase.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,

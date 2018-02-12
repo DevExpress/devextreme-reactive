@@ -46,10 +46,7 @@ TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
   onFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,

@@ -50,10 +50,7 @@ export const EditCommandHeadingCell = ({
 );
 
 EditCommandHeadingCell.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -86,10 +83,7 @@ export const EditCommandCell = ({
 );
 
 EditCommandCell.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,

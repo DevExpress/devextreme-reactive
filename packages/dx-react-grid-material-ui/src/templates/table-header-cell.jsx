@@ -30,6 +30,27 @@ const styles = theme => ({
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
     },
+    '&:hover $resizeHandleLine': {
+      opacity: 1,
+    },
+  },
+  resizeHandleLine: {
+    opacity: 0,
+  },
+  '@media (pointer: fine)': {
+    resizeHandleLine: {
+      opacity: 0,
+    },
+    resizeHandleActive: {
+      '& $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
+    resizeHandle: {
+      '&:hover $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
   },
   cellNoUserSelect: {
     userSelect: 'none',
@@ -126,6 +147,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}
       </TableCell>

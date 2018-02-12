@@ -51,9 +51,9 @@ Template.propTypes = {
 };
 
 Template.defaultProps = {
-  predicate: null,
-  children: null,
-  position: null,
+  predicate: undefined,
+  children: undefined,
+  position: undefined,
 };
 
 Template.contextTypes = {

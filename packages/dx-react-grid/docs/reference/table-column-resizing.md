@@ -12,17 +12,15 @@ A plugin that manages table column widths.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | | Specifies column widths.
-defaultColumnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
-onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
+columnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | | Specifies column widths.
+defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
+onColumnWidthsChange? | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
 
 ## Interfaces
 
-### ColumnWidthInfo
+### TableColumnWidthInfo
 
 Describes an object that specifies a column width.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------

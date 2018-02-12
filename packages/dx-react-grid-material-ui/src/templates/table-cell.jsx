@@ -42,10 +42,7 @@ TableCellBase.propTypes = {
   column: PropTypes.object,
   row: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,

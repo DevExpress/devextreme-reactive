@@ -74,10 +74,7 @@ const EditCommandHeadingCellBase = ({
 );
 
 EditCommandHeadingCellBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -87,7 +84,7 @@ EditCommandHeadingCellBase.propTypes = {
 
 EditCommandHeadingCellBase.defaultProps = {
   children: undefined,
-  style: {},
+  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
@@ -113,10 +110,7 @@ const EditCommandCellBase = ({
 );
 
 EditCommandCellBase.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -126,7 +120,7 @@ EditCommandCellBase.propTypes = {
 
 EditCommandCellBase.defaultProps = {
   children: undefined,
-  style: {},
+  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,

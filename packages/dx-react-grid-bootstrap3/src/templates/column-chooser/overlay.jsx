@@ -2,11 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Overlay as OverlayBS3 } from 'react-bootstrap';
 
-const Popover = ({ children, style }) => (
+const Popover = ({ children }) => (
   <div
     className="dropdown-menu"
     style={{
-      ...style,
       padding: 0,
       display: 'block',
       border: 'none',
@@ -18,11 +17,6 @@ const Popover = ({ children, style }) => (
 
 Popover.propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.object,
-};
-
-Popover.defaultProps = {
-  style: undefined,
 };
 
 export const Overlay = ({

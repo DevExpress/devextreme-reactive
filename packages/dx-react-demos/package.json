@@ -16,24 +16,32 @@
     "build:generator": "node generate-demos.js",
     "build": "yarn run build:generator && webpack --env",
     "build:prod": "yarn run build:generator && webpack --env.production",
-    "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*.jsxt\" --watch \"src/demo-sources/*/*/*.jsx\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json",
+    "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
     "build:watch": "concurrently \"yarn run build:watch:generator\" \"webpack-dev-server --env\"",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },
   "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
     },
+    "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx"],
     "setupFiles": [
       "<rootDir>/setup-enzyme.js"
-    ]
+    ],
+    "testMatch": ["**/*.test.(ts|tsx|js|jsx)"]
   },
   "dependencies": {
     "@devexpress/dx-react-core": "1.0.0",
     "@devexpress/dx-react-grid": "1.0.0",
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0",
     "@devexpress/dx-react-grid-material-ui": "1.0.0",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
     "core-js": "^2.5.3",
     "material-ui": "1.0.0-beta.31",
     "material-ui-icons": "1.0.0-beta.17",
@@ -51,6 +59,8 @@
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.0.0",
+    "@types/jest": "^22.1.1",
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",
@@ -77,6 +87,8 @@
     "react-test-renderer": "^16.2.0",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.1",
+    "ts-jest": "^22.0.3",
+    "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1",
     "write-file-webpack-plugin": "^4.2.0"

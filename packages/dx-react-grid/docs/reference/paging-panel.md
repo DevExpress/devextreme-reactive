@@ -12,17 +12,15 @@ A plugin that renders the paging panel used for navigation through data pages.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerComponent | ElementType&lt;[ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
-pageSizes | Array&lt;number&gt; | [] | The page sizes that a user can select.
-messages | object | | An object that specifies the [localization messages](#localization-messages).
+containerComponent | ComponentType&lt;[PagingPanel.ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
+pageSizes? | Array&lt;number&gt; | [] | The page sizes that a user can select.
+messages? | [PagingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
 
-### ContainerProps
+### PagingPanel.ContainerProps
 
 Describes the container component properties.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -36,19 +34,17 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ## Localization Messages
 
-An object with the following shape:
-
 Field | Type | Default | Description
 ------|------|---------|------------
 showAll? | string | 'All' | Specifies the page size selector's 'All' item text.
 rowsPerPage? | string | 'Rows per page:' | Specifies the 'Rows per page' label's text. Available in the "@devexpress/dx-react-grid-material-ui" package.
-info? | string &#124; ({ from: number, to: number, count: number }) => string | {from}-{to} of {count} | Specifies the 'Row count' text template.
+info? | (parameters: { from: number, to: number, count: number }) => string &#124; string | {from}-{to} of {count} | Specifies the 'Row count' text template.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-PagingPanel.Container | [ContainerProps](#containerprops) | A component that renders the paging panel.
+PagingPanel.Container | [PagingPanel.ContainerProps](#containerprops) | A component that renders the paging panel.
 
 If you specify additional properties, they are added to the component's root element.
 

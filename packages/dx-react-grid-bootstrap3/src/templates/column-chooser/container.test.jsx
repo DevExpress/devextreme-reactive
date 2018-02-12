@@ -9,7 +9,6 @@ describe('Container', () => {
         className="custom-class"
       >
         <div />
-        <div />
       </Container>
     ));
 
@@ -24,7 +23,6 @@ describe('Container', () => {
       <Container
         data={{ a: 1 }}
       >
-        <div />
         <div />
       </Container>
     ));

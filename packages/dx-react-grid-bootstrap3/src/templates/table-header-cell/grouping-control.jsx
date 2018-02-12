@@ -24,7 +24,7 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
           fontSize: '9px',
           margin: '-5px',
           padding: '5px',
-          ...(!disabled ? { cursor: 'pointer' } : { opacity: 0.5 }),
+          ...(!disabled ? { cursor: 'pointer' } : { opacity: 0.3 }),
         }}
       />
     </div>

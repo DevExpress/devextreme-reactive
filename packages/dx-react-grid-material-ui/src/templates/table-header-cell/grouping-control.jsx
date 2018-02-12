@@ -12,7 +12,7 @@ export const styles = theme => ({
   },
   disabledGroupingControl: {
     cursor: 'default',
-    opacity: 0.5,
+    opacity: 0.3,
   },
   floatLeft: {
     float: 'left',

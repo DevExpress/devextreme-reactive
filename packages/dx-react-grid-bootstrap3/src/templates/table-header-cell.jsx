@@ -49,17 +49,18 @@ export class TableHeaderCell extends React.PureComponent {
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
+    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         style={{
           position: 'relative',
-          ...(sortingEnabled || draggingEnabled ? {
+          ...(isCellInteractive ? {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
           } : null),
-          ...(sortingEnabled || draggingEnabled ? { cursor: 'pointer' } : null),
+          ...(isCellInteractive ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           padding: '5px',
           ...style,

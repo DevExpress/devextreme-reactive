@@ -62,6 +62,7 @@ describe('TableHeaderCell', () => {
       <TableHeaderCell
         column={{ name: 'a' }}
         sortingEnabled
+        showSortingControls
       />
     ));
 

@@ -8,8 +8,7 @@ const {
 const { join } = require('path');
 
 const ROOT_PATH = join(process.cwd(), 'packages');
-const PACKAGE_PATH = join(ROOT_PATH, 'dx-react-grid');
-const SOURCE_PATH = join(PACKAGE_PATH, 'docs/reference');
+const SOURCE_FOLDER = 'docs/reference';
 const TARGET_FOLDER = 'dist';
 const PLUGINS_FOLDER = 'plugins';
 
@@ -39,6 +38,11 @@ const getFormattedLine = (line, level = 1) => {
   return `${indent}/** ${elements[descriptionIndex]} */\n${indent}${elements[0]}: ${elements[1]};\n`;
 };
 
+const getBlockEnd = (source) => {
+  const end = source.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0);
+  return end === -1 ? source.length : end;
+};
+
 const parseFile = (source) => {
   let description = cleanElement(source
     .slice(1, source.findIndex(el => el.indexOf('## ') === 0))
@@ -46,12 +50,12 @@ const parseFile = (source) => {
 
   let propertiesBlock = source.slice(source.indexOf('### Properties') + 1);
   propertiesBlock = propertiesBlock
-    .slice(0, propertiesBlock.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0))
+    .slice(0, getBlockEnd(propertiesBlock))
     .filter(element => element !== 'none');
 
   let interfacesBlock = source.slice(source.indexOf('## Interfaces') + 1);
   interfacesBlock = interfacesBlock
-    .slice(0, interfacesBlock.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0))
+    .slice(0, getBlockEnd(interfacesBlock))
     .reduce((acc, line) => {
       const nameMatches = /^###\s([\w.]+)/.exec(line);
       const name = nameMatches && nameMatches[1];
@@ -175,73 +179,80 @@ const getThemesTypeScript = (data, componentName) => {
     + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
 };
 
-let indexContent = 'import * as React from \'react\';\n';
-let themesIndexContent = '';
-const themesImports = [];
-const themes = readdirSync(ROOT_PATH)
-  .filter(folder => folder.indexOf('dx-react-grid-') !== -1)
-  .map((folder) => {
-    const matches = /dx-react-grid-([\w-]+)/.exec(folder);
-    return matches[1];
-  });
-
-readdirSync(SOURCE_PATH).forEach((file) => {
-  const targetFileName = file.split('.')[0];
-  const componentName = getComponentName(file);
-  const fileContent = String(readFileSync(join(SOURCE_PATH, file)))
-    .split('\n')
-    .filter(line => !!line && !/^(-+|Name|Field)\s?\|/.test(line));
-  const fileData = parseFile(fileContent);
-
-  indexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
-  indexContent += generateTypeScript(fileData, componentName);
-
-  const themeFile = join((file.indexOf('grid') === -1 ? PLUGINS_FOLDER : ''), targetFileName);
-  const targetThemeFolder = join(ROOT_PATH, `dx-react-grid-${themes[0]}`, 'src');
-  if (existsSync(join(targetThemeFolder, `${themeFile}.jsx`))) {
-    fileData.properties
-      .reduce((acc, line) => {
-        const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
-        if (matches !== null && matches[1] !== componentName
-          && matches[1] !== 'Table' && acc.indexOf(matches[1]) === -1) {
-          acc.push(matches[1]);
-        }
-        return acc;
-      }, [])
-      .forEach((element) => {
-        if (themesImports.indexOf(element) === -1) {
-          themesImports.push(element);
-        }
-      });
-
-    themesIndexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
-    themesIndexContent += getThemesTypeScript(fileData, componentName);
-  }
-});
-
-themesIndexContent = 'import * as React from \'react\';\n'
-  + 'import {\n'
-  + `  ${themesImports.join(',\n  ')}`
-  + '\n} from \'@devexpress/dx-react-grid\';\n'
-  + `${themesIndexContent}`;
-
 const ensureDirectory = (dir) => {
   if (!existsSync(dir)) {
     mkdirSync(dir);
   }
 };
 
-console.log('Building TypeScript definitions for \'dx-react-grid\'.');
-const distFolder = join(PACKAGE_PATH, TARGET_FOLDER);
-ensureDirectory(distFolder);
-writeFileSync(join(distFolder, 'dx-react-grid.d.ts'), indexContent);
+const generateTypeScriptForPackage = (packageName) => {
+  let indexContent = 'import * as React from \'react\';\n';
+  let themesIndexContent = '';
+  const themesImports = [];
+  const themes = readdirSync(ROOT_PATH)
+    .filter(folder => folder.indexOf(`${packageName}-`) !== -1)
+    .map((folder) => {
+      const matches = new RegExp(`${packageName}-([\\w-]+)`).exec(folder);
+      return matches[1];
+    });
 
-themes.forEach((theme) => {
-  console.log(`Building TypeScript definitions for 'dx-react-grid-${theme}'.`);
-  const themeDistFolder = join(ROOT_PATH, `dx-react-grid-${theme}`, TARGET_FOLDER);
-  ensureDirectory(themeDistFolder);
-  writeFileSync(
-    join(themeDistFolder, `dx-react-grid-${theme}.d.ts`),
-    themesIndexContent,
-  );
-});
+  readdirSync(join(ROOT_PATH, packageName, SOURCE_FOLDER)).forEach((file) => {
+    const targetFileName = file.split('.')[0];
+    const componentName = getComponentName(file);
+    const fileContent = String(readFileSync(join(ROOT_PATH, packageName, SOURCE_FOLDER, file)))
+      .split('\n')
+      .filter(line => !!line && !/^(-+|Name|Field)\s?\|/.test(line));
+    const fileData = parseFile(fileContent);
+
+    indexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
+    indexContent += generateTypeScript(fileData, componentName);
+
+    if (!themes.length) return;
+
+    const themeFile = join((file.indexOf('grid') === -1 ? PLUGINS_FOLDER : ''), targetFileName);
+    const targetThemeFolder = join(ROOT_PATH, `${packageName}-${themes[0]}`, 'src');
+    if (existsSync(join(targetThemeFolder, `${themeFile}.jsx`))) {
+      fileData.properties
+        .reduce((acc, line) => {
+          const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
+          if (matches !== null && matches[1] !== componentName
+            && matches[1] !== 'Table' && acc.indexOf(matches[1]) === -1) {
+            acc.push(matches[1]);
+          }
+          return acc;
+        }, [])
+        .forEach((element) => {
+          if (themesImports.indexOf(element) === -1) {
+            themesImports.push(element);
+          }
+        });
+
+      themesIndexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
+      themesIndexContent += getThemesTypeScript(fileData, componentName);
+    }
+  });
+
+  themesIndexContent = 'import * as React from \'react\';\n'
+    + 'import {\n'
+    + `  ${themesImports.join(',\n  ')}`
+    + `\n} from \'@devexpress/${packageName}\';\n`
+    + `${themesIndexContent}`;
+
+  console.log(`Building TypeScript definitions for \'${packageName}\'.`);
+  const distFolder = join(ROOT_PATH, packageName, TARGET_FOLDER);
+  ensureDirectory(distFolder);
+  writeFileSync(join(distFolder, `${packageName}.d.ts`), indexContent);
+
+  themes.forEach((theme) => {
+    console.log(`Building TypeScript definitions for '${packageName}-${theme}'.`);
+    const themeDistFolder = join(ROOT_PATH, `${packageName}-${theme}`, TARGET_FOLDER);
+    ensureDirectory(themeDistFolder);
+    writeFileSync(
+      join(themeDistFolder, `${packageName}-${theme}.d.ts`),
+      themesIndexContent,
+    );
+  });
+};
+
+generateTypeScriptForPackage('dx-react-core');
+generateTypeScriptForPackage('dx-react-grid');

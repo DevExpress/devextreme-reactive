@@ -8,4 +8,4 @@ A React component used as a container of several instances of [Action](action.md
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | Array&lt;ReactElement&gt; | | React elements used to expose plugin's state and actions and to render plugin's UI.
+children | ReactNode | | React elements used to expose plugin's state and actions and to render plugin's UI.

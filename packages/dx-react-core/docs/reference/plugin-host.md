@@ -8,4 +8,4 @@ A React component that setups infrastructure used to create extendable plugin-ba
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | Array&lt;ReactElement&gt; | | React elements that represent plugins.
+children | ReactNode | | React elements that represent plugins.

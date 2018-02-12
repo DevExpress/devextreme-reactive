@@ -9,4 +9,4 @@ A React component that renders a corresponding [Template](template.md).
 Name | Type | Default | Description
 -----|------|---------|------------
 name | string | | A name of a template to be rendered.
-params | object | | An object that will be passed to a template.
+params? | object | | An object that will be passed to a template.

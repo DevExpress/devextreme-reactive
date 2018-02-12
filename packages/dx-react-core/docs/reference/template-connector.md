@@ -8,4 +8,4 @@ A React component that allows to connect values defined by [Getter](getter.md) a
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | ({ [getterName: string]: any }, { [actionName: string]: (payload?: any) => void }) => ReactElement | | A function used to connect getters and actions to a markup.
+children | (getters: { [getterName: string]: any }, actions: { [actionName: string]: (payload?: any) => void }) => ReactNode | | A function used to connect getters and actions to a markup.

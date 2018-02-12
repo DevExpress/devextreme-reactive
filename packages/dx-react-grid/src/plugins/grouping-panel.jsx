@@ -78,7 +78,7 @@ export class GroupingPanel extends React.PureComponent {
             }) => (
               <Layout
                 items={groupingPanelItems(columns, grouping, draftGrouping)}
-                columnGroupingEnabled={isColumnGroupingEnabled}
+                isColumnGroupingEnabled={isColumnGroupingEnabled}
                 draggingEnabled={draggingEnabled}
                 onGroup={changeColumnGrouping}
                 onGroupDraft={draftColumnGrouping}

@@ -17,7 +17,7 @@ const defaultProps = {
   containerComponent: ({ children }) => children,
   itemComponent: () => null,
   emptyMessageComponent: () => null,
-  columnGroupingEnabled: () => true,
+  isColumnGroupingEnabled: () => true,
 };
 
 describe('GroupPanelLayout', () => {

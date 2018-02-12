@@ -16,10 +16,10 @@ export class GroupPanelLayout extends React.PureComponent {
       targetItemIndex: -1,
     };
     this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
-      const { columnGroupingEnabled } = this.props;
+      const { isColumnGroupingEnabled } = this.props;
       const { columnName } = payload[0];
 
-      if (columnGroupingEnabled(columnName)) {
+      if (isColumnGroupingEnabled(columnName)) {
         eventHandler({ payload, ...restArgs });
       }
     };
@@ -102,7 +102,7 @@ export class GroupPanelLayout extends React.PureComponent {
       containerComponent: Container,
       itemComponent: Item,
       draggingEnabled,
-      columnGroupingEnabled,
+      isColumnGroupingEnabled,
     } = this.props;
 
     this.itemRefs = [];
@@ -117,7 +117,7 @@ export class GroupPanelLayout extends React.PureComponent {
               ref={element => element && this.itemRefs.push(element)}
               item={item}
               itemComponent={Item}
-              draggingEnabled={draggingEnabled && columnGroupingEnabled(columnName)}
+              draggingEnabled={draggingEnabled && isColumnGroupingEnabled(columnName)}
               onDragStart={() => this.onDragStart(columnName)}
               onDragEnd={this.onDragEnd}
             />
@@ -153,7 +153,7 @@ GroupPanelLayout.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   emptyMessageComponent: PropTypes.func.isRequired,
   draggingEnabled: PropTypes.bool,
-  columnGroupingEnabled: PropTypes.func,
+  isColumnGroupingEnabled: PropTypes.func,
   onGroupDraft: PropTypes.func,
   onGroupDraftCancel: PropTypes.func,
 };
@@ -161,7 +161,7 @@ GroupPanelLayout.propTypes = {
 GroupPanelLayout.defaultProps = {
   onGroup: () => {},
   draggingEnabled: false,
-  columnGroupingEnabled: () => {},
+  isColumnGroupingEnabled: () => {},
   onGroupDraft: () => {},
   onGroupDraftCancel: () => {},
 };

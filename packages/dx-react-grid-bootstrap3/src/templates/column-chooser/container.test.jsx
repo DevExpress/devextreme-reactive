@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Container } from './container';
 
@@ -8,7 +8,6 @@ describe('Container', () => {
       <Container
         className="custom-class"
       >
-        <div />
         <div />
       </Container>
     ));
@@ -24,7 +23,6 @@ describe('Container', () => {
       <Container
         data={{ a: 1 }}
       >
-        <div />
         <div />
       </Container>
     ));

@@ -9,7 +9,6 @@ export const getColumnExtension = (columnExtensions, columnName) => {
   return columnExtension;
 };
 
-
 export const getColumnExtensionValueGetter = (columnExtensions, extensionName, defaultValue) =>
   (columnName) => {
     if (columnExtensions) {

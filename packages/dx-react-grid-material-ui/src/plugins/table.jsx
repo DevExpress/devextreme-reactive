@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';

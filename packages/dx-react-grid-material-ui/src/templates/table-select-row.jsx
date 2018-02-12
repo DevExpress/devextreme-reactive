@@ -1,22 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { TableRow } from 'material-ui/Table';
 
 export const TableSelectRow = ({
-  selected,
+  selected, selectByRowClick, onToggle,
+  row, tableRow, tableColumn,
   children,
-  style,
-  onToggle,
-  selectByRowClick,
+  ...restProps
 }) => (
   <TableRow
-    style={style}
     selected={selected}
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();
       onToggle();
     }}
+    {...restProps}
   >
     {children}
   </TableRow>
@@ -27,13 +26,17 @@ TableSelectRow.propTypes = {
   onToggle: PropTypes.func,
   selected: PropTypes.bool,
   selectByRowClick: PropTypes.bool,
-  style: PropTypes.object,
+  row: PropTypes.object,
+  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 TableSelectRow.defaultProps = {
-  children: null,
+  children: undefined,
   onToggle: () => {},
   selected: false,
   selectByRowClick: false,
-  style: null,
+  row: undefined,
+  tableColumn: undefined,
+  tableRow: undefined,
 };

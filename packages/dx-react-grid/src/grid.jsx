@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GridCore } from './plugins/grid-core';
 
@@ -29,10 +29,7 @@ Grid.propTypes = {
   getCellValue: PropTypes.func,
   columns: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 Grid.defaultProps = {

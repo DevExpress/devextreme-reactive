@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TableCell as TableCellMUI } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
@@ -42,10 +42,7 @@ TableCellBase.propTypes = {
   column: PropTypes.object,
   row: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
@@ -58,7 +58,7 @@ export class TableHeaderCell extends React.PureComponent {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
-          } : {}),
+          } : null),
           ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           padding: '5px',

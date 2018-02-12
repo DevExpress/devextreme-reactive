@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Container = ({
@@ -18,7 +18,7 @@ export const Container = ({
 );
 
 Container.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node).isRequired,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
 };

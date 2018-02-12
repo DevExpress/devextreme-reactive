@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export const EditCell = ({
   column, value, onValueChange, style, children,
@@ -28,6 +28,7 @@ export const EditCell = ({
     )}
   </td>
 );
+
 EditCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.object,
@@ -37,18 +38,16 @@ EditCell.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   style: PropTypes.object,
   editingEnabled: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  children: PropTypes.node,
 };
+
 EditCell.defaultProps = {
   column: undefined,
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,
   value: '',
-  style: {},
+  style: null,
   children: undefined,
   editingEnabled: true,
 };

@@ -14,21 +14,21 @@ A plugin that visualizes table rows' selection state by rendering selection chec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightRow | boolean | false | Specifies whether to highlight the selected rows. Note that `Table` plugin's `rowComponent` is ignored in this case.
-selectByRowClick | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
-showSelectAll | boolean | true | Specifies whether to render the Select All checkbox in the header row.
-showSelectionColumn | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
-cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
-headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
+highlightRow? | boolean | false | Specifies whether to highlight the selected rows. Note that `Table` plugin's `rowComponent` is ignored in this case.
+selectByRowClick? | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
+showSelectAll? | boolean | true | Specifies whether to render the Select All checkbox in the header row.
+showSelectionColumn? | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
+cellComponent | ComponentType&lt;[TableSelection.CellProps](#tableselectioncellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
+headerCellComponent | ComponentType&lt;[TableSelection.HeaderCellProps](#tableselectioncellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
 
-### TableSelectHeaderCellProps
+### TableSelection.HeaderCellProps
 
 Describes properties passed to a component that renders a cell containing the Select All checkbox.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -37,11 +37,11 @@ allSelected | boolean | Indicates whether all the rows available for selection a
 someSelected | boolean | Indicates whether at least one but not all rows available for selection are selected.
 onToggle | (select?: boolean) => void | Toggles the Select All checkbox state.
 
-### TableSelectCellProps
+### TableSelection.CellProps
 
 Describes properties passed to a component that renders a cell containing a selection checkbox.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -53,8 +53,8 @@ onToggle | () => void | An event that initiates row selecting or deselecting.
 
 Name | Properties | Description
 -----|------------|------------
-TableSelection.HeaderCell | [TableSelectHeaderCellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
-TableSelection.Cell | [TableSelectCellProps](#tableselectcellprops) | A component that renders a cell with selection control.
+TableSelection.HeaderCell | [TableSelection.HeaderCellProps](#tableselectionheadercellprops) | A component that renders a cell with the selection control inside the heading row.
+TableSelection.Cell | [TableSelection.CellProps](#tableselectioncellprops) | A component that renders a cell with selection control.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -72,8 +72,8 @@ toggleSelectAll | Action | (state?: boolean) => void | A function that selects/d
 selectAllAvailable | Getter | boolean | Indicates whether there are rows that are available for selection.
 allSelected | Getter | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | Getter | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
@@ -128,5 +128,19 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
+  });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.find('div').prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
   });
 });

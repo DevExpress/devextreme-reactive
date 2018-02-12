@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Item } from './item';
 
@@ -100,5 +100,33 @@ describe('Item', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.find('button').prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
+
+  it('should process the disabled prop', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        disabled
+      />
+    ));
+
+    expect(tree.find('button').prop('disabled'))
+      .toBeTruthy();
+    expect(tree.find('input[type="checkbox"]').prop('disabled'))
+      .toBeTruthy();
   });
 });

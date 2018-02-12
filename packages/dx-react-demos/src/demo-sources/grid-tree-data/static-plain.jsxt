@@ -7,7 +7,7 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-  TableTreeData,
+  TableTreeColumn,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -62,7 +62,7 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableTreeData
+          <TableTreeColumn
             columnName="name"
           />
         </Grid>

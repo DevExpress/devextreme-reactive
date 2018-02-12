@@ -16,4 +16,4 @@ export * from './plugins/table-column-visibility';
 export * from './plugins/table-column-reordering';
 export * from './plugins/table-column-resizing';
 export * from './plugins/toolbar';
-export * from './plugins/table-tree-data';
+export * from './plugins/table-tree-column';

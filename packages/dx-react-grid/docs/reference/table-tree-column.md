@@ -1,4 +1,4 @@
-# TableTreeData Plugin Reference
+# TableTreeColumn Plugin Reference
 
 A plugin that renders a table column with toggle button and sorting indicators.
 
@@ -18,15 +18,15 @@ A plugin that renders a table column with toggle button and sorting indicators.
 Name | Type | Default | Description
 -----|------|---------|------------
 columnName | string | | A column name used to identify a column that will be represented as a tree.
-cellComponent | ComponentType&lt;[TableTreeData.CellProps](#tabletreedatacellprops)&gt; | | A component that renders a cell within a data row.
-indentComponent | ComponentType&lt;[TableTreeData.IndentProps](#tabletreedataindentprops)&gt; | | A component that renders an indent used to identify row level.
-toggleButtonComponent | ComponentType&lt;[TableTreeData.ToggleButtonProps](#tabletreedatatogglebuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
-checkboxComponent | ComponentType&lt;[TableTreeData.CheckboxProps](#tabletreedatacheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
+cellComponent | ComponentType&lt;[TableTreeColumn.CellProps](#tabletreecolumncellprops)&gt; | | A component that renders a cell within a data row.
+indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify row level.
+toggleButtonComponent | ComponentType&lt;[TableTreeColumn.ToggleButtonProps](#tabletreecolumntogglebuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
+checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
 showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) and [IntegratedSelection](integrated-selection.md) dependencies.
 
 ## Interfaces
 
-### TableTreeData.CellProps
+### TableTreeColumn.CellProps
 
 Describes properties passed to a component that renders a cell within a data row.
 
@@ -40,7 +40,7 @@ column | [Column](grid.md#column) | Specifies the cell's column.
 controls? | ReactNode | A React node to be placed in the cell part that display controls.
 children? | ReactNode | A React node to be placed in the cell part that display data.
 
-### TableTreeData.IndentProps
+### TableTreeColumn.IndentProps
 
 Describes properties passed to a component that renders an indent used to identify row level.
 
@@ -48,7 +48,7 @@ Field | Type | Description
 ------|------|------------
 level | number | Specifies a row level.
 
-### TableTreeData.ToggleButtonProps
+### TableTreeColumn.ToggleButtonProps
 
 Describes properties passed to a component that renders a button that controls row's expanded state.
 
@@ -58,7 +58,7 @@ visible | boolean | Specifies whether to show button.
 expanded | boolean | Specifies whether a row is expanded.
 onToggle | () => void | An event that initiates row expanding or collapsing.
 
-### TableTreeData.CheckboxProps
+### TableTreeColumn.CheckboxProps
 
 Describes properties passed to a component that renders a checkbox used to control selection.
 
@@ -73,10 +73,10 @@ onToggle | () => void | An event that initiates row expanding or collapsing.
 
 Name | Properties | Description
 -----|------------|------------
-TableTreeData.Cell | [TableTreeData.CellProps](#tabletreedatacellprops) | A component that renders a cell within a data row.
-TableTreeData.Indent | [TableTreeData.IndentProps](#tabletreedataindentprops) | A component that renders an indent used to identify row level.
-TableTreeData.ToggleButton | [TableTreeData.ToggleButtonProps](#tabletreedatatogglebuttonprops) | A component that renders a button that controls row's expanded state.
-TableTreeData.Checkbox | [TableTreeData.CheckboxProps](#tabletreedatacheckboxprops) | A component that renders a checkbox used to control selection.
+TableTreeColumn.Cell | [TableTreeColumn.CellProps](#tabletreecolumncellprops) | A component that renders a cell within a data row.
+TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentprops) | A component that renders an indent used to identify row level.
+TableTreeColumn.ToggleButton | [TableTreeColumn.ToggleButtonProps](#tabletreecolumntogglebuttonprops) | A component that renders a button that controls row's expanded state.
+TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.
 
 If you specify additional properties, they are added to the component's root element.
 

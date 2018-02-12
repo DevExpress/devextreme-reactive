@@ -22,7 +22,7 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
     return acc;
   }, []);
 
-export class TableTreeData extends React.PureComponent {
+export class TableTreeColumn extends React.PureComponent {
   render() {
     const {
       columnName: forColumnName,
@@ -34,7 +34,7 @@ export class TableTreeData extends React.PureComponent {
     } = this.props;
     return (
       <Plugin
-        name="TableTreeData"
+        name="TableTreeColumn"
         dependencies={[
           { name: 'DataTypeProvider', optional: true },
           { name: 'TreeDataState' },
@@ -139,7 +139,7 @@ export class TableTreeData extends React.PureComponent {
   }
 }
 
-TableTreeData.propTypes = {
+TableTreeColumn.propTypes = {
   columnName: PropTypes.string.isRequired,
   showSelectionControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
@@ -148,6 +148,6 @@ TableTreeData.propTypes = {
   checkboxComponent: PropTypes.func.isRequired,
 };
 
-TableTreeData.defaultProps = {
+TableTreeColumn.defaultProps = {
   showSelectionControls: false,
 };

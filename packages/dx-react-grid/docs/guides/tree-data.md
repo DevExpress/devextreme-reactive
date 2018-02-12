@@ -8,13 +8,13 @@ The following plugins implement tree data visualization:
 
 - [TreeDataState](../reference/tree-data-state.md) - controls the expanded rows state
 - [CustomTreeData](../reference/custom-tree-data.md) - converts custom formatted tree data to a supported format
-- [TableTreeData](../reference/table-tree-data.md) - renders the table column with toggle button and sorting indicators
+- [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with toggle button and sorting indicators
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-Use the `TreeDataState`, `CustomTreeData` and `TableTreeData` plugins to set up a Grid with simple tree data structure.
+Use the `TreeDataState`, `CustomTreeData` and `TableTreeColumn` plugins to set up a Grid with simple tree data structure.
 
 ### Custom Grouping
 

@@ -33,7 +33,7 @@ export * from './plugins/table-column-visibility';
 export * from './plugins/toolbar';
 export * from './plugins/tree-data-state';
 export * from './plugins/custom-tree-data';
-export * from './plugins/table-tree-data';
+export * from './plugins/table-tree-column';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';

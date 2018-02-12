@@ -116,5 +116,5 @@ react:
           path: /react/grid/docs/reference/tree-data-state
         - title: CustomTreeData
           path: /react/grid/docs/reference/custom-tree-data
-        - title: TableTreeData
-          path: /react/grid/docs/reference/table-tree-data
+        - title: TableTreeColumn
+          path: /react/grid/docs/reference/table-tree-column

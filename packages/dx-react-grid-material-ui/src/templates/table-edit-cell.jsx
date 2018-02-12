@@ -63,7 +63,7 @@ EditCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   value: '',
-  style: {},
+  style: null,
   children: undefined,
   className: undefined,
 };

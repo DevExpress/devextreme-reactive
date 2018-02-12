@@ -20,5 +20,5 @@ TableReorderingCell.propTypes = {
 };
 
 TableReorderingCell.defaultProps = {
-  style: {},
+  style: null,
 };

@@ -4,14 +4,12 @@ import * as PropTypes from 'prop-types';
 
 export const TableDetailCell = ({
   colSpan,
-  style,
   children,
   className,
   tableColumn, tableRow, row,
   ...restProps
 }) => (
   <td
-    style={style}
     colSpan={colSpan}
     className={classNames('active', className)}
     {...restProps}
@@ -21,7 +19,6 @@ export const TableDetailCell = ({
 );
 
 TableDetailCell.propTypes = {
-  style: PropTypes.object,
   colSpan: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -31,7 +28,6 @@ TableDetailCell.propTypes = {
 };
 
 TableDetailCell.defaultProps = {
-  style: null,
   colSpan: 1,
   className: undefined,
   tableColumn: undefined,

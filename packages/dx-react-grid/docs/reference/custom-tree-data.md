@@ -12,7 +12,7 @@ A plugin that converts custom formatted tree data to a supported format and perf
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getChildGroups | (currentRows: Array&lt;any&gt;, rootRows: Array&lt;any&gt;) => Array&lt;{ row: any, childRows?: Array&lt;any&gt; }&gt; | | A function that extracts child rows from the specified data. It is executed recursively for the root and nested rows.
+getChildRows | (currentRows: Array&lt;any&gt;, rootRows: Array&lt;any&gt;) => Array&lt;{ row: any, childRows?: Array&lt;any&gt; }&gt; | | A function that extracts child rows from the specified data. It is executed recursively for the root and nested rows.
 
 ## Plugin Developer Reference
 

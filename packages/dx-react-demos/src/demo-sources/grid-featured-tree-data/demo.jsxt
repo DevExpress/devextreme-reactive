@@ -14,9 +14,9 @@ import { tasks, employees, priorities } from '../data.json';
 
 const getChildRows = (rows, rootRows) => (
   (rootRows === rows)
-    ? rootRows.filter(row => row.Task_Parent_ID === 0)
+    ? rootRows.filter(row => row.Parent_ID === 0)
     : rows)
-  .map(row => ({ row, childRows: rootRows.filter(r => r.Task_Parent_ID === row.Task_ID) }));
+  .map(row => ({ row, childRows: rootRows.filter(r => r.Parent_ID === row.ID) }));
 
 const EmployeeFormatter = ({ row }) => (
   <span>
@@ -33,7 +33,7 @@ const EmployeeFormatter = ({ row }) => (
       }}
     >
       <img
-        src={`https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/${employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Picture}`}
+        src={`https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/${employees.find(e => e.ID === row.Assigned_Employee_ID).Picture}`}
         style={{
           height: '28px',
           margin: '0 auto',
@@ -41,7 +41,7 @@ const EmployeeFormatter = ({ row }) => (
         alt="Avatar"
       />
     </div>
-    {employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Name}
+    {employees.find(e => e.ID === row.Assigned_Employee_ID).Name}
   </span>
 );
 
@@ -51,13 +51,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'Task_Subject', title: 'Task Subject' },
-        { name: 'Task_Assigned_Employee_ID', title: 'Assigned', getCellValue: row => employees.find(e => e.ID === row.Task_Assigned_Employee_ID).Name },
-        { name: 'Task_Status', title: 'Status' },
-        { name: 'Task_Priority', title: 'Priority', getCellValue: row => priorities.find(p => p.ID === row.Task_Priority).Value },
-        { name: 'Task_Completion', title: '% Completed', getCellValue: row => `${row.Task_Completion}%` },
-        { name: 'Task_Start_Date', title: 'Start Date', getCellValue: row => row.Task_Start_Date.split('T')[0] },
-        { name: 'Task_Due_Date', title: 'Due Date', getCellValue: row => row.Task_Due_Date.split('T')[0] },
+        { name: 'Subject', title: 'Task Subject' },
+        { name: 'Assigned_Employee_ID', title: 'Assigned', getCellValue: row => employees.find(e => e.ID === row.Assigned_Employee_ID).Name },
+        { name: 'Status', title: 'Status' },
+        { name: 'Priority', title: 'Priority', getCellValue: row => priorities.find(p => p.ID === row.Priority).Value },
+        { name: 'Completion', title: '% Completed', getCellValue: row => `${row.Completion}%` },
+        { name: 'Start_Date', title: 'Start Date', getCellValue: row => row.Start_Date.split('T')[0] },
+        { name: 'Due_Date', title: 'Due Date', getCellValue: row => row.Due_Date.split('T')[0] },
       ],
       rows: tasks,
       pageSizes: [5, 10, 20],
@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <DataTypeProvider
-            for={['Task_Assigned_Employee_ID']}
+            for={['Assigned_Employee_ID']}
             formatterComponent={EmployeeFormatter}
           />
 
@@ -98,21 +98,21 @@ export default class Demo extends React.PureComponent {
 
           <Table
             columnExtensions={[
-              { columnName: 'Task_Completion', align: 'right' },
+              { columnName: 'Completion', align: 'right' },
             ]}
           />
           <TableColumnVisibility
-            defaultHiddenColumnNames={['Task_Priority', 'Task_Completion']}
+            defaultHiddenColumnNames={['Priority', 'Completion']}
           />
           <TableColumnResizing
             defaultColumnWidths={[
-              { columnName: 'Task_Subject', width: 300 },
-              { columnName: 'Task_Assigned_Employee_ID', width: 180 },
-              { columnName: 'Task_Status', width: 100 },
-              { columnName: 'Task_Priority', width: 100 },
-              { columnName: 'Task_Completion', width: 100 },
-              { columnName: 'Task_Start_Date', width: 120 },
-              { columnName: 'Task_Due_Date', width: 120 },
+              { columnName: 'Subject', width: 300 },
+              { columnName: 'Assigned_Employee_ID', width: 180 },
+              { columnName: 'Status', width: 100 },
+              { columnName: 'Priority', width: 100 },
+              { columnName: 'Completion', width: 100 },
+              { columnName: 'Start_Date', width: 120 },
+              { columnName: 'Due_Date', width: 120 },
             ]}
           />
           <TableHeaderRow
@@ -120,7 +120,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableFilterRow />
           <TableTreeData
-            columnName="Task_Subject"
+            columnName="Subject"
             showSelectionControls
           />
 

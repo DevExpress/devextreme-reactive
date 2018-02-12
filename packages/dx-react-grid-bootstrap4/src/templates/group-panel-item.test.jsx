@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -74,7 +74,7 @@ describe('GroupPanelItem', () => {
 
   it('should handle the "Mouse click" for ungrouping', () => {
     const onGroup = jest.fn();
-    const tree = mount((
+    const tree = shallow((
       <GroupPanelItem
         onGroup={onGroup}
         showGroupingControls
@@ -82,8 +82,8 @@ describe('GroupPanelItem', () => {
       />
     ));
 
-    const targetElement = tree.find('span').last();
-    targetElement.simulate('click');
+    const targetElement = tree.find('span').at(1);
+    targetElement.simulate('click', { preventDefault: jest.fn() });
     expect(onGroup)
       .toHaveBeenCalled();
   });

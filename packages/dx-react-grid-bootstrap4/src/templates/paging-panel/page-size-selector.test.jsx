@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
   describe('#render', () => {
-    const mountPageSizeSelector = ({
+    const shallowPageSizeSelector = ({
       pageSize,
       pageSizes,
       getMessage = key => key,
       onPageSizeChange = () => {},
-    }) => mount(<PageSizeSelector
+    }) => shallow(<PageSizeSelector
       pageSize={pageSize}
       pageSizes={pageSizes}
       getMessage={getMessage}
@@ -18,7 +18,7 @@ describe('PageSizeSelector', () => {
     />);
 
     it('can show info about page sizes', () => {
-      const tree = mountPageSizeSelector({
+      const tree = shallowPageSizeSelector({
         pageSize: 10,
         pageSizes: [5, 10],
       });
@@ -39,33 +39,31 @@ describe('PageSizeSelector', () => {
       expect(desktopSelector).toHaveLength(1);
       expect(desktopSelectorItems).toHaveLength(2);
       expect(desktopSelectorItems.at(0).prop('active')).toBe(false);
-      expect(desktopSelectorItems.at(0).text()).toBe('5');
+      expect(desktopSelectorItems.at(0).render().text()).toBe('5');
       expect(desktopSelectorItems.at(1).prop('active')).toBe(true);
-      expect(desktopSelectorItems.at(1).text()).toBe('10');
+      expect(desktopSelectorItems.at(1).render().text()).toBe('10');
     });
 
     it('can render the "All" item', () => {
-      const tree = mountPageSizeSelector({
+      const tree = shallowPageSizeSelector({
         pageSize: 10,
         pageSizes: [5, 10, 0],
       });
 
       const mobileSelector = tree.find('select');
-      const desktopSelector = tree.find('ul.pagination');
       const mobileSelectorItems = mobileSelector.find('option');
-      const desktopSelectorItems = desktopSelector.find('li');
+      const desktopSelectorLastItem = tree.find(PaginationLink).last();
 
       expect(mobileSelectorItems).toHaveLength(3);
       expect(mobileSelectorItems.at(2).prop('value')).toBe(0);
       expect(mobileSelectorItems.at(2).text()).toBe('showAll');
 
-      expect(desktopSelectorItems).toHaveLength(3);
-      expect(desktopSelectorItems.at(2).text()).toBe('showAll');
+      expect(desktopSelectorLastItem.render().text()).toBe('showAll');
     });
 
     it('can handle the \'onPageSizeChange\' event', () => {
       const onPageSizeChange = jest.fn();
-      const tree = mountPageSizeSelector({
+      const tree = shallowPageSizeSelector({
         pageSize: 5,
         pageSizes: [5, 10],
         onPageSizeChange,
@@ -75,7 +73,7 @@ describe('PageSizeSelector', () => {
       const desktopSelector = tree.find(Pagination);
 
       mobileSelector.simulate('change', { target: { value: 10 } });
-      desktopSelector.find(PaginationLink).at(0).simulate('click');
+      desktopSelector.find(PaginationLink).at(0).simulate('click', { preventDefault: jest.fn() });
 
       expect(onPageSizeChange.mock.calls[0][0]).toBe(10);
       expect(onPageSizeChange.mock.calls[1][0]).toBe(5);

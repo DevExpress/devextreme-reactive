@@ -234,7 +234,7 @@ describe('TableHeaderCell', () => {
 
     it('should handle the "Enter" and "Space" keys down', () => {
       const onSort = jest.fn();
-      const tree = mount((
+      const tree = shallow((
         <TableHeaderCell
           onSort={onSort}
           column={{ title: 'test' }}
@@ -243,25 +243,25 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
+      const targetElement = tree.find('th');
+      targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalled();
 
       onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
+      targetElement.simulate('click', { keyCode: SPACE_KEY_CODE, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalled();
 
       onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: 51 });
+      targetElement.simulate('click', { keyCode: 51 });
       expect(onSort)
         .not.toHaveBeenCalled();
     });
 
     it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
       const onSort = jest.fn();
-      const tree = mount((
+      const tree = shallow((
         <TableHeaderCell
           onSort={onSort}
           column={{ title: 'test' }}
@@ -270,15 +270,15 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
+      const targetElement = tree.find('th');
+      targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
       const onSort = jest.fn();
-      const tree = mount((
+      const tree = shallow((
         <TableHeaderCell
           onSort={onSort}
           column={{ title: 'test' }}
@@ -287,8 +287,8 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
+      const targetElement = tree.find('th');
+      targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });

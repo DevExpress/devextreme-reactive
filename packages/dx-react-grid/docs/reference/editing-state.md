@@ -13,8 +13,8 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 createRowChange | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row change object depending on row editor values. This function is called each time the row editor's value changes.
-columnEditingEnabled | boolean | true | Specifies whether editing is enabled for all columns.
-columnExtensions | Array&lt;[EditingStateColumnExtension](#editingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnEditingEnabled? | boolean | true | Specifies whether editing is enabled for all columns.
+columnExtensions? | Array&lt;[EditingStateColumnExtension](#editingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 defaultEditingRowIds | Array&lt;number &#124; string&gt; | [] | IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
 onEditingRowIdsChange | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
@@ -31,14 +31,14 @@ onCommitChanges | (Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles ro
 
 ## Interfaces
 
-### EditingStateColumnExtension
+### EditingState.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
 
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
-editingEnabled | boolean | Specifies whether editing is enabled for a column.
+editingEnabled? | boolean | Specifies whether editing is enabled for a column.
 createRowChange? | (row: any, value: any, columnName: string) => any | A function that returns a value specifying row changes depending on the columns' editor values for the current row. This function is called each time the editor's value changes.
 
 ### ChangeSet

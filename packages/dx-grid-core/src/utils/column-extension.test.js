@@ -1,4 +1,4 @@
-import { getColumnExtensionValueGetter } from './column';
+import { getColumnExtensionValueGetter } from './column-extension';
 
 describe('getColumnExtensionValue', () => {
   it('should return default value by default', () => {

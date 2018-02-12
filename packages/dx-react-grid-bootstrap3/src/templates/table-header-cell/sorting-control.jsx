@@ -6,18 +6,18 @@ import { SortingIndicator } from '../parts/sorting-indicator';
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
-const getProps = (sortingDirection, onClick) => ({
+const getProps = (sortingDirection, disabled, onClick) => ({
   className: sortingDirection ? 'text-primary' : '',
-  tabIndex: 0,
+  tabIndex: disabled ? -1 : 0,
   onMouseDown: handleMouseDown,
   onBlur: handleBlur,
   onKeyDown: onClick,
 });
 
 export const SortingControl = ({
-  align, sortingDirection, columnTitle, onClick,
+  align, sortingDirection, columnTitle, disabled, onClick,
 }) => {
-  const props = getProps(sortingDirection, onClick);
+  const props = getProps(sortingDirection, disabled, onClick);
   return (align === 'right' ? (
     <span {...props}>
       <SortingIndicator
@@ -44,8 +44,10 @@ SortingControl.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 SortingControl.defaultProps = {
   sortingDirection: null,
+  disabled: false,
 };

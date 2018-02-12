@@ -90,6 +90,7 @@ export class TableHeaderCell extends React.PureComponent {
             <SortingControl
               align={align}
               sortingDirection={sortingDirection}
+              disabled={!sortingEnabled}
               columnTitle={columnTitle}
               onClick={this.onClick}
             />

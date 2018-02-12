@@ -35,3 +35,4 @@ grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The sp
 expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups expanded in the specified data.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
+getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.

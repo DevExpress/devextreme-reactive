@@ -86,3 +86,4 @@ tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.
+tableHeaderCellBefore | Template | object? | A template used to prepend additional components to the header table cell.

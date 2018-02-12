@@ -4,11 +4,6 @@ import {
   Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const pluginDependencies = [
-  { name: 'TreeDataState' },
-  { name: 'Table' },
-];
-
 const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
   tableBodyRows.reduce((acc, tableRow) => {
     if (tableRow.type !== 'data') {
@@ -40,7 +35,14 @@ export class TableTreeData extends React.PureComponent {
     return (
       <Plugin
         name="TableTreeData"
-        dependencies={pluginDependencies}
+        dependencies={[
+          { name: 'DataTypeProvider', optional: true },
+          { name: 'TreeDataState' },
+          { name: 'SelectionState', optional: !showSelectionControls },
+          { name: 'IntegratedSelection', optional: !showSelectionControls },
+          { name: 'Table' },
+          { name: 'TableHeaderRow', optional: true },
+        ]}
       >
         <Getter name="tableBodyRows" computed={(tableBodyRowsComputed)} />
         <Template
@@ -65,7 +67,7 @@ export class TableTreeData extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === (forColumnName || 'name')}
+          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === forColumnName}
         >
           {params => (
             <TemplateConnector>
@@ -140,10 +142,10 @@ export class TableTreeData extends React.PureComponent {
 TableTreeData.propTypes = {
   columnName: PropTypes.string.isRequired,
   showSelectionControls: PropTypes.bool,
+  cellComponent: PropTypes.func.isRequired,
   indentComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
   checkboxComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
 };
 
 TableTreeData.defaultProps = {

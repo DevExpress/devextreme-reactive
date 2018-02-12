@@ -36,9 +36,12 @@ filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | Column fil
 getCellValue | Getter | (row: any, columnName: string) => any | The function used to get a cell value.
 isGroupRow? | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 getRowLevelKey? | Getter | (row: any) => string? | A function used to get row level key.
+getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | Getter | Array&lt;any&gt; | The filtered rows.
+getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
+

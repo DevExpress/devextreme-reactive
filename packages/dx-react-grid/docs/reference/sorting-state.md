@@ -15,7 +15,7 @@ Name | Type | Default | Description
 sorting? | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
 defaultSorting? | Array&lt;[Sorting](#sorting)&gt; | [] | Specifies initial sorting in the uncontrolled mode.
 columnSortingEnabled? | boolean | true | Specifies whether sorting is enabled for all columns.
-columnExtensions? | Array&lt;[SortingStateColumnExtension](#sortingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[SortingState.ColumnExtension](#sortingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onSortingChange? | (sorting: Array&lt;[Sorting](#sorting)&gt;) => void | | Handles sorting changes.
 
 ## Interfaces
@@ -29,7 +29,7 @@ Field | Type | Description
 columnName | string | Specifies a column's name to which the sorting is applied.
 direction | 'asc' &#124; 'desc' | Specifies a column's sort order.
 
-### SortingStateColumnExtension
+### SortingState.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

@@ -129,4 +129,18 @@ describe('GroupPanelItem', () => {
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
   });
+
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.find('div').prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
 });

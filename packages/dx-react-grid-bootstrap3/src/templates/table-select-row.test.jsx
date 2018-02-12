@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
@@ -20,12 +20,12 @@ describe('Table Select Row', () => {
   });
 
   it('should have correct className', () => {
-    let tree = mount(<TableSelectRow
+    let tree = shallow(<TableSelectRow
       {...defaultProps}
     />);
     expect(tree.find('tr').hasClass('active')).toBeFalsy();
 
-    tree = mount(<TableSelectRow
+    tree = shallow(<TableSelectRow
       {...defaultProps}
       selected
     />);
@@ -34,13 +34,40 @@ describe('Table Select Row', () => {
 
   it('should handle row click', () => {
     const onToggleMock = jest.fn();
-    const tree = mount(<TableSelectRow
+    const tree = shallow(<TableSelectRow
       {...defaultProps}
       onToggle={onToggleMock}
       selectByRowClick
     />);
 
-    tree.find('tr').simulate('click');
+    tree.find('tr').prop('onClick')({ stopPropagation: () => {} });
     expect(onToggleMock).toBeCalled();
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <TableSelectRow
+        {...defaultProps}
+        selected
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.active'))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableSelectRow
+        {...defaultProps}
+        data={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 });

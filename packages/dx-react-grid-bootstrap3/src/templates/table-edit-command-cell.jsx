@@ -58,7 +58,7 @@ EditCommandHeadingCell.propTypes = {
 
 EditCommandHeadingCell.defaultProps = {
   children: undefined,
-  style: {},
+  style: null,
   tableColumn: undefined,
   tableRow: undefined,
 };
@@ -91,7 +91,7 @@ EditCommandCell.propTypes = {
 
 EditCommandCell.defaultProps = {
   children: undefined,
-  style: {},
+  style: null,
   tableColumn: undefined,
   tableRow: undefined,
 };

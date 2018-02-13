@@ -35,7 +35,7 @@ Container.propTypes = {
 };
 
 Container.defaultProps = {
-  style: {},
+  style: null,
   className: undefined,
   children: undefined,
 };

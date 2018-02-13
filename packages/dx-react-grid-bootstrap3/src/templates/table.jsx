@@ -44,15 +44,16 @@ export class Table extends React.Component {
     }
   }
   render() {
-    const { children, use, ...restProps } = this.props;
+    const {
+      children, use, style,
+      ...restProps
+    } = this.props;
     const { stickyProp, backgroundColor } = this.state;
     return (
       <table
         ref={(node) => { this.node = node; }}
         className="table"
-        {...restProps}
         style={{
-          ...restProps.style,
           tableLayout: 'fixed',
           overflow: 'hidden',
           ...use === 'head' ? {
@@ -61,7 +62,9 @@ export class Table extends React.Component {
             zIndex: 1,
             background: backgroundColor,
           } : null,
+          ...style,
         }}
+        {...restProps}
       >
         {children}
       </table>
@@ -72,8 +75,10 @@ export class Table extends React.Component {
 Table.propTypes = {
   use: PropTypes.oneOf(['head']),
   children: PropTypes.node.isRequired,
+  style: PropTypes.object,
 };
 
 Table.defaultProps = {
   use: undefined,
+  style: null,
 };

@@ -102,6 +102,20 @@ describe('Item', () => {
       .toMatchObject({ a: 1 });
   });
 
+  it('should apply custom styles', () => {
+    const tree = shallow((
+      <Item
+        {...defaultProps}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.find('button').prop('style'))
+      .toMatchObject({
+        color: 'red',
+      });
+  });
+
   it('should process the disabled prop', () => {
     const tree = shallow((
       <Item

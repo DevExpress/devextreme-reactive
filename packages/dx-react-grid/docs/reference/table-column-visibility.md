@@ -15,7 +15,7 @@ Name | Type | Default | Description
 hiddenColumnNames? | Array&lt;string&gt; | | Hidden column names.
 defaultHiddenColumnNames? | Array&lt;string&gt; | [] | Names of initially hidden columns in the uncontrolled mode.
 columnTogglingEnabled? | boolean | true | Specifies whether an end-user can change column visibility.
-columnExtensions? | Array&lt;[TableColumnVisibilityColumnExtension](#tablecolumnvisibilitycolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[TableColumnVisibility.ColumnExtension](#tablecolumnvisibilitycolumnextension)&gt; | | Additional column properties that the plugin can handle.
 onHiddenColumnNamesChange? | (hiddenColumnNames: Array&lt;string&gt;) => void | | Handles hidden columns adding or removing.
 emptyMessageComponent | ComponentType&lt;[TableColumnVisibility.EmptyMessageProps](#emptymessageprops)&gt; | | A component that renders a message that is displayed when all columns are hidden.
 messages? | [TableColumnVisibility.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -30,7 +30,7 @@ Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed when all columns are hidden.
 
-### TableColumnVisibilityColumnExtension
+### TableColumnVisibility.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
 

@@ -1,6 +1,6 @@
 # React Grid - Plugin Overview
 
-Plugins are components which should be placed inside Grid and responsible for enabling particular Grid features. The core principle used for supplying plugins with data is piping. This means that data flows consequently from the first plugin to the next one and so on. And this is where [plugin order](#pluginorder) comes to a scene.
+Plugins are components which should be placed inside Grid and responsible for enabling particular Grid features. The core principle used for supplying plugins with data is [piping](https://en.wikipedia.org/wiki/Pipeline_(computing)). This means that data flows consequently from the first plugin to the next one and so on. And this is where [plugin order](#pluginorder) comes to a scene.
 
 ## Plugin Order
 

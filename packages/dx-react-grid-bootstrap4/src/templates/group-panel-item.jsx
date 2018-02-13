@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SortingIndicator } from './parts/sorting-indicator';
+import './group-panel-item.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -11,7 +12,7 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls, showSortingControls,
-  sortingDirection, onSort, className, style,
+  sortingDirection, onSort, className,
   ...restProps
 }) => {
   const handleSortingChange = (e) => {
@@ -40,11 +41,11 @@ export const GroupPanelItem = ({
   };
   return (
     <div
-      className={classNames('btn-group mb-1 mr-1', className)}
-      style={{
-        ...draft ? { opacity: 0.3 } : null,
-        ...style,
-      }}
+      className={classNames({
+        'btn-group mb-1 mr-1': true,
+        'group-panel-item': draft,
+        className,
+      })}
       {...restProps}
     >
       <span
@@ -71,12 +72,7 @@ export const GroupPanelItem = ({
         >
           &nbsp;
           <span
-            className="oi oi-x"
-            style={{
-              top: -1,
-              fontSize: '11px',
-              marginLeft: '-4px',
-            }}
+            className="oi oi-x group-panel-item__grouping-control"
           />
         </span>)}
     </div>
@@ -96,7 +92,6 @@ GroupPanelItem.propTypes = {
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
   showGroupingControls: PropTypes.bool,
-  style: PropTypes.object,
 };
 
 GroupPanelItem.defaultProps = {
@@ -106,5 +101,4 @@ GroupPanelItem.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
-  style: null,
 };

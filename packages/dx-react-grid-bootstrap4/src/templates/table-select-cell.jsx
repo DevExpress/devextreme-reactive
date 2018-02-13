@@ -1,20 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableSelectCell = ({
-  style,
-  selected,
-  onToggle,
-  row, tableRow, tableColumn,
+  className, selected,
+  onToggle, row,
+  tableRow, tableColumn,
   ...restProps
 }) => (
 
   <td
-    style={{
-      cursor: 'pointer',
-      verticalAlign: 'middle',
-      ...style,
-    }}
+    className={classNames('cursor-pointer align-middle', className)}
     onClick={(e) => {
       e.stopPropagation();
       onToggle();
@@ -22,11 +18,7 @@ export const TableSelectCell = ({
     {...restProps}
   >
     <input
-      style={{
-        cursor: 'pointer',
-        margin: '0 auto',
-        display: 'block',
-      }}
+      className="d-block m-auto cursor-pointer"
       type="checkbox"
       checked={selected}
       onChange={onToggle}
@@ -36,7 +28,7 @@ export const TableSelectCell = ({
 );
 
 TableSelectCell.propTypes = {
-  style: PropTypes.object,
+  className: PropTypes.string,
   selected: PropTypes.bool,
   onToggle: PropTypes.func,
   row: PropTypes.object,
@@ -45,7 +37,7 @@ TableSelectCell.propTypes = {
 };
 
 TableSelectCell.defaultProps = {
-  style: null,
+  className: undefined,
   selected: false,
   onToggle: () => {},
   row: undefined,

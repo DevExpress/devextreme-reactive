@@ -2,6 +2,9 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import './table.css';
 
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
@@ -46,19 +49,17 @@ export class Table extends React.Component {
     return (
       <table
         ref={(node) => { this.node = node; }}
-        className="table"
+        className={classNames({
+          'table mb-0 overflow-hidden dx-table': true,
+          'dx-table-head': use === 'head',
+        })}
         {...restProps}
         style={{
           ...restProps.style,
-          tableLayout: 'fixed',
-          overflow: 'hidden',
           ...use === 'head' ? {
             position: stickyProp,
-            top: 0,
-            zIndex: 1,
             backgroundColor,
           } : null,
-          marginBottom: 0,
         }}
       >
         {children}

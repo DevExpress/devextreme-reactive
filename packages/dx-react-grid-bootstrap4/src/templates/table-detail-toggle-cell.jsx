@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -8,7 +9,7 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableDetailToggleCell = ({
-  style, expanded, onToggle,
+  expanded, onToggle,
   tableColumn, tableRow, row,
   ...restProps
 }) => {
@@ -20,11 +21,7 @@ export const TableDetailToggleCell = ({
   };
   return (
     <td
-      style={{
-        cursor: 'pointer',
-        verticalAlign: 'middle',
-        ...style,
-      }}
+      className="align-middle cursor-pointer"
       onClick={(e) => {
         e.stopPropagation();
         onToggle();
@@ -32,12 +29,11 @@ export const TableDetailToggleCell = ({
       {...restProps}
     >
       <span
-        className={`oi oi-chevron-${expanded ? 'bottom' : 'right'}`}
-        style={{
-          fontSize: '9px',
-          top: '0',
-          display: 'block',
-        }}
+        className={classNames({
+          'oi d-block table-detail-toggle-cell__span': true,
+          'oi-chevron-bottom': expanded,
+          'oi-chevron-right': !expanded,
+        })}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
         onKeyDown={handleKeyDown}
         onMouseDown={handleMouseDown}
@@ -48,7 +44,6 @@ export const TableDetailToggleCell = ({
 };
 
 TableDetailToggleCell.propTypes = {
-  style: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
   tableColumn: PropTypes.object,
@@ -57,7 +52,6 @@ TableDetailToggleCell.propTypes = {
 };
 
 TableDetailToggleCell.defaultProps = {
-  style: null,
   expanded: false,
   onToggle: () => {},
   tableColumn: undefined,

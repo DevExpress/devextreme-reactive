@@ -1,0 +1,19 @@
+.resizing-control {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  top: 0;
+  right: -8px;
+  width: 16px;
+  cursor: col-resize;
+  z-index: 100;
+}
+.resizing-control__line {
+  background-color: '#ddd';
+  width: 1px;
+  top: 25%;
+}
+.resizing-control__line__body {
+  top: 0;
+  left: 0;
+}

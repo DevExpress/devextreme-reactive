@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const TableSelectAllCell = ({
-  style, allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow,
+  allSelected, someSelected, disabled, onToggle,
+  tableColumn, tableRow, className,
   ...restProps
 }) => {
   const toggle = (e) => {
@@ -15,17 +16,19 @@ export const TableSelectAllCell = ({
 
   return (
     <th
-      style={{
-        cursor: !disabled && 'pointer',
-        verticalAlign: 'middle',
-        ...style,
-      }}
+      className={classNames({
+        'align-middle': true,
+        'cursor-pointer': !disabled,
+        className,
+      })}
       onClick={toggle}
       {...restProps}
     >
       <input
-        className="d-block m-auto"
-        style={{ cursor: !disabled && 'pointer' }}
+        className={classNames({
+          'd-block m-auto': true,
+          'cursor-pointer': !disabled,
+        })}
         type="checkbox"
         disabled={disabled}
         checked={allSelected}
@@ -43,7 +46,7 @@ export const TableSelectAllCell = ({
 };
 
 TableSelectAllCell.propTypes = {
-  style: PropTypes.object,
+  className: PropTypes.string,
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -53,7 +56,7 @@ TableSelectAllCell.propTypes = {
 };
 
 TableSelectAllCell.defaultProps = {
-  style: null,
+  className: undefined,
   allSelected: false,
   someSelected: false,
   disabled: false,

@@ -1,31 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Draggable } from '@devexpress/dx-react-core';
+import './resizing-control.css';
 
 const ResizingControlLine = ({ resizing, style }) => {
   const resizingControlLineBody = resizing && (
     <div
-      className="bg-primary"
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%',
-      }}
+      className="bg-primary position-absolute w-100 h-100 resizing-control__line__body"
     />
   );
 
   return (
     <div
-      style={{
-        position: 'absolute',
-        backgroundColor: '#ddd',
-        height: '50%',
-        width: '1px',
-        top: '25%',
-        ...style,
-      }}
+      className="position-absolute h-50 resizing-control__line"
+      style={style}
     >
       {resizingControlLineBody}
     </div>
@@ -70,18 +58,7 @@ export class ResizingControl extends React.PureComponent {
         onEnd={this.onResizeEnd}
       >
         <div
-          style={{
-            position: 'absolute',
-            userSelect: 'none',
-            MozUserSelect: 'none',
-            WebkitUserSelect: 'none',
-            top: 0,
-            right: '-8px',
-            width: '16px',
-            height: '100%',
-            cursor: 'col-resize',
-            zIndex: 100,
-          }}
+          className="position-absolute h-100 resizing-control"
         >
           <ResizingControlLine resizing={resizing} style={{ left: '5px' }} />
           <ResizingControlLine resizing={resizing} style={{ left: '7px' }} />

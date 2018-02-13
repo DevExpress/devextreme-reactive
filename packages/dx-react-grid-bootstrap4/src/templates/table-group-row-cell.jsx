@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './table-group-row-cell.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -8,7 +10,7 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableGroupCell = ({
-  style, colSpan, row, column,
+  className, colSpan, row, column,
   expanded, onToggle,
   children, tableRow, tableColumn,
   ...restProps
@@ -25,23 +27,16 @@ export const TableGroupCell = ({
   return (
     <td
       colSpan={colSpan}
-      style={{
-        cursor: 'pointer',
-        ...style,
-      }}
+      className={classNames('cursor-pointer', className)}
       onClick={handleClick}
       {...restProps}
     >
       <span
-        className={`oi oi-chevron-${expanded ? 'bottom' : 'right'}`}
-        style={{
-          fontSize: '9px',
-          top: 0,
-          marginRight: '10px',
-          ...expanded ? {
-            marginRight: '8px',
-          } : null,
-        }}
+        className={classNames({
+          'oi table-group-row-cell': true,
+          'oi-chevron-bottom mr-2': expanded,
+          'oi-chevron-right': !expanded,
+        })}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
         onMouseDown={handleMouseDown}
         onBlur={handleBlur}
@@ -54,7 +49,7 @@ export const TableGroupCell = ({
 };
 
 TableGroupCell.propTypes = {
-  style: PropTypes.object,
+  className: PropTypes.string,
   colSpan: PropTypes.number,
   row: PropTypes.object,
   column: PropTypes.object,
@@ -69,7 +64,7 @@ TableGroupCell.propTypes = {
 };
 
 TableGroupCell.defaultProps = {
-  style: null,
+  className: undefined,
   colSpan: 1,
   row: {},
   column: {},

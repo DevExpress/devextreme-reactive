@@ -1,3 +1,5 @@
+import './main.css';
+
 export { Grid } from './grid';
 export { ColumnChooser } from './plugins/column-chooser';
 export { DragDropProvider } from './plugins/drag-drop-provider';

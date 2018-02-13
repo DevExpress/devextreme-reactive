@@ -1,19 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './table-cell.css';
 
 export const TableCell = ({
-  style, column, value, children,
+  column, value, children,
   tableRow, tableColumn, row,
   ...restProps
 }) => (
   <td
-    style={{
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      textAlign: (tableColumn && tableColumn.align) || 'left',
-      ...style,
-    }}
+    className={classNames({
+      'text-nowrap table-cell': true,
+      'text-right': tableColumn.align === 'right',
+    })}
     {...restProps}
   >
     {children || value}
@@ -21,7 +20,6 @@ export const TableCell = ({
 );
 
 TableCell.propTypes = {
-  style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -34,7 +32,6 @@ TableCell.propTypes = {
 };
 
 TableCell.defaultProps = {
-  style: null,
   value: undefined,
   column: undefined,
   row: undefined,

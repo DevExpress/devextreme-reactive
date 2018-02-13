@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import './group-panel-empty-message.css';
 
 export const GroupPanelEmptyMessage = ({ getMessage, ...restProps }) => (
   <div
-    style={{
-      padding: '11px 0',
-    }}
+    className="group-panel-empty-message"
     {...restProps}
   >
     {getMessage('groupByColumn')}

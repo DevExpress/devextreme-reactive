@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import './table-edit-command-cell.css';
 
 export const CommandButton = ({
   onExecute, text,
-  className, style,
+  className,
   ...restProps
 }) => (
   <button
-    className={classNames('btn', 'btn-link', className)}
-    style={{ padding: 11, ...style }}
+    className={classNames('btn btn-link table-edit-command-cell', className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
@@ -24,27 +24,19 @@ CommandButton.propTypes = {
   text: PropTypes.string.isRequired,
   onExecute: PropTypes.func.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 CommandButton.defaultProps = {
   className: undefined,
-  style: {},
 };
 
 export const EditCommandHeadingCell = ({
-  children,
-  style,
+  children, className,
   tableColumn, tableRow,
   ...restProps
 }) => (
   <th
-    style={{
-      whiteSpace: 'nowrap',
-      textAlign: 'center',
-      padding: 0,
-      ...style,
-    }}
+    className={classNames('text-center p-0 text-nowrap', className)}
     {...restProps}
   >
     {children}
@@ -56,31 +48,25 @@ EditCommandHeadingCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  className: PropTypes.string,
 };
 
 EditCommandHeadingCell.defaultProps = {
   children: undefined,
-  style: {},
   tableColumn: undefined,
   tableRow: undefined,
+  className: undefined,
 };
 
 export const EditCommandCell = ({
-  children,
-  style,
+  children, className,
   tableColumn, tableRow,
   ...restProps
 }) => (
   <td
-    style={{
-      whiteSpace: 'nowrap',
-      textAlign: 'center',
-      padding: 0,
-      ...style,
-    }}
+    className={classNames('text-center p-0 text-nowrap', classNames)}
     {...restProps}
   >
     {children}
@@ -92,14 +78,14 @@ EditCommandCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  className: PropTypes.string,
 };
 
 EditCommandCell.defaultProps = {
   children: undefined,
-  style: {},
   tableColumn: undefined,
   tableRow: undefined,
+  className: undefined,
 };

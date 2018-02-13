@@ -1,0 +1,10 @@
+.table-header-cell__div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.table-header-cell__mr {
+  margin-right: 14px;
+}
+.table-header-cell__ml {
+  margin-left: 14px;
+}

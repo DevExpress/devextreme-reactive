@@ -1,14 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './table-container.css';
 
-export const TableContainer = ({ children, style, ...restProps }) => (
+export const TableContainer = ({ children, className, ...restProps }) => (
   <div
-    className="table-responsive"
-    style={{
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      ...style,
-    }}
+    className={classNames('table-responsive table-container', className)}
     {...restProps}
   >
     {children}
@@ -20,9 +17,9 @@ TableContainer.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableContainer.defaultProps = {
-  style: null,
+  className: undefined,
 };

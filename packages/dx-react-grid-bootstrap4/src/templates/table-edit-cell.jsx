@@ -1,27 +1,25 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './table-edit-cell.css';
 
 export const EditCell = ({
-  column, value, onValueChange, style, children,
+  column, value, onValueChange, className, children,
   row, tableRow, tableColumn, ...restProps
 }) => (
   <td
-    style={{
-      verticalAlign: 'middle',
-      padding: '5px',
-      ...style,
-    }}
+    className={classNames('align-middle', className)}
     {...restProps}
   >
     {children || (
       <input
         type="text"
-        className="form-control w-100"
+        className={classNames({
+          'form-control w-100': true,
+          'text-right': tableColumn.align === 'right',
+        })}
         value={value}
         onChange={e => onValueChange(e.target.value)}
-        style={{
-          textAlign: tableColumn && tableColumn.align,
-        }}
       />
     )}
   </td>
@@ -33,7 +31,7 @@ EditCell.propTypes = {
   tableRow: PropTypes.object,
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
-  style: PropTypes.object,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
@@ -44,7 +42,7 @@ EditCell.defaultProps = {
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,
-  value: '',
-  style: {},
+  className: undefined,
   children: undefined,
+  value: '',
 };

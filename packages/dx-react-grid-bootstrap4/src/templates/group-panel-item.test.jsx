@@ -133,19 +133,4 @@ describe('GroupPanelItem', () => {
     expect(tree.hasClass('mr-1'))
       .toBeTruthy();
   });
-
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <GroupPanelItem
-        item={{ column: { name: 'test' } }}
-        style={{
-          width: '40px',
-        }}
-      />
-    ));
-    expect(tree.find('.btn-group').prop('style'))
-      .toMatchObject({
-        width: '40px',
-      });
-  });
 });

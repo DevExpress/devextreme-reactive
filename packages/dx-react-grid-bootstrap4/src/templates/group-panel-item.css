@@ -1,0 +1,8 @@
+.group-panel-item {
+  opacity: 0.3;
+}
+.group-panel-item__grouping-control {
+  top: -2px;
+  font-size: 11px;
+  margin-left: -4px;
+}

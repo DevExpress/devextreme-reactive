@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
+import classNames from 'classnames';
 import { SortingIndicator } from '../parts/sorting-indicator';
+import './sorting-control.css';
 
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
@@ -11,38 +12,36 @@ export const SortingControl = ({
 }) =>
   (align === 'right' ? (
     <span
-      className={sortingDirection ? 'text-primary' : ''}
+      className={classNames({
+        'text-primary': sortingDirection,
+        'sorting-control': true,
+      })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
-      style={{
-        margin: '2px',
-      }}
     >
       <SortingIndicator
         direction={sortingDirection}
-        style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
       />
       &nbsp;
       {columnTitle}
     </span>
   ) : (
     <span
-      className={sortingDirection ? 'text-primary' : ''}
+      className={classNames({
+        'text-primary': sortingDirection,
+        'sorting-control': true,
+      })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
-      style={{
-        margin: '2px',
-      }}
     >
       {columnTitle}
       &nbsp;
       <SortingIndicator
         direction={sortingDirection}
-        style={{ visibility: sortingDirection ? 'visible' : 'hidden' }}
       />
     </span>
   ));

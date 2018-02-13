@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import './toolbar.css';
 
 export const Toolbar = ({
   children,
@@ -9,12 +10,8 @@ export const Toolbar = ({
   ...restProps
 }) => (
   <div
-    className={classNames('card-header py-2 d-flex position-relative', className)}
-    style={{
-      alignItems: 'center',
-      minHeight: '55px',
-      ...style,
-    }}
+    className={classNames('card-header py-2 d-flex position-relative toolbar', className)}
+    style={style}
     {...restProps}
   >
     {children}

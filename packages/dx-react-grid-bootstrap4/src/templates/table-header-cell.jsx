@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
+
+import './table-header-cell.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -38,7 +41,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
   render() {
     const {
-      style, column, tableColumn,
+      columnName, column, tableColumn,
       showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
@@ -52,18 +55,13 @@ export class TableHeaderCell extends React.PureComponent {
 
     const cellLayout = (
       <th
+        className={classNames({
+          'position-relative': true,
+          'cursor-pointer user-select': showSortingControls || draggingEnabled,
+          'opacity-03': dragging || (tableColumn && tableColumn.draft),
+          columnName,
+        })}
         scope="col"
-        style={{
-          ...(showSortingControls || draggingEnabled ? {
-            userSelect: 'none',
-            MozUserSelect: 'none',
-            WebkitUserSelect: 'none',
-          } : {}),
-          ...(showSortingControls || draggingEnabled ? { cursor: 'pointer' } : null),
-          ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
-          position: 'relative',
-          ...style,
-        }}
         onClick={this.onClick}
         {...restProps}
       >
@@ -74,15 +72,13 @@ export class TableHeaderCell extends React.PureComponent {
           />
         )}
         <div
-          style={{
-            ...(showGroupingControls
-              ? { [`margin${align === 'right' ? 'Left' : 'Right'}`]: '14px' }
-              : null),
-            textAlign: align,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
+          className={classNames({
+            'text-nowrap': true,
+            'text-right': align === 'right',
+            'table-header-cell__div': true,
+            'table-header-cell__mr': showGroupingControls && align === 'right',
+            'table-header-cell__ml': showGroupingControls && align !== 'right',
+          })}
         >
           {showSortingControls ? (
             <SortingControl
@@ -122,7 +118,7 @@ TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
-  style: PropTypes.object,
+  columnName: PropTypes.string,
   showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
@@ -140,7 +136,7 @@ TableHeaderCell.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
-  style: null,
+  columnName: undefined,
   showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,

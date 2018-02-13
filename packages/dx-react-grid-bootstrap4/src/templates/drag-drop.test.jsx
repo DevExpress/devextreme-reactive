@@ -13,7 +13,6 @@ describe('Container', () => {
     expect(tree.find('ul').prop('style'))
       .toMatchObject({
         transform: 'translate(calc(10px - 50%), calc(20px - 50%))',
-        cursor: 'move',
       });
   });
 

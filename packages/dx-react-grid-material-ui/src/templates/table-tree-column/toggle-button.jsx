@@ -12,11 +12,13 @@ const styles = theme => ({
     marginTop: -theme.spacing.unit,
     marginBottom: -theme.spacing.unit,
     marginLeft: -theme.spacing.unit,
+    marginRight: theme.spacing.unit * 2,
   },
   placeholder: {
     display: 'inline-block',
     width: theme.spacing.unit * 6,
     marginLeft: -theme.spacing.unit,
+    marginRight: theme.spacing.unit * 2,
   },
 });
 

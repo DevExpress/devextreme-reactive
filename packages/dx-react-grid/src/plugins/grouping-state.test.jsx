@@ -42,7 +42,7 @@ describe('GroupingState', () => {
     toggleExpandedGroups.mockImplementation(() => {});
     draftColumnGrouping.mockImplementation(() => {});
     cancelColumnGroupingDraft.mockImplementation(() => {});
-    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();

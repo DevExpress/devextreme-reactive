@@ -1,7 +1,7 @@
 import {
   getColumnSortingDirection,
   getPersistentSortedColumns,
-  culculateKeepOther,
+  calculateKeepOther,
 } from './helpers';
 
 describe('SortingState helpers', () => {
@@ -36,27 +36,27 @@ describe('SortingState helpers', () => {
     });
   });
 
-  describe('#culculateKeepOther', () => {
+  describe('#calculateKeepOther', () => {
     it('should not affect keepOther if persistent sorted columns is empty', () => {
       const initialKeepOther = ['a'];
-      const keepOther = culculateKeepOther([], initialKeepOther, []);
+      const keepOther = calculateKeepOther([], initialKeepOther, []);
       expect(keepOther).toBe(initialKeepOther);
     });
 
     it('should return persistent sorted columns if keepOther is false', () => {
       const persistentSortedColumns = ['a'];
-      const keepOther = culculateKeepOther([], false, persistentSortedColumns);
+      const keepOther = calculateKeepOther([], false, persistentSortedColumns);
       expect(keepOther).toBe(persistentSortedColumns);
     });
 
     it('should merge keepOther and persistent sorted columns if keepOther is array', () => {
-      const keepOther = culculateKeepOther([], ['a', 'b'], ['b', 'c']);
+      const keepOther = calculateKeepOther([], ['a', 'b'], ['b', 'c']);
       expect(keepOther).toEqual(['a', 'b', 'c']);
     });
 
     it('should merge sorting and persistent sorted columns if keepOther is true', () => {
       const sorting = [{ columnName: 'a' }, { columnName: 'b' }];
-      const keepOther = culculateKeepOther(sorting, true, ['b', 'c']);
+      const keepOther = calculateKeepOther(sorting, true, ['b', 'c']);
       expect(keepOther).toEqual(['a', 'b', 'c']);
     });
   });

@@ -15,7 +15,7 @@ export const getPersistentSortedColumns = (sorting, columnExtensions = []) =>
     return acc;
   }, []);
 
-export const culculateKeepOther = (sorting, keepOther, persistentSortedColumns = []) => {
+export const calculateKeepOther = (sorting, keepOther, persistentSortedColumns = []) => {
   if (!persistentSortedColumns.length) return keepOther;
   if (!keepOther) return persistentSortedColumns;
 

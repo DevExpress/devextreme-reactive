@@ -14,9 +14,6 @@ describe('GroupingControl', () => {
     shallow = createShallow({ dive: true });
     classes = getClasses(<GroupingControl {...defaultProps} />);
   });
-  afterAll(() => {
-    shallow.cleanUp();
-  });
 
   it('should have correct css class if disable is true', () => {
     const tree = shallow(<GroupingControl {...defaultProps} disabled />);

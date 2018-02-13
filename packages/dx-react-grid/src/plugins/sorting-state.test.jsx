@@ -6,7 +6,7 @@ import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
   getPersistentSortedColumns,
-  culculateKeepOther,
+  calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SortingState } from './sorting-state';
@@ -15,7 +15,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnSorting: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
   getPersistentSortedColumns: jest.fn(),
-  culculateKeepOther: jest.fn(),
+  calculateKeepOther: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -39,7 +39,7 @@ describe('SortingState', () => {
     changeColumnSorting.mockImplementation(() => ({}));
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
     getPersistentSortedColumns.mockImplementation(() => []);
-    culculateKeepOther.mockImplementation((sorting, keepOther) => keepOther);
+    calculateKeepOther.mockImplementation((sorting, keepOther) => keepOther);
   });
   afterEach(() => {
     jest.resetAllMocks();

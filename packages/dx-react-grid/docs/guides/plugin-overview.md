@@ -4,13 +4,15 @@ Plugins are components which should be placed inside Grid and responsible for en
 
 ## Plugin Order
 
-Because of the piping principal the plugin order is very important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code. This rule is demonstrated in the following example:
-
-.embedded-demo(grid-filtering/filter-row)
+Because of the piping principal the plugin order is very important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code.
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 
-The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `IntegratedPaging` plugin precedes the `IntegratedFiltering`, the Grid filters the current page's data. Swap the plugins to paginate filtered data.
+### Data Processing Plugins
+
+The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `IntegratedPaging` plugin precedes the `IntegratedSelection`, Select All checkbox selects only the current page's rows. Swap the plugins to allow selecting rows on all pages. See this rule in action in the following demo:
+
+.embedded-demo(grid-selection/select-all-by-page)
 
 ## Plugin Types
 

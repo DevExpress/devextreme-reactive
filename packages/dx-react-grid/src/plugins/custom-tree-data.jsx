@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
 import {
   customTreeRowLevelKeyGetter,
-  customTreeingRowIdGetter,
-  customTreeedRowsWithMeta,
+  customTreeRowIdGetter,
+  customTreeRowsWithMeta,
   expandedTreeRows,
   collapsedTreeRowsGetter,
   isLeafTreeRowGetter,
@@ -17,7 +17,7 @@ const pluginDependencies = [
 const expandedTreeRowsComputed = ({ rows, getRowId, expandedRowIds }) =>
   expandedTreeRows(rows, getRowId, expandedRowIds);
 const getRowIdComputed = ({ getRowId, rows }) =>
-  customTreeingRowIdGetter(getRowId, rows);
+  customTreeRowIdGetter(getRowId, rows);
 const getRowLevelKeyComputed = ({ getRowLevelKey, rows }) =>
   customTreeRowLevelKeyGetter(getRowLevelKey, rows);
 const isLeafRowComputed = ({ rows }) =>
@@ -31,7 +31,7 @@ export class CustomTreeData extends React.PureComponent {
       getChildRows,
     } = this.props;
     const groupedRowsComputed = ({ rows }) =>
-      customTreeedRowsWithMeta(rows, getChildRows);
+      customTreeRowsWithMeta(rows, getChildRows);
 
     return (
       <Plugin

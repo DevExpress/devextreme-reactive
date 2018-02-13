@@ -1,6 +1,6 @@
 import { GRID_TREE_NODE_TYPE } from './constants';
 
-const customTreeedRows = (
+const customTreeRows = (
   currentRows,
   getChildRows,
   rootRows = currentRows,
@@ -16,7 +16,7 @@ const customTreeedRows = (
         acc.levelsMeta.push([row, level]);
       }
 
-      const nestedResult = customTreeedRows(
+      const nestedResult = customTreeRows(
         childRows,
         getChildRows,
         rootRows,
@@ -29,18 +29,21 @@ const customTreeedRows = (
         }
         acc.rows.push(...nestedResult.rows);
         acc.levelsMeta.push(...nestedResult.levelsMeta);
-        acc.leafsMeta.push([row, false], ...nestedResult.leafsMeta);
+        acc.leafsMeta.push(...nestedResult.leafsMeta);
+      }
+      if (childRows) {
+        acc.leafsMeta.push([row, false]);
       }
 
       return acc;
     }, { rows: [], levelsMeta: [], leafsMeta: [] });
 };
 
-export const customTreeedRowsWithMeta = (
+export const customTreeRowsWithMeta = (
   currentRows,
   getChildRows,
 ) => {
-  const result = customTreeedRows(currentRows, getChildRows);
+  const result = customTreeRows(currentRows, getChildRows);
 
   return {
     rows: result.rows,
@@ -49,9 +52,9 @@ export const customTreeedRowsWithMeta = (
   };
 };
 
-export const customTreeingRowIdGetter = (getRowId, { rows, levelsMeta }) => {
-  const firstNestedRow = rows.find(row => levelsMeta.get(row) > 0);
-  if (getRowId(firstNestedRow) !== undefined) {
+export const customTreeRowIdGetter = (getRowId, { rows }) => {
+  // TODO: filter group rows
+  if (rows.length && getRowId(rows[0]) !== undefined) {
     return getRowId;
   }
   const map = new Map(rows

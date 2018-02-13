@@ -1,14 +1,14 @@
 import { GRID_TREE_NODE_TYPE } from './constants';
 import {
-  customTreeedRowsWithMeta,
-  customTreeingRowIdGetter,
+  customTreeRowsWithMeta,
+  customTreeRowIdGetter,
   customTreeRowLevelKeyGetter,
   expandedTreeRows,
   collapsedTreeRowsGetter,
 } from './computeds';
 
 describe('CustomTreeData Plugin computeds', () => {
-  describe('#customTreeedRowsWithMeta', () => {
+  describe('#customTreeRowsWithMeta', () => {
     it('should process hierarchical data', () => {
       const hierarchicalSource = [
         { a: 0 },
@@ -49,7 +49,7 @@ describe('CustomTreeData Plugin computeds', () => {
 
       const getChildGroups = jest.fn(getHierarchicalChildRows);
 
-      expect(customTreeedRowsWithMeta(hierarchicalSource, getChildGroups))
+      expect(customTreeRowsWithMeta(hierarchicalSource, getChildGroups))
         .toEqual(linearizedRows);
 
       expect(getChildGroups)
@@ -63,7 +63,7 @@ describe('CustomTreeData Plugin computeds', () => {
     });
   });
 
-  describe('#customTreeingRowIdGetter', () => {
+  describe('#customTreeRowIdGetter', () => {
     const rows = [
       { a: 1 },
       { a: 1, b: 1 },
@@ -78,7 +78,7 @@ describe('CustomTreeData Plugin computeds', () => {
 
     it('should define row ids to rows if not present', () => {
       const parentGetRowId = () => undefined;
-      const getRowId = customTreeingRowIdGetter(parentGetRowId, linearizedRows);
+      const getRowId = customTreeRowIdGetter(parentGetRowId, linearizedRows);
 
       expect(getRowId(linearizedRows.rows[0]))
         .toBe(0);
@@ -91,7 +91,7 @@ describe('CustomTreeData Plugin computeds', () => {
         if (row === linearizedRows.rows[0]) return 1;
         return undefined;
       };
-      const getRowId = customTreeingRowIdGetter(parentGetRowId, linearizedRows);
+      const getRowId = customTreeRowIdGetter(parentGetRowId, linearizedRows);
 
       expect(getRowId(linearizedRows.rows[0]))
         .toBe(0);
@@ -101,7 +101,7 @@ describe('CustomTreeData Plugin computeds', () => {
 
     it('should not define row ids if getRowId is defined', () => {
       const parentGetRowId = () => 0;
-      const getRowId = customTreeingRowIdGetter(parentGetRowId, linearizedRows);
+      const getRowId = customTreeRowIdGetter(parentGetRowId, linearizedRows);
 
       expect(getRowId(1))
         .toBe(0);

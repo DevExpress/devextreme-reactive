@@ -66,3 +66,9 @@ To show the Select All checkbox in the header row you need:
 .embedded-demo(grid-tree-data/select-all)
 
 ## Remote Data Loading on Demand
+
+You can handle the Grid's tree data state changes to request nested data from the server according to the expanded row id.
+
+Tree data options are updated once an end-user interacts with the UI. Handle option changes using the `TreeDataState` plugin's `onExpandedRowIdsChange` event, and request data from the server using the applied tree data options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
+
+.embedded-demo(grid-tree-data/remote)

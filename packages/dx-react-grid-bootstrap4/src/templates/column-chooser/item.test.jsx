@@ -102,21 +102,6 @@ describe('Item', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <Item
-        {...defaultProps}
-        style={{ width: '40px' }}
-      />
-    ));
-    expect(tree.find('button').prop('style'))
-      .toEqual({
-        cursor: 'pointer',
-        fontSize: 'initial',
-        width: '40px',
-      });
-  });
-
   it('should process the disabled prop', () => {
     const tree = shallow((
       <Item

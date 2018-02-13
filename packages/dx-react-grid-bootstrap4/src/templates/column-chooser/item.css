@@ -1,0 +1,7 @@
+.column-chooser__item {
+  font-size: initial;
+}
+
+.column-chooser__item__input {
+  margin-right: 10px;
+}

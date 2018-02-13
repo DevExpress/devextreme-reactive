@@ -7,16 +7,11 @@ const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 export const Item = ({
   item: { column, hidden },
-  onToggle, className, style,
+  onToggle, className,
   disabled, ...restProps
 }) => (
   <button
-    className={classNames('dropdown-item', className)}
-    style={{
-      cursor: 'pointer',
-      fontSize: 'initial',
-      ...style,
-    }}
+    className={classNames('dropdown-item column-chooser__item cursor-pointer', className)}
     type="button"
     onClick={onToggle}
     onMouseDown={handleMouseDown}
@@ -26,7 +21,10 @@ export const Item = ({
   >
     <input
       type="checkbox"
-      style={{ cursor: disabled ? 'default' : 'pointer', marginRight: 10 }}
+      className={classNames({
+        'cursor-pointer': !disabled,
+        'column-chooser__item__input': true,
+      })}
       tabIndex={-1}
       checked={!hidden}
       disabled={disabled}
@@ -46,13 +44,11 @@ Item.propTypes = {
   }).isRequired,
   onToggle: PropTypes.func,
   className: PropTypes.string,
-  style: PropTypes.object,
   disabled: PropTypes.bool,
 };
 
 Item.defaultProps = {
   onToggle: () => {},
   className: undefined,
-  style: undefined,
   disabled: false,
 };

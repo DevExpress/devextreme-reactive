@@ -1,0 +1,10 @@
+.grouping-control {
+  width: 14px;
+}
+
+.grouping-control__span {
+  top: 0;
+  font-size: 12px;
+  margin: -5px;
+  padding: 5px;
+}

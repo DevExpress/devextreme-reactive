@@ -1,30 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const GroupingControl = ({ align, onGroup }) => {
-  const invertedAlign = align === 'left' ? 'right' : 'left';
+  const invertedAlign = align === 'left';
 
   return (
     <div
+      className={classNames({
+        'grouping-control': true,
+        'float-left': !invertedAlign,
+        'float-right': invertedAlign,
+        'text-left': !invertedAlign,
+        'text-right': invertedAlign,
+      })}
       onClick={(e) => {
         e.stopPropagation();
         onGroup();
       }}
-      style={{
-        float: invertedAlign,
-        textAlign: invertedAlign,
-        width: '14px',
-      }}
     >
       <span
-        className="oi oi-list"
-        style={{
-          top: '0',
-          fontSize: '12px',
-          margin: '-5px',
-          padding: '5px',
-          cursor: 'pointer',
-        }}
+        className="oi oi-list cursor-pointer grouping-control__span"
       />
     </div>
   );

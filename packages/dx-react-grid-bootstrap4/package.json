@@ -28,6 +28,7 @@
   },
   "main": "dist/dx-react-grid-bootstrap4.umd.js",
   "module": "dist/dx-react-grid-bootstrap4.es.js",
+  "styles": "dist/dx-react-grid-bootstrap4.css",
   "globalName": "DevExpress.DXReactGridBootstrap4",
   "files": [
     "dist"
@@ -77,7 +78,8 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-license": "^0.5.0",
     "rollup-plugin-node-resolve": "^3.0.2",
-    "reactstrap": "^5.0.0-beta"
+    "reactstrap": "^5.0.0-beta",
+    "rollup-plugin-css-only": "^0.4.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",

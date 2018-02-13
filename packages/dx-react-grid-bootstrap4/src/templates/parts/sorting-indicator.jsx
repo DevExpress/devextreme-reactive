@@ -3,12 +3,8 @@ import * as PropTypes from 'prop-types';
 
 export const SortingIndicator = ({ direction, style }) => (
   <span
-    className={`oi oi-arrow-thick-${direction === 'desc' ? 'bottom' : 'top'}`}
-    style={{
-      top: '0',
-      fontSize: '11px',
-      ...style,
-    }}
+    className={`sorting-indicator oi oi-arrow-thick-${direction === 'desc' ? 'bottom' : 'top'}`}
+    style={style}
   />
 );
 

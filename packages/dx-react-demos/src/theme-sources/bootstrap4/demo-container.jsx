@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 import { FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
+import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 
 const CUSTOM_THEME = 'https://bootswatch.com/4/sketchy/bootstrap.min.css';
 const ICONS = 'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css';

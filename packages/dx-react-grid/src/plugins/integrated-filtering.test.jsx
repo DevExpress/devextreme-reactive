@@ -14,7 +14,6 @@ const defaultDeps = {
     getRowLevelKey: jest.fn(),
     filterExpressions: [{ columnName: 'name' }],
   },
-  plugins: ['FilteringState'],
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({

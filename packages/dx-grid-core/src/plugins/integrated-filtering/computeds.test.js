@@ -15,7 +15,7 @@ describe('IntegratedFiltering computeds', () => {
       ];
 
       it('should not touch rows if no filters specified', () => {
-        const filters = [];
+        const filters = null;
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered).toBe(rows);

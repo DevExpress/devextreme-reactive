@@ -64,7 +64,7 @@ export const filteredRows = (
   isGroupRow,
   getRowLevelKey,
 ) => {
-  if (!Object.keys(filterExpressions).length || !rows.length) return rows;
+  if (!filterExpressions || !Object.keys(filterExpressions).length || !rows.length) return rows;
 
   const getPredicateFromFilter = (filter) => {
     const { columnName, ...filterConfig } = filter;

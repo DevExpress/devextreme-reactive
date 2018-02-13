@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
@@ -192,7 +192,7 @@ describe('FilteringState', () => {
   describe('column extensions', () => {
     it('should correctly call getColumnExtensionValueGetter', () => {
       const columnExtensions = [{ columnName: 'a', filteringEnabled: true }];
-      mount((
+      shallow((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <FilteringState
@@ -200,7 +200,7 @@ describe('FilteringState', () => {
             columnExtensions={columnExtensions}
           />
         </PluginHost>
-      ));
+      )).find(FilteringState).dive();
 
       expect(getColumnExtensionValueGetter)
         .toBeCalledWith(columnExtensions, 'filteringEnabled', false);

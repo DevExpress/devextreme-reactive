@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
@@ -208,7 +208,7 @@ describe('SortingState', () => {
   describe('column extensions', () => {
     it('should correctly call getColumnExtensionValueGetter', () => {
       const columnExtensions = [{ columnName: 'a', sortingEnabled: true }];
-      mount((
+      shallow((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <SortingState
@@ -216,7 +216,7 @@ describe('SortingState', () => {
             columnExtensions={columnExtensions}
           />
         </PluginHost>
-      ));
+      )).find(SortingState).dive();
 
       expect(getColumnExtensionValueGetter)
         .toBeCalledWith(columnExtensions, 'sortingEnabled', false);

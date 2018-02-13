@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { withStyles } from 'material-ui/styles';
 
-const SearchBoxInputBase = ({
+const SearchPanelInputBase = ({
   changeSearchValue, searchValue, getMessage, classes, ...restProps, className,
 }) => (<Input
   className={classNames(classes.input, className)}
@@ -14,17 +14,17 @@ const SearchBoxInputBase = ({
   {...restProps}
 />);
 
-SearchBoxInputBase.propTypes = {
+SearchPanelInputBase.propTypes = {
   changeSearchValue: PropTypes.func.isRequired,
   searchValue: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
-SearchBoxInputBase.defaultProps = {
+SearchPanelInputBase.defaultProps = {
   searchValue: '',
   className: undefined,
 };
 
-export const SearchBoxInput = withStyles({ name: 'SearchBoxInput' })(SearchBoxInputBase);
+export const SearchPanelInput = withStyles({ name: 'SearchPanelInput' })(SearchPanelInputBase);
 

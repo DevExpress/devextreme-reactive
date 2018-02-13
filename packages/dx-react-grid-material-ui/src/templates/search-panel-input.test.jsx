@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
 import Input from 'material-ui/Input';
-import { SearchBoxInput } from './search-box-input';
+import { SearchPanelInput } from './search-panel-input';
 
 const getMessage = jest.fn().mockReturnValue('placeholder');
 const changeSearchValue = jest.fn();
@@ -13,7 +13,7 @@ describe('Input search box', () => {
   });
 
   it('should render input component', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
@@ -21,7 +21,7 @@ describe('Input search box', () => {
   });
 
   it('should render input component', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       searchValue="abc"
       getMessage={getMessage}
@@ -30,7 +30,7 @@ describe('Input search box', () => {
   });
 
   it('should trigger changeSearchValue when change event fire', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
@@ -39,7 +39,7 @@ describe('Input search box', () => {
   });
 
   it('should set placeholder', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
@@ -48,7 +48,7 @@ describe('Input search box', () => {
   });
 
   it('should have custom class', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
       className="custom-class"

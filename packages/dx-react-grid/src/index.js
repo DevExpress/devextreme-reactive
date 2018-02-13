@@ -52,4 +52,4 @@ export { GroupPanelLayout } from './components/group-panel-layout';
 export { Toolbar } from './plugins/toolbar';
 
 export { SearchingState } from './plugins/searching-state';
-export { SearchBox } from './plugins/search-box';
+export { SearchPanel } from './plugins/search-panel';

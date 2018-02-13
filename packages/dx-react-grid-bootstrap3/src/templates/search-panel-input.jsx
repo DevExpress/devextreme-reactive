@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const SearchBoxInput = ({
+export const SearchPanelInput = ({
   changeSearchValue, searchValue, getMessage, style, ...restProps
 }) => (<input
   type="text"
@@ -12,14 +12,14 @@ export const SearchBoxInput = ({
   {...restProps}
 />);
 
-SearchBoxInput.propTypes = {
+SearchPanelInput.propTypes = {
   searchValue: PropTypes.any,
   changeSearchValue: PropTypes.func.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func,
 };
 
-SearchBoxInput.defaultProps = {
+SearchPanelInput.defaultProps = {
   searchValue: undefined,
   style: {},
   getMessage: undefined,

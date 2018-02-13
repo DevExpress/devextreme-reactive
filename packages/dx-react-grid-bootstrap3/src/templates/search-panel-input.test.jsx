@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { SearchBoxInput } from './search-box-input';
+import { SearchPanelInput } from './search-panel-input';
 
 let changeSearchValue;
 
@@ -10,12 +10,12 @@ describe('Input search box', () => {
   });
 
   it('should render input component', () => {
-    const tree = shallow(<SearchBoxInput changeSearchValue={changeSearchValue} />);
+    const tree = shallow(<SearchPanelInput changeSearchValue={changeSearchValue} />);
     expect(tree.find('input').length).toBe(1);
   });
 
   it('should render input component', () => {
-    const tree = shallow(<SearchBoxInput
+    const tree = shallow(<SearchPanelInput
       searchValue="abc"
       changeSearchValue={changeSearchValue}
     />);
@@ -23,7 +23,7 @@ describe('Input search box', () => {
   });
 
   it('should trigger changeSearchValue when change event fire', () => {
-    const tree = shallow(<SearchBoxInput changeSearchValue={changeSearchValue} />);
+    const tree = shallow(<SearchPanelInput changeSearchValue={changeSearchValue} />);
     tree.find('input').simulate('change', { target: { value: 'abc' } });
     expect(changeSearchValue).toBeCalledWith({ searchValue: 'abc' });
   });

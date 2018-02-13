@@ -8,13 +8,13 @@ import {
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 
-const pluginDependencies = [{ name: 'Toolbar' }];
-export const SearchBox = ({ rootComponent: Root, messages }) => {
+const pluginDependencies = [{ name: 'Toolbar' }, { name: 'SearchingState' }];
+export const SearchPanel = ({ rootComponent: Root, messages }) => {
   const getMessage = getMessagesFormatter(messages);
 
   return (
     <Plugin
-      name="ColumnChooser"
+      name="SearchPanel"
       dependencies={pluginDependencies}
     >
       <Template name="toolbarContent">
@@ -33,11 +33,11 @@ export const SearchBox = ({ rootComponent: Root, messages }) => {
   );
 };
 
-SearchBox.propTypes = {
+SearchPanel.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 
-SearchBox.defaultProps = {
+SearchPanel.defaultProps = {
   messages: {},
 };

@@ -62,6 +62,7 @@ isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function
 changeColumnFilter | Action | ({ columnName: string, config: Object }) => void | Changes a column filter or clears it if config is null.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueEditor | Template | [DataTypeProvider.ValueEditorProps](data-type-provider.md#datatypeprovidervalueeditorprops) | A template that renders the editor.
 
 ### Exports
 

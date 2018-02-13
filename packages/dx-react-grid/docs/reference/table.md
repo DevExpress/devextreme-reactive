@@ -138,6 +138,7 @@ rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
+valueFormatter | Template | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 

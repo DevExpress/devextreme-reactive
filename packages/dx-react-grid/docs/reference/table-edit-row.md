@@ -68,6 +68,7 @@ getCellValue | Getter | (row: any, columnName: string) => any | A function used 
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueEditor | Template | [DataTypeProvider.ValueEditorProps](data-type-provider.md#datatypeprovidervalueeditorprops) | A template that renders the editor.
 
 ### Exports
 

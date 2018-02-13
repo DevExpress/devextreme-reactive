@@ -6,11 +6,11 @@ A plugin that renders a table column with toggle button and sorting indicators.
 
 ### Dependencies
 
-- [DataTypeProvider](data-type-provider.md) [Optional]
 - [TreeDataState](tree-data-state.md)
+- [Table](table.md)
+- [DataTypeProvider](data-type-provider.md) [Optional]
 - [SelectionState](selection-state.md) [Optional]
 - [IntegratedSelection](integrated-selection.md) [Optional]
-- [Table](table.md)
 - [TableHeaderRow](table-header-row.md) [Optional]
 
 ### Properties
@@ -39,7 +39,7 @@ value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
 controls? | ReactNode | A React node to be placed in the cell part that display controls.
-children? | ReactNode | A React node to be placed in the cell part that display data.
+children? | ReactNode | A React node to be placed in the cell part that display cell value.
 
 ### TableTreeColumn.IndentProps
 
@@ -102,6 +102,7 @@ allSelected | Getter | boolean | Indicates whether all the rows available for se
 someSelected | Getter | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableHeaderCellBefore | Template | object? | A template used to prepend additional components to the header table cell.
+valueFormatter | Template | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 

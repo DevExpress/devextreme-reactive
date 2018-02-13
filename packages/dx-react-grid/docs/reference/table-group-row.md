@@ -100,6 +100,7 @@ isGroupRow | Getter | (row: any) => boolean | A function used to identify a grou
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueFormatter | Template | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import List from 'material-ui-icons/List';
 import { withStyles } from 'material-ui/styles';
 
-export const styles = theme => ({
+const styles = theme => ({
   groupingControl: {
     paddingLeft: 0,
     height: theme.spacing.unit * 3,

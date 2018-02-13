@@ -21,7 +21,7 @@ export default class Demo extends React.PureComponent {
       <TasksList
         tasks={tasks}
       >
-        {/* Here we may add another plugins */}
+        {/* Here we may add other plugins */}
       </TasksList>
     );
   }

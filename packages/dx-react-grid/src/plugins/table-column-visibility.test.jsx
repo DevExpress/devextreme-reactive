@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   visibleTableColumns,
@@ -177,7 +177,7 @@ describe('TableColumnVisibility', () => {
   describe('column extensions', () => {
     it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
       const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
-      shallow((
+      mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
@@ -186,7 +186,7 @@ describe('TableColumnVisibility', () => {
             columnExtensions={columnExtensions}
           />
         </PluginHost>
-      )).find(TableColumnVisibility).dive();
+      ));
 
       expect(getColumnExtensionValueGetter)
         .toBeCalledWith(columnExtensions, 'togglingEnabled', false);

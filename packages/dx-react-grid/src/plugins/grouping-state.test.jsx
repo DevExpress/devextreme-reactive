@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
@@ -719,7 +719,7 @@ describe('GroupingState', () => {
   describe('column extensions', () => {
     it('should call getColumnExtensionValueGetter correctly', () => {
       const columnExtensions = [{ columnName: 'a', groupingEnabled: true }];
-      shallow((
+      mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <GroupingState
@@ -727,7 +727,7 @@ describe('GroupingState', () => {
             columnExtensions={columnExtensions}
           />
         </PluginHost>
-      )).find(GroupingState).dive();
+      ));
 
       expect(getColumnExtensionValueGetter)
         .toBeCalledWith(columnExtensions, 'groupingEnabled', false);

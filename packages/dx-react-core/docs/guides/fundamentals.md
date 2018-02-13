@@ -1,49 +1,54 @@
 # React Core - Fundamentals
 
-React Core provides a set of React components that allows implementing plugin based component.
+React Core provides components that simplify the creation of a plugin based component.
 
 ## Core Principles
 
-Plugin based component is designed with the following patterns in mind:
+A plugin based component should adhere to the following principles:
 
-- **[Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}**. Plugins located in an IoC container. They can consume and provide items for the container.
-- **[State Managment](https://en.wikipedia.org/wiki/State_management){:target="_blank"}**. It allows defining component's state and a way how it mutates.
-- **[Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"}**. It clarifies a way that plugins communicate.
+- **[Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}**  
+ Plugins are located in an IoC container and can provide their items for the container or consume container's ones.
+ 
+ A plugin based component consists of the following child components:
 
-Each pluggin based component consists of the following parts:
+  - Plugin Host component  
+    A component that hosts plugins.
 
-- Plugin Host React component. It hosts pligins.
-- Plugin React component. It defines markup and manages state part that it owns with a help of actions modifying it.
+  - Plugin components  
+    Each plugin is a React component that defines markup, stores a state and provides actions for state modification.
+ 
+- **[State Managment](https://en.wikipedia.org/wiki/State_management){:target="_blank"}**.  
+ The component provides means for state storing and mutation.
 
-Plugins can communicate with each other. The communication principle is based on the plugin's position. For example, several plugins may contain markup to be placed in the root. The last defined markup (in the last placed plugin) will be rendered first and so on.
+ The plugin based component's state is an arrgeration of plugin states, which keep data [normalized](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) and immutable. The state can only be mutated through an action execution.
 
-The state of plugin based component is constructed by the state parts defined by contained plugins. They are intended to hold [normalized data](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html){:target="_blank"} and immutable. The only one way to mutate the state is an action execution.
+- **[Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"}**. The component provides a mechanism for plugins communication.
+ 
+ The plugin application order depends on the order the plugins are defined in the parent component. The higher plugin is defined, the earlier it is applied.
 
-## Plugin Host Component
+### Plugin Host Component
 
-[PluginHost](../reference/plugin-host.md) is an auxilary React component that provides mechanisms that enables all the listed abilities. It hosts plugins as child React components in order to provide a single communication point for them. If PluginHost represents the root element of React component, the component can be called as plugin host component.
+[PluginHost](../reference/plugin-host.md) is an auxiliary component used as a single communication point for all plugins that provides adhering to the principles listed above. As the PluginHost component is the parent component's root element, you can access the parent component via its plugin host.
 
 .embedded-demo({ "path": "core-basic/plugin-host-component", "defaultTab": "source" })
 
-The children of PluginHost component is called **plugin root**. It should contain only plugin primitives and plugin components within. **Plugin primitives** are a subset of React Core components that should be placed inside PluginHost and plugins.
+The PluginHost component is called **plugin root**. It should contain only **plugin primitives** and plugin components.
 
-Here the list of plugin primitives:
+**Plugin primitives** are React Core components that can be declared within a PluginHost or a plugin. They are initialized when the plugin host is being mounted. The following plugin primitives are available:
 
 - [Template](../reference/template.md). Defines markup.
 - [Getter](../reference/getter.md). Defines a value.
 - [Action](../reference/action.md). Definea an action.
 
-Plugin primitives are initialized when plugin host component is mounting. After this the result React component tree is starting rendering and appears in rendering root. **Rendering root** is a plugin host component markup constructed by vizualization primitives and React components. **Vizualization primitives** are a subset of React Core components that links state with actions and mount calculated component tree.
+When the plugin host has been mounted, a component tree is rendered within the plugin host's markup called **rendering root**. The rendering root contains rendered vizualization primitives and React components. **Vizualization primitives** are React Core components that define relations between state and actions and mount the rendered component tree.
 
-Here the list of vizualization primitives:
+Vizualization primitives:
 
 - [TemplatePlaceholder](../reference/template-placeholder.md). Renders markup defined by the Template.
 - [TemplateConnector](../reference/template-connector.md). Connects values and actions defined by the Getter and Action.
 
-## Plugin Component
+### Plugin Component
 
-[Plugin](../reference/plugin.md) is an auxilary React component created to hold several plugin primitives or plugins within. If Plugin represents the root element of React component, the component can be called as plugin component.
+[Plugin](../reference/plugin.md) is an auxiliary component that holds plugin primitives or nested plugins. If a React component's root element is a plugin, this component is called plugin component.
 
 .embedded-demo({ "path": "core-basic/plugin-component", "defaultTab": "source" })
-
-It should contain only plugin primitives and plugin components within.

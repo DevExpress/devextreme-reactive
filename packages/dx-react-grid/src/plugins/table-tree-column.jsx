@@ -25,8 +25,9 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
 export class TableTreeColumn extends React.PureComponent {
   render() {
     const {
-      columnName: forColumnName,
+      for: forColumnName,
       showSelectionControls,
+      showSelectAll,
       indentComponent: Indent,
       toggleButtonComponent: ToggleButton,
       checkboxComponent: Checkbox,
@@ -39,7 +40,7 @@ export class TableTreeColumn extends React.PureComponent {
           { name: 'DataTypeProvider', optional: true },
           { name: 'TreeDataState' },
           { name: 'SelectionState', optional: !showSelectionControls },
-          { name: 'IntegratedSelection', optional: !showSelectionControls },
+          { name: 'IntegratedSelection', optional: !showSelectAll },
           { name: 'Table' },
           { name: 'TableHeaderRow', optional: true },
         ]}
@@ -52,7 +53,7 @@ export class TableTreeColumn extends React.PureComponent {
           <ToggleButton
             disabled
           />
-          {showSelectionControls && (
+          {showSelectionControls && showSelectAll && (
             <TemplateConnector>
               {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
                 <Checkbox
@@ -140,8 +141,9 @@ export class TableTreeColumn extends React.PureComponent {
 }
 
 TableTreeColumn.propTypes = {
-  columnName: PropTypes.string.isRequired,
+  for: PropTypes.string.isRequired,
   showSelectionControls: PropTypes.bool,
+  showSelectAll: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   indentComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
@@ -150,4 +152,5 @@ TableTreeColumn.propTypes = {
 
 TableTreeColumn.defaultProps = {
   showSelectionControls: false,
+  showSelectAll: false,
 };

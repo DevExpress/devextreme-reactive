@@ -17,12 +17,13 @@ A plugin that renders a table column with toggle button and sorting indicators.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnName | string | | A column name used to identify a column that will be represented as a tree.
+for | string | | A column name used to identify a column that will be represented as a tree.
 cellComponent | ComponentType&lt;[TableTreeColumn.CellProps](#tabletreecolumncellprops)&gt; | | A component that renders a cell within a data row.
 indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify row level.
 toggleButtonComponent | ComponentType&lt;[TableTreeColumn.ToggleButtonProps](#tabletreecolumntogglebuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
-showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) and [IntegratedSelection](integrated-selection.md) dependencies.
+showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
+showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
 
 ## Interfaces
 

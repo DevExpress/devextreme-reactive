@@ -22,18 +22,47 @@ If the data has a hierarchical structure (already grouped), use the `CustomTreeD
 
 In the following example, the data is specified as an array of groups. Specify the `CustomTreeData` plugin's `getChildRows` property to parse a custom tree structure.
 
-.embedded-demo(grid-tree-data/static-hierarchical)
+.embedded-demo(grid-tree-data/hierarchical-tree)
 
 It is also possible to transform tree data defined as a plain array.
 
-.embedded-demo(grid-tree-data/static-plain)
+.embedded-demo(grid-tree-data/plain-tree)
 
 ## Uncontrolled Mode
 
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
+
+.embedded-demo(grid-tree-data/uncontrolled-mode)
+
 ## Controlled Mode
 
-## Configuring Selection Controls
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the sorting state externally.
 
-## Configuring Select All
+.embedded-demo(grid-tree-data/controlled-mode)
+
+## Configuring Hierarchical Selection Controls
+
+The `TableTreeColumn` plugin allows showing hierarchical selection controls.
+
+### Basic Selection
+
+To enable this feature you need:
+
+- Configure the `SelectionState` plugin. Refer the [Selection](selection.md) guide.
+- Set the `showSelectionControls` property of the `TableTreeColumn` plugin to true to show checkboxes.
+
+.embedded-demo(grid-tree-data/selection-controls)
+
+It is also possible to combine the `TableTreeColumn` plugin with the `TableSelection` plugin to highlight selected rows and listen to click on the whole row.
+
+### Select All
+
+To show the Select All checkbox in the header row you need:
+
+- Configure the `TableHeaderRow` plugin. Refer the [Fundamentals](fundamentals.md) guide.
+- Configure the `IntegratedSelection` plugin. Refer the [Selection](selection.md) guide.
+- Set the `showSelectAll` property of the `TableTreeColumn` plugin to true to show Select All checkbox.
+
+.embedded-demo(grid-tree-data/select-all)
 
 ## Remote Data Loading on Demand

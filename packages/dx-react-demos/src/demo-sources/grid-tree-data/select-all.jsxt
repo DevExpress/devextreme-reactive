@@ -1,5 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
+  SelectionState,
+  IntegratedSelection,
   TreeDataState,
   CustomTreeData,
 } from '@devexpress/dx-react-grid';
@@ -35,6 +37,7 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions: [
         { columnName: 'name', width: 300 },
       ],
+      defaultExpandedRowIds: [0],
       data: generateRows({
         columnValues: {
           id: ({ index }) => index,
@@ -46,7 +49,9 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { data, columns, tableColumnExtensions } = this.state;
+    const {
+      data, columns, tableColumnExtensions, defaultExpandedRowIds,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -54,16 +59,22 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <TreeDataState />
+          <SelectionState />
+          <TreeDataState
+            defaultExpandedRowIds={defaultExpandedRowIds}
+          />
           <CustomTreeData
             getChildRows={getChildRows}
           />
+          <IntegratedSelection />
           <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
           <TableTreeColumn
-            columnName="name"
+            for="name"
+            showSelectionControls
+            showSelectAll
           />
         </Grid>
       </<%&wrapperTag%>>

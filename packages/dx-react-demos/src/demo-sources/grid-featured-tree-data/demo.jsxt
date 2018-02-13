@@ -120,7 +120,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableFilterRow />
           <TableTreeColumn
-            columnName="Subject"
+            for="Subject"
             showSelectionControls
           />
 

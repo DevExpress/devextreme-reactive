@@ -76,7 +76,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow />
           <TableTreeColumn
-            columnName="name"
+            for="name"
           />
         </Grid>
       </<%&wrapperTag%>>

@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTable,
+  Table,
   TableHeaderRow,
   TableTreeColumn,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
@@ -15,8 +15,11 @@ import {
   defaultColumnValues,
 } from '../../../demo-data/generator';
 
-const getChildRows = rows => rows
-  .map(row => ({ row, childRows: row.items }));
+const getChildRows = (rows, rootRows) => (
+  (rootRows === rows)
+    ? rootRows.filter(row => row.parentId === null)
+    : rows)
+  .map(row => ({ row, childRows: rootRows.filter(r => r.parentId === row.id) }));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -32,31 +35,20 @@ export default class Demo extends React.PureComponent {
       tableColumnExtensions: [
         { columnName: 'name', width: 300 },
       ],
+      defaultExpandedRowIds: [0, 1],
       data: generateRows({
         columnValues: {
+          id: ({ index }) => index,
+          parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
           ...defaultColumnValues,
-          items: ({ random }) => generateRows({
-            columnValues: {
-              ...defaultColumnValues,
-              items: () => generateRows({
-                columnValues: {
-                  ...defaultColumnValues,
-                },
-                length: Math.trunc(random() * 100),
-                random,
-              }),
-            },
-            length: Math.trunc(random() * 100),
-            random,
-          }),
         },
-        length: 100,
+        length: 20,
       }),
     };
   }
   render() {
     const {
-      data, columns, tableColumnExtensions,
+      data, columns, tableColumnExtensions, defaultExpandedRowIds,
     } = this.state;
 
     return (
@@ -65,16 +57,18 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <TreeDataState />
+          <TreeDataState
+            defaultExpandedRowIds={defaultExpandedRowIds}
+          />
           <CustomTreeData
             getChildRows={getChildRows}
           />
-          <VirtualTable
+          <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
           <TableTreeColumn
-            columnName="name"
+            for="name"
           />
         </Grid>
       </<%&wrapperTag%>>

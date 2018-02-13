@@ -26,6 +26,6 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), 
 
 ### Disable Column Visibility Toggling
 
-You can prevent changing a specific column's visibility using the [TableColumnVisibility](../reference/table-column-visibility.md) plugin's `columnExtensions` property.
+You can use the [TableColumnVisibility](../reference/table-column-visibility.md) plugin's `columnExtensions` property to prevent changing to a specific column's visibility.
 
 .embedded-demo(grid-column-chooser/disable-toggling-column-visibility)

@@ -8,11 +8,7 @@ describe('TableSelectCell', () => {
       <TableSelectCell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.is('.cursor-pointer'))
-      .toBeTruthy();
-    expect(tree.is('.align-middle'))
+    expect(tree.is('.align-middle.cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 

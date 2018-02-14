@@ -3,11 +3,10 @@ import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
-
 describe('TableDetailToggleCell', () => {
   let resetConsole;
+  const ENTER_KEY_CODE = 13;
+  const SPACE_KEY_CODE = 32;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
@@ -83,7 +82,7 @@ describe('TableDetailToggleCell', () => {
     const tree = shallow((
       <TableDetailToggleCell className="custom-class" />
     ));
-    expect(tree.find('td').is('.custom-class'))
+    expect(tree.find('td').is('.align-middle.cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 });

@@ -44,8 +44,8 @@ export class TableHeaderCell extends React.PureComponent {
       className, column, tableColumn,
       showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
-      draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      draggingEnabled, onWidthDraftCancel,
+      resizingEnabled, onWidthChange, onWidthDraft,
       tableRow, getMessage, onSort,
       ...restProps
     } = this.props;

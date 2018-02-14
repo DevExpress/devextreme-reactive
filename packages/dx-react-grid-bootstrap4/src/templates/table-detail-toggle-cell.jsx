@@ -9,7 +9,7 @@ const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
 export const TableDetailToggleCell = ({
-  expanded, onToggle,
+  expanded, onToggle, className,
   tableColumn, tableRow, row,
   ...restProps
 }) => {
@@ -21,7 +21,7 @@ export const TableDetailToggleCell = ({
   };
   return (
     <td
-      className="align-middle cursor-pointer"
+      className={classNames('align-middle cursor-pointer', className)}
       onClick={(e) => {
         e.stopPropagation();
         onToggle();
@@ -49,6 +49,7 @@ TableDetailToggleCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableDetailToggleCell.defaultProps = {
@@ -57,4 +58,5 @@ TableDetailToggleCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
+  className: undefined,
 };

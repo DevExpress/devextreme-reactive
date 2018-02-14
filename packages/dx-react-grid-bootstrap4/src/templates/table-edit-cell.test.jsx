@@ -3,28 +3,24 @@ import { shallow } from 'enzyme';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
-  it('should pass style to the root element', () => {
+  const defaultProps = {
+    onValueChange: () => {},
+  };
+  it('should pass rest props to the root element', () => {
     const tree = shallow((
       <EditCell
-        value="a"
-        onValueChange={() => {}}
-        style={{
-          width: '40px',
-          height: '10px',
-        }}
+        {...defaultProps}
+        data={{ a: 1 }}
       />
     ));
-    expect(tree.find('td').prop('style'))
-      .toMatchObject({
-        width: '40px',
-        height: '10px',
-      });
+    expect(tree.find('td').prop('data'))
+      .toEqual({ a: 1 });
   });
 
   it('should render children if passed', () => {
     const tree = shallow((
       <EditCell
-        onValueChange={() => {}}
+        {...defaultProps}
       >
         <span className="test" />
       </EditCell>
@@ -37,12 +33,12 @@ describe('EditCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <EditCell
-        onValueChange={() => {}}
+        {...defaultProps}
         className="custom-class"
       />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.align-middle.custom-class'))
       .toBeTruthy();
   });
 });

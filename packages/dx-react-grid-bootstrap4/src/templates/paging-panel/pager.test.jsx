@@ -55,12 +55,12 @@ describe('Pager', () => {
     const tree = shallow((
       <Pager
         {...defaultProps}
-        onClick="onClick"
+        data={{ a: 1 }}
       />
     ));
 
-    expect(tree.prop('onClick'))
-      .toBe('onClick');
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
   });
 
   it('should add the passed className to the root element', () => {
@@ -71,7 +71,7 @@ describe('Pager', () => {
       />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.clearfix.card-footer.custom-class'))
       .toBeTruthy();
   });
 });

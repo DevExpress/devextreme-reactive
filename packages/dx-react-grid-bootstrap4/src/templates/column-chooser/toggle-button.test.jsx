@@ -17,9 +17,7 @@ describe('ToggleButton', () => {
       />
     ));
 
-    expect(tree.is('.btn-outline-secondary'))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.btn-outline-secondary.custom-class'))
       .toBeTruthy();
   });
 

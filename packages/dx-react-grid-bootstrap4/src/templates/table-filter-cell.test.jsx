@@ -39,14 +39,12 @@ describe('TableFilterCell', () => {
       .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
+  it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableFilterCell style={{ width: '40px' }} />
+      <TableFilterCell data={{ a: 1 }} />
     ));
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        width: '40px',
-      });
+    expect(tree.find('th').prop('data'))
+      .toEqual({ a: 1 });
   });
 
   it('should render readonly filtering editor if filtering is not allowed', () => {

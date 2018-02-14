@@ -7,9 +7,9 @@ export const SortingIndicator = ({ direction }) => (
   <span
     className={classNames({
       'oi sorting-indicator': true,
-      invisible: !direction,
       'oi-arrow-thick-bottom': direction === 'desc',
       'oi-arrow-thick-top': direction !== 'desc',
+      invisible: !direction,
     })}
   />
 );

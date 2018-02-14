@@ -39,9 +39,7 @@ describe('Container', () => {
       />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.is('.list-group'))
+    expect(tree.is('.custom-class.list-group.d-inline-block.position-fixed.drag-drop'))
       .toBeTruthy();
   });
 
@@ -69,9 +67,7 @@ describe('Column', () => {
       />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.is('.list-group-item'))
+    expect(tree.is('.custom-class.list-group-item'))
       .toBeTruthy();
   });
 

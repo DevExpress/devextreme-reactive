@@ -5,10 +5,10 @@ import { TableRow } from './table-row';
 describe('TableRow', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableRow className="custom-class" />
+      <TableRow data={{ a: 1 }} />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
   });
 });

@@ -3,9 +3,12 @@ import { shallow } from 'enzyme';
 import { TableNoDataCell } from './table-no-data-cell';
 
 describe('TableNoDataCell', () => {
+  const defaultProps = {
+    getMessage: key => key,
+  };
   it('should use "noData" text if defined', () => {
     const tree = shallow((
-      <TableNoDataCell getMessage={key => key} />
+      <TableNoDataCell {...defaultProps} />
     ));
 
     expect(tree.find('big').text()).toBe('noData');
@@ -14,12 +17,12 @@ describe('TableNoDataCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableNoDataCell
-        getMessage={key => key}
+        {...defaultProps}
         className="custom-class"
       />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.py-5.text-center.custom-class'))
       .toBeTruthy();
   });
 });

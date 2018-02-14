@@ -9,13 +9,7 @@ describe('EditCommandCells', () => {
         <EditCommandCell className="custom-class" />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is('.p-0'))
-        .toBeTruthy();
-      expect(tree.is('.text-nowrap'))
-        .toBeTruthy();
-      expect(tree.is('.text-center'))
+      expect(tree.is('.p-0.text-nowrap.text-center.custom-class'))
         .toBeTruthy();
     });
 
@@ -34,13 +28,7 @@ describe('EditCommandCells', () => {
         <EditCommandHeadingCell className="custom-class" />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is('.p-0'))
-        .toBeTruthy();
-      expect(tree.is('.text-nowrap'))
-        .toBeTruthy();
-      expect(tree.is('.text-center'))
+      expect(tree.is('.p-0.text-nowrap.text-center.custom-class'))
         .toBeTruthy();
     });
 
@@ -63,13 +51,7 @@ describe('EditCommandCells', () => {
         />
       ));
 
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-      expect(tree.is('.btn'))
-        .toBeTruthy();
-      expect(tree.is('.btn-link'))
-        .toBeTruthy();
-      expect(tree.is('.table-edit-command-cell'))
+      expect(tree.is('.btn.btn-link.table-edit-command-cell.custom-class'))
         .toBeTruthy();
     });
 

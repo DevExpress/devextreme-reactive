@@ -19,9 +19,7 @@ describe('EmptyMessage', () => {
       />
     ));
 
-    expect(tree.is('.card-body'))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.card-body.custom-class'))
       .toBeTruthy();
   });
 

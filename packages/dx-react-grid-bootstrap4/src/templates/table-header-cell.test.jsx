@@ -19,7 +19,6 @@ describe('TableHeaderCell', () => {
   afterAll(() => {
     resetConsole();
   });
-
   beforeEach(() => {
     GroupingControl.mockImplementation(() => null);
   });
@@ -46,7 +45,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.user-select'))
+    expect(tree.find('th').is('.user-select.cursor-pointer'))
       .toBeFalsy();
   });
 
@@ -58,7 +57,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.user-select'))
+    expect(tree.find('th').is('.user-select.cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -72,7 +71,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').is('.user-select'))
+    expect(tree.dive().find('th').is('.user-select.cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -134,7 +133,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap'))
+    expect(tree.find('div').is('.text-nowrap.table-header-cell__div'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -147,9 +146,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.table-header-cell__mr'))
+    expect(tree.find('div').is('.text-nowrap.table-header-cell__div.table-header-cell__mr'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -162,10 +159,10 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap'))
+    expect(tree.find('div').is('.text-nowrap.text-right'))
       .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
-      .toBeTruthy();
+    expect(tree.find('div').is('.table-header-cell__ml'))
+      .toBeFalsy();
   });
 
   it('should have correct classes when grouping by click is allowed and column align is right', () => {
@@ -175,11 +172,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.table-header-cell__ml'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
+    expect(tree.find('div').is('.text-nowrap.text-right.table-header-cell__ml'))
       .toBeTruthy();
   });
 
@@ -191,9 +184,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.find('th').is('.position-relative'))
+    expect(tree.find('th').is('.position-relative.custom-class'))
       .toBeTruthy();
   });
 

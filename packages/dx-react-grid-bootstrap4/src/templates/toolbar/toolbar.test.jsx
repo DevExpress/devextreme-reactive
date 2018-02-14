@@ -5,24 +5,18 @@ import { Toolbar } from './toolbar';
 describe('Toolbar', () => {
   it('should pass custom class to the root element', () => {
     const tree = shallow((
-      <Toolbar
-        className="custom-class"
-      >
+      <Toolbar className="custom-class">
         <div />
       </Toolbar>
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.is('.card-header'))
+    expect(tree.is('.custom-class.card-header'))
       .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <Toolbar
-        data={{ a: 'a' }}
-      >
+      <Toolbar data={{ a: 'a' }}>
         <div />
       </Toolbar>
     ));

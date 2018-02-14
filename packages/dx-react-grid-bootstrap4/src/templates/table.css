@@ -1,7 +1,6 @@
 .dx-table {
   table-layout: fixed;
 }
-
 .dx-table-head {
   top: 0;
   z-index: 1;

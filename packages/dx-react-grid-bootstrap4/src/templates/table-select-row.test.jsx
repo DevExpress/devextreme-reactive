@@ -9,12 +9,10 @@ describe('Table Select Row', () => {
     selectByRowClick: false,
     onToggle: () => {},
   };
-
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-
   afterAll(() => {
     resetConsole();
   });

@@ -3,20 +3,30 @@ import { shallow } from 'enzyme';
 import { GroupPanelContainer } from './group-panel-container';
 
 describe('GroupPanelContainer', () => {
+  const defaultProps = {
+    getMessage: () => {},
+  };
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <GroupPanelContainer
-        getMessage={() => {}}
+        {...defaultProps}
         data={{ a: 1 }}
-        className="custom-class"
       />
     ));
 
     expect(tree.prop('data'))
       .toEqual({ a: 1 });
-    expect(tree.hasClass('w-100'))
-      .toBeTruthy();
-    expect(tree.hasClass('custom-class'))
+  });
+
+  it('should pass custom class to the root element', () => {
+    const tree = shallow((
+      <GroupPanelContainer
+        {...defaultProps}
+        className="custom-class"
+      />
+    ));
+
+    expect(tree.is('.w-100.custom-class'))
       .toBeTruthy();
   });
 });

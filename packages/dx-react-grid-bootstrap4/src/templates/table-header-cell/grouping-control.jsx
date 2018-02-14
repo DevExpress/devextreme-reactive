@@ -10,10 +10,10 @@ export const GroupingControl = ({ align, onGroup }) => {
     <div
       className={classNames({
         'grouping-control': true,
-        'float-left': !invertedAlign,
         'float-right': invertedAlign,
-        'text-left': !invertedAlign,
         'text-right': invertedAlign,
+        'float-left': !invertedAlign,
+        'text-left': !invertedAlign,
       })}
       onClick={(e) => {
         e.stopPropagation();

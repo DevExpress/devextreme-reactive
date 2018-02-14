@@ -2,10 +2,9 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { GroupPanelItem } from './group-panel-item';
 
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
-
 describe('GroupPanelItem', () => {
+  const ENTER_KEY_CODE = 13;
+  const SPACE_KEY_CODE = 32;
   it('should use column name if title is not specified', () => {
     const tree = shallow((
       <GroupPanelItem

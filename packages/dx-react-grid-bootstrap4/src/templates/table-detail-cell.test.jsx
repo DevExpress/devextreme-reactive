@@ -3,24 +3,25 @@ import { shallow } from 'enzyme';
 import { TableDetailCell } from './table-detail-cell';
 
 describe('TableDetailCell', () => {
+  const defaultProps = {
+    template: () => (<div />),
+  };
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableDetailCell
-        template={() => (<div />)}
+        {...defaultProps}
         className="custom-class"
       />
     ));
 
-    expect(tree.is('.table-active'))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.table-active.custom-class'))
       .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableDetailCell
-        template={() => (<div />)}
+        {...defaultProps}
         data={{ a: 1 }}
       />
     ));

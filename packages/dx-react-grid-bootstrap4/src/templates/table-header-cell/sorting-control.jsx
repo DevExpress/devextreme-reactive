@@ -13,8 +13,8 @@ export const SortingControl = ({
   (align === 'right' ? (
     <span
       className={classNames({
-        'text-primary': sortingDirection,
         'sorting-control': true,
+        'text-primary': sortingDirection,
       })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
@@ -30,8 +30,8 @@ export const SortingControl = ({
   ) : (
     <span
       className={classNames({
-        'text-primary': sortingDirection,
         'sorting-control': true,
+        'text-primary': sortingDirection,
       })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}

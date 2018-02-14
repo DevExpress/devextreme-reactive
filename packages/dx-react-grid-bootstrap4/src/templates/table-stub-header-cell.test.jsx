@@ -8,9 +8,16 @@ describe('TableStubHeaderCell', () => {
       <TableStubHeaderCell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.p-0.custom-class'))
       .toBeTruthy();
-    expect(tree.is('.p-0'))
-      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableStubHeaderCell data={{ a: 1 }} />
+    ));
+
+    expect(tree.prop('data'))
+      .toEqual({ a: 1 });
   });
 });

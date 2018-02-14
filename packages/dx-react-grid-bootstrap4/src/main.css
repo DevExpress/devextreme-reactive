@@ -1,17 +1,14 @@
 .cursor-pointer {
   cursor: pointer;
 }
-
 .user-select {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: 'none';
 }
-
 .opacity-03 {
   opacity: 0.3;
 }
-
 .overflow-hidden {
   overflow: hidden;
 }

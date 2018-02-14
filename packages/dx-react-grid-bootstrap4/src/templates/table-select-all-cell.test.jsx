@@ -15,9 +15,6 @@ describe('TableSelectAllCell', () => {
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
     const tree = mount((
       <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
         someSelected
       />
     ));
@@ -30,9 +27,6 @@ describe('TableSelectAllCell', () => {
     const onToggle = jest.fn();
     const tree = shallow((
       <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
         disabled
         onToggle={onToggle}
       />
@@ -47,9 +41,6 @@ describe('TableSelectAllCell', () => {
     const onToggle = jest.fn();
     const tree = shallow((
       <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
         onToggle={onToggle}
       />
     ));
@@ -64,11 +55,7 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-    expect(tree.is('.align-middle'))
-      .toBeTruthy();
-    expect(tree.is('.cursor-pointer'))
+    expect(tree.is('.align-middle.cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 

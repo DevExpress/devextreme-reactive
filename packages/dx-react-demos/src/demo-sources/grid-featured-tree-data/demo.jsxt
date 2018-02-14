@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       rows, columns, pageSizes, defaultColumnWidths,
-      defaultHiddenColumnNames, tableColumnExtensions, employeeColumns
+      defaultHiddenColumnNames, tableColumnExtensions, employeeColumns,
     } = this.state;
 
     return (

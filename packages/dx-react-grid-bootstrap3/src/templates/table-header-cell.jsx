@@ -63,7 +63,6 @@ export class TableHeaderCell extends React.PureComponent {
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
         }}
-        onClick={this.onClick}
         {...restProps}
       >
         <div

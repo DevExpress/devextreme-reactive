@@ -40,6 +40,7 @@ export const SortingControl = ({
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
+      onClick={onClick}
       style={{
         display: 'inline-flex',
         flexDirection: 'row',

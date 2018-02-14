@@ -10,7 +10,7 @@ const styles = theme => ({
   },
   sortLabelRoot: {
     height: theme.spacing.unit * 3,
-    width: '100%',
+    maxWidth: '100%',
   },
   sortLabelActive: {
     color: 'inherit',

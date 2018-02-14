@@ -59,23 +59,24 @@ describe('TableSelectAllCell', () => {
       .toHaveBeenCalledTimes(1);
   });
 
-  it('should pass rest props to the root element', () => {
+  it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableSelectAllCell className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.align-middle'))
+      .toBeTruthy();
+    expect(tree.is('.cursor-pointer'))
+      .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
+  it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableSelectAllCell style={{ width: '40px' }} />
+      <TableSelectAllCell data={{ a: 1 }} />
     ));
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        width: '40px',
-        verticalAlign: 'middle',
-      });
+    expect(tree.find('th').prop('data'))
+      .toMatchObject({ a: 1 });
   });
 });

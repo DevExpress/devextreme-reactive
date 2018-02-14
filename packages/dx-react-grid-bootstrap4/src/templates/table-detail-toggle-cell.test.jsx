@@ -79,15 +79,11 @@ describe('TableDetailToggleCell', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should pass style to the root element', () => {
+  it('should pass custom class to the root element', () => {
     const tree = shallow((
-      <TableDetailToggleCell style={{ width: '40px' }} />
+      <TableDetailToggleCell className="custom-class" />
     ));
-    expect(tree.find('td').prop('style'))
-      .toEqual({
-        cursor: 'pointer',
-        verticalAlign: 'middle',
-        width: '40px',
-      });
+    expect(tree.find('td').is('.custom-class'))
+      .toBeTruthy();
   });
 });

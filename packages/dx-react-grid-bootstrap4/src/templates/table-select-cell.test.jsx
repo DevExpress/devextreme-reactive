@@ -10,17 +10,17 @@ describe('TableSelectCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.cursor-pointer'))
+      .toBeTruthy();
+    expect(tree.is('.align-middle'))
+      .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
+  it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableSelectCell style={{ width: '40px' }} />
+      <TableSelectCell data={{ a: 1 }} />
     ));
-    expect(tree.find('td').prop('style'))
-      .toEqual({
-        cursor: 'pointer',
-        verticalAlign: 'middle',
-        width: '40px',
-      });
+    expect(tree.find('td').prop('data'))
+      .toEqual({ a: 1 });
   });
 });

@@ -66,7 +66,7 @@ export const EditCommandCell = ({
   ...restProps
 }) => (
   <td
-    className={classNames('text-center p-0 text-nowrap', classNames)}
+    className={classNames('text-center p-0 text-nowrap', className)}
     {...restProps}
   >
     {children}

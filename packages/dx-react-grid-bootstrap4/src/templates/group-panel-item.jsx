@@ -44,8 +44,7 @@ export const GroupPanelItem = ({
       className={classNames({
         'btn-group mb-1 mr-1': true,
         'group-panel-item': draft,
-        className,
-      })}
+      }, className)}
       {...restProps}
     >
       <span

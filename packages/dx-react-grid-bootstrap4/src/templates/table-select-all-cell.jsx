@@ -19,8 +19,7 @@ export const TableSelectAllCell = ({
       className={classNames({
         'align-middle': true,
         'cursor-pointer': !disabled,
-        className,
-      })}
+      }, className)}
       onClick={toggle}
       {...restProps}
     >

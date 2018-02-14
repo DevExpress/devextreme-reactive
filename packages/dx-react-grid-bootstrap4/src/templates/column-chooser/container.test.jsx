@@ -12,9 +12,7 @@ describe('Container', () => {
       </Container>
     ));
 
-    expect(tree.is('.py-2'))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.py-2.custom-class'))
       .toBeTruthy();
   });
 

@@ -84,9 +84,7 @@ describe('Item', () => {
       />
     ));
 
-    expect(tree.is('.dropdown-item'))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.dropdown-item.custom-class'))
       .toBeTruthy();
   });
 

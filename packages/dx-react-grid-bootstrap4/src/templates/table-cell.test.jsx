@@ -5,13 +5,16 @@ import { TableCell } from './table-cell';
 describe('TableCell', () => {
   it('should have correct text alignment', () => {
     let tree = shallow(<TableCell />);
-    expect(tree.find('td').prop('style').textAlign).toBe('left');
+    expect(tree.find('td').is('.text-right'))
+      .toBeFalsy();
 
     tree = shallow(<TableCell tableColumn={{ align: 'left' }} />);
-    expect(tree.find('td').prop('style').textAlign).toBe('left');
+    expect(tree.find('td').is('.text-right'))
+      .toBeFalsy();
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
-    expect(tree.find('td').prop('style').textAlign).toBe('right');
+    expect(tree.find('td').is('.text-right'))
+      .toBeTruthy();
   });
 
   it('should have correct text', () => {
@@ -30,12 +33,24 @@ describe('TableCell', () => {
       .toBeTruthy();
   });
 
-  it('should pass rest props to the root element', () => {
+  it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableCell className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.text-nowrap'))
+      .toBeTruthy();
+    expect(tree.is('.table-cell'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableCell data={{ a: 1 }} />
+    ));
+    expect(tree.find('td').prop('data'))
+      .toMatchObject({ a: 1 });
   });
 });

@@ -43,9 +43,18 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/css-stub.js"
+    },
+    "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx"],
     "setupFiles": [
       "<rootDir>/setup-enzyme.js"
-    ]
+    ],
+    "testMatch": ["**/*.test.(ts|tsx|js|jsx)"]
   },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.0.0",

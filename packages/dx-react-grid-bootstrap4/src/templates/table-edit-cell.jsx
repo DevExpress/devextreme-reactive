@@ -16,7 +16,7 @@ export const EditCell = ({
         type="text"
         className={classNames({
           'form-control w-100': true,
-          'text-right': tableColumn.align === 'right',
+          'text-right': tableColumn && tableColumn.align === 'right',
         })}
         value={value}
         onChange={e => onValueChange(e.target.value)}

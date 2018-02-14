@@ -4,24 +4,27 @@ import { EditCommandHeadingCell, EditCommandCell, CommandButton } from './table-
 
 describe('EditCommandCells', () => {
   describe('EditCommandCell', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass custom class to the root element', () => {
       const tree = shallow((
         <EditCommandCell className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
+      expect(tree.is('.p-0'))
+        .toBeTruthy();
+      expect(tree.is('.text-nowrap'))
+        .toBeTruthy();
+      expect(tree.is('.text-center'))
+        .toBeTruthy();
     });
 
-    it('should pass style to the root element', () => {
+    it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <EditCommandCell style={{ width: '40px' }} />
+        <EditCommandCell data={{ a: 1 }} />
       ));
-      expect(tree.find('td').prop('style'))
-        .toMatchObject({
-          padding: 0,
-          width: '40px',
-        });
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 
@@ -33,17 +36,20 @@ describe('EditCommandCells', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
+      expect(tree.is('.p-0'))
+        .toBeTruthy();
+      expect(tree.is('.text-nowrap'))
+        .toBeTruthy();
+      expect(tree.is('.text-center'))
+        .toBeTruthy();
     });
 
-    it('should pass style to the root element', () => {
+    it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <EditCommandHeadingCell style={{ width: '40px' }} />
+        <EditCommandHeadingCell data={{ a: 1 }} />
       ));
-      expect(tree.find('th').prop('style'))
-        .toMatchObject({
-          padding: 0,
-          width: '40px',
-        });
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 
@@ -63,6 +69,8 @@ describe('EditCommandCells', () => {
         .toBeTruthy();
       expect(tree.is('.btn-link'))
         .toBeTruthy();
+      expect(tree.is('.table-edit-command-cell'))
+        .toBeTruthy();
     });
 
     it('should pass rest props to the root element', () => {
@@ -76,21 +84,6 @@ describe('EditCommandCells', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
-    });
-
-    it('should pass style to the root element', () => {
-      const tree = shallow((
-        <CommandButton
-          onExecute={() => {}}
-          text=""
-          style={{ width: '40px' }}
-        />
-      ));
-      expect(tree.find('button').prop('style'))
-        .toMatchObject({
-          padding: 11,
-          width: '40px',
-        });
     });
   });
 });

@@ -124,13 +124,7 @@ describe('GroupPanelItem', () => {
       />
     ));
 
-    expect(tree.hasClass('custom-class'))
-      .toBeTruthy();
-    expect(tree.hasClass('btn-group'))
-      .toBeTruthy();
-    expect(tree.hasClass('mb-1'))
-      .toBeTruthy();
-    expect(tree.hasClass('mr-1'))
+    expect(tree.is('.custom-class.btn-group.mb-1.mr-1'))
       .toBeTruthy();
   });
 });

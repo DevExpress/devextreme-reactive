@@ -39,25 +39,18 @@ describe('TableHeaderCell', () => {
     expect(tree.find('th > div').text()).toBe('Test');
   });
 
-  it('should have correct styles when user interaction disallowed', () => {
+  it('should have correct classes when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
       />
     ));
 
-    expect(tree.find('th').prop('style'))
-      .not.toMatchObject({
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-      });
-
-    expect(tree.find('th').prop('style').cursor)
-      .toBeUndefined();
+    expect(tree.find('th').is('.user-select'))
+      .toBeFalsy();
   });
 
-  it('should have correct styles when sorting is allowed', () => {
+  it('should have correct classes when sorting is allowed', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
@@ -65,16 +58,11 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-        cursor: 'pointer',
-      });
+    expect(tree.find('th').is('.user-select'))
+      .toBeTruthy();
   });
 
-  it('should have correct styles when dragging is allowed', () => {
+  it('should have correct classes when dragging is allowed', () => {
     const tree = shallow((
       <DragDropProvider>
         <TableHeaderCell
@@ -84,16 +72,11 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').prop('style'))
-      .toMatchObject({
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-        cursor: 'pointer',
-      });
+    expect(tree.dive().find('th').is('.user-select'))
+      .toBeTruthy();
   });
 
-  it('should have correct styles when dragging', () => {
+  it('should have correct classes when dragging', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
@@ -103,26 +86,20 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.find('th').prop('style'))
-      .not.toMatchObject({
-        opacity: 0.3,
-      });
+    expect(tree.find('th').is('.opacity-03'))
+      .toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
     tree.update();
 
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        opacity: 0.3,
-      });
+    expect(tree.find('th').is('.opacity-03'))
+      .toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
     tree.update();
 
-    expect(tree.find('th').prop('style'))
-      .not.toMatchObject({
-        opacity: 0.3,
-      });
+    expect(tree.find('th').is('.opacity-03'))
+      .toBeFalsy();
   });
 
   it('should render resize control if resizing is allowed', () => {
@@ -150,73 +127,63 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct styles when grouping by click is not allowed and column align is left', () => {
+  it('should have correct classes when grouping by click is not allowed and column align is left', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
+    expect(tree.find('div').is('.text-nowrap'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.text-right'))
+      .toBeFalsy();
   });
 
-  it('should have correct styles when grouping by click is allowed and column align is left', () => {
+  it('should have correct classes when grouping by click is allowed and column align is left', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
         showGroupingControls
       />
     ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-        marginRight: '14px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
+    expect(tree.find('div').is('.text-nowrap'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.table-header-cell__mr'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.text-right'))
+      .toBeFalsy();
   });
 
-  it('should have correct styles when grouping by click is not allowed and column align is right', () => {
+  it('should have correct classes when grouping by click is not allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
         tableColumn={{ align: 'right' }}
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
+    expect(tree.find('div').is('.text-nowrap'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.text-right'))
+      .toBeTruthy();
   });
 
-  it('should have correct styles when grouping by click is allowed and column align is right', () => {
+  it('should have correct classes when grouping by click is allowed and column align is right', () => {
     const tree = shallow((
       <TableHeaderCell
         tableColumn={{ align: 'right' }}
         showGroupingControls
       />
     ));
-    expect(tree.find('th > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-        marginLeft: '14px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
+    expect(tree.find('div').is('.text-nowrap'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.table-header-cell__ml'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.text-right'))
+      .toBeTruthy();
   });
 
-  it('should pass rest props to the root element', () => {
+  it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ title: 'a' }}
@@ -224,8 +191,18 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.find('th').is('.custom-class'))
       .toBeTruthy();
+    expect(tree.find('th').is('.position-relative'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableHeaderCell column={{ title: 'a' }} data={{ a: 1 }} />
+    ));
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
   });
 
   describe('with keyboard navigation', () => {

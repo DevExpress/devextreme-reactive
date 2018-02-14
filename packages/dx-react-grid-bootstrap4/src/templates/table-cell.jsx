@@ -6,13 +6,13 @@ import './table-cell.css';
 export const TableCell = ({
   column, value, children,
   tableRow, tableColumn, row,
-  ...restProps
+  className, ...restProps
 }) => (
   <td
     className={classNames({
       'text-nowrap table-cell': true,
-      'text-right': tableColumn.align === 'right',
-    })}
+      'text-right': tableColumn && tableColumn.align === 'right',
+    }, className)}
     {...restProps}
   >
     {children || value}
@@ -29,6 +29,7 @@ TableCell.propTypes = {
   ]),
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableCell.defaultProps = {
@@ -38,4 +39,5 @@ TableCell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  className: undefined,
 };

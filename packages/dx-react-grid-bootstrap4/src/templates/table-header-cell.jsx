@@ -41,7 +41,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
   render() {
     const {
-      columnName, column, tableColumn,
+      className, column, tableColumn,
       showSortingControls, sortingDirection,
       showGroupingControls, onGroup,
       draggingEnabled,
@@ -59,8 +59,7 @@ export class TableHeaderCell extends React.PureComponent {
           'position-relative': true,
           'cursor-pointer user-select': showSortingControls || draggingEnabled,
           'opacity-03': dragging || (tableColumn && tableColumn.draft),
-          columnName,
-        })}
+        }, className)}
         scope="col"
         onClick={this.onClick}
         {...restProps}
@@ -73,11 +72,10 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           className={classNames({
-            'text-nowrap': true,
+            'text-nowrap table-header-cell__div': true,
             'text-right': align === 'right',
-            'table-header-cell__div': true,
-            'table-header-cell__mr': showGroupingControls && align === 'right',
-            'table-header-cell__ml': showGroupingControls && align !== 'right',
+            'table-header-cell__ml': showGroupingControls && align === 'right',
+            'table-header-cell__mr': showGroupingControls && align !== 'right',
           })}
         >
           {showSortingControls ? (
@@ -118,7 +116,7 @@ TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
-  columnName: PropTypes.string,
+  className: PropTypes.string,
   showSortingControls: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
@@ -136,7 +134,7 @@ TableHeaderCell.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
-  columnName: undefined,
+  className: undefined,
   showSortingControls: false,
   sortingDirection: undefined,
   onSort: undefined,

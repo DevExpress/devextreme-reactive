@@ -5,6 +5,7 @@ import {
   customTreeRowLevelKeyGetter,
   expandedTreeRows,
   collapsedTreeRowsGetter,
+  unwrappedCustomTreeRows,
 } from './computeds';
 
 describe('CustomTreeData Plugin computeds', () => {
@@ -314,6 +315,15 @@ describe('CustomTreeData Plugin computeds', () => {
 
       expect(getCollapsedRows(1))
         .toBe(0);
+    });
+  });
+
+  describe('#unwrappedFilteredRows', () => {
+    it('should provide unwrapped rows', () => {
+      const rows = [];
+
+      expect(unwrappedCustomTreeRows({ rows }))
+        .toBe(rows);
     });
   });
 });

@@ -8,6 +8,7 @@ import {
   expandedTreeRows,
   collapsedTreeRowsGetter,
   isLeafTreeRowGetter,
+  unwrappedCustomTreeRows,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -24,13 +25,15 @@ const isLeafRowComputed = ({ rows }) =>
   isLeafTreeRowGetter(rows);
 const collapsedTreeRowsGetterComputed = ({ rows, getCollapsedRows }) =>
   collapsedTreeRowsGetter(getCollapsedRows, rows);
+const unwrappedTreeRowsComputed = ({ rows }) =>
+  unwrappedCustomTreeRows(rows);
 
 export class CustomTreeData extends React.PureComponent {
   render() {
     const {
       getChildRows,
     } = this.props;
-    const groupedRowsComputed = ({ rows }) =>
+    const treeRowsComputed = ({ rows }) =>
       customTreeRowsWithMeta(rows, getChildRows);
 
     return (
@@ -38,13 +41,13 @@ export class CustomTreeData extends React.PureComponent {
         name="CustomTreeData"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={groupedRowsComputed} />
+        <Getter name="rows" computed={treeRowsComputed} />
         <Getter name="getRowId" computed={getRowIdComputed} />
         <Getter name="getRowLevelKey" computed={getRowLevelKeyComputed} />
         <Getter name="isLeafRow" computed={isLeafRowComputed} />
         <Getter name="rows" computed={expandedTreeRowsComputed} />
         <Getter name="getCollapsedRows" computed={collapsedTreeRowsGetterComputed} />
-        <Getter name="rows" computed={({ rows }) => rows.rows} />
+        <Getter name="rows" computed={unwrappedTreeRowsComputed} />
       </Plugin>
     );
   }

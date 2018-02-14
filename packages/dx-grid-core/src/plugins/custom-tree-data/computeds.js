@@ -110,3 +110,5 @@ export const collapsedTreeRowsGetter = (getCollapsedRows, { collapsedRowsMeta })
 
 export const isLeafTreeRowGetter = ({ leafsMeta }) =>
   row => leafsMeta.get(row) === undefined;
+
+export const unwrappedCustomTreeRows = ({ rows }) => rows;

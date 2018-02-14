@@ -1,5 +1,7 @@
 import {
   filteredRows,
+  filteredCollapsedRowsGetter,
+  unwrappedFilteredRows,
 } from './computeds';
 
 describe('IntegratedFiltering computeds', () => {
@@ -189,6 +191,29 @@ describe('IntegratedFiltering computeds', () => {
         ))
           .toEqual(sortedGroupedRows);
       });
+    });
+  });
+
+  describe('#filteredCollapsedRowsGetter', () => {
+    it('should not crash without collapsed rows', () => {
+      expect(filteredCollapsedRowsGetter({})({}))
+        .toBe(undefined);
+    });
+
+    it('should provide collapsed rows', () => {
+      const collapsedRowsMeta = new Map([[1, ['test']]]);
+
+      expect(filteredCollapsedRowsGetter({ collapsedRowsMeta })(1))
+        .toEqual(['test']);
+    });
+  });
+
+  describe('#unwrappedFilteredRows', () => {
+    it('should provide unwrapped rows', () => {
+      const rows = [];
+
+      expect(unwrappedFilteredRows({ rows }))
+        .toBe(rows);
     });
   });
 });

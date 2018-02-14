@@ -88,3 +88,8 @@ export const filteredRows = (
 
   return filterHierarchicalRows(rows, predicate, getRowLevelKey, getCollapsedRows);
 };
+
+export const filteredCollapsedRowsGetter = ({ collapsedRowsMeta }) =>
+  row => collapsedRowsMeta && collapsedRowsMeta.get(row);
+
+export const unwrappedFilteredRows = ({ rows }) => rows;

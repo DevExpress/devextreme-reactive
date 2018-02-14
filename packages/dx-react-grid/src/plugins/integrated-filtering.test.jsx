@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   filteredRows,
+  unwrappedFilteredRows,
+  filteredCollapsedRowsGetter,
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
@@ -11,6 +13,8 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   filteredRows: jest.fn(),
+  filteredCollapsedRowsGetter: jest.fn(),
+  unwrappedFilteredRows: jest.fn(),
   getColumnExtension: jest.fn(),
 }));
 
@@ -36,6 +40,8 @@ describe('IntegratedFiltering', () => {
 
   beforeEach(() => {
     filteredRows.mockImplementation(() => ({ rows: 'filteredRows' }));
+    filteredCollapsedRowsGetter.mockImplementation(() => 'filteredCollapsedRowsGetter');
+    unwrappedFilteredRows.mockImplementation(() => 'unwrappedFilteredRows');
     getColumnExtension.mockImplementation(() => ({}));
   });
   afterEach(() => {
@@ -51,7 +57,7 @@ describe('IntegratedFiltering', () => {
     ));
 
     expect(getComputedState(tree).rows)
-      .toBe(filteredRows().rows);
+      .toBe(unwrappedFilteredRows());
 
     expect(filteredRows)
       .toBeCalledWith(
@@ -62,14 +68,23 @@ describe('IntegratedFiltering', () => {
         defaultDeps.getter.getRowLevelKey,
         defaultDeps.getter.getCollapsedRows,
       );
+
+    expect(unwrappedFilteredRows)
+      .toBeCalledWith(filteredRows());
   });
 
-  // it('should provide getCollapsedRows getter', () => {
-  //   const tree = mount((
-  //     <PluginHost>
-  //       {pluginDepsToComponents(defaultDeps)}
-  //       <IntegratedFiltering />
-  //     </PluginHost>
-  //   ));
-  // });
+  it('should provide getCollapsedRows getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedFiltering />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getCollapsedRows)
+      .toBe(filteredCollapsedRowsGetter());
+
+    expect(filteredCollapsedRowsGetter)
+      .toBeCalledWith(filteredRows());
+  });
 });

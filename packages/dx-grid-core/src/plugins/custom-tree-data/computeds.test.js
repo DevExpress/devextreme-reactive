@@ -168,10 +168,27 @@ describe('CustomTreeData Plugin computeds', () => {
     ];
     const linearizedRows = {
       rows,
+      levelsMeta: new Map([
+        [rows[0], 0],
+        [rows[1], 1],
+      ]),
     };
 
     it('should define row ids to rows if not present', () => {
       const parentGetRowId = () => undefined;
+      const getRowId = customTreeRowIdGetter(parentGetRowId, linearizedRows);
+
+      expect(getRowId(linearizedRows.rows[0]))
+        .toBe(0);
+      expect(getRowId(linearizedRows.rows[1]))
+        .toBe(1);
+    });
+
+    it('should define row ids to rows if not present for nested rows', () => {
+      const parentGetRowId = (row) => {
+        if (row === linearizedRows.rows[0]) return 1;
+        return undefined;
+      };
       const getRowId = customTreeRowIdGetter(parentGetRowId, linearizedRows);
 
       expect(getRowId(linearizedRows.rows[0]))

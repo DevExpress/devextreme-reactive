@@ -37,20 +37,24 @@ export default class Demo extends React.PureComponent {
       data: generateRows({
         columnValues: {
           ...defaultColumnValues,
-          items: ({ random }) => generateRows({
-            columnValues: {
-              ...defaultColumnValues,
-              items: () => generateRows({
-                columnValues: {
-                  ...defaultColumnValues,
-                },
-                length: Math.trunc(random() * 5),
-                random,
-              }),
-            },
-            length: Math.trunc(random() * 3),
-            random,
-          }),
+          items: ({ random }) => (random() > 0.5
+            ? generateRows({
+              columnValues: {
+                ...defaultColumnValues,
+                items: () => (random() > 0.5
+                  ? generateRows({
+                    columnValues: {
+                      ...defaultColumnValues,
+                    },
+                    length: Math.trunc(random() * 5) + 1,
+                    random,
+                  })
+                  : null),
+              },
+              length: Math.trunc(random() * 3) + 1,
+              random,
+            })
+            : null),
         },
         length: 3,
       }),

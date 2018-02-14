@@ -54,9 +54,9 @@ export const customTreeRowsWithMeta = (
   };
 };
 
-export const customTreeRowIdGetter = (getRowId, { rows }) => {
-  // TODO: filter group rows
-  if (rows.length && getRowId(rows[0]) !== undefined) {
+export const customTreeRowIdGetter = (getRowId, { rows, levelsMeta }) => {
+  const firstNestedRowIndex = rows.findIndex(row => levelsMeta.get(row) > 0);
+  if (firstNestedRowIndex === -1 || getRowId(rows[firstNestedRowIndex]) !== undefined) {
     return getRowId;
   }
   const map = new Map(rows

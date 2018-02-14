@@ -16,20 +16,13 @@ const URL = 'https://js.devexpress.com/Demos/Mvc/api/treeListData';
 const ROOT_ID = '';
 
 const getRowId = row => row.id;
-const getChildRows = (rows, rootRows) => (
-  (rootRows === rows)
-    ? rootRows.filter(row => row.parentId === ROOT_ID)
-    : rows)
-  .map((row) => {
-    const loadedRows = rootRows.filter(r => r.parentId === row.id);
-    return {
-      row,
-      childRows: loadedRows.length ? loadedRows : row.hasItems,
-    };
-  });
-
-// const getChildRows = (row, rootRows) => (
-//   rootRows.filter(r => r.parentId === row ? row.id : ROOT_ID));
+const getChildRows = (row, rootRows) => {
+  const childRows = rootRows.filter(r => r.parentId === (row ? row.id : ROOT_ID));
+  if (childRows.length) {
+    return childRows;
+  }
+  return row && row.hasItems ? [] : null;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -63,7 +56,11 @@ export default class Demo extends React.PureComponent {
     this.setState({ expandedRowIds });
   }
   loadData() {
-    const { expandedRowIds, data } = this.state;
+    const { expandedRowIds, data, loading } = this.state;
+
+    if (loading) {
+      return;
+    }
 
     const rowIdsWithNotLoadedChilds = [ROOT_ID, ...expandedRowIds]
       .filter(rowId => data.findIndex(row => row.parentId === rowId) === -1);

@@ -1,23 +1,25 @@
 import { GRID_TREE_NODE_TYPE } from './constants';
 
 const customTreeRows = (
-  currentRows,
+  currentRow,
   getChildRows,
-  rootRows = currentRows,
+  rootRows,
   level = 0,
 ) => {
-  if (!currentRows || !currentRows.length) return { rows: [], levelsMeta: [] };
+  const childRows = getChildRows(currentRow, rootRows);
+
+  if (!childRows) return { rows: [], empty: true };
 
   let isLastLevel = true;
-  return getChildRows(currentRows, rootRows)
-    .reduce((acc, { row, childRows }) => {
+  return childRows
+    .reduce((acc, row) => {
       acc.rows.push(row);
       if (!isLastLevel) {
         acc.levelsMeta.push([row, level]);
       }
 
       const nestedResult = customTreeRows(
-        childRows,
+        row,
         getChildRows,
         rootRows,
         level + 1,
@@ -31,7 +33,7 @@ const customTreeRows = (
         acc.levelsMeta.push(...nestedResult.levelsMeta);
         acc.leafsMeta.push(...nestedResult.leafsMeta);
       }
-      if (childRows) {
+      if (!nestedResult.empty) {
         acc.leafsMeta.push([row, false]);
       }
 
@@ -40,10 +42,10 @@ const customTreeRows = (
 };
 
 export const customTreeRowsWithMeta = (
-  currentRows,
+  rows,
   getChildRows,
 ) => {
-  const result = customTreeRows(currentRows, getChildRows);
+  const result = customTreeRows(null, getChildRows, rows);
 
   return {
     rows: result.rows,

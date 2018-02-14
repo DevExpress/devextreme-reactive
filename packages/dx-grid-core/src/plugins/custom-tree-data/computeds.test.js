@@ -16,8 +16,8 @@ describe('CustomTreeData Plugin computeds', () => {
         { a: 2, items: [{ a: 2, b: 1, items: [{ a: 2, b: 1, c: 1 }] }, { a: 2, b: 2 }] },
         { a: 3 },
       ];
-      const getHierarchicalChildRows = rows => rows
-        .map(row => ({ row, childRows: row.items }));
+      const getHierarchicalChildRows = (row, rootRows) =>
+        (row ? row.items : rootRows);
       const linearizedRows = {
         /* eslint-disable indent */
         rows: [
@@ -52,14 +52,112 @@ describe('CustomTreeData Plugin computeds', () => {
       expect(customTreeRowsWithMeta(hierarchicalSource, getChildGroups))
         .toEqual(linearizedRows);
 
-      expect(getChildGroups)
-        .toBeCalledWith(hierarchicalSource, hierarchicalSource);
-      expect(getChildGroups)
-        .toBeCalledWith(hierarchicalSource[1].items, hierarchicalSource);
-      expect(getChildGroups)
-        .toBeCalledWith(hierarchicalSource[2].items, hierarchicalSource);
-      expect(getChildGroups)
-        .toBeCalledWith(hierarchicalSource[2].items[0].items, hierarchicalSource);
+      [null, ...linearizedRows.rows].forEach(row =>
+        expect(getChildGroups)
+          .toBeCalledWith(row, hierarchicalSource));
+    });
+
+    it('should process plain data', () => {
+      const plainSource = [
+        { id: 0 },
+        { id: 1 },
+        { id: 2 },
+        { id: 3, parentId: 0 },
+        { id: 4, parentId: 0 },
+        { id: 5, parentId: 1 },
+        { id: 6, parentId: 1 },
+        { id: 7, parentId: 5 },
+      ];
+      const getPlainChildRows = (row, rootRows) => {
+        const childRows = rootRows.filter(r => r.parentId === (row ? row.id : undefined));
+        return childRows.length ? childRows : null;
+      };
+      const linearizedRows = {
+        /* eslint-disable indent */
+        rows: [
+          plainSource[0],
+            plainSource[3],
+            plainSource[4],
+          plainSource[1],
+            plainSource[5],
+              plainSource[7],
+            plainSource[6],
+          plainSource[2],
+        ],
+        /* eslint-enable indent */
+        levelsMeta: new Map([
+          [plainSource[0], 0],
+          [plainSource[1], 0],
+          [plainSource[2], 0],
+          [plainSource[5], 1],
+          [plainSource[6], 1],
+        ]),
+        leafsMeta: new Map([
+          [plainSource[0], false],
+          [plainSource[1], false],
+          [plainSource[5], false],
+        ]),
+      };
+
+      const getChildGroups = jest.fn(getPlainChildRows);
+
+      expect(customTreeRowsWithMeta(plainSource, getChildGroups))
+        .toEqual(linearizedRows);
+
+      [null, ...linearizedRows.rows].forEach(row =>
+        expect(getChildGroups)
+          .toBeCalledWith(row, plainSource));
+    });
+
+    it('should process remote data', () => {
+      const plainSource = [
+        { id: 0, hasItems: true },
+        { id: 1, hasItems: true },
+        { id: 2, hasItems: false },
+        { id: 5, parentId: 1, hasItems: true },
+        { id: 6, parentId: 1, hasItems: false },
+        { id: 7, parentId: 5, hasItems: false },
+      ];
+      const getPlainChildRows = (row, rootRows) => {
+        const childRows = rootRows.filter(r => r.parentId === (row ? row.id : undefined));
+        if (childRows.length) {
+          return childRows;
+        }
+        return row && row.hasItems ? [] : null;
+      };
+      const linearizedRows = {
+        /* eslint-disable indent */
+        rows: [
+          plainSource[0],
+          plainSource[1],
+            plainSource[3],
+              plainSource[5],
+            plainSource[4],
+          plainSource[2],
+        ],
+        /* eslint-enable indent */
+        levelsMeta: new Map([
+          [plainSource[0], 0],
+          [plainSource[1], 0],
+          [plainSource[2], 0],
+          [plainSource[3], 1],
+          [plainSource[4], 1],
+        ]),
+        leafsMeta: new Map([
+          [plainSource[0], false],
+          [plainSource[1], false],
+          [plainSource[3], false],
+        ]),
+      };
+
+      const getChildGroups = jest.fn(getPlainChildRows);
+
+      expect(customTreeRowsWithMeta(plainSource, getChildGroups))
+        .toEqual(linearizedRows);
+
+      [null, ...linearizedRows.rows].forEach(row =>
+        expect(getChildGroups)
+          .toBeCalledWith(row, plainSource));
     });
   });
 

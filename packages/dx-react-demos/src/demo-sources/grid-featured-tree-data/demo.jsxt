@@ -12,11 +12,10 @@ import {
 
 import { tasks, employees, priorities } from '../data.json';
 
-const getChildRows = (rows, rootRows) => (
-  (rootRows === rows)
-    ? rootRows.filter(row => row.Parent_ID === 0)
-    : rows)
-  .map(row => ({ row, childRows: rootRows.filter(r => r.Parent_ID === row.ID) }));
+const getChildRows = (row, rows) => {
+  const childRows = rows.filter(r => r.Parent_ID === (row ? row.ID : 0));
+  return childRows.length ? childRows : null;
+};
 
 const EmployeeFormatter = ({ row }) => (
   <span>
@@ -122,6 +121,7 @@ export default class Demo extends React.PureComponent {
           <TableTreeColumn
             for="Subject"
             showSelectionControls
+            showSelectAll
           />
 
           <Toolbar />

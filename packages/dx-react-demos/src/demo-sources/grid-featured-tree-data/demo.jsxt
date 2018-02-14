@@ -12,11 +12,6 @@ import {
 
 import { tasks, employees, priorities } from '../data.json';
 
-const getChildRows = (row, rows) => {
-  const childRows = rows.filter(r => r.Parent_ID === (row ? row.ID : 0));
-  return childRows.length ? childRows : null;
-};
-
 const EmployeeFormatter = ({ row }) => (
   <span>
     <div
@@ -44,6 +39,11 @@ const EmployeeFormatter = ({ row }) => (
   </span>
 );
 
+const getChildRows = (row, rows) => {
+  const childRows = rows.filter(r => r.Parent_ID === (row ? row.ID : 0));
+  return childRows.length ? childRows : null;
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -60,11 +60,26 @@ export default class Demo extends React.PureComponent {
       ],
       rows: tasks,
       pageSizes: [5, 10, 20],
+      defaultColumnWidths: [
+        { columnName: 'Subject', width: 300 },
+        { columnName: 'Assigned_Employee_ID', width: 180 },
+        { columnName: 'Status', width: 100 },
+        { columnName: 'Priority', width: 100 },
+        { columnName: 'Completion', width: 100 },
+        { columnName: 'Start_Date', width: 120 },
+        { columnName: 'Due_Date', width: 120 },
+      ],
+      defaultHiddenColumnNames: ['Priority', 'Completion'],
+      tableColumnExtensions: [
+        { columnName: 'Completion', align: 'right' },
+      ],
+      employeeColumns: ['Assigned_Employee_ID'],
     };
   }
   render() {
     const {
-      rows, columns, pageSizes,
+      rows, columns, pageSizes, defaultColumnWidths,
+      defaultHiddenColumnNames, tableColumnExtensions, employeeColumns
     } = this.state;
 
     return (
@@ -74,7 +89,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <DataTypeProvider
-            for={['Assigned_Employee_ID']}
+            for={employeeColumns}
             formatterComponent={EmployeeFormatter}
           />
 
@@ -91,28 +106,18 @@ export default class Demo extends React.PureComponent {
             getChildRows={getChildRows}
           />
           <IntegratedFiltering />
+          <IntegratedSelection />
           <IntegratedSorting />
           <IntegratedPaging />
-          <IntegratedSelection />
 
           <Table
-            columnExtensions={[
-              { columnName: 'Completion', align: 'right' },
-            ]}
+            columnExtensions={tableColumnExtensions}
           />
           <TableColumnVisibility
-            defaultHiddenColumnNames={['Priority', 'Completion']}
+            defaultHiddenColumnNames={defaultHiddenColumnNames}
           />
           <TableColumnResizing
-            defaultColumnWidths={[
-              { columnName: 'Subject', width: 300 },
-              { columnName: 'Assigned_Employee_ID', width: 180 },
-              { columnName: 'Status', width: 100 },
-              { columnName: 'Priority', width: 100 },
-              { columnName: 'Completion', width: 100 },
-              { columnName: 'Start_Date', width: 120 },
-              { columnName: 'Due_Date', width: 120 },
-            ]}
+            defaultColumnWidths={defaultColumnWidths}
           />
           <TableHeaderRow
             showSortingControls

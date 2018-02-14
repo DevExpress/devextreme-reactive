@@ -1,17 +1,13 @@
-# React Core - Providing Actions
+# React Core - Actions
 
-Plugin host component allows to share actions between plugins.
+[Action](../reference/action.md) is a plugin primitive that shares a function defined in a plugin among all plugins of a plugin based component.
 
-## Action
-
-[Action](../reference/action.md) is a plugin primitive that defines a function that can be executed outside of the plugin containing it. It is an invisible component. It uses the `name` property to identify the function.
-
-The main application of Action is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
+Commonly, action execution should cause changes in a plugin markup. For this, use another visualization primitive - [TemplateConnector](../reference/template-connector.md), which updates the markup according to the action result.
 
 .embedded-demo({ "path": "core-action/simple-action", "defaultTab": "source" })
 
 ## Passing Action parameters
 
-Action can consume payload that will be passed to the underlying function.
+Action can consume a payload that will be passed to the underlying function.
 
 .embedded-demo({ "path": "core-action/parameterized-action", "defaultTab": "source" })

@@ -35,15 +35,15 @@ export class SearchingState extends React.PureComponent {
   render() {
     const { searchValue } = this.getState();
 
-    const pushFilterExpressions = ({ filterExpressions, columns }) => {
+    const pushFilterExpr = ({ filterExpr, columns }) => {
       const filters = columns.map(({ name }) => ({ columnName: name, value: searchValue }));
-      const filterExpr = { operator: 'or', filters };
-      if (!filterExpressions) {
-        return filterExpr;
+      const selfFilterExpr = { operator: 'or', filters };
+      if (!filterExpr) {
+        return selfFilterExpr;
       }
       return {
         operator: 'and',
-        filters: [filterExpressions, filterExpr],
+        filters: [filterExpr, selfFilterExpr],
       };
     };
 
@@ -51,7 +51,7 @@ export class SearchingState extends React.PureComponent {
       <Plugin
         name="SearchingState"
       >
-        <Getter name="filterExpressions" computed={pushFilterExpressions} />
+        <Getter name="filterExpr" computed={pushFilterExpr} />
         <Getter name="searchValue" value={searchValue} />
         <Action name="changeSearchValue" action={this.changeSearchValue} />
       </Plugin>

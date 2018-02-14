@@ -220,7 +220,7 @@ describe('FilteringState', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).filterExpressions)
+      expect(getComputedState(tree).filterExpr)
         .toEqual({ operator: 'and', filters: [{ columnName: 'a', value: 'a' }] });
     });
 
@@ -229,14 +229,14 @@ describe('FilteringState', () => {
 
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents({ ...defaultDeps, getter: { filterExpressions: { operator: 'or', filters: [] } } })}
+          {pluginDepsToComponents({ ...defaultDeps, getter: { filterExpr: { operator: 'or', filters: [] } } })}
           <FilteringState
             defaultFilters={defaultFilters}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).filterExpressions).toEqual({
+      expect(getComputedState(tree).filterExpr).toEqual({
         operator: 'and',
         filters: [
           { operator: 'or', filters: [] },

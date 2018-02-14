@@ -8,7 +8,12 @@ import {
 } from '@devexpress/dx-react-core';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 
-const pluginDependencies = [{ name: 'Toolbar' }, { name: 'SearchingState' }];
+const pluginDependencies = [
+  { name: 'Toolbar' },
+  { name: 'SearchingState' },
+  { name: 'IntegratedFiltering' },
+];
+
 export const SearchPanel = ({ rootComponent: Root, messages }) => {
   const getMessage = getMessagesFormatter(messages);
 

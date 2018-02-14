@@ -107,7 +107,7 @@ describe('Searching state', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).filterExpressions).toEqual({
+    expect(getComputedState(tree).filterExpr).toEqual({
       operator: 'or',
       filters: [
         { columnName: 'a', value: 'abc' },
@@ -125,7 +125,7 @@ describe('Searching state', () => {
           ...defaultDeps,
           getter: {
             ...defaultDeps.getter,
-            filterExpressions: {
+            filterExpr: {
               operator: 'and',
               filters: [{ columnName: 'a', value: 'a' }],
             },
@@ -134,7 +134,7 @@ describe('Searching state', () => {
         <SearchingState searchValue={searchValue} />
       </PluginHost>));
 
-    expect(getComputedState(tree).filterExpressions).toEqual({
+    expect(getComputedState(tree).filterExpr).toEqual({
       operator: 'and',
       filters: [
         { operator: 'and', filters: [{ columnName: 'a', value: 'a' }] },

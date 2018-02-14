@@ -40,14 +40,14 @@ export class FilteringState extends React.PureComponent {
     const { filters } = this.getState();
     const { columnExtensions, columnFilteringEnabled } = this.props;
 
-    const pushFilterExpressions = ({ filterExpressions }) => {
-      const filterExpr = { operator: 'and', filters };
-      if (!filterExpressions) {
-        return filterExpr;
+    const pushFilterExpr = ({ filterExpr }) => {
+      const selfFilterExpr = { operator: 'and', filters };
+      if (!filterExpr) {
+        return selfFilterExpr;
       }
       return {
         operator: 'and',
-        filters: [filterExpressions, filterExpr],
+        filters: [filterExpr, selfFilterExpr],
       };
     };
 
@@ -56,7 +56,7 @@ export class FilteringState extends React.PureComponent {
         name="FilteringState"
       >
         <Getter name="filters" value={filters} />
-        <Getter name="filterExpressions" computed={pushFilterExpressions} />
+        <Getter name="filterExpr" computed={pushFilterExpr} />
         <Getter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}

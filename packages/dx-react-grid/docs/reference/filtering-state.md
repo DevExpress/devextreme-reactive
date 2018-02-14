@@ -42,12 +42,14 @@ filteringEnabled | boolean | Specifies whether filtering is enabled for a column
 
 ### Imports
 
-none
+Name | Plugin | Type | Description
+-----|--------|------|------------
+filterExpr | Getter | [IntegratedFiltering.FilterExpr](integrated-filtering.md/#integratedfilteringfilterexpr) | The applied filter expressions.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filters | Getter | Array&lt;[Filter](#filter)&gt; | The applied filters.
+filterExpr | Getter | [IntegratedFiltering.FilterExpr](integrated-filtering.md/#integratedfilteringfilterexpr) | The applied filter expressions.
 isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
 changeColumnFilter | Action | ({ columnName: string, config: Object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the specified column's filter.

@@ -11,13 +11,13 @@ export class IntegratedFiltering extends React.PureComponent {
 
     const rowsComputed = ({
       rows,
-      filterExpressions,
+      filterExpr,
       getCellValue,
       isGroupRow,
       getRowLevelKey,
     }) => filteredRows(
       rows,
-      filterExpressions,
+      filterExpr,
       getCellValue,
       getColumnPredicate,
       isGroupRow,

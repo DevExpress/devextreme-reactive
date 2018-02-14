@@ -20,6 +20,8 @@ react:
           path: /react/grid/docs/guides/paging
         - title: Filtering
           path: /react/grid/docs/guides/filtering
+        - title: Searching
+          path: /react/grid/docs/guides/searching
         - title: Grouping
           path: /react/grid/docs/guides/grouping
         - title: Selection

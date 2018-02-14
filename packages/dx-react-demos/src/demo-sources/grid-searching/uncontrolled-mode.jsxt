@@ -1,0 +1,48 @@
+import * as React from 'react';<%&additionalImports%> import {
+  SearchingState,
+  IntegratedFiltering,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  SearchPanel,
+  Toolbar,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import {
+  generateRows,
+} from '../../../demo-data/generator';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'name', title: 'Name' },
+        { name: 'sex', title: 'Sex' },
+        { name: 'city', title: 'City' },
+        { name: 'car', title: 'Car' },
+      ],
+      rows: generateRows({ length: 6 }),
+    };
+  }
+  render() {
+    const { rows, columns } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SearchingState defaultSearchValue="Paris" />
+          <IntegratedFiltering />
+          <Table />
+          <Toolbar />
+          <SearchPanel />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

@@ -38,7 +38,7 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 
 The [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property allows you to prevent filtering by a specific column.
 
-.embedded-demo(grid-filtering/disable-column-filtering)
+.embedded-demo({ "path": "grid-filtering/disable-column-filtering", "showThemeSelector": true })
 
 ## Remote Filtering
 

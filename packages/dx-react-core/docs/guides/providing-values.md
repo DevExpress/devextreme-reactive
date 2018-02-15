@@ -1,18 +1,12 @@
 # React Core - Providing Values
 
-One of the key part of plugin based component is a possibility to share data between plugins.
+[Getter](../reference/getter.md) is a plugin primitive that shares a value defined in a plugin among all plugins of a plugin based component. In other words, Getter defines a single field of the plugin based component's state.
 
-## Getter
-
-[Getter](../reference/getter.md) is a plugin primitive that defines a value that can be used or modified outside of the plugin containing it. It is an invisible component. It uses the `name` property to identify the value.
-
-In other words, Getter defines one field of plugin based component state.
-
-The main application of Getter is a possibility to connect a result value to markup. [TemplateConnector](../reference/template-connector.md) is a vizualization primitive that serves this need.
+Commonly, a getter is used to access a value associated with it in the markup of another plugin. For this, use the [TemplateConnector](../reference/template-connector.md) primitive.
 
 .embedded-demo({ "path": "core-getter/value-getter", "defaultTab": "source" })
 
-Getter's value is not restricted to any type, so it may hold an array or a function to share with another plugins.
+Getter's value is not restricted to a type. That is, it can hold an array or a function as well as more simple types.
 
 ## Extending Existing Getter
 
@@ -20,4 +14,4 @@ A value defined by Getter is a part of plugin's public API. So, this value can b
 
 .embedded-demo({ "path": "core-getter/computed-getter", "defaultTab": "source" })
 
-As you may see, Getter's value can be extended not only by previously defined Getter but and with other Getters or local variables.
+As you can see, the Getter's value can be overridden by another Getter with the same name. You can also compute a getter value in terms of another getters and local variables.

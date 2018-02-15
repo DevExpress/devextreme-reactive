@@ -4,10 +4,10 @@ import { SearchPanelInput } from '../templates/search-panel-input';
 
 export const SearchPanel = props => (
   <SearchPanelBase
-    rootComponent={SearchPanelInput}
+    inputComponent={SearchPanelInput}
     {...props}
   />
 );
 
-SearchPanel.rootComponent = SearchPanelInput;
+SearchPanel.inputComponent = SearchPanelInput;
 

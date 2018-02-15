@@ -17,7 +17,7 @@ describe('Input search box', () => {
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
-    expect(tree.find(Input).length).toBe(1);
+    expect(tree.length).toBe(1);
   });
 
   it('should render input component', () => {
@@ -26,7 +26,7 @@ describe('Input search box', () => {
       searchValue="abc"
       getMessage={getMessage}
     />);
-    expect(tree.find(Input).props().value).toBe('abc');
+    expect(tree.props().value).toBe('abc');
   });
 
   it('should trigger changeSearchValue when change event fire', () => {
@@ -34,7 +34,7 @@ describe('Input search box', () => {
       changeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
-    tree.find(Input).simulate('change', { target: { value: 'abc' } });
+    tree.simulate('change', { target: { value: 'abc' } });
     expect(changeSearchValue).toBeCalledWith({ searchValue: 'abc' });
   });
 
@@ -44,7 +44,7 @@ describe('Input search box', () => {
       getMessage={getMessage}
     />);
 
-    expect(tree.find(Input).props().placeholder).toBe('placeholder');
+    expect(tree.props().placeholder).toBe('placeholder');
   });
 
   it('should have custom class', () => {

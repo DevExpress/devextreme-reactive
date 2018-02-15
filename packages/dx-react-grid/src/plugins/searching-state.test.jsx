@@ -8,6 +8,7 @@ import { SearchingState } from './searching-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),
+  pushSearchFilterExpr: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
 }));
 
 const defaultDeps = {
@@ -31,7 +32,8 @@ describe('Searching state', () => {
     changeSearchValue.mockImplementation(() => []);
   });
   afterEach(() => {
-    jest.resetAllMocks();
+    // changeSearchValue.resetMock();
+    // jest.resetAllMocks();
   });
 
   it('should provide searchValue defined in defaultSearchValue property', () => {
@@ -107,45 +109,6 @@ describe('Searching state', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).filterExpr).toEqual({
-      operator: 'or',
-      filters: [
-        { columnName: 'a', value: 'abc' },
-        { columnName: 'b', value: 'abc' },
-      ],
-    });
-  });
-
-  it('should push filter expressions', () => {
-    const searchValue = 'abc';
-
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents({
-          ...defaultDeps,
-          getter: {
-            ...defaultDeps.getter,
-            filterExpr: {
-              operator: 'and',
-              filters: [{ columnName: 'a', value: 'a' }],
-            },
-          },
-        })}
-        <SearchingState searchValue={searchValue} />
-      </PluginHost>));
-
-    expect(getComputedState(tree).filterExpr).toEqual({
-      operator: 'and',
-      filters: [
-        { operator: 'and', filters: [{ columnName: 'a', value: 'a' }] },
-        {
-          operator: 'or',
-          filters: [
-            { columnName: 'a', value: 'abc' },
-            { columnName: 'b', value: 'abc' },
-          ],
-        },
-      ],
-    });
+    expect(getComputedState(tree).filterExpr).toBe('filters');
   });
 });

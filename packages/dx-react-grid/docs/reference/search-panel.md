@@ -7,7 +7,7 @@ A plugin that renders a searching panel.
 ### Dependencies
 
 - [SearchingState](searching-state.md)
-- [IntegratedFiltering](integrated-filtering.md)
+- [IntegratedFiltering](integrated-filtering.md) [Optional]
 - [Toolbar](toolbar.md)
 
 ### Properties

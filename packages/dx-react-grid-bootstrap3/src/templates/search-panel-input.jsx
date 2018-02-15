@@ -20,7 +20,7 @@ SearchPanelInput.propTypes = {
 };
 
 SearchPanelInput.defaultProps = {
-  searchValue: undefined,
+  searchValue: null,
   style: {},
-  getMessage: undefined,
+  getMessage: null,
 };

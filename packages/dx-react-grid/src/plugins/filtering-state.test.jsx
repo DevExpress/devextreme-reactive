@@ -9,6 +9,7 @@ import { FilteringState } from './filtering-state';
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
+  pushSearchFilterExpr: jest.fn(),
 }));
 
 const defaultDeps = {

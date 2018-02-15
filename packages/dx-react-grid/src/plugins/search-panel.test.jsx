@@ -8,7 +8,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
 }));
 
-const RootComponent = () => null;
+const Input = () => null;
 
 const defaultDeps = {
   plugins: ['Toolbar', 'SearchingState', 'IntegratedFiltering'],
@@ -23,11 +23,11 @@ const defaultDeps = {
   },
 };
 const defaultProps = {
-  rootComponent: RootComponent,
+  inputComponent: Input,
 };
 
 describe('SearchPanel', () => {
-  it('should pass correct props to rootComponent', () => {
+  it('should pass correct props to inputComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -35,8 +35,8 @@ describe('SearchPanel', () => {
         <SearchPanel {...defaultProps} />
       </PluginHost>
     ));
-    expect(tree.find(RootComponent).props().searchValue).toBe('abc');
-    expect(tree.find(RootComponent).props().changeSearchValue).toEqual(expect.any(Function));
-    expect(tree.find(RootComponent).props().getMessage).toEqual(expect.any(Function));
+    expect(tree.find(Input).props().searchValue).toBe('abc');
+    expect(tree.find(Input).props().changeSearchValue).toEqual(expect.any(Function));
+    expect(tree.find(Input).props().getMessage).toEqual(expect.any(Function));
   });
 });

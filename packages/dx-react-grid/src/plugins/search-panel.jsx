@@ -14,7 +14,7 @@ const pluginDependencies = [
   { name: 'IntegratedFiltering' },
 ];
 
-export const SearchPanel = ({ rootComponent: Root, messages }) => {
+export const SearchPanel = ({ inputComponent: Input, messages }) => {
   const getMessage = getMessagesFormatter(messages);
 
   return (
@@ -26,7 +26,7 @@ export const SearchPanel = ({ rootComponent: Root, messages }) => {
         <TemplatePlaceholder />
         <TemplateConnector>
           {({ searchValue }, { changeSearchValue }) => (
-            <Root
+            <Input
               searchValue={searchValue}
               changeSearchValue={changeSearchValue}
               getMessage={getMessage}
@@ -39,7 +39,7 @@ export const SearchPanel = ({ rootComponent: Root, messages }) => {
 };
 
 SearchPanel.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
+  inputComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

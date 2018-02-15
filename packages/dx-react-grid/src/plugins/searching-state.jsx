@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeSearchValue } from '@devexpress/dx-grid-core';
+import { changeSearchValue, pushSearchFilterExpr } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class SearchingState extends React.PureComponent {
@@ -35,23 +35,11 @@ export class SearchingState extends React.PureComponent {
   render() {
     const { searchValue } = this.getState();
 
-    const pushFilterExpr = ({ filterExpr, columns }) => {
-      const filters = columns.map(({ name }) => ({ columnName: name, value: searchValue }));
-      const selfFilterExpr = { operator: 'or', filters };
-      if (!filterExpr) {
-        return selfFilterExpr;
-      }
-      return {
-        operator: 'and',
-        filters: [filterExpr, selfFilterExpr],
-      };
-    };
-
     return (
       <Plugin
         name="SearchingState"
       >
-        <Getter name="filterExpr" computed={pushFilterExpr} />
+        <Getter name="filterExpr" computed={pushSearchFilterExpr(searchValue)} />
         <Getter name="searchValue" value={searchValue} />
         <Action name="changeSearchValue" action={this.changeSearchValue} />
       </Plugin>

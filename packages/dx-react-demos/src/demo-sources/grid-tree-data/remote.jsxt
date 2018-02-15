@@ -40,14 +40,14 @@ export default class Demo extends React.PureComponent {
         { columnName: 'size', width: 120, align: 'right' },
       ],
       expandedRowIds: [],
-      loading: true,
+      loading: false,
       data: [],
     };
 
     this.changeExpandedRowIds = this.changeExpandedRowIds.bind(this);
   }
   componentDidMount() {
-    this.loadDataFor(ROOT_ID);
+    this.loadData();
   }
   componentDidUpdate() {
     this.loadData();
@@ -66,22 +66,20 @@ export default class Demo extends React.PureComponent {
       .filter(rowId => data.findIndex(row => row.parentId === rowId) === -1);
 
     if (rowIdsWithNotLoadedChilds.length) {
-      this.loadDataFor(rowIdsWithNotLoadedChilds[0]);
+      if (this.state.loading) return;
+      this.setState({ loading: true });
+      Promise.all(rowIdsWithNotLoadedChilds
+        .map(rowId =>
+          fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
+            .then(response => response.json())))
+        .then((loadedData) => {
+          this.setState({
+            data: data.concat(...loadedData),
+            loading: false,
+          });
+        })
+        .catch(() => this.setState({ loading: false }));;
     }
-  }
-  loadDataFor(rowId) {
-    const { data } = this.state;
-
-    this.setState({ loading: true });
-    fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
-      .then(response => response.json())
-      .then((loadedData) => {
-        this.setState({
-          data: [...data, ...loadedData],
-          loading: false,
-        });
-      })
-      .catch(() => this.setState({ loading: false }));
   }
   render() {
     const {

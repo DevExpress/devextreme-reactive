@@ -10,19 +10,19 @@ const ENDING_KEY = 'ending';
 export const getVisibleRows = (rows, viewportTop, viewportHeight, getRowHeight) => {
   const result = [];
 
-  const bottom = viewportTop + viewportHeight;
-  let position = 0;
+  const viewportBottom = viewportTop + viewportHeight;
+  let topPosition = 0;
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
     const lastIndex = result.length - 1;
     const last = result[lastIndex];
 
     const height = getRowHeight(row);
-    const nextPosition = position + height;
+    const bottomPosition = topPosition + height;
     if (
-      (position >= viewportTop && position < bottom) ||
-      (nextPosition > viewportTop && nextPosition <= bottom) ||
-      (position < viewportTop && nextPosition > bottom)
+      (topPosition >= viewportTop && topPosition < viewportBottom) ||
+      (bottomPosition > viewportTop && bottomPosition <= viewportBottom) ||
+      (topPosition < viewportTop && bottomPosition > viewportBottom)
     ) {
       if (last && last.type === STUB_TYPE) {
         rows.slice(Math.max(0, i - OVERSCAN), i).forEach((overscanRow) => {
@@ -49,7 +49,7 @@ export const getVisibleRows = (rows, viewportTop, viewportHeight, getRowHeight) 
     } else {
       result.push({ type: STUB_TYPE, key: STARTING_KEY, height });
     }
-    position = nextPosition;
+    topPosition = bottomPosition;
   }
 
   return result;
@@ -67,7 +67,7 @@ export const firstVisibleRowOffset = (prevVisibleRows, visibleRows) => {
   const prevIndex = prevVisibleRows.findIndex(row => row.row === firstVisibleRow);
   if (prevIndex === -1) return 0;
 
-  const position = getRowPosition(visibleRows, firstVisibleRowIndex);
+  const topPosition = getRowPosition(visibleRows, firstVisibleRowIndex);
   const prevPosition = getRowPosition(prevVisibleRows, prevIndex);
-  return position - prevPosition;
+  return topPosition - prevPosition;
 };

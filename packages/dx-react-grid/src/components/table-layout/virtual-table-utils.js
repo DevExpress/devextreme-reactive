@@ -67,7 +67,7 @@ export const firstVisibleRowOffset = (prevVisibleRows, visibleRows) => {
   const prevIndex = prevVisibleRows.findIndex(row => row.row === firstVisibleRow);
   if (prevIndex === -1) return 0;
 
-  const topPosition = getRowPosition(visibleRows, firstVisibleRowIndex);
+  const position = getRowPosition(visibleRows, firstVisibleRowIndex);
   const prevPosition = getRowPosition(prevVisibleRows, prevIndex);
-  return topPosition - prevPosition;
+  return position - prevPosition;
 };

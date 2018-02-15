@@ -14,14 +14,15 @@ export const getVisibleRows = (rows, viewportTop, viewportHeight, getRowHeight) 
   let position = 0;
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i];
-    const last = result[result.length - 1];
+    const lastIndex = result.length - 1;
+    const last = result[lastIndex];
 
     const height = getRowHeight(row);
     const nextPosition = position + height;
     if (
-      (viewportTop <= position && position < bottom
-        && viewportTop < nextPosition && nextPosition <= bottom) ||
-      (viewportTop > position && nextPosition > bottom)
+      (position >= viewportTop && position < bottom) ||
+      (nextPosition > viewportTop && nextPosition <= bottom) ||
+      (position < viewportTop && nextPosition > bottom)
     ) {
       if (last && last.type === STUB_TYPE) {
         rows.slice(Math.max(0, i - OVERSCAN), i).forEach((overscanRow) => {
@@ -29,6 +30,9 @@ export const getVisibleRows = (rows, viewportTop, viewportHeight, getRowHeight) 
           last.height -= overscanRowSize;
           result.push({ type: OVERSCAN_TYPE, height: overscanRowSize, row: overscanRow });
         });
+        if (last.height === 0) {
+          result.splice(lastIndex, 1);
+        }
       }
       result.push({ type: VISIBLE_TYPE, height, row });
     } else if (last && last.type === STUB_TYPE) {

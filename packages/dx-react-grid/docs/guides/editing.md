@@ -44,6 +44,6 @@ Note, you can also use the `onAddedRowsChange` event to initialize a created row
 
 ### Disable Editing by a Column
 
-You can prevent editing by a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
+You can prevent editing of a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
 
 .embedded-demo(grid-editing/disable-column-editing)

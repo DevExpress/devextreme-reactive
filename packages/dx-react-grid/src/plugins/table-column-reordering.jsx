@@ -64,11 +64,7 @@ export class TableColumnReordering extends React.PureComponent {
   resetCellDimensions() {
     this.cellDimensions = [];
   }
-  storeCellDimensionsGetter(tableColumn, getter, tableColumns) {
-    if (tableColumn.type === TABLE_DATA_TYPE) {
-      this.cellDimensionGetters[tableColumn.column.name] = getter;
-    }
-
+  ensureCellDimensionGetters(tableColumns) {
     Object.keys(this.cellDimensionGetters)
       .forEach((columnName) => {
         const columnIndex = tableColumns
@@ -77,6 +73,12 @@ export class TableColumnReordering extends React.PureComponent {
           delete this.cellDimensionGetters[columnName];
         }
       });
+  }
+  storeCellDimensionsGetter(tableColumn, getter, tableColumns) {
+    if (tableColumn.type === TABLE_DATA_TYPE) {
+      this.cellDimensionGetters[tableColumn.column.name] = getter;
+    }
+    this.ensureCellDimensionGetters(tableColumns);
   }
   handleOver({ payload, clientOffset: { x } }) {
     const sourceColumnName = payload[0].columnName;

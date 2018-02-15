@@ -69,7 +69,7 @@ const ColumnBase = ({
 }) => (
   <Typography
     className={classNames(classes.column, className)}
-    type="body1"
+    variant="body1"
     component="p"
     {...restProps}
   >

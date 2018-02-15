@@ -18,11 +18,11 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.onClick = (e) => {
-      const { sortingEnabled, onSort } = this.props;
+      const { sortingEnabled, showSortingControls, onSort } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
-      if (!sortingEnabled || !(isActionKeyDown || isMouseClick)) return;
+      if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
       const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey

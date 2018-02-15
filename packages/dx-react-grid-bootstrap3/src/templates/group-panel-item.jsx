@@ -19,7 +19,7 @@ export const GroupPanelItem = ({
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
-    if (!sortingEnabled || !(isActionKeyDown || isMouseClick)) return;
+    if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey

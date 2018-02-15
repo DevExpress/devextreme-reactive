@@ -10,7 +10,7 @@ export const TableCell = ({
 }) => (
   <td
     className={classNames({
-      'text-nowrap table-cell': true,
+      'text-nowrap dx-rg-table-cell': true,
       'text-right': tableColumn && tableColumn.align === 'right',
     }, className)}
     {...restProps}

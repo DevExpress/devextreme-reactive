@@ -26,7 +26,7 @@ describe('GroupPanelEmptyMessage', () => {
       />
     ));
 
-    expect(tree.is('.group-panel-empty-message.custom-class'))
+    expect(tree.is('.dx-rg-group-panel-empty-message.custom-class'))
       .toBeTruthy();
   });
 });

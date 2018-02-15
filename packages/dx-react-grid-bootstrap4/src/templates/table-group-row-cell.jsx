@@ -27,13 +27,13 @@ export const TableGroupCell = ({
   return (
     <td
       colSpan={colSpan}
-      className={classNames('cursor-pointer', className)}
+      className={classNames('dx-rg-cursor-pointer', className)}
       onClick={handleClick}
       {...restProps}
     >
       <span
         className={classNames({
-          'oi table-group-row-cell': true,
+          'oi dx-rg-table-group-row-cell': true,
           'oi-chevron-bottom mr-2': expanded,
           'oi-chevron-right': !expanded,
         })}

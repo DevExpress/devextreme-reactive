@@ -52,8 +52,8 @@ export class Table extends React.Component {
       <table
         ref={(node) => { this.node = node; }}
         className={classNames({
-          'table mb-0 overflow-hidden dx-table': true,
-          'dx-table-head': use === 'head',
+          'table mb-0 dx-rg-overflow-hidden dx-rg-table': true,
+          'dx-rg-table-head': use === 'head',
         })}
         {...restProps}
         style={{

@@ -5,7 +5,7 @@ import './group-panel-empty-message.css';
 
 export const GroupPanelEmptyMessage = ({ getMessage, className, ...restProps }) => (
   <div
-    className={classNames('group-panel-empty-message', className)}
+    className={classNames('dx-rg-group-panel-empty-message', className)}
     {...restProps}
   >
     {getMessage('groupByColumn')}

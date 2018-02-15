@@ -10,7 +10,7 @@ describe('Toolbar', () => {
       </Toolbar>
     ));
 
-    expect(tree.is('.custom-class.card-header'))
+    expect(tree.is('.custom-class.card-header.dx-rg-toolbar.d-flex.position-relative'))
       .toBeTruthy();
   });
 

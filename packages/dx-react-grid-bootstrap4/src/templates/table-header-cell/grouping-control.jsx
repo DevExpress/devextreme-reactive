@@ -9,7 +9,7 @@ export const GroupingControl = ({ align, onGroup }) => {
   return (
     <div
       className={classNames({
-        'grouping-control': true,
+        'dx-rg-grouping-control': true,
         'float-right': invertedAlign,
         'text-right': invertedAlign,
         'float-left': !invertedAlign,
@@ -21,7 +21,7 @@ export const GroupingControl = ({ align, onGroup }) => {
       }}
     >
       <span
-        className="oi oi-list cursor-pointer grouping-control__span"
+        className="oi oi-list dx-rg-cursor-pointer dx-rg-grouping-control-icon"
       />
     </div>
   );

@@ -13,7 +13,7 @@ describe('TableCell', () => {
       .toBeFalsy();
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
-    expect(tree.find('td').is('.text-right.text-nowrap.table-cell'))
+    expect(tree.find('td').is('.text-right.text-nowrap.dx-rg-table-cell'))
       .toBeTruthy();
   });
 
@@ -38,7 +38,7 @@ describe('TableCell', () => {
       <TableCell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.text-nowrap.table-cell'))
+    expect(tree.is('.custom-class.text-nowrap.dx-rg-table-cell'))
       .toBeTruthy();
   });
 

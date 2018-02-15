@@ -1,8 +1,8 @@
-.grouping-control {
+.dx-rg-grouping-control {
   width: 14px;
 }
 
-.grouping-control__span {
+.dx-rg-grouping-control-icon {
   top: 0;
   font-size: 12px;
   margin: -5px;

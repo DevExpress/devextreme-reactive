@@ -1,7 +1,7 @@
-.column-chooser__item {
+.dx-rg-column-chooser-item {
   font-size: initial;
 }
 
-.column-chooser__item__input {
+.dx-rg-column-chooser-checkbox {
   margin-right: 10px;
 }

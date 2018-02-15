@@ -4,7 +4,7 @@ import './table-container.css';
 
 export const TableContainer = ({ children, ...restProps }) => (
   <div
-    className="table-responsive table-container"
+    className="table-responsive dx-rg-table-container"
     {...restProps}
   >
     {children}

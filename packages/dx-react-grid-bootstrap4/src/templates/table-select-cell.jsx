@@ -10,7 +10,7 @@ export const TableSelectCell = ({
 }) => (
 
   <td
-    className={classNames('cursor-pointer align-middle', className)}
+    className={classNames('dx-rg-cursor-pointer align-middle', className)}
     onClick={(e) => {
       e.stopPropagation();
       onToggle();
@@ -18,7 +18,7 @@ export const TableSelectCell = ({
     {...restProps}
   >
     <input
-      className="d-block m-auto cursor-pointer"
+      className="d-block m-auto dx-rg-cursor-pointer"
       type="checkbox"
       checked={selected}
       onChange={onToggle}

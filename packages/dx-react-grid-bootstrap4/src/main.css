@@ -1,14 +1,14 @@
-.cursor-pointer {
+.dx-rg-cursor-pointer {
   cursor: pointer;
 }
-.user-select {
+.dx-rg-user-select-none {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: 'none';
 }
-.opacity-03 {
+.dx-rg-opacity-03 {
   opacity: 0.3;
 }
-.overflow-hidden {
+.dx-rg-overflow-hidden {
   overflow: hidden;
 }

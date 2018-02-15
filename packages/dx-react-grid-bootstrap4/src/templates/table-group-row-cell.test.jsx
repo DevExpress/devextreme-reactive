@@ -75,7 +75,7 @@ describe('TableGroupRowCell', () => {
       <TableGroupCell className="custom-class" />
     ));
 
-    expect(tree.is('.cursor-pointer.custom-class'))
+    expect(tree.is('.dx-rg-cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 

@@ -18,7 +18,7 @@ export const TableSelectAllCell = ({
     <th
       className={classNames({
         'align-middle': true,
-        'cursor-pointer': !disabled,
+        'dx-rg-cursor-pointer': !disabled,
       }, className)}
       onClick={toggle}
       {...restProps}
@@ -26,7 +26,7 @@ export const TableSelectAllCell = ({
       <input
         className={classNames({
           'd-block m-auto': true,
-          'cursor-pointer': !disabled,
+          'dx-rg-cursor-pointer': !disabled,
         })}
         type="checkbox"
         disabled={disabled}

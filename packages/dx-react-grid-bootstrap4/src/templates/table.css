@@ -1,7 +1,7 @@
-.dx-table {
+.dx-rg-table {
   table-layout: fixed;
 }
-.dx-table-head {
+.dx-rg-table-head {
   top: 0;
   z-index: 1;
 }

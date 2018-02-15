@@ -1,10 +1,10 @@
-.table-header-cell__div {
+.dx-rg-table-header-cell-wrapper {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.table-header-cell__mr {
+.dx-rg-table-header-cell-left {
   margin-right: 14px;
 }
-.table-header-cell__ml {
+.dx-rg-table-header-cell-right {
   margin-left: 14px;
 }

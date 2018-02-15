@@ -51,7 +51,7 @@ describe('EditCommandCells', () => {
         />
       ));
 
-      expect(tree.is('.btn.btn-link.table-edit-command-cell.custom-class'))
+      expect(tree.is('.btn.btn-link.dx-rg-table-edit-command-cell.custom-class'))
         .toBeTruthy();
     });
 

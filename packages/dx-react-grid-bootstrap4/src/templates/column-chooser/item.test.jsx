@@ -84,7 +84,7 @@ describe('Item', () => {
       />
     ));
 
-    expect(tree.is('.dropdown-item.custom-class'))
+    expect(tree.is('.dropdown-item.custom-class.dx-rg-column-chooser-item.dx-rg-cursor-pointer'))
       .toBeTruthy();
   });
 

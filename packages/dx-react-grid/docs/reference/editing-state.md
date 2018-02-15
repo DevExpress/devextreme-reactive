@@ -78,4 +78,4 @@ deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | 
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRowIds` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the column's editor values for the current row. This function is called each time the editor's value changes.
-isColumnEditingEnabled | Getter | (columnName: string) => boolean | A function used to define if editing by a column is enabled.
+isColumnEditingEnabled | Getter | (columnName: string) => boolean |  A function that returns a value that specifies if editing by a column is enabled.

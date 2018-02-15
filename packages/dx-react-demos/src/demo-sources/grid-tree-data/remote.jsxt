@@ -78,7 +78,7 @@ export default class Demo extends React.PureComponent {
             loading: false,
           });
         })
-        .catch(() => this.setState({ loading: false }));;
+        .catch(() => this.setState({ loading: false }));
     }
   }
   render() {

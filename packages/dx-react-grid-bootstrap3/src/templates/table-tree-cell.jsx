@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const Cell = ({
+export const TableTreeCell = ({
   controls,
   column, value, children,
   tableRow, tableColumn, row,
@@ -43,7 +43,7 @@ export const Cell = ({
   </td>
 );
 
-Cell.propTypes = {
+TableTreeCell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -54,7 +54,7 @@ Cell.propTypes = {
   style: PropTypes.object,
 };
 
-Cell.defaultProps = {
+TableTreeCell.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,

@@ -33,13 +33,13 @@ export const ToggleButton = ({
         'glyphicon-triangle-right': !expanded,
       }, className)}
       style={{
+        cursor: 'pointer',
         display: 'inline-block',
         fontSize: '9px',
         top: '0',
         padding: '8px',
         marginTop: '-8px',
         marginBottom: '-8px',
-        marginRight: '8px',
         opacity: visible ? 1 : 0,
         ...style,
       }}
@@ -62,7 +62,7 @@ ToggleButton.propTypes = {
 };
 
 ToggleButton.defaultProps = {
-  visible: false,
+  visible: true,
   expanded: false,
   onToggle: () => {},
   className: undefined,

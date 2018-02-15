@@ -67,7 +67,7 @@ Field | Type | Description
 ------|------|------------
 disabled | boolean | Specifies whether a row is disallowed to select.
 selected | boolean | Specifies whether a row is selected.
-indeterminate | boolean | Specifies whether a row is partially selected.
+someSelected | boolean | Specifies whether a row is partially selected.
 onToggle | () => void | An event that initiates row expanding or collapsing.
 
 ## Plugin Components

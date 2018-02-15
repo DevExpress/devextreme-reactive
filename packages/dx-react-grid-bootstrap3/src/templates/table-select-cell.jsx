@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { SelectionControl } from './parts/selection-control';
+
 export const TableSelectCell = ({
   style,
   selected,
@@ -11,26 +13,15 @@ export const TableSelectCell = ({
 
   <td
     style={{
-      cursor: 'pointer',
       verticalAlign: 'middle',
+      textAlign: 'center',
       ...style,
-    }}
-    onClick={(e) => {
-      e.stopPropagation();
-      onToggle();
     }}
     {...restProps}
   >
-    <input
-      style={{
-        cursor: 'pointer',
-        margin: '0 auto',
-        display: 'block',
-      }}
-      type="checkbox"
-      checked={selected}
-      onChange={onToggle}
-      onClick={e => e.stopPropagation()}
+    <SelectionControl
+      selected={selected}
+      onToggle={onToggle}
     />
   </td>
 );

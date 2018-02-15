@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const Indent = ({ level }) =>
+export const TableTreeIndent = ({ level }) =>
   Array.from({ length: level })
     .map((_, currentLevel) => (
       <span
@@ -14,10 +14,10 @@ export const Indent = ({ level }) =>
       />
     ));
 
-Indent.propTypes = {
+TableTreeIndent.propTypes = {
   level: PropTypes.number,
 };
 
-Indent.defaultProps = {
+TableTreeIndent.defaultProps = {
   level: 0,
 };

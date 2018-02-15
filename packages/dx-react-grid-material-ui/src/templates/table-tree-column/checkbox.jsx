@@ -14,13 +14,13 @@ const styles = theme => ({
 });
 
 export const CheckboxBase = ({
-  disabled, selected, indeterminate, onToggle, classes,
+  disabled, selected, someSelected, onToggle, classes,
   className, ...restProps
 }) => (
   <CheckboxMUI
     className={classNames(classes.checkbox, className)}
     checked={selected}
-    indeterminate={indeterminate}
+    indeterminate={someSelected}
     disabled={disabled}
     onClick={(e) => {
       e.stopPropagation();
@@ -33,7 +33,7 @@ export const CheckboxBase = ({
 CheckboxBase.propTypes = {
   disabled: PropTypes.bool,
   selected: PropTypes.bool,
-  indeterminate: PropTypes.bool,
+  someSelected: PropTypes.bool,
   onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -42,7 +42,7 @@ CheckboxBase.propTypes = {
 CheckboxBase.defaultProps = {
   disabled: false,
   selected: false,
-  indeterminate: false,
+  someSelected: false,
   onToggle: () => {},
   className: undefined,
 };

@@ -59,7 +59,7 @@ export class TableTreeColumn extends React.PureComponent {
                 <Checkbox
                   disabled={!selectAllAvailable}
                   selected={allSelected}
-                  indeterminate={someSelected}
+                  someSelected={someSelected}
                   onToggle={toggleSelectAll}
                 />
               )}
@@ -115,7 +115,7 @@ export class TableTreeColumn extends React.PureComponent {
                                     <Checkbox
                                       disabled={false}
                                       selected={selection.indexOf(rowId) > -1}
-                                      indeterminate={false}
+                                      someSelected={false}
                                       onToggle={() =>
                                         toggleSelection({ rowIds: [rowId] })}
                                     />

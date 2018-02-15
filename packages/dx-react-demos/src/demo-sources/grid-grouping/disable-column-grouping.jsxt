@@ -32,6 +32,7 @@ export default class Demo extends React.PureComponent {
       grouping: [{ columnName: 'city' }],
       groupingStateColumnExtensions: [
         { columnName: 'name', groupingEnabled: false },
+        { columnName: 'city', groupingEnabled: false },
       ],
     };
   }

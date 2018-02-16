@@ -60,7 +60,7 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping opti
 
 ## Disable Grouping by a Column
 
-You can prevent grouping/ungrouping ability for a specific column using the [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property.
+You can disable grouping/ungrouping for a specific column using the [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property.
 
 .embedded-demo(grid-grouping/disable-column-grouping)
 

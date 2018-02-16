@@ -16,16 +16,10 @@ DemoContainer.propTypes = {
 export default DemoContainer;
 
 const THEMES = [{
-  name: 'journal',
-  link: 'https://bootswatch.com/3/journal/bootstrap.min.css',
-}, {
-  name: 'darkly',
-  link: 'https://bootswatch.com/3/darkly/bootstrap.min.css',
-}, {
-  name: 'united',
-  link: 'https://bootswatch.com/3/united/bootstrap.min.css',
+  name: 'cyborg',
+  link: 'https://bootswatch.com/3/cyborg/bootstrap.min.css',
 }];
-const CUSTOM_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+const CUSTOM_THEME = 'https://bootswatch.com/3/united/bootstrap.min.css';
 
 class DemoFrame extends React.PureComponent {
   constructor(props, context) {
@@ -136,7 +130,5 @@ DemoFrame.contextTypes = {
   embeddedDemoOptions: PropTypes.object.isRequired,
 };
 
-export const Journal = props => <DemoFrame {...props} themeName="journal" />;
-export const Darkly = props => <DemoFrame {...props} themeName="darkly" />;
-export const United = props => <DemoFrame {...props} themeName="united" />;
+export const Cyborg = props => <DemoFrame {...props} themeName="cyborg" />;
 export const Custom = props => <DemoFrame {...props} themeName="custom" />;

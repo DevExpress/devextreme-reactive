@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import './table-detail-toggle-cell.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;

@@ -93,7 +93,7 @@ export class TableTreeColumn extends React.PureComponent {
                     {content => (
                       <TemplateConnector>
                         {({
-                          getCollapsedRows, expandedRowIds, selection, isLeafRow,
+                          getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf,
                         }, {
                           toggleRowExpanded, toggleSelection,
                         }) => {
@@ -111,7 +111,7 @@ export class TableTreeColumn extends React.PureComponent {
                                   />
                                   <ToggleButton
                                     visible={collapsedRows
-                                      ? !!collapsedRows.length : !isLeafRow(row)}
+                                      ? !!collapsedRows.length : !isTreeRowLeaf(row)}
                                     expanded={expandedRowIds.indexOf(rowId) > -1}
                                     onToggle={() =>
                                       toggleRowExpanded({ rowId })}

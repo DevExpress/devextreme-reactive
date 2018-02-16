@@ -91,7 +91,7 @@ tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table b
 getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
 getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
-isLeafRow | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
+isTreeRowLeaf | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
 expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
 toggleRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
 selection | Getter | Array&lt;number &#124; string&gt; | The selected row's IDs.

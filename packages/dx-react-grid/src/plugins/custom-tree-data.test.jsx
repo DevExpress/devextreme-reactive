@@ -7,7 +7,7 @@ import {
   customTreeRowsWithMeta,
   expandedTreeRows,
   collapsedTreeRowsGetter,
-  isLeafTreeRowGetter,
+  isTreeRowLeafGetter,
   unwrappedCustomTreeRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   customTreeRowsWithMeta: jest.fn(),
   expandedTreeRows: jest.fn(),
   collapsedTreeRowsGetter: jest.fn(),
-  isLeafTreeRowGetter: jest.fn(),
+  isTreeRowLeafGetter: jest.fn(),
   unwrappedCustomTreeRows: jest.fn(),
 }));
 
@@ -52,7 +52,7 @@ describe('CustomTreeData', () => {
     customTreeRowsWithMeta.mockImplementation(() => 'customTreeRowsWithMeta');
     expandedTreeRows.mockImplementation(() => 'expandedTreeRows');
     collapsedTreeRowsGetter.mockImplementation(() => 'collapsedTreeRowsGetter');
-    isLeafTreeRowGetter.mockImplementation(() => 'isLeafTreeRowGetter');
+    isTreeRowLeafGetter.mockImplementation(() => 'isTreeRowLeafGetter');
     unwrappedCustomTreeRows.mockImplementation(() => 'unwrappedCustomTreeRows');
   });
   afterEach(() => {
@@ -89,7 +89,7 @@ describe('CustomTreeData', () => {
       .toBe(unwrappedCustomTreeRows());
   });
 
-  it('should provide isLeafRow getter', () => {
+  it('should provide isTreeRowLeaf getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -99,11 +99,11 @@ describe('CustomTreeData', () => {
       </PluginHost>
     ));
 
-    expect(isLeafTreeRowGetter)
+    expect(isTreeRowLeafGetter)
       .toBeCalledWith(customTreeRowsWithMeta());
 
-    expect(getComputedState(tree).isLeafRow)
-      .toBe(isLeafTreeRowGetter());
+    expect(getComputedState(tree).isTreeRowLeaf)
+      .toBe(isTreeRowLeafGetter());
   });
 
   it('should provide getRowLevelKey getter', () => {

@@ -34,4 +34,4 @@ rows | Getter | Array&lt;any&gt; | Linearized tree data rows.
 getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
 getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
-isLeafRow | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
+isTreeRowLeaf | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.

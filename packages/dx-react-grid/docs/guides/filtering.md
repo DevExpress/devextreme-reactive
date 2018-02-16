@@ -36,7 +36,7 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 
 ### Disable Filtering by a Column
 
-The [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property allows you to prevent filtering by a specific column.
+You can prevent filtering by a specific column using the [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
 
 .embedded-demo(grid-filtering/disable-column-filtering)
 

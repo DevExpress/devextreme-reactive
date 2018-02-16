@@ -14,38 +14,35 @@ const styles = theme => ({
     marginLeft: -theme.spacing.unit,
     marginRight: theme.spacing.unit * 2,
   },
-  placeholder: {
-    display: 'inline-block',
-    width: theme.spacing.unit * 6,
-    marginLeft: -theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
+  hidden: {
+    opacity: 0,
   },
 });
 
-const ToggleButtonBase = ({
+const TableTreeToggleButtonBase = ({
   visible, expanded, classes, onToggle,
   className,
   ...restProps
-}) => (visible ? (
+}) => (
   <IconButton
-    className={classNames(classes.button, className)}
+    className={classNames({
+      [classes.button]: true,
+      [classes.hidden]: !visible,
+    }, className)}
     onClick={(e) => {
+      if (!visible) return;
       e.stopPropagation();
       onToggle();
     }}
     {...restProps}
   >
-    {
-      expanded
-        ? <ExpandMore />
-        : <ChevronRight />
-    }
+    {expanded
+      ? <ExpandMore />
+      : <ChevronRight />}
   </IconButton>
-) : (
-  <span className={classes.placeholder} />
-));
+);
 
-ToggleButtonBase.propTypes = {
+TableTreeToggleButtonBase.propTypes = {
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
@@ -53,11 +50,11 @@ ToggleButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-ToggleButtonBase.defaultProps = {
+TableTreeToggleButtonBase.defaultProps = {
   visible: false,
   expanded: false,
   onToggle: () => {},
   className: undefined,
 };
 
-export const ToggleButton = withStyles(styles)(ToggleButtonBase);
+export const TableTreeToggleButton = withStyles(styles)(TableTreeToggleButtonBase);

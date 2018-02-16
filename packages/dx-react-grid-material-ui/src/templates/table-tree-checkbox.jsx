@@ -13,7 +13,7 @@ const styles = theme => ({
   },
 });
 
-export const CheckboxBase = ({
+export const TableTreeCheckboxBase = ({
   disabled, selected, someSelected, onToggle, classes,
   className, ...restProps
 }) => (
@@ -23,6 +23,7 @@ export const CheckboxBase = ({
     indeterminate={someSelected}
     disabled={disabled}
     onClick={(e) => {
+      if (disabled) return;
       e.stopPropagation();
       onToggle();
     }}
@@ -30,7 +31,7 @@ export const CheckboxBase = ({
   />
 );
 
-CheckboxBase.propTypes = {
+TableTreeCheckboxBase.propTypes = {
   disabled: PropTypes.bool,
   selected: PropTypes.bool,
   someSelected: PropTypes.bool,
@@ -39,7 +40,7 @@ CheckboxBase.propTypes = {
   className: PropTypes.string,
 };
 
-CheckboxBase.defaultProps = {
+TableTreeCheckboxBase.defaultProps = {
   disabled: false,
   selected: false,
   someSelected: false,
@@ -47,4 +48,4 @@ CheckboxBase.defaultProps = {
   className: undefined,
 };
 
-export const Checkbox = withStyles(styles)(CheckboxBase);
+export const TableTreeCheckbox = withStyles(styles)(TableTreeCheckboxBase);

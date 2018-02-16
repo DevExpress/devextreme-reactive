@@ -8,7 +8,7 @@ const styles = theme => ({
   },
 });
 
-export const IndentBase = ({ level, classes }) =>
+export const TableTreeIndentBase = ({ level, classes }) =>
   Array.from({ length: level })
     .map((_, currentLevel) => (
       <span
@@ -18,13 +18,13 @@ export const IndentBase = ({ level, classes }) =>
       />
     ));
 
-IndentBase.propTypes = {
+TableTreeIndentBase.propTypes = {
   level: PropTypes.number,
   classes: PropTypes.object.isRequired,
 };
 
-IndentBase.defaultProps = {
+TableTreeIndentBase.defaultProps = {
   level: 0,
 };
 
-export const Indent = withStyles(styles)(IndentBase);
+export const TableTreeIndent = withStyles(styles)(TableTreeIndentBase);

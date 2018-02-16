@@ -12,9 +12,6 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit * 3,
     },
   },
-  cellRightAlign: {
-    textAlign: 'right',
-  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -31,7 +28,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const TableTreeCellBase = ({
   controls,
   column, value, children, classes,
   tableRow, tableColumn, row,
@@ -41,7 +38,6 @@ const CellBase = ({
   <TableCellMUI
     className={classNames({
       [classes.cell]: true,
-      [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
     }, className)}
     {...restProps}
   >
@@ -56,7 +52,7 @@ const CellBase = ({
   </TableCellMUI>
 );
 
-CellBase.propTypes = {
+TableTreeCellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -68,7 +64,7 @@ CellBase.propTypes = {
   className: PropTypes.string,
 };
 
-CellBase.defaultProps = {
+TableTreeCellBase.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
@@ -79,4 +75,4 @@ CellBase.defaultProps = {
   className: undefined,
 };
 
-export const Cell = withStyles(styles)(CellBase);
+export const TableTreeCell = withStyles(styles)(TableTreeCellBase);

@@ -62,7 +62,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 grouping | Getter | Array&lt;[Grouping](#grouping)&gt; | The current grouping state.
 draftGrouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Grouping options used for the preview.
-isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function used to define if grouping by a column is enabled.
+isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
 changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
 cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.

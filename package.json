@@ -11,19 +11,19 @@
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
-    "check-node-version": "^3.1.1",
+    "check-node-version": "^3.2.0",
     "concurrently": "^3.5.1",
-    "conventional-changelog-cli": "^1.3.5",
-    "conventional-recommended-bump": "^1.1.0",
+    "conventional-changelog-cli": "^1.3.13",
+    "conventional-recommended-bump": "^2.0.4",
     "fs-extra": "^5.0.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
+    "gulp-clean": "^0.4.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.2.2",
-    "inquirer": "^4.0.1",
-    "lerna": "2.5.1",
-    "run-sequence": "^2.2.0",
-    "semver": "^5.4.1"
+    "inquirer": "^5.1.0",
+    "lerna": "2.9.0",
+    "run-sequence": "^2.2.1",
+    "semver": "^5.5.0"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",

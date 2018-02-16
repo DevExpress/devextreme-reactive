@@ -36,11 +36,11 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with a header cell.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
-sortingEnabled | boolean | Specifies whether sorting by column is enabled.
+sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
-groupingEnabled | boolean | Specifies whether grouping by column is enabled.
+groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
 resizingEnabled | boolean | Specifies whether table column resizing is enabled.
 onWidthChange | ({ shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
@@ -80,8 +80,8 @@ changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => voi
 draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 cancelTableColumnWidthDraft | Action | () => void | Cancels changes to the column width used for preview.
 draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
-isColumnSortingEnabled | Getter | (columnName: string) => boolean | A function used to define if sorting by a column is enabled.
-isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function used to define if grouping by a column is enabled.
+isColumnSortingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if sorting by a column is enabled.
+isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
 tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | Template | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 

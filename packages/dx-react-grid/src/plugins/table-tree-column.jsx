@@ -10,14 +10,19 @@ const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
       acc.push(tableRow);
       return acc;
     }
-    let rowLevel = getRowLevelKey(tableRow.row) && parseInt(getRowLevelKey(tableRow.row).replace('treeNode_', ''), 10);
-    if (rowLevel === undefined) {
-      rowLevel = (acc.length && acc[acc.length - 1].level
-        + (getRowLevelKey(acc[acc.length - 1].row) ? 1 : 0)) || 0;
+    const rowLevelKey = getRowLevelKey(tableRow.row);
+    let rowLevel;
+    if (rowLevelKey) {
+      rowLevel = parseInt(getRowLevelKey(tableRow.row).replace('treeNode_', ''), 10);
+    }
+    if (rowLevel === undefined && acc.length) {
+      const prevTableRow = acc[acc.length - 1];
+      const prevRowLevelKey = getRowLevelKey(prevTableRow.row);
+      rowLevel = prevTableRow.level + (prevRowLevelKey ? 1 : 0);
     }
     acc.push({
       ...tableRow,
-      level: rowLevel,
+      level: rowLevel || 0,
     });
     return acc;
   }, []);
@@ -51,7 +56,7 @@ export class TableTreeColumn extends React.PureComponent {
           predicate={({ column }) => column.name === (forColumnName || 'name')}
         >
           <ToggleButton
-            disabled
+            visible={false}
           />
           {showSelectionControls && showSelectAll && (
             <TemplateConnector>

@@ -40,9 +40,18 @@ export class TableEditRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ getCellValue, createRowChange, rowChanges }, { changeAddedRow, changeRow }) => {
+              {({
+                getCellValue,
+                createRowChange,
+                rowChanges,
+                isColumnEditingEnabled,
+              }, {
+                changeAddedRow,
+                changeRow,
+              }) => {
                 const { rowId, row } = params.tableRow;
-                const { name: columnName } = params.tableColumn.column;
+                const { column } = params.tableColumn;
+                const { name: columnName } = column;
 
                 const isNew = isAddedTableRow(params.tableRow);
                 const changedRow = isNew
@@ -65,7 +74,7 @@ export class TableEditRow extends React.PureComponent {
                   <TemplatePlaceholder
                     name="valueEditor"
                     params={{
-                      column: params.tableColumn.column,
+                      column,
                       row,
                       value,
                       onValueChange,
@@ -75,8 +84,9 @@ export class TableEditRow extends React.PureComponent {
                       <EditCell
                         {...params}
                         row={row}
-                        column={params.tableColumn.column}
+                        column={column}
                         value={value}
+                        editingEnabled={isColumnEditingEnabled(columnName)}
                         onValueChange={onValueChange}
                       >
                         {content}

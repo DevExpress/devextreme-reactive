@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Checkbox from 'material-ui/Checkbox';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableTreeCheckbox } from './table-tree-checkbox';
 
@@ -8,11 +8,9 @@ describe('TableTreeCheckbox', () => {
   let resetConsole;
   let mount;
   let shallow;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableTreeCheckbox />);
   });
   afterAll(() => {
     resetConsole();

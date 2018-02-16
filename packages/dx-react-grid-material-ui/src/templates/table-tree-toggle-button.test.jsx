@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow } from 'material-ui/test-utils';
 import IconButton from 'material-ui/IconButton';
 import { TableTreeToggleButton } from './table-tree-toggle-button';
 
 describe('TableTreeToggleButton', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableTreeToggleButton />);
   });
 
   it('should render IconButton', () => {

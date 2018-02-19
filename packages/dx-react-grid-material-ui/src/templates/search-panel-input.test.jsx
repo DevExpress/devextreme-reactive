@@ -19,7 +19,7 @@ describe('Input search box', () => {
     expect(tree.length).toBe(1);
   });
 
-  it('should render input component', () => {
+  it('should render input component with searchValue', () => {
     const tree = shallow(<SearchPanelInput
       changeSearchValue={changeSearchValue}
       searchValue="abc"

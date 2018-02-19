@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-vue-demos",
+  "version": "1.0.1",
+  "description": "DevExtreme Vue Components Demos",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "main": "index.js",
+  "scripts": {
+    "build:watch": "webpack-dev-server --env"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-vue-jsx": "^3.5.1",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

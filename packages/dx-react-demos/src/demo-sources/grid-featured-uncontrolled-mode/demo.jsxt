@@ -1,13 +1,13 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, SearchingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   PagingPanel, GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
-  TableColumnVisibility, ColumnChooser,
+  TableColumnVisibility, ColumnChooser, SearchPanel,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -31,6 +31,8 @@ const Cell = (props) => {
   }
   return <Table.Cell {...props} />;
 };
+
+const none = () => false;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -74,6 +76,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <SelectionState />
+          <SearchingState />
 
           <GroupingState
             defaultGrouping={[{ columnName: 'product' }]}
@@ -112,6 +115,7 @@ export default class Demo extends React.PureComponent {
           />
           <Toolbar />
           <GroupingPanel showSortingControls />
+          <SearchPanel />
           <ColumnChooser />
         </Grid>
       </<%&wrapperTag%>>

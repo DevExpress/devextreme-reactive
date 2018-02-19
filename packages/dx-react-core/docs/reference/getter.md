@@ -1,6 +1,6 @@
 # Getter Component Reference
 
-A React component that exposes a value that can be used or modified outside of the plugin containing it.
+A React component that shares a value among other plugins within a plugin based compoent.
 
 ## User reference
 
@@ -8,6 +8,6 @@ A React component that exposes a value that can be used or modified outside of t
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A name used to identify a value.
-value? | any | | A value.
-computed? | (getters: { [getterName: string]: any }) => any | | A function used to calculate a value depending on values exposed by other getters. A value will be recomputed each time a dependency changes. Used when the `value` property is not defined.
+name | string | | The getter name.
+value? | any | | A value value to share.
+computed? | (getters: { [getterName: string]: any }) => any | | A function that calculates a value depending on the values exposed by other getters. The value is computed each time a related getter's value changes. Applies only id `value` is not defined.

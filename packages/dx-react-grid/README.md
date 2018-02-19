@@ -16,14 +16,6 @@ npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 
 This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:
 
-- Bootstrap 3
-
-  ```
-  npm i --save @devexpress/dx-react-grid-bootstrap3
-  ```
-
-  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details.
-
 - Material UI
 
   ```
@@ -31,6 +23,22 @@ This package does not contain visual components. In the examples below, visual c
   ```
 
   Make sure that [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
+
+- Bootstrap 4
+
+  ```
+  npm i --save @devexpress/dx-react-grid-bootstrap4
+  ```
+
+  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details.
+
+- Bootstrap 3
+
+  ```
+  npm i --save @devexpress/dx-react-grid-bootstrap3
+  ```
+
+  Make sure that [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started.html) article for configuration details.
 
 ### Polyfills
 

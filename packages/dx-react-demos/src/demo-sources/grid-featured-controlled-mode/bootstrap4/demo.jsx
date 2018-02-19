@@ -3,7 +3,7 @@ import {
   SortingState, EditingState, PagingState,
   IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card } from 'reactstrap';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
@@ -216,7 +216,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div className="card">
+      <Card>
         <Grid
           rows={rows}
           columns={columns}
@@ -300,7 +300,7 @@ export default class Demo extends React.PureComponent {
             <Button className="btn-danger" onClick={this.deleteRows}>Delete</Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </Card>
     );
   }
 }

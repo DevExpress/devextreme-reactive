@@ -32,9 +32,6 @@ class DemoFrame extends React.PureComponent {
       <head>
         <link rel="stylesheet" href="${themeLink}" />
         <link rel="stylesheet" href="${ICONS}" />
-        <style>
-          .panel { margin: 0 !important; }
-        </style>
       </head>
       <body>
       <div id="mountPoint"></div>

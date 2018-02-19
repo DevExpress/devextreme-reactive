@@ -1,21 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
+  Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-
-const tableBodyRowsComputed = ({ tableBodyRows, getTreeRowLevel }) =>
-  tableBodyRows.reduce((acc, tableRow) => {
-    if (tableRow.type !== 'data') {
-      acc.push(tableRow);
-      return acc;
-    }
-    acc.push({
-      ...tableRow,
-      level: getTreeRowLevel(tableRow.row),
-    });
-    return acc;
-  }, []);
+import {
+  isTreeTableCell,
+} from '@devexpress/dx-grid-core';
 
 export class TableTreeColumn extends React.PureComponent {
   render() {
@@ -40,7 +30,6 @@ export class TableTreeColumn extends React.PureComponent {
           { name: 'TableHeaderRow', optional: true },
         ]}
       >
-        <Getter name="tableBodyRows" computed={(tableBodyRowsComputed)} />
         <Template
           name="tableHeaderCellBefore"
           predicate={({ column }) => column.name === forColumnName}
@@ -63,16 +52,18 @@ export class TableTreeColumn extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'data' && tableColumn.type === 'data' && tableColumn.column.name === forColumnName}
+          predicate={({ tableRow, tableColumn }) =>
+            isTreeTableCell(tableRow, tableColumn, forColumnName)}
         >
           {params => (
             <TemplateConnector>
               {({
-                getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf, getCellValue,
+                getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf, getTreeRowLevel,
+                getCellValue,
               }, {
                 toggleRowExpanded, toggleSelection,
               }) => {
-                const { level, row, rowId } = params.tableRow;
+                const { row, rowId } = params.tableRow;
                 const columnName = params.tableColumn.column.name;
                 const value = getCellValue(row, columnName);
                 const collapsedRows = getCollapsedRows(row);
@@ -94,7 +85,7 @@ export class TableTreeColumn extends React.PureComponent {
                         controls={
                           <React.Fragment>
                             <Indent
-                              level={level}
+                              level={getTreeRowLevel(row)}
                             />
                             <ToggleButton
                               visible={collapsedRows

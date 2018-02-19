@@ -13,7 +13,7 @@ export const SortingControl = ({
   (align === 'right' ? (
     <span
       className={classNames({
-        'dx-rg-sorting-control': true,
+        'dx-rg-bs4-sorting-control': true,
         'text-primary': sortingDirection,
       })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
@@ -30,7 +30,7 @@ export const SortingControl = ({
   ) : (
     <span
       className={classNames({
-        'dx-rg-sorting-control': true,
+        'dx-rg-bs4-sorting-control': true,
         'text-primary': sortingDirection,
       })}
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex

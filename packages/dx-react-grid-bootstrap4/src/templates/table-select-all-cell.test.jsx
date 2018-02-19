@@ -55,7 +55,7 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell className="custom-class" />
     ));
 
-    expect(tree.is('.align-middle.dx-rg-cursor-pointer.custom-class'))
+    expect(tree.is('.align-middle.dx-rg-bs4-cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 

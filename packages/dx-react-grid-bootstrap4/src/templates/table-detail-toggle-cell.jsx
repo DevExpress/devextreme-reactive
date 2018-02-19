@@ -22,7 +22,7 @@ export const TableDetailToggleCell = ({
   };
   return (
     <td
-      className={classNames('align-middle dx-rg-cursor-pointer', className)}
+      className={classNames('align-middle dx-rg-bs4-cursor-pointer', className)}
       onClick={(e) => {
         e.stopPropagation();
         onToggle();
@@ -31,7 +31,7 @@ export const TableDetailToggleCell = ({
     >
       <span
         className={classNames({
-          'oi d-block dx-rg-table-detail-toggle-cell-icon': true,
+          'oi d-block dx-rg-bs4-table-detail-toggle-cell-icon': true,
           'oi-chevron-bottom': expanded,
           'oi-chevron-right': !expanded,
         })}

@@ -57,8 +57,8 @@ export class TableHeaderCell extends React.PureComponent {
       <th
         className={classNames({
           'position-relative': true,
-          'dx-rg-cursor-pointer dx-rg-user-select-none': showSortingControls || draggingEnabled,
-          'dx-rg-opacity-03': dragging || (tableColumn && tableColumn.draft),
+          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': showSortingControls || draggingEnabled,
+          'dx-rg-bs4-opacity-03': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
         onClick={this.onClick}
@@ -72,10 +72,10 @@ export class TableHeaderCell extends React.PureComponent {
         )}
         <div
           className={classNames({
-            'text-nowrap dx-rg-table-header-cell-wrapper': true,
+            'text-nowrap dx-rg-bs4-table-header-cell-wrapper': true,
             'text-right': align === 'right',
-            'dx-rg-table-header-cell-right': showGroupingControls && align === 'right',
-            'dx-rg-table-header-cell-left': showGroupingControls && align !== 'right',
+            'dx-rg-bs4-table-header-cell-right': showGroupingControls && align === 'right',
+            'dx-rg-bs4-table-header-cell-left': showGroupingControls && align !== 'right',
           })}
         >
           {showSortingControls ? (

@@ -45,7 +45,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-user-select-none.dx-rg-cursor-pointer'))
+    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer'))
       .toBeFalsy();
   });
 
@@ -57,7 +57,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-user-select-none.dx-rg-cursor-pointer.position-relative'))
+    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -71,7 +71,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').is('.dx-rg-user-select-none.dx-rg-cursor-pointer.position-relative'))
+    expect(tree.dive().find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -85,19 +85,19 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.find('th').is('.dx-rg-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
       .toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
       .toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
       .toBeFalsy();
   });
 
@@ -133,7 +133,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-table-header-cell-wrapper'))
+    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -146,7 +146,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-table-header-cell-wrapper.dx-rg-table-header-cell-left'))
+    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper.dx-rg-bs4-table-header-cell-left'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -161,7 +161,7 @@ describe('TableHeaderCell', () => {
     ));
     expect(tree.find('div').is('.text-nowrap.text-right'))
       .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-table-header-cell-right'))
+    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-right'))
       .toBeFalsy();
   });
 
@@ -172,7 +172,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-table-header-cell-right'))
+    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-bs4-table-header-cell-right'))
       .toBeTruthy();
   });
 

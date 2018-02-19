@@ -43,7 +43,7 @@ export const GroupPanelItem = ({
     <div
       className={classNames({
         'btn-group mb-1 mr-1': true,
-        'dx-rg-opacity-03': draft,
+        'dx-rg-bs4-opacity-03': draft,
       }, className)}
       {...restProps}
     >
@@ -71,7 +71,7 @@ export const GroupPanelItem = ({
         >
           &nbsp;
           <span
-            className="oi oi-x dx-rg-group-panel-item-icon"
+            className="oi oi-x dx-rg-bs4-group-panel-item-icon"
           />
         </span>)}
     </div>

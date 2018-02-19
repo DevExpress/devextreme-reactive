@@ -8,37 +8,21 @@ const customTreeRows = (
 ) => {
   const childRows = getChildRows(currentRow, rootRows);
 
-  if (!childRows) return { rows: [], empty: true };
+  if (!childRows) return { rows: [], treeMeta: [], empty: true };
 
-  let isLastLevel = true;
   return childRows
     .reduce((acc, row) => {
-      acc.rows.push(row);
-      if (!isLastLevel) {
-        acc.levelsMeta.push([row, level]);
-      }
-
       const nestedResult = customTreeRows(
         row,
         getChildRows,
         rootRows,
         level + 1,
       );
-      if (nestedResult.rows.length) {
-        if (isLastLevel) {
-          isLastLevel = false;
-          acc.levelsMeta.push(...acc.rows.map(r => [r, level]));
-        }
-        acc.rows.push(...nestedResult.rows);
-        acc.levelsMeta.push(...nestedResult.levelsMeta);
-        acc.leafsMeta.push(...nestedResult.leafsMeta);
-      }
-      if (!nestedResult.empty) {
-        acc.leafsMeta.push([row, false]);
-      }
+      acc.rows.push(row, ...nestedResult.rows);
+      acc.treeMeta.push([row, { level, leaf: !!nestedResult.empty }], ...nestedResult.treeMeta);
 
       return acc;
-    }, { rows: [], levelsMeta: [], leafsMeta: [] });
+    }, { rows: [], treeMeta: [] });
 };
 
 export const customTreeRowsWithMeta = (
@@ -49,13 +33,12 @@ export const customTreeRowsWithMeta = (
 
   return {
     rows: result.rows,
-    levelsMeta: new Map(result.levelsMeta),
-    leafsMeta: new Map(result.leafsMeta),
+    treeMeta: new Map(result.treeMeta),
   };
 };
 
-export const customTreeRowIdGetter = (getRowId, { rows, levelsMeta }) => {
-  const firstNestedRowIndex = rows.findIndex(row => levelsMeta.get(row) > 0);
+export const customTreeRowIdGetter = (getRowId, { rows, treeMeta }) => {
+  const firstNestedRowIndex = rows.findIndex(row => treeMeta.get(row).level > 0);
   if (firstNestedRowIndex === -1 || getRowId(rows[firstNestedRowIndex]) !== undefined) {
     return getRowId;
   }
@@ -64,22 +47,23 @@ export const customTreeRowIdGetter = (getRowId, { rows, levelsMeta }) => {
   return row => map.get(row);
 };
 
-export const customTreeRowLevelKeyGetter = (getRowLevelKey, { levelsMeta }) =>
+export const customTreeRowLevelKeyGetter = (getRowLevelKey, { treeMeta }) =>
   (row) => {
-    const level = levelsMeta.get(row);
-    if (level !== undefined) {
-      return `${GRID_TREE_NODE_TYPE}_${level}`;
+    const rowMeta = treeMeta.get(row);
+    if (rowMeta !== undefined) {
+      return `${GRID_TREE_NODE_TYPE}_${rowMeta.level}`;
     }
     return getRowLevelKey && getRowLevelKey();
   };
 
-export const expandedTreeRows = ({ rows, levelsMeta }, getRowId, expandedRowIds) => {
+export const expandedTreeRows = ({ rows, treeMeta }, getRowId, expandedRowIds) => {
   const expandedRowIdsSet = new Set(expandedRowIds);
 
   let currentExpanded = true;
   let currentLevel = 0;
   return rows.reduce((acc, row) => {
-    const level = levelsMeta.get(row);
+    const rowMeta = treeMeta.get(row);
+    const level = rowMeta && rowMeta.level;
     if (level === undefined && currentExpanded) {
       acc.rows.push(row);
       return acc;
@@ -102,13 +86,22 @@ export const expandedTreeRows = ({ rows, levelsMeta }, getRowId, expandedRowIds)
     acc.rows.push(row);
 
     return acc;
-  }, { rows: [], levelsMeta, collapsedRowsMeta: new Map() });
+  }, { rows: [], treeMeta, collapsedRowsMeta: new Map() });
 };
 
 export const collapsedTreeRowsGetter = (getCollapsedRows, { collapsedRowsMeta }) =>
   row => collapsedRowsMeta.get(row) || (getCollapsedRows && getCollapsedRows(row));
 
-export const isTreeRowLeafGetter = ({ leafsMeta }) =>
-  row => leafsMeta.get(row) === undefined;
+export const isTreeRowLeafGetter = ({ treeMeta }) =>
+  (row) => {
+    const rowMeta = treeMeta.get(row);
+    return rowMeta && rowMeta.leaf;
+  };
+
+export const getTreeRowLevelGetter = ({ treeMeta }) =>
+  (row) => {
+    const rowMeta = treeMeta.get(row);
+    return rowMeta && rowMeta.level;
+  };
 
 export const unwrappedCustomTreeRows = ({ rows }) => rows;

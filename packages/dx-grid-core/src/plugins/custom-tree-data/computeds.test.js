@@ -5,6 +5,8 @@ import {
   customTreeRowLevelKeyGetter,
   expandedTreeRows,
   collapsedTreeRowsGetter,
+  isTreeRowLeafGetter,
+  getTreeRowLevelGetter,
   unwrappedCustomTreeRows,
 } from './computeds';
 
@@ -33,18 +35,16 @@ describe('CustomTreeData Plugin computeds', () => {
           hierarchicalSource[3],
         ],
         /* eslint-enable indent */
-        levelsMeta: new Map([
-          [hierarchicalSource[0], 0],
-          [hierarchicalSource[1], 0],
-          [hierarchicalSource[2], 0],
-          [hierarchicalSource[2].items[0], 1],
-          [hierarchicalSource[2].items[1], 1],
-          [hierarchicalSource[3], 0],
-        ]),
-        leafsMeta: new Map([
-          [hierarchicalSource[1], false],
-          [hierarchicalSource[2], false],
-          [hierarchicalSource[2].items[0], false],
+        treeMeta: new Map([
+          [hierarchicalSource[0], { level: 0, leaf: true }],
+          [hierarchicalSource[1], { level: 0, leaf: false }],
+          [hierarchicalSource[1].items[0], { level: 1, leaf: true }],
+          [hierarchicalSource[1].items[1], { level: 1, leaf: true }],
+          [hierarchicalSource[2], { level: 0, leaf: false }],
+          [hierarchicalSource[2].items[0], { level: 1, leaf: false }],
+          [hierarchicalSource[2].items[0].items[0], { level: 2, leaf: true }],
+          [hierarchicalSource[2].items[1], { level: 1, leaf: true }],
+          [hierarchicalSource[3], { level: 0, leaf: true }],
         ]),
       };
 
@@ -86,17 +86,15 @@ describe('CustomTreeData Plugin computeds', () => {
           plainSource[2],
         ],
         /* eslint-enable indent */
-        levelsMeta: new Map([
-          [plainSource[0], 0],
-          [plainSource[1], 0],
-          [plainSource[2], 0],
-          [plainSource[5], 1],
-          [plainSource[6], 1],
-        ]),
-        leafsMeta: new Map([
-          [plainSource[0], false],
-          [plainSource[1], false],
-          [plainSource[5], false],
+        treeMeta: new Map([
+          [plainSource[0], { level: 0, leaf: false }],
+          [plainSource[3], { level: 1, leaf: true }],
+          [plainSource[4], { level: 1, leaf: true }],
+          [plainSource[1], { level: 0, leaf: false }],
+          [plainSource[5], { level: 1, leaf: false }],
+          [plainSource[7], { level: 2, leaf: true }],
+          [plainSource[6], { level: 1, leaf: true }],
+          [plainSource[2], { level: 0, leaf: true }],
         ]),
       };
 
@@ -115,9 +113,9 @@ describe('CustomTreeData Plugin computeds', () => {
         { id: 0, hasItems: true },
         { id: 1, hasItems: true },
         { id: 2, hasItems: false },
-        { id: 5, parentId: 1, hasItems: true },
-        { id: 6, parentId: 1, hasItems: false },
-        { id: 7, parentId: 5, hasItems: false },
+        { id: 3, parentId: 1, hasItems: true },
+        { id: 4, parentId: 1, hasItems: false },
+        { id: 5, parentId: 3, hasItems: false },
       ];
       const getPlainChildRows = (row, rootRows) => {
         const childRows = rootRows.filter(r => r.parentId === (row ? row.id : undefined));
@@ -137,17 +135,13 @@ describe('CustomTreeData Plugin computeds', () => {
           plainSource[2],
         ],
         /* eslint-enable indent */
-        levelsMeta: new Map([
-          [plainSource[0], 0],
-          [plainSource[1], 0],
-          [plainSource[2], 0],
-          [plainSource[3], 1],
-          [plainSource[4], 1],
-        ]),
-        leafsMeta: new Map([
-          [plainSource[0], false],
-          [plainSource[1], false],
-          [plainSource[3], false],
+        treeMeta: new Map([
+          [plainSource[0], { level: 0, leaf: false }],
+          [plainSource[1], { level: 0, leaf: false }],
+          [plainSource[3], { level: 1, leaf: false }],
+          [plainSource[5], { level: 2, leaf: true }],
+          [plainSource[4], { level: 1, leaf: true }],
+          [plainSource[2], { level: 0, leaf: true }],
         ]),
       };
 
@@ -169,9 +163,9 @@ describe('CustomTreeData Plugin computeds', () => {
     ];
     const linearizedRows = {
       rows,
-      levelsMeta: new Map([
-        [rows[0], 0],
-        [rows[1], 1],
+      treeMeta: new Map([
+        [rows[0], { level: 0 }],
+        [rows[1], { level: 1 }],
       ]),
     };
 
@@ -214,9 +208,9 @@ describe('CustomTreeData Plugin computeds', () => {
     ];
     const linearizedRows = {
       rows,
-      levelsMeta: new Map([
-        [rows[0], 0],
-        [rows[1], 1],
+      treeMeta: new Map([
+        [rows[0], { level: 0 }],
+        [rows[1], { level: 1 }],
       ]),
     };
 
@@ -254,12 +248,14 @@ describe('CustomTreeData Plugin computeds', () => {
       /* eslint-enable indent */
       const linearizedRows = {
         rows,
-        levelsMeta: new Map([
-          [rows[0], 0],
-          [rows[1], 0],
-          [rows[2], 1],
-          [rows[4], 0],
-          [rows[5], 1],
+        treeMeta: new Map([
+          [rows[0], { level: 0 }],
+          [rows[1], { level: 0 }],
+          [rows[2], { level: 1 }],
+          [rows[3], { level: 2 }],
+          [rows[4], { level: 0 }],
+          [rows[5], { level: 1 }],
+          [rows[6], { level: 2 }],
         ]),
       };
       const getRowId = row => rows.indexOf(row);
@@ -274,7 +270,7 @@ describe('CustomTreeData Plugin computeds', () => {
           { a: 2 },
         ],
         /* eslint-enable indent */
-        levelsMeta: linearizedRows.levelsMeta,
+        treeMeta: linearizedRows.treeMeta,
         collapsedRowsMeta: new Map([
           [rows[2], [rows[3]]],
           [rows[4], [rows[5], rows[6]]],
@@ -315,6 +311,56 @@ describe('CustomTreeData Plugin computeds', () => {
 
       expect(getCollapsedRows(1))
         .toBe(0);
+    });
+  });
+
+  describe('#isTreeRowLeafGetter', () => {
+    const rows = [
+      { a: 1 },
+      { a: 1, b: 1 },
+    ];
+    const linearizedRows = {
+      rows,
+      treeMeta: new Map([
+        [rows[0], { leaf: false }],
+        [rows[1], { leaf: true }],
+      ]),
+    };
+
+    it('should define leaf rows', () => {
+      const isTreeRowLeaf = isTreeRowLeafGetter(linearizedRows);
+
+      expect(isTreeRowLeaf(linearizedRows.rows[0]))
+        .toBe(false);
+      expect(isTreeRowLeaf(linearizedRows.rows[1]))
+        .toBe(true);
+      expect(isTreeRowLeaf({}))
+        .toBe(undefined);
+    });
+  });
+
+  describe('#getTreeRowLevelGetter', () => {
+    const rows = [
+      { a: 1 },
+      { a: 1, b: 1 },
+    ];
+    const linearizedRows = {
+      rows,
+      treeMeta: new Map([
+        [rows[0], { level: 0 }],
+        [rows[1], { level: 1 }],
+      ]),
+    };
+
+    it('should define leaf rows', () => {
+      const getTreeRowLevel = getTreeRowLevelGetter(linearizedRows);
+
+      expect(getTreeRowLevel(linearizedRows.rows[0]))
+        .toBe(0);
+      expect(getTreeRowLevel(linearizedRows.rows[1]))
+        .toBe(1);
+      expect(getTreeRowLevel({}))
+        .toBe(undefined);
     });
   });
 

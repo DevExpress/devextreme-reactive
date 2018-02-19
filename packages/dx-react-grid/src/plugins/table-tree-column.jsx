@@ -4,25 +4,15 @@ import {
   Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const tableBodyRowsComputed = ({ tableBodyRows, getRowLevelKey }) =>
+const tableBodyRowsComputed = ({ tableBodyRows, getTreeRowLevel }) =>
   tableBodyRows.reduce((acc, tableRow) => {
     if (tableRow.type !== 'data') {
       acc.push(tableRow);
       return acc;
     }
-    const rowLevelKey = getRowLevelKey(tableRow.row);
-    let rowLevel;
-    if (rowLevelKey) {
-      rowLevel = parseInt(getRowLevelKey(tableRow.row).replace('treeNode_', ''), 10);
-    }
-    if (rowLevel === undefined && acc.length) {
-      const prevTableRow = acc[acc.length - 1];
-      const prevRowLevelKey = getRowLevelKey(prevTableRow.row);
-      rowLevel = prevTableRow.level + (prevRowLevelKey ? 1 : 0);
-    }
     acc.push({
       ...tableRow,
-      level: rowLevel || 0,
+      level: getTreeRowLevel(tableRow.row),
     });
     return acc;
   }, []);
@@ -53,7 +43,7 @@ export class TableTreeColumn extends React.PureComponent {
         <Getter name="tableBodyRows" computed={(tableBodyRowsComputed)} />
         <Template
           name="tableHeaderCellBefore"
-          predicate={({ column }) => column.name === (forColumnName || 'name')}
+          predicate={({ column }) => column.name === forColumnName}
         >
           <ToggleButton
             visible={false}
@@ -77,10 +67,15 @@ export class TableTreeColumn extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ getCellValue }) => {
+              {({
+                getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf, getCellValue,
+              }, {
+                toggleRowExpanded, toggleSelection,
+              }) => {
                 const { level, row, rowId } = params.tableRow;
                 const columnName = params.tableColumn.column.name;
                 const value = getCellValue(row, columnName);
+                const collapsedRows = getCollapsedRows(row);
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
@@ -91,48 +86,37 @@ export class TableTreeColumn extends React.PureComponent {
                     }}
                   >
                     {content => (
-                      <TemplateConnector>
-                        {({
-                          getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf,
-                        }, {
-                          toggleRowExpanded, toggleSelection,
-                        }) => {
-                          const collapsedRows = getCollapsedRows(row);
-                          return (
-                            <Cell
-                              {...params}
-                              row={row}
-                              column={params.tableColumn.column}
-                              value={value}
-                              controls={
-                                <React.Fragment>
-                                  <Indent
-                                    level={level}
-                                  />
-                                  <ToggleButton
-                                    visible={collapsedRows
-                                      ? !!collapsedRows.length : !isTreeRowLeaf(row)}
-                                    expanded={expandedRowIds.indexOf(rowId) > -1}
-                                    onToggle={() =>
-                                      toggleRowExpanded({ rowId })}
-                                  />
-                                  {showSelectionControls && (
-                                    <Checkbox
-                                      disabled={false}
-                                      selected={selection.indexOf(rowId) > -1}
-                                      someSelected={false}
-                                      onToggle={() =>
-                                        toggleSelection({ rowIds: [rowId] })}
-                                    />
-                                  )}
-                                </React.Fragment>
-                              }
-                            >
-                              {content}
-                            </Cell>
-                          );
-                      }}
-                      </TemplateConnector>
+                      <Cell
+                        {...params}
+                        row={row}
+                        column={params.tableColumn.column}
+                        value={value}
+                        controls={
+                          <React.Fragment>
+                            <Indent
+                              level={level}
+                            />
+                            <ToggleButton
+                              visible={collapsedRows
+                                ? !!collapsedRows.length : !isTreeRowLeaf(row)}
+                              expanded={expandedRowIds.indexOf(rowId) > -1}
+                              onToggle={() =>
+                                toggleRowExpanded({ rowId })}
+                            />
+                            {showSelectionControls && (
+                              <Checkbox
+                                disabled={false}
+                                selected={selection.indexOf(rowId) > -1}
+                                someSelected={false}
+                                onToggle={() =>
+                                  toggleSelection({ rowIds: [rowId] })}
+                              />
+                            )}
+                          </React.Fragment>
+                        }
+                      >
+                        {content}
+                      </Cell>
                     )}
                   </TemplatePlaceholder>
                 );

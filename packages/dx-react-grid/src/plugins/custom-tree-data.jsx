@@ -8,6 +8,7 @@ import {
   expandedTreeRows,
   collapsedTreeRowsGetter,
   isTreeRowLeafGetter,
+  getTreeRowLevelGetter,
   unwrappedCustomTreeRows,
 } from '@devexpress/dx-grid-core';
 
@@ -23,6 +24,8 @@ const getRowLevelKeyComputed = ({ getRowLevelKey, rows }) =>
   customTreeRowLevelKeyGetter(getRowLevelKey, rows);
 const isTreeRowLeafComputed = ({ rows }) =>
   isTreeRowLeafGetter(rows);
+const getTreeRowLevelComputed = ({ rows }) =>
+  getTreeRowLevelGetter(rows);
 const collapsedTreeRowsGetterComputed = ({ rows, getCollapsedRows }) =>
   collapsedTreeRowsGetter(getCollapsedRows, rows);
 const unwrappedTreeRowsComputed = ({ rows }) =>
@@ -45,6 +48,7 @@ export class CustomTreeData extends React.PureComponent {
         <Getter name="getRowId" computed={getRowIdComputed} />
         <Getter name="getRowLevelKey" computed={getRowLevelKeyComputed} />
         <Getter name="isTreeRowLeaf" computed={isTreeRowLeafComputed} />
+        <Getter name="getTreeRowLevel" computed={getTreeRowLevelComputed} />
         <Getter name="rows" computed={expandedTreeRowsComputed} />
         <Getter name="getCollapsedRows" computed={collapsedTreeRowsGetterComputed} />
         <Getter name="rows" computed={unwrappedTreeRowsComputed} />

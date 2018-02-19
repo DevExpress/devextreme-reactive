@@ -25,7 +25,7 @@ This package does not contain visual components. In the examples below, visual c
 - Bootstrap 4
 
   ```
-  npm i --save @devexpress/dx-react-grid-bootstrap3
+  npm i --save @devexpress/dx-react-grid-bootstrap4
   ```
 
   Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details.

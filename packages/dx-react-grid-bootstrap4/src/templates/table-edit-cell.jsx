@@ -5,7 +5,7 @@ import './table-edit-cell.css';
 
 export const EditCell = ({
   column, value, onValueChange, className, children,
-  row, tableRow, tableColumn, ...restProps
+  row, tableRow, tableColumn, editingEnabled, ...restProps
 }) => (
   <td
     className={classNames('align-middle dx-rg-bs4-table-edit-cell', className)}
@@ -18,6 +18,7 @@ export const EditCell = ({
           'form-control w-100': true,
           'text-right': tableColumn && tableColumn.align === 'right',
         })}
+        readOnly={!editingEnabled}
         value={value}
         onChange={e => onValueChange(e.target.value)}
       />
@@ -32,10 +33,8 @@ EditCell.propTypes = {
   value: PropTypes.any,
   onValueChange: PropTypes.func.isRequired,
   className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  editingEnabled: PropTypes.bool,
+  children: PropTypes.node,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -44,5 +43,6 @@ EditCell.defaultProps = {
   tableRow: undefined,
   className: undefined,
   children: undefined,
+  editingEnabled: true,
   value: '',
 };

@@ -41,4 +41,16 @@ describe('EditCell', () => {
     expect(tree.is('.align-middle.custom-class.dx-rg-bs4-table-edit-cell'))
       .toBeTruthy();
   });
+
+  it('should render readonly editor if editing is not allowed', () => {
+    const tree = shallow((
+      <EditCell
+        {...defaultProps}
+        editingEnabled={false}
+      />
+    ));
+
+    expect(tree.find('input').prop('readOnly'))
+      .toBeTruthy();
+  });
 });

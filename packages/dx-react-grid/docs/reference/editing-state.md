@@ -13,6 +13,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 createRowChange? | (row: any, columnName: string, value: string &#124; number) => any | | A function that returns a row change object depending on row editor values. This function is called each time the row editor's value changes.
+columnEditingEnabled? | boolean | true | Specifies whether editing is enabled for all columns.
 columnExtensions? | Array&lt;[EditingState.ColumnExtension](#editingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 editingRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 defaultEditingRowIds? | Array&lt;number &#124; string&gt; | [] | IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode.
@@ -37,6 +38,7 @@ Describes additional column properties that the plugin can handle.
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
+editingEnabled? | boolean | Specifies whether editing is enabled for a column.
 createRowChange? | (row: any, value: any, columnName: string) => any | A function that returns a value specifying row changes depending on the columns' editor values for the current row. This function is called each time the editor's value changes.
 
 ### ChangeSet
@@ -76,3 +78,4 @@ deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | 
 cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRowIds` array.
 commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the column's editor values for the current row. This function is called each time the editor's value changes.
+isColumnEditingEnabled | Getter | (columnName: string) => boolean |  A function that returns a value that specifies if editing by a column is enabled.

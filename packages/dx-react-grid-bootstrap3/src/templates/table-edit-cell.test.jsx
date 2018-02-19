@@ -3,11 +3,14 @@ import { shallow } from 'enzyme';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
+  const defaultProps = {
+    onValueChange: () => {},
+  };
   it('should pass style to the root element', () => {
     const tree = shallow((
       <EditCell
+        {...defaultProps}
         value="a"
-        onValueChange={() => {}}
         style={{
           width: '40px',
           height: '10px',
@@ -24,7 +27,7 @@ describe('EditCell', () => {
   it('should render children if passed', () => {
     const tree = shallow((
       <EditCell
-        onValueChange={() => {}}
+        {...defaultProps}
       >
         <span className="test" />
       </EditCell>
@@ -37,12 +40,24 @@ describe('EditCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <EditCell
-        onValueChange={() => {}}
+        {...defaultProps}
         className="custom-class"
       />
     ));
 
     expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should render readonly editor if editing is not allowed', () => {
+    const tree = shallow((
+      <EditCell
+        {...defaultProps}
+        editingEnabled={false}
+      />
+    ));
+
+    expect(tree.find('input').prop('readOnly'))
       .toBeTruthy();
   });
 });

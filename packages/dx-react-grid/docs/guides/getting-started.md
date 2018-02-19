@@ -80,8 +80,8 @@ const App = () => (
 
 Follow the links below to try out the React Grid:
 
-- [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 - [CodeSandbox for Material UI](https://codesandbox.io/s/13qvz1qqzl)
+- [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 
 ## License
 

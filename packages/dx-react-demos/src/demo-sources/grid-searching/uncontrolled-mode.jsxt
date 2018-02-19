@@ -5,8 +5,9 @@ import * as React from 'react';<%&additionalImports%> import {
 import {
   Grid,
   Table,
-  SearchPanel,
   Toolbar,
+  SearchPanel,
+  TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -39,6 +40,7 @@ export default class Demo extends React.PureComponent {
           <SearchingState defaultSearchValue="Paris" />
           <IntegratedFiltering />
           <Table />
+          <TableHeaderRow />
           <Toolbar />
           <SearchPanel />
         </Grid>

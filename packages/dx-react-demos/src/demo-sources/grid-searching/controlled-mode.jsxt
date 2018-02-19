@@ -6,8 +6,9 @@ import {
 import {
   Grid,
   Table,
-  SearchPanel,
   Toolbar,
+  SearchPanel,
+  TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -46,6 +47,7 @@ export default class Demo extends React.PureComponent {
           />
           <IntegratedFiltering />
           <Table />
+          <TableHeaderRow />
           <Toolbar />
           <SearchPanel />
         </Grid>

@@ -11,7 +11,6 @@ import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 const pluginDependencies = [
   { name: 'Toolbar' },
   { name: 'SearchingState' },
-  { name: 'IntegratedFiltering' },
 ];
 
 export const SearchPanel = ({ inputComponent: Input, messages }) => {

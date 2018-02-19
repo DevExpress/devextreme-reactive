@@ -1,6 +1,6 @@
 # Action Component Reference
 
-A React component that is used for sharing of a function among other plugins within a plugin based compoent.
+A React component that shares a function among other plugins within a plugin based compoent.
 
 ## User reference
 

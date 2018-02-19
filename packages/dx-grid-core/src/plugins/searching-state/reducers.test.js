@@ -22,7 +22,7 @@ describe('pushSearchFilterExpr reducer', () => {
   it('should return old and new filter', () => {
     expect(pushSearchFilterExpr('searchValue')({
       columns: [{ name: 'first' }, { name: 'second' }],
-      filterExpr: ['filters'],
+      filterExpression: ['filters'],
     })).toEqual({
       filters: [
         ['filters'],

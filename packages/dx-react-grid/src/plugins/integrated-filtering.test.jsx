@@ -12,7 +12,7 @@ const defaultDeps = {
     getCellValue: jest.fn(),
     isGroupRow: true,
     getRowLevelKey: jest.fn(),
-    filterExpr: [{ columnName: 'name' }],
+    filterExpression: [{ columnName: 'name' }],
   },
 };
 
@@ -33,7 +33,7 @@ describe('IntegratedFiltering', () => {
 
     expect(filteredRows).toBeCalledWith(
       defaultDeps.getter.rows,
-      defaultDeps.getter.filterExpr,
+      defaultDeps.getter.filterExpression,
       defaultDeps.getter.getCellValue,
       expect.any(Function),
       defaultDeps.getter.isGroupRow,

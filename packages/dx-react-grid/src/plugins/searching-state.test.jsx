@@ -31,10 +31,6 @@ describe('Searching state', () => {
   beforeEach(() => {
     changeSearchValue.mockImplementation(() => []);
   });
-  afterEach(() => {
-    // changeSearchValue.resetMock();
-    // jest.resetAllMocks();
-  });
 
   it('should provide searchValue defined in defaultSearchValue property', () => {
     const defaultSearchValue = 'abc';
@@ -109,6 +105,6 @@ describe('Searching state', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).filterExpr).toBe('filters');
+    expect(getComputedState(tree).filterExpression).toBe('filters');
   });
 });

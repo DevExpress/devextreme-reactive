@@ -39,7 +39,7 @@ export class SearchingState extends React.PureComponent {
       <Plugin
         name="SearchingState"
       >
-        <Getter name="filterExpr" computed={pushSearchFilterExpr(searchValue)} />
+        <Getter name="filterExpression" computed={pushSearchFilterExpr(searchValue)} />
         <Getter name="searchValue" value={searchValue} />
         <Action name="changeSearchValue" action={this.changeSearchValue} />
       </Plugin>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import {
   SortingState, EditingState, PagingState,
   IntegratedPaging, IntegratedSorting,
@@ -40,19 +39,6 @@ const CommandButton = ({
     </span>
   </button>
 );
-CommandButton.propTypes = {
-  onExecute: PropTypes.func.isRequired,
-  icon: PropTypes.string,
-  text: PropTypes.string,
-  hint: PropTypes.string,
-  color: PropTypes.string,
-};
-CommandButton.defaultProps = {
-  icon: undefined,
-  text: undefined,
-  hint: undefined,
-  color: undefined,
-};
 
 const commandComponentProps = {
   add: {
@@ -87,11 +73,6 @@ const Command = ({ id, onExecute }) => (
     onExecute={onExecute}
   />
 );
-Command.propTypes = {
-  id: PropTypes.string.isRequired,
-  onExecute: PropTypes.func.isRequired,
-};
-
 
 const availableValues = {
   product: globalSalesValues.product,
@@ -118,15 +99,6 @@ export const LookupEditCell = ({
     </select>
   </td>
 );
-LookupEditCell.propTypes = {
-  column: PropTypes.object.isRequired,
-  availableColumnValues: PropTypes.array.isRequired,
-  value: PropTypes.any,
-  onValueChange: PropTypes.func.isRequired,
-};
-LookupEditCell.defaultProps = {
-  value: undefined,
-};
 
 const Cell = (props) => {
   if (props.column.name === 'discount') {
@@ -137,9 +109,6 @@ const Cell = (props) => {
   }
   return <Table.Cell {...props} />;
 };
-Cell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
-};
 
 const EditCell = (props) => {
   const availableColumnValues = availableValues[props.column.name];
@@ -147,9 +116,6 @@ const EditCell = (props) => {
     return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
   }
   return <TableEditRow.Cell {...props} />;
-};
-EditCell.propTypes = {
-  column: PropTypes.shape({ name: PropTypes.string }).isRequired,
 };
 
 const getRowId = row => row.id;

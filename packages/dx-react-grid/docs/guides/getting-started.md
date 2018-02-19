@@ -57,7 +57,9 @@ Use the Table plugin to display the data as a simple table:
 ```jsx
 import {
   Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
+} from '@devexpress/dx-react-grid-bootstrap3';
+/*or '@devexpress/dx-react-grid-material-ui'
+  or '@devexpress/dx-react-grid-bootstrap4'*/
 
 const App = () => (
   <Grid

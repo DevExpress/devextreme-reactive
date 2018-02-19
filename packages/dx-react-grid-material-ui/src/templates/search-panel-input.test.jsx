@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
-import Input from 'material-ui/Input';
 import { SearchPanelInput } from './search-panel-input';
 
 const getMessage = jest.fn().mockReturnValue('placeholder');

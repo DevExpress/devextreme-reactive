@@ -1,6 +1,6 @@
 # React Grid - Sorting
 
-The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).
+The Grid component supports sorting data by one or several column values. Use the corresponding plugins and UI (column headers and Group Panel) to manage the sorting state and sort data programmatically.
 
 Click several columns while holding `Shift` to sort data by these columns. Clicking a column while holding `Ctrl` (`Cmd` for MacOS) cancels sorting by this column.
 
@@ -41,7 +41,7 @@ You can prevent sorting by a specific column using the [SortingState](../referen
 
 ## Using Sorting with Grouping
 
-If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
+The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
 Note that the `IntegratedGrouping` plugin should follow `IntegratedSorting` to provide correct group row sorting.
 

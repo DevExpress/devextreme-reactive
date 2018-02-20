@@ -16,12 +16,12 @@ The `root` template name is reserved. If you create a template with the `root` n
 
 ## Passing Parameters to a Template
 
-You can render similar entities using a single template by passing parameters to the template when rendering. For this, use the TemplateHolder's `params` property.
+You can render similar entities using a single template by passing parameters to the template when rendering. For this, use the TemplatePlaceholder's `params` property.
 
 .embedded-demo({ "path": "core-template/template-parameters", "defaultTab": "source" })
 
 ## Template Overriding
 
-You can override an existing template by creating a new one with the same name. If you define several templates with the same name, the last defined one is used. You can render an overridden template within a new one using the `<TamplatePlaceholder/>` component without parameters.
+You can override an existing template by creating a new one with the same name. If you define several templates with the same name, the last defined one is used. You can render an overridden template within a new one using the `TamplatePlaceholder` component without name.
 
 .embedded-demo({ "path": "core-template/template-overriding", "defaultTab": "source" })

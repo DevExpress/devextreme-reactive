@@ -1,3 +1,15 @@
+<a name="1.0.1"></a>
+# [1.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0...v1.0.1) (2018-02-16)
+
+
+### Bug Fixes
+
+* **react-grid:** calculate visible rows when rendering VirtualTable ([#749](https://github.com/DevExpress/devextreme-reactive/issues/749)) ([424a48c](https://github.com/DevExpress/devextreme-reactive/commit/424a48c)), closes [#748](https://github.com/DevExpress/devextreme-reactive/issues/748)
+* **react-grid:** fix hidden tall rows in VirtualTable ([#747](https://github.com/DevExpress/devextreme-reactive/issues/747)) ([dc02bd5](https://github.com/DevExpress/devextreme-reactive/commit/dc02bd5)), closes [#745](https://github.com/DevExpress/devextreme-reactive/issues/745)
+* **react-grid-material-ui:** update material-ui version to 1.0.0-beta.33 ([#750](https://github.com/DevExpress/devextreme-reactive/issues/750)) ([4bf8810](https://github.com/DevExpress/devextreme-reactive/commit/4bf8810))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0-rc.2...v1.0.0) (2018-02-02)
 

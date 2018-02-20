@@ -55,10 +55,10 @@ The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExte
 
 ## Remote Sorting
 
-It is possible to perform sorting remotely by handling sorting state changes, generating a request, and sending it to the server.
+You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
 
 Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote sorting, you do not need to use the `IntegratedSorting` plugin.
+Note that you do not need to use the `IntegratedSorting` plugin for remote sorting.
 
 .embedded-demo(grid-sorting/remote-sorting)

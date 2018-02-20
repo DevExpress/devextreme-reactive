@@ -1,15 +1,41 @@
+const TemplatePlaceholderContext = {
+  props: {
+    restTemplates: {},
+    params: {},
+  },
+  provide() {
+    return {
+      templateHost: {
+        restTemplates: this.restTemplates,
+        params: this.params,
+      }
+    };
+  },
+  render() {
+    return this.$slots.default[0];
+  },
+};
+
 export const TemplatePlaceholder = {
   props: {
     name: {},
     params: {},
   },
-  inject: ['pluginHost'],
+  inject: {
+    pluginHost: 'pluginHost',
+    templateHost: { default: null }
+  },
   render(h) {
-    let content = this.pluginHost.collect(`${this.name}Template`)
-      .reverse()[0].children();
+    const templates = this.name
+      ? this.pluginHost.collect(`${this.name}Template`).reverse()
+      : this.templateHost.restTemplates;
+    const params = this.params === 'undefined' ? this.templateHost.params : this.params;
+    const restTemplates = templates.slice(1);
+
+    let content = templates[0].children();
     if (content && typeof content === 'function') {
       content = content(this.params);
     }
-    return h('span', content);
+    return h(TemplatePlaceholderContext, { props: { restTemplates, params } }, content);
   },
 };

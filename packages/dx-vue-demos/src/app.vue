@@ -5,6 +5,8 @@
     <TemplatePlaceholder></TemplatePlaceholder>
     -------
     <TemplateParameters></TemplateParameters>
+    -------
+    <TemplateOverriding></TemplateOverriding>
   </div>
 </template>
 
@@ -12,13 +14,14 @@
 import PluginComponent from './plugin-component';
 import TemplatePlaceholder from './template-placeholder';
 import TemplateParameters from './template-parameters';
+import TemplateOverriding from './template-overriding';
 
 export default {
-  name: 'App',
   components: {
     PluginComponent,
     TemplatePlaceholder,
     TemplateParameters,
+    TemplateOverriding,
   }
 };
 </script>

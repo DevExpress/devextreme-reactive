@@ -1,4 +1,4 @@
-# React Core - Actions
+# React Core - Providing Actions
 
 [Action](../reference/action.md) is a plugin primitive that shares a function defined in a plugin among all plugins of a plugin based component.
 

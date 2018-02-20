@@ -1,6 +1,6 @@
 # TableHeaderRow Plugin Reference
 
-A plugin that renders the table's header row. The [Column](grid.md#column)'s `title` field specifies the column title in the header row.
+A plugin that renders the table's header row. The [Column](grid.md#column)'s `title` field specifies the column's title in the header row.
 
 The plugin also allows you to manage a column's sorting and grouping state and initiate column dragging.
 
@@ -62,7 +62,7 @@ Name | Properties | Description
 TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 
@@ -73,7 +73,7 @@ Name | Plugin | Type | Description
 tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Columns' sorting state.
-changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
+changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column's sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
 changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the end of the group list.
 tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
 changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the column width. The initial column width increases by the `shift` value or decreases if `shift` is negative.

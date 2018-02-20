@@ -1,6 +1,6 @@
 # PluginHost Component Reference
 
-A React component that setups infrastructure used to create extendable plugin-based component.
+A React component that implements the plugin interaction mechanism in a plugin-based component.
 
 ## User reference
 
@@ -8,4 +8,4 @@ A React component that setups infrastructure used to create extendable plugin-ba
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | ReactNode | | React elements that represent plugins.
+children | ReactNode | | Plugin React elements.

@@ -16,8 +16,8 @@ DemoContainer.propTypes = {
 export default DemoContainer;
 
 const THEMES = [{
-  name: 'cyborg',
-  link: 'https://bootswatch.com/3/cyborg/bootstrap.min.css',
+  name: 'darkly',
+  link: 'https://bootswatch.com/3/darkly/bootstrap.min.css',
 }];
 const CUSTOM_THEME = 'https://bootswatch.com/3/united/bootstrap.min.css';
 
@@ -130,5 +130,5 @@ DemoFrame.contextTypes = {
   embeddedDemoOptions: PropTypes.object.isRequired,
 };
 
-export const Cyborg = props => <DemoFrame {...props} themeName="cyborg" />;
+export const Darkly = props => <DemoFrame {...props} themeName="darkly" />;
 export const Custom = props => <DemoFrame {...props} themeName="custom" />;

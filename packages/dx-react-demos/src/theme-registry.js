@@ -36,9 +36,9 @@ export const themes = [{
     title: 'Bootstrap 3',
     DemoContainer: require('./theme-sources/bootstrap3/demo-container').default,
   }, {
-    name: 'cyborg',
-    title: 'Bootstrap 3 (Bootswatch Cyborg)',
-    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Cyborg,
+    name: 'darkly',
+    title: 'Bootstrap 3 (Bootswatch Darkly)',
+    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Darkly,
   }, {
     name: 'custom',
     title: 'Bootstrap 3 (Custom)',

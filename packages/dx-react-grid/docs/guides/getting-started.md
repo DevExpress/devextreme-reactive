@@ -12,7 +12,7 @@ Install the dx-react-grid package and its dependencies using the following comma
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:
+This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 4 package. However, you can use any of the following:
 
 - Material UI
 
@@ -57,9 +57,9 @@ Use the Table plugin to display the data as a simple table:
 ```jsx
 import {
   Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap4';
 /*or '@devexpress/dx-react-grid-material-ui'
-  or '@devexpress/dx-react-grid-bootstrap4'*/
+  or '@devexpress/dx-react-grid-bootstrap3'*/
 
 const App = () => (
   <Grid

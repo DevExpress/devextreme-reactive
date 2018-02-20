@@ -22,7 +22,7 @@ onSearchValueChange? | (searchValue: string) => void | | Handles search value ch
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filterExpr| Getter | [IntegratedFiltering.FilterExpr](integrated-filtering.md/#integratedfilteringfilterexpr) | The applied filter expressions.
+filterExpression| Getter | [FilterExpression](integrated-filtering.md/#filterexpression) | The applied filter expressions.
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 
 ### Exports
@@ -30,5 +30,5 @@ columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 searchValue | Getter | string | The applied search value
-filterExpr| Getter | [IntegratedFiltering.FilterExpr](integrated-filtering.md/#integratedfilteringfilterexpr) | The applied filter expressions.
+filterExpression| Getter | [FilterExpression](integrated-filtering.md/#filterexpression) | The applied filter expressions.
 changeSearchValue | Action | ({ searchValue: string }) => void | Fires the `onSearchValueChange` event with the corresponding searchValue and change search value state

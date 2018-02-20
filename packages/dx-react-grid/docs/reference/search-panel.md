@@ -1,4 +1,4 @@
-# SearchingPanel Plugin Reference
+# SearchPanel Plugin Reference
 
 A plugin that renders a searching panel.
 
@@ -14,12 +14,12 @@ A plugin that renders a searching panel.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-inputComponent | ComponentType&lt;[SearchingPanel.InputProps](#searchingpanelinputprops)&gt; | | A component that renders the searching panel input element.
-messages? | [SearchingPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
+inputComponent | ComponentType&lt;[SearchPanel.InputProps](#searchpanelinputprops)&gt; | | A component that renders the searching panel input element.
+messages? | [SearchPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
 
-### SearchingPanel.InputProps
+### SearchPanel.InputProps
 
 Describes properties passed to a component that renders the searching panel root element.
 

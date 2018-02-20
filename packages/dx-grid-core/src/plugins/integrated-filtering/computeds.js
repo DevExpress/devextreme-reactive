@@ -74,18 +74,18 @@ export const filteredRows = (
     return row => columnPredicate(getCellValue(row, columnName), filterConfig, row);
   };
 
-  const predicateGenerator = (filterExpression) => {
+  const getPredicateFromExpression = (filterExpression) => {
     const { filters } = filterExpression;
     const operator = operators[toLowerCase(filterExpression.operator)];
 
     if (operator) {
-      return operator(filters.map(filter => predicateGenerator(filter)));
+      return operator(filters.map(filter => getPredicateFromExpression(filter)));
     }
 
     return getPredicateFromFilter(filterExpression);
   };
 
-  const predicate = predicateGenerator(filterExpr);
+  const predicate = getPredicateFromExpression(filterExpr);
 
   if (!getRowLevelKey) {
     return rows.filter(predicate);

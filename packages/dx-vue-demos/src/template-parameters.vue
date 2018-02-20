@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <PluginHost>
       <Template name="root">
         <ul>

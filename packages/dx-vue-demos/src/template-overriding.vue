@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <PluginHost>
       <Template name="root">
         First template
@@ -8,7 +8,7 @@
         <div>
           <TemplatePlaceholder></TemplatePlaceholder>
           <br />
-          SecondTemplate
+          Second template
         </div>
       </Template>
     </PluginHost>

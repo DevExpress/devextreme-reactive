@@ -27,7 +27,7 @@ Describes the sorting applied to a column
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies a column's name to which the sorting is applied.
-direction | 'asc' &#124; 'desc' | Specifies a column's sort order.
+direction | 'asc' &#124; 'desc' | Specifies a column's sorting order.
 
 ### SortingState.ColumnExtension
 
@@ -49,5 +49,5 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 sorting | Getter | Array&lt;[Sorting](#sorting)&gt; | Applied column sorting.
-isColumnSortingEnabled | Getter | (columnName: string) => boolean | A function used to define if sorting by a column is enabled.
-changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
+isColumnSortingEnabled | Getter | (columnName: string) => boolean | A function used to enable/disable sorting by a column.
+changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column's sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.

@@ -1,6 +1,6 @@
 # Plugin Component Reference
 
-A React component used as a container of several instances of [Action](action.md), [Getter](getter.md) and [Template](template.md).
+A Plugin component. The plugin functionality is implemented in child [Action](action.md), [Getter](getter.md) and [Template](template.md) components.
 
 ## User reference
 
@@ -8,4 +8,4 @@ A React component used as a container of several instances of [Action](action.md
 
 Name | Type | Default | Description
 -----|------|---------|------------
-children | ReactNode | | React elements used to expose plugin's state and actions and to render plugin's UI.
+children | ReactNode | | React elements that expose plugin's state and actions and render the plugin's UI.

@@ -1,6 +1,6 @@
 # Template Component Reference
 
-A React component that defines markup that will be rendered by a corresponding [TemplatePlaceholder](template-placeholder.md).
+A React component that defines markup that is rendered to the corresponding [TemplatePlaceholder](template-placeholder.md).
 
 ## User reference
 
@@ -8,6 +8,6 @@ A React component that defines markup that will be rendered by a corresponding [
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A name used to identify a template. The `root` template name is a reserved name used as a root markup to be rendered within plugged component.
-predicate? | (params: object) => boolean | | A predicate function specifies whether a template should be rendered or not.
-children | ReactNode &#124; ((params: object) => ReactNode) | | A function used to render markup based on specified parameters or a markup without bindings.
+name | string | | The template name. The `root` name is reserved. A template called `root` is rendered to the plugin based componet's root.
+predicate? | (params: object) => boolean | | A predicate function that returns a Boolean value that specifies whether the template should be rendered.
+children | ReactNode &#124; ((params: object) => ReactNode) | | A markup or a function that returns markup based on the specified parameters.

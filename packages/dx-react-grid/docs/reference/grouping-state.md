@@ -1,6 +1,6 @@
 # GroupingState Plugin Reference
 
-A plugin that manages the grouping state. It lists columns currently used for grouping and stores information about expanded/collapsed groups.
+A plugin that manages the grouping state. It lists columns used for grouping and stores information about expanded/collapsed groups.
 
 ## User Reference
 
@@ -54,7 +54,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 sorting? | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Applied column sorting.
-changeColumnSorting? | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
+changeColumnSorting? | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex?: number }) => void | Changes the column's sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column. If `sortIndex` is omitted, the sorting is added to the end of the sorting list.
 
 ### Exports
 
@@ -65,6 +65,6 @@ draftGrouping | Getter | Array&lt;[Grouping](#grouping)&gt; | Grouping options u
 isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
 changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
-cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.
+cancelColumnGroupingDraft | Action | () => void | Cancels changes to column grouping options used for the preview.
 expandedGroups | Getter | Array&lt;[GroupKey](#group-key)&gt; | Expanded groups.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.

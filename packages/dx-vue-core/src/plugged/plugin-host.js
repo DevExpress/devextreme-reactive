@@ -10,10 +10,12 @@ export const PluginHost = {
       pluginHost: this.pluginHost,
     };
   },
-  render(h) {
-    return h('div', [
-      ...this.$slots.default,
-      h(TemplatePlaceholder, { props: { name: 'root'} })
-    ]);
-  }
+  render() {
+    return (
+      <div>
+        {this.$slots.default}
+        <TemplatePlaceholder name="root" />
+      </div>
+    );
+  },
 };

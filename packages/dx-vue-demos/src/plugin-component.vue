@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { PluginHost } from './plugged/plugin-host';
-import { Template } from './plugged/template';
+import { PluginHost, Template } from '@devexpress/dx-vue-core';
 
 export default {
   components: {

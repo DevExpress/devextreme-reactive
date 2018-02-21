@@ -12,9 +12,7 @@
 </template>
 
 <script>
-import { PluginHost } from './plugged/plugin-host';
-import { Template } from './plugged/template';
-import { TemplatePlaceholder } from './plugged/template-placeholder';
+import { PluginHost, Template, TemplatePlaceholder } from '@devexpress/dx-vue-core';
 
 export default {
   components: {

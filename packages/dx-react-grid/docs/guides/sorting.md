@@ -1,6 +1,6 @@
 # React Grid - Sorting
 
-The Grid component supports sorting data by one or several column values. Use the corresponding plugins to manage the sorting state and sort data programmatically or via the UI (column headers and Group Panel).
+The Grid component supports sorting data by one or several column values. Use the corresponding plugins and UI (column headers and Group Panel) to manage the sorting state and sort data programmatically.
 
 Click several columns while holding `Shift` to sort data by these columns. Clicking a column while holding `Ctrl` (`Cmd` for MacOS) cancels sorting by this column.
 
@@ -33,9 +33,15 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting
 
 .embedded-demo(grid-sorting/controlled-mode)
 
+## Disable Sorting by a Column
+
+You can prevent sorting by a specific column using the [SortingState](../reference/sorting-state.md) plugin's `columnExtensions` property.
+
+.embedded-demo(grid-sorting/disable-column-sorting)
+
 ## Using Sorting with Grouping
 
-If you use grouping features, the Grid allows you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
+The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
 Note that the `IntegratedGrouping` plugin should follow `IntegratedSorting` to provide correct group row sorting.
 
@@ -49,10 +55,10 @@ The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExte
 
 ## Remote Sorting
 
-It is possible to perform sorting remotely by handling sorting state changes, generating a request, and sending it to the server.
+You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
 
 Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that in the case of remote sorting, you do not need to use the `IntegratedSorting` plugin.
+Note that you do not need to use the `IntegratedSorting` plugin for remote sorting.
 
 .embedded-demo(grid-sorting/remote-sorting)

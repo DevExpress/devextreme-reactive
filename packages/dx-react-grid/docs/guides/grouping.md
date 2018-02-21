@@ -1,6 +1,6 @@
 # React Grid - Grouping
 
-The Grid component supports grouping data by one or several column values. Use the corresponding plugins to manage the grouping state and group data programmatically or via the UI (Group Panel and column headers).
+The Grid component supports grouping data by one or several column values. Use the corresponding plugins or UI (Group Panel and column headers) to manage the grouping state and group data programmatically.
 
 ## Related Plugins
 
@@ -30,7 +30,7 @@ In the following example, the data is specified as plain rows. In this case, the
 
 ### Custom Grouping
 
-If the data has a hierarchical structure (already grouped), use the `CustomGrouping` plugin.
+Use the `CustomGrouping` plugin if the data has a hierarchical structure (already grouped).
 
 In the following example, the data is specified as an array of groups. Specify the `CustomGrouping` plugin's `getChildGroups` property to parse a custom group structure.
 
@@ -38,7 +38,7 @@ In the following example, the data is specified as an array of groups. Specify t
 
 ## Configure the Grouping UI
 
-Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to allow a user to use any of the following methods to specify grouping options:
+Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to provide any of the following methods for specifying grouping options:
 
 - Drag a column header to or from the Group Panel
  Import the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
@@ -48,23 +48,29 @@ Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to t
 
 You can also set the `GroupingPanel` plugin's `showSortingControls` option to true to enable sorting data by a grouped column.
 
-In the following example, the Grid functions are in [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls its grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
+In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls its grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
 .embedded-demo(grid-grouping/grouping-with-ui)
 
 ## Controlled Mode
 
-In [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
 
 .embedded-demo(grid-grouping/controlled-mode)
 
+## Disable Grouping by a Column
+
+You can disable grouping/ungrouping for a specific column using the [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property.
+
+.embedded-demo(grid-grouping/disable-column-grouping)
+
 ## Built-in Grouping with Custom Values
 
-Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [columnExtensions](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the `showWhenGrouped` field of the columns configuration to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
+Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [columnExtensions](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the columns configuration's `showWhenGrouped` field to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
 
 .embedded-demo(grid-grouping/custom)
 
-You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when data is grouped by them.
+You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when they group data.
 
 Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
 
@@ -72,14 +78,14 @@ Note that if the grouping criterion function returns a non-primitive value, you 
 
 ## Remote Grouping
 
-You can perform grouping remotely by handling grouping state changes, generating a request based on grouping state and sending it to a server that can return grouped data.
+You can perform remote grouping by handling grouping state changes, generating a request based on the grouping state and sending it to a server that can return grouped data.
 
 Grouping options are updated whenever an end-user interacts with the grouping UI. Handle grouping option changes using the `GroupingState` plugin's `onGroupingChange` and `onExpandedGroupsChange` events and request data from the server using the newly applied grouping options.
 
-For remote grouping, you should use the `CustomGrouping` plugin instead of the `IntegratedGrouping` plugin.
+Use the `CustomGrouping` plugin instead of the `IntegratedGrouping` plugin for remote grouping.
 
-While waiting for a response from a server, there is a timeframe where the grouping state does not match the data available to the `Grid` in its `rows` property. To avoid any issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. The result is that the `Grid` does not yet see the configuration change. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` becomes aware of the change to its grouping configuration, and it receives the updated data set at the same time.
+While waiting for a response from a server, there is a moment when the grouping state does not match the data in the `Grid`'s `rows` property. To avoid issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. This means configuration changes are not applied to the `Grid` immediately. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` simultaneously applies the changes to its grouping configuration and receives the updated data set.
 
-The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach outlined in the previous paragraph:
+The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
 
 .embedded-demo(grid-grouping/remote-grouping-with-local-expanding)

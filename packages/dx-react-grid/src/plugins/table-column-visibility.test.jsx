@@ -62,7 +62,7 @@ describe('TableColumnVisibility', () => {
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
     tableDataColumnsExist.mockImplementation(() => false);
-    getColumnExtensionValueGetter.mockImplementation(() => ((() => {})));
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();

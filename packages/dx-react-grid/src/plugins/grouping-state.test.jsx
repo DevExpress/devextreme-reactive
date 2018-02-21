@@ -7,6 +7,7 @@ import {
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   toggleExpandedGroups: jest.fn(),
   draftColumnGrouping: jest.fn(),
   cancelColumnGroupingDraft: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -40,6 +42,7 @@ describe('GroupingState', () => {
     toggleExpandedGroups.mockImplementation(() => {});
     draftColumnGrouping.mockImplementation(() => {});
     cancelColumnGroupingDraft.mockImplementation(() => {});
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -710,6 +713,24 @@ describe('GroupingState', () => {
 
       expect(groupingChange)
         .toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('column extensions', () => {
+    it('should call getColumnExtensionValueGetter correctly', () => {
+      const columnExtensions = [{ columnName: 'a', groupingEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <GroupingState
+            columnGroupingEnabled={false}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'groupingEnabled', false);
     });
   });
 });

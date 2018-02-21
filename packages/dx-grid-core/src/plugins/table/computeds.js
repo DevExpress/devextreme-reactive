@@ -1,5 +1,5 @@
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
-import { getColumnExtension } from '../../utils/column';
+import { getColumnExtension } from '../../utils/column-extension';
 
 export const tableColumnsWithDataRows = (columns, columnExtensions) =>
   columns.map((column) => {

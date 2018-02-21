@@ -151,7 +151,7 @@ export class Table extends React.PureComponent {
 
 Table.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  tableComponent: PropTypes.func.isRequired,
+  tableComponent: PropTypes.func,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   noDataCellComponent: PropTypes.func.isRequired,
@@ -163,6 +163,7 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
+  tableComponent: () => null,
   columnExtensions: undefined,
   messages: {},
 };

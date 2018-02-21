@@ -41,4 +41,5 @@ TableLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  tableComponent: PropTypes.func.isRequired,
 };

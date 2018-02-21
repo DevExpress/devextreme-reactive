@@ -75,6 +75,7 @@ describe('Table', () => {
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            tableComponent={() => null}
           />
         </PluginHost>
       ));
@@ -93,6 +94,7 @@ describe('Table', () => {
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            tableComponent={() => null}
             columnExtensions={columnExtensions}
           />
         </PluginHost>

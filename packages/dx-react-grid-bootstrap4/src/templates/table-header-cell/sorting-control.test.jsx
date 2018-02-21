@@ -33,4 +33,18 @@ describe('TableHeaderCell with keyboard navigation', () => {
     expect(onClick)
       .toHaveBeenCalled();
   });
+
+  it('can not get focus if disabled is true', () => {
+    const tree = shallow((
+      <SortingControl
+        align="Right"
+        columnTitle="Test"
+        disabled
+        onClick={() => {}}
+      />
+    ));
+
+    expect(tree.find('span').prop('tabIndex'))
+      .toBe(-1);
+  });
 });

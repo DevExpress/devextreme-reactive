@@ -39,7 +39,7 @@
     "@devexpress/dx-react-core": "1.0.0",
     "@devexpress/dx-react-grid": "1.0.0",
     "@devexpress/dx-react-grid-bootstrap3": "1.0.0",
-    "@devexpress/dx-react-grid-bootstrap4": "1.0.1",
+    "@devexpress/dx-react-grid-bootstrap4": "1.1.0-beta.1",
     "@devexpress/dx-react-grid-material-ui": "1.0.0",
     "@types/react": "^16.0.37",
     "@types/react-dom": "^16.0.4",

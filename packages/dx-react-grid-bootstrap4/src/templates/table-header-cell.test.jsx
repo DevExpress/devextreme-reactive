@@ -53,6 +53,7 @@ describe('TableHeaderCell', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{ name: 'a' }}
+        sortingEnabled
         showSortingControls
       />
     ));
@@ -208,6 +209,7 @@ describe('TableHeaderCell', () => {
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
           showSortingControls
+          sortingEnabled
         />
       ));
 
@@ -235,6 +237,7 @@ describe('TableHeaderCell', () => {
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
           showSortingControls
+          sortingEnabled
         />
       ));
 
@@ -251,6 +254,7 @@ describe('TableHeaderCell', () => {
           onSort={onSort}
           column={{ title: 'test' }}
           tableColumn={{ align: 'right' }}
+          sortingEnabled
           showSortingControls
         />
       ));

@@ -12,14 +12,14 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls, showSortingControls,
-  sortingDirection, onSort, className,
-  ...restProps
+  sortingDirection, onSort, className, groupingEnabled,
+  sortingEnabled, ...restProps
 }) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
-    if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
+    if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
@@ -33,6 +33,7 @@ export const GroupPanelItem = ({
     });
   };
   const handleUngroup = (e) => {
+    if (!groupingEnabled) return;
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
@@ -44,14 +45,18 @@ export const GroupPanelItem = ({
       className={classNames({
         'btn-group mb-1 mr-1': true,
         'dx-rg-bs4-opacity-03': draft,
+        disabled: !sortingEnabled && showSortingControls,
       }, className)}
       {...restProps}
     >
       <span
-        className="btn btn-outline-secondary"
+        className={classNames({
+          'btn btn-outline-secondary': true,
+          disabled: !groupingEnabled,
+        })}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
-        {...showSortingControls ? { tabIndex: 0 } : null}
+        {...sortingEnabled ? { tabIndex: 0 } : null}
       >
         {column.title || column.name}
         {showSortingControls && sortingDirection && (
@@ -91,6 +96,8 @@ GroupPanelItem.propTypes = {
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
   showGroupingControls: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
 };
 
 GroupPanelItem.defaultProps = {
@@ -100,4 +107,6 @@ GroupPanelItem.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
+  sortingEnabled: false,
+  groupingEnabled: false,
 };

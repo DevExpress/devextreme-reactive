@@ -7,20 +7,23 @@ import './sorting-control.css';
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
+const getProps = (sortingDirection, disabled, onClick) => ({
+  className: classNames({
+    'dx-rg-bs4-sorting-control': true,
+    'text-primary': sortingDirection,
+  }),
+  tabIndex: disabled ? -1 : 0,
+  onMouseDown: handleMouseDown,
+  onBlur: handleBlur,
+  onKeyDown: onClick,
+});
+
 export const SortingControl = ({
-  align, sortingDirection, columnTitle, onClick,
-}) =>
-  (align === 'right' ? (
-    <span
-      className={classNames({
-        'dx-rg-bs4-sorting-control': true,
-        'text-primary': sortingDirection,
-      })}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-    >
+  align, sortingDirection, columnTitle, disabled, onClick,
+}) => {
+  const props = getProps(sortingDirection, disabled, onClick);
+  return (align === 'right' ? (
+    <span {...props}>
       <SortingIndicator
         direction={sortingDirection}
       />
@@ -28,16 +31,7 @@ export const SortingControl = ({
       {columnTitle}
     </span>
   ) : (
-    <span
-      className={classNames({
-        'dx-rg-bs4-sorting-control': true,
-        'text-primary': sortingDirection,
-      })}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-    >
+    <span {...props}>
       {columnTitle}
       &nbsp;
       <SortingIndicator
@@ -45,14 +39,17 @@ export const SortingControl = ({
       />
     </span>
   ));
+};
 
 SortingControl.propTypes = {
   align: PropTypes.string.isRequired,
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 SortingControl.defaultProps = {
   sortingDirection: null,
+  disabled: false,
 };

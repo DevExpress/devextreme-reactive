@@ -21,11 +21,11 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.onClick = (e) => {
-      const { showSortingControls, onSort } = this.props;
+      const { sortingEnabled, showSortingControls, onSort } = this.props;
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
-      if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
+      if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
 
       const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
       const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
@@ -42,8 +42,8 @@ export class TableHeaderCell extends React.PureComponent {
   render() {
     const {
       className, column, tableColumn,
-      showSortingControls, sortingDirection,
-      showGroupingControls, onGroup,
+      showSortingControls, sortingDirection, sortingEnabled,
+      showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
       tableRow, getMessage, onSort,
@@ -52,12 +52,13 @@ export class TableHeaderCell extends React.PureComponent {
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
     const columnTitle = column && (column.title || column.name);
+    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         className={classNames({
           'position-relative': true,
-          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': showSortingControls || draggingEnabled,
+          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
           'dx-rg-bs4-opacity-03': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
@@ -68,6 +69,7 @@ export class TableHeaderCell extends React.PureComponent {
           <GroupingControl
             align={align}
             onGroup={onGroup}
+            disabled={!groupingEnabled}
           />
         )}
         <div
@@ -82,6 +84,7 @@ export class TableHeaderCell extends React.PureComponent {
             <SortingControl
               align={align}
               sortingDirection={sortingDirection}
+              disabled={!groupingEnabled}
               columnTitle={columnTitle}
               onClick={this.onClick}
             />
@@ -118,10 +121,12 @@ TableHeaderCell.propTypes = {
   column: PropTypes.object,
   className: PropTypes.string,
   showSortingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
   onGroup: PropTypes.func,
+  groupingEnabled: PropTypes.bool,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
   onWidthChange: PropTypes.func,
@@ -136,10 +141,12 @@ TableHeaderCell.defaultProps = {
   tableRow: undefined,
   className: undefined,
   showSortingControls: false,
+  sortingEnabled: false,
   sortingDirection: undefined,
   onSort: undefined,
   showGroupingControls: false,
   onGroup: undefined,
+  groupingEnabled: false,
   draggingEnabled: false,
   resizingEnabled: false,
   onWidthChange: undefined,

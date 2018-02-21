@@ -3,25 +3,28 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './grouping-control.css';
 
-export const GroupingControl = ({ align, onGroup }) => {
+export const GroupingControl = ({ align, disabled, onGroup }) => {
   const invertedAlign = align === 'left';
 
   return (
     <div
       className={classNames({
         'dx-rg-bs4-grouping-control': true,
-        'float-right': invertedAlign,
-        'text-right': invertedAlign,
-        'float-left': !invertedAlign,
-        'text-left': !invertedAlign,
+        'float-right text-right': invertedAlign,
+        'float-left text-left': !invertedAlign,
       })}
       onClick={(e) => {
+        if (disabled) return;
         e.stopPropagation();
         onGroup();
       }}
     >
       <span
-        className="oi oi-list dx-rg-bs4-cursor-pointer dx-rg-bs4-grouping-control-icon"
+        className={classNames({
+          'oi oi-list dx-rg-bs4-grouping-control-icon': true,
+          'dx-rg-bs4-cursor-pointer': !disabled,
+          'dx-rg-bs4-opacity-03': disabled,
+        })}
       />
     </div>
   );
@@ -30,4 +33,9 @@ export const GroupingControl = ({ align, onGroup }) => {
 GroupingControl.propTypes = {
   align: PropTypes.string.isRequired,
   onGroup: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
+
+GroupingControl.defaultProps = {
+  disabled: false,
 };

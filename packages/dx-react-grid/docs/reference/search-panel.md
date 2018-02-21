@@ -33,7 +33,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 Field | Type | Default | Description
 ------|------|---------|------------
-searchPlaceholder? | string | 'Search...' | The search editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
+searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
 
 ## Plugin Developer Reference
 

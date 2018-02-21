@@ -9,6 +9,7 @@ export const SearchPanelInput = ({
   onChange={e => changeSearchValue({ searchValue: e.target.value })}
   value={searchValue}
   style={{ maxWidth: '25%', ...style }}
+  placeholder={getMessage('searchPlaceholder')}
   {...restProps}
 />);
 
@@ -16,11 +17,10 @@ SearchPanelInput.propTypes = {
   searchValue: PropTypes.any,
   changeSearchValue: PropTypes.func.isRequired,
   style: PropTypes.object,
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
 };
 
 SearchPanelInput.defaultProps = {
   searchValue: null,
   style: {},
-  getMessage: null,
 };

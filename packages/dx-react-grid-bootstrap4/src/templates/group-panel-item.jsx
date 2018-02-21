@@ -45,14 +45,13 @@ export const GroupPanelItem = ({
       className={classNames({
         'btn-group mb-1 mr-1': true,
         'dx-rg-bs4-opacity-03': draft,
-        disabled: !sortingEnabled && showSortingControls,
       }, className)}
       {...restProps}
     >
       <span
         className={classNames({
           'btn btn-outline-secondary': true,
-          disabled: !groupingEnabled,
+          disabled: !sortingEnabled && showSortingControls,
         })}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
@@ -71,7 +70,10 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className="btn btn-outline-secondary"
+          className={classNames({
+            'btn btn-outline-secondary': true,
+            disabled: !groupingEnabled,
+          })}
           onClick={handleUngroup}
         >
           &nbsp;

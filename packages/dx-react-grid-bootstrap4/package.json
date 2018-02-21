@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap4",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bootstrap 4 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -43,18 +43,12 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.tsx?$": "ts-jest"
-    },
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
     },
-    "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx"],
     "setupFiles": [
       "<rootDir>/setup-enzyme.js"
-    ],
-    "testMatch": ["**/*.test.(ts|tsx|js|jsx)"]
+    ]
   },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.0.0",

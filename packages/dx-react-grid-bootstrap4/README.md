@@ -20,6 +20,8 @@ Add the DevExtreme React Grid styles to your index.html file or import CSS to ro
 import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
 ```
 
+Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+
 NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
 
 Add the required modules to your project:

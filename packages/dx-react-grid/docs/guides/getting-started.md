@@ -12,7 +12,7 @@ Install the dx-react-grid package and its dependencies using the following comma
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 4 package. However, you can use any of the following:
+This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:
 
 - Material UI
 
@@ -28,7 +28,15 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap4
   ```
 
-  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details.
+  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+
+  Add the DevExtreme React Grid styles to your project:
+
+  ```html
+  <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
+  ```
+
+  NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
 
 - Bootstrap 3
 
@@ -37,6 +45,8 @@ This package does not contain visual components. In the examples below, visual c
   ```
 
   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started/introduction) article for configuration details.
+
+  NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
 
 ## Supported Browsers
 
@@ -57,8 +67,8 @@ Use the Table plugin to display the data as a simple table:
 ```jsx
 import {
   Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-bootstrap4';
-/*or '@devexpress/dx-react-grid-material-ui'
+} from '@devexpress/dx-react-grid-material-ui';
+/*or '@devexpress/dx-react-grid-bootstrap4'
   or '@devexpress/dx-react-grid-bootstrap3'*/
 
 const App = () => (

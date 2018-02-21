@@ -58,8 +58,8 @@ react:
           path: /react/grid/docs/reference/paging-state
         - title: SearchPanel
           path: /react/grid/docs/reference/search-panel
-        - title: SearchingState
-          path: /react/grid/docs/reference/searching-state
+        - title: SearchState
+          path: /react/grid/docs/reference/search-state
         - title: SelectionState
           path: /react/grid/docs/reference/selection-state
         - title: EditingState

@@ -4,7 +4,7 @@ import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import { changeSearchValue, pushSearchFilterExpr } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-export class SearchingState extends React.PureComponent {
+export class SearchState extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -37,7 +37,7 @@ export class SearchingState extends React.PureComponent {
 
     return (
       <Plugin
-        name="SearchingState"
+        name="SearchState"
       >
         <Getter name="filterExpression" computed={pushSearchFilterExpr(searchValue)} />
         <Getter name="searchValue" value={searchValue} />
@@ -47,13 +47,13 @@ export class SearchingState extends React.PureComponent {
   }
 }
 
-SearchingState.propTypes = {
+SearchState.propTypes = {
   searchValue: PropTypes.string,
   defaultSearchValue: PropTypes.string,
   onSearchValueChange: PropTypes.func,
 };
 
-SearchingState.defaultProps = {
+SearchState.defaultProps = {
   searchValue: undefined,
   defaultSearchValue: '',
   onSearchValueChange: undefined,

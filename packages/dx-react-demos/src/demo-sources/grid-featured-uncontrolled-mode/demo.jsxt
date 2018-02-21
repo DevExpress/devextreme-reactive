@@ -1,6 +1,6 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState, SelectionState, FilteringState, PagingState, GroupingState, SearchingState,
+  SortingState, SelectionState, FilteringState, PagingState, GroupingState, SearchState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
@@ -74,7 +74,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <SelectionState />
-          <SearchingState />
+          <SearchState />
 
           <GroupingState
             defaultGrouping={[{ columnName: 'product' }]}

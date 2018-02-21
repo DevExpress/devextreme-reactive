@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeSearchValue } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { SearchingState } from './searching-state';
+import { SearchState } from './search-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),
@@ -18,7 +18,7 @@ const defaultDeps = {
   },
 };
 
-describe('Searching state', () => {
+describe('Search state', () => {
   let resetConsole;
 
   beforeAll(() => {
@@ -38,7 +38,7 @@ describe('Searching state', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <SearchingState
+        <SearchState
           defaultSearchValue={defaultSearchValue}
         />
       </PluginHost>
@@ -54,7 +54,7 @@ describe('Searching state', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <SearchingState
+        <SearchState
           searchValue={searchValue}
         />
       </PluginHost>
@@ -72,7 +72,7 @@ describe('Searching state', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <SearchingState
+        <SearchState
           defaultSearchValue={defaultSearchValue}
           onSearchValueChange={searchChange}
         />
@@ -99,7 +99,7 @@ describe('Searching state', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <SearchingState
+        <SearchState
           searchValue={searchValue}
         />
       </PluginHost>

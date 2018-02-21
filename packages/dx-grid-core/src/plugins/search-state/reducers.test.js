@@ -1,6 +1,6 @@
 import { changeSearchValue, pushSearchFilterExpr } from './reducers';
 
-describe('SearchingState reducer', () => {
+describe('SearchState reducer', () => {
   it('should return new searchValue', () => {
     expect(changeSearchValue('default', { searchValue: 'searchValue' })).toBe('searchValue');
   });

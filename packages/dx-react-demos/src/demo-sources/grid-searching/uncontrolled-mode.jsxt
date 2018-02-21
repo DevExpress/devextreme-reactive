@@ -1,5 +1,5 @@
 import * as React from 'react';<%&additionalImports%> import {
-  SearchingState,
+  SearchState,
   IntegratedFiltering,
 } from '@devexpress/dx-react-grid';
 import {
@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <SearchingState defaultSearchValue="Paris" />
+          <SearchState defaultSearchValue="Paris" />
           <IntegratedFiltering />
           <Table />
           <TableHeaderRow />

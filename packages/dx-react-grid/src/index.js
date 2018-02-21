@@ -51,5 +51,5 @@ export { GroupPanelLayout } from './components/group-panel-layout';
 
 export { Toolbar } from './plugins/toolbar';
 
-export { SearchingState } from './plugins/searching-state';
+export { SearchState } from './plugins/search-state';
 export { SearchPanel } from './plugins/search-panel';

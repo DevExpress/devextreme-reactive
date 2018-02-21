@@ -1,4 +1,4 @@
-# SearchingState Plugin Reference
+# SearchState Plugin Reference
 
 A plugin that manages the search value state.
 

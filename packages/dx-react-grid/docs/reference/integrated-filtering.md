@@ -7,7 +7,7 @@ A plugin that performs built-in data filtering.
 ### Dependencies
 
 - [FilteringState](filtering-state.md) [Optional]
-- [SearchingState](searching-state.md) [Optional]
+- [SearchState](search-state.md) [Optional]
 
 ### Properties
 

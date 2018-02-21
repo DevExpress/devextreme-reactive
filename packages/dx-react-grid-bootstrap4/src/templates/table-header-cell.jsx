@@ -59,7 +59,7 @@ export class TableHeaderCell extends React.PureComponent {
         className={classNames({
           'position-relative': true,
           'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
-          'dx-rg-bs4-opacity-03': dragging || (tableColumn && tableColumn.draft),
+          'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
         onClick={this.onClick}

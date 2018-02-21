@@ -86,19 +86,19 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
       .toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
       .toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-opacity-03'))
+    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
       .toBeFalsy();
   });
 

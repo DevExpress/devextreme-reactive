@@ -44,7 +44,7 @@ export const GroupPanelItem = ({
     <div
       className={classNames({
         'btn-group mb-1 mr-1': true,
-        'dx-rg-bs4-opacity-03': draft,
+        'dx-rg-bs4-inactive': draft,
       }, className)}
       {...restProps}
     >

@@ -23,7 +23,7 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
         className={classNames({
           'oi oi-list dx-rg-bs4-grouping-control-icon': true,
           'dx-rg-bs4-cursor-pointer': !disabled,
-          'dx-rg-bs4-opacity-03': disabled,
+          'dx-rg-bs4-inactive': disabled,
         })}
       />
     </div>

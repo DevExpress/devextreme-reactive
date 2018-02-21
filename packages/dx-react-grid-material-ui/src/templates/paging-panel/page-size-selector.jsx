@@ -5,7 +5,7 @@ import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles';
 
-export const styles = theme => ({
+const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
     float: 'right',

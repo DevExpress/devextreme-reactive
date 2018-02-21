@@ -7,6 +7,8 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
+import { Table as TableComponent } from '../templates/table';
+
 
 const defaultMessages = {
   noData: 'No data',
@@ -21,6 +23,7 @@ export class Table extends React.PureComponent {
 
     return (
       <TableBase
+        tableComponent={TableComponent}
         layoutComponent={TableLayout}
         rowComponent={TableRow}
         cellComponent={TableCell}
@@ -41,6 +44,7 @@ Table.NoDataCell = TableNoDataCell;
 Table.NoDataRow = TableRow;
 Table.StubCell = TableStubCell;
 Table.StubHeaderCell = TableStubCell;
+Table.Table = TableComponent;
 
 Table.propTypes = {
   messages: PropTypes.shape({

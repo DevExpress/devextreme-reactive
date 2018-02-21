@@ -5,7 +5,7 @@ import {
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
 import { TableContainer } from './table-container';
-import { Table } from './table';
+// import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
@@ -18,6 +18,7 @@ export const TableLayout = ({
   columns,
   cellComponent,
   rowComponent,
+  tableComponent,
 }) => (
   <TableLayoutCore
     layoutComponent={StaticTableLayout}
@@ -26,7 +27,7 @@ export const TableLayout = ({
     columns={columns}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
     containerComponent={TableContainer}
-    tableComponent={Table}
+    tableComponent={tableComponent}
     headComponent={TableHead}
     bodyComponent={TableBody}
     rowComponent={rowComponent}

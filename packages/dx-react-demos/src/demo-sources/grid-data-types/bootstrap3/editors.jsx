@@ -96,7 +96,9 @@ export default class Demo extends React.PureComponent {
           onCommitChanges={this.commitChanges}
           defaultEditingRowIds={[0]}
         />
-        <Table />
+        <Table
+          tableComponent={({ ...restProps }) => (<Table.Table {...restProps} style={{ minWidth: 'unset' }} onClick={() => { console.log('click'); }} className="table-striped" />)}
+        />
         <TableHeaderRow />
         <TableEditRow />
         <TableEditColumn

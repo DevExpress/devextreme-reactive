@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpr } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression } from '@devexpress/dx-grid-core';
 
 import { createStateHelper } from '../utils/state-helper';
 
@@ -46,7 +46,7 @@ export class FilteringState extends React.PureComponent {
         name="FilteringState"
       >
         <Getter name="filters" value={filters} />
-        <Getter name="filterExpression" computed={pushFilterExpr(filters)} />
+        <Getter name="filterExpression" computed={pushFilterExpression(filters)} />
         <Getter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}

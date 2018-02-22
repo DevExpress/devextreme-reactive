@@ -16,7 +16,7 @@ export const changeColumnFilter = (filters, { columnName, config }) => {
   return nextState;
 };
 
-export const pushFilterExpr = filters => ({ filterExpression }) => {
+export const pushFilterExpression = filters => ({ filterExpression }) => {
   const selfFilterExpr = { operator: 'and', filters };
   if (!filterExpression) {
     return selfFilterExpr;

@@ -1,4 +1,4 @@
-import { changeSearchValue, pushSearchFilterExpr } from './reducers';
+import { changeSearchValue, pushSearchFilterExpression } from './reducers';
 
 describe('SearchState reducer', () => {
   it('should return new searchValue', () => {
@@ -6,9 +6,9 @@ describe('SearchState reducer', () => {
   });
 });
 
-describe('pushSearchFilterExpr reducer', () => {
+describe('pushSearchFilterExpression reducer', () => {
   it('should return new filter', () => {
-    expect(pushSearchFilterExpr('searchValue')({
+    expect(pushSearchFilterExpression('searchValue')({
       columns: [{ name: 'first' }, { name: 'second' }],
     })).toEqual({
       filters: [
@@ -20,7 +20,7 @@ describe('pushSearchFilterExpr reducer', () => {
   });
 
   it('should return old and new filter', () => {
-    expect(pushSearchFilterExpr('searchValue')({
+    expect(pushSearchFilterExpression('searchValue')({
       columns: [{ name: 'first' }, { name: 'second' }],
       filterExpression: ['filters'],
     })).toEqual({

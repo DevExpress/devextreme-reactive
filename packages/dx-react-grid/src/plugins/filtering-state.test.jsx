@@ -9,7 +9,7 @@ import { FilteringState } from './filtering-state';
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
-  pushFilterExpr: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
+  pushFilterExpression: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
 }));
 
 const defaultDeps = {
@@ -205,7 +205,7 @@ describe('FilteringState', () => {
     });
   });
 
-  describe('filtering expression', () => {
+  describe('filter expression', () => {
     it('should provide filter expression', () => {
       const defaultFilters = [{ columnName: 'a', value: 'a' }];
 

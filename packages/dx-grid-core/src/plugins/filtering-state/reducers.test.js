@@ -1,6 +1,6 @@
 import {
   changeColumnFilter,
-  pushFilterExpr,
+  pushFilterExpression,
 } from './reducers';
 
 describe('FilteringState reducers', () => {
@@ -42,9 +42,9 @@ describe('FilteringState reducers', () => {
   });
 });
 
-describe('pushFilterExpr reducer', () => {
+describe('pushFilterExpression reducer', () => {
   it('should return filters', () => {
-    expect(pushFilterExpr([
+    expect(pushFilterExpression([
       { columnName: 'first', value: 'searchValue' },
       { columnName: 'second', value: 'searchValue' },
     ])({})).toEqual({
@@ -57,7 +57,7 @@ describe('pushFilterExpr reducer', () => {
   });
 
   it('should return old and new filters', () => {
-    expect(pushFilterExpr([
+    expect(pushFilterExpression([
       { columnName: 'first', value: 'searchValue' },
       { columnName: 'second', value: 'searchValue' },
     ])({

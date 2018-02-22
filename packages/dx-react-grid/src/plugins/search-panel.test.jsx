@@ -23,11 +23,11 @@ const defaultDeps = {
   },
 };
 const defaultProps = {
-  inputComponent: Input,
+  InputComponent: Input,
 };
 
 describe('SearchPanel', () => {
-  it('should pass correct props to inputComponent', () => {
+  it('should pass correct props to InputComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -36,7 +36,7 @@ describe('SearchPanel', () => {
       </PluginHost>
     ));
     expect(tree.find(Input).props().searchValue).toBe('abc');
-    expect(tree.find(Input).props().changeSearchValue).toEqual(expect.any(Function));
+    expect(tree.find(Input).props().onChangeSearchValue).toEqual(expect.any(Function));
     expect(tree.find(Input).props().getMessage).toEqual(expect.any(Function));
   });
 });

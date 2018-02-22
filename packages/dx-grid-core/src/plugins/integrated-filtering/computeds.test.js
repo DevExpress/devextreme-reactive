@@ -81,7 +81,6 @@ describe('IntegratedFiltering computeds', () => {
         ]);
       });
 
-
       it('should filter with two group filters', () => {
         const filters = {
           operator: 'or',

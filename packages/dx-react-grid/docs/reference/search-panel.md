@@ -14,7 +14,7 @@ A plugin that renders a searching panel.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-inputComponent | ComponentType&lt;[SearchPanel.InputProps](#searchpanelinputprops)&gt; | | A component that renders the searching panel input element.
+InputComponent | ComponentType&lt;[SearchPanel.InputProps](#searchpanelinputprops)&gt; | | A component that renders the searching panel input element.
 messages? | [SearchPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -26,8 +26,8 @@ Describes properties passed to a component that renders the searching panel root
 Field | Type | Description
 ------|------|------------
 searchValue | string | Specifies the search value
-changeSearchValue | ({ searchValue: string }) => Handles the search value changes.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message. Available in the "@devexpress/dx-react-grid-material-ui" package.
+onChangeSearchValue | ({ searchValue: string }) => void | Handles the search value changes.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
 
 ## Localization Messages
 

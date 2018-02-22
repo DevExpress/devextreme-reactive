@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const SearchPanelInput = ({
-  changeSearchValue, searchValue, getMessage, style, ...restProps
+  onChangeSearchValue, searchValue, getMessage, style, ...restProps
 }) => (<input
   type="text"
   className="form-control"
-  onChange={e => changeSearchValue({ searchValue: e.target.value })}
+  onChange={e => onChangeSearchValue({ searchValue: e.target.value })}
   value={searchValue}
   style={{ maxWidth: '25%', ...style }}
   placeholder={getMessage('searchPlaceholder')}
@@ -15,7 +15,7 @@ export const SearchPanelInput = ({
 
 SearchPanelInput.propTypes = {
   searchValue: PropTypes.any,
-  changeSearchValue: PropTypes.func.isRequired,
+  onChangeSearchValue: PropTypes.func.isRequired,
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
 };

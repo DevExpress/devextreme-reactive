@@ -13,7 +13,7 @@ describe('Input search box', () => {
 
   it('should render input component', () => {
     const tree = shallow(<SearchPanelInput
-      changeSearchValue={changeSearchValue}
+      onChangeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
     expect(tree.length).toBe(1);
@@ -21,7 +21,7 @@ describe('Input search box', () => {
 
   it('should render input component with searchValue', () => {
     const tree = shallow(<SearchPanelInput
-      changeSearchValue={changeSearchValue}
+      onChangeSearchValue={changeSearchValue}
       searchValue="abc"
       getMessage={getMessage}
     />);
@@ -30,7 +30,7 @@ describe('Input search box', () => {
 
   it('should trigger changeSearchValue when change event fire', () => {
     const tree = shallow(<SearchPanelInput
-      changeSearchValue={changeSearchValue}
+      onChangeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
     tree.simulate('change', { target: { value: 'abc' } });
@@ -39,7 +39,7 @@ describe('Input search box', () => {
 
   it('should set placeholder', () => {
     const tree = shallow(<SearchPanelInput
-      changeSearchValue={changeSearchValue}
+      onChangeSearchValue={changeSearchValue}
       getMessage={getMessage}
     />);
 
@@ -48,7 +48,7 @@ describe('Input search box', () => {
 
   it('should have custom class', () => {
     const tree = shallow(<SearchPanelInput
-      changeSearchValue={changeSearchValue}
+      onChangeSearchValue={changeSearchValue}
       getMessage={getMessage}
       className="custom-class"
     />);

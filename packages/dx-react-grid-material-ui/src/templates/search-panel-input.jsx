@@ -16,7 +16,7 @@ const SearchPanelInputBase = ({
   onChangeSearchValue, searchValue, getMessage, ...restProps
 }) => (<Input
   onChange={e => onChangeSearchValue({ searchValue: e.target.value })}
-  value={searchValue || ''}
+  value={searchValue}
   type="text"
   placeholder={getMessage('searchPlaceholder')}
   {...restProps}

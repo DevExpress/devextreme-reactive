@@ -41,7 +41,7 @@ describe('TemplatePlaceholder', () => {
       </PluginHost>
     ));
 
-    expect(tree.render().find('h1 > span').length).toBe(1);
+    expect(tree.render().find('h1 > span')).toHaveLength(1);
   });
 
   it('should update on content render function change', () => {

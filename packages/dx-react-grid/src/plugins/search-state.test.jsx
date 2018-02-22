@@ -21,9 +21,6 @@ const defaultDeps = {
 describe('Search state', () => {
   let resetConsole;
 
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
   afterAll(() => {
     resetConsole();
   });

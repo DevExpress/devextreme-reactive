@@ -15,7 +15,7 @@ describe('Input search box', () => {
       getMessage={getMessage}
       onChangeSearchValue={onChangeSearchValue}
     />);
-    expect(tree.find('input').length).toBe(1);
+    expect(tree.find('input')).toHaveLength(1);
   });
 
   it('should render input component with searchValue', () => {

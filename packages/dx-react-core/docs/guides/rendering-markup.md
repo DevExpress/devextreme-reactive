@@ -4,13 +4,13 @@ The main purpose of a plugin based component is to render markup defined in sepa
 
 ## Template and TemplatePlaceholder
 
-Markup is defined in the [Template](../reference/template.md) plugin primitives identified by the name. The [TemplatePlaceholder](../reference/template-placeholder.md) vizualization primitive specifies where to render the required template. Its `name` property should hold the associated template name.
+Markup is defined in the [Template](../reference/template.md) plugin primitives identified by the name. The [TemplatePlaceholder](../reference/template-placeholder.md) visualization primitive specifies where to render the required template. Its `name` property should hold the associated template name.
 
 .embedded-demo({ "path": "core-template/template-placeholder", "defaultTab": "source" })
 
 ## Root Template
 
-The `root` template name is reserved. If you create a template with the `root` name, it is rendered to the plugin based componet's root.
+The `root` template name is reserved. If you create a template with the `root` name, it is rendered to the plugin based component's root.
 
 .embedded-demo({ "path": "core-basic/plugin-component", "defaultTab": "source" })
 

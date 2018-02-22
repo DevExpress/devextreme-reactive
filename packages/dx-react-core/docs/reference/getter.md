@@ -1,6 +1,6 @@
 # Getter Component Reference
 
-A React component that shares a value among other plugins within a plugin based compoent.
+A React component that shares a value among other plugins within a plugin based component.
 
 ## User reference
 

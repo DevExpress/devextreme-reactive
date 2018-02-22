@@ -28,7 +28,7 @@ describe('Search state', () => {
     changeSearchValue.mockImplementation(() => []);
   });
 
-  it.only('should provide searchValue defined in defaultValue property', () => {
+  it('should provide searchValue defined in defaultValue property', () => {
     const defaultValue = 'abc';
 
     const tree = mount((
@@ -56,7 +56,7 @@ describe('Search state', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).value)
+    expect(getComputedState(tree).searchValue)
       .toBe(value);
   });
 
@@ -82,7 +82,7 @@ describe('Search state', () => {
     expect(changeSearchValue)
       .toBeCalledWith(defaultValue, payload);
 
-    expect(getComputedState(tree).value)
+    expect(getComputedState(tree).searchValue)
       .toBe(newValue);
 
     expect(searchChange)

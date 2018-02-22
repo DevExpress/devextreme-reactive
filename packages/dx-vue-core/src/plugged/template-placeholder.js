@@ -54,6 +54,7 @@ export const TemplatePlaceholder = {
     if (content && typeof content === 'function') {
       content = content(this.params);
     }
+    // console.log(content[0].children[0].text);
     return (
       <TemplatePlaceholderContext
         restTemplates={restTemplates}

@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { PluginHost } from './plugin-host';
 
 describe('PluginHost', () => {
@@ -12,7 +12,7 @@ describe('PluginHost', () => {
         return null;
       },
     };
-    const Constructor = Vue.extend({
+    mount({
       render() {
         return (
           <PluginHost>
@@ -21,6 +21,5 @@ describe('PluginHost', () => {
         );
       },
     });
-    new Constructor().$mount();
   });
 });

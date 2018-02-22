@@ -2,7 +2,10 @@
   <div>
     <PluginHost>
       <Template name="root">
-        Hello, vue!!!
+        <div>
+          Hello, {{text}}!!!
+          <button @click="handleClick">Change</button>
+        </div>
       </Template>
     </PluginHost>
   </div>
@@ -15,6 +18,16 @@ export default {
   components: {
     PluginHost,
     Template,
+  },
+  data() {
+    return {
+      text: 'test',
+    }
+  },
+  methods: {
+    handleClick() {
+      this.text = this.text === 'new' ? 'ete' : 'new';
+    }
   }
 };
 </script>

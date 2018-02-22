@@ -1,10 +1,10 @@
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { PluginHost } from './plugin-host';
 import { Template } from './template';
 
 describe('Template', () => {
   it('should be rendered', () => {
-    const Constructor = Vue.extend({
+    const wrapper = mount({
       render() {
         return (
           <PluginHost>
@@ -15,13 +15,12 @@ describe('Template', () => {
         );
       },
     });
-    const vm = new Constructor().$mount();
-    expect(vm.$el.querySelector('h1').textContent)
+    expect(wrapper.find('h1').text())
       .toEqual('Template content');
   });
 
   it('should be rendered depending on predicate', () => {
-    const Constructor = Vue.extend({
+    const wrapper = mount({
       render() {
         return (
           <PluginHost>
@@ -32,42 +31,39 @@ describe('Template', () => {
         );
       },
     });
-    const vm = new Constructor().$mount();
-    expect(vm.$el.querySelector('h1'))
-      .toEqual(null);
+    expect(wrapper.find('h1').exists())
+      .toBeFalsy();
   });
 
-  // fit('should be rerendered when content changes', () => {
-  //   const Test = {
-  //     props: {
-  //       text: {},
-  //     },
-  //     render() {
-  //       return (
-  //         <PluginHost>
-  //           <Template name="root">
-  //             <h1>{this.text}</h1>
-  //           </Template>
-  //         </PluginHost>
-  //       );
-  //     },
-  //   };
-  //   const Constructor = Vue.extend({
-  //     data() {
-  //       return {
-  //         text: 'test',
-  //       };
-  //     },
-  //     render() {
-  //       return (
-  //         <Test text={this.text} />
-  //       );
-  //     },
-  //   });
-  //   const vm = new Constructor().$mount();
-  //   vm.$set(vm, 'text', 'new');
-  //   vm.$mount();
-  //   expect(vm.$el.querySelector('h1').textContent)
-  //     .toEqual('new');
-  // });
+  it('should be rerendered when content changes', () => {
+    const Test = {
+      props: {
+        text: {},
+      },
+      render() {
+        return (
+          <PluginHost>
+            <Template name="root">
+              <h1>{this.text}</h1>
+            </Template>
+          </PluginHost>
+        );
+      },
+    };
+    const wrapper = mount({
+      data() {
+        return {
+          text: 'test',
+        };
+      },
+      render() {
+        return (
+          <Test text={this.text} />
+        );
+      },
+    });
+    wrapper.setData({ text: 'new' });
+    expect(wrapper.find('h1').text())
+      .toEqual('new');
+  });
 });

@@ -26,8 +26,8 @@ export const SearchPanel = ({ InputComponent: Input, messages }) => {
         <TemplateConnector>
           {({ searchValue }, { changeSearchValue }) => (
             <Input
-              searchValue={searchValue}
-              onChangeSearchValue={changeSearchValue}
+              value={searchValue}
+              onChangeValue={changeSearchValue}
               getMessage={getMessage}
             />
             )}

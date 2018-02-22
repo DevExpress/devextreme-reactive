@@ -12,9 +12,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-searchValue? | string |  | Specifies the applied search value;
-defaultSearchValue? | string |  | Specifies the search value initially applied in the uncontrolled mode.
-onSearchValueChange? | (searchValue: string) => void | | Handles search value changes.
+value? | string |  | Specifies the applied search value;
+defaultValue? | string |  | Specifies the search value initially applied in the uncontrolled mode.
+onValueChange? | (value: string) => void | | Handles search value changes.
 
 ## Plugin Developer Reference
 
@@ -31,4 +31,4 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 searchValue | Getter | string | The applied search value
 filterExpression | Getter | [FilterExpression](integrated-filtering.md#filterexpression)&#124;[Filter](filtering-state.md#filter) | The applied filter expressions.
-changeSearchValue | Action | ({ searchValue: string }) => void | Fires the `onSearchValueChange` event with the corresponding searchValue and change search value state
+changeSearchValue | Action | ({ value: string }) => void | Fires the `onValueChange` event with the corresponding value and change search value state

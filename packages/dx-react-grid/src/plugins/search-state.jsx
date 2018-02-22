@@ -9,52 +9,52 @@ export class SearchState extends React.PureComponent {
     super(props);
 
     this.state = {
-      searchValue: props.defaultSearchValue,
+      value: props.defaultValue,
     };
     const stateHelper = createStateHelper(this);
 
-    this.changeSearchValue = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'searchValue', changeSearchValue);
+    this.changeValue = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'value', changeSearchValue);
   }
   getState() {
     const {
-      searchValue = this.state.searchValue,
+      value = this.state.value,
     } = this.props;
     return {
       ...this.state,
-      searchValue,
+      value,
     };
   }
   notifyStateChange(nextState, state) {
-    const { searchValue } = nextState;
-    const { onSearchValueChange } = this.props;
-    if (onSearchValueChange && searchValue !== state.searchValue) {
-      onSearchValueChange(searchValue);
+    const { value } = nextState;
+    const { onValueChange } = this.props;
+    if (onValueChange && value !== state.value) {
+      onValueChange(value);
     }
   }
   render() {
-    const { searchValue } = this.getState();
+    const { value } = this.getState();
 
     return (
       <Plugin
         name="SearchState"
       >
-        <Getter name="filterExpression" computed={pushSearchFilterExpression(searchValue)} />
-        <Getter name="searchValue" value={searchValue} />
-        <Action name="changeSearchValue" action={this.changeSearchValue} />
+        <Getter name="filterExpression" computed={pushSearchFilterExpression(value)} />
+        <Getter name="searchValue" value={value} />
+        <Action name="changeSearchValue" action={this.changeValue} />
       </Plugin>
     );
   }
 }
 
 SearchState.propTypes = {
-  searchValue: PropTypes.string,
-  defaultSearchValue: PropTypes.string,
-  onSearchValueChange: PropTypes.func,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onValueChange: PropTypes.func,
 };
 
 SearchState.defaultProps = {
-  searchValue: undefined,
-  defaultSearchValue: '',
-  onSearchValueChange: undefined,
+  value: undefined,
+  defaultValue: '',
+  onValueChange: undefined,
 };

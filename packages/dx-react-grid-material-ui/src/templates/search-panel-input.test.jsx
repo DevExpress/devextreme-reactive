@@ -3,7 +3,7 @@ import { createShallow } from 'material-ui/test-utils';
 import { SearchPanelInput } from './search-panel-input';
 
 const getMessage = jest.fn().mockReturnValue('placeholder');
-const changeSearchValue = jest.fn();
+const changeValue = jest.fn();
 let shallow;
 
 describe('Input search box', () => {
@@ -13,33 +13,33 @@ describe('Input search box', () => {
 
   it('should render input component', () => {
     const tree = shallow(<SearchPanelInput
-      onChangeSearchValue={changeSearchValue}
+      onChangeValue={changeValue}
       getMessage={getMessage}
     />);
     expect(tree).toHaveLength(1);
   });
 
-  it('should render input component with searchValue', () => {
+  it('should render input component with value', () => {
     const tree = shallow(<SearchPanelInput
-      onChangeSearchValue={changeSearchValue}
-      searchValue="abc"
+      onChangeValue={changeValue}
+      value="abc"
       getMessage={getMessage}
     />);
     expect(tree.props().value).toBe('abc');
   });
 
-  it('should trigger changeSearchValue when change event fire', () => {
+  it('should trigger changeValue when change event fire', () => {
     const tree = shallow(<SearchPanelInput
-      onChangeSearchValue={changeSearchValue}
+      onChangeValue={changeValue}
       getMessage={getMessage}
     />);
     tree.simulate('change', { target: { value: 'abc' } });
-    expect(changeSearchValue).toBeCalledWith({ searchValue: 'abc' });
+    expect(changeValue).toBeCalledWith({ value: 'abc' });
   });
 
   it('should set placeholder', () => {
     const tree = shallow(<SearchPanelInput
-      onChangeSearchValue={changeSearchValue}
+      onChangeValue={changeValue}
       getMessage={getMessage}
     />);
 
@@ -48,7 +48,7 @@ describe('Input search box', () => {
 
   it('should have custom class', () => {
     const tree = shallow(<SearchPanelInput
-      onChangeSearchValue={changeSearchValue}
+      onChangeValue={changeValue}
       getMessage={getMessage}
       className="custom-class"
     />);

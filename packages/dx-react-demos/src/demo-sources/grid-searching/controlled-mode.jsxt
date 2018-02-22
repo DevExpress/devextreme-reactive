@@ -30,7 +30,7 @@ export default class Demo extends React.PureComponent {
       searchValue: 'Female',
     };
 
-    this.changeSearchValue = searchValue => this.setState({ searchValue });
+    this.changeSearchValue = value => this.setState({ searchValue: value });
   }
   render() {
     const { rows, columns, searchValue } = this.state;
@@ -42,8 +42,8 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <SearchState
-            searchValue={searchValue}
-            onSearchValueChange={this.changeSearchValue}
+            value={searchValue}
+            onValueChange={this.changeSearchValue}
           />
           <IntegratedFiltering />
           <Table />

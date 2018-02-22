@@ -18,13 +18,13 @@ Import the plugins listed above to set up a Grid with basic searching.
 
 ### Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial searching value in the `SearchState` plugin's `defaultSearchValue` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial searching value in the `SearchState` plugin's `defaultValue` property.
 
 .embedded-demo(grid-searching/uncontrolled-mode)
 
 ### Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search option to the `SearchState` plugin's `searchValue` property and handle the `onSearchValueChange` event to control the search state externally.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search option to the `SearchState` plugin's `value` property and handle the `onValueChange` event to control the search state externally.
 
 .embedded-demo(grid-searching/controlled-mode)
 
@@ -32,7 +32,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search 
 
 It is possible to perform searching remotely by handling search value state changes, generating a request, and sending it to the server.
 
-Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle searching option changes using the `SearchState` plugin's `onSearchValueChange` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
+Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle searching option changes using the `SearchState` plugin's `onValueChange` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that you do not need to use the `IntegratedFiltering` plugin for remote searching.
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeSearchValue } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
@@ -29,75 +28,75 @@ describe('Search state', () => {
     changeSearchValue.mockImplementation(() => []);
   });
 
-  it('should provide searchValue defined in defaultSearchValue property', () => {
-    const defaultSearchValue = 'abc';
+  it.only('should provide searchValue defined in defaultValue property', () => {
+    const defaultValue = 'abc';
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          defaultSearchValue={defaultSearchValue}
+          defaultValue={defaultValue}
         />
       </PluginHost>
     ));
 
     expect(getComputedState(tree).searchValue)
-      .toBe(defaultSearchValue);
+      .toBe(defaultValue);
   });
 
-  it('should provide searchValue defined in searchValue property', () => {
-    const searchValue = 'abc';
+  it('should provide value defined in value property', () => {
+    const value = 'abc';
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          searchValue={searchValue}
+          value={value}
         />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).searchValue)
-      .toBe(searchValue);
+    expect(getComputedState(tree).value)
+      .toBe(value);
   });
 
-  it('should fire the "onSearchValueChange" callback and should change searchValue in uncontrolled mode after the "changeSearchValue" action is fired', () => {
-    const defaultSearchValue = 'abc';
-    const newSearchValue = 'xyz';
+  it('should fire the "onValueChange" callback and should change value in uncontrolled mode after the "changeSearchValue" action is fired', () => {
+    const defaultValue = 'abc';
+    const newValue = 'xyz';
 
     const searchChange = jest.fn();
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          defaultSearchValue={defaultSearchValue}
-          onSearchValueChange={searchChange}
+          defaultValue={defaultValue}
+          onValueChange={searchChange}
         />
       </PluginHost>
     ));
 
-    const payload = { searchValue: newSearchValue };
-    changeSearchValue.mockReturnValue(newSearchValue);
+    const payload = { value: newValue };
+    changeSearchValue.mockReturnValue(newValue);
     executeComputedAction(tree, actions => actions.changeSearchValue(payload));
 
     expect(changeSearchValue)
-      .toBeCalledWith(defaultSearchValue, payload);
+      .toBeCalledWith(defaultValue, payload);
 
-    expect(getComputedState(tree).searchValue)
-      .toBe(newSearchValue);
+    expect(getComputedState(tree).value)
+      .toBe(newValue);
 
     expect(searchChange)
-      .toBeCalledWith(newSearchValue);
+      .toBeCalledWith(newValue);
   });
 
   it('should provide filter expressions', () => {
-    const searchValue = 'abc';
+    const value = 'abc';
 
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          searchValue={searchValue}
+          value={value}
         />
       </PluginHost>
     ));
@@ -116,8 +115,8 @@ describe('Search state', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          defaultSearchValue={defaultSearchValue}
-          onSearchValueChange={onSearchValueChange}
+          defaultValue={defaultSearchValue}
+          onValueChange={onSearchValueChange}
         />
       </PluginHost>
     ));
@@ -147,8 +146,8 @@ describe('Search state', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <SearchState
-          searchValue={searchValue}
-          onSearchValueChange={onSearchValueChange}
+          value={searchValue}
+          onValueChange={onSearchValueChange}
         />
       </PluginHost>
     ));

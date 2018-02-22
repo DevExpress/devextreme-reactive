@@ -13,10 +13,10 @@ const styles = theme => ({
 });
 
 const SearchPanelInputBase = ({
-  onChangeSearchValue, searchValue, getMessage, ...restProps
+  onChangeValue, value, getMessage, ...restProps
 }) => (<Input
-  onChange={e => onChangeSearchValue({ searchValue: e.target.value })}
-  value={searchValue}
+  onChange={e => onChangeValue({ value: e.target.value })}
+  value={value}
   type="text"
   placeholder={getMessage('searchPlaceholder')}
   {...restProps}
@@ -28,12 +28,12 @@ const SearchPanelInputBase = ({
 />);
 
 SearchPanelInputBase.propTypes = {
-  onChangeSearchValue: PropTypes.func.isRequired,
-  searchValue: PropTypes.string,
+  onChangeValue: PropTypes.func.isRequired,
+  value: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
 };
 SearchPanelInputBase.defaultProps = {
-  searchValue: '',
+  value: '',
 };
 
 export const SearchPanelInput = withStyles(styles)(SearchPanelInputBase);

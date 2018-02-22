@@ -37,7 +37,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <SearchState defaultSearchValue="Paris" />
+          <SearchState defaultValue="Paris" />
           <IntegratedFiltering />
           <Table />
           <TableHeaderRow />

@@ -45,12 +45,12 @@ describe('FilteringState reducers', () => {
 describe('pushFilterExpression reducer', () => {
   it('should return filters', () => {
     expect(pushFilterExpression([
-      { columnName: 'first', value: 'searchValue' },
-      { columnName: 'second', value: 'searchValue' },
+      { columnName: 'first', value: 'value' },
+      { columnName: 'second', value: 'value' },
     ])({})).toEqual({
       filters: [
-        { columnName: 'first', value: 'searchValue' },
-        { columnName: 'second', value: 'searchValue' },
+        { columnName: 'first', value: 'value' },
+        { columnName: 'second', value: 'value' },
       ],
       operator: 'and',
     });
@@ -58,8 +58,8 @@ describe('pushFilterExpression reducer', () => {
 
   it('should return old and new filters', () => {
     expect(pushFilterExpression([
-      { columnName: 'first', value: 'searchValue' },
-      { columnName: 'second', value: 'searchValue' },
+      { columnName: 'first', value: 'value' },
+      { columnName: 'second', value: 'value' },
     ])({
       filterExpression: ['filters'],
     })).toEqual({
@@ -67,8 +67,8 @@ describe('pushFilterExpression reducer', () => {
         ['filters'],
         {
           filters: [
-            { columnName: 'first', value: 'searchValue' },
-            { columnName: 'second', value: 'searchValue' },
+            { columnName: 'first', value: 'value' },
+            { columnName: 'second', value: 'value' },
           ],
           operator: 'and',
         },

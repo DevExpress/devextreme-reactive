@@ -119,6 +119,9 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Properties | Description
 -----|------------|------------
+Table.Table | object | A component that renders a `table` tag.
+Table.TableHead | object | A component that renders a `thead` tag.
+Table.TableBody | object | A component that renders a `tbody` tag.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.

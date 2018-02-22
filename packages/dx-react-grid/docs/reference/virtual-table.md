@@ -28,6 +28,10 @@ messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An 
 
 Name | Properties | Description
 -----|------------|------------
+VirtualTable.Table | object | A component that renders a `table` tag. It is a root component for `tr` tags.
+VirtualTable.TableHead | object | A component that renders a `thead` tag.
+VirtualTable.TableBody | object | A component that renders a `tbody` tag.
+VirtualTable.HeaderTable | object | A component that renders a header `table` tag. It is a root component for `thead` tag.
 VirtualTable.Cell | [Table.DataCellProps](table.md#tabledatacellprops) | Renders a table data cell.
 VirtualTable.Row | [Table.DataRowProps](table.md#tabledatarowprops) | Renders a table data row.
 VirtualTable.NoDataCell | [Table.CellProps](table.md#tablecellprops) | Renders a table cell when the table is empty.

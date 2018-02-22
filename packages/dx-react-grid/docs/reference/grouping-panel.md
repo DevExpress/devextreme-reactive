@@ -28,7 +28,7 @@ messages? | [GroupingPanel.LocalizationMessages](#localization-messages) | | An 
 
 ### GroupingPanelItem
 
-Describes grouping panel item properties.
+Describes the grouping panel item properties.
 
 Field | Type | Description
 ------|------|------------
@@ -52,6 +52,8 @@ Field | Type | Description
 item | [GroupingPanelItem](#groupingpanelitem) | The Grouping Panel item.
 showGroupingControls | boolean | Specifies whether to display a button that cancels grouping by column.
 showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
+groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
+sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by column.
@@ -78,7 +80,7 @@ GroupingPanel.Container | [GroupingPanel.ContainerProps](#groupingpanelcontainer
 GroupingPanel.Item | [GroupingPanel.ItemProps](#groupingpanelitemprops) | A component that renders a grouping panel item.
 GroupingPanel.EmptyMessage | [GroupingPanel.EmptyMessageProps](#groupingpanelemptymessageprops) | A component that renders an empty grouping panel message.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 
@@ -93,6 +95,8 @@ draftColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) 
 cancelColumnGroupingDraft | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Cancels changes to the column grouping options used for the preview.
 sorting | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
 changeColumnSorting | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
+isColumnSortingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function that returns a Boolean value that defines if sorting by a column is enabled.
+isColumnGroupingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
 draggingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether drag-and-drop is enabled.
 toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the toolbar content.
 

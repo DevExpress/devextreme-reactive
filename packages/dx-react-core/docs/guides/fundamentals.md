@@ -1,14 +1,14 @@
 # React Core - Fundamentals
 
-React Core provides components that allow the creation of a plugin based component.
+React Core provides components for creating a plugin-based component.
 
 ## Core Principles
 
-A plugin based component should adhere to the following principles:
+A plugin-based component should adhere to the following principles:
 
 ##### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}
  
-Plugins are located in an IoC container and can provide their items for the container or consume container's ones.
+A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion of Control) container and can use the ones other plugins share.
  
 A plugin based component consists of the following child components:
 
@@ -32,7 +32,7 @@ The plugin application order depends on the order the plugins are defined in the
 
 ### Plugin Host Component
 
-[PluginHost](../reference/plugin-host.md) is an auxiliary component used as a single communication point for all plugins that provides adhering to the principles listed above. If a React component contains PluginHost in the root, it is called plugin host component.
+[PluginHost](../reference/plugin-host.md) is an auxiliary component used as a single communication point for all plugins that provide adhering to the principles listed above. If a React component contains PluginHost in the root, it is called plugin host component.
 
 .embedded-demo({ "path": "core-basic/plugin-host-component", "defaultTab": "source" })
 

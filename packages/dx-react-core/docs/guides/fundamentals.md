@@ -22,7 +22,7 @@ A plugin based component consists of the following child components:
 
 The component provides means for state storing and mutation.
 
-The plugin based component's state is an arrgeration of plugin states, which keep data [normalized](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) and immutable. The state can only be mutated through an action execution.
+The plugin based component's state is an aggregation of plugin states, which keep data [normalized](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) and immutable. The state can only be mutated through an action execution.
 
 ##### [Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"}
 
@@ -42,11 +42,11 @@ The PluginHost component's content is called **plugin root**. It should contain 
 
 - [Template](../reference/template.md). Defines markup.
 - [Getter](../reference/getter.md). Defines a value.
-- [Action](../reference/action.md). Definea an action.
+- [Action](../reference/action.md). Defines an action.
 
-When the plugin host has been mounted, a component tree is rendered within the PluginHost component's markup called **rendering root**. The rendering root contains vizualization primitives and React components. **Vizualization primitives** are React Core components that define relations between state and actions and mount the rendered component tree.
+When the plugin host has been mounted, a component tree is rendered within the PluginHost component's markup called **rendering root**. The rendering root contains vizualization primitives and React components. **Visualization primitives** are React Core components that define relations between state and actions and mount the rendered component tree.
 
-Vizualization primitives:
+Visualization primitives:
 
 - [TemplatePlaceholder](../reference/template-placeholder.md). Renders markup defined by the Template.
 - [TemplateConnector](../reference/template-connector.md). Connects values and actions defined by the Getter and Action.

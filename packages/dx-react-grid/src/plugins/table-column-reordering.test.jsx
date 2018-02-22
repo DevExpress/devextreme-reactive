@@ -292,5 +292,38 @@ describe('TableColumnReordering', () => {
       expect(getBoundingClientRect)
         .toHaveBeenCalledTimes(defaultDeps.getter.tableColumns.length * 3);
     });
+
+    it('should works correctly if table columns are changed', () => {
+      const changedTableColumns = [
+        { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { key: `${TABLE_DATA_TYPE}_c`, type: TABLE_DATA_TYPE, column: { name: 'c' } },
+      ];
+      const tree = mount((
+        <DragDropProvider>
+          <PluginHost>
+            <Template name="table">
+              {changedTableColumns.map(tableColumn => tableColumn.type === TABLE_DATA_TYPE && (
+                <TemplatePlaceholder
+                  key={tableColumn.column.name}
+                  name="tableCell"
+                  params={{
+                    tableColumn,
+                    tableRow: { key: TABLE_REORDERING_TYPE, type: TABLE_REORDERING_TYPE },
+                  }}
+                />
+              ))}
+            </Template>
+            {pluginDepsToComponents(defaultDeps)}
+            <TableColumnReordering
+              {...defaultProps}
+              defaultOrder={['a', 'b']}
+              tableContainerComponent={props => <TableMock {...props} />}
+            />
+          </PluginHost>
+        </DragDropProvider>
+      ));
+      const { cellDimensionGetters } = tree.find(TableColumnReordering).instance();
+      expect(Object.keys(cellDimensionGetters)).toEqual(['a']);
+    });
   });
 });

@@ -7,6 +7,7 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getMessagesFormatter,
+  getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -16,12 +17,14 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
   getMessagesFormatter: jest.fn(),
+  getColumnSortingDirection: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     columns: [{ name: 'a' }],
     tableHeaderRows: [{ type: 'undefined', rowId: 1 }],
+    isColumnSortingEnabled: () => false,
     tableColumns: [],
   },
   template: {
@@ -57,6 +60,7 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
+    getColumnSortingDirection.mockImplementation(() => null);
   });
   afterEach(() => {
     jest.resetAllMocks();

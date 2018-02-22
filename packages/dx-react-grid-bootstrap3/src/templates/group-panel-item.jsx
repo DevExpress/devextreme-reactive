@@ -10,8 +10,8 @@ const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_K
 
 export const GroupPanelItem = ({
   item: { column, draft },
-  onGroup, showGroupingControls,
-  showSortingControls, sortingDirection, onSort,
+  onGroup, showGroupingControls, groupingEnabled,
+  showSortingControls, sortingDirection, onSort, sortingEnabled,
   className, style,
   ...restProps
 }) => {
@@ -19,7 +19,7 @@ export const GroupPanelItem = ({
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
-    if (!showSortingControls || !(isActionKeyDown || isMouseClick)) return;
+    if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
 
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
     const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
@@ -33,12 +33,18 @@ export const GroupPanelItem = ({
     });
   };
   const handleUngroup = (e) => {
+    if (!groupingEnabled) return;
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
 
     if (!isActionKeyDown && !isMouseClick) return;
     onGroup();
   };
+  const getButtonClasses = isDisabled => (classNames({
+    btn: true,
+    'btn-default': true,
+    disabled: isDisabled,
+  }));
   return (
     <div
       className={classNames('btn-group', className)}
@@ -51,10 +57,10 @@ export const GroupPanelItem = ({
       {...restProps}
     >
       <span
-        className="btn btn-default"
+        className={getButtonClasses(!sortingEnabled && showSortingControls)}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
-        {...showSortingControls ? { tabIndex: 0 } : null}
+        {...sortingEnabled ? { tabIndex: 0 } : null}
       >
         {column.title || column.name}
         {showSortingControls && sortingDirection && (
@@ -69,7 +75,7 @@ export const GroupPanelItem = ({
 
       {showGroupingControls && (
         <span
-          className="btn btn-default"
+          className={getButtonClasses(!groupingEnabled)}
           onClick={handleUngroup}
         >
           &nbsp;
@@ -98,7 +104,9 @@ GroupPanelItem.propTypes = {
   className: PropTypes.string,
   onSort: PropTypes.func,
   onGroup: PropTypes.func,
+  groupingEnabled: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
   style: PropTypes.object,
 };
 
@@ -109,5 +117,7 @@ GroupPanelItem.defaultProps = {
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
+  sortingEnabled: false,
+  groupingEnabled: false,
   style: null,
 };

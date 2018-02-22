@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-demos",
-  "version": "1.0.1",
+  "version": "1.1.0-beta.1",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -29,17 +29,26 @@
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
     },
-    "moduleFileExtensions": ["js", "json", "jsx", "node", "ts", "tsx"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx",
+      "node",
+      "ts",
+      "tsx"
+    ],
     "setupFiles": [
       "<rootDir>/setup-enzyme.js"
     ],
-    "testMatch": ["**/*.test.(ts|tsx|js|jsx)"]
+    "testMatch": [
+      "**/*.test.(ts|tsx|js|jsx)"
+    ]
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "1.0.0",
-    "@devexpress/dx-react-grid": "1.0.0",
-    "@devexpress/dx-react-grid-bootstrap3": "1.0.0",
-    "@devexpress/dx-react-grid-material-ui": "1.0.0",
+    "@devexpress/dx-react-core": "1.1.0-beta.1",
+    "@devexpress/dx-react-grid": "1.1.0-beta.1",
+    "@devexpress/dx-react-grid-bootstrap3": "1.1.0-beta.1",
+    "@devexpress/dx-react-grid-material-ui": "1.1.0-beta.1",
     "@types/react": "^16.0.37",
     "@types/react-dom": "^16.0.4",
     "core-js": "^2.5.3",
@@ -58,7 +67,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.0.0",
+    "@devexpress/dx-testing": "1.1.0-beta.1",
     "@types/jest": "^22.1.2",
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",

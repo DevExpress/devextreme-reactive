@@ -45,7 +45,12 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                sorting,
+                isColumnSortingEnabled,
+                isColumnGroupingEnabled,
+                tableColumns,
+                draggingEnabled,
+                tableColumnResizingEnabled,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -53,17 +58,23 @@ export class TableHeaderRow extends React.PureComponent {
                 const { name: columnName } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
+                const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+                const groupingEnabled = isColumnGroupingEnabled &&
+                  isColumnGroupingEnabled(columnName) &&
+                  atLeastOneDataColumn;
 
                 return (
                   <HeaderCell
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
-                    showSortingControls={showSortingControls && sorting !== undefined}
-                    showGroupingControls={showGroupingControls && atLeastOneDataColumn}
+                    sortingEnabled={sortingEnabled}
+                    groupingEnabled={groupingEnabled}
+                    showSortingControls={showSortingControls}
+                    showGroupingControls={showGroupingControls}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls && sorting !== undefined
+                    sortingDirection={showSortingControls
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}

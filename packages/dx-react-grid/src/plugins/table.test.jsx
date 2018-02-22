@@ -37,6 +37,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
+  tableComponent: () => null,
+  headComponent: () => null,
+  bodyComponent: () => null,
   layoutComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,

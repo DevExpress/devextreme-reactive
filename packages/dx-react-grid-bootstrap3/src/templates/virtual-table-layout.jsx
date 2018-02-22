@@ -5,13 +5,8 @@ import {
   VirtualTableLayout as VirtualTableLayoutCore,
 } from '@devexpress/dx-react-grid';
 import { TableContainer } from './table-container';
-import { Table } from './table';
 
 const MINIMAL_COLUMN_WIDTH = 120;
-
-const HeadTable = props => <Table use="head" {...props} />;
-const TableHead = props => <thead {...props} />;
-const TableBody = props => <tbody {...props} />;
 
 export const VirtualTableLayout = ({
   headerRows,
@@ -21,6 +16,7 @@ export const VirtualTableLayout = ({
   rowComponent,
   height,
   estimatedRowHeight,
+  tableComponent, headComponent, bodyComponent, headTableComponent,
 }) => (
   <TableLayout
     layoutComponent={VirtualTableLayoutCore}
@@ -29,10 +25,10 @@ export const VirtualTableLayout = ({
     columns={columns}
     cellComponent={cellComponent}
     rowComponent={rowComponent}
-    headComponent={TableHead}
-    bodyComponent={TableBody}
-    tableComponent={Table}
-    headTableComponent={HeadTable}
+    tableComponent={tableComponent}
+    headComponent={headComponent}
+    bodyComponent={bodyComponent}
+    headTableComponent={headTableComponent}
     containerComponent={TableContainer}
     estimatedRowHeight={estimatedRowHeight}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
@@ -48,4 +44,8 @@ VirtualTableLayout.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   height: PropTypes.number.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
+  tableComponent: PropTypes.func.isRequired,
+  headComponent: PropTypes.func.isRequired,
+  bodyComponent: PropTypes.func.isRequired,
+  headTableComponent: PropTypes.func.isRequired,
 };

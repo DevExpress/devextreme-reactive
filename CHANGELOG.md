@@ -1,3 +1,25 @@
+<a name="1.1.0-beta.1"></a>
+# [1.1.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0...v1.1.0-beta.1) (2018-02-22)
+
+
+### Bug Fixes
+
+* **react-grid:** allow adding custom styles to some components ([#728](https://github.com/DevExpress/devextreme-reactive/issues/728)) ([7580410](https://github.com/DevExpress/devextreme-reactive/commit/7580410))
+* **react-grid:** fix reordering after grouping ([#744](https://github.com/DevExpress/devextreme-reactive/issues/744)) ([4de38d7](https://github.com/DevExpress/devextreme-reactive/commit/4de38d7))
+* **react-grid-bootstrap3:** repair column chooser positioning ([#740](https://github.com/DevExpress/devextreme-reactive/issues/740)) ([4c4ed15](https://github.com/DevExpress/devextreme-reactive/commit/4c4ed15))
+* **react-grid-material-ui:** remove PagingPanel's border-top ([#751](https://github.com/DevExpress/devextreme-reactive/issues/751)) ([353e486](https://github.com/DevExpress/devextreme-reactive/commit/353e486))
+
+
+### Features
+
+* **react-grid:** add the ability to prevent column filtering ([#702](https://github.com/DevExpress/devextreme-reactive/issues/702)) ([f3d3f10](https://github.com/DevExpress/devextreme-reactive/commit/f3d3f10))
+* **react-grid:** add the ability to prevent column visibility toggling ([#705](https://github.com/DevExpress/devextreme-reactive/issues/705)) ([2cdfe06](https://github.com/DevExpress/devextreme-reactive/commit/2cdfe06))
+* **react-grid:** add the ability to prevent editing by a column ([#729](https://github.com/DevExpress/devextreme-reactive/issues/729)) ([3c88c4c](https://github.com/DevExpress/devextreme-reactive/commit/3c88c4c))
+* **react-grid:** add the ability to sort/group by the particular column ([#692](https://github.com/DevExpress/devextreme-reactive/issues/692)) ([b5d0e2f](https://github.com/DevExpress/devextreme-reactive/commit/b5d0e2f))
+* **react-grid:** add TypeScript definitions ([#710](https://github.com/DevExpress/devextreme-reactive/issues/710)) ([7dfc052](https://github.com/DevExpress/devextreme-reactive/commit/7dfc052))
+
+
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0...v1.0.1) (2018-02-16)
 

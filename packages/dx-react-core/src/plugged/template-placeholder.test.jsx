@@ -128,10 +128,8 @@ describe('TemplatePlaceholder', () => {
         </Template>
 
         <Template name="test">
-          <div> {/* TODO: Wrapper required for multiple children */}
-            <TemplatePlaceholder />
-            <h2>Test content</h2>
-          </div>
+          <TemplatePlaceholder />
+          <h2>Test content</h2>
         </Template>
 
         <Template name="root">

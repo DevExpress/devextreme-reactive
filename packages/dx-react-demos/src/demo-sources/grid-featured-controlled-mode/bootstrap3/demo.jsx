@@ -101,6 +101,8 @@ export const LookupEditCell = ({
   </td>
 );
 
+const TableComponent = props => <Table.Table {...props} className="table-striped" />;
+
 const Cell = (props) => {
   if (props.column.name === 'discount') {
     return <ProgressBarCell {...props} />;
@@ -250,6 +252,7 @@ export default class Demo extends React.PureComponent {
 
           <Table
             columnExtensions={tableColumnExtensions}
+            tableComponent={TableComponent}
             cellComponent={Cell}
           />
 

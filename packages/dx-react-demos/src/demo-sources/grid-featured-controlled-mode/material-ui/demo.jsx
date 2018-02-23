@@ -136,6 +136,8 @@ const LookupEditCellBase = ({
 );
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
+const TableComponent = props => <Table.Table {...props} className="table-striped" />;
+
 const Cell = (props) => {
   if (props.column.name === 'discount') {
     return <ProgressBarCell {...props} />;
@@ -288,6 +290,7 @@ class DemoBase extends React.PureComponent {
 
           <Table
             columnExtensions={tableColumnExtensions}
+            tableComponent={TableComponent}
             cellComponent={Cell}
           />
 

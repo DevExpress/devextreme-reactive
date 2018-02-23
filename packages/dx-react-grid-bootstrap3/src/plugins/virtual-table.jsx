@@ -66,7 +66,7 @@ VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = TableComponent;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
-VirtualTable.HeaderTable = HeadTable;
+VirtualTable.HeadTable = HeadTable;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,

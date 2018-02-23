@@ -14,6 +14,9 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+tableComponent | ReactNode | | A component that renders a `table` tag.
+headComponent | ReactNode | | A component that renders a `thead` tag.
+bodyComponent | ReactNode | | A component that renders a `tbody` tag.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.

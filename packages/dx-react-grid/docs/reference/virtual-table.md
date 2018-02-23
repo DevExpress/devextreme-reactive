@@ -16,6 +16,10 @@ Name | Type | Default | Description
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
 columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
+tableComponent | ReactNode | | A component that renders a `table` tag. It is a root component for `tr` tags.
+headComponent | ReactNode | | A component that renders a `thead` tag.
+bodyComponent | ReactNode | | A component that renders a `tbody` tag.
+headTableComponent | ReactNode | | A component that renders a header `table` tag. It is a root component for `thead` tag.
 cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.

@@ -6,12 +6,12 @@ Commonly, a getter is used to access a value associated with it in the markup of
 
 .embedded-demo({ "path": "core-getter/value-getter", "defaultTab": "source" })
 
-Getter's value is not restricted to a type. That is, it can hold an array or a function as well as more simple types.
+A getter can hold an array or a function as well as a more simple value.
 
 ## Extending Existing Getter
 
-A value defined by Getter is a part of plugin's public API. So, this value can be used and even changed by other plugins.
+A value defined by Getter is a part of plugin's public API. It means that other plugins can access and change this value.
 
 .embedded-demo({ "path": "core-getter/computed-getter", "defaultTab": "source" })
 
-As you can see, the Getter's value can be overridden by another Getter with the same name. You can also compute a getter value in terms of another getters and local variables.
+As you can see in the example above, a getter with the same name can override the current getter's value. You can also compute a getter's value in terms of another getters and local variables.

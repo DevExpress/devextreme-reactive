@@ -8,6 +8,6 @@ Commonly, action is used to execute a function associated with it from a UI even
 
 ## Passing Action parameters
 
-Action can consume a payload that will be passed to the underlying function.
+Action accepts a payload that is passed to the underlying function.
 
 .embedded-demo({ "path": "core-action/parameterized-action", "defaultTab": "source" })

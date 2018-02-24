@@ -4,7 +4,7 @@ import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const RERENDER_TEMPLATE = 'rerenderTemplate';
 let globalTemplateId = 0;
-export class Template extends React.PureComponent {
+export class Template extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -24,6 +24,10 @@ export class Template extends React.PureComponent {
       },
     };
     pluginHost.registerPlugin(this.plugin);
+  }
+  shouldComponentUpdate(nextProps) {
+    return this.props.predicate !== nextProps.predicate
+      || this.props.children !== nextProps.children;
   }
   componentDidUpdate() {
     const { pluginHost } = this.context;

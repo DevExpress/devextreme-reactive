@@ -9,7 +9,7 @@ import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
-export class Getter extends React.PureComponent {
+export class Getter extends React.Component {
   componentWillMount() {
     const { pluginHost } = this.context;
     const { name } = this.props;
@@ -44,6 +44,10 @@ export class Getter extends React.PureComponent {
     };
 
     pluginHost.registerPlugin(this.plugin);
+  }
+  shouldComponentUpdate(nextProps) {
+    return this.props.value !== nextProps.value
+      || this.props.computed !== nextProps.computed;
   }
   componentDidUpdate() {
     const { pluginHost } = this.context;

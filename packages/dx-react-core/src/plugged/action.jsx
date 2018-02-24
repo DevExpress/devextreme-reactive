@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
-export class Action extends React.PureComponent {
+export class Action extends React.Component {
   componentWillMount() {
     const { pluginHost } = this.context;
     const { name } = this.props;
@@ -16,6 +16,9 @@ export class Action extends React.PureComponent {
     };
 
     pluginHost.registerPlugin(this.plugin);
+  }
+  shouldComponentUpdate() {
+    return false;
   }
   componentWillUnmount() {
     const { pluginHost } = this.context;

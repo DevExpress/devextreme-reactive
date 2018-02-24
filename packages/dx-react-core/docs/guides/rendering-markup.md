@@ -4,7 +4,7 @@ The main purpose of a plugin based component is to render markup defined in sepa
 
 ## Template and TemplatePlaceholder
 
-Markup is defined in the [Template](../reference/template.md) plugin primitives identified by the name. The [TemplatePlaceholder](../reference/template-placeholder.md) visualization primitive specifies where to render the required template. Its `name` property should hold the associated template name.
+Markup is defined in the [Template](../reference/template.md) plugin primitives identified by the name. The [TemplatePlaceholder](../reference/template-placeholder.md) visualization primitive specifies where to render the associated template. Its `name` property should hold the associated template's name.
 
 .embedded-demo({ "path": "core-template/template-placeholder", "defaultTab": "source" })
 
@@ -16,7 +16,7 @@ The `root` template name is reserved. If you create a template with the `root` n
 
 ## Passing Parameters to a Template
 
-You can render similar entities using a single template by passing parameters to the template when rendering. For this, use the TemplatePlaceholder's `params` property.
+You can render similar entities using a single template. For this, associate several template placeholders with the required template and pass parameters to this template using the TemplatePlaceholder's `params` property.
 
 .embedded-demo({ "path": "core-template/template-parameters", "defaultTab": "source" })
 

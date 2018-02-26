@@ -27,7 +27,7 @@ export const SearchPanel = ({ InputComponent: Input, messages }) => {
           {({ searchValue }, { changeSearchValue }) => (
             <Input
               value={searchValue}
-              onChangeValue={changeSearchValue}
+              onValueChange={changeSearchValue}
               getMessage={getMessage}
             />
             )}

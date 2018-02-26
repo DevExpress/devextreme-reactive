@@ -36,7 +36,7 @@ describe('SearchPanel', () => {
       </PluginHost>
     ));
     expect(tree.find(Input).props().value).toBe('abc');
-    expect(tree.find(Input).props().onChangeValue).toEqual(expect.any(Function));
+    expect(tree.find(Input).props().onValueChange).toEqual(expect.any(Function));
     expect(tree.find(Input).props().getMessage).toEqual(expect.any(Function));
   });
 });

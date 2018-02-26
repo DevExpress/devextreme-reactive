@@ -26,7 +26,7 @@ Describes properties passed to a component that renders the searching panel root
 Field | Type | Description
 ------|------|------------
 value | string | Specifies the search value
-onChangeValue | ({ value: string }) => void | Handles the search value changes.
+onValueChange | ({ value: string }) => void | Handles the search value changes.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
 
 ## Localization Messages

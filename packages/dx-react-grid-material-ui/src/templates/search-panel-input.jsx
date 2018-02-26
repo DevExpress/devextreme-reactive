@@ -13,9 +13,9 @@ const styles = theme => ({
 });
 
 const SearchPanelInputBase = ({
-  onChangeValue, value, getMessage, ...restProps
+  onValueChange, value, getMessage, ...restProps
 }) => (<Input
-  onChange={e => onChangeValue({ value: e.target.value })}
+  onChange={e => onValueChange({ value: e.target.value })}
   value={value}
   type="text"
   placeholder={getMessage('searchPlaceholder')}
@@ -28,7 +28,7 @@ const SearchPanelInputBase = ({
 />);
 
 SearchPanelInputBase.propTypes = {
-  onChangeValue: PropTypes.func.isRequired,
+  onValueChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
 };

@@ -2,7 +2,7 @@ import { changeSearchValue, pushSearchFilterExpression } from './reducers';
 
 describe('SearchState reducer', () => {
   it('should return new searchValue', () => {
-    expect(changeSearchValue('default', { searchValue: 'searchValue' })).toBe('searchValue');
+    expect(changeSearchValue('default', 'searchValue')).toBe('searchValue');
   });
 });
 

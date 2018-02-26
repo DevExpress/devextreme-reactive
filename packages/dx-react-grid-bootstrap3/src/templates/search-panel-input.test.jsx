@@ -33,7 +33,7 @@ describe('Input search box', () => {
       onValueChange={onValueChange}
     />);
     tree.find('input').simulate('change', { target: { value: 'abc' } });
-    expect(onValueChange).toBeCalledWith({ value: 'abc' });
+    expect(onValueChange).toBeCalledWith('abc');
   });
 
   it('should set placeholder', () => {

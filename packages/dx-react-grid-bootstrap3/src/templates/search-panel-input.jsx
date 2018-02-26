@@ -6,7 +6,7 @@ export const SearchPanelInput = ({
 }) => (<input
   type="text"
   className="form-control"
-  onChange={e => onValueChange({ value: e.target.value })}
+  onChange={e => onValueChange(e.target.value)}
   value={value}
   style={{ maxWidth: '25%', ...style }}
   placeholder={getMessage('searchPlaceholder')}

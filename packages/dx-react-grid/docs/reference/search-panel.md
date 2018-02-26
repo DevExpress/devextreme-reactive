@@ -26,7 +26,7 @@ Describes properties passed to a component that renders the search panel root el
 Field | Type | Description
 ------|------|------------
 value | string | Specifies the search value
-onValueChange | ({ value: string }) => void | Handles the search value changes.
+onValueChange | (value:string) => void | Handles the search value changes.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
 
 ## Localization Messages
@@ -42,7 +42,7 @@ searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 searchValue | Getter | string | The applied search value
-changeSearchValue | Action | ({ value: string }) => void | Fires the `onValueChange` event with the corresponding value and change search value state
+changeSearchValue | Action | (value:string) => void | Fires the `onValueChange` event with the corresponding value and change search value state
 
 ### Exports
 

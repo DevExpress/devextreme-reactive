@@ -34,7 +34,7 @@ describe('Input search box', () => {
       getMessage={getMessage}
     />);
     tree.simulate('change', { target: { value: 'abc' } });
-    expect(changeValue).toBeCalledWith({ value: 'abc' });
+    expect(changeValue).toBeCalledWith('abc');
   });
 
   it('should set placeholder', () => {

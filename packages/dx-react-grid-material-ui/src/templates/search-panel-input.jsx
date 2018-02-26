@@ -15,7 +15,7 @@ const styles = theme => ({
 const SearchPanelInputBase = ({
   onValueChange, value, getMessage, ...restProps
 }) => (<Input
-  onChange={e => onValueChange({ value: e.target.value })}
+  onChange={e => onValueChange(e.target.value)}
   value={value}
   type="text"
   placeholder={getMessage('searchPlaceholder')}

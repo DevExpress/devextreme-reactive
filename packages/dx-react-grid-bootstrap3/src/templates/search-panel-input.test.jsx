@@ -2,45 +2,34 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { SearchPanelInput } from './search-panel-input';
 
-let onValueChange;
+const onValueChange = jest.fn();
 const getMessage = jest.fn().mockReturnValue('placeholder');
+const defaultProps = {
+  getMessage, onValueChange,
+};
 
 describe('Input search box', () => {
-  beforeEach(() => {
-    onValueChange = jest.fn();
-  });
-
   it('should render input component', () => {
-    const tree = shallow(<SearchPanelInput
-      getMessage={getMessage}
-      onValueChange={onValueChange}
-    />);
+    const tree = shallow(<SearchPanelInput {...defaultProps} />);
     expect(tree.find('input')).toHaveLength(1);
   });
 
   it('should render input component with Value', () => {
     const tree = shallow(<SearchPanelInput
+      {...defaultProps}
       value="abc"
-      getMessage={getMessage}
-      onValueChange={onValueChange}
     />);
     expect(tree.find('input').props().value).toBe('abc');
   });
 
   it('should trigger onValueChange when change event fire', () => {
-    const tree = shallow(<SearchPanelInput
-      getMessage={getMessage}
-      onValueChange={onValueChange}
-    />);
+    const tree = shallow(<SearchPanelInput {...defaultProps} />);
     tree.find('input').simulate('change', { target: { value: 'abc' } });
     expect(onValueChange).toBeCalledWith('abc');
   });
 
   it('should set placeholder', () => {
-    const tree = shallow(<SearchPanelInput
-      onValueChange={onValueChange}
-      getMessage={getMessage}
-    />);
+    const tree = shallow(<SearchPanelInput {...defaultProps} />);
 
     expect(tree.find('input').props().placeholder).toBe('placeholder');
   });

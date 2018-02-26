@@ -23,11 +23,11 @@ const defaultDeps = {
   },
 };
 const defaultProps = {
-  InputComponent: Input,
+  inputComponent: Input,
 };
 
 describe('SearchPanel', () => {
-  it('should pass correct props to InputComponent', () => {
+  it('should pass correct props to inputComponent', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

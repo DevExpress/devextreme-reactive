@@ -13,7 +13,7 @@ const pluginDependencies = [
   { name: 'SearchState' },
 ];
 
-export const SearchPanel = ({ InputComponent: Input, messages }) => {
+export const SearchPanel = ({ inputComponent: Input, messages }) => {
   const getMessage = getMessagesFormatter(messages);
 
   return (
@@ -38,7 +38,7 @@ export const SearchPanel = ({ InputComponent: Input, messages }) => {
 };
 
 SearchPanel.propTypes = {
-  InputComponent: PropTypes.func.isRequired,
+  inputComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

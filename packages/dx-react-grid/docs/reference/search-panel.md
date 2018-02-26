@@ -14,7 +14,7 @@ A plugin that renders the search panel.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-InputComponent | ComponentType&lt;[SearchPanel.InputProps](#searchpanelinputprops)&gt; | | A component that renders the search panel input element.
+inputComponent | ComponentType&lt;[SearchPanel.InputProps](#searchpanelinputprops)&gt; | | A component that renders the search panel input element.
 messages? | [SearchPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -34,6 +34,14 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 Field | Type | Default | Description
 ------|------|---------|------------
 searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+SearchState.Input | [SearchPanel.InputProps](#inputprops) | A component that renders the search panel input element.
+
+If you specify additional properties, they are added to the component's root element.
 
 ## Plugin Developer Reference
 

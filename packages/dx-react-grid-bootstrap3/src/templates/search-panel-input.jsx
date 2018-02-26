@@ -22,5 +22,5 @@ SearchPanelInput.propTypes = {
 
 SearchPanelInput.defaultProps = {
   value: null,
-  style: {},
+  style: null,
 };

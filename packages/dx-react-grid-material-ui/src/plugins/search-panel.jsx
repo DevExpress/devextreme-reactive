@@ -9,13 +9,13 @@ const defaultMessages = {
 
 export const SearchPanel = ({ messages, ...restProps }) => (
   <SearchPanelBase
-    InputComponent={SearchPanelInput}
+    inputComponent={SearchPanelInput}
     messages={{ ...defaultMessages, ...messages }}
     {...restProps}
   />
 );
 
-SearchPanel.InputComponent = SearchPanelInput;
+SearchPanel.Input = SearchPanelInput;
 
 SearchPanel.propTypes = {
   messages: PropTypes.shape({

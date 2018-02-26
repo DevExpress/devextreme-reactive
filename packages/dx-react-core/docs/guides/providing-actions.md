@@ -1,6 +1,6 @@
 # React Core - Providing Actions
 
-An [Action](../reference/action.md) is a primitive plugin that shares a function defined in a plugin among all plugins of a plugin based component.
+An [Action](../reference/action.md) is a plugin primitive used to share a function between other plugins.
 
 Usually, an action is used to execute a function associated with it from a UI event handler defined in another plugin's markup via the [TemplateConnector](../reference/template-connector.md) primitive.
 

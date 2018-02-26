@@ -46,6 +46,7 @@ describe('GroupPanelItem', () => {
     const tree = mount((
       <GroupPanelItem
         onSort={onSort}
+        sortingEnabled
         showSortingControls
         item={{ column: { name: 'test' } }}
       />
@@ -78,6 +79,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onGroup={onGroup}
         showGroupingControls
+        groupingEnabled
         item={{ column: { name: 'test' } }}
       />
     ));
@@ -94,6 +96,7 @@ describe('GroupPanelItem', () => {
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
+        sortingEnabled
         showSortingControls
       />
     ));
@@ -128,6 +131,32 @@ describe('GroupPanelItem', () => {
       .toBeTruthy();
     expect(tree.hasClass('btn-group'))
       .toBeTruthy();
+  });
+
+  it('should apply the disabled class if grouping and sorting are not allowed', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        showGroupingControls
+        showSortingControls
+      />
+    ));
+    const buttons = tree.find('.btn-default.disabled');
+    expect(buttons).toHaveLength(2);
+  });
+
+  it('should not apply the disabled class if grouping and sorting are not allowed', () => {
+    const tree = shallow((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        groupingEnabled
+        sortingEnabled
+        showGroupingControls
+        showSortingControls
+      />
+    ));
+    const buttons = tree.find('.btn-default.disabled');
+    expect(buttons).toHaveLength(0);
   });
 
   it('should apply custom styles', () => {

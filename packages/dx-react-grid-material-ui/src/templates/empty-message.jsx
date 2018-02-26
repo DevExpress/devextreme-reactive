@@ -1,18 +1,32 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 
-export const EmptyMessage = ({ getMessage, ...restProps }) => (
+const styles = theme => ({
+  emptyMessage: {
+    margin: '0 auto',
+    padding: `${theme.spacing.unit * 5}px 0`,
+  },
+});
+
+export const EmptyMessageBase = ({
+  getMessage,
+  classes,
+  ...restProps
+}) => (
   <Toolbar
     {...restProps}
   >
-    <Typography>
+    <big className={classes.emptyMessage}>
       {getMessage('noColumns')}
-    </Typography>
+    </big>
   </Toolbar>
 );
 
-EmptyMessage.propTypes = {
+EmptyMessageBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+export const EmptyMessage = withStyles(styles, { name: 'EmptyMessage' })(EmptyMessageBase);

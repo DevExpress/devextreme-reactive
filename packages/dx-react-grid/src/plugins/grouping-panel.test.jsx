@@ -21,6 +21,8 @@ const defaultDeps = {
     columns: [],
     draftGrouping: [],
     sorting: [],
+    isColumnSortingEnabled: () => true,
+    isColumnGroupingEnabled: () => true,
   },
   action: {
     changeColumnGrouping: jest.fn(),

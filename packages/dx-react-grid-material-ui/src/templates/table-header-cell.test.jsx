@@ -57,6 +57,7 @@ describe('TableHeaderCell', () => {
         {...defaultProps}
         onSort={onSort}
         showSortingControls
+        sortingEnabled
       />
     ));
 
@@ -222,6 +223,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
+          sortingEnabled
           showSortingControls
         />
       ));
@@ -248,6 +250,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
+          sortingEnabled
           showSortingControls
         />
       ));
@@ -263,6 +266,7 @@ describe('TableHeaderCell', () => {
         <TableHeaderCell
           {...defaultProps}
           onSort={onSort}
+          sortingEnabled
           showSortingControls
         />
       ));

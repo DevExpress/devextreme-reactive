@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "1.0.0",
+  "version": "1.1.0-beta.1",
   "description": "Material UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -48,12 +48,12 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0",
-    "@devexpress/dx-react-core": "1.0.0",
-    "@devexpress/dx-react-grid": "1.0.0",
-    "@devexpress/dx-testing": "1.0.0",
+    "@devexpress/dx-grid-core": "1.1.0-beta.1",
+    "@devexpress/dx-react-core": "1.1.0-beta.1",
+    "@devexpress/dx-react-grid": "1.1.0-beta.1",
+    "@devexpress/dx-testing": "1.1.0-beta.1",
     "babel-core": "^6.26.0",
-    "babel-jest": "^22.1.0",
+    "babel-jest": "^22.2.2",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -62,19 +62,19 @@
     "core-js": "^2.5.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.16.0",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.7.0",
+    "eslint-plugin-jest": "^21.12.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
-    "jest": "^22.1.4",
-    "jss": "^9.6.0",
-    "jss-preset-default": "^4.1.0",
+    "jest": "^22.3.0",
+    "jss": "^9.8.0",
+    "jss-preset-default": "^4.3.0",
     "jss-theme-reactor": "^0.11.1",
-    "material-ui": "1.0.0-beta.31",
+    "material-ui": "1.0.0-beta.33",
     "material-ui-icons": "1.0.0-beta.17",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -82,7 +82,7 @@
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-license": "^0.5.0",
-    "rollup-plugin-node-resolve": "^3.0.2"
+    "rollup-plugin-node-resolve": "^3.0.3"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -92,7 +92,7 @@
     "@devexpress/dx-grid-core": "1.0.0",
     "@devexpress/dx-react-core": "1.0.0",
     "@devexpress/dx-react-grid": "1.0.0",
-    "material-ui": "1.0.0-beta.31",
+    "material-ui": "1.0.0-beta.33",
     "material-ui-icons": "1.0.0-beta.17",
     "react": "^16.2.0"
   }

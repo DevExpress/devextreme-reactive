@@ -1,28 +1,32 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import Paper from 'material-ui/Paper';
 import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-
+} from '@devexpress/dx-react-grid-material-ui';
+import { withStyles } from 'material-ui/styles';
 import {
   generateRows,
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-/*
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0,0,0,.05);
-}
-*/
+const styles = theme => ({
+  tableStriped: {
+    '& tbody tr:nth-of-type(odd)': {
+      backgroundColor: theme.palette.primary[50],
+    },
+  },
+});
 
-const TableComponent = ({ ...restProps }) => (
-  <Table.Table
+const TableComponentBase = ({ classes, ...restProps }) => (
+  <Table.Container
     {...restProps}
-    // eslint-disable-next-line no-alert
-    className="table-striped"
+    className={classes.tableStriped}
   />
 );
+
+export const TableComponent = withStyles(styles, { name: 'TableComponent' })(TableComponentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -44,7 +48,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -54,7 +58,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow />
         </Grid>
-      </<%&wrapperTag%>>
+      </Paper>
     );
   }
 }

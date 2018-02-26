@@ -45,7 +45,7 @@ Table.NoDataCell = TableNoDataCell;
 Table.NoDataRow = TableRow;
 Table.StubCell = TableStubCell;
 Table.StubHeaderCell = TableStubCell;
-Table.Table = TableComponent;
+Table.Container = TableComponent;
 Table.TableHead = TableHead;
 Table.TableBody = TableBody;
 

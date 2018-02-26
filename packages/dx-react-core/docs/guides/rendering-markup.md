@@ -4,7 +4,7 @@ A plugin-based component's main purpose is to render markups defined in separate
 
 ## Template and TemplatePlaceholder
 
-A markup is defined in the [Template](../reference/template.md) plugin primitives identified by the name. The [TemplatePlaceholder](../reference/template-placeholder.md) visualization primitive specifies where to render the associated template. Its `name` property should hold the associated template's name.
+A markup is defined in the [Template](../reference/template.md) plugin primitives. The [TemplatePlaceholder](../reference/template-placeholder.md) visualization primitive specifies where to render the associated template. Its `name` property should hold the associated template's name.
 
 .embedded-demo({ "path": "core-template/template-placeholder", "defaultTab": "source" })
 

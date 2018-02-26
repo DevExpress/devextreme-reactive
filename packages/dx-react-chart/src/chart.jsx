@@ -8,12 +8,14 @@ export const Chart = ({
   width,
   height,
   children,
+  ...restProps
 }) => (
   <PluginHost>
     <ChartCore
       data={data}
       width={width}
       height={height}
+      {...restProps}
     />
     {children}
   </PluginHost>

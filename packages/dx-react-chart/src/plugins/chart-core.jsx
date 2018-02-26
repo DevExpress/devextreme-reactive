@@ -2,8 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 
-const Root = ({ width, height, children }) => ((
-  <svg width={width} height={height} >
+const Root = ({
+  width, height, children, ...restProps
+}) => ((
+  <svg width={width} height={height} {...restProps}>
     {children}
   </svg>));
 
@@ -23,14 +25,18 @@ export class ChartCore extends React.PureComponent {
       data,
       width,
       height,
+      ...restProps
     } = this.props;
 
     return (
       <Plugin>
         <Getter name="data" value={data} />
+        <Getter name="height" value={height} />
+        <Getter name="width" value={width} />
         <Template name="root">
-          <Root width={width} height={height}>
+          <Root width={width} height={height} {...restProps}>
             <TemplatePlaceholder name="axis" />
+            <TemplatePlaceholder name="pane" />
           </Root>
         </Template>
       </Plugin>

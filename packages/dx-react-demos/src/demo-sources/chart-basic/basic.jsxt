@@ -3,6 +3,7 @@ import {
   Chart,
   ScaleState,
   Axis,
+  LineSeries,
 } from '@devexpress/dx-react-chart';
 
 const data = [
@@ -22,17 +23,18 @@ export default class Demo extends React.PureComponent {
     const { data, columns } = this.state;
 
     return (
-      <Chart data={data} width="450" height="400">
+      <Chart data={data} width="450" height="400" style={{ border: '1px dashed gray' }}>
         <ScaleState
           settings={[
-            { dataField: 'year', orientation: 'horizontal' },
-            { dataField: 'born', tickInterval: 10, orientation:'vertical' },
+            { dataField: 'year', orientation: 'horizontal', isArgumentField: true },
+            { dataField: 'born', tickInterval: 10, orientation:'vertical', isValueField: true },
             { dataField: 'percent' }
           ]}
         />
 
         <Axis dataField="year" />
         <Axis dataField="born" />
+        <LineSeries valueField="born" argumentField="year" />
       </Chart>
     );
   }

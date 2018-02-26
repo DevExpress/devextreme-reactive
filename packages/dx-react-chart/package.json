@@ -75,7 +75,8 @@
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
-    "d3-scale": "^2.0.0"
+    "d3-scale": "^2.0.0",
+    "d3-shape": "^1.2.0"
   },
   "peerDependencies": {
     "react": "^16.2.0",

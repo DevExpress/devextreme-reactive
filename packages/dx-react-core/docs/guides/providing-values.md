@@ -1,12 +1,12 @@
 # React Core - Providing Values
 
-A [Getter](../reference/getter.md) is a primitive plugin that shares a value defined in a plugin among all plugins of a plugin based component. In other words, Getter defines a single field of the plugin-based component's state.
+A [Getter](../reference/getter.md) is a plugin primitive used to share a value between other plugins. The shared value is a single field of the plugin-based component's state.
 
 Commonly, a getter is used to access a value associated with it in the markup of another plugin. For this, use the [TemplateConnector](../reference/template-connector.md) primitive.
 
 .embedded-demo({ "path": "core-getter/value-getter", "defaultTab": "source" })
 
-A getter can hold an array or function as well as a more simple value.
+A getter can hold an array or function as well as values like strings, numbers etc.
 
 ## Extending Existing Getter
 

@@ -75,10 +75,12 @@
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "d3-scale": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "prop-types": "^15.6.0",
+    "@devexpress/dx-react-core": "1.0.0"
   }
 }

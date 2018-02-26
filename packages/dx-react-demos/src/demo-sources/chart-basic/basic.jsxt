@@ -1,0 +1,39 @@
+import * as React from 'react';
+import {
+  Chart,
+  ScaleState,
+  Axis,
+} from '@devexpress/dx-react-chart';
+
+const data = [
+  { year: 2000, born: 100, percent: '95' },
+  { year: 2001, born: 110, percent: '100' },
+  { year: 2002, born: 95, percent: '80' },
+];
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data
+    };
+  }
+  render() {
+    const { data, columns } = this.state;
+
+    return (
+      <Chart data={data} width="450" height="400">
+        <ScaleState
+          settings={[
+            { dataField: 'year', orientation: 'horizontal' },
+            { dataField: 'born', tickInterval: 10, orientation:'vertical' },
+            { dataField: 'percent' }
+          ]}
+        />
+
+        <Axis dataField="year" />
+        <Axis dataField="born" />
+      </Chart>
+    );
+  }
+}

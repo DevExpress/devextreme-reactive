@@ -28,3 +28,8 @@ defaults:
       type: pages
     values:
       layout: docs
+  - scope:
+      path: react/core/docs
+      type: pages
+    values:
+      layout: docs

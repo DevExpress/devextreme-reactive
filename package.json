@@ -29,7 +29,7 @@
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
     "build": "yarn run build:ts && lerna run build",
     "build:ts": "node ./scripts/ts-generator.js",
-    "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/\" --ext md",
+    "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
     "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch\"",
     "build:site": "yarn run build:site:demos && yarn run build:site:docs",
     "build:site:demos": "yarn run build:ts && lerna run build --ignore @devexpress/dx-react-demos && lerna run build:prod --scope @devexpress/dx-react-demos",

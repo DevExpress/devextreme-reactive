@@ -8,7 +8,7 @@ describe('EmptyMessage', () => {
       <EmptyMessage getMessage={key => key} />
     ));
 
-    expect(tree.find('.panel-body').text()).toBe('noColumns');
+    expect(tree.find('.panel-body big.text-muted').text()).toBe('noColumns');
   });
 
   it('should pass the className prop to the root element', () => {
@@ -35,5 +35,21 @@ describe('EmptyMessage', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should pass styles to the root element', () => {
+    const tree = shallow((
+      <EmptyMessage
+        getMessage={key => key}
+        style={{ color: 'red' }}
+      />
+    ));
+
+    expect(tree.props().style)
+      .toMatchObject({
+        textAlign: 'center',
+        padding: '40px 0px',
+        color: 'red',
+      });
   });
 });

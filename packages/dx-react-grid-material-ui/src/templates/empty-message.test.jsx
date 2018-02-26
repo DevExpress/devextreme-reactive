@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
-import Typography from 'material-ui/Typography';
 import { EmptyMessage } from './empty-message';
 
 describe('EmptyMessage', () => {
@@ -13,7 +12,7 @@ describe('EmptyMessage', () => {
     const tree = shallow((
       <EmptyMessage getMessage={key => key} />
     ));
-    expect(tree.find(Typography).dive().dive().text()).toBe('noColumns');
+    expect(tree.find('big').text()).toBe('noColumns');
   });
 
   it('should pass rest props to the root element', () => {

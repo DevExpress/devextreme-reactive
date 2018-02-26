@@ -1,6 +1,6 @@
 # Action Component Reference
 
-A React component that shares a function among other plugins within a plugin based component.
+A React component that shares a function between other plugins within a plugin-based component.
 
 ## User reference
 
@@ -9,4 +9,4 @@ A React component that shares a function among other plugins within a plugin bas
 Name | Type | Default | Description
 -----|------|---------|------------
 name | string | | The action name.
-action | (payload?: any) => void | | A function that is called on the action execution.
+action | (payload?: any) => void | | A function that is called when the action is executed.

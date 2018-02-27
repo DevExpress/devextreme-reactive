@@ -58,13 +58,19 @@ const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => 
 
 export const filteredRows = (
   rows,
-  filterExpr,
+  firingFilterExpression,
   getCellValue,
   getColumnPredicate,
   isGroupRow,
   getRowLevelKey,
 ) => {
-  if (!(filterExpr && Object.keys(filterExpr).length && rows.length)) return rows;
+  if (
+    !(
+      firingFilterExpression &&
+      Object.keys(firingFilterExpression).length &&
+      rows.length
+    )
+  ) { return rows; }
 
   const getPredicateFromFilter = (filter) => {
     const { columnName, ...filterConfig } = filter;
@@ -85,7 +91,7 @@ export const filteredRows = (
     return getPredicateFromFilter(filterExpression);
   };
 
-  const predicate = getPredicateFromExpression(filterExpr);
+  const predicate = getPredicateFromExpression(firingFilterExpression);
 
   if (!getRowLevelKey) {
     return rows.filter(predicate);

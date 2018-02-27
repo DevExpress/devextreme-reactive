@@ -7,13 +7,18 @@ const defaultMessages = {
   searchPlaceholder: 'Search...',
 };
 
-export const SearchPanel = ({ messages, ...restProps }) => (
-  <SearchPanelBase
-    inputComponent={SearchPanelInput}
-    messages={{ ...defaultMessages, ...messages }}
-    {...restProps}
-  />
-);
+export class SearchPanel extends React.PureComponent {
+  render() {
+    const { messages, ...restProps } = this.props;
+    return (
+      <SearchPanelBase
+        inputComponent={SearchPanelInput}
+        messages={{ ...defaultMessages, ...messages }}
+        {...restProps}
+      />
+    );
+  }
+}
 
 SearchPanel.Input = SearchPanelInput;
 

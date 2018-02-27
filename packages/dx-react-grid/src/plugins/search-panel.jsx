@@ -13,29 +13,32 @@ const pluginDependencies = [
   { name: 'SearchState' },
 ];
 
-export const SearchPanel = ({ inputComponent: Input, messages }) => {
-  const getMessage = getMessagesFormatter(messages);
+export class SearchPanel extends React.PureComponent {
+  render() {
+    const { inputComponent: Input, messages } = this.props;
+    const getMessage = getMessagesFormatter(messages);
 
-  return (
-    <Plugin
-      name="SearchPanel"
-      dependencies={pluginDependencies}
-    >
-      <Template name="toolbarContent">
-        <TemplatePlaceholder />
-        <TemplateConnector>
-          {({ searchValue }, { changeSearchValue }) => (
-            <Input
-              value={searchValue}
-              onValueChange={changeSearchValue}
-              getMessage={getMessage}
-            />
+    return (
+      <Plugin
+        name="SearchPanel"
+        dependencies={pluginDependencies}
+      >
+        <Template name="toolbarContent">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ searchValue }, { changeSearchValue }) => (
+              <Input
+                value={searchValue}
+                onValueChange={changeSearchValue}
+                getMessage={getMessage}
+              />
             )}
-        </TemplateConnector>
-      </Template>
-    </Plugin>
-  );
-};
+          </TemplateConnector>
+        </Template>
+      </Plugin>
+    );
+  }
+}
 
 SearchPanel.propTypes = {
   inputComponent: PropTypes.func.isRequired,

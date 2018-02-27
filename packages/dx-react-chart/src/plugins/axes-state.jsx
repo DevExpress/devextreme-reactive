@@ -4,9 +4,6 @@ import * as React from 'react';
 import {
   Plugin,
   Getter,
-//   TemplateConnector,
-//   Template,
-//   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
 const margin = 20;

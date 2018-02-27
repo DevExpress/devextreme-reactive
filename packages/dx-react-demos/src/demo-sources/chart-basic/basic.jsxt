@@ -2,15 +2,16 @@
 import * as React from 'react';
 import {
   Chart,
-  ScaleState,
   Axis,
+  AxesState,
   LineSeries,
-} from '@devexpress/dx-react-chart';
+  ScaleState
+} from "@devexpress/dx-react-chart";
 
 const data = [
-  { year: 2000, born: 100, percent: '95' },
-  { year: 2001, born: 110, percent: '100' },
-  { year: 2002, born: 95, percent: '80' },
+  { year: 2000, born: 100, percent: "95" },
+  { year: 2001, born: 110, percent: "100" },
+  { year: 2002, born: 95, percent: "80" }
 ];
 
 export default class Demo extends React.PureComponent {
@@ -24,14 +25,40 @@ export default class Demo extends React.PureComponent {
     const { data, columns } = this.state;
 
     return (
-      <Chart data={data} width="450" height="400" style={{ border: '1px dashed gray' }}>
+      <Chart
+        data={data}
+        width="450"
+        height="400"
+        style={{ border: "1px dashed gray" }}
+      >
         <ScaleState
           settings={[
-            { dataField: 'year', orientation: 'horizontal', isArgumentField: true },
-            { dataField: 'born', tickInterval: 10, orientation:'vertical', isValueField: true },
-            { dataField: 'percent' }
+            {
+              dataField: "year",
+              orientation: "horizontal",
+              isArgumentField: true
+            },
+            {
+              dataField: "born",
+              tickInterval: 10,
+              orientation: "vertical",
+              isValueField: true
+            },
+            { dataField: "percent" }
           ]}
         />
+
+        <AxesState
+          settings={[
+            { name: "year", orientation: "horizontal" },
+            { name: "born", orientation: "vertical" }
+          ]}
+        />
+
+        {/* <LineSeriesState
+          settings={[{ argumentField: "year", valueField: "born" }]}
+        />
+        */}
 
         <Axis dataField="year" />
         <Axis dataField="born" />

@@ -43,6 +43,27 @@ const path = settings => ({ data, width, height }) =>
     return acc;
   }, {});
 
+const scalesCompted = settings => ({ data, width, height }) =>
+  settings.reduce((acc, opt) => {
+    const field = opt.dataField;
+    const min = Math.min.apply(null, data.map(dataItem => dataItem[field]));
+    const max = Math.max.apply(null, data.map(dataItem => dataItem[field]));
+    let scale;
+
+    if (opt.orientation === 'horizontal') {
+      scale = scaleLinear()
+        .domain([min, max])
+        .range([margin, width - (2 * margin)]);
+    } else {
+      scale = scaleLinear()
+        .domain([min, max])
+        .range([margin, height - (2 * margin)]);
+    }
+    acc[field] = scale;
+    return acc;
+  }, {});
+
+
 const createLine = ({ dataField: fieldX }, { dataField: fieldY }) => ({ data, width, height }) => {
   const minX = Math.min.apply(null, data.map(dataItem => dataItem[fieldX]));
   const maxX = Math.max.apply(null, data.map(dataItem => dataItem[fieldX]));
@@ -72,6 +93,7 @@ export const ScaleState = ({ settings }) => {
     <Plugin name="ScaleState">
       <Getter name="path" computed={pathComputed} />
       <Getter name="dAttr" computed={lineComputed} />
+      <Getter name="scales" computed={scalesCompted(settings)} />
     </Plugin>
   );
 };

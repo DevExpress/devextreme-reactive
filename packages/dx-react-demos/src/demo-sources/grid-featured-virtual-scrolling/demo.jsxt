@@ -73,7 +73,7 @@ export default class Demo extends React.PureComponent {
           />
           <SortingState
             defaultSorting={[
-              { columnName: 'product', direction: 'asc' },
+                     { columnName: 'product', direction: 'asc' },
               { columnName: 'saleDate', direction: 'asc' },
             ]}
           />

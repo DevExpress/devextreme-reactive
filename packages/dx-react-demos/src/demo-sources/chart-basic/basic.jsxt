@@ -10,9 +10,14 @@ import {
 } from '@devexpress/dx-react-chart';
 
 const data = [
-  { year: 2000, born: 100, percent: '95' },
-  { year: 2001, born: 110, percent: '100' },
-  { year: 2002, born: 95, percent: '80' },
+  { year: 2000, born: 100 },
+  { year: 2001, born: 110 },
+  { year: 2002, born: 95 },
+  { year: 1995, born: 101 },
+  { year: 1998, born: 200 },
+  { year: 2015, born: 89 },
+  { year: 2006, born: 115 },
+  { year: 2007, born: 230 },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -39,10 +44,9 @@ export default class Demo extends React.PureComponent {
             },
             {
               dataField: 'born',
-              tickInterval: 10,
               orientation: 'vertical',
+              tickInterval: 10,
             },
-            { dataField: 'percent' },
           ]}
         />
 
@@ -56,12 +60,21 @@ export default class Demo extends React.PureComponent {
         <SeriesState
           settings={[
             { argumentField: 'year', valueField: 'born' },
+            { argumentField: 'born', valueField: 'year' },
           ]}
         />
 
-        <Axis dataField="year" />
+        <Axis dataField="year" /> {/* <Axis for="year" /> */}
         <Axis dataField="born" />
-        <LineSeries argumentField="year" valueField="born" />
+
+        <LineSeries
+          seriesKey="year|born"
+          style={{ stroke: 'red' }}
+        />
+        <LineSeries
+          seriesKey="born|year"
+        />
+
       </Chart>
     );
   }

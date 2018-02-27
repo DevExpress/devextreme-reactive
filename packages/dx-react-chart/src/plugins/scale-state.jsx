@@ -11,24 +11,23 @@ const scalesCompted = settings => ({ data, width, height }) =>
     const field = opt.dataField;
     const min = Math.min.apply(null, data.map(dataItem => dataItem[field]));
     const max = Math.max.apply(null, data.map(dataItem => dataItem[field]));
-    let scale;
-
-    if (opt.orientation === 'horizontal') {
-      scale = scaleLinear()
-        .domain([min, max])
-        .range([margin, width - (2 * margin)]);
-    } else {
-      scale = scaleLinear()
-        .domain([min, max])
-        .range([margin, height - (2 * margin)]);
-    }
-    acc[field] = scale;
+    acc[field] = scaleLinear().domain([min, max]).range((
+      opt.orientation === 'horizontal'
+        ? [margin, width - (2 * margin)]
+        : [margin, height - (2 * margin)]));
     return acc;
   }, {});
 
 export const ScaleState = ({ settings }) => (
   <Plugin name="ScaleState">
     <Getter name="scales" computed={scalesCompted(settings)} />
+    <Getter
+      name="orientations"
+      value={settings.reduce((acc, d) => {
+        acc[d.dataField] = d.orientation;
+        return acc;
+      }, {})}
+    />
   </Plugin>
 );
 

@@ -9,8 +9,7 @@ import {
 const margin = 20;
 const tickSize = 5;
 
-const getAxisCoords = (scale, orientation) => {
-  const valueTicks = scale.ticks();
+const getAxisCoords = (scale, width, height, orientation) => {
   let getTickCoords;
   if (orientation === 'horizontal') {
     getTickCoords = (tick) => {
@@ -40,15 +39,18 @@ const getAxisCoords = (scale, orientation) => {
     };
   }
   return {
-    ticks: valueTicks.map(getTickCoords),
+    ticks: scale.ticks().map(getTickCoords),
   };
 };
 
-const computeCoords = ({ settings }) => ({ scales }) => settings.reduce((acc, opt) => {
-  const scale = scales[opt.name];
-  acc[opt.name] = getAxisCoords(scale, opt.orientation);
-  return acc;
-}, {});
+const computeCoords = ({ settings }) => ({
+  scales, width, height, orientations,
+}) =>
+  settings.reduce((acc, opt) => {
+    const scale = scales[opt.fieldName];
+    acc[opt.fieldName] = getAxisCoords(scale, width, height, orientations[opt.fieldName]);
+    return acc;
+  }, {});
 
 export const AxesState = props => (
   <Plugin name="AxesState">

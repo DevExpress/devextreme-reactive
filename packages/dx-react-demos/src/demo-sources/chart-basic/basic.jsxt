@@ -10,14 +10,14 @@ import {
 } from '@devexpress/dx-react-chart';
 
 const data = [
-  { year: 2000, born: 100 },
-  { year: 2001, born: 110 },
-  { year: 2002, born: 95 },
-  { year: 1995, born: 101 },
-  { year: 1998, born: 200 },
-  { year: 2015, born: 89 },
-  { year: 2006, born: 115 },
-  { year: 2007, born: 230 },
+  { year: 2000, born: 100, male: 70, female: 30 },
+  { year: 2001, born: 110, male: 70, female: 40 },
+  { year: 2002, born: 95, male: 70, female: 25 },
+  { year: 1995, born: 101, male: 70, female: 31 },
+  { year: 1998, born: 200, male: 70, female: 130 },
+  { year: 2015, born: 89, male: 70, female: 19 },
+  { year: 2006, born: 115, male: 70, female: 45 },
+  { year: 2007, born: 230, male: 70, female: 160 },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -36,43 +36,54 @@ export default class Demo extends React.PureComponent {
         height="400"
         style={{ border: '1px dashed gray' }}
       >
-        <ScaleState
+        {/* <ScaleState
+          argumentField="year"
           settings={[
             {
-              dataField: 'year',
+              dataFields: ['year'],
               orientation: 'horizontal',
+              id: 'x',
             },
             {
-              dataField: 'born',
+              dataFields: ['born', 'male', 'female'],
               orientation: 'vertical',
               tickInterval: 10,
+              id: 'y',
             },
           ]}
-        />
+        /> */}
 
         <AxesState
-          settings={[
-            { fieldName: 'year' },
-            { fieldName: 'born' },
+          axes={[
+            { name: 'year', orientation: 'horizontal' },
+            { name: 'born', orientation: 'vertical' },
           ]}
         />
 
         <SeriesState
-          settings={[
-            { argumentField: 'year', valueField: 'born' },
-            { argumentField: 'born', valueField: 'year' },
+          series={[
+            { valueField: 'born', argumentField: 'year' },
+            { valueField: 'male', argumentField: 'year' },
+            { valueField: 'female', argumentField: 'year' },
           ]}
         />
 
-        <Axis dataField="year" /> {/* <Axis for="year" /> */}
-        <Axis dataField="born" />
+        <IntegratedAxisScale />
+        <IntegratedLineSeries />
+        <IntegratedBarSeries />
+
+        <Axis name="year" />
+        <Axis name="born" />
 
         <LineSeries
-          seriesKey="year|born"
+          name="born"
           style={{ stroke: 'red' }}
         />
         <LineSeries
-          seriesKey="born|year"
+          name="male"
+        />
+        <LineSeries
+          name="female"
         />
 
       </Chart>

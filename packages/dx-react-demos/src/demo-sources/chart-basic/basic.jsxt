@@ -1,24 +1,24 @@
-/* eslint-disable */
+/* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
 import {
   Chart,
   Axis,
   AxesState,
   LineSeries,
-  ScaleState
-} from "@devexpress/dx-react-chart";
+  ScaleState,
+} from '@devexpress/dx-react-chart';
 
 const data = [
-  { year: 2000, born: 100, percent: "95" },
-  { year: 2001, born: 110, percent: "100" },
-  { year: 2002, born: 95, percent: "80" }
+  { year: 2000, born: 100, percent: '95' },
+  { year: 2001, born: 110, percent: '100' },
+  { year: 2002, born: 95, percent: '80' },
 ];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data
+      data,
     };
   }
   render() {
@@ -29,29 +29,29 @@ export default class Demo extends React.PureComponent {
         data={data}
         width="450"
         height="400"
-        style={{ border: "1px dashed gray" }}
+        style={{ border: '1px dashed gray' }}
       >
         <ScaleState
           settings={[
             {
-              dataField: "year",
-              orientation: "horizontal",
-              isArgumentField: true
+              dataField: 'year',
+              orientation: 'horizontal',
+              isArgumentField: true,
             },
             {
-              dataField: "born",
+              dataField: 'born',
               tickInterval: 10,
-              orientation: "vertical",
-              isValueField: true
+              orientation: 'vertical',
+              isValueField: true,
             },
-            { dataField: "percent" }
+            { dataField: 'percent' },
           ]}
         />
 
         <AxesState
           settings={[
-            { name: "year", orientation: "horizontal" },
-            { name: "born", orientation: "vertical" }
+            { name: 'year', orientation: 'horizontal' },
+            { name: 'born', orientation: 'vertical' },
           ]}
         />
 

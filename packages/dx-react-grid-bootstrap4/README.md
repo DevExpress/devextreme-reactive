@@ -1,28 +1,30 @@
 # DevExtreme React Grid Bootstrap4
 
-A template suite used to render the React Grid based on Bootstrap 4 components.
+A template suite used to render the React Grid's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.
 
 ## Installation
 
-Install the main dx-react-grid package with its dependencies and Bootstrap 4 templates:
+Install the main dx-react-grid package with its dependencies and Bootstrap 4 templates using the following command:
 
 ```
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap4
 ```
 
-Add the DevExtreme React Grid styles to your index.html file or import CSS to root .js file
+Add the DevExtreme React Grid styles in one of the following ways:
 
-```html
-<link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
-```
+- In the index.html file
 
-```js
-import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-```
+  ```html
+  <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
+  ```
 
-Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+- In the root .js file.
 
-NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
+  ```js
+  import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+  ```
+
+The DevExtreme React Grid also requires the [OpenIconic](https://useiconic.com/open) icons to be added to your project.
 
 Add the required modules to your project:
 
@@ -52,7 +54,7 @@ Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are inst
 
 ## Getting started
 
-This package provides components and plugins implementing Bootstrap 4 rendering for the React Grid, which you can use instead of the original React Grid package ones.
+The dx-react-grid-bootstrap4 package provides components and plugins implementing Bootstrap 4 rendering for the React Grid. You can use them instead of the ones the React Grid package provides.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -62,27 +64,27 @@ The package exposes components and plugins with injected template components.
 
 Components:
 
-- [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/)
+- [Grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/) - the Grid component
 
 Plugins:
 
-- [DragDropProvider](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/)
-- [GroupingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/)
-- [ColumnChooser](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/column-chooser/)
-- [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/)
-- [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/)
-- [TableColumnResizing](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-resizing/)
-- [TableColumnReordering](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-reordering/)
-- [TableColumnVisibility](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-visibility/)
-- [TableEditColumn](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-column/)
-- [TableEditRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-row/)
-- [TableFilterRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/)
-- [TableGroupRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/)
-- [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
-- [TableRowDetail](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-row-detail/)
-- [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/)
-- [Toolbar](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/toolbar/)
-- [VirtualTable](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table/)
+- [DragDropProvider](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/) - implements the drag-and-drop functionality and visualizes columns that are being dragged
+- [GroupingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/) - renders the Grouping Panel in the Grid’s header
+- [ColumnChooser](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/column-chooser/) - allows a user to show and hide grid columns at runtime
+- [PagingPanel](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/) - renders the paging panel
+- [Table](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/) - renders Grid data as a table
+- [TableColumnResizing](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-resizing/) - manages table column widths
+- [TableColumnReordering](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-reordering/) - manages the displayed columns’ order
+- [TableColumnVisibility](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-visibility/) - manages Grid columns’ visibility
+- [TableEditColumn](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-column/) - renders a command column
+- [TableEditRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-row/) - renders a row being edited
+- [TableFilterRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/) - renders a filter row
+- [TableGroupRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/) - renders group rows and enables them to expand and collapse
+- [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/) - renders the table’s header row
+- [TableRowDetail](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-row-detail/) - renders detail rows
+- [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/) - visualizes table rows’ selection state by rendering selection checkboxes and highlighting the selected rows
+- [Toolbar](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/toolbar/) - renders the Grid toolbar
+- [VirtualTable](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table/) - renders a scrollable table
 
 ## License
 

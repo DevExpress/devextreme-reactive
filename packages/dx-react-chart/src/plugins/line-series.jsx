@@ -6,7 +6,7 @@ import { line } from 'd3-shape';
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 
-export const LineSeries = () => (
+export const LineSeries = ({ argumentField }) => (
   <Plugin name="LineSeries">
     <Template name="pane">
       <TemplateConnector>
@@ -15,7 +15,7 @@ export const LineSeries = () => (
             <path
               d={line()
                 .x(getX)
-                .y(getY)(linePath)}
+                .y(getY)(linePath[argumentField])}
               style={{ stroke: 'black', strokeWidth: '1px', fill: 'none' }}
             />
           </g>))

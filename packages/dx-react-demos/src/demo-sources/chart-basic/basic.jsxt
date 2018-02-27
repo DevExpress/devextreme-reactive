@@ -6,7 +6,7 @@ import {
   AxesState,
   LineSeries,
   ScaleState,
-  LineSeriesState,
+  SeriesState,
 } from '@devexpress/dx-react-chart';
 
 const data = [
@@ -55,13 +55,15 @@ export default class Demo extends React.PureComponent {
           ]}
         />
 
-        <LineSeriesState
-          settings={{ argumentField: 'year', valueField: 'born' }}
+        <SeriesState
+          settings={[
+            { argumentField: 'year', valueField: 'born' },
+          ]}
         />
 
         <Axis dataField="year" />
         <Axis dataField="born" />
-        <LineSeries valueField="born" argumentField="year" />
+        <LineSeries argumentField="year" valueField="born" />
       </Chart>
     );
   }

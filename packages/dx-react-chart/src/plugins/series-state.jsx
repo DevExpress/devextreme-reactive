@@ -5,17 +5,17 @@ import { Plugin, Getter } from '@devexpress/dx-react-core';
 
 const computeLinePath = ({ settings }) => ({
   data, scales,
-}) => {
-  const { argumentField, valueField } = settings;
-  debugger
-  return data.map(d => ({
+}) => settings.reduce((acc, setting) => {
+  const { argumentField, valueField } = setting;
+  acc[argumentField] = data.map(d => ({
     x: scales[argumentField](d[argumentField]),
     y: scales[valueField](d[valueField]),
   }));
-};
+  return acc;
+}, {});
 
-export const LineSeriesState = props => (
-  <Plugin name="LineSeriesState">
+export const SeriesState = props => (
+  <Plugin name="SeriesState">
     <Getter name="linePath" computed={computeLinePath(props)} />
   </Plugin>
 );

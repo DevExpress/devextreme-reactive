@@ -12,8 +12,12 @@ import {
 const margin = 20;
 const tickSize = 5;
 
-const getAxisCoords = (scale, orientation) => {
-  const valueTicks = scale.ticks();
+const getAxisCoords = (scale, width, height, orientation) => {
+  const valueTicks = scale.range((
+    orientation === 'horizontal'
+      ? [margin, width - (2 * margin)]
+      : [margin, height - (2 * margin)])).ticks();
+
   let getTickCoords;
   if (orientation === 'horizontal') {
     getTickCoords = (tick) => {
@@ -47,9 +51,9 @@ const getAxisCoords = (scale, orientation) => {
   };
 };
 
-const computeCoords = ({ settings }) => ({ scales }) => settings.reduce((acc, opt) => {
+const computeCoords = ({ settings }) => ({ scales, width, height }) => settings.reduce((acc, opt) => {
   const scale = scales[opt.name];
-  acc[opt.name] = getAxisCoords(scale, opt.orientation);
+  acc[opt.name] = getAxisCoords(scale, width, height, opt.orientation);
   return acc;
 }, {});
 

@@ -27,7 +27,7 @@ export default class Demo extends React.PureComponent {
     return (
       <Chart
         data={data}
-        width="450"
+        width="700"
         height="400"
         style={{ border: '1px dashed gray' }}
       >
@@ -35,13 +35,11 @@ export default class Demo extends React.PureComponent {
           settings={[
             {
               dataField: 'year',
-              orientation: 'horizontal',
               isArgumentField: true,
             },
             {
               dataField: 'born',
               tickInterval: 10,
-              orientation: 'vertical',
               isValueField: true,
             },
             { dataField: 'percent' },

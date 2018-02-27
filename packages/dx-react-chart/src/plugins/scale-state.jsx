@@ -43,23 +43,13 @@ const path = settings => ({ data, width, height }) =>
     return acc;
   }, {});
 
-const scalesCompted = settings => ({ data, width, height }) =>
+const scalesCompted = settings => ({ data }) =>
   settings.reduce((acc, opt) => {
     const field = opt.dataField;
     const min = Math.min.apply(null, data.map(dataItem => dataItem[field]));
     const max = Math.max.apply(null, data.map(dataItem => dataItem[field]));
-    let scale;
-
-    if (opt.orientation === 'horizontal') {
-      scale = scaleLinear()
-        .domain([min, max])
-        .range([margin, width - (2 * margin)]);
-    } else {
-      scale = scaleLinear()
-        .domain([min, max])
-        .range([margin, height - (2 * margin)]);
-    }
-    acc[field] = scale;
+    acc[field] = scaleLinear()
+      .domain([min, max]);
     return acc;
   }, {});
 

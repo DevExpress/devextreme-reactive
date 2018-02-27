@@ -41,14 +41,14 @@ filters | Array&lt;[FilterExpression](#filterexpression)&#124;[Filter](filtering
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be filtered.
-filterExpression | Getter | [FilterExpression](#filterexpression)&#124;[Filter](filtering-state.md#filter) | Filters expression to be applied.
-getCellValue | Getter | (row: any, columnName: string) => any | The function used to get a cell value.
-isGroupRow? | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
-getRowLevelKey? | Getter | (row: any) => string? | A function used to get row level key.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be filtered.
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](#filterexpression)&#124;[Filter](filtering-state.md#filter) | Filters expression to be applied.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | The function used to get a cell value.
+isGroupRow? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
+getRowLevelKey? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get row level key.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | The filtered rows.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | The filtered rows.

@@ -7,11 +7,14 @@ var gulp = require('gulp'),
 var distPath = 'site/';
 var versionTag = process.env.VERSION_TAG;
 
-var splitNameToPath = function(path) {
-  // dx-react-grid-bs3\... ==> react\grid\bs3\...
-  return path
-    .replace(/dx-/, '')
-    .replace(/-/g, '/');
+var splitNameToPath = function(pathPrefix, path) {
+  // {prefix}dx-react-grid-bs3/... ==> {prefix}{../../}?react/grid/bs3/...
+  const dxPartEnd = path.indexOf('/');
+  const dxPart = path.slice(0, dxPartEnd).replace(/dx-/, '');
+  return pathPrefix
+    + (pathPrefix ? '../'.repeat(dxPart.split('-').length - 1) : '')
+    + dxPart.replace(/-/g, '/')
+    + path.slice(dxPartEnd);
 };
 
 var extractMDTitle = function(content) {
@@ -32,13 +35,9 @@ var addFrontMatter = function(content) {
 
 var patchMDLinks = function(content) {
   return content
-    .replace(/http\:\/\/devexpress\.github\.io/g, '')
-    .replace(/(?:(?:\.\.)\/)+(dx-.+?\.md)/g, function(match, path) {
-      return '{{site.baseurl}}/'+
-        splitNameToPath(path)
-        .replace(/readme\.md/i, '');
-    })
-    .replace(/readme\.md/i, '../');
+    .replace(/((?:(?:\.\.)\/)+)(dx-.+?\.md)/g, function(match, pathPrefix, path) {
+      return splitNameToPath(pathPrefix, path);
+    });
 };
 
 var patchMDTables = function(content) {
@@ -69,11 +68,7 @@ var injectLiveDemos = function(content) {
     .replace(
       /\.embedded\-demo\(([^\(\)]*)\)/g,
       function(match, p1) {
-        var data = { path: p1 };
-        try {
-          data = JSON.parse(p1);
-        } catch (e) {}
-
+        const data = JSON.parse(p1);
         const options = {
           ...data,
           path: `/demo/${data.path}`,
@@ -107,7 +102,7 @@ gulp.task('site:docs', function() {
       '!/**/node_modules/**/*'
     ])
     .pipe(rename(function(path) {
-      path.dirname = splitNameToPath(path.dirname);
+      path.dirname = splitNameToPath('', path.dirname);
       path.basename = path.basename
         .replace(/readme/i, 'index');
     }))

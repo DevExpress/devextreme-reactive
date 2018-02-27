@@ -1,4 +1,31 @@
 react:
+  core:
+    - title: Guides
+      items:
+        - title: Fundamentals
+          path: /react/core/docs/guides/fundamentals
+        - title: Rendering Markup
+          path: /react/core/docs/guides/rendering-markup
+        - title: Providing Values
+          path: /react/core/docs/guides/providing-values
+        - title: Providing Actions
+          path: /react/core/docs/guides/providing-actions
+    - title: API Reference
+      items:
+        - title: PluginHost
+          path: /react/core/docs/reference/plugin-host
+        - title: Plugin
+          path: /react/core/docs/reference/plugin
+        - title: Action
+          path: /react/core/docs/reference/action
+        - title: Getter
+          path: /react/core/docs/reference/getter
+        - title: Template
+          path: /react/core/docs/reference/template
+        - title: TemplatePlaceholder
+          path: /react/core/docs/reference/template-placeholder
+        - title: TemplateConnector
+          path: /react/core/docs/reference/template-connector
   grid:
     - title: Guides
       items:

@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  getAvailableGetters,
+  getAvailableActions,
+} from '../utils/plugin-helpers';
 import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export class Action extends React.PureComponent {
@@ -9,9 +13,24 @@ export class Action extends React.PureComponent {
 
     this.plugin = {
       position: () => this.props.position(),
-      [`${name}Action`]: (params, getters, actions) => {
+      [`${name}Action`]: (params) => {
         const { action } = this.props;
+        const { getters } = getAvailableGetters(
+          pluginHost,
+          getterName => pluginHost.get(`${getterName}Getter`, this.plugin),
+        );
+        let nextParams = params;
+        const actions = getAvailableActions(
+          pluginHost,
+          actionName => (actionName === name
+            ? (newParams) => { nextParams = newParams; }
+            : pluginHost.collect(`${actionName}Action`, this.plugin).slice().reverse()[0]),
+        );
         action(params, getters, actions);
+        const nextAction = pluginHost.collect(`${name}Action`, this.plugin).slice().reverse()[0];
+        if (nextAction) {
+          nextAction(nextParams);
+        }
       },
     };
 

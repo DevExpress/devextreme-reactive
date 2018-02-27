@@ -20,13 +20,13 @@ Import the plugins listed above to set up a Grid with basic searching.
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial searching value in the `SearchState` plugin's `defaultValue` property.
 
-.embedded-demo(grid-searching/uncontrolled-mode)
+.embedded-demo({ "path": "grid-searching/uncontrolled-mode", "showThemeSelector": true })
 
 ### Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search option to the `SearchState` plugin's `value` property and handle the `onValueChange` event to control the search state externally.
 
-.embedded-demo(grid-searching/controlled-mode)
+.embedded-demo({ "path": "grid-searching/controlled-mode", "showThemeSelector": true })
 
 ## Remote Searching
 
@@ -36,4 +36,4 @@ Searching options are updated once an end user modifies the text in a Search Pan
 
 Note that you do not need to use the `IntegratedFiltering` plugin for remote searching.
 
-.embedded-demo(grid-searching/remote-mode)
+.embedded-demo({ "path": "grid-searching/remote-mode", "showThemeSelector": true })

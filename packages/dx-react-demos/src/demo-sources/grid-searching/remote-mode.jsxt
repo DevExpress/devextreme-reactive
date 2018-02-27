@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <SearchState
-            onValueChange={this.changeValue}
+            onValueChange={this.changeSearchValue}
           />
           <VirtualTable />
           <TableHeaderRow />

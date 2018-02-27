@@ -39,7 +39,7 @@ searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
 
 Name | Properties | Description
 -----|------------|------------
-SearchState.Input | [SearchPanel.InputProps](#inputprops) | A component that renders the search panel input element.
+SearchPanel.Input | [SearchPanel.InputProps](#inputprops) | A component that renders the search panel input element.
 
 If you specify additional properties, they are added to the component's root element.
 

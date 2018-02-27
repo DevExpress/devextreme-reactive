@@ -49,8 +49,8 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-searchValue | Getter | string | The applied search value
-changeSearchValue | Action | (value:string) => void | Fires the `onValueChange` event with the corresponding value and change search value state
+searchValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The applied search value
+changeSearchValue | [Action](../../../dx-react-core/docs/reference/action.md) | (value:string) => void | Fires the `onValueChange` event with the corresponding value and change search value state
 
 ### Exports
 

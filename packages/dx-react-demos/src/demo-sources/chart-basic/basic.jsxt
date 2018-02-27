@@ -35,13 +35,11 @@ export default class Demo extends React.PureComponent {
           settings={[
             {
               dataField: 'year',
-              isArgumentField: true,
               orientation: 'horizontal',
             },
             {
               dataField: 'born',
               tickInterval: 10,
-              isValueField: true,
               orientation: 'vertical',
             },
             { dataField: 'percent' },

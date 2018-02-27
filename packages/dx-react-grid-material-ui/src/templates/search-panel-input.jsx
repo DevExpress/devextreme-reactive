@@ -7,7 +7,7 @@ import Search from 'material-ui-icons/Search';
 const styles = theme => ({
   root: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     color: theme.palette.action.active,
   },
 });

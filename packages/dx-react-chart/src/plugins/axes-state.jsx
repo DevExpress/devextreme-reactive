@@ -51,11 +51,12 @@ const getAxisCoords = (scale, width, height, orientation) => {
   };
 };
 
-const computeCoords = ({ settings }) => ({ scales, width, height }) => settings.reduce((acc, opt) => {
-  const scale = scales[opt.name];
-  acc[opt.name] = getAxisCoords(scale, width, height, opt.orientation);
-  return acc;
-}, {});
+const computeCoords = ({ settings }) => ({ scales, width, height }) =>
+  settings.reduce((acc, opt) => {
+    const scale = scales[opt.name];
+    acc[opt.name] = getAxisCoords(scale, width, height, opt.orientation);
+    return acc;
+  }, {});
 
 export const AxesState = props => (
   <Plugin name="AxesState">

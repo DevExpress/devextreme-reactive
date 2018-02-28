@@ -51,6 +51,7 @@ export class TemplateConnector extends React.Component {
     return this.state.children;
   }
 }
+
 TemplateConnector.propTypes = {
   children: PropTypes.func.isRequired,
 };

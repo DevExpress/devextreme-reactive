@@ -20,10 +20,10 @@ Import the plugins listed above to set up a simple Grid with column resizing ena
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), use the `TableColumnResizing` plugin's `defaultColumnWidths` property to specify the initial column widths. This property should define every column's width; otherwise, it throws an error.
 
-.embedded-demo(grid-column-resizing/uncontrolled)
+.embedded-demo({ "path": "grid-column-resizing/uncontrolled", "showThemeSelector": true })
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the column widths to the `TableColumnResizing` plugin's `columnWidths` property, and handle the `onColumnWidthsChange` event to control the column width state.
 
-.embedded-demo(grid-column-resizing/controlled)
+.embedded-demo({ "path": "grid-column-resizing/controlled", "showThemeSelector": true })

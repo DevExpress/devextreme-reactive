@@ -31,20 +31,31 @@ export class GroupingPanel extends React.PureComponent {
 
     const ItemPlaceholder = ({ item }) => {
       const { name: columnName } = item.column;
+
       return (
         <TemplateConnector>
-          {({ sorting }, { changeColumnGrouping, changeColumnSorting }) => (
-            <Item
-              item={item}
-              showSortingControls={showSortingControls && sorting !== undefined}
-              sortingDirection={sorting !== undefined
-                ? getColumnSortingDirection(sorting, columnName) : undefined}
-              showGroupingControls={showGroupingControls}
-              onGroup={() => changeColumnGrouping({ columnName })}
-              onSort={({ direction, keepOther }) =>
-                changeColumnSorting({ columnName, direction, keepOther })}
-            />
-          )}
+          {(
+            { sorting, isColumnSortingEnabled, isColumnGroupingEnabled },
+            { changeColumnGrouping, changeColumnSorting },
+          ) => {
+            const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+            const groupingEnabled = isColumnGroupingEnabled && isColumnGroupingEnabled(columnName);
+
+            return (
+              <Item
+                item={item}
+                sortingEnabled={sortingEnabled}
+                groupingEnabled={groupingEnabled}
+                showSortingControls={showSortingControls}
+                sortingDirection={showSortingControls
+                  ? getColumnSortingDirection(sorting, columnName) : undefined}
+                showGroupingControls={showGroupingControls}
+                onGroup={() => changeColumnGrouping({ columnName })}
+                onSort={({ direction, keepOther }) =>
+                  changeColumnSorting({ columnName, direction, keepOther })}
+              />
+            );
+          }}
         </TemplateConnector>
       );
     };
@@ -61,12 +72,13 @@ export class GroupingPanel extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, grouping, draftGrouping, draggingEnabled,
+              columns, grouping, draftGrouping, draggingEnabled, isColumnGroupingEnabled,
             }, {
               changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
             }) => (
               <Layout
                 items={groupingPanelItems(columns, grouping, draftGrouping)}
+                isColumnGroupingEnabled={isColumnGroupingEnabled}
                 draggingEnabled={draggingEnabled}
                 onGroup={changeColumnGrouping}
                 onGroupDraft={draftColumnGrouping}

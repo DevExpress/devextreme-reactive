@@ -134,18 +134,18 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be rendered by the table view.
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a cell’s value.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be rendered by the table view.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
+getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a cell’s value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableHeaderRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-tableColumns | Getter | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
-table | Template | Object? | A template that renders the table.
-tableCell | Template | [Table.CellProps](#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [Table.RowProps](#tablerowprops) | A template that renders a table row.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the table.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](#tablerowprops) | A template that renders a table row.

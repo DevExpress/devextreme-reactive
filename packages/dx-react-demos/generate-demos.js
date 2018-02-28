@@ -16,7 +16,8 @@ const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
 const themeNames = [];
 const loadThemeNames = () => {
   fs.readdirSync(THEMES_FOLDER).forEach((themeName) => {
-    if (!themeName.startsWith('.') && fs.lstatSync(path.join(THEMES_FOLDER, themeName)).isDirectory()) {
+    if (themeName.startsWith('.')) return;
+    if (fs.lstatSync(path.join(THEMES_FOLDER, themeName)).isDirectory()) {
       themeNames.push(themeName);
     }
   });
@@ -42,13 +43,15 @@ const getDemoExtension = (source) => {
 const demos = [];
 const loadDemosToGenerate = () => {
   fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
-    if (!sectionName.startsWith('.') && fs.lstatSync(path.join(DEMOS_FOLDER, sectionName)).isDirectory()) {
+    if (sectionName.startsWith('.')) return;
+    if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName)).isDirectory()) {
       const generateSsrTest = sectionName.indexOf('featured') > -1;
 
       fs.readdirSync(path.join(DEMOS_FOLDER, sectionName)).forEach((file) => {
         if (file.startsWith('.')) return;
         if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
           fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
+            if (nestedFile.startsWith('.')) return;
             if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;

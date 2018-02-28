@@ -29,7 +29,7 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-pageSize | Getter | number | The page size.
-setPageSize | Action | (size: number) => void | Changes the page size.
-currentPage | Getter | number | The current page number.
-setCurrentPage | Action | (page: number) => void | Changes the current page number.
+pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The page size.
+setPageSize | [Action](../../../dx-react-core/docs/reference/action.md) | (size: number) => void | Changes the page size.
+currentPage | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The current page number.
+setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page number.

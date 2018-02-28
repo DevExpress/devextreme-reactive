@@ -54,12 +54,12 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-currentPage | Getter | number | The current page.
-pageSize | Getter | number | The page size.
-totalCount | Getter | number | The total row count.
-setCurrentPage | Action | (page: number) => void | Changes the current page.
-setPageSize | Action | (size: number) => void | Changes the page size.
-footer | Template | Object? | A template that renders the grid footer.
+currentPage | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The current page.
+pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The page size.
+totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.
+setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page.
+setPageSize | [Action](../../../dx-react-core/docs/reference/action.md) | (size: number) => void | Changes the page size.
+footer | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid footer.
 
 ### Exports
 

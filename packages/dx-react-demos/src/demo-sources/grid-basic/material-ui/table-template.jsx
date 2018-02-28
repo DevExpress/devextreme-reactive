@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 const TableComponentBase = ({ classes, ...restProps }) => (
-  <Table.Container
+  <Table.Table
     {...restProps}
     className={classes.tableStriped}
   />

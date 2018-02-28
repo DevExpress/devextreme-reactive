@@ -18,7 +18,7 @@ The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Or
 
 The Grid's visualization plugins provide a rich API to customize grid elements' appearance. Examples of the most popular customization tasks are described below.
 
-The `Table` plugin allows you to customize table, table head and table body appearance using `tableComponent`, `tableHead` and `tableBody` [properties](../reference/table.md/#properties) of Table. The following sample demonstrated how to use `tableComponent` and make a 'striped' table.
+The `Table` plugin allows you to customize table, table head and table body appearance using `tableComponent`, `tableHead`, `tableBody` and `containerComponent` [properties](../reference/table.md/#properties) of Table. The following sample demonstrated how to use `tableComponent` and make a 'striped' table.
 
 .embedded-demo(grid-basic/table-template)
 

@@ -41,7 +41,7 @@ export class Table extends React.PureComponent {
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
-      messages,
+      messages, containerComponent,
       tableComponent, headComponent, bodyComponent, stickyTableComponent,
     } = this.props;
 
@@ -69,6 +69,7 @@ export class Table extends React.PureComponent {
                 tableComponent={tableComponent}
                 headComponent={headComponent}
                 bodyComponent={bodyComponent}
+                containerComponent={containerComponent}
                 headerRows={headerRows}
                 bodyRows={bodyRows}
                 columns={columns}
@@ -157,6 +158,7 @@ Table.propTypes = {
   tableComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   bodyComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   noDataCellComponent: PropTypes.func.isRequired,

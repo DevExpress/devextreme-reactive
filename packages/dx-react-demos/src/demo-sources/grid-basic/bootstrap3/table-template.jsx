@@ -11,7 +11,7 @@ import {
 } from '../../../demo-data/generator';
 
 const TableComponent = ({ ...restProps }) => (
-  <Table.Container
+  <Table.Table
     {...restProps}
     className="table-striped"
   />

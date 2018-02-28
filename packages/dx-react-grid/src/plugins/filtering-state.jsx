@@ -23,10 +23,10 @@ export class FilteringState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      filters = this.state.filters,
+      filters,
     } = nextProps;
     this.setState({
-      filters,
+      ...filters !== undefined ? { filters } : null,
     });
   }
   render() {

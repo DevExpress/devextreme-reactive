@@ -3,25 +3,21 @@ import PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
-
   startEditRows,
   stopEditRows,
-
   addRow,
   changeAddedRow,
   cancelAddedRows,
   addedRowsByIds,
-
   changeRow,
   cancelChanges,
   changedRowsByIds,
-
   deleteRows,
   cancelDeletedRows,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-export class EditingState extends React.PureComponent {
+export class EditingState extends React.Component {
   constructor(props) {
     super(props);
 
@@ -82,16 +78,16 @@ export class EditingState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      editingRowIds = this.state.editingRowIds,
-      rowChanges = this.state.rowChanges,
-      addedRows = this.state.addedRows,
-      deletedRowIds = this.state.deletedRowIds,
-    } = nextProps;
-    this.setState({
       editingRowIds,
       rowChanges,
       addedRows,
       deletedRowIds,
+    } = nextProps;
+    this.setState({
+      ...editingRowIds !== undefined ? { editingRowIds } : null,
+      ...rowChanges !== undefined ? { rowChanges } : null,
+      ...addedRows !== undefined ? { addedRows } : null,
+      ...deletedRowIds !== undefined ? { deletedRowIds } : null,
     });
   }
   render() {

@@ -144,6 +144,35 @@ export const testStatePluginField = ({
           .toBe(values[0]);
       });
 
+      it(`should not apply undefined ${propertyName} property after ${actionName} action calls`, () => {
+        const Test = ({ prop }) => (
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <Plugin
+              {...defaultProps}
+              {...{
+                [defaultPropertyName]: values[0],
+                anotherProp: prop,
+              }}
+            />
+          </PluginHost>
+        );
+        Test.propTypes = {
+          prop: PropTypes.any.isRequired,
+        };
+
+        const tree = mount(<Test prop={values[0]} />);
+        const payload = {};
+        reducer.mockReturnValue(fieldReducer ? values[1] : { [propertyName]: values[1] });
+        executeComputedAction(tree, (computedActions) => {
+          computedActions[actionName](payload);
+          tree.setProps({ prop: values[2] });
+        });
+
+        expect(getGetterValue(tree))
+          .toBe(values[1]);
+      });
+
       it(`should correctly work with the several ${actionName} action calls`, () => {
         const change = jest.fn();
         const tree = mount((

@@ -36,10 +36,10 @@ export class TableColumnVisibility extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      hiddenColumnNames = this.state.hiddenColumnNames,
+      hiddenColumnNames,
     } = nextProps;
     this.setState({
-      hiddenColumnNames,
+      ...hiddenColumnNames !== undefined ? { hiddenColumnNames } : null,
     });
   }
   render() {

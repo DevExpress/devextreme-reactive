@@ -55,12 +55,12 @@ export class GroupingState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      grouping = this.state.grouping,
-      expandedGroups = this.state.expandedGroups,
-    } = nextProps;
-    this.setState({
       grouping,
       expandedGroups,
+    } = nextProps;
+    this.setState({
+      ...grouping !== undefined ? { grouping } : null,
+      ...expandedGroups !== undefined ? { expandedGroups } : null,
     });
   }
   changeColumnSorting(

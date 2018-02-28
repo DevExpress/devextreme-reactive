@@ -24,10 +24,10 @@ export class RowDetailState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      expandedRowIds = this.state.expandedRowIds,
+      expandedRowIds,
     } = nextProps;
     this.setState({
-      expandedRowIds,
+      ...expandedRowIds !== undefined ? { expandedRowIds } : null,
     });
   }
   render() {

@@ -24,10 +24,10 @@ export class SelectionState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      selection = this.state.selection,
+      selection,
     } = nextProps;
     this.setState({
-      selection,
+      ...selection !== undefined ? { selection } : null,
     });
   }
   render() {

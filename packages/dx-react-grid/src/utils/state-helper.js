@@ -29,7 +29,8 @@ export const createStateHelper = (component, controlledStateProperties = {}) => 
       if (initialState === null) {
         initialState = prevState;
       }
-      const state = { ...prevState, ...reduce({ ...prevState }, payload) };
+      const stateChange = reduce({ ...prevState }, payload);
+      const state = { ...prevState, ...stateChange };
 
       if (typeof callback === 'function') {
         callback(state, prevState);
@@ -39,7 +40,7 @@ export const createStateHelper = (component, controlledStateProperties = {}) => 
         initialState = null;
       }
 
-      return state;
+      return stateChange;
     };
     lastStateUpdater = stateUpdater;
     component.setState(stateUpdater);

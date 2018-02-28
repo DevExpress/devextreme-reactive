@@ -38,10 +38,10 @@ export class TableColumnResizing extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      columnWidths = this.state.columnWidths,
+      columnWidths,
     } = nextProps;
     this.setState({
-      columnWidths,
+      ...columnWidths !== undefined ? { columnWidths } : null,
     });
   }
   render() {

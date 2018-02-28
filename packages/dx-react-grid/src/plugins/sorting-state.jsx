@@ -24,10 +24,10 @@ export class SortingState extends React.PureComponent {
   }
   componentWillReceiveProps(nextProps) {
     const {
-      sorting = this.state.sorting,
+      sorting,
     } = nextProps;
     this.setState({
-      sorting,
+      ...sorting !== undefined ? { sorting } : null,
     });
   }
   render() {

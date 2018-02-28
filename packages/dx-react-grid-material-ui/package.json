@@ -73,8 +73,8 @@
     "jss": "^9.6.0",
     "jss-preset-default": "^4.1.0",
     "jss-theme-reactor": "^0.11.1",
-    "material-ui": "1.0.0-beta.33",
-    "material-ui-icons": "1.0.0-beta.17",
+    "material-ui": "1.0.0-beta.35",
+    "material-ui-icons": "1.0.0-beta.35",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
@@ -91,8 +91,8 @@
     "@devexpress/dx-grid-core": "1.0.1",
     "@devexpress/dx-react-core": "1.0.1",
     "@devexpress/dx-react-grid": "1.0.1",
-    "material-ui": "1.0.0-beta.33",
-    "material-ui-icons": "1.0.0-beta.17",
+    "material-ui": "1.0.0-beta.35",
+    "material-ui-icons": "1.0.0-beta.35",
     "react": "^16.2.0"
   }
 }

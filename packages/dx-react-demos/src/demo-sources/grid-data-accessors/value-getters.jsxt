@@ -2,6 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
+  TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 import {
@@ -17,18 +18,21 @@ export default class Demo extends React.PureComponent {
       columns: [
         {
           name: 'firstName',
+          title: 'First Name',
           getCellValue: row => (row.user ? row.user.firstName : undefined),
         },
         {
           name: 'lastName',
+          title: 'Last Name',
           getCellValue: row => (row.user ? row.user.lastName : undefined),
         },
         {
           name: 'car',
+          title: 'Car',
           getCellValue: row => (row.car ? row.car.model : undefined),
         },
-        { name: 'position' },
-        { name: 'city' },
+        { name: 'position', title: 'Position' },
+        { name: 'city', title: 'City' },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
@@ -47,6 +51,7 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <Table />
+          <TableHeaderRow />
         </Grid>
       </<%&wrapperTag%>>
     );

@@ -4,7 +4,6 @@ import {
   TableLayout,
   VirtualTableLayout as VirtualTableLayoutCore,
 } from '@devexpress/dx-react-grid';
-import { TableContainer } from './table-container';
 
 const MINIMAL_COLUMN_WIDTH = 120;
 
@@ -15,7 +14,7 @@ export const VirtualTableLayout = ({
   cellComponent,
   rowComponent,
   height,
-  estimatedRowHeight,
+  estimatedRowHeight, containerComponent,
   tableComponent, bodyComponent, headComponent, headTableComponent,
 }) => (
   <TableLayout
@@ -29,7 +28,7 @@ export const VirtualTableLayout = ({
     bodyComponent={bodyComponent}
     headComponent={headComponent}
     headTableComponent={headTableComponent}
-    containerComponent={TableContainer}
+    containerComponent={containerComponent}
     estimatedRowHeight={estimatedRowHeight}
     minColumnWidth={MINIMAL_COLUMN_WIDTH}
     height={height}
@@ -48,4 +47,5 @@ VirtualTableLayout.propTypes = {
   bodyComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   headTableComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
 };

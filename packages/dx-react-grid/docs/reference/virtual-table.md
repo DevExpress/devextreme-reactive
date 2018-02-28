@@ -20,6 +20,7 @@ tableComponent | ReactNode | | A component that renders a table.
 headComponent | ReactNode | | A component that renders a table head.
 bodyComponent | ReactNode | | A component that renders a table body.
 stickyTableComponent | ReactNode | | A component that renders a sticky header.
+containerComponent | ReactNode | | A component that renders a container for virtual table.
 cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -32,10 +33,11 @@ messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An 
 
 Name | Properties | Description
 -----|------------|------------
-VirtualTable.Container | object | A component that renders a table.
+VirtualTable.Table | object | A component that renders a table.
 VirtualTable.TableHead | object | A component that renders a table head.
 VirtualTable.TableBody | object | A component that renders a table body.
 VirtualTable.StickyTable | object | A component that renders a sticky header.
+VirtualTable.Container | object | A component that renders a container for virtual table.
 VirtualTable.Cell | [Table.DataCellProps](table.md#tabledatacellprops) | Renders a table data cell.
 VirtualTable.Row | [Table.DataRowProps](table.md#tabledatarowprops) | Renders a table data row.
 VirtualTable.NoDataCell | [Table.CellProps](table.md#tablecellprops) | Renders a table cell when the table is empty.

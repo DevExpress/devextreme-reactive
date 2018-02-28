@@ -3,10 +3,10 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  rowsWithAlailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
-  unwrapSelecetedRows,
+  unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { IntegratedSelection } from './integrated-selection';
@@ -14,8 +14,8 @@ import { IntegratedSelection } from './integrated-selection';
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),
   allSelected: jest.fn(),
-  rowsWithAlailableToSelect: jest.fn(),
-  unwrapSelecetedRows: jest.fn(),
+  rowsWithAvailableToSelect: jest.fn(),
+  unwrapSelectedRows: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -42,8 +42,8 @@ describe('IntegratedSelection', () => {
   beforeEach(() => {
     someSelected.mockImplementation(() => 'someSelected');
     allSelected.mockImplementation(() => 'allSelected');
-    rowsWithAlailableToSelect.mockImplementation(() => ({ availableToSelect: [0, 1, 2] }));
-    unwrapSelecetedRows.mockImplementation(() => 'unwrapSelecetedRows');
+    rowsWithAvailableToSelect.mockImplementation(() => ({ availableToSelect: [0, 1, 2] }));
+    unwrapSelectedRows.mockImplementation(() => 'unwrapSelectedRows');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -57,16 +57,16 @@ describe('IntegratedSelection', () => {
       </PluginHost>
     ));
 
-    expect(rowsWithAlailableToSelect)
+    expect(rowsWithAvailableToSelect)
       .toHaveBeenCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.getRowId,
         defaultDeps.getter.isGroupRow,
       );
-    expect(unwrapSelecetedRows)
-      .toBeCalledWith(rowsWithAlailableToSelect());
+    expect(unwrapSelectedRows)
+      .toBeCalledWith(rowsWithAvailableToSelect());
     expect(getComputedState(tree).rows)
-      .toBe(unwrapSelecetedRows());
+      .toBe(unwrapSelectedRows());
   });
 
   it('should provide allSelected getter', () => {
@@ -82,7 +82,7 @@ describe('IntegratedSelection', () => {
 
     expect(allSelected)
       .toHaveBeenCalledWith(
-        rowsWithAlailableToSelect(),
+        rowsWithAvailableToSelect(),
         defaultDeps.getter.selection,
       );
   });
@@ -99,7 +99,7 @@ describe('IntegratedSelection', () => {
 
     expect(someSelected)
       .toHaveBeenCalledWith(
-        rowsWithAlailableToSelect(),
+        rowsWithAvailableToSelect(),
         defaultDeps.getter.selection,
       );
   });

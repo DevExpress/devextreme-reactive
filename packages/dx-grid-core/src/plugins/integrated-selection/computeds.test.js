@@ -1,8 +1,8 @@
 import {
-  rowsWithAlailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
-  unwrapSelecetedRows,
+  unwrapSelectedRows,
 } from './computeds';
 
 describe('IntegratedSelection computeds', () => {
@@ -11,7 +11,7 @@ describe('IntegratedSelection computeds', () => {
   const selectionTwo = [1, 2];
   const selectionThree = [1, 2, 3];
 
-  describe('#rowsWithAlailableToSelect', () => {
+  describe('#rowsWithAvailableToSelect', () => {
     it('should work', () => {
       const rows = [
         { id: 1 },
@@ -20,7 +20,7 @@ describe('IntegratedSelection computeds', () => {
       ];
       const getRowId = row => row.id;
 
-      expect(rowsWithAlailableToSelect(rows, getRowId))
+      expect(rowsWithAvailableToSelect(rows, getRowId))
         .toEqual({ rows, availableToSelect: [1, 2, 3] });
     });
     it('should work with grouping', () => {
@@ -31,7 +31,7 @@ describe('IntegratedSelection computeds', () => {
       const getRowId = row => row.id;
       const isGroupRow = row => row.group;
 
-      expect(rowsWithAlailableToSelect(rows, getRowId, isGroupRow))
+      expect(rowsWithAvailableToSelect(rows, getRowId, isGroupRow))
         .toEqual({ rows, availableToSelect: [2] });
     });
   });
@@ -64,9 +64,9 @@ describe('IntegratedSelection computeds', () => {
     });
   });
 
-  describe('#unwrapSelecetedRows', () => {
+  describe('#unwrapSelectedRows', () => {
     it('should work', () => {
-      const rowsWithAlailableToSelectData = {
+      const rowsWithAvailableToSelectData = {
         rows: [
           { id: 1 },
           { id: 2, group: true },
@@ -74,8 +74,8 @@ describe('IntegratedSelection computeds', () => {
         ],
       };
 
-      expect(unwrapSelecetedRows(rowsWithAlailableToSelectData))
-        .toBe(rowsWithAlailableToSelectData.rows);
+      expect(unwrapSelectedRows(rowsWithAvailableToSelectData))
+        .toBe(rowsWithAvailableToSelectData.rows);
     });
   });
 });

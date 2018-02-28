@@ -1,14 +1,14 @@
 import React from 'react';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
-  rowsWithAlailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
-  unwrapSelecetedRows,
+  unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
 
-const rowsWithAlailableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
-  rowsWithAlailableToSelect(rows, getRowId, isGroupRow);
+const rowsWithAvailableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
+  rowsWithAvailableToSelect(rows, getRowId, isGroupRow);
 const allSelectedComputed = ({ rows, selection }) =>
   allSelected(rows, selection);
 const someSelectedComputed = ({ rows, selection }) =>
@@ -18,7 +18,7 @@ const selectAllAvailableComputed = ({ rows: { availableToSelect } }) =>
 const toggleSelectAll = (state, { rows: { availableToSelect } }, { toggleSelection }) => {
   toggleSelection({ rowIds: availableToSelect, state });
 };
-const unwrapRowsComputed = ({ rows }) => unwrapSelecetedRows(rows);
+const unwrapRowsComputed = ({ rows }) => unwrapSelectedRows(rows);
 
 const pluginDependencies = [
   { name: 'SelectionState' },
@@ -32,7 +32,7 @@ export class IntegratedSelection extends React.PureComponent {
         name="IntegratedSelection"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsWithAlailableToSelectComputed} />
+        <Getter name="rows" computed={rowsWithAvailableToSelectComputed} />
         <Getter name="allSelected" computed={allSelectedComputed} />
         <Getter name="someSelected" computed={someSelectedComputed} />
         <Getter name="selectAllAvailable" computed={selectAllAvailableComputed} />

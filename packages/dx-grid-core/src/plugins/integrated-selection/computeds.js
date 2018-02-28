@@ -1,4 +1,4 @@
-export const rowsWithAlailableToSelect = (rows, getRowId, isGroupRow) => {
+export const rowsWithAvailableToSelect = (rows, getRowId, isGroupRow) => {
   let dataRows = rows;
   if (isGroupRow) {
     dataRows = dataRows.filter(row => !isGroupRow(row));
@@ -21,4 +21,4 @@ export const allSelected = ({ availableToSelect }, selection) => {
     && !availableToSelect.some(elem => !selectionSet.has(elem));
 };
 
-export const unwrapSelecetedRows = ({ rows }) => rows;
+export const unwrapSelectedRows = ({ rows }) => rows;

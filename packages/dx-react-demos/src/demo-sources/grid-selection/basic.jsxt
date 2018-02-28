@@ -5,6 +5,7 @@ import {
 import {
   Grid,
   Table,
+  TableHeaderRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
@@ -43,6 +44,7 @@ export default class Demo extends React.PureComponent {
             onSelectionChange={this.changeSelection}
           />
           <Table />
+          <TableHeaderRow />
           <TableSelection />
         </Grid>
       </<%&wrapperTag%>>

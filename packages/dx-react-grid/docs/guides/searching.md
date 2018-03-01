@@ -1,14 +1,14 @@
 # React Grid - Searching
 
-The Grid component supports searching data by a value programmatically or using the value an end user types in the corresponding Search Panel editor. 
+The Grid component supports searching data programmatically or using the value an end user types in the corresponding Search Panel editor.
 
 ## Related Plugins
 
-The following plugins implement searching features:
+The following plugins implement the searching feature:
 
 - [SearchState](../reference/search-state.md) - controls the search state
 - [IntegratedFiltering](../reference/integrated-filtering.md) - performs built-in data searching and filtering
-- [SearchPanel](../reference/search-panel.md) - renders a search panel
+- [SearchPanel](../reference/search-panel.md) - renders the search panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -30,10 +30,10 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the search 
 
 ## Remote Searching
 
-It is possible to perform searching remotely by handling search value state changes, generating a request, and sending it to the server.
+You can perform searching remotely by handling search value changes, generating a request, and sending it to the server.
 
-Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle searching option changes using the `SearchState` plugin's `onValueChange` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
+Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle search value changes using the `SearchState` plugin's `onValueChange` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that you do not need to use the `IntegratedFiltering` plugin for remote searching.
+NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
 
 .embedded-demo({ "path": "grid-searching/remote-mode", "showThemeSelector": true })

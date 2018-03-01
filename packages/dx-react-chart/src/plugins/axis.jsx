@@ -9,11 +9,9 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-
-const margin = 40;
 const tickSize = 5;
 
-const getAxisCoords = (scale, width, height, orientation) => {
+const getAxisCoords = (scale, width, height, orientation, margin) => {
   let getTickCoords;
   if (orientation === 'horizontal') {
     getTickCoords = (tick) => {
@@ -54,8 +52,8 @@ export const Axis = ({ name }) => (
       <g>
         <TemplateConnector>
           {({
- domains, width, height, axes,
-}) => {
+             domains, width, height, axes, margin,
+          }) => {
             const domain = domains[name];
             const { orientation } = axes.find(axis => axis.name === name);
             const scale = scaleLinear()
@@ -65,7 +63,7 @@ export const Axis = ({ name }) => (
                   ? [margin, width - (2 * margin)]
                   : [height - (2 * margin), margin]
               ));
-            const axesCoords = getAxisCoords(scale, width, height, orientation);
+            const axesCoords = getAxisCoords(scale, width, height, orientation, parseInt(margin, 10));
 
             return axesCoords.ticks.map(item => (
               <React.Fragment key={item.text} >

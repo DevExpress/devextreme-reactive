@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Template, Plugin,TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import { Template, Plugin, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
 import { scaleLinear } from 'd3-scale';
 import { line } from 'd3-shape';
 

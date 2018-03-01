@@ -25,6 +25,7 @@ export class ChartCore extends React.PureComponent {
       data,
       width,
       height,
+      margin,
       ...restProps
     } = this.props;
 
@@ -33,6 +34,7 @@ export class ChartCore extends React.PureComponent {
         <Getter name="data" value={data} />
         <Getter name="height" value={height} />
         <Getter name="width" value={width} />
+        <Getter name="margin" value={margin} />
         <Template name="root">
           <Root width={width} height={height} {...restProps}>
             <TemplatePlaceholder name="axis" />

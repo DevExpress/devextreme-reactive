@@ -5,7 +5,6 @@ import { line, curveBasis } from 'd3-shape';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
-const margin = 40;
 
 const computeLinePath = (data, xscale, yscale, argumentField, valueField) =>
   data.map(dataItem => ({
@@ -24,7 +23,7 @@ export const SplineSeries = ({ name, style }) => (
       <TemplatePlaceholder />
       <TemplateConnector>
         {({
- series, domains, data, axes, width, height, argumentAxis = 'year',
+ series, domains, data, axes, width, height, argumentAxis = 'year', margin,
 }) => {
           const { axisName: domainName, argumentField, valueField } = series.find(seriesItem => seriesItem.valueField === name);
           const { orientation } = axes.find(axis => axis.name === domainName);

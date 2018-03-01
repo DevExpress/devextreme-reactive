@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Template, Plugin,TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import { Template, Plugin, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
 import { scaleLinear } from 'd3-scale';
-import { line } from 'd3-shape';
+import { line, curveBasis } from 'd3-shape';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -15,10 +15,11 @@ const computeLinePath = (data, xscale, yscale, argumentField, valueField) =>
 
 const getDAttribute = path => line()
   .x(getX)
-  .y(getY)(path);
+  .y(getY)
+  .curve(curveBasis)(path);
 
-export const LineSeries = ({ name, style }) => (
-  <Plugin name="LineSeries">
+export const SplineSeries = ({ name, style }) => (
+  <Plugin name="SplineSeries">
     <Template name="pane">
       <TemplatePlaceholder />
       <TemplateConnector>

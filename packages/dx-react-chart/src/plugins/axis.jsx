@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-core';
 
 
-const margin = 20;
+const margin = 40;
 const tickSize = 5;
 
 const getAxisCoords = (scale, width, height, orientation) => {
@@ -21,11 +21,11 @@ const getAxisCoords = (scale, width, height, orientation) => {
       return {
         x1: xCoords,
         x2: xCoords,
-        y1: margin - tickSize,
-        y2: margin + tickSize,
+        y1: height - (margin - tickSize),
+        y2: height - (margin + tickSize),
         text: tick,
         xText: xCoords,
-        yText: 0,
+        yText: height - (margin - 20),
       };
     };
   } else {
@@ -37,7 +37,7 @@ const getAxisCoords = (scale, width, height, orientation) => {
         x1: margin - tickSize,
         x2: margin + tickSize,
         text: tick,
-        xText: 0,
+        xText: margin - 20,
         yText: yCoords,
       };
     };
@@ -58,10 +58,13 @@ export const Axis = ({ name }) => (
 }) => {
             const domain = domains[name];
             const { orientation } = axes.find(axis => axis.name === name);
-            const scale = scaleLinear().domain(domain).range((
-              orientation === 'horizontal'
-                ? [margin, width - (2 * margin)]
-                : [margin, height - (2 * margin)]));
+            const scale = scaleLinear()
+              .domain(domain)
+              .range((
+                orientation === 'horizontal'
+                  ? [margin, width - (2 * margin)]
+                  : [height - (2 * margin), margin]
+              ));
             const axesCoords = getAxisCoords(scale, width, height, orientation);
 
             return axesCoords.ticks.map(item => (

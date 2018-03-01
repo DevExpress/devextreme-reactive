@@ -3,24 +3,28 @@ import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ChartCore } from './plugins/chart-core';
 
-export const Chart = ({
-  data,
-  width,
-  height,
-  children,
-  ...restProps
-}) => (
-  <PluginHost>
-    <ChartCore
-      data={data}
-      width={width}
-      height={height}
-      {...restProps}
-    />
-    {children}
-  </PluginHost>
-);
-
+export class Chart extends React.PureComponent {
+  render() {
+    const {
+      data,
+      width,
+      height,
+      children,
+      ...restProps
+    } = this.props;
+    return ((
+      <PluginHost>
+        <ChartCore
+          data={data}
+          width={width}
+          height={height}
+          {...restProps}
+        />
+        {children}
+      </PluginHost>
+    ));
+  }
+}
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.string,

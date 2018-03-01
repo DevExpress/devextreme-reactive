@@ -5,6 +5,4 @@ export { LineSeries } from './plugins/line-series';
 export { SplineSeries } from './plugins/spline-series';
 export { AxesState } from './plugins/axes-state';
 export { SeriesState } from './plugins/series-state';
-export { AxesDomain } from './plugins/axes-domain';
-export { SeriesDomain } from './plugins/series-domain';
 export { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';

@@ -50,4 +50,9 @@ ChartCore.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
+  margin: PropTypes.number,
+};
+
+ChartCore.defaultProps = {
+  margin: 40,
 };

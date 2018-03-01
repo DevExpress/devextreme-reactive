@@ -45,53 +45,61 @@ const getAxisCoords = (scale, width, height, orientation, margin) => {
   };
 };
 
-export const Axis = ({ name }) => (
-  <Plugin name="Axis">
-    <Template name="axis">
-      <TemplatePlaceholder />
-      <g>
-        <TemplateConnector>
-          {({
-             domains, width, height, axes, margin,
-          }) => {
-            const domain = domains[name];
-            const { orientation } = axes.find(axis => axis.name === name);
-            const scale = scaleLinear()
-              .domain(domain)
-              .range((
-                orientation === 'horizontal'
-                  ? [margin, width - (2 * margin)]
-                  : [height - (2 * margin), margin]
-              ));
-            const axesCoords = getAxisCoords(scale, width, height, orientation, parseInt(margin, 10));
+export class Axis extends React.PureComponent {
+  render() {
+    const { name } = this.props;
+    return (
+      <Plugin name="Axis">
+        <Template name="axis">
+          <TemplatePlaceholder />
+          <g>
+            <TemplateConnector>
+              {({
+                   domains, width, height, axes, margin,
+               }) => {
+                const domain = domains[name];
+                const { orientation } = axes.find(axis => axis.name === name);
+                const scale = scaleLinear()
+                  .domain(domain)
+                  .range(orientation === 'horizontal'
+                      ? [margin, width - (2 * margin)]
+                      : [height - (2 * margin), margin]);
+                const axesCoords = getAxisCoords(
+                  scale,
+                  width,
+                  height,
+                  orientation,
+                  parseInt(margin, 10),
+                );
 
-            return axesCoords.ticks.map(item => (
-              <React.Fragment key={item.text} >
-                <line
-                  style={{ stroke: 'black', strokeWidth: '1px' }}
-                  x1={item.x1}
-                  x2={item.x2}
-                  y1={item.y1}
-                  y2={item.y2}
-                />
-                <text
-                  alignmentBaseline="middle"
-                  textAnchor="middle"
-                  key={item.text}
-                  x={item.xText}
-                  y={item.yText}
-                >
-                  {item.text}
-                </text>
-              </React.Fragment>
-            ));
-          }
-        }
-        </TemplateConnector>
-      </g>
-    </Template>
-  </Plugin>
-);
+                return axesCoords.ticks.map(item => (
+                  <React.Fragment key={item.text}>
+                    <line
+                      style={{ stroke: 'black', strokeWidth: '1px' }}
+                      x1={item.x1}
+                      x2={item.x2}
+                      y1={item.y1}
+                      y2={item.y2}
+                    />
+                    <text
+                      alignmentBaseline="middle"
+                      textAnchor="middle"
+                      key={item.text}
+                      x={item.xText}
+                      y={item.yText}
+                    >
+                      {item.text}
+                    </text>
+                  </React.Fragment>
+                ));
+              }}
+            </TemplateConnector>
+          </g>
+        </Template>
+      </Plugin>
+    );
+  }
+}
 
 Axis.propTypes = {
   name: PropTypes.string.isRequired,

@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <h2>PliuginHost</h2>
+    <h2>PluginHost</h2>
+    <PluginHostComponent></PluginHostComponent>
+
+    <h2>Plugin</h2>
     <PluginComponent></PluginComponent>
 
     <h2>TemplatePlaceholder</h2>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import PluginHostComponent from './plugin-host-component';
 import PluginComponent from './plugin-component';
 import TemplatePlaceholder from './template-placeholder';
 import TemplateParameters from './template-parameters';
@@ -30,13 +34,14 @@ import ComputedGetter from './computed-getter';
 
 export default {
   components: {
+    PluginHostComponent,
     PluginComponent,
     TemplatePlaceholder,
     TemplateParameters,
     TemplateOverriding,
     ValueGetter,
     ComputedGetter,
-  }
+  },
 };
 </script>
 

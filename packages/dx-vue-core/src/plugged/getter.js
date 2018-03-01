@@ -3,7 +3,6 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from '../utils/plugin-helpers';
-// import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const UPDATE_CONNECTION = 'updateConnection';
 
@@ -12,7 +11,6 @@ export const Getter = {
     computed: { default: null },
     name: {},
     value: {},
-    // position: { default: null },
   },
   inject: ['pluginHost'],
   beforeMount() {
@@ -56,5 +54,3 @@ export const Getter = {
     return null;
   },
 };
-
-// Getter[INDEXABLE_COMPONENT] = true;

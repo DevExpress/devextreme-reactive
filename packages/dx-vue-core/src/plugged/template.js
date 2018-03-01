@@ -9,7 +9,7 @@ export const Template = {
     globalTemplateId += 1;
     this.id = globalTemplateId;
   },
-  inject: ['pluginHost'],
+  inject: ['pluginHost', 'positionContext'],
   created() {
     this.plugin = {
       position: () => [0],

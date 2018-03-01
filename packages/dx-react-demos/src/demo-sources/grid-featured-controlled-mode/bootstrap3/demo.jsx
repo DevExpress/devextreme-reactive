@@ -12,12 +12,8 @@ import {
   Modal,
   Button,
 } from 'react-bootstrap';
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/bootstrap3/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/bootstrap3/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/bootstrap3/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/bootstrap3/components/highlighted-cell';
 
 import {
   generateRows,

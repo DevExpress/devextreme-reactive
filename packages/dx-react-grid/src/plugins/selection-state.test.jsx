@@ -2,9 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  toggleSelection,
-} from '@devexpress/dx-grid-core';
+import { toggleSelection } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { SelectionState } from './selection-state';
 

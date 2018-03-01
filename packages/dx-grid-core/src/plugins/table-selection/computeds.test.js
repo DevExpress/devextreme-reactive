@@ -1,7 +1,5 @@
 import { TABLE_SELECT_TYPE } from './constants';
-import {
-  tableColumnsWithSelection,
-} from './computeds';
+import { tableColumnsWithSelection } from './computeds';
 
 describe('TableSelection Plugin computeds', () => {
   describe('#tableColumnsWithSelection', () => {

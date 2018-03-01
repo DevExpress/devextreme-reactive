@@ -1,6 +1,4 @@
-import {
-  pureHelper,
-} from './helpers';
+import { pureHelper } from './helpers';
 
 describe('Plugin helpers', () => {
   describe('#_pureHelper', () => {

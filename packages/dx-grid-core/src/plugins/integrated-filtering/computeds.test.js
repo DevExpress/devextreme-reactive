@@ -1,6 +1,4 @@
-import {
-  filteredRows,
-} from './computeds';
+import { filteredRows } from './computeds';
 
 describe('IntegratedFiltering computeds', () => {
   describe('#filteredRows', () => {

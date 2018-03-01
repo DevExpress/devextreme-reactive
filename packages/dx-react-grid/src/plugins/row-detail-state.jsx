@@ -9,32 +9,29 @@ export class RowDetailState extends React.PureComponent {
     super(props);
 
     this.state = {
-      expandedRowIds: props.defaultExpandedRowIds,
+      expandedRowIds: props.expandedRowIds || props.defaultExpandedRowIds,
     };
 
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        expandedRowIds: () => this.props.onExpandedRowIdsChange,
+      },
+    );
 
     this.toggleDetailRowExpanded = stateHelper.applyFieldReducer
       .bind(stateHelper, 'expandedRowIds', toggleDetailRowExpanded);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      expandedRowIds = this.state.expandedRowIds,
-    } = this.props;
-    return {
-      ...this.state,
       expandedRowIds,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { expandedRowIds } = nextState;
-    const { onExpandedRowIdsChange } = this.props;
-    if (onExpandedRowIdsChange && expandedRowIds !== state.expandedRowIds) {
-      onExpandedRowIdsChange(expandedRowIds);
-    }
+    } = nextProps;
+    this.setState({
+      ...expandedRowIds !== undefined ? { expandedRowIds } : null,
+    });
   }
   render() {
-    const { expandedRowIds } = this.getState();
+    const { expandedRowIds } = this.state;
 
     return (
       <Plugin

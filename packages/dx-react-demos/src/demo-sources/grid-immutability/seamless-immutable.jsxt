@@ -1,6 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState, SelectionState,
+  SortingState,
+  SelectionState,
   IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import {
@@ -14,9 +15,7 @@ import { createStore, combineReducers } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Immutable from 'seamless-immutable';
 
-import {
-  generateRows,
-} from '../../../demo-data/generator';
+import { generateRows } from '../../../demo-data/generator';
 
 const rows = generateRows({ length: 8 });
 const columns = [

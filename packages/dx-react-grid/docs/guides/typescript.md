@@ -4,4 +4,4 @@
 
 React Grid comes with TypeScript definitions that facilitate its use in TypeScript projects.
 
-.embedded-demo(grid-typescript/basic)
+.embedded-demo({ "path": "grid-typescript/basic", "showThemeSelector": true })

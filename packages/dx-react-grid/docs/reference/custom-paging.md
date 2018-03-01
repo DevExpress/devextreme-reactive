@@ -24,4 +24,4 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-totalCount | Getter | number | The total row count.
+totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.

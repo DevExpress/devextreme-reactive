@@ -12,7 +12,7 @@ The Grid requires the following plugins for basic data visualization:
 
 The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 
-.embedded-demo(grid-basic/basic)
+.embedded-demo({ "path": "grid-basic/basic", "showThemeSelector": true })
 
 ## Appearance Customization
 
@@ -20,11 +20,11 @@ The Grid's visualization plugins provide a rich API to customize grid elements' 
 
 The `Table` plugin allows you to customize table cell appearance using the `cellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 
-.embedded-demo(grid-basic/table-cell-template)
+.embedded-demo({ "path": "grid-basic/table-cell-template", "showThemeSelector": true })
 
 The `Table` plugin's `rowComponent` property enables you to handle row events like `onClick`, `onContextMenu`, etc., as demonstrated in the following demo:
 
-.embedded-demo(grid-basic/table-row-template)
+.embedded-demo({ "path": "grid-basic/table-row-template", "showThemeSelector": true })
 
 You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
 

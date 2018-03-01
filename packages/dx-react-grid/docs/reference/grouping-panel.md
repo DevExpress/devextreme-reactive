@@ -88,17 +88,17 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
-draftGrouping | Getter | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
-changeColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
-draftColumnGrouping | Action | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
-cancelColumnGroupingDraft | Action | () => void | Cancels changes to the column grouping options used for the preview.
-sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
-changeColumnSorting | Action | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column's sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
-isColumnSortingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if sorting by a column is enabled.
-isColumnGroupingEnabled | Getter | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
-draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
-toolbarContent | Template | Object? | A template that renders the toolbar's content.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
+draftGrouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[DraftGrouping](grouping-state.md#draft-grouping)&gt; | Grouping options used for the preview.
+changeColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
+draftColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
+cancelColumnGroupingDraft | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Cancels changes to the column grouping options used for the preview.
+sorting | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | The current sorting state.
+changeColumnSorting | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean &#124; Array&lt;String&gt;, sortIndex: number }) => void | Changes the column sorting direction. `keepOther` accepts `true` (keeps existing sorting), a column name array (keeps sorting by specified columns) and `false` (resets sorting). Set `direction` to `null` to cancel sorting by the current column.
+isColumnSortingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function that returns a Boolean value that defines if sorting by a column is enabled.
+isColumnGroupingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function that returns a Boolean value that defines if grouping by a column is enabled.
+draggingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether drag-and-drop is enabled.
+toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the toolbar content.
 
 ### Exports
 

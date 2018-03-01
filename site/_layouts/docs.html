@@ -4,8 +4,17 @@ layout: default
 
 <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
-      {% for group in site.data.docs.navigation.react.grid %}
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        {{ content }}
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      {% if page.path contains '/core/docs/' %}
+      {% assign docsPart = 'core' %}
+      {% else %}
+      {% assign docsPart = 'grid' %}
+      {% endif %}
+      {% for group in site.data.docs.navigation.react[docsPart] %}
         <h3>{{ group.title }}</h3>
 
         <ul class="list-unstyled">
@@ -26,12 +35,17 @@ layout: default
 
         {% endfor %}
         </ul>
-
       {% endfor %}
-    </div>
-
-    <div class="col-md-9 docs-content">
-        {{ content }}
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          {% if docsPart == 'core' %}
+          <a href="{{site.baseurl}}{{site.data.docs.navigation.react['grid'].first.items.first.path}}/">React Grid Docs</a>
+          {% else %}
+          <a href="{{site.baseurl}}{{site.data.docs.navigation.react['core'].first.items.first.path}}/">React Core Docs</a>
+          {% endif %}
+        </li>
+      </ul>
     </div>
   </div>
 </div>

@@ -29,6 +29,7 @@
   "files": [
     "dist"
   ],
+  "types": "dist/dx-react-core.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",

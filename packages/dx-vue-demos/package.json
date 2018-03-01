@@ -13,7 +13,7 @@
     "build:watch": "webpack-dev-server --env"
   },
   "dependencies": {
-    "@devexpress/dx-vue-core": "1.1.0-beta.1",
+    "@devexpress/dx-vue-core": "1.0.0",
     "babel-polyfill": "^6.26.0",
     "vue": "^2.5.13"
   },

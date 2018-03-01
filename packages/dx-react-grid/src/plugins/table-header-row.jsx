@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
+import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
@@ -53,6 +51,7 @@ export class TableHeaderRow extends React.PureComponent {
                 <TemplateConnector>
                   {({
                     sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                    isColumnSortingEnabled, isColumnGroupingEnabled,
                   }, {
                     changeColumnSorting, changeColumnGrouping,
                     changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -60,14 +59,20 @@ export class TableHeaderRow extends React.PureComponent {
                     const { name: columnName } = params.tableColumn.column;
                     const atLeastOneDataColumn = tableColumns
                       .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
+                    const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+                    const groupingEnabled = isColumnGroupingEnabled &&
+                      isColumnGroupingEnabled(columnName) &&
+                      atLeastOneDataColumn;
 
                     return (
                       <HeaderCell
                         {...params}
                         column={params.tableColumn.column}
                         getMessage={getMessage}
-                        showSortingControls={showSortingControls && sorting !== undefined}
-                        showGroupingControls={showGroupingControls && atLeastOneDataColumn}
+                        sortingEnabled={sortingEnabled}
+                        groupingEnabled={groupingEnabled}
+                        showSortingControls={showSortingControls}
+                        showGroupingControls={showGroupingControls}
                         draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                         resizingEnabled={tableColumnResizingEnabled}
                         sortingDirection={showSortingControls && sorting !== undefined

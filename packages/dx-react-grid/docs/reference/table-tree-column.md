@@ -87,26 +87,26 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows.
-getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
-getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
-isTreeRowLeaf | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
-getTreeRowLevel | Getter | (row: any) => number | A function used to identify a node level in tree data structure.
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
-toggleRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
-selection | Getter | Array&lt;number &#124; string&gt; | The selected row's IDs.
-toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
-toggleSelectAll | Action | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
-selectAllAvailable | Getter | boolean | Indicates whether there are rows that are available for selection.
-allSelected | Getter | boolean | Indicates whether all the rows available for selection are selected.
-someSelected | Getter | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
-tableCell | Template | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableHeaderCellBefore | Template | object? | A template used to prepend additional components to the header table cell.
-valueFormatter | Template | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows.
+getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get a group row level key.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a given row's column value.
+getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
+isTreeRowLeaf | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
+getTreeRowLevel | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number | A function used to identify a node level in tree data structure.
+expandedRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Currently expanded rows.
+toggleRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId }) => void | Expands/collapses the specified row.
+selection | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | The selected row's IDs.
+toggleSelection | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
+toggleSelectAll | [Action](../../../dx-react-core/docs/reference/action.md) | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
+selectAllAvailable | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether there are rows that are available for selection.
+allSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether all the rows available for selection are selected.
+someSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableHeaderCellBefore | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template used to prepend additional components to the header table cell.
+valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified tree rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified tree rows.

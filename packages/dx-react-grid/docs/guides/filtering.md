@@ -20,25 +20,25 @@ Import the plugins listed above to set up a Grid with basic filtering.
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
 
-.embedded-demo(grid-filtering/filter-row)
+.embedded-demo({ "path": "grid-filtering/filter-row", "showThemeSelector": true })
 
 ### Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
-.embedded-demo(grid-filtering/controlled-mode)
+.embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
 
 ### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
-.embedded-demo(grid-filtering/custom-filtering-algorithm)
+.embedded-demo({ "path": "grid-filtering/custom-filtering-algorithm", "showThemeSelector": true })
 
 ### Disable Filtering by a Column
 
 You can prevent filtering by a specific column using the [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
 
-.embedded-demo(grid-filtering/disable-column-filtering)
+.embedded-demo({ "path": "grid-filtering/disable-column-filtering", "showThemeSelector": true })
 
 ## Remote Filtering
 
@@ -48,13 +48,13 @@ Filtering options are updated once an end user modifies the text in a Filter Row
 
 Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
 
-.embedded-demo(grid-filtering/remote-filtering)
+.embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true })
 
 ## Customizing Filter Row Appearance
 
 Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
 
-.embedded-demo(grid-filtering/custom-filter-row)
+.embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
 
 ## Using Filtering with Other Data Processing Plugins
 

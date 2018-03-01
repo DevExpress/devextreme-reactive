@@ -1,28 +1,5 @@
 import { shallowEqual } from '@devexpress/dx-core';
 
-export const getActionExecutor = (pluginHost, actionToExecuteName) => {
-  const actionsToExecute = pluginHost.collect(`${actionToExecuteName}Action`).slice().reverse();
-  return (startingPayload) => {
-    let payload = startingPayload;
-    // eslint-disable-next-line no-use-before-define
-    const { getters } = getAvailableGetters(pluginHost);
-    // eslint-disable-next-line no-use-before-define
-    const actions = getAvailableActions(
-      pluginHost,
-      actionName => (actionName === actionToExecuteName
-        ? (newPayload) => { payload = newPayload; }
-        : getActionExecutor(pluginHost, actionName)
-      ),
-    );
-    for (let i = 0; i < actionsToExecute.length; i += 1) {
-      const result = actionsToExecute[i](payload, getters, actions);
-      if (result === false) {
-        break;
-      }
-    }
-  };
-};
-
 export const getAvailableGetters = (
   pluginHost,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
@@ -58,7 +35,7 @@ export const isTrackedDependenciesChanged = (
 
 export const getAvailableActions = (
   pluginHost,
-  getAction = actionName => getActionExecutor(pluginHost, actionName),
+  getAction = actionName => pluginHost.collect(`${actionName}Action`).slice().reverse()[0],
 ) =>
   pluginHost.knownKeys('Action')
     .reduce((acc, actionName) => {

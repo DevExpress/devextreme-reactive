@@ -18,4 +18,4 @@ You can change the virtual table's height using the `height` property.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
-.embedded-demo(grid-virtual-scrolling/basic)
+.embedded-demo({ "path": "grid-virtual-scrolling/basic", "showThemeSelector": true })

@@ -20,19 +20,19 @@ getChildRows | (currentRow: any &#124; null, rootRows: Array&lt;any&gt;) => Arra
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be transformed.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
-getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
-getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be transformed.
+getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+expandedRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Currently expanded rows.
+getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get a group row level key.
+getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Linearized tree data rows.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
-getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
-isTreeRowLeaf | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
-getTreeRowLevel | Getter | (row: any) => number | A function used to identify a node level in tree data structure.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Linearized tree data rows.
+getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get a group row level key.
+getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
+isTreeRowLeaf | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
+getTreeRowLevel | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number | A function used to identify a node level in tree data structure.

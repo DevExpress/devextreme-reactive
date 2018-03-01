@@ -1,7 +1,8 @@
 import {
-  getAvailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
+  unwrapSelectedRows,
 } from './computeds';
 
 describe('IntegratedSelection computeds', () => {
@@ -9,7 +10,8 @@ describe('IntegratedSelection computeds', () => {
   const selectionOne = [1];
   const selectionTwo = [1, 2];
   const selectionThree = [1, 2, 3];
-  describe('#getAvailableToSelect', () => {
+
+  describe('#rowsWithAvailableToSelect', () => {
     it('should work', () => {
       const rows = [
         { id: 1 },
@@ -18,10 +20,9 @@ describe('IntegratedSelection computeds', () => {
       ];
       const getRowId = row => row.id;
 
-      expect(getAvailableToSelect(rows, getRowId))
-        .toEqual([1, 2, 3]);
+      expect(rowsWithAvailableToSelect(rows, getRowId))
+        .toEqual({ rows, availableToSelect: [1, 2, 3] });
     });
-
     it('should work with grouping', () => {
       const rows = [
         { id: 1, group: true },
@@ -30,38 +31,51 @@ describe('IntegratedSelection computeds', () => {
       const getRowId = row => row.id;
       const isGroupRow = row => row.group;
 
-      expect(getAvailableToSelect(rows, getRowId, isGroupRow))
-        .toEqual([2]);
+      expect(rowsWithAvailableToSelect(rows, getRowId, isGroupRow))
+        .toEqual({ rows, availableToSelect: [2] });
     });
   });
+
   describe('#someSelected', () => {
     it('should work with simple scenarios', () => {
-      expect(someSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
-      expect(someSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
-      expect(someSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
+      expect(someSelected({ availableToSelect: [] }, selectionNone)).toBeFalsy();
+      expect(someSelected({ availableToSelect: [1] }, selectionNone)).toBeFalsy();
+      expect(someSelected({ availableToSelect: [] }, selectionOne)).toBeFalsy();
     });
     it('should work when all available rows consist in selection rows', () => {
-      expect(someSelected({ selection: selectionTwo, availableToSelect: [1] })).toBeFalsy();
-      expect(someSelected({ selection: selectionTwo, availableToSelect: [1, 3] })).toBeTruthy();
+      expect(someSelected({ availableToSelect: [1] }, selectionTwo)).toBeFalsy();
+      expect(someSelected({ availableToSelect: [1, 3] }, selectionTwo)).toBeTruthy();
     });
     it('should work when selection rows consist in available rows', () => {
-      expect(someSelected({ selection: selectionOne, availableToSelect: [1, 2] })).toBeTruthy();
-      expect(someSelected({ selection: selectionOne, availableToSelect: [2] })).toBeFalsy();
+      expect(someSelected({ availableToSelect: [1, 2] }, selectionOne)).toBeTruthy();
+      expect(someSelected({ availableToSelect: [2] }, selectionOne)).toBeFalsy();
     });
   });
+
   describe('#allSelected', () => {
     it('should work with simple scenarios', () => {
-      expect(allSelected({ selection: selectionNone, availableToSelect: [] })).toBeFalsy();
-      expect(allSelected({ selection: selectionOne, availableToSelect: [] })).toBeFalsy();
-      expect(allSelected({ selection: selectionNone, availableToSelect: [1] })).toBeFalsy();
+      expect(allSelected({ availableToSelect: [] }, selectionNone)).toBeFalsy();
+      expect(allSelected({ availableToSelect: [] }, selectionOne)).toBeFalsy();
+      expect(allSelected({ availableToSelect: [1] }, selectionNone)).toBeFalsy();
     });
     it('should work when all available rows consist in selection rows', () => {
-      expect(allSelected({
-        selection: selectionThree, availableToSelect: [2, 3],
-      })).toBeTruthy();
-      expect(allSelected({
-        selection: selectionThree, availableToSelect: [2, 3, 4],
-      })).toBeFalsy();
+      expect(allSelected({ availableToSelect: [2, 3] }, selectionThree)).toBeTruthy();
+      expect(allSelected({ availableToSelect: [2, 3, 4] }, selectionThree)).toBeFalsy();
+    });
+  });
+
+  describe('#unwrapSelectedRows', () => {
+    it('should work', () => {
+      const rowsWithAvailableToSelectData = {
+        rows: [
+          { id: 1 },
+          { id: 2, group: true },
+          { id: 3 },
+        ],
+      };
+
+      expect(unwrapSelectedRows(rowsWithAvailableToSelectData))
+        .toBe(rowsWithAvailableToSelectData.rows);
     });
   });
 });

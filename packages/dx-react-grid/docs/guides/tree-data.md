@@ -22,23 +22,23 @@ If the data has a hierarchical structure (already grouped), use the `CustomTreeD
 
 In the following example, the data is specified as an array of groups. Specify the `CustomTreeData` plugin's `getChildRows` property to parse a custom tree structure.
 
-.embedded-demo(grid-tree-data/hierarchical-tree)
+.embedded-demo({ "path": "grid-tree-data/hierarchical-tree", "showThemeVariants": true })
 
 It is also possible to transform tree data defined as a plain array.
 
-.embedded-demo(grid-tree-data/plain-tree)
+.embedded-demo({ "path": "grid-tree-data/plain-tree", "showThemeVariants": true })
 
 ## Uncontrolled Mode
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
 
-.embedded-demo(grid-tree-data/uncontrolled-mode)
+.embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeVariants": true })
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the sorting state externally.
 
-.embedded-demo(grid-tree-data/controlled-mode)
+.embedded-demo({ "path": "grid-tree-data/controlled-mode", "showThemeVariants": true })
 
 ## Configuring Hierarchical Selection Controls
 
@@ -51,7 +51,7 @@ To enable this feature you need:
 - Configure the `SelectionState` plugin. Refer the [Selection](selection.md) guide.
 - Set the `showSelectionControls` property of the `TableTreeColumn` plugin to true to show checkboxes.
 
-.embedded-demo(grid-tree-data/selection-controls)
+.embedded-demo({ "path": "grid-tree-data/selection-controls", "showThemeVariants": true })
 
 It is also possible to combine the `TableTreeColumn` plugin with the `TableSelection` plugin to highlight selected rows and listen to click on the whole row.
 
@@ -63,7 +63,7 @@ To show the Select All checkbox in the header row you need:
 - Configure the `IntegratedSelection` plugin. Refer the [Selection](selection.md) guide.
 - Set the `showSelectAll` property of the `TableTreeColumn` plugin to true to show Select All checkbox.
 
-.embedded-demo(grid-tree-data/select-all)
+.embedded-demo({ "path": "grid-tree-data/select-all", "showThemeVariants": true })
 
 ## Remote Data Loading on Demand
 
@@ -71,4 +71,4 @@ You can handle the Grid's tree data state changes to request nested data from th
 
 Tree data options are updated once an end-user interacts with the UI. Handle option changes using the `TreeDataState` plugin's `onExpandedRowIdsChange` event, and request data from the server using the applied tree data options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 
-.embedded-demo(grid-tree-data/remote)
+.embedded-demo({ "path": "grid-tree-data/remote", "showThemeVariants": true })

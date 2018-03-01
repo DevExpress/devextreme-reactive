@@ -26,5 +26,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.
-toggleRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
+expandedRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Currently expanded rows.
+toggleRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId }) => void | Expands/collapses the specified row.

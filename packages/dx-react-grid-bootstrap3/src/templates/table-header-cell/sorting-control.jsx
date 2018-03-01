@@ -7,7 +7,7 @@ const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 export const SortingControl = ({
-  align, sortingDirection, columnTitle, onClick,
+  align, sortingDirection, columnTitle, onClick, disabled,
 }) => {
   const content = [
     <span
@@ -36,7 +36,7 @@ export const SortingControl = ({
   return (
     <span
       className={sortingDirection ? 'text-primary' : ''}
-      tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={disabled ? -1 : 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
@@ -58,8 +58,10 @@ SortingControl.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc']),
   columnTitle: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 SortingControl.defaultProps = {
   sortingDirection: null,
+  disabled: false,
 };

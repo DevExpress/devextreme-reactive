@@ -5,9 +5,13 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   groupingControl: {
-    cursor: 'pointer',
     paddingLeft: 0,
     height: theme.spacing.unit * 3,
+    cursor: 'pointer',
+  },
+  disabledGroupingControl: {
+    cursor: 'default',
+    opacity: 0.3,
   },
 });
 
@@ -17,7 +21,10 @@ const GroupingControlBase = ({ onGroup, classes }) => (
       e.stopPropagation();
       onGroup(e);
     }}
-    className={classes.groupingControl}
+    className={classNames({
+      [classes.groupingControl]: true,
+      [classes.disabledGroupingControl]: disabled,
+    })}
   >
     <List />
   </div>
@@ -26,6 +33,11 @@ const GroupingControlBase = ({ onGroup, classes }) => (
 GroupingControlBase.propTypes = {
   onGroup: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+};
+
+GroupingControlBase.defaultProps = {
+  disabled: false,
 };
 
 export const GroupingControl = withStyles(styles, { name: 'GroupingControl' })(GroupingControlBase);

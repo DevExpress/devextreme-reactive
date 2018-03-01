@@ -95,7 +95,9 @@ class TableHeaderCellBase extends React.PureComponent {
     };
 
     this.onClick = (e) => {
-      const { onSort } = this.props;
+      const { onSort, sortingEnabled } = this.props;
+      if (!sortingEnabled) return;
+
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
@@ -115,9 +117,9 @@ class TableHeaderCellBase extends React.PureComponent {
     const {
       style, column, tableColumn,
       showSortingControls, sortingDirection,
-      showGroupingControls, onGroup,
+      showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
       classes, getMessage, tableRow, className, onSort, before,
       ...restProps
     } = this.props;
@@ -154,6 +156,7 @@ class TableHeaderCellBase extends React.PureComponent {
             {showSortingControls ? (
               <SortingControl
                 align={align}
+                disabled={!sortingEnabled}
                 sortingDirection={sortingDirection}
                 columnTitle={columnTitle}
                 onClick={this.onClick}
@@ -168,6 +171,7 @@ class TableHeaderCellBase extends React.PureComponent {
           {showGroupingControls && (
             <div className={classes.controls}>
               <GroupingControl
+                disabled={!groupingEnabled}
                 onGroup={onGroup}
               />
             </div>
@@ -203,9 +207,11 @@ TableHeaderCellBase.propTypes = {
   column: PropTypes.object,
   style: PropTypes.object,
   showSortingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
   onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
@@ -225,8 +231,10 @@ TableHeaderCellBase.defaultProps = {
   style: null,
   showSortingControls: false,
   sortingDirection: undefined,
+  sortingEnabled: false,
   onSort: undefined,
   showGroupingControls: false,
+  groupingEnabled: false,
   onGroup: undefined,
   draggingEnabled: false,
   resizingEnabled: false,

@@ -59,14 +59,14 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-table | Template | Object? | A template that renders a table.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders a table.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
-hiddenColumnNames | Getter | Array&lt;string&gt; | Hidden table column names.
-isColumnTogglingEnabled | Getter | (columnName: string) => boolean | A function used to define if an end-user can change column visibility.
-toggleColumnVisibility | Action | ({ columnName: string }) => void | Toggles a column's visibility.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
+hiddenColumnNames | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;string&gt; | Hidden table column names.
+isColumnTogglingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function used to define if an end-user can change column visibility.
+toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string }) => void | Toggles a column's visibility.

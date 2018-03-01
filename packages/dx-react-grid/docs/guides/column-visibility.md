@@ -16,16 +16,16 @@ Import the plugins listed above to enable a user to hide or show columns at runt
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mode), specify initially hidden column names via the `TableColumnVisibility` plugin's `defaultHiddenColumnNames` property.
 
-.embedded-demo(grid-column-chooser/uncontrolled)
+.embedded-demo({ "path": "grid-column-chooser/uncontrolled", "showThemeSelector": true })
 
 ### Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
 
-.embedded-demo(grid-column-chooser/controlled)
+embedded-demo({ "path": "grid-column-chooser/controlled", "showThemeSelector": true })
 
 ### Disable Column Visibility Toggling
 
 You can use the [TableColumnVisibility](../reference/table-column-visibility.md) plugin's `columnExtensions` property to prevent changing to a specific column's visibility.
 
-.embedded-demo(grid-column-chooser/disable-toggling-column-visibility)
+.embedded-demo({ "path": "grid-column-chooser/disable-toggling-column-visibility", "showThemeSelector": true })

@@ -1,6 +1,4 @@
-import {
-  GROUP_KEY_SEPARATOR,
-} from '../grouping-state/constants';
+import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,

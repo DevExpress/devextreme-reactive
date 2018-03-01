@@ -69,6 +69,7 @@ describe('IntegratedPaging', () => {
   });
 
   it('should change the "currentPage" if starting row index exceeds the rows count', () => {
+    jest.useFakeTimers();
     const deps = {
       getter: {
         currentPage: 4,
@@ -80,6 +81,7 @@ describe('IntegratedPaging', () => {
         <IntegratedPaging />
       </PluginHost>
     ));
+    jest.runAllTimers();
 
     expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
       .toEqual(2);

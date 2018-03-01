@@ -31,12 +31,18 @@ export class GroupingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      grouping: props.defaultGrouping,
+      grouping: props.grouping || props.defaultGrouping,
       draftGrouping: null,
-      expandedGroups: props.defaultExpandedGroups,
+      expandedGroups: props.expandedGroups || props.defaultExpandedGroups,
     };
 
-    this.stateHelper = createStateHelper(this);
+    this.stateHelper = createStateHelper(
+      this,
+      {
+        grouping: () => this.props.onGroupingChange,
+        expandedGroups: () => this.props.onExpandedGroupsChange,
+      },
+    );
 
     this.changeColumnGrouping = this.changeColumnGrouping.bind(this);
     this.toggleGroupExpanded = this.stateHelper.applyReducer
@@ -47,23 +53,22 @@ export class GroupingState extends React.PureComponent {
       .bind(this.stateHelper, cancelColumnGroupingDraft);
     this.changeColumnSorting = this.changeColumnSorting.bind(this);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      grouping = this.state.grouping,
-      expandedGroups = this.state.expandedGroups,
-    } = this.props;
-    return {
-      ...this.state,
       grouping,
       expandedGroups,
-    };
+    } = nextProps;
+    this.setState({
+      ...grouping !== undefined ? { grouping } : null,
+      ...expandedGroups !== undefined ? { expandedGroups } : null,
+    });
   }
   changeColumnSorting(
     { columnName, keepOther, ...restParams },
     { sorting },
     { changeColumnSorting },
   ) {
-    const { grouping } = this.getState();
+    const { grouping } = this.state;
     const groupingIndex = grouping
       .findIndex(columnGrouping => columnGrouping.columnName === columnName);
     if (groupingIndex === -1) {
@@ -122,21 +127,8 @@ export class GroupingState extends React.PureComponent {
       },
     );
   }
-  notifyStateChange(nextState, state) {
-    const { grouping } = nextState;
-    const { onGroupingChange } = this.props;
-    if (onGroupingChange && grouping !== state.grouping) {
-      onGroupingChange(grouping);
-    }
-
-    const { expandedGroups } = nextState;
-    const { onExpandedGroupsChange } = this.props;
-    if (onExpandedGroupsChange && expandedGroups !== state.expandedGroups) {
-      onExpandedGroupsChange(expandedGroups);
-    }
-  }
   render() {
-    const { grouping, draftGrouping, expandedGroups } = this.getState();
+    const { grouping, draftGrouping, expandedGroups } = this.state;
 
     return (
       <Plugin

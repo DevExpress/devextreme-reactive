@@ -9,43 +9,35 @@ export class PagingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      currentPage: props.defaultCurrentPage,
-      pageSize: props.defaultPageSize,
+      currentPage: props.currentPage || props.defaultCurrentPage,
+      pageSize: props.pageSize || props.defaultPageSize,
     };
 
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        currentPage: () => this.props.onCurrentPageChange,
+        pageSize: () => this.props.onPageSizeChange,
+      },
+    );
 
     this.setCurrentPage = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentPage', setCurrentPage);
     this.setPageSize = stateHelper.applyFieldReducer
       .bind(stateHelper, 'pageSize', setPageSize);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      currentPage = this.state.currentPage,
-      pageSize = this.state.pageSize,
-    } = this.props;
-    return {
-      ...this.state,
       currentPage,
       pageSize,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { currentPage } = nextState;
-    const { onCurrentPageChange } = this.props;
-    if (onCurrentPageChange && currentPage !== state.currentPage) {
-      onCurrentPageChange(currentPage);
-    }
-
-    const { pageSize } = nextState;
-    const { onPageSizeChange } = this.props;
-    if (onPageSizeChange && pageSize !== state.pageSize) {
-      onPageSizeChange(pageSize);
-    }
+    } = nextProps;
+    this.setState({
+      ...currentPage !== undefined ? { currentPage } : null,
+      ...pageSize !== undefined ? { pageSize } : null,
+    });
   }
   render() {
-    const { pageSize, currentPage } = this.getState();
+    const { pageSize, currentPage } = this.state;
 
     return (
       <Plugin

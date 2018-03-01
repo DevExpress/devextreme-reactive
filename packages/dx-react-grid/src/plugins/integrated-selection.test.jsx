@@ -3,9 +3,10 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  getAvailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
+  unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { IntegratedSelection } from './integrated-selection';
@@ -13,7 +14,8 @@ import { IntegratedSelection } from './integrated-selection';
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),
   allSelected: jest.fn(),
-  getAvailableToSelect: jest.fn(),
+  rowsWithAvailableToSelect: jest.fn(),
+  unwrapSelectedRows: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -40,26 +42,31 @@ describe('IntegratedSelection', () => {
   beforeEach(() => {
     someSelected.mockImplementation(() => 'someSelected');
     allSelected.mockImplementation(() => 'allSelected');
-    getAvailableToSelect.mockImplementation(() => [0, 1, 2]);
+    rowsWithAvailableToSelect.mockImplementation(() => ({ availableToSelect: [0, 1, 2] }));
+    unwrapSelectedRows.mockImplementation(() => 'unwrapSelectedRows');
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   it('should call availableToSelect after component render', () => {
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <IntegratedSelection />
       </PluginHost>
     ));
 
-    expect(getAvailableToSelect)
+    expect(rowsWithAvailableToSelect)
       .toHaveBeenCalledWith(
         defaultDeps.getter.rows,
         defaultDeps.getter.getRowId,
         defaultDeps.getter.isGroupRow,
       );
+    expect(unwrapSelectedRows)
+      .toBeCalledWith(rowsWithAvailableToSelect());
+    expect(getComputedState(tree).rows)
+      .toBe(unwrapSelectedRows());
   });
 
   it('should provide allSelected getter', () => {
@@ -74,10 +81,10 @@ describe('IntegratedSelection', () => {
       .toBe('allSelected');
 
     expect(allSelected)
-      .toHaveBeenCalledWith({
-        selection: defaultDeps.getter.selection,
-        availableToSelect: [],
-      });
+      .toHaveBeenCalledWith(
+        rowsWithAvailableToSelect(),
+        defaultDeps.getter.selection,
+      );
   });
   it('should provide someSelected getter', () => {
     const tree = mount((
@@ -91,10 +98,10 @@ describe('IntegratedSelection', () => {
       .toBe('someSelected');
 
     expect(someSelected)
-      .toHaveBeenCalledWith({
-        selection: defaultDeps.getter.selection,
-        availableToSelect: [],
-      });
+      .toHaveBeenCalledWith(
+        rowsWithAvailableToSelect(),
+        defaultDeps.getter.selection,
+      );
   });
   it('should provide selectAllAvailable getter', () => {
     const tree = mount((

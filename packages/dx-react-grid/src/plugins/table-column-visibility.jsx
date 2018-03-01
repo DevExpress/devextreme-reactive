@@ -23,27 +23,24 @@ export class TableColumnVisibility extends React.PureComponent {
     super(props);
 
     this.state = {
-      hiddenColumnNames: props.defaultHiddenColumnNames,
+      hiddenColumnNames: props.hiddenColumnNames || props.defaultHiddenColumnNames,
     };
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        hiddenColumnNames: () => this.props.onHiddenColumnNamesChange,
+      },
+    );
 
     this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumnNames', toggleColumn);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      hiddenColumnNames = this.state.hiddenColumnNames,
-    } = this.props;
-    return {
-      ...this.state,
       hiddenColumnNames,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { hiddenColumnNames } = nextState;
-    const { onHiddenColumnNamesChange } = this.props;
-    if (onHiddenColumnNamesChange && hiddenColumnNames !== state.hiddenColumnNames) {
-      onHiddenColumnNamesChange(hiddenColumnNames);
-    }
+    } = nextProps;
+    this.setState({
+      ...hiddenColumnNames !== undefined ? { hiddenColumnNames } : null,
+    });
   }
   render() {
     const {
@@ -51,7 +48,7 @@ export class TableColumnVisibility extends React.PureComponent {
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
-    const { hiddenColumnNames } = this.getState();
+    const { hiddenColumnNames } = this.state;
 
     return (
       <Plugin

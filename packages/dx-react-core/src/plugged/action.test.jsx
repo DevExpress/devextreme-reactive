@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
 import { Action } from './action';
+import { Getter } from './getter';
 import { Template } from './template';
 import { TemplateConnector } from './template-connector';
 
@@ -140,5 +141,31 @@ describe('Action', () => {
     computedAction({});
     expect(action1.mock.calls[0][0])
       .toBe(payload1);
+  });
+
+  it('should receive getter values defined before', () => {
+    const action = jest.fn();
+    let computedAction;
+
+    mount((
+      <PluginHost>
+        <Getter name="value" value={1} />
+        <Action name="action" action={action} />
+        <Getter name="value" value={2} />
+
+        <Template name="root">
+          <TemplateConnector>
+            {(getters, actions) => {
+              computedAction = actions.action;
+              return null;
+            }}
+          </TemplateConnector>
+        </Template>
+      </PluginHost>
+    ));
+
+    computedAction();
+    expect(action.mock.calls[0][1].value)
+      .toBe(1);
   });
 });

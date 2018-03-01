@@ -9,32 +9,29 @@ export class SortingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      sorting: props.defaultSorting,
+      sorting: props.sorting || props.defaultSorting,
     };
 
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        sorting: () => this.props.onSortingChange,
+      },
+    );
 
     this.changeColumnSorting = stateHelper.applyReducer
       .bind(stateHelper, changeColumnSorting);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      sorting = this.state.sorting,
-    } = this.props;
-    return {
-      ...this.state,
       sorting,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { sorting } = nextState;
-    const { onSortingChange } = this.props;
-    if (onSortingChange && sorting !== state.sorting) {
-      onSortingChange(sorting);
-    }
+    } = nextProps;
+    this.setState({
+      ...sorting !== undefined ? { sorting } : null,
+    });
   }
   render() {
-    const { sorting } = this.getState();
+    const { sorting } = this.state;
 
     return (
       <Plugin

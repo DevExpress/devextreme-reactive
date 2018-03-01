@@ -24,7 +24,7 @@ Add the DevExtreme React Grid styles in one of the following ways:
   import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
   ```
 
-The DevExtreme React Grid also requires the [OpenIconic](https://useiconic.com/open) icons to be added to your project.
+The DevExtreme React Grid also requires adding the [OpenIconic](https://useiconic.com/open) icons to your project.
 
 Add the required modules to your project:
 
@@ -54,7 +54,7 @@ Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are inst
 
 ## Getting started
 
-The dx-react-grid-bootstrap4 package provides components and plugins implementing Bootstrap 4 rendering for the React Grid. You can use them instead of the ones the React Grid package provides.
+The dx-react-grid-bootstrap4 package provides components and plugins that implement Bootstrap 4 rendering for the React Grid. You can use them instead of the ones the React Grid package provides.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 

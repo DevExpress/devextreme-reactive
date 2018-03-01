@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { scaleLinear } from 'd3-scale';
 
 import {
   Plugin,
@@ -8,33 +9,83 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-export const Axis = props => (
+
+const margin = 20;
+const tickSize = 5;
+
+const getAxisCoords = (scale, width, height, orientation) => {
+  let getTickCoords;
+  if (orientation === 'horizontal') {
+    getTickCoords = (tick) => {
+      const xCoords = scale(tick);
+      return {
+        x1: xCoords,
+        x2: xCoords,
+        y1: margin - tickSize,
+        y2: margin + tickSize,
+        text: tick,
+        xText: xCoords,
+        yText: 0,
+      };
+    };
+  } else {
+    getTickCoords = (tick) => {
+      const yCoords = scale(tick);
+      return {
+        y1: yCoords,
+        y2: yCoords,
+        x1: margin - tickSize,
+        x2: margin + tickSize,
+        text: tick,
+        xText: 0,
+        yText: yCoords,
+      };
+    };
+  }
+  return {
+    ticks: scale.ticks().map(getTickCoords),
+  };
+};
+
+export const Axis = ({ name }) => (
   <Plugin name="Axis">
     <Template name="axis">
       <TemplatePlaceholder />
       <g>
         <TemplateConnector>
-          {({ axesCoords }) => axesCoords[props.dataField].ticks.map(item => (
-            <React.Fragment key={item.text} >
-              <line
-                style={{ stroke: 'black', strokeWidth: '1px' }}
-                x1={item.x1}
-                x2={item.x2}
-                y1={item.y1}
-                y2={item.y2}
-              />
-              <text
-                alignmentBaseline="middle"
-                textAnchor="middle"
-                key={item.text}
-                x={item.xText}
-                y={item.yText}
-              >
-                {item.text}
-              </text>
-            </React.Fragment>
-            ))
+          {({
+ domains, width, height, axes,
+}) => {
+            const domain = domains[name];
+            const { orientation } = axes.find(axis => axis.name === name);
+            const scale = scaleLinear().domain(domain).range((
+              orientation === 'horizontal'
+                ? [margin, width - (2 * margin)]
+                : [margin, height - (2 * margin)]));
+            const axesCoords = getAxisCoords(scale, width, height, orientation);
+
+            return axesCoords.ticks.map(item => (
+              <React.Fragment key={item.text} >
+                <line
+                  style={{ stroke: 'black', strokeWidth: '1px' }}
+                  x1={item.x1}
+                  x2={item.x2}
+                  y1={item.y1}
+                  y2={item.y2}
+                />
+                <text
+                  alignmentBaseline="middle"
+                  textAnchor="middle"
+                  key={item.text}
+                  x={item.xText}
+                  y={item.yText}
+                >
+                  {item.text}
+                </text>
+              </React.Fragment>
+            ));
           }
+        }
         </TemplateConnector>
       </g>
     </Template>
@@ -42,5 +93,5 @@ export const Axis = props => (
 );
 
 Axis.propTypes = {
-  dataField: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };

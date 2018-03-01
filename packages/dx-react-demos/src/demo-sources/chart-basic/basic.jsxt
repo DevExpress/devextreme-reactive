@@ -5,19 +5,35 @@ import {
   Axis,
   AxesState,
   LineSeries,
-  ScaleState,
+  IntegratedScaleProcessing,
   SeriesState,
 } from '@devexpress/dx-react-chart';
 
 const data = [
-  { year: 2000, born: 100, male: 70, female: 30 },
-  { year: 2001, born: 110, male: 70, female: 40 },
-  { year: 2002, born: 95, male: 70, female: 25 },
-  { year: 1995, born: 101, male: 70, female: 31 },
-  { year: 1998, born: 200, male: 70, female: 130 },
-  { year: 2015, born: 89, male: 70, female: 19 },
-  { year: 2006, born: 115, male: 70, female: 45 },
-  { year: 2007, born: 230, male: 70, female: 160 },
+  {
+    year: 1995, Russia: 101, China: 70, USA: 31,
+  },
+  {
+    year: 1998, Russia: 200, China: 70, USA: 130,
+  },
+  {
+    year: 2000, Russia: 100, China: 70, USA: 30,
+  },
+  {
+    year: 2001, Russia: 110, China: 70, USA: 40,
+  },
+  {
+    year: 2002, Russia: 95, China: 70, USA: 25,
+  },
+  {
+    year: 2006, Russia: 115, China: 70, USA: 45,
+  },
+  {
+    year: 2007, Russia: 230, China: 70, USA: 160,
+  },
+  {
+    year: 2015, Russia: 89, China: 70, USA: 19,
+  },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -36,54 +52,38 @@ export default class Demo extends React.PureComponent {
         height="400"
         style={{ border: '1px dashed gray' }}
       >
-        {/* <ScaleState
-          argumentField="year"
-          settings={[
+        <AxesState axes={[
             {
-              dataFields: ['year'],
-              orientation: 'horizontal',
-              id: 'x',
+               name: 'year',
+               orientation: 'horizontal',
             },
             {
-              dataFields: ['born', 'male', 'female'],
+              name: 'born',
               orientation: 'vertical',
-              tickInterval: 10,
-              id: 'y',
-            },
-          ]}
-        /> */}
-
-        <AxesState
-          axes={[
-            { name: 'year', orientation: 'horizontal' },
-            { name: 'born', orientation: 'vertical' },
+           },
           ]}
         />
-
-        <SeriesState
-          series={[
-            { valueField: 'born', argumentField: 'year' },
-            { valueField: 'male', argumentField: 'year' },
-            { valueField: 'female', argumentField: 'year' },
+        <SeriesState series={[
+            { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
+            { valueField: 'China', argumentField: 'year', axisName: 'born' },
+            { valueField: 'USA', argumentField: 'year', axisName: 'born' },
           ]}
         />
-
-        <IntegratedAxisScale />
-        <IntegratedLineSeries />
-        <IntegratedBarSeries />
+        <IntegratedScaleProcessing />
 
         <Axis name="year" />
         <Axis name="born" />
 
         <LineSeries
-          name="born"
+          name="Russia"
           style={{ stroke: 'red' }}
         />
         <LineSeries
-          name="male"
+          name="China"
+          style={{ stroke: 'yellow' }}
         />
         <LineSeries
-          name="female"
+          name="USA"
         />
       </Chart>
     );

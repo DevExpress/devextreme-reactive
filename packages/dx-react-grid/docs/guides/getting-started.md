@@ -36,7 +36,7 @@ This package does not contain visual components. In the examples below, visual c
   <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
   ```
 
-  NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
+  NOTE: The DevExtreme React Grid does not include Bootstrap CSS.
 
 - Bootstrap 3
 

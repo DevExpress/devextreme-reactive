@@ -44,7 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.0.0",
+    "@devexpress/dx-testing": "1.1.0-beta.1",
     "@vue/test-utils": "^1.0.0-beta.12",
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -71,7 +71,7 @@
     "vue-template-compiler": "^2.5.13"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.0.0"
+    "@devexpress/dx-core": "1.1.0-beta.1"
   },
   "peerDependencies": {
     "vue": "^2.5.13"

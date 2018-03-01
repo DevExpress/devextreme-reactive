@@ -85,9 +85,9 @@
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.0.0",
-    "@devexpress/dx-react-core": "1.0.0",
-    "@devexpress/dx-react-grid": "1.0.0",
+    "@devexpress/dx-grid-core": "1.1.0-beta.1",
+    "@devexpress/dx-react-core": "1.1.0-beta.1",
+    "@devexpress/dx-react-grid": "1.1.0-beta.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1"
   }

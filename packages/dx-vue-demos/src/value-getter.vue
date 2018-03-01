@@ -27,7 +27,7 @@ const TasksListCore = {
       <div>
         <Getter name="tasks" value={this.tasks} />
         <Template name="root">
-        <div>
+      <div>
       <TemplateConnector>
         {({ getters: { tasks } }) => (
           <ul>

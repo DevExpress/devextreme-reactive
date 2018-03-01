@@ -20,6 +20,9 @@
 
     <h2>ComputedGetter</h2>
     <ComputedGetter></ComputedGetter>
+
+    <h2>SimpleAction</h2>
+    <SimpleAction></SimpleAction>
   </div>
 </template>
 
@@ -31,6 +34,7 @@ import TemplateParameters from './template-parameters';
 import TemplateOverriding from './template-overriding';
 import ValueGetter from './value-getter';
 import ComputedGetter from './computed-getter';
+import SimpleAction from './simple-action';
 
 export default {
   components: {
@@ -41,6 +45,7 @@ export default {
     TemplateOverriding,
     ValueGetter,
     ComputedGetter,
+    SimpleAction,
   },
 };
 </script>

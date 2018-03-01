@@ -25,19 +25,19 @@ Set the `TableHeaderRow` plugin's `showSortingControls` property to true to enab
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `SortingState` plugin's `defaultSorting` property.
 
-.embedded-demo(grid-sorting/header-sorting)
+.embedded-demo({ "path": "grid-sorting/header-sorting", "showThemeSelector": true })
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `SortingState` plugin's `sorting` property and handle the `onSortingChange` event to control the sorting state externally.
 
-.embedded-demo(grid-sorting/controlled-mode)
+.embedded-demo({ "path": "grid-sorting/controlled-mode", "showThemeSelector": true })
 
 ## Disable Sorting by a Column
 
 You can prevent sorting by a specific column using the [SortingState](../reference/sorting-state.md) plugin's `columnExtensions` property.
 
-.embedded-demo(grid-sorting/disable-column-sorting)
+.embedded-demo({ "path": "grid-sorting/disable-column-sorting", "showThemeSelector": true })
 
 ## Using Sorting with Grouping
 
@@ -45,13 +45,13 @@ The Grid's grouping features allow you to sort groups as well as data rows. For 
 
 Note that the `IntegratedGrouping` plugin should follow `IntegratedSorting` to provide correct group row sorting.
 
-.embedded-demo(grid-sorting/group-sorting)
+.embedded-demo({ "path": "grid-sorting/group-sorting", "showThemeSelector": true })
 
 ## Custom Sorting Algorithm
 
 The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExtensions` property allows you to implement a custom sorting algorithm for a specific column.
 
-.embedded-demo(grid-sorting/custom-sorting)
+.embedded-demo({ "path": "grid-sorting/custom-sorting", "showThemeSelector": true })
 
 ## Remote Sorting
 
@@ -61,4 +61,4 @@ Sorting options are updated once an end-user interacts with a column header in t
 
 Note that you do not need to use the `IntegratedSorting` plugin for remote sorting.
 
-.embedded-demo(grid-sorting/remote-sorting)
+.embedded-demo({ "path": "grid-sorting/remote-sorting", "showThemeSelector": true })

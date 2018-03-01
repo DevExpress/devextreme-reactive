@@ -1,7 +1,5 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
-import {
-  tableColumnsWithWidths,
-} from './computeds';
+import { tableColumnsWithWidths } from './computeds';
 
 describe('TableColumnResizing Plugin computeds', () => {
   describe('#tableColumnsWithWidths', () => {

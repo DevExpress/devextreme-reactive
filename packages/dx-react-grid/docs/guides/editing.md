@@ -27,7 +27,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specif
 - `defaultRowChanges` - the row changes
 - `defaultDeletedRowIds` - the rows being deleted
 
-.embedded-demo(grid-editing/edit-row)
+.embedded-demo({ "path": "grid-editing/edit-row", "showThemeSelector": true })
 
 ## Controlled Mode
 
@@ -40,10 +40,10 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), specify the foll
 
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
-.embedded-demo(grid-editing/edit-row-controlled)
+.embedded-demo({ "path": "grid-editing/edit-row-controlled", "showThemeSelector": true })
 
 ### Disable Editing by a Column
 
 You can prevent editing of a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
 
-.embedded-demo(grid-editing/disable-column-editing)
+.embedded-demo({ "path": "grid-editing/disable-column-editing", "showThemeSelector": true })

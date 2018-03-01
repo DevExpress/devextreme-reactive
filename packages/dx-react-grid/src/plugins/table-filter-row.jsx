@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
-} from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,

@@ -1,27 +1,46 @@
-export const createStateHelper = (component) => {
+const STATE_CONSISTENCY_TIMEOUT = 1000 / 60;
+
+export const createStateHelper = (component, controlledStateProperties = {}) => {
+  const stateConsistencyTimers = {};
+  const checkStateConsistency = (propertyName) => {
+    if (component.props[propertyName] !== undefined
+      && component.props[propertyName] !== component.state[propertyName]) {
+      component.setState({ [propertyName]: component.props[propertyName] });
+    }
+  };
+  const notifyStateChange = (nextState, state) => {
+    Object.keys(controlledStateProperties).forEach((propertyName) => {
+      const changeEvent = controlledStateProperties[propertyName]();
+      if (changeEvent && nextState[propertyName] !== state[propertyName]) {
+        changeEvent(nextState[propertyName]);
+        clearTimeout(stateConsistencyTimers[propertyName]);
+        stateConsistencyTimers[propertyName] = setTimeout(
+          checkStateConsistency.bind(null, propertyName),
+          STATE_CONSISTENCY_TIMEOUT,
+        );
+      }
+    });
+  };
+
   let lastStateUpdater = null;
   let initialState = null;
-
   const applyReducer = (reduce, payload, callback) => {
     const stateUpdater = (prevState) => {
-      const state = {
-        ...component.getState(prevState),
-        ...(component.state !== prevState ? prevState : null),
-      };
       if (initialState === null) {
-        initialState = state;
+        initialState = prevState;
       }
-      const nextState = { ...state, ...reduce(state, payload) };
+      const stateChange = reduce({ ...prevState }, payload);
+      const state = { ...prevState, ...stateChange };
 
       if (typeof callback === 'function') {
-        callback(nextState, state);
+        callback(state, prevState);
       }
       if (stateUpdater === lastStateUpdater) {
-        component.notifyStateChange(nextState, initialState);
+        notifyStateChange(state, initialState);
         initialState = null;
       }
 
-      return nextState;
+      return stateChange;
     };
     lastStateUpdater = stateUpdater;
     component.setState(stateUpdater);

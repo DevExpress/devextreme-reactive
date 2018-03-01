@@ -18,11 +18,16 @@ export class TableColumnResizing extends React.PureComponent {
     super(props);
 
     this.state = {
-      columnWidths: props.defaultColumnWidths,
+      columnWidths: props.columnWidths || props.defaultColumnWidths,
       draftColumnWidths: [],
     };
 
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        columnWidths: () => this.props.onColumnWidthsChange,
+      },
+    );
 
     this.changeTableColumnWidth =
       stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
@@ -31,24 +36,16 @@ export class TableColumnResizing extends React.PureComponent {
     this.cancelTableColumnWidthDraft =
       stateHelper.applyReducer.bind(stateHelper, cancelTableColumnWidthDraft);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      columnWidths = this.state.columnWidths,
-    } = this.props;
-    return {
-      ...this.state,
       columnWidths,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { columnWidths } = nextState;
-    const { onColumnWidthsChange } = this.props;
-    if (onColumnWidthsChange && columnWidths !== state.columnWidths) {
-      onColumnWidthsChange(columnWidths);
-    }
+    } = nextProps;
+    this.setState({
+      ...columnWidths !== undefined ? { columnWidths } : null,
+    });
   }
   render() {
-    const { columnWidths, draftColumnWidths } = this.getState();
+    const { columnWidths, draftColumnWidths } = this.state;
 
     const tableColumnsComputed = ({ tableColumns }) =>
       tableColumnsWithWidths(tableColumns, columnWidths, draftColumnWidths);

@@ -9,31 +9,25 @@ export class SearchState extends React.PureComponent {
     super(props);
 
     this.state = {
-      value: props.defaultValue,
+      value: props.value || props.defaultValue,
     };
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(this, {
+      value: () => this.props.onValueChange,
+    });
 
     this.changeValue = stateHelper.applyFieldReducer
       .bind(stateHelper, 'value', changeSearchValue);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      value = this.state.value,
-    } = this.props;
-    return {
-      ...this.state,
       value,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { value } = nextState;
-    const { onValueChange } = this.props;
-    if (onValueChange && value !== state.value) {
-      onValueChange(value);
-    }
+    } = nextProps;
+    this.setState({
+      ...value !== undefined ? { value } : null,
+    });
   }
   render() {
-    const { value } = this.getState();
+    const { value } = this.state;
 
     return (
       <Plugin

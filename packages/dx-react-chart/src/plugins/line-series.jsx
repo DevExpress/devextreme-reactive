@@ -11,7 +11,6 @@ import { line } from 'd3-shape';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
-const margin = 40;
 
 const computeLinePath = (data, xscale, yscale, argumentField, valueField) =>
   data.map(dataItem => ({
@@ -39,6 +38,7 @@ export class LineSeries extends React.PureComponent {
               axes,
               width,
               height,
+              margin,
               argumentAxis = 'year',
             }) => {
               const {

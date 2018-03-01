@@ -28,12 +28,8 @@ import SaveIcon from 'material-ui-icons/Save';
 import CancelIcon from 'material-ui-icons/Cancel';
 import { withStyles } from 'material-ui/styles';
 
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/material-ui/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/material-ui/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
 
 import {
   generateRows,

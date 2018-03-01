@@ -1,6 +1,4 @@
-import {
-  toggleDetailRowExpanded,
-} from './reducers';
+import { toggleDetailRowExpanded } from './reducers';
 
 describe('TableRowDetail Plugin reducers', () => {
   describe('#toggleDetailRowExpanded', () => {

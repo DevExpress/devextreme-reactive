@@ -3,19 +3,15 @@ import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
-
   startEditRows,
   stopEditRows,
-
   addRow,
   changeAddedRow,
   cancelAddedRows,
   addedRowsByIds,
-
   changeRow,
   cancelChanges,
   changedRowsByIds,
-
   deleteRows,
   cancelDeletedRows,
 
@@ -31,13 +27,21 @@ export class EditingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      editingRowIds: props.defaultEditingRowIds,
-      addedRows: props.defaultAddedRows,
-      rowChanges: props.defaultRowChanges,
-      deletedRowIds: props.defaultDeletedRowIds,
+      editingRowIds: props.editingRowIds || props.defaultEditingRowIds,
+      addedRows: props.addedRows || props.defaultAddedRows,
+      rowChanges: props.rowChanges || props.defaultRowChanges,
+      deletedRowIds: props.deletedRowIds || props.defaultDeletedRowIds,
     };
 
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        editingRowIds: () => this.props.onEditingRowIdsChange,
+        addedRows: () => this.props.onAddedRowsChange,
+        rowChanges: () => this.props.onRowChangesChange,
+        deletedRowIds: () => this.props.onDeletedRowIdsChange,
+      },
+    );
 
     this.startEditRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'editingRowIds', startEditRows);
@@ -50,7 +54,7 @@ export class EditingState extends React.PureComponent {
       .bind(stateHelper, 'rowChanges', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
-        changed: changedRowsByIds(this.getState().rowChanges, rowIds),
+        changed: changedRowsByIds(this.state.rowChanges, rowIds),
       });
       this.cancelChangedRows({ rowIds });
     };
@@ -63,7 +67,7 @@ export class EditingState extends React.PureComponent {
       .bind(stateHelper, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
       this.props.onCommitChanges({
-        added: addedRowsByIds(this.getState().addedRows, rowIds),
+        added: addedRowsByIds(this.state.addedRows, rowIds),
       });
       this.cancelAddedRows({ rowIds });
     };
@@ -77,51 +81,25 @@ export class EditingState extends React.PureComponent {
       this.cancelDeletedRows({ rowIds });
     };
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      editingRowIds = this.state.editingRowIds,
-      rowChanges = this.state.rowChanges,
-      addedRows = this.state.addedRows,
-      deletedRowIds = this.state.deletedRowIds,
-    } = this.props;
-    return {
-      ...this.state,
       editingRowIds,
       rowChanges,
       addedRows,
       deletedRowIds,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { editingRowIds } = nextState;
-    const { onEditingRowIdsChange } = this.props;
-    if (onEditingRowIdsChange && editingRowIds !== state.editingRowIds) {
-      onEditingRowIdsChange(editingRowIds);
-    }
-
-    const { rowChanges } = nextState;
-    const { onRowChangesChange } = this.props;
-    if (onRowChangesChange && rowChanges !== state.rowChanges) {
-      onRowChangesChange(rowChanges);
-    }
-
-    const { addedRows } = nextState;
-    const { onAddedRowsChange } = this.props;
-    if (onAddedRowsChange && addedRows !== state.addedRows) {
-      onAddedRowsChange(addedRows);
-    }
-
-    const { deletedRowIds } = nextState;
-    const { onDeletedRowIdsChange } = this.props;
-    if (onDeletedRowIdsChange && deletedRowIds !== state.deletedRowIds) {
-      onDeletedRowIdsChange(deletedRowIds);
-    }
+    } = nextProps;
+    this.setState({
+      ...editingRowIds !== undefined ? { editingRowIds } : null,
+      ...rowChanges !== undefined ? { rowChanges } : null,
+      ...addedRows !== undefined ? { addedRows } : null,
+      ...deletedRowIds !== undefined ? { deletedRowIds } : null,
+    });
   }
   render() {
     const { createRowChange, columnExtensions, columnEditingEnabled } = this.props;
     const {
       editingRowIds, rowChanges, addedRows, deletedRowIds,
-    } = this.getState();
+    } = this.state;
 
     return (
       <Plugin

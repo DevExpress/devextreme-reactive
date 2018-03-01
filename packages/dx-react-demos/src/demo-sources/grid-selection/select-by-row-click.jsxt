@@ -1,7 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
-import {
-  SelectionState,
-} from '@devexpress/dx-react-grid';
+import { SelectionState } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
@@ -9,9 +7,7 @@ import {
   TableSelection,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  generateRows,
-} from '../../../demo-data/generator';
+import { generateRows } from '../../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

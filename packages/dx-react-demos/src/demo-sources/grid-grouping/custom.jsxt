@@ -10,9 +10,7 @@ import {
   TableGroupRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  generateRows,
-} from '../../../demo-data/generator';
+import { generateRows } from '../../../demo-data/generator';
 
 const cityGroupCriteria = value => ({ key: value.substr(0, 1) });
 

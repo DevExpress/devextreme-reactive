@@ -46,7 +46,7 @@ React Grid uses the latest web platform standards. Thus, it cannot support older
 
 ### Using Grid component
 
-The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid data.
+The Grid renders nothing by default. The root Grid component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the grid's data.
 
 Use the Table plugin to display the data as a simple table:
 

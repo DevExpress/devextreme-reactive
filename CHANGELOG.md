@@ -1,3 +1,14 @@
+<a name="1.0.2"></a>
+# [1.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.1...v1.0.2) (2018-03-01)
+
+
+### Bug Fixes
+
+* **react-grid:** rework controlled mode ([#779](https://github.com/DevExpress/devextreme-reactive/issues/779)) ([a412dda](https://github.com/DevExpress/devextreme-reactive/commit/a412dda)), closes [#762](https://github.com/DevExpress/devextreme-reactive/issues/762)
+* **react-grid-material-ui:** update material-ui and material-ui-icons version to 1.0.0-beta.35 ([#784](https://github.com/DevExpress/devextreme-reactive/issues/784)) ([d96b1be](https://github.com/DevExpress/devextreme-reactive/commit/d96b1be))
+
+
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0...v1.0.1) (2018-02-16)
 

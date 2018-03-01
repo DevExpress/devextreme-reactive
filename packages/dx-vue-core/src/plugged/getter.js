@@ -49,9 +49,6 @@ export const Getter = {
 
     pluginHost.registerPlugin(this.plugin);
   },
-  updated() {
-    this.pluginHost.broadcast(UPDATE_CONNECTION);
-  },
   beforeDestroy() {
     this.pluginHost.unregisterPlugin(this.plugin);
   },

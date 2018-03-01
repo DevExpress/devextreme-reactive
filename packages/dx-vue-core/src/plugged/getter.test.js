@@ -122,23 +122,23 @@ describe('Getter', () => {
     expect(wrapper.find('h1').text()).toBe('base_extended');
   });
 
-  xit('notifies dependencies to update', () => {
+  it('notifies dependencies to update', () => {
     const EncapsulatedPlugin = {
       render() {
         return (
-          <Plugin>
+          // <Plugin>
             <Template name="root">
               <TemplateConnector>
-                {({ test }) => <h1>{test}</h1>}
+                {({ getters: { test } }) => <h1>{test}</h1>}
               </TemplateConnector>
             </Template>
-          </Plugin>
+          // </Plugin>
         );
       },
     };
 
     const Test = {
-      props: { text: {} },
+      props: ['text'],
       render() {
         return (
           <PluginHost>
@@ -151,58 +151,17 @@ describe('Getter', () => {
     };
 
     const wrapper = mount({
+      data() {
+        return { text: 'old' };
+      },
       render() {
-        return <Test text="extended" />;
+        return <Test text={this.text} />;
       },
     });
-    wrapper.setProps({ text: 'new' });
+    wrapper.setData({ text: 'new' });
+    wrapper.update();
 
-    expect(wrapper.find('h1').text()).toBe('new');
-  });
-
-  // This test is not correct enough. Rewrite it in future
-  xit('should be memoized based on args', () => {
-    const log = [];
-    const staticComputed = ({ test }) => ({ test });
-
-    const EncapsulatedPlugin = {
-      render() {
-        return (
-          <Plugin>
-            <Getter
-              name="test"
-              computed={staticComputed}
-            />
-
-            <Template name="root">
-              <TemplateConnector>
-                {({ test }) => {
-                  log.push(test);
-                  return null;
-                }}
-              </TemplateConnector>
-            </Template>
-          </Plugin>
-        );
-      },
-    };
-    const Test = {
-      props: { value: {} },
-      render() {
-        return (
-          <PluginHost>
-            <Getter name="test" value={this.value} force={{}} />
-            <EncapsulatedPlugin />
-          </PluginHost>
-        );
-      },
-    };
-
-    const wrapper = mount(<Test value={1} />);
-    wrapper.setProps({ value: 1 });
-    wrapper.setProps({ value: 2 });
-
-    expect(log).toHaveLength(2);
-    expect(log[0]).not.toBe(log[1]);
+    expect(wrapper.find('h1').text())
+      .toBe('new');
   });
 });

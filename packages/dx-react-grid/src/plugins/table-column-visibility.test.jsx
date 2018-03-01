@@ -10,8 +10,9 @@ import {
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
+import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
@@ -41,10 +42,8 @@ const defaultDeps = {
   plugins: ['Table'],
 };
 
-const DefaultEmptyMessage = () => null;
-
 const defaultProps = {
-  emptyMessageComponent: DefaultEmptyMessage,
+  emptyMessageComponent: () => null,
 };
 
 describe('TableColumnVisibility', () => {
@@ -68,42 +67,26 @@ describe('TableColumnVisibility', () => {
     jest.resetAllMocks();
   });
 
+  testStatePluginField({
+    Plugin: TableColumnVisibility,
+    propertyName: 'hiddenColumnNames',
+    defaultDeps,
+    defaultProps,
+    values: [
+      ['a'],
+      ['b'],
+      ['c'],
+    ],
+    actions: [{
+      actionName: 'toggleColumnVisibility',
+      reducer: toggleColumn,
+    }],
+  });
+
   describe('table layout getters extending', () => {
-    it('should extend hiddenColumnNames from hiddenColumnNames property', () => {
-      const hiddenColumnNames = ['b', 'a'];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableColumnVisibility
-            {...defaultProps}
-            hiddenColumnNames={hiddenColumnNames}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).hiddenColumnNames)
-        .toBe(hiddenColumnNames);
-    });
-
-    it('should extend hiddenColumnNames from defaultHiddenColumnNames property', () => {
-      const hiddenColumnNames = ['b', 'a'];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <TableColumnVisibility
-            {...defaultProps}
-            defaultHiddenColumnNames={hiddenColumnNames}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).hiddenColumnNames)
-        .toBe(hiddenColumnNames);
-    });
-
     it('should call the visibleTableColumns computed with correct arguments', () => {
       const hiddenColumnNames = ['b', 'a'];
-      mount((
+      const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableColumnVisibility
@@ -115,23 +98,10 @@ describe('TableColumnVisibility', () => {
 
       expect(visibleTableColumns)
         .toHaveBeenCalledWith(defaultDeps.getter.tableColumns, hiddenColumnNames);
+
+      expect(getComputedState(tree).tableColumns)
+        .toEqual(visibleTableColumns());
     });
-  });
-
-  it('should remove hidden columns from tableColumns', () => {
-    const hiddenColumnNames = ['b', 'a'];
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableColumnVisibility
-          {...defaultProps}
-          hiddenColumnNames={hiddenColumnNames}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).tableColumns)
-      .toEqual([{ column: { name: 'c' } }]);
   });
 
   it('should force the empty message rendering if all columns are hidden', () => {
@@ -148,30 +118,11 @@ describe('TableColumnVisibility', () => {
         />
       </PluginHost>
     ));
-    const getMessage = tree.find(DefaultEmptyMessage)
+    const getMessage = tree.find(defaultProps.emptyMessageComponent)
       .prop('getMessage');
 
     expect(getMessage('noColumns'))
       .toBe('Nothing to show');
-  });
-
-  it('should call toggleVisibility in action', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <TableColumnVisibility
-          {...defaultProps}
-          hiddenColumnNames={[]}
-          messages={{
-            noColumns: 'Nothing to show',
-          }}
-        />
-      </PluginHost>
-    ));
-
-    executeComputedAction(tree, actions => actions.toggleColumnVisibility(defaultDeps.getter.tableColumns, 'test'));
-    expect(toggleColumn)
-      .toHaveBeenCalled();
   });
 
   describe('column extensions', () => {

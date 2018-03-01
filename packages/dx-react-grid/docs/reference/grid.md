@@ -48,11 +48,11 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Grid rows.
-getRowId | Getter | (row: any) => number &#124; string | A function used to get a unique row identifier.
-columns | Getter | Array&lt;[Column](#column)&gt; | Grid columns.
-getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
-root | Template | Object? | A template that renders the grid root layout.
-header | Template | Object? | A template that renders the grid header.
-body | Template | Object? | A template that renders the grid body.
-footer | Template | Object? | A template that renders the grid footer.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Grid rows.
+getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](#column)&gt; | Grid columns.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a given row's column value.
+root | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid root layout.
+header | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid header.
+body | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid body.
+footer | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid footer.

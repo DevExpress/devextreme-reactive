@@ -19,10 +19,10 @@ Add the required plugins listed above to the Grid and specify the detail row tem
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), you can specify the initially expanded detail rows using the `RowDetailState` plugin's `defaultExpandedRowIds` property.
 
-.embedded-demo(grid-detail-row/simple-detail-row)
+.embedded-demo({ "path": "grid-detail-row/simple-detail-row", "showThemeSelector": true })
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass an array of the expanded row IDs to the `RowDetailState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the detail rows' expanded state externally.
 
-.embedded-demo(grid-detail-row/detail-row-controlled)
+.embedded-demo({ "path": "grid-detail-row/detail-row-controlled", "showThemeSelector": true })

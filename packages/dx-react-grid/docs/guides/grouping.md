@@ -26,7 +26,7 @@ In the following examples, the grouping options are specified using the `Groupin
 
 In the following example, the data is specified as plain rows. In this case, the data should be grouped using the `IntegratedGrouping` plugin.
 
-.embedded-demo(grid-grouping/static)
+.embedded-demo({ "path": "grid-grouping/static", "showThemeSelector": true })
 
 ### Custom Grouping
 
@@ -34,7 +34,7 @@ Use the `CustomGrouping` plugin if the data has a hierarchical structure (alread
 
 In the following example, the data is specified as an array of groups. Specify the `CustomGrouping` plugin's `getChildGroups` property to parse a custom group structure.
 
-.embedded-demo(grid-grouping/custom-grouping-static)
+.embedded-demo({ "path": "grid-grouping/custom-grouping-static", "showThemeSelector": true })
 
 ## Configure the Grouping UI
 
@@ -50,31 +50,31 @@ You can also set the `GroupingPanel` plugin's `showSortingControls` option to tr
 
 In the following example, the Grid functions are in the [uncontrolled mode](controlled-and-uncontrolled-modes.md). This means that the Grid controls its grouping state internally. The initial grouping options are specified in the `GroupingState` plugin's `defaultGrouping` property.
 
-.embedded-demo(grid-grouping/grouping-with-ui)
+.embedded-demo({ "path": "grid-grouping/grouping-with-ui", "showThemeSelector": true })
 
 ## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass a grouping options array to the `GroupingState` plugin's `grouping` property and handle the `onGroupingChange` event to control the grid grouping state.
 
-.embedded-demo(grid-grouping/controlled-mode)
+.embedded-demo({ "path": "grid-grouping/controlled-mode", "showThemeSelector": true })
 
 ## Disable Grouping by a Column
 
 You can disable grouping/ungrouping for a specific column using the [GroupingState](../reference/grouping-state.md) plugin's `columnExtensions` property.
 
-.embedded-demo(grid-grouping/disable-column-grouping)
+.embedded-demo({ "path": "grid-grouping/disable-column-grouping", "showThemeSelector": true })
 
 ## Built-in Grouping with Custom Values
 
 Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [columnExtensions](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the columns configuration's `showWhenGrouped` field to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.
 
-.embedded-demo(grid-grouping/custom)
+.embedded-demo({ "path": "grid-grouping/custom", "showThemeSelector": true })
 
 You can also assign a Boolean value to the `TableGroupRow` plugin's `showColumnsWhenGrouped` property to define what columns should remain visible when they group data.
 
 Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the `TableGroupRow` plugin's `cellComponent` property as demonstrated in the following example:
 
-.embedded-demo(grid-grouping/custom-advanced)
+.embedded-demo({ "path": "grid-grouping/custom-advanced", "showThemeSelector": true })
 
 ## Remote Grouping
 
@@ -88,4 +88,4 @@ While waiting for a response from a server, there is a moment when the grouping 
 
 The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
 
-.embedded-demo(grid-grouping/remote-grouping-with-local-expanding)
+.embedded-demo({ "path": "grid-grouping/remote-grouping-with-local-expanding", "showThemeSelector": true })

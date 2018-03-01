@@ -1,7 +1,5 @@
 import { TABLE_EDIT_COMMAND_TYPE } from './constants';
-import {
-  tableColumnsWithEditing,
-} from './computeds';
+import { tableColumnsWithEditing } from './computeds';
 
 describe('TableEditColumn Plugin computeds', () => {
   describe('#tableColumnsWithEditing', () => {

@@ -49,11 +49,11 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
-root | Template | Object? | A template that renders the grid's root layout.
+columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
+root | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid's root layout.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-draggingEnabled | Getter | boolean | Specifies whether drag-and-drop is enabled.
+draggingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether drag-and-drop is enabled.

@@ -2,9 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DropTarget } from '@devexpress/dx-react-core';
-import {
-  getGroupCellTargetIndex,
-} from '@devexpress/dx-grid-core';
+import { getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
 import { ItemLayout } from './group-panel-layout/item-layout';
 
 export class GroupPanelLayout extends React.PureComponent {

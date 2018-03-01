@@ -31,14 +31,14 @@ compare? | (a: any, b: any) => number | A sort compare function. See the [Sortin
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be sorted.
-sorting | Getter | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
-getCellValue | Getter | (row: any, columnName: string) => any | The function used to get a cell value.
-isGroupRow? | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
-getRowLevelKey? | Getter | (row: any) => string? | A function used to get row level key.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be sorted.
+sorting | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Sorting](sorting-state.md#sorting)&gt; | Column sorting to be applied.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | The function used to get a cell value.
+isGroupRow? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
+getRowLevelKey? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get row level key.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows with the applied sorting.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows with the applied sorting.

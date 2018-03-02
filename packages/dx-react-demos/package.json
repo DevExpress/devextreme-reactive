@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-demos",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -30,10 +30,10 @@
     ]
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "1.0.2",
-    "@devexpress/dx-react-grid": "1.0.2",
-    "@devexpress/dx-react-grid-bootstrap3": "1.0.2",
-    "@devexpress/dx-react-grid-material-ui": "1.0.2",
+    "@devexpress/dx-react-core": "1.0.3",
+    "@devexpress/dx-react-grid": "1.0.3",
+    "@devexpress/dx-react-grid-bootstrap3": "1.0.3",
+    "@devexpress/dx-react-grid-material-ui": "1.0.3",
     "core-js": "^2.5.3",
     "material-ui": "1.0.0-beta.35",
     "material-ui-icons": "1.0.0-beta.35",
@@ -50,7 +50,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.0.2",
+    "@devexpress/dx-testing": "1.0.3",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.2",

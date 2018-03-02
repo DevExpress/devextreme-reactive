@@ -1,6 +1,4 @@
-import {
-  sortedRows,
-} from './computeds';
+import { sortedRows } from './computeds';
 
 describe('IntegratedSorting computeds', () => {
   describe('#sortedRows', () => {

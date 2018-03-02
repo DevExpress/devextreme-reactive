@@ -1,0 +1,7 @@
+.dx-rg-bs4-table {
+  table-layout: fixed;
+}
+.dx-rg-bs4-table-head {
+  top: 0;
+  z-index: 1;
+}

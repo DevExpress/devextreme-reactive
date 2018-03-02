@@ -1,6 +1,4 @@
-import {
-  pureReducer,
-} from './reducers';
+import { pureReducer } from './reducers';
 
 describe('Plugin reducers', () => {
   describe('#pureReducer', () => {

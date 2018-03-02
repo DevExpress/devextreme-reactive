@@ -16,11 +16,10 @@ Name | Type | Default | Description
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
 columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
-tableComponent | ReactNode | | A component that renders a table.
-headComponent | ReactNode | | A component that renders a table head.
-bodyComponent | ReactNode | | A component that renders a table body.
-stickyTableComponent | ReactNode | | A component that renders a sticky header.
-containerComponent | ReactNode | | A component that renders a container for virtual table.
+tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
+headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
+bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+containerComponent | ComponentType&lt;object&gt; | | A component that renders a container for virtual table.
 cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -36,7 +35,6 @@ Name | Properties | Description
 VirtualTable.Table | object | A component that renders a table.
 VirtualTable.TableHead | object | A component that renders a table head.
 VirtualTable.TableBody | object | A component that renders a table body.
-VirtualTable.StickyTable | object | A component that renders a sticky header.
 VirtualTable.Container | object | A component that renders a container for virtual table.
 VirtualTable.Cell | [Table.DataCellProps](table.md#tabledatacellprops) | Renders a table data cell.
 VirtualTable.Row | [Table.DataRowProps](table.md#tabledatarowprops) | Renders a table data row.

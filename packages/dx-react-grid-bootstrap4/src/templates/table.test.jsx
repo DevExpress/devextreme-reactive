@@ -12,7 +12,7 @@ describe('Table', () => {
       </div>
     ));
 
-    expect(tree.find('table').is('.table.custom-class'))
+    expect(tree.find('table').is('.custom-class.table'))
       .toBeTruthy();
   });
 

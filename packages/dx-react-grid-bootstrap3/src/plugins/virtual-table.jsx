@@ -11,7 +11,7 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableContainer } from '../templates/table-container';
 
-const StickyTable = props => <TableComponent use="head" {...props} />;
+const FixedHeader = props => <TableComponent use="head" {...props} />;
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
 
@@ -45,7 +45,7 @@ export class VirtualTable extends React.PureComponent {
         headComponent={TableHead}
         bodyComponent={TableBody}
         containerComponent={TableContainer}
-        stickyTableComponent={StickyTable}
+        fixedHeaderComponent={FixedHeader}
         rowComponent={TableRow}
         cellComponent={TableCell}
         noDataRowComponent={TableRow}
@@ -68,7 +68,7 @@ VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = TableComponent;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
-VirtualTable.StickyTable = StickyTable;
+VirtualTable.FixedHeader = FixedHeader;
 VirtualTable.Container = TableContainer;
 
 VirtualTable.propTypes = {

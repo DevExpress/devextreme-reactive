@@ -42,7 +42,7 @@ export class Table extends React.PureComponent {
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
       messages, containerComponent,
-      tableComponent, headComponent, bodyComponent, stickyTableComponent,
+      tableComponent, headComponent, bodyComponent, fixedHeaderComponent,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
@@ -65,7 +65,7 @@ export class Table extends React.PureComponent {
           <TemplateConnector>
             {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
               <Layout
-                headTableComponent={stickyTableComponent}
+                headTableComponent={fixedHeaderComponent}
                 tableComponent={tableComponent}
                 headComponent={headComponent}
                 bodyComponent={bodyComponent}
@@ -167,11 +167,11 @@ Table.propTypes = {
   stubHeaderCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
   messages: PropTypes.object,
-  stickyTableComponent: PropTypes.func,
+  fixedHeaderComponent: PropTypes.func,
 };
 
 Table.defaultProps = {
-  stickyTableComponent: undefined,
+  fixedHeaderComponent: undefined,
   columnExtensions: undefined,
   messages: {},
 };

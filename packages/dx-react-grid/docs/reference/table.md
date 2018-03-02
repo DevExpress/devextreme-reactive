@@ -14,10 +14,10 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-tableComponent | ReactNode | | A component that renders a table.
-headComponent | ReactNode | | A component that renders a table head.
-bodyComponent | ReactNode | | A component that renders a table body.
-containerComponent | ReactNode | | A component that renders a container for table.
+tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
+headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
+bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+containerComponent | ComponentType&lt;object&gt; | | A component that renders a container for table.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -123,10 +123,10 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Properties | Description
 -----|------------|------------
-Table.Table | Object | A component that renders a table.
-Table.TableHead | Object | A component that renders a table head.
-Table.TableBody | Object | A component that renders a table body.
-Table.Container | Object | | A component that renders a container for table.'
+Table.Table | object | A component that renders a table.
+Table.TableHead | object | A component that renders a table head.
+Table.TableBody | object | A component that renders a table body.
+Table.Container | object | | A component that renders a container for table.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.

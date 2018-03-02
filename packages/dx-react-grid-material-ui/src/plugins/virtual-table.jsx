@@ -11,7 +11,7 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableContainer } from '../templates/table-container';
 
-const StickyTable = props => <Table use="head" {...props} />;
+const FixedHeader = props => <Table use="head" {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -42,7 +42,7 @@ export class VirtualTable extends React.PureComponent {
         bodyComponent={TableBody}
         headComponent={TableHead}
         tableComponent={Table}
-        stickyTableComponent={StickyTable}
+        fixedHeaderComponent={FixedHeader}
         containerComponent={TableContainer}
         rowComponent={TableRow}
         cellComponent={TableCell}
@@ -66,7 +66,7 @@ VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = Table;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
-VirtualTable.StickyTable = StickyTable;
+VirtualTable.FixedHeader = FixedHeader;
 VirtualTable.Container = TableContainer;
 
 VirtualTable.propTypes = {

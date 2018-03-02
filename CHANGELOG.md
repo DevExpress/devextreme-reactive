@@ -1,3 +1,14 @@
+<a name="1.0.3"></a>
+# [1.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.2...v1.0.3) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect initial options handling ([#797](https://github.com/DevExpress/devextreme-reactive/issues/797)) ([1220664](https://github.com/DevExpress/devextreme-reactive/commit/1220664))
+* **react-grid:** make EditingState pure ([#796](https://github.com/DevExpress/devextreme-reactive/issues/796)) ([b409c11](https://github.com/DevExpress/devextreme-reactive/commit/b409c11))
+
+
+
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.1...v1.0.2) (2018-03-01)
 

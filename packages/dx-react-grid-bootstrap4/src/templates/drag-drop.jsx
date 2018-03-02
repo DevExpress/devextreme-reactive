@@ -10,6 +10,7 @@ export const Container = ({
     className={classNames('list-group d-inline-block position-fixed dx-rg-bs4-drag-drop', className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      zIndex: 1000,
       ...style,
     }}
     {...restProps}

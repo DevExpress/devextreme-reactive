@@ -9,17 +9,10 @@ import {
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
 } from '@devexpress/dx-react-grid-bootstrap4';
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/bootstrap4/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/bootstrap4/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/bootstrap4/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/bootstrap4/components/highlighted-cell';
 
-import {
-  generateRows,
-  globalSalesValues,
-} from '../../../demo-data/generator';
+import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
 const CommandButton = ({
   onExecute, icon, text, hint, color,

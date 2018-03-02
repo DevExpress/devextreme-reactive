@@ -1,3 +1,18 @@
+<a name="1.1.0-beta.2"></a>
+# [1.1.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix empty message styles ([#776](https://github.com/DevExpress/devextreme-reactive/issues/776)) ([f814360](https://github.com/DevExpress/devextreme-reactive/commit/f814360))
+
+
+### Features
+
+* **react-grid-bootstrap4:** support the bootstrap4 theme ([#681](https://github.com/DevExpress/devextreme-reactive/issues/681)) ([c3d58f0](https://github.com/DevExpress/devextreme-reactive/commit/c3d58f0))
+
+
+
 <a name="1.0.3"></a>
 # [1.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.2...v1.0.3) (2018-03-02)
 

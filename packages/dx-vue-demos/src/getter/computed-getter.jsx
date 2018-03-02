@@ -1,18 +1,30 @@
-<template>
- <TasksList v-bind:tasks="tasks">
-    <TasksFilter v-bind:done="false"></TasksFilter>
-  </TasksList>
-</template>
-
-<script>
 import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
 
+export default {
+  data() {
+    return {
+      tasks: [
+        { title: 'call mom', done: false },
+        { title: 'send letters to partners', done: false },
+        { title: 'buy milk', done: true },
+        { title: 'rent a car', done: false },
+      ],
+    }
+  },
+  render() {
+    return (
+      <TasksList tasks={this.tasks}>
+        <TasksFilter done={false} />
+      </TasksList>
+    );
+  }
+};
+
 const TasksList = {
-  props: { tasks: {} },
   render() {
     return (
       <PluginHost>
-        <TasksListCore tasks={this.tasks} />
+        <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
       </PluginHost>
     );
@@ -46,7 +58,6 @@ const TasksListCore = {
 };
 
 const TasksFilter = {
-  components: { Getter },
   props: { done: {} },
   render() {
     return (
@@ -59,24 +70,3 @@ const TasksFilter = {
     );
   },
 };
-
-export default {
-  components: {
-    TasksList,
-    TasksFilter,
-  },
-  data() {
-    return {
-      tasks: [
-        { title: 'call mom', done: false },
-        { title: 'send letters to partners', done: false },
-        { title: 'buy milk', done: true },
-        { title: 'rent a car', done: false },
-      ],
-    }
-  },
-};
-</script>
-
-<style>
-</style>

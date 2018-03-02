@@ -26,7 +26,7 @@ module.exports = ({ production }) => ({
         loader: 'vue-loader',
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       }
@@ -34,7 +34,7 @@ module.exports = ({ production }) => ({
   },
   resolve: {
     modules: [path.join(__dirname, "node_modules"), "node_modules"],
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.jsx', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
     }

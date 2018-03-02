@@ -23,6 +23,9 @@
 
     <h2>SimpleAction</h2>
     <SimpleAction></SimpleAction>
+
+    <h2>ParameterizedAction</h2>
+    <ParameterizedAction></ParameterizedAction>
   </div>
 </template>
 
@@ -35,6 +38,7 @@ import TemplateOverriding from './template-overriding';
 import ValueGetter from './value-getter';
 import ComputedGetter from './computed-getter';
 import SimpleAction from './simple-action';
+import ParameterizedAction from './parameterized-action';
 
 export default {
   components: {
@@ -46,6 +50,7 @@ export default {
     ValueGetter,
     ComputedGetter,
     SimpleAction,
+    ParameterizedAction,
   },
 };
 </script>

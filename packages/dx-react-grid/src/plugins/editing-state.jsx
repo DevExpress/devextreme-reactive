@@ -17,7 +17,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-export class EditingState extends React.Component {
+export class EditingState extends React.PureComponent {
   constructor(props) {
     super(props);
 

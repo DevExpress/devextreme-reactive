@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost } from './plugin-host';
-// import { Plugin } from './plugin';
+import { Plugin } from './plugin';
 import { Template } from './template';
 import { Getter } from './getter';
 import { TemplateConnector } from './template-connector';
@@ -126,13 +126,13 @@ describe('Getter', () => {
     const EncapsulatedPlugin = {
       render() {
         return (
-          // <Plugin>
+          <Plugin>
             <Template name="root">
               <TemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
               </TemplateConnector>
             </Template>
-          // </Plugin>
+          </Plugin>
         );
       },
     };

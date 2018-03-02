@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { PluginHost, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
+import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
 
 const TasksList = {
   props: { tasks: {} },
@@ -24,27 +24,25 @@ const TasksListCore = {
   props: { tasks: {} },
   render() {
     return (
-      <div>
+      <Plugin>
         <Getter name="tasks" value={this.tasks} />
         <Template name="root">
-      <div>
-      <TemplateConnector>
-        {({ getters: { tasks } }) => (
-          <ul>
-            {tasks.map(({ title, done }, index) => (
-              <li
-                key={index}
-                style={{ textDecoration: done ? 'line-through' : '' }}
-              >
-                {title}
-              </li>
-            ))}
-          </ul>
-        )}
-      </TemplateConnector>
-      </div>
+          <TemplateConnector>
+            {({ getters: { tasks } }) => (
+              <ul>
+                {tasks.map(({ title, done }, index) => (
+                  <li
+                    key={index}
+                    style={{ textDecoration: done ? 'line-through' : '' }}
+                  >
+                    {title}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </TemplateConnector>
         </Template>
-      </div>
+      </Plugin>
     );
   },
 };

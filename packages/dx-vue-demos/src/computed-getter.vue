@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { PluginHost, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
+import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
 
 const TasksList = {
   props: { tasks: {} },
@@ -23,8 +23,7 @@ const TasksListCore = {
   props: { tasks: {} },
   render() {
     return (
-      // <Plugin>
-      <div>
+      <Plugin>
         <Getter name="tasks" value={this.tasks} />
         <Template name="root">
           <TemplateConnector>
@@ -41,8 +40,7 @@ const TasksListCore = {
             )}
           </TemplateConnector>
         </Template>
-      </div>
-      // </Plugin>
+      </Plugin>
     );
   },
 };
@@ -52,12 +50,12 @@ const TasksFilter = {
   props: { done: {} },
   render() {
     return (
-      // <Plugin>
+      <Plugin>
         <Getter
           name="tasks"
           computed={({ tasks }) => tasks.filter(task => this.done === null || task.done === this.done)}
         />
-      // </Plugin>
+      </Plugin>
     );
   },
 };

@@ -12,7 +12,7 @@ export const Template = {
   inject: ['pluginHost', 'positionContext'],
   created() {
     this.plugin = {
-      position: () => [0],
+      position: () => this.positionContext(),
       [`${this.name}Template`]: {
         id: this.id,
         predicate: params => (this.predicate ? this.predicate(params) : true),

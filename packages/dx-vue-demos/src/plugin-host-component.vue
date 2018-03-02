@@ -4,7 +4,6 @@
       <Template name="root">
         <div>
           Hello, {{text}}!!!
-          <button @click="handleClick">Change</button>
         </div>
       </Template>
     </PluginHost>

@@ -12,7 +12,7 @@ export const Getter = {
     name: {},
     value: {},
   },
-  inject: ['pluginHost'],
+  inject: ['pluginHost', 'positionContext'],
   beforeMount() {
     const { pluginHost, name } = this;
 
@@ -21,7 +21,7 @@ export const Getter = {
     let lastResult;
 
     this.plugin = {
-      position: () => [0],
+      position: () => this.positionContext(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this;
         if (value !== undefined) return value;

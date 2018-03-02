@@ -1,7 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
-import {
-  RowDetailState,
-} from '@devexpress/dx-react-grid';
+import { RowDetailState } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
@@ -9,9 +7,7 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  generateRows,
-} from '../../../demo-data/generator';
+import { generateRows } from '../../../demo-data/generator';
 
 const RowDetail = ({ row }) => (
   <div>Details for {row.name} from {row.city}</div>

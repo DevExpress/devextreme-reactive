@@ -14,8 +14,8 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "eslint": "^4.17.0",
+    "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "eslint-plugin-import": "^2.9.0"
   }
 }

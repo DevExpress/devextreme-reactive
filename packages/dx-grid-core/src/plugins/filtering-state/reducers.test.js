@@ -1,6 +1,4 @@
-import {
-  changeColumnFilter,
-} from './reducers';
+import { changeColumnFilter } from './reducers';
 
 describe('FilteringState reducers', () => {
   describe('#changeColumnFilter', () => {

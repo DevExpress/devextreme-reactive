@@ -1,7 +1,5 @@
 import { TABLE_HEADING_TYPE } from './constants';
-import {
-  tableRowsWithHeading,
-} from './computeds';
+import { tableRowsWithHeading } from './computeds';
 
 describe('TableHeaderRow Plugin computeds', () => {
   describe('#tableRowsWithHeading', () => {

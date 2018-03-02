@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
@@ -10,7 +10,7 @@ import { SourceCode } from './source-code';
 
 export const DemoViewer = (
   { match: { params: { demoName, sectionName }, url } },
-  { embeddedDemoOptions: { defaultTab = 'preview', showThemeSelector = true } },
+  { embeddedDemoOptions: { defaultTab, showThemeSelector } },
 ) => (
   <Switch>
     <Route

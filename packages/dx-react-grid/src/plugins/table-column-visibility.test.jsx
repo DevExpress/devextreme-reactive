@@ -1,7 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { visibleTableColumns, getMessagesFormatter, columnChooserItems, toggleColumn, tableDataColumnsExist } from '@devexpress/dx-grid-core';
+import {
+  visibleTableColumns,
+  getMessagesFormatter,
+  columnChooserItems,
+  toggleColumn,
+  tableDataColumnsExist,
+  getColumnExtensionValueGetter,
+} from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
@@ -13,6 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
   toggleColumn: jest.fn(),
   tableDataColumnsExist: jest.fn(),
+  getColumnExtensionValueGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -53,6 +61,7 @@ describe('TableColumnVisibility', () => {
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
     tableDataColumnsExist.mockImplementation(() => false);
+    getColumnExtensionValueGetter.mockImplementation(() => () => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -114,5 +123,24 @@ describe('TableColumnVisibility', () => {
 
     expect(getMessage('noColumns'))
       .toBe('Nothing to show');
+  });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableColumnVisibility
+            {...defaultProps}
+            columnTogglingEnabled={false}
+            columnExtensions={columnExtensions}
+          />
+        </PluginHost>
+      ));
+
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'togglingEnabled', false);
+    });
   });
 });

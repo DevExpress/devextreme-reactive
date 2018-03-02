@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
@@ -27,7 +27,7 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big className="text-muted">{getMessage('noData')}</big>
+    <big>{getMessage('noData')}</big>
   </TableCell>
 );
 

@@ -8,19 +8,17 @@ A plugin that performs built-in grouping and group expanding/collapsing.
 
 - [GroupingState](grouping-state.md)
 
-### <a name="properties"></a>Properties
+### Properties
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnExtensions | Array&lt;[IntegratedGroupingColumnExtension](#integratedgroupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[IntegratedGrouping.ColumnExtension](#integratedgroupingcolumnextension)&gt; | | Additional column properties that the plugin can handle.
 
 ## Interfaces
 
-### IntegratedGroupingColumnExtension
+### IntegratedGrouping.ColumnExtension
 
 Describes additional column properties that the plugin can handle.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -33,15 +31,15 @@ criteria? | (value: any) => { key: string &#124; number, value?: any } | A group
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows to be grouped.
-grouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
-expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
-getCellValue | Getter | (row: any, columnName: string) => any | A function that returns a cell value.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be grouped.
+grouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
+expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function that returns a cell value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-rows | Getter | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
-isGroupRow | Getter | (row: any) => boolean | A function that returns a value defining if the row is a group row.
-getRowLevelKey | Getter | (row: any) => string? | A function that returns a group level key for the row.
+rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
+isGroupRow | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function that returns a value defining if the row is a group row.
+getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function that returns a group level key for the row.

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
 import { RERENDER_TEMPLATE } from './template';
 
@@ -63,7 +63,7 @@ export class TemplatePlaceholder extends React.Component {
     if (this.template) {
       const { children: templateContent } = this.template;
 
-      content = templateContent();
+      content = templateContent() || null;
       if (content && typeof content === 'function') {
         content = content(params);
       }

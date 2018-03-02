@@ -14,21 +14,21 @@ A plugin that visualizes table rows' selection state by rendering selection chec
 
 Name | Type | Default | Description
 -----|------|---------|------------
-highlightRow | boolean | false | Specifies whether to highlight the selected rows. Note that `Table` plugin's `rowComponent` is ignored in this case.
-selectByRowClick | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
-showSelectAll | boolean | true | Specifies whether to render the Select All checkbox in the header row.
-showSelectionColumn | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
-cellComponent | ElementType&lt;[TableSelectCellProps](#tableselectcellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
-headerCellComponent | ElementType&lt;[TableSelectHeaderCellProps](#tableselectcellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
+highlightRow? | boolean | false | Specifies whether to highlight the selected rows. Note that `Table` plugin's `rowComponent` is ignored in this case.
+selectByRowClick? | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
+showSelectAll? | boolean | true | Specifies whether to render the Select All checkbox in the header row.
+showSelectionColumn? | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
+cellComponent | ComponentType&lt;[TableSelection.CellProps](#tableselectioncellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
+headerCellComponent | ComponentType&lt;[TableSelection.HeaderCellProps](#tableselectioncellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
 
-### TableSelectHeaderCellProps
+### TableSelection.HeaderCellProps
 
 Describes properties passed to a component that renders a cell containing the Select All checkbox.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -37,11 +37,11 @@ allSelected | boolean | Indicates whether all the rows available for selection a
 someSelected | boolean | Indicates whether at least one but not all rows available for selection are selected.
 onToggle | (select?: boolean) => void | Toggles the Select All checkbox state.
 
-### TableSelectCellProps
+### TableSelection.CellProps
 
 Describes properties passed to a component that renders a cell containing a selection checkbox.
 
-A value with the [TableCellProps](table.md#tablecellprops) shape extended by the following fields:
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -53,8 +53,8 @@ onToggle | () => void | An event that initiates row selecting or deselecting.
 
 Name | Properties | Description
 -----|------------|------------
-TableSelection.HeaderCell | [TableSelectHeaderCellProps](#tableselectheadercellprops) | A component that renders a cell with the selection control inside the heading row.
-TableSelection.Cell | [TableSelectCellProps](#tableselectcellprops) | A component that renders a cell with selection control.
+TableSelection.HeaderCell | [TableSelection.HeaderCellProps](#tableselectionheadercellprops) | A component that renders a cell with the selection control inside the heading row.
+TableSelection.Cell | [TableSelection.CellProps](#tableselectioncellprops) | A component that renders a cell with selection control.
 
 If you specify additional properties, they are added to the component's root element.
 
@@ -64,20 +64,20 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-tableBodyRows | Getter | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
-selection | Getter | Array&lt;number &#124; string&gt; | The selected row's IDs.
-toggleSelection | Action | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean  }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
-toggleSelectAll | Action | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
-selectAllAvailable | Getter | boolean | Indicates whether there are rows that are available for selection.
-allSelected | Getter | boolean | Indicates whether all the rows available for selection are selected.
-someSelected | Getter | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
-tableCell | Template | [TableCellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableRow | Template | [TableRowProps](table.md#tablerowprops) | A template that renders a table row.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+selection | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | The selected row's IDs.
+toggleSelection | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt;, state?: boolean  }) => void | A function that selects/deselects rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the `rowIds` argument.
+toggleSelectAll | [Action](../../../dx-react-core/docs/reference/action.md) | (state?: boolean) => void | A function that selects/deselects all rows. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.
+selectAllAvailable | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether there are rows that are available for selection.
+allSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether all the rows available for selection are selected.
+someSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
-tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered including the selected rows.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns including the selection column.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered including the selected rows.

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 
-export const styles = theme => ({
+const styles = theme => ({
   panel: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -28,15 +28,12 @@ const GroupPanelContainerBase = ({
 
 GroupPanelContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 GroupPanelContainerBase.defaultProps = {
-  children: null,
+  children: undefined,
   className: undefined,
 };
 

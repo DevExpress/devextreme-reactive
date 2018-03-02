@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import * as React from 'react';<%&additionalImports%>
 import {
   SortingState, SelectionState, FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
@@ -9,12 +9,8 @@ import {
   GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
 
 import {
   generateRows,

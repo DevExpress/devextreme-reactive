@@ -1,13 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
 
 export const ToggleButton = ({
-  onToggle,
-  getMessage,
-  buttonRef,
+  onToggle, getMessage,
+  buttonRef, active,
   ...restProps
 }) => (
   <Tooltip
@@ -29,4 +28,9 @@ ToggleButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   buttonRef: PropTypes.func.isRequired,
+  active: PropTypes.bool,
+};
+
+ToggleButton.defaultProps = {
+  active: false,
 };

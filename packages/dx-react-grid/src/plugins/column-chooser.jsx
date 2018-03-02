@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector,
-} from '@devexpress/dx-react-core';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Template, TemplatePlaceholder, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 
 import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 
@@ -50,27 +48,37 @@ export class ColumnChooser extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ columns, hiddenColumnNames }, { toggleColumnVisibility }) => (
+            {(
+              { columns, hiddenColumnNames, isColumnTogglingEnabled },
+              { toggleColumnVisibility },
+            ) => (
               <React.Fragment>
                 <ToggleButton
                   buttonRef={this.buttonRef}
                   onToggle={this.handleToggle}
                   getMessage={getMessage}
+                  active={visible}
                 />
                 <Overlay
                   visible={visible}
                   target={this.button}
                   onHide={this.handleHide}
+                  toggle={this.handleToggle}
                 >
                   <Container>
                     {columnChooserItems(columns, hiddenColumnNames)
-                      .map(item => (
-                        <Item
-                          key={item.column.name}
-                          item={item}
-                          onToggle={() => toggleColumnVisibility(item.column.name)}
-                        />
-                    ))}
+                      .map((item) => {
+                        const { name: columnName } = item.column;
+                        const togglingEnabled = isColumnTogglingEnabled(columnName);
+                        return (
+                          <Item
+                            key={columnName}
+                            item={item}
+                            disabled={!togglingEnabled}
+                            onToggle={() => toggleColumnVisibility(columnName)}
+                          />
+                      );
+                    })}
                   </Container>
                 </Overlay>
               </React.Fragment>

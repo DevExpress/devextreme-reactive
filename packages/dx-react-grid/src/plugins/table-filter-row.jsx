@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
-} from '@devexpress/dx-react-core';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -43,7 +41,7 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters }, { changeColumnFilter }) => {
+              {({ filters, isColumnFilteringEnabled }, { changeColumnFilter }) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
@@ -62,11 +60,13 @@ export class TableFilterRow extends React.PureComponent {
                         getMessage={getMessage}
                         column={params.tableColumn.column}
                         filter={filter}
+                        filteringEnabled={isColumnFilteringEnabled(columnName)}
                         onFilter={onFilter}
                       >
                         {content}
                       </FilterCell>
-                    )}
+                      )
+                    }
                   </TemplatePlaceholder>
                 );
               }}

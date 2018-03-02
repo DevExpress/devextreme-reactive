@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
@@ -14,10 +14,15 @@ import {
   changedRowsByIds,
   deleteRows,
   cancelDeletedRows,
+
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
-export class EditingState extends React.Component {
+const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
+  getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
+
+export class EditingState extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -91,7 +96,7 @@ export class EditingState extends React.Component {
     });
   }
   render() {
-    const { createRowChange, columnExtensions } = this.props;
+    const { createRowChange, columnExtensions, columnEditingEnabled } = this.props;
     const {
       editingRowIds, rowChanges, addedRows, deletedRowIds,
     } = this.state;
@@ -124,6 +129,11 @@ export class EditingState extends React.Component {
         <Action name="deleteRows" action={this.deleteRows} />
         <Action name="cancelDeletedRows" action={this.cancelDeletedRows} />
         <Action name="commitDeletedRows" action={this.commitDeletedRows} />
+
+        <Getter
+          name="isColumnEditingEnabled"
+          value={columnExtensionValueGetter(columnExtensions, columnEditingEnabled)}
+        />
       </Plugin>
     );
   }
@@ -131,6 +141,7 @@ export class EditingState extends React.Component {
 
 EditingState.propTypes = {
   createRowChange: PropTypes.func,
+  columnEditingEnabled: PropTypes.bool,
   columnExtensions: PropTypes.array,
 
   editingRowIds: PropTypes.array,
@@ -154,6 +165,7 @@ EditingState.propTypes = {
 
 EditingState.defaultProps = {
   createRowChange: undefined,
+  columnEditingEnabled: true,
   columnExtensions: undefined,
 
   editingRowIds: undefined,

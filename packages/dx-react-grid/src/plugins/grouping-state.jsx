@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
   draftColumnGrouping,
   cancelColumnGroupingDraft,
+  getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
@@ -25,6 +26,9 @@ const adjustSortIndex = (sortIndex, grouping, sorting) =>
     ),
     0,
   );
+
+const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
+  getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
 
 export class GroupingState extends React.PureComponent {
   constructor(props) {
@@ -129,6 +133,7 @@ export class GroupingState extends React.PureComponent {
   }
   render() {
     const { grouping, draftGrouping, expandedGroups } = this.state;
+    const { columnExtensions, columnGroupingEnabled } = this.props;
 
     return (
       <Plugin
@@ -137,6 +142,10 @@ export class GroupingState extends React.PureComponent {
       >
         <Getter name="grouping" value={grouping} />
         <Getter name="draftGrouping" value={draftGrouping || grouping} />
+        <Getter
+          name="isColumnGroupingEnabled"
+          value={columnExtensionValueGetter(columnExtensions, columnGroupingEnabled)}
+        />
         <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
         <Action name="draftColumnGrouping" action={this.draftColumnGrouping} />
         <Action name="cancelColumnGroupingDraft" action={this.cancelColumnGroupingDraft} />
@@ -157,6 +166,8 @@ GroupingState.propTypes = {
   expandedGroups: PropTypes.array,
   defaultExpandedGroups: PropTypes.array,
   onExpandedGroupsChange: PropTypes.func,
+  columnExtensions: PropTypes.array,
+  columnGroupingEnabled: PropTypes.bool,
 };
 
 GroupingState.defaultProps = {
@@ -166,4 +177,6 @@ GroupingState.defaultProps = {
   expandedGroups: undefined,
   defaultExpandedGroups: [],
   onExpandedGroupsChange: undefined,
+  columnExtensions: undefined,
+  columnGroupingEnabled: true,
 };

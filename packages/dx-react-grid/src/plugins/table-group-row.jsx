@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector,
-} from '@devexpress/dx-react-core';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,

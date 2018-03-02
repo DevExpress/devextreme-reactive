@@ -9,7 +9,11 @@ layout: default
 
 <div class="container demos-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+      {{ content }}
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
       {% for group in site.data.demos.navigation.react.grid %}
         <h3>{{ group.title }}</h3>
 
@@ -28,10 +32,6 @@ layout: default
         </ul>
 
       {% endfor %}
-    </div>
-
-    <div class="col-md-9 docs-content">
-        {{ content }}
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import React from 'react';<%&additionalImports%>
+import * as React from 'react';<%&additionalImports%>
 import {
   SelectionState,
   PagingState,
@@ -13,9 +13,7 @@ import {
   PagingPanel,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  generateRows,
-} from '../../../demo-data/generator';
+import { generateRows } from '../../../demo-data/generator';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

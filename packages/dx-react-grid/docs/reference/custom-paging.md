@@ -12,7 +12,7 @@ A plugin that allows implementing a custom totalCount calculation logic.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalCount | number | 0 | The total row count.
+totalCount? | number | 0 | The total row count.
 
 ## Plugin Developer Reference
 
@@ -24,4 +24,4 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-totalCount | Getter | number | The total row count.
+totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.

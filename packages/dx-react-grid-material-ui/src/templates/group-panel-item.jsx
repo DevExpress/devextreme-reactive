@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { TableSortLabel } from 'material-ui/Table';
 import Chip from 'material-ui/Chip';
@@ -18,13 +18,14 @@ const styles = theme => ({
   },
 });
 
-const label = (showSortingControls, sortingDirection, column) => {
+const label = (showSortingControls, sortingEnabled, sortingDirection, column) => {
   const title = column.title || column.name;
   return showSortingControls
     ? (
       <TableSortLabel
         active={!!sortingDirection}
         direction={sortingDirection}
+        disabled={!sortingEnabled}
         tabIndex={-1}
       >
         {title}
@@ -37,6 +38,7 @@ const GroupPanelItemBase = ({
   item: { column, draft },
   onGroup, showGroupingControls,
   showSortingControls, sortingDirection, onSort,
+  sortingEnabled, groupingEnabled,
   classes, className,
   ...restProps
 }) => {
@@ -45,7 +47,7 @@ const GroupPanelItemBase = ({
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
-    if (!showSortingControls) return;
+    if (!showSortingControls || !sortingEnabled) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
@@ -61,10 +63,10 @@ const GroupPanelItemBase = ({
 
   return (
     <Chip
-      label={label(showSortingControls, sortingDirection, column)}
+      label={label(showSortingControls, sortingEnabled, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
-        ? { onDelete: onGroup }
+        ? { onDelete: groupingEnabled ? onGroup : () => {} }
         : null}
       onClick={onClick}
       {...restProps}
@@ -86,14 +88,18 @@ GroupPanelItemBase.propTypes = {
   showGroupingControls: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  sortingEnabled: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
 };
 
 GroupPanelItemBase.defaultProps = {
   showSortingControls: false,
+  sortingEnabled: false,
   sortingDirection: undefined,
   onSort: undefined,
   onGroup: undefined,
   showGroupingControls: false,
+  groupingEnabled: false,
   className: undefined,
 };
 

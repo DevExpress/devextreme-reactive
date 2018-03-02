@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import Input from 'material-ui/Input';
 import { TableFilterCell } from './table-filter-cell';
@@ -70,5 +70,14 @@ describe('TableFilterCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should render disabled filtering editor if filtering is not allowed', () => {
+    const tree = shallow((
+      <TableFilterCell filteringEnabled={false} getMessage={key => key} />
+    ));
+
+    expect(tree.find(Input).prop('disabled'))
+      .toBeTruthy();
   });
 });

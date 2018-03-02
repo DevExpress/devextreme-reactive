@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Chip from 'material-ui/Chip';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';
@@ -47,6 +47,7 @@ describe('GroupPanelItem', () => {
         item={{ column: { name: 'test' } }}
         onSort={onSort}
         showSortingControls
+        sortingEnabled
       />
     ));
 
@@ -89,6 +90,7 @@ describe('GroupPanelItem', () => {
         onSort={onSort}
         item={{ column: { name: 'test' } }}
         showSortingControls
+        sortingEnabled
       />
     ));
     const сhipElem = tree.find(Chip);
@@ -120,6 +122,7 @@ describe('GroupPanelItem', () => {
         onSort={onSort}
         item={{ column: { name: 'test' } }}
         showSortingControls
+        sortingEnabled
       />
     ));
 

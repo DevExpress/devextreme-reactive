@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DropTarget } from '@devexpress/dx-react-core';
-import {
-  getGroupCellTargetIndex,
-} from '@devexpress/dx-grid-core';
+import { getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
 import { ItemLayout } from './group-panel-layout/item-layout';
 
 export class GroupPanelLayout extends React.PureComponent {
@@ -15,7 +13,14 @@ export class GroupPanelLayout extends React.PureComponent {
       sourceColumnName: null,
       targetItemIndex: -1,
     };
+    this.handleDragEvent = (eventHandler, { payload, ...restArgs }) => {
+      const { isColumnGroupingEnabled } = this.props;
+      const { columnName } = payload[0];
 
+      if (isColumnGroupingEnabled(columnName)) {
+        eventHandler({ payload, ...restArgs });
+      }
+    };
     this.onEnter = ({ payload }) => {
       this.setState({
         sourceColumnName: payload[0].columnName,
@@ -95,23 +100,27 @@ export class GroupPanelLayout extends React.PureComponent {
       containerComponent: Container,
       itemComponent: Item,
       draggingEnabled,
+      isColumnGroupingEnabled,
     } = this.props;
 
     this.itemRefs = [];
 
     const groupPanel = (items.length ? (
       <Container>
-        {items.map(item => (
-          <ItemLayout
-            key={item.column.name}
-            ref={element => element && this.itemRefs.push(element)}
-            item={item}
-            itemComponent={Item}
-            draggingEnabled={draggingEnabled}
-            onDragStart={() => this.onDragStart(item.column.name)}
-            onDragEnd={this.onDragEnd}
-          />
-        ))}
+        {items.map((item) => {
+          const { name: columnName } = item.column;
+          return (
+            <ItemLayout
+              key={columnName}
+              ref={element => element && this.itemRefs.push(element)}
+              item={item}
+              itemComponent={Item}
+              draggingEnabled={draggingEnabled && isColumnGroupingEnabled(columnName)}
+              onDragStart={() => this.onDragStart(columnName)}
+              onDragEnd={this.onDragEnd}
+            />
+          );
+        })}
       </Container>
     ) : (
       <EmptyMessage />
@@ -120,10 +129,10 @@ export class GroupPanelLayout extends React.PureComponent {
     return draggingEnabled
       ? (
         <DropTarget
-          onEnter={this.onEnter}
-          onOver={this.onOver}
-          onLeave={this.onLeave}
-          onDrop={this.onDrop}
+          onEnter={args => this.handleDragEvent(this.onEnter, args)}
+          onOver={args => this.handleDragEvent(this.onOver, args)}
+          onLeave={args => this.handleDragEvent(this.onLeave, args)}
+          onDrop={args => this.handleDragEvent(this.onDrop, args)}
         >
           {groupPanel}
         </DropTarget>
@@ -142,6 +151,7 @@ GroupPanelLayout.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   emptyMessageComponent: PropTypes.func.isRequired,
   draggingEnabled: PropTypes.bool,
+  isColumnGroupingEnabled: PropTypes.func,
   onGroupDraft: PropTypes.func,
   onGroupDraftCancel: PropTypes.func,
 };
@@ -149,6 +159,7 @@ GroupPanelLayout.propTypes = {
 GroupPanelLayout.defaultProps = {
   onGroup: () => {},
   draggingEnabled: false,
+  isColumnGroupingEnabled: () => {},
   onGroupDraft: () => {},
   onGroupDraftCancel: () => {},
 };

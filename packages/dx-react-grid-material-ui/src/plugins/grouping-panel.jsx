@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { GroupingPanel as GroupingPanelBase, GroupPanelLayout } from '@devexpress/dx-react-grid';
 import { GroupPanelContainer } from '../templates/group-panel-container';
 import { GroupPanelItem } from '../templates/group-panel-item';

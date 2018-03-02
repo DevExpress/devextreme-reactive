@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
@@ -30,6 +30,27 @@ const styles = theme => ({
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
     },
+    '&:hover $resizeHandleLine': {
+      opacity: 1,
+    },
+  },
+  resizeHandleLine: {
+    opacity: 0,
+  },
+  '@media (pointer: fine)': {
+    resizeHandleLine: {
+      opacity: 0,
+    },
+    resizeHandleActive: {
+      '& $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
+    resizeHandle: {
+      '&:hover $resizeHandleLine': {
+        opacity: 1,
+      },
+    },
   },
   cellNoUserSelect: {
     userSelect: 'none',
@@ -57,7 +78,9 @@ class TableHeaderCellBase extends React.PureComponent {
     };
 
     this.onClick = (e) => {
-      const { onSort } = this.props;
+      const { onSort, sortingEnabled } = this.props;
+      if (!sortingEnabled) return;
+
       const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
       const isMouseClick = e.keyCode === undefined;
 
@@ -77,9 +100,9 @@ class TableHeaderCellBase extends React.PureComponent {
     const {
       style, column, tableColumn,
       showSortingControls, sortingDirection,
-      showGroupingControls, onGroup,
+      showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
       classes, getMessage, tableRow, className, onSort,
       ...restProps
     } = this.props;
@@ -105,6 +128,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {showGroupingControls && (
           <GroupingControl
             align={align}
+            disabled={!groupingEnabled}
             onGroup={onGroup}
           />
         )}
@@ -115,6 +139,7 @@ class TableHeaderCellBase extends React.PureComponent {
             columnTitle={columnTitle}
             onClick={this.onClick}
             getMessage={getMessage}
+            disabled={!sortingEnabled}
           />
         ) : (
           <div className={classes.plainTitle}>
@@ -126,6 +151,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}
       </TableCell>
@@ -150,9 +176,11 @@ TableHeaderCellBase.propTypes = {
   column: PropTypes.object,
   style: PropTypes.object,
   showSortingControls: PropTypes.bool,
+  sortingEnabled: PropTypes.bool,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   onSort: PropTypes.func,
   showGroupingControls: PropTypes.bool,
+  groupingEnabled: PropTypes.bool,
   onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
@@ -171,8 +199,10 @@ TableHeaderCellBase.defaultProps = {
   style: null,
   showSortingControls: false,
   sortingDirection: undefined,
+  sortingEnabled: false,
   onSort: undefined,
   showGroupingControls: false,
+  groupingEnabled: false,
   onGroup: undefined,
   draggingEnabled: false,
   resizingEnabled: false,

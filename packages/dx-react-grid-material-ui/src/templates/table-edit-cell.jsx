@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { TableCell } from 'material-ui/Table';
@@ -20,7 +20,7 @@ const styles = theme => ({
 
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
-  row, tableRow, tableColumn, className, ...restProps
+  row, tableRow, tableColumn, editingEnabled, className, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
@@ -37,6 +37,7 @@ const EditCellBase = ({
           className={classes.inputRoot}
           classes={{ input: inputClasses }}
           value={value || ''}
+          disabled={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
         />
       )}
@@ -53,10 +54,8 @@ EditCellBase.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   style: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]),
+  editingEnabled: PropTypes.bool,
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 
@@ -66,9 +65,10 @@ EditCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   value: '',
-  style: {},
+  style: null,
   children: undefined,
   className: undefined,
+  editingEnabled: true,
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

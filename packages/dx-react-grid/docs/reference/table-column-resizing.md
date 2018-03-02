@@ -12,17 +12,15 @@ A plugin that manages table column widths.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-columnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | | Specifies column widths.
-defaultColumnWidths | Array&lt;[ColumnWidthInfo](#ColumnWidthInfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
-onColumnWidthsChange | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
+columnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | | Specifies column widths.
+defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
+onColumnWidthsChange? | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
 
 ## Interfaces
 
-### ColumnWidthInfo
+### TableColumnWidthInfo
 
 Describes an object that specifies a column width.
-
-A value with the following shape:
 
 Field | Type | Description
 ------|------|------------
@@ -35,14 +33,14 @@ width | number | A column width.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns whose width the plugin manages.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns whose width the plugin manages.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | Getter | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
-tableColumnResizingEnabled | Getter | boolean | Specifies whether table column resizing is enabled.
-changeTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.
-draftTableColumnWidth | Action | ({ columnName: string, shift: number }) => void | Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.
-cancelTableColumnWidthDraft | Action | () => void | Cancels changes to the column width used for preview.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with new width values applied.
+tableColumnResizingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Specifies whether table column resizing is enabled.
+changeTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.
+draftTableColumnWidth | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, shift: number }) => void | Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.
+cancelTableColumnWidthDraft | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Cancels changes to the column width used for preview.

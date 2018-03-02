@@ -5,15 +5,10 @@ const { prompt } = require('inquirer');
 const { valid, lt, inc, prerelease } = require('semver');
 const conventionalRecommendedBump = require('conventional-recommended-bump');
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
+const getCurrentBranchName = require('./get-current-branch-name');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
 
-const currentBranchName = execSync('git branch', { stdio: 'pipe' })
-  .toString()
-  .trim()
-  .split('\n')
-  .filter(line => line.startsWith('*'))[0]
-  .slice(2);
-
+const currentBranchName = getCurrentBranchName();
 ensureRepoUpToDate(currentBranchName);
 
 console.log();

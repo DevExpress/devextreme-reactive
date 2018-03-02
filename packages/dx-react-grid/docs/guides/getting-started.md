@@ -12,7 +12,31 @@ Install the dx-react-grid package and its dependencies using the following comma
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 ```
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Bootstrap 3 package. However, you can use any of the following:
+This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:
+
+- Material UI
+
+  ```
+  npm i --save @devexpress/dx-react-grid-material-ui
+  ```
+
+  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
+
+- Bootstrap 4
+
+  ```
+  npm i --save @devexpress/dx-react-grid-bootstrap4
+  ```
+
+  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+
+  Add the DevExtreme React Grid styles to your project:
+
+  ```html
+  <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
+  ```
+
+  NOTE: The DevExtreme React Grid does not include Bootstrap CSS.
 
 - Bootstrap 3
 
@@ -22,13 +46,7 @@ This package does not contain visual components. In the examples below, visual c
 
   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started/introduction) article for configuration details.
 
-- Material UI
-
-  ```
-  npm i --save @devexpress/dx-react-grid-material-ui
-  ```
-
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
+  NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
 
 ## Supported Browsers
 
@@ -49,7 +67,9 @@ Use the Table plugin to display the data as a simple table:
 ```jsx
 import {
   Grid, Table, TableHeaderRow
-} from '@devexpress/dx-react-grid-bootstrap3'/* or '@devexpress/dx-react-grid-material-ui' */;
+} from '@devexpress/dx-react-grid-material-ui';
+/*or '@devexpress/dx-react-grid-bootstrap4'
+  or '@devexpress/dx-react-grid-bootstrap3'*/
 
 const App = () => (
   <Grid
@@ -72,8 +92,8 @@ const App = () => (
 
 Follow the links below to try out the React Grid:
 
-- [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 - [CodeSandbox for Material UI](https://codesandbox.io/s/13qvz1qqzl)
+- [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 
 ## License
 

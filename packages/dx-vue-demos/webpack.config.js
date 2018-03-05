@@ -26,7 +26,7 @@ module.exports = ({ production }) => ({
         loader: 'vue-loader',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /(node_modules|bower_components|public\/)/,
         use: ["babel-loader"]
       }

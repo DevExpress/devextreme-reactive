@@ -3,6 +3,7 @@
     "es2015"
   ],
   "plugins": [
-    "transform-vue-jsx"
+    "transform-vue-jsx",
+    "transform-object-rest-spread"
   ]
 }

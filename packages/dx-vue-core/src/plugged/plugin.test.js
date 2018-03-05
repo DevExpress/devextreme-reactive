@@ -1,16 +1,7 @@
 import { mount } from '@vue/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
 import { Plugin } from './plugin';
 
 describe('Plugin', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {

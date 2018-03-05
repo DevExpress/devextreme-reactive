@@ -9,12 +9,12 @@ export default {
         { title: 'buy milk', done: true },
         { title: 'rent a car', done: false },
       ],
-    }
+    };
   },
   methods: {
     completeTask(index) {
       this.tasks[index].done = true;
-    }
+    },
   },
   render() {
     return (
@@ -22,8 +22,8 @@ export default {
         <TaskCompletion onComplete={this.completeTask} />
       </TasksList>
     );
-  }
-}
+  },
+};
 
 const TasksList = {
   render() {
@@ -47,7 +47,7 @@ const TasksListCore = {
               <TemplatePlaceholder
                 key={index}
                 name="task"
-                params={Object.assign({ index}, task)}
+                params={{ index, ...task }}
               />
             ))}
           </ul>

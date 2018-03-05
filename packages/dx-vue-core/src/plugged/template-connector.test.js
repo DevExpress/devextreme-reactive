@@ -1,17 +1,8 @@
 import { mount } from '@vue/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
 import { UPDATE_CONNECTION } from './getter';
 import { TemplateConnector } from './template-connector';
 
 describe('TemplateConnector', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole();
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   let pluginHost;
   beforeEach(() => {
     pluginHost = {

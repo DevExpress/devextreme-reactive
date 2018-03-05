@@ -9,15 +9,15 @@ export default {
         { title: 'buy milk', done: true },
         { title: 'rent a car', done: false },
       ],
-    }
+    };
   },
   render() {
     return (
       <TasksList tasks={this.tasks}>
-        {/* Here we may add other plugins */}
+        <TasksFilter done={false} />
       </TasksList>
     );
-  }
+  },
 };
 
 const TasksList = {
@@ -39,20 +39,34 @@ const TasksListCore = {
         <Getter name="tasks" value={this.tasks} />
         <Template name="root">
           <TemplateConnector>
-            {({ getters: { tasks } }) => (
+            {({ getters: { tasks: processedTasks } }) => (
               <ul>
-                {tasks.map(({ title, done }, index) => (
+                {processedTasks.map(({ title, done }, index) => (
                   <li
                     key={index}
                     style={{ textDecoration: done ? 'line-through' : '' }}
                   >
                     {title}
-                  </li>
-                ))}
+                  </li>))}
               </ul>
             )}
           </TemplateConnector>
         </Template>
+      </Plugin>
+    );
+  },
+};
+
+const TasksFilter = {
+  props: { done: {} },
+  render() {
+    return (
+      <Plugin>
+        <Getter
+          name="tasks"
+          computed={({ tasks }) =>
+            tasks.filter(task => this.done === null || task.done === this.done)}
+        />
       </Plugin>
     );
   },

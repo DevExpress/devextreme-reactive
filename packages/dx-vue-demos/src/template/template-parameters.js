@@ -9,7 +9,7 @@ export default {
         { title: 'buy milk', done: true },
         { title: 'rent a car', done: false },
       ],
-    }
+    };
   },
   render() {
     return (
@@ -17,8 +17,8 @@ export default {
         {/* Here we may add another plugins */}
       </TasksList>
     );
-  }
-}
+  },
+};
 
 const TasksList = {
   render() {

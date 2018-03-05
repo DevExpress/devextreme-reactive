@@ -11,7 +11,7 @@ export default {
         { title: 'buy milk', done: true },
         { title: 'rent a car', done: false },
       ],
-    }
+    };
   },
   methods: {
     createTask(title) {
@@ -24,8 +24,8 @@ export default {
         <NewTaskForm onCreate={this.createTask} />
       </TasksList>
     );
-  }
-}
+  },
+};
 
 const TasksList = {
   render() {
@@ -47,14 +47,14 @@ const TasksListCore = {
           <div>
             <TemplatePlaceholder name="header" />
             <ul>
-              {this.tasks.map(({ title, done }, index) =>
+              {this.tasks.map(({ title, done }, index) => (
                 <li
                   key={index}
                   style={{ textDecoration: done ? 'line-through' : '' }}
                 >
                   {title}
                 </li>
-              )}
+              ))}
             </ul>
           </div>
         </Template>
@@ -71,7 +71,7 @@ const NewTaskForm = {
         e.target.value = '';
         this.$emit('create', value);
       }
-    }
+    },
   },
   render() {
     return (

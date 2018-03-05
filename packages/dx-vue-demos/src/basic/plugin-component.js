@@ -9,7 +9,7 @@ export default {
         { title: 'buy milk', done: true },
         { title: 'rent a car', done: false },
       ],
-    }
+    };
   },
   render() {
     return (
@@ -17,7 +17,7 @@ export default {
         {/* Here we may add other plugins */}
       </TasksList>
     );
-  }
+  },
 };
 
 const TasksList = {
@@ -38,14 +38,14 @@ const TasksListCore = {
       <Plugin>
         <Template name="root">
           <ul>
-            {this.tasks.map(({ title, done }, index) =>
+            {this.tasks.map(({ title, done }, index) => (
               <li
                 key={index}
                 style={{ textDecoration: done ? 'line-through' : '' }}
               >
                 {title}
               </li>
-            )}
+            ))}
           </ul>
         </Template>
       </Plugin>

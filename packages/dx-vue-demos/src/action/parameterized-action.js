@@ -70,8 +70,8 @@ const TasksFilter = {
     };
   },
   methods: {
-    changeFilter() {
-      this.done = !this.done;
+    changeFilter(done) {
+      this.done = done === undefined ? !this.done : done;
     },
   },
   render() {
@@ -79,7 +79,8 @@ const TasksFilter = {
       <Plugin>
         <Getter
           name="tasks"
-          computed={({ tasks }) => tasks.filter(task => this.done === null || task.done === this.done)}
+          computed={({ tasks }) =>
+            tasks.filter(task => this.done === null || task.done === this.done)}
         />
         <Getter name="filter" value={this.done} />
         <Action name="changeFilter" action={this.changeFilter} />
@@ -96,7 +97,11 @@ const FilterPanel = {
           <TemplateConnector>
             {({ getters: { filter }, actions: { changeFilter } }) => (
               <div>
-                Filter: ({JSON.stringify(filter)}) <button onClick={changeFilter}>Change</button>
+                Filter: ({JSON.stringify(filter)})
+                {' '}
+                <button onClick={() => changeFilter()}>Change</button>
+                {' '}
+                <button onClick={() => changeFilter(null)}>Clear</button>
               </div>
             )}
           </TemplateConnector>

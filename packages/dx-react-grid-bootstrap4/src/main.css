@@ -1,0 +1,14 @@
+.dx-rg-bs4-cursor-pointer {
+  cursor: pointer;
+}
+.dx-rg-bs4-user-select-none {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: 'none';
+}
+.dx-rg-bs4-inactive {
+  opacity: 0.3;
+}
+.dx-rg-bs4-overflow-hidden {
+  overflow: hidden;
+}

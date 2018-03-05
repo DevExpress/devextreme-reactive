@@ -27,7 +27,6 @@ const TasksListCore = {
                 {title}
               </li>
             )}
-            { /* <li v-for="({ title, done}, index) in tasks">{{title}}</li> */ }
           </ul>
         </Template>
       </Plugin>

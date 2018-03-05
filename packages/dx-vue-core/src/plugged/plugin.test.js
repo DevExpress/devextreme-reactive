@@ -106,9 +106,10 @@ describe('Plugin', () => {
 
     expect(pluginHost.ensureDependencies)
       .toHaveBeenCalled();
-    // .toHaveBeenCalledTimes(1);
+    // TODO: .toHaveBeenCalledTimes(1);
   });
 
+  // TODO: Try to fix this test
   xit('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
     const dependencies = [{
       name: 'Dep1',

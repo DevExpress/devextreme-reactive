@@ -5,11 +5,11 @@ import { PluginIndexer } from './plugin-indexer';
 const Test = {
   inject: ['positionContext'],
   render() {
-    return <span />;
+    return <span>{JSON.stringify(this.positionContext())}</span>;
   },
 };
 
-xdescribe('PluginIndexer', () => {
+describe('PluginIndexer', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -29,7 +29,7 @@ xdescribe('PluginIndexer', () => {
       },
     });
 
-    expect(wrapper.find(Test).vm.positionContext())
+    expect(JSON.parse(wrapper.find(Test).text()))
       .toEqual([0]);
   });
 
@@ -46,7 +46,7 @@ xdescribe('PluginIndexer', () => {
       },
     };
 
-    const tree = mount({
+    const wrapper = mount({
       data() {
         return { enabled: false };
       },
@@ -57,30 +57,32 @@ xdescribe('PluginIndexer', () => {
       },
     });
 
-    tree.setData({ enabled: true });
+    wrapper.setData({ enabled: true });
 
-    const tests = tree.findAll(Test);
+    const tests = wrapper.findAll('span');
     expect([tests.at(0), tests.at(1)]
-      .map(wrapper => JSON.parse(wrapper.find('span').text())))
+      .map(element => JSON.parse(element.text())))
       .toEqual([[0], [1]]);
   });
 
   it('should correctly determine plugin position within another component', () => {
-    const tree = mount((
-      <PluginIndexer>
-        <div>
+    const wrapper = mount({
+      render() {
+        return (
           <PluginIndexer>
-            <Test />
+            <PluginIndexer>
+              <Test />
+              <Test />
+            </PluginIndexer>
             <Test />
           </PluginIndexer>
-        </div>
-        <Test />
-      </PluginIndexer>
-    ));
+        );
+      },
+    });
 
-    const tests = tree.find(Test);
+    const tests = wrapper.findAll('span');
     expect([tests.at(0), tests.at(1), tests.at(2)]
-      .map(wrapper => wrapper.prop('position')()))
+      .map(element => JSON.parse(element.text())))
       .toEqual([[0, 0], [0, 1], [1]]);
   });
 });

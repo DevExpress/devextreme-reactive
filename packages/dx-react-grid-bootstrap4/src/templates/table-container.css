@@ -1,0 +1,4 @@
+.dx-rg-bs4-table-container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}

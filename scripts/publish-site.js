@@ -2,6 +2,7 @@ const { join } = require('path');
 const { execSync } = require('child_process');
 const { copySync, removeSync } = require('fs-extra');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
+const getCurrentBranchName = require('./get-current-branch-name');
 const COLORS = {
   reset: "\x1b[0m",
   bright: "\x1b[1m",
@@ -12,7 +13,8 @@ const REPO = 'devexpress/devextreme-reactive';
 const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
 
-ensureRepoUpToDate();
+const currentBranchName = getCurrentBranchName();
+ensureRepoUpToDate(currentBranchName);
 
 const gitTag = execSync('git tag --points-at HEAD', { stdio: 'pipe' }).toString().trim();
 const gitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString().trim();

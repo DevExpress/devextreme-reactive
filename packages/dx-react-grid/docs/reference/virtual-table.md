@@ -19,7 +19,7 @@ columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextensi
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
-containerComponent | ComponentType&lt;object&gt; | | A component that renders a container for virtual table.
+containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -35,7 +35,7 @@ Name | Properties | Description
 VirtualTable.Table | object | A component that renders a table.
 VirtualTable.TableHead | object | A component that renders a table head.
 VirtualTable.TableBody | object | A component that renders a table body.
-VirtualTable.Container | object | A component that renders a container for virtual table.
+VirtualTable.Container | object | A component that renders a table's container.
 VirtualTable.Cell | [Table.DataCellProps](table.md#tabledatacellprops) | Renders a table data cell.
 VirtualTable.Row | [Table.DataRowProps](table.md#tabledatarowprops) | Renders a table data row.
 VirtualTable.NoDataCell | [Table.CellProps](table.md#tablecellprops) | Renders a table cell when the table is empty.

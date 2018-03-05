@@ -37,15 +37,14 @@ const filterTree = (tree, predicate) =>
     return acc;
   }, []);
 
-const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupNode) => {
+const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => {
   const tree = rowsToTree(rows, getRowLevelKey);
 
   const filteredTree = filterTree(
     tree,
-    node =>
-      (isGroupNode(node)
-        ? node.collapsedRows && node.collapsedRows.findIndex(predicate) > -1
-        : predicate(node)),
+    row => (isGroupRow(row)
+      ? row.collapsedRows && row.collapsedRows.findIndex(predicate) > -1
+      : predicate(row)),
   );
 
   return treeToRows(filteredTree);

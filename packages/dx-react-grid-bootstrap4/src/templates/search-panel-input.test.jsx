@@ -33,4 +33,32 @@ describe('Input search box', () => {
 
     expect(tree.find('input').props().placeholder).toBe('placeholder');
   });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <SearchPanelInput
+        {...defaultProps}
+        className="custom-class"
+      >
+        <div />
+      </SearchPanelInput>
+    ));
+
+    expect(tree.is('.form-control.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <SearchPanelInput
+        {...defaultProps}
+        data={{ a: 1 }}
+      >
+        <div />
+      </SearchPanelInput>
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
+  });
 });

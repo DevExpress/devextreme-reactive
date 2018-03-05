@@ -39,9 +39,7 @@ describe('Input search box', () => {
       <SearchPanelInput
         {...defaultProps}
         className="custom-class"
-      >
-        <div />
-      </SearchPanelInput>
+      />
     ));
 
     expect(tree.is('.form-control.custom-class'))
@@ -53,9 +51,7 @@ describe('Input search box', () => {
       <SearchPanelInput
         {...defaultProps}
         data={{ a: 1 }}
-      >
-        <div />
-      </SearchPanelInput>
+      />
     ));
 
     expect(tree.props().data)

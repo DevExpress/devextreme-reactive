@@ -17,7 +17,7 @@ columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; 
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
-containerComponent | ComponentType&lt;object&gt; | | A component that renders a container for table.
+containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -126,7 +126,7 @@ Name | Properties | Description
 Table.Table | object | A component that renders a table.
 Table.TableHead | object | A component that renders a table head.
 Table.TableBody | object | A component that renders a table body.
-Table.Container | object | | A component that renders a container for table.
+Table.Container | object | | A component that renders a table's container.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.

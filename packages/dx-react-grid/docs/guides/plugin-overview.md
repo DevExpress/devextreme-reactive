@@ -33,5 +33,6 @@ Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
 The Grid's UI plugins use special components to render the UI. You can implement your component suite or use a predefined one:
 
-- [DevExtreme React Grid for Bootstrap 3](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap3/) - renders the Grid's UI elements based on [Bootstrap 3](http://getbootstrap.com/) components
 - [DevExtreme React Grid for Material UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-material-ui) - renders the Grid's UI elements based on [Material UI](http://www.material-ui.com) components
+- [DevExtreme React Grid for Bootstrap 4](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap4/) - renders the Grid's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components
+- [DevExtreme React Grid for Bootstrap 3](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap3/) - renders the Grid's UI elements based on [Bootstrap 3](https://getbootstrap.com/docs/3.3/) components

@@ -32,7 +32,7 @@ Field | Type | Description
 ------|------|------------
 columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
-align? | 'left' &#124; 'right' | The table column alignment.
+align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
 
 ### TableRow
 
@@ -56,7 +56,7 @@ key | string | A unique table column identifier.
 type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
 column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
-align? | 'left' &#124; 'right' | Specifies the table's column alignment.
+align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.
 
 ### Table.CellProps
 

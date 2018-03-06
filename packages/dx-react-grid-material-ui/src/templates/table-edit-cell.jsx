@@ -16,6 +16,9 @@ const styles = theme => ({
   inputRight: {
     textAlign: 'right',
   },
+  inputCenter: {
+    textAlign: 'center',
+  },
 });
 
 const EditCellBase = ({
@@ -24,6 +27,7 @@ const EditCellBase = ({
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
+    [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
   });
 
   return (

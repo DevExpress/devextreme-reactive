@@ -35,7 +35,7 @@ const script = async () => {
   const tagPath = tag !== 'latest' ? `/@${tag}` : '';
 
   console.log('Building site content...');
-  execSync('yarn run build:site:docs', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: tag } }); // build:site
+  execSync('yarn run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: tag } });
 
   console.log('Cleaning generated site...');
   removeSync(GENERATED_SITE_DIRECTORY);
@@ -49,7 +49,7 @@ const script = async () => {
   );
 
   console.log('Preparing output directory...');
-  execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} origin/${BRANCH}`, { stdio: 'ignore' }); // upstream
+  execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
 
   console.log('Copying generated site...');
   copySync(GENERATED_SITE_DIRECTORY, join(SITE_PUBLISHING_DIRECTORY, tagPath));
@@ -60,7 +60,7 @@ const script = async () => {
   console.log('Publishing...');
   execSync('git add --all', { cwd: SITE_PUBLISHING_DIRECTORY });
   execSync(`git commit -m "${COMMIT_MESSAGE}"`, { cwd: SITE_PUBLISHING_DIRECTORY });
-  execSync(`git push origin ${BRANCH}`, { cwd: SITE_PUBLISHING_DIRECTORY }); // upstream
+  execSync(`git push upstream ${BRANCH}`, { cwd: SITE_PUBLISHING_DIRECTORY });
 
   console.log('Cleaning up...');
   removeSync(GENERATED_CONFIG_PATH);

@@ -41,7 +41,7 @@ Name | Properties | Description
 -----|------------|------------
 SearchPanel.Input | [SearchPanel.InputProps](#inputprops) | A component that renders the Search Panel input element
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

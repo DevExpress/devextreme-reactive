@@ -6,6 +6,7 @@ const { valid, lt, inc, prerelease } = require('semver');
 const conventionalRecommendedBump = require('conventional-recommended-bump');
 const getCurrentBranchName = require('./get-current-branch-name');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
+const updateVersions = require('./update-versions');
 
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
 
@@ -46,8 +47,7 @@ const script = async () => {
   execSync(`"./node_modules/.bin/lerna" exec -- node "../../scripts/rm-dist.js"`, { stdio: 'ignore' });
 
   console.log('Updating versions...');
-  const commonPublishArgs = `--exact --repo-version ${version} --force-publish \\* --yes --skip-git`;
-  execSync(`"./node_modules/.bin/lerna" publish ${commonPublishArgs} --skip-npm`, { stdio: 'ignore' });
+  updateVersions(version);
 
   console.log('Building...');
   execSync('yarn run build', { stdio: 'ignore' });
@@ -92,7 +92,8 @@ const script = async () => {
   execSync('npm login', { stdio: 'inherit' });
 
   console.log('Publishing npm...');
-  execSync(`"./node_modules/.bin/lerna" publish ${commonPublishArgs} --npm-tag ${npmTag}`, { stdio: 'ignore' });
+  const publishArgs = `--exact --repo-version ${version} --force-publish \\* --yes --skip-git`;
+  execSync(`"./node_modules/.bin/lerna" publish ${publishArgs} --npm-tag ${npmTag}`, { stdio: 'ignore' });
 
   console.log('Logout from npm...');
   execSync('npm logout', { stdio: 'ignore' });

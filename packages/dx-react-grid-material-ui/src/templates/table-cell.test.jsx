@@ -20,6 +20,12 @@ describe('TableCell', () => {
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellCenterAlign)).toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
   });
 
   it('should have correct text', () => {

@@ -1,10 +1,7 @@
 import {
-  isTrackedDependenciesChanged,
   getAvailableGetters,
   getAvailableActions,
 } from '../utils/plugin-helpers';
-
-export const UPDATE_CONNECTION = 'updateConnection';
 
 export const Getter = {
   props: {
@@ -17,7 +14,6 @@ export const Getter = {
     const { pluginHost, name } = this;
 
     let lastComputed;
-    let lastTrackedDependencies = {};
     let lastResult;
 
     this.plugin = {
@@ -30,16 +26,14 @@ export const Getter = {
           ? original
           : pluginHost.get(`${getterName}Getter`, this.plugin));
 
-        if (computed === lastComputed &&
-          !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
+        if (computed === lastComputed) {
           return lastResult;
         }
 
-        const { getters, trackedDependencies } = getAvailableGetters(pluginHost, getGetterValue);
+        const getters = getAvailableGetters(pluginHost, getGetterValue);
         const actions = getAvailableActions(pluginHost);
 
         lastComputed = computed;
-        lastTrackedDependencies = trackedDependencies;
         lastResult = computed(getters, actions);
         return lastResult;
       },

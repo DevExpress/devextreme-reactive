@@ -120,6 +120,11 @@ const EditCell = (props) => {
 };
 
 const getRowId = row => row.id;
+const applyTypes = rows => rows.map(row => ({
+  ...row,
+  amount: parseInt(row.amount, 10),
+  discount: parseFloat(row.discount),
+}));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -182,7 +187,10 @@ export default class Demo extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
+      this.setState({
+        rows: applyTypes(rows),
+        deletingRows: deleted || this.state.deletingRows,
+      });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {

@@ -3,13 +3,14 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { FilteringState } from './filtering-state';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
+  pushFilterExpression: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
 }));
 
 const defaultDeps = {
@@ -31,9 +32,6 @@ describe('FilteringState', () => {
   beforeEach(() => {
     changeColumnFilter.mockImplementation(() => []);
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   testStatePluginField({
@@ -66,6 +64,24 @@ describe('FilteringState', () => {
 
       expect(getColumnExtensionValueGetter)
         .toBeCalledWith(columnExtensions, 'filteringEnabled', false);
+    });
+  });
+
+  describe('filter expression', () => {
+    it('should provide filter expression', () => {
+      const defaultFilters = [{ columnName: 'a', value: 'a' }];
+
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <FilteringState
+            defaultFilters={defaultFilters}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).filterExpression)
+        .toEqual('filters');
     });
   });
 });

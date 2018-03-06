@@ -144,8 +144,11 @@ section {
     color: #f05b41;
     margin-bottom: 5px;
 }
-.main-menu ul li.version {
+.main-menu ul.version {
     font-size: 12px;
+}
+.main-menu ul.version li span {
+    font-size: 14px;
 }
 
 .main-menu ul li > a {

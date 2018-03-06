@@ -17,22 +17,23 @@ export class RowLayout extends React.PureComponent {
       cellComponent: Cell,
     } = this.props;
 
+    // debugger;
     return (
       <Row
         tableRow={row}
         style={getRowStyle({ row })}
       >
         {
-          getTableRowColumnsWithColSpan(columns, row.colSpanStart)
-            .map(column => (
-              <Cell
-                key={column.key}
-                tableRow={row}
-                tableColumn={column}
-                style={getColumnStyle({ column })}
-                colSpan={column.colSpan}
-              />
-            ))
+          getTableRowColumnsWithColSpan(columns, row.colSpanStart, row) // columns = tableColumns
+            .map((column) => {
+              return (
+                <Cell
+                  key={column.key}
+                  tableRow={row}
+                  tableColumn={column}
+                  style={getColumnStyle({ column })}
+                />
+            )})
         }
       </Row>
     );

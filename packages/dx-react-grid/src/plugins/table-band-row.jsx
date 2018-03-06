@@ -1,20 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Getter, Template, Plugin, TemplateConnector,
-} from '@devexpress/dx-react-core';
+import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
-  tableRowsWithHeading,
+  tableRowsWithBands,
   isBandedTableCell,
   isBandedTableRow,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
-const tableBandedRowsComputed = ({ tableHeaderRows, bandColumns }) => {
-  debugger;
-  return tableRowsWithHeading(tableHeaderRows, bandColumns);
-};
+const tableHeaderRowsComputed = ({ tableHeaderRows, bandColumns }) =>
+  tableRowsWithBands(tableHeaderRows, bandColumns);
+
 export class TableBandRow extends React.PureComponent {
   render() {
     const {
@@ -35,13 +32,13 @@ export class TableBandRow extends React.PureComponent {
           { name: 'TableColumnResizing', optional: true },
         ]}
       >
-        <Getter name="tableHeaderRows" computed={tableBandedRowsComputed} />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => {
-            debugger;
-            return isBandedTableCell(tableRow, tableColumn);
+            const result = isBandedTableCell(tableRow, tableColumn);
+            return result;
           }
           }
         >
@@ -70,8 +67,8 @@ export class TableBandRow extends React.PureComponent {
                   <HeaderCell
                     {...params}
 
-                    colSpan={params.tableColumn.colSpan}
-                    rowSpan={params.tableColumn.rowSpan}
+                    colSpan={params.tableColumn.column.colSpan}
+                    rowSpan={params.tableColumn.column.rowSpan}
 
                     column={params.tableColumn.column}
                     sortingEnabled={sortingEnabled}
@@ -96,7 +93,9 @@ export class TableBandRow extends React.PureComponent {
         </Template>
         <Template
           name="tableRow"
-          predicate={({ tableRow }) => isBandedTableRow(tableRow)}
+          predicate={({ tableRow }) => {
+            return isBandedTableRow(tableRow);
+          }}
         >
           {params => <HeaderRow {...params} />}
         </Template>

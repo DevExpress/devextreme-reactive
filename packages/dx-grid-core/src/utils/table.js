@@ -1,7 +1,10 @@
 import { easeOutCubic } from '@devexpress/dx-core';
 import { getTargetColumnGeometries } from './column-geometries';
 
-export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
+export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart, row) => {
+  if (row.level !== undefined) {
+    return tableColumns.filter((column) => column.column.level === row.level);
+  }
   if (colSpanStart === undefined) return tableColumns;
 
   let span = false;

@@ -10,11 +10,13 @@ export const Grid = ({
   getCellValue,
   rootComponent,
   children,
+  bandColumns,
 }) => (
   <PluginHost>
     <GridCore
       rows={rows}
       columns={columns}
+      bandColumns={bandColumns}
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
@@ -27,12 +29,13 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.array,
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
 Grid.defaultProps = {
+  columns: undefined,
   getRowId: undefined,
   getCellValue: undefined,
   children: undefined,

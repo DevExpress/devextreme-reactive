@@ -11,6 +11,7 @@ export class GridCore extends React.PureComponent {
       getRowId,
       getCellValue,
       rootComponent: Root,
+      bandColumns,
     } = this.props;
 
     return (
@@ -19,6 +20,9 @@ export class GridCore extends React.PureComponent {
         <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
         <Getter name="columns" value={columns} />
         <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
+
+        <Getter name="bandColumns" value={bandColumns} />
+
         <Template name="header" />
         <Template name="body" />
         <Template name="footer" />

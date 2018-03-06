@@ -10,13 +10,12 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const bandColumns = [[
-  { title: 'A', rowSpan: 2 },
-  { title: 'B', colSpan: 2 },
-], [
-  { title: 'B1' },
-  { title: 'B2' },
-]];
+const bandColumns = [
+  { name : 'a', title: 'A', rowSpan: 2, level: 0 },
+  { name : 'b', title: 'B', colSpan: 2, level: 0 },
+  { name : 'b1', title: 'B1', level: 1 },
+  { name : 'b2', title: 'B2', level: 1 },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -24,14 +23,17 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'channel', title: 'Channel' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
+        { name : 'a', title: 'A', rowSpan: 2, level: 0 },
+        { name : 'b1', title: 'B1', level: 1 },
+        { name : 'b2', title: 'B2', level: 1 },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
+      rows: [
+        { a: 'value for a', b1: 'value for b1', b2: 'value for b2' },
+        { a: 'value for a', b1: 'value for b1', b2: 'value for b2' },
+        { a: 'value for a', b1: 'value for b1', b2: 'value for b2' },
+        { a: 'value for a', b1: 'value for b1', b2: 'value for b2' },
+        { a: 'value for a', b1: 'value for b1', b2: 'value for b2' },
+      ],
     };
   }
   render() {
@@ -42,7 +44,7 @@ export default class Demo extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
-          bandColumns={[]}
+          bandColumns={bandColumns}
         >
           <Table />
           <TableBandRow />

@@ -8,6 +8,7 @@ export { TableGroupRow } from './plugins/table-group-row';
 export { TableSelection } from './plugins/table-selection';
 export { Table } from './plugins/table';
 export { VirtualTable } from './plugins/virtual-table';
+export { TableBandRow } from './plugins/table-band-row';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';
 export { TableEditRow } from './plugins/table-edit-row';

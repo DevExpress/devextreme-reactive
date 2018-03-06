@@ -45,8 +45,8 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = ({ columns }) =>
-      tableColumnsWithDataRows(columns, columnExtensions);
+    const tableColumnsComputed = ({ columns, bandColumns }) =>
+      tableColumnsWithDataRows(columns, columnExtensions, bandColumns);
 
     return (
       <Plugin
@@ -73,11 +73,14 @@ export class Table extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-        <Template name="tableCell">
+        <Template
+          name="tableCell"
+          predicate={({ tableColumn }) => tableColumn.type !== 'band'}
+        >
           {params => (
             <TemplateConnector>
               {({ tableHeaderRows: headerRows }) =>
-                (isHeaderStubTableCell(params.tableRow, headerRows)
+                (isHeaderStubTableCell(params.tableRow, headerRows, params.tableColumn)
                   ? <StubHeaderCell {...params} />
                   : <StubCell {...params} />
                 )

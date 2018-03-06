@@ -30,6 +30,8 @@ import { withStyles } from 'material-ui/styles';
 
 import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
+import { IntegerTypeProvider } from '../../../theme-sources/material-ui/components/integer-type-provider';
+import { FloatTypeProvider } from '../../../theme-sources/material-ui/components/float-type-provider';
 
 import {
   generateRows,
@@ -181,6 +183,8 @@ class DemoBase extends React.PureComponent {
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      integerColumns: ['amount'],
+      floatColumns: ['discount'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -247,6 +251,8 @@ class DemoBase extends React.PureComponent {
       pageSize,
       pageSizes,
       columnOrder,
+      integerColumns,
+      floatColumns,
     } = this.state;
 
     return (
@@ -269,6 +275,9 @@ class DemoBase extends React.PureComponent {
 
           <IntegratedSorting />
           <IntegratedPaging />
+
+          <IntegerTypeProvider for={integerColumns} />
+          <FloatTypeProvider for={floatColumns} />
 
           <EditingState
             editingRowIds={editingRowIds}

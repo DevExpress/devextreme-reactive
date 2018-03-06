@@ -17,6 +17,7 @@ export const EditCell = ({
         className={classNames({
           'form-control w-100': true,
           'text-right': tableColumn && tableColumn.align === 'right',
+          'text-center': tableColumn && tableColumn.align === 'center',
         })}
         readOnly={!editingEnabled}
         value={value}

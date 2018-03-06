@@ -76,6 +76,20 @@ describe('EditCell', () => {
     expect(input.hasClass(classes.inputRight)).toBeTruthy();
   });
 
+  it('should take column align into account if align is "center"', () => {
+    const tree = shallow((
+      <EditCell
+        {...defaultProps}
+        value=""
+        tableColumn={{ align: 'center' }}
+      />
+    ));
+    const inputRoot = tree.find(Input);
+    const input = inputRoot.dive().dive().find('input');
+    expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
+    expect(input.hasClass(classes.inputCenter)).toBeTruthy();
+  });
+
   it('should pass style to the root element', () => {
     const tree = shallow((
       <EditCell

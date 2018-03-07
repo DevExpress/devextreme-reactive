@@ -37,6 +37,10 @@ const defaultDeps = {
 };
 
 const defaultProps = {
+  tableComponent: () => null,
+  headComponent: () => null,
+  bodyComponent: () => null,
+  containerComponent: () => null,
   layoutComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,
@@ -75,6 +79,7 @@ describe('Table', () => {
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            tableComponent={() => null}
           />
         </PluginHost>
       ));
@@ -93,6 +98,7 @@ describe('Table', () => {
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
+            tableComponent={() => null}
             columnExtensions={columnExtensions}
           />
         </PluginHost>

@@ -1,6 +1,7 @@
 # DevExtreme Reactive
 
 [![CircleCI](https://img.shields.io/circleci/project/github/DevExpress/devextreme-reactive/master.svg)](https://circleci.com/gh/DevExpress/devextreme-reactive)
+[![NPM](https://img.shields.io/npm/v/@devexpress/dx-core.svg)](https://www.npmjs.com/package/@devexpress/dx-core)
 
 ## Business Components for React
 
@@ -29,6 +30,7 @@ Packages:
 - [DevExtreme React Grid](packages/dx-react-grid/README.md)
 - [DevExtreme React Grid Bootstrap3](packages/dx-react-grid-bootstrap3/README.md)
 - [DevExtreme React Grid Material UI](packages/dx-react-grid-material-ui/README.md)
+- [DevExtreme React Grid Bootstrap4](packages/dx-react-grid-bootstrap4/README.md)
 
 ## License
 

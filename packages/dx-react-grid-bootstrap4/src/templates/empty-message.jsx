@@ -4,10 +4,10 @@ import classNames from 'classnames';
 
 export const EmptyMessage = ({ getMessage, className, ...restProps }) => (
   <div
-    className={classNames('card-body', className)}
+    className={classNames('py-5 text-center', className)}
     {...restProps}
   >
-    {getMessage('noColumns')}
+    <big className="text-muted">{getMessage('noColumns')}</big>
   </div>
 );
 

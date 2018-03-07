@@ -30,10 +30,10 @@ This package does not contain visual components. In the examples below, visual c
 
   Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
 
-  Add the DevExtreme React Grid styles to your project:
+  Add the DevExtreme React Grid styles in the root .js file:
 
-  ```html
-  <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
+  ```js
+  import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
   ```
 
   NOTE: The DevExtreme React Grid does not include Bootstrap CSS.
@@ -93,6 +93,7 @@ const App = () => (
 Follow the links below to try out the React Grid:
 
 - [CodeSandbox for Material UI](https://codesandbox.io/s/13qvz1qqzl)
+- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/rymyjlonpq)
 - [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 
 ## License

@@ -12,4 +12,4 @@ export { DragDropProvider } from './drag-drop/provider';
 export { DragSource } from './drag-drop/source';
 export { DropTarget } from './drag-drop/target';
 
-export { createRenderComponent } from './utils/render-component';
+export { createRenderComponent } from './render-component';

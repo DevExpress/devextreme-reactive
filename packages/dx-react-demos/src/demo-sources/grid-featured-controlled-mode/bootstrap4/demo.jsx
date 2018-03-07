@@ -11,8 +11,8 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { ProgressBarCell } from '../../../theme-sources/bootstrap4/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/bootstrap4/components/highlighted-cell';
-import { IntegerTypeProvider } from '../../../theme-sources/bootstrap4/components/integer-type-provider';
-import { FloatTypeProvider } from '../../../theme-sources/bootstrap4/components/float-type-provider';
+import { CurrencyTypeProvider } from '../../../theme-sources/bootstrap4/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/bootstrap4/components/percent-type-provider';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
@@ -145,8 +145,8 @@ export default class Demo extends React.PureComponent {
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
-      integerColumns: ['amount'],
-      floatColumns: ['discount'],
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -210,8 +210,8 @@ export default class Demo extends React.PureComponent {
       pageSize,
       pageSizes,
       columnOrder,
-      integerColumns,
-      floatColumns,
+      currencyColumns,
+      percentColumns,
     } = this.state;
 
     return (
@@ -235,8 +235,8 @@ export default class Demo extends React.PureComponent {
           <IntegratedSorting />
           <IntegratedPaging />
 
-          <IntegerTypeProvider for={integerColumns} />
-          <FloatTypeProvider for={floatColumns} />
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <EditingState
             editingRowIds={editingRowIds}

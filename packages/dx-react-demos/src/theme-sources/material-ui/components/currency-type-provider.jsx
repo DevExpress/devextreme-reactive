@@ -13,34 +13,35 @@ const styles = {
   },
 };
 
-const FloatEditorBase = ({ value, onValueChange, classes }) => (
+const EditorBase = ({ value, onValueChange, classes }) => (
   <Input
     type="number"
     classes={{
       root: classes.inputRoot,
       input: classes.numericInput,
     }}
-    value={(value * 100).toFixed(1)}
+    value={value}
     inputProps={{
-      step: 0.1,
       min: 0,
-      max: 100,
     }}
-    onChange={e => onValueChange(parseFloat(e.target.value / 100))}
+    onChange={e => onValueChange(parseInt(e.target.value, 10))}
   />
 );
 
-FloatEditorBase.propTypes = {
+EditorBase.propTypes = {
   value: PropTypes.number.isRequired,
   onValueChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-const FloatEditor = withStyles(styles)(FloatEditorBase);
+const Editor = withStyles(styles)(EditorBase);
 
-export const FloatTypeProvider = props => (
+const Formatter = ({ value }) => `$${value}`;
+
+export const CurrencyTypeProvider = props => (
   <DataTypeProvider
-    editorComponent={FloatEditor}
+    formatterComponent={Formatter}
+    editorComponent={Editor}
     {...props}
   />
 );

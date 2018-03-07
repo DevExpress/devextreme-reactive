@@ -2,27 +2,28 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 
-const FloatEditor = ({ value, onValueChange }) => (
+const Editor = ({ value, onValueChange }) => (
   <input
     type="number"
     className="form-control text-right"
     style={{ width: '100%' }}
-    value={(value * 100).toFixed(1)}
-    step={0.1}
+    value={value}
     min={0}
-    max={100}
-    onChange={e => onValueChange(parseFloat(e.target.value / 100))}
+    onChange={e => onValueChange(parseInt(e.target.value, 10))}
   />
 );
 
-FloatEditor.propTypes = {
+Editor.propTypes = {
   value: PropTypes.number.isRequired,
   onValueChange: PropTypes.func.isRequired,
 };
 
-export const FloatTypeProvider = props => (
+const Formatter = ({ value }) => `$${value}`;
+
+export const CurrencyTypeProvider = props => (
   <DataTypeProvider
-    editorComponent={FloatEditor}
+    formatterComponent={Formatter}
+    editorComponent={Editor}
     {...props}
   />
 );

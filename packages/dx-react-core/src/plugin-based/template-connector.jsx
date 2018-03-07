@@ -5,7 +5,7 @@ import {
   isTrackedDependenciesChanged,
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 
 export class TemplateConnector extends React.Component {
   constructor(props, context) {

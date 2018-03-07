@@ -4,7 +4,7 @@ import {
   isTrackedDependenciesChanged,
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export const UPDATE_CONNECTION = 'updateConnection';

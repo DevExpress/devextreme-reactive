@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 import { INDEXABLE_COMPONENT } from './plugin-indexer';
 
 export class Action extends React.PureComponent {

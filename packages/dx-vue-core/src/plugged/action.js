@@ -1,13 +1,19 @@
 import {
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Action = {
   props: {
-    name: {},
-    action: {},
+    name: {
+      type: String,
+      required: true,
+    },
+    action: {
+      type: Function,
+      required: true,
+    },
   },
   inject: {
     pluginHost: { from: PLUGIN_HOST_CONTEXT },

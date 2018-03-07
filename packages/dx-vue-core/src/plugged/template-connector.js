@@ -1,7 +1,7 @@
 import {
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export const TemplateConnector = {

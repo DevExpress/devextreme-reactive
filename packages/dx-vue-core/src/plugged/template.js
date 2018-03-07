@@ -3,8 +3,13 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from '
 let globalTemplateId = 0;
 export const Template = {
   props: {
-    name: {},
-    predicate: {},
+    name: {
+      type: String,
+      required: true,
+    },
+    predicate: {
+      type: Function,
+    },
   },
   beforeCreate() {
     globalTemplateId += 1;

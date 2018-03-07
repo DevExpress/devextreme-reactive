@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+
 import { PluginHost } from './plugin-host';
 import { Plugin } from './plugin';
 import { Template } from './template';
@@ -6,6 +8,14 @@ import { Getter } from './getter';
 import { TemplateConnector } from './template-connector';
 
 describe('Getter', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should return value', () => {
     const wrapper = mount({
       render() {

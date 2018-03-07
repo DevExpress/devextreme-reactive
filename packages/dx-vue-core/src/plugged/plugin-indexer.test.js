@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+
 import { PluginIndexer } from './plugin-indexer';
 import { POSITION_CONTEXT } from './constants';
 
@@ -10,6 +12,14 @@ const Test = {
 };
 
 describe('PluginIndexer', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should correctly determine plugin position', () => {
     const wrapper = mount({
       render() {

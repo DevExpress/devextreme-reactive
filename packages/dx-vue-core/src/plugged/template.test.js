@@ -1,8 +1,18 @@
 import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+
 import { PluginHost } from './plugin-host';
 import { Template } from './template';
 
 describe('Template', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should be rendered', () => {
     const wrapper = mount({
       render() {

@@ -3,8 +3,12 @@ import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 export const TemplatePlaceholder = {
   name: 'TemplatePlaceholder',
   props: {
-    name: {},
-    params: {},
+    name: {
+      type: String,
+    },
+    params: {
+      type: Object,
+    },
   },
   provide() {
     const templateHost = {};

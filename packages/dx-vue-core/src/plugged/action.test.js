@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
 
 import { PluginHost } from './plugin-host';
 import { Action } from './action';
@@ -7,6 +8,14 @@ import { Template } from './template';
 import { TemplateConnector } from './template-connector';
 
 describe('Action', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should execute action', () => {
     const action = jest.fn();
     let computedAction;

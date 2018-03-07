@@ -1,7 +1,12 @@
 import { POSITION_CONTEXT } from './constants';
 
 const PluginIndexerContext = {
-  props: { position: {} },
+  props: {
+    position: {
+      type: Function,
+      required: true,
+    },
+  },
   provide() {
     return {
       [POSITION_CONTEXT]: this.position,

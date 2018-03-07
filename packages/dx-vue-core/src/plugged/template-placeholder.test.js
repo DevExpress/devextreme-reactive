@@ -1,9 +1,19 @@
 import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+
 import { PluginHost } from './plugin-host';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
 
 describe('TemplatePlaceholder', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole();
+  });
+  afterAll(() => {
+    resetConsole();
+  });
+
   it('should be a place for template rendering', () => {
     const wrapper = mount({
       render() {

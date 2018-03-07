@@ -4,9 +4,11 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 export const Plugin = {
   props: {
     name: {
+      type: String,
       default: '',
     },
     dependencies: {
+      type: Array,
       default() {
         return [];
       },

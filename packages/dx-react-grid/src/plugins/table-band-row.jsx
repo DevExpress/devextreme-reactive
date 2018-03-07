@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
-  addBandRows,
+  getColumnMeta,
   isBandedTableRow,
   isBandedTableCell,
+  tableRowsWithBands,
 } from '@devexpress/dx-grid-core';
 
 export class TableBandRow extends React.PureComponent {
@@ -18,7 +19,7 @@ export class TableBandRow extends React.PureComponent {
     } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      addBandRows(tableHeaderRows, bandColumns);
+      tableRowsWithBands(tableHeaderRows, bandColumns);
 
     return (
       <Plugin
@@ -43,49 +44,30 @@ export class TableBandRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ tableColumns }) => {
-                const getMeta = (columnName) => {
-                  let currentBandTitle = null;
-                  let columnLevel = 0;
+                const tableRowLevel = params.tableRow.level;
+                const currentColumnMeta =
+                  getColumnMeta(params.tableColumn.column.name, bandColumns, tableRowLevel);
 
-                  const maxBandLevel = (bands, level, title) => {
-                    bands.forEach((column) => {
-                      if (column.columnName === columnName) {
-                        columnLevel = level;
-                        currentBandTitle = title;
-                      }
-                      if (column.nested !== undefined) {
-                        maxBandLevel(column.nested, level + 1, level > params.tableRow.level ? title : column.title);
-                      }
-                    });
-                  };
+                if (currentColumnMeta.level <= params.tableRow.level) return <HeaderCell />;
 
-                  maxBandLevel(bandColumns, 0);
-
-                  return ({ title: currentBandTitle, level: columnLevel });
-                };
-
-                const meta = getMeta(params.tableColumn.column.name);
-
-                if (meta.level <= params.tableRow.level) {
-                  return <HeaderCell />;
-                }
-
-                const columnIndex = tableColumns.findIndex(tableColumn => tableColumn.key === params.tableColumn.key);
-                if (columnIndex > 0) {
-                  const prevMeta = getMeta(tableColumns[columnIndex - 1].column.name);
-                  if (prevMeta.title === meta.title) {
-                    return null;
-                  }
+                const currentColumnIndex =
+                  tableColumns.findIndex(tableColumn => tableColumn.key === params.tableColumn.key);
+                if (currentColumnIndex > 0) {
+                  const prevColumnMeta = getColumnMeta(
+                      tableColumns[currentColumnIndex - 1].column.name,
+                      bandColumns,
+                      tableRowLevel,
+                    );
+                  if (prevColumnMeta.title === currentColumnMeta.title) return null;
                 }
 
                 let colSpan = 1;
-
-                for (let index = columnIndex + 1; index < tableColumns.length; index += 1) {
-                  if (getMeta(tableColumns[index].column.name).title === meta.title) {
+                for (let index = currentColumnIndex + 1; index < tableColumns.length; index += 1) {
+                  const columnMeta =
+                    getColumnMeta(tableColumns[index].column.name, bandColumns, tableRowLevel);
+                  if (columnMeta.title === currentColumnMeta.title) {
                     colSpan += 1;
-                  } else {
-                    break;
-                  }
+                  } else break;
                 }
 
                 return (
@@ -93,7 +75,7 @@ export class TableBandRow extends React.PureComponent {
                     {...params}
 
                     colSpan={colSpan}
-                    value={meta.title}
+                    value={currentColumnMeta.title}
                   />
                 );
               }}

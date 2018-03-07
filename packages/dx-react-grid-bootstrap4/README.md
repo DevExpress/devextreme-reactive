@@ -10,19 +10,11 @@ Install the main dx-react-grid package with its dependencies and Bootstrap 4 tem
 npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap4
 ```
 
-Add the DevExtreme React Grid styles in one of the following ways:
+Add the DevExtreme React Grid styles in the root .js file:
 
-- In the index.html file
-
-  ```html
-  <link rel="stylesheet" type="text/css" href="node_modules/@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css" />
-  ```
-
-- In the root .js file.
-
-  ```js
-  import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
-  ```
+```js
+import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';
+```
 
 The DevExtreme React Grid also requires adding the [OpenIconic](https://useiconic.com/open) icons to your project.
 

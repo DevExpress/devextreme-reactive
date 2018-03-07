@@ -31,4 +31,15 @@ describe('TableContainer', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableContainer data={{ a: 1 }}>
+        <div />
+      </TableContainer>
+    ));
+
+    expect(tree.props().data)
+      .toMatchObject({ a: 1 });
+  });
 });

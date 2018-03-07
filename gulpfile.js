@@ -63,6 +63,11 @@ var applyInterceptors = function(content, ...interceptors) {
   }, content);
 };
 
+var injectNpmTag = function(content) {
+  const tag = versionTag && versionTag !== 'latest' ? `@${versionTag}` : '';
+  return content.replace(/\.npm\-tag\(\)/g, tag);
+};
+
 var injectLiveDemos = function(content) {
   return content
     .replace(
@@ -112,6 +117,7 @@ gulp.task('site:docs', function() {
           file.contents.toString(),
           patchMDLinks,
           patchMDTables,
+          injectNpmTag,
           injectLiveDemos,
           addFrontMatter
         );

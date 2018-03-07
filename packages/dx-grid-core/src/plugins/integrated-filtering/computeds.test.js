@@ -13,14 +13,14 @@ describe('IntegratedFiltering computeds', () => {
       ];
 
       it('should not touch rows if no filters specified', () => {
-        const filters = [];
+        const filters = null;
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered).toBe(rows);
       });
 
       it('can filter by one field', () => {
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filters = { columnName: 'a', value: 1 };
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered)
@@ -31,7 +31,7 @@ describe('IntegratedFiltering computeds', () => {
       });
 
       it('can filter by several fields', () => {
-        const filters = [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }];
+        const filters = { operator: 'and', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }] };
 
         const filtered = filteredRows(rows, filters, getCellValue);
         expect(filtered)
@@ -46,10 +46,10 @@ describe('IntegratedFiltering computeds', () => {
         getColumnPredicate
           .mockImplementation(() => (value, filter, row) => value === 1 && row.b === 2);
 
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filters = { columnName: 'a', value: 1 };
         const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
-        expect(getColumnPredicate).toBeCalledWith(filters[0].columnName);
+        expect(getColumnPredicate).toBeCalledWith(filters.columnName);
         expect(filtered)
           .toEqual([
             { a: 1, b: 2 },
@@ -58,7 +58,7 @@ describe('IntegratedFiltering computeds', () => {
 
       it('should filter using default predicate if custom predicate returns nothing', () => {
         const getColumnPredicate = () => undefined;
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filters = { columnName: 'a', value: 1 };
         const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
 
         expect(filtered)
@@ -66,6 +66,46 @@ describe('IntegratedFiltering computeds', () => {
             { a: 1, b: 1 },
             { a: 1, b: 2 },
           ]);
+      });
+
+      it('should filter with OR group operator', () => {
+        const filters = { operator: 'or', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 1 }] };
+        const filtered = filteredRows(rows, filters, getCellValue);
+
+        expect(filtered).toEqual([
+          { a: 1, b: 1 },
+          { a: 1, b: 2 },
+          { a: 2, b: 1 },
+        ]);
+      });
+
+      it('should filter with two group filters', () => {
+        const filters = {
+          operator: 'or',
+          filters: [
+            {
+              operator: 'and',
+              filters: [
+                { columnName: 'a', value: '1' },
+                { columnName: 'b', value: '1' },
+              ],
+            },
+            {
+              operator: 'and',
+              filters: [
+                { columnName: 'a', value: '2' },
+                { columnName: 'b', value: '2' },
+              ],
+            },
+          ],
+        };
+
+        const filtered = filteredRows(rows, filters, getCellValue);
+
+        expect(filtered).toEqual([
+          { a: 1, b: 1 },
+          { a: 2, b: 2 },
+        ]);
       });
     });
 
@@ -105,7 +145,7 @@ describe('IntegratedFiltering computeds', () => {
           { a: 2, b: 1 },
           { a: 2, b: 2 },
         ];
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filters = { columnName: 'a', value: 1 };
 
         const filtered = filteredRows(
           groupedRows,

@@ -1,9 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const TableContainer = ({ children, style, ...restProps }) => (
+export const TableContainer = ({
+  children, style, className,
+  ...restProps
+}) => (
   <div
-    className="table-responsive"
+    className={classNames('table-responsive', className)}
     {...restProps}
     style={{
       overflow: 'auto',
@@ -18,8 +22,10 @@ export const TableContainer = ({ children, style, ...restProps }) => (
 TableContainer.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 TableContainer.defaultProps = {
+  className: undefined,
   style: null,
 };

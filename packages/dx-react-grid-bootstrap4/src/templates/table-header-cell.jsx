@@ -75,9 +75,8 @@ export class TableHeaderCell extends React.PureComponent {
         <div
           className={classNames({
             'text-nowrap dx-rg-bs4-table-header-cell-wrapper': true,
-            'text-right': align === 'right',
-            'dx-rg-bs4-table-header-cell-right': showGroupingControls && align === 'right',
-            'dx-rg-bs4-table-header-cell-left': showGroupingControls && align !== 'right',
+            [`text-${align}`]: align !== 'left',
+            [`dx-rg-bs4-table-header-cell-${align}`]: showGroupingControls,
           })}
         >
           {showSortingControls ? (

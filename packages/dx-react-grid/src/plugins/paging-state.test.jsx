@@ -24,9 +24,9 @@ describe('PagingState', () => {
     propertyName: 'currentPage',
     defaultDeps,
     values: [
+      0,
       1,
       2,
-      3,
     ],
     actions: [{
       actionName: 'setCurrentPage',
@@ -39,9 +39,9 @@ describe('PagingState', () => {
     propertyName: 'pageSize',
     defaultDeps,
     values: [
+      0,
       1,
       2,
-      3,
     ],
     actions: [{
       actionName: 'setPageSize',

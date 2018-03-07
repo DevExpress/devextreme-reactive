@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
-import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
+import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, TEMPLATE_HOST_CONTEXT } from './constants';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
@@ -17,7 +17,7 @@ export class TemplatePlaceholder extends React.Component {
   }
   getChildContext() {
     return {
-      templateHost: {
+      [TEMPLATE_HOST_CONTEXT]: {
         templates: () => this.restTemplates,
         params: () => this.params,
       },
@@ -46,7 +46,7 @@ export class TemplatePlaceholder extends React.Component {
           .reverse(),
       };
     }
-    const { templateHost } = this.context;
+    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.context;
     return {
       params: params || templateHost.params(),
       templates: templateHost.templates(),
@@ -87,10 +87,10 @@ TemplatePlaceholder.defaultProps = {
 };
 
 TemplatePlaceholder.contextTypes = {
-  templateHost: PropTypes.object,
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object,
   [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };
 
 TemplatePlaceholder.childContextTypes = {
-  templateHost: PropTypes.object.isRequired,
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

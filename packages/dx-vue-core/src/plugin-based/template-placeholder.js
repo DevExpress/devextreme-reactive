@@ -1,4 +1,4 @@
-import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
+import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
 export const TemplatePlaceholder = {
   name: 'TemplatePlaceholder',
@@ -20,11 +20,14 @@ export const TemplatePlaceholder = {
       enumerable: true,
       get: () => this.computedTemplates.slice(1),
     });
-    return { templateHost };
+    return { [TEMPLATE_HOST_CONTEXT]: templateHost };
   },
   inject: {
     pluginHost: { from: PLUGIN_HOST_CONTEXT },
-    templateHost: { default: { templates: [], params: undefined } },
+    templateHost: {
+      from: TEMPLATE_HOST_CONTEXT,
+      default: { templates: [], params: undefined },
+    },
   },
   created() {
     this.subscription = {

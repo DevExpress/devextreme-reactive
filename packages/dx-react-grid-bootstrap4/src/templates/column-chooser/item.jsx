@@ -12,7 +12,10 @@ export const Item = ({
   disabled, ...restProps
 }) => (
   <button
-    className={classNames('dropdown-item dx-rg-bs4-column-chooser-item dx-rg-bs4-cursor-pointer', className)}
+    className={classNames({
+      'dropdown-item dx-rg-bs4-column-chooser-item': true,
+      'dx-rg-bs4-cursor-pointer': !disabled,
+    }, className)}
     type="button"
     onClick={onToggle}
     onMouseDown={handleMouseDown}

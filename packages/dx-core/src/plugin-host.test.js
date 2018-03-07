@@ -174,8 +174,8 @@ describe('PluginHost', () => {
 
       host.registerSubscription(subscription);
       host.broadcast('onMessage', 'update');
-      expect(subscription.onMessage.mock.calls.length).toBe(1);
-      expect(subscription.onMessage.mock.calls[0].length).toBe(1);
+      expect(subscription.onMessage.mock.calls).toHaveLength(1);
+      expect(subscription.onMessage.mock.calls[0]).toHaveLength(1);
       expect(subscription.onMessage.mock.calls[0][0]).toBe('update');
     });
 
@@ -187,7 +187,7 @@ describe('PluginHost', () => {
       host.registerSubscription(subscription);
       host.registerSubscription(subscription);
       host.broadcast('onMessage', 'update');
-      expect(subscription.onMessage.mock.calls.length).toBe(1);
+      expect(subscription.onMessage.mock.calls).toHaveLength(1);
     });
   });
 
@@ -200,7 +200,7 @@ describe('PluginHost', () => {
       host.registerSubscription(subscription);
       host.unregisterSubscription(subscription);
       host.broadcast('onMessage', 'update');
-      expect(subscription.onMessage.mock.calls.length).toBe(0);
+      expect(subscription.onMessage.mock.calls).toHaveLength(0);
     });
 
     it('does not fail if called without previous registration', () => {
@@ -214,7 +214,7 @@ describe('PluginHost', () => {
       host.registerSubscription(subscription1);
       host.unregisterSubscription(subscription2);
       host.broadcast('onMessage', 'update');
-      expect(subscription1.onMessage.mock.calls.length).toBe(1);
+      expect(subscription1.onMessage.mock.calls).toHaveLength(1);
     });
   });
 

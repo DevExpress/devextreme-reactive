@@ -15,6 +15,10 @@ describe('TableCell', () => {
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find('td').is('.text-right.text-nowrap.dx-rg-bs4-table-cell'))
       .toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
+    expect(tree.find('td').is('.text-center.text-nowrap.dx-rg-bs4-table-cell'))
+      .toBeTruthy();
   });
 
   it('should have correct text', () => {

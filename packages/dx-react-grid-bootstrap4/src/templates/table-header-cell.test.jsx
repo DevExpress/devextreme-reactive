@@ -177,6 +177,29 @@ describe('TableHeaderCell', () => {
       .toBeTruthy();
   });
 
+  it('should have correct classes when column is aligned by center', () => {
+    let tree = shallow((
+      <TableHeaderCell
+        tableColumn={{ align: 'center' }}
+      />
+    ));
+
+    expect(tree.find('div').is('.text-nowrap.text-center'))
+      .toBeTruthy();
+    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-center'))
+      .toBeFalsy();
+
+    tree = shallow((
+      <TableHeaderCell
+        tableColumn={{ align: 'center' }}
+        showGroupingControls
+      />
+    ));
+
+    expect(tree.find('div').is('.text-nowrap.text-center.dx-rg-bs4-table-header-cell-center'))
+      .toBeTruthy();
+  });
+
   it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableHeaderCell

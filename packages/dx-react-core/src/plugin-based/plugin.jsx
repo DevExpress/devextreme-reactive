@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginIndexer } from './plugin-indexer';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export class Plugin extends React.PureComponent {
   componentWillMount() {
-    const { pluginHost, positionContext: position } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: position } = this.context;
     const { name, dependencies } = this.props;
     this.plugin = {
       position,
@@ -15,10 +16,11 @@ export class Plugin extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentWillUpdate() {
-    this.context.pluginHost.ensureDependencies();
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    pluginHost.ensureDependencies();
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterPlugin(this.plugin);
   }
   render() {
@@ -46,6 +48,6 @@ Plugin.defaultProps = {
 };
 
 Plugin.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
-  positionContext: PropTypes.func.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

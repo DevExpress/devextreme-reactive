@@ -4,11 +4,11 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from './helpers';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
+import { PLUGIN_HOST_CONTEXT, INDEXABLE_COMPONENT } from './constants';
 
 export class Action extends React.PureComponent {
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     this.plugin = {
@@ -37,7 +37,7 @@ export class Action extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
@@ -59,5 +59,5 @@ Action.defaultProps = {
 };
 
 Action.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

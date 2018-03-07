@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginIndexer, INDEXABLE_COMPONENT } from './plugin-indexer';
+import { INDEXABLE_COMPONENT } from './constants';
+import { PluginIndexer } from './plugin-indexer';
 
 const Test = () => null;
 Test[INDEXABLE_COMPONENT] = true;

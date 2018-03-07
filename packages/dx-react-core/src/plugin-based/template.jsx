@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
+import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, INDEXABLE_COMPONENT } from './constants';
 
-export const RERENDER_TEMPLATE = 'rerenderTemplate';
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
   constructor(props, context) {
@@ -12,7 +11,7 @@ export class Template extends React.PureComponent {
     this.id = globalTemplateId;
   }
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     this.plugin = {
@@ -26,11 +25,11 @@ export class Template extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentDidUpdate() {
-    const { pluginHost } = this.context;
-    pluginHost.broadcast(RERENDER_TEMPLATE, this.id);
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    pluginHost.broadcast(RERENDER_TEMPLATE_EVENT, this.id);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterPlugin(this.plugin);
   }
   render() {
@@ -57,5 +56,5 @@ Template.defaultProps = {
 };
 
 Template.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

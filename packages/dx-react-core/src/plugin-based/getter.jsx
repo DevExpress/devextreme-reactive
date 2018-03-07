@@ -5,13 +5,11 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from './helpers';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
-
-export const UPDATE_CONNECTION = 'updateConnection';
+import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT, INDEXABLE_COMPONENT } from './constants';
 
 export class Getter extends React.PureComponent {
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     let lastComputed;
@@ -46,12 +44,12 @@ export class Getter extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentDidUpdate() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
-    pluginHost.broadcast(UPDATE_CONNECTION);
+    pluginHost.broadcast(UPDATE_CONNECTION_EVENT);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
@@ -76,5 +74,5 @@ Getter.defaultProps = {
 };
 
 Getter.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
-export const INDEXABLE_COMPONENT = Symbol('indexableComponent');
+import { POSITION_CONTEXT, INDEXABLE_COMPONENT } from './constants';
 
 export const PluginIndexer = (
   { children },
-  { positionContext },
+  { [POSITION_CONTEXT]: position },
 ) => (
   <React.Fragment>
     {
@@ -14,7 +13,7 @@ export const PluginIndexer = (
 
         const childPosition = () => {
           const calculatedPosition =
-            (positionContext && positionContext()) || [];
+            (position && position()) || [];
           return [...calculatedPosition, index];
         };
 
@@ -41,13 +40,13 @@ PluginIndexer.defaultProps = {
 };
 
 PluginIndexer.contextTypes = {
-  positionContext: PropTypes.func,
+  [POSITION_CONTEXT]: PropTypes.func,
 };
 
 class PluginIndexerContext extends React.Component {
   getChildContext() {
     return {
-      positionContext: this.props.position,
+      [POSITION_CONTEXT]: this.props.position,
     };
   }
   render() {
@@ -61,5 +60,5 @@ PluginIndexerContext.propTypes = {
 };
 
 PluginIndexerContext.childContextTypes = {
-  positionContext: PropTypes.func,
+  [POSITION_CONTEXT]: PropTypes.func,
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { UPDATE_CONNECTION } from './getter';
+import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 import { TemplateConnector } from './template-connector';
 
 describe('TemplateConnector', () => {
@@ -33,7 +33,7 @@ describe('TemplateConnector', () => {
       ),
       {
         context: {
-          pluginHost,
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
         },
       },
     );
@@ -50,7 +50,7 @@ describe('TemplateConnector', () => {
         </TemplateConnector>
       ), {
         context: {
-          pluginHost,
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
         },
       },
     );
@@ -91,7 +91,7 @@ describe('TemplateConnector', () => {
           </TemplateConnector>
         ), {
           context: {
-            pluginHost,
+            [PLUGIN_HOST_CONTEXT]: pluginHost,
           },
         },
       );
@@ -113,13 +113,13 @@ describe('TemplateConnector', () => {
           </TemplateConnector>
         ), {
           context: {
-            pluginHost,
+            [PLUGIN_HOST_CONTEXT]: pluginHost,
           },
         },
       );
 
       knownGetters.a = 3;
-      pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION]();
+      pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION_EVENT]();
 
       expect(connected)
         .toHaveBeenCalledTimes(2);
@@ -136,13 +136,13 @@ describe('TemplateConnector', () => {
         ),
         {
           context: {
-            pluginHost,
+            [PLUGIN_HOST_CONTEXT]: pluginHost,
           },
         },
       );
 
       knownGetters.b = 4;
-      pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION]();
+      pluginHost.registerSubscription.mock.calls[0][0][UPDATE_CONNECTION_EVENT]();
 
       expect(connected)
         .toHaveBeenCalledTimes(1);

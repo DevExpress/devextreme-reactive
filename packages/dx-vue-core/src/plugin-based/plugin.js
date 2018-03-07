@@ -2,6 +2,7 @@ import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Plugin = {
+  name: 'Plugin',
   props: {
     name: {
       type: String,

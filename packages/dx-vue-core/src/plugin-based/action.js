@@ -5,6 +5,7 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Action = {
+  name: 'Action',
   props: {
     name: {
       type: String,

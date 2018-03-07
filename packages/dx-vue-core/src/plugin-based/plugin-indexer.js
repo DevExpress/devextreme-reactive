@@ -1,6 +1,7 @@
 import { POSITION_CONTEXT } from './constants';
 
 const PluginIndexerContext = {
+  name: 'PluginIndexerContext',
   props: {
     position: {
       type: Function,
@@ -18,6 +19,7 @@ const PluginIndexerContext = {
 };
 
 export const PluginIndexer = {
+  name: 'PluginIndexer',
   inject: {
     position: {
       from: POSITION_CONTEXT,

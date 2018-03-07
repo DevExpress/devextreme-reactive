@@ -2,6 +2,7 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from '
 
 let globalTemplateId = 0;
 export const Template = {
+  name: 'Template',
   props: {
     name: {
       type: String,

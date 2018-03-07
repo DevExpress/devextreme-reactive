@@ -5,6 +5,7 @@ import { Template } from './template';
 import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export const PluginHost = {
+  name: 'PluginHost',
   beforeCreate() {
     this.pluginHost = new PluginHostCore();
   },

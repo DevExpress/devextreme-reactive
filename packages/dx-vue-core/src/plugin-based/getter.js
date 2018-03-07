@@ -5,6 +5,7 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Getter = {
+  name: 'Getter',
   props: {
     name: {
       type: String,

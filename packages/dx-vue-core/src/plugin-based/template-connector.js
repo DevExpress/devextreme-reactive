@@ -5,6 +5,7 @@ import {
 import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export const TemplateConnector = {
+  name: 'TemplateConnector',
   inject: {
     pluginHost: { from: PLUGIN_HOST_CONTEXT },
   },

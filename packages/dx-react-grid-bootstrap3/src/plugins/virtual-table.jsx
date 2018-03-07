@@ -2,12 +2,18 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { createRenderComponent } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
+import { Table as TableComponent } from '../templates/table';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
+import { TableContainer } from '../templates/table-container';
+
+const FixedHeader = props => <TableComponent use="head" {...props} />;
+const TableHead = props => <thead {...props} />;
+const TableBody = props => <tbody {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -35,6 +41,11 @@ export class VirtualTable extends React.PureComponent {
     return (
       <TableBase
         layoutComponent={this.layoutRenderComponent.component}
+        tableComponent={TableComponent}
+        headComponent={TableHead}
+        bodyComponent={TableBody}
+        containerComponent={TableContainer}
+        fixedHeaderComponent={FixedHeader}
         rowComponent={TableRow}
         cellComponent={TableCell}
         noDataRowComponent={TableRow}
@@ -54,6 +65,11 @@ VirtualTable.NoDataCell = TableNoDataCell;
 VirtualTable.NoDataRow = TableRow;
 VirtualTable.StubCell = TableStubCell;
 VirtualTable.StubHeaderCell = TableStubCell;
+VirtualTable.Table = TableComponent;
+VirtualTable.TableHead = TableHead;
+VirtualTable.TableBody = TableBody;
+VirtualTable.FixedHeader = FixedHeader;
+VirtualTable.Container = TableContainer;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,

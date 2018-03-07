@@ -10,13 +10,11 @@ export const Grid = ({
   getCellValue,
   rootComponent,
   children,
-  bandColumns,
 }) => (
   <PluginHost>
     <GridCore
       rows={rows}
       columns={columns}
-      bandColumns={bandColumns}
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}

@@ -2,15 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
-  getColumnSortingDirection,
-  tableRowsWithBands,
-  isBandedTableCell,
+  addBandRows,
   isBandedTableRow,
-  TABLE_DATA_TYPE,
+  isBandedTableCell,
 } from '@devexpress/dx-grid-core';
-
-const tableHeaderRowsComputed = ({ tableHeaderRows, bandColumns }) =>
-  tableRowsWithBands(tableHeaderRows, bandColumns);
 
 export class TableBandRow extends React.PureComponent {
   render() {
@@ -19,7 +14,11 @@ export class TableBandRow extends React.PureComponent {
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
+      bandColumns,
     } = this.props;
+
+    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
+      addBandRows(tableHeaderRows, bandColumns);
 
     return (
       <Plugin
@@ -32,59 +31,69 @@ export class TableBandRow extends React.PureComponent {
           { name: 'TableColumnResizing', optional: true },
         ]}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Getter
+          name="tableHeaderRows"
+          computed={tableHeaderRowsComputed}
+        />
 
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => {
-            const result = isBandedTableCell(tableRow, tableColumn);
-            return result;
-          }
-          }
+          predicate={({ tableColumn, tableRow }) => isBandedTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
-              {({
-                sorting,
-                isColumnSortingEnabled,
-                isColumnGroupingEnabled,
-                tableColumns,
-                draggingEnabled,
-                tableColumnResizingEnabled,
-              }, {
-                changeColumnSorting, changeColumnGrouping,
-                changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
-              }) => {
-                const { name: columnName } = params.tableColumn.column;
-                const atLeastOneDataColumn = tableColumns
-                  .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
-                const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
-                const groupingEnabled = isColumnGroupingEnabled &&
-                  isColumnGroupingEnabled(columnName) &&
-                  atLeastOneDataColumn;
+              {({ tableColumns }) => {
+                const getMeta = (columnName) => {
+                  let currentBandTitle = null;
+                  let columnLevel = 0;
+
+                  const maxBandLevel = (bands, level, title) => {
+                    bands.forEach((column) => {
+                      if (column.columnName === columnName) {
+                        columnLevel = level;
+                        currentBandTitle = title;
+                      }
+                      if (column.nested !== undefined) {
+                        maxBandLevel(column.nested, level + 1, level > params.tableRow.level ? title : column.title);
+                      }
+                    });
+                  };
+
+                  maxBandLevel(bandColumns, 0);
+
+                  return ({ title: currentBandTitle, level: columnLevel });
+                };
+
+                const meta = getMeta(params.tableColumn.column.name);
+
+                if (meta.level <= params.tableRow.level) {
+                  return <HeaderCell />;
+                }
+
+                const columnIndex = tableColumns.findIndex(tableColumn => tableColumn.key === params.tableColumn.key);
+                if (columnIndex > 0) {
+                  const prevMeta = getMeta(tableColumns[columnIndex - 1].column.name);
+                  if (prevMeta.title === meta.title) {
+                    return null;
+                  }
+                }
+
+                let colSpan = 1;
+
+                for (let index = columnIndex + 1; index < tableColumns.length; index += 1) {
+                  if (getMeta(tableColumns[index].column.name).title === meta.title) {
+                    colSpan += 1;
+                  } else {
+                    break;
+                  }
+                }
 
                 return (
                   <HeaderCell
                     {...params}
 
-                    colSpan={params.tableColumn.column.colSpan}
-                    rowSpan={params.tableColumn.column.rowSpan}
-
-                    column={params.tableColumn.column}
-                    sortingEnabled={sortingEnabled}
-                    groupingEnabled={groupingEnabled}
-                    showSortingControls={showSortingControls}
-                    showGroupingControls={showGroupingControls}
-                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                    resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls
-                      ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    onSort={({ direction, keepOther }) =>
-                      changeColumnSorting({ columnName, direction, keepOther })}
-                    onGroup={() => changeColumnGrouping({ columnName })}
-                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
-                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
-                    onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                    colSpan={colSpan}
+                    value={meta.title}
                   />
                 );
               }}
@@ -93,9 +102,7 @@ export class TableBandRow extends React.PureComponent {
         </Template>
         <Template
           name="tableRow"
-          predicate={({ tableRow }) => {
-            return isBandedTableRow(tableRow);
-          }}
+          predicate={({ tableRow }) => isBandedTableRow(tableRow)}
         >
           {params => <HeaderRow {...params} />}
         </Template>
@@ -105,6 +112,7 @@ export class TableBandRow extends React.PureComponent {
 }
 
 TableBandRow.propTypes = {
+  bandColumns: PropTypes.array.isRequired,
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,

@@ -46,8 +46,9 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = ({ columns, bandColumns }) =>
-      tableColumnsWithDataRows(columns, columnExtensions, bandColumns);
+    const tableColumnsComputed = (getters) => {
+      return tableColumnsWithDataRows(getters.columns, columnExtensions, getters.bandColumns);
+    };
 
     return (
       <Plugin

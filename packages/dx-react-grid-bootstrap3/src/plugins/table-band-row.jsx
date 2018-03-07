@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { TableBandRow as TableBandRowBase } from '@devexpress/dx-react-grid';
-import { TableHeaderCell } from '../templates/table-cell';
+import { TableCell } from '../templates/table-cell';
 import { TableRow } from '../templates/table-row';
 
 export class TableBandRow extends React.PureComponent {
   render() {
     return (
       <TableBandRowBase
-        cellComponent={TableHeaderCell}
+        cellComponent={TableCell}
         rowComponent={TableRow}
         {...this.props}
       />
@@ -15,5 +15,5 @@ export class TableBandRow extends React.PureComponent {
   }
 }
 
-TableBandRow.Cell = TableHeaderCell;
+TableBandRow.Cell = TableCell;
 TableBandRow.Row = TableRow;

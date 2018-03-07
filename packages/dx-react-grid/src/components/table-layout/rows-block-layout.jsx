@@ -5,14 +5,13 @@ import { RowLayout } from './row-layout';
 export class RowsBlockLayout extends React.PureComponent {
   render() {
     const {
-      rows, // headerRows
-      columns, // TableColumns
+      rows,
+      columns,
       blockComponent: Block,
       rowComponent,
       cellComponent,
     } = this.props;
 
-    debugger;
     return (
       <Block>
         {

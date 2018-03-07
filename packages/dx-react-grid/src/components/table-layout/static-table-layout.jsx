@@ -23,7 +23,7 @@ export class StaticTableLayout extends React.PureComponent {
         <Table
           style={{ minWidth: `${minWidth}px` }}
         >
-          <ColumnGroup columns={columns.filter(column => column.type === 'data')} />
+          <ColumnGroup columns={columns} />
           {!!headerRows.length && (
             <RowsBlockLayout
               rows={headerRows}

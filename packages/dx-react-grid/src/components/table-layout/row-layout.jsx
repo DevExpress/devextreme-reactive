@@ -17,7 +17,6 @@ export class RowLayout extends React.PureComponent {
       cellComponent: Cell,
     } = this.props;
 
-    // debugger;
     return (
       <Row
         tableRow={row}

@@ -2,9 +2,10 @@ import { easeOutCubic } from '@devexpress/dx-core';
 import { getTargetColumnGeometries } from './column-geometries';
 
 export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart, row) => {
-  if (row.level !== undefined) {
-    return tableColumns.filter((column) => column.column.level === row.level);
+  if (row.type === 'band') {
+    return tableColumns.map(column => ({ ...column, colSpan: column.children }));
   }
+
   if (colSpanStart === undefined) return tableColumns;
 
   let span = false;

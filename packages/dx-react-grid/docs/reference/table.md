@@ -134,7 +134,7 @@ Table.NoDataRow | [Table.RowProps](#tablerowprops) | A component that renders a 
 Table.StubCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table cell.
 Table.StubHeaderCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table header cell.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

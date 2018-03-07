@@ -1,0 +1,37 @@
+.embedded-demo {
+  font-size: 14px;
+  width: 1px;
+  min-width: 100%;
+  border: none;
+  margin: 20px 0;
+  min-height: 100px;
+  position: relative;
+}
+
+.embedded-demo .loading-shading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.embedded-demo .loading-icon {
+  position: absolute;
+  font-size: 20px;
+  top: calc(45% - 10px);
+  left: calc(50% - 10px);
+
+  -animation: embedded-demo-spin .7s infinite linear;
+  -webkit-animation: embedded-demo-spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes embedded-demo-spin2 {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes embedded-demo-spin {
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
+}

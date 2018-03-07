@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DevExtreme React Grid - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1520422700">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1520422700">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/react/grid/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/data-grid-logo.svg" alt="DevExtreme Reactive Components">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="home">
+	<div class="intro-header">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-message">
+						<h1>DevExtreme<span class="break"> </span>React&nbsp;Grid</h1>
+						<h3>for Bootstrap and Material&nbsp;UI</h3>
+						<ul class="list-inline intro-action-buttons">
+							<li>
+								<a href="demos/featured/uncontrolled-mode/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
+							</li>
+							<li>
+								<a href="docs/" class="btn btn-default btn-lg"><span class="action-button">Getting Started</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+
+<section id="blocks">
+
+  
+    
+      
+      <div class="content-section-a">
+
+          <div class="container">
+
+              <div class="row block-item block-composable">
+                  <div class="col-lg-5 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">Composable and Extensible<br/>Plugin-based Architecture</h2>
+                      <div class="lead"><p><strong>Your Data Grid, Your Way</strong></p>
+
+<p>You can incorporate our React Grid by adding only those features you require. This allows you to maintain the optimal bundle size, and reduce app load/execution time.</p>
+
+<p><strong>Add Features via Custom Plugins</strong></p>
+
+<p>Our Data Grid gives you total control and makes it easy to extend its core functionality at anytime via plugins.</p>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/compose.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/compose.gif"
+                        src="/devextreme-reactive/@next/img/blocks/compose.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      
+    
+
+  
+    
+      
+
+      <div class="content-section-b">
+
+          <div class="container">
+
+              <div class="row block-item block-theming">
+                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">Twitter Bootstrap and Material UI<br/>with Seamless Theming</h2>
+                      <div class="lead"><p><strong>Native Rendering</strong></p>
+
+<p>Use native Twitter Bootstrap and Material UI renderings and apply themes automatically - without unnecssary configuration.</p>
+
+<p><strong>Individual UI Templates</strong></p>
+
+<p>UI templates are implemented and shipped as separate packages so you can customize them as needed or roll your own when necessary.</p>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/themes.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/themes.gif"
+                        src="/devextreme-reactive/@next/img/blocks/themes.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+      
+    
+
+  
+    
+      
+      <div class="content-section-a">
+
+          <div class="container">
+
+              <div class="row block-item block-redux">
+                  <div class="col-lg-5 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">Our Grid Loves Redux by Design<br/>Controlled Uncontrolled Modes are Inside</h2>
+                      <div class="lead"><p><strong>Controlled State Mode</strong></p>
+
+<p>Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects.</p>
+
+<p><strong>Uncontrolled State Mode</strong></p>
+
+<p>Our React Grid can manage its state internally helping you write less code, so you focus on more important business tasks.</p>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/redux.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/redux.gif"
+                        src="/devextreme-reactive/@next/img/blocks/redux.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      
+    
+
+  
+    
+      
+
+      <div class="content-section-b">
+
+          <div class="container">
+
+              <div class="row block-item block-performance">
+                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">100% Native React<br/>Fully Optimized</h2>
+                      <div class="lead"><p><strong>React Best Practices Inside</strong></p>
+
+<p>We’ve focused our energy on performance and leveraged the best practice recommendations offered by the React team.</p>
+
+<p><strong>Based on a Functional Approach</strong></p>
+
+<p>Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.</p>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/perf.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/"
+                        src="/devextreme-reactive/@next/img/blocks/perf.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+      
+    
+
+  
+    
+      
+      <div class="content-section-a">
+
+          <div class="container">
+
+              <div class="row block-item block-features">
+                  <div class="col-lg-5 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">Core Features Designed to<br/>Fit Any Business at Any Scale</h2>
+                      <div class="lead"><p><strong>Our React Grid ships with the following features:</strong></p>
+
+<ul>
+  <li>Integrated sorting, paging, and data grouping</li>
+  <li>Built-in data filtering, selection, and editing</li>
+  <li>Advanced UI elements such as a filter row and record detail row</li>
+  <li>Virtual record scrolling</li>
+  <li>Bootstrap and Material-UI templates</li>
+  <li>Column resizing/reordering</li>
+  <li>Column chooser</li>
+  <li>Keyboard navigation</li>
+</ul>
+
+<p><strong>Features we expect to ship shortly:</strong></p>
+
+<ul>
+  <li>Fixed columns/rows</li>
+  <li>Header filter</li>
+  <li>Bands (column groups)</li>
+</ul>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/features.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/"
+                        src="/devextreme-reactive/@next/img/blocks/features.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      
+    
+
+  
+    
+      
+
+      <div class="content-section-b">
+
+          <div class="container">
+
+              <div class="row block-item block-feedback">
+                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">We want your feedback</h2>
+                      <div class="lead"><p>Feel free to download your copy and tell us what you think about its current feature set. We’d love to hear about your business use-case scenarios and how you’d like us to improve our React Grid’s going forward.</p>
+</div>
+                  </div>
+                  <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="/devextreme-reactive/@next/img/blocks/help.png"
+                        data-animated-src="/devextreme-reactive/@next/img/blocks/"
+                        src="/devextreme-reactive/@next/img/blocks/help.png"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+      
+    
+
+</section>
+
+<section id="contact">
+	<div class="banner">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-7">
+					<h2>Ready to learn more?</h2>
+				</div>
+				<div class="col-lg-5">
+					<ul class="list-inline banner-action-buttons">
+						<li>
+							<a href="demos/featured/uncontrolled-mode/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
+						</li>
+						<li>
+							<a href="docs/" class="btn btn-default btn-lg"><span class="action-button">Getting Started</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+<script>
+  window.addEventListener('scroll', function() {
+    var images = document.getElementsByClassName('block-image');
+    for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        var animatedSrc = img.getAttribute('data-animated-src');
+        if (animatedSrc) {
+          var staticSrc = img.getAttribute('data-static-src');
+          var rect = img.getBoundingClientRect();
+          var onScreen = window.innerHeight - rect.bottom >= 0 && rect.top >= 0;
+          var src = onScreen ? animatedSrc : staticSrc;
+          if (img.src.indexOf(src) === -1) {
+            img.src = src;
+          }
+        }
+    }
+  });
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1520422700"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

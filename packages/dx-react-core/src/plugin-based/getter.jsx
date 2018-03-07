@@ -5,7 +5,7 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from './helpers';
-import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT, INDEXABLE_COMPONENT } from './constants';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 
 export class Getter extends React.PureComponent {
   componentWillMount() {
@@ -17,7 +17,7 @@ export class Getter extends React.PureComponent {
     let lastResult;
 
     this.plugin = {
-      position: () => this.props.position(),
+      position: () => this.context[POSITION_CONTEXT](),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;
@@ -58,10 +58,7 @@ export class Getter extends React.PureComponent {
   }
 }
 
-Getter[INDEXABLE_COMPONENT] = true;
-
 Getter.propTypes = {
-  position: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
   computed: PropTypes.func,
@@ -70,9 +67,9 @@ Getter.propTypes = {
 Getter.defaultProps = {
   value: undefined,
   computed: null,
-  position: null,
 };
 
 Getter.contextTypes = {
   [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

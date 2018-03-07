@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { POSITION_CONTEXT, INDEXABLE_COMPONENT } from './constants';
+import { POSITION_CONTEXT } from './constants';
 
 export const PluginIndexer = (
   { children },
@@ -16,10 +16,6 @@ export const PluginIndexer = (
             (position && position()) || [];
           return [...calculatedPosition, index];
         };
-
-        if (child.type[INDEXABLE_COMPONENT] === true) {
-          return React.cloneElement(child, { position: childPosition });
-        }
 
         return (
           <PluginIndexerContext position={childPosition}>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, INDEXABLE_COMPONENT } from './constants';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
@@ -15,7 +15,7 @@ export class Template extends React.PureComponent {
     const { name } = this.props;
 
     this.plugin = {
-      position: () => this.props.position(),
+      position: () => this.context[POSITION_CONTEXT](),
       [`${name}Template`]: {
         id: this.id,
         predicate: params => (this.props.predicate ? this.props.predicate(params) : true),
@@ -37,8 +37,6 @@ export class Template extends React.PureComponent {
   }
 }
 
-Template[INDEXABLE_COMPONENT] = true;
-
 Template.propTypes = {
   position: PropTypes.func,
   name: PropTypes.string.isRequired,
@@ -57,4 +55,5 @@ Template.defaultProps = {
 
 Template.contextTypes = {
   [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

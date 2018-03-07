@@ -12,6 +12,9 @@ describe('TableCell', () => {
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find('td').prop('style').textAlign).toBe('right');
+
+    tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
+    expect(tree.find('td').prop('style').textAlign).toBe('center');
   });
 
   it('should have correct text', () => {

@@ -12,6 +12,7 @@ export const TableCell = ({
     className={classNames({
       'text-nowrap dx-rg-bs4-table-cell': true,
       'text-right': tableColumn && tableColumn.align === 'right',
+      'text-center': tableColumn && tableColumn.align === 'center',
     }, className)}
     {...restProps}
   >

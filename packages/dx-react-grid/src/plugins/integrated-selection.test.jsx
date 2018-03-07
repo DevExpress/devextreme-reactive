@@ -123,6 +123,6 @@ describe('IntegratedSelection', () => {
     ));
 
     executeComputedAction(tree, actions => actions.toggleSelectAll());
-    expect(defaultDeps.action.toggleSelection.mock.calls.length).toBe(1);
+    expect(defaultDeps.action.toggleSelection.mock.calls).toHaveLength(1);
   });
 });

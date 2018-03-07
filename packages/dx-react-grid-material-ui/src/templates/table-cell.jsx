@@ -18,6 +18,9 @@ const styles = theme => ({
   cellRightAlign: {
     textAlign: 'right',
   },
+  cellCenterAlign: {
+    textAlign: 'center',
+  },
 });
 
 const TableCellBase = ({
@@ -30,6 +33,7 @@ const TableCellBase = ({
     className={classNames({
       [classes.cell]: true,
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
+      [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
     }, className)}
     {...restProps}
   >

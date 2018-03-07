@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap4",
-  "version": "1.1.0-beta.1",
+  "version": "1.1.0-beta.2",
   "description": "Bootstrap 4 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -52,10 +52,10 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.1.0-beta.1",
-    "@devexpress/dx-react-core": "1.1.0-beta.1",
-    "@devexpress/dx-react-grid": "1.1.0-beta.1",
-    "@devexpress/dx-testing": "1.1.0-beta.1",
+    "@devexpress/dx-grid-core": "1.1.0-beta.2",
+    "@devexpress/dx-react-core": "1.1.0-beta.2",
+    "@devexpress/dx-react-grid": "1.1.0-beta.2",
+    "@devexpress/dx-testing": "1.1.0-beta.2",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -78,21 +78,21 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
+    "reactstrap": "5.0.0-beta",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-css-only": "^0.4.0",
     "rollup-plugin-license": "^0.5.0",
-    "rollup-plugin-node-resolve": "^3.0.2",
-    "reactstrap": "5.0.0-beta"
+    "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.1.0-beta.1",
-    "@devexpress/dx-react-core": "1.1.0-beta.1",
-    "@devexpress/dx-react-grid": "1.1.0-beta.1",
+    "@devexpress/dx-grid-core": "1.1.0-beta.2",
+    "@devexpress/dx-react-core": "1.1.0-beta.2",
+    "@devexpress/dx-react-grid": "1.1.0-beta.2",
     "react": "^16.2.0",
     "reactstrap": "5.0.0-beta"
   }

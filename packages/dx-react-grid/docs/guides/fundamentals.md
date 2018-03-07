@@ -20,7 +20,7 @@ The Grid's visualization plugins provide a rich API to customize grid elements' 
 
 The `Table` plugin allows you to customize the appearance of the table, table head and table body using the plugin's `tableComponent`, `headComponent`, `bodyComponent` and `containerComponent` [properties](../reference/table.md/#properties). The following example demonstrated how to use the `tableComponent` and create a 'striped' table:
 
-.embedded-demo(grid-basic/table-template)
+.embedded-demo({ "path": "grid-basic/table-template", "showThemeSelector": true })
 
 The `Table` plugin also allows you to customize table cell appearance using the `cellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 

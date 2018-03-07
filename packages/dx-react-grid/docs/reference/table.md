@@ -126,7 +126,7 @@ Name | Properties | Description
 Table.Table | object | A component that renders a table.
 Table.TableHead | object | A component that renders a table head.
 Table.TableBody | object | A component that renders a table body.
-Table.Container | object | | A component that renders a table's container.
+Table.Container | object | A component that renders a table's container.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.

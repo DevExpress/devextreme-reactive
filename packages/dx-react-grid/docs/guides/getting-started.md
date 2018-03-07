@@ -9,7 +9,7 @@ DevExtreme React Grid is a component that displays table data from a local or re
 Install the dx-react-grid package and its dependencies using the following command:
 
 ```
-npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
+npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-grid.npm-tag()
 ```
 
 This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:
@@ -17,7 +17,7 @@ This package does not contain visual components. In the examples below, visual c
 - Material UI
 
   ```
-  npm i --save @devexpress/dx-react-grid-material-ui
+  npm i --save @devexpress/dx-react-grid-material-ui.npm-tag()
   ```
 
   Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
@@ -25,7 +25,7 @@ This package does not contain visual components. In the examples below, visual c
 - Bootstrap 4
 
   ```
-  npm i --save @devexpress/dx-react-grid-bootstrap4
+  npm i --save @devexpress/dx-react-grid-bootstrap4.npm-tag()
   ```
 
   Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
@@ -41,7 +41,7 @@ This package does not contain visual components. In the examples below, visual c
 - Bootstrap 3
 
   ```
-  npm i --save @devexpress/dx-react-grid-bootstrap3
+  npm i --save @devexpress/dx-react-grid-bootstrap3.npm-tag()
   ```
 
   Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started/introduction) article for configuration details.

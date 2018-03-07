@@ -9,6 +9,15 @@ layout: default
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#{{site.version}}">
+            Version
+            <span>{{site.version}}</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
       {% if page.path contains '/core/docs/' %}
       {% assign docsPart = 'core' %}
       {% else %}

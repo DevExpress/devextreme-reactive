@@ -2,6 +2,7 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from '../utils/plugin-helpers';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Getter = {
   props: {
@@ -9,7 +10,10 @@ export const Getter = {
     name: {},
     value: {},
   },
-  inject: ['pluginHost', 'positionContext'],
+  inject: {
+    pluginHost: { from: PLUGIN_HOST_CONTEXT },
+    position: { from: POSITION_CONTEXT },
+  },
   beforeMount() {
     const { pluginHost, name } = this;
 
@@ -17,7 +21,7 @@ export const Getter = {
     let lastResult;
 
     this.plugin = {
-      position: () => this.positionContext(),
+      position: () => this.position(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this;
         if (value !== undefined) return value;

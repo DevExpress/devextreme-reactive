@@ -2,6 +2,7 @@ import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { TemplatePlaceholder } from './template-placeholder';
 import { Template } from './template';
+import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export const PluginHost = {
   beforeCreate() {
@@ -9,7 +10,7 @@ export const PluginHost = {
   },
   provide() {
     return {
-      pluginHost: this.pluginHost,
+      [PLUGIN_HOST_CONTEXT]: this.pluginHost,
     };
   },
   render() {

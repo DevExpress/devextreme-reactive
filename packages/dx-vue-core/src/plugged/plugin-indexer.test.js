@@ -1,8 +1,9 @@
 import { mount } from '@vue/test-utils';
 import { PluginIndexer } from './plugin-indexer';
+import { POSITION_CONTEXT } from './constants';
 
 const Test = {
-  inject: ['positionContext'],
+  inject: { positionContext: { from: POSITION_CONTEXT } },
   render() {
     return <span>{JSON.stringify(this.positionContext())}</span>;
   },

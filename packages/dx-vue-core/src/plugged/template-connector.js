@@ -2,9 +2,12 @@ import {
   getAvailableGetters,
   getAvailableActions,
 } from '../utils/plugin-helpers';
+import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export const TemplateConnector = {
-  inject: ['pluginHost'],
+  inject: {
+    pluginHost: { from: PLUGIN_HOST_CONTEXT },
+  },
   render() {
     const getters = getAvailableGetters(this.pluginHost);
     const actions = getAvailableActions(this.pluginHost);

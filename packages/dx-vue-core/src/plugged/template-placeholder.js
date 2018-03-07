@@ -1,4 +1,4 @@
-import { RERENDER_TEMPLATE } from './template';
+import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
 export const TemplatePlaceholder = {
   name: 'TemplatePlaceholder',
@@ -19,12 +19,12 @@ export const TemplatePlaceholder = {
     return { templateHost };
   },
   inject: {
-    pluginHost: 'pluginHost',
+    pluginHost: { from: PLUGIN_HOST_CONTEXT },
     templateHost: { default: { templates: [], params: undefined } },
   },
   created() {
     this.subscription = {
-      [RERENDER_TEMPLATE]: (id) => {
+      [RERENDER_TEMPLATE_EVENT]: (id) => {
         if (this.computedTemplates[0] && this.computedTemplates[0].id === id) {
           this.$forceUpdate();
         }

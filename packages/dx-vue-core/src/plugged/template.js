@@ -1,4 +1,5 @@
-export const RERENDER_TEMPLATE = 'rerenderTemplate';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
+
 let globalTemplateId = 0;
 export const Template = {
   props: {
@@ -9,10 +10,13 @@ export const Template = {
     globalTemplateId += 1;
     this.id = globalTemplateId;
   },
-  inject: ['pluginHost', 'positionContext'],
+  inject: {
+    pluginHost: { from: PLUGIN_HOST_CONTEXT },
+    position: { from: POSITION_CONTEXT },
+  },
   created() {
     this.plugin = {
-      position: () => this.positionContext(),
+      position: () => this.position(),
       [`${this.name}Template`]: {
         id: this.id,
         predicate: params => (this.predicate ? this.predicate(params) : true),
@@ -27,7 +31,7 @@ export const Template = {
     return null;
   },
   updated() {
-    this.pluginHost.broadcast(RERENDER_TEMPLATE, this.id);
+    this.pluginHost.broadcast(RERENDER_TEMPLATE_EVENT, this.id);
   },
   destroyed() {
     this.pluginHost.unregisterPlugin(this.plugin);

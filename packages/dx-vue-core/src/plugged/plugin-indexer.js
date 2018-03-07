@@ -1,8 +1,10 @@
+import { POSITION_CONTEXT } from './constants';
+
 const PluginIndexerContext = {
   props: { position: {} },
   provide() {
     return {
-      positionContext: this.position,
+      [POSITION_CONTEXT]: this.position,
     };
   },
   render() {
@@ -12,12 +14,13 @@ const PluginIndexerContext = {
 
 export const PluginIndexer = {
   inject: {
-    positionContext: {
+    position: {
+      from: POSITION_CONTEXT,
       default: undefined,
     },
   },
   render() {
-    const { positionContext } = this;
+    const { position } = this;
 
     return (
       <div>
@@ -27,7 +30,7 @@ export const PluginIndexer = {
 
             const childPosition = () => {
               const calculatedPosition =
-                (positionContext && positionContext()) || [];
+                (position && position()) || [];
               return [...calculatedPosition, index];
             };
 

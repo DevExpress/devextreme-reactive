@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { Plugin } from './plugin';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
   let pluginHost;
@@ -26,7 +27,7 @@ describe('Plugin', () => {
           </Plugin>
         );
       },
-    }, { provide: { pluginHost, positionContext: () => {} } });
+    }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });
 
     expect(pluginHost.registerPlugin)
       .toHaveBeenCalledTimes(1);
@@ -54,7 +55,7 @@ describe('Plugin', () => {
           </Plugin>
         );
       },
-    }, { provide: { pluginHost, positionContext: () => {} } });
+    }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });
 
     wrapper.destroy();
 
@@ -86,7 +87,7 @@ describe('Plugin', () => {
           </Plugin>
         );
       },
-    }, { provide: { pluginHost, positionContext: () => {} } });
+    }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });
 
     wrapper.setData({
       dependencies: [{
@@ -98,35 +99,5 @@ describe('Plugin', () => {
     expect(pluginHost.ensureDependencies)
       .toHaveBeenCalled();
     // TODO: .toHaveBeenCalledTimes(1);
-  });
-
-  // TODO: Try to fix this test
-  xit('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
-    const dependencies = [{
-      name: 'Dep1',
-      optional: true,
-    }];
-    const wrapper = mount({
-      data() {
-        return {
-          dependencies,
-        };
-      },
-      render() {
-        return (
-          <Plugin
-            name="TestPlugin"
-            dependencies={dependencies}
-          >
-            <div />
-          </Plugin>
-        );
-      },
-    }, { provide: { pluginHost, positionContext: () => {} } });
-
-    wrapper.setData({ dependencies });
-
-    expect(pluginHost.ensureDependencies)
-      .not.toHaveBeenCalled();
   });
 });

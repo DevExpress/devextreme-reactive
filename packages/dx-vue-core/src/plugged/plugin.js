@@ -1,4 +1,5 @@
 import { PluginIndexer } from './plugin-indexer';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export const Plugin = {
   props: {
@@ -12,16 +13,14 @@ export const Plugin = {
     },
   },
   inject: {
-    pluginHost: {},
-    position: {
-      from: 'positionContext',
-    },
+    pluginHost: { from: PLUGIN_HOST_CONTEXT },
+    position: { from: POSITION_CONTEXT },
   },
   beforeMount() {
     const {
-      pluginHost, position,
-      name, dependencies,
+      pluginHost, position, name, dependencies,
     } = this;
+
     this.plugin = {
       position,
       name,

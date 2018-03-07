@@ -43,7 +43,7 @@ VirtualTable.NoDataRow | [Table.RowProps](table.md#tablerowprops) | Renders a ta
 VirtualTable.StubCell | [Table.CellProps](table.md#tablecellprops) | Renders a stub table cell.
 VirtualTable.StubHeaderCell | [Table.CellProps](table.md#tablecellprops) | Renders a stub table header cell.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

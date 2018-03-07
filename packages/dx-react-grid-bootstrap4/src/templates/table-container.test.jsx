@@ -3,21 +3,6 @@ import { shallow } from 'enzyme';
 import { TableContainer } from './table-container';
 
 describe('TableContainer', () => {
-  it('should pass custom styles to the root element', () => {
-    const tree = shallow((
-      <TableContainer
-        style={{ color: 'red' }}
-      >
-        <span />
-      </TableContainer>
-    ));
-
-    expect(tree.find('div').prop('style'))
-      .toMatchObject({
-        color: 'red',
-      });
-  });
-
   it('should pass class to the root element', () => {
     const tree = shallow((
       <TableContainer className="custom-class">
@@ -25,7 +10,7 @@ describe('TableContainer', () => {
       </TableContainer>
     ));
 
-    expect(tree.is('.table-responsive.custom-class'))
+    expect(tree.is('.table-responsive.dx-rg-bs4-table-container.custom-class'))
       .toBeTruthy();
   });
 

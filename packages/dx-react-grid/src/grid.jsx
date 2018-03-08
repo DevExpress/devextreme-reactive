@@ -27,13 +27,12 @@ Grid.propTypes = {
   rows: PropTypes.array.isRequired,
   getRowId: PropTypes.func,
   getCellValue: PropTypes.func,
-  columns: PropTypes.array,
+  columns: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
 Grid.defaultProps = {
-  columns: undefined,
   getRowId: undefined,
   getCellValue: undefined,
   children: undefined,

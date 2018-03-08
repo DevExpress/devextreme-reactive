@@ -10,7 +10,7 @@ export const getColumnMeta = (columnName, bandColumns, tableRowLevel) => {
   let currentBandTitle = null;
   let columnLevel = 0;
 
-  const treeProcessing = (bands, level, title) => {
+  const treeProcessing = (bands, level = 0, title) => {
     bands.forEach((column) => {
       if (column.columnName === columnName) {
         columnLevel = level;
@@ -22,6 +22,6 @@ export const getColumnMeta = (columnName, bandColumns, tableRowLevel) => {
     });
   };
 
-  treeProcessing(bandColumns, 0);
+  treeProcessing(bandColumns);
   return ({ title: currentBandTitle, level: columnLevel });
 };

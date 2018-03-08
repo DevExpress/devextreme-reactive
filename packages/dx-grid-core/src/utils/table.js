@@ -1,11 +1,7 @@
 import { easeOutCubic } from '@devexpress/dx-core';
 import { getTargetColumnGeometries } from './column-geometries';
 
-export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart, row) => {
-  if (row.type === 'band') {
-    return tableColumns.map(column => ({ ...column, colSpan: column.children }));
-  }
-
+export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
   if (colSpanStart === undefined) return tableColumns;
 
   let span = false;

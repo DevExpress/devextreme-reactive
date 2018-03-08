@@ -1,8 +1,8 @@
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import { getColumnExtension } from '../../utils/column-extension';
 
-export const tableColumnsWithDataRows = (columns, columnExtensions) => {
-  return columns.map((column) => {
+export const tableColumnsWithDataRows = (columns, columnExtensions) =>
+  columns.map((column) => {
     const { name } = column;
     const columnExtension = getColumnExtension(columnExtensions, name);
     return {
@@ -13,7 +13,6 @@ export const tableColumnsWithDataRows = (columns, columnExtensions) => {
       column,
     };
   });
-};
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
   !rows.length

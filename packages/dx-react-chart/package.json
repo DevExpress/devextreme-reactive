@@ -77,7 +77,8 @@
   "dependencies": {
     "d3-array": "^1.2.1",
     "d3-scale": "^2.0.0",
-    "d3-shape": "^1.2.0"
+    "d3-shape": "^1.2.0",
+    "yoga-layout": "^1.9.3"
   },
   "peerDependencies": {
     "@devexpress/dx-react-core": "1.0.0",

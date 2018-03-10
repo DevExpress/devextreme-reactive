@@ -49,10 +49,9 @@ export default class Demo extends React.PureComponent {
     return (
       <Chart
         data={this.state.data}
-        width="700"
-        height="400"
+        width={700}
+        height={400}
         style={{ border: '1px dashed gray' }}
-        margin="40"
       >
         <AxesState axes={[
             {

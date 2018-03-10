@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ChartCore } from './plugins/chart-core';
+import { LayoutManager } from './plugins/layout-manage';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -20,6 +21,7 @@ export class Chart extends React.PureComponent {
           height={height}
           {...restProps}
         />
+        <LayoutManager width={width} height={height} />
         {children}
       </PluginHost>
     ));
@@ -27,14 +29,14 @@ export class Chart extends React.PureComponent {
 }
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
   children: PropTypes.node,
 };
 
 Chart.defaultProps = {
-  width: '150',
-  height: '150',
+  width: 150,
+  height: 150,
   children: null,
 };
 

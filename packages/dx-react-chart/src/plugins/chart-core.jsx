@@ -10,8 +10,8 @@ const Root = ({
   </svg>));
 
 Root.propTypes = {
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
   children: PropTypes.node,
 };
 
@@ -48,11 +48,11 @@ export class ChartCore extends React.PureComponent {
 
 ChartCore.propTypes = {
   data: PropTypes.array.isRequired,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
-  margin: PropTypes.string,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  margin: PropTypes.number,
 };
 
 ChartCore.defaultProps = {
-  margin: '40',
+  margin: 40,
 };

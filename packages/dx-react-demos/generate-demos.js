@@ -62,7 +62,7 @@ const loadDemosToGenerate = () => {
               sectionName,
               demoName,
               themeName: file,
-              generateTest: true,
+              generateTest: !nestedFile.includes('.skip'),
               generateSsrTest,
               demoExtension,
             });

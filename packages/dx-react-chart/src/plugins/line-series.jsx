@@ -12,10 +12,10 @@ import { line } from 'd3-shape';
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 
-const computeLinePath = (data, xscale, yscale, argumentField, valueField) =>
+const computeLinePath = (data, xScale, yScale, argumentField, valueField) =>
   data.map(dataItem => ({
-    x: xscale(dataItem[argumentField]),
-    y: yscale(dataItem[valueField]),
+    x: xScale(dataItem[argumentField]),
+    y: yScale(dataItem[valueField]),
   }));
 
 const getDAttribute = path =>
@@ -38,7 +38,6 @@ export class LineSeries extends React.PureComponent {
               axes,
               width,
               height,
-              margin,
               argumentAxis = 'year',
             }) => {
               const {
@@ -51,12 +50,12 @@ export class LineSeries extends React.PureComponent {
               const yScale = scaleLinear()
                 .domain(domain)
                 .range(orientation === 'horizontal'
-                    ? [margin, width - (2 * margin)]
-                    : [height - (2 * margin), margin]);
+                    ? [0, width]
+                    : [height, 0]);
               const xDomain = domains[argumentAxis];
               const xScale = scaleLinear()
                 .domain(xDomain)
-                .range([margin, width - (2 * margin)]);
+                .range([0, width]);
               const path = computeLinePath(
                 data,
                 xScale,

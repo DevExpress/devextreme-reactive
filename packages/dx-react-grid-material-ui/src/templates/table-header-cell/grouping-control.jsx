@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import List from 'material-ui-icons/List';
 import { withStyles } from 'material-ui/styles';
 
@@ -15,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-const GroupingControlBase = ({ onGroup, classes }) => (
+const GroupingControlBase = ({ disabled, onGroup, classes }) => (
   <div
     onClick={(e) => {
       e.stopPropagation();

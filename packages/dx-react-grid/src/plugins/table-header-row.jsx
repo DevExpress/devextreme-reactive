@@ -59,7 +59,8 @@ export class TableHeaderRow extends React.PureComponent {
                     const { name: columnName } = params.tableColumn.column;
                     const atLeastOneDataColumn = tableColumns
                       .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
-                    const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+                    const sortingEnabled = isColumnSortingEnabled &&
+                      isColumnSortingEnabled(columnName);
                     const groupingEnabled = isColumnGroupingEnabled &&
                       isColumnGroupingEnabled(columnName) &&
                       atLeastOneDataColumn;

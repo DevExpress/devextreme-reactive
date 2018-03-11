@@ -1,7 +1,5 @@
 import { TABLE_DATA_TYPE } from '../table/constants';
-import {
-  isTreeTableCell,
-} from './helpers';
+import { isTreeTableCell } from './helpers';
 
 describe('TableTreeColumn Plugin helpers', () => {
   describe('#isTreeTableCell', () => {

@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Template, Plugin, TemplateConnector, TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
-import {
-  isTreeTableCell,
-} from '@devexpress/dx-grid-core';
+import { Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { isTreeTableCell } from '@devexpress/dx-grid-core';
 
 export class TableTreeColumn extends React.PureComponent {
   render() {

@@ -16,17 +16,17 @@ describe('IntegratedFiltering computeds', () => {
         { a: 2, b: 2 },
       ];
 
-      it('should not touch rows if no filters specified', () => {
-        const filters = null;
+      it('should not touch rows if no filterExpression specified', () => {
+        const filterExpression = null;
 
-        const filtered = filteredRows(rows, filters, getCellValue);
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
         expect(filtered).toEqual({ rows });
       });
 
       it('can filter by one field', () => {
-        const filters = { columnName: 'a', value: 1 };
+        const filterExpression = { columnName: 'a', value: 1 };
 
-        const filtered = filteredRows(rows, filters, getCellValue);
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
         expect(filtered)
           .toEqual({
             rows: [
@@ -37,9 +37,9 @@ describe('IntegratedFiltering computeds', () => {
       });
 
       it('can filter by several fields', () => {
-        const filters = { operator: 'and', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }] };
+        const filterExpression = { operator: 'and', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 2 }] };
 
-        const filtered = filteredRows(rows, filters, getCellValue);
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
         expect(filtered)
           .toEqual({
             rows: [
@@ -54,10 +54,10 @@ describe('IntegratedFiltering computeds', () => {
         getColumnPredicate
           .mockImplementation(() => (value, filter, row) => value === 1 && row.b === 2);
 
-        const filters = { columnName: 'a', value: 1 };
-        const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
+        const filterExpression = { columnName: 'a', value: 1 };
+        const filtered = filteredRows(rows, filterExpression, getCellValue, getColumnPredicate);
 
-        expect(getColumnPredicate).toBeCalledWith(filters.columnName);
+        expect(getColumnPredicate).toBeCalledWith(filterExpression.columnName);
         expect(filtered)
           .toEqual({
             rows: [
@@ -68,8 +68,8 @@ describe('IntegratedFiltering computeds', () => {
 
       it('should filter using default predicate if custom predicate returns nothing', () => {
         const getColumnPredicate = () => undefined;
-        const filters = { columnName: 'a', value: 1 };
-        const filtered = filteredRows(rows, filters, getCellValue, getColumnPredicate);
+        const filterExpression = { columnName: 'a', value: 1 };
+        const filtered = filteredRows(rows, filterExpression, getCellValue, getColumnPredicate);
 
         expect(filtered)
           .toEqual({
@@ -81,18 +81,20 @@ describe('IntegratedFiltering computeds', () => {
       });
 
       it('should filter with OR group operator', () => {
-        const filters = { operator: 'or', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 1 }] };
-        const filtered = filteredRows(rows, filters, getCellValue);
+        const filterExpression = { operator: 'or', filters: [{ columnName: 'a', value: 1 }, { columnName: 'b', value: 1 }] };
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
 
-        expect(filtered).toEqual([
-          { a: 1, b: 1 },
-          { a: 1, b: 2 },
-          { a: 2, b: 1 },
-        ]);
+        expect(filtered).toEqual({
+          rows: [
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+            { a: 2, b: 1 },
+          ],
+        });
       });
 
       it('should filter with two group filters', () => {
-        const filters = {
+        const filterExpression = {
           operator: 'or',
           filters: [
             {
@@ -112,12 +114,14 @@ describe('IntegratedFiltering computeds', () => {
           ],
         };
 
-        const filtered = filteredRows(rows, filters, getCellValue);
+        const filtered = filteredRows(rows, filterExpression, getCellValue);
 
-        expect(filtered).toEqual([
-          { a: 1, b: 1 },
-          { a: 2, b: 2 },
-        ]);
+        expect(filtered).toEqual({
+          rows: [
+            { a: 1, b: 1 },
+            { a: 2, b: 2 },
+          ],
+        });
       });
     });
 
@@ -144,7 +148,7 @@ describe('IntegratedFiltering computeds', () => {
               { a: 2, b: 2 },
         ];
         /* eslint-enable indent */
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filterExpression = { columnName: 'a', value: 1 };
         /* eslint-disable indent */
         const filteredGroupedRows = {
           rows: [
@@ -162,7 +166,7 @@ describe('IntegratedFiltering computeds', () => {
 
         expect(filteredRows(
           groupedRows,
-          filters,
+          filterExpression,
           getCellValue,
           null,
           getRowLevelKey,
@@ -198,7 +202,7 @@ describe('IntegratedFiltering computeds', () => {
               { a: 2, b: 2 },
         ];
         /* eslint-enabke indent */
-        const filters = [{ columnName: 'a', value: 1 }];
+        const filterExpression = { columnName: 'a', value: 1 };
         /* eslint-disable indent */
         const sortedGroupedRows = {
           rows: [
@@ -223,7 +227,7 @@ describe('IntegratedFiltering computeds', () => {
 
         expect(filteredRows(
           hierarchicalRows,
-          filters,
+          filterExpression,
           getCellValue,
           () => undefined,
           getRowLevelKey,

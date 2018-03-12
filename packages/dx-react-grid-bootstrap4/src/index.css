@@ -9,6 +9,9 @@
 .dx-rg-bs4-inactive {
   opacity: 0.3;
 }
+.dx-rg-bs4-transparent {
+  opacity: 0;
+}
 .dx-rg-bs4-overflow-hidden {
   overflow: hidden;
 }

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export const SelectionControl = ({
   disabled, selected, someSelected, onToggle,
-  style, ...restProps
+  className, ...restProps
 }) => (
   <input
-    style={{
-      display: 'inline-block',
-      cursor: !disabled && 'pointer',
-      ...style,
-    }}
+    className={classNames({
+      'd-inline-block': true,
+      'dx-rg-bs4-cursor-pointer': !disabled,
+    }, className)}
     type="checkbox"
     disabled={disabled}
     checked={selected}
@@ -32,7 +32,7 @@ SelectionControl.propTypes = {
   selected: PropTypes.bool,
   someSelected: PropTypes.bool,
   onToggle: PropTypes.func,
-  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 SelectionControl.defaultProps = {
@@ -40,5 +40,5 @@ SelectionControl.defaultProps = {
   selected: false,
   someSelected: false,
   onToggle: () => {},
-  style: null,
+  className: undefined,
 };

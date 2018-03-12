@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { ToggleButton } from './parts/toggle-button';
 
 export const TableTreeToggleButton = ({
-  style,
+  className,
   visible,
   expanded,
   onToggle,
@@ -14,23 +15,20 @@ export const TableTreeToggleButton = ({
     visible={visible}
     expanded={expanded}
     onToggle={onToggle}
-    style={{
-      marginRight: '8px',
-      ...style,
-    }}
+    className={classNames('mr-3', className)}
     {...restProps}
   />
 );
 
 TableTreeToggleButton.propTypes = {
-  style: PropTypes.object,
+  className: PropTypes.string,
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
 };
 
 TableTreeToggleButton.defaultProps = {
-  style: null,
+  className: undefined,
   visible: false,
   expanded: false,
   onToggle: () => {},

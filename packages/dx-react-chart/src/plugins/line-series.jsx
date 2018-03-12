@@ -36,9 +36,8 @@ export class LineSeries extends React.PureComponent {
               domains,
               data,
               axes,
-              width,
-              height,
               argumentAxis = 'year',
+              getPosition,
             }) => {
               const {
                 axisName: domainName,
@@ -47,10 +46,13 @@ export class LineSeries extends React.PureComponent {
               } = series.find(seriesItem => seriesItem.valueField === name);
               const { orientation } = axes.find(axis => axis.name === domainName);
               const domain = domains[domainName];
+              const { height } = getPosition(domainName);
+              const { width } = getPosition(argumentAxis);
+              const { x, y } = getPosition('pane');
               const yScale = scaleLinear()
                 .domain(domain)
                 .range(orientation === 'horizontal'
-                    ? [0, width]
+                    ? [x, width + x]
                     : [height, 0]);
               const xDomain = domains[argumentAxis];
               const xScale = scaleLinear()
@@ -65,7 +67,7 @@ export class LineSeries extends React.PureComponent {
               );
               const dAttribute = getDAttribute(path);
               return (
-                <g>
+                <g transform={`translate(${x} ${y})`}>
                   <path
                     d={dAttribute}
                     style={Object.assign(

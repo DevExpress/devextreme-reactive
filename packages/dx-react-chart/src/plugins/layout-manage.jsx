@@ -11,7 +11,7 @@ const createNode = ({ flexGrow, flexDirection } = {}) => {
   return node;
 };
 
-const calculatePositions = (bBoxes, svgNode, width, height, x, y) => {
+const calculatePositions = (bBoxes, svgNode, width, height, x, y, pane) => {
   svgNode.calculateLayout(width, height, yoga.DIRECTION_LTR);
   const positions = {};
   Object.keys(bBoxes).forEach((name) => {
@@ -22,15 +22,21 @@ const calculatePositions = (bBoxes, svgNode, width, height, x, y) => {
       node = y;
     }
 
-    const bBox = bBoxes[name];
     const parent = node.getParent();
     positions[name] = {
-      x: (parent.getComputedLeft() + node.getComputedLeft()) - bBox.x,
-      y: (parent.getComputedTop() + node.getComputedTop()) - bBox.y,
+      x: (parent.getComputedLeft() + node.getComputedLeft()),
+      y: (parent.getComputedTop() + node.getComputedTop()),
       width: node.getComputedWidth(),
       height: node.getComputedHeight(),
     };
   });
+  const parent = pane.getParent();
+  positions.pane = {
+    x: (parent.getComputedLeft() + pane.getComputedLeft()),
+    y: (parent.getComputedTop() + pane.getComputedTop()),
+    width: pane.getComputedWidth(),
+    height: pane.getComputedHeight(),
+  };
   return positions;
 };
 
@@ -115,6 +121,7 @@ export class LayoutManager extends React.Component {
       height,
       this.xAxis,
       this.yAxis,
+      this.pane,
     );
 
     return (

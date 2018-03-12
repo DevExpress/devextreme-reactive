@@ -9,7 +9,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const tickSize = 5;
+const tickSize = 10;
 
 const getAxisCoords = (scale, width, height, orientation) => {
   let getTickCoords;
@@ -19,7 +19,7 @@ const getAxisCoords = (scale, width, height, orientation) => {
       return {
         x1: xCoords,
         x2: xCoords,
-        y1: -tickSize,
+        y1: 0,
         y2: tickSize,
         text: tick,
         xText: xCoords,
@@ -32,10 +32,10 @@ const getAxisCoords = (scale, width, height, orientation) => {
       return {
         y1: yCoords,
         y2: yCoords,
-        x1: -tickSize,
-        x2: tickSize,
+        x1: 30,
+        x2: 30 + tickSize,
         text: tick,
-        xText: -20,
+        xText: 15,
         yText: yCoords,
       };
     };

@@ -1,3 +1,47 @@
+<a name="1.1.0-beta.3"></a>
+# [1.1.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2018-03-07)
+
+
+### Bug Fixes
+
+* **react-grid-bootstrap4:** fix the 'Nothing to show' message ([#816](https://github.com/DevExpress/devextreme-reactive/issues/816)) ([34167bb](https://github.com/DevExpress/devextreme-reactive/commit/34167bb))
+* **react-grid-bootstrap4:** get rid cursor poiner on disabled item ([#799](https://github.com/DevExpress/devextreme-reactive/issues/799)) ([1d59052](https://github.com/DevExpress/devextreme-reactive/commit/1d59052))
+
+
+### Features
+
+* **react-grid:** add search panel plugin ([#726](https://github.com/DevExpress/devextreme-reactive/issues/726)) ([c8e79fb](https://github.com/DevExpress/devextreme-reactive/commit/c8e79fb))
+* **react-grid:** extract the Table plugin components ([#766](https://github.com/DevExpress/devextreme-reactive/issues/766)) ([e626a66](https://github.com/DevExpress/devextreme-reactive/commit/e626a66))
+* **react-grid:** support center alignment for columns ([#804](https://github.com/DevExpress/devextreme-reactive/issues/804)) ([209d1c9](https://github.com/DevExpress/devextreme-reactive/commit/209d1c9))
+
+
+
+<a name="1.1.0-beta.2"></a>
+# [1.1.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix empty message styles ([#776](https://github.com/DevExpress/devextreme-reactive/issues/776)) ([f814360](https://github.com/DevExpress/devextreme-reactive/commit/f814360))
+
+
+### Features
+
+* **react-grid-bootstrap4:** support the bootstrap4 theme ([#681](https://github.com/DevExpress/devextreme-reactive/issues/681)) ([c3d58f0](https://github.com/DevExpress/devextreme-reactive/commit/c3d58f0))
+
+
+
+<a name="1.0.3"></a>
+# [1.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.2...v1.0.3) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect initial options handling ([#797](https://github.com/DevExpress/devextreme-reactive/issues/797)) ([1220664](https://github.com/DevExpress/devextreme-reactive/commit/1220664))
+* **react-grid:** make EditingState pure ([#796](https://github.com/DevExpress/devextreme-reactive/issues/796)) ([b409c11](https://github.com/DevExpress/devextreme-reactive/commit/b409c11))
+
+
+
 <a name="1.0.2"></a>
 # [1.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.1...v1.0.2) (2018-03-01)
 

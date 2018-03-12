@@ -10,7 +10,7 @@ export class PagingState extends React.PureComponent {
 
     this.state = {
       currentPage: props.currentPage || props.defaultCurrentPage,
-      pageSize: props.pageSize || props.defaultPageSize,
+      pageSize: props.pageSize !== undefined ? props.pageSize : props.defaultPageSize,
     };
 
     const stateHelper = createStateHelper(

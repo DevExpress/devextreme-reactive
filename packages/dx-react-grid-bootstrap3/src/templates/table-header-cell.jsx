@@ -60,7 +60,7 @@ export class TableHeaderCell extends React.PureComponent {
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
           } : null),
-          ...(isCellInteractive ? { cursor: 'pointer' } : null),
+          ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
         }}

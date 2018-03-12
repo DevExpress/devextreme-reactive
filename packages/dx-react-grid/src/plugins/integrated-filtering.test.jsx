@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   getter: {
     rows: [{ id: 0 }, { id: 1 }],
-    filters: [{ columnName: 'a' }],
+    filterExpression: [{ columnName: 'a' }],
     getCellValue: () => {},
     getCollapsedRows: () => [],
     getRowLevelKey: () => undefined,
@@ -62,7 +62,7 @@ describe('IntegratedFiltering', () => {
     expect(filteredRows)
       .toBeCalledWith(
         defaultDeps.getter.rows,
-        defaultDeps.getter.filters,
+        defaultDeps.getter.filterExpression,
         defaultDeps.getter.getCellValue,
         expect.any(Function),
         defaultDeps.getter.getRowLevelKey,

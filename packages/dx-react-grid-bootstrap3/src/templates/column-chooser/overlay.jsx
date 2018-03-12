@@ -6,7 +6,7 @@ import { Popover } from './popover';
 export const Overlay = ({
   visible, target,
   children, onHide,
-  ...restProps
+  toggle, ...restProps
 }) => (
   <OverlayBS3
     show={visible}
@@ -29,9 +29,11 @@ Overlay.propTypes = {
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   target: PropTypes.object,
+  toggle: PropTypes.func,
 };
 
 Overlay.defaultProps = {
   visible: false,
   target: null,
+  toggle: undefined,
 };

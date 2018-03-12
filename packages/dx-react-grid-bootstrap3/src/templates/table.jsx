@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
@@ -45,14 +46,13 @@ export class Table extends React.Component {
   }
   render() {
     const {
-      children, use, style,
-      ...restProps
+      children, use, style, className, ...restProps
     } = this.props;
     const { stickyProp, backgroundColor } = this.state;
     return (
       <table
         ref={(node) => { this.node = node; }}
-        className="table"
+        className={classNames('table', className)}
         style={{
           tableLayout: 'fixed',
           overflow: 'hidden',
@@ -76,9 +76,11 @@ Table.propTypes = {
   use: PropTypes.oneOf(['head']),
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 Table.defaultProps = {
   use: undefined,
   style: null,
+  className: undefined,
 };

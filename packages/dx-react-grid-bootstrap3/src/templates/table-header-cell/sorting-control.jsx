@@ -42,6 +42,7 @@ export const SortingControl = ({
       onKeyDown={onClick}
       onClick={onClick}
       style={{
+        ...!disabled ? { cursor: 'pointer' } : null,
         display: 'inline-flex',
         flexDirection: 'row',
         alignItems: 'center',

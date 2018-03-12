@@ -75,6 +75,8 @@ export * from './plugins/tree-data-state/reducers';
 export * from './plugins/custom-tree-data/computeds';
 export * from './plugins/table-tree-column/helpers';
 
+export * from './plugins/search-state/reducers';
+
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {

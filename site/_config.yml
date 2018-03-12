@@ -1,5 +1,6 @@
 title: DevExtreme Reactive Components
 baseurl: "/devextreme-reactive"
+version: "X.X.X"
 
 markdown: kramdown
 gems:

@@ -67,6 +67,9 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
   },
+  cellCenter: {
+    textAlign: 'center',
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -131,6 +134,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const tableCellClasses = classNames({
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
+      [classes.cellCenter]: align === 'center',
       [classes.cellNoUserSelect]: draggingEnabled || showSortingControls,
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),

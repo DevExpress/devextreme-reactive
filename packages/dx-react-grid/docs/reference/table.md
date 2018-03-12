@@ -14,6 +14,10 @@ A plugin that renders Grid data as a table. It contains the Table Row and Table 
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
+tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
+headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
+bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
@@ -32,7 +36,7 @@ Field | Type | Description
 ------|------|------------
 columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
-align? | 'left' &#124; 'right' | The table column alignment.
+align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
 
 ### TableRow
 
@@ -56,7 +60,7 @@ key | string | A unique table column identifier.
 type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
 column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
-align? | 'left' &#124; 'right' | Specifies the table's column alignment.
+align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.
 
 ### Table.CellProps
 
@@ -119,6 +123,10 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 Name | Properties | Description
 -----|------------|------------
+Table.Table | object | A component that renders a table.
+Table.TableHead | object | A component that renders a table head.
+Table.TableBody | object | A component that renders a table body.
+Table.Container | object | A component that renders a table's container.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.
@@ -126,7 +134,7 @@ Table.NoDataRow | [Table.RowProps](#tablerowprops) | A component that renders a 
 Table.StubCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table cell.
 Table.StubHeaderCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table header cell.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

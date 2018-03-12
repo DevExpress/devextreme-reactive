@@ -9,7 +9,8 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'FilteringState' },
+  { name: 'FilteringState', optional: true },
+  { name: 'SearchState', optional: true },
 ];
 
 const getCollapsedRowsComputed = ({ rows }) => filteredCollapsedRowsGetter(rows);
@@ -23,14 +24,14 @@ export class IntegratedFiltering extends React.PureComponent {
 
     const rowsComputed = ({
       rows,
-      filters,
+      filterExpression,
       getCellValue,
       getRowLevelKey,
       getCollapsedRows,
     }) =>
       filteredRows(
         rows,
-        filters,
+        filterExpression,
         getCellValue,
         getColumnPredicate,
         getRowLevelKey,
@@ -57,4 +58,3 @@ IntegratedFiltering.propTypes = {
 IntegratedFiltering.defaultProps = {
   columnExtensions: undefined,
 };
-

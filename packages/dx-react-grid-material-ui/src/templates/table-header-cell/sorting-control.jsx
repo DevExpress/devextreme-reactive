@@ -47,7 +47,7 @@ const SortingControlBase = ({
 
 SortingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc']),
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,

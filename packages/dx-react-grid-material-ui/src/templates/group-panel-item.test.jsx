@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Chip from 'material-ui/Chip';
+import { TableSortLabel } from 'material-ui/Table';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupPanelItem } from './group-panel-item';
 
@@ -129,6 +130,19 @@ describe('GroupPanelItem', () => {
     tree.find(Chip).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
+  });
+
+  it('should process nullable sortingDirection', () => {
+    const tree = mount((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        sortingDirection={null}
+        showSortingControls
+        sortingEnabled
+      />
+    ));
+
+    expect(tree.find(TableSortLabel).props().direction).toBeUndefined();
   });
 
   it('should pass rest props to the root element', () => {

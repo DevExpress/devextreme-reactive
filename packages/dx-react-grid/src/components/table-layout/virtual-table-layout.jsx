@@ -93,6 +93,10 @@ export class VirtualTableLayout extends React.PureComponent {
   updateViewport(e) {
     const node = e.target;
 
+    if (node !== e.currentTarget) {
+      return;
+    }
+
     // NOTE: prevent iOS to flicker in bounces
     if (node.scrollTop < 0 ||
       node.scrollLeft < 0 ||

@@ -32,7 +32,7 @@ const SortingControlBase = ({
   >
     <TableSortLabel
       active={!!sortingDirection}
-      direction={sortingDirection}
+      direction={sortingDirection === null ? undefined : sortingDirection}
       onClick={onClick}
       disabled={disabled}
       classes={{
@@ -56,7 +56,7 @@ SortingControlBase.propTypes = {
 };
 
 SortingControlBase.defaultProps = {
-  sortingDirection: null,
+  sortingDirection: undefined,
   disabled: false,
 };
 

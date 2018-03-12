@@ -68,7 +68,7 @@ const renderTick = item => (
 
 export class Axis extends React.PureComponent {
   render() {
-    const { name } = this.props;
+    const { placeholder, name } = this.props;
     return (
       <Plugin name="Axis">
         <Template name="axis">
@@ -79,9 +79,9 @@ export class Axis extends React.PureComponent {
                }) => {
                  const {
                     x, y, width, height,
-                } = getPosition(name);
+                } = getPosition(placeholder);
 
-                const bBoxRef = createBBoxSetter(name);
+                const bBoxRef = createBBoxSetter(placeholder);
                 const domain = domains[name];
                 const { orientation } = axes.find(axis => axis.name === name);
                 const scale = scaleLinear()
@@ -110,4 +110,5 @@ export class Axis extends React.PureComponent {
 
 Axis.propTypes = {
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };

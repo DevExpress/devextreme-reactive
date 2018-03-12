@@ -25,7 +25,7 @@ const getDAttribute = path =>
 
 export class LineSeries extends React.PureComponent {
   render() {
-    const { name, style } = this.props;
+    const { placeholder, name, style } = this.props;
     return (
       <Plugin name="LineSeries">
         <Template name="pane">
@@ -46,9 +46,11 @@ export class LineSeries extends React.PureComponent {
               } = series.find(seriesItem => seriesItem.valueField === name);
               const { orientation } = axes.find(axis => axis.name === domainName);
               const domain = domains[domainName];
-              const { height } = getPosition(domainName);
-              const { width } = getPosition(argumentAxis);
-              const { x, y } = getPosition('pane');
+              const {
+                x, y,
+                width, height,
+              } = getPosition(placeholder);
+
               const yScale = scaleLinear()
                 .domain(domain)
                 .range(orientation === 'horizontal'
@@ -87,6 +89,7 @@ export class LineSeries extends React.PureComponent {
 
 LineSeries.propTypes = {
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   style: PropTypes.object,
 };
 

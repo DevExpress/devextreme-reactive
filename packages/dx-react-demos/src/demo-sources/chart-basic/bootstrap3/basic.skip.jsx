@@ -8,7 +8,9 @@ import {
   SplineSeries,
   IntegratedScaleProcessing,
   SeriesState,
+  Rect,
 } from '@devexpress/dx-react-chart';
+
 
 const data = [
   {
@@ -72,19 +74,27 @@ export default class Demo extends React.PureComponent {
         />
         <IntegratedScaleProcessing />
 
-        <Axis name="year" />
-        <Axis name="born" />
+        <Rect placeholder="bottom-left" />
+        <Rect placeholder="bottom-right" color="gray" />
+        <Rect placeholder="top-left" color="red" />
+        <Rect placeholder="top-right" color="green" />
+
+        <Axis name="year" placeholder="bottom-right" />
+        <Axis name="born" placeholder="top-left" />
 
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
+          placeholder="top-right"
         />
         <SplineSeries
           name="China"
           style={{ stroke: 'orange' }}
+          placeholder="top-right"
         />
         <LineSeries
           name="USA"
+          placeholder="top-right"
         />
       </Chart>
     );

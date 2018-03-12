@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import yoga, { Node } from 'yoga-layout';
 
+const LayoutElement = () => null;
+
 const createNode = ({ flexGrow, flexDirection } = {}) => {
   const node = Node.create();
   node.setDisplay(yoga.DISPLAY_FLEX);
@@ -11,35 +13,21 @@ const createNode = ({ flexGrow, flexDirection } = {}) => {
   return node;
 };
 
-const calculatePositions = (bBoxes, svgNode, width, height, x, y, pane) => {
-  svgNode.calculateLayout(width, height, yoga.DIRECTION_LTR);
-  const positions = {};
-  Object.keys(bBoxes).forEach((name) => {
-    let node;
-    if (name === 'year') {
-      node = x;
-    } else {
-      node = y;
-    }
-
-    const parent = node.getParent();
-    positions[name] = {
-      x: (parent.getComputedLeft() + node.getComputedLeft()),
-      y: (parent.getComputedTop() + node.getComputedTop()),
-      width: node.getComputedWidth(),
-      height: node.getComputedHeight(),
-    };
-  });
-  const parent = pane.getParent();
-  positions.pane = {
-    x: (parent.getComputedLeft() + pane.getComputedLeft()),
-    y: (parent.getComputedTop() + pane.getComputedTop()),
-    width: pane.getComputedWidth(),
-    height: pane.getComputedHeight(),
+const getAbsoluteNodePosition = (node) => {
+  const parent = node.getParent();
+  return {
+    x: (parent && parent.getComputedLeft() + node.getComputedLeft()),
+    y: (parent && parent.getComputedTop() + node.getComputedTop()),
+    width: node.getComputedWidth(),
+    height: node.getComputedHeight(),
   };
-  return positions;
 };
 
+const calculatePositions = (bBoxes, rootNode, width, height, nodes) => {
+  rootNode.calculateLayout(width, height, yoga.DIRECTION_LTR);
+  return nodes.reduce((positions, { name, node }) =>
+    ({ ...positions, [name]: getAbsoluteNodePosition(node) }), {});
+};
 
 const getComputedPosition = (positions, width, height) => name => (positions[name] || {
   x: 0, y: 0, width, height,
@@ -51,33 +39,42 @@ const isEqual = (firstBBox, secondBBox) =>
 export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
+    const { width, height } = this.props;
 
     this.state = {
-      bBoxes: {},
+      bBoxes: {
+        root: {
+          width,
+          height,
+        },
+      },
     };
 
-    this.createNodes();
+    this.nodes = [];
+    this.rootNode = this.createNodes(props.children);
     this.createBBoxSetter = this.createBBoxSetter.bind(this);
   }
 
-  createNodes() {
-    this.svg = createNode({ flexDirection: yoga.FLEX_DIRECTION_COLUMN });
-    this.top = createNode({ flexGrow: 1, flexDirection: yoga.FLEX_DIRECTION_ROW });
-    this.bottom = createNode({ flexDirection: yoga.FLEX_DIRECTION_ROW });
+  createNodes(children) {
+    const {
+      flexDirection, flexGrow, name, bBoxHandler,
+    } = children.props;
+    const node = createNode({
+      flexDirection,
+      flexGrow,
+    });
 
-    this.yAxis = createNode();
-    this.pane = createNode({ flexGrow: 1 });
-    this.emptyBlock = createNode();
-    this.xAxis = createNode({ flexGrow: 1 });
+    this.nodes.push({
+      name,
+      node,
+      bBoxHandler,
+    });
 
-    this.svg.insertChild(this.top, 0);
-    this.svg.insertChild(this.bottom, 1);
+    React.Children.forEach(children.props.children, (child, index) => {
+      node.insertChild(this.createNodes(child), index);
+    });
 
-    this.top.insertChild(this.yAxis, 0);
-    this.top.insertChild(this.pane, 1);
-
-    this.bottom.insertChild(this.emptyBlock, 0);
-    this.bottom.insertChild(this.xAxis, 1);
+    return node;
   }
 
   createBBoxSetter(name) {
@@ -96,32 +93,23 @@ export class LayoutManager extends React.Component {
   }
 
   updateNodes() {
-    const { width, height } = this.props;
-    const yAxisName = 'born';
-    const xAxisName = 'year';
-    this.svg.setWidth(width);
-    this.svg.setHeight(height);
-
-    this.yAxis.setWidth(this.state.bBoxes[yAxisName] ? this.state.bBoxes[yAxisName].width : 0);
-    this.emptyBlock.setWidth(this.state.bBoxes[yAxisName] ? this.state.bBoxes[yAxisName].width : 0);
-    this.xAxis.setHeight(this.state.bBoxes[xAxisName] ? this.state.bBoxes[xAxisName].height : 0);
-    this.emptyBlock.setHeight(this.state.bBoxes[xAxisName] ?
-      this.state.bBoxes[xAxisName].height
-      : 0);
+    this.nodes.forEach(({ node, bBoxHandler }) => {
+      if (bBoxHandler) {
+        bBoxHandler(this.state.bBoxes, node);
+      }
+    });
   }
 
   render() {
     const { width, height } = this.props;
-    this.updateNodes();
+    this.updateNodes(this.rootNode);
 
     const positions = calculatePositions(
       this.state.bBoxes,
-      this.svg,
+      this.rootNode,
       width,
       height,
-      this.xAxis,
-      this.yAxis,
-      this.pane,
+      this.nodes,
     );
 
     return (
@@ -136,4 +124,45 @@ export class LayoutManager extends React.Component {
 LayoutManager.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+};
+
+LayoutManager.defaultProps = {
+  children: ((
+    <LayoutElement
+      name="root"
+      flexDirection={yoga.FLEX_DIRECTION_COLUMN}
+      bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes.root.width);
+                  node.setHeight(bBoxes.root.height);
+              }}
+    >
+      <LayoutElement name="top" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW} >
+        <LayoutElement
+          name="top-left"
+          bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes['top-left'] ? bBoxes['top-left'].width : 0);
+              }}
+        />
+        <LayoutElement name="top-right" flexGrow={1} />
+      </LayoutElement>
+      <LayoutElement name="bottom" flexDirection={yoga.FLEX_DIRECTION_ROW} >
+        <LayoutElement
+          name="bottom-left"
+          bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes['top-left'] ? bBoxes['top-left'].width : 0);
+              }}
+        />
+        <LayoutElement
+          name="bottom-right"
+          flexGrow={1}
+          bBoxHandler={(bBoxes, node) => {
+                  node.setHeight(bBoxes['bottom-right'] ? bBoxes['bottom-right'].height : 0);
+              }}
+        />
+      </LayoutElement>
+    </LayoutElement>)),
 };

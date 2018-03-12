@@ -1,30 +1,27 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const TableStubHeaderCell = ({
-  style,
+export const BandStubCell = ({
+  className,
   tableRow,
   tableColumn,
   ...restProps
 }) => (
   <th
-    style={{
-      padding: 0,
-      borderTop: 0,
-      ...style,
-    }}
+    className={classNames('p-0 border-0', className)}
     {...restProps}
   />
 );
 
-TableStubHeaderCell.propTypes = {
-  style: PropTypes.object,
+BandStubCell.propTypes = {
+  className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };
 
-TableStubHeaderCell.defaultProps = {
-  style: null,
+BandStubCell.defaultProps = {
+  className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
 };

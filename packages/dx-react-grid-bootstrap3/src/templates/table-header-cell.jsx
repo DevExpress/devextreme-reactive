@@ -43,7 +43,7 @@ export class TableHeaderCell extends React.PureComponent {
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel,
-      tableRow, getMessage, onSort,
+      tableRow, getMessage, onSort, band,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
@@ -62,7 +62,9 @@ export class TableHeaderCell extends React.PureComponent {
           } : null),
           ...(isCellInteractive ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
+          ...(band ? { borderLeft: '1px solid #ddd' } : null),
           padding: '5px',
+          borderTop: 0,
           ...style,
         }}
         onClick={this.onClick}

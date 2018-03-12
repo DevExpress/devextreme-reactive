@@ -8,3 +8,6 @@
 .dx-rg-bs4-table-header-cell-right {
   margin-left: 14px;
 }
+.dx-rg-bs4-band-first-child:first-child {
+  border-left: 0!important;
+}

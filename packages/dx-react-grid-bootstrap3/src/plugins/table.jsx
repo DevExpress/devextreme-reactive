@@ -9,6 +9,8 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableRow } from '../templates/table-row';
 import { Table as TableComponent } from '../templates/table';
 import { TableContainer } from '../templates/table-container';
+import { BandStubCell } from '../templates/band-stub-cell';
+
 
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
@@ -37,6 +39,7 @@ export class Table extends React.PureComponent {
         noDataCellComponent={TableNoDataCell}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubHeaderCell}
+        stubBandCellComponent={BandStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

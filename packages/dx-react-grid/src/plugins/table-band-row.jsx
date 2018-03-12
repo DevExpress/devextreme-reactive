@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   getColumnMeta,
   isBandedTableRow,
@@ -15,6 +15,7 @@ export class TableBandRow extends React.PureComponent {
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
+      emptyCellComponent: EmptyCell,
       bandColumns,
     } = this.props;
 
@@ -48,7 +49,7 @@ export class TableBandRow extends React.PureComponent {
                 const currentColumnMeta =
                   getColumnMeta(params.tableColumn.column.name, bandColumns, tableRowLevel);
 
-                if (currentColumnMeta.level <= params.tableRow.level) return <HeaderCell />;
+                if (currentColumnMeta.level <= params.tableRow.level) return <EmptyCell />;
 
                 const currentColumnIndex =
                   tableColumns.findIndex(tableColumn => tableColumn.key === params.tableColumn.key);
@@ -73,14 +74,20 @@ export class TableBandRow extends React.PureComponent {
                 return (
                   <HeaderCell
                     {...params}
-
                     colSpan={colSpan}
                     value={currentColumnMeta.title}
+                    column={currentColumnMeta}
                   />
                 );
               }}
             </TemplateConnector>
           )}
+        </Template>
+        <Template
+          name="tableCell"
+          predicate={({ tableRow, tableColumn }) => tableRow.type === 'heading' && tableColumn.type === 'data'}
+        >
+          {params => <TemplatePlaceholder params={{ ...params/*, style: { ...params.style, borderLeft: '1px solid #ddd', borderTop: 'none' }*/, band: true }} />}
         </Template>
         <Template
           name="tableRow"
@@ -99,6 +106,7 @@ TableBandRow.propTypes = {
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  emptyCellComponent: PropTypes.func.isRequired,
 };
 
 TableBandRow.defaultProps = {

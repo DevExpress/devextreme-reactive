@@ -1,9 +1,29 @@
 import * as React from 'react';<%&additionalImports%>
 import {
+  SortingState,
+  IntegratedSorting,
+  GroupingState,
+  IntegratedGrouping,
+  EditingState,
+  SelectionState,
+  IntegratedSelection,
+} from '@devexpress/dx-react-grid';
+import {
   Grid,
   Table,
   TableBandRow,
   TableHeaderRow,
+  TableGroupRow,
+  GroupingPanel,
+  DragDropProvider,
+  Toolbar,
+  TableColumnResizing,
+  TableEditRow,
+  TableEditColumn,
+  TableSelection,
+  ColumnChooser,
+  TableColumnVisibility,
+  TableColumnReordering,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 const bands = [
@@ -159,10 +179,20 @@ export default class Demo extends React.PureComponent {
         { name: 'Population_Total', title: 'Total' },
         { name: 'Population_Urban', title: 'Urban' },
       ],
+      defaultColumnWidths: [
+        { columnName: 'Country', width: 80 },
+        { columnName: 'Area', width: 80 },
+        { columnName: 'GDP_Total', width: 80 },
+        { columnName: 'GDP_Agriculture', width: 80 },
+        { columnName: 'GDP_Industry', width: 80 },
+        { columnName: 'GDP_Services', width: 80 },
+        { columnName: 'Population_Total', width: 80 },
+        { columnName: 'Population_Urban', width: 80 },
+      ],
     };
   }
   render() {
-    const { columns } = this.state;
+    const { columns, defaultColumnWidths } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -170,11 +200,26 @@ export default class Demo extends React.PureComponent {
           rows={countries}
           columns={columns}
         >
+          <SelectionState />
+          <GroupingState />
+          <IntegratedGrouping />
+          <EditingState
+            onCommitChanges={() => undefined}
+          />
+          <IntegratedSelection />
+
+          <DragDropProvider />
           <Table />
-          <TableHeaderRow />
+          <TableColumnReordering defaultOrder={this.state.columns.map(column => column.name)} />
+
+          <TableHeaderRow showGroupingControls  />
           <TableBandRow
             bandColumns={bands}
           />
+          <TableEditRow />
+          <TableGroupRow />
+          <Toolbar />
+          <GroupingPanel showGroupingControls  />
         </Grid>
       </<%&wrapperTag%>>
     );

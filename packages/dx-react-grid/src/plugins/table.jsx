@@ -40,6 +40,7 @@ export class Table extends React.PureComponent {
       noDataCellComponent: NoDataCell,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
+      stubBandCellComponent: StubBandCell,
       columnExtensions,
       messages, containerComponent,
       tableComponent, headComponent, bodyComponent, fixedHeaderComponent,
@@ -82,12 +83,11 @@ export class Table extends React.PureComponent {
         <Template name="tableCell">
           {params => (
             <TemplateConnector>
-              {({ tableHeaderRows: headerRows }) =>
-                (isHeaderStubTableCell(params.tableRow, headerRows)
-                  ? <StubHeaderCell {...params} />
-                  : <StubCell {...params} />
-                )
-              }
+              {({ tableHeaderRows: headerRows }) => {
+                if (params.tableRow.type === 'band') return <StubBandCell {...params} />;
+                if (isHeaderStubTableCell(params.tableRow, headerRows)) return <StubHeaderCell {...params} />;
+                return <StubCell {...params} />;
+              }}
             </TemplateConnector>
           )}
         </Template>

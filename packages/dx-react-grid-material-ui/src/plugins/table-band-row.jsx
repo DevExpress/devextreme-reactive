@@ -1,19 +1,22 @@
 import * as React from 'react';
 import { TableBandRow as TableBandRowBase } from '@devexpress/dx-react-grid';
-import { TableCell } from '../templates/table-cell';
-import { TableRow } from '../templates/table-row';
+import { BandCell } from '../templates/band-cell';
+import { BandEmptyCell } from '../templates/band-empty-cell';
+import { BandRow } from '../templates/band-row';
 
 export class TableBandRow extends React.PureComponent {
   render() {
     return (
       <TableBandRowBase
-        cellComponent={TableCell}
-        rowComponent={TableRow}
+        cellComponent={BandCell}
+        rowComponent={BandRow}
+        emptyCellComponent={BandEmptyCell}
         {...this.props}
       />
     );
   }
 }
 
-TableBandRow.Cell = TableCell;
-TableBandRow.Row = TableRow;
+TableBandRow.Cell = BandCell;
+TableBandRow.Row = BandRow;
+TableBandRow.EmptyCell = BandEmptyCell;

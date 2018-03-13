@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
   LineSeries,
   SplineSeries,
-  IntegratedScaleProcessing,
   Rect,
 } from '@devexpress/dx-react-chart';
 
@@ -69,11 +68,7 @@ export default class Demo extends React.PureComponent {
             { valueField: 'China', argumentField: 'year', axisName: 'born' },
             { valueField: 'USA', argumentField: 'year', axisName: 'born' },
           ]}
-
-
       >
-        <IntegratedScaleProcessing />
-
         <Rect placeholder="bottom-left" />
         <Rect placeholder="bottom-right" color="gray" />
         <Rect placeholder="top-left" color="red" />
@@ -92,10 +87,7 @@ export default class Demo extends React.PureComponent {
           style={{ stroke: 'orange' }}
           placeholder="top-right"
         />
-        <LineSeries
-          name="USA"
-          placeholder="top-right"
-        />
+        <LineSeries name="USA" placeholder="top-right" />
       </Chart>
     );
   }

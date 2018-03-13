@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@devexpress/dx-react-chart": "0.0.0",
+    "@devexpress/dx-react-chart-svg": "0.0.0",
     "@devexpress/dx-react-core": "1.1.0-beta.2",
     "@devexpress/dx-react-grid": "1.1.0-beta.2",
     "@devexpress/dx-react-grid-bootstrap3": "1.1.0-beta.2",

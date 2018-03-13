@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
 import {
-  Chart,
-  Axis,
   AxesState,
   LineSeries,
   SplineSeries,
@@ -11,6 +9,10 @@ import {
   Rect,
 } from '@devexpress/dx-react-chart';
 
+import {
+  Chart,
+  Axis,
+} from '@devexpress/dx-react-chart-svg';
 
 const data = [
   {

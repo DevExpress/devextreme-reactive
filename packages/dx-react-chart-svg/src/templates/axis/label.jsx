@@ -14,7 +14,10 @@ export const Label = ({ text, x, y }) => (
 );
 
 Label.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };

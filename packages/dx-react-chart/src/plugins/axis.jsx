@@ -45,27 +45,6 @@ const getAxisCoords = (scale, width, height, orientation) => {
   };
 };
 
-const renderTick = item => (
-  <React.Fragment key={item.text}>
-    <line
-      style={{ stroke: 'black', strokeWidth: '1px' }}
-      x1={item.x1}
-      x2={item.x2}
-      y1={item.y1}
-      y2={item.y2}
-    />
-    <text
-      alignmentBaseline="middle"
-      textAnchor="middle"
-      key={item.text}
-      x={item.xText}
-      y={item.yText}
-    >
-      {item.text}
-    </text>
-  </React.Fragment>
-);
-
 const createRefsHandler = (placeholder, setBBox) => (el) => {
   if (!el) {
     return;
@@ -76,7 +55,12 @@ const createRefsHandler = (placeholder, setBBox) => (el) => {
 
 export class Axis extends React.PureComponent {
   render() {
-    const { placeholder, name } = this.props;
+    const {
+      placeholder,
+      name,
+      tickComponent: Tick,
+      labelComponent: Label,
+    } = this.props;
     return (
       <Plugin name="Axis">
         <Template name="axis">
@@ -106,7 +90,23 @@ export class Axis extends React.PureComponent {
 
                 return ((
                   <g ref={refsHandler} transform={`translate(${x} ${y})`}>
-                    {axesCoords.ticks.map(renderTick)}
+                    {axesCoords.ticks.map(({
+                      text, x1, x2, y1, y2, xText, yText,
+                    }) => (
+                      <React.Fragment key={text}>
+                        <Tick
+                          x1={x1}
+                          x2={x2}
+                          y1={y1}
+                          y2={y2}
+                        />
+                        <Label
+                          text={text}
+                          x={xText}
+                          y={yText}
+                        />
+                      </React.Fragment>
+                    ))}
                   </g>));
               }}
           </TemplateConnector>
@@ -119,4 +119,6 @@ export class Axis extends React.PureComponent {
 Axis.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  tickComponent: PropTypes.func.isRequired,
+  labelComponent: PropTypes.func.isRequired,
 };

@@ -37,7 +37,7 @@ export class SplineSeries extends React.PureComponent {
               domains,
               data,
               axes,
-              argumentAxis = 'year',
+              argumentAxisName,
               layouts,
             }) => {
               const {
@@ -56,7 +56,7 @@ export class SplineSeries extends React.PureComponent {
                 .range(orientation === 'horizontal'
                     ? [x, width + x]
                     : [height, 0]);
-              const xDomain = domains[argumentAxis];
+              const xDomain = domains[argumentAxisName];
               const xScale = scaleLinear()
                 .domain(xDomain)
                 .range([0, width]);

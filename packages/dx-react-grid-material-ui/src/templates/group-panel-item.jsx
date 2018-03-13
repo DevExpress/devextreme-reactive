@@ -24,7 +24,7 @@ const label = (showSortingControls, sortingEnabled, sortingDirection, column) =>
     ? (
       <TableSortLabel
         active={!!sortingDirection}
-        direction={sortingDirection}
+        direction={sortingDirection === null ? undefined : sortingDirection}
         disabled={!sortingEnabled}
         tabIndex={-1}
       >

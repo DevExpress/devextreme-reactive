@@ -77,7 +77,7 @@ var injectLiveDemos = function(content) {
         const options = {
           ...data,
           path: `/demo/${data.path}`,
-          scriptPath: `/devextreme-reactive/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
+          scriptPath: `{{site.baseurl}}/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
         };
         return `<div
           class="embedded-demo"

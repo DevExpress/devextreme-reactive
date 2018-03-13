@@ -48,7 +48,16 @@ export class LayoutManager extends React.Component {
 
     this.nodes = [];
     this.rootNode = this.createNodes(props.children);
-    this.createBBoxSetter = this.createBBoxSetter.bind(this);
+    this.setBBox = this.setBBox.bind(this);
+  }
+
+  setBBox(name, bBox) {
+    this.setState((prevState) => {
+      if (!(prevState.bBoxes[name] && isEqual(prevState.bBoxes[name], bBox))) {
+        return { bBoxes: { ...prevState.bBoxes, [name]: bBox } };
+      }
+      return null;
+    });
   }
 
   createNodes(children) {
@@ -73,20 +82,6 @@ export class LayoutManager extends React.Component {
     return node;
   }
 
-  createBBoxSetter(name) {
-    return (el) => {
-      if (!el) {
-        return;
-      }
-      const bBox = el.getBBox();
-      this.setState((prevState) => {
-        if (!(prevState.bBoxes[name] && isEqual(prevState.bBoxes[name], bBox))) {
-          return { bBoxes: { ...prevState.bBoxes, [name]: bBox } };
-        }
-        return null;
-      });
-    };
-  }
 
   updateNodes() {
     this.nodes.forEach(({ node, bBoxHandler }) => {
@@ -110,7 +105,7 @@ export class LayoutManager extends React.Component {
 
     return (
       <Plugin>
-        <Getter name="createBBoxSetter" value={this.createBBoxSetter} />
+        <Getter name="setBBox" value={this.setBBox} />
         <Getter name="layouts" value={positions} />
       </Plugin>
     );

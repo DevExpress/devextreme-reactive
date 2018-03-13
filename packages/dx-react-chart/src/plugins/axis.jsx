@@ -66,6 +66,14 @@ const renderTick = item => (
   </React.Fragment>
 );
 
+const createRefsHandler = (placeholder, setBBox) => (el) => {
+  if (!el) {
+    return;
+  }
+  const bBox = el.getBBox();
+  setBBox(placeholder, bBox);
+};
+
 export class Axis extends React.PureComponent {
   render() {
     const { placeholder, name } = this.props;
@@ -75,13 +83,13 @@ export class Axis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                   domains, axes, createBBoxSetter, layouts,
+                   domains, axes, setBBox, layouts,
                }) => {
                  const {
                     x, y, width, height,
                 } = layouts[placeholder];
 
-                const bBoxRef = createBBoxSetter(placeholder);
+                const refsHandler = createRefsHandler(placeholder, setBBox);
                 const domain = domains[name];
                 const { orientation } = axes.find(axis => axis.name === name);
                 const scale = scaleLinear()
@@ -97,7 +105,7 @@ export class Axis extends React.PureComponent {
                 );
 
                 return ((
-                  <g ref={bBoxRef} transform={`translate(${x} ${y})`}>
+                  <g ref={refsHandler} transform={`translate(${x} ${y})`}>
                     {axesCoords.ticks.map(renderTick)}
                   </g>));
               }}

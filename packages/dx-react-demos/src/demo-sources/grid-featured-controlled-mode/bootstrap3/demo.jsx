@@ -14,6 +14,8 @@ import {
 } from 'react-bootstrap';
 import { ProgressBarCell } from '../../../theme-sources/bootstrap3/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/bootstrap3/components/highlighted-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/bootstrap3/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/bootstrap3/components/percent-type-provider';
 
 import {
   generateRows,
@@ -146,6 +148,8 @@ export default class Demo extends React.PureComponent {
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -209,6 +213,8 @@ export default class Demo extends React.PureComponent {
       pageSize,
       pageSizes,
       columnOrder,
+      currencyColumns,
+      percentColumns,
     } = this.state;
 
     return (
@@ -231,6 +237,9 @@ export default class Demo extends React.PureComponent {
 
           <IntegratedSorting />
           <IntegratedPaging />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <EditingState
             editingRowIds={editingRowIds}

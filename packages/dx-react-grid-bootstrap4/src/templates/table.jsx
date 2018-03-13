@@ -45,7 +45,7 @@ export class Table extends React.Component {
   }
   render() {
     const {
-      children, use, style, ...restProps
+      children, use, style, className, ...restProps
     } = this.props;
     const { stickyProp, backgroundColor } = this.state;
     return (
@@ -54,7 +54,7 @@ export class Table extends React.Component {
         className={classNames({
           'table mb-0 dx-rg-bs4-overflow-hidden dx-rg-bs4-table': true,
           'dx-rg-bs4-table-head': use === 'head',
-        })}
+        }, className)}
         {...restProps}
         style={{
           ...style,
@@ -77,9 +77,11 @@ Table.propTypes = {
     PropTypes.node,
   ]).isRequired,
   style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 Table.defaultProps = {
+  className: undefined,
   use: undefined,
   style: null,
 };

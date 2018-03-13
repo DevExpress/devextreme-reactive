@@ -1,3 +1,21 @@
+<a name="1.1.0-beta.3"></a>
+# [1.1.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2018-03-07)
+
+
+### Bug Fixes
+
+* **react-grid-bootstrap4:** fix the 'Nothing to show' message ([#816](https://github.com/DevExpress/devextreme-reactive/issues/816)) ([34167bb](https://github.com/DevExpress/devextreme-reactive/commit/34167bb))
+* **react-grid-bootstrap4:** get rid cursor poiner on disabled item ([#799](https://github.com/DevExpress/devextreme-reactive/issues/799)) ([1d59052](https://github.com/DevExpress/devextreme-reactive/commit/1d59052))
+
+
+### Features
+
+* **react-grid:** add search panel plugin ([#726](https://github.com/DevExpress/devextreme-reactive/issues/726)) ([c8e79fb](https://github.com/DevExpress/devextreme-reactive/commit/c8e79fb))
+* **react-grid:** extract the Table plugin components ([#766](https://github.com/DevExpress/devextreme-reactive/issues/766)) ([e626a66](https://github.com/DevExpress/devextreme-reactive/commit/e626a66))
+* **react-grid:** support center alignment for columns ([#804](https://github.com/DevExpress/devextreme-reactive/issues/804)) ([209d1c9](https://github.com/DevExpress/devextreme-reactive/commit/209d1c9))
+
+
+
 <a name="1.1.0-beta.2"></a>
 # [1.1.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2018-03-02)
 

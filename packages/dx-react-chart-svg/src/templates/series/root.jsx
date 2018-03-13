@@ -25,5 +25,5 @@ Root.propTypes = {
 };
 
 Root.defaultProps = {
-  style: {},
+  style: null,
 };

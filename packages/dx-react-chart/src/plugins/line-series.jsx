@@ -37,7 +37,7 @@ export class LineSeries extends React.PureComponent {
               data,
               axes,
               argumentAxis = 'year',
-              getPosition,
+              layouts,
             }) => {
               const {
                 axisName: domainName,
@@ -49,7 +49,7 @@ export class LineSeries extends React.PureComponent {
               const {
                 x, y,
                 width, height,
-              } = getPosition(placeholder);
+              } = layouts[placeholder];
 
               const yScale = scaleLinear()
                 .domain(domain)

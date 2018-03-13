@@ -29,10 +29,6 @@ const calculatePositions = (bBoxes, rootNode, width, height, nodes) => {
     ({ ...positions, [name]: getAbsoluteNodePosition(node) }), {});
 };
 
-const getComputedPosition = (positions, width, height) => name => (positions[name] || {
-  x: 0, y: 0, width, height,
-});
-
 const isEqual = (firstBBox, secondBBox) =>
   firstBBox.width === secondBBox.width && firstBBox.height === secondBBox.height;
 
@@ -52,7 +48,16 @@ export class LayoutManager extends React.Component {
 
     this.nodes = [];
     this.rootNode = this.createNodes(props.children);
-    this.createBBoxSetter = this.createBBoxSetter.bind(this);
+    this.setBBox = this.setBBox.bind(this);
+  }
+
+  setBBox(name, bBox) {
+    this.setState((prevState) => {
+      if (!(prevState.bBoxes[name] && isEqual(prevState.bBoxes[name], bBox))) {
+        return { bBoxes: { ...prevState.bBoxes, [name]: bBox } };
+      }
+      return null;
+    });
   }
 
   createNodes(children) {
@@ -77,20 +82,6 @@ export class LayoutManager extends React.Component {
     return node;
   }
 
-  createBBoxSetter(name) {
-    return (el) => {
-      if (!el) {
-        return;
-      }
-      const bBox = el.getBBox();
-      this.setState((prevState) => {
-        if (!(prevState.bBoxes[name] && isEqual(prevState.bBoxes[name], bBox))) {
-          return { bBoxes: { ...prevState.bBoxes, [name]: bBox } };
-        }
-        return null;
-      });
-    };
-  }
 
   updateNodes() {
     this.nodes.forEach(({ node, bBoxHandler }) => {
@@ -114,8 +105,8 @@ export class LayoutManager extends React.Component {
 
     return (
       <Plugin>
-        <Getter name="createBBoxSetter" value={this.createBBoxSetter} />
-        <Getter name="getPosition" value={getComputedPosition(positions, width, height)} />
+        <Getter name="setBBox" value={this.setBBox} />
+        <Getter name="layouts" value={positions} />
       </Plugin>
     );
   }

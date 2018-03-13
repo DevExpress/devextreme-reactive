@@ -58,6 +58,7 @@ export class Axis extends React.PureComponent {
     const {
       placeholder,
       name,
+      rootComponent: Root,
       tickComponent: Tick,
       labelComponent: Label,
     } = this.props;
@@ -89,7 +90,7 @@ export class Axis extends React.PureComponent {
                 );
 
                 return ((
-                  <g ref={refsHandler} transform={`translate(${x} ${y})`}>
+                  <Root refsHandler={refsHandler} x={x} y={y}>
                     {axesCoords.ticks.map(({
                       text, x1, x2, y1, y2, xText, yText,
                     }) => (
@@ -107,7 +108,7 @@ export class Axis extends React.PureComponent {
                         />
                       </React.Fragment>
                     ))}
-                  </g>));
+                  </Root>));
               }}
           </TemplateConnector>
         </Template>
@@ -119,6 +120,7 @@ export class Axis extends React.PureComponent {
 Axis.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
 };

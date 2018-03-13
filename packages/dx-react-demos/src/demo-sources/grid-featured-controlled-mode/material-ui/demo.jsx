@@ -30,6 +30,8 @@ import { withStyles } from 'material-ui/styles';
 
 import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/material-ui/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/material-ui/components/percent-type-provider';
 
 import {
   generateRows,
@@ -181,6 +183,8 @@ class DemoBase extends React.PureComponent {
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -247,6 +251,8 @@ class DemoBase extends React.PureComponent {
       pageSize,
       pageSizes,
       columnOrder,
+      currencyColumns,
+      percentColumns,
     } = this.state;
 
     return (
@@ -269,6 +275,9 @@ class DemoBase extends React.PureComponent {
 
           <IntegratedSorting />
           <IntegratedPaging />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <EditingState
             editingRowIds={editingRowIds}

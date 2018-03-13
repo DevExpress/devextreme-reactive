@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
       defaultColumnWidths: [
         { columnName: 'Subject', width: 300 },
         { columnName: 'Assigned_Employee_ID', width: 180 },
-        { columnName: 'Status', width: 100 },
+        { columnName: 'Status', width: 120 },
         { columnName: 'Priority', width: 100 },
         { columnName: 'Completion', width: 100 },
         { columnName: 'Start_Date', width: 120 },

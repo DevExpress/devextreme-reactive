@@ -4,14 +4,12 @@ import {
   isTrackedDependenciesChanged,
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
-
-export const UPDATE_CONNECTION = 'updateConnection';
+} from './helpers';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 
 export class Getter extends React.PureComponent {
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     let lastComputed;
@@ -19,7 +17,7 @@ export class Getter extends React.PureComponent {
     let lastResult;
 
     this.plugin = {
-      position: () => this.props.position(),
+      position: () => this.context[POSITION_CONTEXT](),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;
@@ -46,12 +44,12 @@ export class Getter extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentDidUpdate() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
-    pluginHost.broadcast(UPDATE_CONNECTION);
+    pluginHost.broadcast(UPDATE_CONNECTION_EVENT);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
@@ -60,10 +58,7 @@ export class Getter extends React.PureComponent {
   }
 }
 
-Getter[INDEXABLE_COMPONENT] = true;
-
 Getter.propTypes = {
-  position: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.any,
   computed: PropTypes.func,
@@ -72,9 +67,9 @@ Getter.propTypes = {
 Getter.defaultProps = {
   value: undefined,
   computed: null,
-  position: null,
 };
 
 Getter.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

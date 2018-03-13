@@ -3,16 +3,16 @@ import * as PropTypes from 'prop-types';
 import {
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
+} from './helpers';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export class Action extends React.PureComponent {
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     this.plugin = {
-      position: () => this.props.position(),
+      position: () => this.context[POSITION_CONTEXT](),
       [`${name}Action`]: (params) => {
         const { action } = this.props;
         const { getters } = getAvailableGetters(
@@ -37,7 +37,7 @@ export class Action extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
@@ -46,18 +46,12 @@ export class Action extends React.PureComponent {
   }
 }
 
-Action[INDEXABLE_COMPONENT] = true;
-
 Action.propTypes = {
-  position: PropTypes.func,
   name: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,
 };
 
-Action.defaultProps = {
-  position: null,
-};
-
 Action.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

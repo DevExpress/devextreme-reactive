@@ -5,11 +5,3 @@ export { Getter } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
 export { TemplatePlaceholder } from './plugin-based/template-placeholder';
 export { TemplateConnector } from './plugin-based/template-connector';
-
-export { Draggable } from './draggable';
-
-export { DragDropProvider } from './drag-drop/provider';
-export { DragSource } from './drag-drop/source';
-export { DropTarget } from './drag-drop/target';
-
-export { createRenderComponent } from './render-component';

@@ -1,0 +1,79 @@
+{
+  "name": "@devexpress/dx-vue-core",
+  "version": "1.1.0-beta.3",
+  "description": "Core library for DevExtreme Vue Components",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "vue-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "private"
+  },
+  "main": "dist/dx-vue-core.umd.js",
+  "module": "dist/dx-vue-core.es.js",
+  "globalName": "DevExpress.DXVueCore",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "lint": "eslint \"src/**\"",
+    "lint:fix": "yarn run lint -- --fix"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/setup-vue.js"
+    ]
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.12",
+    "@devexpress/dx-testing": "1.1.0-beta.3",
+    "babel-core": "^6.26.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-jest": "^22.2.2",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.5.0",
+    "babel-preset-es2015": "^6.24.1",
+    "core-js": "^2.5.3",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.12.1",
+    "eslint-plugin-vue": "^4.2.2",
+    "jest": "^22.3.0",
+    "rollup": "0.50.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-license": "^0.5.0",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "vue": "^2.5.13",
+    "vue-server-renderer": "^2.5.13",
+    "vue-template-compiler": "^2.5.13"
+  },
+  "dependencies": {
+    "@devexpress/dx-core": "1.1.0-beta.3"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.13"
+  }
+}

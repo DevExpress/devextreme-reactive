@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Plugin } from './plugin';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
   let resetConsole;
@@ -34,8 +35,8 @@ describe('Plugin', () => {
       </Plugin>,
       {
         context: {
-          pluginHost,
-          positionContext: () => {},
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
+          [POSITION_CONTEXT]: () => {},
         },
       },
     );
@@ -64,8 +65,8 @@ describe('Plugin', () => {
       </Plugin>,
       {
         context: {
-          pluginHost,
-          positionContext: () => {},
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
+          [POSITION_CONTEXT]: () => {},
         },
       },
     );
@@ -96,8 +97,8 @@ describe('Plugin', () => {
       </Plugin>,
       {
         context: {
-          pluginHost,
-          positionContext: () => {},
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
+          [POSITION_CONTEXT]: () => {},
         },
       },
     );
@@ -126,8 +127,8 @@ describe('Plugin', () => {
       </Plugin>,
       {
         context: {
-          pluginHost,
-          positionContext: () => {},
+          [PLUGIN_HOST_CONTEXT]: pluginHost,
+          [POSITION_CONTEXT]: () => {},
         },
       },
     );

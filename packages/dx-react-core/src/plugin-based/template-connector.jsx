@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { UPDATE_CONNECTION } from './getter';
+import { PLUGIN_HOST_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 import {
   isTrackedDependenciesChanged,
   getAvailableGetters,
   getAvailableActions,
-} from '../utils/plugin-helpers';
+} from './helpers';
 
 export class TemplateConnector extends React.Component {
   constructor(props, context) {
@@ -13,26 +13,26 @@ export class TemplateConnector extends React.Component {
 
     this.trackedDependencies = {};
     this.subscription = {
-      [UPDATE_CONNECTION]: () => this.updateConnection(),
+      [UPDATE_CONNECTION_EVENT]: () => this.updateConnection(),
     };
   }
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
   updateConnection() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     if (isTrackedDependenciesChanged(pluginHost, this.trackedDependencies)) {
       this.forceUpdate();
     }
   }
   render() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     const { getters, trackedDependencies } = getAvailableGetters(pluginHost);
     this.trackedDependencies = trackedDependencies;
@@ -47,5 +47,5 @@ TemplateConnector.propTypes = {
 };
 
 TemplateConnector.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

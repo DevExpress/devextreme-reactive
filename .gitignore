@@ -16,6 +16,7 @@
 /site/core
 /site/grid
 /site/react
+/site/vue
 
 # Demos
 /packages/dx-react-demos/src/demo-registry.js

@@ -3,10 +3,15 @@ import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginIndexer, INDEXABLE_COMPONENT } from './plugin-indexer';
+import { POSITION_CONTEXT } from './constants';
+import { PluginIndexer } from './plugin-indexer';
+
+const TestWrapper = (props, { [POSITION_CONTEXT]: position }) => <Test position={position} />;
+TestWrapper.contextTypes = {
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
+};
 
 const Test = () => null;
-Test[INDEXABLE_COMPONENT] = true;
 
 describe('PluginIndexer', () => {
   let resetConsole;
@@ -20,20 +25,20 @@ describe('PluginIndexer', () => {
   it('should correctly determine plugin position', () => {
     const tree = mount((
       <PluginIndexer>
-        <Test />
+        <TestWrapper />
       </PluginIndexer>
     ));
 
     expect(tree.find(Test)
-      .map(wrapper => wrapper.prop('position')()))
+      .map(wrapper => wrapper.props().position()))
       .toEqual([[0]]);
   });
 
   it('should correctly determine plugin position after children change', () => {
     const Test1 = ({ enableGetter }) => (
       <PluginIndexer>
-        {enableGetter && <Test />}
-        <Test />
+        {enableGetter && <TestWrapper />}
+        <TestWrapper />
       </PluginIndexer>
     );
     Test1.propTypes = {
@@ -45,7 +50,7 @@ describe('PluginIndexer', () => {
     tree.setProps({ enableGetter: true });
     const tests = tree.find(Test);
     expect([tests.at(0), tests.at(1)]
-      .map(wrapper => wrapper.prop('position')()))
+      .map(wrapper => wrapper.props().position()))
       .toEqual([[0], [1]]);
   });
 
@@ -54,17 +59,17 @@ describe('PluginIndexer', () => {
       <PluginIndexer>
         <div>
           <PluginIndexer>
-            <Test />
-            <Test />
+            <TestWrapper />
+            <TestWrapper />
           </PluginIndexer>
         </div>
-        <Test />
+        <TestWrapper />
       </PluginIndexer>
     ));
 
     const tests = tree.find(Test);
     expect([tests.at(0), tests.at(1), tests.at(2)]
-      .map(wrapper => wrapper.prop('position')()))
+      .map(wrapper => wrapper.props().position()))
       .toEqual([[0, 0], [0, 1], [1]]);
   });
 });

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { INDEXABLE_COMPONENT } from './plugin-indexer';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
-export const RERENDER_TEMPLATE = 'rerenderTemplate';
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
   constructor(props, context) {
@@ -12,11 +11,11 @@ export class Template extends React.PureComponent {
     this.id = globalTemplateId;
   }
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     const { name } = this.props;
 
     this.plugin = {
-      position: () => this.props.position(),
+      position: () => this.context[POSITION_CONTEXT](),
       [`${name}Template`]: {
         id: this.id,
         predicate: params => (this.props.predicate ? this.props.predicate(params) : true),
@@ -26,19 +25,17 @@ export class Template extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
   componentDidUpdate() {
-    const { pluginHost } = this.context;
-    pluginHost.broadcast(RERENDER_TEMPLATE, this.id);
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    pluginHost.broadcast(RERENDER_TEMPLATE_EVENT, this.id);
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterPlugin(this.plugin);
   }
   render() {
     return null;
   }
 }
-
-Template[INDEXABLE_COMPONENT] = true;
 
 Template.propTypes = {
   position: PropTypes.func,
@@ -57,5 +54,6 @@ Template.defaultProps = {
 };
 
 Template.contextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
+  [POSITION_CONTEXT]: PropTypes.func.isRequired,
 };

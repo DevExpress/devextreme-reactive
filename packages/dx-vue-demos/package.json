@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-vue-demos",
+  "version": "1.1.0-beta.3",
+  "description": "DevExtreme Vue Components Demos",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "main": "index.js",
+  "scripts": {
+    "build:watch": "webpack-dev-server --env",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "yarn run lint -- --fix"
+  },
+  "dependencies": {
+    "@devexpress/dx-vue-core": "1.1.0-beta.3",
+    "babel-polyfill": "^6.26.0",
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.5.1",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.12.1",
+    "eslint-plugin-vue": "^4.2.2",
+    "vue-loader": "^14.1.1",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

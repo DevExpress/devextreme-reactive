@@ -4,6 +4,7 @@ import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
 import { Template } from './template';
 import { TemplatePlaceholder } from './template-placeholder';
+import { PLUGIN_HOST_CONTEXT } from './constants';
 
 export class PluginHost extends React.PureComponent {
   constructor(props) {
@@ -13,7 +14,7 @@ export class PluginHost extends React.PureComponent {
   }
   getChildContext() {
     return {
-      pluginHost: this.host,
+      [PLUGIN_HOST_CONTEXT]: this.host,
     };
   }
   render() {
@@ -40,5 +41,5 @@ PluginHost.defaultProps = {
 };
 
 PluginHost.childContextTypes = {
-  pluginHost: PropTypes.object.isRequired,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

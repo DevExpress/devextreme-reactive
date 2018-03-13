@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
-import { RERENDER_TEMPLATE } from './template';
+import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, TEMPLATE_HOST_CONTEXT } from './constants';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.subscription = {
-      [RERENDER_TEMPLATE]: (id) => {
+      [RERENDER_TEMPLATE_EVENT]: (id) => {
         if (this.template && this.template.id === id) {
           this.forceUpdate();
         }
@@ -17,14 +17,14 @@ export class TemplatePlaceholder extends React.Component {
   }
   getChildContext() {
     return {
-      templateHost: {
+      [TEMPLATE_HOST_CONTEXT]: {
         templates: () => this.restTemplates,
         params: () => this.params,
       },
     };
   }
   componentWillMount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }
   shouldComponentUpdate(nextProps) {
@@ -32,13 +32,13 @@ export class TemplatePlaceholder extends React.Component {
     return !shallowEqual(params, this.params) || this.props.children !== nextProps.children;
   }
   componentWillUnmount() {
-    const { pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
   getRenderingData(props) {
     const { name, params } = props;
     if (name) {
-      const { pluginHost } = this.context;
+      const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
       return {
         params,
         templates: pluginHost.collect(`${name}Template`)
@@ -46,7 +46,7 @@ export class TemplatePlaceholder extends React.Component {
           .reverse(),
       };
     }
-    const { templateHost } = this.context;
+    const { [TEMPLATE_HOST_CONTEXT]: templateHost } = this.context;
     return {
       params: params || templateHost.params(),
       templates: templateHost.templates(),
@@ -87,10 +87,10 @@ TemplatePlaceholder.defaultProps = {
 };
 
 TemplatePlaceholder.contextTypes = {
-  templateHost: PropTypes.object,
-  pluginHost: PropTypes.object.isRequired,
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object,
+  [PLUGIN_HOST_CONTEXT]: PropTypes.object.isRequired,
 };
 
 TemplatePlaceholder.childContextTypes = {
-  templateHost: PropTypes.object.isRequired,
+  [TEMPLATE_HOST_CONTEXT]: PropTypes.object.isRequired,
 };

@@ -18,7 +18,6 @@ export const TableSelectAllCell = ({
       style={{
         cursor: !disabled && 'pointer',
         verticalAlign: 'middle',
-        borderTop: 0,
         ...style,
       }}
       onClick={toggle}

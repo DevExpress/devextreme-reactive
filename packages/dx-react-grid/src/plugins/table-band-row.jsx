@@ -6,16 +6,21 @@ import {
   isBandedTableRow,
   isBandedTableCell,
   tableRowsWithBands,
+  isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
+
+const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
 export class TableBandRow extends React.PureComponent {
   render() {
     const {
       showSortingControls,
       showGroupingControls,
-      cellComponent: HeaderCell,
+      cellComponent: Cell,
       rowComponent: HeaderRow,
+      headerCellComponent: HeaderCell,
       emptyCellComponent: EmptyCell,
+      stubCellComponent: StubCell,
       bandColumns,
     } = this.props;
 
@@ -38,6 +43,11 @@ export class TableBandRow extends React.PureComponent {
           computed={tableHeaderRowsComputed}
         />
 
+        <Template name="tableCell" predicate={({ tableRow }) => isBandedTableRow(tableRow)}>
+          {params => (
+            <StubCell {...params} />
+          )}
+        </Template>
         <Template
           name="tableCell"
           predicate={({ tableColumn, tableRow }) => isBandedTableCell(tableRow, tableColumn)}
@@ -72,7 +82,7 @@ export class TableBandRow extends React.PureComponent {
                 }
 
                 return (
-                  <HeaderCell
+                  <Cell
                     {...params}
                     colSpan={colSpan}
                     value={currentColumnMeta.title}
@@ -85,9 +95,9 @@ export class TableBandRow extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'heading' && tableColumn.type === 'data'}
+          predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {params => <TemplatePlaceholder params={{ ...params/*, style: { ...params.style, borderLeft: '1px solid #ddd', borderTop: 'none' }*/, band: true }} />}
+          {params => <HeaderCell component={CellPlaceholder} {...params} />}
         </Template>
         <Template
           name="tableRow"
@@ -107,6 +117,8 @@ TableBandRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   emptyCellComponent: PropTypes.func.isRequired,
+  headerCellComponent: PropTypes.func.isRequired,
+  stubCellComponent: PropTypes.func.isRequired,
 };
 
 TableBandRow.defaultProps = {

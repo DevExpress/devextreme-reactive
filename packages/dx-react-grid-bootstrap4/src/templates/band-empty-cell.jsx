@@ -9,7 +9,7 @@ export const BandEmptyCell = ({
   ...restProps
 }) => (
   <th
-    className={classNames('p-0 border-top-0 border-right-0 border-bottom-0 border-left dx-rg-band-first-child', className)}
+    className={classNames('p-0 border-top-0 border-right-0 border-bottom-0 border-left dx-rg-bs4-band', className)}
     {...restProps}
   />
 );

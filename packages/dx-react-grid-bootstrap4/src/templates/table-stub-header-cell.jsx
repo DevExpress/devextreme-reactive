@@ -9,7 +9,7 @@ export const TableStubHeaderCell = ({
   ...restProps
 }) => (
   <th
-    className={classNames('p-0 border-top-0', className)}
+    className={classNames('p-0', className)}
     {...restProps}
   />
 );

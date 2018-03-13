@@ -11,19 +11,10 @@ import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
-import { getBorderColor } from './utils';
-
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
-  bandBorder: {
-    borderLeft: getBorderColor(theme),
-    borderTop: 'none',
-    '&:first-child': {
-      borderLeft: 'none',
-    },
-  },
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -113,7 +104,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       showSortingControls, sortingDirection,
       showGroupingControls, onGroup, groupingEnabled,
-      draggingEnabled, band,
+      draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
       classes, getMessage, tableRow, className, onSort,
       ...restProps
@@ -124,7 +115,6 @@ class TableHeaderCellBase extends React.PureComponent {
     const columnTitle = column && (column.title || column.name);
 
     const tableCellClasses = classNames({
-      [classes.bandBorder]: band,
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
       [classes.cellCenter]: align === 'center',

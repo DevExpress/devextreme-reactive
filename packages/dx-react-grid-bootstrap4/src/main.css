@@ -12,3 +12,6 @@
 .dx-rg-bs4-overflow-hidden {
   overflow: hidden;
 }
+.dx-rg-bs4-band:first-child {
+  border-left: 0!important;
+}

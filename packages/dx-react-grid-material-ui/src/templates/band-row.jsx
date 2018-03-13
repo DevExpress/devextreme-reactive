@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-export const TableRowBase = ({
+export const BandRowBase = ({
   children, classes, className,
   row, tableRow, tableColumn,
   ...restProps
@@ -23,7 +23,7 @@ export const TableRowBase = ({
   </TableRowMUI>
 );
 
-TableRowBase.propTypes = {
+BandRowBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   row: PropTypes.object,
@@ -32,7 +32,7 @@ TableRowBase.propTypes = {
   className: PropTypes.string,
 };
 
-TableRowBase.defaultProps = {
+BandRowBase.defaultProps = {
   children: undefined,
   row: undefined,
   tableRow: undefined,
@@ -40,4 +40,4 @@ TableRowBase.defaultProps = {
   className: undefined,
 };
 
-export const BandRow = withStyles(styles, { name: 'BandRow' })(TableRowBase);
+export const BandRow = withStyles(styles, { name: 'BandRow' })(BandRowBase);

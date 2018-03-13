@@ -10,7 +10,6 @@ export const TableStubHeaderCell = ({
   <th
     style={{
       padding: 0,
-      borderTop: 0,
       ...style,
     }}
     {...restProps}

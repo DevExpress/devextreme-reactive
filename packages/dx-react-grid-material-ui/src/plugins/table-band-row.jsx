@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { TableBandRow as TableBandRowBase } from '@devexpress/dx-react-grid';
 import { BandCell } from '../templates/band-cell';
-import { BandEmptyCell } from '../templates/band-empty-cell';
 import { BandRow } from '../templates/band-row';
+import { BandEmptyCell } from '../templates/band-empty-cell';
+import { BandStubCell } from '../templates/band-stub-cell';
+import { BandHeaderCell } from '../templates/band-header-cell';
 
 export class TableBandRow extends React.PureComponent {
   render() {
@@ -10,7 +12,9 @@ export class TableBandRow extends React.PureComponent {
       <TableBandRowBase
         cellComponent={BandCell}
         rowComponent={BandRow}
+        headerCellComponent={BandHeaderCell}
         emptyCellComponent={BandEmptyCell}
+        stubCellComponent={BandStubCell}
         {...this.props}
       />
     );
@@ -18,5 +22,4 @@ export class TableBandRow extends React.PureComponent {
 }
 
 TableBandRow.Cell = BandCell;
-TableBandRow.Row = BandRow;
 TableBandRow.EmptyCell = BandEmptyCell;

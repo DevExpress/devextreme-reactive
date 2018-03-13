@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import yoga, { Node } from 'yoga-layout';
+import yoga, { Node } from '@devexpress/dx-flex-layout';
 
 const LayoutElement = () => null;
 

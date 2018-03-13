@@ -76,6 +76,7 @@
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
+    "@devexpress/dx-flex-layout": "0.0.0",
     "d3-array": "^1.2.1",
     "d3-scale": "^2.0.0",
     "d3-shape": "^1.2.0",

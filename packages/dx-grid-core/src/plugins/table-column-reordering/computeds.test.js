@@ -41,6 +41,26 @@ describe('TableColumnReordering computeds', () => {
           { type: TABLE_DATA_TYPE, column: { name: 'b' } },
         ]);
     });
+
+    it('should order a large number of columns correctly', () => {
+      const tableColumns = [
+        { type: 'test', column: { name: 'z' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'd' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'e' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'f' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'g' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'i' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'j' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'k' } },
+      ];
+      const order = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'z'];
+
+      expect(orderedColumns(tableColumns, order))
+        .toEqual(tableColumns);
+    });
   });
 
   describe('#tableHeaderRowsWithReordering', () => {
@@ -72,7 +92,7 @@ describe('TableColumnReordering computeds', () => {
         ]);
     });
 
-    it('should return the array passed if no changes are possble', () => {
+    it('should return the array passed if no changes are possible', () => {
       const columns = [
         { type: TABLE_DATA_TYPE, column: { name: 'a' } },
         { type: TABLE_DATA_TYPE, column: { name: 'b' } },

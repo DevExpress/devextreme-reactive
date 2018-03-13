@@ -29,7 +29,7 @@ export class SplineSeries extends React.PureComponent {
     const { placeholder, name, style } = this.props;
     return (
       <Plugin name="SplineSeries">
-        <Template name="pane">
+        <Template name="canvas">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({

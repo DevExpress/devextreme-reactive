@@ -28,7 +28,7 @@ export class LineSeries extends React.PureComponent {
     const { placeholder, name, style } = this.props;
     return (
       <Plugin name="LineSeries">
-        <Template name="pane">
+        <Template name="canvas">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({

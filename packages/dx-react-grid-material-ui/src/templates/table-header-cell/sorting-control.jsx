@@ -61,7 +61,7 @@ SortingControlBase.propTypes = {
 SortingControlBase.defaultProps = {
   sortingDirection: undefined,
   disabled: false,
-  columnTitle: ''
+  columnTitle: '',
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

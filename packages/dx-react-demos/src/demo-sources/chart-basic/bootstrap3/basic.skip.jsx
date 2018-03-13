@@ -1,11 +1,9 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
 import {
-  AxesState,
   LineSeries,
   SplineSeries,
   IntegratedScaleProcessing,
-  SeriesState,
   Rect,
 } from '@devexpress/dx-react-chart';
 
@@ -56,8 +54,7 @@ export default class Demo extends React.PureComponent {
         width={700}
         height={400}
         style={{ border: '1px dashed gray' }}
-      >
-        <AxesState axes={[
+        axes={[
             {
                name: 'year',
                orientation: 'horizontal',
@@ -67,13 +64,14 @@ export default class Demo extends React.PureComponent {
               orientation: 'vertical',
            },
           ]}
-        />
-        <SeriesState series={[
+        series={[
             { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
             { valueField: 'China', argumentField: 'year', axisName: 'born' },
             { valueField: 'USA', argumentField: 'year', axisName: 'born' },
           ]}
-        />
+
+
+      >
         <IntegratedScaleProcessing />
 
         <Rect placeholder="bottom-left" />

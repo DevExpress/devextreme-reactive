@@ -75,11 +75,11 @@ export class Axis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                   domains, axes, createBBoxSetter, getPosition,
+                   domains, axes, createBBoxSetter, layouts,
                }) => {
                  const {
                     x, y, width, height,
-                } = getPosition(placeholder);
+                } = layouts[placeholder];
 
                 const bBoxRef = createBBoxSetter(placeholder);
                 const domain = domains[name];

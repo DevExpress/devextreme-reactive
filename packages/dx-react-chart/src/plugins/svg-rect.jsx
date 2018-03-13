@@ -15,10 +15,10 @@ export class Rect extends React.PureComponent {
         <Template name="axis">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ getPosition }) => {
+            {({ layouts }) => {
                    const {
                       x, y, width, height,
-                  } = getPosition(placeholder);
+                  } = layouts[placeholder];
                 return ((
                   <rect x={x} y={y} width={width} height={height} fill={color} />
                 ));

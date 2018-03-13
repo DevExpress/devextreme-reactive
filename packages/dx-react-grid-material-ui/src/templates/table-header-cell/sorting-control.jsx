@@ -50,7 +50,7 @@ SortingControlBase.propTypes = {
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   columnTitle: PropTypes.oneOfType([
     PropTypes.object.isRequired,
-    PropTypes.string.isRequired
+    PropTypes.string.isRequired,
   ]),
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -61,6 +61,7 @@ SortingControlBase.propTypes = {
 SortingControlBase.defaultProps = {
   sortingDirection: undefined,
   disabled: false,
+  columnTitle: ''
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

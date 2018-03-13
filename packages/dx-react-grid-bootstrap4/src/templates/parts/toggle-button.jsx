@@ -29,7 +29,7 @@ export const ToggleButton = ({
   return (
     <i
       className={classNames({
-        'oi p-2 dx-rg-bs4-toggle-button': true,
+        'oi p-2 text-center dx-rg-bs4-toggle-button': true,
         'oi-chevron-bottom': expanded,
         'oi-chevron-right': !expanded,
         'dx-rg-bs4-transparent': !visible,

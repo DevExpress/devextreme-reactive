@@ -5,8 +5,6 @@ import { TableGroupCell } from './table-group-row-cell';
 
 describe('TableGroupRowCell', () => {
   let resetConsole;
-  const ENTER_KEY_CODE = 13;
-  const SPACE_KEY_CODE = 32;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
@@ -35,39 +33,6 @@ describe('TableGroupRowCell', () => {
 
     expect(tree.find('.test').exists())
       .toBeTruthy();
-  });
-
-  it('can get focus', () => {
-    const tree = shallow((
-      <TableGroupCell />
-    ));
-
-    expect(tree.find('span').prop('tabIndex'))
-      .toBe(0);
-  });
-
-  it('should handle the "Enter" and "Space" keys down', () => {
-    const onToggle = jest.fn();
-    const tree = shallow((
-      <TableGroupCell
-        onToggle={onToggle}
-      />
-    ));
-    const targetElement = tree.find('span');
-
-    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: ENTER_KEY_CODE });
-    expect(onToggle)
-      .toHaveBeenCalled();
-
-    onToggle.mockClear();
-    targetElement.simulate('keydown', { preventDefault: jest.fn(), keyCode: SPACE_KEY_CODE });
-    expect(onToggle)
-      .toHaveBeenCalled();
-
-    onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: 51 });
-    expect(onToggle)
-      .not.toHaveBeenCalled();
   });
 
   it('should pass custom class to the root element', () => {

@@ -8,7 +8,7 @@ The following plugins implement tree data visualization:
 
 - [TreeDataState](../reference/tree-data-state.md) - controls the expanded rows state
 - [CustomTreeData](../reference/custom-tree-data.md) - converts custom formatted tree data to a supported format
-- [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with toggle button and sorting indicators
+- [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with row indent, toggle button and selection controls
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -22,23 +22,23 @@ If the data has a hierarchical structure (already grouped), use the `CustomTreeD
 
 In the following example, the data is specified as an array of groups. Specify the `CustomTreeData` plugin's `getChildRows` property to parse a custom tree structure.
 
-.embedded-demo({ "path": "grid-tree-data/hierarchical-tree", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/hierarchical-tree", "showThemeSelector": true })
 
 It is also possible to transform tree data defined as a plain array.
 
-.embedded-demo({ "path": "grid-tree-data/plain-tree", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/plain-tree", "showThemeSelector": true })
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial sorting conditions in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial expanded row ids in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
 
-.embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeSelector": true })
 
 ## Controlled Mode
 
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the sorting options to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the sorting state externally.
+In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the expanded row ids to the `TreeDataState` plugin's `expandedRowIds` property and handle the `onExpandedRowIdsChange` event to control the tree data state externally.
 
-.embedded-demo({ "path": "grid-tree-data/controlled-mode", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/controlled-mode", "showThemeSelector": true })
 
 ## Configuring Hierarchical Selection Controls
 
@@ -51,7 +51,7 @@ To enable this feature you need:
 - Configure the `SelectionState` plugin. Refer the [Selection](selection.md) guide.
 - Set the `showSelectionControls` property of the `TableTreeColumn` plugin to true to show checkboxes.
 
-.embedded-demo({ "path": "grid-tree-data/selection-controls", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/selection-controls", "showThemeSelector": true })
 
 It is also possible to combine the `TableTreeColumn` plugin with the `TableSelection` plugin to highlight selected rows and listen to click on the whole row.
 
@@ -63,7 +63,7 @@ To show the Select All checkbox in the header row you need:
 - Configure the `IntegratedSelection` plugin. Refer the [Selection](selection.md) guide.
 - Set the `showSelectAll` property of the `TableTreeColumn` plugin to true to show Select All checkbox.
 
-.embedded-demo({ "path": "grid-tree-data/select-all", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/select-all", "showThemeSelector": true })
 
 ## Remote Data Loading on Demand
 
@@ -71,4 +71,4 @@ You can handle the Grid's tree data state changes to request nested data from th
 
 Tree data options are updated once an end-user interacts with the UI. Handle option changes using the `TreeDataState` plugin's `onExpandedRowIdsChange` event, and request data from the server using the applied tree data options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 
-.embedded-demo({ "path": "grid-tree-data/remote", "showThemeVariants": true })
+.embedded-demo({ "path": "grid-tree-data/remote", "showThemeSelector": true })

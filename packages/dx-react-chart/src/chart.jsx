@@ -17,8 +17,6 @@ export class Chart extends React.PureComponent {
       <PluginHost>
         <ChartCore
           data={data}
-          width={width}
-          height={height}
           {...restProps}
         />
         <LayoutManager width={width} height={height} />

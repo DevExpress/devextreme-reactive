@@ -1,9 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Getter } from '@devexpress/dx-react-core';
+import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import yoga, { Node } from 'yoga-layout';
 
 const LayoutElement = () => null;
+
+const Root = ({
+  width, height, children, ...restProps
+}) => ((
+  <svg width={width} height={height} {...restProps}>
+    {children}
+  </svg>));
+
+Root.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  children: PropTypes.node,
+};
+
+Root.defaultProps = {
+  children: null,
+};
 
 const createNode = ({ flexGrow, flexDirection } = {}) => {
   const node = Node.create();
@@ -92,7 +109,7 @@ export class LayoutManager extends React.Component {
   }
 
   render() {
-    const { width, height } = this.props;
+    const { width, height, ...restProps } = this.props;
     this.updateNodes(this.rootNode);
 
     const positions = calculatePositions(
@@ -107,6 +124,14 @@ export class LayoutManager extends React.Component {
       <Plugin>
         <Getter name="setBBox" value={this.setBBox} />
         <Getter name="layouts" value={positions} />
+        <Getter name="height" value={height} />
+        <Getter name="width" value={width} />
+        <Template name="root">
+          <Root width={width} height={height} {...restProps}>
+            <TemplatePlaceholder name="axis" />
+            <TemplatePlaceholder name="pane" />
+          </Root>
+        </Template>
       </Plugin>
     );
   }

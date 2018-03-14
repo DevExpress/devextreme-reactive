@@ -24,7 +24,10 @@
   "jest": {
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/css-stub.js"
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/setup-vue.js"
+    ]
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.1.0-beta.3",

@@ -48,7 +48,10 @@ const SortingControlBase = ({
 SortingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
   sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  columnTitle: PropTypes.string.isRequired,
+  columnTitle: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string.isRequired,
+  ]),
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -58,6 +61,7 @@ SortingControlBase.propTypes = {
 SortingControlBase.defaultProps = {
   sortingDirection: undefined,
   disabled: false,
+  columnTitle: '',
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

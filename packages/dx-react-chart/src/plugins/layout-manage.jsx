@@ -136,27 +136,52 @@ LayoutManager.defaultProps = {
                   node.setHeight(bBoxes.root.height);
               }}
     >
-      <LayoutElement name="top" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW} >
+      <LayoutElement name="top" flexDirection={yoga.FLEX_DIRECTION_ROW} >
         <LayoutElement
           name="top-left"
           bBoxHandler={(bBoxes, node) => {
-                  node.setWidth(bBoxes['top-left'] ? bBoxes['top-left'].width : 0);
+                  node.setWidth(bBoxes['center-left'] ? bBoxes['center-left'].width : 0);
+                  node.setHeight(bBoxes['top-center'] ? bBoxes['top-center'].height : 0);
               }}
         />
-        <LayoutElement name="top-right" flexGrow={1} />
+        <LayoutElement name="top-center" flexGrow={1} />
+        <LayoutElement
+          name="top-right"
+          bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes['center-right'] ? bBoxes['center-right'].width : 0);
+                  node.setHeight(bBoxes['top-center'] ? bBoxes['top-center'].height : 0);
+              }}
+        />
       </LayoutElement>
-      <LayoutElement name="bottom" flexDirection={yoga.FLEX_DIRECTION_ROW} >
+      <LayoutElement name="center" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
+        <LayoutElement
+          name="center-left"
+          bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes['center-left'] ? bBoxes['center-left'].width : 0);
+              }}
+        />
+        <LayoutElement name="center-center" flexGrow={1} />
+        <LayoutElement
+          name="center-right"
+          bBoxHandler={(bBoxes, node) => {
+                  node.setWidth(bBoxes['center-right'] ? bBoxes['center-right'].width : 0);
+              }}
+        />
+      </LayoutElement>
+      <LayoutElement name="bottom" flexDirection={yoga.FLEX_DIRECTION_ROW}>
         <LayoutElement
           name="bottom-left"
           bBoxHandler={(bBoxes, node) => {
-                  node.setWidth(bBoxes['top-left'] ? bBoxes['top-left'].width : 0);
+                  node.setWidth(bBoxes['center-left'] ? bBoxes['center-left'].width : 0);
+                  node.setHeight(bBoxes['bottom-center'] ? bBoxes['bottom-center'].height : 0);
               }}
         />
+        <LayoutElement name="bottom-center" flexGrow={1} />
         <LayoutElement
           name="bottom-right"
-          flexGrow={1}
           bBoxHandler={(bBoxes, node) => {
-                  node.setHeight(bBoxes['bottom-right'] ? bBoxes['bottom-right'].height : 0);
+                  node.setWidth(bBoxes['center-right'] ? bBoxes['center-right'].width : 0);
+                  node.setHeight(bBoxes['bottom-center'] ? bBoxes['bottom-center'].height : 0);
               }}
         />
       </LayoutElement>

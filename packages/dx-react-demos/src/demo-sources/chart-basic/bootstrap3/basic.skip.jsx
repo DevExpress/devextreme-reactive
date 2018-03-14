@@ -66,25 +66,36 @@ export default class Demo extends React.PureComponent {
             { valueField: 'USA', argumentField: 'year', axisName: 'born' },
           ]}
       >
-        <Rect placeholder="bottom-left" />
-        <Rect placeholder="bottom-right" color="gray" />
-        <Rect placeholder="top-left" color="red" />
-        <Rect placeholder="top-right" color="green" />
+        <Rect placeholder="top-left" color="palevioletred" />
+        <Rect placeholder="top-center" color="crimson" />
+        <Rect placeholder="top-right" color="indianred" />
 
-        <Axis name="year" placeholder="bottom-right" />
-        <Axis name="born" placeholder="top-left" />
+        <Rect placeholder="center-left" color="lightskyblue" />
+        <Rect placeholder="center-center" color="lightsteelblue" />
+        <Rect placeholder="center-right" color="deepskyblue" />
+
+        <Rect placeholder="bottom-left" color="papayawhip" />
+        <Rect placeholder="bottom-center" color="navajowhite" />
+        <Rect placeholder="bottom-right" color="linen" />
+
+        <Axis name="year" position="bottom" orientation="horizontal" placeholder="bottom-center" />
+        <Axis name="year" placeholder="top-center" />
+        <Axis name="born" placeholder="center-left" />
+        <Axis name="born" placeholder="center-right" />
+        <Axis name="born" placeholder="center-center" />
+        <Axis name="year" placeholder="center-center" />
 
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
-          placeholder="top-right"
+          placeholder="center-center"
         />
         <SplineSeries
           name="China"
           style={{ stroke: 'orange' }}
-          placeholder="top-right"
+          placeholder="center-center"
         />
-        <LineSeries name="USA" placeholder="top-right" />
+        <LineSeries name="USA" placeholder="center-center" />
       </Chart>
     );
   }

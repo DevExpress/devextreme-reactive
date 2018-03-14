@@ -19,5 +19,5 @@
 /site/vue
 
 # Demos
-/packages/dx-react-demos/src/demo-registry.js
-/packages/dx-react-demos/src/**/*.g*
+/packages/*/src/demo-registry.js
+/packages/*/src/**/*.g*

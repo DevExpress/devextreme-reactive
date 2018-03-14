@@ -14,7 +14,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "lint": "eslint \"src/**\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },
   "peerDependencies": {

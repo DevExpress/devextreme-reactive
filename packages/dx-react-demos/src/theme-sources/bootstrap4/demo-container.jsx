@@ -23,8 +23,7 @@ class DemoFrame extends React.PureComponent {
       frameHeight: 600,
     };
 
-    const { themeName, url } = this.props;
-    const { scriptPath } = this.context.embeddedDemoOptions;
+    const { themeName, frameUrl, embeddedDemoOptions: { scriptPath } } = this.props;
     const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     this.markup = `
       <!DOCTYPE html>
@@ -35,7 +34,7 @@ class DemoFrame extends React.PureComponent {
       </head>
       <body>
       <div id="mountPoint"></div>
-      <div class="embedded-demo" data-options='{ "path": "${url}/clean", "frame": true }'>
+      <div class="embedded-demo" data-options='{ "path": "${frameUrl}/clean", "frame": true }'>
         <div style="min-height: 500px;">Loading...</div>
       </div>
       <script src="${scriptPath}"></script>
@@ -55,8 +54,7 @@ class DemoFrame extends React.PureComponent {
     }
   }
   render() {
-    const { themeName, children } = this.props;
-    const { embeddedDemoOptions: { frame } } = this.context;
+    const { themeName, embeddedDemoOptions: { frame }, children } = this.props;
     const { customThemeLink, frameHeight } = this.state;
 
     return (
@@ -113,12 +111,9 @@ class DemoFrame extends React.PureComponent {
 
 DemoFrame.propTypes = {
   themeName: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-DemoFrame.contextTypes = {
   embeddedDemoOptions: PropTypes.object.isRequired,
+  frameUrl: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default props => <DemoFrame {...props} themeName="default" />;

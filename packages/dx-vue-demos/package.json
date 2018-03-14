@@ -15,8 +15,16 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "dependencies": {
+    "@devexpress/dx-demo-shell": "1.1.0-beta.3",
     "@devexpress/dx-vue-core": "1.1.0-beta.3",
     "babel-polyfill": "^6.26.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "prop-types": "^15.6.1",
+    "react-bootstrap": "^0.32.1",
+    "prismjs": "^1.12.2",
     "vue": "^2.5.13"
   },
   "devDependencies": {
@@ -33,6 +41,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jest": "^21.12.1",
     "eslint-plugin-vue": "^4.2.2",
+    "style-loader": "^0.20.2",
     "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.11.0",

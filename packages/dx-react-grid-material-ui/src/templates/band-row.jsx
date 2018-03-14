@@ -6,7 +6,7 @@ import { TableRow as TableRowMUI } from 'material-ui/Table';
 
 const styles = {
   bandRow: {
-    height: '48px',
+    height: 'auto',
   },
 };
 

@@ -56,16 +56,18 @@ export class TableBandRow extends React.PureComponent {
             <TemplateConnector>
               {({ tableColumns }) => {
                 const tableRowLevel = params.tableRow.level;
+                const dataTableColumns = tableColumns.filter(column => column.type === 'data');
                 const currentColumnMeta =
                   getColumnMeta(params.tableColumn.column.name, bandColumns, tableRowLevel);
 
                 if (currentColumnMeta.level <= params.tableRow.level) return <EmptyCell />;
 
                 const currentColumnIndex =
-                  tableColumns.findIndex(tableColumn => tableColumn.key === params.tableColumn.key);
+                dataTableColumns.findIndex(tableColumn =>
+                  tableColumn.key === params.tableColumn.key);
                 if (currentColumnIndex > 0) {
                   const prevColumnMeta = getColumnMeta(
-                      tableColumns[currentColumnIndex - 1].column.name,
+                    dataTableColumns[currentColumnIndex - 1].column.name,
                       bandColumns,
                       tableRowLevel,
                     );
@@ -73,9 +75,9 @@ export class TableBandRow extends React.PureComponent {
                 }
 
                 let colSpan = 1;
-                for (let index = currentColumnIndex + 1; index < tableColumns.length; index += 1) {
+                for (let index = currentColumnIndex + 1; index < dataTableColumns.length; index += 1) {
                   const columnMeta =
-                    getColumnMeta(tableColumns[index].column.name, bandColumns, tableRowLevel);
+                    getColumnMeta(dataTableColumns[index].column.name, bandColumns, tableRowLevel);
                   if (columnMeta.title === currentColumnMeta.title) {
                     colSpan += 1;
                   } else break;

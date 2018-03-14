@@ -12,7 +12,7 @@ export class Rect extends React.PureComponent {
     const { placeholder, color } = this.props;
     return ((
       <Plugin name="Rect">
-        <Template name="axis">
+        <Template name="canvas">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ layouts }) => {

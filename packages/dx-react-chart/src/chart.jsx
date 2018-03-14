@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ChartCore } from './plugins/chart-core';
 import { LayoutManager } from './plugins/layout-manage';
+import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -25,6 +26,7 @@ export class Chart extends React.PureComponent {
           height={height}
           rootComponent={Root}
         />
+        <IntegratedScaleProcessing />
         {children}
       </PluginHost>
     ));

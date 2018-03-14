@@ -64,7 +64,7 @@ export class Axis extends React.PureComponent {
     } = this.props;
     return (
       <Plugin name="Axis">
-        <Template name="axis">
+        <Template name="canvas">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({

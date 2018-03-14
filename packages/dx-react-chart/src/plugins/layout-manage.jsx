@@ -116,8 +116,7 @@ export class LayoutManager extends React.Component {
         <Getter name="width" value={width} />
         <Template name="root">
           <Root width={width} height={height} {...restProps}>
-            <TemplatePlaceholder name="axis" />
-            <TemplatePlaceholder name="pane" />
+            <TemplatePlaceholder name="canvas" />
           </Root>
         </Template>
       </Plugin>

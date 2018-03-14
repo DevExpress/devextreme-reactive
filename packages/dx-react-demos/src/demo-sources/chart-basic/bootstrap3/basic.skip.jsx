@@ -51,20 +51,20 @@ export default class Demo extends React.PureComponent {
         height={400}
         style={{ border: '1px dashed gray' }}
         axes={[
-            {
-               name: 'year',
-               orientation: 'horizontal',
-            },
-            {
-              name: 'born',
-              orientation: 'vertical',
-           },
-          ]}
+          {
+            name: 'year',
+            orientation: 'horizontal',
+          },
+          {
+            name: 'born',
+            orientation: 'vertical',
+          },
+        ]}
         series={[
-            { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
-            { valueField: 'China', argumentField: 'year', axisName: 'born' },
-            { valueField: 'USA', argumentField: 'year', axisName: 'born' },
-          ]}
+          { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
+          { valueField: 'China', argumentField: 'year', axisName: 'born' },
+          { valueField: 'USA', argumentField: 'year', axisName: 'born' },
+        ]}
       >
         <Rect placeholder="bottom-left" />
         <Rect placeholder="bottom-right" color="gray" />

@@ -5,6 +5,6 @@ import Demo from './<%&demoName%>';
 setupConsole();
 
 it('should not fail', () => {
-  expect(() => { mount({ render() { return (<Demo />); } }) })
+  expect(() => { mount({ render() { return (<Demo />); } }); })
     .not.toThrow();
 });

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { Plugin, Getter } from '@devexpress/dx-react-core';
 import yoga, { Node } from '@devexpress/dx-flex-layout';
 
 const LayoutElement = () => null;
@@ -95,8 +95,6 @@ export class LayoutManager extends React.Component {
     const {
       width,
       height,
-      rootComponent: Root,
-      ...restProps
     } = this.props;
     this.updateNodes(this.rootNode);
 
@@ -114,11 +112,6 @@ export class LayoutManager extends React.Component {
         <Getter name="layouts" value={positions} />
         <Getter name="height" value={height} />
         <Getter name="width" value={width} />
-        <Template name="root">
-          <Root width={width} height={height} {...restProps}>
-            <TemplatePlaceholder name="canvas" />
-          </Root>
-        </Template>
       </Plugin>
     );
   }
@@ -127,7 +120,6 @@ export class LayoutManager extends React.Component {
 LayoutManager.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  rootComponent: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

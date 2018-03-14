@@ -19,12 +19,14 @@ export class Chart extends React.PureComponent {
       <PluginHost>
         <ChartCore
           data={data}
+          width={width}
+          height={height}
+          rootComponent={Root}
           {...restProps}
         />
         <LayoutManager
           width={width}
           height={height}
-          rootComponent={Root}
         />
         <IntegratedScaleProcessing />
         {children}

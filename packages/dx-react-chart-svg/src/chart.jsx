@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Chart as ChartBase } from '@devexpress/dx-react-chart';
+import { Root } from './templates/layout';
 
-export const Chart = ({ children, ...props }) => (
+export const Chart = ({ children, ...restProps }) => (
   <ChartBase
-    {...props}
+    rootComponent={Root}
+    {...restProps}
   >
     {children}
   </ChartBase>
@@ -13,4 +15,3 @@ export const Chart = ({ children, ...props }) => (
 Chart.propTypes = {
   children: PropTypes.node.isRequired,
 };
-

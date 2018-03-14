@@ -11,6 +11,7 @@ export class Chart extends React.PureComponent {
       width,
       height,
       children,
+      rootComponent: Root,
       ...restProps
     } = this.props;
     return ((
@@ -19,7 +20,11 @@ export class Chart extends React.PureComponent {
           data={data}
           {...restProps}
         />
-        <LayoutManager width={width} height={height} />
+        <LayoutManager
+          width={width}
+          height={height}
+          rootComponent={Root}
+        />
         {children}
       </PluginHost>
     ));
@@ -27,6 +32,7 @@ export class Chart extends React.PureComponent {
 }
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
+  rootComponent: PropTypes.func.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,

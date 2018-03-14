@@ -5,23 +5,6 @@ import yoga, { Node } from '@devexpress/dx-flex-layout';
 
 const LayoutElement = () => null;
 
-const Root = ({
-  width, height, children, ...restProps
-}) => ((
-  <svg width={width} height={height} {...restProps}>
-    {children}
-  </svg>));
-
-Root.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  children: PropTypes.node,
-};
-
-Root.defaultProps = {
-  children: null,
-};
-
 const createNode = ({ flexGrow, flexDirection } = {}) => {
   const node = Node.create();
   node.setDisplay(yoga.DISPLAY_FLEX);
@@ -109,7 +92,12 @@ export class LayoutManager extends React.Component {
   }
 
   render() {
-    const { width, height, ...restProps } = this.props;
+    const {
+      width,
+      height,
+      rootComponent: Root,
+      ...restProps
+    } = this.props;
     this.updateNodes(this.rootNode);
 
     const positions = calculatePositions(
@@ -140,6 +128,7 @@ export class LayoutManager extends React.Component {
 LayoutManager.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  rootComponent: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

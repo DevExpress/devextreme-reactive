@@ -44,7 +44,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-grid-bootstrap3.npm-tag()
   ```
 
-  Make sure that the [React-Boostrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started/introduction) article for configuration details.
+  Make sure that the [React-Bootstrap](https://react-bootstrap.github.io) dependencies are installed and properly configured. Check the React-Bootstrap's [Getting Started](https://react-bootstrap.github.io/getting-started/introduction) article for configuration details.
 
   NOTE: The DevExtreme React Grid does not include Bootstrap CSS so this needs to be installed as well.
 

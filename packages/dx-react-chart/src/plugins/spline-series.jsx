@@ -26,7 +26,12 @@ const getDAttribute = path =>
 
 export class SplineSeries extends React.PureComponent {
   render() {
-    const { placeholder, name, style } = this.props;
+    const {
+      placeholder,
+      name,
+      rootComponent: Root,
+      ...restProps
+    } = this.props;
     return (
       <Plugin name="SplineSeries">
         <Template name="canvas">
@@ -67,17 +72,14 @@ export class SplineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               );
-              const dAttribute = getDAttribute(path);
+              const d = getDAttribute(path);
               return (
-                <g transform={`translate(${x} ${y})`}>
-                  <path
-                    d={dAttribute}
-                    style={Object.assign(
-                      { stroke: 'black', strokeWidth: '1px', fill: 'none' },
-                      style,
-                    )}
-                  />
-                </g>
+                <Root
+                  x={x}
+                  y={y}
+                  d={d}
+                  {...restProps}
+                />
               );
             }}
           </TemplateConnector>
@@ -90,10 +92,5 @@ export class SplineSeries extends React.PureComponent {
 SplineSeries.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  style: PropTypes.object,
+  rootComponent: PropTypes.func.isRequired,
 };
-
-SplineSeries.defaultProps = {
-  style: null,
-};
-

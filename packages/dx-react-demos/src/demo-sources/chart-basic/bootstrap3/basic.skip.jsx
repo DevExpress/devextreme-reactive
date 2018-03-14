@@ -1,14 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import {
-  LineSeries,
-  SplineSeries,
-  Rect,
-} from '@devexpress/dx-react-chart';
-
+import { Rect } from '@devexpress/dx-react-chart';
 import {
   Chart,
   Axis,
+  LineSeries,
+  SplineSeries,
 } from '@devexpress/dx-react-chart-svg';
 
 const data = [

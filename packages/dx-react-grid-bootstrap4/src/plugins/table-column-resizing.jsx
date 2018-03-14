@@ -4,10 +4,10 @@ import { TableColumnResizing as TableColumnResizingBase } from '@devexpress/dx-r
 
 export class TableColumnResizing extends React.PureComponent {
   render() {
-    const { minColumnWidth } = this.props;
+    const { minColumnWidth, ...restProps } = this.props;
     return (
       <TableColumnResizingBase
-        {...this.props}
+        {...restProps}
         minColumnWidth={minColumnWidth}
       />
     );

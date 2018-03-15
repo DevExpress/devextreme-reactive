@@ -4,18 +4,18 @@ import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeN
 import { generateRows } from '../../../demo-data/generator';
 
 const rows = generateRows({ length: 5 });
-const columns: Array<Column> = [
+const columns: Column[] = [
   { name: 'name', title: 'Name' },
   { name: 'sex', title: 'Sex' },
   { name: 'city', title: 'City' },
   { name: 'car', title: 'Car' },
 ];
-const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
+const tableColumnExtensions: TableBase.ColumnExtension[] = [
   { columnName: 'sex', width: 100 },
 ];
 
-export default class Demo extends React.Component {
-  render() {
+export default class Demo extends React.Component<object, object> {
+  public render(): React.ReactNode {
     return (
       <<%&wrapperTag%>>
         <Grid

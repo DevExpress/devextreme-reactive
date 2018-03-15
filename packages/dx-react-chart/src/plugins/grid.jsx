@@ -43,10 +43,9 @@ export class Grid extends React.PureComponent {
                 <Root x={x} y={y}>
                   {gridCoords().map(({
                       x1, x2, y1, y2,
-                    }, i) => (
+                    }) => (
                       <Line
-                        t // eslint-disable-next-line react/no-array-index-key
-                        key={i}
+                        key={x1 + x2 + y1 + y2}
                         x1={x1}
                         x2={x2}
                         y1={y1}

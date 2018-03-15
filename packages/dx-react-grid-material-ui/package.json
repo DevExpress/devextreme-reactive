@@ -62,12 +62,12 @@
     "core-js": "^2.5.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "eslint": "^4.18.1",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jest": "^21.12.2",
+    "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "jest": "^22.4.2",
@@ -81,8 +81,8 @@
     "react-test-renderer": "^16.2.0",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-license": "^0.5.0",
-    "rollup-plugin-node-resolve": "^3.0.3"
+    "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.2.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",

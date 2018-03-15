@@ -1,3 +1,16 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.3...v1.1.0) (2018-03-15)
+
+
+### Bug Fixes
+
+* **grid-core:** repair column reordering after grouping ([#831](https://github.com/DevExpress/devextreme-reactive/issues/831)) ([edf32d0](https://github.com/DevExpress/devextreme-reactive/commit/edf32d0))
+* **react-demos:** get rid of warnings in the Featured Controlled demos ([#821](https://github.com/DevExpress/devextreme-reactive/issues/821)) ([6c24a1b](https://github.com/DevExpress/devextreme-reactive/commit/6c24a1b))
+* **react-grid:** cancel handling of bubbled scroll event in the virtual table ([#829](https://github.com/DevExpress/devextreme-reactive/issues/829)) ([8a9a731](https://github.com/DevExpress/devextreme-reactive/commit/8a9a731)), closes [#805](https://github.com/DevExpress/devextreme-reactive/issues/805)
+* **react-grid-material-ui:** fix sorting in MUI v1.0.0-beta.37 ([#830](https://github.com/DevExpress/devextreme-reactive/issues/830)) ([47ba974](https://github.com/DevExpress/devextreme-reactive/commit/47ba974)), closes [#825](https://github.com/DevExpress/devextreme-reactive/issues/825)
+
+
+
 <a name="1.1.0-beta.3"></a>
 # [1.1.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2018-03-07)
 

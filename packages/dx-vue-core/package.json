@@ -1,6 +1,7 @@
 {
+  "private": true,
   "name": "@devexpress/dx-vue-core",
-  "version": "1.1.0-beta.3",
+  "version": "1.1.0",
   "description": "Core library for DevExtreme Vue Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -20,9 +21,6 @@
     "vue-component"
   ],
   "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "private"
-  },
   "main": "dist/dx-vue-core.umd.js",
   "module": "dist/dx-vue-core.es.js",
   "globalName": "DevExpress.DXVueCore",
@@ -44,8 +42,8 @@
     ]
   },
   "devDependencies": {
+    "@devexpress/dx-testing": "1.1.0",
     "@vue/test-utils": "^1.0.0-beta.12",
-    "@devexpress/dx-testing": "1.1.0-beta.3",
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^22.4.1",
@@ -71,7 +69,7 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.1.0-beta.3"
+    "@devexpress/dx-core": "1.1.0"
   },
   "peerDependencies": {
     "vue": "^2.5.16"

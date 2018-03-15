@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DevExtreme React Grid Bootstrap4 - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="DevExtreme Reactive Components">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <h1 id="devextreme-react-grid-bootstrap4">DevExtreme React Grid Bootstrap4</h1>
+
+<p>A template suite used to render the React Grid’s UI elements based on <a href="http://getbootstrap.com/">Bootstrap 4</a> components.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Install the main dx-react-grid package with its dependencies and Bootstrap 4 templates using the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid @devexpress/dx-react-grid-bootstrap4
+</code></pre>
+</div>
+
+<p>Add the DevExtreme React Grid styles in the root .js file:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="s1">'@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>The DevExtreme React Grid also requires adding the <a href="https://useiconic.com/open">OpenIconic</a> icons to your project.</p>
+
+<p>Add the required modules to your project:</p>
+
+<pre><code class="language-jsx">import {
+  Grid, Table, TableHeaderRow
+} from '@devexpress/dx-react-grid-bootstrap4';
+
+const App = () =&gt; (
+  &lt;Grid
+    rows={[
+      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+    ]}
+    columns={[
+      { name: 'id', title: 'ID' },
+      { name: 'product', title: 'Product' },
+      { name: 'owner', title: 'Owner' },
+    ]}&gt;
+    &lt;Table /&gt;
+    &lt;TableHeaderRow /&gt;
+  &lt;/Grid&gt;
+);
+</code></pre>
+
+<p>Make sure that <a href="https://reactstrap.github.io/">reactstrap</a> dependencies are installed and properly configured. Check the reactstrap’s <a href="https://reactstrap.github.io/">Getting Started</a> article for configuration details.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>The dx-react-grid-bootstrap4 package provides components and plugins that implement Bootstrap 4 rendering for the React Grid. You can use them instead of the ones the React Grid package provides.</p>
+
+<p>See <a href="https://devexpress.github.io/devextreme-reactive/react/grid/demos/">demos</a> for more information.</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>The package exposes components and plugins with injected template components.</p>
+
+<p>Components:</p>
+
+<ul>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/">Grid</a> - the Grid component</li>
+</ul>
+
+<p>Plugins:</p>
+
+<ul>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> - implements the drag-and-drop functionality and visualizes columns that are being dragged</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/">GroupingPanel</a> - renders the Grouping Panel in the Grid’s header</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/column-chooser/">ColumnChooser</a> - allows a user to show and hide grid columns at runtime</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a> - renders the paging panel</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/">Table</a> - renders Grid data as a table</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-resizing/">TableColumnResizing</a> - manages table column widths</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a> - manages the displayed columns’ order</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-visibility/">TableColumnVisibility</a> - manages Grid columns’ visibility</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-column/">TableEditColumn</a> - renders a command column</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a> - renders a row being edited</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a> - renders a filter row</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a> - renders group rows and enables them to expand and collapse</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a> - renders the table’s header row</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a> - renders detail rows</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a> - visualizes table rows’ selection state by rendering selection checkboxes and highlighting the selected rows</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a> - renders the Grid toolbar</li>
+  <li><a href="https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table/">VirtualTable</a> - renders a scrollable table</li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://js.devexpress.com/licensing/">DevExtreme licensing</a>.</p>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

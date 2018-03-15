@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,302 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="tablerowdetail-plugin-reference">TableRowDetail Plugin Reference</h1>
+
+<p>A plugin that renders detail rows.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>contentComponent?</td>
+      <td>ComponentType&lt;<a href="#tablerowdetailcontentprops">TableRowDetail.ContentProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the detail row’s content within the detail cell.</td>
+    </tr>
+    <tr>
+      <td>cellComponent</td>
+      <td>ComponentType&lt;<a href="#tablerowdetailcellprops">TableRowDetail.CellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a detail cell.</td>
+    </tr>
+    <tr>
+      <td>rowComponent</td>
+      <td>ComponentType&lt;<a href="#tablerowdetailrowprops">TableRowDetail.RowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a detail row.</td>
+    </tr>
+    <tr>
+      <td>toggleCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablerowdetailtogglecellprops">TableRowDetail.ToggleCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a cell containing the expand/collapse control.</td>
+    </tr>
+    <tr>
+      <td>toggleColumnWidth</td>
+      <td>number</td>
+      <td> </td>
+      <td>Specifies the width of the column containing expand/collapse controls.</td>
+    </tr>
+    <tr>
+      <td>rowHeight?</td>
+      <td>number</td>
+      <td> </td>
+      <td>Specifies the detail row height.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="tablerowdetailcontentprops">TableRowDetail.ContentProps</h3>
+
+<p>Describes properties passed to a component that renders a detail row’s content.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablerowdetailcellprops">TableRowDetail.CellProps</h3>
+
+<p>Describes properties passed to a component that renders a detail cell.</p>
+
+<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+    <tr>
+      <td>children?</td>
+      <td>ReactNode</td>
+      <td>A detail cell’s child React node.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablerowdetailrowprops">TableRowDetail.RowProps</h3>
+
+<p>Describes properties passed to a component that renders a detail row.</p>
+
+<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablerowdetailtogglecellprops">TableRowDetail.ToggleCellProps</h3>
+
+<p>Describes properties passed to a component that renders a cell containing the expand/collapse control.</p>
+
+<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+    <tr>
+      <td>expanded</td>
+      <td>boolean</td>
+      <td>Specifies whether to expand the detail row.</td>
+    </tr>
+    <tr>
+      <td>onToggle</td>
+      <td>() =&gt; void</td>
+      <td>An event that initiates row expanding or collapsing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TableRowDetail.Cell</td>
+      <td><a href="#tablerowdetailcellprops">TableRowDetail.CellProps</a></td>
+      <td>A component that renders a detail cell.</td>
+    </tr>
+    <tr>
+      <td>TableRowDetail.Row</td>
+      <td><a href="#tablerowdetailrowprops">TableRowDetail.RowProps</a></td>
+      <td>A component that renders a detail row.</td>
+    </tr>
+    <tr>
+      <td>TableRowDetail.ToggleCell</td>
+      <td><a href="#tablerowdetailtogglecellprops">TableRowDetail.ToggleCellProps</a></td>
+      <td>A component that renders a cell containing the expand/collapse control.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you specify additional properties, they are added to the component’s root element.</p>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns.</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Body rows to be rendered.</td>
+    </tr>
+    <tr>
+      <td>expandedDetailRowIds</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Expanded rows IDs.</td>
+    </tr>
+    <tr>
+      <td>toggleDetailRowExpanded</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ rowId }) =&gt; void</td>
+      <td>Expands/collapses the specified row.</td>
+    </tr>
+    <tr>
+      <td>tableCell</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></td>
+      <td>A template that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></td>
+      <td>A template that renders a table row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns, including the detail cell.</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Body rows to be rendered, including detailed rows.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +428,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +519,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +682,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,300 +815,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="tablerowdetail-plugin-reference">TableRowDetail Plugin Reference</h1>
-
-<p>A plugin that renders detail rows.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/row-detail-state/">RowDetailState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>contentComponent</td>
-      <td>ElementType&lt;<a href="#detailcontentprops">DetailContentProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders the detail row’s content within the detail cell.</td>
-    </tr>
-    <tr>
-      <td>cellComponent</td>
-      <td>ElementType&lt;<a href="#tabledetailcellprops">TableDetailCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a detail cell.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ElementType&lt;<a href="#tabledetailrowprops">TableDetailRowProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a detail row.</td>
-    </tr>
-    <tr>
-      <td>toggleCellComponent</td>
-      <td>ElementType&lt;<a href="#tabledetailtogglecellprops">TableDetailToggleCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a cell containing the expand/collapse control.</td>
-    </tr>
-    <tr>
-      <td>toggleColumnWidth</td>
-      <td>number</td>
-      <td> </td>
-      <td>Specifies the width of the column containing expand/collapse controls.</td>
-    </tr>
-    <tr>
-      <td>rowHeight</td>
-      <td>number</td>
-      <td> </td>
-      <td>Specifies the detail row height.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="detailcontentprops">DetailContentProps</h3>
-
-<p>Describes properties passed to a component that renders a detail row’s content.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tabledetailcellprops">TableDetailCellProps</h3>
-
-<p>Describes properties passed to a component that renders a detail cell.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-    <tr>
-      <td>children?</td>
-      <td>ReactElement</td>
-      <td>A detail cell’s child React element.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tabledetailrowprops">TableDetailRowProps</h3>
-
-<p>Describes properties passed to a component that renders a detail row.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">TableRowProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tabledetailtogglecellprops">TableDetailToggleCellProps</h3>
-
-<p>Describes properties passed to a component that renders a cell containing the expand/collapse control.</p>
-
-<p>A value with the <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-    <tr>
-      <td>expanded</td>
-      <td>boolean</td>
-      <td>Specifies whether to expand the detail row.</td>
-    </tr>
-    <tr>
-      <td>onToggle</td>
-      <td>() =&gt; void</td>
-      <td>An event that initiates row expanding or collapsing.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-components">Plugin Components</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Properties</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>TableRowDetail.Cell</td>
-      <td><a href="#tabledetailcellprops">TableDetailCellProps</a></td>
-      <td>A component that renders a detail cell.</td>
-    </tr>
-    <tr>
-      <td>TableRowDetail.Row</td>
-      <td><a href="#tabledetailrowprops">TableDetailRowProps</a></td>
-      <td>A component that renders a detail row.</td>
-    </tr>
-    <tr>
-      <td>TableRowDetail.ToggleCell</td>
-      <td><a href="#tabledetailtogglecellprops">TableDetailToggleCellProps</a></td>
-      <td>A component that renders a cell containing the expand/collaps control.</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>If you specify additional properties, they are added to the component’s root element.</p>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns.</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered.</td>
-    </tr>
-    <tr>
-      <td>expandedDetailRowIds</td>
-      <td>Getter</td>
-      <td>Array&lt;number | string&gt;</td>
-      <td>Expanded rows IDs.</td>
-    </tr>
-    <tr>
-      <td>toggleDetailRowExpanded</td>
-      <td>Action</td>
-      <td>({ rowId }) =&gt; void</td>
-      <td>Expands/collapses the specified row.</td>
-    </tr>
-    <tr>
-      <td>tableCell</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">TableCellProps</a></td>
-      <td>A template that renders a table cell.</td>
-    </tr>
-    <tr>
-      <td>tableRow</td>
-      <td>Template</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">TableRowProps</a></td>
-      <td>A template that renders a table row.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns, including the detail cell.</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered, including detailed rows.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -791,7 +838,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -819,7 +867,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

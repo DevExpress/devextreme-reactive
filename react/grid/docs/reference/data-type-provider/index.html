@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,165 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="datatypeprovider-plugin-reference">DataTypeProvider Plugin Reference</h1>
+
+<p>A plugin that provides the capability to customize formatting options and editors depending on the data type.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<p>none</p>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>for</td>
+      <td>Array&lt;string&gt;</td>
+      <td> </td>
+      <td>The names of columns associated with the specified formatter and editor.</td>
+    </tr>
+    <tr>
+      <td>formatterComponent?</td>
+      <td>ComponentType&lt;<a href="#datatypeprovidervalueformatterprops">DataTypeProvider.ValueFormatterProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders the formatted value.</td>
+    </tr>
+    <tr>
+      <td>editorComponent?</td>
+      <td>ComponentType&lt;<a href="#datatypeprovidervalueeditorprops">DataTypeProvider.ValueEditorProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a custom editor.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="datatypeprovidervalueformatterprops">DataTypeProvider.ValueFormatterProps</h3>
+
+<p>Describes properties passed to a component that renders the formatted value.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column object.</td>
+    </tr>
+    <tr>
+      <td>row?</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>The value to be formatted.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="datatypeprovidervalueeditorprops">DataTypeProvider.ValueEditorProps</h3>
+
+<p>Describes properties passed to a component that renders the value editor.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column object.</td>
+    </tr>
+    <tr>
+      <td>row?</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>Specifies the editor value.</td>
+    </tr>
+    <tr>
+      <td>onValueChange</td>
+      <td>(newValue: any) =&gt; void</td>
+      <td>Handles value changes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<p>none</p>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>valueFormatter</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="#datatypeprovidervalueformatterprops">DataTypeProvider.ValueFormatterProps</a></td>
+      <td>A template that renders the formatted value.</td>
+    </tr>
+    <tr>
+      <td>valueEditor</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="#datatypeprovidervalueeditorprops">DataTypeProvider.ValueEditorProps</a></td>
+      <td>A template that renders the editor.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +291,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +382,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +545,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,165 +678,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="datatypeprovider-plugin-reference">DataTypeProvider Plugin Reference</h1>
-
-<p>A plugin that provides the capability to customize formatting options and editors depending on the data type.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<p>none</p>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>for</td>
-      <td>Array&lt;string&gt;</td>
-      <td> </td>
-      <td>The names of columns associated with the specified formatter and editor.</td>
-    </tr>
-    <tr>
-      <td>formatterComponent</td>
-      <td>ElementType&lt;<a href="#valueformatterprops">ValueFormatterProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders the formatted value.</td>
-    </tr>
-    <tr>
-      <td>editorComponent</td>
-      <td>ElementType&lt;<a href="#valueeditorprops">ValueEditorProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a custom editor.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="valueformatterprops">ValueFormatterProps</h3>
-
-<p>Describes properties passed to a component that renders the formatted value.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A column object.</td>
-    </tr>
-    <tr>
-      <td>row?</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>any</td>
-      <td>The value to be formatted.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="valueeditorprops">ValueEditorProps</h3>
-
-<p>Describes properties passed to a component that renders the value editor.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A column object.</td>
-    </tr>
-    <tr>
-      <td>row?</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>any</td>
-      <td>Specifies the editor value.</td>
-    </tr>
-    <tr>
-      <td>onValueChange</td>
-      <td>(newValue: any) =&gt; void</td>
-      <td>Handles value changes.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<p>none</p>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>valueFormatter</td>
-      <td>Template</td>
-      <td><a href="#valueformatterprops">ValueFormatterProps</a></td>
-      <td>A template that renders the formatted value.</td>
-    </tr>
-    <tr>
-      <td>valueEditor</td>
-      <td>Template</td>
-      <td><a href="#valueeditorprops">ValueEditorProps</a></td>
-      <td>A template that renders the editor.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -656,7 +701,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -684,7 +730,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

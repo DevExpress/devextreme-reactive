@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,67 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="react-grid---plugin-overview">React Grid - Plugin Overview</h1>
+
+<p>Plugins are components that implement particular Grid features. They should be defined within the Grid component.</p>
+
+<h2 id="plugin-order">Plugin Order</h2>
+
+<p>The Grid plugins adhere to the data <a href="https://en.wikipedia.org/wiki/Pipeline_(computing)">piping</a> principle. That is, plugins process Grid data in the same order they are defined in the Grid.</p>
+
+<p>Plugins implementing an interface should be linked before plugins that use it. For example, a data processing plugin is based on some state and should follow the appropriate state plugin. Some visualization plugins extend the <code class="highlighter-rouge">Table</code>’s functionality and should follow it in the code.</p>
+
+<p>NOTE: Refer to the plugin’s reference for information on its dependencies.</p>
+
+<h3 id="data-processing-plugins">Data Processing Plugins</h3>
+
+<p>The data processing plugins’ order is also important because they transform data in the same order they appear. For example, if the <code class="highlighter-rouge">IntegratedPaging</code> plugin precedes the <code class="highlighter-rouge">IntegratedSelection</code>, the ‘Select All’ checkbox selects only the current page’s rows and swapping them around allow selecting rows on all pages. See this rule in action in the following demo:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-selection/select-all-by-page&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072972&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="plugin-types">Plugin Types</h2>
+
+<p>Plugins can be divided into four groups:</p>
+
+<ul>
+  <li><strong>State Management plugins</strong> control a part of the Grid’s state internally or provide properties for external state management (see <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled and uncontrolled modes</a>).</li>
+  <li><strong>Data Processing plugins</strong> transform data passed to the Grid component before rendering.</li>
+  <li><strong>UI plugins</strong> render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid’s state. In some cases, UI plugins can control a part of the Grid state (instead of State Management plugins).</li>
+  <li><strong>Core plugins</strong> are the base building blocks for the first three groups. These plugins can also be used separately in certain scenarios.</li>
+</ul>
+
+<p>Note that the plugins are composable and can be nested into each other.</p>
+
+<p>Refer to the <a href="/devextreme-reactive/react/grid/docs/reference/grid/">Reference</a> to see the complete plugin list.</p>
+
+<h2 id="ui-plugins">UI Plugins</h2>
+
+<p>The Grid’s UI plugins use special components to render the UI. You can implement your component suite or use a predefined one:</p>
+
+<ul>
+  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-material-ui">DevExtreme React Grid for Material UI</a> - renders the Grid’s UI elements based on <a href="http://www.material-ui.com">Material UI</a> components</li>
+  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap4/">DevExtreme React Grid for Bootstrap 4</a> - renders the Grid’s UI elements based on <a href="http://getbootstrap.com/">Bootstrap 4</a> components</li>
+  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap3/">DevExtreme React Grid for Bootstrap 3</a> - renders the Grid’s UI elements based on <a href="https://getbootstrap.com/docs/3.3/">Bootstrap 3</a> components</li>
+</ul>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +193,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +284,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +447,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,54 +580,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="react-grid---plugin-overview">React Grid - Plugin Overview</h1>
-
-<p>The plugins that provide all the Grid’s functionality can be divided into four groups:</p>
-
-<ul>
-  <li><strong>State Management plugins</strong> control a part of the Grid’s state internally or provide properties for external state management (see <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled and uncontrolled modes</a>).</li>
-  <li><strong>Data Processing plugins</strong> transform data passed to the Grid component before rendering.</li>
-  <li><strong>UI plugins</strong> render the transformed data using the current state and configuration. UI plugins can also invoke actions that state management plugins provide to change the Grid’s state. In some cases, UI plugins can control a part of the Grid state by themselves (instead of State Management plugins).</li>
-  <li><strong>Core plugins</strong> are the base building blocks for the first three groups. These plugins can also be used separately in certain scenarios.</li>
-</ul>
-
-<p>Note that the plugins are composable and can be nested into each other.</p>
-
-<p>Refer to the <a href="/devextreme-reactive/react/grid/docs/reference/grid/">Reference</a> to see the complete plugin list.</p>
-
-<h2 id="plugin-order">Plugin Order</h2>
-
-<p>The plugin order is important. Plugins implementing an interface should be linked before the plugin that uses it. For example, a data processing plugin is based on some state, and should follow the appropriate state plugin. Some visualization plugins extend the <code class="highlighter-rouge">Table</code>’s functionality and should follow it in the code. This rule is demonstrated in the following example:</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/filter-row&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725680&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<p>NOTE: Refer to the plugin’s reference for information on its dependencies.</p>
-
-<p>The data processing plugins’ order is also important because they transform data in the same order they appear. For example, if the <code class="highlighter-rouge">IntegratedPaging</code> plugin precedes the <code class="highlighter-rouge">IntegratedFiltering</code>, the Grid filters the current page’s data. Swap the plugins to paginate filtered data.</p>
-
-<h2 id="ui-plugins">UI Plugins</h2>
-
-<p>The Grid’s UI plugins use templates to render the UI. A template is a function that returns a <a href="https://facebook.github.io/react/docs/react-api.html#createelement">ReactElement</a> depending on the argument values. You can implement your templates or use one of the predefined template suites:</p>
-
-<ul>
-  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-bootstrap3/">DevExtreme React Grid for Bootstrap 3</a> - renders the Grid’s UI elements based on the <a href="http://getbootstrap.com/">Bootstrap 3</a> components</li>
-  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-grid-material-ui">DevExtreme React Grid for Material UI</a> - renders the Grid’s UI elements based on the <a href="http://www.material-ui.com">Material UI</a> components</li>
-</ul>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -545,7 +603,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -573,7 +632,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,558 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="table-plugin-reference">Table Plugin Reference</h1>
+
+<p>A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnExtensions?</td>
+      <td>Array&lt;<a href="#tablecolumnextension">Table.ColumnExtension</a>&gt;</td>
+      <td> </td>
+      <td>Additional column properties that the plugin can handle.</td>
+    </tr>
+    <tr>
+      <td>tableComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a table.</td>
+    </tr>
+    <tr>
+      <td>headComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a table head.</td>
+    </tr>
+    <tr>
+      <td>bodyComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a table body.</td>
+    </tr>
+    <tr>
+      <td>containerComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a table’s container.</td>
+    </tr>
+    <tr>
+      <td>cellComponent</td>
+      <td>ComponentType&lt;<a href="#tabledatacellprops">Table.DataCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>rowComponent</td>
+      <td>ComponentType&lt;<a href="#tabledatarowprops">Table.DataRowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a table row.</td>
+    </tr>
+    <tr>
+      <td>noDataCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablenodatacellprops">Table.NoDataCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a table cell when the table is empty.</td>
+    </tr>
+    <tr>
+      <td>noDataRowComponent</td>
+      <td>ComponentType&lt;<a href="#tablerowprops">Table.RowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a table row when the table is empty.</td>
+    </tr>
+    <tr>
+      <td>stubCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablecellprops">Table.CellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a stub table cell if the cell value is not provided.</td>
+    </tr>
+    <tr>
+      <td>stubHeaderCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablecellprops">Table.CellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a stub header cell if the cell value is not provided.</td>
+    </tr>
+    <tr>
+      <td>messages?</td>
+      <td><a href="#localization-messages">Table.LocalizationMessages</a></td>
+      <td> </td>
+      <td>An object that specifies the localization messages.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="tablecolumnextension">Table.ColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of the column to extend.</td>
+    </tr>
+    <tr>
+      <td>width?</td>
+      <td>number</td>
+      <td>The table column width in pixels.</td>
+    </tr>
+    <tr>
+      <td>align?</td>
+      <td>‘left’ | ‘right’ | ‘center’</td>
+      <td>The table column alignment.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablerow">TableRow</h3>
+
+<p>Describes properties of a table row that the Table plugin renders.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>key</td>
+      <td>string</td>
+      <td>A unique table row identifier.</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>string</td>
+      <td>Specifies the table row type. The specified value defines which cell template is used to render the row.</td>
+    </tr>
+    <tr>
+      <td>rowId?</td>
+      <td>number | string</td>
+      <td>Specifies the associated row’s ID.</td>
+    </tr>
+    <tr>
+      <td>row?</td>
+      <td>any</td>
+      <td>Specifies the associated row.</td>
+    </tr>
+    <tr>
+      <td>height?</td>
+      <td>number</td>
+      <td>Specifies the table row height.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablecolumn">TableColumn</h3>
+
+<p>Describes properties of a table column that the Table plugin renders.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>key</td>
+      <td>string</td>
+      <td>A unique table column identifier.</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>string</td>
+      <td>Specifies the table column type. The specified value defines which cell template is used to render the column.</td>
+    </tr>
+    <tr>
+      <td>column?</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>Specifies the associated user column.</td>
+    </tr>
+    <tr>
+      <td>width?</td>
+      <td>number</td>
+      <td>Specifies the table column width.</td>
+    </tr>
+    <tr>
+      <td>align?</td>
+      <td>‘left’ | ‘right’ | ‘center’</td>
+      <td>Specifies the table’s column alignment.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablecellprops">Table.CellProps</h3>
+
+<p>Describes properties passed to a component that renders a generic table cell.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="#tablerow">TableRow</a></td>
+      <td>Specifies a table row.</td>
+    </tr>
+    <tr>
+      <td>tableColumn</td>
+      <td><a href="#tablecolumn">TableColumn</a></td>
+      <td>Specifies a table column.</td>
+    </tr>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Styles that should be applied to the root cell element.</td>
+    </tr>
+    <tr>
+      <td>colSpan?</td>
+      <td>number</td>
+      <td>The count of columns that the root cell element spans.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tabledatacellprops">Table.DataCellProps</h3>
+
+<p>Describes properties passed to a component that renders a table cell.</p>
+
+<p>Extends <a href="#tablecellprops">Table.CellProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>Specifies a value to be rendered within the cell.</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>Specifies the cell’s row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>Specifies the cell’s column.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablenodatacellprops">Table.NoDataCellProps</h3>
+
+<p>Describes properties passed to a component that renders a table cell when the table is empty.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>Returns the text displayed in a cell when a table is empty.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablerowprops">Table.RowProps</h3>
+
+<p>Describes properties passed to a component that renders a generic table row.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="#tablerow">TableRow</a></td>
+      <td>A table row.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node used to render a table row.</td>
+    </tr>
+    <tr>
+      <td>style?</td>
+      <td>Object</td>
+      <td>Styles that should be applied to the root row element.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tabledatarowprops">Table.DataRowProps</h3>
+
+<p>Describes properties passed to a component that renders a table row.</p>
+
+<p>Extends <a href="#tablerowprops">Table.RowProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>A row.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="localization-messages">Localization Messages</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>noData?</td>
+      <td>string</td>
+      <td>‘No data’</td>
+      <td>Specifies text shown when the Grid does not contain data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table.Table</td>
+      <td>object</td>
+      <td>A component that renders a table.</td>
+    </tr>
+    <tr>
+      <td>Table.TableHead</td>
+      <td>object</td>
+      <td>A component that renders a table head.</td>
+    </tr>
+    <tr>
+      <td>Table.TableBody</td>
+      <td>object</td>
+      <td>A component that renders a table body.</td>
+    </tr>
+    <tr>
+      <td>Table.Container</td>
+      <td>object</td>
+      <td>A component that renders a table’s container.</td>
+    </tr>
+    <tr>
+      <td>Table.Cell</td>
+      <td><a href="#tabledatacellprops">Table.DataCellProps</a></td>
+      <td>A component that renders a table data cell.</td>
+    </tr>
+    <tr>
+      <td>Table.Row</td>
+      <td><a href="#tabledatarowprops">Table.DataRowProps</a></td>
+      <td>A component that renders a table data row.</td>
+    </tr>
+    <tr>
+      <td>Table.NoDataCell</td>
+      <td><a href="#tablecellprops">Table.CellProps</a></td>
+      <td>A component that renders a table cell when the table is empty.</td>
+    </tr>
+    <tr>
+      <td>Table.NoDataRow</td>
+      <td><a href="#tablerowprops">Table.RowProps</a></td>
+      <td>A component that renders a table row when the table is empty.</td>
+    </tr>
+    <tr>
+      <td>Table.StubCell</td>
+      <td><a href="#tablecellprops">Table.CellProps</a></td>
+      <td>A component that renders a stub table cell.</td>
+    </tr>
+    <tr>
+      <td>Table.StubHeaderCell</td>
+      <td><a href="#tablecellprops">Table.CellProps</a></td>
+      <td>A component that renders a stub table header cell.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additional properties are added to the component’s root element.</p>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;any&gt;</td>
+      <td>Rows to be rendered by the table view.</td>
+    </tr>
+    <tr>
+      <td>columns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
+      <td>Columns to be rendered by the table view.</td>
+    </tr>
+    <tr>
+      <td>getRowId</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any) =&gt; number | string</td>
+      <td>A function used to get a unique row identifier.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get a cell’s value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableHeaderRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
+      <td>Header rows to be rendered.</td>
+    </tr>
+    <tr>
+      <td>tableBodyRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
+      <td>Body rows to be rendered.</td>
+    </tr>
+    <tr>
+      <td>tableColumns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Columns to be rendered.</td>
+    </tr>
+    <tr>
+      <td>table</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td>Object?</td>
+      <td>A template that renders the table.</td>
+    </tr>
+    <tr>
+      <td>tableCell</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="#tablecellprops">Table.CellProps</a></td>
+      <td>A template that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="#tablerowprops">Table.RowProps</a></td>
+      <td>A template that renders a table row.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +684,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +775,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +938,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,522 +1071,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="table-plugin-reference">Table Plugin Reference</h1>
-
-<p>A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> [Optional]</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnExtensions</td>
-      <td>Array&lt;<a href="#tablecolumnextension">TableColumnExtension</a>&gt;</td>
-      <td> </td>
-      <td>Additional column properties that the plugin can handle.</td>
-    </tr>
-    <tr>
-      <td>cellComponent</td>
-      <td>ElementType&lt;<a href="#tabledatacellprops">TableDataCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a table cell.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ElementType&lt;<a href="#tabledatarowprops">TableDataRowProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a table row.</td>
-    </tr>
-    <tr>
-      <td>noDataCellComponent</td>
-      <td>ElementType&lt;<a href="#tablenodatacellprops">TableNoDataCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a table cell when the table is empty.</td>
-    </tr>
-    <tr>
-      <td>noDataRowComponent</td>
-      <td>ElementType&lt;<a href="#tablerowprops">TableRowProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a table row when the table is empty.</td>
-    </tr>
-    <tr>
-      <td>stubCellComponent</td>
-      <td>ElementType&lt;<a href="#tablecellprops">TableCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a stub table cell if the cell value is not provided.</td>
-    </tr>
-    <tr>
-      <td>stubHeaderCellComponent</td>
-      <td>ElementType&lt;<a href="#tablecellprops">TableCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a stub header cell if the cell value is not provided.</td>
-    </tr>
-    <tr>
-      <td>messages</td>
-      <td>object</td>
-      <td> </td>
-      <td>An object that specifies the <a href="#localization-messages">localization messages</a>.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="tablecolumnextension">TableColumnExtension</h3>
-
-<p>Describes additional column properties that the plugin can handle.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnName</td>
-      <td>string</td>
-      <td>The name of the column to extend.</td>
-    </tr>
-    <tr>
-      <td>width?</td>
-      <td>number</td>
-      <td>The table column width in pixels.</td>
-    </tr>
-    <tr>
-      <td>align?</td>
-      <td>‘left’ | ‘right’</td>
-      <td>The table column alignment.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablerow">TableRow</h3>
-
-<p>Describes properties of a table row that the Table plugin renders.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>key</td>
-      <td>string</td>
-      <td>A unique table row identifier.</td>
-    </tr>
-    <tr>
-      <td>type</td>
-      <td>string</td>
-      <td>Specifies the table row type. The specified value defines which cell template is used to render the row.</td>
-    </tr>
-    <tr>
-      <td>rowId?</td>
-      <td>number | string</td>
-      <td>Specifies the associated row’s ID.</td>
-    </tr>
-    <tr>
-      <td>row?</td>
-      <td>any</td>
-      <td>Specifies the associated row.</td>
-    </tr>
-    <tr>
-      <td>height?</td>
-      <td>number</td>
-      <td>Specifies the table row height.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablecolumn">TableColumn</h3>
-
-<p>Describes properties of a table column that the Table plugin renders.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>key</td>
-      <td>string</td>
-      <td>A unique table column identifier.</td>
-    </tr>
-    <tr>
-      <td>type</td>
-      <td>string</td>
-      <td>Specifies the table column type. The specified value defines which cell template is used to render the column.</td>
-    </tr>
-    <tr>
-      <td>column?</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>Specifies the associated user column.</td>
-    </tr>
-    <tr>
-      <td>width?</td>
-      <td>number</td>
-      <td>Specifies the table column width.</td>
-    </tr>
-    <tr>
-      <td>align?</td>
-      <td>‘left’ | ‘right’</td>
-      <td>Specifies the table’s column alignment.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablecellprops">TableCellProps</h3>
-
-<p>Describes properties passed to a component that renders a generic table cell.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableRow</td>
-      <td><a href="#tablerow">TableRow</a></td>
-      <td>Specifies a table row.</td>
-    </tr>
-    <tr>
-      <td>tableColumn</td>
-      <td><a href="#tablecolumn">TableColumn</a></td>
-      <td>Specifies a table column.</td>
-    </tr>
-    <tr>
-      <td>style?</td>
-      <td>Object</td>
-      <td>Styles that should be applied to the root cell element.</td>
-    </tr>
-    <tr>
-      <td>colSpan?</td>
-      <td>number</td>
-      <td>The count of columns that the root cell element spans.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tabledatacellprops">TableDataCellProps</h3>
-
-<p>Describes properties passed to a component that renders a table cell.</p>
-
-<p>A value with the <a href="#tablecellprops">TableCellProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>value</td>
-      <td>any</td>
-      <td>Specifies a value to be rendered within the cell.</td>
-    </tr>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>Specifies the cell’s row.</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>Specifies the cell’s column.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablenodatacellprops">TableNoDataCellProps</h3>
-
-<p>Describes properties passed to a component that renders a table cell when the table is empty.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>getMessage</td>
-      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
-      <td>Returns the text displayed in a cell when a table is empty.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablerowprops">TableRowProps</h3>
-
-<p>Describes properties passed to a component that renders a generic table row.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableRow</td>
-      <td><a href="#tablerow">TableRow</a></td>
-      <td>A table row.</td>
-    </tr>
-    <tr>
-      <td>children</td>
-      <td>ReactElement</td>
-      <td>A React element used to render a table row.</td>
-    </tr>
-    <tr>
-      <td>style?</td>
-      <td>Object</td>
-      <td>Styles that should be applied to the root row element.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tabledatarowprops">TableDataRowProps</h3>
-
-<p>Describes properties passed to a component that renders a table row.</p>
-
-<p>A value with the <a href="#tablerowprops">TableRowProps</a> shape extended by the following fields:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td>any</td>
-      <td>A row.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="localization-messages">Localization Messages</h2>
-
-<p>An object with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>noData?</td>
-      <td>string</td>
-      <td>‘No data’</td>
-      <td>Specifies text shown when the Grid does not contain data.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-components">Plugin Components</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Properties</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Table.Cell</td>
-      <td><a href="#tabledatacellprops">TableDataCellProps</a></td>
-      <td>A component that renders a table data cell.</td>
-    </tr>
-    <tr>
-      <td>Table.Row</td>
-      <td><a href="#tabledatarowprops">TableDataRowProps</a></td>
-      <td>A component that renders a table data row.</td>
-    </tr>
-    <tr>
-      <td>Table.NoDataCell</td>
-      <td><a href="#tablecellprops">TableCellProps</a></td>
-      <td>A component that renders a table cell when the table is empty.</td>
-    </tr>
-    <tr>
-      <td>Table.NoDataRow</td>
-      <td><a href="#tablerowprops">TableRowProps</a></td>
-      <td>A component that renders a table row when the table is empty.</td>
-    </tr>
-    <tr>
-      <td>Table.StubCell</td>
-      <td><a href="#tablecellprops">TableCellProps</a></td>
-      <td>A component that renders a stub table cell.</td>
-    </tr>
-    <tr>
-      <td>Table.StubHeaderCell</td>
-      <td><a href="#tablecellprops">TableCellProps</a></td>
-      <td>A component that renders a stub table header cell.</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>If you specify additional properties, they are added to the component’s root element.</p>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>rows</td>
-      <td>Getter</td>
-      <td>Array&lt;any&gt;</td>
-      <td>Rows to be rendered by the table view.</td>
-    </tr>
-    <tr>
-      <td>columns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
-      <td>Columns to be rendered by the table view.</td>
-    </tr>
-    <tr>
-      <td>getRowId</td>
-      <td>Getter</td>
-      <td>(row: any) =&gt; number | string</td>
-      <td>A function used to get a unique row identifier.</td>
-    </tr>
-    <tr>
-      <td>getCellValue</td>
-      <td>Getter</td>
-      <td>(row: any, columnName: string) =&gt; any</td>
-      <td>A function used to get a cell’s value.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableHeaderRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
-      <td>Header rows to be rendered.</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="#tablerow">TableRow</a>&gt;</td>
-      <td>Body rows to be rendered.</td>
-    </tr>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Columns to be rendered.</td>
-    </tr>
-    <tr>
-      <td>table</td>
-      <td>Template</td>
-      <td>Object?</td>
-      <td>A template that renders the table.</td>
-    </tr>
-    <tr>
-      <td>tableCell</td>
-      <td>Template</td>
-      <td><a href="#tablecellprops">TableCellProps</a></td>
-      <td>A template that renders a table cell.</td>
-    </tr>
-    <tr>
-      <td>tableRow</td>
-      <td>Template</td>
-      <td><a href="#tablerowprops">TableRowProps</a></td>
-      <td>A template that renders a table row.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -1013,7 +1094,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -1041,7 +1123,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

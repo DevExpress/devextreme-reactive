@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,149 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="integratedsorting-plugin-reference">IntegratedSorting Plugin Reference</h1>
+
+<p>A plugin that performs built-in data sorting.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnExtensions?</td>
+      <td>Array&lt;<a href="#integratedsortingcolumnextension">IntegratedSorting.ColumnExtension</a>&gt;</td>
+      <td> </td>
+      <td>Additional column properties that the plugin can handle.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="integratedsortingcolumnextension">IntegratedSorting.ColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of a column to extend.</td>
+    </tr>
+    <tr>
+      <td>compare?</td>
+      <td>(a: any, b: any) =&gt; number</td>
+      <td>A sort compare function. See the <a href="/devextreme-reactive/react/grid/docs/guides/sorting/#custom-sorting-algorithm">Sorting guide</a> for more information.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;any&gt;</td>
+      <td>Rows to be sorted.</td>
+    </tr>
+    <tr>
+      <td>sorting</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/#sorting">Sorting</a>&gt;</td>
+      <td>Column sorting to be applied.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>The function used to get a cell value.</td>
+    </tr>
+    <tr>
+      <td>isGroupRow?</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any) =&gt; boolean</td>
+      <td>A function used to identify a group row within ordinary rows.</td>
+    </tr>
+    <tr>
+      <td>getRowLevelKey?</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(row: any) =&gt; string?</td>
+      <td>A function used to get row level key.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>rows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;any&gt;</td>
+      <td>Rows with the applied sorting.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +275,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +366,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +529,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,147 +662,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="integratedsorting-plugin-reference">IntegratedSorting Plugin Reference</h1>
-
-<p>A plugin that performs built-in data sorting.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnExtensions</td>
-      <td>Array&lt;<a href="#integratedsortingcolumnextension">IntegratedSortingColumnExtension</a>&gt;</td>
-      <td> </td>
-      <td>Additional column properties that the plugin can handle.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="integratedsortingcolumnextension">IntegratedSortingColumnExtension</h3>
-
-<p>Describes additional column properties that the plugin can handle.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnName</td>
-      <td>string</td>
-      <td>The name of a column to extend.</td>
-    </tr>
-    <tr>
-      <td>compare?</td>
-      <td>(a: any, b: any) =&gt; number</td>
-      <td>A sort compare function. See the <a href="/devextreme-reactive/react/grid/docs/guides/sorting/#custom-sorting-algorithm">Sorting guide</a> for more information.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>rows</td>
-      <td>Getter</td>
-      <td>Array&lt;any&gt;</td>
-      <td>Rows to be sorted.</td>
-    </tr>
-    <tr>
-      <td>sorting</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/#sorting">Sorting</a>&gt;</td>
-      <td>Column sorting to be applied.</td>
-    </tr>
-    <tr>
-      <td>getCellValue</td>
-      <td>Getter</td>
-      <td>(row: any, columnName: string) =&gt; any</td>
-      <td>The function used to get a cell value.</td>
-    </tr>
-    <tr>
-      <td>isGroupRow?</td>
-      <td>Getter</td>
-      <td>(row: any) =&gt; boolean</td>
-      <td>A function used to identify a group row within ordinary rows.</td>
-    </tr>
-    <tr>
-      <td>getRowLevelKey?</td>
-      <td>Getter</td>
-      <td>(row: any) =&gt; string?</td>
-      <td>A function used to get row level key.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>rows</td>
-      <td>Getter</td>
-      <td>Array&lt;any&gt;</td>
-      <td>Rows with the applied sorting.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -638,7 +685,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -666,7 +714,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

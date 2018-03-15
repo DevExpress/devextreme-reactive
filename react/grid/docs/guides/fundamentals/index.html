@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,77 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="react-grid---fundamentals">React Grid - Fundamentals</h1>
+
+<p>The Grid component displays data specified via the <code class="highlighter-rouge">rows</code> property. You should also specify the <code class="highlighter-rouge">columns</code> property to define for which row fields the grid creates columns.</p>
+
+<p>The Grid requires the following plugins for basic data visualization:</p>
+
+<ul>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a>
+Renders a data table.</p>
+  </li>
+  <li>
+    <p><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>
+Renders the table’s header row.</p>
+  </li>
+</ul>
+
+<p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin should follow the <code class="highlighter-rouge">Table</code> plugin. See the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">Plugin Order</a> article for more details.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="appearance-customization">Appearance Customization</h2>
+
+<p>The Grid’s visualization plugins provide a rich API to customize grid elements’ appearance. Examples of the most popular customization tasks are described below.</p>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin allows you to customize the appearance of the table, table head and table body using the plugin’s <code class="highlighter-rouge">tableComponent</code>, <code class="highlighter-rouge">headComponent</code>, <code class="highlighter-rouge">bodyComponent</code> and <code class="highlighter-rouge">containerComponent</code> <a href="/devextreme-reactive/react/grid/docs/reference/table/#properties">properties</a>. The following example demonstrated how to use the <code class="highlighter-rouge">tableComponent</code> and create a ‘striped’ table:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin also allows you to customize table cell appearance using the <code class="highlighter-rouge">cellComponent</code> property. For instance, you can implement conditional cell formatting as demonstrated in the following example:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-cell-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">rowComponent</code> property enables you to handle row events like <code class="highlighter-rouge">onClick</code>, <code class="highlighter-rouge">onContextMenu</code>, etc., as demonstrated in the following demo:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-row-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>You can create a custom appearance from scratch or modify the default appearance settings the grid’s <code class="highlighter-rouge">Table.Row</code> component provides. Read <a href="/devextreme-reactive/react/grid/docs/reference/table/#plugin-components">Plugin Components</a> for details.</p>
+
+<p>Other plugins (<a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a> and <a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a>) have a similar APIs for appearance customization.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +203,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +294,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +457,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,65 +590,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="react-grid---fundamentals">React Grid - Fundamentals</h1>
-
-<p>The Grid component displays data specified via the <code class="highlighter-rouge">rows</code> property. You should also specify the <code class="highlighter-rouge">columns</code> property to define for which row fields the grid creates columns.</p>
-
-<p>The Grid requires the following plugins for basic data visualization:</p>
-
-<ul>
-  <li>
-    <p><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a>
-Renders a data table.</p>
-  </li>
-  <li>
-    <p><a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>
-Renders the table’s header row.</p>
-  </li>
-</ul>
-
-<p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin should follow the <code class="highlighter-rouge">Table</code> plugin. See the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">Plugin Order</a> article for more details.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/basic&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725669&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h2 id="appearance-customization">Appearance Customization</h2>
-
-<p>The Grid’s visualization plugins provide a rich API to customize grid elements’ appearance. Examples of the most popular customization tasks are described below.</p>
-
-<p>The <code class="highlighter-rouge">Table</code> plugin allows you to customize table cell appearance using the <code class="highlighter-rouge">cellComponent</code> property. For instance, you can implement conditional cell formatting as demonstrated in the following example:</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-cell-template&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725669&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<p>The <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">rowComponent</code> property enables you to handle row events like <code class="highlighter-rouge">onClick</code>, <code class="highlighter-rouge">onContextMenu</code>, etc., as demonstrated in the following demo:</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-row-template&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725669&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<p>You can create a custom appearance from scratch or modify the default appearance settings the grid’s <code class="highlighter-rouge">Table.Row</code> component provides. Read <a href="/devextreme-reactive/react/grid/docs/reference/table/#plugin-components">Plugin Components</a> for details.</p>
-
-<p>Other plugins (<a href="/devextreme-reactive/react/grid/docs/reference/table-header-row/">TableHeaderRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-edit-row/">TableEditRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a>, <a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a> and <a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a>) have a similar API for appearance customization.</p>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -556,7 +613,8 @@ Renders the table’s header row.</p>
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -584,7 +642,7 @@ Renders the table’s header row.</p>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

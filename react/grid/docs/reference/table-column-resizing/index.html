@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,161 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="tablecolumnresizing-plugin-reference">TableColumnResizing Plugin Reference</h1>
+
+<p>A plugin that manages table column widths.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnWidths?</td>
+      <td>Array&lt;<a href="#tablecolumnwidthinfo">TableColumnWidthInfo</a>&gt;</td>
+      <td> </td>
+      <td>Specifies column widths.</td>
+    </tr>
+    <tr>
+      <td>defaultColumnWidths?</td>
+      <td>Array&lt;<a href="#tablecolumnwidthinfo">TableColumnWidthInfo</a>&gt;</td>
+      <td>[]</td>
+      <td>Specifies initial column widths in uncontrolled mode.</td>
+    </tr>
+    <tr>
+      <td>onColumnWidthsChange?</td>
+      <td>(nextColumnWidths: { [columnName: string]: number }) =&gt; void</td>
+      <td> </td>
+      <td>Handles column width changes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="tablecolumnwidthinfo">TableColumnWidthInfo</h3>
+
+<p>Describes an object that specifies a column width.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>A column name.</td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>number</td>
+      <td>A column width.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns whose width the plugin manages.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableColumns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
+      <td>Table columns with new width values applied.</td>
+    </tr>
+    <tr>
+      <td>tableColumnResizingEnabled</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>boolean</td>
+      <td>Specifies whether table column resizing is enabled.</td>
+    </tr>
+    <tr>
+      <td>changeTableColumnWidth</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.</td>
+    </tr>
+    <tr>
+      <td>draftTableColumnWidth</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, shift: number }) =&gt; void</td>
+      <td>Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.</td>
+    </tr>
+    <tr>
+      <td>cancelTableColumnWidthDraft</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>() =&gt; void</td>
+      <td>Cancels changes to the column width used for preview.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +287,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +378,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +541,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,159 +674,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="tablecolumnresizing-plugin-reference">TableColumnResizing Plugin Reference</h1>
-
-<p>A plugin that manages table column widths.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnWidths</td>
-      <td>Array&lt;<a href="#ColumnWidthInfo">ColumnWidthInfo</a>&gt;</td>
-      <td> </td>
-      <td>Specifies column widths.</td>
-    </tr>
-    <tr>
-      <td>defaultColumnWidths</td>
-      <td>Array&lt;<a href="#ColumnWidthInfo">ColumnWidthInfo</a>&gt;</td>
-      <td>[]</td>
-      <td>Specifies initial column widths in uncontrolled mode.</td>
-    </tr>
-    <tr>
-      <td>onColumnWidthsChange</td>
-      <td>(nextColumnWidths: { [columnName: string]: number }) =&gt; void</td>
-      <td> </td>
-      <td>Handles column width changes.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="columnwidthinfo">ColumnWidthInfo</h3>
-
-<p>Describes an object that specifies a column width.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnName</td>
-      <td>string</td>
-      <td>A column name.</td>
-    </tr>
-    <tr>
-      <td>width</td>
-      <td>number</td>
-      <td>A column width.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns whose width the plugin manages.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns with new width values applied.</td>
-    </tr>
-    <tr>
-      <td>tableColumnResizingEnabled</td>
-      <td>Getter</td>
-      <td>boolean</td>
-      <td>Specifies whether table column resizing is enabled.</td>
-    </tr>
-    <tr>
-      <td>changeTableColumnWidth</td>
-      <td>Action</td>
-      <td>({ columnName: string, shift: number }) =&gt; void</td>
-      <td>Changes the specified column width. The column width is increased by the corresponding shift value, or decreased if the value is negative.</td>
-    </tr>
-    <tr>
-      <td>draftTableColumnWidth</td>
-      <td>Action</td>
-      <td>({ columnName: string, shift: number }) =&gt; void</td>
-      <td>Changes the specified column width used for preview. The column width is increased by the corresponding shift value, or decreased if the value is less than zero.</td>
-    </tr>
-    <tr>
-      <td>cancelTableColumnWidthDraft</td>
-      <td>Action</td>
-      <td>() =&gt; void</td>
-      <td>Cancels changes to the column width used for preview.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -650,7 +697,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -678,7 +726,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

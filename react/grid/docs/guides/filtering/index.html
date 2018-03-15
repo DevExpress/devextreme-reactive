@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,108 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="react-grid---filtering">React Grid - Filtering</h1>
+
+<p>The Grid component supports filtering data by a column value programmatically or using the value an end user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.</p>
+
+<h2 id="related-plugins">Related Plugins</h2>
+
+<p>The following plugins implement filtering features:</p>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a> - controls the filtering state</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a> - performs built-in data filtering</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a> - renders a filter row</li>
+</ul>
+
+<p>Note that <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
+
+<h2 id="basic-setup">Basic Setup</h2>
+
+<p>Import the plugins listed above to set up a Grid with basic filtering.</p>
+
+<h2 id="uncontrolled-mode">Uncontrolled Mode</h2>
+
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial filtering conditions in the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">defaultFilters</code> property.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="controlled-mode">Controlled Mode</h2>
+
+<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the filtering options to the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">filters</code> property and handle the <code class="highlighter-rouge">onFiltersChange</code> event to control the filtering state externally.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="using-custom-filtering-algorithms"><a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms</h2>
+
+<p>You can also specify a filtering predicate using the <code class="highlighter-rouge">IntegratedFiltering</code> plugin’s <code class="highlighter-rouge">columnExtenstions</code> property to implement custom filtering logic for specific columns.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filtering-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="disable-filtering-by-a-column">Disable Filtering by a Column</h2>
+
+<p>You can prevent filtering by a specific column using the <a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/disable-column-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="remote-filtering">Remote Filtering</h2>
+
+<p>It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.</p>
+
+<p>Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">onFiltersChange</code> event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+
+<p>Note that you do not need to use the <code class="highlighter-rouge">IntegratedFiltering</code> plugin for remote filtering.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/remote-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="customizing-filter-row-appearance">Customizing Filter Row Appearance</h2>
+
+<p>Pass a function that returns a custom component to the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property to substitute the built-in filter row editors. In this case, delegate the component’s state management to the <code class="highlighter-rouge">TableFilterRow</code> plugin by assigning the function’s <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">onFilter</code> arguments to the appropriate component’s properties.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116072969&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="using-filtering-with-other-data-processing-plugins">Using Filtering with Other Data Processing Plugins</h2>
+
+<p>The order in which the plugins appear in the Grid’s container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +234,14 @@
 
           
           <li>Filtering</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +325,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +488,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,94 +621,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="react-grid---filtering">React Grid - Filtering</h1>
-
-<p>The Grid component supports filtering data by a column value programmatically or using the value an end-user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.</p>
-
-<h2 id="related-plugins">Related Plugins</h2>
-
-<p>The following plugins implement filtering features:</p>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/filtering-state/">FilteringState</a> - controls the filtering state</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a> - performs built-in data filtering</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-filter-row/">TableFilterRow</a> - renders a filter row</li>
-</ul>
-
-<p>Note that <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
-
-<h2 id="basic-setup">Basic Setup</h2>
-
-<p>Import the plugins listed above to set up a Grid with basic filtering.</p>
-
-<h3 id="uncontrolled-mode">Uncontrolled Mode</h3>
-
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial filtering conditions in the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">defaultFilters</code> property.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/filter-row&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725660&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h3 id="controlled-mode">Controlled Mode</h3>
-
-<p>In the <a href="/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the filtering options to the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">filters</code> property and handle the <code class="highlighter-rouge">onFiltersChange</code> event to control the filtering state externally.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/controlled-mode&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725660&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h3 id="using-custom-filtering-algorithms"><a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms</h3>
-
-<p>You can also specify a filtering predicate using the <code class="highlighter-rouge">IntegratedFiltering</code> plugin’s <code class="highlighter-rouge">columnExtenstions</code> property to implement custom filtering logic for specific columns.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filtering-algorithm&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725660&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h2 id="remote-filtering">Remote Filtering</h2>
-
-<p>It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.</p>
-
-<p>Filtering options are updated once an end-user modifies a text within a Filter Row editor or other filtering control. Handle filtering option changes using the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">onFiltersChange</code> event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
-
-<p>Note that in the case of remote filtering, you do not need to use the <code class="highlighter-rouge">IntegratedFiltering</code> plugin.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/remote-filtering&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725660&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h2 id="customizing-filter-row-appearance">Customizing Filter Row Appearance</h2>
-
-<p>Pass a function that returns a custom component to the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property to substitute the built-in filter row editors. In this case, you should also delegate the component’s state management to the <code class="highlighter-rouge">TableFilterRow</code> plugin assigning the function’s <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">onFilter</code> arguments to the appropriate component’s properties.</p>
-
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filter-row&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981725660&quot;}">
-          <div class="loading-shading">
-            <span class="glyphicon glyphicon-refresh loading-icon"></span>
-          </div>
-        </div>
-
-<h2 id="using-filtering-with-other-data-processing-plugins">Using Filtering with Other Data Processing Plugins</h2>
-
-<p>The order in which the plugins appear in the Grid’s container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -585,7 +644,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -613,7 +673,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,353 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="groupingpanel-plugin-reference">GroupingPanel Plugin Reference</h1>
+
+<p>A plugin that renders the Grouping Panel in the Grid’s header. This panel displays grouped columns and allows a user to modify grouping options.</p>
+
+<p>Optionally, the plugin allows an end-user to change grouped columns’ sorting order and render sorting indicators.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showSortingControls?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render controls that toggle the column’s sorting state. Requires the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> dependency.</td>
+    </tr>
+    <tr>
+      <td>showGroupingControls?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether column headers display a button that cancels grouping by that column.</td>
+    </tr>
+    <tr>
+      <td>containerComponent</td>
+      <td>ComponentType&lt;<a href="#groupingpanelcontainerprops">GroupingPanel.ContainerProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group panel container.</td>
+    </tr>
+    <tr>
+      <td>itemComponent</td>
+      <td>ComponentType&lt;<a href="#groupingpanelitemprops">GroupingPanel.ItemProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group panel item.</td>
+    </tr>
+    <tr>
+      <td>emptyMessageComponent</td>
+      <td>ComponentType&lt;<a href="#groupingpanelemptymessageprops">GroupingPanel.EmptyMessageProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders an empty group panel message.</td>
+    </tr>
+    <tr>
+      <td>messages?</td>
+      <td><a href="#localization-messages">GroupingPanel.LocalizationMessages</a></td>
+      <td> </td>
+      <td>An object that specifies the localization messages.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="groupingpanelitem">GroupingPanelItem</h3>
+
+<p>Describes the grouping panel item properties.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column associated with the item.</td>
+    </tr>
+    <tr>
+      <td>draft?</td>
+      <td>string</td>
+      <td>The item preview mode. Contains the “add”, “remove” or “reorder” value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="groupingpanelcontainerprops">GroupingPanel.ContainerProps</h3>
+
+<p>Describes properties passed to a component that renders a group panel container.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>children?</td>
+      <td>ReactNode</td>
+      <td>A React node to be placed in the root layout.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="groupingpanelitemprops">GroupingPanel.ItemProps</h3>
+
+<p>Describes properties passed to a group panel item template when it is being rendered.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>item</td>
+      <td><a href="#groupingpanelitem">GroupingPanelItem</a></td>
+      <td>The Grouping Panel item.</td>
+    </tr>
+    <tr>
+      <td>showGroupingControls</td>
+      <td>boolean</td>
+      <td>Specifies whether to display a button that cancels grouping by column.</td>
+    </tr>
+    <tr>
+      <td>showSortingControls</td>
+      <td>boolean</td>
+      <td>Specifies whether to render controls that toggle the column’s sorting state.</td>
+    </tr>
+    <tr>
+      <td>groupingEnabled</td>
+      <td>boolean</td>
+      <td>Specifies whether grouping by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>sortingEnabled</td>
+      <td>boolean</td>
+      <td>Specifies whether sorting by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>sortingDirection?</td>
+      <td>‘asc’ | ‘desc’</td>
+      <td>Specifies the sorting direction.</td>
+    </tr>
+    <tr>
+      <td>onSort</td>
+      <td>(parameters: { direction?: ‘asc’ | ‘desc’ | null }) =&gt; void</td>
+      <td>An event that initiates changing the column sorting direction. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
+    </tr>
+    <tr>
+      <td>onGroup</td>
+      <td>() =&gt; void</td>
+      <td>An event that initiates grouping by column.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="groupingpanelemptymessageprops">GroupingPanel.EmptyMessageProps</h3>
+
+<p>Describes properties passed to a component that renders an empty group panel message.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>Returns the text displayed in the group panel if grid data is not grouped.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="localization-messages">Localization Messages</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>groupByColumn?</td>
+      <td>string</td>
+      <td>‘Drag a column header here to group by that column’</td>
+      <td>The text displayed in the group panel if the grid is not grouped.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GroupingPanel.Container</td>
+      <td><a href="#groupingpanelcontainerprops">GroupingPanel.ContainerProps</a></td>
+      <td>A component that renders a grouping panel container.</td>
+    </tr>
+    <tr>
+      <td>GroupingPanel.Item</td>
+      <td><a href="#groupingpanelitemprops">GroupingPanel.ItemProps</a></td>
+      <td>A component that renders a grouping panel item.</td>
+    </tr>
+    <tr>
+      <td>GroupingPanel.EmptyMessage</td>
+      <td><a href="#groupingpanelemptymessageprops">GroupingPanel.EmptyMessageProps</a></td>
+      <td>A component that renders an empty grouping panel message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additional properties are added to the component’s root element.</p>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columns</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
+      <td>Grid columns.</td>
+    </tr>
+    <tr>
+      <td>draftGrouping</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#draft-grouping">DraftGrouping</a>&gt;</td>
+      <td>Grouping options used for the preview.</td>
+    </tr>
+    <tr>
+      <td>changeColumnGrouping</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
+      <td>Groups data by a specified column or cancels grouping. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the last position.</td>
+    </tr>
+    <tr>
+      <td>draftColumnGrouping</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
+      <td>Sets or clears grouping options used for the preview. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the last position.</td>
+    </tr>
+    <tr>
+      <td>cancelColumnGroupingDraft</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>() =&gt; void</td>
+      <td>Cancels changes to the column grouping options used for the preview.</td>
+    </tr>
+    <tr>
+      <td>sorting</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/#sorting">Sorting</a>&gt;</td>
+      <td>The current sorting state.</td>
+    </tr>
+    <tr>
+      <td>changeColumnSorting</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean | Array&lt;String&gt;, sortIndex: number }) =&gt; void</td>
+      <td>Changes the column sorting direction. <code class="highlighter-rouge">keepOther</code> accepts <code class="highlighter-rouge">true</code> (keeps existing sorting), a column name array (keeps sorting by specified columns) and <code class="highlighter-rouge">false</code> (resets sorting). Set <code class="highlighter-rouge">direction</code> to <code class="highlighter-rouge">null</code> to cancel sorting by the current column.</td>
+    </tr>
+    <tr>
+      <td>isColumnSortingEnabled</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(columnName: string) =&gt; boolean</td>
+      <td>A function that returns a Boolean value that defines if sorting by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>isColumnGroupingEnabled</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(columnName: string) =&gt; boolean</td>
+      <td>A function that returns a Boolean value that defines if grouping by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>draggingEnabled</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>boolean</td>
+      <td>Specifies whether drag-and-drop is enabled.</td>
+    </tr>
+    <tr>
+      <td>toolbarContent</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td>Object?</td>
+      <td>A template that renders the toolbar content.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<p>none</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +479,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +570,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +733,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,335 +866,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="groupingpanel-plugin-reference">GroupingPanel Plugin Reference</h1>
-
-<p>A plugin that renders the Grouping Panel in the Grid’s header. This panel displays grouped columns and allows a user to modify grouping options.</p>
-
-<p>Optionally, the plugin allows an end-user to change grouped columns’ sorting order and render sorting indicators.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> [Optional]</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/">DragDropProvider</a> [Optional]</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
-</ul>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>showSortingControls</td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>Specifies whether to render controls that toggle the column’s sorting state. Requires the <a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a> dependency.</td>
-    </tr>
-    <tr>
-      <td>showGroupingControls</td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>Specifies whether column headers display a button that cancels grouping by that column.</td>
-    </tr>
-    <tr>
-      <td>containerComponent</td>
-      <td>ElementType&lt;<a href="#groupingpanelcontainerprops">GroupingPanelContainerProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group panel container.</td>
-    </tr>
-    <tr>
-      <td>itemComponent</td>
-      <td>ElementType&lt;<a href="#groupingpanelitemprops">GroupingPanelItemProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group panel item.</td>
-    </tr>
-    <tr>
-      <td>emptyMessageComponent</td>
-      <td>ElementType&lt;<a href="#groupingpanelemptymessageprops">GroupingPanelEmptyMessageProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders an empty group panel message.</td>
-    </tr>
-    <tr>
-      <td>messages</td>
-      <td>object</td>
-      <td> </td>
-      <td>An object that specifies the <a href="#localization-messages">localization messages</a>.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="groupingpanelitem">GroupingPanelItem</h3>
-
-<p>Describes grouping panel item properties.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A column associated with the item.</td>
-    </tr>
-    <tr>
-      <td>draft?</td>
-      <td>string</td>
-      <td>The item preview mode. Contains the “add”, “remove” or “reorder” value.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="groupingpanelcontainerprops">GroupingPanelContainerProps</h3>
-
-<p>Describes properties passed to a component that renders a group panel container.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>children?</td>
-      <td>ReactElement</td>
-      <td>A React element to be placed in the root layout.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="groupingpanelitemprops">GroupingPanelItemProps</h3>
-
-<p>Describes properties passed to a group panel item template when it is being rendered.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>item</td>
-      <td><a href="#groupingpanelitem">GroupingPanelItem</a></td>
-      <td>The Grouping Panel item.</td>
-    </tr>
-    <tr>
-      <td>showGroupingControls</td>
-      <td>boolean</td>
-      <td>Specifies whether to display a button that cancels grouping by column.</td>
-    </tr>
-    <tr>
-      <td>showSortingControls</td>
-      <td>boolean</td>
-      <td>Specifies whether to render controls that toggle the column’s sorting state.</td>
-    </tr>
-    <tr>
-      <td>sortingDirection?</td>
-      <td>‘asc’ | ‘desc’</td>
-      <td>Specifies the sorting direction.</td>
-    </tr>
-    <tr>
-      <td>onSort</td>
-      <td>({ direction?: ‘asc’ | ‘desc’ | null }) =&gt; void</td>
-      <td>An event that initiates changing the column sorting direction. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
-    </tr>
-    <tr>
-      <td>onGroup</td>
-      <td>() =&gt; void</td>
-      <td>An event that initiates grouping by column.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="groupingpanelemptymessageprops">GroupingPanelEmptyMessageProps</h3>
-
-<p>Describes properties passed to a component that renders an empty group panel message.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>getMessage</td>
-      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
-      <td>Returns the text displayed in the group panel if grid data is not grouped.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="localization-messages">Localization Messages</h2>
-
-<p>An object with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>groupByColumn?</td>
-      <td>string</td>
-      <td>‘Drag a column header here to group by that column’</td>
-      <td>The text displayed in the group panel if the grid is not grouped.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-components">Plugin Components</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Properties</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GroupingPanel.Container</td>
-      <td><a href="#groupingpanelcontainerprops">GroupingPanelContainerProps</a></td>
-      <td>A component that renders a grouping panel container.</td>
-    </tr>
-    <tr>
-      <td>GroupingPanel.Item</td>
-      <td><a href="#groupingpanelitemprops">GroupingPanelItemProps</a></td>
-      <td>A component that renders a grouping panel item.</td>
-    </tr>
-    <tr>
-      <td>GroupingPanel.EmptyMessage</td>
-      <td><a href="#groupingpanelemptymessageprops">GroupingPanelEmptyMessageProps</a></td>
-      <td>A component that renders an empty grouping panel message.</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>If you specify additional properties, they are added to the component’s root element.</p>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columns</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a>&gt;</td>
-      <td>Grid columns.</td>
-    </tr>
-    <tr>
-      <td>draftGrouping</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#draft-grouping">DraftGrouping</a>&gt;</td>
-      <td>Grouping options used for the preview.</td>
-    </tr>
-    <tr>
-      <td>changeColumnGrouping</td>
-      <td>Action</td>
-      <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
-      <td>Groups data by a specified column or cancels grouping. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the last position.</td>
-    </tr>
-    <tr>
-      <td>draftColumnGrouping</td>
-      <td>Action</td>
-      <td>({ columnName: string, groupIndex?: number }) =&gt; void</td>
-      <td>Sets or clears grouping options used for the preview. If <code class="highlighter-rouge">groupIndex</code> is omitted, the group is added to the last position.</td>
-    </tr>
-    <tr>
-      <td>cancelColumnGroupingDraft</td>
-      <td>Action</td>
-      <td>() =&gt; void</td>
-      <td>Cancels changes to the column grouping options used for the preview.</td>
-    </tr>
-    <tr>
-      <td>sorting</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/#sorting">Sorting</a>&gt;</td>
-      <td>The current sorting state.</td>
-    </tr>
-    <tr>
-      <td>changeColumnSorting</td>
-      <td>Action</td>
-      <td>({ columnName: string, direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean | Array&lt;String&gt;, sortIndex: number }) =&gt; void</td>
-      <td>Changes the column sorting direction. <code class="highlighter-rouge">keepOther</code> accepts <code class="highlighter-rouge">true</code> (keeps existing sorting), a column name array (keeps sorting by specified columns) and <code class="highlighter-rouge">false</code> (resets sorting). Set <code class="highlighter-rouge">direction</code> to <code class="highlighter-rouge">null</code> to cancel sorting by the current column.</td>
-    </tr>
-    <tr>
-      <td>draggingEnabled</td>
-      <td>Getter</td>
-      <td>boolean</td>
-      <td>Specifies whether drag-and-drop is enabled.</td>
-    </tr>
-    <tr>
-      <td>toolbarContent</td>
-      <td>Template</td>
-      <td>Object?</td>
-      <td>A template that renders the toolbar content.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="exports">Exports</h3>
-
-<p>none</p>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -826,7 +889,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -854,7 +918,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1519981728">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1519981728">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1521116077">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1521116077">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -48,7 +48,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,191 @@
 
     <div class="container docs-container">
   <div class="row">
-    <div class="col-md-3 main-menu">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="filteringstate-plugin-reference">FilteringState Plugin Reference</h1>
+
+<p>A plugin that manages the filtering state.</p>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<p>none</p>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>filters?</td>
+      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
+      <td> </td>
+      <td>Specifies the applied filters.</td>
+    </tr>
+    <tr>
+      <td>defaultFilters?</td>
+      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
+      <td>[]</td>
+      <td>Specifies the filters initially applied in the uncontrolled mode.</td>
+    </tr>
+    <tr>
+      <td>onFiltersChange?</td>
+      <td>(filters: Array&lt;<a href="#filter">Filter</a>&gt;) =&gt; void</td>
+      <td> </td>
+      <td>Handles filter changes.</td>
+    </tr>
+    <tr>
+      <td>columnFilteringEnabled?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>Specifies whether filtering is enabled for all columns.</td>
+    </tr>
+    <tr>
+      <td>columnExtensions?</td>
+      <td>Array&lt;<a href="#filteringstatecolumnextension">FilteringState.ColumnExtension</a>&gt;</td>
+      <td> </td>
+      <td>Additional column properties that the plugin can handle.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="filter">Filter</h3>
+
+<p>Describes a filter.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>Specifies the name of a column whose value is used for filtering.</td>
+    </tr>
+    <tr>
+      <td>value?</td>
+      <td>string</td>
+      <td>Specifies the filter value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="filteringstatecolumnextension">FilteringState.ColumnExtension</h3>
+
+<p>Describes additional column properties that the plugin can handle.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnName</td>
+      <td>string</td>
+      <td>The name of a column to extend.</td>
+    </tr>
+    <tr>
+      <td>filteringEnabled</td>
+      <td>boolean</td>
+      <td>Specifies whether filtering is enabled for a column.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>filters</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
+      <td>The applied filter</td>
+    </tr>
+    <tr>
+      <td>filterExpression</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/#filterexpression">FilterExpression</a>|<a href="#filter">Filter</a></td>
+      <td>The applied filter expressions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>filterExpression</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/integrated-filtering/#filterexpression">FilterExpression</a>|<a href="#filter">Filter</a></td>
+      <td>The applied filter expressions.</td>
+    </tr>
+    <tr>
+      <td>isColumnFilteringEnabled</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(columnName: string) =&gt; boolean</td>
+      <td>A function used to define if filtering by a column is enabled.</td>
+    </tr>
+    <tr>
+      <td>changeColumnFilter</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ columnName: string, config: Object }) =&gt; void</td>
+      <td>Adds, changes or removes a filter. Pass <code class="highlighter-rouge">null</code> to the <code class="highlighter-rouge">config</code> argument to remove the specified column’s filter.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.0">
+            Version
+            <span>1.1.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
       
         <h3>Guides</h3>
 
@@ -132,6 +317,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/searching/">Searching</a></li>
           
 
         
@@ -215,8 +408,15 @@
           
 
         
-        </ul>
+          
+          
 
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+        </ul>
       
         <h3>API Reference</h3>
 
@@ -371,6 +571,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-panel/">SearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/search-state/">SearchState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/selection-state/">SelectionState</a></li>
           
 
@@ -488,122 +704,20 @@
 
         
         </ul>
-
       
-    </div>
-
-    <div class="col-md-9 docs-content">
-        <h1 id="filteringstate-plugin-reference">FilteringState Plugin Reference</h1>
-
-<p>A plugin that manages the filtering state.</p>
-
-<h2 id="user-reference">User Reference</h2>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<p>none</p>
-
-<h3 id="properties">Properties</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>filters</td>
-      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
-      <td> </td>
-      <td>Specifies the currently applied filters.</td>
-    </tr>
-    <tr>
-      <td>defaultFilters</td>
-      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
-      <td>[]</td>
-      <td>Specifies the filters initially applied in the uncontrolled mode.</td>
-    </tr>
-    <tr>
-      <td>onFiltersChange</td>
-      <td>(filters: Array&lt;<a href="#filter">Filter</a>&gt;) =&gt; void</td>
-      <td> </td>
-      <td>Handles filter changes.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="filter">Filter</h3>
-
-<p>Describes a filter.</p>
-
-<p>A value with the following shape:</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnName</td>
-      <td>string</td>
-      <td>Specifies the name of a column whose value is used for filtering.</td>
-    </tr>
-    <tr>
-      <td>value?</td>
-      <td>string</td>
-      <td>Specifies the filter value.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
-
-<h3 id="imports">Imports</h3>
-
-<p>none</p>
-
-<h3 id="exports">Exports</h3>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>filters</td>
-      <td>Getter</td>
-      <td>Array&lt;<a href="#filter">Filter</a>&gt;</td>
-      <td>The currently applied filters.</td>
-    </tr>
-    <tr>
-      <td>changeColumnFilter</td>
-      <td>Action</td>
-      <td>({ columnName: string, config: Object }) =&gt; void</td>
-      <td>Adds, changes or removes a filter. Pass <code class="highlighter-rouge">null</code> to the <code class="highlighter-rouge">config</code> argument to remove the filter associated with the specified column.</td>
-    </tr>
-  </tbody>
-</table>
-
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          
+          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
+          
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1519981728"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1521116077"></script>
 
 
     <footer>
@@ -613,7 +727,8 @@
                     <ul class="list-inline">
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://github.com/DevExpress/devextreme-reactive">GitHub</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9 copyright">
@@ -641,7 +756,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1519981728"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1521116077"></script>
     <script>
         trackingCookie.check();
     </script>

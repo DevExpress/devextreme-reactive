@@ -10,18 +10,46 @@ import {
 
 import { calculateAxisCoords } from '@devexpress/dx-chart-core';
 
-const createRefsHandler = (placeholder, setBBox) => (el) => {
-  if (!el) {
-    return;
-  }
-  const bBox = el.getBBox();
-  setBBox(placeholder, bBox);
-};
+const getPlaceholder = (orientation, position) =>
+  (orientation === 'horizontal' ? `${position}-center` : `center-${position}`);
 
-export class Axis extends React.PureComponent {
+const isEqual = (firstBBox, secondBBox) =>
+  firstBBox.width === secondBBox.width && firstBBox.height === secondBBox.height;
+
+export class Axis extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // eslint-disable-next-line react/no-unused-state
+      bBox: { x: 0, y: 0 },
+      correctionX: 0,
+      correctionY: 0,
+    };
+    this.createRefsHandler = this.createRefsHandler.bind(this);
+  }
+  createRefsHandler(placeholder, setBBox) {
+    return (el) => {
+      if (!el) {
+        return;
+      }
+      const bBox = el.getBBox();
+      this.setState((prevState, { orientation }) => {
+        if (!(isEqual(prevState.bBox, bBox))) {
+          setBBox(placeholder, bBox);
+          return {
+            bBox,
+            correctionX: orientation === 'horizontal' ? 0 : bBox.x,
+            correctionY: orientation === 'horizontal' ? bBox.y : 0,
+          };
+        }
+        return null;
+      });
+    };
+  }
   render() {
     const {
-      placeholder,
+      orientation,
+      position,
       name,
       rootComponent: Root,
       tickComponent: Tick,
@@ -33,22 +61,29 @@ export class Axis extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                   domains, axes, setBBox, layouts,
+                   domains, setBBox, layouts,
                }) => {
+                 const placeholder = getPlaceholder(orientation, position);
                  const {
                     x, y, width, height,
-                } = layouts[placeholder];
+              } = layouts[placeholder];
 
-                const refsHandler = createRefsHandler(placeholder, setBBox);
+                const refsHandler = this.createRefsHandler(placeholder, setBBox);
                 const domain = domains[name];
-                const { orientation } = axes.find(axis => axis.name === name);
 
-                const axesCoords = calculateAxisCoords(domain, orientation, width, height);
+                const axesCoords = calculateAxisCoords(
+                  domain,
+                  orientation,
+                  position,
+                  width,
+                  height,
+                );
+
 
                 return ((
-                  <Root refsHandler={refsHandler} x={x} y={y}>
+                  <Root refsHandler={position !== 'center' ? refsHandler : () => {}} x={x - this.state.correctionX} y={y - this.state.correctionY}>
                     {axesCoords.ticks.map(({
-                      text, x1, x2, y1, y2, xText, yText,
+                      text, x1, x2, y1, y2, xText, yText, alignmentBaseline, textAnchor,
                     }) => (
                       <React.Fragment key={text}>
                         <Tick
@@ -61,6 +96,8 @@ export class Axis extends React.PureComponent {
                           text={text}
                           x={xText}
                           y={yText}
+                          alignmentBaseline={alignmentBaseline}
+                          textAnchor={textAnchor}
                         />
                       </React.Fragment>
                     ))}
@@ -75,8 +112,9 @@ export class Axis extends React.PureComponent {
 
 Axis.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
+  position: PropTypes.string.isRequired,
+  orientation: PropTypes.string.isRequired,
 };

@@ -9,12 +9,18 @@ describe('Label', () => {
         x={1}
         y={2}
         text="a"
+        alignmentBaseline="middle"
+        textAnchor="end"
       />
     ));
 
-    const { x, y } = tree.find('text').props();
+    const {
+      x, y, alignmentBaseline, textAnchor,
+    } = tree.find('text').props();
     expect(x).toBe(1);
     expect(y).toBe(2);
+    expect(alignmentBaseline).toBe('middle');
+    expect(textAnchor).toBe('end');
     expect(tree.text()).toBe('a');
   });
 });

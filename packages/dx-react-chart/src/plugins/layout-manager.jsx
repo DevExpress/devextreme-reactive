@@ -29,9 +29,6 @@ const calculatePositions = (bBoxes, rootNode, width, height, nodes) => {
     ({ ...positions, [name]: getAbsoluteNodePosition(node) }), {});
 };
 
-const isEqual = (firstBBox, secondBBox) =>
-  firstBBox.width === secondBBox.width && firstBBox.height === secondBBox.height;
-
 export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
@@ -52,12 +49,7 @@ export class LayoutManager extends React.Component {
   }
 
   setBBox(name, bBox) {
-    this.setState((prevState) => {
-      if (!(prevState.bBoxes[name] && isEqual(prevState.bBoxes[name], bBox))) {
-        return { bBoxes: { ...prevState.bBoxes, [name]: bBox } };
-      }
-      return null;
-    });
+    this.setState(prevState => ({ bBoxes: { ...prevState.bBoxes, [name]: bBox } }));
   }
 
   createNodes(children) {

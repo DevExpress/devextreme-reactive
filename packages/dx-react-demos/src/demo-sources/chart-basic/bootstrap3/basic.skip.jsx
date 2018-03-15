@@ -67,12 +67,11 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
-        <Axis name="year" position="bottom" orientation="horizontal" placeholder="bottom-center" />
-        {/* <Axis name="year" placeholder="top-center" /> */}
-        <Axis name="born" placeholder="center-left" />
-        {/* <Axis name="born" placeholder="center-right" /> */}
-        {/* <Axis name="born" placeholder="center-center" /> */}
-        {/* <Axis name="year" placeholder="center-center" /> */}
+        <Axis name="year" position="bottom" orientation="horizontal" />
+        <Axis name="year" position="top" orientation="horizontal" />
+        {/* <Axis name="born" position="left" orientation="vertical" /> */}
+        {/* <Axis name="born" position="right" orientation="vertical" /> */}
+
         <Grid name="born" orientation="horizontal" placeholder="center-center" />
 
         <LineSeries

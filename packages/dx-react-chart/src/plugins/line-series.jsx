@@ -40,7 +40,6 @@ export class LineSeries extends React.PureComponent {
               series,
               domains,
               data,
-              axes,
               argumentAxisName,
               layouts,
             }) => {
@@ -49,7 +48,6 @@ export class LineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               } = series.find(seriesItem => seriesItem.valueField === name);
-              const { orientation } = axes.find(axis => axis.name === domainName);
               const domain = domains[domainName];
               const {
                 x, y,
@@ -58,9 +56,8 @@ export class LineSeries extends React.PureComponent {
 
               const yScale = scaleLinear()
                 .domain(domain)
-                .range(orientation === 'horizontal'
-                    ? [x, width + x]
-                    : [height, 0]);
+                .range([height, 0]);
+
               const xDomain = domains[argumentAxisName];
               const xScale = scaleLinear()
                 .domain(xDomain)

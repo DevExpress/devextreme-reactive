@@ -11,7 +11,7 @@ import {
 import {
   Grid,
   Table,
-  TableBandRow,
+  TableGroupHeader,
   TableHeaderRow,
   TableGroupRow,
   GroupingPanel,
@@ -201,7 +201,9 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <SelectionState />
+          <SortingState />
           <GroupingState />
+          <IntegratedSorting />
           <IntegratedGrouping />
           <EditingState
             onCommitChanges={() => undefined}
@@ -211,14 +213,22 @@ export default class Demo extends React.PureComponent {
           <DragDropProvider />
           <Table />
           <TableColumnReordering defaultOrder={this.state.columns.map(column => column.name)} />
-
-          <TableHeaderRow showGroupingControls  />
-          <TableBandRow
+          <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+          <TableHeaderRow showGroupingControls showSortingControls />
+          <TableEditRow />
+          <TableEditColumn
+            showAddCommand
+            showEditCommand
+            showDeleteCommand
+          />
+          <TableColumnVisibility />
+          <TableSelection showSelectAll />
+          <TableGroupRow />
+          <TableGroupHeader
             bandColumns={bands}
           />
-          <TableEditRow />
-          <TableGroupRow />
           <Toolbar />
+          <ColumnChooser />
           <GroupingPanel showGroupingControls  />
         </Grid>
       </<%&wrapperTag%>>

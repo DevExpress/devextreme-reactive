@@ -6,7 +6,7 @@ import {
   getColumnMeta,
 } from './helpers';
 
-describe('TableBandRow Plugin helpers', () => {
+describe('TableGroupHeader Plugin helpers', () => {
   describe('#isHeadingTableCell', () => {
     it('should work', () => {
       expect(isBandedTableCell({ type: TABLE_BAND_TYPE }, { type: TABLE_DATA_TYPE }))

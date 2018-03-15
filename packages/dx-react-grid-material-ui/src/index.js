@@ -10,7 +10,7 @@ export { Table } from './plugins/table';
 export { VirtualTable } from './plugins/virtual-table';
 export { TableFilterRow } from './plugins/table-filter-row';
 export { TableHeaderRow } from './plugins/table-header-row';
-export { TableBandRow } from './plugins/table-band-row';
+export { TableGroupHeader } from './plugins/table-group-header';
 export { TableEditColumn } from './plugins/table-edit-column';
 export { TableEditRow } from './plugins/table-edit-row';
 export { TableColumnVisibility } from './plugins/table-column-visibility';

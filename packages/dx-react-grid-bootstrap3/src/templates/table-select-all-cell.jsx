@@ -17,7 +17,7 @@ export const TableSelectAllCell = ({
     <th
       style={{
         cursor: !disabled && 'pointer',
-        verticalAlign: 'middle',
+        verticalAlign: 'bottom',
         ...style,
       }}
       onClick={toggle}

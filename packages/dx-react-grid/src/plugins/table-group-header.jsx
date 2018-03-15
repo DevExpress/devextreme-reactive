@@ -4,14 +4,13 @@ import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from
 import {
   getColumnMeta,
   isBandedTableRow,
-  isBandedTableCell,
   tableRowsWithBands,
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
-export class TableBandRow extends React.PureComponent {
+export class TableGroupHeader extends React.PureComponent {
   render() {
     const {
       showSortingControls,
@@ -19,8 +18,6 @@ export class TableBandRow extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
-      emptyCellComponent: EmptyCell,
-      stubCellComponent: StubCell,
       bandColumns,
     } = this.props;
 
@@ -29,7 +26,7 @@ export class TableBandRow extends React.PureComponent {
 
     return (
       <Plugin
-        name="TableBandRow"
+        name="TableGroupHeader"
         dependencies={[
           { name: 'Table' },
           { name: 'SortingState', optional: !showSortingControls },
@@ -38,36 +35,64 @@ export class TableBandRow extends React.PureComponent {
           { name: 'TableColumnResizing', optional: true },
         ]}
       >
-        <Getter
-          name="tableHeaderRows"
-          computed={tableHeaderRowsComputed}
-        />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
         <Template name="tableCell" predicate={({ tableRow }) => isBandedTableRow(tableRow)}>
-          {params => (
-            <StubCell {...params} />
-          )}
+          {() => null}
         </Template>
+
         <Template
           name="tableCell"
-          predicate={({ tableColumn, tableRow }) => isBandedTableCell(tableRow, tableColumn)}
+          predicate={({ tableColumn, tableRow }) => isBandedTableRow(tableRow) || (tableRow.type === 'heading' && tableColumn.type !== 'data') || tableRow.type === 'heading'}
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns }) => {
+              {({ tableColumns, tableHeaderRows }) => {
+                if (params.skip === true) return <TemplatePlaceholder />;
+
+                const maxLevel = tableHeaderRows.filter(column => column.type === 'band').length + 1;
+                if (params.tableColumn.type !== 'data') {
+                  if (params.tableRow.level === 0) {
+                    return (
+                      <TemplatePlaceholder
+                        name="tableCell"
+                        params={{
+                          ...params,
+                          tableRow: { ...tableHeaderRows.find(row => row.type === 'heading'), level: 0 },
+                          rowSpan: maxLevel,
+                          skip: true,
+                        }}
+                      />
+                    );
+                  } return null;
+                }
                 const tableRowLevel = params.tableRow.level;
                 const dataTableColumns = tableColumns.filter(column => column.type === 'data');
                 const currentColumnMeta =
                   getColumnMeta(params.tableColumn.column.name, bandColumns, tableRowLevel);
 
-                if (currentColumnMeta.level <= params.tableRow.level) return <EmptyCell />;
+                const rowLevel = params.tableRow.level === undefined
+                  ? maxLevel - 1 : params.tableRow.level;
+                if (currentColumnMeta.level < rowLevel) return null;
+                if (currentColumnMeta.level === rowLevel) {
+                  return (
+                    <TemplatePlaceholder
+                      name="tableCell"
+                      params={{
+                        ...params,
+                        tableRow: tableHeaderRows.find(row => row.type === 'heading'),
+                        rowSpan: (maxLevel - rowLevel),
+                        skip: true,
+                      }}
+                    />
+                  );
+                }
 
-                const currentColumnIndex =
-                dataTableColumns.findIndex(tableColumn =>
+                const currColumnIndex = dataTableColumns.findIndex(tableColumn =>
                   tableColumn.key === params.tableColumn.key);
-                if (currentColumnIndex > 0) {
+                if (currColumnIndex > 0) {
                   const prevColumnMeta = getColumnMeta(
-                    dataTableColumns[currentColumnIndex - 1].column.name,
+                    dataTableColumns[currColumnIndex - 1].column.name,
                       bandColumns,
                       tableRowLevel,
                     );
@@ -75,7 +100,7 @@ export class TableBandRow extends React.PureComponent {
                 }
 
                 let colSpan = 1;
-                for (let index = currentColumnIndex + 1; index < dataTableColumns.length; index += 1) {
+                for (let index = currColumnIndex + 1; index < dataTableColumns.length; index += 1) {
                   const columnMeta =
                     getColumnMeta(dataTableColumns[index].column.name, bandColumns, tableRowLevel);
                   if (columnMeta.title === currentColumnMeta.title) {
@@ -112,18 +137,16 @@ export class TableBandRow extends React.PureComponent {
   }
 }
 
-TableBandRow.propTypes = {
+TableGroupHeader.propTypes = {
   bandColumns: PropTypes.array.isRequired,
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  emptyCellComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
-  stubCellComponent: PropTypes.func.isRequired,
 };
 
-TableBandRow.defaultProps = {
+TableGroupHeader.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
 };

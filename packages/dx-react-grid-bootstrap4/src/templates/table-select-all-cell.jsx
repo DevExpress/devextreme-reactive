@@ -17,7 +17,7 @@ export const TableSelectAllCell = ({
   return (
     <th
       className={classNames({
-        'align-middle': true,
+        'align-bottom': true,
         'dx-rg-bs4-cursor-pointer': !disabled,
       }, className)}
       onClick={toggle}

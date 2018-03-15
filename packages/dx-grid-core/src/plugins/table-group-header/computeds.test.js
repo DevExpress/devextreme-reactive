@@ -1,7 +1,7 @@
 import { TABLE_BAND_TYPE } from './constants';
 import { tableRowsWithBands } from './computeds';
 
-describe('TableBandRow Plugin computeds', () => {
+describe('TableGroupHeader Plugin computeds', () => {
   describe('#tableRowsWithBands', () => {
     const tableHeaderRows = [{}];
     it('should add zero band row if one nested level', () => {

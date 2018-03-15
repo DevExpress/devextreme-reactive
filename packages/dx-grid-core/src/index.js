@@ -52,9 +52,9 @@ export * from './plugins/table-header-row/constants';
 export * from './plugins/table-header-row/helpers';
 export * from './plugins/table-header-row/computeds';
 
-export * from './plugins/table-band-row/constants';
-export * from './plugins/table-band-row/helpers';
-export * from './plugins/table-band-row/computeds';
+export * from './plugins/table-group-header/constants';
+export * from './plugins/table-group-header/helpers';
+export * from './plugins/table-group-header/computeds';
 
 export * from './plugins/table-row-detail/constants';
 export * from './plugins/table-row-detail/helpers';

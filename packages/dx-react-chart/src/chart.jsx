@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ChartCore } from './plugins/chart-core';
-import { LayoutManager } from './plugins/layout-manage';
+import { LayoutManager } from './plugins/layout-manager';
 import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
 
 export class Chart extends React.PureComponent {

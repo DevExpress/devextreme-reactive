@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Chart } from './chart';
 import { ChartCore } from './plugins/chart-core';
-import { LayoutManager } from './plugins/layout-manage';
+import { LayoutManager } from './plugins/layout-manager';
 
 jest.mock('./plugins/chart-core', () => ({
   ChartCore: () => null,

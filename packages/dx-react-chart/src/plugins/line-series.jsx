@@ -48,7 +48,7 @@ export class LineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               } = series.find(seriesItem => seriesItem.valueField === name);
-              const domain = domains[domainName];
+              const { domain } = domains[domainName];
               const {
                 x, y,
                 width, height,
@@ -58,7 +58,7 @@ export class LineSeries extends React.PureComponent {
                 .domain(domain)
                 .range([height, 0]);
 
-              const xDomain = domains[argumentAxisName];
+              const { domain: xDomain } = domains[argumentAxisName];
               const xScale = scaleLinear()
                 .domain(xDomain)
                 .range([0, width]);

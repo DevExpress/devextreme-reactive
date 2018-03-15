@@ -41,7 +41,6 @@ export class SplineSeries extends React.PureComponent {
               series,
               domains,
               data,
-              axes,
               argumentAxisName,
               layouts,
             }) => {
@@ -50,18 +49,15 @@ export class SplineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               } = series.find(seriesItem => seriesItem.valueField === name);
-              const { orientation } = axes.find(axis => axis.name === domainName);
-              const domain = domains[domainName];
+              const { domain } = domains[domainName];
               const {
                 x, y,
                 width, height,
               } = layouts[placeholder];
               const yScale = scaleLinear()
                 .domain(domain)
-                .range(orientation === 'horizontal'
-                    ? [x, width + x]
-                    : [height, 0]);
-              const xDomain = domains[argumentAxisName];
+                .range([height, 0]);
+              const { domain: xDomain } = domains[argumentAxisName];
               const xScale = scaleLinear()
                 .domain(xDomain)
                 .range([0, width]);

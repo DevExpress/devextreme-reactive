@@ -27,13 +27,13 @@ export class Axis extends React.Component {
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
-  createRefsHandler(placeholder, setBBox) {
+  createRefsHandler(placeholder, setBBox, orientation) {
     return (el) => {
       if (!el) {
         return;
       }
       const bBox = el.getBBox();
-      this.setState((prevState, { orientation }) => {
+      this.setState((prevState) => {
         if (!(isEqual(prevState.bBox, bBox))) {
           setBBox(placeholder, bBox);
           return {
@@ -48,7 +48,6 @@ export class Axis extends React.Component {
   }
   render() {
     const {
-      orientation,
       position,
       name,
       rootComponent: Root,
@@ -63,13 +62,13 @@ export class Axis extends React.Component {
             {({
                    domains, setBBox, layouts,
                }) => {
+                 const { domain, orientation } = domains[name];
                  const placeholder = getPlaceholder(orientation, position);
                  const {
                     x, y, width, height,
-              } = layouts[placeholder];
+                } = layouts[placeholder];
 
-                const refsHandler = this.createRefsHandler(placeholder, setBBox);
-                const domain = domains[name];
+                const refsHandler = this.createRefsHandler(placeholder, setBBox, orientation);
 
                 const axesCoords = calculateAxisCoords(
                   domain,
@@ -78,7 +77,6 @@ export class Axis extends React.Component {
                   width,
                   height,
                 );
-
 
                 return ((
                   <Root refsHandler={position !== 'center' ? refsHandler : () => {}} x={x - this.state.correctionX} y={y - this.state.correctionY}>
@@ -116,5 +114,4 @@ Axis.propTypes = {
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
-  orientation: PropTypes.string.isRequired,
 };

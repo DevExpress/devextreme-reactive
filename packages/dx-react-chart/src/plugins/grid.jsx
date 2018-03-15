@@ -25,7 +25,7 @@ export class Grid extends React.PureComponent {
               domains,
               layouts,
             }) => {
-                const domain = domains[name];
+                const { domain } = domains[name];
                 const {
                     x, y, width, height,
                 } = layouts[placeholder];

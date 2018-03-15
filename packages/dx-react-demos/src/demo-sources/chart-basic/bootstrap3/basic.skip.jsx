@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import { Rect } from '@devexpress/dx-react-chart';
 import {
   Chart,
   Axis,
   LineSeries,
   SplineSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-svg';
 
 const data = [
@@ -66,17 +66,6 @@ export default class Demo extends React.PureComponent {
           { valueField: 'USA', argumentField: 'year', axisName: 'born' },
         ]}
       >
-        <Rect placeholder="top-left" color="palevioletred" />
-        <Rect placeholder="top-center" color="crimson" />
-        <Rect placeholder="top-right" color="indianred" />
-
-        <Rect placeholder="center-left" color="lightskyblue" />
-        <Rect placeholder="center-center" color="lightsteelblue" />
-        <Rect placeholder="center-right" color="deepskyblue" />
-
-        <Rect placeholder="bottom-left" color="papayawhip" />
-        <Rect placeholder="bottom-center" color="navajowhite" />
-        <Rect placeholder="bottom-right" color="linen" />
 
         <Axis name="year" position="bottom" orientation="horizontal" placeholder="bottom-center" />
         {/* <Axis name="year" placeholder="top-center" /> */}
@@ -84,6 +73,7 @@ export default class Demo extends React.PureComponent {
         {/* <Axis name="born" placeholder="center-right" /> */}
         {/* <Axis name="born" placeholder="center-center" /> */}
         {/* <Axis name="year" placeholder="center-center" /> */}
+        <Grid name="born" orientation="horizontal" placeholder="center-center" />
 
         <LineSeries
           name="Russia"

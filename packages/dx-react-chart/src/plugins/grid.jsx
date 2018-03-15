@@ -25,19 +25,31 @@ export class Grid extends React.PureComponent {
               domains,
               layouts,
             }) => {
-                const { domain } = domains[name];
-                const {
-                    x, y, width, height,
-                } = layouts[placeholder];
+              const { domain, orientation } = domains[name];
+              const {
+                x, y, width, height,
+              } = layouts[placeholder];
 
-                const gridCoords = () => {
-                    const scale = scaleLinear()
-                        .domain(domain)
-                        .range([height, 0]);
-                    return scale.ticks().map(tick => ({
-                        x1: 0, x2: width, y1: scale(tick), y2: scale(tick),
+              const gridCoords = () => {
+                const scale = scaleLinear()
+                  .domain(domain)
+                  .range(orientation === 'horizontal' ? [0, width] : [height, 0]);
+                return scale.ticks().map(tick =>
+                    (orientation === 'horizontal'
+                      ? {
+                          x1: scale(tick),
+                          x2: scale(tick),
+                          y1: 0,
+                          y2: height,
+                        }
+                      : {
+                          x1: 0,
+                          x2: width,
+                          y1: scale(tick),
+                          y2: scale(tick),
                         }));
-                };
+              };
+
 
               return ((
                 <Root x={x} y={y}>

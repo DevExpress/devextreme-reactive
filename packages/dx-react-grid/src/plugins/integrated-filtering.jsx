@@ -4,7 +4,8 @@ import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { filteredRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'FilteringState' },
+  { name: 'FilteringState', optional: true },
+  { name: 'SearchState', optional: true },
 ];
 
 export class IntegratedFiltering extends React.PureComponent {
@@ -15,12 +16,18 @@ export class IntegratedFiltering extends React.PureComponent {
 
     const rowsComputed = ({
       rows,
-      filters,
+      filterExpression,
       getCellValue,
       isGroupRow,
       getRowLevelKey,
-    }) =>
-      filteredRows(rows, filters, getCellValue, getColumnPredicate, isGroupRow, getRowLevelKey);
+    }) => filteredRows(
+      rows,
+      filterExpression,
+      getCellValue,
+      getColumnPredicate,
+      isGroupRow,
+      getRowLevelKey,
+    );
 
     return (
       <Plugin
@@ -40,4 +47,3 @@ IntegratedFiltering.propTypes = {
 IntegratedFiltering.defaultProps = {
   columnExtensions: undefined,
 };
-

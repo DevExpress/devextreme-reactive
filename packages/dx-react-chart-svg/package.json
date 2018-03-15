@@ -47,7 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.1.0-beta.2",
+    "@devexpress/dx-testing": "1.1.0",
     "@devexpress/dx-react-chart": "0.0.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
@@ -79,7 +79,7 @@
   "dependencies": {
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "1.1.0-beta.2",
+    "@devexpress/dx-react-core": "1.1.0",
     "@devexpress/dx-react-chart": "0.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

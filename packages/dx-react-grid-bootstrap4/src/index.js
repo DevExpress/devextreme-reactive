@@ -18,3 +18,4 @@ export { TableColumnVisibility } from './plugins/table-column-visibility';
 export { TableColumnReordering } from './plugins/table-column-reordering';
 export { TableColumnResizing } from './plugins/table-column-resizing';
 export { Toolbar } from './plugins/toolbar';
+export { SearchPanel } from './plugins/search-panel';

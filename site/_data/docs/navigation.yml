@@ -47,6 +47,8 @@ react:
           path: /react/grid/docs/guides/paging
         - title: Filtering
           path: /react/grid/docs/guides/filtering
+        - title: Searching
+          path: /react/grid/docs/guides/searching
         - title: Grouping
           path: /react/grid/docs/guides/grouping
         - title: Selection
@@ -81,6 +83,10 @@ react:
           path: /react/grid/docs/reference/grouping-state
         - title: PagingState
           path: /react/grid/docs/reference/paging-state
+        - title: SearchPanel
+          path: /react/grid/docs/reference/search-panel
+        - title: SearchState
+          path: /react/grid/docs/reference/search-state
         - title: SelectionState
           path: /react/grid/docs/reference/selection-state
         - title: EditingState

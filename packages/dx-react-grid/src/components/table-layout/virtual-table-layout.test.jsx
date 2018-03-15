@@ -76,16 +76,19 @@ describe('VirtualTableLayout', () => {
   });
 
   const simulateScroll = (tree, props) => {
+    const target = {
+      scrollTop: 0,
+      scrollLeft: 0,
+      scrollHeight: 1000,
+      scrollWidth: 1000,
+      clientHeight: 200,
+      clientWidth: 200,
+      ...props,
+    };
+
     const eventData = {
-      target: {
-        scrollTop: 0,
-        scrollLeft: 0,
-        scrollHeight: 1000,
-        scrollWidth: 1000,
-        clientHeight: 200,
-        clientWidth: 200,
-        ...props,
-      },
+      target,
+      currentTarget: target,
     };
 
     tree

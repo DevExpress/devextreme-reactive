@@ -144,6 +144,12 @@ section {
     color: #f05b41;
     margin-bottom: 5px;
 }
+.main-menu ul.version {
+    font-size: 12px;
+}
+.main-menu ul.version li span {
+    font-size: 14px;
+}
 
 .main-menu ul li > a {
     color: #1b4461;
@@ -371,7 +377,6 @@ footer ul {
 
 footer ul > li > a {
     color: #296794;
-    margin-right: 15px;
     background-color: #f0f2f4;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     font-size: 16px;

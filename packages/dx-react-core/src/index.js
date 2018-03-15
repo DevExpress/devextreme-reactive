@@ -1,10 +1,10 @@
-export { PluginHost } from './plugged/plugin-host';
-export { Plugin } from './plugged/plugin';
-export { Action } from './plugged/action';
-export { Getter } from './plugged/getter';
-export { Template } from './plugged/template';
-export { TemplatePlaceholder } from './plugged/template-placeholder';
-export { TemplateConnector } from './plugged/template-connector';
+export { PluginHost } from './plugin-based/plugin-host';
+export { Plugin } from './plugin-based/plugin';
+export { Action } from './plugin-based/action';
+export { Getter } from './plugin-based/getter';
+export { Template } from './plugin-based/template';
+export { TemplatePlaceholder } from './plugin-based/template-placeholder';
+export { TemplateConnector } from './plugin-based/template-connector';
 
 export { Draggable } from './draggable';
 
@@ -12,4 +12,4 @@ export { DragDropProvider } from './drag-drop/provider';
 export { DragSource } from './drag-drop/source';
 export { DropTarget } from './drag-drop/target';
 
-export { createRenderComponent } from './utils/render-component';
+export { createRenderComponent } from './render-component';

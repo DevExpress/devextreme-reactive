@@ -36,6 +36,7 @@ const knownGlobals = {
   'react-dom': 'ReactDOM',
   'prop-types': 'PropTypes',
   'react-bootstrap': 'ReactBootstrap',
+  reactstrap: 'Reactstrap',
   'classnames': 'classNames',
 };
 

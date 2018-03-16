@@ -43,8 +43,8 @@ showGroupingControls | boolean | Specifies whether to display a button that grou
 groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
 resizingEnabled | boolean | Specifies whether table column resizing is enabled.
-onWidthChange | ({ shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
-onWidthDraft | ({ shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
+onWidthChange | (parameters: { shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
+onWidthDraft | (parameters: { shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 onWidthDraftCancel | () => void | An event that cancels changes of column width used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.

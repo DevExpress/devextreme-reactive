@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-import { calculateAxisCoords } from '@devexpress/dx-chart-core';
+import { calculateAxisCoordinates } from '@devexpress/dx-chart-core';
 
 const getPlaceholder = (orientation, position) =>
   (orientation === 'horizontal' ? `${position}-center` : `center-${position}`);
@@ -70,7 +70,7 @@ export class Axis extends React.Component {
 
                 const refsHandler = this.createRefsHandler(placeholder, setBBox, orientation);
 
-                const axesCoords = calculateAxisCoords(
+                const axesCoordinates = calculateAxisCoordinates(
                   domain,
                   orientation,
                   position,
@@ -80,7 +80,7 @@ export class Axis extends React.Component {
 
                 return ((
                   <Root refsHandler={position !== 'center' ? refsHandler : () => {}} x={x - this.state.correctionX} y={y - this.state.correctionY}>
-                    {axesCoords.ticks.map(({
+                    {axesCoordinates.ticks.map(({
                       text, x1, x2, y1, y2, xText, yText, alignmentBaseline, textAnchor,
                     }) => (
                       <React.Fragment key={text}>

@@ -2,78 +2,78 @@ import { scaleLinear } from 'd3-scale';
 
 const tickSize = 10;
 
-const getAxisCoords = (scale, width, height, orientation, position) => {
-  let getTickCoords;
+const getAxisCoordinates = (scale, width, height, orientation, position) => {
+  let getTickCoordinates;
   if (orientation === 'horizontal') {
-    getTickCoords = (tick) => {
-      const xCoords = scale(tick);
+    getTickCoordinates = (tick) => {
+      const xCoordinates = scale(tick);
       if (position === 'top') {
         return {
           alignmentBaseline: 'baseline',
           textAnchor: 'middle',
-          x1: xCoords,
-          x2: xCoords,
+          x1: xCoordinates,
+          x2: xCoordinates,
           y1: 0,
           y2: tickSize,
           text: tick,
-          xText: xCoords,
+          xText: xCoordinates,
           yText: 0,
         };
       }
       return {
         alignmentBaseline: 'hanging',
         textAnchor: 'middle',
-        x1: xCoords,
-        x2: xCoords,
+        x1: xCoordinates,
+        x2: xCoordinates,
         y1: 0,
         y2: -tickSize,
         text: tick,
-        xText: xCoords,
+        xText: xCoordinates,
         yText: 0,
       };
     };
   } else {
-    getTickCoords = (tick) => {
-      const yCoords = scale(tick);
+    getTickCoordinates = (tick) => {
+      const yCoordinates = scale(tick);
       if (position === 'left') {
         return {
           alignmentBaseline: 'middle',
           textAnchor: 'end',
-          y1: yCoords,
-          y2: yCoords,
+          y1: yCoordinates,
+          y2: yCoordinates,
           x1: 0,
           x2: tickSize,
           text: tick,
           xText: 0,
-          yText: yCoords,
+          yText: yCoordinates,
         };
       }
       return {
         alignmentBaseline: 'middle',
         textAnchor: 'start',
-        y1: yCoords,
-        y2: yCoords,
+        y1: yCoordinates,
+        y2: yCoordinates,
         x1: 0,
         x2: -tickSize,
         text: tick,
         xText: 0,
-        yText: yCoords,
+        yText: yCoordinates,
       };
     };
   }
   return {
-    ticks: scale.ticks().map(getTickCoords),
+    ticks: scale.ticks().map(getTickCoordinates),
   };
 };
 
-export const calculateAxisCoords = (domain, orientation, position, width, height) => {
+export const calculateAxisCoordinates = (domain, orientation, position, width, height) => {
   const scale = scaleLinear()
     .domain(domain)
     .range(orientation === 'horizontal'
       ? [0, width]
       : [height, 0]);
 
-  return getAxisCoords(
+  return getAxisCoordinates(
     scale,
     width,
     height,

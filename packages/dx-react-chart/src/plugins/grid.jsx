@@ -30,7 +30,7 @@ export class Grid extends React.PureComponent {
                 x, y, width, height,
               } = layouts[placeholder];
 
-              const gridCoords = () => {
+              const gridCoordinates = () => {
                 const scale = scaleLinear()
                   .domain(domain)
                   .range(orientation === 'horizontal' ? [0, width] : [height, 0]);
@@ -53,7 +53,7 @@ export class Grid extends React.PureComponent {
 
               return ((
                 <Root x={x} y={y}>
-                  {gridCoords().map(({
+                  {gridCoordinates().map(({
                       x1, x2, y1, y2,
                     }, i) => (
                       <Line

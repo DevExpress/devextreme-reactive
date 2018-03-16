@@ -76,7 +76,11 @@ export class Grid extends React.PureComponent {
 
 Grid.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
+};
+
+Grid.defaultProps = {
+  placeholder: 'center-center',
 };

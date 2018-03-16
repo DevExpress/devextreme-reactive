@@ -46,20 +46,18 @@ export default class Demo extends React.PureComponent {
         <Axis name="born" position="left" />
         {/* <Axis name="born" position="right" /> */}
 
-        <Grid name="born" placeholder="center-center" />
-        <Grid name="year" placeholder="center-center" />
+        <Grid name="born" />
+        <Grid name="year" />
 
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
-          placeholder="center-center"
         />
         <SplineSeries
           name="China"
           style={{ stroke: 'orange' }}
-          placeholder="center-center"
         />
-        <LineSeries name="USA" placeholder="center-center" />
+        <LineSeries name="USA" />
       </Chart>
     );
   }

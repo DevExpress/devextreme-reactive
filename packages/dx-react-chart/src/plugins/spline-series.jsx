@@ -87,6 +87,10 @@ export class SplineSeries extends React.PureComponent {
 
 SplineSeries.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
+};
+
+SplineSeries.defaultProps = {
+  placeholder: 'center-center',
 };

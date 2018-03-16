@@ -88,6 +88,10 @@ export class LineSeries extends React.PureComponent {
 
 LineSeries.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
+};
+
+LineSeries.defaultProps = {
+  placeholder: 'center-center',
 };

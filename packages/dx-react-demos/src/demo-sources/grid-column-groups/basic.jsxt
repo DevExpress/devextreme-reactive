@@ -1,54 +1,10 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState,
-  IntegratedSorting,
-  GroupingState,
-  IntegratedGrouping,
-  EditingState,
-  SelectionState,
-  IntegratedSelection,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
   Table,
   TableGroupHeader,
   TableHeaderRow,
-  TableGroupRow,
-  GroupingPanel,
-  DragDropProvider,
-  Toolbar,
-  TableColumnResizing,
-  TableEditRow,
-  TableEditColumn,
-  TableSelection,
-  ColumnChooser,
-  TableColumnVisibility,
-  TableColumnReordering,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-
-const bands = [
-  {
-    title: 'Population',
-    nested: [
-      { columnName: 'Population_Total' },
-      { columnName: 'Population_Urban' },
-    ],
-  },
-  {
-    title: 'Nominal GDP',
-    nested: [
-      { columnName: 'GDP_Total' },
-      {
-        title: 'By Sector',
-        nested: [
-          { columnName: 'GDP_Agriculture' },
-          { columnName: 'GDP_Industry' },
-          { columnName: 'GDP_Services' },
-        ],
-      },
-    ],
-  },
-];
 
 const countries = [
   {
@@ -179,20 +135,39 @@ export default class Demo extends React.PureComponent {
         { name: 'Population_Total', title: 'Total' },
         { name: 'Population_Urban', title: 'Urban' },
       ],
-      defaultColumnWidths: [
-        { columnName: 'Country', width: 80 },
-        { columnName: 'Area', width: 80 },
-        { columnName: 'GDP_Total', width: 80 },
-        { columnName: 'GDP_Agriculture', width: 80 },
-        { columnName: 'GDP_Industry', width: 80 },
-        { columnName: 'GDP_Services', width: 80 },
-        { columnName: 'Population_Total', width: 80 },
-        { columnName: 'Population_Urban', width: 80 },
+      columnGroups: [
+        {
+          title: 'Population',
+          nested: [
+            { columnName: 'Population_Total' },
+            { columnName: 'Population_Urban' },
+          ],
+        },
+        {
+          title: 'Nominal GDP',
+          nested: [
+            { columnName: 'GDP_Total' },
+            {
+              title: 'By Sector',
+              nested: [
+                { columnName: 'GDP_Agriculture' },
+                { columnName: 'GDP_Industry' },
+                { columnName: 'GDP_Services' },
+              ],
+            },
+          ],
+        },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'GDP_Agriculture', width: 90 },
+        { columnName: 'GDP_Industry', width: 70 },
+        { columnName: 'GDP_Services', width: 70 },
+        { columnName: 'Population_Urban', width: 70 },
       ],
     };
   }
   render() {
-    const { columns, defaultColumnWidths } = this.state;
+    const { columns, tableColumnExtensions, columnGroups } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -200,36 +175,11 @@ export default class Demo extends React.PureComponent {
           rows={countries}
           columns={columns}
         >
-          <SelectionState />
-          <SortingState />
-          <GroupingState />
-          <IntegratedSorting />
-          <IntegratedGrouping />
-          <EditingState
-            onCommitChanges={() => undefined}
-          />
-          <IntegratedSelection />
-
-          <DragDropProvider />
-          <Table />
-          <TableColumnReordering defaultOrder={this.state.columns.map(column => column.name)} />
-          <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
-          <TableHeaderRow showGroupingControls showSortingControls />
-          <TableEditRow />
-          <TableEditColumn
-            showAddCommand
-            showEditCommand
-            showDeleteCommand
-          />
-          <TableColumnVisibility />
-          <TableSelection showSelectAll />
-          <TableGroupRow />
+          <Table columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
           <TableGroupHeader
-            bandColumns={bands}
+            columnGroups={columnGroups}
           />
-          <Toolbar />
-          <ColumnChooser />
-          <GroupingPanel showGroupingControls  />
         </Grid>
       </<%&wrapperTag%>>
     );

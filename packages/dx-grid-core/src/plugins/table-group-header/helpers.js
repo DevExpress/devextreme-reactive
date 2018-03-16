@@ -6,7 +6,7 @@ export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedTableCell = (tableRow, tableColumn) =>
   tableRow.type === TABLE_BAND_TYPE && tableColumn.type === TABLE_DATA_TYPE;
 
-export const getColumnMeta = (columnName, bandColumns, tableRowLevel) => {
+export const getColumnMeta = (columnName, columnGroups, tableRowLevel) => {
   let currentBandTitle = null;
   let columnLevel = 0;
 
@@ -22,6 +22,6 @@ export const getColumnMeta = (columnName, bandColumns, tableRowLevel) => {
     });
   };
 
-  treeProcessing(bandColumns);
+  treeProcessing(columnGroups);
   return ({ title: currentBandTitle, level: columnLevel });
 };

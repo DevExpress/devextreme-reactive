@@ -19,7 +19,7 @@ const styles = theme => ({
 
 const TableSelectAllCellBase = ({
   style, allSelected, someSelected, disabled, onToggle, classes,
-  className, tableRow, tableColumn,
+  className, tableRow, tableColumn, rowSpan,
   ...restProps
 }) => {
   const cellClasses = classNames({
@@ -27,11 +27,14 @@ const TableSelectAllCellBase = ({
     [classes.pointer]: !disabled,
   }, className);
 
+  const paddingTop = rowSpan > 1 ? (48 * (rowSpan - 1)) : '';
+
   return (
     <TableCell
       padding="checkbox"
-      style={style}
+      style={{ ...style, paddingTop: `${paddingTop}px` }}
       className={cellClasses}
+      rowSpan={rowSpan}
       {...restProps}
     >
       <Checkbox

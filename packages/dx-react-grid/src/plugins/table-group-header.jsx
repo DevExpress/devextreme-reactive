@@ -18,11 +18,11 @@ export class TableGroupHeader extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
-      bandColumns,
+      columnGroups,
     } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      tableRowsWithBands(tableHeaderRows, bandColumns);
+      tableRowsWithBands(tableHeaderRows, columnGroups);
 
     return (
       <Plugin
@@ -69,10 +69,12 @@ export class TableGroupHeader extends React.PureComponent {
                 const tableRowLevel = params.tableRow.level;
                 const dataTableColumns = tableColumns.filter(column => column.type === 'data');
                 const currentColumnMeta =
-                  getColumnMeta(params.tableColumn.column.name, bandColumns, tableRowLevel);
+                  getColumnMeta(params.tableColumn.column.name, columnGroups, tableRowLevel);
 
                 const rowLevel = params.tableRow.level === undefined
                   ? maxLevel - 1 : params.tableRow.level;
+                const firstChild = (tableColumns[0].type === 'data' && tableColumns[0].column.name === params.tableColumn.column.name) && true;
+                const lastChild = (tableColumns[tableColumns.length - 1].type === 'data' && tableColumns[tableColumns.length - 1].column.name === params.tableColumn.column.name) && true;
                 if (currentColumnMeta.level < rowLevel) return null;
                 if (currentColumnMeta.level === rowLevel) {
                   return (
@@ -83,6 +85,8 @@ export class TableGroupHeader extends React.PureComponent {
                         tableRow: tableHeaderRows.find(row => row.type === 'heading'),
                         rowSpan: (maxLevel - rowLevel),
                         skip: true,
+                        firstChild,
+                        lastChild,
                       }}
                     />
                   );
@@ -93,7 +97,7 @@ export class TableGroupHeader extends React.PureComponent {
                 if (currColumnIndex > 0) {
                   const prevColumnMeta = getColumnMeta(
                     dataTableColumns[currColumnIndex - 1].column.name,
-                      bandColumns,
+                      columnGroups,
                       tableRowLevel,
                     );
                   if (prevColumnMeta.title === currentColumnMeta.title) return null;
@@ -102,7 +106,7 @@ export class TableGroupHeader extends React.PureComponent {
                 let colSpan = 1;
                 for (let index = currColumnIndex + 1; index < dataTableColumns.length; index += 1) {
                   const columnMeta =
-                    getColumnMeta(dataTableColumns[index].column.name, bandColumns, tableRowLevel);
+                    getColumnMeta(dataTableColumns[index].column.name, columnGroups, tableRowLevel);
                   if (columnMeta.title === currentColumnMeta.title) {
                     colSpan += 1;
                   } else break;
@@ -114,6 +118,8 @@ export class TableGroupHeader extends React.PureComponent {
                     colSpan={colSpan}
                     value={currentColumnMeta.title}
                     column={currentColumnMeta}
+                    firstChild={firstChild}
+                    lastChild={lastChild}
                   />
                 );
               }}
@@ -138,7 +144,7 @@ export class TableGroupHeader extends React.PureComponent {
 }
 
 TableGroupHeader.propTypes = {
-  bandColumns: PropTypes.array.isRequired,
+  columnGroups: PropTypes.array.isRequired,
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,

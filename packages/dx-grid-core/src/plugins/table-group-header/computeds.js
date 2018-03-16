@@ -1,6 +1,6 @@
 import { TABLE_BAND_TYPE } from './constants';
 
-export const tableRowsWithBands = (tableHeaderRows, bandColumns) => {
+export const tableRowsWithBands = (tableHeaderRows, columnGroups) => {
   let maxLevel = 0;
 
   const maxNestedLevel = (bands, level) => {
@@ -12,7 +12,7 @@ export const tableRowsWithBands = (tableHeaderRows, bandColumns) => {
       }
     });
   };
-  maxNestedLevel(bandColumns, 0);
+  maxNestedLevel(columnGroups, 0);
 
   const TableGroupHeaders = Array.from({ length: maxLevel })
     .map((_, index) => ({ key: `${TABLE_BAND_TYPE}_${index}`, type: TABLE_BAND_TYPE, level: index }));

@@ -62,16 +62,21 @@ const EditCommandHeadingCellBase = ({
   classes,
   className,
   tableRow, tableColumn,
+  rowSpan,
   ...restProps
-}) => (
-  <TableCell
-    className={classNames(classes.headingCell, className)}
-    style={style}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+}) => {
+  const paddingTop = rowSpan > 1 ? (48 * (rowSpan - 1)) : '';
+  return (
+    <TableCell
+      className={classNames(classes.headingCell, className)}
+      style={{ ...style, paddingTop: `${paddingTop}px` }}
+      rowSpan={rowSpan}
+      {...restProps}
+    >
+      {children}
+    </TableCell>
+  );
+};
 
 EditCommandHeadingCellBase.propTypes = {
   children: PropTypes.node,

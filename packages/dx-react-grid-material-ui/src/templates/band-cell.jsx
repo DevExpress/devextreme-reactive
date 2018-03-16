@@ -10,7 +10,7 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: '8px',
       borderLeft: 0,
     },
     height: theme.spacing.unit * 6,
@@ -26,6 +26,13 @@ const styles = theme => ({
   cellCenterAlign: {
     textAlign: 'center',
   },
+  firstChild: {
+    paddingLeft: '24px !important',
+    borderLeft: 0,
+  },
+  lastChild: {
+    paddingRight: '24px !important',
+  },
 });
 
 const BandCellBase = ({
@@ -37,6 +44,8 @@ const BandCellBase = ({
   <TableCellMUI
     className={classNames({
       [classes.cell]: true,
+      [classes.firstChild]: restProps.firstChild,
+      [classes.lastChild]: restProps.lastChild,
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
     }, className)}

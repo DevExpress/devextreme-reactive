@@ -20,16 +20,16 @@ const styles = theme => ({
   resizeHandleLine: {
     position: 'absolute',
     backgroundColor: theme.palette.grey[300],
-    height: '50%',
+    height: '100%',
     width: '1px',
-    top: '25%',
+    top: '0',
     transition: 'all linear 100ms',
   },
   resizeHandleFirstLine: {
-    left: `${theme.spacing.unit - 3}px`,
+    left: `${theme.spacing.unit - 0}px`,
   },
   resizeHandleSecondLine: {
-    left: `${theme.spacing.unit - 1}px`,
+    left: `${theme.spacing.unit - 0}px`,
   },
   resizeHandleActive: {
     '& $resizeHandleLine': {

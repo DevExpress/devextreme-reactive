@@ -26,7 +26,7 @@ describe('TableGroupHeader Plugin helpers', () => {
     });
   });
   describe('#getColumnMeta', () => {
-    const bandColumns = [
+    const columnGroups = [
       {
         title: 'A',
         nested: [
@@ -42,12 +42,12 @@ describe('TableGroupHeader Plugin helpers', () => {
       },
     ];
     it('should get column meta if one nested levels', () => {
-      expect(getColumnMeta('d', bandColumns, 1))
+      expect(getColumnMeta('d', columnGroups, 1))
         .toEqual({ title: 'A', level: 1 });
     });
 
     it('should get column meta if two nested levels', () => {
-      expect(getColumnMeta('a', bandColumns, 2))
+      expect(getColumnMeta('a', columnGroups, 2))
         .toEqual({ title: 'AA', level: 2 });
     });
   });

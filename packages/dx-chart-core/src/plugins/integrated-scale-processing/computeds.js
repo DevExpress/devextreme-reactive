@@ -1,6 +1,6 @@
 import { extent } from 'd3-array';
 
-const getDomain = axes =>
+const getAxesDomain = axes =>
   axes.reduce((acc, {
     name, min, max, orientation,
   }) => {
@@ -8,7 +8,7 @@ const getDomain = axes =>
     return acc;
   }, {});
 
-const domainComputed = (series, data, domains, argumentAxisName) =>
+const calculateDomain = (series, data, domains, argumentAxisName) =>
   (
     {
       ...series.reduce((acc, seriesOption) => {
@@ -32,7 +32,7 @@ const domainComputed = (series, data, domains, argumentAxisName) =>
     }
   );
 
-export const calculateDomain = (axes, series, data, argumentAxisName) => {
-  const domains = getDomain(axes);
-  return domainComputed(series, data, domains, argumentAxisName);
+export const domains = (axes, series, data, argumentAxisName) => {
+  const axesDomains = getAxesDomain(axes);
+  return calculateDomain(series, data, axesDomains, argumentAxisName);
 };

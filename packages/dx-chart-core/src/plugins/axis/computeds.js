@@ -2,7 +2,7 @@ import { scaleLinear } from 'd3-scale';
 
 const tickSize = 10;
 
-const getAxisCoordinates = (scale, width, height, orientation, position) => {
+const calculateAxisCoordinates = (scale, width, height, orientation, position) => {
   let getTickCoordinates;
   if (orientation === 'horizontal') {
     getTickCoordinates = (tick) => {
@@ -66,14 +66,14 @@ const getAxisCoordinates = (scale, width, height, orientation, position) => {
   };
 };
 
-export const calculateAxisCoordinates = (domain, orientation, position, width, height) => {
+export const axisCoordinates = (domain, orientation, position, width, height) => {
   const scale = scaleLinear()
     .domain(domain)
     .range(orientation === 'horizontal'
       ? [0, width]
       : [height, 0]);
 
-  return getAxisCoordinates(
+  return calculateAxisCoordinates(
     scale,
     width,
     height,

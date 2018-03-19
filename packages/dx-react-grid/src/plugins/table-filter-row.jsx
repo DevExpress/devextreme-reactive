@@ -50,8 +50,10 @@ export class TableFilterRow extends React.PureComponent {
                     name="valueEditor"
                     params={{
                       column: params.tableColumn.column,
-                      value: filter ? filter.value : null,
-                      onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
+                      value: filter ? filter.value : undefined,
+                      onValueChange: newValue => onFilter(newValue !== undefined
+                        ? { value: newValue }
+                        : null),
                     }}
                   >
                     {content => (

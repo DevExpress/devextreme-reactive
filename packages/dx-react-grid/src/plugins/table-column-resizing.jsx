@@ -28,11 +28,13 @@ export class TableColumnResizing extends React.PureComponent {
         columnWidths: () => this.props.onColumnWidthsChange,
       },
     );
-
+    const { minColumnWidth } = props;
     this.changeTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
+      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
+        changeTableColumnWidth(prevState, { ...payload, minColumnWidth }));
     this.draftTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, draftTableColumnWidth);
+      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
+        draftTableColumnWidth(prevState, { ...payload, minColumnWidth }));
     this.cancelTableColumnWidthDraft =
       stateHelper.applyReducer.bind(stateHelper, cancelTableColumnWidthDraft);
   }
@@ -69,6 +71,7 @@ TableColumnResizing.propTypes = {
   defaultColumnWidths: PropTypes.array,
   columnWidths: PropTypes.array,
   onColumnWidthsChange: PropTypes.func,
+  minColumnWidth: PropTypes.number.isRequired,
 };
 
 TableColumnResizing.defaultProps = {

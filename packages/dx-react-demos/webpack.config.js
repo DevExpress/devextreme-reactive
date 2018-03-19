@@ -7,7 +7,7 @@ var WriteFilePlugin = require('write-file-webpack-plugin');
 module.exports = ({ production }) => ({
   context: path.join(__dirname, 'src'),
   entry: {
-    index: ['babel-polyfill', path.join(__dirname, 'src', 'index')]
+    index: ['babel-polyfill', 'whatwg-fetch', path.join(__dirname, 'src', 'index')]
   },
   output: {
     publicPath: '/dist',

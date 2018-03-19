@@ -1,0 +1,10 @@
+import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+import Demo from './<%&demoName%>';
+
+setupConsole();
+
+it('should not fail', () => {
+  expect(() => { mount({ render() { return (<Demo />); } }); })
+    .not.toThrow();
+});

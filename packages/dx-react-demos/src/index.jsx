@@ -28,4 +28,9 @@ initialize({
       element,
     );
   },
+  unmountDemo: ({
+    element,
+  }) => {
+    ReactDOM.unmountComponentAtNode(element);
+  },
 });

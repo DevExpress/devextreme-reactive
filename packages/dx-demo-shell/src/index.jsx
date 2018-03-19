@@ -64,6 +64,7 @@ export const initialize = ({
   themeSources,
   demoSources,
   renderDemo,
+  unmountDemo,
 }) => {
   const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');
   const embeddedDemoConfigs = [...embeddedDemoPlaceholders]
@@ -79,6 +80,7 @@ export const initialize = ({
           themeSources={themeSources}
           demoSources={demoSources}
           renderDemo={renderDemo}
+          unmountDemo={unmountDemo}
         />,
         config.placeholder,
       );

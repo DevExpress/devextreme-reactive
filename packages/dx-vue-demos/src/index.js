@@ -4,6 +4,8 @@ import '@devexpress/dx-demo-shell/dist/index.css';
 import { demos } from './demo-registry';
 import { themes } from './theme-registry';
 
+const vms = new Map();
+
 initialize({
   demoSources: demos,
   themeSources: themes,
@@ -12,8 +14,7 @@ initialize({
     demo: Demo,
     demoContainer: DemoContainer,
   }) => {
-    // eslint-disable-next-line no-new
-    new Vue({
+    vms.set(element, new Vue({
       el: element,
       render() {
         return (
@@ -22,6 +23,12 @@ initialize({
           </DemoContainer>
         );
       },
-    });
+    }));
+  },
+  unmountDemo: ({
+    element,
+  }) => {
+    vms.get(element).$destroy();
+    vms.delete(element);
   },
 });

@@ -21,14 +21,27 @@ export class DemoRenderer extends React.Component {
 
     const {
       renderDemo,
+      unmountDemo,
       demoSources,
       themeSources,
     } = embeddedDemoOptions;
+
+    if (this.demoRenderSkipped) {
+      unmountDemo({
+        element: this.root,
+      });
+    }
 
     let demoSource;
     try {
       demoSource = demoSources[sectionName][demoName][themeName].demo;
     } catch (e) {} // eslint-disable-line no-empty
+
+    if (!demoSource) {
+      this.demoRenderSkipped = true;
+      this.root.textContent = 'DEMO NOT AVALIABLE!';
+      return;
+    }
 
     const demoContainerSource = themeSources
       .find(({ name }) => name === themeName).variants
@@ -41,6 +54,7 @@ export class DemoRenderer extends React.Component {
       embeddedDemoOptions,
       frameUrl: `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`,
     });
+    this.demoRenderSkipped = false;
   }
   render() {
     return (

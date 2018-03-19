@@ -15,7 +15,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 height | number | 530 | The virtual table's height.
 estimatedRowHeight | number | `37` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | Estimated row height. Specify the average value for a table whose rows have different heights.
-columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | Additional column properties that the plugin can handle.
+columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.

@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build:generator": "node generate-demos.js",
+    "build:generator": "node ../dx-demo-shell/generate-demos.js",
     "build": "yarn run build:generator && webpack --env",
     "build:prod": "yarn run build:generator && webpack --env.production",
     "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
@@ -45,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "@devexpress/dx-demo-shell": "1.1.0",
     "@devexpress/dx-react-core": "1.1.0",
     "@devexpress/dx-react-grid": "1.1.0",
     "@devexpress/dx-react-grid-bootstrap3": "1.1.0",

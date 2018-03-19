@@ -3,11 +3,10 @@ import * as PropTypes from 'prop-types';
 import prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 
-import { demos } from '../demo-registry';
-
 export class SourceCode extends React.PureComponent {
   render() {
     const { themeName, sectionName, demoName } = this.props;
+    const { demoSources } = this.context.embeddedDemoOptions;
     return (
       <pre className="highlight language-jsx">
         <code
@@ -15,7 +14,7 @@ export class SourceCode extends React.PureComponent {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: prism.highlight(
-              demos[sectionName][demoName][themeName].source,
+              demoSources[sectionName][demoName][themeName].source || '',
               prism.languages.jsx,
             ),
           }}
@@ -29,4 +28,8 @@ SourceCode.propTypes = {
   sectionName: PropTypes.string.isRequired,
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
+};
+
+SourceCode.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };

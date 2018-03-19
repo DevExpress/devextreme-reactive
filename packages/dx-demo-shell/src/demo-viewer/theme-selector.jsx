@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
 import './theme-selector.css';
-import { themes } from '../theme-registry';
 
 class Toggle extends React.PureComponent {
   render() {
@@ -38,9 +37,9 @@ export const ThemeSelector = (
   {
     selectedThemeName, selectedVariantName, avaliableThemes, onChange,
   },
-  { embeddedDemoOptions: { showThemeVariants } },
+  { embeddedDemoOptions: { showThemeVariants, themeSources } },
 ) => {
-  const selectedTheme = themes.find(({ name }) => name === selectedThemeName);
+  const selectedTheme = themeSources.find(({ name }) => name === selectedThemeName);
 
   return (
     <Dropdown
@@ -59,7 +58,7 @@ export const ThemeSelector = (
           : selectedTheme.title}
       </Toggle>
       <Dropdown.Menu>
-        {themes.map(({ name: themeName, title: themeTitle, variants }) => {
+        {themeSources.map(({ name: themeName, title: themeTitle, variants }) => {
           const avaliable = avaliableThemes.indexOf(themeName) > -1;
           const activeTheme = themeName === selectedThemeName;
 

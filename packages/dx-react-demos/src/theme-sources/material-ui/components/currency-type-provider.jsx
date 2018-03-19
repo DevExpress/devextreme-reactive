@@ -13,25 +13,41 @@ const styles = {
   },
 };
 
-const EditorBase = ({ value, onValueChange, classes }) => (
-  <Input
-    type="number"
-    classes={{
-      root: classes.inputRoot,
-      input: classes.numericInput,
-    }}
-    value={value}
-    inputProps={{
-      min: 0,
-    }}
-    onChange={e => onValueChange(parseInt(e.target.value, 10))}
-  />
-);
+const getInputValue = value => (value === undefined ? '' : value);
+
+const EditorBase = ({ value, onValueChange, classes }) => {
+  const handleChange = (event) => {
+    const { value: targetValue } = event.target;
+    if (targetValue.trim() === '') {
+      onValueChange();
+      return;
+    }
+    onValueChange(parseInt(targetValue, 10));
+  };
+  return (
+    <Input
+      type="number"
+      classes={{
+        root: classes.inputRoot,
+        input: classes.numericInput,
+      }}
+      value={getInputValue(value)}
+      inputProps={{
+        min: 0,
+      }}
+      onChange={handleChange}
+    />
+  );
+};
 
 EditorBase.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   onValueChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+};
+
+EditorBase.defaultProps = {
+  value: undefined,
 };
 
 const Editor = withStyles(styles)(EditorBase);

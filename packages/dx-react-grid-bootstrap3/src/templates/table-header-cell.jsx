@@ -69,22 +69,14 @@ export class TableHeaderCell extends React.PureComponent {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
-            direction: 'row',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
-          {before && (
-            <div
-              style={{
-                flex: '0 0 auto',
-              }}
-            >
-              {before}
-            </div>
-          )}
+          {before}
           <div
             style={{
-              flex: '1 1 auto',
+              width: '100%',
               textAlign: align,
               whiteSpace: 'nowrap',
               overflow: 'hidden',

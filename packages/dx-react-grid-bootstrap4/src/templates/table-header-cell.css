@@ -1,8 +1,4 @@
-.dx-rg-bs4-table-header-cell-before {
-  flex: 0 0 auto;
-}
 .dx-rg-bs4-table-header-cell-wrapper {
-  flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: -5px;

@@ -17,11 +17,8 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  controls: {
-    flex: 'auto 0 0',
-  },
   content: {
-    flex: '1 1 auto',
+    width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -42,9 +39,7 @@ const TableTreeCellBase = ({
     {...restProps}
   >
     <div className={classes.container}>
-      <div className={classes.controls}>
-        {controls}
-      </div>
+      {controls}
       <div className={classes.content}>
         {children || value}
       </div>

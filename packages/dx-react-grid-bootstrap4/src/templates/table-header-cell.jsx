@@ -67,18 +67,12 @@ export class TableHeaderCell extends React.PureComponent {
         {...restProps}
       >
         <div
-          className="d-flex flex-direction-row"
+          className="d-flex flex-direction-row align-items-center"
         >
-          {before && (
-            <div
-              className="dx-rg-bs4-table-header-cell-before"
-            >
-              {before}
-            </div>
-          )}
+          {before}
           <div
             className={classNames({
-              'text-nowrap dx-rg-bs4-table-header-cell-wrapper': true,
+              'text-nowrap w-100 dx-rg-bs4-table-header-cell-wrapper': true,
               [`text-${align}`]: align !== 'left',
             })}
           >

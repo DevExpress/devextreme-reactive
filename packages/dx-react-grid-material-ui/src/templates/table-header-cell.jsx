@@ -78,11 +78,8 @@ const styles = theme => ({
   containerRight: {
     flexDirection: 'row-reversed',
   },
-  controls: {
-    flex: 'auto 0 0',
-  },
   content: {
-    flex: '1 1 auto',
+    width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -151,11 +148,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {...restProps}
       >
         <div className={containerClassses}>
-          {before && (
-            <div className={classes.controls}>
-              {before}
-            </div>
-          )}
+          {before}
           <div className={classes.content}>
             {showSortingControls ? (
               <SortingControl

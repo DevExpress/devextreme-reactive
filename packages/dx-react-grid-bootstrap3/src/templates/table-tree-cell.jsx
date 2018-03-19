@@ -18,20 +18,14 @@ export const TableTreeCell = ({
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center',
-        direction: 'row',
+        flexDirection: 'row',
+        alignItems: 'center',
       }}
     >
+      {controls}
       <div
         style={{
-          flex: '0 0 auto',
-        }}
-      >
-        {controls}
-      </div>
-      <div
-        style={{
-          flex: '1 1 auto',
+          width: '100%',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',

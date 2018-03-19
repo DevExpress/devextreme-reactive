@@ -12,13 +12,9 @@ export const TableTreeCell = ({
     {...restProps}
   >
     <div
-      className="d-flex"
+      className="d-flex flex-direction-row align-items-center"
     >
-      <div
-        className="dx-rg-bs4-table-tree-cell-controls"
-      >
-        {controls}
-      </div>
+      {controls}
       <div
         className="text-nowrap dx-rg-bs4-table-tree-cell-content"
       >

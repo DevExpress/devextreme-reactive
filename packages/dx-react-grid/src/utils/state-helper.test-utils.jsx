@@ -13,6 +13,7 @@ export const testStatePluginField = ({
   defaultProps = {},
   values,
   actions,
+  customPayload = {},
 }) => {
   const capitalizedPropertyName = propertyName[0].toUpperCase() + propertyName.slice(1);
   const defaultPropertyName = `default${capitalizedPropertyName}`;
@@ -105,7 +106,7 @@ export const testStatePluginField = ({
         expect(reducer)
           .toBeCalledWith(
             fieldReducer ? values[0] : expect.objectContaining({ [propertyName]: values[0] }),
-            payload,
+            customPayload,
           );
 
         expect(getGetterValue(tree))
@@ -200,7 +201,7 @@ export const testStatePluginField = ({
         expect(reducer)
           .lastCalledWith(
             fieldReducer ? values[1] : expect.objectContaining({ [propertyName]: values[1] }),
-            payload,
+            customPayload,
           );
 
         expect(change)

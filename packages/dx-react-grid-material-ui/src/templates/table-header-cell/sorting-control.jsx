@@ -35,7 +35,7 @@ const SortingControlBase = ({
   >
     <TableSortLabel
       active={!!sortingDirection}
-      direction={sortingDirection}
+      direction={sortingDirection === null ? undefined : sortingDirection}
       onClick={onClick}
       disabled={disabled}
       classes={{
@@ -52,7 +52,7 @@ const SortingControlBase = ({
 
 SortingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc']),
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -61,7 +61,7 @@ SortingControlBase.propTypes = {
 };
 
 SortingControlBase.defaultProps = {
-  sortingDirection: null,
+  sortingDirection: undefined,
   disabled: false,
 };
 

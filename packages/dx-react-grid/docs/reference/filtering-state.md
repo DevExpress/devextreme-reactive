@@ -45,12 +45,12 @@ filteringEnabled | boolean | Specifies whether filtering is enabled for a column
 Name | Plugin | Type | Description
 -----|--------|------|------------
 filters | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Filter](#filter)&gt; | The applied filter
-filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression)&#124;[Filter](#filter) | The applied filter expressions.
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](#filter) | The applied filter expressions.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md)  | [FilterExpression](integrated-filtering.md#filterexpression)&#124;[Filter](#filter) | The applied filter expressions.
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md)  | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](#filter) | The applied filter expressions.
 isColumnFilteringEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
 changeColumnFilter | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, config: Object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the specified column's filter.

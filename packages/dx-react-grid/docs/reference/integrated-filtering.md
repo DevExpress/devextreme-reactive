@@ -32,8 +32,8 @@ Describes data filtering expressions
 
 Field | Type | Description
 ------|------|------------
-operator | 'and' &#124; 'or' | Specifies the Boolean operator 
-filters | Array&lt;[FilterExpression](#filterexpression)&#124;[Filter](filtering-state.md#filter)&gt;  | Specifies filters or filter expressions
+operator | 'and' &#124; 'or' | Specifies the Boolean operator
+filters | Array&lt;[FilterExpression](#filterexpression) &#124; [Filter](filtering-state.md#filter)&gt;  | Specifies filters or filter expressions
 
 ## Plugin Developer Reference
 
@@ -42,7 +42,7 @@ filters | Array&lt;[FilterExpression](#filterexpression)&#124;[Filter](filtering
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be filtered.
-filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](#filterexpression)&#124;[Filter](filtering-state.md#filter) | A filter expression to be applied.
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](#filterexpression) &#124; [Filter](filtering-state.md#filter) | A filter expression to be applied.
 getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | The function used to get a cell value.
 isGroupRow? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 getRowLevelKey? | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get row level key.

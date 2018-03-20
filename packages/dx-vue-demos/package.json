@@ -10,30 +10,61 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "build:watch": "webpack-dev-server --env",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build:generator": "node ../dx-demo-shell/generate-demos.js",
+    "build": "yarn run build:generator && webpack --env",
+    "build:prod": "yarn run build:generator && webpack --env.production",
+    "build:watch:generator": "nodemon --exec \"yarn run build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
+    "build:watch": "concurrently \"yarn run build:watch:generator\" \"webpack-dev-server --env\"",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/css-stub.js"
+    },
+    "setupFiles": [
+      "<rootDir>/setup-vue.js"
+    ]
+  },
   "dependencies": {
+    "@devexpress/dx-demo-shell": "1.1.0",
     "@devexpress/dx-vue-core": "1.1.0",
     "babel-polyfill": "^6.26.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "prop-types": "^15.6.1",
+    "react-bootstrap": "^0.32.1",
+    "prismjs": "^1.12.2",
     "vue": "^2.5.16"
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.12",
+    "@devexpress/dx-testing": "1.1.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-jest": "^22.2.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "concurrently": "^3.5.1",
     "css-loader": "^0.28.10",
+    "jest": "^22.3.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jest": "^21.15.0",
-    "eslint-plugin-vue": "^4.3.0",
-    "vue-loader": "^14.2.1",
+    "eslint-plugin-jest": "^21.12.1",
+    "eslint-plugin-vue": "^4.2.2",
+    "mustache": "^2.3.0",
+    "nodemon": "^1.17.1",
+    "style-loader": "^0.20.2",
+    "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"

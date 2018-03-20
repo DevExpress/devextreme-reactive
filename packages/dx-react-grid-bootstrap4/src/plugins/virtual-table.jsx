@@ -80,7 +80,7 @@ VirtualTable.propTypes = {
 };
 
 VirtualTable.defaultProps = {
-  estimatedRowHeight: 37,
+  estimatedRowHeight: 49,
   height: 530,
   messages: {},
 };

@@ -1,11 +1,34 @@
 import Vue from 'vue';
-import App from './app';
+import { initialize } from '@devexpress/dx-demo-shell';
+import '@devexpress/dx-demo-shell/dist/index.css';
+import { demos } from './demo-registry';
+import { themes } from './theme-registry';
 
-Vue.config.productionTip = false;
+const vms = new Map();
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>',
+initialize({
+  demoSources: demos,
+  themeSources: themes,
+  renderDemo: ({
+    element,
+    demo: Demo,
+    demoContainer: DemoContainer,
+  }) => {
+    vms.set(element, new Vue({
+      el: element,
+      render() {
+        return (
+          <DemoContainer>
+            <Demo />
+          </DemoContainer>
+        );
+      },
+    }));
+  },
+  unmountDemo: ({
+    element,
+  }) => {
+    vms.get(element).$destroy();
+    vms.delete(element);
+  },
 });

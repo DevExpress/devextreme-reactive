@@ -2,14 +2,17 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
-import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 
-export const SectionViewerBase = ({ match: { params: { sectionName } } }) => (
+export const SectionViewerBase = ({
+  match: { params: { sectionName } },
+}, {
+  embeddedDemoOptions: { demoSources },
+}) => (
   <ThemeViewer>
     {({ themeName, variantName }) => (
-      Object.keys(demos[sectionName])
+      Object.keys(demoSources[sectionName])
         .map(demoName => (
           <div key={demoName}>
             <h4>
@@ -36,5 +39,10 @@ SectionViewerBase.propTypes = {
     }),
   }).isRequired,
 };
+
+SectionViewerBase.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
+};
+
 
 export const SectionViewer = withRouter(SectionViewerBase);

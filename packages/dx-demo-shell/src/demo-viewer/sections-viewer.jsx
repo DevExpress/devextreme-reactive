@@ -2,11 +2,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
 
-import { demos } from '../demo-registry';
 import { SectionViewer } from './section-viewer';
 
-export const SectionsViewer = ({ match: { url } }) => {
-  const sections = Object.keys(demos);
+export const SectionsViewer = ({
+  match: { url },
+}, {
+  embeddedDemoOptions: { demoSources },
+}) => {
+  const sections = Object.keys(demoSources);
 
   return (
     <Switch>
@@ -44,4 +47,8 @@ SectionsViewer.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+SectionsViewer.contextTypes = {
+  embeddedDemoOptions: PropTypes.object.isRequired,
 };

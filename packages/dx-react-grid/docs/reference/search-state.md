@@ -22,7 +22,7 @@ onValueChange? | (value: string) => void | | Handles search value changes
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression)&#124;[Filter](filtering-state.md#filter) | The applied filter expressions
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions
 columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Grid columns
 
 ### Exports
@@ -30,5 +30,5 @@ columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[
 Name | Plugin | Type | Description
 -----|--------|------|------------
 searchValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The applied search value
-filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression)&#124;[Filter](filtering-state.md#filter) | The applied filter expressions
+filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md) | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions
 changeSearchValue | [Action](../../../dx-react-core/docs/reference/action.md) | ({ value: string }) => void | Fires the `onValueChange` event with the corresponding value and changes the search value

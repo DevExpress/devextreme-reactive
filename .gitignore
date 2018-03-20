@@ -13,6 +13,7 @@
 
 # Site
 /site/_site
+/site/demo
 /site/core
 /site/grid
 /site/react

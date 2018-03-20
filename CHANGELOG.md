@@ -1,3 +1,14 @@
+<a name="1.1.1"></a>
+# [1.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.1) (2018-03-20)
+
+
+### Bug Fixes
+
+* **react-grid:** correct empty value passed to filter cell editors ([#857](https://github.com/DevExpress/devextreme-reactive/issues/857)) ([66e47d0](https://github.com/DevExpress/devextreme-reactive/commit/66e47d0))
+* **react-grid:** correct TableHeaderRow.CellProps types ([#858](https://github.com/DevExpress/devextreme-reactive/issues/858)) ([8ed9b8a](https://github.com/DevExpress/devextreme-reactive/commit/8ed9b8a))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.3...v1.1.0) (2018-03-15)
 

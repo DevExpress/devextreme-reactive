@@ -17,16 +17,9 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  content: {
-    width: '100%',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
 });
 
 const TableTreeCellBase = ({
-  controls,
   column, value, children, classes,
   tableRow, tableColumn, row,
   className,
@@ -39,10 +32,7 @@ const TableTreeCellBase = ({
     {...restProps}
   >
     <div className={classes.container}>
-      {controls}
-      <div className={classes.content}>
-        {children || value}
-      </div>
+      {children}
     </div>
   </TableCellMUI>
 );
@@ -52,7 +42,6 @@ TableTreeCellBase.propTypes = {
   column: PropTypes.object,
   row: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  controls: PropTypes.node,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -63,7 +52,6 @@ TableTreeCellBase.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
-  controls: undefined,
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,

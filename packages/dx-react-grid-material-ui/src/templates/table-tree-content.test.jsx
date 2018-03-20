@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
-import { TableTreeCell } from './table-tree-cell';
+import { TableTreeContent } from './table-tree-content';
 
-describe('TableTreeCell', () => {
+describe('TableTreeContent', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<TableTreeCell />);
+    classes = getClasses(<TableTreeContent />);
     shallow = createShallow({ dive: true });
   });
 
   it('should render children if passed', () => {
     const tree = shallow((
-      <TableTreeCell>
+      <TableTreeContent>
         <span className="test" />
-      </TableTreeCell>
+      </TableTreeContent>
     ));
 
     expect(tree.find('.test').exists())
@@ -23,18 +23,18 @@ describe('TableTreeCell', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <TableTreeCell className="custom-class" />
+      <TableTreeContent className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is(`.${classes.cell}`))
+    expect(tree.is(`.${classes.content}`))
       .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableTreeCell data={{ a: 1 }} />
+      <TableTreeContent data={{ a: 1 }} />
     ));
 
     expect(tree.props().data)

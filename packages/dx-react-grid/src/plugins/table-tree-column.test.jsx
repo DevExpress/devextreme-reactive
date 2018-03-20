@@ -33,10 +33,11 @@ const defaultDeps = {
 
 const defaultProps = {
   for: 'a',
-  cellComponent: () => null,
+  cellComponent: ({ children }) => children,
   indentComponent: () => null,
   expandButtonComponent: () => null,
   checkboxComponent: () => null,
+  contentComponent: () => null,
 };
 
 describe('TableTreeColumn', () => {
@@ -57,7 +58,7 @@ describe('TableTreeColumn', () => {
   });
 
   describe('cellComponent', () => {
-    it('should render group cell on select group column and group row intersection', () => {
+    it('should render tree cell on data column and data row intersection', () => {
       isTreeTableCell.mockImplementation(() => true);
 
       const tree = mount((
@@ -104,7 +105,6 @@ describe('TableTreeColumn', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableTreeColumn
             {...defaultProps}
-            cellComponent={({ controls }) => controls}
           />
         </PluginHost>
       ));
@@ -138,7 +138,6 @@ describe('TableTreeColumn', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableTreeColumn
             {...defaultProps}
-            cellComponent={({ controls }) => controls}
           />
         </PluginHost>
       ));
@@ -185,7 +184,6 @@ describe('TableTreeColumn', () => {
           <TableTreeColumn
             {...defaultProps}
             showSelectionControls
-            cellComponent={({ controls }) => controls}
           />
         </PluginHost>
       ));
@@ -204,7 +202,7 @@ describe('TableTreeColumn', () => {
     });
   });
 
-  it('can render custom formatted data in group row cell', () => {
+  it('can render custom formatted data in cell', () => {
     isTreeTableCell.mockImplementation(() => true);
 
     const tree = mount((

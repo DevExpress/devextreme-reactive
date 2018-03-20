@@ -3,22 +3,6 @@ import { shallow } from 'enzyme';
 import { TableTreeCell } from './table-tree-cell';
 
 describe('TableTreeCell', () => {
-  it('should have correct text', () => {
-    const tree = shallow(<TableTreeCell value="text" />);
-    expect(tree.text()).toBe('text');
-  });
-
-  it('should render controls if passed', () => {
-    const tree = shallow((
-      <TableTreeCell
-        controls={<span className="test" />}
-      />
-    ));
-
-    expect(tree.find('.test').exists())
-      .toBeTruthy();
-  });
-
   it('should render children if passed', () => {
     const tree = shallow((
       <TableTreeCell>

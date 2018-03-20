@@ -19,6 +19,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 for | string | | A column name used to identify a column that will be represented as a tree.
 cellComponent | ComponentType&lt;[TableTreeColumn.CellProps](#tabletreecolumncellprops)&gt; | | A component that renders a cell within a data row.
+contentComponent | ComponentType&lt;[TableTreeColumn.ContentProps](#tabletreecolumncontentprops)&gt; | | A component that renders a cell's content.
 indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify row level.
 expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
@@ -38,8 +39,15 @@ Field | Type | Description
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
-controls? | ReactNode | A React node to be placed in the cell part that display controls.
-children? | ReactNode | A React node to be placed in the cell part that display cell value.
+children? | ReactNode | A React node to be placed in the cell.
+
+### TableTreeColumn.ContentProps
+
+Describes properties passed to a component that renders a cell's content.
+
+Field | Type | Description
+------|------|------------
+children? | ReactNode | A React node to be placed in the cell's content.
 
 ### TableTreeColumn.IndentProps
 
@@ -75,6 +83,7 @@ onChange | () => void | An event that initiates row selecting or deselecting.
 Name | Properties | Description
 -----|------------|------------
 TableTreeColumn.Cell | [TableTreeColumn.CellProps](#tabletreecolumncellprops) | A component that renders a cell within a data row.
+TableTreeColumn.Content | [TableTreeColumn.ContentProps](#tabletreecolumncontentprops) | A component that renders a cell's content.
 TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentprops) | A component that renders an indent used to identify row level.
 TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button that controls row's expanded state.
 TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.

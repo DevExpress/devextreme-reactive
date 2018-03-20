@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TableTreeCell } from './table-tree-cell';
+import { TableTreeContent } from './table-tree-content';
 
-describe('TableTreeCell', () => {
+describe('TableTreeContent', () => {
   it('should render children if passed', () => {
     const tree = shallow((
-      <TableTreeCell>
+      <TableTreeContent>
         <span className="test" />
-      </TableTreeCell>
+      </TableTreeContent>
     ));
 
     expect(tree.find('.test').exists())
@@ -16,7 +16,7 @@ describe('TableTreeCell', () => {
 
   it('should pass style to the root element', () => {
     const tree = shallow((
-      <TableTreeCell
+      <TableTreeContent
         style={{ color: 'gray' }}
       />
     ));
@@ -27,7 +27,7 @@ describe('TableTreeCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableTreeCell className="custom-class" />
+      <TableTreeContent className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))

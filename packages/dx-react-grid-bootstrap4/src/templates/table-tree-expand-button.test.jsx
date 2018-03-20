@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TableTreeExpandButton } from './table-tree-toggle-button';
+import { TableTreeExpandButton } from './table-tree-expand-button';
 
 describe('TableTreeExpandButton', () => {
   it('should pass style to the root element', () => {

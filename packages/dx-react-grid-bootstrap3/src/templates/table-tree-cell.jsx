@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const TableTreeCell = ({
-  controls,
   column, value, children,
   tableRow, tableColumn, row,
   style,
@@ -22,17 +21,7 @@ export const TableTreeCell = ({
         alignItems: 'center',
       }}
     >
-      {controls}
-      <div
-        style={{
-          width: '100%',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {children || value}
-      </div>
+      {children}
     </div>
   </td>
 );
@@ -41,7 +30,6 @@ TableTreeCell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
-  controls: PropTypes.node,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -52,7 +40,6 @@ TableTreeCell.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
-  controls: undefined,
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,

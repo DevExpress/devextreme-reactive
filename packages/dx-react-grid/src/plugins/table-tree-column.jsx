@@ -12,6 +12,7 @@ export class TableTreeColumn extends React.PureComponent {
       indentComponent: Indent,
       expandButtonComponent: ExpandButton,
       checkboxComponent: Checkbox,
+      contentComponent: Content,
       cellComponent: Cell,
     } = this.props;
     return (
@@ -78,28 +79,26 @@ export class TableTreeColumn extends React.PureComponent {
                         row={row}
                         column={params.tableColumn.column}
                         value={value}
-                        controls={
-                          <React.Fragment>
-                            <Indent
-                              level={getTreeRowLevel(row)}
-                            />
-                            <ExpandButton
-                              visible={collapsedRows ? !!collapsedRows.length : !isTreeRowLeaf(row)}
-                              expanded={expandedRowIds.indexOf(rowId) > -1}
-                              onToggle={() => toggleRowExpanded({ rowId })}
-                            />
-                            {showSelectionControls && (
-                              <Checkbox
-                                disabled={false}
-                                checked={selection.indexOf(rowId) > -1}
-                                indeterminate={false}
-                                onChange={() => toggleSelection({ rowIds: [rowId] })}
-                              />
-                            )}
-                          </React.Fragment>
-                        }
                       >
-                        {content}
+                        <Indent
+                          level={getTreeRowLevel(row)}
+                        />
+                        <ExpandButton
+                          visible={collapsedRows ? !!collapsedRows.length : !isTreeRowLeaf(row)}
+                          expanded={expandedRowIds.indexOf(rowId) > -1}
+                          onToggle={() => toggleRowExpanded({ rowId })}
+                        />
+                        {showSelectionControls && (
+                          <Checkbox
+                            disabled={false}
+                            checked={selection.indexOf(rowId) > -1}
+                            indeterminate={false}
+                            onChange={() => toggleSelection({ rowIds: [rowId] })}
+                          />
+                        )}
+                        <Content>
+                          {content || value}
+                        </Content>
                       </Cell>
                     )}
                   </TemplatePlaceholder>
@@ -121,6 +120,7 @@ TableTreeColumn.propTypes = {
   indentComponent: PropTypes.func.isRequired,
   expandButtonComponent: PropTypes.func.isRequired,
   checkboxComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
 };
 
 TableTreeColumn.defaultProps = {

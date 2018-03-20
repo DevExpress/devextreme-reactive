@@ -39,11 +39,6 @@
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/setup-enzyme.js"
-    ]
-  },
   "devDependencies": {
     "@devexpress/dx-testing": "1.1.0",
     "babel-core": "^6.26.0",

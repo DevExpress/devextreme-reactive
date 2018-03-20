@@ -2,15 +2,17 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Overlay } from './overlay';
 
+const defaultProps = {
+  onHide: () => {},
+  target: () => {},
+};
+
 describe('Overlay', () => {
-  const toggle = jest.fn();
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <Overlay
         className="custom-class"
-        onHide={() => {}}
-        toggle={toggle}
-        target={{}}
+        {...defaultProps}
       >
         <div />
       </Overlay>
@@ -24,9 +26,7 @@ describe('Overlay', () => {
     const tree = shallow((
       <Overlay
         data={{ a: 1 }}
-        onHide={() => {}}
-        toggle={toggle}
-        target={{}}
+        {...defaultProps}
       >
         <div />
       </Overlay>

@@ -41,11 +41,6 @@
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/setup-enzyme.js"
-    ]
-  },
   "devDependencies": {
     "@devexpress/dx-core": "1.1.0",
     "@devexpress/dx-react-core": "1.1.0",

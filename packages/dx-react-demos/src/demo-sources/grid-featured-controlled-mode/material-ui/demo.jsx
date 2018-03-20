@@ -332,6 +332,8 @@ class DemoBase extends React.PureComponent {
                 rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
                 columns={columns}
               >
+                <CurrencyTypeProvider for={currencyColumns} />
+                <PercentTypeProvider for={percentColumns} />
                 <Table
                   columnExtensions={tableColumnExtensions}
                   cellComponent={Cell}

@@ -1,15 +1,15 @@
 import { extent } from 'd3-array';
 
-const isNotUndefined = item => item !== undefined;
+const isDefined = item => item !== undefined;
 
-const getAxesDomain = axes =>
+const getAxesDomains = axes =>
   axes.reduce(
     (domains, {
       name, min, max, orientation, type,
     }) => ({
       ...domains,
       [name]: {
-        domain: [min, max].filter(isNotUndefined),
+        domain: [min, max].filter(isDefined),
         orientation,
         type,
       },
@@ -17,7 +17,7 @@ const getAxesDomain = axes =>
     {},
   );
 
-const calculateDomainFiled = (field, data, domain = [], type) => {
+const calculateDomainField = (field, data, domain = [], type) => {
   const getFieldItem = object => object[field];
   if (type === 'band') {
     return [...domain, ...data.map(getFieldItem)];
@@ -30,7 +30,7 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
     (domains, { valueField, argumentField, axisName }) => ({
       ...domains,
       [axisName]: {
-        domain: calculateDomainFiled(
+        domain: calculateDomainField(
           valueField,
           data,
           domains[axisName].domain,
@@ -40,7 +40,7 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
         type: domains[axisName] && domains[axisName].type,
       },
       [argumentAxisName]: {
-        domain: calculateDomainFiled(
+        domain: calculateDomainField(
           argumentField,
           data,
           domains[argumentAxisName].domain,
@@ -55,6 +55,6 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
   );
 
 export const domains = (axes, series, data, argumentAxisName) => {
-  const axesDomains = getAxesDomain(axes);
+  const axesDomains = getAxesDomains(axes);
   return calculateDomain(series, data, axesDomains, argumentAxisName);
 };

@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
 import {
-  Chart,
   Axis,
+  Grid,
+  Chart,
+  Legend,
   LineSeries,
   SplineSeries,
-  Grid,
 } from '@devexpress/dx-react-chart-svg';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -41,6 +42,7 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
+        <Legend />
         <Axis name="year" position="bottom" />
         {/* <Axis name="year" position="top" /> */}
         <Axis name="born" position="left" />

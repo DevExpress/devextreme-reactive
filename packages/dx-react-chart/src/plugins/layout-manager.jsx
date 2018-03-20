@@ -32,7 +32,7 @@ const calculatePositions = (bBoxes, rootNode, width, height, nodes) => {
 export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
-    const { width, height } = this.props;
+    const { width, height, children } = this.props;
 
     this.state = {
       bBoxes: {
@@ -44,7 +44,7 @@ export class LayoutManager extends React.Component {
     };
 
     this.nodes = [];
-    this.rootNode = this.createNodes(props.children);
+    this.rootNode = this.createNodes(children);
     this.setBBox = this.setBBox.bind(this);
   }
 

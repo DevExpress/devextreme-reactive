@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './toggle-button.css';
+import './expand-button.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -9,7 +9,7 @@ const SPACE_KEY_CODE = 32;
 const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
-export const ToggleButton = ({
+export const ExpandButton = ({
   visible, expanded, onToggle, className, ...restProps
 }) => {
   const fireToggle = () => {
@@ -44,14 +44,14 @@ export const ToggleButton = ({
   );
 };
 
-ToggleButton.propTypes = {
+ExpandButton.propTypes = {
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
   className: PropTypes.string,
 };
 
-ToggleButton.defaultProps = {
+ExpandButton.defaultProps = {
   visible: true,
   expanded: false,
   onToggle: () => {},

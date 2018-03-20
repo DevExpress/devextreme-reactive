@@ -20,7 +20,7 @@ Name | Type | Default | Description
 for | string | | A column name used to identify a column that will be represented as a tree.
 cellComponent | ComponentType&lt;[TableTreeColumn.CellProps](#tabletreecolumncellprops)&gt; | | A component that renders a cell within a data row.
 indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify row level.
-toggleButtonComponent | ComponentType&lt;[TableTreeColumn.ToggleButtonProps](#tabletreecolumntogglebuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
+expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
 showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
 showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
@@ -49,7 +49,7 @@ Field | Type | Description
 ------|------|------------
 level | number | Specifies a row level.
 
-### TableTreeColumn.ToggleButtonProps
+### TableTreeColumn.ExpandButtonProps
 
 Describes properties passed to a component that renders a button that controls row's expanded state.
 
@@ -76,7 +76,7 @@ Name | Properties | Description
 -----|------------|------------
 TableTreeColumn.Cell | [TableTreeColumn.CellProps](#tabletreecolumncellprops) | A component that renders a cell within a data row.
 TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentprops) | A component that renders an indent used to identify row level.
-TableTreeColumn.ToggleButton | [TableTreeColumn.ToggleButtonProps](#tabletreecolumntogglebuttonprops) | A component that renders a button that controls row's expanded state.
+TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button that controls row's expanded state.
 TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.
 
 If you specify additional properties, they are added to the component's root element.

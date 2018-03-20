@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TableTreeColumn as TableTreeColumnBase } from '@devexpress/dx-react-grid';
-import { TableTreeToggleButton } from '../templates/table-tree-toggle-button';
+import { TableTreeExpandButton } from '../templates/table-tree-expand-button';
 import { TableTreeCheckbox } from '../templates/table-tree-checkbox';
 import { TableTreeIndent } from '../templates/table-tree-indent';
 import { TableTreeCell } from '../templates/table-tree-cell';
@@ -11,7 +11,7 @@ export class TableTreeColumn extends React.PureComponent {
       <TableTreeColumnBase
         cellComponent={TableTreeCell}
         indentComponent={TableTreeIndent}
-        toggleButtonComponent={TableTreeToggleButton}
+        expandButtonComponent={TableTreeExpandButton}
         checkboxComponent={TableTreeCheckbox}
         {...this.props}
       />
@@ -21,5 +21,5 @@ export class TableTreeColumn extends React.PureComponent {
 
 TableTreeColumn.Cell = TableTreeCell;
 TableTreeColumn.Indent = TableTreeIndent;
-TableTreeColumn.ToggleButton = TableTreeToggleButton;
+TableTreeColumn.ExpandButton = TableTreeExpandButton;
 TableTreeColumn.Checkbox = TableTreeCheckbox;

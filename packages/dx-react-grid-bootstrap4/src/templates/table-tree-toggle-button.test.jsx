@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TableTreeToggleButton } from './table-tree-toggle-button';
+import { TableTreeExpandButton } from './table-tree-toggle-button';
 
-describe('TableTreeToggleButton', () => {
+describe('TableTreeExpandButton', () => {
   it('should pass style to the root element', () => {
     const tree = shallow((
-      <TableTreeToggleButton
+      <TableTreeExpandButton
         className="test"
       />
     ));
@@ -16,7 +16,7 @@ describe('TableTreeToggleButton', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableTreeToggleButton className="custom-class" />
+      <TableTreeExpandButton className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))

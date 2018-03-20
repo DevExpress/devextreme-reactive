@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { ToggleButton } from './toggle-button';
+import { ExpandButton } from './expand-button';
 
 const defaultProps = {
   visible: true,
@@ -12,7 +12,7 @@ const defaultProps = {
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
-describe('ToggleButton', () => {
+describe('ExpandButton', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -24,7 +24,7 @@ describe('ToggleButton', () => {
   it('should handle click', () => {
     const onToggle = jest.fn();
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         onToggle={onToggle}
       />
@@ -37,7 +37,7 @@ describe('ToggleButton', () => {
 
   it('can get focus', () => {
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
       />
     ));
@@ -49,7 +49,7 @@ describe('ToggleButton', () => {
   it('should handle the "Enter" and "Space" keys down', () => {
     const onToggle = jest.fn();
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         onToggle={onToggle}
       />
@@ -73,7 +73,7 @@ describe('ToggleButton', () => {
 
   it('should pass style to the root element', () => {
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         style={{ color: 'gray' }}
       />
@@ -85,7 +85,7 @@ describe('ToggleButton', () => {
 
   it('should pass style to the root element', () => {
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         style={{ color: 'gray' }}
       />
@@ -97,7 +97,7 @@ describe('ToggleButton', () => {
 
   it('should pass className to the root element', () => {
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         className="test"
       />
@@ -109,7 +109,7 @@ describe('ToggleButton', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <ToggleButton
+      <ExpandButton
         {...defaultProps}
         data={{ a: 1 }}
       />
@@ -123,7 +123,7 @@ describe('ToggleButton', () => {
     it('should not handle click', () => {
       const onToggle = jest.fn();
       const tree = shallow((
-        <ToggleButton
+        <ExpandButton
           {...defaultProps}
           visible={false}
           onToggle={onToggle}
@@ -137,7 +137,7 @@ describe('ToggleButton', () => {
 
     it('can not get focus', () => {
       const tree = shallow((
-        <ToggleButton
+        <ExpandButton
           {...defaultProps}
           visible={false}
         />

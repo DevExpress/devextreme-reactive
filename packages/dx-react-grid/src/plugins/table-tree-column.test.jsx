@@ -35,7 +35,7 @@ const defaultProps = {
   for: 'a',
   cellComponent: () => null,
   indentComponent: () => null,
-  toggleButtonComponent: () => null,
+  expandButtonComponent: () => null,
   checkboxComponent: () => null,
 };
 
@@ -142,7 +142,7 @@ describe('TableTreeColumn', () => {
           />
         </PluginHost>
       ));
-      expect(tree.find(defaultProps.toggleButtonComponent).props())
+      expect(tree.find(defaultProps.expandButtonComponent).props())
         .toMatchObject({
           visible: true,
           expanded: true,
@@ -153,7 +153,7 @@ describe('TableTreeColumn', () => {
       expect(deps.getter.isTreeRowLeaf)
         .toBeCalledWith(deps.template.tableCell.tableRow.row);
 
-      tree.find(defaultProps.toggleButtonComponent).props().onToggle();
+      tree.find(defaultProps.expandButtonComponent).props().onToggle();
       expect(defaultDeps.action.toggleRowExpanded.mock.calls[0][0])
         .toEqual({ rowId: 'rowId' });
     });

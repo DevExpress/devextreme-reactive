@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
 import IconButton from 'material-ui/IconButton';
-import { TableTreeToggleButton } from './table-tree-toggle-button';
+import { TableTreeExpandButton } from './table-tree-expand-button';
 
-describe('TableTreeToggleButton', () => {
+describe('TableTreeExpandButton', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
@@ -11,7 +11,7 @@ describe('TableTreeToggleButton', () => {
 
   it('should render IconButton', () => {
     const tree = shallow((
-      <TableTreeToggleButton />
+      <TableTreeExpandButton />
     ));
 
     expect(tree.find(IconButton).exists())
@@ -21,7 +21,7 @@ describe('TableTreeToggleButton', () => {
   it('should handle click with stopPropagation', () => {
     const onToggle = jest.fn();
     const tree = shallow((
-      <TableTreeToggleButton
+      <TableTreeExpandButton
         visible
         onToggle={onToggle}
       />
@@ -35,7 +35,7 @@ describe('TableTreeToggleButton', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <TableTreeToggleButton
+      <TableTreeExpandButton
         className="custom-class"
       />
     ));
@@ -46,7 +46,7 @@ describe('TableTreeToggleButton', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableTreeToggleButton
+      <TableTreeExpandButton
         data={{ a: 1 }}
       />
     ));

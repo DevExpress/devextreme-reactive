@@ -8,7 +8,7 @@ const SPACE_KEY_CODE = 32;
 const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
 const handleBlur = (e) => { e.target.style.outline = ''; };
 
-export const ToggleButton = ({
+export const ExpandButton = ({
   visible, expanded, onToggle, className, style, ...restProps
 }) => {
   const fireToggle = () => {
@@ -53,7 +53,7 @@ export const ToggleButton = ({
   );
 };
 
-ToggleButton.propTypes = {
+ExpandButton.propTypes = {
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
@@ -61,7 +61,7 @@ ToggleButton.propTypes = {
   style: PropTypes.object,
 };
 
-ToggleButton.defaultProps = {
+ExpandButton.defaultProps = {
   visible: true,
   expanded: false,
   onToggle: () => {},

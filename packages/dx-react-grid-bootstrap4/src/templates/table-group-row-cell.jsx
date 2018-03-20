@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { ToggleButton } from './parts/toggle-button';
+import { ExpandButton } from './parts/expand-button';
 
 export const TableGroupCell = ({
   className, colSpan, row, column,
@@ -18,7 +18,7 @@ export const TableGroupCell = ({
       onClick={handleClick}
       {...restProps}
     >
-      <ToggleButton
+      <ExpandButton
         expanded={expanded}
         onToggle={onToggle}
         className={classNames('mr-2')}

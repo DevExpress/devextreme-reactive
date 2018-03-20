@@ -2,16 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { ToggleButton } from './parts/toggle-button';
+import { ExpandButton } from './parts/expand-button';
 
-export const TableTreeToggleButton = ({
+export const TableTreeExpandButton = ({
   className,
   visible,
   expanded,
   onToggle,
   ...restProps
 }) => (
-  <ToggleButton
+  <ExpandButton
     visible={visible}
     expanded={expanded}
     onToggle={onToggle}
@@ -20,14 +20,14 @@ export const TableTreeToggleButton = ({
   />
 );
 
-TableTreeToggleButton.propTypes = {
+TableTreeExpandButton.propTypes = {
   className: PropTypes.string,
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
 };
 
-TableTreeToggleButton.defaultProps = {
+TableTreeExpandButton.defaultProps = {
   className: undefined,
   visible: false,
   expanded: false,

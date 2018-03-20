@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { ToggleButton } from './parts/toggle-button';
+import { ExpandButton } from './parts/expand-button';
 
 export const TableGroupCell = ({
   style, colSpan, row, column,
@@ -18,7 +18,7 @@ export const TableGroupCell = ({
     onClick={onToggle}
     {...restProps}
   >
-    <ToggleButton
+    <ExpandButton
       expanded={expanded}
       onToggle={onToggle}
       style={{

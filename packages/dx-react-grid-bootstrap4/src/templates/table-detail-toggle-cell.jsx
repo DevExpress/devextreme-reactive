@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { ToggleButton } from './parts/toggle-button';
+import { ExpandButton } from './parts/expand-button';
 
 export const TableDetailToggleCell = ({
   expanded, onToggle,
@@ -13,7 +13,7 @@ export const TableDetailToggleCell = ({
     className={classNames('text-center align-middle', className)}
     {...restProps}
   >
-    <ToggleButton
+    <ExpandButton
       expanded={expanded}
       onToggle={onToggle}
     />

@@ -10,7 +10,7 @@ export class TableTreeColumn extends React.PureComponent {
       showSelectionControls,
       showSelectAll,
       indentComponent: Indent,
-      toggleButtonComponent: ToggleButton,
+      expandButtonComponent: ExpandButton,
       checkboxComponent: Checkbox,
       cellComponent: Cell,
     } = this.props;
@@ -30,7 +30,7 @@ export class TableTreeColumn extends React.PureComponent {
           name="tableHeaderCellBefore"
           predicate={({ column }) => column.name === forColumnName}
         >
-          <ToggleButton
+          <ExpandButton
             visible={false}
           />
           {showSelectionControls && showSelectAll && (
@@ -83,7 +83,7 @@ export class TableTreeColumn extends React.PureComponent {
                             <Indent
                               level={getTreeRowLevel(row)}
                             />
-                            <ToggleButton
+                            <ExpandButton
                               visible={collapsedRows ? !!collapsedRows.length : !isTreeRowLeaf(row)}
                               expanded={expandedRowIds.indexOf(rowId) > -1}
                               onToggle={() => toggleRowExpanded({ rowId })}
@@ -119,7 +119,7 @@ TableTreeColumn.propTypes = {
   showSelectAll: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   indentComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  expandButtonComponent: PropTypes.func.isRequired,
   checkboxComponent: PropTypes.func.isRequired,
 };
 

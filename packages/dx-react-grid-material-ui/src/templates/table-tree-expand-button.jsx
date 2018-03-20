@@ -19,7 +19,7 @@ const styles = theme => ({
   },
 });
 
-const TableTreeToggleButtonBase = ({
+const TableTreeExpandButtonBase = ({
   visible, expanded, classes, onToggle,
   className,
   ...restProps
@@ -42,7 +42,7 @@ const TableTreeToggleButtonBase = ({
   </IconButton>
 );
 
-TableTreeToggleButtonBase.propTypes = {
+TableTreeExpandButtonBase.propTypes = {
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
@@ -50,11 +50,11 @@ TableTreeToggleButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-TableTreeToggleButtonBase.defaultProps = {
+TableTreeExpandButtonBase.defaultProps = {
   visible: false,
   expanded: false,
   onToggle: () => {},
   className: undefined,
 };
 
-export const TableTreeToggleButton = withStyles(styles)(TableTreeToggleButtonBase);
+export const TableTreeExpandButton = withStyles(styles)(TableTreeExpandButtonBase);

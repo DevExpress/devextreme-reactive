@@ -192,13 +192,13 @@ describe('TableTreeColumn', () => {
       expect(tree.find(defaultProps.checkboxComponent).props())
         .toMatchObject({
           disabled: false,
-          selected: true,
-          onToggle: expect.any(Function),
+          checked: true,
+          onChange: expect.any(Function),
         });
       expect(deps.getter.selection.indexOf)
         .toBeCalledWith('rowId');
 
-      tree.find(defaultProps.checkboxComponent).props().onToggle();
+      tree.find(defaultProps.checkboxComponent).props().onChange();
       expect(deps.action.toggleSelection.mock.calls[0][0])
         .toEqual({ rowIds: ['rowId'] });
     });

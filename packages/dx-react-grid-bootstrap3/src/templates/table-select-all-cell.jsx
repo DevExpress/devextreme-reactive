@@ -3,9 +3,11 @@ import * as PropTypes from 'prop-types';
 
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow,
+  tableColumn, tableRow, rowSpan,
   ...restProps
 }) => {
+  const paddingTop = rowSpan > 1 ? (41 * (rowSpan - 1)) : '';
+
   const toggle = (e) => {
     if (disabled) return;
 
@@ -17,9 +19,11 @@ export const TableSelectAllCell = ({
     <th
       style={{
         cursor: !disabled && 'pointer',
-        verticalAlign: 'bottom',
+        verticalAlign: 'middle',
+        ...(rowSpan ? { paddingTop: `${paddingTop}px` } : null),
         ...style,
       }}
+      rowSpan={rowSpan}
       onClick={toggle}
       {...restProps}
     >

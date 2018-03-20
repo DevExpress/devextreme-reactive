@@ -6,6 +6,7 @@ import {
   IntegratedSorting,
   GroupingState,
   IntegratedGrouping,
+  EditingState,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -20,6 +21,9 @@ import {
   Toolbar,
   TableGroupRow,
   GroupingPanel,
+  TableEditRow,
+  TableEditColumn,
+  TableColumnResizing,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
 const countries = [
@@ -182,6 +186,7 @@ export default class Demo extends React.PureComponent {
         { columnName: 'GDP_Industry', width: 90 },
         { columnName: 'GDP_Services', width: 90 },
         { columnName: 'Population_Urban', width: 85 },
+        { columnName: 'Population_Total', width: 85 },
       ],
       defaultOrder: ['Country', 'Area', 'GDP_Total', 'GDP_Agriculture', 'GDP_Industry', 'GDP_Services', 'Population_Total', 'Population_Urban'],
     };
@@ -198,6 +203,7 @@ export default class Demo extends React.PureComponent {
           <SelectionState />
           <SortingState />
           <GroupingState />
+          <EditingState />
 
           <IntegratedSelection />
           <IntegratedSorting />
@@ -206,13 +212,20 @@ export default class Demo extends React.PureComponent {
           <Table
             columnExtensions={tableColumnExtensions}
           />
+          <TableColumnResizing defaultColumnWidths={tableColumnExtensions} />
           <TableColumnReordering defaultOrder={defaultOrder} />
           <TableHeaderRow showSortingControls />
           <TableGroupRow />
-          <TableSelection showSelectAll  />
+          <TableEditRow />
+          <TableEditColumn
+            showAddCommand
+            showEditCommand
+            showDeleteCommand
+          />
           <TableGroupHeader
             columnGroups={columnGroups}
           />
+          <TableEditRow />
           <TableColumnVisibility />
           <Toolbar />
           <GroupingPanel />

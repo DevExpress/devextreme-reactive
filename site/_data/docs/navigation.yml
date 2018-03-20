@@ -63,6 +63,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Group Columns
+          path: /react/grid/docs/guides/group-columns
         - title: Virtual Scrolling
           path: /react/grid/docs/guides/virtual-scrolling
         - title: Localization

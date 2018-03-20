@@ -126,10 +126,10 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
+        { name: 'GDP_Agriculture', title: 'Agriculture' },
         { name: 'Country', title: 'Country' },
         { name: 'Area', title: 'Area' },
         { name: 'GDP_Total', title: 'Total' },
-        { name: 'GDP_Agriculture', title: 'Agriculture' },
         { name: 'GDP_Industry', title: 'Industry' },
         { name: 'GDP_Services', title: 'Services' },
         { name: 'Population_Total', title: 'Total' },

@@ -11,9 +11,7 @@ const styles = {
 };
 
 export const BandRowBase = ({
-  children, classes, className,
-  row, tableRow, tableColumn,
-  ...restProps
+  children, classes, className, row, tableRow, tableColumn, ...restProps
 }) => (
   <TableRowMUI
     className={classNames(classes.bandRow, className)}

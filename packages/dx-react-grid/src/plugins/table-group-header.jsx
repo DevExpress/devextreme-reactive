@@ -4,6 +4,7 @@ import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from
 import {
   getColumnMeta,
   isBandedTableRow,
+  isBandedOrHeaderRow,
   tableRowsWithBands,
   isHeadingTableCell,
 } from '@devexpress/dx-grid-core';
@@ -18,6 +19,8 @@ export class TableGroupHeader extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
+      stubCellComponent: StubCell,
+      emptyCellComponent: EmptyCell,
       columnGroups,
     } = this.props;
 
@@ -37,76 +40,63 @@ export class TableGroupHeader extends React.PureComponent {
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
-        <Template name="tableCell" predicate={({ tableRow }) => isBandedTableRow(tableRow)}>
-          {() => null}
+        <Template
+          name="tableCell"
+          predicate={({ tableRow, tableColumn }) => tableRow.type === 'heading' && tableColumn.type === 'flex'}
+        >
+          {params => <StubCell style={{ ...params.style }} rowSpan={params.rowSpan} />}
         </Template>
 
         <Template
           name="tableCell"
-          predicate={({ tableColumn, tableRow }) => isBandedTableRow(tableRow) || (tableRow.type === 'heading' && tableColumn.type !== 'data') || tableRow.type === 'heading'}
+          predicate={({ tableRow }) => isBandedOrHeaderRow(tableRow)}
         >
           {params => (
             <TemplateConnector>
               {({ tableColumns, tableHeaderRows }) => {
-                if (params.skip === true) return <TemplatePlaceholder />;
+                if (params.rowSpan) return <TemplatePlaceholder />;
 
                 const maxLevel = tableHeaderRows.filter(column => column.type === 'band').length + 1;
-                if (params.tableColumn.type !== 'data') {
-                  if (params.tableRow.level === 0) {
-                    return (
-                      <TemplatePlaceholder
-                        name="tableCell"
-                        params={{
-                          ...params,
-                          tableRow: { ...tableHeaderRows.find(row => row.type === 'heading'), level: 0 },
-                          rowSpan: maxLevel,
-                          skip: true,
-                        }}
-                      />
-                    );
-                  } return null;
-                }
-                const tableRowLevel = params.tableRow.level;
-                const dataTableColumns = tableColumns.filter(column => column.type === 'data');
-                const currentColumnMeta =
-                  getColumnMeta(params.tableColumn.column.name, columnGroups, tableRowLevel);
-
-                const rowLevel = params.tableRow.level === undefined
+                const currentRowLevel = params.tableRow.level === undefined
                   ? maxLevel - 1 : params.tableRow.level;
-                const firstChild = (tableColumns[0].type === 'data' && tableColumns[0].column.name === params.tableColumn.column.name) && true;
-                const lastChild = (tableColumns[tableColumns.length - 1].type === 'data' && tableColumns[tableColumns.length - 1].column.name === params.tableColumn.column.name) && true;
-                if (currentColumnMeta.level < rowLevel) return null;
-                if (currentColumnMeta.level === rowLevel) {
+                const currentColumnMeta = params.tableColumn.type === 'data'
+                  ? getColumnMeta(params.tableColumn.column.name, columnGroups, currentRowLevel)
+                  : { level: 0, title: '' };
+
+                // рендерит заглушки всех ячеек, которые стоят перед текущей
+                if (currentColumnMeta.level < currentRowLevel) return <EmptyCell />;
+                if (currentColumnMeta.level === currentRowLevel) {
+                  // рендерит текущую ячейку на нужной строке с типом хедер
                   return (
                     <TemplatePlaceholder
                       name="tableCell"
                       params={{
                         ...params,
                         tableRow: tableHeaderRows.find(row => row.type === 'heading'),
-                        rowSpan: (maxLevel - rowLevel),
-                        skip: true,
-                        firstChild,
-                        lastChild,
+                        rowSpan: maxLevel - currentRowLevel,
                       }}
                     />
                   );
                 }
 
-                const currColumnIndex = dataTableColumns.findIndex(tableColumn =>
+                const currColumnIndex = tableColumns.findIndex(tableColumn =>
                   tableColumn.key === params.tableColumn.key);
-                if (currColumnIndex > 0) {
+                if (currColumnIndex > 0 && tableColumns[currColumnIndex - 1].type === 'data') {
                   const prevColumnMeta = getColumnMeta(
-                    dataTableColumns[currColumnIndex - 1].column.name,
+                      tableColumns[currColumnIndex - 1].column.name,
                       columnGroups,
-                      tableRowLevel,
+                      currentRowLevel,
                     );
+                  // если ячейка относится к предыдущей группе, то не рендерим её
                   if (prevColumnMeta.title === currentColumnMeta.title) return null;
                 }
 
+                // рендеринг широких главных ячеек. Вычислениее ширины
                 let colSpan = 1;
-                for (let index = currColumnIndex + 1; index < dataTableColumns.length; index += 1) {
+                for (let index = currColumnIndex + 1; index < tableColumns.length; index += 1) {
+                  if (tableColumns[index].type !== 'data') break;
                   const columnMeta =
-                    getColumnMeta(dataTableColumns[index].column.name, columnGroups, tableRowLevel);
+                    getColumnMeta(tableColumns[index].column.name, columnGroups, currentRowLevel);
                   if (columnMeta.title === currentColumnMeta.title) {
                     colSpan += 1;
                   } else break;
@@ -118,8 +108,6 @@ export class TableGroupHeader extends React.PureComponent {
                     colSpan={colSpan}
                     value={currentColumnMeta.title}
                     column={currentColumnMeta}
-                    firstChild={firstChild}
-                    lastChild={lastChild}
                   />
                 );
               }}
@@ -150,6 +138,8 @@ TableGroupHeader.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
+  stubCellComponent: PropTypes.func.isRequired,
+  emptyCellComponent: PropTypes.func.isRequired,
 };
 
 TableGroupHeader.defaultProps = {

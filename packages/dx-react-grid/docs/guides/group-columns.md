@@ -19,4 +19,4 @@ Import the plugins listed above and specify a required TableGroupHeader's proper
 
 The following demo demonstrated how to configure the DevExpress Data Grid with column groups.
 
-.embedded-demo({ "path": "grid-column-groups/complex", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-column-groups/featured", "showThemeSelector": true })

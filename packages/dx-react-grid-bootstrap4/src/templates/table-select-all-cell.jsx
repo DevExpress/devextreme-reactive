@@ -4,9 +4,11 @@ import classNames from 'classnames';
 
 export const TableSelectAllCell = ({
   allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow, className,
+  tableColumn, tableRow, className, style, rowSpan,
   ...restProps
 }) => {
+  const paddingTop = rowSpan > 1 ? (55 * (rowSpan - 1)) : '';
+
   const toggle = (e) => {
     if (disabled) return;
 
@@ -17,9 +19,14 @@ export const TableSelectAllCell = ({
   return (
     <th
       className={classNames({
-        'align-bottom': true,
+        'align-middle': true,
         'dx-rg-bs4-cursor-pointer': !disabled,
       }, className)}
+      rowSpan={rowSpan}
+      style={{
+        ...(rowSpan ? { paddingTop: `${paddingTop}px` } : null),
+        ...style,
+      }}
       onClick={toggle}
       {...restProps}
     >

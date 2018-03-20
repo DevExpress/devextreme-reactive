@@ -9,35 +9,19 @@ const styles = theme => ({
     borderLeft: getBorderColor(theme),
     borderTop: 'none',
     '&:first-child': {
-      paddingLeft: '8px', // !
+      borderLeft: 0,
     },
-    '&:last-child': {
-      paddingRight: '8px', // !
-    },
-  },
-  firstChild: {
-    paddingLeft: '24px !important',
-    borderLeft: 0,
-  },
-  lastChild: {
-    paddingRight: '24px !important',
   },
 });
 
 export const BandHeaderCellBase = ({
-  component: Component,
-  className, classes, style, rowSpan,
-  ...restProps
+  component: Component, className, classes, style, rowSpan, ...restProps
 }) => {
   const paddingTop = rowSpan > 1 ? (48 * (rowSpan - 1)) : '';
   return (
     <Component
       {...restProps}
-      className={classNames({
-        [classes.bandBorder]: true,
-        [classes.firstChild]: restProps.firstChild,
-        [classes.lastChild]: restProps.lastChild,
-      }, className)}
+      className={classNames(classes.bandBorder, className)}
       style={{
         ...style,
         ...(rowSpan > 1 ? { paddingBottom: 0, paddingTop: `${paddingTop}px` } : null),

@@ -62,7 +62,7 @@ export class Axis extends React.Component {
             {({
                    domains, setBBox, layouts,
                }) => {
-                 const { domain, orientation } = domains[name];
+                 const { orientation } = domains[name];
                  const placeholder = getPlaceholder(orientation, position);
                  const {
                     x, y, width, height,
@@ -71,8 +71,7 @@ export class Axis extends React.Component {
                 const refsHandler = this.createRefsHandler(placeholder, setBBox, orientation);
 
                 const coordinates = axisCoordinates(
-                  domain,
-                  orientation,
+                  domains[name],
                   position,
                   width,
                   height,

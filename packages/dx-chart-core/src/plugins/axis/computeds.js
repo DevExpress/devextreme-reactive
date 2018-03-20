@@ -1,4 +1,4 @@
-import { scaleLinear } from 'd3-scale';
+import { createScale } from '../../utils/scale';
 
 const tickSize = 10;
 
@@ -62,22 +62,20 @@ const calculateAxisCoordinates = (scale, width, height, orientation, position) =
     };
   }
   return {
-    ticks: scale.ticks().map(getTickCoordinates),
+    ticks: scale.ticks ?
+      scale.ticks().map(getTickCoordinates)
+      : scale.domain().filter(item => (!!item)).map(getTickCoordinates),
   };
 };
 
-export const axisCoordinates = (domain, orientation, position, width, height) => {
-  const scale = scaleLinear()
-    .domain(domain)
-    .range(orientation === 'horizontal'
-      ? [0, width]
-      : [height, 0]);
+export const axisCoordinates = (domainOptions, position, width, height) => {
+  const scale = createScale(domainOptions, width, height);
 
   return calculateAxisCoordinates(
     scale,
     width,
     height,
-    orientation,
+    domainOptions.orientation,
     position,
   );
 };

@@ -14,18 +14,17 @@ const styles = theme => ({
 });
 
 export const TableTreeCheckboxBase = ({
-  disabled, selected, someSelected, onToggle, classes,
-  className, ...restProps
+  disabled, checked, indeterminate, onChange, classes, className, ...restProps
 }) => (
   <CheckboxMUI
     className={classNames(classes.checkbox, className)}
-    checked={selected}
-    indeterminate={someSelected}
+    checked={checked}
+    indeterminate={indeterminate}
     disabled={disabled}
     onClick={(e) => {
       if (disabled) return;
       e.stopPropagation();
-      onToggle();
+      onChange();
     }}
     {...restProps}
   />
@@ -33,18 +32,18 @@ export const TableTreeCheckboxBase = ({
 
 TableTreeCheckboxBase.propTypes = {
   disabled: PropTypes.bool,
-  selected: PropTypes.bool,
-  someSelected: PropTypes.bool,
-  onToggle: PropTypes.func,
+  checked: PropTypes.bool,
+  indeterminate: PropTypes.bool,
+  onChange: PropTypes.func,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 TableTreeCheckboxBase.defaultProps = {
   disabled: false,
-  selected: false,
-  someSelected: false,
-  onToggle: () => {},
+  checked: false,
+  indeterminate: false,
+  onChange: () => {},
   className: undefined,
 };
 

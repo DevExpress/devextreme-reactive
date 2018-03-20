@@ -6,17 +6,17 @@ import { SelectionControl } from './parts/selection-control';
 
 export const TableTreeCheckbox = ({
   className,
-  selected,
-  someSelected,
+  checked,
+  indeterminate,
   disabled,
-  onToggle,
+  onChange,
   ...restProps
 }) => (
   <SelectionControl
     disabled={disabled}
-    checked={selected}
-    indeterminate={someSelected}
-    onChange={onToggle}
+    checked={checked}
+    indeterminate={indeterminate}
+    onChange={onChange}
     className={classNames('mr-4', className)}
     {...restProps}
   />
@@ -24,16 +24,16 @@ export const TableTreeCheckbox = ({
 
 TableTreeCheckbox.propTypes = {
   className: PropTypes.string,
-  selected: PropTypes.bool,
-  someSelected: PropTypes.bool,
+  checked: PropTypes.bool,
+  indeterminate: PropTypes.bool,
   disabled: PropTypes.bool,
-  onToggle: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 TableTreeCheckbox.defaultProps = {
   className: undefined,
-  selected: false,
-  someSelected: false,
+  checked: false,
+  indeterminate: false,
   disabled: false,
-  onToggle: () => {},
+  onChange: () => {},
 };

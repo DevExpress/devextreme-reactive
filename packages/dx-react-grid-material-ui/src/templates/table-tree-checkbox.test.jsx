@@ -17,10 +17,10 @@ describe('TableTreeCheckbox', () => {
     mount.cleanUp();
   });
 
-  it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
+  it('should render indeterminate state checkbox if the `indeterminate` property is true', () => {
     const tree = shallow((
       <TableTreeCheckbox
-        someSelected
+        indeterminate
       />
     ));
 
@@ -28,30 +28,30 @@ describe('TableTreeCheckbox', () => {
       .toBeTruthy();
   });
 
-  it('should not fire the `onToggle` event on cell click if selection is not available', () => {
-    const onToggle = jest.fn();
+  it('should not fire the `onChange` event on cell click if selection is not available', () => {
+    const onChange = jest.fn();
     const tree = shallow((
       <TableTreeCheckbox
         disabled
-        onToggle={onToggle}
+        onChange={onChange}
       />
     ));
     tree.find(Checkbox).simulate('click', { stopPropagation: () => {} });
 
-    expect(onToggle)
+    expect(onChange)
       .not.toHaveBeenCalled();
   });
 
-  it('should fire the `onToggle` event on cell click if selection is available', () => {
-    const onToggle = jest.fn();
+  it('should fire the `onChange` event on cell click if selection is available', () => {
+    const onChange = jest.fn();
     const tree = shallow((
       <TableTreeCheckbox
-        onToggle={onToggle}
+        onChange={onChange}
       />
     ));
     tree.find(Checkbox).simulate('click', { stopPropagation: () => {} });
 
-    expect(onToggle)
+    expect(onChange)
       .toHaveBeenCalledTimes(1);
   });
 

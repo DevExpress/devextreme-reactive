@@ -41,56 +41,54 @@ export class TableHeaderRow extends React.PureComponent {
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplatePlaceholder
-              name="tableHeaderCellBefore"
-              params={{
-                column: params.tableColumn.column,
-              }}
-            >
-              {beforeContent => (
-                <TemplateConnector>
-                  {({
-                    sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
-                    isColumnSortingEnabled, isColumnGroupingEnabled,
-                  }, {
-                    changeColumnSorting, changeColumnGrouping,
-                    changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
-                  }) => {
-                    const { name: columnName } = params.tableColumn.column;
-                    const atLeastOneDataColumn = tableColumns
-                      .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
-                    const sortingEnabled = isColumnSortingEnabled &&
-                      isColumnSortingEnabled(columnName);
-                    const groupingEnabled = isColumnGroupingEnabled &&
-                      isColumnGroupingEnabled(columnName) &&
-                      atLeastOneDataColumn;
+            <TemplateConnector>
+              {({
+                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                isColumnSortingEnabled, isColumnGroupingEnabled,
+              }, {
+                changeColumnSorting, changeColumnGrouping,
+                changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
+              }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const atLeastOneDataColumn = tableColumns
+                  .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
+                const sortingEnabled = isColumnSortingEnabled &&
+                  isColumnSortingEnabled(columnName);
+                const groupingEnabled = isColumnGroupingEnabled &&
+                  isColumnGroupingEnabled(columnName) &&
+                  atLeastOneDataColumn;
 
-                    return (
-                      <HeaderCell
-                        {...params}
-                        column={params.tableColumn.column}
-                        getMessage={getMessage}
-                        sortingEnabled={sortingEnabled}
-                        groupingEnabled={groupingEnabled}
-                        showSortingControls={showSortingControls}
-                        showGroupingControls={showGroupingControls}
-                        draggingEnabled={draggingEnabled && atLeastOneDataColumn}
-                        resizingEnabled={tableColumnResizingEnabled}
-                        sortingDirection={showSortingControls && sorting !== undefined
-                          ? getColumnSortingDirection(sorting, columnName) : undefined}
-                        onSort={({ direction, keepOther }) =>
-                          changeColumnSorting({ columnName, direction, keepOther })}
-                        onGroup={() => changeColumnGrouping({ columnName })}
-                        onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
-                        onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
-                        onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
-                        before={beforeContent}
+                return (
+                  <HeaderCell
+                    {...params}
+                    column={params.tableColumn.column}
+                    getMessage={getMessage}
+                    sortingEnabled={sortingEnabled}
+                    groupingEnabled={groupingEnabled}
+                    showSortingControls={showSortingControls}
+                    showGroupingControls={showGroupingControls}
+                    draggingEnabled={draggingEnabled && atLeastOneDataColumn}
+                    resizingEnabled={tableColumnResizingEnabled}
+                    sortingDirection={showSortingControls && sorting !== undefined
+                      ? getColumnSortingDirection(sorting, columnName) : undefined}
+                    onSort={({ direction, keepOther }) =>
+                      changeColumnSorting({ columnName, direction, keepOther })}
+                    onGroup={() => changeColumnGrouping({ columnName })}
+                    onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
+                    onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
+                    onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                    before={(
+                      <TemplatePlaceholder
+                        name="tableHeaderCellBefore"
+                        params={{
+                          column: params.tableColumn.column,
+                        }}
                       />
-                    );
-                  }}
-                </TemplateConnector>
-              )}
-            </TemplatePlaceholder>
+                    )}
+                  />
+                );
+              }}
+            </TemplateConnector>
           )}
         </Template>
         <Template

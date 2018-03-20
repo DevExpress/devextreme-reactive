@@ -38,9 +38,9 @@ export class TableTreeColumn extends React.PureComponent {
               {({ selectAllAvailable, allSelected, someSelected }, { toggleSelectAll }) => (
                 <Checkbox
                   disabled={!selectAllAvailable}
-                  selected={allSelected}
-                  someSelected={someSelected}
-                  onToggle={toggleSelectAll}
+                  checked={allSelected}
+                  indeterminate={someSelected}
+                  onChange={toggleSelectAll}
                 />
               )}
             </TemplateConnector>
@@ -84,19 +84,16 @@ export class TableTreeColumn extends React.PureComponent {
                               level={getTreeRowLevel(row)}
                             />
                             <ToggleButton
-                              visible={collapsedRows
-                                ? !!collapsedRows.length : !isTreeRowLeaf(row)}
+                              visible={collapsedRows ? !!collapsedRows.length : !isTreeRowLeaf(row)}
                               expanded={expandedRowIds.indexOf(rowId) > -1}
-                              onToggle={() =>
-                                toggleRowExpanded({ rowId })}
+                              onToggle={() => toggleRowExpanded({ rowId })}
                             />
                             {showSelectionControls && (
                               <Checkbox
                                 disabled={false}
-                                selected={selection.indexOf(rowId) > -1}
-                                someSelected={false}
-                                onToggle={() =>
-                                  toggleSelection({ rowIds: [rowId] })}
+                                checked={selection.indexOf(rowId) > -1}
+                                indeterminate={false}
+                                onChange={() => toggleSelection({ rowIds: [rowId] })}
                               />
                             )}
                           </React.Fragment>

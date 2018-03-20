@@ -66,9 +66,9 @@ Describes properties passed to a component that renders a checkbox used to contr
 Field | Type | Description
 ------|------|------------
 disabled | boolean | Specifies whether a row is disallowed to select.
-selected | boolean | Specifies whether a row is selected.
-someSelected | boolean | Specifies whether a row is partially selected.
-onToggle | () => void | An event that initiates row expanding or collapsing.
+checked | boolean | Specifies whether a row is selected.
+indeterminate | boolean | Specifies whether a row is partially selected.
+onChange | () => void | An event that initiates row selecting or deselecting.
 
 ## Plugin Components
 

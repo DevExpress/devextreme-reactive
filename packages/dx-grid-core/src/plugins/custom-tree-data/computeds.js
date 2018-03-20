@@ -69,7 +69,7 @@ export const expandedTreeRows = ({ rows, treeMeta }, getRowId, expandedRowIds) =
       return acc;
     }
 
-    if ((level === undefined && !currentExpanded) || (level > currentLevel && !currentExpanded)) {
+    if (!currentExpanded && (level === undefined || level > currentLevel)) {
       const lastRow = acc.rows[acc.rows.length - 1];
       let collapsedItems = acc.collapsedRowsMeta.get(lastRow);
       if (!collapsedItems) {

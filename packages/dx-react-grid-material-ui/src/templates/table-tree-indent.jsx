@@ -10,7 +10,7 @@ const styles = theme => ({
 
 export const TableTreeIndentBase = ({ level, classes }) =>
   Array.from({ length: level })
-    .map((_, currentLevel) => (
+    .map((value, currentLevel) => (
       <span
         // eslint-disable-next-line react/no-array-index-key
         key={currentLevel}

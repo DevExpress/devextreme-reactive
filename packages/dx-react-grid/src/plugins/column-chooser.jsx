@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Template, TemplatePlaceholder, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
-
 import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -63,7 +62,6 @@ export class ColumnChooser extends React.PureComponent {
                   visible={visible}
                   target={this.button}
                   onHide={this.handleHide}
-                  toggle={this.handleToggle}
                 >
                   <Container>
                     {columnChooserItems(columns, hiddenColumnNames)

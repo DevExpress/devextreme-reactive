@@ -73,14 +73,52 @@ describe('getAxisCoordinates', () => {
   describe('band', () => {
     beforeEach(() => {
       scale.domain = jest.fn().mockReturnValue(['a']);
+      scale.bandwidth = jest.fn().mockReturnValue(30);
     });
     afterEach(() => {
-      scale.ticks = null;
+      scale.domain = null;
+      scale.bandwidth = null;
     });
     it('should pass correct domain to scale', () => {
       axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
       expect(scale).toHaveBeenCalledTimes(1);
       expect(scale).toHaveBeenCalledWith('a');
+    });
+
+    it('should return ticks coordinates with horizontal-bottom position', () => {
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50);
+      expect(coordinates).toEqual({
+        ticks: [{
+          xText: 25, yText: 0, text: 'a', alignmentBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: -10, x1: 25, x2: 25,
+        }],
+      });
+    });
+
+    it('should return ticks Coordinates with horizontal-top position', () => {
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50);
+      expect(coordinates).toEqual({
+        ticks: [{
+          xText: 25, yText: 0, text: 'a', alignmentBaseline: 'baseline', textAnchor: 'middle', y1: 0, y2: 10, x1: 25, x2: 25,
+        }],
+      });
+    });
+
+    it('should return ticks coordinates with vertical-left position', () => {
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
+      expect(coordinates).toEqual({
+        ticks: [{
+          text: 'a', xText: 0, yText: 25, x1: 0, x2: 10, y1: 25, y2: 25, alignmentBaseline: 'middle', textAnchor: 'end',
+        }],
+      });
+    });
+
+    it('should return ticks coordinates with vertical-right position', () => {
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50);
+      expect(coordinates).toEqual({
+        ticks: [{
+          text: 'a', xText: 0, yText: 25, x1: 0, x2: -10, y1: 25, y2: 25, alignmentBaseline: 'middle', textAnchor: 'start',
+        }],
+      });
     });
   });
 });

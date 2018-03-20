@@ -78,7 +78,11 @@ export class Axis extends React.Component {
                 );
 
                 return ((
-                  <Root refsHandler={position !== 'center' ? refsHandler : () => {}} x={x - this.state.correctionX} y={y - this.state.correctionY}>
+                  <Root
+                    refsHandler={refsHandler}
+                    x={x - this.state.correctionX}
+                    y={y - this.state.correctionY}
+                  >
                     {coordinates.ticks.map(({
                       text, x1, x2, y1, y2, xText, yText, alignmentBaseline, textAnchor,
                     }) => (

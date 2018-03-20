@@ -2,69 +2,58 @@ import { createScale } from '../../utils/scale';
 
 const tickSize = 10;
 
-const calculateAxisCoordinates = (scale, width, height, orientation, position) => {
-  let getTickCoordinates;
+const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
+const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);
+const getAlignmentBaseline = (orientation, position) => {
   if (orientation === 'horizontal') {
-    getTickCoordinates = (tick) => {
-      const xCoordinates = scale(tick);
-      if (position === 'top') {
-        return {
-          alignmentBaseline: 'baseline',
-          textAnchor: 'middle',
-          x1: xCoordinates,
-          x2: xCoordinates,
-          y1: 0,
-          y2: tickSize,
-          text: tick,
-          xText: xCoordinates,
-          yText: 0,
-        };
-      }
+    return position === 'top' ? 'baseline' : 'hanging';
+  }
+  return 'middle';
+};
+const getTextAnchor = (orientation, position) => {
+  if (orientation === 'horizontal') {
+    return 'middle';
+  }
+  return position === 'left' ? 'end' : 'start';
+};
+
+
+const calculateAxisCoordinates = (scale, width, height, orientation, position) => {
+  const ticks = getTicks(scale);
+  const offset = getOffset(scale);
+  const alignmentBaseline = getAlignmentBaseline(orientation, position);
+  const textAnchor = getTextAnchor(orientation, position);
+
+  const getTickCoordinates = (tick) => {
+    const coordinates = scale(tick) + offset;
+    if (orientation === 'horizontal') {
       return {
-        alignmentBaseline: 'hanging',
-        textAnchor: 'middle',
-        x1: xCoordinates,
-        x2: xCoordinates,
+        alignmentBaseline,
+        textAnchor,
+        x1: coordinates,
+        x2: coordinates,
         y1: 0,
-        y2: -tickSize,
+        y2: position === 'top' ? tickSize : -tickSize,
         text: tick,
-        xText: xCoordinates,
+        xText: coordinates,
         yText: 0,
       };
+    }
+    return {
+      alignmentBaseline,
+      textAnchor,
+
+      y1: coordinates,
+      y2: coordinates,
+      x1: 0,
+      x2: position === 'left' ? tickSize : -tickSize,
+      text: tick,
+      xText: 0,
+      yText: coordinates,
     };
-  } else {
-    getTickCoordinates = (tick) => {
-      const yCoordinates = scale(tick);
-      if (position === 'left') {
-        return {
-          alignmentBaseline: 'middle',
-          textAnchor: 'end',
-          y1: yCoordinates,
-          y2: yCoordinates,
-          x1: 0,
-          x2: tickSize,
-          text: tick,
-          xText: 0,
-          yText: yCoordinates,
-        };
-      }
-      return {
-        alignmentBaseline: 'middle',
-        textAnchor: 'start',
-        y1: yCoordinates,
-        y2: yCoordinates,
-        x1: 0,
-        x2: -tickSize,
-        text: tick,
-        xText: 0,
-        yText: yCoordinates,
-      };
-    };
-  }
+  };
   return {
-    ticks: scale.ticks ?
-      scale.ticks().map(getTickCoordinates)
-      : scale.domain().filter(item => (!!item)).map(getTickCoordinates),
+    ticks: ticks.map(getTickCoordinates),
   };
 };
 

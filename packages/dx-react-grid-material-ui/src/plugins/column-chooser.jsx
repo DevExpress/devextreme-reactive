@@ -26,7 +26,7 @@ export class ColumnChooser extends React.PureComponent {
 }
 
 ColumnChooser.Container = Container;
-ColumnChooser.Button = ToggleButton;
+ColumnChooser.ToggleButton = ToggleButton;
 ColumnChooser.Item = Item;
 ColumnChooser.Overlay = Overlay;
 

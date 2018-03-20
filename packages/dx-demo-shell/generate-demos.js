@@ -4,8 +4,6 @@ const mustache = require('mustache');
 
 const THEMES_FOLDER = './src/theme-sources';
 const DEMOS_FOLDER = './src/demo-sources';
-const JSX_EXT = 'jsx';
-const TSX_EXT = 'tsx';
 const TEMPLATE_EXT_POSTFIX = 't';
 const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
 const TEST_FILE = 'demo.test.jsxt';
@@ -34,7 +32,7 @@ const removePendingFiles = () => {
   filesToRemove.forEach(file => fs.unlinkSync(file));
 };
 const getDemoExtension = (source) => {
-  const nameReplaceRegex = new RegExp(`\\.(${JSX_EXT}|${TSX_EXT})`);
+  const nameReplaceRegex = new RegExp('\\.(jsx?|tsx?)');
   const extensionMatches = nameReplaceRegex.exec(source);
   if (extensionMatches === null) return null;
   return extensionMatches[1];

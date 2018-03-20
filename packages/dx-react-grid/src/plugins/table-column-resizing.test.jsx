@@ -26,7 +26,9 @@ const defaultDeps = {
   plugins: ['Table'],
 };
 
-const defaultProps = {};
+const defaultProps = {
+  minColumnWidth: 40,
+};
 
 describe('TableColumnResizing', () => {
   let resetConsole;
@@ -53,6 +55,7 @@ describe('TableColumnResizing', () => {
     getGetterValue: () =>
       tableColumnsWithWidths.mock.calls[tableColumnsWithWidths.mock.calls.length - 1][1],
     defaultDeps,
+    customPayload: defaultProps,
     defaultProps,
     values: [
       [{ columnName: 'a', width: 1 }],
@@ -96,7 +99,7 @@ describe('TableColumnResizing', () => {
       </PluginHost>
     ));
 
-    const payload = { changes: { a: 50 } };
+    const payload = { changes: { a: 50 }, minColumnWidth: defaultProps.minColumnWidth };
 
     draftTableColumnWidth.mockReturnValue({ draftColumnWidths: [{ columnName: 'a', width: 150 }] });
     executeComputedAction(tree, actions => actions.draftTableColumnWidth(payload));

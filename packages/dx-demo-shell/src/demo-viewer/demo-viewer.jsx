@@ -3,14 +3,13 @@ import * as PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
-import { demos } from '../demo-registry';
 import { ThemeViewer } from './theme-viewer';
 import { DemoRenderer } from './demo-renderer';
 import { SourceCode } from './source-code';
 
 export const DemoViewer = (
   { match: { params: { demoName, sectionName }, url } },
-  { embeddedDemoOptions: { defaultTab, showThemeSelector } },
+  { embeddedDemoOptions: { defaultTab, showThemeSelector, demoSources } },
 ) => (
   <Switch>
     <Route
@@ -31,7 +30,7 @@ export const DemoViewer = (
       render={() => (
         <div style={{ paddingTop: '8px' }}>
           <ThemeViewer
-            avaliableThemes={Object.keys(demos[sectionName][demoName])}
+            avaliableThemes={Object.keys(demoSources[sectionName][demoName])}
           >
             {({ themeName, variantName }) => (
               <Tab.Container

@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import { themes } from '../theme-registry';
 import { ThemeSelector } from './theme-selector';
 
 const THEME_STORAGE_KEY = 'devextreme-reactive/react/theme';
@@ -17,13 +16,16 @@ const ThemeViewerBase = (
   {
     avaliableThemes, match: { url }, history, children,
   },
-  { embeddedDemoOptions: { showThemeVariants, showThemeSelector } },
+  { embeddedDemoOptions: { themeSources, showThemeVariants, showThemeSelector } },
 ) => {
-  const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themes[0].name;
-  const preferredThemeAvaliable = avaliableThemes.indexOf(preferredThemeName) > -1;
-  const fallbackThemeName = preferredThemeAvaliable ? preferredThemeName : avaliableThemes[0];
+  const normalizedAvaliableThemes = avaliableThemes || themeSources.map(theme => theme.name);
 
-  const fallbackTheme = themes.find(({ name }) => name === fallbackThemeName);
+  const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themeSources[0].name;
+  const preferredThemeAvaliable = normalizedAvaliableThemes.indexOf(preferredThemeName) > -1;
+  const fallbackThemeName = preferredThemeAvaliable
+    ? preferredThemeName : normalizedAvaliableThemes[0];
+
+  const fallbackTheme = themeSources.find(({ name }) => name === fallbackThemeName);
 
   const preferredVariantName = showThemeVariants
     ? storage.getItem(VARIANT_STORAGE_KEY)
@@ -48,7 +50,7 @@ const ThemeViewerBase = (
           <div>
             {(showThemeSelector && <ThemeSelector
               selectedThemeName={themeName}
-              avaliableThemes={avaliableThemes}
+              avaliableThemes={normalizedAvaliableThemes}
               selectedVariantName={variantName}
               onChange={changeTheme}
             />)}
@@ -73,7 +75,7 @@ ThemeViewerBase.propTypes = {
 };
 
 ThemeViewerBase.defaultProps = {
-  avaliableThemes: themes.map(theme => theme.name),
+  avaliableThemes: undefined,
 };
 
 ThemeViewerBase.contextTypes = {

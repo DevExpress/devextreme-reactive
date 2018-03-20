@@ -22,14 +22,26 @@ The `Table` plugin allows you to customize the appearance of the table, table he
 
 .embedded-demo({ "path": "grid-basic/table-template", "showThemeSelector": true })
 
+### Cells
+
 The `Table` plugin also allows you to customize table cell appearance using the `cellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
 
 .embedded-demo({ "path": "grid-basic/table-cell-template", "showThemeSelector": true })
+
+### Rows
 
 The `Table` plugin's `rowComponent` property enables you to handle row events like `onClick`, `onContextMenu`, etc., as demonstrated in the following demo:
 
 .embedded-demo({ "path": "grid-basic/table-row-template", "showThemeSelector": true })
 
 You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
+
+### Column width
+
+Static widths for specific columns can be defined via the `columnExtensions` property of the `Table` plugin like it is shown in the demo below:
+
+.embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
+
+### Other plugins
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

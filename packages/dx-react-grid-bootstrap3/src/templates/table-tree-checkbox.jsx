@@ -13,9 +13,9 @@ export const TableTreeCheckbox = ({
 }) => (
   <SelectionControl
     disabled={disabled}
-    selected={selected}
-    someSelected={someSelected}
-    onToggle={onToggle}
+    checked={selected}
+    indeterminate={someSelected}
+    onChange={onToggle}
     style={{
       marginRight: '16px',
       ...style,

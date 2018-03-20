@@ -18,9 +18,9 @@ export const TableSelectAllCell = ({
   >
     <SelectionControl
       disabled={disabled}
-      selected={allSelected}
-      someSelected={someSelected}
-      onToggle={onToggle}
+      checked={allSelected}
+      indeterminate={someSelected}
+      onChange={onToggle}
     />
   </th>
 );

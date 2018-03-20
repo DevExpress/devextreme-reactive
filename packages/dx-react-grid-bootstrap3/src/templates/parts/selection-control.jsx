@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const SelectionControl = ({
-  disabled, selected, someSelected, onToggle,
-  style, ...restProps
+  disabled, checked, indeterminate, onChange, style, ...restProps
 }) => (
   <input
     style={{
@@ -13,14 +12,14 @@ export const SelectionControl = ({
     }}
     type="checkbox"
     disabled={disabled}
-    checked={selected}
+    checked={checked}
     ref={(ref) => {
       if (!ref) return;
-      ref.indeterminate = someSelected; // eslint-disable-line no-param-reassign
+      ref.indeterminate = indeterminate; // eslint-disable-line no-param-reassign
     }}
     onChange={() => {
       if (disabled) return;
-      onToggle();
+      onChange();
     }}
     onClick={e => e.stopPropagation()}
     {...restProps}
@@ -29,16 +28,16 @@ export const SelectionControl = ({
 
 SelectionControl.propTypes = {
   disabled: PropTypes.bool,
-  selected: PropTypes.bool,
-  someSelected: PropTypes.bool,
-  onToggle: PropTypes.func,
+  checked: PropTypes.bool,
+  indeterminate: PropTypes.bool,
+  onChange: PropTypes.func,
   style: PropTypes.object,
 };
 
 SelectionControl.defaultProps = {
   disabled: false,
-  selected: false,
-  someSelected: false,
-  onToggle: () => {},
+  checked: false,
+  indeterminate: false,
+  onChange: () => {},
   style: null,
 };

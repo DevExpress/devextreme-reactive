@@ -12,10 +12,10 @@ describe('SelectionControl', () => {
       .toBeTruthy();
   });
 
-  it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
+  it('should render indeterminate state checkbox if the `indeterminate` property is true', () => {
     const tree = mount((
       <SelectionControl
-        someSelected
+        indeterminate
       />
     ));
 
@@ -23,17 +23,17 @@ describe('SelectionControl', () => {
       .toBeTruthy();
   });
 
-  it('should not fire the `onToggle` event on cell click if selection is not available', () => {
-    const onToggle = jest.fn();
+  it('should not fire the `onChange` event on cell click if selection is not available', () => {
+    const onChange = jest.fn();
     const tree = mount((
       <SelectionControl
         disabled
-        onToggle={onToggle}
+        onChange={onChange}
       />
     ));
     tree.find('input').simulate('change');
 
-    expect(onToggle)
+    expect(onChange)
       .not.toHaveBeenCalled();
   });
 });

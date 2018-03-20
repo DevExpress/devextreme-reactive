@@ -20,8 +20,8 @@ export const TableSelectCell = ({
     {...restProps}
   >
     <SelectionControl
-      selected={selected}
-      onToggle={onToggle}
+      checked={selected}
+      onChange={onToggle}
     />
   </td>
 );

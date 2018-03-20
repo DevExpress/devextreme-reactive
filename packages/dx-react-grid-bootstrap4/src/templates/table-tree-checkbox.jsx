@@ -14,9 +14,9 @@ export const TableTreeCheckbox = ({
 }) => (
   <SelectionControl
     disabled={disabled}
-    selected={selected}
-    someSelected={someSelected}
-    onToggle={onToggle}
+    checked={selected}
+    indeterminate={someSelected}
+    onChange={onToggle}
     className={classNames('mr-4', className)}
     {...restProps}
   />

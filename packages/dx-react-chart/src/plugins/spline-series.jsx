@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { scaleLinear } from 'd3-scale';
+import { xyScales } from '@devexpress/dx-chart-core';
 import { line, curveBasis } from 'd3-shape';
 
 const getX = ({ x }) => x;
@@ -49,22 +49,15 @@ export class SplineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               } = series.find(seriesItem => seriesItem.valueField === name);
-              const { domain } = domains[domainName];
               const {
                 x, y,
                 width, height,
               } = layouts[placeholder];
-              const yScale = scaleLinear()
-                .domain(domain)
-                .range([height, 0]);
-              const { domain: xDomain } = domains[argumentAxisName];
-              const xScale = scaleLinear()
-                .domain(xDomain)
-                .range([0, width]);
+              const scales = xyScales(domains, argumentAxisName, domainName, width, height);
               const path = computeLinePath(
                 data,
-                xScale,
-                yScale,
+                scales.xScale,
+                scales.yScale,
                 argumentField,
                 valueField,
               );

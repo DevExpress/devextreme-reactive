@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { createScale } from '@devexpress/dx-chart-core';
+import { xyScales } from '@devexpress/dx-chart-core';
 import { line } from 'd3-shape';
 
 const getX = ({ x }) => x;
@@ -48,20 +48,15 @@ export class LineSeries extends React.PureComponent {
                 argumentField,
                 valueField,
               } = series.find(seriesItem => seriesItem.valueField === name);
-              const yDomain = domains[domainName];
               const {
                 x, y,
                 width, height,
               } = layouts[placeholder];
-
-              const yScale = createScale(yDomain, width, height);
-
-              const xDomain = domains[argumentAxisName];
-              const xScale = createScale(xDomain, width, height);
+              const scales = xyScales(domains, argumentAxisName, domainName, width, height);
               const path = computeLinePath(
                 data,
-                xScale,
-                yScale,
+                scales.xScale,
+                scales.yScale,
                 argumentField,
                 valueField,
               );

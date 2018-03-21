@@ -20,23 +20,13 @@ const styles = theme => ({
     borderBottom: getBorderColor(theme),
     borderLeft: getBorderColor(theme),
   },
-  cellRightAlign: {
-    textAlign: 'right',
-  },
-  cellCenterAlign: {
-    textAlign: 'center',
-  },
 });
 
 const BandCellBase = ({
   column, value, children, classes, tableRow, tableColumn, row, className, ...restProps
 }) => (
   <TableCellMUI
-    className={classNames({
-      [classes.cell]: true,
-      [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
-      [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
-    }, className)}
+    className={classNames(classes.cell, className)}
     {...restProps}
   >
     {children || value}

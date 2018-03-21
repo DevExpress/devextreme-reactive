@@ -62,6 +62,7 @@ TableSelectAllCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 TableSelectAllCellBase.defaultProps = {
@@ -73,6 +74,7 @@ TableSelectAllCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };
 
 export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

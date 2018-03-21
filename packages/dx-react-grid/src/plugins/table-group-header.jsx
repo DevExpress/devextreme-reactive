@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
-  getColumnMeta,
   isBandedTableRow,
   isBandedOrHeaderRow,
   tableRowsWithBands,
   isHeadingTableCell,
+  getBandComponent,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -54,62 +54,26 @@ export class TableGroupHeader extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ tableColumns, tableHeaderRows }) => {
-                if (params.rowSpan) return <TemplatePlaceholder />;
+                const bandComponent =
+                  getBandComponent(params, tableHeaderRows, tableColumns, columnGroups);
 
-                const maxLevel = tableHeaderRows.filter(column => column.type === 'band').length + 1;
-                const currentRowLevel = params.tableRow.level === undefined
-                  ? maxLevel - 1 : params.tableRow.level;
-                const currentColumnMeta = params.tableColumn.type === 'data'
-                  ? getColumnMeta(params.tableColumn.column.name, columnGroups, currentRowLevel)
-                  : { level: 0, title: '' };
-
-                // рендерит заглушки всех ячеек, которые стоят перед текущей
-                if (currentColumnMeta.level < currentRowLevel) return <EmptyCell />;
-                if (currentColumnMeta.level === currentRowLevel) {
-                  // рендерит текущую ячейку на нужной строке с типом хедер
-                  return (
-                    <TemplatePlaceholder
-                      name="tableCell"
-                      params={{
-                        ...params,
-                        tableRow: tableHeaderRows.find(row => row.type === 'heading'),
-                        rowSpan: maxLevel - currentRowLevel,
-                      }}
-                    />
-                  );
-                }
-
-                const currColumnIndex = tableColumns.findIndex(tableColumn =>
-                  tableColumn.key === params.tableColumn.key);
-                if (currColumnIndex > 0 && tableColumns[currColumnIndex - 1].type === 'data') {
-                  const prevColumnMeta = getColumnMeta(
-                      tableColumns[currColumnIndex - 1].column.name,
-                      columnGroups,
-                      currentRowLevel,
+                switch (bandComponent.type) {
+                  case 'duplicateRender':
+                    return <TemplatePlaceholder />;
+                  case 'emptyCell':
+                    return <EmptyCell />;
+                  case 'groupCell':
+                    return <Cell {...params} {...bandComponent.payload} />;
+                  case 'headerCell':
+                    return (
+                      <TemplatePlaceholder
+                        name="tableCell"
+                        params={{ ...params, ...bandComponent.payload }}
+                      />
                     );
-                  // если ячейка относится к предыдущей группе, то не рендерим её
-                  if (prevColumnMeta.title === currentColumnMeta.title) return null;
+                  default:
+                    return null;
                 }
-
-                // рендеринг широких главных ячеек. Вычислениее ширины
-                let colSpan = 1;
-                for (let index = currColumnIndex + 1; index < tableColumns.length; index += 1) {
-                  if (tableColumns[index].type !== 'data') break;
-                  const columnMeta =
-                    getColumnMeta(tableColumns[index].column.name, columnGroups, currentRowLevel);
-                  if (columnMeta.title === currentColumnMeta.title) {
-                    colSpan += 1;
-                  } else break;
-                }
-
-                return (
-                  <Cell
-                    {...params}
-                    colSpan={colSpan}
-                    value={currentColumnMeta.title}
-                    column={currentColumnMeta}
-                  />
-                );
               }}
             </TemplateConnector>
           )}

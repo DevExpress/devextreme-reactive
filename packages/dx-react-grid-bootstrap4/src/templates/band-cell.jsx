@@ -9,11 +9,7 @@ export const BandCell = ({
   className, ...restProps
 }) => (
   <th
-    className={classNames({
-      'text-nowrap dx-rg-bs4-table-cell border-bottom border-left border-top-0': true,
-      'text-right': tableColumn && tableColumn.align === 'right',
-      'text-center': tableColumn && tableColumn.align === 'center',
-    }, className)}
+    className={classNames('text-nowrap dx-rg-bs4-table-cell border-bottom border-left border-top-0', className)}
     {...restProps}
   >
     {children || value}

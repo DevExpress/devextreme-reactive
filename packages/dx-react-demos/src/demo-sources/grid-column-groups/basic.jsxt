@@ -126,14 +126,14 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'GDP_Agriculture', title: 'Agriculture' },
         { name: 'Country', title: 'Country' },
-        { name: 'Area', title: 'Area' },
-        { name: 'GDP_Total', title: 'Total' },
-        { name: 'GDP_Industry', title: 'Industry' },
-        { name: 'GDP_Services', title: 'Services' },
+        { name: 'Area', title: 'Area, sq. km.' },
         { name: 'Population_Total', title: 'Total' },
         { name: 'Population_Urban', title: 'Urban' },
+        { name: 'GDP_Total', title: 'Total, min $' },
+        { name: 'GDP_Industry', title: 'Industry' },
+        { name: 'GDP_Services', title: 'Services' },
+        { name: 'GDP_Agriculture', title: 'Agriculture' },
       ],
       columnGroups: [
         {
@@ -159,10 +159,13 @@ export default class Demo extends React.PureComponent {
         },
       ],
       tableColumnExtensions: [
-        { columnName: 'GDP_Agriculture', width: 90 },
-        { columnName: 'GDP_Industry', width: 70 },
-        { columnName: 'GDP_Services', width: 70 },
-        { columnName: 'Population_Urban', width: 70 },
+        { columnName: 'Area', width: 125, align: 'right' },
+        { columnName: 'Population_Total', width: 110, align: 'right' },
+        { columnName: 'Population_Urban', width: 75, align: 'right' },
+        { columnName: 'GDP_Total', width: 115, align: 'right' },
+        { columnName: 'GDP_Industry', width: 90, align: 'right' },
+        { columnName: 'GDP_Services', width: 90, align: 'right' },
+        { columnName: 'GDP_Agriculture', width: 110, align: 'right' },
       ],
     };
   }

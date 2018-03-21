@@ -85,6 +85,7 @@ EditCommandHeadingCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
@@ -93,6 +94,7 @@ EditCommandHeadingCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };
 
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);

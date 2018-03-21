@@ -1,7 +1,6 @@
 import { TABLE_BAND_TYPE } from './constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
-
 export const isBandedOrHeaderRow = tableRow =>
   isBandedTableRow(tableRow) || tableRow.type === 'heading';
 
@@ -23,4 +22,64 @@ export const getColumnMeta = (columnName, columnGroups, tableRowLevel) => {
 
   treeProcessing(columnGroups);
   return ({ title: currentBandTitle, level: columnLevel });
+};
+
+export const getColSpan =
+  (currColumnIndex, tableColumns, columnGroups, currentRowLevel, currentColumnTitle) => {
+    let colSpan = 1;
+    for (let index = currColumnIndex + 1; index < tableColumns.length; index += 1) {
+      if (tableColumns[index].type !== 'data') break;
+      const columnMeta =
+        getColumnMeta(tableColumns[index].column.name, columnGroups, currentRowLevel);
+      if (columnMeta.title === currentColumnTitle) {
+        colSpan += 1;
+      } else break;
+    }
+
+    return colSpan;
+  };
+
+export const getBandComponent = (params, tableHeaderRows, tableColumns, columnGroups) => {
+  if (params.rowSpan) return { type: 'duplicateRender', payload: null };
+
+  const maxLevel = tableHeaderRows.filter(column => column.type === 'band').length + 1;
+  const currentRowLevel = params.tableRow.level === undefined
+    ? maxLevel - 1 : params.tableRow.level;
+  const currentColumnMeta = params.tableColumn.type === 'data'
+    ? getColumnMeta(params.tableColumn.column.name, columnGroups, currentRowLevel)
+    : { level: 0, title: '' };
+
+  if (currentColumnMeta.level < currentRowLevel) return { type: 'emptyCell', payload: null };
+  if (currentColumnMeta.level === currentRowLevel) {
+    return {
+      type: 'headerCell',
+      payload: { tableRow: tableHeaderRows.find(row => row.type === 'heading'), rowSpan: maxLevel - currentRowLevel },
+    };
+  }
+
+  const currColumnIndex = tableColumns.findIndex(tableColumn =>
+    tableColumn.key === params.tableColumn.key);
+  if (currColumnIndex > 0 && tableColumns[currColumnIndex - 1].type === 'data') {
+    const prevColumnMeta = getColumnMeta(
+      tableColumns[currColumnIndex - 1].column.name,
+      columnGroups,
+      currentRowLevel,
+    );
+    if (prevColumnMeta.title === currentColumnMeta.title) return { type: 'null', payload: null };
+  }
+
+  return {
+    type: 'groupCell',
+    payload: {
+      colSpan: getColSpan(
+        currColumnIndex,
+        tableColumns,
+        columnGroups,
+        currentRowLevel,
+        currentColumnMeta.title,
+      ),
+      value: currentColumnMeta.title,
+      column: currentColumnMeta,
+    },
+  };
 };

@@ -42,6 +42,12 @@ The `Table` plugin also allows specifying column alignment with the help of the 
 
 .embedded-demo({ "path": "grid-basic/column-alignment", "showThemeSelector": true })
 
+### Column width
+
+Static widths for specific columns can be defined via the `columnExtensions` property of the `Table` plugin like it is shown in the demo below:
+
+.embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
+
 ### Other plugins
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

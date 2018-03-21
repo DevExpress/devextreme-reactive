@@ -42,6 +42,12 @@ Static widths for specific columns can be defined via the `columnExtensions` pro
 
 .embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
 
+### Multiline cells
+
+By default Grid cells are configured to preserve their height and cutting off long values instead of wrapping them to the next line. This behavior can be overridden by specifying `wordWrapEnabled` attribute for the particular column in the `columnExtensions` config of the `Table` plugin.
+
+.embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
+
 ### Other plugins
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

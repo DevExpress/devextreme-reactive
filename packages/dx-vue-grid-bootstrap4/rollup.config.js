@@ -15,7 +15,7 @@ export default {
   external: external(__dirname, ['babel-helper-vue-jsx-merge-props']),
   plugins: [
     resolve({
-      main: false,
+      main: true,
       extensions: ['.js', '.jsx'],
     }),
     babel(Object.assign({

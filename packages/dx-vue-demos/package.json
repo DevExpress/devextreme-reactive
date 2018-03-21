@@ -24,6 +24,8 @@
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.1.0",
     "@devexpress/dx-vue-core": "1.1.0",
+    "@devexpress/dx-vue-grid": "1.1.0",
+    "@devexpress/dx-vue-grid-bootstrap4": "1.1.0",
     "babel-polyfill": "^6.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

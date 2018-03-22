@@ -57,7 +57,7 @@ export class TableHeaderCell extends React.PureComponent {
     const cellLayout = (
       <th
         className={classNames({
-          'position-relative': true,
+          'position-relative dx-rg-header-cell': true,
           'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
           'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}

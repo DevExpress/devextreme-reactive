@@ -1,16 +1,38 @@
-.dx-rg-bs4-resizing-control {
+.dx-rg-bs4-resizing-control-wrapper {
+  position: absolute;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  width: 16px;
   top: 0;
   right: -8px;
-  width: 16px;
+  height: 100%;
   cursor: col-resize;
   z-index: 100;
+  opacity: 0;
 }
-.dx-rg-bs4-resizing-control-line {
-  background-color: #ddd;
+.dx-rg-bs4-resizing-control-wrapper-active {
+  opacity: 1;
+}
+.dx-rg-header-cell:hover .dx-rg-bs4-resizing-control-wrapper {
+  opacity: 1;
+}
+.dx-rg-bs4-resize-control-line {
+  opacity: 1;
+  position: absolute;
+  height: 50%;
   width: 1px;
   top: 25%;
+  transition: all linear 100ms;
 }
-.dx-rg-bs4-resizing-control-wrapper {
-  top: 0;
-  left: 0;
+.dx-rg-bs4-resize-control-line-first {
+  left: 7px;
+}
+.dx-rg-bs4-resize-control-line-second {
+  left: 9px;
+}
+.dx-rg-bs4-resize-control-line-active {
+  left: 8px;
+  height: calc(100% - 4px);
+  top: 2px;
 }

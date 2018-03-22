@@ -46,7 +46,7 @@ Name | Properties | Description
 -----|------------|------------
 PagingPanel.Container | [PagingPanel.ContainerProps](#containerprops) | A component that renders the paging panel.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

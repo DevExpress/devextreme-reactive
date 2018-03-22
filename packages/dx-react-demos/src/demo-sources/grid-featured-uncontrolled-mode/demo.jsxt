@@ -12,6 +12,8 @@ import {
 
 import { ProgressBarCell } from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/<%&themeName%>/components/percent-type-provider';
 
 import {
   generateRows,
@@ -46,11 +48,14 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       pageSizes: [5, 10, 15],
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
   }
   render() {
     const {
       rows, columns, tableColumnExtensions, pageSizes,
+      currencyColumns, percentColumns,
     } = this.state;
 
     return (
@@ -85,6 +90,9 @@ export default class Demo extends React.PureComponent {
           <IntegratedSorting />
           <IntegratedPaging />
           <IntegratedSelection />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <DragDropProvider />
 

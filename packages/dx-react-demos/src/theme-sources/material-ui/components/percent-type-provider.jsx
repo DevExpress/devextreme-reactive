@@ -13,10 +13,16 @@ const styles = {
   },
 };
 
+const getInputValue = value => (value === undefined ? '' : (value * 100).toFixed(1));
+
 const EditorBase = ({ value, onValueChange, classes }) => {
   const handleChange = (event) => {
-    const targetValue = parseFloat(event.target.value / 100);
-    onValueChange(Math.min(Math.max(targetValue, 0), 1));
+    const { value: targetValue } = event.target;
+    if (targetValue === '') {
+      onValueChange();
+      return;
+    }
+    onValueChange(Math.min(Math.max(parseFloat(targetValue / 100), 0), 1));
   };
   return (
     <Input
@@ -25,7 +31,7 @@ const EditorBase = ({ value, onValueChange, classes }) => {
         root: classes.inputRoot,
         input: classes.numericInput,
       }}
-      value={(value * 100).toFixed(1)}
+      value={getInputValue(value)}
       inputProps={{
         step: 0.1,
         min: 0,
@@ -37,9 +43,13 @@ const EditorBase = ({ value, onValueChange, classes }) => {
 };
 
 EditorBase.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   onValueChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+};
+
+EditorBase.defaultProps = {
+  value: undefined,
 };
 
 const Editor = withStyles(styles)(EditorBase);

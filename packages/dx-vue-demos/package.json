@@ -21,14 +21,6 @@
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.css$": "<rootDir>/css-stub.js"
-    },
-    "setupFiles": [
-      "<rootDir>/setup-vue.js"
-    ]
-  },
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.1.0",
     "@devexpress/dx-vue-core": "1.1.0",

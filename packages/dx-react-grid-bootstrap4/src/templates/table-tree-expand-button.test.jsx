@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { TableTreeExpandButton } from './table-tree-expand-button';
 
 describe('TableTreeExpandButton', () => {
-  it('should pass style to the root element', () => {
+  it('should pass className to the root element', () => {
     const tree = shallow((
       <TableTreeExpandButton
         className="test"
@@ -16,10 +16,10 @@ describe('TableTreeExpandButton', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableTreeExpandButton className="custom-class" />
+      <TableTreeExpandButton data="custom" />
     ));
 
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
+    expect(tree.prop('data'))
+      .toBe('custom');
   });
 });

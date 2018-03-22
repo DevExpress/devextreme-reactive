@@ -73,7 +73,7 @@ TableEditColumn.Command | [TableEditColumn.CommandProps](#tableeditcolumncommand
 TableEditColumn.Cell | [TableEditColumn.CellProps](#tableeditcolumncellprops) | A component that renders a command cell within a data row.
 TableEditColumn.HeaderCell | [TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

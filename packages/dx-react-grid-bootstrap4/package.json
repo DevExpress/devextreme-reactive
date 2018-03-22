@@ -43,14 +43,6 @@
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "moduleNameMapper": {
-      "\\.css$": "<rootDir>/css-stub.js"
-    },
-    "setupFiles": [
-      "<rootDir>/setup-enzyme.js"
-    ]
-  },
   "devDependencies": {
     "@devexpress/dx-grid-core": "1.1.0",
     "@devexpress/dx-react-core": "1.1.0",

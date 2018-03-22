@@ -36,11 +36,6 @@
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn run lint -- --fix"
   },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/setup-vue.js"
-    ]
-  },
   "devDependencies": {
     "@devexpress/dx-testing": "1.1.0",
     "@vue/test-utils": "^1.0.0-beta.12",

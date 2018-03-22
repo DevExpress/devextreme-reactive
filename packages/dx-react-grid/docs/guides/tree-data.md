@@ -16,11 +16,9 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `TreeDataState`, `CustomTreeData` and `TableTreeColumn` plugins to set up a Grid with simple tree data structure.
 
-### Custom Grouping
+### Custom Tree Data
 
-If the data has a hierarchical structure (already grouped), use the `CustomTreeData` plugin.
-
-In the following example, the data is specified as an array of groups. Specify the `CustomTreeData` plugin's `getChildRows` property to parse a custom tree structure.
+In the following example, the data is specified as an array of grouped data. Specify the `CustomTreeData` plugin's `getChildRows` property to parse a custom tree structure.
 
 .embedded-demo({ "path": "grid-tree-data/hierarchical-tree", "showThemeSelector": true })
 

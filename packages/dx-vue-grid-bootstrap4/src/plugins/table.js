@@ -10,7 +10,8 @@ import { TableCell } from '../templates/table-cell';
 
 export const Table = {
   name: 'Table',
-  render() {
+  functional: true,
+  render(h, context) {
     return (
       <TableBase
         layoutComponent={TableLayout}
@@ -20,7 +21,7 @@ export const Table = {
         bodyComponent={TableBody}
         rowComponent={TableRow}
         cellComponent={TableCell}
-        {...{ attrs: this.$attrs, listeners: this.$listeners }}
+        {...{ attrs: context.props, listeners: context.listeners }}
       />
     );
   },

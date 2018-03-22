@@ -4,13 +4,14 @@ import { GridRoot } from './templates/grid-root';
 
 export const Grid = {
   name: 'Grid',
-  render() {
+  functional: true,
+  render(h, context) {
     return (
       <GridBase
         rootComponent={GridRoot}
-        {...{ attrs: this.$attrs, listeners: this.$listeners }}
+        {...{ attrs: context.props, listeners: context.listeners }}
       >
-        {this.$slots.default}
+        {context.children}
       </GridBase>
     );
   },

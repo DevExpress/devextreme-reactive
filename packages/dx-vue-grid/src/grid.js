@@ -3,13 +3,14 @@ import { GridCore } from './plugins/grid-core';
 
 export const Grid = {
   name: 'Grid',
-  render() {
+  functional: true,
+  render(h, context) {
     return (
       <PluginHost>
         <GridCore
-          {...{ attrs: this.$attrs, listeners: this.$listeners }}
+          {...{ attrs: context.props, listeners: context.listeners }}
         />
-        {this.$slots.default}
+        {context.children}
       </PluginHost>
     );
   },

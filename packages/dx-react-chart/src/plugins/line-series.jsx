@@ -7,7 +7,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { xyScales } from '@devexpress/dx-chart-core';
-import { line } from 'd3-shape';
+import { line, symbol, symbolCircle } from 'd3-shape';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -28,7 +28,10 @@ export class LineSeries extends React.PureComponent {
     const {
       placeholder,
       name,
+      point,
+      rootComponent: Root,
       pathComponent: Path,
+      pointComponent: Point,
       ...restProps
     } = this.props;
     return (
@@ -61,13 +64,27 @@ export class LineSeries extends React.PureComponent {
                 valueField,
               );
               const d = getDAttribute(path);
+              const dPoint = symbol().size([55]).type(symbolCircle)();
               return (
-                <Path
-                  x={x}
-                  y={y}
-                  d={d}
-                  {...restProps}
-                />
+                <Root x={x} y={y}>
+                  <Path
+                    x={0}
+                    y={0}
+                    d={d}
+                    {...restProps}
+                  />
+                  {
+                  point.visible ? data.map(item =>
+                      (<Point
+                        key={item[argumentField]}
+                        x={scales.xScale(item[argumentField])}
+                        y={scales.yScale(item[valueField])}
+                        d={dPoint}
+                        {...point}
+                      />
+                    )) : null
+                }
+                </Root>
               );
             }}
           </TemplateConnector>
@@ -79,10 +96,14 @@ export class LineSeries extends React.PureComponent {
 
 LineSeries.propTypes = {
   name: PropTypes.string.isRequired,
+  point: PropTypes.object,
   placeholder: PropTypes.string,
+  rootComponent: PropTypes.func.isRequired,
+  pointComponent: PropTypes.func.isRequired,
   pathComponent: PropTypes.func.isRequired,
 };
 
 LineSeries.defaultProps = {
   placeholder: 'center-center',
+  point: { visible: false },
 };

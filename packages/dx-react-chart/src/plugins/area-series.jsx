@@ -29,6 +29,7 @@ export class AreaSeries extends React.PureComponent {
     const {
       placeholder,
       name,
+      point,
       rootComponent: Root,
       pathComponent: Path,
       pointComponent: Point,
@@ -74,15 +75,15 @@ export class AreaSeries extends React.PureComponent {
                     {...restProps}
                   />
                   {
-                  data.map(item =>
+                  point.visible ? data.map(item =>
                       (<Point
                         key={item[argumentField]}
                         x={scales.xScale(item[argumentField])}
                         y={scales.yScale(item[valueField])}
                         d={dPoint}
-                        {...restProps.point}
+                        {...point}
                       />
-                    ))
+                    )) : null
                 }
                 </Root>
               );
@@ -96,6 +97,7 @@ export class AreaSeries extends React.PureComponent {
 
 AreaSeries.propTypes = {
   name: PropTypes.string.isRequired,
+  point: PropTypes.object,
   placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
   pointComponent: PropTypes.func.isRequired,
@@ -104,4 +106,5 @@ AreaSeries.propTypes = {
 
 AreaSeries.defaultProps = {
   placeholder: 'center-center',
+  point: { visible: false },
 };

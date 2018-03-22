@@ -8,11 +8,11 @@ export const Point = ({
     transform={`translate(${x} ${y})`}
     d={d}
     style={{
-        stroke: 'none',
-        strokeWidth: '1px',
-        fill: 'black',
-        ...style,
-      }}
+      stroke: 'none',
+      strokeWidth: '1px',
+      fill: 'black',
+      ...style,
+    }}
   />
 );
 

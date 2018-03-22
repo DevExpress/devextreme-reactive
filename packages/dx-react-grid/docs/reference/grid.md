@@ -40,7 +40,7 @@ Name | Properties | Description
 -----|------------|------------
 Grid.Root | [Grid.RootProps](#gridrootprops) | A component that renders the grid root layout.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

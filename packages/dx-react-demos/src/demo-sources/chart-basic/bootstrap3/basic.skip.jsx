@@ -6,7 +6,9 @@ import {
   Chart,
   Legend,
   LineSeries,
+  AreaSeries,
   SplineSeries,
+  ScatterSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -55,11 +57,23 @@ export default class Demo extends React.PureComponent {
           name="Russia"
           style={{ stroke: 'red' }}
         />
+        <ScatterSeries
+          name="China"
+          style={{ stroke: 'orange', fill: 'blue' }}
+        />
         <SplineSeries
           name="China"
-          style={{ stroke: 'orange' }}
+          style={{ stroke: 'green' }}
         />
-        <LineSeries name="USA" />
+        <LineSeries
+          name="China"
+          style={{ stroke: '#2ed9d0' }}
+        />
+        <AreaSeries
+          name="USA"
+          style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
+          point={{ visible: true, style: { fill: 'orange' } }}
+        />
       </Chart>
     );
   }

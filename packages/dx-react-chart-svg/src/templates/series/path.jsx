@@ -1,28 +1,29 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const Point = ({
+export const Path = ({
   x, y, d, style,
 }) => (
-  <path
-    transform={`translate(${x} ${y})`}
-    d={d}
-    style={{
-        stroke: 'none',
+  <g transform={`translate(${x} ${y})`}>
+    <path
+      d={d}
+      style={{
+        stroke: 'black',
         strokeWidth: '1px',
-        fill: 'black',
+        fill: 'none',
         ...style,
       }}
-  />
+    />
+  </g>
 );
 
-Point.propTypes = {
+Path.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
   style: PropTypes.object,
 };
 
-Point.defaultProps = {
+Path.defaultProps = {
   style: null,
 };

@@ -29,7 +29,7 @@ export class SplineSeries extends React.PureComponent {
     const {
       placeholder,
       name,
-      rootComponent: Root,
+      pathComponent: Path,
       ...restProps
     } = this.props;
     return (
@@ -63,7 +63,7 @@ export class SplineSeries extends React.PureComponent {
               );
               const d = getDAttribute(path);
               return (
-                <Root
+                <Path
                   x={x}
                   y={y}
                   d={d}
@@ -81,7 +81,7 @@ export class SplineSeries extends React.PureComponent {
 SplineSeries.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  rootComponent: PropTypes.func.isRequired,
+  pathComponent: PropTypes.func.isRequired,
 };
 
 SplineSeries.defaultProps = {

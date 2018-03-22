@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { LineSeries as LineSeriesBase } from '@devexpress/dx-react-chart';
-import { Root } from '../templates/series/root';
+import { Path } from '../templates/series/path';
 
 export class LineSeries extends React.PureComponent {
   render() {
     return (
       <LineSeriesBase
-        rootComponent={Root}
+        pathComponent={Path}
         {...this.props}
       />
     );
   }
 }
 
-LineSeries.Root = Root;
+LineSeries.Path = Path;

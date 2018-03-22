@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ScatterSeries as ScatterSeriesBase } from '@devexpress/dx-react-chart';
-import { Root } from '../templates/series/scatter-root';
+import { Root } from '../templates/series/root';
 import { Point } from '../templates/series/point';
 
 export class ScatterSeries extends React.PureComponent {

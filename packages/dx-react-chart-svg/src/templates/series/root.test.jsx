@@ -2,39 +2,29 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Root } from './root';
 
-describe('Root', () => {
+describe('Scatter root', () => {
   const defaultProps = {
     x: 1,
     y: 2,
-    d: 'M10 10',
   };
-  it('should render root element', () => {
+
+  it('should transform group', () => {
     const tree = shallow((
-      <Root {...defaultProps} />
+      <Root {...defaultProps}>
+        <span className="test" />
+      </Root>
     ));
     const { transform } = tree.find('g').props();
-    const { d } = tree.find('path').props();
-
     expect(transform).toBe('translate(1 2)');
-    expect(d).toBe('M10 10');
   });
 
-  it('should apply custom styles if any', () => {
-    const customStyle = {
-      stroke: 'red',
-      strokeWidth: '2px',
-    };
+  it('should render children element', () => {
     const tree = shallow((
-      <Root
-        {...defaultProps}
-        style={customStyle}
-      />
+      <Root {...defaultProps}>
+        <span className="test" />
+      </Root>
     ));
-    const { style } = tree.find('path').props();
-
-    expect(style).toEqual({
-      ...customStyle,
-      fill: 'none',
-    });
+    expect(tree.find('.test').exists())
+      .toBeTruthy();
   });
 });

@@ -7,7 +7,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { xyScales } from '@devexpress/dx-chart-core';
-import { area } from 'd3-shape';
+import { area, symbol, symbolCircle } from 'd3-shape';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -30,6 +30,8 @@ export class AreaSeries extends React.PureComponent {
       placeholder,
       name,
       rootComponent: Root,
+      pathComponent: Path,
+      pointComponent: Point,
       ...restProps
     } = this.props;
     return (
@@ -62,13 +64,27 @@ export class AreaSeries extends React.PureComponent {
                 valueField,
               );
               const d = getDAttribute(path, height);
+              const dPoint = symbol().size([55]).type(symbolCircle)();
               return (
-                <Root
-                  x={x}
-                  y={y}
-                  d={d}
-                  {...restProps}
-                />
+                <Root x={x} y={y}>
+                  <Path
+                    x={0}
+                    y={0}
+                    d={d}
+                    {...restProps}
+                  />
+                  {
+                  data.map(item =>
+                      (<Point
+                        key={item[argumentField]}
+                        x={scales.xScale(item[argumentField])}
+                        y={scales.yScale(item[valueField])}
+                        d={dPoint}
+                        {...restProps.point}
+                      />
+                    ))
+                }
+                </Root>
               );
             }}
           </TemplateConnector>
@@ -82,6 +98,8 @@ AreaSeries.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
+  pointComponent: PropTypes.func.isRequired,
+  pathComponent: PropTypes.func.isRequired,
 };
 
 AreaSeries.defaultProps = {

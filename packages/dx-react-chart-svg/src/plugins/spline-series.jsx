@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { SplineSeries as SplineSeriesBase } from '@devexpress/dx-react-chart';
-import { Root } from '../templates/series/root';
+import { Path } from '../templates/series/path';
 
 export class SplineSeries extends React.PureComponent {
   render() {
     return (
       <SplineSeriesBase
-        rootComponent={Root}
+        pathComponent={Path}
         {...this.props}
       />
     );
   }
 }
 
-SplineSeries.Root = Root;
+SplineSeries.Path = Path;

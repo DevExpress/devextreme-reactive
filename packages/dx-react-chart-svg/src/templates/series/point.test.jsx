@@ -24,9 +24,9 @@ describe('Point', () => {
     expect(transform).toBe('translate(1 2)');
     expect(d).toBe('M11 11');
     expect(style).toEqual({
-      stroke: 'black',
+      stroke: 'none',
       strokeWidth: '1px',
-      fill: 'none',
+      fill: 'black',
     });
   });
 

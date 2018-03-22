@@ -32,7 +32,7 @@ export const ExpandButton = ({
         'oi p-2 text-center dx-rg-bs4-toggle-button': true,
         'oi-chevron-bottom': expanded,
         'oi-chevron-right': !expanded,
-        'dx-rg-bs4-transparent': !visible,
+        'dx-rg-bs4-toggle-button-hidden': !visible,
       }, className)}
       tabIndex={visible ? 0 : undefined} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       onKeyDown={handleKeyDown}

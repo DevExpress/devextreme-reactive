@@ -15,6 +15,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
   },
   hidden: {
+    cursor: 'default',
     opacity: 0,
   },
 });

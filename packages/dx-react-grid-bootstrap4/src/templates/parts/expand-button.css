@@ -8,3 +8,8 @@
   box-sizing: content-box;
   min-width: 9px;
 }
+
+.dx-rg-bs4-toggle-button-hidden {
+  opacity: 0;
+  cursor: default;
+}

@@ -33,7 +33,7 @@ export const ExpandButton = ({
         'glyphicon-triangle-right': !expanded,
       }, className)}
       style={{
-        cursor: 'pointer',
+        cursor: visible ? 'pointer' : 'default',
         display: 'inline-block',
         fontSize: '9px',
         top: '0',

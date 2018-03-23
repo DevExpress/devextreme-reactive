@@ -96,7 +96,7 @@ If you specify additional properties, they are added to the component's root ele
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get a group row level key.
 getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a given row's column value.
 getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
@@ -118,4 +118,4 @@ valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) |
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified tree rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified tree rows.

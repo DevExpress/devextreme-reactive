@@ -107,4 +107,4 @@ valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) |
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns, including the ones by which the table is grouped.
-tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified group rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified group rows.

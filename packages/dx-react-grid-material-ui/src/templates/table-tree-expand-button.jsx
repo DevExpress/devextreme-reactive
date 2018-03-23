@@ -35,6 +35,7 @@ const TableTreeExpandButtonBase = ({
       e.stopPropagation();
       onToggle();
     }}
+    tabIndex={visible ? 0 : -1}
     {...restProps}
   >
     {expanded

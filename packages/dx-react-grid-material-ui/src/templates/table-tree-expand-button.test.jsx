@@ -33,6 +33,19 @@ describe('TableTreeExpandButton', () => {
       .toHaveBeenCalled();
   });
 
+  it('should set tabIndex to -1 when invisible', () => {
+    const tree = shallow((
+      <TableTreeExpandButton
+        visible={false}
+      />
+    ));
+
+    tree.find(IconButton).simulate('click', { stopPropagation: () => {} });
+
+    expect(tree.find(IconButton).prop('tabIndex'))
+      .toBe(-1);
+  });
+
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableTreeExpandButton

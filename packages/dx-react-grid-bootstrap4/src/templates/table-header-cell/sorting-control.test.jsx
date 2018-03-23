@@ -28,7 +28,7 @@ describe('SortingControl', () => {
       />
     ));
 
-    expect(tree.find('span.dx-rg-bs4-sorting-control').exists())
+    expect(tree.find('span.dx-rg-bs4-sorting-control.dx-rg-bs4-cursor-pointer').exists())
       .toBeTruthy();
     expect(tree.find('span.custom').exists())
       .toBeTruthy();

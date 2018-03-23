@@ -31,6 +31,7 @@ const getProps = ({
 }) => ({
   className: classNames({
     'dx-rg-bs4-sorting-control': true,
+    'dx-rg-bs4-cursor-pointer': true,
     'text-primary': sortingDirection,
   }, className),
   tabIndex: disabled ? -1 : 0,

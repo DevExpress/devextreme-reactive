@@ -2,7 +2,7 @@ import { toggle } from './common-reducers';
 
 describe('common reducers', () => {
   describe('#toggle', () => {
-    it('should add to sorce', () => {
+    it('should add to source', () => {
       expect(toggle([0], [1, 2]))
         .toEqual([0, 1, 2]);
     });

@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail, TableGroupHeader,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { withStyles } from 'material-ui/styles';
@@ -22,9 +22,9 @@ const columns = [
   { name: 'prefix', title: 'Title' },
   { name: 'firstName', title: 'First Name' },
   { name: 'lastName', title: 'Last Name' },
+  { name: 'birthDate', title: 'Birth Date' },
   { name: 'position', title: 'Position' },
   { name: 'state', title: 'State' },
-  { name: 'birthDate', title: 'Birth Date' },
 ];
 const detailColumns = [
   { name: 'subject', title: 'Subject' },
@@ -38,6 +38,29 @@ const tableDetailColumnExtensions = [
   { columnName: 'dueDate', width: 115 },
   { columnName: 'priority', width: 100 },
   { columnName: 'status', width: 125 },
+];
+const columnGroups = [
+  { columnName: 'prefix' },
+  {
+    title: 'Personal Data',
+    nested: [
+      {
+        title: 'Full Name',
+        nested: [
+          { columnName: 'firstName' },
+          { columnName: 'lastName' },
+        ],
+      },
+      { columnName: 'birthDate' },
+    ],
+  },
+  {
+    title: 'Work Information',
+    nested: [
+      { columnName: 'state' },
+      { columnName: 'position' },
+    ]
+  }
 ];
 
 const styles = theme => ({
@@ -152,6 +175,9 @@ const GridContainer = ({
       <TableHeaderRow showSortingControls />
       <TableFilterRow />
       <TableSelection showSelectAll />
+      <TableGroupHeader
+        columnGroups={columnGroups}
+      />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
       />

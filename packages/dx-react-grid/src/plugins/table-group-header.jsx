@@ -14,8 +14,6 @@ const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 export class TableGroupHeader extends React.PureComponent {
   render() {
     const {
-      showSortingControls,
-      showGroupingControls,
       cellComponent: Cell,
       rowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
@@ -32,10 +30,11 @@ export class TableGroupHeader extends React.PureComponent {
         name="TableGroupHeader"
         dependencies={[
           { name: 'Table' },
-          { name: 'SortingState', optional: !showSortingControls },
-          { name: 'GroupingState', optional: !showGroupingControls },
+          { name: 'TableHeaderRow' },
           { name: 'DragDropProvider', optional: true },
           { name: 'TableColumnResizing', optional: true },
+          { name: 'TableSelection', optional: true },
+          { name: 'TableEditColumn', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -97,8 +96,6 @@ export class TableGroupHeader extends React.PureComponent {
 
 TableGroupHeader.propTypes = {
   columnGroups: PropTypes.array.isRequired,
-  showSortingControls: PropTypes.bool,
-  showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,

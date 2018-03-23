@@ -6,23 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { xyScales } from '@devexpress/dx-chart-core';
-import { line, curveBasis, symbol, symbolCircle } from 'd3-shape';
-
-const getX = ({ x }) => x;
-const getY = ({ y }) => y;
-
-const computeLinePath = (data, xScale, yScale, argumentField, valueField) =>
-  data.map(dataItem => ({
-    x: xScale(dataItem[argumentField]),
-    y: yScale(dataItem[valueField]),
-  }));
-
-const getDAttribute = path =>
-  line()
-    .x(getX)
-    .y(getY)
-    .curve(curveBasis)(path);
+import { getSeriesAttributes } from '@devexpress/dx-chart-core';
 
 export class SplineSeries extends React.PureComponent {
   render() {
@@ -48,24 +32,13 @@ export class SplineSeries extends React.PureComponent {
               layouts,
             }) => {
               const {
-                axisName: domainName,
-                argumentField,
-                valueField,
-              } = series.find(seriesItem => seriesItem.valueField === name);
-              const {
                 x, y,
-                width, height,
               } = layouts[placeholder];
-              const scales = xyScales(domains, argumentAxisName, domainName, width, height);
-              const path = computeLinePath(
-                data,
-                scales.xScale,
-                scales.yScale,
-                argumentField,
-                valueField,
-              );
-              const d = getDAttribute(path);
-              const dPoint = symbol().size([55]).type(symbolCircle)();
+              const {
+                d,
+                dPoint,
+                coordinates,
+              } = getSeriesAttributes(data, series, name, domains, argumentAxisName, layouts[placeholder], 'spline');
               return (
                 <Root x={x} y={y}>
                   <Path
@@ -75,11 +48,11 @@ export class SplineSeries extends React.PureComponent {
                     {...restProps}
                   />
                   {
-                  point.visible ? data.map(item =>
+                  point.visible ? coordinates.map(item =>
                       (<Point
-                        key={item[argumentField]}
-                        x={scales.xScale(item[argumentField])}
-                        y={scales.yScale(item[valueField])}
+                        key={item.x.toString()}
+                        x={item.x}
+                        y={item.y}
                         d={dPoint}
                         {...point}
                       />

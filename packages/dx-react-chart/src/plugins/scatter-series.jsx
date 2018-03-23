@@ -6,8 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { symbol, symbolCircle } from 'd3-shape';
-import { xyScales } from '@devexpress/dx-chart-core';
+import { getSeriesAttributes } from '@devexpress/dx-chart-core';
 
 export class ScatterSeries extends React.PureComponent {
   render() {
@@ -31,29 +30,32 @@ export class ScatterSeries extends React.PureComponent {
               layouts,
             }) => {
               const {
-                axisName: domainName,
-                argumentField,
-                valueField,
-              } = series.find(seriesItem => seriesItem.valueField === name);
-              const {
                 x, y,
-                width, height,
               } = layouts[placeholder];
-              const scales = xyScales(domains, argumentAxisName, domainName, width, height);
-              const d = symbol().size([55]).type(symbolCircle)();
+              const {
+                dPoint,
+                coordinates,
+              } = getSeriesAttributes(
+                data,
+                series,
+                name,
+                domains,
+                argumentAxisName,
+                layouts[placeholder],
+              );
               return (
                 <Root x={x} y={y}>
                   {
-                  data.map(item =>
+                    coordinates.map(item =>
                       (<Point
-                        key={item[argumentField]}
-                        x={scales.xScale(item[argumentField])}
-                        y={scales.yScale(item[valueField])}
-                        d={d}
+                        key={item.x.toString()}
+                        x={item.x}
+                        y={item.y}
+                        d={dPoint}
                         {...restProps}
                       />
-                    ))
-                }
+                      ))
+                  }
                 </Root>
               );
             }}

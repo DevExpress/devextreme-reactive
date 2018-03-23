@@ -56,6 +56,7 @@ export default class Demo extends React.PureComponent {
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
+          point={{ visible: true, style: { fill: 'green' } }}
         />
         <ScatterSeries
           name="China"
@@ -64,11 +65,12 @@ export default class Demo extends React.PureComponent {
         <SplineSeries
           name="China"
           style={{ stroke: 'green' }}
+          point={{ visible: false }}
         />
-        <LineSeries
+        {/* <LineSeries
           name="China"
           style={{ stroke: '#2ed9d0' }}
-        />
+        /> */}
         <AreaSeries
           name="USA"
           style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}

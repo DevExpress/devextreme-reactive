@@ -8,6 +8,7 @@ export const SelectionControl = ({
     style={{
       display: 'inline-block',
       cursor: !disabled && 'pointer',
+      margin: 0,
       ...style,
     }}
     type="checkbox"

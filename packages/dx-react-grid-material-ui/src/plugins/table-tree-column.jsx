@@ -25,4 +25,4 @@ TableTreeColumn.Cell = TableTreeCell;
 TableTreeColumn.Indent = TableTreeIndent;
 TableTreeColumn.ExpandButton = TableTreeExpandButton;
 TableTreeColumn.Checkbox = TableTreeCheckbox;
-TableTreeContent.Content = TableTreeContent;
+TableTreeColumn.Content = TableTreeContent;

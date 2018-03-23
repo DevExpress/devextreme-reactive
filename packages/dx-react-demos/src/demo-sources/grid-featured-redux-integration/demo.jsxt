@@ -6,8 +6,8 @@ import {
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
-  Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail, TableGroupHeader,
+  Grid, Table, TableGroupHeader, TableHeaderRow,
+  TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { withStyles } from 'material-ui/styles';
@@ -59,8 +59,8 @@ const columnGroups = [
     nested: [
       { columnName: 'state' },
       { columnName: 'position' },
-    ]
-  }
+    ],
+  },
 ];
 
 const styles = theme => ({
@@ -212,7 +212,7 @@ const gridInitialState = {
   currentPage: 0,
   pageSize: 10,
   pageSizes: [5, 10, 15],
-  columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
+  columnOrder: ['prefix', 'firstName', 'lastName', 'birthDate', 'position', 'state'],
   columnWidths: [
     { columnName: 'prefix', width: 70 },
     { columnName: 'firstName', width: 130 },

@@ -7,6 +7,7 @@ export const BandHeaderCell = ({ component: Component, style, ...restProps }) =>
     style={{
       ...style,
       borderLeft: '1px solid #ddd',
+      borderRight: '1px solid #ddd',
       borderTop: 0,
     }}
   />

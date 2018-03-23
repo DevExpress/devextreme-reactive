@@ -15,9 +15,8 @@ export class TableGroupHeader extends React.PureComponent {
   render() {
     const {
       cellComponent: Cell,
-      rowComponent: HeaderRow,
+      rowComponent: Row,
       headerCellComponent: HeaderCell,
-      stubCellComponent: StubCell,
       emptyCellComponent: EmptyCell,
       columnGroups,
     } = this.props;
@@ -31,20 +30,11 @@ export class TableGroupHeader extends React.PureComponent {
         dependencies={[
           { name: 'Table' },
           { name: 'TableHeaderRow' },
-          { name: 'DragDropProvider', optional: true },
-          { name: 'TableColumnResizing', optional: true },
           { name: 'TableSelection', optional: true },
           { name: 'TableEditColumn', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-
-        <Template
-          name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableRow.type === 'heading' && tableColumn.type === 'flex'}
-        >
-          {params => <StubCell style={{ ...params.style }} rowSpan={params.rowSpan} />}
-        </Template>
 
         <Template
           name="tableCell"
@@ -87,7 +77,7 @@ export class TableGroupHeader extends React.PureComponent {
           name="tableRow"
           predicate={({ tableRow }) => isBandedTableRow(tableRow)}
         >
-          {params => <HeaderRow {...params} />}
+          {params => <Row {...params} />}
         </Template>
       </Plugin>
     );
@@ -99,11 +89,5 @@ TableGroupHeader.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
-  stubCellComponent: PropTypes.func.isRequired,
   emptyCellComponent: PropTypes.func.isRequired,
-};
-
-TableGroupHeader.defaultProps = {
-  showSortingControls: false,
-  showGroupingControls: false,
 };

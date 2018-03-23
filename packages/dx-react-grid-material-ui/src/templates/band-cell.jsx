@@ -19,6 +19,7 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
     borderBottom: getBorderColor(theme),
     borderLeft: getBorderColor(theme),
+    borderRight: getBorderColor(theme),
   },
 });
 

@@ -13,6 +13,7 @@ export const BandCell = ({
       textOverflow: 'ellipsis',
       borderBottom: '1px solid #ddd',
       borderLeft: '1px solid #ddd',
+      borderRight: '1px solid #ddd',
       ...style,
     }}
     {...restProps}

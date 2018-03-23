@@ -162,22 +162,21 @@ const GridContainer = ({
 
       <Table />
 
+      <TableColumnResizing
+        columnWidths={columnWidths}
+        onColumnWidthsChange={onColumnWidthsChange}
+      />
+      <TableHeaderRow showSortingControls />
       <TableColumnReordering
         order={columnOrder}
         onOrderChange={onColumnOrderChange}
       />
 
-      <TableColumnResizing
-        columnWidths={columnWidths}
-        onColumnWidthsChange={onColumnWidthsChange}
-      />
-
-      <TableHeaderRow showSortingControls />
-      <TableFilterRow />
       <TableSelection showSelectAll />
       <TableGroupHeader
         columnGroups={columnGroups}
       />
+      <TableFilterRow />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
       />

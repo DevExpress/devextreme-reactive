@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const BandHeaderCell = ({ component: Component, className, ...restProps }) => (
-  <Component {...restProps} className={classNames('dx-rg-bs4-band border-left border-top-0', className)} />
+  <Component {...restProps} className={classNames('dx-rg-bs4-band border-left border-right', className)} />
 );
 
 BandHeaderCell.propTypes = {

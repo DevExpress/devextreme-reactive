@@ -7,6 +7,7 @@ import { getBorderColor } from './utils';
 const styles = theme => ({
   bandBorder: {
     borderLeft: getBorderColor(theme),
+    borderRight: getBorderColor(theme),
     borderTop: 'none',
     '&:first-child': {
       borderLeft: 0,

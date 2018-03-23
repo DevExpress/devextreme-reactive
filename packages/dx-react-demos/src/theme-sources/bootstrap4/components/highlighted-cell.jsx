@@ -14,7 +14,9 @@ const getColor = (amount) => {
   return '#c3e2b7';
 };
 
-export const HighlightedCell = ({ tableColumn, value, style }) => (
+export const HighlightedCell = ({
+  tableColumn, value, children, style,
+}) => (
   <td
     style={{
       backgroundColor: getColor(value),
@@ -22,15 +24,17 @@ export const HighlightedCell = ({ tableColumn, value, style }) => (
       ...style,
     }}
   >
-    ${value}
+    {children}
   </td>
 );
 HighlightedCell.propTypes = {
   value: PropTypes.number.isRequired,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
+  children: PropTypes.node,
 };
 HighlightedCell.defaultProps = {
   style: {},
   tableColumn: {},
+  children: undefined,
 };

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { memoize } from '@devexpress/dx-core';
 import { Plugin, Getter, Action } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
+  tableColumnsWithDraftWidths,
   changeTableColumnWidth,
   draftTableColumnWidth,
   cancelTableColumnWidthDraft,
@@ -29,10 +31,23 @@ export class TableColumnResizing extends React.PureComponent {
       },
     );
 
+    this.tableColumnsComputed = memoize(columnWidths =>
+      ({ tableColumns }) => tableColumnsWithWidths(tableColumns, columnWidths));
+    this.tableColumnsDraftComputed = memoize(draftColumnWidths =>
+      ({ tableColumns }) => tableColumnsWithDraftWidths(tableColumns, draftColumnWidths));
+
     this.changeTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, changeTableColumnWidth);
+      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
+        changeTableColumnWidth(
+          prevState,
+          { ...payload, minColumnWidth: this.props.minColumnWidth },
+        ));
     this.draftTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, draftTableColumnWidth);
+      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
+        draftTableColumnWidth(
+          prevState,
+          { ...payload, minColumnWidth: this.props.minColumnWidth },
+        ));
     this.cancelTableColumnWidthDraft =
       stateHelper.applyReducer.bind(stateHelper, cancelTableColumnWidthDraft);
   }
@@ -47,8 +62,8 @@ export class TableColumnResizing extends React.PureComponent {
   render() {
     const { columnWidths, draftColumnWidths } = this.state;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithWidths(tableColumns, columnWidths, draftColumnWidths);
+    const tableColumnsComputed = this.tableColumnsComputed(columnWidths);
+    const tableColumnsDraftComputed = this.tableColumnsDraftComputed(draftColumnWidths);
 
     return (
       <Plugin
@@ -57,6 +72,7 @@ export class TableColumnResizing extends React.PureComponent {
       >
         <Getter name="tableColumnResizingEnabled" value />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="tableColumns" computed={tableColumnsDraftComputed} />
         <Action name="changeTableColumnWidth" action={this.changeTableColumnWidth} />
         <Action name="draftTableColumnWidth" action={this.draftTableColumnWidth} />
         <Action name="cancelTableColumnWidthDraft" action={this.cancelTableColumnWidthDraft} />
@@ -69,6 +85,7 @@ TableColumnResizing.propTypes = {
   defaultColumnWidths: PropTypes.array,
   columnWidths: PropTypes.array,
   onColumnWidthsChange: PropTypes.func,
+  minColumnWidth: PropTypes.number.isRequired,
 };
 
 TableColumnResizing.defaultProps = {

@@ -1,3 +1,45 @@
+<a name="1.1.1"></a>
+# [1.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.1) (2018-03-20)
+
+
+### Bug Fixes
+
+* **react-grid:** correct empty value passed to filter cell editors ([#857](https://github.com/DevExpress/devextreme-reactive/issues/857)) ([66e47d0](https://github.com/DevExpress/devextreme-reactive/commit/66e47d0))
+* **react-grid:** correct TableHeaderRow.CellProps types ([#858](https://github.com/DevExpress/devextreme-reactive/issues/858)) ([8ed9b8a](https://github.com/DevExpress/devextreme-reactive/commit/8ed9b8a))
+
+
+
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.3...v1.1.0) (2018-03-15)
+
+
+### Bug Fixes
+
+* **grid-core:** repair column reordering after grouping ([#831](https://github.com/DevExpress/devextreme-reactive/issues/831)) ([edf32d0](https://github.com/DevExpress/devextreme-reactive/commit/edf32d0))
+* **react-demos:** get rid of warnings in the Featured Controlled demos ([#821](https://github.com/DevExpress/devextreme-reactive/issues/821)) ([6c24a1b](https://github.com/DevExpress/devextreme-reactive/commit/6c24a1b))
+* **react-grid:** cancel handling of bubbled scroll event in the virtual table ([#829](https://github.com/DevExpress/devextreme-reactive/issues/829)) ([8a9a731](https://github.com/DevExpress/devextreme-reactive/commit/8a9a731)), closes [#805](https://github.com/DevExpress/devextreme-reactive/issues/805)
+* **react-grid-material-ui:** fix sorting in MUI v1.0.0-beta.37 ([#830](https://github.com/DevExpress/devextreme-reactive/issues/830)) ([47ba974](https://github.com/DevExpress/devextreme-reactive/commit/47ba974)), closes [#825](https://github.com/DevExpress/devextreme-reactive/issues/825)
+
+
+
+<a name="1.1.0-beta.3"></a>
+# [1.1.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2018-03-07)
+
+
+### Bug Fixes
+
+* **react-grid-bootstrap4:** fix the 'Nothing to show' message ([#816](https://github.com/DevExpress/devextreme-reactive/issues/816)) ([34167bb](https://github.com/DevExpress/devextreme-reactive/commit/34167bb))
+* **react-grid-bootstrap4:** get rid cursor poiner on disabled item ([#799](https://github.com/DevExpress/devextreme-reactive/issues/799)) ([1d59052](https://github.com/DevExpress/devextreme-reactive/commit/1d59052))
+
+
+### Features
+
+* **react-grid:** add search panel plugin ([#726](https://github.com/DevExpress/devextreme-reactive/issues/726)) ([c8e79fb](https://github.com/DevExpress/devextreme-reactive/commit/c8e79fb))
+* **react-grid:** extract the Table plugin components ([#766](https://github.com/DevExpress/devextreme-reactive/issues/766)) ([e626a66](https://github.com/DevExpress/devextreme-reactive/commit/e626a66))
+* **react-grid:** support center alignment for columns ([#804](https://github.com/DevExpress/devextreme-reactive/issues/804)) ([209d1c9](https://github.com/DevExpress/devextreme-reactive/commit/209d1c9))
+
+
+
 <a name="1.1.0-beta.2"></a>
 # [1.1.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2018-03-02)
 

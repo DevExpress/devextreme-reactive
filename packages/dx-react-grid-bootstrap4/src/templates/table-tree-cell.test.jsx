@@ -14,17 +14,6 @@ describe('TableTreeCell', () => {
       .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <TableTreeCell
-        style={{ color: 'gray' }}
-      />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ color: 'gray' });
-  });
-
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableTreeCell className="custom-class" />

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { TableTreeCheckbox } from './table-tree-checkbox';
 
 describe('TableTreeCheckbox', () => {
-  it('should pass style to the root element', () => {
+  it('should pass className to the root element', () => {
     const tree = shallow((
       <TableTreeCheckbox
         className="test"

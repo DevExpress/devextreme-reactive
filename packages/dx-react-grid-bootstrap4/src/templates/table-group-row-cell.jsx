@@ -21,7 +21,7 @@ export const TableGroupCell = ({
       <ExpandButton
         expanded={expanded}
         onToggle={onToggle}
-        className={classNames('mr-2')}
+        className="mr-2"
       />
       <strong>{column.title || column.name}: </strong>
       {children || row.value}

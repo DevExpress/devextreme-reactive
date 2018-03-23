@@ -71,7 +71,6 @@ describe('TableHeaderCell', () => {
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
-        cursor: 'pointer',
       });
   });
 
@@ -227,74 +226,5 @@ describe('TableHeaderCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-  });
-
-  describe('with keyboard navigation', () => {
-    const ENTER_KEY_CODE = 13;
-    const SPACE_KEY_CODE = 32;
-
-    it('should handle the "Enter" and "Space" keys down', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: 51 });
-      expect(onSort)
-        .not.toHaveBeenCalled();
-    });
-
-    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
-    });
-
-    it('should handle the "Ctrl" key with sorting', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: null });
-    });
   });
 });

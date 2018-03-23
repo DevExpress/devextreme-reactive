@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { TableCell, TableSortLabel } from 'material-ui/Table';
+import { TableCell } from 'material-ui/Table';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
-import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 
@@ -16,6 +15,10 @@ const defaultProps = {
   getMessage: key => key,
   column: { name: 'Test' },
 };
+
+// eslint-disable-next-line react/prop-types
+const SortingControl = ({ getMessage }) =>
+  <div className="sorting-control">{getMessage('sortingHint')}</div>;
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -48,23 +51,6 @@ describe('TableHeaderCell', () => {
     ));
 
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
-  });
-
-  it('should cancel sorting by using the Ctrl key', () => {
-    const onSort = jest.fn();
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        onSort={onSort}
-        showSortingControls
-        sortingEnabled
-      />
-    ));
-
-    tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
-
-    expect(onSort.mock.calls).toHaveLength(1);
-    expect(onSort.mock.calls[0][0].direction).toBe(null);
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -148,19 +134,20 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should pass correct text to SortingControl', () => {
+  it('should pass correct sorting hint to SortingControl', () => {
     const tree = mount((
       <TableHeaderCell
         {...defaultProps}
+        sortingComponent={SortingControl}
         showSortingControls
         tableColumn={{ align: 'right' }}
       />
     ));
 
-    const tooltip = tree.find('Tooltip');
-    expect(tooltip.exists())
+    const sortingControl = tree.find('div.sorting-control');
+    expect(sortingControl.exists())
       .toBeTruthy();
-    expect(tooltip.prop('title'))
+    expect(sortingControl.text())
       .toBe('sortingHint');
   });
 
@@ -191,9 +178,6 @@ describe('TableHeaderCell', () => {
   });
 
   describe('with keyboard navigation', () => {
-    const ENTER_KEY_CODE = 13;
-    const SPACE_KEY_CODE = 32;
-
     it('can not get focus if sorting is not allowed', () => {
       const tree = mount((
         <TableHeaderCell
@@ -209,71 +193,13 @@ describe('TableHeaderCell', () => {
       const tree = mount((
         <TableHeaderCell
           {...defaultProps}
+          sortingComponent={SortingControl}
           showSortingControls
         />
       ));
 
       expect(tree.find(SortingControl).exists())
         .toBeTruthy();
-    });
-
-    it('should handle the "Enter" and "Space" keys down', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-      const SortLabel = tree.find(TableSortLabel);
-
-      SortLabel.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      SortLabel.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      SortLabel.simulate('keydown', { keyCode: 51 });
-      expect(onSort)
-        .not.toHaveBeenCalled();
-    });
-
-    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
-    });
-
-    it('should handle the "Ctrl" key with sorting', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
   });
 });

@@ -9,10 +9,6 @@ import { withStyles } from 'material-ui/styles';
 
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { SortingControl } from './table-header-cell/sorting-control';
-
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
   plainTitle: {
@@ -80,29 +76,16 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
 
-    this.onClick = (e) => {
-      const { onSort, sortingEnabled } = this.props;
-      if (!sortingEnabled) return;
-
-      const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
-      const isMouseClick = e.keyCode === undefined;
-
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
-        ? null
-        : undefined;
-
-      e.preventDefault();
-      onSort({
-        direction,
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-      });
+    this.getSort = ({ direction, keepOther }) => {
+      const { onSort, showSortingControls, sortingEnabled } = this.props;
+      if (!showSortingControls || !sortingEnabled) return;
+      onSort({ direction, keepOther });
     };
   }
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection,
+      showSortingControls, sortingDirection, sortingComponent: SortingControl,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
@@ -140,8 +123,8 @@ class TableHeaderCellBase extends React.PureComponent {
           <SortingControl
             align={align}
             sortingDirection={sortingDirection}
-            columnTitle={columnTitle}
-            onClick={this.onClick}
+            title={columnTitle}
+            sort={this.getSort}
             getMessage={getMessage}
             disabled={!sortingEnabled}
           />
@@ -194,6 +177,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  sortingComponent: PropTypes.func,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -214,6 +198,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
+  sortingComponent: () => {},
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

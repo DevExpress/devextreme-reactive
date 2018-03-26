@@ -5,7 +5,7 @@ import {
   EditCommandHeadingCell,
   EditCommandCell,
 } from './table-edit-command-cell';
-import { bandCellHeight } from './band-cell';
+import { groupCellHeight } from './table-group-header/cell';
 
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
@@ -44,7 +44,7 @@ describe('TableCommandColumn', () => {
         <EditCommandHeadingCell rowSpan={rowSpan} />
       ));
 
-      expect(tree.prop('style').paddingTop).toBe(`${(rowSpan - 1) * bandCellHeight}px`);
+      expect(tree.prop('style').paddingTop).toBe(`${(rowSpan - 1) * groupCellHeight}px`);
     });
   });
 

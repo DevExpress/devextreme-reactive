@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const BandHeaderCell = ({ component: Component, style, ...restProps }) => (
+export const HeaderCell = ({ component: Component, style, ...restProps }) => (
   <Component
     style={{
       ...style,
@@ -13,11 +13,11 @@ export const BandHeaderCell = ({ component: Component, style, ...restProps }) =>
   />
 );
 
-BandHeaderCell.propTypes = {
+HeaderCell.propTypes = {
   component: PropTypes.func.isRequired,
   style: PropTypes.object,
 };
 
-BandHeaderCell.defaultProps = {
+HeaderCell.defaultProps = {
   style: null,
 };

@@ -9,12 +9,12 @@ const styles = {
   },
 };
 
-const BandEmptyCellBase = ({ classes }) => (
+const EmptyCellBase = ({ classes }) => (
   <TableCell className={classes.emptyCell} />
 );
 
-BandEmptyCellBase.propTypes = {
+EmptyCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const BandEmptyCell = withStyles(styles, { name: 'BandEmptyCell' })(BandEmptyCellBase);
+export const EmptyCell = withStyles(styles, { name: 'EmptyCell' })(EmptyCellBase);

@@ -2,26 +2,26 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import { TableRow as TableRowMUI } from 'material-ui/Table';
+import { TableRow } from 'material-ui/Table';
 
 const styles = {
-  bandRow: {
+  Row: {
     height: 'auto',
   },
 };
 
-export const BandRowBase = ({
+export const RowBase = ({
   children, classes, className, row, tableRow, tableColumn, ...restProps
 }) => (
-  <TableRowMUI
-    className={classNames(classes.bandRow, className)}
+  <TableRow
+    className={classNames(classes.Row, className)}
     {...restProps}
   >
     {children}
-  </TableRowMUI>
+  </TableRow>
 );
 
-BandRowBase.propTypes = {
+RowBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   row: PropTypes.object,
@@ -30,7 +30,7 @@ BandRowBase.propTypes = {
   className: PropTypes.string,
 };
 
-BandRowBase.defaultProps = {
+RowBase.defaultProps = {
   children: undefined,
   row: undefined,
   tableRow: undefined,
@@ -38,4 +38,4 @@ BandRowBase.defaultProps = {
   className: undefined,
 };
 
-export const BandRow = withStyles(styles, { name: 'BandRow' })(BandRowBase);
+export const Row = withStyles(styles, { name: 'Row' })(RowBase);

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell as TableCellMUI } from 'material-ui/Table';
+import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { getBorderColor } from './utils';
+import { getBorderColor } from './../utils';
 
-export const bandCellHeight = 48;
+export const groupCellHeight = 48;
 
 const styles = theme => ({
   cell: {
@@ -25,18 +25,18 @@ const styles = theme => ({
   },
 });
 
-const BandCellBase = ({
+const CellBase = ({
   column, value, children, classes, tableRow, tableColumn, row, className, ...restProps
 }) => (
-  <TableCellMUI
+  <TableCell
     className={classNames(classes.cell, className)}
     {...restProps}
   >
     {children || value}
-  </TableCellMUI>
+  </TableCell>
 );
 
-BandCellBase.propTypes = {
+CellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -47,7 +47,7 @@ BandCellBase.propTypes = {
   className: PropTypes.string,
 };
 
-BandCellBase.defaultProps = {
+CellBase.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
@@ -57,4 +57,4 @@ BandCellBase.defaultProps = {
   className: undefined,
 };
 
-export const BandCell = withStyles(styles, { name: 'BandCell' })(BandCellBase);
+export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

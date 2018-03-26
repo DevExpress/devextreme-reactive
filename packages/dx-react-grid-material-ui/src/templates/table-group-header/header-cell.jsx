@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import { getBorderColor } from './utils';
-import { bandCellHeight } from './band-cell';
+import { getBorderColor } from '.././utils';
+import { groupCellHeight } from './cell';
 
 const styles = theme => ({
-  bandBorder: {
+  headerCellBorder: {
     borderLeft: getBorderColor(theme),
     borderRight: getBorderColor(theme),
     borderTop: 'none',
@@ -16,24 +16,24 @@ const styles = theme => ({
   },
 });
 
-export const BandHeaderCellBase = ({
+export const HeaderCellBase = ({
   component: Component, className, classes, style, rowSpan, ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (bandCellHeight * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (groupCellHeight * (rowSpan - 1)) : '';
   return (
     <Component
-      className={classNames(classes.bandBorder, className)}
+      className={classNames(classes.headerCellBorder, className)}
       style={{
         ...style,
         ...(rowSpan > 1 ? { paddingBottom: 0, paddingTop: `${paddingTop}px` } : null),
       }}
-      {...restProps}
       rowSpan={rowSpan}
+      {...restProps}
     />
   );
 };
 
-BandHeaderCellBase.propTypes = {
+HeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -41,10 +41,10 @@ BandHeaderCellBase.propTypes = {
   rowSpan: PropTypes.number,
 };
 
-BandHeaderCellBase.defaultProps = {
+HeaderCellBase.defaultProps = {
   className: undefined,
   rowSpan: undefined,
   style: null,
 };
 
-export const BandHeaderCell = withStyles(styles, { name: 'BandHeaderCell' })(BandHeaderCellBase);
+export const HeaderCell = withStyles(styles, { name: 'HeaderCell' })(HeaderCellBase);

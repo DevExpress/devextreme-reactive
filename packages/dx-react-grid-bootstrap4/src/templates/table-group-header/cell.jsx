@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-cell.css';
+import './../table-cell.css';
 
-export const BandCell = ({
+export const Cell = ({
   column, value, children,
   tableRow, tableColumn, row,
   className, ...restProps
@@ -16,7 +16,7 @@ export const BandCell = ({
   </th>
 );
 
-BandCell.propTypes = {
+Cell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
@@ -29,7 +29,7 @@ BandCell.propTypes = {
   className: PropTypes.string,
 };
 
-BandCell.defaultProps = {
+Cell.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,

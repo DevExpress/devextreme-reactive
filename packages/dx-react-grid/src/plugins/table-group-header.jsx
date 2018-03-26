@@ -16,7 +16,7 @@ export class TableGroupHeader extends React.PureComponent {
     const {
       cellComponent: Cell,
       rowComponent: Row,
-      headerCellComponent: HeaderCell,
+      headerCellContainer: HeaderCell,
       emptyCellComponent: EmptyCell,
       columnGroups,
     } = this.props;
@@ -88,6 +88,6 @@ TableGroupHeader.propTypes = {
   columnGroups: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  headerCellComponent: PropTypes.func.isRequired,
+  headerCellContainer: PropTypes.func.isRequired,
   emptyCellComponent: PropTypes.func.isRequired,
 };

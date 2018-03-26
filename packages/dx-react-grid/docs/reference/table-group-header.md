@@ -19,14 +19,20 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
-headerCellComponent | ComponentType&lt;[TableHeaderRow.CellProps](table-header-row.md#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
+headerCellContainer | ComponentType&lt;[TableGroupHeader.HeaderCellContainerProps](#headercellcontainerprops)&gt; | | A container for a header cell.
 columnGroups | Array&lt;[TableGroupHeader.ColumnGroups](#tablegroupheadercolumngroups)&gt; | | Specifies the nested columns for implement multiple levels of columns in your table header.
 
 ## Interfaces
 
+### TableGroupHeader.HeaderCellContainerProps
+
+Name | Type | Description
+-----|------------|------------
+component? | ComponentType<object> | A component that render header cell.
+
 ### TableGroupHeader.ColumnGroups
 
-Name | Properties | Description
+Name | Type | Description
 -----|------------|------------
 columnName? | string | The name of the column.
 title? | string | The title of the parent column.
@@ -38,7 +44,7 @@ Name | Properties | Description
 -----|------------|------------
 TableGroupHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 TableGroupHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
-TableGroupHeader.HeaderCell | ComponentType&lt;[TableHeaderRow.CellProps](table-header-row.md#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
+TableGroupHeader.HeaderCellContainer | ComponentType&lt;[TableHeaderRow.CellProps](table-header-row.md#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
 
 Additional properties are added to the component's root element.
 

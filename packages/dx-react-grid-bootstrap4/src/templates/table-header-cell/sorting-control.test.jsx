@@ -35,7 +35,7 @@ describe('SortingControl', () => {
   });
 });
 
-describe('TableHeaderCell with keyboard navigation', () => {
+describe('Keyboard navigation', () => {
   const ENTER_KEY_CODE = 13;
   const SPACE_KEY_CODE = 32;
 

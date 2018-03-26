@@ -198,7 +198,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalled();
@@ -226,7 +226,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
@@ -244,7 +244,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: null });

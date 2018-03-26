@@ -53,6 +53,12 @@ The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExte
 
 .embedded-demo({ "path": "grid-sorting/custom-sorting", "showThemeSelector": true })
 
+## Custom Sorting Control
+
+You can use your own sorting control by overriding the `sortingComponent` property of the [TableHeaderRow](../reference/table-header-row.md) plugin.
+
+.embedded-demo({ "path": "grid-sorting/custom-sorting-control", "showThemeSelector": true })
+
 ## Remote Sorting
 
 You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.

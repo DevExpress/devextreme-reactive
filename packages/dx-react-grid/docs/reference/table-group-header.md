@@ -10,8 +10,6 @@ A plugin that renders the nested header cells.
 - [TableHeaderRow](table-header-row.md)
 - [TableEditColumn](table-edit-column.md) [Optional]
 - [TableSelection](table-selection.md) [Optional]
-- [DragDropProvider](drag-drop-provider.md) [Optional]
-- [TableColumnResizing](table-column-resizing.md) [Optional]
 
 ### Properties
 
@@ -19,16 +17,16 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
-headerCellContainer | ComponentType&lt;[TableGroupHeader.HeaderCellContainerProps](#headercellcontainerprops)&gt; | | A container for a header cell.
+enhancerHeaderCell | ComponentType&lt;[TableGroupHeader.EnhancerHeaderCellProps](#tablegroupheaderenhancerheadercellprops)&gt; | | A enhancer component for a header cell.
 columnGroups | Array&lt;[TableGroupHeader.ColumnGroups](#tablegroupheadercolumngroups)&gt; | | Specifies the nested columns for implement multiple levels of columns in your table header.
 
 ## Interfaces
 
-### TableGroupHeader.HeaderCellContainerProps
+### TableGroupHeader.EnhancerHeaderCellProps
 
 Name | Type | Description
 -----|------------|------------
-component? | ComponentType<object> | A component that render header cell.
+component? | ComponentType&lt;object&gt; | A component that rendered by enhancer component.
 
 ### TableGroupHeader.ColumnGroups
 
@@ -44,7 +42,7 @@ Name | Properties | Description
 -----|------------|------------
 TableGroupHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 TableGroupHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
-TableGroupHeader.HeaderCellContainer | ComponentType&lt;[TableHeaderRow.CellProps](table-header-row.md#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
+TableGroupHeader.EnhancerHeaderCell | object | | A component that renders a header cell.
 
 Additional properties are added to the component's root element.
 

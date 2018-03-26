@@ -11,7 +11,7 @@ export class TableGroupHeader extends React.PureComponent {
       <TableGroupHeaderBase
         cellComponent={Cell}
         rowComponent={TableRow}
-        headerCellContainer={HeaderCell}
+        headerCellEnhancer={HeaderCell}
         emptyCellComponent={EmptyCell}
         {...this.props}
       />
@@ -21,4 +21,4 @@ export class TableGroupHeader extends React.PureComponent {
 
 TableGroupHeader.Cell = Cell;
 TableGroupHeader.Row = TableRow;
-TableGroupHeader.HeaderCellContainer = HeaderCell;
+TableGroupHeader.EnhancerHeaderCell = HeaderCell;

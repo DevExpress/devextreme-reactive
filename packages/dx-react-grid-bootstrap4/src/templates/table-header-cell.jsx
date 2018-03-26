@@ -63,7 +63,6 @@ export class TableHeaderCell extends React.PureComponent {
           'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
-        onClick={this.onClick}
         {...restProps}
       >
         <div

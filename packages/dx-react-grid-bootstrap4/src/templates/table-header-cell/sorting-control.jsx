@@ -36,6 +36,7 @@ export const SortingControl = ({
       onMouseDown={handleMouseDown}
       onBlur={handleBlur}
       onKeyDown={onClick}
+      onClick={onClick}
     >
       {align === 'right' ? content.reverse() : content}
     </span>

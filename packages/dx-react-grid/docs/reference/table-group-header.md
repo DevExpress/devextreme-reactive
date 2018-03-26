@@ -30,7 +30,7 @@ Name | Properties | Description
 -----|------------|------------
 columnName? | string | The name of the column.
 title? | string | The title of the parent column.
-nested? | Array&lt;[TableGroupHeader.ColumnGroups](#tablegroupheadercolumngroups)&gt; | The nested columns of current title.
+children? | Array&lt;[TableGroupHeader.ColumnGroups](#tablegroupheadercolumngroups)&gt; | The nested columns of current title.
 
 ## Plugin Components
 

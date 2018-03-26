@@ -1,6 +1,6 @@
 # React Grid - Column Groups
 
-The Grid component supports the Column Groups. You can specify the nested columns to implement multiple levels of columns in your table header.
+The Grid component supports the Column Groups. You can specify the `children` columns to implement multiple levels of columns in your table header.
 
 ## Related Plugins
 

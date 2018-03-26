@@ -16,11 +16,8 @@ const PercentCell = ({ value, ...restProps }) => (
 );
 
 const Cell = (props) => {
-  if (props.column.name === 'GDP_Industry'
-    || props.column.name === 'GDP_Services'
-    || props.column.name === 'GDP_Agriculture'
-    || props.column.name === 'Population_Urban'
-  ) return <PercentCell {...props} />;
+  if (['GDP_Industry', 'GDP_Services', 'GDP_Agriculture', 'Population_Urban']
+    .indexOf(props.column.name) > -1) return <PercentCell {...props} />;
   return <Table.Cell {...props} />;
 };
 
@@ -42,18 +39,18 @@ export default class Demo extends React.PureComponent {
       columnGroups: [
         {
           title: 'Population',
-          nested: [
+          children: [
             { columnName: 'Population_Total' },
             { columnName: 'Population_Urban' },
           ],
         },
         {
           title: 'Nominal GDP',
-          nested: [
+          children: [
             { columnName: 'GDP_Total' },
             {
               title: 'By Sector',
-              nested: [
+              children: [
                 { columnName: 'GDP_Agriculture' },
                 { columnName: 'GDP_Industry' },
                 { columnName: 'GDP_Services' },

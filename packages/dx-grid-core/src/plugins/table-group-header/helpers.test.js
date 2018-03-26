@@ -11,10 +11,10 @@ describe('TableGroupHeader Plugin helpers', () => {
   const columnGroups = [
     {
       title: 'A',
-      nested: [
+      children: [
         {
           title: 'AA',
-          nested: [
+          children: [
             { columnName: 'a' },
             { columnName: 'b' },
           ],
@@ -63,12 +63,12 @@ describe('TableGroupHeader Plugin helpers', () => {
   });
 
   describe('#getColumnMeta', () => {
-    it('should get column meta if one nested levels', () => {
+    it('should get column meta if one children levels', () => {
       expect(getColumnMeta('d', columnGroups, 1))
         .toEqual({ title: 'A', level: 1 });
     });
 
-    it('should get column meta if two nested levels', () => {
+    it('should get column meta if two children levels', () => {
       expect(getColumnMeta('a', columnGroups, 2))
         .toEqual({ title: 'AA', level: 2 });
     });
@@ -78,39 +78,39 @@ describe('TableGroupHeader Plugin helpers', () => {
     it('should work for first row', () => {
       const currColumnTitle = 'A';
       const currColumnIndex = 0;
-      const currentRowLevel = 0;
+      const currRowLevel = 0;
 
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
         columnGroups,
-        currentRowLevel,
+        currRowLevel,
         currColumnTitle,
       )).toEqual(3);
     });
-    it('should work for second row and nested element', () => {
+    it('should work for second row and children element', () => {
       const currColumnTitle = 'AA';
       const currColumnIndex = 0;
-      const currentRowLevel = 1;
+      const currRowLevel = 1;
 
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
         columnGroups,
-        currentRowLevel,
+        currRowLevel,
         currColumnTitle,
       )).toEqual(2);
     });
-    it('should work for second row and not nested element', () => {
+    it('should work for second row and not children element', () => {
       const currColumnTitle = 'A';
       const currColumnIndex = 2;
-      const currentRowLevel = 1;
+      const currRowLevel = 1;
 
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
         columnGroups,
-        currentRowLevel,
+        currRowLevel,
         currColumnTitle,
       )).toEqual(1);
     });

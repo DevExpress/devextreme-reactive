@@ -43,10 +43,10 @@ const columnGroups = [
   { columnName: 'prefix' },
   {
     title: 'Personal Data',
-    nested: [
+    children: [
       {
         title: 'Full Name',
-        nested: [
+        children: [
           { columnName: 'firstName' },
           { columnName: 'lastName' },
         ],
@@ -56,7 +56,7 @@ const columnGroups = [
   },
   {
     title: 'Work Information',
-    nested: [
+    children: [
       { columnName: 'state' },
       { columnName: 'position' },
     ],
@@ -173,9 +173,6 @@ const GridContainer = ({
       />
 
       <TableSelection showSelectAll />
-      <TableGroupHeader
-        columnGroups={columnGroups}
-      />
       <TableFilterRow />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
@@ -185,6 +182,9 @@ const GridContainer = ({
       <GroupingPanel showSortingControls />
       <PagingPanel
         pageSizes={pageSizes}
+      />
+      <TableGroupHeader
+        columnGroups={columnGroups}
       />
     </Grid>
   </<%&wrapperTag%>>

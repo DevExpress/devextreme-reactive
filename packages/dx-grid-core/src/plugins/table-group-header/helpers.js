@@ -14,8 +14,8 @@ export const getColumnMeta = (columnName, columnGroups, tableRowLevel) => {
         columnLevel = level;
         currentBandTitle = title;
       }
-      if (column.nested !== undefined) {
-        treeProcessing(column.nested, level + 1, level > tableRowLevel ? title : column.title);
+      if (column.children !== undefined) {
+        treeProcessing(column.children, level + 1, level > tableRowLevel ? title : column.title);
       }
     });
   };

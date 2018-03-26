@@ -21,8 +21,8 @@ export class TableGroupHeader extends React.PureComponent {
       columnGroups,
     } = this.props;
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      tableRowsWithBands(tableHeaderRows, columnGroups);
+    const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) =>
+      tableRowsWithBands(tableHeaderRows, columnGroups, tableColumns);
 
     return (
       <Plugin

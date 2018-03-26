@@ -20,7 +20,7 @@ export class TableHeaderRow extends React.PureComponent {
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
-        groupingControl={GroupingControl}
+        groupingComponent={GroupingControl}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

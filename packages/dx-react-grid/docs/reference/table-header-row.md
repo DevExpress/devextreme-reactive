@@ -73,6 +73,7 @@ Name | Properties | Description
 -----|------------|------------
 TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
+TableHeaderRow.GroupingControl | [TableHeaderRow.GroupingControlProps](#tableheaderrowgroupingcontrolprops) | A component that renders a grouping control.
 
 Additional properties are added to the component's root element.
 

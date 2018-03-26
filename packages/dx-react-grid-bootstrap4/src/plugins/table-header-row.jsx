@@ -10,7 +10,7 @@ export class TableHeaderRow extends React.PureComponent {
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
-        groupingControl={GroupingControl}
+        groupingComponent={GroupingControl}
         {...this.props}
       />
     );

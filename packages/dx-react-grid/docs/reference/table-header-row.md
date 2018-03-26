@@ -62,6 +62,7 @@ sortingDirection? | 'asc' &#124; 'desc' | Specifies a sorting direction.
 title | string | Specifies a sorting control title.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 disabled? | boolean | Specifies whether a sorting control is disabled.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell. Available in the "@devexpress/dx-react-grid-material-ui" package.
 
 ## Localization Messages
 

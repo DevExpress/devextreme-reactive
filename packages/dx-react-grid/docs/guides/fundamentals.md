@@ -44,7 +44,7 @@ Static widths for specific columns can be defined via the `columnExtensions` pro
 
 ### Multiline cells
 
-By default Grid cells are configured to preserve their height and cutting off long values instead of wrapping them to the next line. This behavior can be overridden by specifying `wordWrapEnabled` attribute for the particular column in the `columnExtensions` config of the `Table` plugin.
+By default, the Grid cuts off values that do not fit in a cell. Assign true to the Table plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
 
 .embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 

@@ -19,6 +19,7 @@ export class TableHeaderRow extends React.PureComponent {
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
+      groupingComponent: GroupingControl,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -68,6 +69,7 @@ export class TableHeaderRow extends React.PureComponent {
                     getMessage={getMessage}
                     sortingEnabled={sortingEnabled}
                     groupingEnabled={groupingEnabled}
+                    groupingComponent={GroupingControl}
                     showSortingControls={showSortingControls}
                     showGroupingControls={showGroupingControls}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
@@ -102,6 +104,7 @@ TableHeaderRow.propTypes = {
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  groupingComponent: PropTypes.func,
   messages: PropTypes.object,
 };
 
@@ -109,4 +112,5 @@ TableHeaderRow.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
   messages: null,
+  groupingComponent: () => {},
 };

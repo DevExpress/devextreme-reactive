@@ -7,7 +7,7 @@ import { SortingControl } from './sorting-control';
 const defaultProps = {
   title: 'a',
   classes: {},
-  sort: () => {},
+  onSort: () => {},
   getMessage: key => key,
 };
 
@@ -66,71 +66,71 @@ describe('SortingControl', () => {
     const SPACE_KEY_CODE = 32;
 
     it('should handle the "Enter" and "Space" keys down', () => {
-      const sort = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <SortingControl
           {...defaultProps}
-          sort={sort}
+          onSort={onSort}
         />
       ));
       const SortLabel = tree.find(TableSortLabel);
 
       SortLabel.simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE });
-      expect(sort)
+      expect(onSort)
         .toHaveBeenCalled();
 
-      sort.mockClear();
+      onSort.mockClear();
       SortLabel.simulate('keydown', { ...e, keyCode: SPACE_KEY_CODE });
-      expect(sort)
+      expect(onSort)
         .toHaveBeenCalled();
 
-      sort.mockClear();
+      onSort.mockClear();
       SortLabel.simulate('keydown', { ...e, keyCode: 51 });
-      expect(sort)
+      expect(onSort)
         .not.toHaveBeenCalled();
     });
 
     it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const sort = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <SortingControl
           {...defaultProps}
-          sort={sort}
+          onSort={onSort}
         />
       ));
 
       tree.find(TableSortLabel).simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(sort)
+      expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
     });
 
     it('should handle the "Ctrl" key with sorting', () => {
-      const sort = jest.fn();
+      const onSort = jest.fn();
       const tree = mount((
         <SortingControl
           {...defaultProps}
-          sort={sort}
+          onSort={onSort}
         />
       ));
 
       tree.find(TableSortLabel).simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(sort)
+      expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: null });
     });
 
     it('should cancel sorting by using the Ctrl key', () => {
-      const sort = jest.fn();
+      const onSort = jest.fn();
       const tree = shallow((
         <SortingControl
           {...defaultProps}
-          sort={sort}
+          onSort={onSort}
         />
       ));
 
       tree.find(TableSortLabel).simulate('click', { ...e, ctrlKey: true });
 
-      expect(sort.mock.calls).toHaveLength(1);
-      expect(sort.mock.calls[0][0].direction).toBe(null);
+      expect(onSort.mock.calls).toHaveLength(1);
+      expect(onSort.mock.calls[0][0].direction).toBe(null);
     });
   });
 });

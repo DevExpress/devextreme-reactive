@@ -5,7 +5,7 @@ import { SortingControl } from './sorting-control';
 
 const defaultProps = {
   title: 'test',
-  sort: () => {},
+  onSort: () => {},
 };
 
 describe('SortingControl', () => {
@@ -65,57 +65,57 @@ describe('with keyboard navigation', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('SortingControl');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    sort.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    sort.mockClear();
+    onSort.mockClear();
     targetElement.simulate('keydown', { keyCode: 51 });
-    expect(sort)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('SortingControl');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
   });
 
   it('should handle the "Ctrl" key with sorting', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = mount((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('SortingControl');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
 });

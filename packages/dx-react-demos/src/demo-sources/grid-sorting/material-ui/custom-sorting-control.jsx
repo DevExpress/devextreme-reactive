@@ -22,11 +22,11 @@ const SortingIcon = ({ direction }) => (
     : <ArrowDownward style={{ fontSize: '18px' }} />
 );
 
-const SortingControl = ({ sort, title, sortingDirection }) => (
+const SortingControl = ({ onSort, title, sortingDirection }) => (
   <Button
     size="small"
     variant="raised"
-    onClick={sort}
+    onClick={onSort}
     style={{
       textAlign: 'left',
     }}

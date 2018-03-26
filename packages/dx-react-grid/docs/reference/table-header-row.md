@@ -41,6 +41,7 @@ sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
+sortingComponent | ComponentType&lt;[TableHeaderRow.SortingControlProps](#tableheaderrowsortingcontrolprops)&gt; | | A component that renders a sorting control.
 groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
 resizingEnabled | boolean | Specifies whether table column resizing is enabled.
@@ -59,7 +60,7 @@ Field | Type | Description
 align? | string | Specifies a sorting label alignment.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies a sorting direction.
 title | string | Specifies a sorting control title.
-sort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | Sort function.
+onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 disabled? | boolean | Specifies whether a sorting control is disabled.
 
 ## Localization Messages

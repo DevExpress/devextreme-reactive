@@ -4,7 +4,7 @@ import { SortingControl } from './sorting-control';
 
 const defaultProps = {
   title: 'test',
-  sort: () => {},
+  onSort: () => {},
 };
 
 describe('SortingControl', () => {
@@ -63,57 +63,57 @@ describe('TableHeaderCell with keyboard navigation', () => {
   });
 
   it('should handle the "Enter" and "Space" keys down', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = shallow((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('span');
     targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    sort.mockClear();
+    onSort.mockClear();
     targetElement.simulate('click', { keyCode: SPACE_KEY_CODE, preventDefault: jest.fn() });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalled();
 
-    sort.mockClear();
+    onSort.mockClear();
     targetElement.simulate('click', { keyCode: 51 });
-    expect(sort)
+    expect(onSort)
       .not.toHaveBeenCalled();
   });
 
   it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = shallow((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('span');
     targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
   });
 
   it('should handle the "Ctrl" key with sorting', () => {
-    const sort = jest.fn();
+    const onSort = jest.fn();
     const tree = shallow((
       <SortingControl
         {...defaultProps}
-        sort={sort}
+        onSort={onSort}
       />
     ));
 
     const targetElement = tree.find('span');
     targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
-    expect(sort)
+    expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });
 });

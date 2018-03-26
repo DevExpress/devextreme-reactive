@@ -9,7 +9,7 @@ export const BandCell = ({
   className, ...restProps
 }) => (
   <th
-    className={classNames('text-nowrap dx-rg-bs4-table-cell border-bottom border-left border-right', className)}
+    className={classNames('text-nowrap dx-rg-bs4-table-cell border', className)}
     {...restProps}
   >
     {children || value}

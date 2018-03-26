@@ -5,12 +5,14 @@ import { TableCell as TableCellMUI } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 import { getBorderColor } from './utils';
 
+export const bandCellHeight = 48;
+
 const styles = theme => ({
   cell: {
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
     '&:first-child': {
-      paddingLeft: '24px',
+      paddingLeft: theme.spacing.unit * 3,
       borderLeft: 0,
     },
     height: theme.spacing.unit * 6,

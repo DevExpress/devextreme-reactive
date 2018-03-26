@@ -2,12 +2,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+export const cellHeight = 50;
+
 export const TableSelectAllCell = ({
   allSelected, someSelected, disabled, onToggle,
   tableColumn, tableRow, className, style, rowSpan,
   ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (55 * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (cellHeight * (rowSpan - 1)) : '';
 
   const toggle = (e) => {
     if (disabled) return;
@@ -24,7 +26,7 @@ export const TableSelectAllCell = ({
       }, className)}
       rowSpan={rowSpan}
       style={{
-        ...(rowSpan ? { paddingTop: `${paddingTop}px` } : null),
+        ...(rowSpan ? { paddingTop: `${paddingTop}px`, paddingBottom: 0 } : null),
         ...style,
       }}
       onClick={toggle}

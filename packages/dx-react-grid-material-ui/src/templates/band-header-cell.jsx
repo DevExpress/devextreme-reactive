@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { getBorderColor } from './utils';
+import { bandCellHeight } from './band-cell';
 
 const styles = theme => ({
   bandBorder: {
@@ -18,15 +19,15 @@ const styles = theme => ({
 export const BandHeaderCellBase = ({
   component: Component, className, classes, style, rowSpan, ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (48 * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (bandCellHeight * (rowSpan - 1)) : '';
   return (
     <Component
-      {...restProps}
       className={classNames(classes.bandBorder, className)}
       style={{
         ...style,
         ...(rowSpan > 1 ? { paddingBottom: 0, paddingTop: `${paddingTop}px` } : null),
       }}
+      {...restProps}
       rowSpan={rowSpan}
     />
   );

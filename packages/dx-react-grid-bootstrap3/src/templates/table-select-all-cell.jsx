@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+export const cellHeight = 36;
+
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, disabled, onToggle,
   tableColumn, tableRow, rowSpan,
   ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (41 * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (cellHeight * (rowSpan - 1)) : '';
 
   const toggle = (e) => {
     if (disabled) return;
@@ -20,7 +22,7 @@ export const TableSelectAllCell = ({
       style={{
         cursor: !disabled && 'pointer',
         verticalAlign: 'middle',
-        ...(rowSpan ? { paddingTop: `${paddingTop}px` } : null),
+        ...(rowSpan ? { paddingTop: `${paddingTop}px`, paddingBottom: 0 } : null),
         ...style,
       }}
       rowSpan={rowSpan}

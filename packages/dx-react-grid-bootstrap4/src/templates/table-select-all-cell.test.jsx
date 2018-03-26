@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableSelectAllCell } from './table-select-all-cell';
+import { TableSelectAllCell, cellHeight } from './table-select-all-cell';
 
 describe('TableSelectAllCell', () => {
   let resetConsole;
@@ -65,5 +65,15 @@ describe('TableSelectAllCell', () => {
     ));
     expect(tree.find('th').prop('data'))
       .toMatchObject({ a: 1 });
+  });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.find('th').prop('style').paddingTop).toBe(`${(rowSpan - 1) * cellHeight}px`);
+    expect(tree.find('th').prop('style').paddingBottom).toBe(0);
   });
 });

@@ -5,6 +5,7 @@ import {
   EditCommandHeadingCell,
   EditCommandCell,
 } from './table-edit-command-cell';
+import { bandCellHeight } from './band-cell';
 
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
@@ -35,6 +36,15 @@ describe('TableCommandColumn', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
+    });
+
+    it('should apply correct align if rowSpan is defined', () => {
+      const rowSpan = 3;
+      const tree = shallow((
+        <EditCommandHeadingCell rowSpan={rowSpan} />
+      ));
+
+      expect(tree.prop('style').paddingTop).toBe(`${(rowSpan - 1) * bandCellHeight}px`);
     });
   });
 

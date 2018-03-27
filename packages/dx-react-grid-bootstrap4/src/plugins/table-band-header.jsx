@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TableBandHeader as TableGroupHeaderBase } from '@devexpress/dx-react-grid';
+import { TableBandHeader as TableBandHeaderBase } from '@devexpress/dx-react-grid';
 import { Cell } from '../templates/table-band-header/cell';
 import { BandedHeaderCell } from '../templates/table-band-header/banded-header-cell';
 import { EmptyCell } from '../templates/table-band-header/empty-cell';
@@ -8,7 +8,7 @@ import { TableRow } from '../templates/table-row';
 export class TableBandHeader extends React.PureComponent {
   render() {
     return (
-      <TableGroupHeaderBase
+      <TableBandHeaderBase
         cellComponent={Cell}
         rowComponent={TableRow}
         bandedHeaderCellComponent={BandedHeaderCell}

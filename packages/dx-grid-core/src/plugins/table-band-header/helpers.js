@@ -25,9 +25,9 @@ export const getColumnMeta = (columnName, columnBands, tableRowLevel) => {
 };
 
 export const getColSpan =
-  (currColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
+  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
     let colSpan = 1;
-    for (let index = currColumnIndex + 1; index < tableColumns.length; index += 1) {
+    for (let index = currentColumnIndex + 1; index < tableColumns.length; index += 1) {
       if (tableColumns[index].type !== 'data') break;
       const columnMeta =
         getColumnMeta(tableColumns[index].column.name, columnBands, currentRowLevel);
@@ -57,11 +57,11 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
     };
   }
 
-  const currColumnIndex = tableColumns.findIndex(tableColumn =>
+  const currentColumnIndex = tableColumns.findIndex(tableColumn =>
     tableColumn.key === params.tableColumn.key);
-  if (currColumnIndex > 0 && tableColumns[currColumnIndex - 1].type === 'data') {
+  if (currentColumnIndex > 0 && tableColumns[currentColumnIndex - 1].type === 'data') {
     const prevColumnMeta = getColumnMeta(
-      tableColumns[currColumnIndex - 1].column.name,
+      tableColumns[currentColumnIndex - 1].column.name,
       columnBands,
       currentRowLevel,
     );
@@ -72,7 +72,7 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
     type: 'groupCell',
     payload: {
       colSpan: getColSpan(
-        currColumnIndex,
+        currentColumnIndex,
         tableColumns,
         columnBands,
         currentRowLevel,

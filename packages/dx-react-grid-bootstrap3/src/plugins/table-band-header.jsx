@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { TableBandHeader as TableGroupHeaderBase } from '@devexpress/dx-react-grid';
+import { TableBandHeader as TableBandHeaderBase } from '@devexpress/dx-react-grid';
 import { Cell } from '../templates/table-band-header/cell';
 import { BandedHeaderCell } from '../templates/table-band-header/banded-header-cell';
 import { EmptyCell } from '../templates/table-band-header/empty-cell';
-import { Row } from '../templates/table-band-header/row';
+import { TableRow } from '../templates/table-row';
 
 export class TableBandHeader extends React.PureComponent {
   render() {
     return (
-      <TableGroupHeaderBase
+      <TableBandHeaderBase
         cellComponent={Cell}
-        rowComponent={Row}
+        rowComponent={TableRow}
         bandedHeaderCellComponent={BandedHeaderCell}
         emptyCellComponent={EmptyCell}
         {...this.props}
@@ -20,5 +20,5 @@ export class TableBandHeader extends React.PureComponent {
 }
 
 TableBandHeader.Cell = Cell;
-TableBandHeader.Row = Row;
+TableBandHeader.Row = TableRow;
 TableBandHeader.BandedHeaderCell = BandedHeaderCell;

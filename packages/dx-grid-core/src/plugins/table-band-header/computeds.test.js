@@ -1,4 +1,5 @@
 import { TABLE_BAND_TYPE } from './constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 import { tableRowsWithBands } from './computeds';
 
 describe('TableBandHeader Plugin computeds', () => {
@@ -6,16 +7,16 @@ describe('TableBandHeader Plugin computeds', () => {
     const tableHeaderRows = [{}];
     it('should add zero band row if one nested level', () => {
       const columnBands = [{ title: 'title-a' }];
-      const tableColumns = [{ type: 'data', column: { columnName: 'b' } }];
+      const tableColumns = [{ type: TABLE_DATA_TYPE, column: { columnName: 'b' } }];
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
       expect(rows)
         .toEqual([{}]);
     });
 
-    it('should add one band row if two nested level', () => {
+    it('should add one band row if two nested levels', () => {
       const columnBands = [{ title: 'title-a', children: [{ columnName: 'a' }, { columnName: 'b' }] }];
-      const tableColumns = [{ type: 'data', column: { name: 'a' } }, { type: 'data', column: { name: 'b' } }];
+      const tableColumns = [{ type: TABLE_DATA_TYPE, column: { name: 'a' } }, { type: TABLE_DATA_TYPE, column: { name: 'b' } }];
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
       expect(rows)
@@ -38,9 +39,9 @@ describe('TableBandHeader Plugin computeds', () => {
         { columnName: 'c' },
       ];
       const tableColumns = [
-        { type: 'data', column: { name: 'a' } },
-        { type: 'data', column: { name: 'b' } },
-        { type: 'data', column: { name: 'c' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { type: TABLE_DATA_TYPE, column: { name: 'c' } },
       ];
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 

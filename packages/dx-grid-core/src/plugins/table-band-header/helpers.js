@@ -31,9 +31,9 @@ export const getColumnMeta = (
 export const getColSpan =
   (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) =>
     tableColumns.reduce((acc, tableColumn) => {
-      const columnMeta =
-        getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (columnMeta.title === currentColumnTitle && tableColumn.type === TABLE_DATA_TYPE) {
+      if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
+      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
+      if (columnMeta.title === currentColumnTitle) {
         return acc + 1;
       } return acc;
     }, 0);

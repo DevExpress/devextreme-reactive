@@ -58,7 +58,7 @@ Describes properties used to render a sorting control.
 Field | Type | Description
 ------|------|------------
 align? | string | Specifies a sorting label alignment.
-sortingDirection? | 'asc' &#124; 'desc' | Specifies a sorting direction.
+direction? | 'asc' &#124; 'desc' | Specifies a sorting direction.
 title | string | Specifies a sorting control title.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 disabled? | boolean | Specifies whether a sorting control is disabled.

@@ -21,13 +21,13 @@ const SortingIcon = ({ direction }) => (
   />
 );
 
-const SortingControl = ({ onSort, title, sortingDirection }) => (
+const SortingControl = ({ onSort, title, direction }) => (
   <button
     className="btn btn-default"
     onClick={onSort}
   >
     {title}
-    {(sortingDirection && <SortingIcon direction={sortingDirection} />)}
+    {(direction && <SortingIcon direction={direction} />)}
   </button>
 );
 

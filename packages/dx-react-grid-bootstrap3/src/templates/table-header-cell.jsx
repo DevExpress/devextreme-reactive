@@ -72,7 +72,7 @@ export class TableHeaderCell extends React.PureComponent {
           {showSortingControls ? (
             <SortingControl
               align={align}
-              sortingDirection={sortingDirection}
+              direction={sortingDirection}
               disabled={!sortingEnabled}
               title={columnTitle}
               onSort={this.onSort}

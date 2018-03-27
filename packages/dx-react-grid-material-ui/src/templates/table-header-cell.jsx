@@ -122,7 +122,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {showSortingControls ? (
           <SortingControl
             align={align}
-            sortingDirection={sortingDirection}
+            direction={sortingDirection}
             title={columnTitle}
             onSort={this.onSort}
             getMessage={getMessage}

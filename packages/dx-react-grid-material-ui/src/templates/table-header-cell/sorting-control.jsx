@@ -37,7 +37,7 @@ const onClick = (e, onSort) => {
 };
 
 const SortingControlBase = ({
-  align, sortingDirection, title, onSort, classes, getMessage, disabled, ...restProps
+  align, direction, title, onSort, classes, getMessage, disabled, ...restProps
 }) => (
   <div {...restProps}>
     <Tooltip
@@ -49,8 +49,8 @@ const SortingControlBase = ({
       }}
     >
       <TableSortLabel
-        active={!!sortingDirection}
-        direction={sortingDirection === null ? undefined : sortingDirection}
+        active={!!direction}
+        direction={direction === null ? undefined : direction}
         onClick={e => onClick(e, onSort)}
         disabled={disabled}
         classes={{
@@ -66,7 +66,7 @@ const SortingControlBase = ({
 
 SortingControlBase.propTypes = {
   align: PropTypes.string,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
+  direction: PropTypes.oneOf(['asc', 'desc', null]),
   title: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onSort: PropTypes.func.isRequired,
@@ -75,7 +75,7 @@ SortingControlBase.propTypes = {
 };
 
 SortingControlBase.defaultProps = {
-  sortingDirection: undefined,
+  direction: undefined,
   disabled: false,
   align: 'left',
 };

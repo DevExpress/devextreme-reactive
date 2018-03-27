@@ -27,12 +27,12 @@ const onClick = (e, onSort) => {
 };
 
 const getProps = ({
-  sortingDirection, disabled, onSort, className, ...restProps
+  direction, disabled, onSort, className, ...restProps
 }) => ({
   className: classNames({
     'dx-rg-bs4-sorting-control': true,
     'dx-rg-bs4-cursor-pointer': true,
-    'text-primary': sortingDirection,
+    'text-primary': direction,
   }, className),
   tabIndex: disabled ? -1 : 0,
   onMouseDown: handleMouseDown,
@@ -43,15 +43,15 @@ const getProps = ({
 });
 
 export const SortingControl = ({
-  align, sortingDirection, title, disabled, className, onSort, ...restProps
+  align, direction, title, disabled, className, onSort, ...restProps
 }) => {
   const props = getProps({
-    sortingDirection, disabled, onSort, className, ...restProps,
+    direction, disabled, onSort, className, ...restProps,
   });
   return (align === 'right' ? (
     <span {...props}>
       <SortingIndicator
-        direction={sortingDirection}
+        direction={direction}
       />
       &nbsp;
       {title}
@@ -61,7 +61,7 @@ export const SortingControl = ({
       {title}
       &nbsp;
       <SortingIndicator
-        direction={sortingDirection}
+        direction={direction}
       />
     </span>
   ));
@@ -69,7 +69,7 @@ export const SortingControl = ({
 
 SortingControl.propTypes = {
   align: PropTypes.string,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc']),
+  direction: PropTypes.oneOf(['asc', 'desc']),
   title: PropTypes.string.isRequired,
   onSort: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
@@ -77,7 +77,7 @@ SortingControl.propTypes = {
 };
 
 SortingControl.defaultProps = {
-  sortingDirection: null,
+  direction: null,
   disabled: false,
   className: undefined,
   align: 'left',

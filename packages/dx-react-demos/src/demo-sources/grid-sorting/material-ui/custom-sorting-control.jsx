@@ -22,7 +22,7 @@ const SortingIcon = ({ direction }) => (
     : <ArrowDownward style={{ fontSize: '18px' }} />
 );
 
-const SortingControl = ({ onSort, title, sortingDirection }) => (
+const SortingControl = ({ onSort, title, direction }) => (
   <Button
     size="small"
     variant="raised"
@@ -32,7 +32,7 @@ const SortingControl = ({ onSort, title, sortingDirection }) => (
     }}
   >
     {title}
-    {(sortingDirection && <SortingIcon direction={sortingDirection} />)}
+    {(direction && <SortingIcon direction={direction} />)}
   </Button>
 );
 

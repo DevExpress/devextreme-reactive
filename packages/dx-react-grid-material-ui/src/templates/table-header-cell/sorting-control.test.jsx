@@ -50,11 +50,11 @@ describe('SortingControl', () => {
       .toEqual({ a: 1 });
   });
 
-  it('should process nullable sortingDirection', () => {
+  it('should process nullable direction', () => {
     const tree = shallow((
       <SortingControl
         {...defaultProps}
-        sortingDirection={null}
+        direction={null}
       />
     ));
 

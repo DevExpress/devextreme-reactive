@@ -29,14 +29,18 @@ export const getColumnMeta = (
 }, result || { level, title });
 
 export const getColSpan =
-  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) =>
-    tableColumns.reduce((acc, tableColumn) => {
-      if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
+  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
+    let isOneChain = true;
+    return tableColumns.reduce((acc, tableColumn, index) => {
+      if (tableColumn.type !== TABLE_DATA_TYPE || index <= currentColumnIndex) return acc;
       const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (columnMeta.title === currentColumnTitle) {
+      if (isOneChain && columnMeta.title === currentColumnTitle) {
         return acc + 1;
-      } return acc;
-    }, 0);
+      }
+      isOneChain = false;
+      return acc;
+    }, 1);
+  };
 
 export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBands) => {
   if (params.rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };

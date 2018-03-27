@@ -22,6 +22,12 @@ describe('TableBandHeader Plugin helpers', () => {
           ],
         },
         { columnName: 'd' },
+        {
+          title: 'AA',
+          children: [
+            { columnName: 'c' },
+          ],
+        },
       ],
     },
   ];
@@ -40,6 +46,11 @@ describe('TableBandHeader Plugin helpers', () => {
     }, {
       column: {
         name: 'd',
+      },
+      type: TABLE_DATA_TYPE,
+    }, {
+      column: {
+        name: 'c',
       },
       type: TABLE_DATA_TYPE,
     },
@@ -88,7 +99,7 @@ describe('TableBandHeader Plugin helpers', () => {
         columnBands,
         currRowLevel,
         currColumnTitle,
-      )).toEqual(3);
+      )).toEqual(4);
     });
     it('should work for second row and children element', () => {
       const currColumnTitle = 'AA';
@@ -106,6 +117,19 @@ describe('TableBandHeader Plugin helpers', () => {
     it('should work for second row and not children element', () => {
       const currColumnTitle = 'A';
       const currColumnIndex = 2;
+      const currRowLevel = 1;
+
+      expect(getColSpan(
+        currColumnIndex,
+        tableColumns,
+        columnBands,
+        currRowLevel,
+        currColumnTitle,
+      )).toEqual(1);
+    });
+    it('should work with alternate titles', () => {
+      const currColumnTitle = 'AA';
+      const currColumnIndex = 3;
       const currRowLevel = 1;
 
       expect(getColSpan(
@@ -190,7 +214,7 @@ describe('TableBandHeader Plugin helpers', () => {
         .toEqual({
           type: BAND_GROUP_CELL,
           payload: {
-            colSpan: 3,
+            colSpan: 4,
             value: 'A',
             column: { title: 'A', level: 2 },
           },

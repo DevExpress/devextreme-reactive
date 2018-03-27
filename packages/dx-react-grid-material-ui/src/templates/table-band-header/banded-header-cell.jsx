@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import { getBorderColor } from '.././utils';
+import { getBorderColor } from './../utils';
 import { BAND_CELL_HEIGHT } from './cell';
 
 const styles = theme => ({

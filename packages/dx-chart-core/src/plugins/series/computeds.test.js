@@ -15,12 +15,12 @@ const data = [
 const series = [
   { valueField: 'val2', axisName: 'axisName', argumentField: 'arg' },
   { valueField: 'val3', axisName: 'axisName', argumentField: 'arg' },
-  { valueField: 'val1', axisName: 'axisName', argumentField: 'arg' }
+  { valueField: 'val1', axisName: 'axisName', argumentField: 'arg' },
 ];
 
 describe('Series attributes', () => {
   beforeAll(() => {
-    createScale.mockImplementation(() => (value) => value);
+    createScale.mockImplementation(() => value => value);
   });
 
   it('should create scales with proper parameters', () => {
@@ -31,7 +31,7 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'area'
+      'area',
     );
 
     expect(createScale).toHaveBeenCalledTimes(2);
@@ -47,7 +47,7 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'area'
+      'area',
     ).dPoint).toBe('M4.1841419359420025,0A4.1841419359420025,4.1841419359420025,0,1,1,-4.1841419359420025,0A4.1841419359420025,4.1841419359420025,0,1,1,4.1841419359420025,0');
   });
 
@@ -59,8 +59,14 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'area'
-    ).coordinates).toEqual([{"x": 1, "y": 3}, {"x": 2, "y": 5}, {"x": 3, "y": 7}, {"x": 4, "y": 10}, {"x": 5, "y": 15}]);
+      'area',
+    ).coordinates).toEqual([
+      { x: 1, y: 3 },
+      { x: 2, y: 5 },
+      { x: 3, y: 7 },
+      { x: 4, y: 10 },
+      { x: 5, y: 15 },
+    ]);
   });
 
   it('should return d attribute for area', () => {
@@ -71,7 +77,7 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'area'
+      'area',
     ).d).toBe('M1,3L2,5L3,7L4,10L5,15L5,10L4,10L3,10L2,10L1,10Z');
   });
 
@@ -83,7 +89,7 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'line'
+      'line',
     ).d).toBe('M1,3L2,5L3,7L4,10L5,15');
   });
 
@@ -95,7 +101,7 @@ describe('Series attributes', () => {
       { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
       'argumentAxisName',
       { width: 20, height: 10 },
-      'spline'
-    ).d).toBe('M1,3L1.1666666666666667,3.3333333333333335C1.3333333333333333,3.6666666666666665,1.6666666666666667,4.333333333333333,2,5C2.3333333333333335,5.666666666666667,2.6666666666666665,6.333333333333333,3,7.166666666666667C3.3333333333333335,8,3.6666666666666665,9,4,10.333333333333334C4.333333333333333,11.666666666666666,4.666666666666667,13.333333333333334,4.833333333333333,14.166666666666666L5,15');
+      'spline',
+    ).d).toBe('M1,3C1,3,1.6666666666666667,4.333333333333333,2,5C2.3333333333333335,5.666666666666667,2.6666666666666665,6.166666666666667,3,7C3.3333333333333335,7.833333333333333,3.6666666666666665,8.666666666666666,4,10C4.333333333333333,11.333333333333334,5,15,5,15');
   });
 });

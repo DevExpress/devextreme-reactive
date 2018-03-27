@@ -40,7 +40,15 @@ export const xyScales = (domainsOptions, argumentAxisName, domainName, width, he
   yScale: createScale(domainsOptions[domainName], width, height),
 });
 
-export const getSeriesAttributes = (data, series, name, domains, argumentAxisName, layout, type) => {
+export const getSeriesAttributes = (
+  data,
+  series,
+  name,
+  domains,
+  argumentAxisName,
+  layout,
+  type,
+) => {
   const { width, height } = layout;
   const {
     axisName: domainName,

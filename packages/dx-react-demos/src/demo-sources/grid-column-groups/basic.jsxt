@@ -2,7 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
-  TableGroupHeader,
+  TableBandHeader,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { countries } from '../../../demo-data/countries';
@@ -36,7 +36,7 @@ export default class Demo extends React.PureComponent {
         { name: 'GDP_Services', title: 'Services' },
         { name: 'GDP_Agriculture', title: 'Agriculture' },
       ],
-      columnGroups: [
+      columnBands: [
         {
           title: 'Population',
           children: [
@@ -71,7 +71,7 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
-    const { columns, tableColumnExtensions, columnGroups } = this.state;
+    const { columns, tableColumnExtensions, columnBands } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -84,8 +84,8 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableGroupHeader
-            columnGroups={columnGroups}
+          <TableBandHeader
+            columnBands={columnBands}
           />
         </Grid>
       </<%&wrapperTag%>>

@@ -6,7 +6,7 @@ import {
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
-  Grid, Table, TableGroupHeader, TableHeaderRow,
+  Grid, Table, TableBandHeader, TableHeaderRow,
   TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
@@ -39,7 +39,7 @@ const tableDetailColumnExtensions = [
   { columnName: 'priority', width: 100 },
   { columnName: 'status', width: 125 },
 ];
-const columnGroups = [
+const columnBands = [
   { columnName: 'prefix' },
   {
     title: 'Personal Data',
@@ -183,8 +183,8 @@ const GridContainer = ({
       <PagingPanel
         pageSizes={pageSizes}
       />
-      <TableGroupHeader
-        columnGroups={columnGroups}
+      <TableBandHeader
+        columnBands={columnBands}
       />
     </Grid>
   </<%&wrapperTag%>>

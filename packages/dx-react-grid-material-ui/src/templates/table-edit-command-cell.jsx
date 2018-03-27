@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Button from 'material-ui/Button';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { groupCellHeight } from './table-group-header/cell';
+import { groupCellHeight } from './table-band-header/cell';
 
 const styles = theme => ({
   button: {

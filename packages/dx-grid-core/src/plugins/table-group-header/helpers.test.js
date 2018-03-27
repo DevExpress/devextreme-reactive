@@ -7,8 +7,8 @@ import {
   getBandComponent,
 } from './helpers';
 
-describe('TableGroupHeader Plugin helpers', () => {
-  const columnGroups = [
+describe('TableBandHeader Plugin helpers', () => {
+  const columnBands = [
     {
       title: 'A',
       children: [
@@ -64,12 +64,12 @@ describe('TableGroupHeader Plugin helpers', () => {
 
   describe('#getColumnMeta', () => {
     it('should get column meta if one children levels', () => {
-      expect(getColumnMeta('d', columnGroups, 1))
+      expect(getColumnMeta('d', columnBands, 1))
         .toEqual({ title: 'A', level: 1 });
     });
 
     it('should get column meta if two children levels', () => {
-      expect(getColumnMeta('a', columnGroups, 2))
+      expect(getColumnMeta('a', columnBands, 2))
         .toEqual({ title: 'AA', level: 2 });
     });
   });
@@ -83,7 +83,7 @@ describe('TableGroupHeader Plugin helpers', () => {
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
-        columnGroups,
+        columnBands,
         currRowLevel,
         currColumnTitle,
       )).toEqual(3);
@@ -96,7 +96,7 @@ describe('TableGroupHeader Plugin helpers', () => {
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
-        columnGroups,
+        columnBands,
         currRowLevel,
         currColumnTitle,
       )).toEqual(2);
@@ -109,7 +109,7 @@ describe('TableGroupHeader Plugin helpers', () => {
       expect(getColSpan(
         currColumnIndex,
         tableColumns,
-        columnGroups,
+        columnBands,
         currRowLevel,
         currColumnTitle,
       )).toEqual(1);
@@ -142,7 +142,7 @@ describe('TableGroupHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnGroups))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({ type: 'emptyCell', payload: null });
     });
     it('should return header cell for heading column', () => {
@@ -158,7 +158,7 @@ describe('TableGroupHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnGroups))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
           type: 'headerCell',
           payload: {
@@ -180,7 +180,7 @@ describe('TableGroupHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnGroups))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
           type: 'groupCell',
           payload: {

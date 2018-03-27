@@ -5,7 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import { TableRow } from 'material-ui/Table';
 
 const styles = {
-  Row: {
+  row: {
     height: 'auto',
   },
 };
@@ -14,7 +14,7 @@ export const RowBase = ({
   children, classes, className, row, tableRow, tableColumn, ...restProps
 }) => (
   <TableRow
-    className={classNames(classes.Row, className)}
+    className={classNames(classes.row, className)}
     {...restProps}
   >
     {children}

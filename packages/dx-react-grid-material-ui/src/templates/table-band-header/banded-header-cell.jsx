@@ -16,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-export const HeaderCellBase = ({
+export const BandedHeaderCellBase = ({
   component: Component, className, classes, style, rowSpan, ...restProps
 }) => {
   const paddingTop = rowSpan > 1 ? (groupCellHeight * (rowSpan - 1)) : '';
@@ -33,7 +33,7 @@ export const HeaderCellBase = ({
   );
 };
 
-HeaderCellBase.propTypes = {
+BandedHeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
@@ -41,10 +41,10 @@ HeaderCellBase.propTypes = {
   rowSpan: PropTypes.number,
 };
 
-HeaderCellBase.defaultProps = {
+BandedHeaderCellBase.defaultProps = {
   className: undefined,
   rowSpan: undefined,
   style: null,
 };
 
-export const HeaderCell = withStyles(styles, { name: 'HeaderCell' })(HeaderCellBase);
+export const BandedHeaderCell = withStyles(styles, { name: 'BandedHeaderCell' })(BandedHeaderCellBase);

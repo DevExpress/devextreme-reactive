@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Checkbox from 'material-ui/Checkbox';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { groupCellHeight } from './table-group-header/cell';
+import { groupCellHeight } from './table-band-header/cell';
 
 const styles = theme => ({
   cell: {

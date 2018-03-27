@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { TableGroupHeader as TableGroupHeaderBase } from '@devexpress/dx-react-grid';
-import { Cell } from '../templates/table-group-header/cell';
-import { HeaderCell } from '../templates/table-group-header/header-cell';
-import { EmptyCell } from '../templates/table-group-header/empty-cell';
-import { Row } from '../templates/table-group-header/row';
+import { TableBandHeader as TableGroupHeaderBase } from '@devexpress/dx-react-grid';
+import { Cell } from '../templates/table-band-header/cell';
+import { BandedHeaderCell } from '../templates/table-band-header/banded-header-cell';
+import { EmptyCell } from '../templates/table-band-header/empty-cell';
+import { Row } from '../templates/table-band-header/row';
 
-export class TableGroupHeader extends React.PureComponent {
+export class TableBandHeader extends React.PureComponent {
   render() {
     return (
       <TableGroupHeaderBase
         cellComponent={Cell}
         rowComponent={Row}
-        headerCellEnhancer={HeaderCell}
+        bandedHeaderCellComponent={BandedHeaderCell}
         emptyCellComponent={EmptyCell}
         {...this.props}
       />
@@ -19,6 +19,6 @@ export class TableGroupHeader extends React.PureComponent {
   }
 }
 
-TableGroupHeader.Cell = Cell;
-TableGroupHeader.Row = Row;
-TableGroupHeader.EnhancerHeaderCell = HeaderCell;
+TableBandHeader.Cell = Cell;
+TableBandHeader.Row = Row;
+TableBandHeader.BandedHeaderCell = BandedHeaderCell;

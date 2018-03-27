@@ -11,22 +11,22 @@ import {
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
-export class TableGroupHeader extends React.PureComponent {
+export class TableBandHeader extends React.PureComponent {
   render() {
     const {
       cellComponent: Cell,
       rowComponent: Row,
-      headerCellEnhancer: HeaderCell,
+      bandedHeaderCellComponent: HeaderCell,
       emptyCellComponent: EmptyCell,
-      columnGroups,
+      columnBands,
     } = this.props;
 
     const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) =>
-      tableRowsWithBands(tableHeaderRows, columnGroups, tableColumns);
+      tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
     return (
       <Plugin
-        name="TableGroupHeader"
+        name="TableBandHeader"
         dependencies={[
           { name: 'Table' },
           { name: 'TableHeaderRow' },
@@ -44,7 +44,7 @@ export class TableGroupHeader extends React.PureComponent {
             <TemplateConnector>
               {({ tableColumns, tableHeaderRows }) => {
                 const bandComponent =
-                  getBandComponent(params, tableHeaderRows, tableColumns, columnGroups);
+                  getBandComponent(params, tableHeaderRows, tableColumns, columnBands);
 
                 switch (bandComponent.type) {
                   case 'duplicateRender':
@@ -84,10 +84,10 @@ export class TableGroupHeader extends React.PureComponent {
   }
 }
 
-TableGroupHeader.propTypes = {
-  columnGroups: PropTypes.array.isRequired,
+TableBandHeader.propTypes = {
+  columnBands: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  headerCellEnhancer: PropTypes.func.isRequired,
+  bandedHeaderCellComponent: PropTypes.func.isRequired,
   emptyCellComponent: PropTypes.func.isRequired,
 };

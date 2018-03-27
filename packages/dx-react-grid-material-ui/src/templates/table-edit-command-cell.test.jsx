@@ -5,7 +5,7 @@ import {
   EditCommandHeadingCell,
   EditCommandCell,
 } from './table-edit-command-cell';
-import { groupCellHeight } from './table-group-header/cell';
+import { groupCellHeight } from './table-band-header/cell';
 
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { HeaderCell } from './header-cell';
+import { BandedHeaderCell } from './banded-header-cell';
 
-describe('TableCell', () => {
+describe('BandedHeaderCell', () => {
   it('should render children and passed and pass restProps', () => {
     const tree = shallow((
-      <HeaderCell component={() => <div />} className="test" />
+      <BandedHeaderCell component={() => <div />} className="test" />
     ));
 
     expect(tree.find('.test').exists())
@@ -14,7 +14,7 @@ describe('TableCell', () => {
 
   it('should pass styles to the root element', () => {
     const tree = shallow((
-      <HeaderCell component={() => <div />} style={{ color: 'red' }} className="test" />
+      <BandedHeaderCell component={() => <div />} style={{ color: 'red' }} className="test" />
     ));
 
     expect(tree.find('.test').prop('style').color).toBe('red');

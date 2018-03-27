@@ -16,7 +16,7 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.getOnSort = ({ direction, keepOther }) => {
+    this.onSort = ({ direction, keepOther }) => {
       const { sortingEnabled, showSortingControls, onSort } = this.props;
       if (!showSortingControls || !sortingEnabled) return;
       onSort({ direction, keepOther });
@@ -68,7 +68,7 @@ export class TableHeaderCell extends React.PureComponent {
               sortingDirection={sortingDirection}
               disabled={!sortingEnabled}
               title={columnTitle}
-              onSort={this.getOnSort}
+              onSort={this.onSort}
             />
           ) : (
             columnTitle

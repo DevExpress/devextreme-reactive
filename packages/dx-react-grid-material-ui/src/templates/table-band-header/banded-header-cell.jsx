@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { getBorderColor } from '.././utils';
-import { groupCellHeight } from './cell';
+import { BAND_CELL_HEIGHT } from './cell';
 
 const styles = theme => ({
   headerCellBorder: {
@@ -19,7 +19,7 @@ const styles = theme => ({
 export const BandedHeaderCellBase = ({
   component: Component, className, classes, style, rowSpan, ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (groupCellHeight * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (BAND_CELL_HEIGHT * (rowSpan - 1)) : '';
   return (
     <Component
       className={classNames(classes.headerCellBorder, className)}

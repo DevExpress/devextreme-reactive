@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Checkbox from 'material-ui/Checkbox';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { groupCellHeight } from './table-band-header/cell';
+import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 const styles = theme => ({
   cell: {
@@ -28,7 +28,7 @@ const TableSelectAllCellBase = ({
     [classes.pointer]: !disabled,
   }, className);
 
-  const paddingTop = rowSpan > 1 ? (groupCellHeight * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (BAND_CELL_HEIGHT * (rowSpan - 1)) : '';
 
   return (
     <TableCell

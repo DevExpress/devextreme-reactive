@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Button from 'material-ui/Button';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { groupCellHeight } from './table-band-header/cell';
+import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 const styles = theme => ({
   button: {
@@ -66,7 +66,7 @@ const EditCommandHeadingCellBase = ({
   rowSpan,
   ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (groupCellHeight * (rowSpan - 1)) : '';
+  const paddingTop = rowSpan > 1 ? (BAND_CELL_HEIGHT * (rowSpan - 1)) : '';
   return (
     <TableCell
       className={classNames(classes.headingCell, className)}

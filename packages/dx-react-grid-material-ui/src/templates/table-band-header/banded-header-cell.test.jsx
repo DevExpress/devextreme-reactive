@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
 import { BandedHeaderCell } from './banded-header-cell';
-import { groupCellHeight } from './cell';
+import { BAND_CELL_HEIGHT } from './cell';
 
 describe('TableCell', () => {
   let shallow;
@@ -31,6 +31,6 @@ describe('TableCell', () => {
       <BandedHeaderCell component={() => <div />} rowSpan={rowSpan} className="custom-class" />
     ));
 
-    expect(tree.find('.custom-class').prop('style').paddingTop).toBe(`${(rowSpan - 1) * groupCellHeight}px`);
+    expect(tree.find('.custom-class').prop('style').paddingTop).toBe(`${(rowSpan - 1) * BAND_CELL_HEIGHT}px`);
   });
 });

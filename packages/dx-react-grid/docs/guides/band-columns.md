@@ -13,4 +13,4 @@ The following plugins implement the Band Columns feature:
 
 Import the plugins listed above and specify a required the TableBandHeader's property `columnBands` to set up a Grid with the Band Columns feature. The Band Columns are provide the columns in a tree hierarchy to the Data Grid. Levels of nested columns are unlimited.
 
-.embedded-demo({ "path": "grid-column-groups/basic", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-band-columns/basic", "showThemeSelector": true })

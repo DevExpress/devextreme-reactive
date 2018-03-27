@@ -1,8 +1,10 @@
-import { TABLE_BAND_TYPE } from './constants';
+import { TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER } from './constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow =>
-  isBandedTableRow(tableRow) || tableRow.type === 'heading';
+  isBandedTableRow(tableRow) || tableRow.type === TABLE_HEADING_TYPE;
 
 export const getColumnMeta = (columnName, columnBands, tableRowLevel) => {
   let currentBandTitle = null;
@@ -28,7 +30,7 @@ export const getColSpan =
   (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
     let colSpan = 1;
     for (let index = currentColumnIndex + 1; index < tableColumns.length; index += 1) {
-      if (tableColumns[index].type !== 'data') break;
+      if (tableColumns[index].type !== TABLE_DATA_TYPE) break;
       const columnMeta =
         getColumnMeta(tableColumns[index].column.name, columnBands, currentRowLevel);
       if (columnMeta.title === currentColumnTitle) {
@@ -40,26 +42,29 @@ export const getColSpan =
   };
 
 export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBands) => {
-  if (params.rowSpan) return { type: 'duplicateRender', payload: null };
+  if (params.rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
-  const maxLevel = tableHeaderRows.filter(column => column.type === 'band').length + 1;
+  const maxLevel = tableHeaderRows.filter(column => column.type === TABLE_BAND_TYPE).length + 1;
   const currentRowLevel = params.tableRow.level === undefined
     ? maxLevel - 1 : params.tableRow.level;
-  const currentColumnMeta = params.tableColumn.type === 'data'
+  const currentColumnMeta = params.tableColumn.type === TABLE_DATA_TYPE
     ? getColumnMeta(params.tableColumn.column.name, columnBands, currentRowLevel)
     : { level: 0, title: '' };
 
-  if (currentColumnMeta.level < currentRowLevel) return { type: 'emptyCell', payload: null };
+  if (currentColumnMeta.level < currentRowLevel) return { type: BAND_EMPTY_CELL, payload: null };
   if (currentColumnMeta.level === currentRowLevel) {
     return {
-      type: 'headerCell',
-      payload: { tableRow: tableHeaderRows.find(row => row.type === 'heading'), rowSpan: maxLevel - currentRowLevel },
+      type: BAND_HEADER_CELL,
+      payload: {
+        tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
+        rowSpan: maxLevel - currentRowLevel,
+      },
     };
   }
 
   const currentColumnIndex = tableColumns.findIndex(tableColumn =>
     tableColumn.key === params.tableColumn.key);
-  if (currentColumnIndex > 0 && tableColumns[currentColumnIndex - 1].type === 'data') {
+  if (currentColumnIndex > 0 && tableColumns[currentColumnIndex - 1].type === TABLE_DATA_TYPE) {
     const prevColumnMeta = getColumnMeta(
       tableColumns[currentColumnIndex - 1].column.name,
       columnBands,
@@ -69,7 +74,7 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
   }
 
   return {
-    type: 'groupCell',
+    type: BAND_GROUP_CELL,
     payload: {
       colSpan: getColSpan(
         currentColumnIndex,

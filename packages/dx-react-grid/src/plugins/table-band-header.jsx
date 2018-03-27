@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
-  isBandedTableRow,
-  isBandedOrHeaderRow,
-  tableRowsWithBands,
-  isHeadingTableCell,
   getBandComponent,
+  isBandedTableRow, isBandedOrHeaderRow,
+  tableRowsWithBands, isHeadingTableCell,
+  BAND_GROUP_CELL, BAND_HEADER_CELL,
+  BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -47,13 +47,13 @@ export class TableBandHeader extends React.PureComponent {
                   getBandComponent(params, tableHeaderRows, tableColumns, columnBands);
 
                 switch (bandComponent.type) {
-                  case 'duplicateRender':
+                  case BAND_DUPLICATE_RENDER:
                     return <TemplatePlaceholder />;
-                  case 'emptyCell':
+                  case BAND_EMPTY_CELL:
                     return <EmptyCell />;
-                  case 'groupCell':
+                  case BAND_GROUP_CELL:
                     return <Cell {...params} {...bandComponent.payload} />;
-                  case 'headerCell':
+                  case BAND_HEADER_CELL:
                     return (
                       <TemplatePlaceholder
                         name="tableCell"

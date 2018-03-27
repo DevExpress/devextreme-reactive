@@ -1,4 +1,6 @@
-import { TABLE_BAND_TYPE } from './constants';
+import { TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER } from './constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import {
   isBandedTableRow,
   isBandedOrHeaderRow,
@@ -29,26 +31,26 @@ describe('TableBandHeader Plugin helpers', () => {
       column: {
         name: 'a',
       },
-      type: 'data',
+      type: TABLE_DATA_TYPE,
     }, {
       column: {
         name: 'b',
       },
-      type: 'data',
+      type: TABLE_DATA_TYPE,
     }, {
       column: {
         name: 'd',
       },
-      type: 'data',
+      type: TABLE_DATA_TYPE,
     },
   ];
   describe('#isBandedOrHeaderRow', () => {
     it('should work', () => {
-      expect(isBandedOrHeaderRow({ type: 'band' }))
+      expect(isBandedOrHeaderRow({ type: TABLE_BAND_TYPE }))
         .toBeTruthy();
-      expect(isBandedOrHeaderRow({ type: 'heading' }))
+      expect(isBandedOrHeaderRow({ type: TABLE_HEADING_TYPE }))
         .toBeTruthy();
-      expect(isBandedOrHeaderRow({ type: 'data' }))
+      expect(isBandedOrHeaderRow({ type: TABLE_DATA_TYPE }))
         .toBeFalsy();
     });
   });
@@ -117,7 +119,11 @@ describe('TableBandHeader Plugin helpers', () => {
   });
 
   describe('#getBandComponent', () => {
-    const tableHeaderRows = [{ type: 'band', level: 0 }, { type: 'band', level: 1 }, { type: 'heading' }];
+    const tableHeaderRows = [
+      { type: TABLE_BAND_TYPE, level: 0 },
+      { type: TABLE_BAND_TYPE, level: 1 },
+      { type: TABLE_HEADING_TYPE },
+    ];
 
     it('should return duplicate render if column has rowSpan', () => {
       const params = {
@@ -127,12 +133,12 @@ describe('TableBandHeader Plugin helpers', () => {
       };
 
       expect(getBandComponent(params, {}, {}, {}))
-        .toEqual({ type: 'duplicateRender', payload: null });
+        .toEqual({ type: BAND_DUPLICATE_RENDER, payload: null });
     });
     it('should return empty cell if a column is not on its own line', () => {
       const params = {
         tableColumn: {
-          type: 'data',
+          type: TABLE_DATA_TYPE,
           column: {
             name: 'd',
           },
@@ -143,12 +149,12 @@ describe('TableBandHeader Plugin helpers', () => {
       };
 
       expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
-        .toEqual({ type: 'emptyCell', payload: null });
+        .toEqual({ type: BAND_EMPTY_CELL, payload: null });
     });
     it('should return header cell for heading column', () => {
       const params = {
         tableColumn: {
-          type: 'data',
+          type: TABLE_DATA_TYPE,
           column: {
             name: 'd',
           },
@@ -160,9 +166,9 @@ describe('TableBandHeader Plugin helpers', () => {
 
       expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
-          type: 'headerCell',
+          type: BAND_HEADER_CELL,
           payload: {
-            tableRow: { type: 'heading' },
+            tableRow: { type: TABLE_HEADING_TYPE },
             rowSpan: 2,
           },
         });
@@ -170,7 +176,7 @@ describe('TableBandHeader Plugin helpers', () => {
     it('should return group cell for band title', () => {
       const params = {
         tableColumn: {
-          type: 'data',
+          type: TABLE_DATA_TYPE,
           column: {
             name: 'a',
           },
@@ -182,7 +188,7 @@ describe('TableBandHeader Plugin helpers', () => {
 
       expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
-          type: 'groupCell',
+          type: BAND_GROUP_CELL,
           payload: {
             colSpan: 3,
             value: 'A',

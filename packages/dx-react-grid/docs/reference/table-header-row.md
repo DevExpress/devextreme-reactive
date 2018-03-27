@@ -58,7 +58,7 @@ Describes properties used to render a grouping control.
 Field | Type | Description
 ------|------|------------
 align? | string | Specifies a grouping control alignment.
-onGroup | Event | An event that initiates changing the column grouping.
+onGroup | () => void | An event that initiates changing the column grouping.
 disabled? | boolean | Specifies whether a grouping control is disabled.
 
 ## Localization Messages

@@ -8,7 +8,7 @@ import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),
-  pushSearchFilterExpression: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
+  searchFilterExpression: jest.fn().mockReturnValue('filters'),
 }));
 
 const defaultDeps = {

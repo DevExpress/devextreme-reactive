@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
+import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 export class SearchState extends React.PureComponent {
@@ -28,12 +28,14 @@ export class SearchState extends React.PureComponent {
   }
   render() {
     const { value } = this.state;
+    const filterExpressionComputed = ({ filterExpression, columns }) =>
+      searchFilterExpression(value, columns, filterExpression);
 
     return (
       <Plugin
         name="SearchState"
       >
-        <Getter name="filterExpression" computed={pushSearchFilterExpression(value)} />
+        <Getter name="filterExpression" computed={filterExpressionComputed} />
         <Getter name="searchValue" value={value} />
         <Action name="changeSearchValue" action={this.changeValue} />
       </Plugin>

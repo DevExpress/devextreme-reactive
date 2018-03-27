@@ -29,6 +29,7 @@ const GroupingControlBase = ({
   onGroup,
   disabled,
   classes,
+  ...restProps
 }) => {
   const invertedAlign = align === 'left' ? 'right' : 'left';
   const groupingControlClasses = classNames({
@@ -46,6 +47,7 @@ const GroupingControlBase = ({
         onGroup(e);
       }}
       className={groupingControlClasses}
+      {...restProps}
     >
       <List />
     </div>
@@ -53,13 +55,14 @@ const GroupingControlBase = ({
 };
 
 GroupingControlBase.propTypes = {
-  align: PropTypes.string.isRequired,
+  align: PropTypes.string,
   onGroup: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
 };
 
 GroupingControlBase.defaultProps = {
+  align: 'left',
   disabled: false,
 };
 

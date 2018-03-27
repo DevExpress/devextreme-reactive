@@ -4,7 +4,6 @@ import { GroupingControl } from './grouping-control';
 
 const defaultProps = {
   onGroup: () => {},
-  align: 'left',
 };
 
 describe('GroupingControl', () => {
@@ -19,5 +18,16 @@ describe('GroupingControl', () => {
     const tree = shallow(<GroupingControl {...defaultProps} disabled />);
     expect(tree.hasClass(classes.disabledGroupingControl))
       .toBeTruthy();
+  });
+
+  it('should spread rest props to the root element', () => {
+    const tree = shallow((
+      <GroupingControl
+        {...defaultProps}
+        data={{ a: 1 }}
+      />
+    ));
+    expect(tree.props().data)
+      .toEqual({ a: 1 });
   });
 });

@@ -6,40 +6,37 @@ export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow =>
   isBandedTableRow(tableRow) || tableRow.type === TABLE_HEADING_TYPE;
 
-export const getColumnMeta = (columnName, columnBands, tableRowLevel) => {
-  let currentBandTitle = null;
-  let columnLevel = 0;
-
-  const treeProcessing = (bands, level = 0, title) => {
-    bands.forEach((column) => {
-      if (column.columnName === columnName) {
-        columnLevel = level;
-        currentBandTitle = title;
-      }
-      if (column.children !== undefined) {
-        treeProcessing(column.children, level + 1, level > tableRowLevel ? title : column.title);
-      }
-    });
-  };
-
-  treeProcessing(columnBands);
-  return ({ title: currentBandTitle, level: columnLevel });
-};
+export const getColumnMeta = (
+  columnName, bands, tableRowLevel,
+  level = 0, title = null, result = null,
+) => bands.reduce((acc, column) => {
+  if (column.columnName === columnName) {
+    acc.title = title;
+    acc.level = level;
+    return acc;
+  }
+  if (column.children !== undefined) {
+    return getColumnMeta(
+      columnName,
+      column.children,
+      tableRowLevel,
+      level + 1,
+      level > tableRowLevel ? title : column.title,
+      acc,
+    );
+  }
+  return acc;
+}, result || { level, title });
 
 export const getColSpan =
-  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
-    let colSpan = 1;
-    for (let index = currentColumnIndex + 1; index < tableColumns.length; index += 1) {
-      if (tableColumns[index].type !== TABLE_DATA_TYPE) break;
+  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) =>
+    tableColumns.reduce((acc, tableColumn) => {
       const columnMeta =
-        getColumnMeta(tableColumns[index].column.name, columnBands, currentRowLevel);
-      if (columnMeta.title === currentColumnTitle) {
-        colSpan += 1;
-      } else break;
-    }
-
-    return colSpan;
-  };
+        getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
+      if (columnMeta.title === currentColumnTitle && tableColumn.type === TABLE_DATA_TYPE) {
+        return acc + 1;
+      } return acc;
+    }, 0);
 
 export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBands) => {
   if (params.rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };

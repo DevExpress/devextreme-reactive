@@ -1,70 +1,35 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Template,
-  Plugin,
-  TemplatePlaceholder,
-  TemplateConnector,
-} from '@devexpress/dx-react-core';
-import { xyScales } from '@devexpress/dx-chart-core';
+import { baseSeries } from './base-series';
 
-export class BarSeries extends React.PureComponent {
-  render() {
-    const {
-      placeholder,
-      name,
-      rootComponent: Root,
-      ...restProps
-    } = this.props;
-    return (
-      <Plugin name="BarSeries">
-        <Template name="canvas">
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-              series,
-              domains,
-              data,
-              argumentAxisName,
-              layouts,
-            }) => {
-              const {
-                axisName: domainName,
-                argumentField,
-                valueField,
-              } = series.find(seriesItem => seriesItem.valueField === name);
-              const {
-                x, y,
-                width, height,
-              } = layouts[placeholder];
-              const scales = xyScales(domains, argumentAxisName, domainName, width, height);
-              const barWidth = scales.xScale.bandwidth();
-
-              return ((
-                <React.Fragment>
-                  {data.map(item => (<Root
-                    key={item[argumentField]}
-                    x={x + scales.xScale(item[argumentField])}
-                    y={y + scales.yScale(item[valueField])}
-                    width={barWidth}
-                    height={height - scales.yScale(item[valueField])}
-                    {...restProps}
-                  />))}
-                </React.Fragment>));
-            }}
-          </TemplateConnector>
-        </Template>
-      </Plugin>
-    );
-  }
-}
-
-BarSeries.propTypes = {
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  rootComponent: PropTypes.func.isRequired,
+const Series = ({
+  attributes, ...props
+}) => {
+  const {
+    pointComponent: Point,
+    ...restProps
+  } = props;
+  const {
+    coordinates, scales, height,
+  } = attributes;
+  const barWidth = scales.xScale.bandwidth();
+  return (
+    coordinates.map(item =>
+      (<Point
+        key={item.x.toString()}
+        x={item.x}
+        y={item.y}
+        width={barWidth}
+        height={height - item.y}
+        {...restProps}
+      />
+      ))
+  );
 };
 
-BarSeries.defaultProps = {
-  placeholder: 'center-center',
+export const BarSeries = baseSeries(Series, 'BarSeries');
+
+Series.propTypes = {
+  attributes: PropTypes.object.isRequired,
+  pointComponent: PropTypes.func.isRequired,
 };

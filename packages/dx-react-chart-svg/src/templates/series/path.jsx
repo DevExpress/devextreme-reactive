@@ -4,18 +4,16 @@ import * as PropTypes from 'prop-types';
 export const Path = ({
   x, y, d, style,
 }) => (
-  <g>
-    <path
-      transform={`translate(${x} ${y})`}
-      d={d}
-      style={{
+  <path
+    transform={`translate(${x} ${y})`}
+    d={d}
+    style={{
         stroke: 'black',
         strokeWidth: '1px',
         fill: 'none',
         ...style,
       }}
-    />
-  </g>
+  />
 );
 
 Path.propTypes = {

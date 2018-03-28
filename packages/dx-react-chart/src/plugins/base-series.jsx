@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { getSeriesAttributes } from '@devexpress/dx-chart-core';
 
-export const baseSeries = (WrappedComponent, pluginName, type) => {
+export const baseSeries = (WrappedComponent, pluginName, pathType) => {
   class Component extends React.PureComponent {
     render() {
       const {
@@ -38,7 +38,7 @@ export const baseSeries = (WrappedComponent, pluginName, type) => {
                     domains,
                     argumentAxisName,
                     layouts[placeholder],
-                    type,
+                    pathType,
                   );
                 return (
                   <Root x={x} y={y}>

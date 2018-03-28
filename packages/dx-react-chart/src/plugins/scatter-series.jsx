@@ -11,19 +11,15 @@ const Series = ({
   } = props;
   const { dPoint, coordinates } = attributes;
   return (
-    <React.Fragment>
-      {
-        coordinates.map(item =>
-          (<Point
-            key={item.x.toString()}
-            x={item.x}
-            y={item.y}
-            d={dPoint}
-            {...restProps}
-          />
-          ))
-      }
-    </React.Fragment>
+    coordinates.map(item =>
+      (<Point
+        key={item.x.toString()}
+        x={item.x}
+        y={item.y}
+        d={dPoint}
+        {...restProps}
+      />
+      ))
   );
 };
 

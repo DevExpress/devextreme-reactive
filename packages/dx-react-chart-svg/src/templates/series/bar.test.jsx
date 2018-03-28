@@ -1,21 +1,27 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Path } from './path';
+import { Bar } from './bar';
 
-describe('Path', () => {
+describe('Bar', () => {
   const defaultProps = {
     x: 1,
     y: 2,
-    d: 'M10 10',
+    width: 10,
+    height: 20,
   };
+
   it('should render root element', () => {
     const tree = shallow((
-      <Path {...defaultProps} />
+      <Bar {...defaultProps} />
     ));
-    const { d, transform } = tree.find('path').props();
+    const {
+      x, y, width, height,
+    } = tree.find('rect').props();
 
-    expect(transform).toBe('translate(1 2)');
-    expect(d).toBe('M10 10');
+    expect(x).toBe(1);
+    expect(y).toBe(2);
+    expect(width).toBe(10);
+    expect(height).toBe(20);
   });
 
   it('should apply custom styles if any', () => {
@@ -24,12 +30,12 @@ describe('Path', () => {
       strokeWidth: '2px',
     };
     const tree = shallow((
-      <Path
+      <Bar
         {...defaultProps}
         style={customStyle}
       />
     ));
-    const { style } = tree.find('path').props();
+    const { style } = tree.find('rect').props();
 
     expect(style).toEqual({
       ...customStyle,

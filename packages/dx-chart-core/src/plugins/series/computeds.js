@@ -61,5 +61,7 @@ export const getSeriesAttributes = (
     dPoint: symbol().size([55]).type(symbolCircle)(),
     d: getDAttribute(type, height, path),
     coordinates: path,
+    scales,
+    height,
   });
 };

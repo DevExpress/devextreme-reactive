@@ -42,7 +42,7 @@ export class SearchPanel extends React.PureComponent {
             )}
           </TemplateConnector>
         </Template>
-        {/* <Template
+        <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
@@ -52,19 +52,17 @@ export class SearchPanel extends React.PureComponent {
                 const columnName = params.tableColumn.column.name;
                 const value = getCellValue(params.tableRow.row, columnName);
                 const isSearchedCell = !!searchValue && value.toLowerCase().search(searchValue.toLowerCase()) > -1;
-                return (
-                  <TemplatePlaceholder
-                    name="valueFormatter"
-                    params={{
-                      row: params.tableRow.row,
-                      column: params.tableColumn.column,
-                      value,
-                    }}
-                  >
-                    {content => (
-                      !isSearchedCell ?
-                        <TemplatePlaceholder params={params} />
-                      :
+                if (isSearchedCell) {
+                  return (
+                    <TemplatePlaceholder
+                      name="valueFormatter"
+                      params={{
+                        row: params.tableRow.row,
+                        column: params.tableColumn.column,
+                        value,
+                      }}
+                    >
+                      {content => (
                         <Cell
                           {...params}
                           row={params.tableRow.row}
@@ -74,13 +72,14 @@ export class SearchPanel extends React.PureComponent {
                         >
                           {content}
                         </Cell>
-                    )}
-                  </TemplatePlaceholder>
-                );
+                      )}
+                    </TemplatePlaceholder>
+                  );
+                } return <TemplatePlaceholder />;
               }}
             </TemplateConnector>
           )}
-        </Template> */}
+        </Template>
       </Plugin>
     );
   }

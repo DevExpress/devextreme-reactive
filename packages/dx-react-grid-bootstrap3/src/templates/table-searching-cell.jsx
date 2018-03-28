@@ -10,7 +10,6 @@ export const SearchedCell = ({
   const firstPart = value.slice(0, searchIndex) || '';
   const middlePart = value.slice(searchIndex, searchIndex + searchValue.length);
   const secondPart = value.slice(searchIndex + searchValue.length);
-  // const result = searchValue ? ({firstPart}<mark>{searchValue}</mark>{secondPart}) : (children || value);
   return (
     <td
       style={{
@@ -43,6 +42,7 @@ SearchedCell.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  searchValue: PropTypes.object,
 };
 
 SearchedCell.defaultProps = {
@@ -53,4 +53,5 @@ SearchedCell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  searchValue: '',
 };

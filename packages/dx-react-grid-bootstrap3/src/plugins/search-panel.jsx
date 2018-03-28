@@ -13,7 +13,7 @@ export class SearchPanel extends React.PureComponent {
     return (
       <SearchPanelBase
         inputComponent={SearchPanelInput}
-        searchedCellComponent={SearchedCell}
+        cellComponent={SearchedCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

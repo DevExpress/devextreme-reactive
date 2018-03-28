@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { createShallow } from 'material-ui/test-utils';
 import { BandedHeaderCell } from './banded-header-cell';
-import { BAND_CELL_HEIGHT } from './cell';
 
-describe('TableCell', () => {
+describe('BandedHeaderCell', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
@@ -23,14 +22,5 @@ describe('TableCell', () => {
     ));
 
     expect(tree.find('.custom-class').prop('style').color).toBe('red');
-  });
-
-  it('should apply correct align if rowSpan is defined', () => {
-    const rowSpan = 3;
-    const tree = shallow((
-      <BandedHeaderCell component={() => <div />} rowSpan={rowSpan} className="custom-class" />
-    ));
-
-    expect(tree.find('.custom-class').prop('style').paddingTop).toBe(`${(rowSpan - 1) * BAND_CELL_HEIGHT}px`);
   });
 });

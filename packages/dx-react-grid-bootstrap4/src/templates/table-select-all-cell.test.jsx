@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableSelectAllCell, cellHeight } from './table-select-all-cell';
+import { TableSelectAllCell } from './table-select-all-cell';
 
 describe('TableSelectAllCell', () => {
   let resetConsole;
@@ -57,6 +57,8 @@ describe('TableSelectAllCell', () => {
 
     expect(tree.is('.align-middle.dx-rg-bs4-cursor-pointer.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.align-bottom'))
+      .toBeFalsy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -73,7 +75,9 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell rowSpan={rowSpan} />
     ));
 
-    expect(tree.find('th').prop('style').paddingTop).toBe(`${(rowSpan - 1) * cellHeight}px`);
-    expect(tree.find('th').prop('style').paddingBottom).toBe(0);
+    expect(tree.is('.align-bottom.dx-rg-bs4-cursor-pointer'))
+      .toBeTruthy();
+    expect(tree.is('.align-middle'))
+      .toBeFalsy();
   });
 });

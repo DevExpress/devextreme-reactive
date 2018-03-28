@@ -5,7 +5,6 @@ import {
   EditCommandHeadingCell,
   EditCommandCell,
 } from './table-edit-command-cell';
-import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
@@ -44,7 +43,8 @@ describe('TableCommandColumn', () => {
         <EditCommandHeadingCell rowSpan={rowSpan} />
       ));
 
-      expect(tree.prop('style').paddingTop).toBe(`${(rowSpan - 1) * BAND_CELL_HEIGHT}px`);
+      expect(tree.is(`.${classes.alignWithRowSpan}.${classes.headingCell}`))
+        .toBeTruthy();
     });
   });
 

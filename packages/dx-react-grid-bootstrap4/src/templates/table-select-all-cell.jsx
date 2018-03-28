@@ -2,15 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const cellHeight = 50;
-
 export const TableSelectAllCell = ({
   allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow, className, style, rowSpan,
+  tableColumn, tableRow, className, rowSpan,
   ...restProps
 }) => {
-  const paddingTop = rowSpan > 1 ? (cellHeight * (rowSpan - 1)) : '';
-
   const toggle = (e) => {
     if (disabled) return;
 
@@ -21,20 +17,18 @@ export const TableSelectAllCell = ({
   return (
     <th
       className={classNames({
-        'align-middle': true,
+        'align-middle': !rowSpan,
+        'align-bottom': !!rowSpan,
         'dx-rg-bs4-cursor-pointer': !disabled,
       }, className)}
       rowSpan={rowSpan}
-      style={{
-        ...(rowSpan ? { paddingTop: `${paddingTop}px`, paddingBottom: 0 } : null),
-        ...style,
-      }}
       onClick={toggle}
       {...restProps}
     >
       <input
         className={classNames({
-          'd-block m-auto': true,
+          'd-block mx-auto': true,
+          'my-1': !!rowSpan,
           'dx-rg-bs4-cursor-pointer': !disabled,
         })}
         type="checkbox"

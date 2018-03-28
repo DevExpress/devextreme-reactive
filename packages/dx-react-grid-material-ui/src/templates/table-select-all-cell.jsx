@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Checkbox from 'material-ui/Checkbox';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 const styles = theme => ({
   cell: {
@@ -13,27 +12,29 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
   },
+  alignWithRowSpan: {
+    verticalAlign: 'bottom',
+    paddingBottom: theme.spacing.unit / 2,
+  },
   pointer: {
     cursor: 'pointer',
   },
 });
 
 const TableSelectAllCellBase = ({
-  style, allSelected, someSelected, disabled, onToggle, classes,
+  allSelected, someSelected, disabled, onToggle, classes,
   className, tableRow, tableColumn, rowSpan,
   ...restProps
 }) => {
   const cellClasses = classNames({
     [classes.cell]: true,
     [classes.pointer]: !disabled,
+    [classes.alignWithRowSpan]: rowSpan > 1,
   }, className);
-
-  const paddingTop = rowSpan > 1 ? (BAND_CELL_HEIGHT * (rowSpan - 1)) : '';
 
   return (
     <TableCell
       padding="checkbox"
-      style={{ ...style, paddingTop: `${paddingTop}px` }}
       className={cellClasses}
       rowSpan={rowSpan}
       {...restProps}

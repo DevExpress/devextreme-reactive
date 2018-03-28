@@ -3,7 +3,6 @@ import Checkbox from 'material-ui/Checkbox';
 import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
-import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 describe('TableSelectAllCell', () => {
   let resetConsole;
@@ -94,6 +93,7 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell rowSpan={rowSpan} />
     ));
 
-    expect(tree.prop('style').paddingTop).toBe(`${(rowSpan - 1) * BAND_CELL_HEIGHT}px`);
+    expect(tree.is(`.${classes.alignWithRowSpan}.${classes.cell}`))
+      .toBeTruthy();
   });
 });

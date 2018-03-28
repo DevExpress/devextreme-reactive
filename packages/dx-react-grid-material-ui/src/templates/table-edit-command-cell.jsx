@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Button from 'material-ui/Button';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
-import { BAND_CELL_HEIGHT } from './table-band-header/cell';
 
 const styles = theme => ({
   button: {
@@ -20,6 +19,10 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
+  },
+  alignWithRowSpan: {
+    verticalAlign: 'bottom',
+    paddingBottom: theme.spacing.unit * 1.25,
   },
 });
 
@@ -65,19 +68,18 @@ const EditCommandHeadingCellBase = ({
   tableRow, tableColumn,
   rowSpan,
   ...restProps
-}) => {
-  const paddingTop = rowSpan > 1 ? (BAND_CELL_HEIGHT * (rowSpan - 1)) : '';
-  return (
-    <TableCell
-      className={classNames(classes.headingCell, className)}
-      style={{ ...style, paddingTop: `${paddingTop}px` }}
-      rowSpan={rowSpan}
-      {...restProps}
-    >
-      {children}
-    </TableCell>
-  );
-};
+}) => (
+  <TableCell
+    className={classNames({
+      [classes.headingCell]: true,
+      [classes.alignWithRowSpan]: rowSpan > 1,
+    }, className)}
+    rowSpan={rowSpan}
+    {...restProps}
+  >
+    {children}
+  </TableCell>
+);
 
 EditCommandHeadingCellBase.propTypes = {
   children: PropTypes.node,

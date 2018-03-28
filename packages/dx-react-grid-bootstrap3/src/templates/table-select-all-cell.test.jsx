@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableSelectAllCell, cellHeight } from './table-select-all-cell';
+import { TableSelectAllCell } from './table-select-all-cell';
 
 describe('TableSelectAllCell', () => {
   let resetConsole;
@@ -74,7 +74,7 @@ describe('TableSelectAllCell', () => {
       <TableSelectAllCell rowSpan={rowSpan} />
     ));
 
-    expect(tree.find('th').prop('style').paddingTop).toBe(`${(rowSpan - 1) * cellHeight}px`);
-    expect(tree.find('th').prop('style').paddingBottom).toBe(0);
+    expect(tree.find('th').prop('style').verticalAlign).toBe('bottom');
+    expect(tree.find('input').prop('style').margin).toBe('4px auto');
   });
 });

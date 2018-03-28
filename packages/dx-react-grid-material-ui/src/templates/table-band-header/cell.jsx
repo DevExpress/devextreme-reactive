@@ -5,8 +5,6 @@ import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 import { getBorderColor } from './../utils';
 
-export const BAND_CELL_HEIGHT = 48;
-
 const styles = theme => ({
   cell: {
     paddingRight: theme.spacing.unit,

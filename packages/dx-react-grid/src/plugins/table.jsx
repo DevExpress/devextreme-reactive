@@ -40,6 +40,7 @@ export class Table extends React.PureComponent {
       noDataCellComponent: NoDataCell,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
+      searchedCellComponent: SearchedCell,
       columnExtensions,
       messages, containerComponent,
       tableComponent, headComponent, bodyComponent, fixedHeaderComponent,
@@ -97,9 +98,10 @@ export class Table extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ getCellValue }) => {
+              {({ getCellValue, searchValue }) => {
                 const columnName = params.tableColumn.column.name;
                 const value = getCellValue(params.tableRow.row, columnName);
+                const isSearchedCell = !!searchValue && value.toLowerCase().search(searchValue.toLowerCase()) > -1;
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
@@ -110,14 +112,25 @@ export class Table extends React.PureComponent {
                     }}
                   >
                     {content => (
-                      <Cell
-                        {...params}
-                        row={params.tableRow.row}
-                        column={params.tableColumn.column}
-                        value={value}
-                      >
-                        {content}
-                      </Cell>
+                      !isSearchedCell ?
+                        <Cell
+                          {...params}
+                          row={params.tableRow.row}
+                          column={params.tableColumn.column}
+                          value={value}
+                        >
+                          {content}
+                        </Cell>
+                      :
+                        <SearchedCell
+                          {...params}
+                          row={params.tableRow.row}
+                          column={params.tableColumn.column}
+                          value={value}
+                          searchValue={searchValue}
+                        >
+                          {content}
+                        </SearchedCell>
                     )}
                   </TemplatePlaceholder>
                 );

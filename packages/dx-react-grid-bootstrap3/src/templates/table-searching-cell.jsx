@@ -10,6 +10,20 @@ export const SearchedCell = ({
   const firstPart = value.slice(0, searchIndex) || '';
   const middlePart = value.slice(searchIndex, searchIndex + searchValue.length);
   const secondPart = value.slice(searchIndex + searchValue.length);
+  const searchingContent = () => (
+    <React.Fragment>
+      {firstPart}
+      <mark
+        style={{
+          padding: 0,
+        }}
+      >
+        {middlePart}
+      </mark>
+      {secondPart}
+    </React.Fragment>
+  );
+
   return (
     <td
       style={{
@@ -21,15 +35,7 @@ export const SearchedCell = ({
       }}
       {...restProps}
     >
-      {firstPart}
-      <mark
-        style={{
-          padding: 0,
-        }}
-      >
-        {middlePart}
-      </mark>
-      {secondPart}
+      {children || searchingContent()}
     </td>
   );
 };

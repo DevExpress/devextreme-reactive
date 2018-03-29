@@ -3,11 +3,15 @@ import * as PropTypes from 'prop-types';
 import { TableSortLabel } from 'material-ui/Table';
 import Tooltip from 'material-ui/Tooltip';
 import { withStyles } from 'material-ui/styles';
+import classNames from 'classnames';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
+  root: {
+    flexDirection: 'inherit',
+  },
   tooltipRoot: {
     display: 'block',
     whiteSpace: 'nowrap',
@@ -37,9 +41,13 @@ const onClick = (e, onSort) => {
 };
 
 const SortingControlBase = ({
-  align, direction, title, onSort, classes, getMessage, disabled, ...restProps
+  align, direction, title, onSort,
+  classes, getMessage, disabled, className, ...restProps
 }) => (
-  <div style={{ flexDirection: 'inherit' }} {...restProps}>
+  <div
+    className={classNames(classes.root, className)}
+    {...restProps}
+  >
     <Tooltip
       title={getMessage('sortingHint')}
       placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
@@ -72,12 +80,14 @@ SortingControlBase.propTypes = {
   onSort: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 SortingControlBase.defaultProps = {
   direction: undefined,
   disabled: false,
   align: 'left',
+  className: null,
 };
 
 export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from 'material-ui/test-utils';
+import { createShallow, createMount, getClasses } from 'material-ui/test-utils';
 import { TableSortLabel } from 'material-ui/Table';
 import Tooltip from 'material-ui/Tooltip';
 import { SortingControl } from './sorting-control';
@@ -18,9 +18,13 @@ const e = {
 describe('SortingControl', () => {
   let shallow;
   let mount;
+  let classes;
   beforeAll(() => {
     shallow = createShallow({ untilSelector: 'SortingControlBase' });
     mount = createMount();
+    classes = getClasses((
+      <SortingControl {...defaultProps} />
+    ));
   });
   afterAll(() => {
     shallow.cleanUp();
@@ -48,6 +52,19 @@ describe('SortingControl', () => {
     ));
     expect(tree.props().data)
       .toEqual({ a: 1 });
+  });
+
+  it('should apply custom class to the root element', () => {
+    const tree = shallow((
+      <SortingControl
+        {...defaultProps}
+        className="customClass"
+      />
+    ));
+    expect(tree.is(`.${classes.root}`))
+      .toBeTruthy();
+    expect(tree.is('.customClass'))
+      .toBeTruthy();
   });
 
   it('should process nullable direction', () => {

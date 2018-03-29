@@ -7,8 +7,6 @@ import { DragSource } from '@devexpress/dx-react-core';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 
-import './table-header-cell.css';
-
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
     super(props);

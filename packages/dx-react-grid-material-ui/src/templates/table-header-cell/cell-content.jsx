@@ -12,7 +12,7 @@ const styles = {
 };
 
 const CellContentBase = ({
-  children, classes, className, showGroupingControls, ...restProps
+  children, classes, className, ...restProps
 }) => (
   <div
     className={classNames(classes.cellContent, className)}
@@ -25,13 +25,15 @@ const CellContentBase = ({
 export const CellContent = withStyles(styles, { name: 'CellContent' })(CellContentBase);
 
 CellContentBase.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  showGroupingControls: PropTypes.bool,
 };
 
 CellContentBase.defaultProps = {
   className: null,
-  showGroupingControls: false,
+  children: undefined,
 };

@@ -50,6 +50,7 @@ onWidthDraft | (parameters: { shift: number }) => void | An event that changes t
 onWidthDraftCancel | () => void | An event that cancels changes of column width used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sort label within the header cell.
+children | ReactNode | Header cell children.
 
 ### TableHeaderRow.CellContentProps
 
@@ -58,8 +59,7 @@ Describes properties used to render a cell content.
 Field | Type | Description
 ------|------|------------
 align? | string | Specifies a cell content alignment.
-showGroupingControls? | boolean | Specifies whether a grouping control will be rendered.
-children | ReactNode &#124; Array&lt;ReactNode&gt; | Cell content children.
+children? | ReactNode | Cell content children.
 
 ### TableHeaderRow.SortLabelProps
 

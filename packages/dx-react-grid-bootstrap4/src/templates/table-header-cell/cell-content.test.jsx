@@ -26,7 +26,7 @@ describe('CellContent', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper.dx-rg-bs4-table-header-cell-left'))
+    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -41,8 +41,6 @@ describe('CellContent', () => {
     ));
     expect(tree.find('div').is('.text-nowrap.text-right'))
       .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-right'))
-      .toBeFalsy();
   });
 
   it('should have correct classes when grouping by click is allowed and column align is right', () => {
@@ -53,12 +51,12 @@ describe('CellContent', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-bs4-table-header-cell-right'))
+    expect(tree.find('div').is('.text-nowrap.text-right'))
       .toBeTruthy();
   });
 
   it('should have correct classes when column is aligned by center', () => {
-    let tree = shallow((
+    const tree = shallow((
       <CellContent
         {...defaultProps}
         align="center"
@@ -66,19 +64,6 @@ describe('CellContent', () => {
     ));
 
     expect(tree.find('div').is('.text-nowrap.text-center'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-center'))
-      .toBeFalsy();
-
-    tree = shallow((
-      <CellContent
-        {...defaultProps}
-        align="center"
-        showGroupingControls
-      />
-    ));
-
-    expect(tree.find('div').is('.text-nowrap.text-center.dx-rg-bs4-table-header-cell-center'))
       .toBeTruthy();
   });
   it('should apply custom class', () => {

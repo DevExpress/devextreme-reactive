@@ -85,7 +85,6 @@ export class TableHeaderRow extends React.PureComponent {
                   >
                     <CellContent
                       align={params.tableColumn.align}
-                      showGroupingControls={showGroupingControls}
                     >
                       {showSortingControls ? (
                         <SortLabel

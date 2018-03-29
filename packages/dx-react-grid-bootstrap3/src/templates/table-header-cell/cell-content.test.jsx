@@ -32,7 +32,6 @@ describe('CellContent', () => {
     expect(tree.find('div').prop('style'))
       .toMatchObject({
         textAlign: 'left',
-        marginRight: '14px',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -65,7 +64,6 @@ describe('CellContent', () => {
     expect(tree.find('div').prop('style'))
       .toMatchObject({
         textAlign: 'right',
-        marginLeft: '14px',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',

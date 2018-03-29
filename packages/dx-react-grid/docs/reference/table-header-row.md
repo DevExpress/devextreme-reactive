@@ -21,6 +21,7 @@ Name | Type | Default | Description
 cellComponent | ComponentType&lt;[TableHeaderRow.CellProps](#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
 sortingComponent | ComponentType&lt;[TableHeaderRow.SortingControlProps](#tableheaderrowsortingcontrolprops)&gt; | | A component that renders a sorting control.
+cellContentComponent | ComponentType&lt;[TableHeaderRow.CellContentProps](#tableheaderrowcellcontentprops)&gt; | | A component that renders a cell content.
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -50,6 +51,16 @@ onWidthDraftCancel | () => void | An event that cancels changes of column width 
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.
 
+### TableHeaderRow.CellContentProps
+
+Describes properties used to render a cell content.
+
+Field | Type | Description
+------|------|------------
+align? | string | Specifies a cell content alignment.
+showGroupingControls? | boolean | Specifies whether a grouping control will be rendered.
+children | ReactNode &#124; Array&lt;ReactNode&gt; | Cell content children.
+
 ### TableHeaderRow.SortingControlProps
 
 Describes properties used to render a sorting control.
@@ -76,6 +87,7 @@ Name | Properties | Description
 TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
 TableHeaderRow.SortingControl | [TableHeaderRow.SortingControlProps](#tableheaderrowsortingcontrolprops) | A component that renders a sorting control.
+TableHeaderRow.CellContent | [TableHeaderRow.CellContentProps](#tableheaderrowcellcontentprops) | A component that renders a cell content.
 
 Additional properties are added to the component's root element.
 

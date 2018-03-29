@@ -28,7 +28,7 @@ const SortingControl = ({ onSort, title, direction }) => (
     variant="raised"
     onClick={onSort}
     style={{
-      textAlign: 'left',
+      margin: '3px',
     }}
   >
     {title}

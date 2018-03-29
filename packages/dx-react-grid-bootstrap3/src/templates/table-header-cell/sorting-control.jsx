@@ -38,7 +38,7 @@ const getProps = ({
 });
 
 export const SortingControl = ({
-  align, direction, title, disabled, onSort, style, ...restProps
+  align, direction, title, disabled, onSort, style, getMessage, ...restProps
 }) => {
   const props = getProps({
     direction, disabled, onSort, style, ...restProps,
@@ -74,6 +74,7 @@ SortingControl.propTypes = {
   onSort: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   style: PropTypes.object,
+  getMessage: PropTypes.func,
 };
 
 SortingControl.defaultProps = {
@@ -81,4 +82,5 @@ SortingControl.defaultProps = {
   disabled: false,
   style: null,
   align: 'left',
+  getMessage: () => {},
 };

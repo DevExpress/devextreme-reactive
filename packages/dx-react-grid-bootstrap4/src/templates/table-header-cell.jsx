@@ -25,16 +25,15 @@ export class TableHeaderCell extends React.PureComponent {
   render() {
     const {
       className, column, tableColumn,
-      showSortingControls, sortingDirection, sortingEnabled, sortingComponent: SortingControl,
+      showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
-      tableRow, getMessage, onSort,
+      tableRow, getMessage, onSort, children,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
     const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
@@ -55,25 +54,7 @@ export class TableHeaderCell extends React.PureComponent {
             disabled={!groupingEnabled}
           />
         )}
-        <div
-          className={classNames({
-            'text-nowrap dx-rg-bs4-table-header-cell-wrapper': true,
-            [`text-${align}`]: align !== 'left',
-            [`dx-rg-bs4-table-header-cell-${align}`]: showGroupingControls,
-          })}
-        >
-          {showSortingControls ? (
-            <SortingControl
-              align={align}
-              direction={sortingDirection}
-              disabled={!sortingEnabled}
-              title={columnTitle}
-              onSort={this.onSort}
-            />
-          ) : (
-            columnTitle
-          )}
-        </div>
+        {children}
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -115,7 +96,7 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
-  sortingComponent: PropTypes.func,
+  children: PropTypes.node,
 };
 
 TableHeaderCell.defaultProps = {
@@ -136,5 +117,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
-  sortingComponent: () => {},
+  children: undefined,
 };

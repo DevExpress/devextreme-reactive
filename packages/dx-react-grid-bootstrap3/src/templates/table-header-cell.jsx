@@ -13,25 +13,19 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.onSort = ({ direction, keepOther }) => {
-      const { sortingEnabled, showSortingControls, onSort } = this.props;
-      if ((!showSortingControls || !sortingEnabled)) return;
-      onSort({ direction, keepOther });
-    };
   }
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection, sortingEnabled, sortingComponent: SortingControl,
+      showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel,
-      tableRow, getMessage, onSort,
+      tableRow, getMessage, onSort, children,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
     const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
@@ -57,30 +51,7 @@ export class TableHeaderCell extends React.PureComponent {
             onGroup={onGroup}
           />
         )}
-        <div
-          style={{
-            ...(showGroupingControls
-              ? { [`margin${align === 'right' ? 'Left' : 'Right'}`]: '14px' }
-              : null),
-            textAlign: align,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            padding: '3px',
-          }}
-        >
-          {showSortingControls ? (
-            <SortingControl
-              align={align}
-              direction={sortingDirection}
-              disabled={!sortingEnabled}
-              title={columnTitle}
-              onSort={this.onSort}
-            />
-          ) : (
-            columnTitle
-          )}
-        </div>
+        {children}
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -122,7 +93,7 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
-  sortingComponent: PropTypes.func,
+  children: PropTypes.node,
 };
 
 TableHeaderCell.defaultProps = {
@@ -143,5 +114,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
-  sortingComponent: () => {},
+  children: undefined,
 };

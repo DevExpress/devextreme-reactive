@@ -43,6 +43,7 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
+  cellContentComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -255,6 +256,77 @@ describe('TableHeaderRow', () => {
       onWidthDraftCancel();
       expect(deps.action.cancelTableColumnWidthDraft.mock.calls[0][0])
         .toEqual();
+    });
+  });
+
+  describe('Header cell', () => {
+    it('should use column name if title is not specified ', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const deps = {
+        template: {
+          tableCell: {
+            tableColumn: { type: 'undefined', column: { name: 'Test' } },
+          },
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            cellComponent={({ children }) => <th>{children}</th>}
+            cellContentComponent={({ children }) => <div>{children}</div>}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('th div').text()).toBe('Test');
+    });
+    it('should not render sorting control by default', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableHeaderRow
+            {...defaultProps}
+            sortingComponent={() => <div className="sorting-control" />}
+            cellComponent={({ children }) => <th>{children}</th>}
+            cellContentComponent={({ children }) => <div>{children}</div>}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.sorting-control').exists())
+        .not.toBeTruthy();
+    });
+
+    it('should render sorting control if showSortingControls is true', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const deps = {
+        plugins: ['SortingState'],
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            showSortingControls
+            sortingComponent={({ getMessage }) => (
+              <div className="sorting-control" title={getMessage('sortingHint')} />
+            )}
+            cellComponent={({ children }) => <th>{children}</th>}
+            cellContentComponent={({ children }) => <div>{children}</div>}
+            messages={{
+              sortingHint: 'test',
+            }}
+          />
+        </PluginHost>
+      ));
+      const sortingControl = tree.find('.sorting-control');
+
+      expect(tree.find('.sorting-control').exists())
+        .toBeTruthy();
+      expect(sortingControl.props().title)
+        .toBe('test');
     });
   });
 });

@@ -39,7 +39,7 @@ const onClick = (e, onSort) => {
 const SortingControlBase = ({
   align, direction, title, onSort, classes, getMessage, disabled, ...restProps
 }) => (
-  <div {...restProps}>
+  <div style={{ flexDirection: 'inherit' }} {...restProps}>
     <Tooltip
       title={getMessage('sortingHint')}
       placement={align === 'right' ? 'bottom-end' : 'bottom-start'}

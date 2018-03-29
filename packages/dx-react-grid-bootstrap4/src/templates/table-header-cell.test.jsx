@@ -26,18 +26,6 @@ describe('TableHeaderCell', () => {
     jest.resetAllMocks();
   });
 
-  it('should use column name if title is not specified', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{
-          name: 'Test',
-        }}
-      />
-    ));
-
-    expect(tree.find('th > div').text()).toBe('Test');
-  });
-
   it('should have correct classes when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
@@ -125,79 +113,6 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraft);
     expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
-  });
-
-  it('should have correct classes when grouping by click is not allowed and column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-        showGroupingControls={false}
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is allowed and column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper.dx-rg-bs4-table-header-cell-left'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is not allowed and column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-        showGroupingControls={false}
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.text-right'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is allowed and column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-bs4-table-header-cell-right'))
-      .toBeTruthy();
-  });
-
-  it('should have correct classes when column is aligned by center', () => {
-    let tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'center' }}
-      />
-    ));
-
-    expect(tree.find('div').is('.text-nowrap.text-center'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-center'))
-      .toBeFalsy();
-
-    tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'center' }}
-        showGroupingControls
-      />
-    ));
-
-    expect(tree.find('div').is('.text-nowrap.text-center.dx-rg-bs4-table-header-cell-center'))
-      .toBeTruthy();
   });
 
   it('should pass custom class to the root element', () => {

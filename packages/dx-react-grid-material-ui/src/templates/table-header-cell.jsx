@@ -85,17 +85,16 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection, sortingComponent: SortingControl,
+      showSortingControls, sortingDirection,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
-      classes, getMessage, tableRow, className, onSort,
+      classes, getMessage, tableRow, className, onSort, children,
       ...restProps
     } = this.props;
 
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
@@ -119,20 +118,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onGroup={onGroup}
           />
         )}
-        {showSortingControls ? (
-          <SortingControl
-            align={align}
-            direction={sortingDirection}
-            title={columnTitle}
-            onSort={this.onSort}
-            getMessage={getMessage}
-            disabled={!sortingEnabled}
-          />
-        ) : (
-          <div className={classes.plainTitle}>
-            {columnTitle}
-          </div>
-        )}
+        {children}
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -177,7 +163,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  sortingComponent: PropTypes.func,
+  children: PropTypes.node,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -198,7 +184,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
-  sortingComponent: () => {},
+  children: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

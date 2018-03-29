@@ -16,10 +16,6 @@ const defaultProps = {
   column: { name: 'Test' },
 };
 
-// eslint-disable-next-line react/prop-types
-const SortingControl = ({ getMessage }) =>
-  <div className="sorting-control">{getMessage('sortingHint')}</div>;
-
 describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
@@ -41,16 +37,6 @@ describe('TableHeaderCell', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should use column name if title is not specified', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        {...defaultProps}
-      />
-    ));
-
-    expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -134,23 +120,6 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should pass correct sorting hint to SortingControl', () => {
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        sortingComponent={SortingControl}
-        showSortingControls
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-
-    const sortingControl = tree.find('div.sorting-control');
-    expect(sortingControl.exists())
-      .toBeTruthy();
-    expect(sortingControl.text())
-      .toBe('sortingHint');
-  });
-
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
@@ -175,31 +144,5 @@ describe('TableHeaderCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  describe('with keyboard navigation', () => {
-    it('can not get focus if sorting is not allowed', () => {
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-        />
-      ));
-
-      expect(tree.find(SortingControl).exists())
-        .not.toBeTruthy();
-    });
-
-    it('can get focus if sorting is allowed', () => {
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          sortingComponent={SortingControl}
-          showSortingControls
-        />
-      ));
-
-      expect(tree.find(SortingControl).exists())
-        .toBeTruthy();
-    });
   });
 });

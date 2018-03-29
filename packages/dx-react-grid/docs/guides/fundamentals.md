@@ -36,9 +36,15 @@ The `Table` plugin's `rowComponent` property enables you to handle row events li
 
 You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
 
+### Column alignment
+
+The `Table` plugin's `columnExtensions` allows you to specify the column alignment.
+
+.embedded-demo({ "path": "grid-basic/column-alignment", "showThemeSelector": true })
+
 ### Column width
 
-Static widths for specific columns can be defined via the `columnExtensions` property of the `Table` plugin like it is shown in the demo below:
+Static widths for specific columns can be defined via the `Table` plugin's `columnExtensions` property as shown in the demo below:
 
 .embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
 

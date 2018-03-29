@@ -14,11 +14,6 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.onSort = ({ direction, keepOther }) => {
-      const { sortingEnabled, showSortingControls, onSort } = this.props;
-      if (!showSortingControls || !sortingEnabled) return;
-      onSort({ direction, keepOther });
-    };
   }
   render() {
     const {

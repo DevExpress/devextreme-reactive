@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SortingIndicator } from '../parts/sorting-indicator';
-import './sorting-control.css';
+import './sort-label.css';
 
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
@@ -30,7 +30,7 @@ const getProps = ({
   direction, disabled, onSort, className, ...restProps
 }) => ({
   className: classNames({
-    'dx-rg-bs4-sorting-control': true,
+    'dx-rg-bs4-sort-label': true,
     'dx-rg-bs4-cursor-pointer': true,
     'text-primary': direction,
   }, className),
@@ -42,7 +42,7 @@ const getProps = ({
   ...restProps,
 });
 
-export const SortingControl = ({
+export const SortLabel = ({
   align, direction, title, disabled, className, onSort, getMessage, ...restProps
 }) => {
   const props = getProps({
@@ -67,7 +67,7 @@ export const SortingControl = ({
   ));
 };
 
-SortingControl.propTypes = {
+SortLabel.propTypes = {
   align: PropTypes.string,
   direction: PropTypes.oneOf(['asc', 'desc']),
   title: PropTypes.string.isRequired,
@@ -77,7 +77,7 @@ SortingControl.propTypes = {
   getMessage: PropTypes.func,
 };
 
-SortingControl.defaultProps = {
+SortLabel.defaultProps = {
   direction: null,
   disabled: false,
   className: undefined,

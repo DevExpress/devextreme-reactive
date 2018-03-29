@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import { SortingControl } from './sorting-control';
+import { SortLabel } from './sort-label';
 
 const defaultProps = {
   title: 'test',
   onSort: () => {},
 };
 
-describe('SortingControl', () => {
+describe('SortLabel', () => {
   it('should spread rest props to the root element', () => {
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         data={{ a: 1 }}
       />
@@ -23,7 +23,7 @@ describe('SortingControl', () => {
 
   it('should add custom styles', () => {
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         style={{ color: 'red' }}
       />
@@ -43,7 +43,7 @@ describe('with keyboard navigation', () => {
 
   it('can get focus', () => {
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
       />
     ));
@@ -54,7 +54,7 @@ describe('with keyboard navigation', () => {
 
   it('can not get focus if disabled is true', () => {
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         disabled
       />
@@ -67,13 +67,13 @@ describe('with keyboard navigation', () => {
   it('should handle the "Enter" and "Space" keys down', () => {
     const onSort = jest.fn();
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         onSort={onSort}
       />
     ));
 
-    const targetElement = tree.find('SortingControl');
+    const targetElement = tree.find('SortLabel');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(onSort)
       .toHaveBeenCalled();
@@ -92,13 +92,13 @@ describe('with keyboard navigation', () => {
   it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
     const onSort = jest.fn();
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         onSort={onSort}
       />
     ));
 
-    const targetElement = tree.find('SortingControl');
+    const targetElement = tree.find('SortLabel');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
@@ -107,13 +107,13 @@ describe('with keyboard navigation', () => {
   it('should handle the "Ctrl" key with sorting', () => {
     const onSort = jest.fn();
     const tree = mount((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         onSort={onSort}
       />
     ));
 
-    const targetElement = tree.find('SortingControl');
+    const targetElement = tree.find('SortLabel');
     targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });

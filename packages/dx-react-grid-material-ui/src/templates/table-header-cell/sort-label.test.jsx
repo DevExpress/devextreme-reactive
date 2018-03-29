@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, createMount, getClasses } from 'material-ui/test-utils';
 import { TableSortLabel } from 'material-ui/Table';
 import Tooltip from 'material-ui/Tooltip';
-import { SortingControl } from './sorting-control';
+import { SortLabel } from './sort-label';
 
 const defaultProps = {
   title: 'a',
@@ -15,15 +15,15 @@ const e = {
   preventDefault: () => {},
 };
 
-describe('SortingControl', () => {
+describe('SortLabel', () => {
   let shallow;
   let mount;
   let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'SortingControlBase' });
+    shallow = createShallow({ untilSelector: 'SortLabelBase' });
     mount = createMount();
     classes = getClasses((
-      <SortingControl {...defaultProps} />
+      <SortLabel {...defaultProps} />
     ));
   });
   afterAll(() => {
@@ -32,7 +32,7 @@ describe('SortingControl', () => {
 
   it('should render tooltip', () => {
     const tree = shallow((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
       />
     ));
@@ -45,7 +45,7 @@ describe('SortingControl', () => {
 
   it('should spread rest props to the root element', () => {
     const tree = shallow((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         data={{ a: 1 }}
       />
@@ -56,7 +56,7 @@ describe('SortingControl', () => {
 
   it('should apply custom class to the root element', () => {
     const tree = shallow((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         className="customClass"
       />
@@ -69,7 +69,7 @@ describe('SortingControl', () => {
 
   it('should process nullable direction', () => {
     const tree = shallow((
-      <SortingControl
+      <SortLabel
         {...defaultProps}
         direction={null}
       />
@@ -85,24 +85,24 @@ describe('SortingControl', () => {
     it('should handle the "Enter" and "Space" keys down', () => {
       const onSort = jest.fn();
       const tree = mount((
-        <SortingControl
+        <SortLabel
           {...defaultProps}
           onSort={onSort}
         />
       ));
-      const SortLabel = tree.find(TableSortLabel);
+      const sortLabel = tree.find(TableSortLabel);
 
-      SortLabel.simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE });
+      sortLabel.simulate('keydown', { ...e, keyCode: ENTER_KEY_CODE });
       expect(onSort)
         .toHaveBeenCalled();
 
       onSort.mockClear();
-      SortLabel.simulate('keydown', { ...e, keyCode: SPACE_KEY_CODE });
+      sortLabel.simulate('keydown', { ...e, keyCode: SPACE_KEY_CODE });
       expect(onSort)
         .toHaveBeenCalled();
 
       onSort.mockClear();
-      SortLabel.simulate('keydown', { ...e, keyCode: 51 });
+      sortLabel.simulate('keydown', { ...e, keyCode: 51 });
       expect(onSort)
         .not.toHaveBeenCalled();
     });
@@ -110,7 +110,7 @@ describe('SortingControl', () => {
     it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
       const onSort = jest.fn();
       const tree = mount((
-        <SortingControl
+        <SortLabel
           {...defaultProps}
           onSort={onSort}
         />
@@ -124,7 +124,7 @@ describe('SortingControl', () => {
     it('should handle the "Ctrl" key with sorting', () => {
       const onSort = jest.fn();
       const tree = mount((
-        <SortingControl
+        <SortLabel
           {...defaultProps}
           onSort={onSort}
         />
@@ -138,7 +138,7 @@ describe('SortingControl', () => {
     it('should cancel sorting by using the Ctrl key', () => {
       const onSort = jest.fn();
       const tree = shallow((
-        <SortingControl
+        <SortLabel
           {...defaultProps}
           onSort={onSort}
         />

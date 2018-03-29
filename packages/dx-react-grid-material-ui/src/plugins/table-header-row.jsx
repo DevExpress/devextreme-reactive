@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { CellContent } from '../templates/table-header-cell/cell-content';
-import { SortingControl } from '../templates/table-header-cell/sorting-control';
+import { SortLabel } from '../templates/table-header-cell/sort-label';
 import { TableRow } from '../templates/table-row';
 
 const defaultMessages = {
@@ -22,7 +22,7 @@ export class TableHeaderRow extends React.PureComponent {
         cellComponent={TableHeaderCell}
         cellContentComponent={CellContent}
         rowComponent={TableRow}
-        sortingComponent={SortingControl}
+        sortLabelComponent={SortLabel}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -33,7 +33,7 @@ export class TableHeaderRow extends React.PureComponent {
 TableHeaderRow.Cell = TableHeaderCell;
 TableHeaderRow.CellContent = CellContent;
 TableHeaderRow.Row = TableRow;
-TableHeaderRow.SortingControl = SortingControl;
+TableHeaderRow.SortLabel = SortLabel;
 
 TableHeaderRow.propTypes = {
   messages: PropTypes.shape({

@@ -21,7 +21,7 @@ const SortingIcon = ({ direction }) => (
   />
 );
 
-const SortingControl = ({ onSort, title, direction }) => (
+const SortLabel = ({ onSort, title, direction }) => (
   <button
     className="btn btn-default"
     onClick={onSort}
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow
             showSortingControls
-            sortingComponent={SortingControl}
+            sortLabelComponent={SortLabel}
           />
         </Grid>
       </div>

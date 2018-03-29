@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
+import { Card } from 'reactstrap';
 import {
   SortingState,
   IntegratedSorting,
@@ -8,32 +8,26 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
-
-import Button from 'material-ui/Button';
-import ArrowDownward from 'material-ui-icons/ArrowDownward';
-import ArrowUpward from 'material-ui-icons/ArrowUpward';
+} from '@devexpress/dx-react-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
 
 const SortingIcon = ({ direction }) => (
-  direction === 'asc'
-    ? <ArrowUpward style={{ fontSize: '18px' }} />
-    : <ArrowDownward style={{ fontSize: '18px' }} />
+  <span
+    className={`oi oi-arrow-thick-${direction === 'asc' ? 'top' : 'bottom'}`}
+    style={{ fontSize: '12px', paddingLeft: '5px' }}
+  />
 );
 
-const SortingControl = ({ onSort, title, direction }) => (
-  <Button
-    size="small"
-    variant="raised"
+const SortLabel = ({ onSort, title, direction }) => (
+  <button
+    type="button"
+    className="btn btn-light btn-sm"
     onClick={onSort}
-    style={{
-      margin: '3px',
-    }}
   >
     {title}
     {(direction && <SortingIcon direction={direction} />)}
-  </Button>
+  </button>
 );
 
 export default class Demo extends React.PureComponent {
@@ -54,7 +48,7 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <Paper>
+      <Card>
         <Grid
           rows={rows}
           columns={columns}
@@ -66,10 +60,10 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow
             showSortingControls
-            sortingComponent={SortingControl}
+            sortLabelComponent={SortLabel}
           />
         </Grid>
-      </Paper>
+      </Card>
     );
   }
 }

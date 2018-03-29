@@ -282,24 +282,24 @@ describe('TableHeaderRow', () => {
 
       expect(tree.find('th div').text()).toBe('Test');
     });
-    it('should not render sorting control by default', () => {
+    it('should not render sort label by default', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableHeaderRow
             {...defaultProps}
-            sortingComponent={() => <div className="sorting-control" />}
+            sortLabelComponent={() => <div className="sort-label" />}
             cellComponent={({ children }) => <th>{children}</th>}
             cellContentComponent={({ children }) => <div>{children}</div>}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.sorting-control').exists())
+      expect(tree.find('.sort-label').exists())
         .not.toBeTruthy();
     });
 
-    it('should render sorting control if showSortingControls is true', () => {
+    it('should render sort label if showSortingControls is true', () => {
       isHeadingTableCell.mockImplementation(() => true);
       const deps = {
         plugins: ['SortingState'],
@@ -310,8 +310,8 @@ describe('TableHeaderRow', () => {
           <TableHeaderRow
             {...defaultProps}
             showSortingControls
-            sortingComponent={({ getMessage }) => (
-              <div className="sorting-control" title={getMessage('sortingHint')} />
+            sortLabelComponent={({ getMessage }) => (
+              <div className="sort-label" title={getMessage('sortingHint')} />
             )}
             cellComponent={({ children }) => <th>{children}</th>}
             cellContentComponent={({ children }) => <div>{children}</div>}
@@ -321,11 +321,11 @@ describe('TableHeaderRow', () => {
           />
         </PluginHost>
       ));
-      const sortingControl = tree.find('.sorting-control');
+      const sortLabel = tree.find('.sort-label');
 
-      expect(tree.find('.sorting-control').exists())
+      expect(sortLabel.exists())
         .toBeTruthy();
-      expect(sortingControl.props().title)
+      expect(sortLabel.props().title)
         .toBe('test');
     });
   });

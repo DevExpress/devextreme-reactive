@@ -40,7 +40,7 @@ const onClick = (e, onSort) => {
   onSort({ direction, keepOther });
 };
 
-const SortingControlBase = ({
+const SortLabelBase = ({
   align, direction, title, onSort,
   classes, getMessage, disabled, className, ...restProps
 }) => (
@@ -72,7 +72,7 @@ const SortingControlBase = ({
   </div>
 );
 
-SortingControlBase.propTypes = {
+SortLabelBase.propTypes = {
   align: PropTypes.string,
   direction: PropTypes.oneOf(['asc', 'desc', null]),
   title: PropTypes.string.isRequired,
@@ -83,11 +83,11 @@ SortingControlBase.propTypes = {
   className: PropTypes.string,
 };
 
-SortingControlBase.defaultProps = {
+SortLabelBase.defaultProps = {
   direction: undefined,
   disabled: false,
   align: 'left',
   className: null,
 };
 
-export const SortingControl = withStyles(styles, { name: 'SortingControl' })(SortingControlBase);
+export const SortLabel = withStyles(styles, { name: 'SortLabel' })(SortLabelBase);

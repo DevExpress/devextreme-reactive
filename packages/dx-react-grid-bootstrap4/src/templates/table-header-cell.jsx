@@ -96,7 +96,10 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 TableHeaderCell.defaultProps = {

@@ -81,7 +81,7 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md)] | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Creates a row.
 cancelAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Removes uncommitted new rows from the `addedRows` array.
 commitAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `addedRows` array.

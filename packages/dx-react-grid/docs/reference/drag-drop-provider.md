@@ -41,7 +41,7 @@ Name | Properties | Description
 DragDropProvider.Container | [DragDropProvider.ContainerProps](#dragdropprovidercontainerprops) | A component that renders a container for columns being dragged.
 DragDropProvider.Column | [DragDropProvider.ColumnProps](#dragdropprovidercolumnprops) | A component that renders a column being dragged.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

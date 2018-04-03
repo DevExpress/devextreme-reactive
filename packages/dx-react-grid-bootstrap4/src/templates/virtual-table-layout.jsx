@@ -4,7 +4,7 @@ import {
   VirtualTableLayout as VirtualTableLayoutCore,
 } from '@devexpress/dx-react-grid';
 
-const MINIMAL_COLUMN_WIDTH = 120;
+const MINIMAL_COLUMN_WIDTH = 150;
 
 export const VirtualTableLayout = props => (
   <TableLayout

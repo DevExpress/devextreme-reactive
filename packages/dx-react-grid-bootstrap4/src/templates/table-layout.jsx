@@ -4,7 +4,7 @@ import {
   StaticTableLayout,
 } from '@devexpress/dx-react-grid';
 
-const MINIMAL_COLUMN_WIDTH = 120;
+const MINIMAL_COLUMN_WIDTH = 150;
 
 export const TableLayout = props => (
   <TableLayoutCore

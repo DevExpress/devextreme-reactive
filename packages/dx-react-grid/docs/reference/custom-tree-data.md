@@ -1,6 +1,6 @@
 # CustomTreeData Plugin Reference
 
-A plugin that converts customly formatted tree data to a supported format and performs local row expanding/collapsing.
+A plugin that converts custom formatted tree data to a supported format and performs local row expanding/collapsing.
 
 ## User Reference
 
@@ -12,7 +12,7 @@ A plugin that converts customly formatted tree data to a supported format and pe
 
 Name | Type | Default | Description
 -----|------|---------|------------
-getChildRows | (currentRow: any &#124; null, rootRows: Array&lt;any&gt;) => Array&lt;any&gt; &#124; null | | A function that extracts child rows from the specified data. It is executed recursively for the root and nested rows. The `currentRow` parameter is `null` for root rows. The return value should be null if a row is a leaf, otherwise it should be an array of rows. If child rows are not avaliable, the function should return an empty array.
+getChildRows | (currentRow: any &#124; null, rootRows: Array&lt;any&gt;) => Array&lt;any&gt; &#124; null | | A function that extracts child rows from the specified data. It is executed recursively for the root and nested rows. The `currentRow` parameter is `null` for root rows. The return value should be null if a row is a leaf, otherwise it should be an array of rows. If child rows are not available, the function should return an empty array.
 
 ## Plugin Developer Reference
 

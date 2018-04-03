@@ -7,7 +7,7 @@ export class StaticTableLayout extends React.PureComponent {
   render() {
     const {
       headerRows,
-      rows,
+      bodyRows,
       columns,
       minWidth,
       containerComponent: Container,
@@ -36,7 +36,7 @@ export class StaticTableLayout extends React.PureComponent {
             />
           )}
           <RowsBlockLayout
-            rows={rows}
+            rows={bodyRows}
             columns={columns}
             blockComponent={bodyComponent}
             rowComponent={rowComponent}
@@ -51,7 +51,7 @@ export class StaticTableLayout extends React.PureComponent {
 
 StaticTableLayout.propTypes = {
   headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   minWidth: PropTypes.number.isRequired,
   containerComponent: PropTypes.func.isRequired,

@@ -26,10 +26,10 @@ export class VirtualTableLayout extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (
       this.props.headerRows !== nextProps.headerRows ||
-      this.props.rows !== nextProps.rows
+      this.props.bodyRows !== nextProps.bodyRows
     ) {
       const { rowHeights: prevRowHeight } = this.state;
-      const rowHeights = [...nextProps.headerRows, ...nextProps.rows].reduce(
+      const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
         (acc, row) => {
           const rowHeight = prevRowHeight.get(row.key);
           if (rowHeight !== undefined) {
@@ -162,7 +162,7 @@ export class VirtualTableLayout extends React.PureComponent {
   render() {
     const {
       headerRows,
-      rows,
+      bodyRows,
       columns,
       minColumnWidth,
       height,
@@ -190,7 +190,7 @@ export class VirtualTableLayout extends React.PureComponent {
             getColSpan: getCellColSpan,
           });
           const collapsedBodyGrid = getCollapsedGrid({
-            rows,
+            rows: bodyRows,
             columns,
             top: this.state.viewportTop,
             left: this.state.viewportLeft,
@@ -221,7 +221,7 @@ VirtualTableLayout.propTypes = {
   minColumnWidth: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

@@ -86,7 +86,7 @@ export class Table extends React.PureComponent {
                 bodyComponent={bodyComponent}
                 containerComponent={containerComponent}
                 headerRows={headerRows}
-                rows={bodyRows}
+                bodyRows={bodyRows}
                 columns={columns}
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}

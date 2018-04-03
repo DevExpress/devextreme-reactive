@@ -42,7 +42,7 @@ const defaultProps = {
   minColumnWidth: 120,
   height: 100,
   estimatedRowHeight: 40,
-  rows: [
+  bodyRows: [
     { key: 1 },
     { key: 2 },
     { key: 3 },
@@ -100,7 +100,7 @@ describe('VirtualTableLayout', () => {
     const tree = shallow((
       <VirtualTableLayout
         {...defaultProps}
-        headerRows={defaultProps.rows.slice(0, 1)}
+        headerRows={defaultProps.bodyRows.slice(0, 1)}
       />
     ));
 
@@ -113,7 +113,7 @@ describe('VirtualTableLayout', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.rows.slice(0, 1)}
+          headerRows={defaultProps.bodyRows.slice(0, 1)}
         />
       ));
 
@@ -139,7 +139,7 @@ describe('VirtualTableLayout', () => {
       const tree = shallow((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={defaultProps.rows.slice(0, 1)}
+          headerRows={defaultProps.bodyRows.slice(0, 1)}
         />
       ));
 
@@ -182,7 +182,7 @@ describe('VirtualTableLayout', () => {
       mount((
         <VirtualTableLayout
           {...defaultProps}
-          rows={rows}
+          bodyRows={rows}
         />
       ));
     });
@@ -202,7 +202,7 @@ describe('VirtualTableLayout', () => {
       mount((
         <VirtualTableLayout
           {...defaultProps}
-          rows={rows}
+          bodyRows={rows}
         />
       ));
 
@@ -228,10 +228,10 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          rows={rows}
+          bodyRows={rows}
         />
       ));
-      tree.setProps({ rows: [rows[0]] });
+      tree.setProps({ bodyRows: [rows[0]] });
 
       const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
       expect(getRowHeight(rows[1]))

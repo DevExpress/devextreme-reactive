@@ -8,7 +8,7 @@ export const TableCell = ({
 }) => (
   <td
     style={{
-      whiteSpace: 'nowrap',
+      whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: (tableColumn && tableColumn.align) || 'left',

@@ -17,6 +17,16 @@ describe('TableCell', () => {
     expect(tree.find('td').prop('style').textAlign).toBe('center');
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find('td').prop('style').whiteSpace)
+      .toBe('nowrap');
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('td').prop('style').whiteSpace)
+      .toBe('normal');
+  });
+
   it('should have correct text', () => {
     const tree = shallow(<TableCell value="text" />);
     expect(tree.find('td').text()).toBe('text');

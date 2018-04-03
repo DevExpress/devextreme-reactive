@@ -13,13 +13,15 @@ const styles = theme => ({
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
   cellRightAlign: {
     textAlign: 'right',
   },
   cellCenterAlign: {
     textAlign: 'center',
+  },
+  cellNoWrap: {
+    whiteSpace: 'nowrap',
   },
 });
 
@@ -34,6 +36,7 @@ const TableCellBase = ({
       [classes.cell]: true,
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className)}
     {...restProps}
   >

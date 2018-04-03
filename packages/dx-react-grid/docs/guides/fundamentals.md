@@ -48,6 +48,12 @@ Static widths for specific columns can be defined via the `Table` plugin's `colu
 
 .embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
 
+### Multiline cells
+
+The Grid cuts off values that do not fit in a cell. Assign true to the Table plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
+
+.embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
+
 ### Other plugins
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

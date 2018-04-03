@@ -61,8 +61,8 @@ EditCommandHeadingCell.defaultProps = {
 };
 
 export const EditCommandCell = ({
+  tableColumn, tableRow, row,
   children, className,
-  tableColumn, tableRow,
   ...restProps
 }) => (
   <td
@@ -80,6 +80,7 @@ EditCommandCell.propTypes = {
   ]),
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  row: PropTypes.object,
   className: PropTypes.string,
 };
 
@@ -87,5 +88,6 @@ EditCommandCell.defaultProps = {
   children: undefined,
   tableColumn: undefined,
   tableRow: undefined,
+  row: undefined,
   className: undefined,
 };

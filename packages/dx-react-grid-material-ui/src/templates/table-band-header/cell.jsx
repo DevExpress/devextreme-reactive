@@ -13,6 +13,10 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit * 3,
       borderLeft: 0,
     },
+    '&:last-child': {
+      paddingRight: theme.spacing.unit * 3,
+      borderRight: 0,
+    },
     height: theme.spacing.unit * 6,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

@@ -1,0 +1,6 @@
+.dx-rg-bs4-banded-cell:first-child {
+  border-left: 0!important;
+}
+.dx-rg-bs4-banded-cell:last-child {
+  border-right: 0!important;
+}

@@ -12,6 +12,9 @@ const styles = theme => ({
     '&:first-child': {
       borderLeft: 0,
     },
+    '&:last-child': {
+      borderRight: 0,
+    },
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing.unit * 2,
   },

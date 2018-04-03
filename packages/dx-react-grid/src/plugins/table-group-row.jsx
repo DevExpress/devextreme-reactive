@@ -18,8 +18,8 @@ const pluginDependencies = [
 
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
   tableRowsWithGrouping(tableBodyRows, isGroupRow);
-const getCellColSpanComputed = ({ getCellColSpan }) =>
-  tableGroupRowCellColSpanGetter(getCellColSpan);
+const getCellColSpanComputed = ({ getTableCellColSpan }) =>
+  tableGroupRowCellColSpanGetter(getTableCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
@@ -60,7 +60,7 @@ export class TableGroupRow extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="getCellColSpan" computed={getCellColSpanComputed} />
+        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
         <Template
           name="tableCell"

@@ -29,7 +29,7 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
     expandedDetailRowIds: { onClick: () => {} },
-    getCellColSpan: () => 1,
+    getTableCellColSpan: () => 1,
   },
   action: {
     toggleDetailRowExpanded: jest.fn(),
@@ -117,7 +117,7 @@ describe('TableRowDetail', () => {
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
 
-    it('should extend getCellColSpan', () => {
+    it('should extend getTableCellColSpan', () => {
       const tree = mount((
 
         <PluginHost>
@@ -128,10 +128,10 @@ describe('TableRowDetail', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getCellColSpan)
+      expect(getComputedState(tree).getTableCellColSpan)
         .toBe('tableDetailRowCellColSpanGetter');
       expect(tableDetailRowCellColSpanGetter)
-        .toBeCalledWith(defaultDeps.getter.getCellColSpan);
+        .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
     });
   });
 

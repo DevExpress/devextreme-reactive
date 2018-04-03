@@ -59,7 +59,7 @@ export class Table extends React.PureComponent {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="getCellColSpan" value={tableCellColSpanGetter} />
+        <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
@@ -70,7 +70,7 @@ export class Table extends React.PureComponent {
               tableHeaderRows: headerRows,
               tableBodyRows: bodyRows,
               tableColumns: columns,
-              getCellColSpan,
+              getTableCellColSpan,
             }) => (
               <Layout
                 headTableComponent={fixedHeaderComponent}
@@ -84,7 +84,7 @@ export class Table extends React.PureComponent {
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
                 getCellColSpan={(tableRow, tableColumn) =>
-                  getCellColSpan({ tableRow, tableColumn, tableColumns: columns })}
+                  getTableCellColSpan({ tableRow, tableColumn, tableColumns: columns })}
               />
             )}
           </TemplateConnector>

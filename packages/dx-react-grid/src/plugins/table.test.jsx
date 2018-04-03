@@ -116,7 +116,7 @@ describe('Table', () => {
         .toBe('tableColumnsWithDataRows');
     });
 
-    it('should provide getCellColSpan', () => {
+    it('should provide getTableCellColSpan', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -127,7 +127,7 @@ describe('Table', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getCellColSpan)
+      expect(getComputedState(tree).getTableCellColSpan)
         .toBe(tableCellColSpanGetter);
     });
   });

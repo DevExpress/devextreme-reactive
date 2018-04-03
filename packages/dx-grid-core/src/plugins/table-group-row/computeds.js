@@ -60,11 +60,11 @@ export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
     };
   });
 
-export const tableGroupRowCellColSpanGetter = getCellColSpan => (params) => {
+export const tableGroupRowCellColSpanGetter = getTableCellColSpan => (params) => {
   const { tableRow, tableColumns, tableColumn } = params;
   if (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE
     && tableRow.row.groupedBy === tableColumn.column.name) {
     return tableColumns.length - tableColumns.indexOf(tableColumn);
   }
-  return getCellColSpan(params);
+  return getTableCellColSpan(params);
 };

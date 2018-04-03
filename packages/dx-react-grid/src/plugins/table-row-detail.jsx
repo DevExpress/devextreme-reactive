@@ -11,8 +11,8 @@ import {
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getCellColSpanComputed = ({ getCellColSpan }) =>
-  tableDetailRowCellColSpanGetter(getCellColSpan);
+const getCellColSpanComputed = ({ getTableCellColSpan }) =>
+  tableDetailRowCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
   { name: 'Table' },
@@ -41,7 +41,7 @@ export class TableRowDetail extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="getCellColSpan" computed={getCellColSpanComputed} />
+        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
         <Template
           name="tableCell"

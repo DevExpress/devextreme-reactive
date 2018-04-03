@@ -31,7 +31,7 @@ const defaultDeps = {
     draftGrouping: [{ columnName: 'a' }, { columnName: 'b' }],
     expandedGroups: [],
     isGroupRow: () => false,
-    getCellColSpan: () => 1,
+    getTableCellColSpan: () => 1,
   },
   action: {
     toggleGroupExpanded: jest.fn(),
@@ -120,7 +120,7 @@ describe('TableGroupRow', () => {
         );
     });
 
-    it('should extend getCellColSpan', () => {
+    it('should extend getTableCellColSpan', () => {
       const tree = mount((
 
         <PluginHost>
@@ -131,10 +131,10 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).getCellColSpan)
+      expect(getComputedState(tree).getTableCellColSpan)
         .toBe('tableGroupRowCellColSpanGetter');
       expect(tableGroupRowCellColSpanGetter)
-        .toBeCalledWith(defaultDeps.getter.getCellColSpan);
+        .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
     });
   });
 

@@ -17,11 +17,11 @@ A plugin that renders a table column with toggle button and sorting indicators.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-for | string | | A column name used to identify a column that will be represented as a tree.
+for | string | | The name of a column that should be represented as a tree.
 cellComponent | ComponentType&lt;[TableTreeColumn.CellProps](#tabletreecolumncellprops)&gt; | | A component that renders a cell within a data row.
 contentComponent | ComponentType&lt;[TableTreeColumn.ContentProps](#tabletreecolumncontentprops)&gt; | | A component that renders a cell's content.
-indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify row level.
-expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls row's expanded state.
+indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify a row level.
+expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls the row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
 showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
 showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
@@ -39,7 +39,7 @@ Field | Type | Description
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
-children? | ReactNode | A React node to be placed in the cell.
+children? | ReactNode | A React node to be rendered within the cell.
 
 ### TableTreeColumn.ContentProps
 
@@ -47,23 +47,23 @@ Describes properties passed to a component that renders a cell's content.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node to be placed in the cell's content.
+children? | ReactNode | A React node to be rendered within the cell's content.
 
 ### TableTreeColumn.IndentProps
 
-Describes properties passed to a component that renders an indent used to identify row level.
+Describes properties passed to a component that renders an indent used to identify a row level.
 
 Field | Type | Description
 ------|------|------------
-level | number | Specifies a row level.
+level | number | Specifies the row level.
 
 ### TableTreeColumn.ExpandButtonProps
 
-Describes properties passed to a component that renders a button that controls row's expanded state.
+Describes properties passed to a component that renders a button used to controls a row's expanded state.
 
 Field | Type | Description
 ------|------|------------
-visible | boolean | Specifies whether to show button.
+visible | boolean | Specifies whether to show the button.
 expanded | boolean | Specifies whether a row is expanded.
 onToggle | () => void | An event that initiates row expanding or collapsing.
 
@@ -73,9 +73,9 @@ Describes properties passed to a component that renders a checkbox used to contr
 
 Field | Type | Description
 ------|------|------------
-disabled | boolean | Specifies whether a row is disallowed to select.
+disabled | boolean | Specifies whether a row is unavailable for selection.
 checked | boolean | Specifies whether a row is selected.
-indeterminate | boolean | Specifies whether a row is partially selected.
+indeterminate | boolean | Specifies whether a row's children are partially selected.
 onChange | () => void | An event that initiates row selecting or deselecting.
 
 ## Plugin Components
@@ -84,11 +84,11 @@ Name | Properties | Description
 -----|------------|------------
 TableTreeColumn.Cell | [TableTreeColumn.CellProps](#tabletreecolumncellprops) | A component that renders a cell within a data row.
 TableTreeColumn.Content | [TableTreeColumn.ContentProps](#tabletreecolumncontentprops) | A component that renders a cell's content.
-TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentprops) | A component that renders an indent used to identify row level.
-TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button that controls row's expanded state.
+TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentprops) | A component that renders an indent used to identify a row level.
+TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button used to controls a row's expanded state.
 TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.
 
-If you specify additional properties, they are added to the component's root element.
+The additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 
@@ -99,7 +99,7 @@ Name | Plugin | Type | Description
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function used to get a group row level key.
 getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a given row's column value.
-getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get a given row's collapsed rows.
+getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get collapsed child rows of a given row.
 isTreeRowLeaf | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
 getTreeRowLevel | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number | A function used to identify a node level in tree data structure.
 expandedRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Currently expanded rows.
@@ -111,7 +111,7 @@ selectAllAvailable | [Getter](../../../dx-react-core/docs/reference/getter.md) |
 allSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | [Getter](../../../dx-react-core/docs/reference/getter.md) | boolean | Indicates whether some rows are selected. False if all/none rows are selected.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
-tableHeaderCellBefore | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template used to prepend additional components to the header table cell.
+tableHeaderCellBefore | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template used to prepend additional components to a header cell.
 valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports

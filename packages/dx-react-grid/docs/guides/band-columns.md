@@ -1,6 +1,6 @@
 # React Grid - Band Columns
 
-The Grid component supports the Band Columns feature. You can specify the children columns to implement multiple levels of columns in your table header.
+The Grid component supports Band Columns. You can this feature by specifying child columns for a column in the table header.
 
 ## Related Plugins
 
@@ -11,6 +11,6 @@ The following plugins implement the Band Columns feature:
 
 ## Basic Setup
 
-Import the plugins listed above and specify a required the TableBandHeader's property `columnBands` to set up a Grid with the Band Columns feature. The Band Columns are provide the columns in a tree hierarchy to the Data Grid. Levels of nested columns are unlimited.
+Import the plugins listed above and specify the TableBandHeader plugin's `columnBands` property to set up a Grid with Band Columns. The nesting level depth is unlimited.
 
 .embedded-demo({ "path": "grid-band-columns/basic", "showThemeSelector": true })

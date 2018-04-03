@@ -40,7 +40,6 @@ const tableDetailColumnExtensions = [
   { columnName: 'status', width: 125 },
 ];
 const columnBands = [
-  { columnName: 'prefix' },
   {
     title: 'Personal Data',
     children: [

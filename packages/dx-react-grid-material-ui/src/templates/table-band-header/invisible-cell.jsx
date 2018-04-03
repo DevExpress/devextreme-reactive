@@ -17,4 +17,4 @@ EmptyCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const EmptyCell = withStyles(styles, { name: 'EmptyCell' })(EmptyCellBase);
+export const InvisibleCell = withStyles(styles, { name: 'InvisibleCell' })(EmptyCellBase);

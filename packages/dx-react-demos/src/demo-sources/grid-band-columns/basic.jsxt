@@ -1,25 +1,22 @@
 import * as React from 'react';<%&additionalImports%>
+import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableBandHeader,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-import { countries } from '../../../demo-data/countries';
+import { countries } from './../countries';
 
-const PercentCell = ({ value, ...restProps }) => (
-  <Table.Cell
-    {...restProps}
-  >
-    {value}%
-  </Table.Cell>
+const PercentFormatter = ({ value }) =>
+  <span>{value}%</span>;
+
+const PercentTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={PercentFormatter}
+    {...props}
+  />
 );
-
-const Cell = (props) => {
-  if (['GDP_Industry', 'GDP_Services', 'GDP_Agriculture', 'Population_Urban']
-    .indexOf(props.column.name) > -1) return <PercentCell {...props} />;
-  return <Table.Cell {...props} />;
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -68,10 +65,13 @@ export default class Demo extends React.PureComponent {
         { columnName: 'GDP_Services', width: 90, align: 'right' },
         { columnName: 'GDP_Agriculture', width: 110, align: 'right' },
       ],
+      percentColumns: ['GDP_Industry', 'GDP_Services', 'GDP_Agriculture', 'Population_Urban'],
     };
   }
   render() {
-    const { columns, tableColumnExtensions, columnBands } = this.state;
+    const {
+      columns, tableColumnExtensions, columnBands, percentColumns,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -79,8 +79,10 @@ export default class Demo extends React.PureComponent {
           rows={countries}
           columns={columns}
         >
+          <PercentTypeProvider
+            for={percentColumns}
+          />
           <Table
-            cellComponent={Cell}
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />

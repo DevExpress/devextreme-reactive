@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import './drag-drop.css';
 
 export const Container = ({
   clientOffset, style, className, children,

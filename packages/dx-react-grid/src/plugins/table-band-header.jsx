@@ -17,7 +17,7 @@ export class TableBandHeader extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: Row,
       bandedHeaderCellComponent: HeaderCell,
-      emptyCellComponent: EmptyCell,
+      invisibleCellComponent: InvisibleCell,
       columnBands,
     } = this.props;
 
@@ -50,9 +50,9 @@ export class TableBandHeader extends React.PureComponent {
                   case BAND_DUPLICATE_RENDER:
                     return <TemplatePlaceholder />;
                   case BAND_EMPTY_CELL:
-                    return <EmptyCell />;
+                    return <InvisibleCell />;
                   case BAND_GROUP_CELL:
-                    return <Cell {...params} {...bandComponent.payload} />;
+                  return <Cell {...params} {...bandComponent.payload} />;
                   case BAND_HEADER_CELL:
                     return (
                       <TemplatePlaceholder
@@ -89,5 +89,5 @@ TableBandHeader.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   bandedHeaderCellComponent: PropTypes.func.isRequired,
-  emptyCellComponent: PropTypes.func.isRequired,
+  invisibleCellComponent: PropTypes.func.isRequired,
 };

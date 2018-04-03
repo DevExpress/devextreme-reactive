@@ -14,7 +14,7 @@
 .dx-rg-bs4-resizing-control-wrapper-active {
   opacity: 1;
 }
-.dx-rg-header-cell:hover .dx-rg-bs4-resizing-control-wrapper {
+.dx-rg-bs4-header-cell:hover .dx-rg-bs4-resizing-control-wrapper {
   opacity: 1;
 }
 .dx-rg-bs4-resize-control-line {

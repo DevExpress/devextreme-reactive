@@ -18,11 +18,10 @@ const styles = theme => ({
 });
 
 export const BandedHeaderCellBase = ({
-  component: Component, className, classes, rowSpan, ...restProps
+  component: Component, className, classes, ...restProps
 }) => (
   <Component
     className={classNames(classes.headerCellBorder, className)}
-    rowSpan={rowSpan}
     {...restProps}
   />
 );

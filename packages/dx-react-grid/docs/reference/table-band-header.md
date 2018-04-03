@@ -18,7 +18,7 @@ Name | Type | Default | Description
 cellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a parent cells' row.
 bandedHeaderCellComponent | ComponentType&lt;[TableBandHeader.BandedHeaderCellComponentProps](#tablebandheaderbandedheadercellcomponentprops)&gt; | | A component that renders a header cell.
-columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies the nested columns for multi-level table header.
+columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies column bands for multi-level table header.
 
 ## Interfaces
 
@@ -36,9 +36,9 @@ Describes properties of column bands that the TableBandHeader plugin renders.
 
 Name | Type | Description
 -----|------------|------------
-columnName? | string | A column name.
-title? | string | The parent column's title.
-children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | Nested columns.
+columnName? | string | A column name that is used to identify a column in the bands tree.
+title? | string | The band's title. Used only for bands and ignored for columns.
+children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | Nested bands and columns.
 
 ## Plugin Components
 

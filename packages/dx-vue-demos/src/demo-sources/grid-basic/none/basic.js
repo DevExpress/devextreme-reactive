@@ -1,4 +1,4 @@
-import { Grid, Table } from '@devexpress/dx-vue-grid-bootstrap4';
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-vue-grid-bootstrap4';
 
 export default {
   render() {
@@ -16,6 +16,7 @@ export default {
           ]}
         >
           <Table />
+          <TableHeaderRow />
         </Grid>
       </div>
     );

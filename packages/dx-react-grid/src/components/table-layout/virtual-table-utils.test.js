@@ -5,6 +5,8 @@ import {
   getCollapsedColumns,
   getCollapsedCells,
   getCollapsedGrid,
+  VISIBLE_TYPE,
+  STUB_TYPE,
 } from './virtual-table-utils';
 
 describe('VirtualTableLayout utils', () => {
@@ -216,22 +218,21 @@ describe('VirtualTableLayout utils', () => {
       const args = {
         rows: [
           { key: 0, height: 40 },
-          { key: 1, height: 40 },
-          { key: 2, height: 40 },
-          { key: 3, height: 40 },
-          { key: 4, height: 40 },
-          { key: 5, height: 40 },
-          { key: 6, height: 40 },
-          { key: 7, height: 40 },
+          { key: 1, height: 40 }, // visible (overscan)
+          { key: 2, height: 40 }, // visible (overscan)
+          { key: 3, height: 40 }, // visible (overscan)
+          { key: 4, height: 40 }, // visible
+          { key: 5, height: 40 }, // visible (overscan)
+          { key: 6, height: 40 }, // visible (overscan)
+          { key: 7, height: 40 }, // visible (overscan)
           { key: 8, height: 40 },
         ],
         columns: [
           { key: 0, width: 40 },
-          { key: 1, width: 40 },
-          { key: 2, width: 40 },
-          { key: 3, width: 40 },
+          { key: 1, width: 40 }, // visible (overscan)
+          { key: 2, width: 40 }, // visible
+          { key: 3, width: 40 }, // visible (overscan)
           { key: 4, width: 40 },
-          { key: 5, width: 40 },
         ],
         top: 160,
         left: 80,
@@ -239,8 +240,17 @@ describe('VirtualTableLayout utils', () => {
         width: 40,
       };
 
-      expect(getCollapsedGrid(args))
-        .toMatchSnapshot();
+      const result = getCollapsedGrid(args);
+
+      expect(result.rows.map(row => row.type))
+        .toEqual([STUB_TYPE, ...Array.from({ length: 7 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
+      expect(result.columns.map(row => row.type))
+        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
+
+      expect(result.rows[1].cells.map(cell => cell.type))
+        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
+      expect(result.rows[1].cells.map(cell => cell.colSpan))
+        .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
 
     it('should return empty resule when there are no columns', () => {
@@ -284,38 +294,51 @@ describe('VirtualTableLayout utils', () => {
     it('should work with collspan', () => {
       const args = {
         rows: [
-          { key: 0, height: 40 },
-          { key: 1, height: 40 },
-          { key: 2, height: 40 },
-          { key: 3, height: 40 },
+          { key: 0, height: 40 }, // visible
+          { key: 1, height: 40 }, // visible (overscan)
+          { key: 2, height: 40 }, // visible (overscan)
+          { key: 3, height: 40 }, // visible (overscan)
           { key: 4, height: 40 },
         ],
         columns: [
-          { key: 0, width: 40 },
-          { key: 1, width: 40 },
-          { key: 2, width: 40 },
-          { key: 3, width: 40 },
-          { key: 4, width: 40 },
-          { key: 5, width: 40 },
-          { key: 6, width: 40 },
-          { key: 7, width: 40 },
+          { key: 0, width: 40 }, // stub ┐
+          { key: 1, width: 40 }, // stub ┘
+          { key: 2, width: 40 }, // stub
+          { key: 3, width: 40 }, // visible (overscan)
+          { key: 4, width: 40 }, // visible
+          { key: 5, width: 40 }, // visible (overscan)
+          { key: 6, width: 40 }, // stub ┐
+          { key: 7, width: 40 }, // stub ┘
+          { key: 8, width: 40 }, // stub
         ],
         top: 0,
-        left: 120,
+        left: 160,
         height: 40,
         width: 40,
         getColSpan: (row, column) => {
-          if (row.key === 0 && column.key === 3) return 2;
-          if (row.key === 1 && column.key === 1) return 3;
-          if (row.key === 2 && column.key === 0) return 4;
-          if (row.key === 3 && column.key === 4) return 3;
-          if (row.key === 4 && column.key === 4) return 4;
+          if (row.key === 0 && column.key === 2) return 2;
+          if (row.key === 0 && column.key === 5) return 3;
+          if (row.key === 1 && column.key === 2) return 6;
+          if (row.key === 2 && column.key === 0) return 9;
           return 1;
         },
       };
 
-      expect(getCollapsedGrid(args))
-        .toMatchSnapshot();
+      const result = getCollapsedGrid(args);
+
+      expect(result.columns.map(row => row.type))
+        .toEqual([
+          STUB_TYPE, STUB_TYPE,
+          ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE),
+          STUB_TYPE, STUB_TYPE,
+        ]);
+
+      expect(result.rows[0].cells.map(cell => cell.colSpan))
+        .toEqual([1, 2, 1, 1, 2, 1, 1]);
+      expect(result.rows[1].cells.map(cell => cell.colSpan))
+        .toEqual([1, 5, 1, 1, 1, 1, 1]);
+      expect(result.rows[2].cells.map(cell => cell.colSpan))
+        .toEqual([7, 1, 1, 1, 1, 1, 1]);
     });
   });
 });

@@ -15,6 +15,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
         placeholder,
         name,
         rootComponent: Root,
+        ...restProps
       } = this.props;
       return (
         <Plugin name={pluginName}>
@@ -44,7 +45,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                   <Root x={x} y={y}>
                     <WrappedComponent
                       attributes={attributes}
-                      {...this.props}
+                      {...restProps}
                     />
                   </Root>
                 );

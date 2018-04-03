@@ -10,6 +10,7 @@ import {
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
+  tableCellColSpanGetter,
   isNoDataTableRow,
   isNoDataTableCell,
   isDataTableCell,
@@ -58,15 +59,7 @@ export class Table extends React.PureComponent {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter
-          name="getCellColSpan"
-          value={({ tableRow, tableColumn, tableColumns }) => {
-            if (tableRow.type === 'nodata' && tableColumns.indexOf(tableColumn) === 0) {
-              return tableColumns.length;
-            }
-            return 1;
-          }}
-        />
+        <Getter name="getCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />

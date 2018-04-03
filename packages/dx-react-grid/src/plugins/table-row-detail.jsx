@@ -3,12 +3,16 @@ import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
+  tableDetailRowCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
   isDetailTableRow,
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getCellColSpanComputed = ({ getCellColSpan }) =>
+  tableDetailRowCellColSpanGetter(getCellColSpan);
 
 const pluginDependencies = [
   { name: 'Table' },
@@ -37,16 +41,7 @@ export class TableRowDetail extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter
-          name="getCellColSpan"
-          computed={({ getCellColSpan }) => (params) => {
-            const { tableRow, tableColumns, tableColumn } = params;
-            if (tableRow.type === 'detail' && tableColumns.indexOf(tableColumn) === 0) {
-              return tableColumns.length;
-            }
-            return getCellColSpan(params);
-          }}
-        />
+        <Getter name="getCellColSpan" computed={getCellColSpanComputed} />
 
         <Template
           name="tableCell"

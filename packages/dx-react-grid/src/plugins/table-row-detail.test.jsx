@@ -4,6 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
+  tableDetailRowCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
@@ -15,6 +16,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),
+  tableDetailRowCellColSpanGetter: jest.fn(),
   isDetailRowExpanded: jest.fn(),
   tableColumnsWithDetail: jest.fn(),
   isDetailToggleTableCell: jest.fn(),
@@ -27,6 +29,7 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
     expandedDetailRowIds: { onClick: () => {} },
+    getCellColSpan: () => 1,
   },
   action: {
     toggleDetailRowExpanded: jest.fn(),
@@ -64,6 +67,7 @@ describe('TableRowDetail', () => {
 
   beforeEach(() => {
     tableRowsWithExpandedDetail.mockImplementation(() => 'tableRowsWithExpandedDetail');
+    tableDetailRowCellColSpanGetter.mockImplementation(() => 'tableDetailRowCellColSpanGetter');
     isDetailRowExpanded.mockImplementation(() => false);
     tableColumnsWithDetail.mockImplementation(() => 'tableColumnsWithDetail');
     isDetailToggleTableCell.mockImplementation(() => false);
@@ -111,6 +115,23 @@ describe('TableRowDetail', () => {
         .toBe('tableColumnsWithDetail');
       expect(tableColumnsWithDetail)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+    });
+
+    it('should extend getCellColSpan', () => {
+      const tree = mount((
+
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableRowDetail
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).getCellColSpan)
+        .toBe('tableDetailRowCellColSpanGetter');
+      expect(tableDetailRowCellColSpanGetter)
+        .toBeCalledWith(defaultDeps.getter.getCellColSpan);
     });
   });
 

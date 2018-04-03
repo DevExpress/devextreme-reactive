@@ -4,6 +4,7 @@ import { Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector } from
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
+  tableGroupRowCellColSpanGetter,
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
@@ -17,6 +18,8 @@ const pluginDependencies = [
 
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
   tableRowsWithGrouping(tableBodyRows, isGroupRow);
+const getCellColSpanComputed = ({ getCellColSpan }) =>
+  tableGroupRowCellColSpanGetter(getCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
@@ -57,16 +60,7 @@ export class TableGroupRow extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter
-          name="getCellColSpan"
-          computed={({ getCellColSpan }) => (params) => {
-            const { tableRow, tableColumns, tableColumn } = params;
-            if (tableRow.type === 'group' && tableColumn.type === 'group' && tableRow.row.groupedBy === tableColumn.column.name) {
-              return tableColumns.length - tableColumns.indexOf(tableColumn);
-            }
-            return getCellColSpan(params);
-          }}
-        />
+        <Getter name="getCellColSpan" computed={getCellColSpanComputed} />
 
         <Template
           name="tableCell"

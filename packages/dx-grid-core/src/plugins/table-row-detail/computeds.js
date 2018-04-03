@@ -29,3 +29,11 @@ export const tableColumnsWithDetail = (tableColumns, toggleColumnWidth) => [
   { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: toggleColumnWidth },
   ...tableColumns,
 ];
+
+export const tableDetailRowCellColSpanGetter = getCellColSpan => (params) => {
+  const { tableRow, tableColumns, tableColumn } = params;
+  if (tableRow.type === TABLE_DETAIL_TYPE && tableColumns.indexOf(tableColumn) === 0) {
+    return tableColumns.length;
+  }
+  return getCellColSpan(params);
+};

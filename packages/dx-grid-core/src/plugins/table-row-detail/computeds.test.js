@@ -2,6 +2,7 @@ import { TABLE_DETAIL_TYPE } from './constants';
 import {
   tableRowsWithExpandedDetail,
   tableColumnsWithDetail,
+  tableDetailRowCellColSpanGetter,
 } from './computeds';
 
 describe('TableRowDetail Plugin computeds', () => {
@@ -71,6 +72,35 @@ describe('TableRowDetail Plugin computeds', () => {
           { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: 50 },
           {},
         ]);
+    });
+  });
+
+  describe('#tableGroupRowCellColSpanGetter', () => {
+    const parentGetCellColSpan = () => 'original';
+    it('should return correct colspan', () => {
+      const getCellColSpanGetter = tableDetailRowCellColSpanGetter(parentGetCellColSpan);
+
+      const tableColumn = { type: 'undefined' };
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_DETAIL_TYPE },
+        tableColumn,
+        tableColumns: [tableColumn, {}, {}],
+      }))
+        .toBe(3);
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_DETAIL_TYPE },
+        tableColumn,
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe('original');
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: 'undefined' },
+        tableColumn: { type: 'undefined' },
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe('original');
     });
   });
 });

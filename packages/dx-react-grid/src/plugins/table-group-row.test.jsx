@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
+  tableGroupRowCellColSpanGetter,
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
@@ -15,6 +16,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithGrouping: jest.fn(),
   tableRowsWithGrouping: jest.fn(),
+  tableGroupRowCellColSpanGetter: jest.fn(),
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
@@ -29,6 +31,7 @@ const defaultDeps = {
     draftGrouping: [{ columnName: 'a' }, { columnName: 'b' }],
     expandedGroups: [],
     isGroupRow: () => false,
+    getCellColSpan: () => 1,
   },
   action: {
     toggleGroupExpanded: jest.fn(),
@@ -67,6 +70,7 @@ describe('TableGroupRow', () => {
   beforeEach(() => {
     tableColumnsWithGrouping.mockImplementation(() => 'tableColumnsWithGrouping');
     tableRowsWithGrouping.mockImplementation(() => 'tableRowsWithGrouping');
+    tableGroupRowCellColSpanGetter.mockImplementation(() => 'tableGroupRowCellColSpanGetter');
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
@@ -114,6 +118,23 @@ describe('TableGroupRow', () => {
           defaultProps.indentColumnWidth,
           expect.any(Function),
         );
+    });
+
+    it('should extend getCellColSpan', () => {
+      const tree = mount((
+
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).getCellColSpan)
+        .toBe('tableGroupRowCellColSpanGetter');
+      expect(tableGroupRowCellColSpanGetter)
+        .toBeCalledWith(defaultDeps.getter.getCellColSpan);
     });
   });
 

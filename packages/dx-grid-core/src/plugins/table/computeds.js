@@ -26,3 +26,11 @@ export const tableRowsWithDataRows = (rows, getRowId) => (
         key: `${TABLE_DATA_TYPE}_${rowId}`,
       };
     }));
+
+export const tableCellColSpanGetter = (params) => {
+  const { tableRow, tableColumns, tableColumn } = params;
+  if (tableRow.type === TABLE_NODATA_TYPE && tableColumns.indexOf(tableColumn) === 0) {
+    return tableColumns.length;
+  }
+  return 1;
+};

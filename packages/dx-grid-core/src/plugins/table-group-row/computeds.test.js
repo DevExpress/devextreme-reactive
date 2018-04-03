@@ -139,7 +139,6 @@ describe('TableGroupRow Plugin computeds', () => {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
             row: { group: true, groupedBy: 'a', compoundKey: 'B' },
-            colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
           { type: TABLE_DATA_TYPE, row: { id: 0 } },
           { type: TABLE_DATA_TYPE, row: { id: 1 } },

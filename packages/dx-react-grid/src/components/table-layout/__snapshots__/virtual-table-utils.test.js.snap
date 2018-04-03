@@ -1,0 +1,620 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VirtualTableLayout utils #getCollapsedGrid should work in simple case 1`] = `
+Object {
+  "columns": Array [
+    Object {
+      "key": "stub_0_0",
+      "type": "stub",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 1,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 2,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 3,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "key": "stub_4_5",
+      "type": "stub",
+      "width": 80,
+    },
+  ],
+  "rows": Array [
+    Object {
+      "height": 40,
+      "key": "stub_0_0",
+      "type": "stub",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 1,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 2,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 3,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 4,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 5,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 6,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_4_5",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 7,
+      },
+      "type": "visible",
+    },
+    Object {
+      "height": 40,
+      "key": "stub_8_8",
+      "type": "stub",
+    },
+  ],
+}
+`;
+
+exports[`VirtualTableLayout utils #getCollapsedGrid should work with collspan 1`] = `
+Object {
+  "columns": Array [
+    Object {
+      "key": "stub_0_0",
+      "type": "stub",
+      "width": 40,
+    },
+    Object {
+      "key": "stub_1_1",
+      "type": "stub",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 2,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 3,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "column": Object {
+        "key": 4,
+        "width": 40,
+      },
+      "type": "visible",
+      "width": 40,
+    },
+    Object {
+      "key": "stub_5_7",
+      "type": "stub",
+      "width": 120,
+    },
+  ],
+  "rows": Array [
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_1_1",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 2,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 4,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_5_7",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 0,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 3,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 4,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_5_7",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 1,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 4,
+          "column": Object {
+            "key": 0,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 1,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 4,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_5_7",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 2,
+      },
+      "type": "visible",
+    },
+    Object {
+      "cells": Array [
+        Object {
+          "colSpan": 1,
+          "key": "stub_0_0",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_1_1",
+          "type": "stub",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 2,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "column": Object {
+            "key": 3,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 2,
+          "column": Object {
+            "key": 4,
+            "width": 40,
+          },
+          "type": "visible",
+        },
+        Object {
+          "colSpan": 1,
+          "key": "stub_5_7",
+          "type": "stub",
+        },
+      ],
+      "height": 40,
+      "row": Object {
+        "height": 40,
+        "key": 3,
+      },
+      "type": "visible",
+    },
+    Object {
+      "height": 40,
+      "key": "stub_4_4",
+      "type": "stub",
+    },
+  ],
+}
+`;

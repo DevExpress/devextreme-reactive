@@ -7,6 +7,7 @@ import {
   tableColumnsWithDetail,
   isDetailToggleTableCell,
   isDetailTableRow,
+  isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -36,6 +37,17 @@ export class TableRowDetail extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter
+          name="getCellColSpan"
+          computed={({ getCellColSpan }) => (params) => {
+            const { tableRow, tableColumns, tableColumn } = params;
+            if (tableRow.type === 'detail' && tableColumns.indexOf(tableColumn) === 0) {
+              return tableColumns.length;
+            }
+            return getCellColSpan(params);
+          }}
+        />
+
         <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
@@ -58,12 +70,21 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <Cell
-              {...params}
-              row={params.tableRow.row}
-            >
-              <Content row={params.tableRow.row} />
-            </Cell>
+            <TemplateConnector>
+              {({ tableColumns }) => {
+                if (isDetailTableCell(params.tableColumn, tableColumns)) {
+                  return (
+                    <Cell
+                      {...params}
+                      row={params.tableRow.row}
+                    >
+                      <Content row={params.tableRow.row} />
+                    </Cell>
+                  );
+                }
+                return null;
+              }}
+            </TemplateConnector>
           )}
         </Template>
         <Template

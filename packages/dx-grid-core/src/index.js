@@ -76,7 +76,6 @@ export * from './plugins/search-state/reducers';
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {
-  getTableRowColumnsWithColSpan,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,

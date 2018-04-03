@@ -16,6 +16,7 @@ export class StaticTableLayout extends React.PureComponent {
       bodyComponent,
       rowComponent,
       cellComponent,
+      getCellColSpan,
     } = this.props;
 
     return (
@@ -31,6 +32,7 @@ export class StaticTableLayout extends React.PureComponent {
               blockComponent={headComponent}
               rowComponent={rowComponent}
               cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
             />
           )}
           <RowsBlockLayout
@@ -39,6 +41,7 @@ export class StaticTableLayout extends React.PureComponent {
             blockComponent={bodyComponent}
             rowComponent={rowComponent}
             cellComponent={cellComponent}
+            getCellColSpan={getCellColSpan}
           />
         </Table>
       </Container>
@@ -57,6 +60,7 @@ StaticTableLayout.propTypes = {
   bodyComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };
 
 StaticTableLayout.defaultProps = {

@@ -18,6 +18,7 @@ const defaultProps = {
   blockComponent: () => null,
   rowComponent: () => null,
   cellComponent: () => null,
+  getCellColSpan: () => 1,
 };
 
 describe('RowsBlockLayout', () => {
@@ -54,6 +55,7 @@ describe('RowsBlockLayout', () => {
           columns: defaultProps.columns,
           rowComponent: defaultProps.rowComponent,
           cellComponent: defaultProps.cellComponent,
+          getCellColSpan: defaultProps.getCellColSpan,
         });
     });
   });

@@ -8,6 +8,7 @@ import {
   tableColumnsWithDetail,
   isDetailToggleTableCell,
   isDetailTableRow,
+  isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
@@ -18,6 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDetail: jest.fn(),
   isDetailToggleTableCell: jest.fn(),
   isDetailTableRow: jest.fn(),
+  isDetailTableCell: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -66,6 +68,7 @@ describe('TableRowDetail', () => {
     tableColumnsWithDetail.mockImplementation(() => 'tableColumnsWithDetail');
     isDetailToggleTableCell.mockImplementation(() => false);
     isDetailTableRow.mockImplementation(() => false);
+    isDetailTableCell.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -137,6 +140,7 @@ describe('TableRowDetail', () => {
 
   it('should render detail cell on detail row', () => {
     isDetailTableRow.mockImplementation(() => true);
+    isDetailTableCell.mockImplementation(() => true);
 
     const tree = mount((
       <PluginHost>

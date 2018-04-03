@@ -11,6 +11,7 @@ import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
   isNoDataTableRow,
+  isNoDataTableCell,
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
@@ -57,13 +58,27 @@ export class Table extends React.PureComponent {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter
+          name="getCellColSpan"
+          value={({ tableRow, tableColumn, tableColumns }) => {
+            if (tableRow.type === 'nodata' && tableColumns.indexOf(tableColumn) === 0) {
+              return tableColumns.length;
+            }
+            return 1;
+          }}
+        />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
         </Template>
         <Template name="table">
           <TemplateConnector>
-            {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
+            {({
+              tableHeaderRows: headerRows,
+              tableBodyRows: bodyRows,
+              tableColumns: columns,
+              getCellColSpan,
+            }) => (
               <Layout
                 headTableComponent={fixedHeaderComponent}
                 tableComponent={tableComponent}
@@ -71,10 +86,12 @@ export class Table extends React.PureComponent {
                 bodyComponent={bodyComponent}
                 containerComponent={containerComponent}
                 headerRows={headerRows}
-                bodyRows={bodyRows}
+                rows={bodyRows}
                 columns={columns}
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
+                getCellColSpan={(tableRow, tableColumn) =>
+                  getCellColSpan({ tableRow, tableColumn, tableColumns: columns })}
               />
             )}
           </TemplateConnector>
@@ -129,7 +146,16 @@ export class Table extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => <NoDataCell {...{ getMessage, ...params }} />}
+          {params => (
+            <TemplateConnector>
+              {({ tableColumns }) => {
+                if (isNoDataTableCell(params.tableColumn, tableColumns)) {
+                  return <NoDataCell {...{ getMessage, ...params }} />;
+                }
+                return null;
+              }}
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableRow"

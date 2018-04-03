@@ -6,6 +6,7 @@ import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
   isNoDataTableRow,
+  isNoDataTableCell,
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
@@ -18,6 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDataRows: jest.fn(),
   tableRowsWithDataRows: jest.fn(),
   isNoDataTableRow: jest.fn(),
+  isNoDataTableCell: jest.fn(),
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -63,6 +65,7 @@ describe('Table', () => {
     tableColumnsWithDataRows.mockImplementation(() => 'tableColumnsWithDataRows');
     tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
     isNoDataTableRow.mockImplementation(() => false);
+    isNoDataTableCell.mockImplementation(() => false);
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
@@ -210,6 +213,7 @@ describe('Table', () => {
 
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
+    isNoDataTableCell.mockImplementation(() => true);
     const tableCellArgs = {
       tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4,
     };

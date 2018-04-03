@@ -17,7 +17,6 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedDetailRowIds, row
           type: TABLE_DETAIL_TYPE,
           rowId,
           row,
-          colSpanStart: 0,
           height: rowHeight,
         },
         ...result.slice(insertIndex),

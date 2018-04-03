@@ -64,7 +64,7 @@ describe('Table Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 },
+          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE },
         ]);
     });
   });

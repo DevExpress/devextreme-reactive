@@ -22,7 +22,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
-          colSpanStart: 0,
           height: 100,
         },
       ]);
@@ -51,7 +50,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 1,
           row: 'row1',
-          colSpanStart: 0,
           height: 100,
         },
         { type: 'data', rowId: 2, row: 'row2' },
@@ -60,7 +58,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
-          colSpanStart: 0,
           height: 100,
         },
       ]);

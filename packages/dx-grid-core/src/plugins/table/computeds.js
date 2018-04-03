@@ -16,7 +16,7 @@ export const tableColumnsWithDataRows = (columns, columnExtensions) =>
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
   !rows.length
-    ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 }]
+    ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE }]
     : rows.map((row) => {
       const rowId = getRowId(row);
       return {

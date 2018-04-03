@@ -21,6 +21,7 @@ const defaultProps = {
   bodyComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,
+  getCellColSpan: () => 1,
 };
 
 describe('StaticTableLayout', () => {
@@ -61,6 +62,7 @@ describe('StaticTableLayout', () => {
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: defaultProps.rows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 
@@ -83,6 +85,7 @@ describe('StaticTableLayout', () => {
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: headerRows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 

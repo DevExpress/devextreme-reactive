@@ -18,7 +18,7 @@ export const Cell = ({
     }}
     {...restProps}
   >
-    {children || value}
+    {children}
   </th>
 );
 

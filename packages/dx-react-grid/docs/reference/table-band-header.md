@@ -15,20 +15,21 @@ A plugin that renders the nested header cells.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
+cellComponent | ComponentType&lt;[TableBandHeader.CellProps](#tablebandheadercellprops)&gt; | | A component that renders a parent cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a parent cells' row.
-bandedHeaderCellComponent | ComponentType&lt;[TableBandHeader.BandedHeaderCellComponentProps](#tablebandheaderbandedheadercellcomponentprops)&gt; | | A component that renders a header cell.
 columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies column bands for multi-level table header.
 
 ## Interfaces
 
-### TableBandHeader.BandedHeaderCellComponentProps
+### TableBandHeader.CellProps
 
-Describes properties passed to a component that renders the banded header cell.
+Describes properties passed to a component that renders a table band cell.
+
+Extends [Table.CellProps](table.md#tablecellprops)
 
 Name | Type | Description
 -----|------------|------------
-component? | ComponentType&lt;object&gt; | A header cell to be rendered with nested cells.
+children? | ReactNode | A React node used to render band cell content.
 
 ### TableBandHeader.ColumnBands
 
@@ -46,7 +47,6 @@ Name | Properties | Description
 -----|------------|------------
 TableBandHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
 TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a parent cells' row.
-TableBandHeader.BandedHeaderCell | object | | A component that renders a header cell.
 
 Additional properties are added to the component's root element.
 

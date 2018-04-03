@@ -3,11 +3,6 @@ import { shallow } from 'enzyme';
 import { Cell } from './cell';
 
 describe('TableCell', () => {
-  it('should have correct text', () => {
-    const tree = shallow(<Cell value="text" />);
-    expect(tree.find('th').text()).toBe('text');
-  });
-
   it('should render children if passed', () => {
     const tree = shallow((
       <Cell>

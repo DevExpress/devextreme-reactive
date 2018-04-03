@@ -5,7 +5,7 @@ import './../table-cell.css';
 import './cell.css';
 
 export const Cell = ({
-  column, value, children,
+  column, children,
   tableRow, tableColumn, row,
   className, ...restProps
 }) => (
@@ -13,12 +13,11 @@ export const Cell = ({
     className={classNames('dx-rg-bs4-banded-cell dx-rg-bs4-table-cell text-nowrap border', className)}
     {...restProps}
   >
-    {children || value}
+    {children}
   </th>
 );
 
 Cell.propTypes = {
-  value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.object,
   children: PropTypes.oneOfType([
@@ -31,7 +30,6 @@ Cell.propTypes = {
 };
 
 Cell.defaultProps = {
-  value: undefined,
   column: undefined,
   row: undefined,
   children: undefined,

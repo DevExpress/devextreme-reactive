@@ -34,7 +34,7 @@ const CellBase = ({
     className={classNames(classes.cell, className)}
     {...restProps}
   >
-    {children || value}
+    {children}
   </TableCell>
 );
 

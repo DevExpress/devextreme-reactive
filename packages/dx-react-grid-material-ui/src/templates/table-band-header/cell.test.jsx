@@ -10,11 +10,6 @@ describe('TableCell', () => {
     shallow = createShallow({ dive: true });
   });
 
-  it('should have correct text', () => {
-    const tree = shallow(<Cell value="text" />);
-    expect(tree.childAt(0).text()).toBe('text');
-  });
-
   it('should render children if passed', () => {
     const tree = shallow((
       <Cell>

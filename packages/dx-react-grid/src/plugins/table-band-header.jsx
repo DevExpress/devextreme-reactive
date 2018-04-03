@@ -45,14 +45,19 @@ export class TableBandHeader extends React.PureComponent {
               {({ tableColumns, tableHeaderRows }) => {
                 const bandComponent =
                   getBandComponent(params, tableHeaderRows, tableColumns, columnBands);
-
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:
                     return <TemplatePlaceholder />;
                   case BAND_EMPTY_CELL:
                     return <InvisibleCell />;
-                  case BAND_GROUP_CELL:
-                  return <Cell {...params} {...bandComponent.payload} />;
+                  case BAND_GROUP_CELL: {
+                    const { value, ...payload } = bandComponent.payload;
+                    return (
+                      <Cell {...params} {...payload}>
+                        {value}
+                      </Cell>
+                    );
+                  }
                   case BAND_HEADER_CELL:
                     return (
                       <TemplatePlaceholder

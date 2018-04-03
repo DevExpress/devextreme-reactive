@@ -16,9 +16,9 @@ A plugin that renders the nested header cells.
 Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
-rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
+rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a parent cells' row.
 bandedHeaderCellComponent | ComponentType&lt;[TableBandHeader.BandedHeaderCellComponentProps](#tablebandheaderbandedheadercellcomponentprops)&gt; | | A component that renders a header cell.
-columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies the nested columns for implement multiple levels of columns in your table header.
+columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies the nested columns for multi-level table header.
 
 ## Interfaces
 
@@ -28,7 +28,7 @@ Describes properties passed to a component that renders the banded header cell.
 
 Name | Type | Description
 -----|------------|------------
-component? | ComponentType&lt;object&gt; | A component that rendered by enhancer component.
+component? | ComponentType&lt;object&gt; | A header cell to be rendered with nested cells.
 
 ### TableBandHeader.ColumnBands
 
@@ -36,16 +36,16 @@ Describes properties of column bands that the TableBandHeader plugin renders.
 
 Name | Type | Description
 -----|------------|------------
-columnName? | string | The name of the column.
-title? | string | The title of the parent column.
-children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | The nested columns of current title.
+columnName? | string | A column name.
+title? | string | The parent column's title.
+children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | Nested columns.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
 TableBandHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a parent cell.
-TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders row for parent cells.
+TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a parent cells' row.
 TableBandHeader.BandedHeaderCell | object | | A component that renders a header cell.
 
 Additional properties are added to the component's root element.

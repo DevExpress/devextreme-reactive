@@ -41,8 +41,11 @@ export class Table extends React.PureComponent {
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
-      messages, containerComponent,
-      tableComponent, headComponent, bodyComponent, fixedHeaderComponent,
+      messages,
+      containerComponent,
+      tableComponent,
+      headComponent,
+      bodyComponent,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
@@ -65,7 +68,6 @@ export class Table extends React.PureComponent {
           <TemplateConnector>
             {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
               <Layout
-                headTableComponent={fixedHeaderComponent}
                 tableComponent={tableComponent}
                 headComponent={headComponent}
                 bodyComponent={bodyComponent}
@@ -167,11 +169,9 @@ Table.propTypes = {
   stubHeaderCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
   messages: PropTypes.object,
-  fixedHeaderComponent: PropTypes.func,
 };
 
 Table.defaultProps = {
-  fixedHeaderComponent: undefined,
   columnExtensions: undefined,
   messages: {},
 };

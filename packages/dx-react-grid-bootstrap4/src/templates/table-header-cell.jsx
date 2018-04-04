@@ -71,7 +71,8 @@ export class TableHeaderCell extends React.PureComponent {
           {before}
           <div
             className={classNames({
-              'text-nowrap w-100 dx-rg-bs4-table-header-cell-wrapper': true,
+              'w-100 dx-rg-bs4-table-header-cell-wrapper': true,
+              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
               [`text-${align}`]: align !== 'left',
             })}
           >

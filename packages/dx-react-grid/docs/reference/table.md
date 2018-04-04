@@ -37,6 +37,7 @@ Field | Type | Description
 columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
 align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
+wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
 
 ### TableRow
 

@@ -21,6 +21,16 @@ describe('TableCell', () => {
       .toBeTruthy();
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeFalsy();
+  });
+
   it('should have correct text', () => {
     const tree = shallow(<TableCell value="text" />);
     expect(tree.find('td').text()).toBe('text');

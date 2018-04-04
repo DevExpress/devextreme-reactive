@@ -174,6 +174,16 @@ describe('TableHeaderCell', () => {
       });
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableHeaderCell />);
+    expect(tree.find('div').at(1).prop('style').whiteSpace)
+      .toBe('nowrap');
+
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('div').at(1).prop('style').whiteSpace)
+      .toBe('normal');
+  });
+
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableHeaderCell

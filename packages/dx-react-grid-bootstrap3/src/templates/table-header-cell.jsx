@@ -78,7 +78,7 @@ export class TableHeaderCell extends React.PureComponent {
             style={{
               width: '100%',
               textAlign: align,
-              whiteSpace: 'nowrap',
+              whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               ...(showSortingControls ? {

@@ -18,7 +18,6 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    height: theme.spacing.unit * 3,
     lineHeight: `${theme.spacing.unit * 3}px`,
   },
   cell: {
@@ -82,6 +81,8 @@ const styles = theme => ({
     width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  contentNoWrap: {
     whiteSpace: 'nowrap',
   },
 });
@@ -140,6 +141,10 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.container]: true,
       [classes.containerRight]: align === 'right',
     });
+    const contentClassed = classNames({
+      [classes.content]: true,
+      [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -149,7 +154,7 @@ class TableHeaderCellBase extends React.PureComponent {
       >
         <div className={containerClassses}>
           {before}
-          <div className={classes.content}>
+          <div className={contentClassed}>
             {showSortingControls ? (
               <SortingControl
                 align={align}

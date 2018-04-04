@@ -182,6 +182,16 @@ describe('TableHeaderCell', () => {
       .toMatchObject({ a: 1 });
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableHeaderCell />);
+    expect(tree.find('div').at(1).is('.text-nowrap'))
+      .toBeTruthy();
+
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('div').at(1).is('.text-nowrap'))
+      .toBeFalsy();
+  });
+
   describe('with keyboard navigation', () => {
     const ENTER_KEY_CODE = 13;
     const SPACE_KEY_CODE = 32;

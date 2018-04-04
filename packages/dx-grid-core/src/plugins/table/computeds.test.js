@@ -31,6 +31,14 @@ describe('Table Plugin computeds', () => {
       expect(tableColumnsWithDataRows(columns, columnExtensions)[0])
         .toMatchObject({ align: 'right' });
     });
+
+    it('should set wordWrapEnabled from columnExtension', () => {
+      const columns = [{ name: 'b' }];
+      const columnExtensions = [{ columnName: 'b', wordWrapEnabled: true }];
+
+      expect(tableColumnsWithDataRows(columns, columnExtensions)[0])
+        .toMatchObject({ wordWrapEnabled: true });
+    });
   });
 
   describe('#tableRowsWithDataRows', () => {

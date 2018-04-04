@@ -10,7 +10,8 @@ export const TableCell = ({
 }) => (
   <td
     className={classNames({
-      'text-nowrap dx-rg-bs4-table-cell': true,
+      'dx-rg-bs4-table-cell': true,
+      'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
       'text-right': tableColumn && tableColumn.align === 'right',
       'text-center': tableColumn && tableColumn.align === 'center',
     }, className)}

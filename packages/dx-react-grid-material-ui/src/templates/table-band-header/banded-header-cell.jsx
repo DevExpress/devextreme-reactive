@@ -21,9 +21,9 @@ const styles = theme => ({
 });
 
 export const BandedHeaderCellBase = ({
-  component: Component, className, classes, ...restProps
+  component: HeaderCellComponent, className, classes, ...restProps
 }) => (
-  <Component
+  <HeaderCellComponent
     className={classNames(classes.headerCellBorder, className)}
     {...restProps}
   />

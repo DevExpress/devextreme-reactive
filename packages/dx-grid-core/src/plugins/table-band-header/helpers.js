@@ -71,7 +71,7 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
       columnBands,
       currentRowLevel,
     );
-    if (prevColumnMeta.title === currentColumnMeta.title) return { type: 'null', payload: null };
+    if (prevColumnMeta.title === currentColumnMeta.title) return { type: null, payload: null };
   }
 
   return {

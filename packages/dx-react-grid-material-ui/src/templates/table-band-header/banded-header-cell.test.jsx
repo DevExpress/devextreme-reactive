@@ -6,14 +6,13 @@ describe('BandedHeaderCell', () => {
   let shallow;
   const defaultProps = {
     component: () => <div />,
-    className: 'custom-class',
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
   });
   it('should render children and passed className', () => {
     const tree = shallow((
-      <BandedHeaderCell {...defaultProps} />
+      <BandedHeaderCell {...defaultProps} className="custom-class" />
     ));
 
     expect(tree.find('.custom-class').exists())
@@ -22,7 +21,7 @@ describe('BandedHeaderCell', () => {
 
   it('should render pass restProps to root component', () => {
     const tree = shallow((
-      <BandedHeaderCell {...defaultProps} style={{ color: 'red' }} />
+      <BandedHeaderCell {...defaultProps} style={{ color: 'red' }} className="custom-class" />
     ));
 
     expect(tree.find('.custom-class').prop('style').color).toBe('red');

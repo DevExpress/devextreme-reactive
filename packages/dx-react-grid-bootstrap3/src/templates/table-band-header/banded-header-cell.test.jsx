@@ -5,11 +5,10 @@ import { BandedHeaderCell } from './banded-header-cell';
 describe('BandedHeaderCell', () => {
   const defaultProps = {
     component: () => <div />,
-    className: 'custom-class',
   };
-  it('should render children and passed and pass restProps', () => {
+  it('should render children and passed restProps', () => {
     const tree = shallow((
-      <BandedHeaderCell {...defaultProps} />
+      <BandedHeaderCell {...defaultProps} className="custom-class" />
     ));
 
     expect(tree.find('.custom-class').exists())
@@ -18,7 +17,7 @@ describe('BandedHeaderCell', () => {
 
   it('should pass styles to the root element', () => {
     const tree = shallow((
-      <BandedHeaderCell {...defaultProps} style={{ color: 'red' }} />
+      <BandedHeaderCell {...defaultProps} style={{ color: 'red' }} className="custom-class" />
     ));
 
     expect(tree.find('.custom-class').prop('style').color).toBe('red');

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const BandedHeaderCell = ({ component: Component, style, ...restProps }) => (
-  <Component
+export const BandedHeaderCell = ({ component: HeaderCellComponent, style, ...restProps }) => (
+  <HeaderCellComponent
     style={{
       borderLeft: '1px solid #ddd',
       borderRight: '1px solid #ddd',

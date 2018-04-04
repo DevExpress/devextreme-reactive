@@ -70,7 +70,7 @@ describe('TableBandHeader Plugin helpers', () => {
     it('should work', () => {
       expect(isBandedTableRow({ type: TABLE_BAND_TYPE }))
         .toBeTruthy();
-      expect(isBandedTableRow({ type: 'undefined' }))
+      expect(isBandedTableRow({ type: 'anyType' }))
         .toBeFalsy();
     });
   });
@@ -101,6 +101,7 @@ describe('TableBandHeader Plugin helpers', () => {
         currColumnTitle,
       )).toEqual(4);
     });
+
     it('should work for second row and children element', () => {
       const currColumnTitle = 'AA';
       const currColumnIndex = 0;
@@ -114,6 +115,7 @@ describe('TableBandHeader Plugin helpers', () => {
         currColumnTitle,
       )).toEqual(2);
     });
+
     it('should work for second row and not children element', () => {
       const currColumnTitle = 'A';
       const currColumnIndex = 2;
@@ -127,6 +129,7 @@ describe('TableBandHeader Plugin helpers', () => {
         currColumnTitle,
       )).toEqual(1);
     });
+
     it('should work with alternate titles', () => {
       const currColumnTitle = 'AA';
       const currColumnIndex = 3;
@@ -159,6 +162,7 @@ describe('TableBandHeader Plugin helpers', () => {
       expect(getBandComponent(params, {}, {}, {}))
         .toEqual({ type: BAND_DUPLICATE_RENDER, payload: null });
     });
+
     it('should return empty cell if a column is not on its own line', () => {
       const params = {
         tableColumn: {
@@ -175,6 +179,7 @@ describe('TableBandHeader Plugin helpers', () => {
       expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({ type: BAND_EMPTY_CELL, payload: null });
     });
+
     it('should return header cell for heading column', () => {
       const params = {
         tableColumn: {
@@ -197,6 +202,7 @@ describe('TableBandHeader Plugin helpers', () => {
           },
         });
     });
+
     it('should return group cell for band title', () => {
       const params = {
         tableColumn: {

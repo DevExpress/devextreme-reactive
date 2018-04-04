@@ -11,6 +11,10 @@ import {
   tableRowsWithDataRows,
   isDataTableCell,
   isDataTableRow,
+  isHeaderStubTableCell,
+  isNoDataTableRow,
+  isNoDataTableCell,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = {
@@ -77,8 +81,27 @@ export const Table = {
       type: Object,
       required: true,
     },
+    stubCellComponent: {
+      type: Object,
+      required: true,
+    },
+    stubHeaderCellComponent: {
+      type: Object,
+      required: true,
+    },
+    noDataRowComponent: {
+      type: Object,
+      required: true,
+    },
+    noDataCellComponent: {
+      type: Object,
+      required: true,
+    },
     columnExtensions: {
       type: Array,
+    },
+    messages: {
+      type: Object,
     },
   },
   render() {
@@ -86,13 +109,19 @@ export const Table = {
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
+      noDataRowComponent: NoDataRow,
+      noDataCellComponent: NoDataCell,
+      stubCellComponent: StubCell,
+      stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
       containerComponent,
       tableComponent,
       headComponent,
       bodyComponent,
+      messages,
     } = this;
 
+    const getMessage = getMessagesFormatter(messages);
     const tableColumnsComputed = ({ columns }) =>
       tableColumnsWithDataRows(columns, columnExtensions);
 
@@ -112,7 +141,9 @@ export const Table = {
           <TemplateConnector>
             {({
                 getters: {
-                  tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns,
+                  tableHeaderRows: headerRows,
+                  tableBodyRows: bodyRows,
+                  tableColumns: columns,
                 },
               }) => (
               <Layout
@@ -128,6 +159,18 @@ export const Table = {
               />
             )}
           </TemplateConnector>
+        </Template>
+        <Template name="tableCell">
+          {params => (
+            <TemplateConnector>
+              {({ getters: { tableHeaderRows: headerRows } }) =>
+                (isHeaderStubTableCell(params.tableRow, headerRows)
+                  ? <StubHeaderCell {...{ attrs: { ...params } }} />
+                  : <StubCell {...{ attrs: { ...params } }} />
+                )
+              }
+            </TemplateConnector>
+          )}
         </Template>
         <Template
           name="tableCell"
@@ -156,11 +199,32 @@ export const Table = {
         >
           {params => (
             <Row
-              row={params.tableRow.row}
               {...{ attrs: { ...params } }}
+              row={params.tableRow.row}
             >
               <TemplatePlaceholderSlot params={params} />
             </Row>
+          )}
+        </Template>
+        <Template
+          name="tableCell"
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
+        >
+          {params => (
+            <NoDataCell
+              {...{ attrs: { ...params } }}
+              getMessage={getMessage}
+            />
+          )}
+        </Template>
+        <Template
+          name="tableRow"
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
+        >
+          {params => (
+            <NoDataRow {...{ attrs: { ...params } }}>
+              <TemplatePlaceholderSlot params={params} />
+            </NoDataRow>
           )}
         </Template>
       </Plugin>

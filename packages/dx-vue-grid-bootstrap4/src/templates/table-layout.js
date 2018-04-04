@@ -1,3 +1,5 @@
+import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
+
 export const TableLayout = {
   props: {
     cellComponent: {},
@@ -16,7 +18,7 @@ export const TableLayout = {
       rowComponent: Row,
       bodyComponent: Body,
       headComponent: Head,
-      tableComponent: Table1,
+      tableComponent: Table,
       containerComponent: Container,
       columns,
       bodyRows,
@@ -24,14 +26,14 @@ export const TableLayout = {
     } = this;
     return (
       <Container>
-        <Table1>
+        <Table>
           <Head>
             {headerRows.map(row => (
               <Row
                 key={row.key}
                 tableRow={row}
               >
-                {columns.map(column => (
+                {getTableRowColumnsWithColSpan(columns, row.colSpanStart).map(column => (
                   <Cell
                     key={column.key}
                     tableRow={row}
@@ -47,17 +49,18 @@ export const TableLayout = {
                 key={row.key}
                 tableRow={row}
               >
-                {columns.map(column => (
+                {getTableRowColumnsWithColSpan(columns, row.colSpanStart).map(column => (
                   <Cell
                     key={column.key}
                     tableRow={row}
                     tableColumn={column}
+                    colSpan={column.colSpan}
                   />
                 ))}
               </Row>
             ))}
           </Body>
-        </Table1>
+        </Table>
       </Container>
     );
   },

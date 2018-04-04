@@ -131,7 +131,12 @@ export class Table extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => <NoDataCell {...{ getMessage, ...params }} />}
+          {params => (
+            <NoDataCell
+              {...params}
+              getMessage={getMessage}
+            />
+          )}
         </Template>
         <Template
           name="tableRow"

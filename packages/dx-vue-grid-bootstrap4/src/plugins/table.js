@@ -7,6 +7,13 @@ import { TableHead } from '../templates/table-head';
 import { TableBody } from '../templates/table-body';
 import { TableRow } from '../templates/table-row';
 import { TableCell } from '../templates/table-cell';
+import { TableNoDataCell } from '../templates/table-no-data-cell';
+import { TableHeaderStubCell } from '../templates/table-header-stub-cell';
+import { TableStubCell } from '../templates/table-stub-cell';
+
+const defaultMessages = {
+  noData: 'No data',
+};
 
 export const Table = {
   name: 'Table',
@@ -21,7 +28,12 @@ export const Table = {
         bodyComponent={TableBody}
         rowComponent={TableRow}
         cellComponent={TableCell}
-        {...{ attrs: context.props, listeners: context.listeners }}
+        noDataCellComponent={TableNoDataCell}
+        noDataRowComponent={TableRow}
+        stubCellComponent={TableStubCell}
+        stubHeaderCellComponent={TableHeaderStubCell}
+        messages={{ ...defaultMessages, ...context.props.messages }}
+        {...{ attrs: context.props, on: context.listeners }}
       />
     );
   },

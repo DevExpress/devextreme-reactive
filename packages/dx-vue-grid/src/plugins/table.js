@@ -14,30 +14,25 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = {
-  props: {
-    tableRow: {},
-  },
-  render() {
+  functional: true,
+  render(h, context) {
     return (
       <TemplatePlaceholder
         name="tableRow"
-        params={{ tableRow: this.tableRow }}
+        params={context.props}
       >
-        {this.$slots.default}
+        {context.children}
       </TemplatePlaceholder>
     );
   },
 };
 const CellPlaceholder = {
-  props: {
-    tableRow: {},
-    tableColumn: {},
-  },
-  render() {
+  functional: true,
+  render(h, context) {
     return (
       <TemplatePlaceholder
         name="tableCell"
-        params={{ tableRow: this.tableRow, tableColumn: this.tableColumn }}
+        params={context.props}
       />
     );
   },

@@ -1,11 +1,6 @@
 const unique = arr => [...new Set(arr)];
 
-export const getColumnSortingDirection = (sorting, columnName) => {
-  const columnSorting = sorting.filter(s => s.columnName === columnName)[0];
-  return columnSorting ? columnSorting.direction : null;
-};
-
-export const getPersistentSortedColumns = (sorting, columnExtensions = []) =>
+const getPersistentSortedColumns = (sorting, columnExtensions = []) =>
   columnExtensions.reduce((acc, { columnName, sortingEnabled }) => {
     if (sortingEnabled === false) {
       if (sorting.findIndex(sortItem => sortItem.columnName === columnName) > -1) {
@@ -15,7 +10,9 @@ export const getPersistentSortedColumns = (sorting, columnExtensions = []) =>
     return acc;
   }, []);
 
-export const calculateKeepOther = (sorting, keepOther, persistentSortedColumns = []) => {
+const calculateKeepOther = (sorting, keepOther, columnExtensions) => {
+  const persistentSortedColumns =
+    getPersistentSortedColumns(sorting, columnExtensions);
   if (!persistentSortedColumns.length) return keepOther;
   if (!keepOther) return persistentSortedColumns;
 
@@ -23,3 +20,15 @@ export const calculateKeepOther = (sorting, keepOther, persistentSortedColumns =
     ? unique([...keepOther, ...persistentSortedColumns])
     : unique([...sorting.map(item => item.columnName), ...persistentSortedColumns]);
 };
+
+export const getColumnSortingDirection = (sorting, columnName) => {
+  const columnSorting = sorting.filter(s => s.columnName === columnName)[0];
+  return columnSorting ? columnSorting.direction : null;
+};
+
+export const getChangeColumnSorting =
+  (changeColumnSorting, columnExtensions) =>
+    (state, payload) => {
+      const keepOther = calculateKeepOther(state.sorting, payload.keepOther, columnExtensions);
+      return changeColumnSorting(state, { ...payload, keepOther });
+    };

@@ -26,24 +26,16 @@ const BandCell = ({
   if (column.title === 'Population') icon = 'person';
   if (column.title === 'Nominal GDP') icon = 'bar-chart';
   if (column.title === 'By Sector') icon = 'globe';
-  if (icon) {
-    return (
-      <th
-        {...restProps}
-        column={column}
-        className="border-right"
-      >
-        {children}
-        <span
-          className={`ml-2 oi oi-${icon}`}
-        />
-      </th>
-    );
-  }
   return (
-    <th {...restProps}>
+    <TableBandHeader.Cell
+      {...restProps}
+      column={column}
+    >
       {children}
-    </th>
+      <span
+        className={`ml-2 oi oi-${icon}`}
+      />
+    </TableBandHeader.Cell>
   );
 };
 

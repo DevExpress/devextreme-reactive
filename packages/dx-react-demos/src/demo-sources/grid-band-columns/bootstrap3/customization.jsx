@@ -25,25 +25,17 @@ const BandCell = ({
   if (column.title === 'Population') icon = 'user';
   if (column.title === 'Nominal GDP') icon = 'stats';
   if (column.title === 'By Sector') icon = 'globe';
-  if (icon) {
-    return (
-      <th
-        {...restProps}
-        column={column}
-        style={{ borderRight: '1px solid #ddd' }}
-      >
-        {children}
-        <span
-          className={`glyphicon glyphicon-${icon}`}
-          style={{ marginLeft: '10px' }}
-        />
-      </th>
-    );
-  }
   return (
-    <th {...restProps}>
+    <TableBandHeader.Cell
+      {...restProps}
+      column={column}
+    >
       {children}
-    </th>
+      <span
+        className={`glyphicon glyphicon-${icon}`}
+        style={{ marginLeft: '10px' }}
+      />
+    </TableBandHeader.Cell>
   );
 };
 

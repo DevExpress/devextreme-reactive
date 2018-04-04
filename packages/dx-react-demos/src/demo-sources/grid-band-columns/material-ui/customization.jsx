@@ -7,7 +7,6 @@ import {
   TableBandHeader,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 import Equalizer from 'material-ui-icons/Equalizer';
 import People from 'material-ui-icons/People';
@@ -25,17 +24,6 @@ const PercentTypeProvider = props => (
 );
 
 const styles = theme => ({
-  bandCell: {
-    height: '48px',
-    verticalAlign: 'middle',
-    borderRight: `1px solid ${theme.palette.divider}`,
-    '&:last-child': {
-      borderRight: 0,
-    },
-    '&:first-child': {
-      borderLeft: 0,
-    },
-  },
   icon: {
     marginBottom: theme.spacing.unit / 2,
     marginLeft: theme.spacing.unit,
@@ -51,16 +39,15 @@ const BandCellBase = ({
   if (column.title === 'Nominal GDP') icon = <Equalizer className={classes.icon} />;
   if (column.title === 'By Sector') icon = <PieChart className={classes.icon} />;
   return (
-    <TableCell
+    <TableBandHeader.Cell
       {...restProps}
       column={column}
-      className={classes.bandCell}
     >
       <strong>
         {children}
         {icon}
       </strong>
-    </TableCell>
+    </TableBandHeader.Cell>
   );
 };
 

@@ -6,7 +6,7 @@ import {
   TableBandHeader,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-import { countries } from './../countries';
+import { countries } from '../countries';
 
 const PercentFormatter = ({ value }) =>
   <span>{value}%</span>;

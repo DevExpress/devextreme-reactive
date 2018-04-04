@@ -9,12 +9,12 @@ const styles = {
   },
 };
 
-const EmptyCellBase = ({ classes }) => (
+const InvisibleCellBase = ({ classes }) => (
   <TableCell className={classes.emptyCell} />
 );
 
-EmptyCellBase.propTypes = {
+InvisibleCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const InvisibleCell = withStyles(styles, { name: 'InvisibleCell' })(EmptyCellBase);
+export const InvisibleCell = withStyles(styles, { name: 'InvisibleCell' })(InvisibleCellBase);

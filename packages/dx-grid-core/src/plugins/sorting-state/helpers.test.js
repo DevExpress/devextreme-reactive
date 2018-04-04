@@ -26,8 +26,8 @@ describe('SortingState helpers', () => {
       const initialKeepOther = ['a'];
       const state = {};
       const changeColumnSorting = getChangeColumnSorting(reducer, []);
-      changeColumnSorting(state, { keepOther: initialKeepOther });
 
+      changeColumnSorting(state, { keepOther: initialKeepOther });
       expect(reducer)
         .toBeCalledWith(state, { keepOther: initialKeepOther });
     });
@@ -64,7 +64,6 @@ describe('SortingState helpers', () => {
       ]);
 
       changeColumnSorting(state, { keepOther: ['a', 'b'] });
-
       expect(reducer)
         .toBeCalledWith(state, { keepOther: ['a', 'b', 'c'] });
     });

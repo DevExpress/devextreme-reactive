@@ -25,7 +25,7 @@ const Series = ({
       {
         point.visible ? coordinates.map(item =>
           (<Point
-            key={item.x.toString()}
+            key={item.id.toString()}
             x={item.x}
             y={item.y}
             d={dPoint}

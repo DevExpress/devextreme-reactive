@@ -10,11 +10,11 @@ const PointComponent = () => null;
 const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coordinates = [
-  { x: 1, y: 3 },
-  { x: 2, y: 5 },
-  { x: 3, y: 7 },
-  { x: 4, y: 10 },
-  { x: 5, y: 15 },
+  { x: 1, y: 3, id: 1 },
+  { x: 2, y: 5, id: 2 },
+  { x: 3, y: 7, id: 3 },
+  { x: 4, y: 10, id: 4 },
+  { x: 5, y: 15, id: 5 },
 ];
 
 jest.mock('@devexpress/dx-chart-core', () => ({

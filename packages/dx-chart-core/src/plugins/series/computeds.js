@@ -14,6 +14,7 @@ const computeLinePath = (data, scales, argumentField, valueField) =>
   data.map(dataItem => ({
     x: scales.xScale(dataItem[argumentField]),
     y: scales.yScale(dataItem[valueField]),
+    id: dataItem[argumentField],
   }));
 
 const getDAttribute = (type, height, path) => {

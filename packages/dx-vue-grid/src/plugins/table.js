@@ -13,7 +13,6 @@ import {
   isDataTableRow,
   isHeaderStubTableCell,
   isNoDataTableRow,
-  isNoDataTableCell,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 

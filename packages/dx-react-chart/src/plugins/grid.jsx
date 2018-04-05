@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { scaleLinear } from 'd3-scale';
+import { createScale } from '@devexpress/dx-chart-core';
 
 export class Grid extends React.PureComponent {
   render() {
@@ -31,9 +31,7 @@ export class Grid extends React.PureComponent {
               } = layouts[placeholder];
 
               const gridCoordinates = () => {
-                const scale = scaleLinear()
-                  .domain(domain)
-                  .range(orientation === 'horizontal' ? [0, width] : [height, 0]);
+                const scale = createScale({ domain, orientation }, width, height);
                 return scale.ticks().map(tick =>
                     (orientation === 'horizontal'
                       ? {

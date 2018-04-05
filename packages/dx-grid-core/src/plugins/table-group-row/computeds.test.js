@@ -3,7 +3,7 @@ import { TABLE_GROUP_TYPE } from './constants';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
-  tableGroupRowCellColSpanGetter,
+  tableGroupCellColSpanGetter,
 } from './computeds';
 
 describe('TableGroupRow Plugin computeds', () => {
@@ -148,10 +148,10 @@ describe('TableGroupRow Plugin computeds', () => {
     });
   });
 
-  describe('#tableGroupRowCellColSpanGetter', () => {
+  describe('#tableGroupCellColSpanGetter', () => {
     const parentGetCellColSpan = () => 'original';
     it('should return correct colspan', () => {
-      const getCellColSpanGetter = tableGroupRowCellColSpanGetter(parentGetCellColSpan);
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(parentGetCellColSpan);
 
       const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
       expect(getCellColSpanGetter({

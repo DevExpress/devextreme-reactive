@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
-import { Sizer, ForwardRef } from '@devexpress/dx-react-core';
+import { Sizer, RefHolder } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { getCollapsedGrid } from './virtual-table-utils';
 
@@ -120,7 +120,7 @@ export class VirtualTableLayout extends React.PureComponent {
             }
             const { row, cells } = visibleRow;
             return (
-              <ForwardRef
+              <RefHolder
                 key={row.key}
                 ref={ref => this.registerRowRef(row, ref)}
               >
@@ -152,7 +152,7 @@ export class VirtualTableLayout extends React.PureComponent {
                     );
                   })}
                 </Row>
-              </ForwardRef>
+              </RefHolder>
             );
           })}
         </Body>

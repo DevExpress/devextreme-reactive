@@ -5,7 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
-  tableGroupRowCellColSpanGetter,
+  tableGroupCellColSpanGetter,
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
@@ -16,7 +16,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithGrouping: jest.fn(),
   tableRowsWithGrouping: jest.fn(),
-  tableGroupRowCellColSpanGetter: jest.fn(),
+  tableGroupCellColSpanGetter: jest.fn(),
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
@@ -70,7 +70,7 @@ describe('TableGroupRow', () => {
   beforeEach(() => {
     tableColumnsWithGrouping.mockImplementation(() => 'tableColumnsWithGrouping');
     tableRowsWithGrouping.mockImplementation(() => 'tableRowsWithGrouping');
-    tableGroupRowCellColSpanGetter.mockImplementation(() => 'tableGroupRowCellColSpanGetter');
+    tableGroupCellColSpanGetter.mockImplementation(() => 'tableGroupCellColSpanGetter');
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
@@ -132,8 +132,8 @@ describe('TableGroupRow', () => {
       ));
 
       expect(getComputedState(tree).getTableCellColSpan)
-        .toBe('tableGroupRowCellColSpanGetter');
-      expect(tableGroupRowCellColSpanGetter)
+        .toBe('tableGroupCellColSpanGetter');
+      expect(tableGroupCellColSpanGetter)
         .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
     });
   });

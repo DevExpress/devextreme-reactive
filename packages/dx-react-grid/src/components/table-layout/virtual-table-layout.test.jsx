@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-react-core', () => {
   return {
     Sizer: ({ children }) => children({ width: 400, height: 100 }),
     // eslint-disable-next-line react/prefer-stateless-function
-    ForwardRef: class extends Component {
+    RefHolder: class extends Component {
       render() {
         // eslint-disable-next-line react/prop-types
         return this.props.children;

@@ -69,7 +69,7 @@ describe('Table Plugin computeds', () => {
         ]);
     });
 
-    describe('#tableGroupRowCellColSpanGetter', () => {
+    describe('#tableGroupCellColSpanGetter', () => {
       it('should return correct colspan', () => {
         const tableColumn = { type: 'undefined' };
         expect(tableCellColSpanGetter({

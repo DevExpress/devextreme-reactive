@@ -75,7 +75,7 @@ describe('TableRowDetail Plugin computeds', () => {
     });
   });
 
-  describe('#tableGroupRowCellColSpanGetter', () => {
+  describe('#tableGroupCellColSpanGetter', () => {
     const parentGetCellColSpan = () => 'original';
     it('should return correct colspan', () => {
       const getCellColSpanGetter = tableDetailRowCellColSpanGetter(parentGetCellColSpan);

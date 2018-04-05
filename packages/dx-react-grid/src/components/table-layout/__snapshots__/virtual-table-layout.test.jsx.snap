@@ -43,7 +43,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       }
     />
     <headComponent>
-      <ForwardRef
+      <RefHolder
         key="1"
       >
         <rowComponent
@@ -139,7 +139,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
+      </RefHolder>
     </headComponent>
   </headTableComponent>
   <tableComponent
@@ -176,7 +176,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       }
     />
     <bodyComponent>
-      <ForwardRef
+      <RefHolder
         key="1"
       >
         <rowComponent
@@ -272,8 +272,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
-      <ForwardRef
+      </RefHolder>
+      <RefHolder
         key="2"
       >
         <rowComponent
@@ -369,8 +369,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
-      <ForwardRef
+      </RefHolder>
+      <RefHolder
         key="3"
       >
         <rowComponent
@@ -466,8 +466,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
-      <ForwardRef
+      </RefHolder>
+      <RefHolder
         key="4"
       >
         <rowComponent
@@ -563,8 +563,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
-      <ForwardRef
+      </RefHolder>
+      <RefHolder
         key="5"
       >
         <rowComponent
@@ -660,7 +660,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             }
           />
         </rowComponent>
-      </ForwardRef>
+      </RefHolder>
       <tr
         key="stub_5_5"
         style={

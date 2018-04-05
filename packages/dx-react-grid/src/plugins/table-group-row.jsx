@@ -4,7 +4,7 @@ import { Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector } from
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
-  tableGroupRowCellColSpanGetter,
+  tableGroupCellColSpanGetter,
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
@@ -19,7 +19,7 @@ const pluginDependencies = [
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
   tableRowsWithGrouping(tableBodyRows, isGroupRow);
 const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableGroupRowCellColSpanGetter(getTableCellColSpan);
+  tableGroupCellColSpanGetter(getTableCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {

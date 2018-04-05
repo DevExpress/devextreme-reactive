@@ -40,7 +40,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.0.0-beta.13",
+    "@vue/test-utils": "1.0.0-beta.12",
     "@devexpress/dx-testing": "1.1.0",
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

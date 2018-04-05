@@ -132,8 +132,7 @@ describe('Getter', () => {
     expect(wrapper.find('h1').text()).toBe('base_extended');
   });
 
-  // TODO: fix me
-  xit('notifies dependencies to update', () => {
+  it('notifies dependencies to update', () => {
     const EncapsulatedPlugin = {
       render() {
         return (
@@ -170,6 +169,7 @@ describe('Getter', () => {
       },
     });
     wrapper.setData({ text: 'new' });
+    wrapper.update();
 
     expect(wrapper.find('h1').text())
       .toBe('new');

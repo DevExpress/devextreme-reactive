@@ -70,7 +70,7 @@ describe('TableBandHeader Plugin helpers', () => {
     it('should work', () => {
       expect(isBandedTableRow({ type: TABLE_BAND_TYPE }))
         .toBeTruthy();
-      expect(isBandedTableRow({ type: 'anyType' }))
+      expect(isBandedTableRow({}))
         .toBeFalsy();
     });
   });

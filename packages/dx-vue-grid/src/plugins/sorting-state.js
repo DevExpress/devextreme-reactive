@@ -45,6 +45,7 @@ export const SortingState = {
     const { columnExtensions, columnSortingEnabled } = this;
     const columnExtensionValueGetter = (extensions, defaultValue) =>
       getColumnExtensionValueGetter(extensions, 'sortingEnabled', defaultValue);
+
     return (
       <Plugin
         name="SortingState"

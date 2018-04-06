@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   sortedRows: jest.fn(),
 }));
 
-describe('IntegratedFiltering', () => {
+describe('IntegratedSorting', () => {
   beforeEach(() => {
     sortedRows.mockImplementation(() => 'sortedRows');
   });

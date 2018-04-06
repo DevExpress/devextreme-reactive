@@ -37,18 +37,19 @@ describe('SortingState', () => {
   });
 
   it('should provide sorting getter', () => {
+    const sorting = ['a'];
     const tree = mount({
       render() {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SortingState sorting={['a']} />
+            <SortingState sorting={sorting} />
           </PluginHost>
         );
       },
     });
     expect(getComputedState(tree).sorting)
-      .toEqual(['a']);
+      .toBe(sorting);
   });
 
   it('should call changeColumnSorting', () => {
@@ -67,7 +68,7 @@ describe('SortingState', () => {
     });
 
     expect(changeColumnSorting.mock.calls[0][0])
-      .toMatchObject({ sorting: ['a'] });
+      .toEqual({ sorting: ['a'] });
     expect(changeColumnSorting.mock.calls[0][1])
       .toEqual({ keepOther: ['a'] });
   });

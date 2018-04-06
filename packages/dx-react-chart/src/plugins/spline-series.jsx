@@ -21,7 +21,7 @@ const Series = ({
         {...restProps}
       />
       {
-        point.visible ? coordinates.map(item =>
+        coordinates.map(item =>
           (<Point
             key={item.id.toString()}
             x={item.x}
@@ -29,7 +29,7 @@ const Series = ({
             d={dPoint}
             {...point}
           />
-        )) : null
+        ))
       }
     </React.Fragment>
   );
@@ -45,5 +45,5 @@ Series.propTypes = {
 };
 
 Series.defaultProps = {
-  point: { visible: false },
+  point: { },
 };

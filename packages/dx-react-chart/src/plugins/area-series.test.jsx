@@ -70,21 +70,6 @@ describe('Line series', () => {
       }));
   });
 
-  it('should not render not visible points', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <AreaSeries
-          {...defaultProps}
-          point={{ visible: false }}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(PointComponent)).toHaveLength(0);
-  });
-
   it('should render path', () => {
     const tree = mount((
       <PluginHost>

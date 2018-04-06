@@ -1,18 +1,23 @@
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-vue-grid-bootstrap4';
 
+import {
+  generateRows,
+  globalSalesValues,
+} from '../../../demo-data/generator';
+
 export default {
   render() {
     return (
       <div class="card">
         <Grid
-          rows={[
-            { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-            { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-          ]}
+          rows={generateRows({ columnValues: globalSalesValues, length: 8 })}
           columns={[
-            { name: 'id', title: 'ID' },
+            { name: 'region', title: 'Region' },
+            { name: 'sector', title: 'Sector' },
+            { name: 'channel', title: 'Channel' },
+            { name: 'customer', title: 'Customer' },
             { name: 'product', title: 'Product' },
-            { name: 'owner', title: 'Owner' },
+            { name: 'amount', title: 'Sale Amount' },
           ]}
         >
           <Table />

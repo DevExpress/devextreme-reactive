@@ -1,9 +1,7 @@
 export const GridRoot = {
   render() {
     return (
-      <div
-        // class="b"
-      >
+      <div>
         {this.$slots.default}
       </div>
     );

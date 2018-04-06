@@ -34,6 +34,7 @@ export class VirtualTable extends React.PureComponent {
     const {
       height,
       estimatedRowHeight,
+      headTableComponent,
       messages,
       ...restProps
     } = this.props;

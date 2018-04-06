@@ -7,7 +7,7 @@ import {
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 import { SortingState } from './sorting-state';
-import { PluginDepsToComponents, executeComputedAction } from './test-utils';
+import { PluginDepsToComponents, executeComputedAction, getComputedState } from './test-utils';
 
 const defaultDeps = {
   getter: {
@@ -34,6 +34,21 @@ describe('SortingState', () => {
 
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  it('should provide sorting getter', () => {
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <SortingState sorting={['a']} />
+          </PluginHost>
+        );
+      },
+    });
+    expect(getComputedState(tree).sorting)
+      .toEqual(['a']);
   });
 
   it('should call changeColumnSorting', () => {

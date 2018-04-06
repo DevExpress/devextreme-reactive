@@ -10,7 +10,7 @@ import {
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 import { TableColumnVisibility } from './table-column-visibility';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 

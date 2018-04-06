@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { filteredRows } from '@devexpress/dx-grid-core';
 import { IntegratedFiltering } from './integrated-filtering';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 
 const defaultDeps = {
   getter: {

@@ -16,7 +16,7 @@ import {
   TemplateConnector,
   DragDropProvider,
 } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 import { TableColumnReordering } from './table-column-reordering';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

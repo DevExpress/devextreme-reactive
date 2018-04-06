@@ -10,7 +10,7 @@ import {
   isDetailTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),

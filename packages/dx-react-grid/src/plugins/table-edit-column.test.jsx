@@ -12,7 +12,7 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { TableEditColumn } from './table-edit-column';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),

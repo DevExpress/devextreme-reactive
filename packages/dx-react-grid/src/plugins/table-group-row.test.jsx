@@ -10,7 +10,7 @@ import {
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithGrouping: jest.fn(),

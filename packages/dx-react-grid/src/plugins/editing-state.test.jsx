@@ -10,7 +10,7 @@ import {
   changeRow, cancelChanges,
   addRow, changeAddedRow, cancelAddedRows,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 import { EditingState } from './editing-state';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 

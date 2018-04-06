@@ -17,5 +17,10 @@
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-react-core": "1.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   }
 }

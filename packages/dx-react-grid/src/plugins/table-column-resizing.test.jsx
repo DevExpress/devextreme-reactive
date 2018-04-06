@@ -9,7 +9,7 @@ import {
   cancelTableColumnWidthDraft,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from '../../../dx-testing/test-utils';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingPanel } from './grouping-panel';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),

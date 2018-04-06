@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   rowIdGetter: jest.fn(),

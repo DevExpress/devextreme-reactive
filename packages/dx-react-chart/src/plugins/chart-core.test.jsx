@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { argumentAxisName } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents, getComputedState } from '../../../dx-react-grid/src/plugins/test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({

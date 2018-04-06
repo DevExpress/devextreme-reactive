@@ -10,7 +10,7 @@ import {
   isAddedTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableEditRow } from './table-edit-row';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   getRowChange: jest.fn(),

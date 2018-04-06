@@ -9,7 +9,7 @@ import {
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableSelection } from './table-selection';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithSelection: jest.fn(),

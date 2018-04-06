@@ -10,7 +10,7 @@ import {
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),

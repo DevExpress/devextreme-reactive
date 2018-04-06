@@ -6,10 +6,8 @@ import {
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
-
 export const SortingState = {
+  name: 'SortingState',
   props: {
     sorting: {
       type: Array,
@@ -23,13 +21,16 @@ export const SortingState = {
     },
   },
   methods: {
-    changeColumnSorting(state, payload) {
+    changeColumnSorting(payload, { sorting }) {
       const persistentSortedColumns =
-        getPersistentSortedColumns(state.sorting, this.columnExtensions);
+        getPersistentSortedColumns(sorting, this.columnExtensions);
       const keepOther =
-        calculateKeepOther(state.sorting, payload.keepOther, persistentSortedColumns);
-      const { sorting } = changeColumnSorting(state, { ...payload, keepOther });
-      this.$emit('update:sorting', sorting);
+        calculateKeepOther(sorting, payload.keepOther, persistentSortedColumns);
+
+      this.$emit(
+        'update:sorting',
+        changeColumnSorting({ sorting }, { ...payload, keepOther }),
+      );
     },
   },
   // componentWillReceiveProps(nextProps) {
@@ -42,6 +43,8 @@ export const SortingState = {
   // }
   render() {
     const { columnExtensions, columnSortingEnabled } = this;
+    const columnExtensionValueGetter = (extensions, defaultValue) =>
+      getColumnExtensionValueGetter(extensions, 'sortingEnabled', defaultValue);
 
     return (
       <Plugin

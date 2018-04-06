@@ -22,7 +22,7 @@ const ComputedStateContainer = {
     const { actions } = this;
     return (
       <button
-        className="actionExecutor"
+        class="actionExecutor"
         onClick={() => actionExecutor(actions)}
       />
     );

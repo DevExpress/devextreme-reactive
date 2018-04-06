@@ -54,9 +54,9 @@ describe('FilteringState', () => {
     });
   });
 
-  describe('filter expression', () => {
+  describe('getters', () => {
+    const defaultFilters = [{ columnName: 'a', value: 'a' }];
     it('should provide filter expression', () => {
-      const defaultFilters = [{ columnName: 'a', value: 'a' }];
       const tree = mount({
         render() {
           return (
@@ -72,6 +72,21 @@ describe('FilteringState', () => {
 
       expect(getComputedState(tree).filterExpression)
         .toEqual('filters');
+    });
+
+    it('should provide filters getter', () => {
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <FilteringState filters={defaultFilters} />
+            </PluginHost>
+          );
+        },
+      });
+      expect(getComputedState(tree).filters)
+        .toBe(defaultFilters);
     });
   });
 });

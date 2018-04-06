@@ -7,7 +7,7 @@ export const TableCell = {
   },
   render() {
     return (
-      <td>
+      <td style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {this.$slots.default}
       </td>
     );

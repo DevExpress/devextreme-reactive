@@ -53,6 +53,8 @@ describe('SortingState', () => {
   });
 
   it('should call changeColumnSorting', () => {
+    const changeColumnSortingValue = 'new sorting';
+    changeColumnSorting.mockImplementation(() => changeColumnSortingValue);
     const tree = mount({
       render() {
         return (
@@ -63,9 +65,12 @@ describe('SortingState', () => {
         );
       },
     });
+
     executeComputedAction(tree, (actions) => {
       actions.changeColumnSorting({ keepOther: ['a'] });
     });
+
+    expect(tree.find(SortingState).emitted()['update:sorting'][0][0]).toBe(changeColumnSortingValue);
 
     expect(changeColumnSorting.mock.calls[0][0])
       .toEqual({ sorting: ['a'] });

@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
-import { PluginDepsToComponents, getComputedState } from './test-utils';
+import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { FilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -87,6 +87,32 @@ describe('FilteringState', () => {
       });
       expect(getComputedState(tree).filters)
         .toBe(defaultFilters);
+    });
+
+    it('should call changeColumnSorting', () => {
+      const changeColumnFilterPayload = { columnName: 'a', value: 'abc' };
+      const changeColumnFilterValue = 'new filters';
+      changeColumnFilter.mockImplementation(() => changeColumnFilterValue);
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <FilteringState filters={defaultFilters} />
+            </PluginHost>
+          );
+        },
+      });
+
+      executeComputedAction(tree, (actions) => {
+        actions.changeColumnFilter(changeColumnFilterPayload);
+      });
+      expect(tree.find(FilteringState).emitted()['update:filters'][0][0]).toBe(changeColumnFilterValue);
+
+      expect(changeColumnFilter.mock.calls[0][0])
+        .toEqual(defaultFilters);
+      expect(changeColumnFilter.mock.calls[0][1])
+        .toEqual(changeColumnFilterPayload);
     });
   });
 });

@@ -21,15 +21,14 @@ export const SortingState = {
     },
   },
   methods: {
-    changeColumnSorting(payload, { sorting }) {
+    changeColumnSorting(payload) {
       const persistentSortedColumns =
-        getPersistentSortedColumns(sorting, this.columnExtensions);
+        getPersistentSortedColumns(this.sorting, this.columnExtensions);
       const keepOther =
-        calculateKeepOther(sorting, payload.keepOther, persistentSortedColumns);
-
+        calculateKeepOther(this.sorting, payload.keepOther, persistentSortedColumns);
       this.$emit(
         'update:sorting',
-        changeColumnSorting({ sorting }, { ...payload, keepOther }),
+        changeColumnSorting({ sorting: this.sorting }, { ...payload, keepOther }),
       );
     },
   },

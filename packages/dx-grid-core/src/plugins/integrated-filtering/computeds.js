@@ -10,8 +10,23 @@ const operators = { or: OR, and: AND };
 
 const toLowerCase = value => String(value).toLowerCase();
 
-const defaultPredicate = (value, filter) =>
-  toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
+const operationPredicates = {
+  contains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+  notContains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) === -1,
+  startsWith: (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value)),
+  endsWith: (value, filter) => toLowerCase(value).endsWith(toLowerCase(filter.value)),
+  equal: (value, filter) => value === filter.value,
+  notEqual: (value, filter) => value !== filter.value,
+  greaterThan: (value, filter) => value > filter.value,
+  greaterThanOrEqual: (value, filter) => value >= filter.value,
+  lessThan: (value, filter) => value < filter.value,
+  lessThanOrEqual: (value, filter) => value <= filter.value,
+};
+
+const defaultPredicate = (value, filter) => {
+  const operation = filter.operation || 'contains';
+  return operationPredicates[operation](value, filter);
+};
 
 const filterTree = (tree, predicate) =>
   tree.reduce((acc, node) => {
@@ -84,13 +99,7 @@ export const filteredRows = (
   isGroupRow,
   getRowLevelKey,
 ) => {
-  if (
-    !(
-      filterExpression &&
-      Object.keys(filterExpression).length &&
-      rows.length
-    )
-  ) {
+  if (!(filterExpression && Object.keys(filterExpression).length && rows.length)) {
     return rows;
   }
 

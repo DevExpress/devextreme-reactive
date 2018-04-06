@@ -7,6 +7,7 @@ import {
   isFilterTableCell,
   isFilterTableRow,
   getMessagesFormatter,
+  DEFAULT_FILTER_OPERATIONS,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -21,6 +22,7 @@ export class TableFilterRow extends React.PureComponent {
       rowHeight,
       cellComponent: FilterCell,
       rowComponent: FilterRow,
+      iconComponent,
       messages,
     } = this.props;
 
@@ -41,10 +43,18 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters, isColumnFilteringEnabled }, { changeColumnFilter }) => {
+              {(
+                { filters, isColumnFilteringEnabled, availableFilters },
+                { changeColumnFilter },
+              ) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
+                const useColumnSpecificFilters = availableFilters
+                  && availableFilters[columnName] && availableFilters[columnName].length;
+                const availableCellFilters = useColumnSpecificFilters
+                  ? availableFilters[columnName]
+                  : DEFAULT_FILTER_OPERATIONS;
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
@@ -64,11 +74,12 @@ export class TableFilterRow extends React.PureComponent {
                         filter={filter}
                         filteringEnabled={isColumnFilteringEnabled(columnName)}
                         onFilter={onFilter}
+                        iconComponent={iconComponent}
+                        availableFilters={availableCellFilters}
                       >
                         {content}
                       </FilterCell>
-                      )
-                    }
+                    )}
                   </TemplatePlaceholder>
                 );
               }}
@@ -91,6 +102,7 @@ TableFilterRow.propTypes = {
   messages: PropTypes.object,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

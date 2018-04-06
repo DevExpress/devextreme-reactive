@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Template } from '@devexpress/dx-react-core';
+import { Plugin, Template, Getter } from '@devexpress/dx-react-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class DataTypeProvider extends React.PureComponent {
@@ -9,9 +9,17 @@ export class DataTypeProvider extends React.PureComponent {
       for: columnNames,
       formatterComponent: Formatter,
       editorComponent: Editor,
+      availableFilters,
     } = this.props;
+
+    const columnFilters = columnNames.reduce((acc, columnName) => {
+      acc[columnName] = availableFilters;
+      return acc;
+    }, {});
+
     return (
       <Plugin name="DataTypeProvider">
+        <Getter name="availableFilters" value={columnFilters} />
         {Formatter
           ? (
             <Template
@@ -43,9 +51,11 @@ DataTypeProvider.propTypes = {
   for: PropTypes.arrayOf(PropTypes.string).isRequired,
   formatterComponent: PropTypes.func,
   editorComponent: PropTypes.func,
+  availableFilters: PropTypes.arrayOf(PropTypes.string),
 };
 
 DataTypeProvider.defaultProps = {
   formatterComponent: undefined,
   editorComponent: undefined,
+  availableFilters: [],
 };

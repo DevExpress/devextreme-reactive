@@ -3,9 +3,20 @@ import * as PropTypes from 'prop-types';
 import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-grid';
 import { TableFilterCell } from '../templates/table-filter-cell';
 import { TableRow } from '../templates/table-row';
+import { Icon } from '../templates/filter-row/icon';
 
 const defaultMessages = {
   filterPlaceholder: 'Filter...',
+  contains: 'Contains',
+  notContains: 'Does not contain',
+  startsWith: 'Starts with',
+  endsWith: 'Ends with',
+  equal: 'Equals',
+  notEqual: 'Does not equal',
+  greaterThan: 'Greater than',
+  greaterThanOrEqual: 'Greater than or equal to',
+  lessThan: 'Less than',
+  lessThanOrEqual: 'Less than or equal to',
 };
 
 export class TableFilterRow extends React.PureComponent {
@@ -18,6 +29,7 @@ export class TableFilterRow extends React.PureComponent {
       <TableFilterRowBase
         cellComponent={TableFilterCell}
         rowComponent={TableRow}
+        iconComponent={Icon}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -27,10 +39,14 @@ export class TableFilterRow extends React.PureComponent {
 
 TableFilterRow.Cell = TableFilterCell;
 TableFilterRow.Row = TableRow;
+TableFilterRow.Icon = Icon;
 
 TableFilterRow.propTypes = {
   messages: PropTypes.shape({
     filterPlaceholder: PropTypes.string,
+    contains: PropTypes.string,
+    startsWith: PropTypes.string,
+    endsWith: PropTypes.string,
   }),
 };
 

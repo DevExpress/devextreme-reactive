@@ -46,6 +46,7 @@ const defaultDeps = {
 const defaultProps = {
   cellComponent: () => null,
   rowComponent: () => null,
+  iconComponent: () => null,
 };
 
 describe('TableFilterRow', () => {

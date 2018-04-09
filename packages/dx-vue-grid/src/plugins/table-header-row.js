@@ -10,8 +10,8 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getColumnSortingDirection,
+  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
@@ -33,12 +33,16 @@ export const TableHeaderRow = {
       type: Object,
       required: true,
     },
+    messages: {
+      type: Object,
+    },
   },
   render() {
     const {
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
     } = this;
+    const getMessage = getMessagesFormatter(this.messages);
 
     return (
       <Plugin
@@ -75,6 +79,7 @@ export const TableHeaderRow = {
                       : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
+                    getMessage={getMessage}
                   />
                 );
               }}

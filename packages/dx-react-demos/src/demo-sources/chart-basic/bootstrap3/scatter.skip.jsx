@@ -4,10 +4,7 @@ import {
   Axis,
   Grid,
   Chart,
-  Legend,
-  LineSeries,
-  AreaSeries,
-  SplineSeries,
+  ScatterSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -39,33 +36,22 @@ export default class Demo extends React.PureComponent {
         series={[
           { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
           { valueField: 'China', argumentField: 'year', axisName: 'born' },
-          { valueField: 'USA', argumentField: 'year', axisName: 'born' },
         ]}
       >
 
-        <Legend />
         <Axis name="year" position="bottom" />
-        {/* <Axis name="year" position="top" /> */}
         <Axis name="born" position="left" />
-        {/* <Axis name="born" position="right" /> */}
 
         <Grid name="born" />
         <Grid name="year" />
 
-        <LineSeries
+        <ScatterSeries
           name="Russia"
-          style={{ stroke: 'red' }}
-          point={{ visible: true, style: { fill: 'green' } }}
+          style={{ stroke: 'red', fill: 'white' }}
         />
-        <SplineSeries
+        <ScatterSeries
           name="China"
-          style={{ stroke: 'green' }}
-          point={{ visible: false }}
-        />
-        <AreaSeries
-          name="USA"
-          style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
-          point={{ visible: true, style: { fill: 'orange' } }}
+          style={{ stroke: 'orange', fill: 'blue' }}
         />
       </Chart>
     );

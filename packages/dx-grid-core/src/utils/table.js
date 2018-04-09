@@ -55,6 +55,10 @@ export const getAnimations = (
   tableWidth,
   prevAnimations,
 ) => {
+  if (prevColumns.map(c => c.key).join('') === nextColumns.map(c => c.key).join('')) {
+    return new Map();
+  }
+
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
     .map((geometry, index) => [prevColumns[index].key, geometry])
     .map(([key, geometry]) => {

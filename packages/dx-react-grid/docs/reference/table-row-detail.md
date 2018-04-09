@@ -71,7 +71,7 @@ TableRowDetail.Cell | [TableRowDetail.CellProps](#tablerowdetailcellprops) | A c
 TableRowDetail.Row | [TableRowDetail.RowProps](#tablerowdetailrowprops) | A component that renders a detail row.
 TableRowDetail.ToggleCell | [TableRowDetail.ToggleCellProps](#tablerowdetailtogglecellprops) | A component that renders a cell containing the expand/collapse control.
 
-If you specify additional properties, they are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

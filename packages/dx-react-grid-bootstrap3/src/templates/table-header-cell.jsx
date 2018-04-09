@@ -81,7 +81,7 @@ export class TableHeaderCell extends React.PureComponent {
               ? { [`margin${align === 'right' ? 'Left' : 'Right'}`]: '14px' }
               : null),
             textAlign: align,
-            whiteSpace: 'nowrap',
+            whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             padding: '3px',

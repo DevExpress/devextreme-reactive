@@ -18,7 +18,6 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    height: theme.spacing.unit * 3,
     lineHeight: `${theme.spacing.unit * 3}px`,
   },
   cell: {

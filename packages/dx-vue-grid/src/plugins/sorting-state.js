@@ -32,14 +32,7 @@ export const SortingState = {
       );
     },
   },
-  // componentWillReceiveProps(nextProps) {
-  //   const {
-  //     sorting,
-  //   } = nextProps;
-  //   this.setState({
-  //     ...sorting !== undefined ? { sorting } : null,
-  //   });
-  // }
+
   render() {
     const { columnExtensions, columnSortingEnabled } = this;
     const columnExtensionValueGetter = (extensions, defaultValue) =>

@@ -8,9 +8,9 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from 'material-ui/styles';
-import Equalizer from 'material-ui-icons/Equalizer';
-import People from 'material-ui-icons/People';
-import PieChart from 'material-ui-icons/PieChart';
+import Equalizer from '@material-ui/icons/Equalizer';
+import People from '@material-ui/icons/People';
+import PieChart from '@material-ui/icons/PieChart';
 import { countries } from '../countries';
 
 const PercentFormatter = ({ value }) =>

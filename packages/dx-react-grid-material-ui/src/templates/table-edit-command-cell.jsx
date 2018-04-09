@@ -103,11 +103,8 @@ EditCommandHeadingCellBase.defaultProps = {
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
 const EditCommandCellBase = ({
-  children,
-  style,
-  classes,
-  className,
-  tableRow, tableColumn,
+  tableRow, tableColumn, row, children,
+  style, classes, className,
   ...restProps
 }) => (
   <TableCell
@@ -126,6 +123,7 @@ EditCommandCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  row: PropTypes.object,
 };
 
 EditCommandCellBase.defaultProps = {
@@ -134,6 +132,7 @@ EditCommandCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  row: undefined,
 };
 
 export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

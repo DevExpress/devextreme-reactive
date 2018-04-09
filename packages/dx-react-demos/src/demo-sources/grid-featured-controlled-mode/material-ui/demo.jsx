@@ -22,10 +22,10 @@ import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
 import { TableCell } from 'material-ui/Table';
 
-import DeleteIcon from 'material-ui-icons/Delete';
-import EditIcon from 'material-ui-icons/Edit';
-import SaveIcon from 'material-ui-icons/Save';
-import CancelIcon from 'material-ui-icons/Cancel';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { withStyles } from 'material-ui/styles';
 
 import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';

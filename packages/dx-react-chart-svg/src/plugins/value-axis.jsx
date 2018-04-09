@@ -5,7 +5,7 @@ import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
 
-export class Axis extends React.PureComponent {
+export class ValueAxis extends React.PureComponent {
   render() {
     return (
       <AxisBase
@@ -19,7 +19,7 @@ export class Axis extends React.PureComponent {
   }
 }
 
-Axis.Root = Root;
-Axis.Tick = Tick;
-Axis.Label = Label;
-Axis.Line = Line;
+ValueAxis.Root = Root;
+ValueAxis.Tick = Tick;
+ValueAxis.Label = Label;
+ValueAxis.Line = Line;

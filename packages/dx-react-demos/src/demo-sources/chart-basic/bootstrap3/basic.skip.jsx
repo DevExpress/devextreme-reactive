@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
 import {
-  Axis,
-  Grid,
+  ArgumentAxis,
+  ValueAxis,
   Chart,
   LineSeries,
   AreaSeries,
@@ -46,13 +46,8 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
-        <Axis name="year" position="bottom" />
-        {/* <Axis name="year" position="top" /> */}
-        <Axis name="born" position="left" />
-        {/* <Axis name="born" position="right" /> */}
-
-        <Grid name="born" />
-        <Grid name="year" />
+        <ArgumentAxis name="year" position="bottom" />
+        <ValueAxis name="born" position="left" />
 
         <LineSeries
           name="Russia"

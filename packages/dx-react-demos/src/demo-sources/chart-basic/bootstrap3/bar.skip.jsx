@@ -2,8 +2,8 @@
 import * as React from 'react';
 import {
   Chart,
-  Axis,
-  Grid,
+  ArgumentAxis,
+  ValueAxis,
   BarSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { contributors as data } from '../../../demo-data/data-vizualization';
@@ -22,7 +22,6 @@ export default class Demo extends React.PureComponent {
         data={this.state.data}
         width={700}
         height={400}
-        style={{ border: '1px dashed gray' }}
         axes={[
           {
             name: 'Name',
@@ -39,13 +38,8 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
-        <Axis name="Name" position="bottom" />
-        {/* <Axis name="Name" position="top" /> */}
-        <Axis name="commits" position="left" />
-        {/* <Axis name="commits" position="right" /> */}
-
-        <Grid name="Name" />
-        <Grid name="commits" />
+        <ArgumentAxis name="Name" position="bottom" />
+        <ValueAxis name="commits" position="left" />
 
         <BarSeries
           name="contributions"

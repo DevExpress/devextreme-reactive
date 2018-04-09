@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ChevronRight from 'material-ui-icons/ChevronRight';
-import ExpandMore from 'material-ui-icons/ExpandMore';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import IconButton from 'material-ui/IconButton';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';

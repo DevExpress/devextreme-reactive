@@ -6,7 +6,7 @@ const Series = ({
   attributes, ...props
 }) => {
   const {
-    point,
+    pointStyle,
     pathComponent: Path,
     pointComponent: Point,
     ...restProps
@@ -29,7 +29,7 @@ const Series = ({
             x={item.x}
             y={item.y}
             d={dPoint}
-            {...point}
+            style={pointStyle}
           />
         ))
       }
@@ -41,11 +41,11 @@ export const AreaSeries = baseSeries(Series, 'AreaSeries', 'area');
 
 Series.propTypes = {
   attributes: PropTypes.object.isRequired,
-  point: PropTypes.object,
+  pointStyle: PropTypes.object,
   pointComponent: PropTypes.func.isRequired,
   pathComponent: PropTypes.func.isRequired,
 };
 
 Series.defaultProps = {
-  point: {},
+  pointStyle: {},
 };

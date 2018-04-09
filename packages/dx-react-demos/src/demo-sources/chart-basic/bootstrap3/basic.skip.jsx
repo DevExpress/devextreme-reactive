@@ -52,7 +52,7 @@ export default class Demo extends React.PureComponent {
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
-          point={{ style: { fill: 'green' } }}
+          pointStyle={{ fill: 'green' }}
         />
         <SplineSeries
           name="China"
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
         <AreaSeries
           name="USA"
           style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
-          point={{ style: { fill: 'orange' } }}
+          pointStyle={{ fill: 'orange' }}
         />
       </Chart>
     );

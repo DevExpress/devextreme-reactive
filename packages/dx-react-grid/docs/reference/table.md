@@ -89,6 +89,8 @@ column | [Column](grid.md#column) | Specifies the cell's column.
 
 Describes properties passed to a component that renders a table cell when the table is empty.
 
+Extends [Table.CellProps](#tablecellprops)
+
 Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.

@@ -22,7 +22,6 @@ export default class Demo extends React.PureComponent {
         data={this.state.data}
         width={700}
         height={400}
-        style={{ border: '1px dashed gray' }}
         axes={[
           {
             name: 'year',

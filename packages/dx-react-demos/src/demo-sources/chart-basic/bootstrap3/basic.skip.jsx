@@ -4,7 +4,6 @@ import {
   Axis,
   Grid,
   Chart,
-  Legend,
   LineSeries,
   AreaSeries,
   SplineSeries,
@@ -25,7 +24,6 @@ export default class Demo extends React.PureComponent {
         data={this.state.data}
         width={700}
         height={400}
-        style={{ border: '1px dashed gray' }}
         axes={[
           {
             name: 'year',
@@ -37,13 +35,17 @@ export default class Demo extends React.PureComponent {
           },
         ]}
         series={[
-          { valueField: 'Russia', argumentField: 'year', axisName: 'born' },
+          {
+            valueField: 'Russia',
+            argumentField: 'year',
+            axisName: 'born',
+            point: { size: 10 },
+          },
           { valueField: 'China', argumentField: 'year', axisName: 'born' },
           { valueField: 'USA', argumentField: 'year', axisName: 'born' },
         ]}
       >
 
-        <Legend />
         <Axis name="year" position="bottom" />
         {/* <Axis name="year" position="top" /> */}
         <Axis name="born" position="left" />
@@ -55,17 +57,16 @@ export default class Demo extends React.PureComponent {
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}
-          point={{ visible: true, style: { fill: 'green' } }}
+          point={{ style: { fill: 'green' } }}
         />
         <SplineSeries
           name="China"
           style={{ stroke: 'green' }}
-          point={{ visible: false }}
         />
         <AreaSeries
           name="USA"
           style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
-          point={{ visible: true, style: { fill: 'orange' } }}
+          point={{ style: { fill: 'orange' } }}
         />
       </Chart>
     );

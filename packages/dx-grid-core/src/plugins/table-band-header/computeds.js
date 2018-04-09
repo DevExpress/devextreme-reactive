@@ -17,7 +17,7 @@ export const tableRowsWithBands = (tableHeaderRows, columnBands, tableColumns) =
       return acc;
     }, result || { level: 0 });
 
-  const tableGroupHeaders = Array.from({ length: getMaxNestedLevel(columnBands, 0).level })
+  const tableBandHeaders = Array.from({ length: getMaxNestedLevel(columnBands, 0).level })
     .map((row, index) => ({ key: `${TABLE_BAND_TYPE}_${index}`, type: TABLE_BAND_TYPE, level: index }));
-  return [...tableGroupHeaders, ...tableHeaderRows];
+  return [...tableBandHeaders, ...tableHeaderRows];
 };

@@ -55,7 +55,6 @@ TableSelectAllCell.propTypes = {
   onToggle: PropTypes.func,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  style: PropTypes.object,
   rowSpan: PropTypes.number,
 };
 
@@ -67,6 +66,5 @@ TableSelectAllCell.defaultProps = {
   onToggle: () => {},
   tableRow: undefined,
   tableColumn: undefined,
-  style: null,
   rowSpan: undefined,
 };

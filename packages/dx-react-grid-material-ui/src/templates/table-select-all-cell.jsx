@@ -55,7 +55,6 @@ const TableSelectAllCellBase = ({
 };
 
 TableSelectAllCellBase.propTypes = {
-  style: PropTypes.object,
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -68,7 +67,6 @@ TableSelectAllCellBase.propTypes = {
 };
 
 TableSelectAllCellBase.defaultProps = {
-  style: null,
   allSelected: false,
   someSelected: false,
   disabled: false,

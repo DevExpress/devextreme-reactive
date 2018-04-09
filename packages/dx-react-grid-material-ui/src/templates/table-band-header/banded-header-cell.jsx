@@ -33,14 +33,10 @@ BandedHeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
-  rowSpan: PropTypes.number,
 };
 
 BandedHeaderCellBase.defaultProps = {
   className: undefined,
-  rowSpan: undefined,
-  style: null,
 };
 
 export const BandedHeaderCell = withStyles(styles, { name: 'BandedHeaderCell' })(BandedHeaderCellBase);

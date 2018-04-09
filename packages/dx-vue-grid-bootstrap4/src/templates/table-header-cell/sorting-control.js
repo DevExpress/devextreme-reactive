@@ -49,6 +49,7 @@ export const SortingControl = {
         class={{
           'text-primary': this.direction,
         }}
+        style={{ cursor: 'pointer' }}
         onClick={this.handleClick}
         onKeydown={this.handleKeyDown}
         tabIndex={this.disabled ? -1 : 0}

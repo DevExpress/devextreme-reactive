@@ -20,7 +20,7 @@ export const TableFilterCell = {
             type="text"
             class="form-control"
             value={filter ? filter.value : ''}
-            on-input={e => this.$emit('filter', e.target.value ? { value: e.target.value } : null)}
+            onInput={e => this.$emit('filter', e.target.value ? { value: e.target.value } : null)}
             readonly={!filteringEnabled}
           />
         )}

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
-import ChevronLeft from 'material-ui-icons/ChevronLeft';
-import ChevronRight from 'material-ui-icons/ChevronRight';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
 import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
 
 const styles = theme => ({

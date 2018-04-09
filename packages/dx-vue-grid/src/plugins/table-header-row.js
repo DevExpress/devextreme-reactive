@@ -70,7 +70,9 @@ export const TableHeaderRow = {
                     column={params.tableColumn.column}
                     showSortingControls={this.showSortingControls}
                     sortingEnabled={sortingEnabled}
-                    sortingDirection={getColumnSortingDirection(sorting, columnName)}
+                    sortingDirection={this.showSortingControls
+                      ? getColumnSortingDirection(sorting, columnName)
+                      : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
                   />

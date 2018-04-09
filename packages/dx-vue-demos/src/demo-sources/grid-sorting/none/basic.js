@@ -13,7 +13,7 @@ import { generateRows } from '../../../demo-data/generator';
 export default {
   data() {
     return {
-      sorting: [{ columnName: 'city', direction: 'asc' }],
+      sorting: [],
     };
   },
   render() {
@@ -29,8 +29,7 @@ export default {
           ]}
         >
           <SortingState
-            sorting={this.sorting}
-            {...{ on: { 'update:sorting': (sorting) => { this.sorting = sorting; } } }}
+            sorting$sync={this.sorting}
           />
           <IntegratedSorting />
           <Table />

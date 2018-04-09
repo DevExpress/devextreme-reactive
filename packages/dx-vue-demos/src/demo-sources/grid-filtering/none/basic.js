@@ -2,24 +2,31 @@ import {
   FilteringState,
   IntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
-import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-vue-grid-bootstrap4';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableFilterRow,
+} from '@devexpress/dx-vue-grid-bootstrap4';
+
+import { generateRows } from '../../../demo-data/generator';
 
 export default {
   data() {
-    return ({ filters: [] });
+    return {
+      filters: [],
+    };
   },
   render() {
     return (
       <div class="card">
         <Grid
-          rows={[
-            { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-            { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-          ]}
+          rows={generateRows({ length: 8 })}
           columns={[
-            { name: 'id', title: 'ID' },
-            { name: 'product', title: 'Product' },
-            { name: 'owner', title: 'Owner' },
+            { name: 'name', title: 'Name' },
+            { name: 'sex', title: 'Sex' },
+            { name: 'city', title: 'City' },
+            { name: 'car', title: 'Car' },
           ]}
         >
           <FilteringState filters$sync={this.filters} />

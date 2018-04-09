@@ -9,6 +9,7 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
+  getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 
 
@@ -21,6 +22,9 @@ const pluginDependencies = [
 export const TableHeaderRow = {
   name: 'TableHeaderRow',
   props: {
+    showSortingControls: {
+      type: Boolean,
+    },
     cellComponent: {
       type: Object,
       required: true,
@@ -49,15 +53,29 @@ export const TableHeaderRow = {
         >
           {params => (
             <TemplateConnector>
-              {() => (
+              {({
+                getters: {
+                  sorting,
+                  isColumnSortingEnabled,
+                },
+                actions: {
+                  changeColumnSorting,
+                },
+              }) => {
+                const { name: columnName } = params.tableColumn.column;
+                const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+                return (
                   <HeaderCell
                     {...{ attrs: { ...params } }}
                     column={params.tableColumn.column}
-                  >
-                  {params.tableColumn.column.title || params.tableColumn.column.name}
-                  </HeaderCell>
-                )
-              }
+                    showSortingControls={this.showSortingControls}
+                    sortingEnabled={sortingEnabled}
+                    sortingDirection={getColumnSortingDirection(sorting, columnName)}
+                    onSort={({ direction, keepOther }) =>
+                      changeColumnSorting({ columnName, direction, keepOther })}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -67,7 +85,6 @@ export const TableHeaderRow = {
         >
           {params => (
             <HeaderRow
-              row={params.tableRow.row}
               {...{ attrs: { ...params } }}
             >
               <TemplatePlaceholderSlot params={params} />

@@ -28,7 +28,7 @@ export const SortingState = {
         calculateKeepOther(this.sorting, payload.keepOther, persistentSortedColumns);
       this.$emit(
         'update:sorting',
-        changeColumnSorting({ sorting: this.sorting }, { ...payload, keepOther }),
+        changeColumnSorting({ sorting: this.sorting }, { ...payload, keepOther }).sorting,
       );
     },
   },

@@ -27,6 +27,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 describe('SortingState', () => {
   beforeEach(() => {
+    changeColumnSorting.mockImplementation(() => ({}));
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
     getPersistentSortedColumns.mockImplementation(() => []);
     calculateKeepOther.mockImplementation((sorting, keepOther) => keepOther);

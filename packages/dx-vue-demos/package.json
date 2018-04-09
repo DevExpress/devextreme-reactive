@@ -24,6 +24,8 @@
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.1.0",
     "@devexpress/dx-vue-core": "1.1.0",
+    "@devexpress/dx-vue-grid": "1.1.0",
+    "@devexpress/dx-vue-grid-bootstrap4": "1.1.0",
     "babel-polyfill": "^6.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -35,7 +37,7 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.0.0-beta.12",
+    "@vue/test-utils": "1.0.0-beta.12",
     "@devexpress/dx-testing": "1.1.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^22.4.3",
@@ -59,6 +61,7 @@
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.1",
+    "babel-plugin-vue-jsx-sync": "^0.0.4"
   }
 }

@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.1.0",
-    "@vue/test-utils": "^1.0.0-beta.12",
+    "@vue/test-utils": "1.0.0-beta.12",
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^22.4.3",

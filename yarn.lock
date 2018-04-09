@@ -61,7 +61,7 @@
   version "16.0.40"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.40.tgz#caabc2296886f40b67f6fc80f0f3464476461df9"
 
-"@vue/test-utils@^1.0.0-beta.12":
+"@vue/test-utils@1.0.0-beta.12":
   version "1.0.0-beta.12"
   resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-1.0.0-beta.12.tgz#c020d5e7566d176a654e44c88d303743ad19b3cf"
   dependencies:
@@ -929,6 +929,10 @@ babel-plugin-transform-vue-jsx@^3.7.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-vue-jsx/-/babel-plugin-transform-vue-jsx-3.7.0.tgz#d40492e6692a36b594f7e9a1928f43e969740960"
   dependencies:
     esutils "^2.0.2"
+
+babel-plugin-vue-jsx-sync@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-vue-jsx-sync/-/babel-plugin-vue-jsx-sync-0.0.4.tgz#2641a13bbe6d6d96c942eb6b7ff5a5d6d52a4307"
 
 babel-polyfill@^6.26.0:
   version "6.26.0"

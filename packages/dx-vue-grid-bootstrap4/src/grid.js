@@ -9,7 +9,7 @@ export const Grid = {
     return (
       <GridBase
         rootComponent={GridRoot}
-        {...{ attrs: context.props, listeners: context.listeners }}
+        {...{ attrs: context.props, on: context.listeners }}
       >
         {context.children}
       </GridBase>

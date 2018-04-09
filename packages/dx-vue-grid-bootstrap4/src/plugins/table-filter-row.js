@@ -11,7 +11,7 @@ export const TableFilterRow = {
       <TableFilterRowBase
         cellComponent={TableFilterCell}
         rowComponent={TableRow}
-        {...{ attrs: context.props, listeners: context.listeners }}
+        {...{ attrs: context.props, on: context.listeners }}
       />
     );
   },

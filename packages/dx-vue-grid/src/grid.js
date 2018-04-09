@@ -8,7 +8,7 @@ export const Grid = {
     return (
       <PluginHost>
         <GridCore
-          {...{ attrs: context.props, listeners: context.listeners }}
+          {...{ attrs: context.props, on: context.listeners }}
         />
         {context.children}
       </PluginHost>

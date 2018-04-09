@@ -11,7 +11,7 @@ export const TableHeaderRow = {
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
-        {...{ attrs: context.props, listeners: context.listeners }}
+        {...{ attrs: context.props, on: context.listeners }}
       />
     );
   },

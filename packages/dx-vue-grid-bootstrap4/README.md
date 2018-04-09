@@ -1,6 +1,6 @@
-# DevExtreme Vue Core
+# DevExtreme Vue Grid Bootstrap 4
 
-Core library for DevExtreme Vue Components.
+A template suite used to render the React Grid's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.
 
 ## License
 

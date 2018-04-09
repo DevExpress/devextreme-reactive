@@ -44,7 +44,6 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node to be placed in the command cell.
-rowSpan? | number | Specifies the rowspan attribute.
 
 ### TableEditColumn.CommandProps
 

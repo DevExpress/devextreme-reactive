@@ -36,7 +36,6 @@ disabled | boolean | Indicates if there are no rows that can be selected.
 allSelected | boolean | Indicates whether all the rows available for selection are selected.
 someSelected | boolean | Indicates whether at least one but not all rows available for selection are selected.
 onToggle | (select?: boolean) => void | Toggles the Select All checkbox state.
-rowSpan | number | Specifies the rowspan attribute.
 
 ### TableSelection.CellProps
 

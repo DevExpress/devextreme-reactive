@@ -43,7 +43,7 @@ Field | Type | Description
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
-onToggle | () => void | An event that initiates group row's expanding or collapsing.
+onToggle | () => void | An event that initiates group row expanding or collapsing.
 
 ### TableGroupRow.RowProps
 

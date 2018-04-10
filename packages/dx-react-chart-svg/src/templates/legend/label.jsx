@@ -4,12 +4,12 @@ import * as PropTypes from 'prop-types';
 export class Label extends React.Component {
   render() {
     const {
-      text, x, y, alignmentBaseline, textAnchor, refsHandler,
+      text, x, y, dominantBaseline, textAnchor, refsHandler,
     } = this.props;
     return (
       <text
         ref={refsHandler}
-        dominantBaseline={alignmentBaseline}
+        dominantBaseline={dominantBaseline}
         textAnchor={textAnchor}
         key={text}
         x={x}
@@ -28,7 +28,7 @@ Label.propTypes = {
   ]).isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  alignmentBaseline: PropTypes.string.isRequired,
+  dominantBaseline: PropTypes.string.isRequired,
   textAnchor: PropTypes.string.isRequired,
   refsHandler: PropTypes.func.isRequired,
 };

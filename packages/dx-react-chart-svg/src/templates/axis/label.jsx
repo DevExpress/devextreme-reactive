@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const Label = ({
-  text, x, y, alignmentBaseline, textAnchor,
+  text, x, y, dominantBaseline, textAnchor,
 }) => (
   <text
-    dominantBaseline={alignmentBaseline}
+    dominantBaseline={dominantBaseline}
     textAnchor={textAnchor}
     key={text}
     x={x}
@@ -22,6 +22,6 @@ Label.propTypes = {
   ]).isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  alignmentBaseline: PropTypes.string.isRequired,
+  dominantBaseline: PropTypes.string.isRequired,
   textAnchor: PropTypes.string.isRequired,
 };

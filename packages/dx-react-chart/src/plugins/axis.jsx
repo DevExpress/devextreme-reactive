@@ -81,7 +81,7 @@ export class Axis extends React.Component {
                     y={y - this.state.correctionY}
                   >
                     {coordinates.ticks.map(({
-                      text, x1, x2, y1, y2, xText, yText, alignmentBaseline, textAnchor,
+                      text, x1, x2, y1, y2, xText, yText, dominantBaseline, textAnchor,
                     }) => (
                       <React.Fragment key={text}>
                         <Tick
@@ -94,7 +94,7 @@ export class Axis extends React.Component {
                           text={text}
                           x={xText}
                           y={yText}
-                          alignmentBaseline={alignmentBaseline}
+                          dominantBaseline={dominantBaseline}
                           textAnchor={textAnchor}
                         />
                       </React.Fragment>

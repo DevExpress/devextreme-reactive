@@ -4,7 +4,7 @@ const tickSize = 10;
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);
-const getAlignmentBaseline = (orientation, position) => {
+const getDominantBaseline = (orientation, position) => {
   if (orientation === 'horizontal') {
     return position === 'top' ? 'baseline' : 'hanging';
   }
@@ -21,14 +21,14 @@ const getTextAnchor = (orientation, position) => {
 const calculateAxisCoordinates = (scale, width, height, orientation, position) => {
   const ticks = getTicks(scale);
   const offset = getOffset(scale);
-  const alignmentBaseline = getAlignmentBaseline(orientation, position);
+  const dominantBaseline = getDominantBaseline(orientation, position);
   const textAnchor = getTextAnchor(orientation, position);
 
   const getTickCoordinates = (tick) => {
     const coordinates = scale(tick) + offset;
     if (orientation === 'horizontal') {
       return {
-        alignmentBaseline,
+        dominantBaseline,
         textAnchor,
         x1: coordinates,
         x2: coordinates,
@@ -40,7 +40,7 @@ const calculateAxisCoordinates = (scale, width, height, orientation, position) =
       };
     }
     return {
-      alignmentBaseline,
+      dominantBaseline,
       textAnchor,
 
       y1: coordinates,

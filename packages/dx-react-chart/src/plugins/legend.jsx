@@ -68,7 +68,6 @@ export class Legend extends React.PureComponent {
                     name={`${name}-legend-label-${placeholder}`}
                     text={name}
                     dominantBaseline="text-before-edge"
-                    alignmentBaseline="text-before-edge"
                     textAnchor="start"
 
                     bBoxHandler={(bBoxes, node) => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
@@ -10,7 +10,6 @@ import {
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
-import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithGrouping: jest.fn(),

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { filteredRows } from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { IntegratedFiltering } from './integrated-filtering';
-import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 
 const defaultDeps = {
   getter: {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { SearchPanel } from './search-panel';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

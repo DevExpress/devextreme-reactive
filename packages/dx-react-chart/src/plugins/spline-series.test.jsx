@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { getSeriesAttributes } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { SplineSeries } from './spline-series';
 
 const PointComponent = () => null;

@@ -10,9 +10,6 @@ import {
 
 import { axisCoordinates } from '@devexpress/dx-chart-core';
 
-const getPlaceholder = (orientation, position) =>
-  (orientation === 'horizontal' ? `${position}-center` : `center-${position}`);
-
 const isEqual = (firstBBox, secondBBox) =>
   firstBBox.width === secondBBox.width && firstBBox.height === secondBBox.height;
 
@@ -63,7 +60,7 @@ export class Axis extends React.Component {
                    domains, setBBox, layouts,
                }) => {
                  const { orientation } = domains[name];
-                 const placeholder = getPlaceholder(orientation, position);
+                 const placeholder = `${position}-axis`;
                  const {
                     x, y, width, height,
                 } = layouts[placeholder];

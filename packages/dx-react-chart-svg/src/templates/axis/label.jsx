@@ -5,7 +5,7 @@ export const Label = ({
   text, x, y, alignmentBaseline, textAnchor,
 }) => (
   <text
-    alignmentBaseline={alignmentBaseline}
+    dominantBaseline={alignmentBaseline}
     textAnchor={textAnchor}
     key={text}
     x={x}

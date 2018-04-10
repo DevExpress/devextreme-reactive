@@ -62,7 +62,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
     rootComponent: PropTypes.func.isRequired,
   };
   Component.defaultProps = {
-    placeholder: 'center-center',
+    placeholder: 'pane',
   };
   return Component;
 };

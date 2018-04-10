@@ -80,5 +80,5 @@ Grid.propTypes = {
 };
 
 Grid.defaultProps = {
-  placeholder: 'center-center',
+  placeholder: 'pane',
 };

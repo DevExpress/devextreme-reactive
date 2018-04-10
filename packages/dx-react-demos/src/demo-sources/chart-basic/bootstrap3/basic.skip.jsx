@@ -4,6 +4,8 @@ import {
   ArgumentAxis,
   ValueAxis,
   Chart,
+  Legend,
+  Grid,
   LineSeries,
   AreaSeries,
   SplineSeries,
@@ -59,7 +61,13 @@ export default class Demo extends React.PureComponent {
 
         <ArgumentAxis name="year" position="bottom" />
         <ValueAxis name="born" position="left" />
+        <Grid name="year" />
+        <Grid name="born" />
 
+        <Legend />
+        <Legend placeholder="left" />
+        <Legend placeholder="right" />
+        <Legend placeholder="bottom" />
         <LineSeries
           name="Russia"
           style={{ stroke: 'red' }}

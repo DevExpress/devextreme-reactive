@@ -3,6 +3,7 @@ import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
   GRID_GROUP_LEVEL_KEY,
+  GRID_GROUP_COLLAPSED_ROWS,
 } from './constants';
 
 export const groupRowChecker = row => row[GRID_GROUP_CHECK];
@@ -76,7 +77,7 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
       if (currentGroupExpanded) {
         acc.push(row);
       } else {
-        acc[acc.length - 1].collapsedRows.push(row);
+        acc[acc.length - 1][GRID_GROUP_COLLAPSED_ROWS].push(row);
       }
       return acc;
     }
@@ -94,10 +95,13 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
     } else {
       acc.push({
         ...row,
-        collapsedRows: [],
+        [GRID_GROUP_COLLAPSED_ROWS]: [],
       });
     }
 
     return acc;
   }, []);
 };
+
+export const groupCollapsedRowsGetter = getCollapsedRows =>
+  row => row[GRID_GROUP_COLLAPSED_ROWS] || (getCollapsedRows && getCollapsedRows(row));

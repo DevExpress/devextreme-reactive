@@ -1,6 +1,7 @@
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
+  groupCollapsedRowsGetter,
   groupedRows,
   expandedGroupRows,
 } from './computeds';
@@ -8,6 +9,7 @@ import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
   GRID_GROUP_LEVEL_KEY,
+  GRID_GROUP_COLLAPSED_ROWS,
 } from './constants';
 
 describe('IntegratedGrouping computeds', () => {
@@ -34,9 +36,9 @@ describe('IntegratedGrouping computeds', () => {
   const groupRow = ({ groupedBy, collapsedRows, ...restParams }) => ({
     ...restParams,
     groupedBy,
-    ...collapsedRows ? { collapsedRows } : null,
     [GRID_GROUP_CHECK]: true,
     [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+    ...(collapsedRows ? { [GRID_GROUP_COLLAPSED_ROWS]: collapsedRows } : null),
   });
 
   const rows = [
@@ -279,6 +281,33 @@ describe('IntegratedGrouping computeds', () => {
             ],
           }),
         ]);
+    });
+  });
+
+  describe('#collapsedTreeRowsGetter', () => {
+    const collapsedRows = [
+      groupRow({
+        collapsedRows: [{ a: 1 }],
+      }),
+      { a: 1, b: 1 },
+    ];
+
+    it('should define collapsed rows', () => {
+      const parentGetCollapsedRows = undefined;
+      const getCollapsedRows = groupCollapsedRowsGetter(parentGetCollapsedRows);
+
+      expect(getCollapsedRows(collapsedRows[0]))
+        .toEqual([{ a: 1 }]);
+      expect(getCollapsedRows(1))
+        .toBeUndefined();
+    });
+
+    it('should provide row levels for unknown rows', () => {
+      const parentGetCollapsedRows = () => 0;
+      const getCollapsedRows = groupCollapsedRowsGetter(parentGetCollapsedRows);
+
+      expect(getCollapsedRows(1))
+        .toBe(0);
     });
   });
 });

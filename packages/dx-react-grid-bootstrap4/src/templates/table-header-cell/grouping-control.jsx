@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './grouping-control.css';
 
 export const GroupingControl = ({ align, disabled, onGroup }) => {
   const invertedAlign = align === 'left';
@@ -9,7 +8,7 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
   return (
     <div
       className={classNames({
-        'dx-rg-bs4-grouping-control': true,
+        'dx-g-bs4-grouping-control': true,
         'float-right text-right': invertedAlign,
         'float-left text-left': !invertedAlign,
       })}
@@ -21,9 +20,9 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
     >
       <span
         className={classNames({
-          'oi oi-list dx-rg-bs4-grouping-control-icon': true,
-          'dx-rg-bs4-cursor-pointer': !disabled,
-          'dx-rg-bs4-inactive': disabled,
+          'oi oi-list dx-g-bs4-grouping-control-icon': true,
+          'dx-g-bs4-cursor-pointer': !disabled,
+          'dx-g-bs4-inactive': disabled,
         })}
       />
     </div>

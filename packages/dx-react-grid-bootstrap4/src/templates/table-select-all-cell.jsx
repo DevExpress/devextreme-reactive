@@ -2,50 +2,30 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { SelectionControl } from './parts/selection-control';
+
 export const TableSelectAllCell = ({
-  allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow, className, rowSpan,
+  className, allSelected, someSelected, disabled, onToggle,
+  tableColumn, tableRow, rowSpan,
   ...restProps
-}) => {
-  const toggle = (e) => {
-    if (disabled) return;
-
-    e.stopPropagation();
-    onToggle();
-  };
-
-  return (
-    <th
-      className={classNames({
-        'align-middle': !rowSpan,
-        'align-bottom': !!rowSpan,
-        'dx-rg-bs4-cursor-pointer': !disabled,
-      }, className)}
-      rowSpan={rowSpan}
-      onClick={toggle}
-      {...restProps}
-    >
-      <input
-        className={classNames({
-          'd-block mx-auto': true,
-          'my-1': !!rowSpan,
-          'dx-rg-bs4-cursor-pointer': !disabled,
-        })}
-        type="checkbox"
-        disabled={disabled}
-        checked={allSelected}
-        ref={(ref) => {
-          if (ref) {
-            const checkbox = ref;
-            checkbox.indeterminate = someSelected;
-          }
-        }}
-        onChange={toggle}
-        onClick={e => e.stopPropagation()}
-      />
-    </th>
-  );
-};
+}) => (
+  <th
+    className={classNames({
+      'text-center': true,
+      'align-middle': !rowSpan,
+      'align-bottom': !!rowSpan,
+    }, className)}
+    rowSpan={rowSpan}
+    {...restProps}
+  >
+    <SelectionControl
+      disabled={disabled}
+      checked={allSelected}
+      indeterminate={someSelected}
+      onChange={onToggle}
+    />
+  </th>
+);
 
 TableSelectAllCell.propTypes = {
   className: PropTypes.string,

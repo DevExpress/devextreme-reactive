@@ -69,6 +69,22 @@ const styles = theme => ({
   cellCenter: {
     textAlign: 'center',
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  containerRight: {
+    flexDirection: 'row-reversed',
+  },
+  content: {
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  contentNoWrap: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -105,7 +121,7 @@ class TableHeaderCellBase extends React.PureComponent {
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
-      classes, getMessage, tableRow, className, onSort,
+      classes, getMessage, tableRow, className, onSort, before,
       ...restProps
     } = this.props;
 
@@ -121,6 +137,14 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
+    const containerClassses = classNames({
+      [classes.container]: true,
+      [classes.containerRight]: align === 'right',
+    });
+    const contentClassed = classNames({
+      [classes.content]: true,
+      [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -128,27 +152,33 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            disabled={!groupingEnabled}
-            onGroup={onGroup}
-          />
-        )}
-        {showSortingControls ? (
-          <SortingControl
-            align={align}
-            sortingDirection={sortingDirection}
-            columnTitle={columnTitle}
-            onClick={this.onClick}
-            getMessage={getMessage}
-            disabled={!sortingEnabled}
-          />
-        ) : (
-          <div className={classes.plainTitle}>
-            {columnTitle}
+        <div className={containerClassses}>
+          {before}
+          <div className={contentClassed}>
+            {showSortingControls ? (
+              <SortingControl
+                align={align}
+                disabled={!sortingEnabled}
+                sortingDirection={sortingDirection}
+                columnTitle={columnTitle}
+                onClick={this.onClick}
+                getMessage={getMessage}
+              />
+            ) : (
+              <span className={classes.plainTitle}>
+                {columnTitle}
+              </span>
+            )}
           </div>
-        )}
+          {showGroupingControls && (
+            <div className={classes.controls}>
+              <GroupingControl
+                disabled={!groupingEnabled}
+                onGroup={onGroup}
+              />
+            </div>
+          )}
+        </div>
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -193,6 +223,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  before: PropTypes.node,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -213,6 +244,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
+  before: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

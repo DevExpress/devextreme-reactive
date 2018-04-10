@@ -10,7 +10,7 @@ describe('TableContainer', () => {
       </TableContainer>
     ));
 
-    expect(tree.is('.table-responsive.dx-rg-bs4-table-container.custom-class'))
+    expect(tree.is('.table-responsive.dx-g-bs4-table-container.custom-class'))
       .toBeTruthy();
   });
 

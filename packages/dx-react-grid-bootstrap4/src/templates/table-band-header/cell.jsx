@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './../table-cell.css';
-import './cell.css';
 
 export const Cell = ({
   column, children,
@@ -10,7 +8,7 @@ export const Cell = ({
   className, ...restProps
 }) => (
   <th
-    className={classNames('dx-rg-bs4-banded-cell dx-rg-bs4-table-cell text-nowrap border', className)}
+    className={classNames('dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border', className)}
     {...restProps}
   >
     {children}

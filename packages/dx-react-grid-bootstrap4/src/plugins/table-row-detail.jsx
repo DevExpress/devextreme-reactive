@@ -11,7 +11,7 @@ export class TableRowDetail extends React.PureComponent {
         toggleCellComponent={TableDetailToggleCell}
         cellComponent={TableDetailCell}
         rowComponent={TableRow}
-        toggleColumnWidth={25}
+        toggleColumnWidth={40}
         {...this.props}
       />
     );

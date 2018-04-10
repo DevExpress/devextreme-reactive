@@ -11,7 +11,7 @@ describe('TableCell', () => {
       <BandedHeaderCell {...defaultProps} className="custom-class" />
     ));
 
-    expect(tree.find('.custom-class.dx-rg-bs4-banded-header-cell.border-left.border-right').exists())
+    expect(tree.find('.custom-class.dx-g-bs4-banded-header-cell.border-left.border-right').exists())
       .toBeTruthy();
   });
 

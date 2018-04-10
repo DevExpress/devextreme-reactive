@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './drag-drop.css';
 
 export const Container = ({
   clientOffset, style, className, children,
   ...restProps
 }) => (
   <ul
-    className={classNames('list-group d-inline-block position-fixed dx-rg-bs4-drag-drop', className)}
+    className={classNames('list-group d-inline-block position-fixed dx-g-bs4-drag-drop', className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
       zIndex: 1000,

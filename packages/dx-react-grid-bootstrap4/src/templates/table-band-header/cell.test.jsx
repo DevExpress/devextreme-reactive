@@ -19,7 +19,7 @@ describe('TableCell', () => {
       <Cell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.dx-rg-bs4-banded-cell.text-nowrap.dx-rg-bs4-table-cell.border'))
+    expect(tree.is('.custom-class.dx-g-bs4-banded-cell.text-nowrap.dx-g-bs4-table-cell.border'))
       .toBeTruthy();
   });
 

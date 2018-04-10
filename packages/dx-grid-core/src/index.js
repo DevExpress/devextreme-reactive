@@ -56,9 +56,9 @@ export * from './plugins/table-band-header/constants';
 export * from './plugins/table-band-header/helpers';
 export * from './plugins/table-band-header/computeds';
 
+export * from './plugins/row-detail-state/reducers';
 export * from './plugins/table-row-detail/constants';
 export * from './plugins/table-row-detail/helpers';
-export * from './plugins/table-row-detail/reducers';
 export * from './plugins/table-row-detail/computeds';
 
 export * from './plugins/table-selection/constants';
@@ -74,6 +74,10 @@ export * from './plugins/table-column-visibility/helpers';
 
 export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';
+
+export * from './plugins/tree-data-state/reducers';
+export * from './plugins/custom-tree-data/computeds';
+export * from './plugins/table-tree-column/helpers';
 
 export * from './plugins/search-state/reducers';
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Draggable } from '@devexpress/dx-react-core';
-import './resizing-control.css';
 
 export class ResizingControl extends React.PureComponent {
   constructor(props) {
@@ -38,20 +37,20 @@ export class ResizingControl extends React.PureComponent {
       >
         <div
           className={classNames({
-            'dx-rg-bs4-resizing-control-wrapper': true,
-            'dx-rg-bs4-resizing-control-wrapper-active': resizing,
+            'dx-g-bs4-resizing-control-wrapper': true,
+            'dx-g-bs4-resizing-control-wrapper-active': resizing,
           })}
         >
           <div
             className={classNames({
-              'dx-rg-bs4-resize-control-line dx-rg-bs4-resize-control-line-first bg-primary': true,
-              'dx-rg-bs4-resize-control-line-active': resizing,
+              'dx-g-bs4-resize-control-line dx-g-bs4-resize-control-line-first bg-primary': true,
+              'dx-g-bs4-resize-control-line-active': resizing,
             })}
           />
           <div
             className={classNames({
-              'dx-rg-bs4-resize-control-line dx-rg-bs4-resize-control-line-second bg-primary': true,
-              'dx-rg-bs4-resize-control-line-active': resizing,
+              'dx-g-bs4-resize-control-line dx-g-bs4-resize-control-line-second bg-primary': true,
+              'dx-g-bs4-resize-control-line-active': resizing,
             })}
           />
         </div>

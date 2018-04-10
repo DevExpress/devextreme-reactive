@@ -43,9 +43,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.red {
-  color: red;
-}
 .dx-g-bs4-table {
   table-layout: fixed;
 }

@@ -1,6 +1,6 @@
 # React Grid - Tree Data
 
-The Grid component can show tree data. Use the corresponding plugins to show tree data and manage the expanded rows state programmatically or via the UI (a column that contains UI elements for row expanding/collapsing).
+The Grid component can show tree data. Use the corresponding plugins to show tree data and manage the expanded rows' state programmatically or via the UI (a column that contains UI elements for row expanding/collapsing).
 
 ## Related Plugins
 
@@ -10,7 +10,7 @@ The following plugins implement tree data support:
 - [CustomTreeData](../reference/custom-tree-data.md) - converts custom tree data to a supported format
 - [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with an indent, toggle button, and selection controls
 
-Note that [plugin order](./plugin-overview.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
@@ -28,7 +28,7 @@ You can also transform tree data defined as a plain array.
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the IDs of initially expanded rows in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initially expanded rows' IDs in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
 
 .embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeSelector": true })
 

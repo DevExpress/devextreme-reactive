@@ -20,4 +20,13 @@ describe('TableSelectAllCell', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.find('th').prop('style').verticalAlign).toBe('bottom');
+  });
 });

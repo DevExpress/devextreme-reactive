@@ -17,6 +17,6 @@ Import the plugins listed above and specify the TableBandHeader plugin's `column
 
 ## Appearance Customization
 
-The TableBandHeader plugin allows you to customize appearance of the header with bands. The following example demonstrates how to use the cellComponent and add icons to band cells:
+The TableBandHeader plugin allows you to customize the appearance of the header with bands. The following example demonstrates how to use the cellComponent and add icons to band cells:
 
 .embedded-demo({ "path": "grid-band-columns/customization", "showThemeSelector": true })

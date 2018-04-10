@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithHeading,
@@ -10,7 +10,6 @@ import {
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
-import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),

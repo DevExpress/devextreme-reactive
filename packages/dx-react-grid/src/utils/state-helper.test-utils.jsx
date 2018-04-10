@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from '../../../dx-testing/test-utils';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from '@devexpress/dx-testing';
 
 export const testStatePluginField = ({
   Plugin,

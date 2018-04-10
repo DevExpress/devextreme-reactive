@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from '../../../dx-testing/test-utils';
 import { FilteringState } from './filtering-state';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 

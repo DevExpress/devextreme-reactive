@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, pluginDepsToComponents } from '@devexpress/dx-testing';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { PagingPanel } from './paging-panel';
-import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   pageCount: jest.fn(),

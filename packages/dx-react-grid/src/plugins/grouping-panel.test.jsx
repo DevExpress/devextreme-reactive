@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { setupConsole, pluginDepsToComponents } from '@devexpress/dx-testing';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
@@ -8,7 +8,6 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingPanel } from './grouping-panel';
-import { pluginDepsToComponents } from '../../../dx-testing/test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),

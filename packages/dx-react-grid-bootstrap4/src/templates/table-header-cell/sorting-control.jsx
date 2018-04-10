@@ -12,7 +12,7 @@ export const SortingControl = ({
   const content = [
     <span
       key="title"
-      className="dx-rg-bs4-sorting-control-text text-nowrap"
+      className="dx-g-bs4-sorting-control-text text-nowrap"
     >
       {columnTitle}
     </span>,
@@ -28,7 +28,7 @@ export const SortingControl = ({
     <span
       className={classNames({
         'd-inline-flex flex-direction-row align-items-center mw-100': true,
-        'dx-rg-bs4-cursor-pointer': !disabled,
+        'dx-g-bs4-cursor-pointer': !disabled,
         'text-primary': sortingDirection,
       })}
       tabIndex={disabled ? -1 : 0}

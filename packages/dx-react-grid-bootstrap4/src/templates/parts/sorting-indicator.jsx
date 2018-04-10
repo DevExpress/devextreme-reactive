@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export const SortingIndicator = ({ direction }) => (
   <span
     className={classNames({
-      'oi dx-rg-bs4-sorting-indicator': true,
+      'oi dx-g-bs4-sorting-indicator': true,
       'oi-arrow-thick-bottom': direction === 'desc',
       'oi-arrow-thick-top': direction !== 'desc',
       invisible: !direction,

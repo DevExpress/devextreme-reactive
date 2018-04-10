@@ -7,7 +7,7 @@ export const EditCell = ({
   row, tableRow, tableColumn, editingEnabled, ...restProps
 }) => (
   <td
-    className={classNames('align-middle dx-rg-bs4-table-edit-cell', className)}
+    className={classNames('align-middle dx-g-bs4-table-edit-cell', className)}
     {...restProps}
   >
     {children || (

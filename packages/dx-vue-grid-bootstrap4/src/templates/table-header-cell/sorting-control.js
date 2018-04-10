@@ -48,7 +48,7 @@ export const SortingControl = {
       <span
         class={{
           'text-primary': this.direction,
-          'dx-rg-bs4-sorting-control': true,
+          'dx-g-bs4-sorting-control': true,
         }}
         onClick={this.handleClick}
         onKeydown={this.handleKeyDown}

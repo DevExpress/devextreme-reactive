@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const TableContainer = ({ children, className, ...restProps }) => (
   <div
-    className={classNames('table-responsive dx-rg-bs4-table-container', className)}
+    className={classNames('table-responsive dx-g-bs4-table-container', className)}
     {...restProps}
   >
     {children}

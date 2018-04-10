@@ -7,7 +7,7 @@ export const TableCell = {
   },
   render() {
     return (
-      <td class="dx-rg-bs4-table-cell">
+      <td class="dx-g-bs4-table-cell">
         {this.$slots.default}
       </td>
     );

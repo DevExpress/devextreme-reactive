@@ -45,7 +45,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
       .toBeFalsy();
   });
 
@@ -58,7 +58,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -72,7 +72,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
+    expect(tree.dive().find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -86,19 +86,19 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeFalsy();
   });
 
@@ -134,7 +134,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
+    expect(tree.find('div').is('.text-nowrap.dx-g-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -147,7 +147,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper.dx-rg-bs4-table-header-cell-left'))
+    expect(tree.find('div').is('.text-nowrap.dx-g-bs4-table-header-cell-wrapper.dx-g-bs4-table-header-cell-left'))
       .toBeTruthy();
     expect(tree.find('div').is('.text-right'))
       .toBeFalsy();
@@ -162,7 +162,7 @@ describe('TableHeaderCell', () => {
     ));
     expect(tree.find('div').is('.text-nowrap.text-right'))
       .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-right'))
+    expect(tree.find('div').is('.dx-g-bs4-table-header-cell-right'))
       .toBeFalsy();
   });
 
@@ -173,7 +173,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-bs4-table-header-cell-right'))
+    expect(tree.find('div').is('.text-nowrap.text-right.dx-g-bs4-table-header-cell-right'))
       .toBeTruthy();
   });
 
@@ -186,7 +186,7 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find('div').is('.text-nowrap.text-center'))
       .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-center'))
+    expect(tree.find('div').is('.dx-g-bs4-table-header-cell-center'))
       .toBeFalsy();
 
     tree = shallow((
@@ -196,7 +196,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('div').is('.text-nowrap.text-center.dx-rg-bs4-table-header-cell-center'))
+    expect(tree.find('div').is('.text-nowrap.text-center.dx-g-bs4-table-header-cell-center'))
       .toBeTruthy();
   });
 

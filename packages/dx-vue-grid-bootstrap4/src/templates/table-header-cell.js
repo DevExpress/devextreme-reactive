@@ -14,7 +14,7 @@ export const TableHeaderCell = {
     return (
       <th
         class={{
-          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-cursor-pointer dx-g-bs4-user-select-none': isCellInteractive,
         }}
       >
         {this.showSortingControls ? (

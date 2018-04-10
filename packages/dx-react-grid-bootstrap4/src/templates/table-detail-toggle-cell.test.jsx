@@ -82,7 +82,7 @@ describe('TableDetailToggleCell', () => {
     const tree = shallow((
       <TableDetailToggleCell className="custom-class" />
     ));
-    expect(tree.find('td').is('.align-middle.dx-rg-bs4-cursor-pointer.custom-class'))
+    expect(tree.find('td').is('.align-middle.dx-g-bs4-cursor-pointer.custom-class'))
       .toBeTruthy();
   });
 });

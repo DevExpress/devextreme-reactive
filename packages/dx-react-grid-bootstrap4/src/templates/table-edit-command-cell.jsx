@@ -8,7 +8,7 @@ export const CommandButton = ({
   ...restProps
 }) => (
   <button
-    className={classNames('btn btn-link dx-rg-bs4-table-edit-command-cell', className)}
+    className={classNames('btn btn-link dx-g-bs4-table-edit-command-cell', className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();

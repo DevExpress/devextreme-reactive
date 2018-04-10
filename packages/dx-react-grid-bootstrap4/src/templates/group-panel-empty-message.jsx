@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const GroupPanelEmptyMessage = ({ getMessage, className, ...restProps }) => (
   <div
-    className={classNames('dx-rg-bs4-group-panel-empty-message', className)}
+    className={classNames('dx-g-bs4-group-panel-empty-message', className)}
     {...restProps}
   >
     {getMessage('groupByColumn')}

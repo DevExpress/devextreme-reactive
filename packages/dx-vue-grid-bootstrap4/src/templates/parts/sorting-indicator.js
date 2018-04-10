@@ -12,7 +12,7 @@ export const SortingIndicator = {
       oi: true,
       'oi-arrow-thick-bottom': this.direction === 'desc',
       'oi-arrow-thick-top': this.direction !== 'desc',
-      'dx-rg-bs4-sorting-indicator': true,
+      'dx-g-bs4-sorting-indicator': true,
       invisible: !this.direction,
     };
     return (

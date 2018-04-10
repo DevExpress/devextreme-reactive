@@ -8,7 +8,7 @@ const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 const getProps = (sortingDirection, disabled, onClick) => ({
   className: classNames({
-    'dx-rg-bs4-sorting-control': true,
+    'dx-g-bs4-sorting-control': true,
     'text-primary': sortingDirection,
   }),
   tabIndex: disabled ? -1 : 0,

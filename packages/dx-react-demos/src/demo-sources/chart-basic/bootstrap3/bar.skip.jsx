@@ -34,7 +34,12 @@ export default class Demo extends React.PureComponent {
           },
         ]}
         series={[
-          { valueField: 'contributions', argumentField: 'login', axisName: 'commits' },
+          {
+            valueField: 'contributions',
+            argumentField: 'login',
+            axisName: 'commits',
+            name: 'BarSeries',
+          },
         ]}
       >
 
@@ -42,7 +47,7 @@ export default class Demo extends React.PureComponent {
         <ValueAxis name="commits" position="left" />
 
         <BarSeries
-          name="contributions"
+          name="BarSeries"
           style={{ stroke: 'none', fill: 'darkblue' }}
         />
       </Chart>

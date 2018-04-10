@@ -58,7 +58,7 @@ export const getSeriesAttributes = (
     argumentField,
     valueField,
     point,
-  } = series.find(seriesItem => seriesItem.valueField === name);
+  } = series.find(seriesItem => seriesItem.name === name);
   const scales = xyScales(domains, argumentAxisName, domainName, width, height);
   const path = computeLinePath(data, scales, argumentField, valueField);
   const { size } = point || {};

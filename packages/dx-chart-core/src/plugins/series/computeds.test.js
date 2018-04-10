@@ -43,18 +43,22 @@ const data = [
 
 const computedLine = data.map(item => ({ id: item.arg, x: item.arg, y: item.val1 }));
 const series = [
-  { valueField: 'val2', axisName: 'axisName', argumentField: 'arg' },
   {
-    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', point: { size: 10 },
+    valueField: 'val2', axisName: 'axisName', argumentField: 'arg', name: 'Series1',
   },
-  { valueField: 'val1', axisName: 'axisName', argumentField: 'arg' },
+  {
+    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', point: { size: 10 }, name: 'Series2',
+  },
+  {
+    valueField: 'val1', axisName: 'axisName', argumentField: 'arg', name: 'Series3',
+  },
 ];
 
 describe('Series attributes', () => {
-  const getAttributes = (type, valueField) => getSeriesAttributes(
+  const getAttributes = (type, seriesName) => getSeriesAttributes(
     data,
     series,
-    valueField || 'val1',
+    seriesName || 'Series3',
     { argumentAxisName: 'argumentAxisName', axisName: 'axisName' },
     'argumentAxisName',
     { width: 20, height: 10 },
@@ -117,7 +121,7 @@ describe('Series attributes', () => {
   });
 
   it('should apply point size', () => {
-    getAttributes('area', 'val3');
+    getAttributes('area', 'Series2');
     expect(mockSymbol.size).toBeCalledWith([100]);
   });
 });

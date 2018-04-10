@@ -36,13 +36,24 @@ export default class Demo extends React.PureComponent {
         ]}
         series={[
           {
-            valueField: 'Russia',
+            valueField: 'ru',
             argumentField: 'year',
             axisName: 'born',
+            name: 'Russia',
             point: { size: 10 },
           },
-          { valueField: 'China', argumentField: 'year', axisName: 'born' },
-          { valueField: 'USA', argumentField: 'year', axisName: 'born' },
+          {
+            valueField: 'ch',
+            argumentField: 'year',
+            axisName: 'born',
+            name: 'China',
+          },
+          {
+            valueField: 'us',
+            argumentField: 'year',
+            axisName: 'born',
+            name: 'USA',
+          },
         ]}
       >
 

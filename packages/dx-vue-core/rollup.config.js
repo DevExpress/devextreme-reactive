@@ -12,7 +12,7 @@ export default {
     { file: pkg.module, format: 'es' },
   ],
   globals: globals(),
-  external: external(__dirname),
+  external: external(__dirname, ['babel-helper-vue-jsx-merge-props']),
   plugins: [
     resolve({
       main: false,

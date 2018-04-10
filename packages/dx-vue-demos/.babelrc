@@ -4,6 +4,7 @@
   ],
   "plugins": [
     "transform-vue-jsx",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "vue-jsx-sync"
   ]
 }

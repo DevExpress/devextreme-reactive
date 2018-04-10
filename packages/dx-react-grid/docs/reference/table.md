@@ -90,6 +90,8 @@ column | [Column](grid.md#column) | Specifies the cell's column.
 
 Describes properties passed to a component that renders a table cell when the table is empty.
 
+Extends [Table.CellProps](#tablecellprops)
+
 Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
@@ -130,7 +132,7 @@ Table.TableBody | object | A component that renders a table body.
 Table.Container | object | A component that renders a table's container.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
-Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.
+Table.NoDataCell | [Table.NoDataCellProps](#tablenodatacellprops) | A component that renders a table cell when the table is empty.
 Table.NoDataRow | [Table.RowProps](#tablerowprops) | A component that renders a table row when the table is empty.
 Table.StubCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table cell.
 Table.StubHeaderCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table header cell.

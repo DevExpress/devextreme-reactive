@@ -8,7 +8,7 @@ The following plugins implement tree data support:
 
 - [TreeDataState](../reference/tree-data-state.md) - controls the expanded rows state
 - [CustomTreeData](../reference/custom-tree-data.md) - converts custom tree data to a supported format
-- [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with an indent, toggle button and selection controls
+- [TableTreeColumn](../reference/table-tree-column.md) - renders the table column with an indent, toggle button, and selection controls
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -28,7 +28,7 @@ You can also transform tree data defined as a plain array.
 
 ## Uncontrolled Mode
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the ids of initially expanded rows in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
+In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the IDs of initially expanded rows in the `TreeDataState` plugin's `defaultExpandedRowIds` property.
 
 .embedded-demo({ "path": "grid-tree-data/uncontrolled-mode", "showThemeSelector": true })
 
@@ -51,7 +51,7 @@ Do the following to enable this feature:
 
 .embedded-demo({ "path": "grid-tree-data/selection-controls", "showThemeSelector": true })
 
-You can also combine the `TableTreeColumn` plugin with the `TableSelection` plugin to highlight selected rows and handle the click event on the entire row.
+You can also combine the `TableTreeColumn` plugin with the `TableSelection` plugin to highlight the selected rows and handle the click event on the entire row.
 
 ### Select All
 
@@ -65,7 +65,7 @@ Do the following to show the Select All checkbox in the header row:
 
 ## Remote Data Loading on Demand
 
-You can handle the Grid's tree data state changes to request nested data from the server according to the expanded row id.
+You can handle the Grid's tree data state changes to request nested data from the server according to the expanded row ID.
 
 Tree data options are updated once an end-user interacts with the UI. Handle option changes using the `TreeDataState` plugin's `onExpandedRowIdsChange` event and request data from the server using the applied tree data options. Once the page data is received from the server, pass it to the `Grid` component's `rows` property.
 

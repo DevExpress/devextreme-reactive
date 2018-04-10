@@ -2,47 +2,25 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { SelectionControl } from './parts/selection-control';
+
 export const TableSelectAllCell = ({
-  allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow, className,
+  className, allSelected, someSelected, disabled, onToggle,
+  tableColumn, tableRow,
   ...restProps
-}) => {
-  const toggle = (e) => {
-    if (disabled) return;
-
-    e.stopPropagation();
-    onToggle();
-  };
-
-  return (
-    <th
-      className={classNames({
-        'align-middle': true,
-        'dx-rg-bs4-cursor-pointer': !disabled,
-      }, className)}
-      onClick={toggle}
-      {...restProps}
-    >
-      <input
-        className={classNames({
-          'd-block m-auto': true,
-          'dx-rg-bs4-cursor-pointer': !disabled,
-        })}
-        type="checkbox"
-        disabled={disabled}
-        checked={allSelected}
-        ref={(ref) => {
-          if (ref) {
-            const checkbox = ref;
-            checkbox.indeterminate = someSelected;
-          }
-        }}
-        onChange={toggle}
-        onClick={e => e.stopPropagation()}
-      />
-    </th>
-  );
-};
+}) => (
+  <th
+    className={classNames('text-center align-middle', className)}
+    {...restProps}
+  >
+    <SelectionControl
+      disabled={disabled}
+      checked={allSelected}
+      indeterminate={someSelected}
+      onChange={onToggle}
+    />
+  </th>
+);
 
 TableSelectAllCell.propTypes = {
   className: PropTypes.string,

@@ -50,6 +50,16 @@ describe('TableHeaderCell', () => {
     expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableHeaderCell {...defaultProps} />);
+    expect(tree.find('div').at(1).prop('className'))
+      .toContain(classes.contentNoWrap);
+
+    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('div').at(1).prop('className'))
+      .not.toContain(classes.contentNoWrap);
+  });
+
   it('should cancel sorting by using the Ctrl key', () => {
     const onSort = jest.fn();
     const tree = mount((

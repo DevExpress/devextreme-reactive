@@ -9,7 +9,7 @@ export class TableGroupRow extends React.PureComponent {
       <TableGroupRowBase
         cellComponent={TableGroupCell}
         rowComponent={TableRow}
-        indentColumnWidth={20}
+        indentColumnWidth={33}
         {...this.props}
       />
     );

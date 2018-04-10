@@ -65,6 +65,8 @@ react:
           path: /react/grid/docs/guides/column-visibility
         - title: Virtual Scrolling
           path: /react/grid/docs/guides/virtual-scrolling
+        - title: Tree Data
+          path: /react/grid/docs/guides/tree-data
         - title: Localization
           path: /react/grid/docs/guides/localization
         - title: Immutable Data
@@ -143,3 +145,9 @@ react:
           path: /react/grid/docs/reference/toolbar
         - title: CustomPaging
           path: /react/grid/docs/reference/custom-paging
+        - title: TreeDataState
+          path: /react/grid/docs/reference/tree-data-state
+        - title: CustomTreeData
+          path: /react/grid/docs/reference/custom-tree-data
+        - title: TableTreeColumn
+          path: /react/grid/docs/reference/table-tree-column

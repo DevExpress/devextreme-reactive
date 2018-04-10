@@ -58,7 +58,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
+    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.position-relative'))
       .toBeTruthy();
   });
 
@@ -127,76 +127,38 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct classes when grouping by click is not allowed and column align is left', () => {
+  it('should have correct classes when column is aligned by left', () => {
     const tree = shallow((
       <TableHeaderCell
         column={{}}
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
+    expect(tree.find('div').at(1).is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
+    expect(tree.find('div').at(1).is('.text-right'))
       .toBeFalsy();
   });
 
-  it('should have correct classes when grouping by click is allowed and column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper.dx-rg-bs4-table-header-cell-left'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is not allowed and column align is right', () => {
+  it('should have correct classes when column is aligned by right', () => {
     const tree = shallow((
       <TableHeaderCell
         tableColumn={{ align: 'right' }}
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is allowed and column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-        showGroupingControls
-      />
-    ));
-    expect(tree.find('div').is('.text-nowrap.text-right.dx-rg-bs4-table-header-cell-right'))
+    expect(tree.find('div').at(1).is('.text-nowrap.text-right'))
       .toBeTruthy();
   });
 
   it('should have correct classes when column is aligned by center', () => {
-    let tree = shallow((
+    const tree = shallow((
       <TableHeaderCell
         tableColumn={{ align: 'center' }}
       />
     ));
 
-    expect(tree.find('div').is('.text-nowrap.text-center'))
-      .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-center'))
-      .toBeFalsy();
-
-    tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'center' }}
-        showGroupingControls
-      />
-    ));
-
-    expect(tree.find('div').is('.text-nowrap.text-center.dx-rg-bs4-table-header-cell-center'))
+    expect(tree.find('div').at(1).is('.text-nowrap.text-center'))
       .toBeTruthy();
   });
 
@@ -222,11 +184,11 @@ describe('TableHeaderCell', () => {
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.find('th > div').is('.text-nowrap'))
+    expect(tree.find('div').at(1).is('.text-nowrap'))
       .toBeTruthy();
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('th > div').is('.text-nowrap'))
+    expect(tree.find('div').at(1).is('.text-nowrap'))
       .toBeFalsy();
   });
 
@@ -246,7 +208,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalled();
@@ -274,7 +236,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
@@ -292,7 +254,7 @@ describe('TableHeaderCell', () => {
         />
       ));
 
-      const targetElement = tree.find('th');
+      const targetElement = tree.find('SortingControl');
       targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
       expect(onSort)
         .toHaveBeenCalledWith({ keepOther: true, direction: null });

@@ -1,49 +1,29 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { SelectionControl } from './parts/selection-control';
+
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, disabled, onToggle,
   tableColumn, tableRow,
   ...restProps
-}) => {
-  const toggle = (e) => {
-    if (disabled) return;
-
-    e.stopPropagation();
-    onToggle();
-  };
-
-  return (
-    <th
-      style={{
-        cursor: !disabled && 'pointer',
-        verticalAlign: 'middle',
-        ...style,
-      }}
-      onClick={toggle}
-      {...restProps}
-    >
-      <input
-        style={{
-          cursor: !disabled && 'pointer',
-          margin: '0 auto',
-          display: 'block',
-        }}
-        type="checkbox"
-        disabled={disabled}
-        checked={allSelected}
-        ref={(ref) => {
-          if (ref) {
-            const checkbox = ref;
-            checkbox.indeterminate = someSelected;
-          }
-        }}
-        onChange={toggle}
-        onClick={e => e.stopPropagation()}
-      />
-    </th>
-  );
-};
+}) => (
+  <th
+    style={{
+      verticalAlign: 'middle',
+      textAlign: 'center',
+      ...style,
+    }}
+    {...restProps}
+  >
+    <SelectionControl
+      disabled={disabled}
+      checked={allSelected}
+      indeterminate={someSelected}
+      onChange={onToggle}
+    />
+  </th>
+);
 
 TableSelectAllCell.propTypes = {
   style: PropTypes.object,

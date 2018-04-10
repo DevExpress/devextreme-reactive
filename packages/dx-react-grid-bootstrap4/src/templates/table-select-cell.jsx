@@ -2,27 +2,23 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { SelectionControl } from './parts/selection-control';
+
 export const TableSelectCell = ({
-  className, selected,
-  onToggle, row,
-  tableRow, tableColumn,
+  className,
+  selected,
+  onToggle,
+  row, tableRow, tableColumn,
   ...restProps
 }) => (
 
   <td
-    className={classNames('dx-rg-bs4-cursor-pointer align-middle', className)}
-    onClick={(e) => {
-      e.stopPropagation();
-      onToggle();
-    }}
+    className={classNames('text-center align-middle', className)}
     {...restProps}
   >
-    <input
-      className="d-block m-auto dx-rg-bs4-cursor-pointer"
-      type="checkbox"
+    <SelectionControl
       checked={selected}
       onChange={onToggle}
-      onClick={e => e.stopPropagation()}
     />
   </td>
 );

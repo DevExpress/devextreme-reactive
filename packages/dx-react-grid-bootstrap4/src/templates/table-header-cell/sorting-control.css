@@ -1,3 +1,4 @@
-.dx-rg-bs4-sorting-control {
-  margin: 2px;
+.dx-rg-bs4-sorting-control-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

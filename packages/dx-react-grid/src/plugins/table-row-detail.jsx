@@ -10,6 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
+  { name: 'RowDetailState' },
   { name: 'Table' },
 ];
 

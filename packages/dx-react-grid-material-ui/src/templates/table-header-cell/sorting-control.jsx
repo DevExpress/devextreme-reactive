@@ -7,15 +7,18 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   tooltipRoot: {
     display: 'block',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   sortLabelRoot: {
     height: theme.spacing.unit * 3,
+    maxWidth: '100%',
   },
   sortLabelActive: {
     color: 'inherit',
+  },
+  sortLabelText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 });
 
@@ -40,7 +43,9 @@ const SortingControlBase = ({
         active: classes.sortLabelActive,
       }}
     >
-      {columnTitle}
+      <span className={classes.sortLabelText}>
+        {columnTitle}
+      </span>
     </TableSortLabel>
   </Tooltip>
 );

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-tree-content.css';
 
 export const TableTreeContent = ({
   children, className, ...restProps
 }) => (
   <div
-    className={classNames('text-nowrap w-100 dx-rg-bs4-table-tree-content', className)}
+    className={classNames('text-nowrap w-100 dx-g-bs4-table-tree-content', className)}
     {...restProps}
   >
     {children}

@@ -26,6 +26,7 @@
   },
   "main": "dist/dx-vue-grid-bootstrap4.umd.js",
   "module": "dist/dx-vue-grid-bootstrap4.es.js",
+  "styles": "dist/dx-vue-grid-bootstrap4.css",
   "globalName": "DevExpress.DXVueGridBootstrap4",
   "files": [
     "dist"
@@ -61,6 +62,7 @@
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-css-only": "^0.4.0",
     "rollup-plugin-node-resolve": "^3.2.0",
     "vue": "^2.5.16",
     "vue-server-renderer": "^2.5.16",

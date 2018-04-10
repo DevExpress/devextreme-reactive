@@ -7,7 +7,7 @@ export const TableCell = {
   },
   render() {
     return (
-      <td style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <td class="dx-g-bs4-table-cell">
         {this.$slots.default}
       </td>
     );

@@ -8,8 +8,6 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
-import './table-header-cell.css';
-
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
@@ -58,9 +56,9 @@ export class TableHeaderCell extends React.PureComponent {
       <th
         className={classNames({
           'position-relative': true,
-          'dx-rg-bs4-user-select-none': isCellInteractive,
-          'dx-rg-bs4-cursor-pointer': draggingEnabled,
-          'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
+          'dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-cursor-pointer': draggingEnabled,
+          'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
         {...restProps}
@@ -71,7 +69,7 @@ export class TableHeaderCell extends React.PureComponent {
           {before}
           <div
             className={classNames({
-              'w-100 dx-rg-bs4-table-header-cell-wrapper': true,
+              'w-100 dx-g-bs4-table-header-cell-wrapper': true,
               'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
               [`text-${align}`]: align !== 'left',
             })}

@@ -8,7 +8,7 @@ export const SelectionControl = ({
   <input
     className={classNames({
       'd-inline-block': true,
-      'dx-rg-bs4-cursor-pointer': !disabled,
+      'dx-g-bs4-cursor-pointer': !disabled,
     }, className)}
     type="checkbox"
     disabled={disabled}

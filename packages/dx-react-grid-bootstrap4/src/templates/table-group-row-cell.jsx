@@ -14,7 +14,7 @@ export const TableGroupCell = ({
   return (
     <td
       colSpan={colSpan}
-      className={classNames('dx-rg-bs4-cursor-pointer', className)}
+      className={classNames('dx-g-bs4-cursor-pointer', className)}
       onClick={handleClick}
       {...restProps}
     >

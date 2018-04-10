@@ -44,7 +44,7 @@ describe('Spline series', () => {
     pathComponent: PathComponent,
     name: 'val1',
     styles: 'styles',
-    pointStyle: 'point styles',
+    pointStyle: { fill: 'point fill' },
   };
 
   it('should render points', () => {
@@ -65,7 +65,7 @@ describe('Spline series', () => {
         d: 'M10 10',
         x: coord.x,
         y: coord.y,
-        style: 'point styles',
+        style: { fill: 'point fill' },
       }));
   });
 

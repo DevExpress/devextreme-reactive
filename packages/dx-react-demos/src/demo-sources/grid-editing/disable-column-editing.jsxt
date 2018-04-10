@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 0,
+        length: 8,
       }),
       editingStateColumnExtensions: [
         { columnName: 'name', editingEnabled: false },

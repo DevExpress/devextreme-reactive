@@ -8,7 +8,7 @@ const defaultProps = {
   onClick: jest.fn(),
 };
 
-describe('TableHeaderCell with keyboard navigation', () => {
+describe('SortingControl with keyboard navigation', () => {
   it('can get focus', () => {
     const tree = shallow((
       <SortingControl
@@ -16,7 +16,7 @@ describe('TableHeaderCell with keyboard navigation', () => {
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.find('span').at(0).prop('tabIndex'))
       .toBe(0);
   });
 
@@ -44,7 +44,7 @@ describe('TableHeaderCell with keyboard navigation', () => {
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.find('span').at(0).prop('tabIndex'))
       .toBe(-1);
   });
 });

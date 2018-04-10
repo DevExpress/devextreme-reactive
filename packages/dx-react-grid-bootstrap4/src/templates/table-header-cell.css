@@ -1,0 +1,6 @@
+.dx-rg-bs4-table-header-cell-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: -5px;
+  padding: 5px;
+}

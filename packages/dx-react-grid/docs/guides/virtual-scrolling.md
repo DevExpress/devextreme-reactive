@@ -4,7 +4,7 @@ Virtual scrolling allows the Grid component to display thousands of records on a
 
 *Browser Support Note:* Since virtual scrolling requires the browser to support `position: sticky`, it does not work in Android Browser/WebView for Android < 5.0 and Internet Explorer.
 
-## Plugin List
+## Related Plugins
 
 The [VirtualTable](../reference/virtual-table.md) plugin implements the virtual scrolling mode, and it should be used instead of the [Table](../reference/table.md) as they implement the same interfaces.
 

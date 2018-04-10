@@ -45,7 +45,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
       .toBeFalsy();
   });
 
@@ -58,7 +58,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-user-select-none.position-relative'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.position-relative'))
       .toBeTruthy();
   });
 
@@ -72,7 +72,7 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.dive().find('th').is('.dx-rg-bs4-user-select-none.dx-rg-bs4-cursor-pointer.position-relative'))
+    expect(tree.dive().find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
@@ -86,19 +86,19 @@ describe('TableHeaderCell', () => {
       </DragDropProvider>
     ));
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeFalsy();
 
     tree.find(DragSource).prop('onStart')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeTruthy();
 
     tree.find(DragSource).prop('onEnd')();
     tree.update();
 
-    expect(tree.find('th').is('.dx-rg-bs4-inactive'))
+    expect(tree.find('th').is('.dx-g-bs4-inactive'))
       .toBeFalsy();
   });
 
@@ -134,11 +134,13 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
-    expect(tree.find('div').at(1).is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
+
+    expect(tree.find('div').at(1).is('.text-nowrap.dx-g-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
     expect(tree.find('div').at(1).is('.text-right'))
       .toBeFalsy();
   });
+
 
   it('should have correct classes when column is aligned by right', () => {
     const tree = shallow((
@@ -147,6 +149,7 @@ describe('TableHeaderCell', () => {
         showGroupingControls={false}
       />
     ));
+
     expect(tree.find('div').at(1).is('.text-nowrap.text-right'))
       .toBeTruthy();
   });

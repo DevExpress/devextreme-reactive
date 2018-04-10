@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-edit-command-cell.css';
 
 export const CommandButton = ({
   onExecute, text,
@@ -9,7 +8,7 @@ export const CommandButton = ({
   ...restProps
 }) => (
   <button
-    className={classNames('btn btn-link dx-rg-bs4-table-edit-command-cell', className)}
+    className={classNames('btn btn-link dx-g-bs4-table-edit-command-cell', className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();

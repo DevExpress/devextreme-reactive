@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-cell.css';
 
 export const TableCell = ({
   column, value, children,
@@ -10,7 +9,7 @@ export const TableCell = ({
 }) => (
   <td
     className={classNames({
-      'dx-rg-bs4-table-cell': true,
+      'dx-g-bs4-table-cell': true,
       'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
       'text-right': tableColumn && tableColumn.align === 'right',
       'text-center': tableColumn && tableColumn.align === 'center',

@@ -39,7 +39,7 @@ describe('Container', () => {
       />
     ));
 
-    expect(tree.is('.custom-class.list-group.d-inline-block.position-fixed.dx-rg-bs4-drag-drop'))
+    expect(tree.is('.custom-class.list-group.d-inline-block.position-fixed.dx-g-bs4-drag-drop'))
       .toBeTruthy();
   });
 

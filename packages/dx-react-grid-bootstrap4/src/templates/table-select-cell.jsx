@@ -11,7 +11,6 @@ export const TableSelectCell = ({
   row, tableRow, tableColumn,
   ...restProps
 }) => (
-
   <td
     className={classNames('text-center align-middle', className)}
     {...restProps}

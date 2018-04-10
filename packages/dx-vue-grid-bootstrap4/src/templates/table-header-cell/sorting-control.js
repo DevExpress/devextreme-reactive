@@ -48,8 +48,8 @@ export const SortingControl = {
       <span
         class={{
           'text-primary': this.direction,
+          'dx-g-bs4-sorting-control': true,
         }}
-        style={{ cursor: 'pointer' }}
         onClick={this.handleClick}
         onKeydown={this.handleKeyDown}
         tabIndex={this.disabled ? -1 : 0}

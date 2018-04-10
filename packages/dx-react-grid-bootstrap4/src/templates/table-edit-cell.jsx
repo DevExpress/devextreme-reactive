@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-edit-cell.css';
 
 export const EditCell = ({
   column, value, onValueChange, className, children,

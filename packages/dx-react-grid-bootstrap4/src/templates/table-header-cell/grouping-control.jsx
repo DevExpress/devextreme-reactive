@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './grouping-control.css';
 
 export const GroupingControl = ({ align, disabled, onGroup }) => {
   const invertedAlign = align === 'left';

@@ -10,8 +10,13 @@ export const TableHeaderCell = {
     sortingDirection: {},
   },
   render() {
+    const isCellInteractive = this.showSortingControls;
     return (
-      <th>
+      <th
+        class={{
+          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
+        }}
+      >
         {this.showSortingControls ? (
           <SortingControl
             direction={this.sortingDirection}

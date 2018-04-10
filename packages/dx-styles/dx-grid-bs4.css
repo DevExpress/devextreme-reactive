@@ -1,0 +1,107 @@
+.dx-rg-bs4-cursor-pointer {
+  cursor: pointer;
+}
+.dx-rg-bs4-user-select-none {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: 'none';
+}
+.dx-rg-bs4-inactive {
+  opacity: 0.3;
+}
+.dx-rg-bs4-overflow-hidden {
+  overflow: hidden;
+}
+.dx-rg-bs4-column-chooser-item {
+  font-size: initial;
+}
+.dx-rg-bs4-column-chooser-checkbox {
+  margin-right: 10px;
+}
+.dx-rg-bs4-sorting-indicator {
+  top: 0;
+  font-size: 11px;
+}
+.dx-rg-bs4-group-panel-item-icon {
+  top: -2px;
+  font-size: 11px;
+  margin-left: -4px;
+}
+.dx-rg-bs4-group-panel-empty-message {
+  padding: 11px 0;
+}
+.dx-rg-bs4-table-detail-toggle-cell-icon {
+  font-size: 9px;
+  top: 0;
+}
+.dx-rg-bs4-table-group-row-cell {
+  font-size: 9px;
+  top: 0;
+  margin-right: 10px;
+}
+.dx-rg-bs4-table-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.red {
+  color: red;
+}
+.dx-rg-bs4-table {
+  table-layout: fixed;
+}
+.dx-rg-bs4-table-head {
+  top: 0;
+  z-index: 1;
+}
+.dx-rg-bs4-table-container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.dx-rg-bs4-resizing-control {
+  top: 0;
+  right: -8px;
+  width: 16px;
+  cursor: col-resize;
+  z-index: 100;
+}
+.dx-rg-bs4-resizing-control-line {
+  background-color: #ddd;
+  width: 1px;
+  top: 25%;
+}
+.dx-rg-bs4-resizing-control-wrapper {
+  top: 0;
+  left: 0;
+}
+.dx-rg-bs4-grouping-control {
+  width: 14px;
+}
+.dx-rg-bs4-grouping-control-icon {
+  top: 0;
+  font-size: 12px;
+  margin: -5px;
+  padding: 5px;
+}
+.dx-rg-bs4-sorting-control {
+  margin: 2px;
+}
+.dx-rg-bs4-table-header-cell-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dx-rg-bs4-table-header-cell-left {
+  margin-right: 14px;
+}
+.dx-rg-bs4-table-header-cell-right {
+  margin-left: 14px;
+}
+.table .dx-rg-bs4-table-edit-cell {
+  padding: 5px;
+}
+.dx-rg-bs4-table-edit-command-cell {
+  padding: 11px;
+}
+.dx-rg-bs4-toolbar {
+  align-items: center;
+  min-height: 55px;
+}

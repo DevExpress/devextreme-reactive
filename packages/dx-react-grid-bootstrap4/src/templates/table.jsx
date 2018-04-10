@@ -4,8 +4,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './table.css';
-
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
   const prop = `${property}:`;

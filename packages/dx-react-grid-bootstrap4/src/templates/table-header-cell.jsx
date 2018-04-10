@@ -8,8 +8,6 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
-import './table-header-cell.css';
-
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 

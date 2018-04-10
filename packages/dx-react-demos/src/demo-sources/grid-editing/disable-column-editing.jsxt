@@ -28,7 +28,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 8,
+        length: 0,
       }),
       editingStateColumnExtensions: [
         { columnName: 'name', editingEnabled: false },
@@ -40,7 +40,7 @@ export default class Demo extends React.PureComponent {
   commitChanges({ added, changed, deleted }) {
     let { rows } = this.state;
     if (added) {
-      const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+      const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
       rows = [
         ...rows,
         ...added.map((row, index) => ({

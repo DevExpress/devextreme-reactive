@@ -2,12 +2,12 @@
 layout: default
 img: perf.png
 cssClass: block-performance
-category: Landing
+category: LandingGridReact
 title: 100% Native React<br/>Fully Optimized
 description: |
 ---
 
-**React Best Practices Inside**
+**Best Practices Inside**
 
 We've focused our energy on performance and leveraged the best practice recommendations offered by the React team.
 

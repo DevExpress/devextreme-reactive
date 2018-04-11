@@ -10,6 +10,7 @@ export * from './plugins/table';
 export * from './plugins/virtual-table';
 export * from './plugins/table-filter-row';
 export * from './plugins/table-header-row';
+export * from './plugins/table-band-header';
 export * from './plugins/table-edit-row';
 export * from './plugins/table-edit-column';
 export * from './plugins/table-column-visibility';

@@ -19,22 +19,27 @@ const styles = theme => ({
   },
   resizeHandleLine: {
     position: 'absolute',
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.primary[300],
     height: '50%',
     width: '1px',
     top: '25%',
     transition: 'all linear 100ms',
   },
   resizeHandleFirstLine: {
-    left: `${theme.spacing.unit - 3}px`,
+    left: `${theme.spacing.unit - 1}px`,
   },
   resizeHandleSecondLine: {
-    left: `${theme.spacing.unit - 1}px`,
+    left: `${theme.spacing.unit + 1}px`,
+  },
+  resizeHandleLineActive: {
+    left: `${theme.spacing.unit}px`,
   },
   resizeHandleActive: {
     '& $resizeHandleLine': {
       opacity: '1',
       backgroundColor: theme.palette.primary[300],
+      height: 'calc(100% - 4px)',
+      top: '2px',
     },
   },
 });
@@ -83,6 +88,7 @@ export class ResizingControlBase extends React.PureComponent {
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleFirstLine]: true,
+              [classes.resizeHandleLineActive]: resizing,
             })}
           />
           <div
@@ -90,6 +96,7 @@ export class ResizingControlBase extends React.PureComponent {
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleSecondLine]: true,
+              [classes.resizeHandleLineActive]: resizing,
             })}
           />
         </div>

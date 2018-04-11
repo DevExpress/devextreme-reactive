@@ -10,7 +10,8 @@ import {
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
-const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
+const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
+  tableRowsWithHeading(tableHeaderRows);
 
 export class TableHeaderRow extends React.PureComponent {
   render() {

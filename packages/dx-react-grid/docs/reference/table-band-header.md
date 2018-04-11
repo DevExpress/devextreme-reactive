@@ -1,0 +1,68 @@
+# TableBandHeader Plugin Reference
+
+A plugin that renders the band cells.
+
+## User Reference
+
+### Dependencies
+
+- [Table](table.md)
+- [TableHeaderRow](table-header-row.md)
+- [TableEditColumn](table-edit-column.md) [Optional]
+- [TableSelection](table-selection.md) [Optional]
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+cellComponent | ComponentType&lt;[TableBandHeader.CellProps](#tablebandheadercellprops)&gt; | | A component that renders a band cell.
+rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a band cells' row.
+columnBands | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | | Specifies column bands for multi-level table header.
+
+## Interfaces
+
+### TableBandHeader.CellProps
+
+Describes properties passed to a component that renders a table band cell.
+
+Extends [Table.CellProps](table.md#tablecellprops)
+
+Name | Type | Description
+-----|------------|------------
+children? | ReactNode | A React node used to render band cell content.
+
+### TableBandHeader.ColumnBands
+
+Describes properties of column bands that the TableBandHeader plugin renders.
+
+Name | Type | Description
+-----|------------|------------
+columnName? | string | A column name that is used to identify a column in the bands tree.
+title? | string | The band's title. Used only for bands and ignored for columns.
+children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&gt; | Nested bands and columns.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+TableBandHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A component that renders a band cell.
+TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a band cells' row.
+
+Additional properties are added to the component's root element.
+
+## Plugin Developer Reference
+
+### Imports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
+tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
+tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
+tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+
+### Exports
+
+Name | Plugin | Type | Description
+-----|--------|------|------------
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.

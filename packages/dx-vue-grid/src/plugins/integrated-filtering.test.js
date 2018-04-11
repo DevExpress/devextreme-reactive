@@ -1,31 +1,33 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost } from '@devexpress/dx-vue-core';
-import { filteredRows } from '@devexpress/dx-grid-core';
+import { filteredRows, unwrappedFilteredRows } from '@devexpress/dx-grid-core';
 import { IntegratedFiltering } from './integrated-filtering';
-import { PluginDepsToComponents } from './test-utils';
+import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 const defaultDeps = {
   getter: {
     rows: [{ id: 0 }, { id: 1 }],
-    columns: ['a', 'b'],
-    getCellValue: jest.fn(),
-    isGroupRow: true,
-    getRowLevelKey: jest.fn(),
-    filterExpression: [{ columnName: 'name' }],
+    filterExpression: [{ columnName: 'a' }],
+    getCellValue: () => {},
   },
-  plugins: ['FilteringState', 'SearchingState'],
+  plugins: ['FilteringState'],
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  filteredRows: jest.fn().mockReturnValue([{ id: 0 }, { id: 1 }]),
+  filteredRows: jest.fn(),
+  unwrappedFilteredRows: jest.fn(),
 }));
 
 describe('IntegratedFiltering', () => {
+  beforeEach(() => {
+    filteredRows.mockImplementation(() => ({ rows: 'filteredRows' }));
+    unwrappedFilteredRows.mockImplementation(() => 'unwrappedFilteredRows');
+  });
   afterEach(() => {
     filteredRows.mockClear();
   });
-  it('should exec filteredRows with correct arguments', () => {
-    mount({
+  it('should provide rows getter', () => {
+    const tree = mount({
       render() {
         return (
           <PluginHost>
@@ -35,15 +37,19 @@ describe('IntegratedFiltering', () => {
         );
       },
     });
-    expect(filteredRows).toHaveBeenCalledTimes(1);
 
-    expect(filteredRows).toBeCalledWith(
-      defaultDeps.getter.rows,
-      defaultDeps.getter.filterExpression,
-      defaultDeps.getter.getCellValue,
-      expect.any(Function),
-      defaultDeps.getter.isGroupRow,
-      defaultDeps.getter.getRowLevelKey,
-    );
+    expect(getComputedState(tree).rows)
+      .toBe(unwrappedFilteredRows());
+
+    expect(filteredRows)
+      .toBeCalledWith(
+        defaultDeps.getter.rows,
+        defaultDeps.getter.filterExpression,
+        defaultDeps.getter.getCellValue,
+        expect.any(Function),
+      );
+
+    expect(unwrappedFilteredRows)
+      .toBeCalledWith(filteredRows());
   });
 });

@@ -83,8 +83,8 @@ export class ResizingControl extends React.PureComponent {
             zIndex: 100,
           }}
         >
-          <ResizingControlLine resizing={resizing} style={{ left: '5px' }} />
-          <ResizingControlLine resizing={resizing} style={{ left: '7px' }} />
+          <ResizingControlLine resizing={resizing} style={{ left: '6px' }} />
+          <ResizingControlLine resizing={resizing} style={{ left: '8px' }} />
         </div>
       </Draggable>
     );

@@ -19,5 +19,27 @@ describe('TableSelectAllCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+    expect(tree.is('.align-bottom'))
+      .toBeFalsy();
+  });
+
+  it('should pass rest props to the root element', () => {
+    const tree = shallow((
+      <TableSelectAllCell data={{ a: 1 }} />
+    ));
+    expect(tree.find('th').prop('data'))
+      .toMatchObject({ a: 1 });
+  });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.is('.text-center.align-bottom'))
+      .toBeTruthy();
+    expect(tree.is('.align-middle'))
+      .toBeFalsy();
   });
 });

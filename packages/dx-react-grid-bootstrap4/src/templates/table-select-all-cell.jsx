@@ -6,11 +6,16 @@ import { SelectionControl } from './parts/selection-control';
 
 export const TableSelectAllCell = ({
   className, allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow,
+  tableColumn, tableRow, rowSpan,
   ...restProps
 }) => (
   <th
-    className={classNames('text-center align-middle', className)}
+    className={classNames({
+      'text-center': true,
+      'align-middle': !rowSpan,
+      'align-bottom': !!rowSpan,
+    }, className)}
+    rowSpan={rowSpan}
     {...restProps}
   >
     <SelectionControl
@@ -30,6 +35,7 @@ TableSelectAllCell.propTypes = {
   onToggle: PropTypes.func,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 TableSelectAllCell.defaultProps = {
@@ -40,4 +46,5 @@ TableSelectAllCell.defaultProps = {
   onToggle: () => {},
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };

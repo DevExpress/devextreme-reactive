@@ -1,10 +1,16 @@
 import { Getter, Plugin } from '@devexpress/dx-vue-core';
-import { filteredRows, getColumnExtension } from '@devexpress/dx-grid-core';
+import {
+  filteredRows,
+  getColumnExtension,
+  unwrappedFilteredRows,
+} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'FilteringState', optional: true },
   { name: 'SearchState', optional: true },
 ];
+
+const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);
 
 export const IntegratedFiltering = {
   name: 'IntegratedFiltering',
@@ -22,15 +28,11 @@ export const IntegratedFiltering = {
       rows,
       filterExpression,
       getCellValue,
-      isGroupRow,
-      getRowLevelKey,
     }) => filteredRows(
       rows,
       filterExpression,
       getCellValue,
       getColumnPredicate,
-      isGroupRow,
-      getRowLevelKey,
     );
 
     return (
@@ -39,6 +41,7 @@ export const IntegratedFiltering = {
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />
+        <Getter name="rows" computed={unwrappedRowsComputed} />
       </Plugin>
     );
   },

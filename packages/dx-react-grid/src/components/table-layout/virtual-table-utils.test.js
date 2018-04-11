@@ -172,8 +172,8 @@ describe('VirtualTableLayout utils', () => {
       const result = [
         { type: 'stub', key: 'stub_0_0', width: 40 },
         { type: 'stub', key: 'stub_1_2', width: 80 },
-        { type: 'visible', width: 40, column: columns[3] },
-        { type: 'visible', width: 40, column: columns[4] },
+        { ...columns[3] },
+        { ...columns[4] },
         { type: 'stub', key: 'stub_5_6', width: 80 },
         { type: 'stub', key: 'stub_7_7', width: 40 },
       ];
@@ -200,12 +200,12 @@ describe('VirtualTableLayout utils', () => {
       const getColSpan = column => column.colSpan;
 
       const result = [
-        { type: 'stub', key: 'stub_0_0', colSpan: 1 },
-        { type: 'visible', colSpan: 4, column: columns[1] },
-        { type: 'visible', colSpan: 1, column: columns[3] },
-        { type: 'visible', colSpan: 1, column: columns[4] },
-        { type: 'visible', colSpan: 1, column: columns[5] },
-        { type: 'stub', key: 'stub_7_7', colSpan: 1 },
+        { column: { type: 'stub', key: 'stub_0_0' }, colSpan: 1 },
+        { column: columns[1], colSpan: 4 },
+        { column: columns[3], colSpan: 1 },
+        { column: columns[4], colSpan: 1 },
+        { column: columns[5], colSpan: 1 },
+        { column: { type: 'stub', key: 'stub_7_7' }, colSpan: 1 },
       ];
 
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
@@ -242,13 +242,10 @@ describe('VirtualTableLayout utils', () => {
 
       const result = getCollapsedGrid(args);
 
-      expect(result.rows.map(row => row.type))
-        .toEqual([STUB_TYPE, ...Array.from({ length: 7 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
-      expect(result.columns.map(row => row.type))
-        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
-
-      expect(result.rows[1].cells.map(cell => cell.type))
-        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE), STUB_TYPE]);
+      expect(result.rows.map(row => row.row.type))
+        .toEqual([STUB_TYPE, ...Array.from({ length: 7 }).map(() => undefined), STUB_TYPE]);
+      expect(result.columns.map(column => column.type))
+        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => undefined), STUB_TYPE]);
       expect(result.rows[1].cells.map(cell => cell.colSpan))
         .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
@@ -326,10 +323,10 @@ describe('VirtualTableLayout utils', () => {
 
       const result = getCollapsedGrid(args);
 
-      expect(result.columns.map(row => row.type))
+      expect(result.columns.map(column => column.type))
         .toEqual([
           STUB_TYPE, STUB_TYPE,
-          ...Array.from({ length: 3 }).map(() => VISIBLE_TYPE),
+          ...Array.from({ length: 3 }).map(() => undefined),
           STUB_TYPE, STUB_TYPE,
         ]);
 

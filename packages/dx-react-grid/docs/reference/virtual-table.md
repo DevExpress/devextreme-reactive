@@ -24,6 +24,7 @@ cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellpro
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](table.md#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a stub table row if the row type is not recognized.
 stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
@@ -40,6 +41,7 @@ VirtualTable.Cell | [Table.DataCellProps](table.md#tabledatacellprops) | Renders
 VirtualTable.Row | [Table.DataRowProps](table.md#tabledatarowprops) | Renders a table data row.
 VirtualTable.NoDataCell | [Table.CellProps](table.md#tablecellprops) | Renders a table cell when the table is empty.
 VirtualTable.NoDataRow | [Table.RowProps](table.md#tablerowprops) | Renders a table row when the table is empty.
+VirtualTable.StubRow | [Table.RowProps](#tablerowprops) | A component that renders a stub table row.
 VirtualTable.StubCell | [Table.CellProps](table.md#tablecellprops) | Renders a stub table cell.
 VirtualTable.StubHeaderCell | [Table.CellProps](table.md#tablecellprops) | Renders a stub table header cell.
 

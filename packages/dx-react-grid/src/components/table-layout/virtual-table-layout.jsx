@@ -54,7 +54,9 @@ export class VirtualTableLayout extends React.PureComponent {
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
       // eslint-disable-next-line react/no-find-dom-node
-      .map(([row, ref]) => [row, findDOMNode(ref).getBoundingClientRect().height])
+      .map(([row, ref]) => [row, findDOMNode(ref)])
+      .filter(([, node]) => !!node)
+      .map(([row, node]) => [row, node.getBoundingClientRect().height])
       .filter(([row, height]) => height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {
@@ -108,17 +110,11 @@ export class VirtualTableLayout extends React.PureComponent {
         style={{ minWidth: `${minWidth}px` }}
       >
         <ColumnGroup
-          columns={collapsedGrid.columns.map(({ key, column, width: columnWidth }) =>
-            ({ key: key || column.key, width: columnWidth }))}
+          columns={collapsedGrid.columns}
         />
         <Body>
           {collapsedGrid.rows.map((visibleRow) => {
-            if (visibleRow.type === 'stub') {
-              return (
-                <tr key={visibleRow.key} style={{ height: `${visibleRow.height}px` }} />
-              );
-            }
-            const { row, cells } = visibleRow;
+            const { row, cells = [] } = visibleRow;
             return (
               <RefHolder
                 key={row.key}
@@ -131,15 +127,6 @@ export class VirtualTableLayout extends React.PureComponent {
                     : undefined}
                 >
                   {cells.map((cell) => {
-                    if (cell.type === 'stub') {
-                      return (
-                        <td
-                          key={cell.key}
-                          style={{ padding: 0 }}
-                          colSpan={cell.colSpan}
-                        />
-                      );
-                    }
                     const { column } = cell;
                     return (
                       <Cell

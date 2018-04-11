@@ -40,6 +40,7 @@ export class Table extends React.PureComponent {
       rowComponent: Row,
       noDataRowComponent: NoDataRow,
       noDataCellComponent: NoDataCell,
+      stubRowComponent: StubRow,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
@@ -150,6 +151,11 @@ export class Table extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
+        <Template name="tableRow">
+          {params => (
+            <StubRow {...params} />
+          )}
+        </Template>
         <Template
           name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
@@ -182,6 +188,7 @@ Table.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   noDataCellComponent: PropTypes.func.isRequired,
   noDataRowComponent: PropTypes.func.isRequired,
+  stubRowComponent: PropTypes.func.isRequired,
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,

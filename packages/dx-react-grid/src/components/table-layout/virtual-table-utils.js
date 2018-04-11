@@ -99,16 +99,12 @@ export const getCollapsedColumns = (columns, visibleBoundary, boundaries, getCol
     const isVisible = visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1];
     if (isVisible) {
       const column = columns[boundary[0]];
-      collapsedColumns.push({
-        type: VISIBLE_TYPE,
-        width: getColumnWidth(column),
-        column,
-      });
+      collapsedColumns.push(column);
     } else {
       const boundaryColumns = columns.slice(boundary[0], boundary[1] + 1);
       collapsedColumns.push({
-        type: STUB_TYPE,
         key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
+        type: STUB_TYPE,
         width: boundaryColumns.reduce((acc, column) => acc + getColumnWidth(column), 0),
       });
     }
@@ -123,17 +119,17 @@ export const getCollapsedRows = (rows, visibleBoundary, boundaries, getRowHeight
     if (isVisible) {
       const row = rows[boundary[0]];
       collapsedColumns.push({
-        type: VISIBLE_TYPE,
-        height: getRowHeight(row),
         row,
         cells: getCells(row),
       });
     } else {
       const boundaryColumns = rows.slice(boundary[0], boundary[1] + 1);
       collapsedColumns.push({
-        type: STUB_TYPE,
-        key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
-        height: boundaryColumns.reduce((acc, column) => acc + getRowHeight(column), 0),
+        row: {
+          type: STUB_TYPE,
+          key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
+          height: boundaryColumns.reduce((acc, column) => acc + getRowHeight(column), 0),
+        },
       });
     }
   });
@@ -153,15 +149,16 @@ export const getCollapsedCells = (columns, spanBoundary, boundaries, getColSpan)
       const colSpanEnd = boundaries.findIndex(colSpanBoundary =>
         colSpanBoundary[0] <= realColSpanEnd && realColSpanEnd <= colSpanBoundary[1]);
       collapsedColumns.push({
-        type: VISIBLE_TYPE,
-        colSpan: (colSpanEnd - index) + 1,
         column,
+        colSpan: (colSpanEnd - index) + 1,
       });
       index += 1;
     } else {
       collapsedColumns.push({
-        type: STUB_TYPE,
-        key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
+        column: {
+          key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
+          type: STUB_TYPE,
+        },
         colSpan: 1,
       });
       index += 1;

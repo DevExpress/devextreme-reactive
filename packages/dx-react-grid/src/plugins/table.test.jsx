@@ -48,6 +48,7 @@ const defaultProps = {
   layoutComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,
+  stubRowComponent: () => null,
   stubCellComponent: () => null,
   stubHeaderCellComponent: () => null,
   noDataCellComponent: () => null,

@@ -20,24 +20,34 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       columns={
         Array [
           Object {
+            "column": Object {
+              "name": "a",
+            },
             "key": "a",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "b",
+            },
             "key": "b",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "c",
+            },
             "key": "c",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "d",
+            },
             "key": "d",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "e",
+            },
             "key": "e",
-            "width": 120,
           },
         ]
       }
@@ -153,24 +163,34 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       columns={
         Array [
           Object {
+            "column": Object {
+              "name": "a",
+            },
             "key": "a",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "b",
+            },
             "key": "b",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "c",
+            },
             "key": "c",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "d",
+            },
             "key": "d",
-            "width": 120,
           },
           Object {
+            "column": Object {
+              "name": "e",
+            },
             "key": "e",
-            "width": 120,
           },
         ]
       }
@@ -661,14 +681,24 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
           />
         </rowComponent>
       </RefHolder>
-      <tr
+      <RefHolder
         key="stub_5_5"
-        style={
-          Object {
-            "height": "40px",
+      >
+        <rowComponent
+          style={
+            Object {
+              "height": "40px",
+            }
           }
-        }
-      />
+          tableRow={
+            Object {
+              "height": 40,
+              "key": "stub_5_5",
+              "type": "stub",
+            }
+          }
+        />
+      </RefHolder>
     </bodyComponent>
   </tableComponent>
 </containerComponent>

@@ -1,3 +1,16 @@
+<a name="1.1.2"></a>
+# [1.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.2) (2018-04-11)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#899](https://github.com/DevExpress/devextreme-reactive/issues/899)) ([aaa2c4c](https://github.com/DevExpress/devextreme-reactive/commit/aaa2c4c))
+* **react-grid:** correct types for components ([#902](https://github.com/DevExpress/devextreme-reactive/issues/902)) ([3666b7e](https://github.com/DevExpress/devextreme-reactive/commit/3666b7e))
+* **react-grid-material-ui:** rename column chooser button component ([#872](https://github.com/DevExpress/devextreme-reactive/issues/872)) ([65b3a34](https://github.com/DevExpress/devextreme-reactive/commit/65b3a34))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#900](https://github.com/DevExpress/devextreme-reactive/issues/900)) ([1715803](https://github.com/DevExpress/devextreme-reactive/commit/1715803))
+
+
+
 <a name="1.1.1"></a>
 # [1.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.1) (2018-03-20)
 

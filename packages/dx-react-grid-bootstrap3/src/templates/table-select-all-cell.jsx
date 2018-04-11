@@ -5,15 +5,17 @@ import { SelectionControl } from './parts/selection-control';
 
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, disabled, onToggle,
-  tableColumn, tableRow,
+  tableColumn, tableRow, rowSpan,
   ...restProps
 }) => (
   <th
     style={{
       verticalAlign: 'middle',
       textAlign: 'center',
+      ...(rowSpan ? { verticalAlign: 'bottom' } : { verticalAlign: 'middle' }),
       ...style,
     }}
+    rowSpan={rowSpan}
     {...restProps}
   >
     <SelectionControl
@@ -33,6 +35,7 @@ TableSelectAllCell.propTypes = {
   onToggle: PropTypes.func,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 TableSelectAllCell.defaultProps = {
@@ -43,4 +46,5 @@ TableSelectAllCell.defaultProps = {
   onToggle: () => {},
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };

@@ -152,7 +152,8 @@ const getThemesTypeScript = (data, componentName) => {
       let result = acc
         + getFormattedLine(line)
           .replace(`${componentName}.`, `${componentName}Base.`)
-          .replace('Table.', 'TableBase.');
+          .replace('Table.', 'TableBase.')
+          .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       if (componentName !== 'Grid') {
         result = result.replace(/(\s\s\w+):/g, '$1?:');
       } else {
@@ -166,7 +167,8 @@ const getThemesTypeScript = (data, componentName) => {
       + getFormattedLine(line)
         .replace(/\w+\.(\w+:\s)(.+);/, '$1React.ComponentType<$2>;')
         .replace(`${componentName}.`, `${componentName}Base.`)
-        .replace('Table.', 'TableBase.'), '');
+        .replace('Table.', 'TableBase.')
+        .replace('TableHeaderRow.', 'TableHeaderRowBase.'), '');
 
   return 'import {\n'
     + `  ${componentName} as ${componentName}Base,\n`
@@ -216,7 +218,8 @@ const generateTypeScriptForPackage = (packageName) => {
         .reduce((acc, line) => {
           const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
           if (matches !== null && matches[1] !== componentName
-            && matches[1] !== 'Table' && acc.indexOf(matches[1]) === -1) {
+            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow'
+            && acc.indexOf(matches[1]) === -1) {
             acc.push(matches[1]);
           }
           return acc;

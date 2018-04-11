@@ -22,6 +22,7 @@ export * from './plugins/row-detail-state';
 export * from './plugins/table-row-detail';
 export * from './plugins/table-group-row';
 export * from './plugins/table-header-row';
+export * from './plugins/table-band-header';
 export * from './plugins/table-filter-row';
 export * from './plugins/table-edit-row';
 export * from './plugins/table-edit-column';

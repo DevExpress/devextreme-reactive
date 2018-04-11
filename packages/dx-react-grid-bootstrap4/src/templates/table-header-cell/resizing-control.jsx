@@ -1,28 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Draggable } from '@devexpress/dx-react-core';
-
-const ResizingControlLine = ({ resizing, style }) => {
-  const resizingControlLineBody = resizing && (
-    <div
-      className="bg-primary position-absolute w-100 h-100 dx-g-bs4-resizing-control-wrapper"
-    />
-  );
-
-  return (
-    <div
-      className="position-absolute h-50 dx-g-bs4-resizing-control-line"
-      style={style}
-    >
-      {resizingControlLineBody}
-    </div>
-  );
-};
-
-ResizingControlLine.propTypes = {
-  resizing: PropTypes.bool.isRequired,
-  style: PropTypes.object.isRequired,
-};
 
 export class ResizingControl extends React.PureComponent {
   constructor(props) {
@@ -57,10 +36,23 @@ export class ResizingControl extends React.PureComponent {
         onEnd={this.onResizeEnd}
       >
         <div
-          className="position-absolute h-100 dx-g-bs4-resizing-control dx-g-bs4-user-select-none"
+          className={classNames({
+            'dx-g-bs4-resizing-control-wrapper': true,
+            'dx-g-bs4-resizing-control-wrapper-active': resizing,
+          })}
         >
-          <ResizingControlLine resizing={resizing} style={{ left: '5px' }} />
-          <ResizingControlLine resizing={resizing} style={{ left: '7px' }} />
+          <div
+            className={classNames({
+              'dx-g-bs4-resize-control-line dx-g-bs4-resize-control-line-first bg-primary': true,
+              'dx-g-bs4-resize-control-line-active': resizing,
+            })}
+          />
+          <div
+            className={classNames({
+              'dx-g-bs4-resize-control-line dx-g-bs4-resize-control-line-second bg-primary': true,
+              'dx-g-bs4-resize-control-line-active': resizing,
+            })}
+          />
         </div>
       </Draggable>
     );

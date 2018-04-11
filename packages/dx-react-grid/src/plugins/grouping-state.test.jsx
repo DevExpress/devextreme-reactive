@@ -8,6 +8,7 @@ import {
   draftColumnGrouping,
   cancelColumnGroupingDraft,
   getColumnExtensionValueGetter,
+  adjustSortIndex,
 } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { GroupingState } from './grouping-state';
@@ -19,6 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   draftColumnGrouping: jest.fn(),
   cancelColumnGroupingDraft: jest.fn(),
   getColumnExtensionValueGetter: jest.fn(),
+  adjustSortIndex: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -44,6 +46,7 @@ describe('GroupingState', () => {
     draftColumnGrouping.mockImplementation(() => {});
     cancelColumnGroupingDraft.mockImplementation(() => {});
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
+    adjustSortIndex.mockImplementation(() => 0);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -191,7 +194,7 @@ describe('GroupingState', () => {
           changeColumnSorting: jest.fn(),
         },
       };
-
+      adjustSortIndex.mockImplementation(() => 2);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
@@ -219,7 +222,7 @@ describe('GroupingState', () => {
           changeColumnSorting: jest.fn(),
         },
       };
-
+      adjustSortIndex.mockImplementation(() => 1);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
@@ -344,7 +347,7 @@ describe('GroupingState', () => {
           />
         </PluginHost>
       ));
-
+      adjustSortIndex.mockImplementation(() => 1);
       changeColumnGrouping.mockReturnValue({ grouping: [{ columnName: 'b' }] });
       executeComputedAction(tree, actions => actions.changeColumnGrouping({ columnName: 'a' }));
       expect(deps.action.changeColumnSorting.mock.calls[0][0])

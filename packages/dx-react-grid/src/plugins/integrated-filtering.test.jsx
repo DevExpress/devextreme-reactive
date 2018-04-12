@@ -1,43 +1,89 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
+import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
+import {
+  filteredRows,
+  unwrappedFilteredRows,
+  filteredCollapsedRowsGetter,
+  getColumnExtension,
+} from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { filteredRows } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { IntegratedFiltering } from './integrated-filtering';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  filteredRows: jest.fn(),
+  filteredCollapsedRowsGetter: jest.fn(),
+  unwrappedFilteredRows: jest.fn(),
+  getColumnExtension: jest.fn(),
+}));
 
 const defaultDeps = {
   getter: {
     rows: [{ id: 0 }, { id: 1 }],
-    columns: ['a', 'b'],
-    getCellValue: jest.fn(),
-    isGroupRow: true,
-    getRowLevelKey: jest.fn(),
-    filterExpression: [{ columnName: 'name' }],
+    filterExpression: [{ columnName: 'a' }],
+    getCellValue: () => {},
+    getCollapsedRows: () => [],
+    getRowLevelKey: () => undefined,
   },
+  plugins: ['FilteringState'],
 };
 
-jest.mock('@devexpress/dx-grid-core', () => ({
-  filteredRows: jest.fn().mockReturnValue([{ id: 0 }, { id: 1 }]),
-}));
-
 describe('IntegratedFiltering', () => {
-  afterEach(() => {
-    filteredRows.mockClear();
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
-  it('should exec filteredRows with correct arguments', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)} <IntegratedFiltering />
-      </PluginHost>));
-    expect(filteredRows).toHaveBeenCalledTimes(1);
+  afterAll(() => {
+    resetConsole();
+  });
 
-    expect(filteredRows).toBeCalledWith(
-      defaultDeps.getter.rows,
-      defaultDeps.getter.filterExpression,
-      defaultDeps.getter.getCellValue,
-      expect.any(Function),
-      defaultDeps.getter.isGroupRow,
-      defaultDeps.getter.getRowLevelKey,
-    );
+  beforeEach(() => {
+    filteredRows.mockImplementation(() => ({ rows: 'filteredRows' }));
+    filteredCollapsedRowsGetter.mockImplementation(() => 'filteredCollapsedRowsGetter');
+    unwrappedFilteredRows.mockImplementation(() => 'unwrappedFilteredRows');
+    getColumnExtension.mockImplementation(() => ({}));
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should provide rows getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedFiltering />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).rows)
+      .toBe(unwrappedFilteredRows());
+
+    expect(filteredRows)
+      .toBeCalledWith(
+        defaultDeps.getter.rows,
+        defaultDeps.getter.filterExpression,
+        defaultDeps.getter.getCellValue,
+        expect.any(Function),
+        defaultDeps.getter.getRowLevelKey,
+        defaultDeps.getter.getCollapsedRows,
+      );
+
+    expect(unwrappedFilteredRows)
+      .toBeCalledWith(filteredRows());
+  });
+
+  it('should provide getCollapsedRows getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedFiltering />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getCollapsedRows)
+      .toBe(filteredCollapsedRowsGetter());
+
+    expect(filteredCollapsedRowsGetter)
+      .toBeCalledWith(filteredRows());
   });
 });

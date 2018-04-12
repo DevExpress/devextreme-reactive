@@ -8,11 +8,6 @@ import {
   Plugin,
 } from '@devexpress/dx-react-core';
 
-// remove when switch to node 8
-const entries = object =>
-  Object.keys(object)
-    .reduce((acc, key) => [...acc, [key, object[key]]], []);
-
 const computedEntries = object => Object.getOwnPropertyNames(object)
   .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
 
@@ -30,19 +25,13 @@ export const pluginDepsToComponents = (
   depsOverrides = {},
 ) => (
   <Plugin>
-    {[...(deps.plugins || []), ...(depsOverrides.plugins || [])].map(plugin => (
-      <Plugin
-        name={plugin}
-        key={plugin}
-      >
-        <div />
-      </Plugin>
-    ))}
-    {entries({ ...deps.getter, ...depsOverrides.getter })
+    {[...(deps.plugins || []), ...(depsOverrides.plugins || [])]
+      .map(plugin => <Plugin name={plugin} key={plugin}><div /></Plugin>)}
+    {Object.entries({ ...deps.getter, ...depsOverrides.getter })
       .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
-    {entries({ ...deps.action, ...depsOverrides.action })
+    {Object.entries({ ...deps.action, ...depsOverrides.action })
       .map(([name, action]) => <Action key={`action_${name}`} name={name} action={action} />)}
-    {entries({ ...deps.template, ...depsOverrides.template })
+    {Object.entries({ ...deps.template, ...depsOverrides.template })
       .map(([name, templateParams]) => (
         <Template key={`template_${name}`} name="root">
           <div>

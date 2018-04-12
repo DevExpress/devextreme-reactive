@@ -7,13 +7,13 @@ describe('with keyboard navigation', () => {
   it('can get focus', () => {
     const tree = mount((
       <SortingControl
-        align="Right"
+        align="right"
         columnTitle="Test"
         onClick={() => {}}
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.find('span').at(0).prop('tabIndex'))
       .toBe(0);
   });
 
@@ -27,7 +27,7 @@ describe('with keyboard navigation', () => {
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.find('span').at(0).prop('tabIndex'))
       .toBe(-1);
   });
 });

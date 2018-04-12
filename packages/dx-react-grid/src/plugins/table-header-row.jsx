@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
@@ -10,7 +10,8 @@ import {
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
-const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
+const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
+  tableRowsWithHeading(tableHeaderRows);
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
@@ -43,12 +44,8 @@ export class TableHeaderRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                sorting,
-                isColumnSortingEnabled,
-                isColumnGroupingEnabled,
-                tableColumns,
-                draggingEnabled,
-                tableColumnResizingEnabled,
+                sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
+                isColumnSortingEnabled, isColumnGroupingEnabled,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -56,7 +53,8 @@ export class TableHeaderRow extends React.PureComponent {
                 const { name: columnName } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
-                const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+                const sortingEnabled = isColumnSortingEnabled &&
+                  isColumnSortingEnabled(columnName);
                 const groupingEnabled = isColumnGroupingEnabled &&
                   isColumnGroupingEnabled(columnName) &&
                   atLeastOneDataColumn;
@@ -72,7 +70,7 @@ export class TableHeaderRow extends React.PureComponent {
                     showGroupingControls={showGroupingControls}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls
+                    sortingDirection={showSortingControls && sorting !== undefined
                       ? getColumnSortingDirection(sorting, columnName) : undefined}
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
@@ -80,6 +78,14 @@ export class TableHeaderRow extends React.PureComponent {
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
                     onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                    before={(
+                      <TemplatePlaceholder
+                        name="tableHeaderCellBefore"
+                        params={{
+                          column: params.tableColumn.column,
+                        }}
+                      />
+                    )}
                   />
                 );
               }}

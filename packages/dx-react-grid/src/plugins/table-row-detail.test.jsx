@@ -39,7 +39,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['Table'],
+  plugins: ['RowDetailState', 'Table'],
 };
 
 const defaultProps = {

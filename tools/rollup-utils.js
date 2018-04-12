@@ -7,16 +7,19 @@ Generated: <%= moment().format('YYYY-MM-DD') %>
 Version: <%= pkg.version %>
 License: https://js.devexpress.com/Licensing`;
 
-export const external = (packageDirectory) => {
+export const external = (packageDirectory, additional) => {
   const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
   const externalDependencies = [
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {})
   ];
 
-  return moduleId => externalDependencies
-    .filter(dependency => moduleId.startsWith(dependency))
-    .length > 0;
+  return moduleId => {
+    if (additional && additional.includes(moduleId)) return true;
+    return externalDependencies
+      .filter(dependency => moduleId.startsWith(dependency))
+      .length > 0;
+  };
 };
 
 export const babelrc = (packageDirectory) => {

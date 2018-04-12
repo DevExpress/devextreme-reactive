@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
 
@@ -12,53 +12,6 @@ describe('TableSelectAllCell', () => {
     resetConsole();
   });
 
-  it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
-    const tree = mount((
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        someSelected
-      />
-    ));
-
-    expect(tree.find('input').getDOMNode().indeterminate)
-      .toBeTruthy();
-  });
-
-  it('should not fire the `onToggle` event on cell click if selection is not available', () => {
-    const onToggle = jest.fn();
-    const tree = mount((
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        disabled
-        onToggle={onToggle}
-      />
-    ));
-    tree.find('input').simulate('change');
-
-    expect(onToggle)
-      .not.toHaveBeenCalled();
-  });
-
-  it('should fire the `onToggle` event on cell click if selection is available', () => {
-    const onToggle = jest.fn();
-    const tree = mount((
-      <TableSelectAllCell
-        column={{
-          name: 'Test',
-        }}
-        onToggle={onToggle}
-      />
-    ));
-    tree.find('input').simulate('change');
-
-    expect(onToggle)
-      .toHaveBeenCalledTimes(1);
-  });
-
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableSelectAllCell className="custom-class" />
@@ -66,5 +19,14 @@ describe('TableSelectAllCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.find('th').prop('style').verticalAlign).toBe('bottom');
   });
 });

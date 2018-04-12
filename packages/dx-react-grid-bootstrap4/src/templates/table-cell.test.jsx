@@ -13,12 +13,22 @@ describe('TableCell', () => {
       .toBeFalsy();
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
-    expect(tree.find('td').is('.text-right.text-nowrap.dx-rg-bs4-table-cell'))
+    expect(tree.find('td').is('.text-right.text-nowrap.dx-g-bs4-table-cell'))
       .toBeTruthy();
 
     tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
-    expect(tree.find('td').is('.text-center.text-nowrap.dx-rg-bs4-table-cell'))
+    expect(tree.find('td').is('.text-center.text-nowrap.dx-g-bs4-table-cell'))
       .toBeTruthy();
+  });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeFalsy();
   });
 
   it('should have correct text', () => {
@@ -42,7 +52,7 @@ describe('TableCell', () => {
       <TableCell className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.text-nowrap.dx-rg-bs4-table-cell'))
+    expect(tree.is('.custom-class.text-nowrap.dx-g-bs4-table-cell'))
       .toBeTruthy();
   });
 

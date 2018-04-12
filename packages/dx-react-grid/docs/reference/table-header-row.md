@@ -90,3 +90,4 @@ tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Tabl
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.
+tableHeaderCellBefore | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template used to prepend additional components to the header table cell.

@@ -4,6 +4,7 @@ import { setupConsole, pluginDepsToComponents, getComputedState, executeComputed
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
+  tableColumnsWithDraftWidths,
   changeTableColumnWidth,
   draftTableColumnWidth,
   cancelTableColumnWidthDraft,
@@ -13,6 +14,7 @@ import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
+  tableColumnsWithDraftWidths: jest.fn(),
   changeTableColumnWidth: jest.fn(),
   draftTableColumnWidth: jest.fn(),
   cancelTableColumnWidthDraft: jest.fn(),
@@ -40,6 +42,7 @@ describe('TableColumnResizing', () => {
 
   beforeEach(() => {
     tableColumnsWithWidths.mockImplementation(() => 'tableColumnsWithWidths');
+    tableColumnsWithDraftWidths.mockImplementation(() => 'tableColumnsWithDraftWidths');
     changeTableColumnWidth.mockImplementation(() => ([]));
     draftTableColumnWidth.mockImplementation(() => ([]));
     cancelTableColumnWidthDraft.mockImplementation(() => ([]));
@@ -81,9 +84,11 @@ describe('TableColumnResizing', () => {
       ));
 
       expect(getComputedState(tree).tableColumns)
-        .toBe('tableColumnsWithWidths');
+        .toBe('tableColumnsWithDraftWidths');
       expect(tableColumnsWithWidths)
-        .toBeCalledWith(defaultDeps.getter.tableColumns, [{ columnName: 'a', width: 100 }], []);
+        .toBeCalledWith(defaultDeps.getter.tableColumns, [{ columnName: 'a', width: 100 }]);
+      expect(tableColumnsWithDraftWidths)
+        .toBeCalledWith('tableColumnsWithWidths', []);
     });
   });
 
@@ -106,8 +111,8 @@ describe('TableColumnResizing', () => {
     expect(draftTableColumnWidth)
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
-    expect(tableColumnsWithWidths)
-      .toBeCalledWith(defaultDeps.getter.tableColumns, [{ columnName: 'a', width: 100 }], [{ columnName: 'a', width: 150 }]);
+    expect(tableColumnsWithDraftWidths)
+      .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
   });
 
   it('should correctly update column widths after the "cancelTableColumnWidthDraft" action is fired', () => {
@@ -129,7 +134,7 @@ describe('TableColumnResizing', () => {
     expect(cancelTableColumnWidthDraft)
       .toBeCalledWith(expect.objectContaining({ draftColumnWidths: [] }), payload);
 
-    expect(tableColumnsWithWidths)
-      .toBeCalledWith(defaultDeps.getter.tableColumns, [{ columnName: 'a', width: 100 }], [{ columnName: 'a', width: 150 }]);
+    expect(tableColumnsWithDraftWidths)
+      .toBeCalledWith('tableColumnsWithWidths', [{ columnName: 'a', width: 150 }]);
   });
 });

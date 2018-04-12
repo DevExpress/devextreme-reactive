@@ -243,11 +243,11 @@ describe('CustomGrouping Plugin computeds', () => {
         }),
         { a: 1, b: 1 },
       ];
-      const parentGetRowId = () => 1;
+      const parentGetRowId = () => 0;
       const getRowId = customGroupingRowIdGetter(parentGetRowId, groupedRows);
 
       expect(getRowId(1))
-        .toBe(1);
+        .toBe(0);
     });
   });
 });

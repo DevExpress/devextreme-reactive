@@ -63,6 +63,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
+        - title: Band Columns
+          path: /react/grid/docs/guides/band-columns
         - title: Virtual Scrolling
           path: /react/grid/docs/guides/virtual-scrolling
         - title: Tree Data
@@ -127,6 +129,8 @@ react:
           path: /react/grid/docs/reference/table-edit-row
         - title: TableEditColumn
           path: /react/grid/docs/reference/table-edit-column
+        - title: TableBandHeader
+          path: /react/grid/docs/reference/table-band-header
         - title: TableColumnResizing
           path: /react/grid/docs/reference/table-column-resizing
         - title: PagingPanel

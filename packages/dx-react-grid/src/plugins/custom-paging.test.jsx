@@ -10,6 +10,7 @@ const defaultDeps = {
 
 describe('CustomPaging', () => {
   it('should provide value from the "totalCount" property', () => {
+    const totalCount = 100;
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -20,7 +21,7 @@ describe('CustomPaging', () => {
     ));
 
     expect(getComputedState(tree).totalCount)
-      .toBe(100);
+      .toBe(totalCount);
   });
 
   it('should provide \'0\' if a value for the "totalCount" property undefined', () => {

@@ -21,7 +21,7 @@ const defaultDeps = {
     setPageSize: jest.fn(),
   },
   template: {
-    footer: {},
+    footer: { name: 'footer', render() { return <div />; } },
   },
   plugins: ['PagingState'],
 };
@@ -61,7 +61,8 @@ describe('PagingPanel', () => {
     });
 
     const pager = tree.find(DefaultPager);
-    expect(pager.props())
+    debugger
+    expect(pager.vm.$attrs)
       .toMatchObject({
         currentPage: 1,
         pageSize: 2,

@@ -11,18 +11,11 @@ import {
 
 const LayoutElement = () => null;
 
-const placeholders = {};
-
 const createRefsHandler = (placeholder, setBBox) => (el) => {
-  if (!el) {
-    return;
-  }
-  const bBox = el.getBBox();
-  if (placeholders[placeholder] && bBox.width === placeholders[placeholder].width) {
-    return;
-  }
-  placeholders[placeholder] = bBox;
-  setBBox(placeholder, bBox);
+  if (!el) return;
+  const { width, height } = el.getBBox();
+
+  setBBox(placeholder, { width, height });
 };
 
 export class Legend extends React.PureComponent {
@@ -69,11 +62,6 @@ export class Legend extends React.PureComponent {
                     text={name}
                     dominantBaseline="text-before-edge"
                     textAnchor="start"
-
-                    bBoxHandler={(bBoxes, node) => {
-                      node.setWidth(bBoxes[`${name}-legend-label-${placeholder}`] ? bBoxes[`${name}-legend-label-${placeholder}`].width : 0);
-                      node.setHeight(bBoxes[`${name}-legend-label-${placeholder}`] ? bBoxes[`${name}-legend-label-${placeholder}`].height : 0);
-                    }}
                   />
                 </Root>)));
                   addNodes(
@@ -88,9 +76,9 @@ export class Legend extends React.PureComponent {
                   placeholder,
                   );
                 return (
-                  <Root x={0} y={0} refsHandler={createRefsHandler(placeholder, setBBox)}>
+                  <React.Fragment>
                     {items}
-                  </Root>);
+                  </React.Fragment>);
             }
             }
           </TemplateConnector>

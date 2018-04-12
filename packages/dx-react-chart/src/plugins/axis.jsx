@@ -10,15 +10,12 @@ import {
 
 import { axisCoordinates } from '@devexpress/dx-chart-core';
 
-const isEqual = (firstBBox, secondBBox) =>
-  firstBBox.width === secondBBox.width && firstBBox.height === secondBBox.height;
+const LayoutElement = () => {};
 
 export class Axis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
-      bBox: { x: 0, y: 0 },
       correctionX: 0,
       correctionY: 0,
     };
@@ -29,17 +26,20 @@ export class Axis extends React.Component {
       if (!el) {
         return;
       }
-      const bBox = el.getBBox();
-      this.setState((prevState) => {
-        if (!(isEqual(prevState.bBox, bBox))) {
-          setBBox(placeholder, bBox);
-          return {
-            bBox,
-            correctionX: orientation === 'horizontal' ? 0 : bBox.x,
-            correctionY: orientation === 'horizontal' ? bBox.y : 0,
-          };
-        }
-        return null;
+      const {
+        width, height, x, y,
+      } = el.getBBox();
+
+      if (width === this.state.width && height === this.state.height) return;
+      setBBox(placeholder, {
+        width: orientation === 'horizontal' ? 0 : width,
+        height: orientation === 'horizontal' ? height : 0,
+      });
+      this.setState({
+        width,
+        height,
+        correctionX: orientation !== 'horizontal' ? x : 0,
+        correctionY: orientation !== 'horizontal' ? 0 : y,
       });
     };
   }
@@ -57,39 +57,46 @@ export class Axis extends React.Component {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                   domains, setBBox, layouts,
-               }) => {
-                 const { orientation } = domains[name];
-                 const placeholder = `${position}-axis`;
-                 const {
-                    x, y, width, height,
-                } = layouts[placeholder];
+              domains, setBBox, layouts, addNodes,
+             }) => {
+              const placeholder = `${position}-axis`;
+              const { orientation } = domains[name];
+              const {
+                x, y, width, height,
+              } = layouts[placeholder];
 
-                const refsHandler = this.createRefsHandler(placeholder, setBBox, orientation);
+              const coordinates = axisCoordinates(
+                domains[name],
+                position,
+                width,
+                height,
+              );
 
-                const coordinates = axisCoordinates(
-                  domains[name],
-                  position,
-                  width,
-                  height,
-                );
+              addNodes(<LayoutElement name={`${name}-axis-${placeholder}`} />, placeholder);
 
-                return ((
-                  <Root
-                    refsHandler={refsHandler}
-                    x={x - this.state.correctionX}
-                    y={y - this.state.correctionY}
-                  >
-                    {coordinates.ticks.map(({
-                      text, x1, x2, y1, y2, xText, yText, dominantBaseline, textAnchor,
+              return (
+                <Root
+                  refsHandler={this.createRefsHandler(
+                    `${name}-axis-${placeholder}`,
+                    setBBox,
+                    orientation,
+                  )}
+                  x={x - this.state.correctionX}
+                  y={y - this.state.correctionY}
+                >
+                  {coordinates.ticks.map(({
+                      text,
+                      x1,
+                      x2,
+                      y1,
+                      y2,
+                      xText,
+                      yText,
+                      dominantBaseline,
+                      textAnchor,
                     }) => (
                       <React.Fragment key={text}>
-                        <Tick
-                          x1={x1}
-                          x2={x2}
-                          y1={y1}
-                          y2={y2}
-                        />
+                        <Tick x1={x1} x2={x2} y1={y1} y2={y2} />
                         <Label
                           text={text}
                           x={xText}
@@ -99,8 +106,9 @@ export class Axis extends React.Component {
                         />
                       </React.Fragment>
                     ))}
-                  </Root>));
-              }}
+                </Root>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>

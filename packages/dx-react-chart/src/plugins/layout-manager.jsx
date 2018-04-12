@@ -5,6 +5,11 @@ import yoga, { Node } from '@devexpress/dx-flex-layout';
 
 const LayoutElement = () => null;
 
+const isEqual = (
+  { width: firstWidth, height: firstHeight },
+  { width: secondWidth, height: secondHeight },
+) => firstWidth === secondWidth && firstHeight === secondHeight;
+
 const createNode = ({
   flexGrow, flexDirection, width, height, margin, alignItems, flexWrap, justifyContent,
 } = {}) => {
@@ -37,7 +42,6 @@ const getYPosition = (node, positions) => {
   return positions;
 };
 
-
 const getAbsoluteNodePosition = node => ({
   x: getXPosition(node, node.getComputedLeft()),
   y: getYPosition(node, node.getComputedTop()),
@@ -45,7 +49,7 @@ const getAbsoluteNodePosition = node => ({
   height: node.getComputedHeight(),
 });
 
-const calculatePositions = (bBoxes, rootNode, width, height, nodes) => {
+const calculatePositions = (rootNode, width, height, nodes) => {
   rootNode.calculateLayout(width, height, yoga.DIRECTION_LTR);
   return nodes.reduce((positions, { name, node }) =>
     ({ ...positions, [name]: getAbsoluteNodePosition(node) }), {});
@@ -57,6 +61,7 @@ export class LayoutManager extends React.Component {
     const { width, height, children } = this.props;
 
     this.state = {
+    // eslint-disable-next-line react/no-unused-state
       bBoxes: {
         root: {
           width,
@@ -67,13 +72,21 @@ export class LayoutManager extends React.Component {
 
     this.nodes = [];
     this.rootNode = this.createNodes(children);
+    this.rootNode.setWidth(width);
+    this.rootNode.setHeight(height);
     this.setBBox = this.setBBox.bind(this);
     this.addNodes = this.addNodes.bind(this);
   }
 
-
-  setBBox(name, bBox) {
-    this.setState(prevState => ({ bBoxes: { ...prevState.bBoxes, [name]: bBox } }));
+  setBBox(placeholder, bBox) {
+    this.setState((prevState) => {
+      if (isEqual(prevState.bBoxes[placeholder] || {}, bBox)) return null;
+      return ({ bBoxes: { ...prevState.bBoxes, [placeholder]: bBox } });
+    });
+    const { node } = this.nodes.find(({ name }) => name === placeholder);
+    if (bBox.width) node.setWidth(bBox.width);
+    if (bBox.height) node.setHeight(bBox.height);
+    this.rootNode.calculateLayout();
   }
 
   addNodes(children, placeholder) {
@@ -107,7 +120,7 @@ export class LayoutManager extends React.Component {
   updateNodes() {
     this.nodes.forEach(({ node, bBoxHandler }) => {
       if (bBoxHandler) {
-        bBoxHandler(this.state.bBoxes, node, this.nodes);
+        bBoxHandler(node, this.nodes);
       }
     });
   }
@@ -117,10 +130,9 @@ export class LayoutManager extends React.Component {
       width,
       height,
     } = this.props;
-    this.updateNodes(this.rootNode);
 
+    this.updateNodes(this.rootNode);
     const positions = calculatePositions(
-      this.state.bBoxes,
       this.rootNode,
       width,
       height,
@@ -153,15 +165,11 @@ LayoutManager.defaultProps = {
     <LayoutElement
       name="root"
       flexDirection={yoga.FLEX_DIRECTION_COLUMN}
-      bBoxHandler={(bBoxes, node) => {
-        node.setWidth(bBoxes.root.width);
-        node.setHeight(bBoxes.root.height);
-      }}
     >
       <LayoutElement name="top-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
         <LayoutElement
           name="top-left"
-          bBoxHandler={(bBoxes, node, nodes) => {
+          bBoxHandler={(node, nodes) => {
             const { node: leftNode } = nodes.find(({ name }) => name === 'left');
             const { node: topNode } = nodes.find(({ name }) => name === 'top');
             const { width } = leftNode.getComputedLayout();
@@ -178,7 +186,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="top-right"
-          bBoxHandler={(bBoxes, node, nodes) => {
+          bBoxHandler={(node, nodes) => {
             const { node: rightNode } = nodes.find(({ name }) => name === 'right');
             const { node: topNode } = nodes.find(({ name }) => name === 'top');
             const { width } = rightNode.getComputedLayout();
@@ -194,52 +202,58 @@ LayoutManager.defaultProps = {
           justifyContent={yoga.JUSTIFY_FLEX_START}
         />
         <LayoutElement name="center-center" flexGrow={1}>
-          <LayoutElement name="top-axis" flexDirection={yoga.FLEX_DIRECTION_ROW} >
+          <LayoutElement name="top-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
             <LayoutElement
               name="top-left-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['left-axis'] ? bBoxes['left-axis'].width : 0);
-            node.setHeight(bBoxes['top-axis'] ? bBoxes['top-axis'].height : 0);
+              bBoxHandler={(node, nodes) => {
+            const { node: leftNode } = nodes.find(({ name }) => name === 'left-axis');
+            const { node: topNode } = nodes.find(({ name }) => name === 'top-axis');
+            const { width } = leftNode.getComputedLayout();
+            const { height } = topNode.getComputedLayout();
+            node.setWidth(width || 0);
+            node.setHeight(height || 0);
           }}
             />
             <LayoutElement name="top-axis" flexGrow={1} />
             <LayoutElement
               name="top-right-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['right-axis'] ? bBoxes['right-axis'].width : 0);
-            node.setHeight(bBoxes['top-axis'] ? bBoxes['top-axis'].height : 0);
-          }}
+              bBoxHandler={(node, nodes) => {
+                  const { node: rightNode } = nodes.find(({ name }) => name === 'right-axis');
+                  const { node: topNode } = nodes.find(({ name }) => name === 'top-axis');
+                  const { width } = rightNode.getComputedLayout();
+                  const { height } = topNode.getComputedLayout();
+                  node.setWidth(width || 0);
+                  node.setHeight(height || 0);
+              }}
             />
           </LayoutElement>
-          <LayoutElement name="center-axis" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
-            <LayoutElement
-              name="left-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['left-axis'] ? bBoxes['left-axis'].width : 0);
-          }}
-            />
+          <LayoutElement name="center-axis-container" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
+            <LayoutElement name="left-axis" />
             <LayoutElement name="pane" flexGrow={1} />
-            <LayoutElement
-              name="right-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['right-axis'] ? bBoxes['right-axis'].width : 0);
-          }}
-            />
+            <LayoutElement name="right-axis" />
           </LayoutElement>
-          <LayoutElement name="bottom-axis" flexDirection={yoga.FLEX_DIRECTION_ROW}>
+          <LayoutElement name="bottom-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
             <LayoutElement
               name="bottom-left-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['left-axis'] ? bBoxes['left-axis'].width : 0);
-            node.setHeight(bBoxes['bottom-axis'] ? bBoxes['bottom-axis'].height : 0);
+              bBoxHandler={(node, nodes) => {
+                  const { node: leftNode } = nodes.find(({ name }) => name === 'left-axis');
+                  const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom-axis');
+                  const { width } = leftNode.getComputedLayout();
+                  const { height } = bottomNode.getComputedLayout();
+                  node.setWidth(width || 0);
+                  node.setHeight(height || 0);
           }}
             />
             <LayoutElement name="bottom-axis" flexGrow={1} />
             <LayoutElement
               name="bottom-right-axis"
-              bBoxHandler={(bBoxes, node) => {
-            node.setWidth(bBoxes['right-axis'] ? bBoxes['right-axis'].width : 0);
-            node.setHeight(bBoxes['bottom-axis'] ? bBoxes['bottom-axis'].height : 0);
+              bBoxHandler={(node, nodes) => {
+                  const { node: rightNode } = nodes.find(({ name }) => name === 'right-axis');
+                  const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom-axis');
+                  const { width } = rightNode.getComputedLayout();
+                  const { height } = bottomNode.getComputedLayout();
+                  node.setWidth(width || 0);
+                  node.setHeight(height || 0);
           }}
             />
           </LayoutElement>
@@ -252,7 +266,7 @@ LayoutManager.defaultProps = {
       <LayoutElement name="bottom-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
         <LayoutElement
           name="bottom-left"
-          bBoxHandler={(bBoxes, node, nodes) => {
+          bBoxHandler={(node, nodes) => {
             const { node: leftNode } = nodes.find(({ name }) => name === 'left');
             const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom');
             const { width } = leftNode.getComputedLayout();
@@ -269,7 +283,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="bottom-right"
-          bBoxHandler={(bBoxes, node, nodes) => {
+          bBoxHandler={(node, nodes) => {
             const { node: rightNode } = nodes.find(({ name }) => name === 'right');
             const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom');
             const { width } = rightNode.getComputedLayout();

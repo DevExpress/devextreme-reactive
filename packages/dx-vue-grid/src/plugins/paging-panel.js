@@ -13,9 +13,11 @@ export const PagingPanel = {
   props: {
     pageSizes: {
       type: Array,
+      default: [],
     },
     messages: {
       type: Object,
+      default: () => {},
     },
     containerComponent: {
       type: Object,

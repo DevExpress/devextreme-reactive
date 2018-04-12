@@ -1,15 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import {
-  ArgumentAxis,
-  ValueAxis,
-  Chart,
-  Legend,
-  Grid,
-  LineSeries,
-  AreaSeries,
-  SplineSeries,
-} from '@devexpress/dx-react-chart-svg';
+import { Rect } from '@devexpress/dx-react-chart';
+import { Chart } from '@devexpress/dx-react-chart-svg';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -58,30 +50,11 @@ export default class Demo extends React.PureComponent {
           },
         ]}
       >
-
-        <Legend placeholder="right" />
-        <Legend placeholder="top" />
-        <Legend placeholder="bottom" />
-        <Legend placeholder="left" />
-        <ArgumentAxis name="year" position="bottom" />
-        <ValueAxis name="born" position="left" />
-        <Grid name="year" />
-        <Grid name="born" />
-
-        <LineSeries
-          name="Russia"
-          style={{ stroke: 'red' }}
-          pointStyle={{ fill: 'green' }}
-        />
-        <SplineSeries
-          name="China"
-          style={{ stroke: 'green' }}
-        />
-        <AreaSeries
-          name="USA"
-          style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
-          pointStyle={{ fill: 'orange' }}
-        />
+        <Rect height={10} placeholder="top" color="green" />
+        <Rect height={20} placeholder="bottom" color="blue" />
+        <Rect placeholder="pane" color="red" />
+        <Rect width={40} height={60} placeholder="left" color="pink" />
+        <Rect width={20} height={80} placeholder="right" color="yellow" />
       </Chart>
     );
   }

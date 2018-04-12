@@ -32,7 +32,7 @@ getSeriesAttributes.mockImplementation(() => ({
 describe('Scatter series', () => {
   const defaultDeps = {
     getter: {
-      layouts: { 'center-center': {} },
+      layouts: { pane: {} },
     },
     template: {
       canvas: {},

@@ -18,7 +18,7 @@ describe('Grid', () => {
     getter: {
       domains: { name: { orientation: 'horizontal' } },
       layouts: {
-        'center-center': {
+        pane: {
           x: 1, y: 2, width: 200, height: 100,
         },
       },

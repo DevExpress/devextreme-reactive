@@ -21,7 +21,7 @@ describe('Base series', () => {
   });
   const defaultDeps = {
     getter: {
-      layouts: { 'center-center': { x: 1, y: 2 } },
+      layouts: { pane: { x: 1, y: 2 } },
       data: 'data',
       series: 'series',
       domains: 'domains',

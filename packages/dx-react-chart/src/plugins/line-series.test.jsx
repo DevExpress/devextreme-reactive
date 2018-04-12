@@ -31,7 +31,7 @@ getSeriesAttributes.mockImplementation(() => ({
 describe('Line series', () => {
   const defaultDeps = {
     getter: {
-      layouts: { 'center-center': {} },
+      layouts: { pane: {} },
     },
     template: {
       canvas: {},

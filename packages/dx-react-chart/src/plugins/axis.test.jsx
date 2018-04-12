@@ -19,10 +19,11 @@ describe('Axis', () => {
       domains: { name: { orientation: 'horizontal' } },
       setBBox: jest.fn(),
       layouts: {
-        'bottom-center': {
+        'bottom-axis': {
           x: 1, y: 2, width: 200, height: 100,
         },
       },
+      addNodes: jest.fn(),
     },
     template: {
       canvas: {},
@@ -105,7 +106,7 @@ describe('Axis', () => {
           getter: {
             domains: { name: { orientation: 'vertical' } },
             layouts: {
-              'center-bottom': {
+              'bottom-axis': {
                 x: 3, y: 4, width: 250, height: 150,
               },
             },

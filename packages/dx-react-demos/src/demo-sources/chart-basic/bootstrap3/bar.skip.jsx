@@ -13,7 +13,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data,
+      data: data.slice(0, 7),
     };
   }
   render() {
@@ -22,6 +22,9 @@ export default class Demo extends React.PureComponent {
         data={this.state.data}
         width={700}
         height={400}
+        style={{
+          border: '1px dashed lightgray',
+        }}
         axes={[
           {
             name: 'Name',
@@ -29,6 +32,7 @@ export default class Demo extends React.PureComponent {
             type: 'band',
           },
           {
+            min: 0,
             name: 'commits',
             orientation: 'vertical',
           },
@@ -43,8 +47,9 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
-        <ArgumentAxis name="Name" position="bottom" />
+        {/* <Legend placeholder="left" /> */}
         <ValueAxis name="commits" position="left" />
+        <ArgumentAxis name="Name" position="bottom" />
 
         <BarSeries
           name="BarSeries"

@@ -1,3 +1,30 @@
+<a name="1.2.0-beta.1"></a>
+# [1.2.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.1...v1.2.0-beta.1) (2018-04-12)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#903](https://github.com/DevExpress/devextreme-reactive/issues/903)) ([e3c8de2](https://github.com/DevExpress/devextreme-reactive/commit/e3c8de2))
+* **react-grid:** correct TableFilterRow.CellProps types ([#926](https://github.com/DevExpress/devextreme-reactive/issues/926)) ([639f35f](https://github.com/DevExpress/devextreme-reactive/commit/639f35f))
+* **react-grid:** correct types for components ([#910](https://github.com/DevExpress/devextreme-reactive/issues/910)) ([f5546b8](https://github.com/DevExpress/devextreme-reactive/commit/f5546b8))
+* **react-grid:** do not pass the `row` property to the table edit command cell ([#890](https://github.com/DevExpress/devextreme-reactive/issues/890)) ([610343c](https://github.com/DevExpress/devextreme-reactive/commit/610343c))
+* **react-grid-material-ui:** rename column chooser button component ([#871](https://github.com/DevExpress/devextreme-reactive/issues/871)) ([42ef0ab](https://github.com/DevExpress/devextreme-reactive/commit/42ef0ab))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#901](https://github.com/DevExpress/devextreme-reactive/issues/901)) ([2447c4c](https://github.com/DevExpress/devextreme-reactive/commit/2447c4c))
+
+
+### Features
+
+* **react-grid:** allow word wrapping in table cells ([#875](https://github.com/DevExpress/devextreme-reactive/issues/875)) ([5febc85](https://github.com/DevExpress/devextreme-reactive/commit/5febc85))
+* **react-grid:** support the Band Columns feature ([#826](https://github.com/DevExpress/devextreme-reactive/issues/826)) ([6f935a8](https://github.com/DevExpress/devextreme-reactive/commit/6f935a8))
+* **react-grid:** support tree data structures ([#730](https://github.com/DevExpress/devextreme-reactive/issues/730)) ([d069c71](https://github.com/DevExpress/devextreme-reactive/commit/d069c71))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize column resizing ([#878](https://github.com/DevExpress/devextreme-reactive/issues/878)) ([b3f264b](https://github.com/DevExpress/devextreme-reactive/commit/b3f264b))
+
+
+
 <a name="1.1.2"></a>
 # [1.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.2) (2018-04-11)
 

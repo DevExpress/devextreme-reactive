@@ -5,12 +5,11 @@ const isDefined = item => item !== undefined;
 const getAxesDomains = axes =>
   axes.reduce(
     (domains, {
-      name, min, max, orientation, type,
+      name, min, max, type,
     }) => ({
       ...domains,
       [name]: {
         domain: [min, max].filter(isDefined),
-        orientation,
         type,
       },
     }),
@@ -33,22 +32,21 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
         domain: calculateDomainField(
           valueField,
           data,
-          domains[axisName].domain,
-          domains[axisName].type,
+          domains[axisName] && domains[axisName].domain,
+          domains[axisName] && domains[axisName].type,
         ),
-        orientation: domains[axisName] && domains[axisName].orientation,
+        orientation: 'vertical',
         type: domains[axisName] && domains[axisName].type,
       },
       [argumentAxisName]: {
         domain: calculateDomainField(
           argumentField,
           data,
-          domains[argumentAxisName].domain,
-          domains[argumentAxisName].type,
+          domains[argumentAxisName] && domains[argumentAxisName].domain,
+          domains[argumentAxisName] && domains[argumentAxisName].type,
         ),
-        orientation:
-          domains[argumentAxisName] && domains[argumentAxisName].orientation,
-        type: domains[argumentAxisName].type,
+        orientation: 'horizontal',
+        type: domains[argumentAxisName] && domains[argumentAxisName].type,
       },
     }),
     axesDomains,

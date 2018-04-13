@@ -25,18 +25,7 @@ export default class Demo extends React.PureComponent {
         style={{
           border: '1px dashed lightgray',
         }}
-        axes={[
-          {
-            name: 'Name',
-            orientation: 'horizontal',
-            type: 'band',
-          },
-          {
-            min: 0,
-            name: 'commits',
-            orientation: 'vertical',
-          },
-        ]}
+        axes={[{ name: 'commits', min: 0 }, { name: 'login', type: 'band' }]}
         series={[
           {
             valueField: 'contributions',
@@ -48,8 +37,8 @@ export default class Demo extends React.PureComponent {
       >
 
         {/* <Legend placeholder="left" /> */}
-        <ValueAxis name="commits" position="left" />
-        <ArgumentAxis name="Name" position="bottom" />
+        <ArgumentAxis />
+        <ValueAxis name="commits" />
 
         <BarSeries
           name="BarSeries"

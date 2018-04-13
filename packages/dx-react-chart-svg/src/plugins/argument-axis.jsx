@@ -13,7 +13,7 @@ export class ArgumentAxis extends React.PureComponent {
         tickComponent={Tick}
         labelComponent={Label}
         lineComponent={Line}
-        {...this.props}
+        {...{ position: 'bottom', ...this.props, isArgumentAxis: true }}
       />
     );
   }

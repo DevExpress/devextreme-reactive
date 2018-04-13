@@ -47,6 +47,7 @@ export class Axis extends React.Component {
     const {
       position,
       name,
+      isArgumentAxis,
       rootComponent: Root,
       tickComponent: Tick,
       labelComponent: Label,
@@ -57,16 +58,17 @@ export class Axis extends React.Component {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              domains, setBBox, layouts, addNodes,
+              domains, setBBox, layouts, addNodes, argumentAxisName,
              }) => {
               const placeholder = `${position}-axis`;
-              const { orientation } = domains[name];
+              const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
+              const { orientation } = domain;
               const {
                 x, y, width, height,
               } = layouts[placeholder];
 
               const coordinates = axisCoordinates(
-                domains[name],
+                domain,
                 position,
                 width,
                 height,
@@ -117,9 +119,15 @@ export class Axis extends React.Component {
 }
 
 Axis.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  isArgumentAxis: PropTypes.bool,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+};
+
+Axis.defaultProps = {
+  name: undefined,
+  isArgumentAxis: false,
 };

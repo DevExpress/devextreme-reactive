@@ -19,12 +19,14 @@ export const Marker = ({
 Marker.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
   style: PropTypes.object,
 };
 
 Marker.defaultProps = {
   style: null,
+  width: 10,
+  height: 10,
 };
 

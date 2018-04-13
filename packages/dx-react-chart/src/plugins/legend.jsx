@@ -9,7 +9,10 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const LayoutElement = () => null;
+// eslint-disable-next-line react/prop-types
+const LayoutElement = ({ children }) => (
+  <React.Fragment>{children}</React.Fragment>
+);
 
 const createRefsHandler = (placeholder, setBBox) => (el) => {
   if (!el) return;
@@ -21,7 +24,6 @@ const createRefsHandler = (placeholder, setBBox) => (el) => {
 export class Legend extends React.PureComponent {
   render() {
     const {
-      rootComponent: Root,
       markerComponent: Marker,
       labelComponent: Label,
       placeholder,
@@ -33,54 +35,65 @@ export class Legend extends React.PureComponent {
           <TemplateConnector>
             {({
               series, layouts, addNodes, setBBox,
-             }) => {
-              const items = series.map(({ name }) =>
-              ((
-                <Root
-                  key={name}
-                  x={0}
-                  y={0}
-                  flexDirection={yoga.FLEX_DIRECTION_ROW}
-                  alignItems={yoga.ALIGN_CENTER}
-                  name={`${name}-legend-root-${placeholder}`}
-                  refsHandler={() => {}}
+            }) => {
+              const items = (
+                <LayoutElement
+                  name={`legend-${placeholder}`}
+                  flexDirection={yoga.FLEX_DIRECTION_COLUMN}
+                  flexWrap={yoga.WRAP_WRAP}
+                  justifyContent={yoga.JUSTIFY_FLEX_START}
                 >
-                  <Marker
-                    name={`${name}-legend-marker-${placeholder}`}
-                    x={layouts[`${name}-legend-marker-${placeholder}`] ? layouts[`${name}-legend-marker-${placeholder}`].x : 0}
-                    y={layouts[`${name}-legend-marker-${placeholder}`] ? layouts[`${name}-legend-marker-${placeholder}`].y : 0}
-                    width={10}
-                    height={10}
-                    margin={5}
-                  />
-                  <Label
-                    margin={5}
-                    x={layouts[`${name}-legend-label-${placeholder}`] ? layouts[`${name}-legend-label-${placeholder}`].x : 0}
-                    y={layouts[`${name}-legend-label-${placeholder}`] ? layouts[`${name}-legend-label-${placeholder}`].y : 0}
-                    refsHandler={createRefsHandler(`${name}-legend-label-${placeholder}`, setBBox)}
-                    name={`${name}-legend-label-${placeholder}`}
-                    text={name}
-                    dominantBaseline="text-before-edge"
-                    textAnchor="start"
-                  />
-                </Root>)));
-                  addNodes(
+                  {series.map(({ name }) => (
                     <LayoutElement
-                      name={`legend-${placeholder}`}
-                      flexDirection={yoga.FLEX_DIRECTION_COLUMN}
-                      flexWrap={yoga.WRAP_WRAP}
-                      justifyContent={yoga.JUSTIFY_CENTER}
+                      key={name}
+                      flexDirection={yoga.FLEX_DIRECTION_ROW}
+                      alignItems={yoga.ALIGN_CENTER}
+                      name={`${name}-legend-root-${placeholder}`}
                     >
-                      {items}
-                    </LayoutElement>,
-                  placeholder,
-                  );
-                return (
-                  <React.Fragment>
-                    {items}
-                  </React.Fragment>);
-            }
-            }
+                      <Marker
+                        name={`${name}-legend-marker-${placeholder}`}
+                        x={
+                          layouts[`${name}-legend-marker-${placeholder}`]
+                            ? layouts[`${name}-legend-marker-${placeholder}`].x
+                            : 0
+                        }
+                        y={
+                          layouts[`${name}-legend-marker-${placeholder}`]
+                            ? layouts[`${name}-legend-marker-${placeholder}`].y
+                            : 0
+                        }
+                        margin={5}
+                      />
+                      <Label
+                        margin={5}
+                        x={
+                          layouts[`${name}-legend-label-${placeholder}`]
+                            ? layouts[`${name}-legend-label-${placeholder}`].x
+                            : 0
+                        }
+                        y={
+                          layouts[`${name}-legend-label-${placeholder}`]
+                            ? layouts[`${name}-legend-label-${placeholder}`].y
+                            : 0
+                        }
+                        refsHandler={createRefsHandler(
+                          `${name}-legend-label-${placeholder}`,
+                          setBBox,
+                        )}
+                        name={`${name}-legend-label-${placeholder}`}
+                        text={name}
+                        dominantBaseline="text-before-edge"
+                        textAnchor="start"
+                      />
+                    </LayoutElement>
+                  ))}
+                </LayoutElement>
+              );
+
+              addNodes(items, placeholder);
+
+              return items;
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
@@ -89,7 +102,6 @@ export class Legend extends React.PureComponent {
 }
 
 Legend.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
   markerComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   placeholder: PropTypes.string,

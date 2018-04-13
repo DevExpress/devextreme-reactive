@@ -50,9 +50,12 @@ const getAbsoluteNodePosition = node => ({
 });
 
 const calculatePositions = (rootNode, width, height, nodes) => {
+  const positions = {};
   rootNode.calculateLayout(width, height, yoga.DIRECTION_LTR);
-  return nodes.reduce((positions, { name, node }) =>
-    ({ ...positions, [name]: getAbsoluteNodePosition(node) }), {});
+  nodes.forEach(({ node }, name) => {
+    positions[name] = getAbsoluteNodePosition(node);
+  });
+  return positions;
 };
 
 export class LayoutManager extends React.Component {
@@ -70,7 +73,7 @@ export class LayoutManager extends React.Component {
       },
     };
 
-    this.nodes = [];
+    this.nodes = new Map();
     this.rootNode = this.createNodes(children);
     this.rootNode.setWidth(width);
     this.rootNode.setHeight(height);
@@ -83,15 +86,14 @@ export class LayoutManager extends React.Component {
       if (isEqual(prevState.bBoxes[placeholder] || {}, bBox)) return null;
       return ({ bBoxes: { ...prevState.bBoxes, [placeholder]: bBox } });
     });
-    const { node } = this.nodes.find(({ name }) => name === placeholder);
+    const { node } = this.nodes.get(placeholder);
     if (bBox.width) node.setWidth(bBox.width);
     if (bBox.height) node.setHeight(bBox.height);
     this.rootNode.calculateLayout();
   }
 
   addNodes(children, placeholder) {
-    const { node } = this.nodes
-      .find(({ name }) => name === placeholder);
+    const { node } = this.nodes.get(placeholder);
     if (!node.getChildCount()) {
       node.insertChild(this.createNodes(children));
     }
@@ -103,8 +105,7 @@ export class LayoutManager extends React.Component {
     } = children.props;
     const node = createNode(children.props);
 
-    this.nodes.push({
-      name,
+    this.nodes.set(name, {
       node,
       bBoxHandler,
     });
@@ -170,8 +171,8 @@ LayoutManager.defaultProps = {
         <LayoutElement
           name="top-left"
           bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.find(({ name }) => name === 'left');
-            const { node: topNode } = nodes.find(({ name }) => name === 'top');
+            const { node: leftNode } = nodes.get('left');
+            const { node: topNode } = nodes.get('top');
             const { width } = leftNode.getComputedLayout();
             const { height } = topNode.getComputedLayout();
             node.setWidth(width || 0);
@@ -187,8 +188,8 @@ LayoutManager.defaultProps = {
         <LayoutElement
           name="top-right"
           bBoxHandler={(node, nodes) => {
-            const { node: rightNode } = nodes.find(({ name }) => name === 'right');
-            const { node: topNode } = nodes.find(({ name }) => name === 'top');
+            const { node: rightNode } = nodes.get('right');
+            const { node: topNode } = nodes.get('top');
             const { width } = rightNode.getComputedLayout();
             const { height } = topNode.getComputedLayout();
             node.setWidth(width || 0);
@@ -206,8 +207,8 @@ LayoutManager.defaultProps = {
             <LayoutElement
               name="top-left-axis"
               bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.find(({ name }) => name === 'left-axis');
-            const { node: topNode } = nodes.find(({ name }) => name === 'top-axis');
+            const { node: leftNode } = nodes.get('left-axis');
+            const { node: topNode } = nodes.get('top-axis');
             const { width } = leftNode.getComputedLayout();
             const { height } = topNode.getComputedLayout();
             node.setWidth(width || 0);
@@ -218,8 +219,8 @@ LayoutManager.defaultProps = {
             <LayoutElement
               name="top-right-axis"
               bBoxHandler={(node, nodes) => {
-                  const { node: rightNode } = nodes.find(({ name }) => name === 'right-axis');
-                  const { node: topNode } = nodes.find(({ name }) => name === 'top-axis');
+                  const { node: rightNode } = nodes.get('right-axis');
+                  const { node: topNode } = nodes.get('top-axis');
                   const { width } = rightNode.getComputedLayout();
                   const { height } = topNode.getComputedLayout();
                   node.setWidth(width || 0);
@@ -236,8 +237,8 @@ LayoutManager.defaultProps = {
             <LayoutElement
               name="bottom-left-axis"
               bBoxHandler={(node, nodes) => {
-                  const { node: leftNode } = nodes.find(({ name }) => name === 'left-axis');
-                  const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom-axis');
+                  const { node: leftNode } = nodes.get('left-axis');
+                  const { node: bottomNode } = nodes.get('bottom-axis');
                   const { width } = leftNode.getComputedLayout();
                   const { height } = bottomNode.getComputedLayout();
                   node.setWidth(width || 0);
@@ -248,8 +249,8 @@ LayoutManager.defaultProps = {
             <LayoutElement
               name="bottom-right-axis"
               bBoxHandler={(node, nodes) => {
-                  const { node: rightNode } = nodes.find(({ name }) => name === 'right-axis');
-                  const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom-axis');
+                  const { node: rightNode } = nodes.get('right-axis');
+                  const { node: bottomNode } = nodes.get('bottom-axis');
                   const { width } = rightNode.getComputedLayout();
                   const { height } = bottomNode.getComputedLayout();
                   node.setWidth(width || 0);
@@ -267,8 +268,8 @@ LayoutManager.defaultProps = {
         <LayoutElement
           name="bottom-left"
           bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.find(({ name }) => name === 'left');
-            const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom');
+            const { node: leftNode } = nodes.get('left');
+            const { node: bottomNode } = nodes.get('bottom');
             const { width } = leftNode.getComputedLayout();
             const { height } = bottomNode.getComputedLayout();
             node.setWidth(width || 0);
@@ -284,8 +285,8 @@ LayoutManager.defaultProps = {
         <LayoutElement
           name="bottom-right"
           bBoxHandler={(node, nodes) => {
-            const { node: rightNode } = nodes.find(({ name }) => name === 'right');
-            const { node: bottomNode } = nodes.find(({ name }) => name === 'bottom');
+            const { node: rightNode } = nodes.get('right');
+            const { node: bottomNode } = nodes.get('bottom');
             const { width } = rightNode.getComputedLayout();
             const { height } = bottomNode.getComputedLayout();
             node.setWidth(width || 0);

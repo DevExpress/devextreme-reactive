@@ -17,7 +17,7 @@ const coordinates = [
   { x: 5, y: 15, id: 5 },
 ];
 const widgetHeight = 10;
-const bandwidth = 11;
+const bandwidth = 20;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   getSeriesAttributes: jest.fn(),
@@ -61,11 +61,11 @@ describe('Scatter series', () => {
 
     coordinates.forEach((coord, index) =>
       expect(tree.find(PointComponent).get(index).props).toEqual({
-        x: coord.x,
+        x: coord.x + 3,
         y: coord.y,
         styles: 'styles',
         height: widgetHeight - coord.y,
-        width: bandwidth,
+        width: bandwidth * 0.7,
       }));
   });
 });

@@ -13,7 +13,7 @@ export const PagingPanel = {
   props: {
     pageSizes: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     messages: {
       type: Object,
@@ -39,24 +39,26 @@ export const PagingPanel = {
         dependencies={pluginDependencies}
       >
         <Template name="footer">
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-                getters: { currentPage, pageSize, totalCount },
-                actions: { setCurrentPage, setPageSize },
-              }) => (
-              <Pager
-                currentPage={currentPage}
-                pageSize={pageSize}
-                totalCount={totalCount}
-                totalPages={pageCount(totalCount, pageSize)}
-                pageSizes={pageSizes}
-                getMessage={getMessage}
-                onCurrentPageChange={setCurrentPage}
-                onPageSizeChange={setPageSize}
-              />
-            )}
-          </TemplateConnector>
+          <div> {/* TODO: Wrapper required for multiple children */}
+            <TemplatePlaceholder />
+            <TemplateConnector>
+              {({
+                  getters: { currentPage, pageSize, totalCount },
+                  actions: { setCurrentPage, setPageSize },
+                }) => (
+                <Pager
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  totalCount={totalCount}
+                  totalPages={pageCount(totalCount, pageSize)}
+                  pageSizes={pageSizes}
+                  getMessage={getMessage}
+                  onCurrentPageChange={setCurrentPage}
+                  onPageSizeChange={setPageSize}
+                />
+              )}
+            </TemplateConnector>
+          </div>
         </Template>
       </Plugin>
     );

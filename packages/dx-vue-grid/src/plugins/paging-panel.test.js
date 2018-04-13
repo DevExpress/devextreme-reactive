@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { PagingPanel } from './paging-panel';
@@ -21,22 +20,14 @@ const defaultDeps = {
     setPageSize: jest.fn(),
   },
   template: {
-    footer: { name: 'Footer', render() { return null; } },
+    footer: { },
   },
   plugins: ['PagingState'],
 };
 
-const DefaultPager = { name: 'Pager', render() { return null; } };
+const DefaultPager = { name: 'DefaultPager', render() { return null; } };
 
 describe('PagingPanel', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
   beforeEach(() => {
     pageCount.mockImplementation(() => 11);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
@@ -45,7 +36,7 @@ describe('PagingPanel', () => {
     jest.resetAllMocks();
   });
 
-  fit('should render the "containerComponent" in the "footer" template placeholder', () => {
+  it('should render the "containerComponent" in the "footer" template placeholder', () => {
     const tree = mount({
       render() {
         return (
@@ -61,8 +52,8 @@ describe('PagingPanel', () => {
     });
 
     const pager = tree.find(DefaultPager);
-    debugger
-    expect(pager)
+
+    expect(pager.vm.$attrs)
       .toMatchObject({
         currentPage: 1,
         pageSize: 2,
@@ -71,7 +62,7 @@ describe('PagingPanel', () => {
         pageSizes: [3, 5, 0],
       });
 
-    pager.prop('onCurrentPageChange')(3);
+    pager.vm.$emit('currentPageChange', 3);
     expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
       .toEqual(3);
   });
@@ -93,8 +84,8 @@ describe('PagingPanel', () => {
       },
     });
 
-    const getMessage = tree.find(DefaultPager)
-      .prop('getMessage');
+    const pager = tree.find(DefaultPager);
+    const { getMessage } = pager.vm.$attrs;
 
     expect(getMessage('showAll'))
       .toBe('Show all');

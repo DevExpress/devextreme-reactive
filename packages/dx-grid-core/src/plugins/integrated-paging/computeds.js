@@ -1,3 +1,5 @@
+import { clamp } from './helpers';
+
 const PAGE_HEADERS_OVERFLOW_ERROR =
   'Max row level exceeds the page size. Consider increasing the page size.';
 
@@ -42,8 +44,17 @@ export const rowsWithPageHeaders = (rows, pageSize, getRowLevelKey) => {
   return result;
 };
 
+export const rowCount = rows => rows.length;
+
 export const pageCount = (count, pageSize) => (
   pageSize ? Math.ceil(count / pageSize) : 1
 );
 
-export const rowCount = rows => rows.length;
+export const currentPage = (page, totalCount, pageSize, setCurrentPage) => {
+  const totalPages = pageCount(totalCount, pageSize);
+  const adjustedCurrentPage = clamp(page, totalPages - 1);
+  if (page !== adjustedCurrentPage) {
+    setTimeout(() => setCurrentPage(adjustedCurrentPage));
+  }
+  return adjustedCurrentPage;
+};

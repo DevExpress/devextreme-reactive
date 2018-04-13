@@ -1,9 +1,9 @@
 import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
 import {
   changeColumnGrouping,
-  // toggleExpandedGroups,
-  // draftColumnGrouping,
-  // cancelColumnGroupingDraft,
+  toggleExpandedGroups,
+  draftColumnGrouping,
+  cancelColumnGroupingDraft,
   getColumnExtensionValueGetter,
   adjustSortIndex,
 } from '@devexpress/dx-grid-core';
@@ -65,24 +65,6 @@ export const GroupingState = {
       type: Boolean,
     },
   },
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     grouping: props.grouping || props.defaultGrouping,
-  //     draftGrouping: null,
-  //     expandedGroups: props.expandedGroups || props.defaultExpandedGroups,
-  //   };
-
-  //   this.changeColumnGrouping = this.changeColumnGrouping.bind(this);
-  //   this.toggleGroupExpanded = this.stateHelper.applyReducer
-  //     .bind(this.stateHelper, toggleExpandedGroups);
-  //   this.draftColumnGrouping = this.stateHelper.applyReducer
-  //     .bind(this.stateHelper, draftColumnGrouping);
-  //   this.cancelColumnGroupingDraft = this.stateHelper.applyReducer
-  //     .bind(this.stateHelper, cancelColumnGroupingDraft);
-  //   this.changeColumnSorting = this.changeColumnSorting.bind(this);
-  // },
   methods: {
     changeColumnSorting(
       { columnName, keepOther, ...restParams },
@@ -121,6 +103,15 @@ export const GroupingState = {
       this.$emit('update:expandedGroups', stateChange.expandedGroups);
 
       callback({ ...prevState, ...stateChange }, prevState, getters, actions, columnName);
+    },
+    draftColumnGrouping(payload) {
+      return draftColumnGrouping(payload);
+    },
+    toggleGroupExpanded(payload) {
+      return toggleExpandedGroups(payload);
+    },
+    cancelColumnGroupingDraft(payload) {
+      return cancelColumnGroupingDraft(payload);
     },
   },
   render() {

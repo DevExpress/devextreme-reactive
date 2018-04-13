@@ -173,7 +173,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.position-relative.custom-class'))
+    expect(tree.find('th').is('.position-relative.dx-g-bs4-header-cell.custom-class'))
       .toBeTruthy();
   });
 

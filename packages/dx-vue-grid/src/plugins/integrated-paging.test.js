@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount } from '@vue/test-utils';
+import { PluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginDepsToComponents, getComputedState } from './test-utils';
 import { IntegratedPaging } from './integrated-paging';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   paginatedRows: jest.fn(),
@@ -45,24 +44,32 @@ describe('IntegratedPaging', () => {
   });
 
   it('should provide totalCount of rows passed into', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedPaging />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedPaging />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).totalCount)
       .toBe(6);
   });
 
   it('should paginated rows passed into based on the "currentPage" and "pageSize" getters', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedPaging />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedPaging />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).rows)
       .toEqual([{ id: 2 }, { id: 3 }]);
@@ -70,12 +77,16 @@ describe('IntegratedPaging', () => {
 
   it('should ensure page headers are present on each page', () => {
     const deps = {};
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <IntegratedPaging />
-      </PluginHost>
-    ));
+    mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
+            <IntegratedPaging />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(rowsWithPageHeaders)
       .toHaveBeenCalledWith(

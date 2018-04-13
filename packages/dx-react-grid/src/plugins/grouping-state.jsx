@@ -7,25 +7,13 @@ import {
   draftColumnGrouping,
   cancelColumnGroupingDraft,
   getColumnExtensionValueGetter,
+  adjustSortIndex,
 } from '@devexpress/dx-grid-core';
 import { createStateHelper } from '../utils/state-helper';
 
 const dependencies = [
   { name: 'SortingState', optional: true },
 ];
-
-const adjustSortIndex = (sortIndex, grouping, sorting) =>
-  Math.max(
-    grouping.slice(0, sortIndex).reduce(
-      (acc, columnGrouping) => {
-        const columnSortingIndex = sorting.findIndex(columnSorting =>
-          columnSorting.columnName === columnGrouping.columnName);
-        return (columnSortingIndex === -1 ? acc - 1 : acc);
-      },
-      sortIndex,
-    ),
-    0,
-  );
 
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);

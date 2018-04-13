@@ -2,7 +2,7 @@ import {
   symbol,
   symbolCircle,
   line,
-  curveCardinal,
+  curveCatmullRom,
   area,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
@@ -25,7 +25,7 @@ const getDAttribute = (type, height, path) => {
       return line()
         .x(getX)
         .y(getY)
-        .curve(curveCardinal)(path);
+        .curve(curveCatmullRom)(path);
     case 'area':
       return area()
         .x(getX)

@@ -43,7 +43,7 @@ Field | Type | Description
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
-onToggle | () => void | An event that initiates group row's expanding or collapsing.
+onToggle | () => void | An event that initiates group row expanding or collapsing.
 
 ### TableGroupRow.RowProps
 
@@ -100,10 +100,11 @@ isGroupRow | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: a
 toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns, including the ones by which the table is grouped.
-tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified group rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified group rows.

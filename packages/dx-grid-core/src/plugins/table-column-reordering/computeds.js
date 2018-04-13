@@ -12,12 +12,12 @@ export const orderedColumns = (tableColumns, order) =>
   });
 
 export const tableHeaderRowsWithReordering = tableHeaderRows => [
+  ...tableHeaderRows,
   {
     key: TABLE_REORDERING_TYPE,
     type: TABLE_REORDERING_TYPE,
     height: 0,
   },
-  ...tableHeaderRows,
 ];
 
 export const draftOrder = (order, sourceColumnIndex, targetColumnIndex) => {

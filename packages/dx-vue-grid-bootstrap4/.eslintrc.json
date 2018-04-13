@@ -1,0 +1,17 @@
+{
+    "extends": ["plugin:vue/essential", "airbnb-base"],
+    "plugins": [
+        "vue",
+        "import",
+        "jest",
+        "filenames"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
+        "filenames/match-regex": [2, "^[a-z-\\.]+$"]
+    },
+    "env": {
+      "jest/globals": true
+    }
+}

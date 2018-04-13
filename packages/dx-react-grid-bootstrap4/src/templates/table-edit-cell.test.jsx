@@ -38,7 +38,7 @@ describe('EditCell', () => {
       />
     ));
 
-    expect(tree.is('.align-middle.custom-class.dx-rg-bs4-table-edit-cell'))
+    expect(tree.is('.align-middle.custom-class.dx-g-bs4-table-edit-cell'))
       .toBeTruthy();
   });
 

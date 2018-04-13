@@ -84,7 +84,7 @@ describe('Item', () => {
       />
     ));
 
-    expect(tree.is('.dropdown-item.custom-class.dx-rg-bs4-column-chooser-item.dx-rg-bs4-cursor-pointer'))
+    expect(tree.is('.dropdown-item.custom-class.dx-g-bs4-column-chooser-item.dx-g-bs4-cursor-pointer'))
       .toBeTruthy();
   });
 

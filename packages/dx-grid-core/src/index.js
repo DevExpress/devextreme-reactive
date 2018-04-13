@@ -10,6 +10,7 @@ export * from './plugins/integrated-filtering/computeds';
 
 export * from './plugins/grouping-state/constants';
 export * from './plugins/grouping-state/reducers';
+export * from './plugins/grouping-state/helpers';
 export * from './plugins/integrated-grouping/computeds';
 export * from './plugins/custom-grouping/computeds';
 export * from './plugins/grouping-panel/helpers';

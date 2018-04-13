@@ -132,9 +132,6 @@ Axis.propTypes = {
 
 Axis.defaultProps = {
   tickSize: 10,
-};
-
-Axis.defaultProps = {
   name: undefined,
   isArgumentAxis: false,
 };

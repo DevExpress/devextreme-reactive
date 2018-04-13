@@ -26,21 +26,16 @@ const createNode = ({
   return node;
 };
 
-const getXPosition = (node, positions) => {
+const getPosition = (node, positions, methodName) => {
   const parent = node.getParent();
   if (parent) {
-    return getXPosition(parent, (positions + parent.getComputedLeft()));
+    return getPosition(parent, (positions + parent[methodName]()), methodName);
   }
   return positions;
 };
 
-const getYPosition = (node, positions) => {
-  const parent = node.getParent();
-  if (parent) {
-    return getYPosition(parent, (positions + parent.getComputedTop()));
-  }
-  return positions;
-};
+const getXPosition = (node, positions) => getPosition(node, positions, 'getComputedLeft');
+const getYPosition = (node, positions) => getPosition(node, positions, 'getComputedTop');
 
 const getAbsoluteNodePosition = node => ({
   x: getXPosition(node, node.getComputedLeft()),
@@ -56,6 +51,15 @@ const calculatePositions = (rootNode, width, height, nodes) => {
     positions[name] = getAbsoluteNodePosition(node);
   });
   return positions;
+};
+
+const copyHeightWidthFrom = (verticalNodeName, horizontalNodeName) => (node, nodes) => {
+  const { node: xNode } = nodes.get(horizontalNodeName);
+  const { node: yNode } = nodes.get(verticalNodeName);
+  const { width } = xNode.getComputedLayout();
+  const { height } = yNode.getComputedLayout();
+  node.setWidth(width || 0);
+  node.setHeight(height || 0);
 };
 
 export class LayoutManager extends React.Component {
@@ -167,14 +171,7 @@ LayoutManager.defaultProps = {
       <LayoutElement name="top-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
         <LayoutElement
           name="top-left"
-          bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.get('left');
-            const { node: topNode } = nodes.get('top');
-            const { width } = leftNode.getComputedLayout();
-            const { height } = topNode.getComputedLayout();
-            node.setWidth(width || 0);
-            node.setHeight(height || 0);
-          }}
+          bBoxHandler={copyHeightWidthFrom('top', 'left')}
         />
         <LayoutElement
           name="top"
@@ -184,14 +181,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="top-right"
-          bBoxHandler={(node, nodes) => {
-            const { node: rightNode } = nodes.get('right');
-            const { node: topNode } = nodes.get('top');
-            const { width } = rightNode.getComputedLayout();
-            const { height } = topNode.getComputedLayout();
-            node.setWidth(width || 0);
-            node.setHeight(height || 0);
-          }}
+          bBoxHandler={copyHeightWidthFrom('top', 'right')}
         />
       </LayoutElement>
       <LayoutElement name="center-container" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
@@ -203,26 +193,12 @@ LayoutManager.defaultProps = {
           <LayoutElement name="top-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
             <LayoutElement
               name="top-left-axis"
-              bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.get('left-axis');
-            const { node: topNode } = nodes.get('top-axis');
-            const { width } = leftNode.getComputedLayout();
-            const { height } = topNode.getComputedLayout();
-            node.setWidth(width || 0);
-            node.setHeight(height || 0);
-          }}
+              bBoxHandler={copyHeightWidthFrom('top-axis', 'left-axis')}
             />
             <LayoutElement name="top-axis" flexGrow={1} />
             <LayoutElement
               name="top-right-axis"
-              bBoxHandler={(node, nodes) => {
-                  const { node: rightNode } = nodes.get('right-axis');
-                  const { node: topNode } = nodes.get('top-axis');
-                  const { width } = rightNode.getComputedLayout();
-                  const { height } = topNode.getComputedLayout();
-                  node.setWidth(width || 0);
-                  node.setHeight(height || 0);
-              }}
+              bBoxHandler={copyHeightWidthFrom('top-axis', 'right-axis')}
             />
           </LayoutElement>
           <LayoutElement name="center-axis-container" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
@@ -233,26 +209,12 @@ LayoutManager.defaultProps = {
           <LayoutElement name="bottom-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
             <LayoutElement
               name="bottom-left-axis"
-              bBoxHandler={(node, nodes) => {
-                  const { node: leftNode } = nodes.get('left-axis');
-                  const { node: bottomNode } = nodes.get('bottom-axis');
-                  const { width } = leftNode.getComputedLayout();
-                  const { height } = bottomNode.getComputedLayout();
-                  node.setWidth(width || 0);
-                  node.setHeight(height || 0);
-          }}
+              bBoxHandler={copyHeightWidthFrom('bottom-axis', 'left-axis')}
             />
             <LayoutElement name="bottom-axis" flexGrow={1} />
             <LayoutElement
               name="bottom-right-axis"
-              bBoxHandler={(node, nodes) => {
-                  const { node: rightNode } = nodes.get('right-axis');
-                  const { node: bottomNode } = nodes.get('bottom-axis');
-                  const { width } = rightNode.getComputedLayout();
-                  const { height } = bottomNode.getComputedLayout();
-                  node.setWidth(width || 0);
-                  node.setHeight(height || 0);
-          }}
+              bBoxHandler={copyHeightWidthFrom('bottom-axis', 'right-axis')}
             />
           </LayoutElement>
         </LayoutElement>
@@ -264,14 +226,7 @@ LayoutManager.defaultProps = {
       <LayoutElement name="bottom-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
         <LayoutElement
           name="bottom-left"
-          bBoxHandler={(node, nodes) => {
-            const { node: leftNode } = nodes.get('left');
-            const { node: bottomNode } = nodes.get('bottom');
-            const { width } = leftNode.getComputedLayout();
-            const { height } = bottomNode.getComputedLayout();
-            node.setWidth(width || 0);
-            node.setHeight(height || 0);
-          }}
+          bBoxHandler={copyHeightWidthFrom('bottom', 'left')}
         />
         <LayoutElement
           name="bottom"
@@ -281,14 +236,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="bottom-right"
-          bBoxHandler={(node, nodes) => {
-            const { node: rightNode } = nodes.get('right');
-            const { node: bottomNode } = nodes.get('bottom');
-            const { width } = rightNode.getComputedLayout();
-            const { height } = bottomNode.getComputedLayout();
-            node.setWidth(width || 0);
-            node.setHeight(height || 0);
-          }}
+          bBoxHandler={copyHeightWidthFrom('bottom', 'right')}
         />
       </LayoutElement>
     </LayoutElement>

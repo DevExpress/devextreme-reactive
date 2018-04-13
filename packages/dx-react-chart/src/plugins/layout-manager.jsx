@@ -155,10 +155,7 @@ export class LayoutManager extends React.Component {
 LayoutManager.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
 };
 
 LayoutManager.defaultProps = {

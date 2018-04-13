@@ -13,7 +13,7 @@ export class ValueAxis extends React.PureComponent {
         tickComponent={Tick}
         labelComponent={Label}
         lineComponent={Line}
-        {...this.props}
+        {...{ position: 'left', ...this.props }}
       />
     );
   }

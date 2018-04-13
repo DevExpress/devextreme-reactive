@@ -1,12 +1,9 @@
-import { argumentAxisName } from './computeds';
+import { getArgumentAxisName } from './computeds';
 
 describe('Chart core', () => {
   describe('getArgumentAxisName', () => {
     it('should return horizontal axis', () => {
-      const axisName = argumentAxisName([
-        { name: 'axis' },
-        { orientation: 'horizontal', name: 'argumentAxis' },
-      ]);
+      const axisName = getArgumentAxisName([{ argumentField: 'argumentAxis' }]);
       expect(axisName).toBe('argumentAxis');
     });
   });

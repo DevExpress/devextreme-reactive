@@ -18,6 +18,7 @@ describe('Axis', () => {
     getter: {
       domains: { name: { orientation: 'horizontal' } },
       setBBox: jest.fn(),
+      argumentAxisName: 'argumentAxis',
       layouts: {
         'bottom-axis': {
           x: 1, y: 2, width: 200, height: 100,
@@ -73,6 +74,30 @@ describe('Axis', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Axis
           {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const {
+      x, y, refsHandler, children,
+    } = tree.find(RootComponent).props();
+    expect(x).toBe(1);
+    expect(y).toBe(2);
+    expect(refsHandler).toEqual(expect.any(Function));
+    expect(children).toEqual(expect.any(Object));
+  });
+
+
+  it('should render argument axis', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, {
+          getter: {
+            domains: { argumentAxis: { orientation: 'horizontal' } },
+          },
+        })}
+        <Axis
+          {...{ ...defaultProps, isArgumentAxis: true }}
         />
       </PluginHost>
     ));

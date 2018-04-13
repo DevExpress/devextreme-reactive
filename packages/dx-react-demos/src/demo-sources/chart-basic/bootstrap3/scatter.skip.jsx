@@ -22,16 +22,6 @@ export default class Demo extends React.PureComponent {
         data={this.state.data}
         width={700}
         height={400}
-        axes={[
-          {
-            name: 'year',
-            orientation: 'horizontal',
-          },
-          {
-            name: 'born',
-            orientation: 'vertical',
-          },
-        ]}
         series={[
           {
             valueField: 'ru',
@@ -48,8 +38,8 @@ export default class Demo extends React.PureComponent {
         ]}
       >
 
-        <ArgumentAxis name="year" position="bottom" />
-        <ValueAxis name="born" position="left" />
+        <ArgumentAxis />
+        <ValueAxis name="born" />
 
         <ScatterSeries
           name="Russia"

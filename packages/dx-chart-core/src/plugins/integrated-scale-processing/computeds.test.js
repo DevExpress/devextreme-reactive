@@ -1,8 +1,8 @@
 import { domains } from './computeds';
 
 describe('calculateDomain', () => {
-  const argumentAxis = { name: 'argumentAxis', orientation: 'horizontal' };
-  const valueAxis = { name: 'valueAxis', orientation: 'vertical' };
+  const argumentAxis = { name: 'argumentAxis' };
+  const valueAxis = { name: 'valueAxis' };
 
   it('should be equal axes min max option', () => {
     const calculatedDomains = domains(
@@ -11,15 +11,28 @@ describe('calculateDomain', () => {
       [],
       'argumentAxis',
     );
-    expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [0, 10], orientation: 'horizontal' },
-    });
+    const { domain } = calculatedDomains.argumentAxis;
+    expect(domain).toEqual([0, 10]);
   });
 
 
   it('should be computed from data and series option', () => {
     const calculatedDomains = domains(
       [argumentAxis, valueAxis],
+      [{ axisName: 'valueAxis', argumentField: 'arg', valueField: 'val' }],
+      [{ arg: 1, val: 9 }],
+      'argumentAxis',
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: { domain: [1, 1], orientation: 'horizontal' },
+      valueAxis: { domain: [9, 9], orientation: 'vertical' },
+    });
+  });
+
+  it('should be computed from data and series option, axes is empty array', () => {
+    const calculatedDomains = domains(
+      [],
       [{ axisName: 'valueAxis', argumentField: 'arg', valueField: 'val' }],
       [{ arg: 1, val: 9 }],
       'argumentAxis',

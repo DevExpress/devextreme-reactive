@@ -1,1 +1,1 @@
-export const argumentAxisName = axes => axes.find(axis => axis.orientation === 'horizontal').name;
+export const getArgumentAxisName = series => series[0].argumentField;

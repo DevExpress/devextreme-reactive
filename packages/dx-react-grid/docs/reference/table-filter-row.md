@@ -29,8 +29,8 @@ Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-filter | [Filter](filtering-state.md#filter) | Filtering options that are applied to a column.
-onFilter | (filter: [Filter](filtering-state.md#filter)) => void | An event that initiates applying a new filter to a column.
+filter | [Filter](filtering-state.md#filter) &#124; null | Filtering options that are applied to a column.
+onFilter | (filter: [Filter](filtering-state.md#filter) &#124; null) => void | An event that initiates applying a new filter to a column.
 column | [Column](grid.md#column) | A column.
 filteringEnabled | boolean | Specifies whether filtering by a column is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.

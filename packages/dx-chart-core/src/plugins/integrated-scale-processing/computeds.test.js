@@ -11,9 +11,8 @@ describe('calculateDomain', () => {
       [],
       'argumentAxis',
     );
-    expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [0, 10], orientation: 'horizontal' },
-    });
+    const { domain } = calculatedDomains.argumentAxis;
+    expect(domain).toEqual([0, 10]);
   });
 
 

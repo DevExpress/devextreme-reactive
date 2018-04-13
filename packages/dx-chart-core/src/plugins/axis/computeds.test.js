@@ -7,6 +7,8 @@ jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
 }));
 
+const tickSize = 10;
+
 describe('getAxisCoordinates', () => {
   beforeAll(() => {
     createScale.mockImplementation(() => scale);
@@ -23,7 +25,7 @@ describe('getAxisCoordinates', () => {
       scale.ticks = null;
     });
     it('should return ticks Coordinates with horizontal-top position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           xText: 10, yText: 0, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: 0, y2: 10, x1: 10, x2: 10,
@@ -32,7 +34,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           xText: 10, yText: 0, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: -10, x1: 10, x2: 10,
@@ -41,12 +43,12 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should pass correct domain to scale', () => {
-      axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50);
+      axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize);
       expect(scale).toHaveBeenCalledTimes(1);
     });
 
     it('should return ticks coordinates with vertical-left position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           text: 1, xText: 0, yText: 10, x1: 0, x2: 10, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'end',
@@ -55,7 +57,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-right position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           text: 1, xText: 0, yText: 10, x1: 0, x2: -10, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'start',
@@ -64,7 +66,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should pass correct domain to scale', () => {
-      axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
+      axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize);
       expect(scale).toHaveBeenCalledTimes(1);
       expect(scale).toHaveBeenCalledWith(1);
     });
@@ -80,13 +82,13 @@ describe('getAxisCoordinates', () => {
       scale.bandwidth = null;
     });
     it('should pass correct domain to scale', () => {
-      axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
+      axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize);
       expect(scale).toHaveBeenCalledTimes(1);
       expect(scale).toHaveBeenCalledWith('a');
     });
 
     it('should return ticks coordinates with horizontal-bottom position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           xText: 25, yText: 0, text: 'a', dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: -10, x1: 25, x2: 25,
@@ -95,7 +97,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should return ticks Coordinates with horizontal-top position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           xText: 25, yText: 0, text: 'a', dominantBaseline: 'baseline', textAnchor: 'middle', y1: 0, y2: 10, x1: 25, x2: 25,
@@ -104,7 +106,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-left position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           text: 'a', xText: 0, yText: 25, x1: 0, x2: 10, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end',
@@ -113,7 +115,7 @@ describe('getAxisCoordinates', () => {
     });
 
     it('should return ticks coordinates with vertical-right position', () => {
-      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50, tickSize);
       expect(coordinates).toEqual({
         ticks: [{
           text: 'a', xText: 0, yText: 25, x1: 0, x2: -10, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start',

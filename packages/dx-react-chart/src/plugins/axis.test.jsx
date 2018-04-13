@@ -96,7 +96,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100, 10);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -114,11 +114,12 @@ describe('Axis', () => {
         })}
         <Axis
           {...defaultProps}
+          tickSize={5}
         />
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 5);
   });
 
   it('should render tick component', () => {

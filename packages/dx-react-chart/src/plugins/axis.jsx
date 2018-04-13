@@ -45,6 +45,7 @@ export class Axis extends React.Component {
   }
   render() {
     const {
+      tickSize,
       position,
       name,
       rootComponent: Root,
@@ -70,6 +71,7 @@ export class Axis extends React.Component {
                 position,
                 width,
                 height,
+                tickSize,
               );
 
               addNodes(<LayoutElement name={`${name}-axis-${placeholder}`} />, placeholder);
@@ -122,4 +124,9 @@ Axis.propTypes = {
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
+  tickSize: PropTypes.number,
+};
+
+Axis.defaultProps = {
+  tickSize: 10,
 };

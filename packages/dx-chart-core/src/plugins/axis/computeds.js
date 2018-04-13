@@ -1,7 +1,5 @@
 import { createScale } from '../../utils/scale';
 
-const tickSize = 10;
-
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);
 const getDominantBaseline = (orientation, position) => {
@@ -18,7 +16,7 @@ const getTextAnchor = (orientation, position) => {
 };
 
 
-const calculateAxisCoordinates = (scale, width, height, orientation, position) => {
+const calculateAxisCoordinates = (scale, width, height, orientation, position, tickSize) => {
   const ticks = getTicks(scale);
   const offset = getOffset(scale);
   const dominantBaseline = getDominantBaseline(orientation, position);
@@ -57,7 +55,7 @@ const calculateAxisCoordinates = (scale, width, height, orientation, position) =
   };
 };
 
-export const axisCoordinates = (domainOptions, position, width, height) => {
+export const axisCoordinates = (domainOptions, position, width, height, tickSize) => {
   const scale = createScale(domainOptions, width, height);
 
   return calculateAxisCoordinates(
@@ -66,5 +64,6 @@ export const axisCoordinates = (domainOptions, position, width, height) => {
     height,
     domainOptions.orientation,
     position,
+    tickSize,
   );
 };

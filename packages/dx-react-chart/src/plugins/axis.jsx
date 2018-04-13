@@ -16,8 +16,8 @@ export class Axis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      correctionX: 0,
-      correctionY: 0,
+      xCorrection: 0,
+      yCorrection: 0,
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
@@ -38,8 +38,8 @@ export class Axis extends React.Component {
       this.setState({
         width,
         height,
-        correctionX: orientation !== 'horizontal' ? x : 0,
-        correctionY: orientation !== 'horizontal' ? 0 : y,
+        xCorrection: orientation !== 'horizontal' ? x : 0,
+        yCorrection: orientation !== 'horizontal' ? 0 : y,
       });
     };
   }
@@ -81,8 +81,8 @@ export class Axis extends React.Component {
                     setBBox,
                     orientation,
                   )}
-                  x={x - this.state.correctionX}
-                  y={y - this.state.correctionY}
+                  x={x - this.state.xCorrection}
+                  y={y - this.state.yCorrection}
                 >
                   {coordinates.ticks.map(({
                       text,

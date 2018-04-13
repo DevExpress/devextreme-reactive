@@ -26,8 +26,9 @@ export class Legend extends React.PureComponent {
     const {
       markerComponent: Marker,
       labelComponent: Label,
-      placeholder,
+      position,
     } = this.props;
+    const placeholder = position;
     return (
       <Plugin name="Legend">
         <Template name="canvas">
@@ -104,9 +105,10 @@ export class Legend extends React.PureComponent {
 Legend.propTypes = {
   markerComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
+  position: PropTypes.string,
 };
 
 Legend.defaultProps = {
-  placeholder: 'top',
+  placeholder: undefined,
+  position: 'right',
 };

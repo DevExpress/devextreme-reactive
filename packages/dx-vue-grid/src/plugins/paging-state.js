@@ -14,13 +14,13 @@ export const PagingState = {
     },
   },
   methods: {
-    setCurrentPageComputed(payload) {
+    setCurrentPage(payload) {
       this.$emit(
         'update:currentPage',
         setCurrentPage(this.currentPage, payload),
       );
     },
-    setPageSizeComputed(payload) {
+    setPageSize(payload) {
       this.$emit(
         'update:pageSize',
         setPageSize(this.pageSize, payload),
@@ -28,9 +28,7 @@ export const PagingState = {
     },
   },
   render() {
-    const {
-      pageSize, currentPage, setCurrentPageComputed, setPageSizeComputed,
-    } = this;
+    const { pageSize, currentPage } = this;
 
     return (
       <Plugin
@@ -39,8 +37,8 @@ export const PagingState = {
         <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
 
-        <Action name="setCurrentPage" action={setCurrentPageComputed} />
-        <Action name="setPageSize" action={setPageSizeComputed} />
+        <Action name="setCurrentPage" action={this.setCurrentPage} />
+        <Action name="setPageSize" action={this.setPageSize} />
       </Plugin>
     );
   },

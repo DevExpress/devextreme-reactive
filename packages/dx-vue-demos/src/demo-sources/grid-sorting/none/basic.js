@@ -6,6 +6,7 @@ import {
   Grid,
   Table,
   TableHeaderRow,
+  PagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
@@ -34,6 +35,7 @@ export default {
           <IntegratedSorting />
           <Table />
           <TableHeaderRow showSortingControls />
+          <PagingPanel />
         </Grid>
       </div>
     );

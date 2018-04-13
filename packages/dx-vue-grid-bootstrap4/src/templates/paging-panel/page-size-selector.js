@@ -24,12 +24,13 @@ export const PageSizeSelector = {
       pageSizes,
       getMessage,
     } = this;
+    debugger
     const showAll = getMessage('showAll');
 
     return (
-      <div className="d-inline-block">
+      <div class="d-inline-block">
         <select
-          className="form-control d-sm-none"
+          class="form-control d-sm-none"
           value={pageSize}
           onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
         >
@@ -39,27 +40,13 @@ export const PageSizeSelector = {
             </option>
           ))}
         </select>
-        {/* <Pagination className="d-none d-sm-flex m-0">
-          {pageSizes.map(item => (
-            <PaginationItem key={item} active={item === pageSize && true}>
-              <PaginationLink
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPageSizeChange(item);
-                }}
-              >
-                {item || showAll}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-        </Pagination> */}
+
         <ul class="pagination d-none d-sm-flex m-0">
           {pageSizes.map(item => (
             <li
               class={{
                 'page-item': true,
-                active: item === pageSize && true,
+                active: item === pageSize,
               }}
             >
               <a

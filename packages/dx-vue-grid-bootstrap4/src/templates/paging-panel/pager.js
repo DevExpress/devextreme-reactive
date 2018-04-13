@@ -49,9 +49,7 @@ export const Pager = {
     } = this;
     return (
       <div
-        class={{
-          'clearfix card-footer': true,
-        }}
+        class="clearfix card-footer"
         {...this.$attrs}
       >
         {!!pageSizes.length && <PageSizeSelector

@@ -16,7 +16,7 @@ export const PagingPanel = {
     },
   },
   render(h, context) {
-    const { messages } = this;
+    const { messages } = context.props;
     return (
       <PagingPanelBase
         containerComponent={Pager}

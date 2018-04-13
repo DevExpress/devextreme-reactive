@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-vue-core",
-  "version": "1.1.0",
+  "version": "1.2.0-beta.1",
   "description": "Core library for DevExtreme Vue Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -37,7 +37,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.1.0",
+    "@devexpress/dx-testing": "1.2.0-beta.1",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-core": "^6.26.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -64,7 +64,7 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.1.0"
+    "@devexpress/dx-core": "1.2.0-beta.1"
   },
   "peerDependencies": {
     "vue": "^2.5.16"

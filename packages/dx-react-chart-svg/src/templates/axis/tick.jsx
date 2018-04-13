@@ -1,17 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const Tick = ({
-  x1, x2, y1, y2,
-}) => (
-  <line
-    style={{ stroke: 'black', strokeWidth: '1px' }}
-    x1={x1}
-    x2={x2}
-    y1={y1}
-    y2={y2}
-  />
-);
+export class Tick extends React.PureComponent {
+  render() {
+    const {
+      x1, x2, y1, y2,
+    } = this.props;
+    return (<line
+      style={{ stroke: 'black', strokeWidth: '1px' }}
+      x1={x1}
+      x2={x2}
+      y1={y1}
+      y2={y2}
+    />);
+  }
+}
 
 Tick.propTypes = {
   x1: PropTypes.number.isRequired,

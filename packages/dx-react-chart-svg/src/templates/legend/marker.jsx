@@ -1,20 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const Marker = ({
-  width, x, y, height, style,
-}) => (
-  <rect
-    x={x}
-    y={y}
-    width={width}
-    height={height}
-    style={{
-      fill: 'red',
-      ...style,
-}}
-  />
-);
+export class Marker extends React.PureComponent {
+  render() {
+    const {
+      width, x, y, height, style,
+    } = this.props;
+    return (<rect
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      style={{
+        fill: 'red',
+        ...style,
+      }}
+    />);
+  }
+}
 
 Marker.propTypes = {
   x: PropTypes.number.isRequired,

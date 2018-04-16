@@ -468,7 +468,7 @@ footer ul > li.active > a {
         background: #173952 url({{site.baseurl}}/img/banner-react-bg-mobile.jpg) no-repeat center center;
     }
     .intro-header.vue {
-        background: #04241b none no-repeat center center;
+        background: #04241b url({{site.baseurl}}/img/banner-vue-bg-mobile.jpg)  no-repeat center center;
     }
 
     footer {

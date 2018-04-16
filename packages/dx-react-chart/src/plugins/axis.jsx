@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-import { axisCoordinates } from '@devexpress/dx-chart-core';
+import { axisCoordinates, HORIZONTAL } from '@devexpress/dx-chart-core';
 
 const LayoutElement = () => {};
 
@@ -32,14 +32,14 @@ export class Axis extends React.Component {
 
       if (width === this.state.width && height === this.state.height) return;
       setBBox(placeholder, {
-        width: orientation === 'horizontal' ? 0 : width,
-        height: orientation === 'horizontal' ? height : 0,
+        width: orientation === HORIZONTAL ? 0 : width,
+        height: orientation === HORIZONTAL ? height : 0,
       });
       this.setState({
         width,
         height,
-        xCorrection: orientation !== 'horizontal' ? x : 0,
-        yCorrection: orientation !== 'horizontal' ? 0 : y,
+        xCorrection: orientation !== HORIZONTAL ? x : 0,
+        yCorrection: orientation !== HORIZONTAL ? 0 : y,
       });
     };
   }

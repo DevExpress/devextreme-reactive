@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { axisCoordinates } from '@devexpress/dx-chart-core';
+import { axisCoordinates, HORIZONTAL, TOP, LEFT } from '@devexpress/dx-chart-core';
 
 export class Grid extends React.PureComponent {
   render() {
@@ -33,7 +33,7 @@ export class Grid extends React.PureComponent {
 
               const coordinates = axisCoordinates(
                 domain,
-                orientation === 'horizontal' ? 'top' : 'left',
+                orientation === HORIZONTAL ? TOP : LEFT,
                 width,
                 height,
                 0,

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
+import { TOP, BOTTOM, LEFT, RIGHT } from '@devexpress/dx-chart-core';
 import yoga, { Node } from '@devexpress/dx-flex-layout';
 
 const LayoutElement = () => null;
@@ -171,7 +172,7 @@ LayoutManager.defaultProps = {
       <LayoutElement name="top-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
         <LayoutElement
           name="top-left"
-          bBoxHandler={copyHeightWidthFrom('top', 'left')}
+          bBoxHandler={copyHeightWidthFrom(TOP, LEFT)}
         />
         <LayoutElement
           name="top"
@@ -181,7 +182,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="top-right"
-          bBoxHandler={copyHeightWidthFrom('top', 'right')}
+          bBoxHandler={copyHeightWidthFrom(TOP, RIGHT)}
         />
       </LayoutElement>
       <LayoutElement name="center-container" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
@@ -193,12 +194,12 @@ LayoutManager.defaultProps = {
           <LayoutElement name="top-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW} >
             <LayoutElement
               name="top-left-axis"
-              bBoxHandler={copyHeightWidthFrom('top-axis', 'left-axis')}
+              bBoxHandler={copyHeightWidthFrom(`${TOP}-axis`, `${LEFT}-axis`)}
             />
             <LayoutElement name="top-axis" flexGrow={1} />
             <LayoutElement
               name="top-right-axis"
-              bBoxHandler={copyHeightWidthFrom('top-axis', 'right-axis')}
+              bBoxHandler={copyHeightWidthFrom(`${TOP}-axis`, `${RIGHT}-axis`)}
             />
           </LayoutElement>
           <LayoutElement name="center-axis-container" flexGrow={1} flexDirection={yoga.FLEX_DIRECTION_ROW}>
@@ -209,12 +210,12 @@ LayoutManager.defaultProps = {
           <LayoutElement name="bottom-axis-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
             <LayoutElement
               name="bottom-left-axis"
-              bBoxHandler={copyHeightWidthFrom('bottom-axis', 'left-axis')}
+              bBoxHandler={copyHeightWidthFrom(`${BOTTOM}-axis`, `${LEFT}-axis`)}
             />
             <LayoutElement name="bottom-axis" flexGrow={1} />
             <LayoutElement
               name="bottom-right-axis"
-              bBoxHandler={copyHeightWidthFrom('bottom-axis', 'right-axis')}
+              bBoxHandler={copyHeightWidthFrom(`${BOTTOM}-axis`, `${RIGHT}-axis`)}
             />
           </LayoutElement>
         </LayoutElement>
@@ -226,7 +227,7 @@ LayoutManager.defaultProps = {
       <LayoutElement name="bottom-container" flexDirection={yoga.FLEX_DIRECTION_ROW}>
         <LayoutElement
           name="bottom-left"
-          bBoxHandler={copyHeightWidthFrom('bottom', 'left')}
+          bBoxHandler={copyHeightWidthFrom(BOTTOM, LEFT)}
         />
         <LayoutElement
           name="bottom"
@@ -236,7 +237,7 @@ LayoutManager.defaultProps = {
         />
         <LayoutElement
           name="bottom-right"
-          bBoxHandler={copyHeightWidthFrom('bottom', 'right')}
+          bBoxHandler={copyHeightWidthFrom(BOTTOM, RIGHT)}
         />
       </LayoutElement>
     </LayoutElement>

@@ -1,4 +1,5 @@
 import { extent } from 'd3-array';
+import { HORIZONTAL, VERTICAL, BAND } from '../../constants';
 
 const isDefined = item => item !== undefined;
 
@@ -18,7 +19,7 @@ const getAxesDomains = axes =>
 
 const calculateDomainField = (field, data, domain = [], type) => {
   const getFieldItem = object => object[field];
-  if (type === 'band') {
+  if (type === BAND) {
     return [...domain, ...data.map(getFieldItem)];
   }
   return extent([...domain, ...extent(data, getFieldItem)]);
@@ -35,7 +36,7 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
           domains[axisName] && domains[axisName].domain,
           domains[axisName] && domains[axisName].type,
         ),
-        orientation: 'vertical',
+        orientation: VERTICAL,
         type: domains[axisName] && domains[axisName].type,
       },
       [argumentAxisName]: {
@@ -45,7 +46,7 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
           domains[argumentAxisName] && domains[argumentAxisName].domain,
           domains[argumentAxisName] && domains[argumentAxisName].type,
         ),
-        orientation: 'horizontal',
+        orientation: HORIZONTAL,
         type: domains[argumentAxisName] && domains[argumentAxisName].type,
       },
     }),

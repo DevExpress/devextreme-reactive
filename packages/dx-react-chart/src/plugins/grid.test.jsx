@@ -6,6 +6,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Grid } from './grid';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
+  ...require.requireActual('@devexpress/dx-chart-core'),
   axisCoordinates: jest.fn(),
 }));
 

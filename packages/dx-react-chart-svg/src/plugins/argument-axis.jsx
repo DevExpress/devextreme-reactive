@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Axis as AxisBase } from '@devexpress/dx-react-chart';
+import { BOTTOM } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
@@ -13,7 +14,7 @@ export class ArgumentAxis extends React.PureComponent {
         tickComponent={Tick}
         labelComponent={Label}
         lineComponent={Line}
-        {...{ position: 'bottom', ...this.props, isArgumentAxis: true }}
+        {...{ position: BOTTOM, ...this.props, isArgumentAxis: true }}
       />
     );
   }

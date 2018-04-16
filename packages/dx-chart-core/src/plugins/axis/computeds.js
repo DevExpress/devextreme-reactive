@@ -1,18 +1,19 @@
 import { createScale } from '../../utils/scale';
+import { HORIZONTAL, TOP, LEFT, MIDDLE, END, START } from '../../constants';
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);
 const getDominantBaseline = (orientation, position) => {
-  if (orientation === 'horizontal') {
-    return position === 'top' ? 'baseline' : 'hanging';
+  if (orientation === HORIZONTAL) {
+    return position === TOP ? 'baseline' : 'hanging';
   }
-  return 'middle';
+  return MIDDLE;
 };
 const getTextAnchor = (orientation, position) => {
-  if (orientation === 'horizontal') {
-    return 'middle';
+  if (orientation === HORIZONTAL) {
+    return MIDDLE;
   }
-  return position === 'left' ? 'end' : 'start';
+  return position === LEFT ? END : START;
 };
 
 
@@ -32,17 +33,17 @@ const calculateAxisCoordinates = (
 
   const getTickCoordinates = (tick) => {
     const coordinates = scale(tick) + offset;
-    if (orientation === 'horizontal') {
+    if (orientation === HORIZONTAL) {
       return {
         dominantBaseline,
         textAnchor,
         x1: coordinates,
         x2: coordinates,
-        y1: position === 'top' ? -tickSize : 0,
-        y2: position === 'top' ? 0 : tickSize,
+        y1: position === TOP ? -tickSize : 0,
+        y2: position === TOP ? 0 : tickSize,
         text: tick,
         xText: coordinates,
-        yText: position === 'top' ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+        yText: position === TOP ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       };
     }
     return {
@@ -50,10 +51,10 @@ const calculateAxisCoordinates = (
       textAnchor,
       y1: coordinates,
       y2: coordinates,
-      x1: position === 'left' ? -tickSize : 0,
-      x2: position === 'left' ? 0 : tickSize,
+      x1: position === LEFT ? -tickSize : 0,
+      x2: position === LEFT ? 0 : tickSize,
       text: tick,
-      xText: position === 'left' ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+      xText: position === LEFT ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       yText: coordinates,
     };
   };

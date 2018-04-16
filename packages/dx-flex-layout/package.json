@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@devexpress/dx-flex-layout",
   "version": "0.0.0",
   "main": "./lib/entry-browser.js",

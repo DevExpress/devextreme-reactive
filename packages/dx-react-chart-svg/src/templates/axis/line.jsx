@@ -4,22 +4,20 @@ import * as PropTypes from 'prop-types';
 export class Line extends React.PureComponent {
   render() {
     const {
-      x1, x2, y1, y2,
+      width, height, orientation,
     } = this.props;
-
     return (<line
-      style={{ stroke: 'black', strokeWidth: '1px' }}
-      x1={x1}
-      x2={x2}
-      y1={y1}
-      y2={y2}
+      style={{ stroke: 'lightgray', strokeWidth: '1px' }}
+      x1={0}
+      x2={orientation === 'horizontal' ? width : 0}
+      y1={0}
+      y2={orientation === 'horizontal' ? 0 : height}
     />);
   }
 }
 
 Line.propTypes = {
-  x1: PropTypes.number.isRequired,
-  x2: PropTypes.number.isRequired,
-  y1: PropTypes.number.isRequired,
-  y2: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  orientation: PropTypes.string.isRequired,
 };

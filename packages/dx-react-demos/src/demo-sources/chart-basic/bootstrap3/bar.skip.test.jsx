@@ -16,12 +16,10 @@ jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => 
 
 Element.prototype.getBBox = () => {};
 jest.spyOn(Element.prototype, 'getBBox').mockImplementation(() => ({
-  top: 0,
-  left: 0,
+  x: 0,
+  y: 0,
   width: 800,
   height: 600,
-  right: 800,
-  bottom: 600,
 }));
 
 window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));

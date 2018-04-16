@@ -11,6 +11,7 @@ describe('Label', () => {
         text="a"
         dominantBaseline="middle"
         textAnchor="end"
+        refsHandler={jest.fn()}
       />
     ));
 

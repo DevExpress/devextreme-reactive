@@ -16,7 +16,15 @@ const getTextAnchor = (orientation, position) => {
 };
 
 
-const calculateAxisCoordinates = (scale, width, height, orientation, position, tickSize) => {
+const calculateAxisCoordinates = (
+  scale,
+  width,
+  height,
+  orientation,
+  position,
+  tickSize,
+  indentFromAxis,
+) => {
   const ticks = getTicks(scale);
   const offset = getOffset(scale);
   const dominantBaseline = getDominantBaseline(orientation, position);
@@ -30,23 +38,22 @@ const calculateAxisCoordinates = (scale, width, height, orientation, position, t
         textAnchor,
         x1: coordinates,
         x2: coordinates,
-        y1: 0,
-        y2: position === 'top' ? tickSize : -tickSize,
+        y1: position === 'top' ? -tickSize : 0,
+        y2: position === 'top' ? 0 : tickSize,
         text: tick,
         xText: coordinates,
-        yText: 0,
+        yText: position === 'top' ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       };
     }
     return {
       dominantBaseline,
       textAnchor,
-
       y1: coordinates,
       y2: coordinates,
-      x1: 0,
-      x2: position === 'left' ? tickSize : -tickSize,
+      x1: position === 'left' ? -tickSize : 0,
+      x2: position === 'left' ? 0 : tickSize,
       text: tick,
-      xText: 0,
+      xText: position === 'left' ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       yText: coordinates,
     };
   };
@@ -55,7 +62,14 @@ const calculateAxisCoordinates = (scale, width, height, orientation, position, t
   };
 };
 
-export const axisCoordinates = (domainOptions, position, width, height, tickSize) => {
+export const axisCoordinates = (
+  domainOptions,
+  position,
+  width,
+  height,
+  tickSize,
+  indentFromAxis,
+) => {
   const scale = createScale(domainOptions, width, height);
 
   return calculateAxisCoordinates(
@@ -65,5 +79,6 @@ export const axisCoordinates = (domainOptions, position, width, height, tickSize
     domainOptions.orientation,
     position,
     tickSize,
+    indentFromAxis,
   );
 };

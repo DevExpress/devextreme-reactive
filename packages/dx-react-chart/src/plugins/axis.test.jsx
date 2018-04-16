@@ -14,6 +14,7 @@ describe('Axis', () => {
   const RootComponent = ({ children }) => <div>{children}</div>;
   const TickComponent = () => null;
   const LabelComponent = () => null;
+  const LineComponent = () => null;
   const defaultDeps = {
     getter: {
       domains: { name: { orientation: 'horizontal' } },
@@ -36,6 +37,7 @@ describe('Axis', () => {
     rootComponent: RootComponent,
     tickComponent: TickComponent,
     labelComponent: LabelComponent,
+    lineComponent: LineComponent,
   };
 
   beforeEach(() => {
@@ -121,7 +123,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100, 5, 10);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -139,12 +141,12 @@ describe('Axis', () => {
         })}
         <Axis
           {...defaultProps}
-          tickSize={5}
+          tickSize={6}
         />
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 5);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 6, 10);
   });
 
   it('should render tick component', () => {
@@ -157,16 +159,16 @@ describe('Axis', () => {
       </PluginHost>
     ));
     expect(tree.find(TickComponent).get(0).props).toEqual({
-      x1: 1,
-      x2: 2,
-      y1: 3,
-      y2: 4,
+      x1: 2,
+      x2: 3,
+      y1: 5,
+      y2: 6,
     });
     expect(tree.find(TickComponent).get(1).props).toEqual({
-      x1: 11,
-      x2: 22,
-      y1: 33,
-      y2: 44,
+      x1: 12,
+      x2: 23,
+      y1: 35,
+      y2: 46,
     });
   });
 
@@ -194,6 +196,23 @@ describe('Axis', () => {
       dominantBaseline: 'dominantBaseline2',
       textAnchor: 'textAnchor2',
       text: 'text2',
+    });
+  });
+
+  it('should render line component', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Axis
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(LineComponent).props()).toEqual({
+      height: 100,
+      width: 200,
+      orientation: 'horizontal',
     });
   });
 });

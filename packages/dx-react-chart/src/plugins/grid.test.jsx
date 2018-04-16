@@ -1,15 +1,36 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { createScale } from '@devexpress/dx-chart-core';
+import { axisCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { Grid } from './grid';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  createScale: jest.fn(),
+  axisCoordinates: jest.fn(),
 }));
 
 describe('Grid', () => {
+  beforeEach(() => {
+    axisCoordinates.mockImplementation(() => ({
+      ticks: [{
+        text: 'text1',
+        x1: 1,
+        x2: 1,
+        y1: 0,
+        y2: 100,
+      },
+      {
+        text: 'text2',
+        x1: 11,
+        x2: 11,
+        y1: 33,
+        y2: 44,
+      }],
+    }));
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
   // eslint-disable-next-line react/prop-types
   const RootComponent = ({ children }) => <div>{children}</div>;
   const LineComponent = () => null;
@@ -19,7 +40,7 @@ describe('Grid', () => {
       domains: { name: { orientation: 'horizontal' } },
       layouts: {
         pane: {
-          x: 1, y: 2, width: 200, height: 100,
+          x: 1, y: 2, width: 200, height: 300,
         },
       },
     },
@@ -37,7 +58,6 @@ describe('Grid', () => {
     const ticks = [1, 2];
     const scale = jest.fn(value => value);
     scale.ticks = jest.fn(() => ticks);
-    createScale.mockImplementation(() => scale);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -69,19 +89,17 @@ describe('Grid', () => {
     ));
 
     expect(tree.find(LineComponent).get(0).props).toEqual({
-      t: true,
       x1: 1,
       x2: 1,
-      y1: 0,
+      y1: 300,
       y2: 100,
     });
 
     expect(tree.find(LineComponent).get(1).props).toEqual({
-      t: true,
-      x1: 2,
-      x2: 2,
-      y1: 0,
-      y2: 100,
+      x1: 11,
+      x2: 11,
+      y1: 300,
+      y2: 44,
     });
   });
 
@@ -98,19 +116,17 @@ describe('Grid', () => {
     ));
 
     expect(tree.find(LineComponent).get(0).props).toEqual({
-      t: true,
-      x1: 0,
-      x2: 200,
-      y1: 1,
-      y2: 1,
+      x1: 200,
+      x2: 1,
+      y1: 0,
+      y2: 100,
     });
 
     expect(tree.find(LineComponent).get(1).props).toEqual({
-      t: true,
-      x1: 0,
-      x2: 200,
-      y1: 2,
-      y2: 2,
+      x1: 200,
+      x2: 11,
+      y1: 33,
+      y2: 44,
     });
   });
 });

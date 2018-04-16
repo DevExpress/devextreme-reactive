@@ -48,10 +48,12 @@ export class Axis extends React.Component {
       tickSize,
       position,
       name,
+      indentFromAxis,
       isArgumentAxis,
       rootComponent: Root,
       tickComponent: Tick,
       labelComponent: Label,
+      lineComponent: Line,
     } = this.props;
     return (
       <Plugin name="Axis">
@@ -74,33 +76,42 @@ export class Axis extends React.Component {
                 width,
                 height,
                 tickSize,
+                indentFromAxis,
               );
 
               addNodes(<LayoutElement name={`${name}-axis-${placeholder}`} />, placeholder);
 
               return (
-                <Root
-                  refsHandler={this.createRefsHandler(
+                <React.Fragment>
+                  {
+                    coordinates.ticks.map(({
+                      x1, x2, y1, y2, text,
+                    }) => (<Tick
+                      key={text}
+                      x1={x1 + (x - this.state.xCorrection)}
+                      x2={x2 + (x - this.state.xCorrection)}
+                      y1={y1 + (y - this.state.yCorrection)}
+                      y2={y2 + (y - this.state.yCorrection)}
+                    />))
+                  }
+                  <Root
+                    refsHandler={this.createRefsHandler(
                     `${name}-axis-${placeholder}`,
                     setBBox,
                     orientation,
                   )}
-                  x={x - this.state.xCorrection}
-                  y={y - this.state.yCorrection}
-                >
-                  {coordinates.ticks.map(({
+                    x={x - this.state.xCorrection}
+                    y={y - this.state.yCorrection}
+                  >
+                    <Line width={width} height={height} orientation={orientation} />
+                    {coordinates.ticks.map(({
                       text,
-                      x1,
-                      x2,
-                      y1,
-                      y2,
                       xText,
                       yText,
                       dominantBaseline,
                       textAnchor,
                     }) => (
                       <React.Fragment key={text}>
-                        <Tick x1={x1} x2={x2} y1={y1} y2={y2} />
                         <Label
                           text={text}
                           x={xText}
@@ -110,7 +121,8 @@ export class Axis extends React.Component {
                         />
                       </React.Fragment>
                     ))}
-                </Root>
+                  </Root>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>
@@ -126,12 +138,15 @@ Axis.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
+  lineComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
   tickSize: PropTypes.number,
+  indentFromAxis: PropTypes.number,
 };
 
 Axis.defaultProps = {
-  tickSize: 10,
+  tickSize: 5,
+  indentFromAxis: 10,
   name: undefined,
   isArgumentAxis: false,
 };

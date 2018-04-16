@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { createScale } from '@devexpress/dx-chart-core';
+import { axisCoordinates } from '@devexpress/dx-chart-core';
 
 export class Grid extends React.PureComponent {
   render() {
@@ -25,41 +25,30 @@ export class Grid extends React.PureComponent {
               domains,
               layouts,
             }) => {
-              const { domain, orientation } = domains[name];
+              const domain = domains[name];
+              const { orientation } = domain;
               const {
                 x, y, width, height,
               } = layouts[placeholder];
 
-              const gridCoordinates = () => {
-                const scale = createScale({ domain, orientation }, width, height);
-                return scale.ticks().map(tick =>
-                    (orientation === 'horizontal'
-                      ? {
-                          x1: scale(tick),
-                          x2: scale(tick),
-                          y1: 0,
-                          y2: height,
-                        }
-                      : {
-                          x1: 0,
-                          x2: width,
-                          y1: scale(tick),
-                          y2: scale(tick),
-                        }));
-              };
-
+              const coordinates = axisCoordinates(
+                domain,
+                orientation === 'horizontal' ? 'top' : 'left',
+                width,
+                height,
+                0,
+              );
 
               return ((
                 <Root x={x} y={y}>
-                  {gridCoordinates().map(({
-                      x1, x2, y1, y2,
-                    }, i) => (
+                  {coordinates.ticks.map(({
+                      x1, x2, y1, y2, text,
+                    }) => (
                       <Line
-                        t // eslint-disable-next-line react/no-array-index-key
-                        key={i}
-                        x1={x1}
+                        key={text}
+                        x1={orientation === 'horizontal' ? x1 : width}
                         x2={x2}
-                        y1={y1}
+                        y1={orientation === 'horizontal' ? height : y1}
                         y2={y2}
                       />
                     ))}

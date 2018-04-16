@@ -8,16 +8,32 @@ describe('Line', () => {
       x1, y1, x2, y2,
     } = shallow((
       <Line
-        x1={1}
-        y1={2}
-        x2={3}
-        y2={4}
+        width={100}
+        height={100}
+        orientation="horizontal"
       />
     )).find('line').props();
 
-    expect(x1).toBe(1);
-    expect(y1).toBe(2);
-    expect(x2).toBe(3);
-    expect(y2).toBe(4);
+    expect(x1).toBe(0);
+    expect(y1).toBe(0);
+    expect(x2).toBe(100);
+    expect(y2).toBe(0);
+  });
+
+  it('should render line. Vertical', () => {
+    const {
+      x1, y1, x2, y2,
+    } = shallow((
+      <Line
+        width={100}
+        height={100}
+        orientation="vertical"
+      />
+    )).find('line').props();
+
+    expect(x1).toBe(0);
+    expect(y1).toBe(0);
+    expect(x2).toBe(0);
+    expect(y2).toBe(100);
   });
 });

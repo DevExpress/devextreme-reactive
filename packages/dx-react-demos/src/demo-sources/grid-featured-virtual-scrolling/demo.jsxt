@@ -1,20 +1,18 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState, SelectionState, FilteringState, GroupingState,
+  SortingState, SelectionState, FilteringState, GroupingState, SearchState,
   IntegratedFiltering, IntegratedGrouping, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
-  GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar,
+  GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar, SearchPanel,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/<%&themeName%>/components/percent-type-provider';
 
 import {
   generateRows,
@@ -54,10 +52,15 @@ export default class Demo extends React.PureComponent {
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
   }
   render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
+    const {
+      rows, columns, tableColumnExtensions,
+      currencyColumns, percentColumns,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -71,6 +74,7 @@ export default class Demo extends React.PureComponent {
           <FilteringState
             defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
           />
+          <SearchState />
           <SortingState
             defaultSorting={[
               { columnName: 'product', direction: 'asc' },
@@ -88,6 +92,9 @@ export default class Demo extends React.PureComponent {
           <IntegratedGrouping />
           <IntegratedSelection />
 
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
+
           <VirtualTable
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
@@ -98,6 +105,7 @@ export default class Demo extends React.PureComponent {
           <TableSelection showSelectAll />
           <TableGroupRow />
           <Toolbar />
+          <SearchPanel />
           <GroupingPanel showSortingControls />
         </Grid>
       </<%&wrapperTag%>>

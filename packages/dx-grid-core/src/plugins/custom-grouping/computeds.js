@@ -1,6 +1,4 @@
-import {
-  GROUP_KEY_SEPARATOR,
-} from '../grouping-state/constants';
+import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import {
   GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
@@ -43,7 +41,7 @@ export const customGroupedRows = (
 
 export const customGroupingRowIdGetter = (getRowId, rows) => {
   const firstRow = rows.find(row => !row[GRID_GROUP_CHECK]);
-  if (!firstRow || getRowId(firstRow)) {
+  if (!firstRow || getRowId(firstRow) !== undefined) {
     return getRowId;
   }
   const map = new Map(rows

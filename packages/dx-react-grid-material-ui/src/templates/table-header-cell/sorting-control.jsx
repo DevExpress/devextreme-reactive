@@ -7,15 +7,18 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   tooltipRoot: {
     display: 'block',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   sortLabelRoot: {
     height: theme.spacing.unit * 3,
+    maxWidth: '100%',
   },
   sortLabelActive: {
     color: 'inherit',
+  },
+  sortLabelText: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 });
 
@@ -32,7 +35,7 @@ const SortingControlBase = ({
   >
     <TableSortLabel
       active={!!sortingDirection}
-      direction={sortingDirection}
+      direction={sortingDirection === null ? undefined : sortingDirection}
       onClick={onClick}
       disabled={disabled}
       classes={{
@@ -40,14 +43,16 @@ const SortingControlBase = ({
         active: classes.sortLabelActive,
       }}
     >
-      {columnTitle}
+      <span className={classes.sortLabelText}>
+        {columnTitle}
+      </span>
     </TableSortLabel>
   </Tooltip>
 );
 
 SortingControlBase.propTypes = {
   align: PropTypes.string.isRequired,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc']),
+  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
   columnTitle: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -56,7 +61,7 @@ SortingControlBase.propTypes = {
 };
 
 SortingControlBase.defaultProps = {
-  sortingDirection: null,
+  sortingDirection: undefined,
   disabled: false,
 };
 

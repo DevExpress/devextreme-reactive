@@ -1,52 +1,43 @@
 import * as React from 'react';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
 import {
-  getAvailableToSelect,
+  rowsWithAvailableToSelect,
   someSelected,
   allSelected,
+  unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
+
+const rowsWithAvailableToSelectComputed = ({ rows, getRowId, isGroupRow }) =>
+  rowsWithAvailableToSelect(rows, getRowId, isGroupRow);
+const allSelectedComputed = ({ rows, selection }) =>
+  allSelected(rows, selection);
+const someSelectedComputed = ({ rows, selection }) =>
+  someSelected(rows, selection);
+const selectAllAvailableComputed = ({ rows: { availableToSelect } }) =>
+  !!availableToSelect.length;
+const toggleSelectAll = (state, { rows: { availableToSelect } }, { toggleSelection }) => {
+  toggleSelection({ rowIds: availableToSelect, state });
+};
+const unwrapRowsComputed = ({ rows }) => unwrapSelectedRows(rows);
 
 const pluginDependencies = [
   { name: 'SelectionState' },
 ];
 
+// eslint-disable-next-line react/prefer-stateless-function
 export class IntegratedSelection extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = { availableToSelect: [] };
-
-    this.toggleSelectAll = this.toggleSelectAll.bind(this);
-    this.availableToSelect = this.availableToSelect.bind(this);
-  }
-
-  toggleSelectAll(state, getters, { toggleSelection }) {
-    const { availableToSelect } = this.state;
-    toggleSelection({ rowIds: availableToSelect, state });
-  }
-  availableToSelect({ rows, getRowId, isGroupRow }) {
-    this.setState({ availableToSelect: getAvailableToSelect(rows, getRowId, isGroupRow) });
-    return rows;
-  }
   render() {
-    const { availableToSelect } = this.state;
-
-    const allSelectedComputed = ({ selection }) =>
-      allSelected({ selection, availableToSelect });
-    const someSelectedComputed = ({ selection }) =>
-      someSelected({ selection, availableToSelect });
-
     return (
       <Plugin
         name="IntegratedSelection"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={this.availableToSelect} />
+        <Getter name="rows" computed={rowsWithAvailableToSelectComputed} />
         <Getter name="allSelected" computed={allSelectedComputed} />
         <Getter name="someSelected" computed={someSelectedComputed} />
-        <Getter name="selectAllAvailable" value={!!availableToSelect.length} />
-
-        <Action name="toggleSelectAll" action={this.toggleSelectAll} />
+        <Getter name="selectAllAvailable" computed={selectAllAvailableComputed} />
+        <Action name="toggleSelectAll" action={toggleSelectAll} />
+        <Getter name="rows" computed={unwrapRowsComputed} />
       </Plugin>
     );
   }

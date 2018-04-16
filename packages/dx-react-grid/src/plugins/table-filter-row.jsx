@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
-} from '@devexpress/dx-react-core';
+import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -52,8 +50,10 @@ export class TableFilterRow extends React.PureComponent {
                     name="valueEditor"
                     params={{
                       column: params.tableColumn.column,
-                      value: filter ? filter.value : null,
-                      onValueChange: newValue => onFilter(newValue ? { value: newValue } : null),
+                      value: filter ? filter.value : undefined,
+                      onValueChange: newValue => onFilter(newValue !== undefined
+                        ? { value: newValue }
+                        : null),
                     }}
                   >
                     {content => (

@@ -1,5 +1,13 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
+const AND = predicates => row =>
+  predicates.reduce((acc, predicate) => acc && predicate(row), true);
+
+const OR = predicates => row =>
+  predicates.reduce((acc, predicate) => acc || predicate(row), false);
+
+const operators = { or: OR, and: AND };
+
 const toLowerCase = value => String(value).toLowerCase();
 
 const defaultPredicate = (value, filter) =>
@@ -16,10 +24,12 @@ const filterTree = (tree, predicate) =>
             children: filteredChildren,
           });
           return acc;
-        } else if (predicate(node.root)) {
+        }
+        if (predicate(node.root, true)) {
           acc.push(node.root);
           return acc;
         }
+        return acc;
       }
 
       if (predicate(node)) {
@@ -32,49 +42,80 @@ const filterTree = (tree, predicate) =>
     [],
   );
 
-const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => {
+const filterHierarchicalRows = (rows, predicate, getRowLevelKey, getCollapsedRows) => {
   const tree = rowsToTree(rows, getRowLevelKey);
+  const collapsedRowsMeta = [];
 
-  const filteredTree = filterTree(tree, (row) => {
-    if (isGroupRow(row)) {
-      if (row.collapsedRows) {
-        return row.collapsedRows.findIndex(predicate) > -1;
+  const filteredTree = filterTree(tree, (row, isNode) => {
+    if (isNode) {
+      const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+      if (collapsedRows && collapsedRows.length) {
+        const filteredCollapsedRows = collapsedRows.filter(predicate);
+        collapsedRowsMeta.push([row, filteredCollapsedRows]);
+        return !!filteredCollapsedRows.length || predicate(row);
+      }
+      if (predicate(row)) {
+        collapsedRowsMeta.push([row, []]);
+        return true;
       }
       return false;
     }
     return predicate(row);
   });
 
-  return treeToRows(filteredTree);
+  return { rows: treeToRows(filteredTree), collapsedRowsMeta: new Map(collapsedRowsMeta) };
+};
+
+const buildPredicate = (
+  initialFilterExpression,
+  getCellValue,
+  getColumnPredicate,
+) => {
+  const getSimplePredicate = (filterExpression) => {
+    const { columnName } = filterExpression;
+    const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
+    const predicate = customPredicate || defaultPredicate;
+    return row =>
+      predicate(getCellValue(row, columnName), filterExpression, row);
+  };
+
+  const getOperatorPredicate = (filterExpression) => {
+    const build = operators[toLowerCase(filterExpression.operator)];
+    // eslint-disable-next-line no-use-before-define
+    return build && build(filterExpression.filters.map(getPredicate));
+  };
+
+  const getPredicate = filterExpression =>
+    getOperatorPredicate(filterExpression) ||
+    getSimplePredicate(filterExpression);
+
+  return getPredicate(initialFilterExpression);
 };
 
 export const filteredRows = (
   rows,
-  filters,
+  filterExpression,
   getCellValue,
   getColumnPredicate,
-  isGroupRow,
   getRowLevelKey,
+  getCollapsedRows,
 ) => {
-  if (!filters.length || !rows.length) return rows;
-
-  const predicate = filters.reduce(
-    (prevPredicate, filter) => {
-      const { columnName, ...filterConfig } = filter;
-      const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
-      const columnPredicate = customPredicate || defaultPredicate;
-
-      return (row) => {
-        const result = columnPredicate(getCellValue(row, columnName), filterConfig, row);
-        return result && prevPredicate(row);
-      };
-    },
-    () => true,
-  );
-
-  if (!getRowLevelKey) {
-    return rows.filter(predicate);
+  if (!(filterExpression && Object.keys(filterExpression).length && rows.length)) {
+    return { rows };
   }
 
-  return filterHierarchicalRows(rows, predicate, getRowLevelKey, isGroupRow);
+  const predicate = buildPredicate(
+    filterExpression,
+    getCellValue,
+    getColumnPredicate,
+  );
+
+  return getRowLevelKey
+    ? filterHierarchicalRows(rows, predicate, getRowLevelKey, getCollapsedRows)
+    : { rows: rows.filter(predicate) };
 };
+
+export const filteredCollapsedRowsGetter = ({ collapsedRowsMeta }) =>
+  row => collapsedRowsMeta && collapsedRowsMeta.get(row);
+
+export const unwrappedFilteredRows = ({ rows }) => rows;

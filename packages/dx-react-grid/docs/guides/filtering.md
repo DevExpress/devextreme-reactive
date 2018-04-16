@@ -16,25 +16,25 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
-### Uncontrolled Mode
+## Uncontrolled Mode
 
 In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
 
 .embedded-demo({ "path": "grid-filtering/filter-row", "showThemeSelector": true })
 
-### Controlled Mode
+## Controlled Mode
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
 
 .embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
 
-### <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
+## <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
 .embedded-demo({ "path": "grid-filtering/custom-filtering-algorithm", "showThemeSelector": true })
 
-### Disable Filtering by a Column
+## Disable Filtering by a Column
 
 You can prevent filtering by a specific column using the [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
 

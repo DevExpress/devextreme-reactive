@@ -22,18 +22,16 @@ import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
 import { TableCell } from 'material-ui/Table';
 
-import DeleteIcon from 'material-ui-icons/Delete';
-import EditIcon from 'material-ui-icons/Edit';
-import SaveIcon from 'material-ui-icons/Save';
-import CancelIcon from 'material-ui-icons/Cancel';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { withStyles } from 'material-ui/styles';
 
-import {
-  ProgressBarCell,
-} from '../../../theme-sources/material-ui/components/progress-bar-cell';
-import {
-  HighlightedCell,
-} from '../../../theme-sources/material-ui/components/highlighted-cell';
+import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
+import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/material-ui/components/currency-type-provider';
+import { PercentTypeProvider } from '../../../theme-sources/material-ui/components/percent-type-provider';
 
 import {
   generateRows,
@@ -185,6 +183,8 @@ class DemoBase extends React.PureComponent {
       pageSize: 0,
       pageSizes: [5, 10, 0],
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      currencyColumns: ['amount'],
+      percentColumns: ['discount'],
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -205,7 +205,7 @@ class DemoBase extends React.PureComponent {
     this.commitChanges = ({ added, changed, deleted }) => {
       let { rows } = this.state;
       if (added) {
-        const startingAddedId = (rows.length - 1) > 0 ? rows[rows.length - 1].id + 1 : 0;
+        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
         rows = [
           ...rows,
           ...added.map((row, index) => ({
@@ -251,6 +251,8 @@ class DemoBase extends React.PureComponent {
       pageSize,
       pageSizes,
       columnOrder,
+      currencyColumns,
+      percentColumns,
     } = this.state;
 
     return (
@@ -273,6 +275,9 @@ class DemoBase extends React.PureComponent {
 
           <IntegratedSorting />
           <IntegratedPaging />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <EditingState
             editingRowIds={editingRowIds}
@@ -327,6 +332,8 @@ class DemoBase extends React.PureComponent {
                 rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
                 columns={columns}
               >
+                <CurrencyTypeProvider for={currencyColumns} />
+                <PercentTypeProvider for={percentColumns} />
                 <Table
                   columnExtensions={tableColumnExtensions}
                   cellComponent={Cell}

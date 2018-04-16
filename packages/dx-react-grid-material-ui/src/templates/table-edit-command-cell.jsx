@@ -20,6 +20,10 @@ const styles = theme => ({
     textAlign: 'center',
     padding: `0 ${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 3}px`,
   },
+  alignWithRowSpan: {
+    verticalAlign: 'bottom',
+    paddingBottom: theme.spacing.unit * 1.25,
+  },
 });
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
@@ -62,11 +66,15 @@ const EditCommandHeadingCellBase = ({
   classes,
   className,
   tableRow, tableColumn,
+  rowSpan,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.headingCell, className)}
-    style={style}
+    className={classNames({
+      [classes.headingCell]: true,
+      [classes.alignWithRowSpan]: rowSpan > 1,
+    }, className)}
+    rowSpan={rowSpan}
     {...restProps}
   >
     {children}
@@ -80,6 +88,7 @@ EditCommandHeadingCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
@@ -88,16 +97,14 @@ EditCommandHeadingCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };
 
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
 const EditCommandCellBase = ({
-  children,
-  style,
-  classes,
-  className,
-  tableRow, tableColumn,
+  tableRow, tableColumn, row, children,
+  style, classes, className,
   ...restProps
 }) => (
   <TableCell
@@ -116,6 +123,7 @@ EditCommandCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  row: PropTypes.object,
 };
 
 EditCommandCellBase.defaultProps = {
@@ -124,6 +132,7 @@ EditCommandCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  row: undefined,
 };
 
 export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

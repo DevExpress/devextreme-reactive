@@ -24,7 +24,7 @@ const styles = theme => ({
 });
 
 const HighlightedCellBase = ({
-  tableColumn, value, classes, style,
+  tableColumn, value, classes, children, style,
 }) => (
   <TableCell
     className={classes.highlightedCell}
@@ -34,7 +34,7 @@ const HighlightedCellBase = ({
       ...style,
     }}
   >
-    ${value}
+    {children}
   </TableCell>
 );
 
@@ -43,10 +43,12 @@ HighlightedCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
+  children: PropTypes.node,
 };
 HighlightedCellBase.defaultProps = {
   style: {},
   tableColumn: {},
+  children: undefined,
 };
 
 export const HighlightedCell = withStyles(styles, { name: 'HighlightedCell' })(HighlightedCellBase);

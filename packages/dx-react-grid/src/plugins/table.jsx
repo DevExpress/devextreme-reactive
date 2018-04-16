@@ -42,6 +42,10 @@ export class Table extends React.PureComponent {
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
       messages,
+      containerComponent,
+      tableComponent,
+      headComponent,
+      bodyComponent,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
@@ -64,6 +68,10 @@ export class Table extends React.PureComponent {
           <TemplateConnector>
             {({ tableHeaderRows: headerRows, tableBodyRows: bodyRows, tableColumns: columns }) => (
               <Layout
+                tableComponent={tableComponent}
+                headComponent={headComponent}
+                bodyComponent={bodyComponent}
+                containerComponent={containerComponent}
                 headerRows={headerRows}
                 bodyRows={bodyRows}
                 columns={columns}
@@ -123,7 +131,12 @@ export class Table extends React.PureComponent {
           name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
-          {params => <NoDataCell {...{ getMessage, ...params }} />}
+          {params => (
+            <NoDataCell
+              {...params}
+              getMessage={getMessage}
+            />
+          )}
         </Template>
         <Template
           name="tableRow"
@@ -149,6 +162,10 @@ export class Table extends React.PureComponent {
 
 Table.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
+  tableComponent: PropTypes.func.isRequired,
+  headComponent: PropTypes.func.isRequired,
+  bodyComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   noDataCellComponent: PropTypes.func.isRequired,

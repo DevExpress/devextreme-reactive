@@ -16,16 +16,10 @@ DemoContainer.propTypes = {
 export default DemoContainer;
 
 const THEMES = [{
-  name: 'journal',
-  link: 'https://bootswatch.com/3/journal/bootstrap.min.css',
-}, {
   name: 'darkly',
   link: 'https://bootswatch.com/3/darkly/bootstrap.min.css',
-}, {
-  name: 'united',
-  link: 'https://bootswatch.com/3/united/bootstrap.min.css',
 }];
-const CUSTOM_THEME = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+const CUSTOM_THEME = 'https://bootswatch.com/3/united/bootstrap.min.css';
 
 class DemoFrame extends React.PureComponent {
   constructor(props, context) {
@@ -36,8 +30,7 @@ class DemoFrame extends React.PureComponent {
       frameHeight: 600,
     };
 
-    const { themeName, url } = this.props;
-    const { scriptPath } = this.context.embeddedDemoOptions;
+    const { themeName, frameUrl, embeddedDemoOptions: { scriptPath } } = this.props;
     const themeLink = themeName !== 'custom' && THEMES.find(({ name }) => name === themeName).link;
     this.markup = `
       <!DOCTYPE html>
@@ -50,7 +43,7 @@ class DemoFrame extends React.PureComponent {
       </head>
       <body>
       <div id="mountPoint"></div>
-      <div class="embedded-demo" data-options='{ "path": "${url}/clean", "frame": true }'>
+      <div class="embedded-demo" data-options='{ "path": "${frameUrl}/clean", "frame": true }'>
         <div style="min-height: 500px;">Loading...</div>
       </div>
       <script src="${scriptPath}"></script>
@@ -70,8 +63,7 @@ class DemoFrame extends React.PureComponent {
     }
   }
   render() {
-    const { themeName, children } = this.props;
-    const { embeddedDemoOptions: { frame } } = this.context;
+    const { themeName, embeddedDemoOptions: { frame }, children } = this.props;
     const { customThemeLink, frameHeight } = this.state;
 
     return (
@@ -115,9 +107,9 @@ class DemoFrame extends React.PureComponent {
               initialContent={this.markup}
               mountTarget="#mountPoint"
             >
-              {themeName === 'custom' && (
+              {themeName === 'custom' ? (
                 <link rel="stylesheet" href={customThemeLink} />
-              )}
+              ) : null}
               <div ref={(node) => { this.node = node; }} />
             </Frame>
         )}
@@ -128,7 +120,8 @@ class DemoFrame extends React.PureComponent {
 
 DemoFrame.propTypes = {
   themeName: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  embeddedDemoOptions: PropTypes.object.isRequired,
+  frameUrl: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
@@ -136,7 +129,5 @@ DemoFrame.contextTypes = {
   embeddedDemoOptions: PropTypes.object.isRequired,
 };
 
-export const Journal = props => <DemoFrame {...props} themeName="journal" />;
 export const Darkly = props => <DemoFrame {...props} themeName="darkly" />;
-export const United = props => <DemoFrame {...props} themeName="united" />;
 export const Custom = props => <DemoFrame {...props} themeName="custom" />;

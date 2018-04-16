@@ -1,3 +1,119 @@
+<a name="1.2.0-beta.1"></a>
+# [1.2.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.1...v1.2.0-beta.1) (2018-04-12)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#903](https://github.com/DevExpress/devextreme-reactive/issues/903)) ([e3c8de2](https://github.com/DevExpress/devextreme-reactive/commit/e3c8de2))
+* **react-grid:** correct TableFilterRow.CellProps types ([#926](https://github.com/DevExpress/devextreme-reactive/issues/926)) ([639f35f](https://github.com/DevExpress/devextreme-reactive/commit/639f35f))
+* **react-grid:** correct types for components ([#910](https://github.com/DevExpress/devextreme-reactive/issues/910)) ([f5546b8](https://github.com/DevExpress/devextreme-reactive/commit/f5546b8))
+* **react-grid:** do not pass the `row` property to the table edit command cell ([#890](https://github.com/DevExpress/devextreme-reactive/issues/890)) ([610343c](https://github.com/DevExpress/devextreme-reactive/commit/610343c))
+* **react-grid-material-ui:** rename column chooser button component ([#871](https://github.com/DevExpress/devextreme-reactive/issues/871)) ([42ef0ab](https://github.com/DevExpress/devextreme-reactive/commit/42ef0ab))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#901](https://github.com/DevExpress/devextreme-reactive/issues/901)) ([2447c4c](https://github.com/DevExpress/devextreme-reactive/commit/2447c4c))
+
+
+### Features
+
+* **react-grid:** allow word wrapping in table cells ([#875](https://github.com/DevExpress/devextreme-reactive/issues/875)) ([5febc85](https://github.com/DevExpress/devextreme-reactive/commit/5febc85))
+* **react-grid:** support the Band Columns feature ([#826](https://github.com/DevExpress/devextreme-reactive/issues/826)) ([6f935a8](https://github.com/DevExpress/devextreme-reactive/commit/6f935a8))
+* **react-grid:** support tree data structures ([#730](https://github.com/DevExpress/devextreme-reactive/issues/730)) ([d069c71](https://github.com/DevExpress/devextreme-reactive/commit/d069c71))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize column resizing ([#878](https://github.com/DevExpress/devextreme-reactive/issues/878)) ([b3f264b](https://github.com/DevExpress/devextreme-reactive/commit/b3f264b))
+
+
+
+<a name="1.1.2"></a>
+# [1.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.2) (2018-04-11)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#899](https://github.com/DevExpress/devextreme-reactive/issues/899)) ([aaa2c4c](https://github.com/DevExpress/devextreme-reactive/commit/aaa2c4c))
+* **react-grid:** correct types for components ([#902](https://github.com/DevExpress/devextreme-reactive/issues/902)) ([3666b7e](https://github.com/DevExpress/devextreme-reactive/commit/3666b7e))
+* **react-grid-material-ui:** rename column chooser button component ([#872](https://github.com/DevExpress/devextreme-reactive/issues/872)) ([65b3a34](https://github.com/DevExpress/devextreme-reactive/commit/65b3a34))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#900](https://github.com/DevExpress/devextreme-reactive/issues/900)) ([1715803](https://github.com/DevExpress/devextreme-reactive/commit/1715803))
+
+
+
+<a name="1.1.1"></a>
+# [1.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.1) (2018-03-20)
+
+
+### Bug Fixes
+
+* **react-grid:** correct empty value passed to filter cell editors ([#857](https://github.com/DevExpress/devextreme-reactive/issues/857)) ([66e47d0](https://github.com/DevExpress/devextreme-reactive/commit/66e47d0))
+* **react-grid:** correct TableHeaderRow.CellProps types ([#858](https://github.com/DevExpress/devextreme-reactive/issues/858)) ([8ed9b8a](https://github.com/DevExpress/devextreme-reactive/commit/8ed9b8a))
+
+
+
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.3...v1.1.0) (2018-03-15)
+
+
+### Bug Fixes
+
+* **grid-core:** repair column reordering after grouping ([#831](https://github.com/DevExpress/devextreme-reactive/issues/831)) ([edf32d0](https://github.com/DevExpress/devextreme-reactive/commit/edf32d0))
+* **react-demos:** get rid of warnings in the Featured Controlled demos ([#821](https://github.com/DevExpress/devextreme-reactive/issues/821)) ([6c24a1b](https://github.com/DevExpress/devextreme-reactive/commit/6c24a1b))
+* **react-grid:** cancel handling of bubbled scroll event in the virtual table ([#829](https://github.com/DevExpress/devextreme-reactive/issues/829)) ([8a9a731](https://github.com/DevExpress/devextreme-reactive/commit/8a9a731)), closes [#805](https://github.com/DevExpress/devextreme-reactive/issues/805)
+* **react-grid-material-ui:** fix sorting in MUI v1.0.0-beta.37 ([#830](https://github.com/DevExpress/devextreme-reactive/issues/830)) ([47ba974](https://github.com/DevExpress/devextreme-reactive/commit/47ba974)), closes [#825](https://github.com/DevExpress/devextreme-reactive/issues/825)
+
+
+
+<a name="1.1.0-beta.3"></a>
+# [1.1.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2018-03-07)
+
+
+### Bug Fixes
+
+* **react-grid-bootstrap4:** fix the 'Nothing to show' message ([#816](https://github.com/DevExpress/devextreme-reactive/issues/816)) ([34167bb](https://github.com/DevExpress/devextreme-reactive/commit/34167bb))
+* **react-grid-bootstrap4:** get rid cursor poiner on disabled item ([#799](https://github.com/DevExpress/devextreme-reactive/issues/799)) ([1d59052](https://github.com/DevExpress/devextreme-reactive/commit/1d59052))
+
+
+### Features
+
+* **react-grid:** add search panel plugin ([#726](https://github.com/DevExpress/devextreme-reactive/issues/726)) ([c8e79fb](https://github.com/DevExpress/devextreme-reactive/commit/c8e79fb))
+* **react-grid:** extract the Table plugin components ([#766](https://github.com/DevExpress/devextreme-reactive/issues/766)) ([e626a66](https://github.com/DevExpress/devextreme-reactive/commit/e626a66))
+* **react-grid:** support center alignment for columns ([#804](https://github.com/DevExpress/devextreme-reactive/issues/804)) ([209d1c9](https://github.com/DevExpress/devextreme-reactive/commit/209d1c9))
+
+
+
+<a name="1.1.0-beta.2"></a>
+# [1.1.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix empty message styles ([#776](https://github.com/DevExpress/devextreme-reactive/issues/776)) ([f814360](https://github.com/DevExpress/devextreme-reactive/commit/f814360))
+
+
+### Features
+
+* **react-grid-bootstrap4:** support the bootstrap4 theme ([#681](https://github.com/DevExpress/devextreme-reactive/issues/681)) ([c3d58f0](https://github.com/DevExpress/devextreme-reactive/commit/c3d58f0))
+
+
+
+<a name="1.0.3"></a>
+# [1.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.2...v1.0.3) (2018-03-02)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect initial options handling ([#797](https://github.com/DevExpress/devextreme-reactive/issues/797)) ([1220664](https://github.com/DevExpress/devextreme-reactive/commit/1220664))
+* **react-grid:** make EditingState pure ([#796](https://github.com/DevExpress/devextreme-reactive/issues/796)) ([b409c11](https://github.com/DevExpress/devextreme-reactive/commit/b409c11))
+
+
+
+<a name="1.0.2"></a>
+# [1.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.1...v1.0.2) (2018-03-01)
+
+* **react-grid:** rework controlled mode ([#779](https://github.com/DevExpress/devextreme-reactive/issues/779)) ([a412dda](https://github.com/DevExpress/devextreme-reactive/commit/a412dda)), closes [#762](https://github.com/DevExpress/devextreme-reactive/issues/762)
+* **react-grid-material-ui:** update material-ui and material-ui-icons version to 1.0.0-beta.35 ([#784](https://github.com/DevExpress/devextreme-reactive/issues/784)) ([d96b1be](https://github.com/DevExpress/devextreme-reactive/commit/d96b1be))
+
+
+
 <a name="1.1.0-beta.1"></a>
 # [1.1.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.0.0...v1.1.0-beta.1) (2018-02-22)
 

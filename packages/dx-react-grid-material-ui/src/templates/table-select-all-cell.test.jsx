@@ -86,4 +86,14 @@ describe('TableSelectAllCell', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.is(`.${classes.alignWithRowSpan}.${classes.cell}`))
+      .toBeTruthy();
+  });
 });

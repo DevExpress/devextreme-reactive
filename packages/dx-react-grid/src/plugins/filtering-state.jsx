@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
+import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression } from '@devexpress/dx-grid-core';
 
 import { createStateHelper } from '../utils/state-helper';
 
@@ -13,38 +13,37 @@ export class FilteringState extends React.PureComponent {
     super(props);
 
     this.state = {
-      filters: props.defaultFilters,
+      filters: props.filters || props.defaultFilters,
     };
-    const stateHelper = createStateHelper(this);
+    const stateHelper = createStateHelper(
+      this,
+      {
+        filters: () => this.props.onFiltersChange,
+      },
+    );
 
     this.changeColumnFilter = stateHelper.applyFieldReducer
       .bind(stateHelper, 'filters', changeColumnFilter);
   }
-  getState() {
+  componentWillReceiveProps(nextProps) {
     const {
-      filters = this.state.filters,
-    } = this.props;
-    return {
-      ...this.state,
       filters,
-    };
-  }
-  notifyStateChange(nextState, state) {
-    const { filters } = nextState;
-    const { onFiltersChange } = this.props;
-    if (onFiltersChange && filters !== state.filters) {
-      onFiltersChange(filters);
-    }
+    } = nextProps;
+    this.setState({
+      ...filters !== undefined ? { filters } : null,
+    });
   }
   render() {
-    const { filters } = this.getState();
+    const { filters } = this.state;
     const { columnExtensions, columnFilteringEnabled } = this.props;
+
 
     return (
       <Plugin
         name="FilteringState"
       >
         <Getter name="filters" value={filters} />
+        <Getter name="filterExpression" computed={pushFilterExpression(filters)} />
         <Getter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}

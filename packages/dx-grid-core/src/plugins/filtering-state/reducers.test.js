@@ -1,5 +1,6 @@
 import {
   changeColumnFilter,
+  pushFilterExpression,
 } from './reducers';
 
 describe('FilteringState reducers', () => {
@@ -37,6 +38,42 @@ describe('FilteringState reducers', () => {
 
       const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
+    });
+  });
+});
+
+describe('pushFilterExpression reducer', () => {
+  it('should return filters', () => {
+    expect(pushFilterExpression([
+      { columnName: 'first', value: 'value' },
+      { columnName: 'second', value: 'value' },
+    ])({})).toEqual({
+      filters: [
+        { columnName: 'first', value: 'value' },
+        { columnName: 'second', value: 'value' },
+      ],
+      operator: 'and',
+    });
+  });
+
+  it('should return old and new filters', () => {
+    expect(pushFilterExpression([
+      { columnName: 'first', value: 'value' },
+      { columnName: 'second', value: 'value' },
+    ])({
+      filterExpression: ['filters'],
+    })).toEqual({
+      filters: [
+        ['filters'],
+        {
+          filters: [
+            { columnName: 'first', value: 'value' },
+            { columnName: 'second', value: 'value' },
+          ],
+          operator: 'and',
+        },
+      ],
+      operator: 'and',
     });
   });
 });

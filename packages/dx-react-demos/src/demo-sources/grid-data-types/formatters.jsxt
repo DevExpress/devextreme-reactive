@@ -1,7 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
-import {
-  DataTypeProvider,
-} from '@devexpress/dx-react-grid';
+import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,

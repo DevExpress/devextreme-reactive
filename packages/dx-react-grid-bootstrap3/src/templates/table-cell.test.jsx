@@ -12,6 +12,19 @@ describe('TableCell', () => {
 
     tree = shallow(<TableCell tableColumn={{ align: 'right' }} />);
     expect(tree.find('td').prop('style').textAlign).toBe('right');
+
+    tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
+    expect(tree.find('td').prop('style').textAlign).toBe('center');
+  });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find('td').prop('style').whiteSpace)
+      .toBe('nowrap');
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('td').prop('style').whiteSpace)
+      .toBe('normal');
   });
 
   it('should have correct text', () => {

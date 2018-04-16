@@ -86,7 +86,6 @@ describe('Table', () => {
           {pluginDepsToComponents(defaultDeps)}
           <Table
             {...defaultProps}
-            tableComponent={() => null}
           />
         </PluginHost>
       ));
@@ -191,6 +190,23 @@ describe('Table', () => {
       });
     expect(tree.find(defaultProps.cellComponent).props().children)
       .toBeDefined();
+  });
+
+  it('should render stub row on plugin-defined row', () => {
+    const tableRowArgs = { tableRow: { row: 'row' } };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Table
+          {...defaultProps}
+          layoutComponent={({ rowComponent: Row }) => <Row {...tableRowArgs} />}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.stubRowComponent).props())
+      .toMatchObject(tableRowArgs);
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {

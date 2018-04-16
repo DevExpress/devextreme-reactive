@@ -10,7 +10,7 @@ export default {
     return (
       <div class="card">
         <Grid
-          rows={generateRows({ columnValues: globalSalesValues, length: 8 })}
+          rows={generateRows({ columnValues: globalSalesValues, length: 0 })}
           columns={[
             { name: 'region', title: 'Region' },
             { name: 'sector', title: 'Sector' },

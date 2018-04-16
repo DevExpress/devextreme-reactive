@@ -8,8 +8,6 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
-import './table-header-cell.css';
-
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
@@ -41,7 +39,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
   render() {
     const {
-      className, column, tableColumn,
+      className, column, tableColumn, before,
       showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
@@ -57,38 +55,45 @@ export class TableHeaderCell extends React.PureComponent {
     const cellLayout = (
       <th
         className={classNames({
-          'position-relative': true,
-          'dx-rg-bs4-cursor-pointer dx-rg-bs4-user-select-none': isCellInteractive,
-          'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
+          'position-relative dx-g-bs4-header-cell': true,
+          'dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-cursor-pointer': draggingEnabled,
+          'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
-        onClick={this.onClick}
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            onGroup={onGroup}
-            disabled={!groupingEnabled}
-          />
-        )}
         <div
-          className={classNames({
-            'text-nowrap dx-rg-bs4-table-header-cell-wrapper': true,
-            [`text-${align}`]: align !== 'left',
-            [`dx-rg-bs4-table-header-cell-${align}`]: showGroupingControls,
-          })}
+          className="d-flex flex-direction-row align-items-center"
         >
-          {showSortingControls ? (
-            <SortingControl
-              align={align}
-              sortingDirection={sortingDirection}
-              disabled={!sortingEnabled}
-              columnTitle={columnTitle}
-              onClick={this.onClick}
-            />
-          ) : (
-            columnTitle
+          {before}
+          <div
+            className={classNames({
+              'w-100 dx-g-bs4-table-header-cell-wrapper': true,
+              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
+              [`text-${align}`]: align !== 'left',
+            })}
+          >
+            {showSortingControls ? (
+              <SortingControl
+                align={align}
+                disabled={!sortingEnabled}
+                sortingDirection={sortingDirection}
+                columnTitle={columnTitle}
+                onClick={this.onClick}
+              />
+            ) : (
+              columnTitle
+            )}
+          </div>
+          {showGroupingControls && (
+            <div>
+              <GroupingControl
+                align={align}
+                disabled={!groupingEnabled}
+                onGroup={onGroup}
+              />
+            </div>
           )}
         </div>
         {resizingEnabled && (
@@ -115,6 +120,7 @@ export class TableHeaderCell extends React.PureComponent {
 }
 
 TableHeaderCell.propTypes = {
+  before: PropTypes.node,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
@@ -135,6 +141,7 @@ TableHeaderCell.propTypes = {
 };
 
 TableHeaderCell.defaultProps = {
+  before: undefined,
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,

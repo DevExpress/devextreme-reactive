@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Input, { InputAdornment } from 'material-ui/Input';
-import Search from 'material-ui-icons/Search';
+import Search from '@material-ui/icons/Search';
 
 const styles = theme => ({
   root: {

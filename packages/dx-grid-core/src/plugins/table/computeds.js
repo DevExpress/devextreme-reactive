@@ -10,6 +10,7 @@ export const tableColumnsWithDataRows = (columns, columnExtensions) =>
       type: TABLE_DATA_TYPE,
       width: columnExtension.width,
       align: columnExtension.align,
+      wordWrapEnabled: columnExtension.wordWrapEnabled,
       column,
     };
   });

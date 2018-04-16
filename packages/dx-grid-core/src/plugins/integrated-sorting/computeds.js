@@ -69,7 +69,7 @@ export const sortedRows = (
   }
 
   const compare = createCompare(sorting, getColumnCompare, (row, columnName) => {
-    if (isGroupRow(row)) {
+    if (isGroupRow && isGroupRow(row)) {
       if (row.groupedBy === columnName) {
         return row.value;
       }

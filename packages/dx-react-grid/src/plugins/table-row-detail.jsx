@@ -15,6 +15,7 @@ const getCellColSpanComputed = ({ getTableCellColSpan }) =>
   tableDetailRowCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
+  { name: 'RowDetailState' },
   { name: 'Table' },
 ];
 

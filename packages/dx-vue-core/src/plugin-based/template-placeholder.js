@@ -1,5 +1,7 @@
 import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
+const SLOTS_SYMBOL = Symbol('slots');
+
 export const TemplatePlaceholder = {
   name: 'TemplatePlaceholder',
   props: {
@@ -19,6 +21,10 @@ export const TemplatePlaceholder = {
     Object.defineProperty(templateHost, 'templates', {
       enumerable: true,
       get: () => this.computedTemplates.slice(1),
+    });
+    Object.defineProperty(templateHost, 'slots', {
+      enumerable: true,
+      get: () => this.$slots,
     });
     return { [TEMPLATE_HOST_CONTEXT]: templateHost };
   },
@@ -45,7 +51,7 @@ export const TemplatePlaceholder = {
     computedParams() {
       return this.params === undefined
         ? this.templateHost.params
-        : this.params;
+        : { ...this.params, [SLOTS_SYMBOL]: this.$slots };
     },
     computedTemplates() {
       return this.name
@@ -57,9 +63,8 @@ export const TemplatePlaceholder = {
   },
   render() {
     const template = this.computedTemplates[0];
-    if (!template) return null;
 
-    let content = template.children();
+    let content = template ? template.children() : null;
     if (content && typeof content === 'function') {
       content = content(this.computedParams);
     }
@@ -70,5 +75,22 @@ export const TemplatePlaceholder = {
   },
   destroyed() {
     this.pluginHost.unregisterSubscription(this.subscription);
+  },
+};
+
+export const TemplatePlaceholderSlot = {
+  name: 'TemplatePlaceholderSlot',
+  functional: true,
+  props: {
+    name: {
+      type: String,
+      default: 'default',
+    },
+    params: {
+      type: Object,
+    },
+  },
+  render(h, { props }) {
+    return props.params[SLOTS_SYMBOL][props.name];
   },
 };

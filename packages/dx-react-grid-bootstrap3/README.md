@@ -38,7 +38,7 @@ Make sure that [React-Bootstrap](https://react-bootstrap.github.io) dependencies
 
 ## Getting started
 
-This package provides components and plugins that implement Bootstrap 3 rendering for the React Grid, which you can use instead of the original React Grid package ones.
+This package provides components and plugins that implement Bootstrap 3 rendering for the React Grid, which you can use instead of ones in the original React Grid package.
 
 See [demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) for more information.
 
@@ -67,6 +67,7 @@ Plugins:
 - [TableHeaderRow](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/)
 - [TableRowDetail](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-row-detail/)
 - [TableSelection](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/)
+- [TableTreeColumn](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-tree-column/)
 - [Toolbar](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/toolbar/)
 - [VirtualTable](https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table/)
 

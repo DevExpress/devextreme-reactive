@@ -28,6 +28,16 @@ describe('TableCell', () => {
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
   });
 
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellNoWrap))
+      .toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellNoWrap))
+      .toBeFalsy();
+  });
+
   it('should have correct text', () => {
     const tree = shallow(<TableCell value="text" />);
     expect(tree.childAt(0).text()).toBe('text');

@@ -1,6 +1,8 @@
 import {
   SortingState,
   IntegratedSorting,
+  PagingState,
+  IntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
   Grid,
@@ -32,10 +34,17 @@ export default {
           <SortingState
             sorting$sync={this.sorting}
           />
+          <PagingState
+            pageSize={5}
+          />
+
+          <IntegratedPaging />
           <IntegratedSorting />
           <Table />
           <TableHeaderRow showSortingControls />
-          <PagingPanel />
+          <PagingPanel
+            pageSizes={[5, 10]}
+          />
         </Grid>
       </div>
     );

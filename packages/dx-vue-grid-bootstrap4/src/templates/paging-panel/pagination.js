@@ -88,6 +88,7 @@ const renderPageButtons = (
     ));
   }
 
+  debugger
   return pageButtons;
 };
 
@@ -95,44 +96,46 @@ export const Pagination = {
   props: {
     totalPages: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
     currentPage: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
-    onCurrentPageChange: {
-      type: Function,
-      isRequired: true,
-    },
+    // onCurrentPageChange: {
+    //   type: Function,
+    //   required: true,
+    // },
     totalCount: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
     pageSize: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
     getMessage: {
       type: Function,
-      isRequired: true,
+      required: true,
     },
   },
   render() {
     const {
       totalPages,
       currentPage,
-      onCurrentPageChange,
       totalCount,
       pageSize,
       getMessage,
     } = this;
+    const { currentPageChange: onCurrentPageChange } = this.$listeners;
+
     const from = firstRowOnPage(currentPage, pageSize, totalCount);
     const to = lastRowOnPage(currentPage, pageSize, totalCount);
     const currentPageChange = (e, nextPage) => {
       e.preventDefault();
       onCurrentPageChange(nextPage);
     };
+
     return (
       <div>
         <ul class="pagination float-right d-none d-sm-flex m-0">
@@ -144,7 +147,7 @@ export const Pagination = {
               onClick={e => currentPageChange(e, currentPage - 1)}
             />
           </li>
-          {renderPageButtons(currentPage, totalPages, currentPageChange)}
+          {/* {renderPageButtons(currentPage, totalPages, currentPageChange)} */}
           <li class="page-item" disabled={currentPage === totalPages - 1 || totalCount === 0}>
             <a
               class="page-link"

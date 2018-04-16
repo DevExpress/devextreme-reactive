@@ -10,11 +10,6 @@ const defaultMessages = {
 export const PagingPanel = {
   name: 'PagingPanel',
   functional: true,
-  props: {
-    messages: {
-      type: Object,
-    },
-  },
   render(h, context) {
     const { messages } = context.props;
     return (

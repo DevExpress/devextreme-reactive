@@ -2,28 +2,28 @@ export const PageSizeSelector = {
   props: {
     pageSize: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
-    onPageSizeChange: {
-      type: Function,
-      isRequired: true,
-    },
+    // onPageSizeChange: {
+    //   type: Function,
+    //   required: true,
+    // },
     pageSizes: {
       type: Array,
-      isRequired: true,
+      required: true,
     },
     getMessage: {
       type: Function,
-      isRequired: true,
+      required: true,
     },
   },
   render() {
     const {
       pageSize,
-      onPageSizeChange,
       pageSizes,
       getMessage,
     } = this;
+    const { pageSizeChange } = this.$listeners;
     debugger
     const showAll = getMessage('showAll');
 
@@ -32,7 +32,7 @@ export const PageSizeSelector = {
         <select
           class="form-control d-sm-none"
           value={pageSize}
-          onChange={e => onPageSizeChange(parseInt(e.target.value, 10))}
+          onChange={e => pageSizeChange(parseInt(e.target.value, 10))}
         >
           {pageSizes.map(val => (
             <option key={val} value={val}>
@@ -54,7 +54,7 @@ export const PageSizeSelector = {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  onPageSizeChange(item);
+                  pageSizeChange(item);
                 }}
               >
                 {item || showAll}

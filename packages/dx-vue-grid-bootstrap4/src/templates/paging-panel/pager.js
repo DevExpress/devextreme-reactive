@@ -5,48 +5,49 @@ export const Pager = {
   props: {
     currentPage: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
-    onCurrentPageChange: {
-      type: Function,
-      isRequired: true,
-    },
+    // currentPageChange: {
+    //   type: Function,
+    //   required: true,
+    // },
     totalPages: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
     pageSize: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
-    onPageSizeChange: {
-      type: Function,
-      isRequired: true,
-    },
+    // pageSizeChange: {
+    //   type: Function,
+    //   required: true,
+    // },
     pageSizes: {
       type: Array,
-      isRequired: true,
+      required: true,
     },
     totalCount: {
       type: Number,
-      isRequired: true,
+      required: true,
     },
     getMessage: {
       type: Function,
-      isRequired: true,
+      required: true,
     },
   },
   render() {
     const {
       currentPage,
-      onCurrentPageChange,
       totalPages,
       pageSize,
-      onPageSizeChange,
       pageSizes,
       totalCount,
       getMessage,
     } = this;
+    const { pageSizeChange, currentPageChange } = this.$listeners;
+
+    debugger
     return (
       <div
         class="clearfix card-footer"
@@ -54,7 +55,7 @@ export const Pager = {
       >
         {!!pageSizes.length && <PageSizeSelector
           pageSize={pageSize}
-          onPageSizeChange={onPageSizeChange}
+          onPageSizeChange={pageSizeChange}
           pageSizes={pageSizes}
           getMessage={getMessage}
         />}
@@ -62,7 +63,7 @@ export const Pager = {
           totalPages={totalPages}
           totalCount={totalCount}
           currentPage={currentPage}
-          onCurrentPageChange={page => onCurrentPageChange(page)}
+          onCurrentPageChange={page => currentPageChange(page)}
           pageSize={pageSize}
           getMessage={getMessage}
         />

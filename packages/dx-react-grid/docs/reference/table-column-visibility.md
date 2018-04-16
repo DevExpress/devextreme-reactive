@@ -60,7 +60,7 @@ Additional properties are added to the component's root element.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
-table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders a table.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders a table.
 
 ### Exports
 

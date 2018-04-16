@@ -157,6 +157,6 @@ Name | Plugin | Type | Description
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
-table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the table.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the table.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](#tablerowprops) | A template that renders a table row.

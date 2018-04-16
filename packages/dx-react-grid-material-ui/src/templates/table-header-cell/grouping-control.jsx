@@ -19,6 +19,7 @@ const styles = theme => ({
 const GroupingControlBase = ({ disabled, onGroup, classes }) => (
   <div
     onClick={(e) => {
+      if (disabled) return;
       e.stopPropagation();
       onGroup(e);
     }}

@@ -17,9 +17,9 @@ description: |
 * Column resizing/reordering
 * Column chooser
 * Keyboard navigation
+* Bands (column groups)
 
 **Features we expect to ship shortly:**
 
 * Fixed columns/rows
 * Header filter
-* Bands (column groups)

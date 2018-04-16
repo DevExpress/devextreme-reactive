@@ -1,53 +1,28 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
-
-const handleMouseDown = (e) => { e.target.style.outline = 'none'; };
-const handleBlur = (e) => { e.target.style.outline = ''; };
+import { ExpandButton } from './parts/expand-button';
 
 export const TableDetailToggleCell = ({
-  style,
-  expanded,
-  onToggle,
-  tableColumn, tableRow, row,
+  expanded, onToggle,
+  tableColumn, tableRow, row, style,
   ...restProps
-}) => {
-  const handleKeyDown = (e) => {
-    if (e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE) {
-      e.preventDefault();
-      onToggle();
-    }
-  };
-  return (
-    <td
-      style={{
-        cursor: 'pointer',
-        verticalAlign: 'middle',
-        ...style,
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-        onToggle();
-      }}
-      {...restProps}
-    >
-      <i
-        className={`glyphicon glyphicon-triangle-${expanded ? 'bottom' : 'right'}`}
-        style={{
-          fontSize: '9px',
-          top: '0',
-          display: 'block',
-        }}
-        tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-        onKeyDown={handleKeyDown}
-        onMouseDown={handleMouseDown}
-        onBlur={handleBlur}
-      />
-    </td>
-  );
-};
+}) => (
+  <td
+    style={{
+      cursor: 'pointer',
+      verticalAlign: 'middle',
+      textAlign: 'center',
+      ...style,
+    }}
+    {...restProps}
+  >
+    <ExpandButton
+      expanded={expanded}
+      onToggle={onToggle}
+    />
+  </td>
+);
 
 TableDetailToggleCell.propTypes = {
   style: PropTypes.object,

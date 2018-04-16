@@ -12,7 +12,7 @@ export class TableSelection extends React.PureComponent {
         rowComponent={TableSelectRow}
         cellComponent={TableSelectCell}
         headerCellComponent={TableSelectAllCell}
-        selectionColumnWidth={40}
+        selectionColumnWidth={33}
         {...this.props}
       />
     );

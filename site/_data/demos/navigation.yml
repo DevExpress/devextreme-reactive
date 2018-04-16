@@ -12,3 +12,5 @@ react:
           path: /react/grid/demos/featured/redux-integration
         - title: Remote Data
           path: /react/grid/demos/featured/remote-data
+        - title: Tree Data
+          path: /react/grid/demos/featured/tree-data

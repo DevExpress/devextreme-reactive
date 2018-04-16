@@ -6,8 +6,8 @@ import {
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
-  Grid,
-  Table, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
+  Grid, Table, TableBandHeader, TableHeaderRow,
+  TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 import { withStyles } from 'material-ui/styles';
@@ -22,9 +22,9 @@ const columns = [
   { name: 'prefix', title: 'Title' },
   { name: 'firstName', title: 'First Name' },
   { name: 'lastName', title: 'Last Name' },
+  { name: 'birthDate', title: 'Birth Date' },
   { name: 'position', title: 'Position' },
   { name: 'state', title: 'State' },
-  { name: 'birthDate', title: 'Birth Date' },
 ];
 const detailColumns = [
   { name: 'subject', title: 'Subject' },
@@ -38,6 +38,28 @@ const tableDetailColumnExtensions = [
   { columnName: 'dueDate', width: 115 },
   { columnName: 'priority', width: 100 },
   { columnName: 'status', width: 125 },
+];
+const columnBands = [
+  {
+    title: 'Personal Data',
+    children: [
+      {
+        title: 'Full Name',
+        children: [
+          { columnName: 'firstName' },
+          { columnName: 'lastName' },
+        ],
+      },
+      { columnName: 'birthDate' },
+    ],
+  },
+  {
+    title: 'Work Information',
+    children: [
+      { columnName: 'state' },
+      { columnName: 'position' },
+    ],
+  },
 ];
 
 const styles = theme => ({
@@ -139,19 +161,18 @@ const GridContainer = ({
 
       <Table />
 
+      <TableColumnResizing
+        columnWidths={columnWidths}
+        onColumnWidthsChange={onColumnWidthsChange}
+      />
+      <TableHeaderRow showSortingControls />
       <TableColumnReordering
         order={columnOrder}
         onOrderChange={onColumnOrderChange}
       />
 
-      <TableColumnResizing
-        columnWidths={columnWidths}
-        onColumnWidthsChange={onColumnWidthsChange}
-      />
-
-      <TableHeaderRow showSortingControls />
-      <TableFilterRow />
       <TableSelection showSelectAll />
+      <TableFilterRow />
       <TableRowDetail
         contentComponent={ReduxGridDetailContainer}
       />
@@ -160,6 +181,9 @@ const GridContainer = ({
       <GroupingPanel showSortingControls />
       <PagingPanel
         pageSizes={pageSizes}
+      />
+      <TableBandHeader
+        columnBands={columnBands}
       />
     </Grid>
   </<%&wrapperTag%>>
@@ -186,7 +210,7 @@ const gridInitialState = {
   currentPage: 0,
   pageSize: 10,
   pageSizes: [5, 10, 15],
-  columnOrder: ['prefix', 'firstName', 'lastName', 'position', 'state', 'birthDate'],
+  columnOrder: ['prefix', 'firstName', 'lastName', 'birthDate', 'position', 'state'],
   columnWidths: [
     { columnName: 'prefix', width: 70 },
     { columnName: 'firstName', width: 130 },

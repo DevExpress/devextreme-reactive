@@ -4,11 +4,8 @@ The Grid component displays data specified via the `rows` property. You should a
 
 The Grid requires the following plugins for basic data visualization:
 
-- [Table](../reference/table.md)
-  Renders a data table.
-
-- [TableHeaderRow](../reference/table-header-row.md)
-  Renders the table's header row.
+- [Table](../reference/table.md) - renders a data table
+- [TableHeaderRow](../reference/table-header-row.md) - renders the table's header row
 
 The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 

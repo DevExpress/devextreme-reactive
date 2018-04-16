@@ -21,6 +21,7 @@ export const PagingState = {
       );
     },
     setPageSize(payload) {
+      debugger
       this.$emit(
         'update:pageSize',
         setPageSize(this.pageSize, payload),

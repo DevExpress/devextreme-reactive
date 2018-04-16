@@ -47,7 +47,6 @@ export const Pager = {
     } = this;
     const { pageSizeChange, currentPageChange } = this.$listeners;
 
-    debugger
     return (
       <div
         class="clearfix card-footer"

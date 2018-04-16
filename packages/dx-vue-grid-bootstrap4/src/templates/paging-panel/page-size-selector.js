@@ -32,7 +32,9 @@ export const PageSizeSelector = {
         <select
           class="form-control d-sm-none"
           value={pageSize}
-          onChange={e => pageSizeChange(parseInt(e.target.value, 10))}
+          onChange={(e) => {
+            pageSizeChange(parseInt(e.target.value, 10));
+          }}
         >
           {pageSizes.map(val => (
             <option key={val} value={val}>
@@ -53,6 +55,7 @@ export const PageSizeSelector = {
                 class="page-link"
                 href="#"
                 onClick={(e) => {
+                  debugger
                   e.preventDefault();
                   pageSizeChange(item);
                 }}

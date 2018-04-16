@@ -5,7 +5,6 @@ import {
   getCollapsedColumns,
   getCollapsedCells,
   getCollapsedGrid,
-  VISIBLE_TYPE,
   STUB_TYPE,
 } from './virtual-table-utils';
 

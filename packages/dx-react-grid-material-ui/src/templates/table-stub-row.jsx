@@ -16,10 +16,10 @@ export const TableStubRow = ({
 
 TableStubRow.propTypes = {
   children: PropTypes.node,
-  tableColumn: PropTypes.object,
+  tableRow: PropTypes.object,
 };
 
 TableStubRow.defaultProps = {
   children: undefined,
-  tableColumn: undefined,
+  tableRow: undefined,
 };

@@ -59,7 +59,7 @@ pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | 
 totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.
 setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page.
 setPageSize | [Action](../../../dx-react-core/docs/reference/action.md) | (size: number) => void | Changes the page size.
-footer | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid footer.
+footer | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the grid footer.
 
 ### Exports
 

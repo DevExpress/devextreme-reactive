@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
-  tableDetailRowCellColSpanGetter,
+  tableDetailCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
@@ -16,7 +16,7 @@ import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),
-  tableDetailRowCellColSpanGetter: jest.fn(),
+  tableDetailCellColSpanGetter: jest.fn(),
   isDetailRowExpanded: jest.fn(),
   tableColumnsWithDetail: jest.fn(),
   isDetailToggleTableCell: jest.fn(),
@@ -67,7 +67,7 @@ describe('TableRowDetail', () => {
 
   beforeEach(() => {
     tableRowsWithExpandedDetail.mockImplementation(() => 'tableRowsWithExpandedDetail');
-    tableDetailRowCellColSpanGetter.mockImplementation(() => 'tableDetailRowCellColSpanGetter');
+    tableDetailCellColSpanGetter.mockImplementation(() => 'tableDetailCellColSpanGetter');
     isDetailRowExpanded.mockImplementation(() => false);
     tableColumnsWithDetail.mockImplementation(() => 'tableColumnsWithDetail');
     isDetailToggleTableCell.mockImplementation(() => false);
@@ -129,8 +129,8 @@ describe('TableRowDetail', () => {
       ));
 
       expect(getComputedState(tree).getTableCellColSpan)
-        .toBe('tableDetailRowCellColSpanGetter');
-      expect(tableDetailRowCellColSpanGetter)
+        .toBe('tableDetailCellColSpanGetter');
+      expect(tableDetailCellColSpanGetter)
         .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
     });
   });

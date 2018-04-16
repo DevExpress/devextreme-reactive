@@ -2,7 +2,7 @@ import { TABLE_DETAIL_TYPE } from './constants';
 import {
   tableRowsWithExpandedDetail,
   tableColumnsWithDetail,
-  tableDetailRowCellColSpanGetter,
+  tableDetailCellColSpanGetter,
 } from './computeds';
 
 describe('TableRowDetail Plugin computeds', () => {
@@ -78,7 +78,7 @@ describe('TableRowDetail Plugin computeds', () => {
   describe('#tableGroupCellColSpanGetter', () => {
     const parentGetCellColSpan = () => 'original';
     it('should return correct colspan', () => {
-      const getCellColSpanGetter = tableDetailRowCellColSpanGetter(parentGetCellColSpan);
+      const getCellColSpanGetter = tableDetailCellColSpanGetter(parentGetCellColSpan);
 
       const tableColumn = { type: 'undefined' };
       expect(getCellColSpanGetter({

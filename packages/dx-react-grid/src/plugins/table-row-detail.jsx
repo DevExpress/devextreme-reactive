@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
-  tableDetailRowCellColSpanGetter,
+  tableDetailCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableDetailRowCellColSpanGetter(getTableCellColSpan);
+  tableDetailCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
   { name: 'RowDetailState' },

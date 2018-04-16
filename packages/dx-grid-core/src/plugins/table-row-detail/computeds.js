@@ -30,7 +30,7 @@ export const tableColumnsWithDetail = (tableColumns, toggleColumnWidth) => [
   ...tableColumns,
 ];
 
-export const tableDetailRowCellColSpanGetter = getTableCellColSpan => (params) => {
+export const tableDetailCellColSpanGetter = getTableCellColSpan => (params) => {
   const { tableRow, tableColumns, tableColumn } = params;
   if (tableRow.type === TABLE_DETAIL_TYPE && tableColumns.indexOf(tableColumn) === 0) {
     return tableColumns.length;

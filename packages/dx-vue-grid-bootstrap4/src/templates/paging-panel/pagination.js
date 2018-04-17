@@ -4,6 +4,7 @@ const renderPageButtons = (
   currentPage,
   totalPageCount,
   currentPageChange,
+  /* eslint-disable-next-line */
   h, // TODO remove h
 ) => {
   const pageButtons = [];

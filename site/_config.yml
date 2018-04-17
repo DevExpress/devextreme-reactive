@@ -3,7 +3,7 @@ baseurl: "/devextreme-reactive"
 version: "X.X.X"
 
 markdown: kramdown
-gems:
+plugins:
   - jekyll-feed
   - jekyll-relative-links
   - jekyll-redirect-from

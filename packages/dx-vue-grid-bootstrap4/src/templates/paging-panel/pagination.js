@@ -12,6 +12,7 @@ const renderPageButtons = (
   currentPage,
   totalPageCount,
   currentPageChange,
+  h, // TODO remove h
 ) => {
   const pageButtons = [];
   const maxButtonCount = 3;
@@ -37,7 +38,7 @@ const renderPageButtons = (
 
     if (startPage > 2) {
       pageButtons.push((
-        <li class="page-item" key="ellipsisStart" disabled>
+        <li class="page-item disabled" key="ellipsisStart" disabled>
           <a class="page-link">
             {'...'}
           </a>
@@ -50,8 +51,11 @@ const renderPageButtons = (
     pageButtons.push((
       <li
         key={page}
-        active={page === currentPage + 1}
-        disabled={startPage === endPage}
+        class={{
+          'page-item': true,
+          active: page === currentPage + 1,
+          disabled: startPage === endPage,
+        }}
       >
         <a
           class="page-link"
@@ -67,7 +71,7 @@ const renderPageButtons = (
   if (endPage < totalPageCount) {
     if (endPage < totalPageCount - 1) {
       pageButtons.push((
-        <li class="page-item" key="ellipsisEnd" disabled>
+        <li class="page-item disabled" key="ellipsisEnd" disabled>
           <a class="page-link" >
             {'...'}
           </a>
@@ -101,10 +105,6 @@ export const Pagination = {
       type: Number,
       required: true,
     },
-    // onCurrentPageChange: {
-    //   type: Function,
-    //   required: true,
-    // },
     totalCount: {
       type: Number,
       required: true,
@@ -118,15 +118,16 @@ export const Pagination = {
       required: true,
     },
   },
-  render() {
+  functional: true,
+  render(h, context) {
     const {
       totalPages,
       currentPage,
       totalCount,
       pageSize,
       getMessage,
-    } = this;
-    const { currentPageChange: onCurrentPageChange } = this.$listeners;
+    } = context.props;
+    const { currentPageChange: onCurrentPageChange } = context.listeners;
 
     const from = firstRowOnPage(currentPage, pageSize, totalCount);
     const to = lastRowOnPage(currentPage, pageSize, totalCount);
@@ -136,44 +137,58 @@ export const Pagination = {
     };
 
     return (
-      <div>
+      <div class="d-inline-block float-right">
         <ul class="pagination float-right d-none d-sm-flex m-0">
-          <li class="page-item" disabled={currentPage === 0}>
+          <li class={{
+              'page-item': true,
+              disabled: currentPage === 0,
+            }}>
             <a
               class="page-link"
-              previous
+              aria-label="Previous"
               href="#"
               onClick={e => currentPageChange(e, currentPage - 1)}
-            />
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
           </li>
-          {/* {renderPageButtons(currentPage, totalPages, currentPageChange)} */}
-          <li class="page-item" disabled={currentPage === totalPages - 1 || totalCount === 0}>
+          {renderPageButtons(currentPage, totalPages, currentPageChange, h)}
+          <li class={{
+              'page-item': true,
+              disabled: currentPage === totalPages - 1 || totalCount === 0,
+            }}>
             <a
               class="page-link"
-              next
+              aria-label="Next"
               href="#"
               onClick={e => currentPageChange(e, currentPage + 1)}
-            />
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
           </li>
         </ul>
 
-        <ul class="float-right d-sm-none m-0">
+        <ul class="pagination float-right d-sm-none m-0">
           <li class="page-item" disabled={currentPage === 0}>
             <a
               class="page-link"
-              previous
+              aria-label="Previous"
               href="#"
               onClick={e => currentPageChange(e, currentPage - 1)}
-            />
+              >
+                <span aria-hidden="true">&laquo;</span>
+            </a>
           </li>
           &nbsp;
         <li class="page-item" disabled={currentPage === totalPages - 1 || totalCount === 0}>
             <a
               class="page-link"
-              next
+              aria-label="Next"
               href="#"
               onClick={e => currentPageChange(e, currentPage + 1)}
-            />
+              >
+                <span aria-hidden="true">&raquo;</span>
+            </a>
           </li>
         </ul>
         <span class="float-right d-sm-none mr-4">

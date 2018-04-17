@@ -15,13 +15,14 @@ export default {
   data() {
     return {
       pageSize: 5,
+      currentPage: 0,
     };
   },
   render() {
     return (
       <div class="card">
         <Grid
-          rows={generateRows({ length: 8 })}
+          rows={generateRows({ length: 55 })}
           columns={[
             { name: 'name', title: 'Name' },
             { name: 'sex', title: 'Sex' },
@@ -31,6 +32,7 @@ export default {
         >
           <PagingState
             pageSize$sync={this.pageSize}
+            currentPage$sync={this.currentPage}
           />
 
           <IntegratedPaging />

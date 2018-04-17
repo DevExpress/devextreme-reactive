@@ -7,10 +7,6 @@ export const Pager = {
       type: Number,
       required: true,
     },
-    // currentPageChange: {
-    //   type: Function,
-    //   required: true,
-    // },
     totalPages: {
       type: Number,
       required: true,
@@ -19,10 +15,6 @@ export const Pager = {
       type: Number,
       required: true,
     },
-    // pageSizeChange: {
-    //   type: Function,
-    //   required: true,
-    // },
     pageSizes: {
       type: Array,
       required: true,

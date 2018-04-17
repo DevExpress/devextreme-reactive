@@ -1,12 +1,4 @@
-import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
-
-const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
-  Math.min(
-    currentPage - Math.floor(maxButtonCount / 2, 10),
-    (totalPageCount - maxButtonCount) + 1,
-  ),
-  1,
-);
+import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
 const renderPageButtons = (
   currentPage,
@@ -22,6 +14,7 @@ const renderPageButtons = (
   if (maxButtonCount < totalPageCount) {
     startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
     endPage = (startPage + maxButtonCount) - 1;
+    console.log(`${startPage} = ${currentPage + 1}, ${maxButtonCount}, ${totalPageCount}`);
   }
   if (startPage > 1) {
     pageButtons.push((

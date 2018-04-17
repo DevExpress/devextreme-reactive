@@ -1,21 +1,22 @@
 import { shallow, mount } from '@vue/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 
-describe('PageSizeSelector', () => {
-  describe('#render', () => {
-    const defaultProps = {
-      pageSize: 10,
-      pageSizes: [5, 10],
-      getMessage: key => key,
-      onPageSizeChange: () => undefined,
-    };
 
+describe('PageSizeSelector', () => {
+  const defaultProps = () => ({
+    pageSize: 10,
+    pageSizes: [5, 10],
+    getMessage: key => key,
+    onPageSizeChange: () => undefined,
+  });
+
+  describe('#render', () => {
     it('can show info about page sizes', () => {
       const tree = mount({
         render() {
           return (
             <PageSizeSelector
-              {...{ attrs: defaultProps }}
+              {...{ attrs: defaultProps() }}
             />
           );
         },
@@ -43,7 +44,7 @@ describe('PageSizeSelector', () => {
         render() {
           return (
             <PageSizeSelector
-              {...{ attrs: defaultProps }}
+              {...{ attrs: defaultProps() }}
               pageSizes={[5, 10, 0]}
             />
           );
@@ -64,12 +65,13 @@ describe('PageSizeSelector', () => {
 
     it('can handle the \'onPageSizeChange\' event', () => {
       const onPageSizeChange = jest.fn();
+      const pageSizes = [5, 10, 0];
       const tree = shallow({
         render() {
           return (
             <PageSizeSelector
-              {...{ attrs: defaultProps }}
-              pageSizes={[5, 10, 0]}
+              {...{ attrs: defaultProps() }}
+              pageSizes={pageSizes}
               onPageSizeChange={onPageSizeChange}
             />
           );
@@ -77,16 +79,14 @@ describe('PageSizeSelector', () => {
       });
 
       const mobileSelector = tree.find('select');
-      const desktopSelector = tree.find('ul');
-      debugger
+      const desktopSelectorFirstItem = tree.findAll('a').at(0);
 
       mobileSelector.element.value = 10;
       mobileSelector.trigger('change');
-      // desktopSelector.find('ul').at(0).simulate('click', { preventDefault: jest.fn() });
-      debugger
+      desktopSelectorFirstItem.trigger('click');
 
       expect(onPageSizeChange.mock.calls[0][0]).toBe(10);
-      // expect(onPageSizeChange.mock.calls[1][0]).toBe(5);
+      expect(onPageSizeChange.mock.calls[1][0]).toBe(pageSizes[0]);
     });
   });
 });

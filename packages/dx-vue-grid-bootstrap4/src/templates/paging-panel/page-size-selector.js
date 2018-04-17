@@ -4,10 +4,6 @@ export const PageSizeSelector = {
       type: Number,
       required: true,
     },
-    // onPageSizeChange: {
-    //   type: Function,
-    //   required: true,
-    // },
     pageSizes: {
       type: Array,
       required: true,
@@ -24,7 +20,6 @@ export const PageSizeSelector = {
       getMessage,
     } = this;
     const { pageSizeChange } = this.$listeners;
-    debugger
     const showAll = getMessage('showAll');
 
     return (
@@ -55,7 +50,6 @@ export const PageSizeSelector = {
                 class="page-link"
                 href="#"
                 onClick={(e) => {
-                  debugger
                   e.preventDefault();
                   pageSizeChange(item);
                 }}

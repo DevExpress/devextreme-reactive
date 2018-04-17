@@ -88,7 +88,6 @@ const renderPageButtons = (
     ));
   }
 
-  debugger
   return pageButtons;
 };
 

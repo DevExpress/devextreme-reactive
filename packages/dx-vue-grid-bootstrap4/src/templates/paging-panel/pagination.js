@@ -14,7 +14,6 @@ const renderPageButtons = (
   if (maxButtonCount < totalPageCount) {
     startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
     endPage = (startPage + maxButtonCount) - 1;
-    console.log(`${startPage} = ${currentPage + 1}, ${maxButtonCount}, ${totalPageCount}`);
   }
   if (startPage > 1) {
     pageButtons.push((
@@ -133,9 +132,9 @@ export const Pagination = {
       <div class="d-inline-block float-right">
         <ul class="pagination float-right d-none d-sm-flex m-0">
           <li class={{
-              'page-item': true,
-              disabled: currentPage === 0,
-            }}>
+            'page-item': true,
+            disabled: currentPage === 0,
+          }}>
             <a
               class="page-link"
               aria-label="Previous"
@@ -147,9 +146,9 @@ export const Pagination = {
           </li>
           {renderPageButtons(currentPage, totalPages, currentPageChange, h)}
           <li class={{
-              'page-item': true,
-              disabled: currentPage === totalPages - 1 || totalCount === 0,
-            }}>
+            'page-item': true,
+            disabled: currentPage === totalPages - 1 || totalCount === 0,
+          }}>
             <a
               class="page-link"
               aria-label="Next"
@@ -162,25 +161,33 @@ export const Pagination = {
         </ul>
 
         <ul class="pagination float-right d-sm-none m-0">
-          <li class="page-item" disabled={currentPage === 0}>
+          <li class={{
+            'page-item': true,
+            disabled: currentPage === 0,
+          }}
+          >
             <a
               class="page-link"
               aria-label="Previous"
               href="#"
               onClick={e => currentPageChange(e, currentPage - 1)}
-              >
-                <span aria-hidden="true">&laquo;</span>
+            >
+              <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           &nbsp;
-        <li class="page-item" disabled={currentPage === totalPages - 1 || totalCount === 0}>
+        <li class={{
+            'page-item': true,
+            disabled: currentPage === totalPages - 1 || totalCount === 0,
+          }}
+          >
             <a
               class="page-link"
               aria-label="Next"
               href="#"
               onClick={e => currentPageChange(e, currentPage + 1)}
-              >
-                <span aria-hidden="true">&raquo;</span>
+            >
+              <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
         </ul>

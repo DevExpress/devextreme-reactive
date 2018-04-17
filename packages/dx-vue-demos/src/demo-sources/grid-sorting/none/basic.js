@@ -1,4 +1,8 @@
 import {
+  SortingState,
+  IntegratedSorting,
+} from '@devexpress/dx-vue-grid';
+import {
   Grid,
   Table,
   TableHeaderRow,

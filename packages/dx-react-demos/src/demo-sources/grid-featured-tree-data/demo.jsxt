@@ -23,7 +23,6 @@ const EmployeeFormatter = ({ row }) => (
         height: '30px',
         margin: '-8px 8px -8px 0',
         textAlign: 'center',
-        border: '1px solid rgba(0, 0, 0, 0.2)',
       }}
     >
       <img

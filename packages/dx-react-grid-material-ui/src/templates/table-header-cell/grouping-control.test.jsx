@@ -3,7 +3,7 @@ import { createShallow, getClasses } from 'material-ui/test-utils';
 import { GroupingControl } from './grouping-control';
 
 const defaultProps = {
-  onGroup: () => {},
+  onGroup: jest.fn(),
   align: 'left',
 };
 
@@ -15,9 +15,17 @@ describe('GroupingControl', () => {
     classes = getClasses(<GroupingControl {...defaultProps} />);
   });
 
-  it('should have correct css class if disable is true', () => {
+  it('should have correct css class if disabled is true', () => {
     const tree = shallow(<GroupingControl {...defaultProps} disabled />);
     expect(tree.hasClass(classes.disabledGroupingControl))
       .toBeTruthy();
+  });
+
+  it('should not call the onGroup function if disabled is true', () => {
+    const tree = shallow(<GroupingControl {...defaultProps} disabled />);
+    tree.simulate('click', { stopPropagation: () => {} });
+
+    expect(defaultProps.onGroup)
+      .not.toBeCalled();
   });
 });

@@ -1,14 +1,38 @@
+import { shallowEqual } from '@devexpress/dx-core';
+
 export const getAvailableGetters = (
   pluginHost,
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
-) =>
-  pluginHost.knownKeys('Getter')
+) => {
+  const trackedDependencies = {};
+  const getters = pluginHost.knownKeys('Getter')
     .reduce((acc, getterName) => {
       Object.defineProperty(acc, getterName, {
-        get: () => getGetterValue(getterName),
+        get: () => {
+          const boxedGetter = getGetterValue(getterName);
+          trackedDependencies[getterName] = boxedGetter && boxedGetter.id;
+          return boxedGetter && boxedGetter.value;
+        },
       });
       return acc;
     }, {});
+  return { getters, trackedDependencies };
+};
+
+export const isTrackedDependenciesChanged = (
+  pluginHost,
+  prevTrackedDependencies,
+  getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
+) => {
+  const trackedDependencies = Object.keys(prevTrackedDependencies)
+    .reduce((acc, getterName) => {
+      const boxedGetter = getGetterValue(getterName);
+      return Object.assign(acc, {
+        [getterName]: boxedGetter && boxedGetter.id,
+      });
+    }, {});
+  return !shallowEqual(prevTrackedDependencies, trackedDependencies);
+};
 
 export const getAvailableActions = (
   pluginHost,

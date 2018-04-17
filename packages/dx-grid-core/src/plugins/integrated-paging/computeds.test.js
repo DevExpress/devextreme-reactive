@@ -1,6 +1,7 @@
 import {
   paginatedRows,
   rowsWithPageHeaders,
+  currentPage,
 } from './computeds';
 
 describe('IntegratedPaging computeds', () => {
@@ -182,6 +183,22 @@ describe('IntegratedPaging computeds', () => {
 
       expect(rowsWithPageHeaders(rows, 3))
         .toBe(rows);
+    });
+  });
+
+  describe('#currentPage', () => {
+    it('should change the "currentPage" if starting row index exceeds the rows count', () => {
+      const page = 4;
+      const totalCount = 6;
+      const pageSize = 2;
+      const setCurrentPage = () => {};
+
+      expect(currentPage(
+        page,
+        totalCount,
+        pageSize,
+        setCurrentPage,
+      )).toEqual(2);
     });
   });
 });

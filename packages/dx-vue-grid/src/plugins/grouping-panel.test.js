@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { GroupingPanel } from './grouping-panel';
-import { pluginDepsToComponents } from './test-utils';
+import { PluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),
@@ -86,7 +86,6 @@ describe('GroupingPanel', () => {
     };
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
         <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
         <GroupingPanel
           {...defaultProps}

@@ -90,19 +90,16 @@ var injectLiveDemos = function(content) {
       });
 };
 
-gulp.task('site:clean', function() {
-  return gulp.src(
-      ['react'].map(function(dir) { return distPath + dir; }),
-      { read: false }
-    )
-    .pipe(clean());
-});
-
 gulp.task('site:docs', function() {
   return gulp.src([
       'packages/**/*.md',
       '!packages/**/LICENSE.md',
+      '!packages/**/README.md',
       '!packages/dx-react-demos/**/*',
+      '!packages/dx-react-vue/**/*',
+      '!packages/dx-demo-shell/**/*',
+      '!packages/dx-core/**/*',
+      '!packages/dx-grid-core/**/*',
       '!packages/dx-testing/**/*',
       '!/**/node_modules/**/*'
     ])
@@ -135,7 +132,6 @@ gulp.task('site:demos', function() {
 
 gulp.task('site', function(done) {
   runSequence(
-    'site:clean',
     'site:docs',
     'site:demos',
     done

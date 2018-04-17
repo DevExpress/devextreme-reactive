@@ -13,3 +13,4 @@ export * from './plugins/integrated-filtering';
 export * from './plugins/table-filter-row';
 
 export * from './plugins/grouping-state';
+export * from './plugins/integrated-grouping';

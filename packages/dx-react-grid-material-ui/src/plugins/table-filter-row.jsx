@@ -4,6 +4,8 @@ import { TableFilterRow as TableFilterRowBase } from '@devexpress/dx-react-grid'
 import { TableFilterCell } from '../templates/table-filter-cell';
 import { TableRow } from '../templates/table-row';
 import { Icon } from '../templates/filter-row/icon';
+import { DropDown } from '../templates/filter-row/drop-down';
+import { Editor } from '../templates/filter-row/editor';
 
 const defaultMessages = {
   filterPlaceholder: 'Filter...',
@@ -29,7 +31,9 @@ export class TableFilterRow extends React.PureComponent {
       <TableFilterRowBase
         cellComponent={TableFilterCell}
         rowComponent={TableRow}
+        filterSelectorComponent={DropDown}
         iconComponent={Icon}
+        editorComponent={Editor}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -45,8 +49,15 @@ TableFilterRow.propTypes = {
   messages: PropTypes.shape({
     filterPlaceholder: PropTypes.string,
     contains: PropTypes.string,
+    notContains: PropTypes.string,
     startsWith: PropTypes.string,
     endsWith: PropTypes.string,
+    equal: PropTypes.string,
+    notEqual: PropTypes.string,
+    greaterThan: PropTypes.string,
+    greaterThanOrEqual: PropTypes.string,
+    lessThan: PropTypes.string,
+    lessThanOrEqual: PropTypes.string,
   }),
 };
 

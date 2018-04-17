@@ -1,8 +1,9 @@
-import { TABLE_FILTER_TYPE } from './constants';
+import { TABLE_FILTER_TYPE, DEFAULT_FILTER_OPERATIONS } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   isFilterTableCell,
   isFilterTableRow,
+  getColumnFilterOperations,
 } from './helpers';
 
 describe('TableFilterRow Plugin helpers', () => {
@@ -16,10 +17,27 @@ describe('TableFilterRow Plugin helpers', () => {
         .toBeFalsy();
     });
   });
+
   describe('#isFilterTableRow', () => {
     it('should work', () => {
       expect(isFilterTableRow({ type: TABLE_FILTER_TYPE })).toBeTruthy();
       expect(isFilterTableRow({ type: 'undefined' })).toBeFalsy();
+    });
+  });
+
+  describe('#getColumnFilterOperations', () => {
+    it('can return column specific filter operations', () => {
+      const availableFilterOperations = {
+        column1: ['a', 'b', 'c'],
+        column2: ['d', 'a'],
+      };
+      expect(getColumnFilterOperations(availableFilterOperations, 'column1'))
+        .toEqual(availableFilterOperations.column2);
+    });
+
+    it('can return the default set of filter operations', () => {
+      expect(getColumnFilterOperations({}, 'column1'))
+        .toEqual(DEFAULT_FILTER_OPERATIONS);
     });
   });
 });

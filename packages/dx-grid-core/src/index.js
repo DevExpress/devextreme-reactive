@@ -83,6 +83,8 @@ export * from './plugins/table-tree-column/helpers';
 export * from './plugins/search-state/reducers';
 export * from './plugins/search-state/computeds';
 
+export * from './plugins/data-type-provider/computeds';
+
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {

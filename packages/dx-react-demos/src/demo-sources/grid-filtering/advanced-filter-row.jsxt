@@ -1,4 +1,5 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import * as PropTypes from 'prop-types';<%&additionalImports%>
 import {
   FilteringState,
   IntegratedFiltering,
@@ -10,8 +11,62 @@ import {
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+import Input from 'material-ui/Input';
+import { withStyles } from 'material-ui/styles';
+import Android from '@material-ui/icons/Android'
 
-import { generateRows } from '../../../demo-data/generator';
+import { generateRows, globalSalesValues } from '../../../demo-data/generator';
+
+const FilterIcon = ({ type, ...restProps }) => {
+  if (type === 'isSpring') return <Android />;
+  return <TableFilterRow.Icon type={type} {...restProps} />
+};
+
+const styles = {
+  inputRoot: {
+    width: 'calc(100% - 48px)',
+  },
+  numericInput: {
+    textAlign: 'right',
+  },
+};
+
+const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
+  const handleChange = (event) => {
+    const { value: targetValue } = event.target;
+    if (targetValue.trim() === '') {
+      onValueChange();
+      return;
+    }
+    onValueChange(parseInt(targetValue, 10));
+  };
+  return (
+    <Input
+      type="number"
+      classes={{
+        root: classes.inputRoot,
+        input: classes.numericInput,
+      }}
+      value={value === undefined ? '' : value}
+      inputProps={{
+        min: 0,
+      }}
+      onChange={handleChange}
+    />
+  );
+};
+
+CurrencyEditorBase.propTypes = {
+  value: PropTypes.number,
+  onValueChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+};
+
+CurrencyEditorBase.defaultProps = {
+  value: undefined,
+};
+
+const CurrencyEditor = withStyles(styles)(CurrencyEditorBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -19,17 +74,18 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
+        { name: 'customer', title: 'Customer' },
+        { name: 'product', title: 'Product' },
+        { name: 'saleDate', title: 'Sale Date' },
+        { name: 'amount', title: 'Sale Amount' },
       ],
-      rows: generateRows({ length: 8 }),
-      customFilteredColumns: ['sex'],
+      dateColumns: ['saleDate'],
+      currencyColumns: ['amount'],
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
   render() {
-    const { rows, columns, customFilteredColumns } = this.state;
+    const { rows, columns, dateColumns, currencyColumns } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -38,14 +94,24 @@ export default class Demo extends React.PureComponent {
           columns={columns}
         >
           <DataTypeProvider
-            for={customFilteredColumns}
-            availableFilters={['startsWith']}
+            for={dateColumns}
+            availableFilterOperations={['contains', 'startsWith', 'endsWith', 'isSpring']}
+          />
+          <DataTypeProvider
+            for={currencyColumns}
+            availableFilterOperations={['equal', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual']}
+            editorComponent={CurrencyEditor}
           />
           <FilteringState defaultFilters={[]} />
           <IntegratedFiltering />
+          {/* <IntegratedFiltering columnExtensions={[{ columnName: 'sex', predicate: () => {}}]} /> */}
+
           <Table />
           <TableHeaderRow />
-          <TableFilterRow />
+          <TableFilterRow
+            iconComponent={FilterIcon}
+            messages={{ isSpring: 'spring' }}
+          />
         </Grid>
       </<%&wrapperTag%>>
     );

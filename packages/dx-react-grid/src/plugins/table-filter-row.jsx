@@ -6,8 +6,8 @@ import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
+  getColumnFilterOperations,
   getMessagesFormatter,
-  DEFAULT_FILTER_OPERATIONS,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -17,12 +17,21 @@ const pluginDependencies = [
 ];
 
 export class TableFilterRow extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filterOperations: {},
+    };
+  }
   render() {
     const {
       rowHeight,
       cellComponent: FilterCell,
       rowComponent: FilterRow,
+      filterSelectorComponent: FilterSelector,
       iconComponent,
+      editorComponent: EditorComponent,
       messages,
     } = this.props;
 
@@ -44,26 +53,38 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(
-                { filters, isColumnFilteringEnabled, availableFilters },
+                { filters, isColumnFilteringEnabled, availableFilterOperations },
                 { changeColumnFilter },
               ) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
-                const useColumnSpecificFilters = availableFilters
-                  && availableFilters[columnName] && availableFilters[columnName].length;
-                const availableCellFilters = useColumnSpecificFilters
-                  ? availableFilters[columnName]
-                  : DEFAULT_FILTER_OPERATIONS;
+                const columnFilterOperations =
+                  getColumnFilterOperations(availableFilterOperations, columnName);
+                const { filterOperations } = this.state;
+                const selectedFilterOperation = filterOperations[columnName]
+                  || columnFilterOperations[0];
+                const handleFilterOperationChange = (value) => {
+                  this.setState({
+                    filterOperations: {
+                      ...filterOperations,
+                      [columnName]: value,
+                    },
+                  });
+                  if (filter && filter.value !== undefined && String(filter.value).length) {
+                    onFilter({ value: filter.value, operation: value });
+                  }
+                };
+                const handleFilterValueChange = value => onFilter(value !== undefined
+                  ? { value, operation: selectedFilterOperation }
+                  : null);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
                     params={{
                       column: params.tableColumn.column,
                       value: filter ? filter.value : undefined,
-                      onValueChange: newValue => onFilter(newValue !== undefined
-                        ? { value: newValue }
-                        : null),
+                      onValueChange: handleFilterValueChange,
                     }}
                   >
                     {content => (
@@ -74,10 +95,22 @@ export class TableFilterRow extends React.PureComponent {
                         filter={filter}
                         filteringEnabled={isColumnFilteringEnabled(columnName)}
                         onFilter={onFilter}
-                        iconComponent={iconComponent}
-                        availableFilters={availableCellFilters}
                       >
-                        {content}
+                        <FilterSelector
+                          iconComponent={iconComponent}
+                          value={selectedFilterOperation}
+                          availableValues={columnFilterOperations}
+                          onChange={handleFilterOperationChange}
+                          getMessage={getMessage}
+                        />
+                        {content || (
+                          <EditorComponent
+                            value={filter ? filter.value : ''}
+                            disabled={!isColumnFilteringEnabled(columnName)}
+                            getMessage={getMessage}
+                            onChange={event => handleFilterValueChange(event.target.value)}
+                          />
+                        )}
                       </FilterCell>
                     )}
                   </TemplatePlaceholder>
@@ -102,7 +135,9 @@ TableFilterRow.propTypes = {
   messages: PropTypes.object,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  filterSelectorComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
+  editorComponent: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {

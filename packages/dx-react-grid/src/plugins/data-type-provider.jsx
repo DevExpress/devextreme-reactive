@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter } from '@devexpress/dx-react-core';
+import { filterOperations } from '@devexpress/dx-grid-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class DataTypeProvider extends React.PureComponent {
@@ -9,17 +10,15 @@ export class DataTypeProvider extends React.PureComponent {
       for: columnNames,
       formatterComponent: Formatter,
       editorComponent: Editor,
-      availableFilters,
+      availableFilterOperations,
     } = this.props;
 
-    const columnFilters = columnNames.reduce((acc, columnName) => {
-      acc[columnName] = availableFilters;
-      return acc;
-    }, {});
+    const filterOperationsComputed = ({ availableFilterOperations: definedFilterOperations }) =>
+      filterOperations(definedFilterOperations, availableFilterOperations, columnNames);
 
     return (
       <Plugin name="DataTypeProvider">
-        <Getter name="availableFilters" value={columnFilters} />
+        <Getter name="availableFilterOperations" computed={filterOperationsComputed} />
         {Formatter
           ? (
             <Template
@@ -51,11 +50,17 @@ DataTypeProvider.propTypes = {
   for: PropTypes.arrayOf(PropTypes.string).isRequired,
   formatterComponent: PropTypes.func,
   editorComponent: PropTypes.func,
-  availableFilters: PropTypes.arrayOf(PropTypes.string),
+  availableFilterOperations: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      name: PropTypes.string,
+      predicate: PropTypes.func,
+    }),
+  ])),
 };
 
 DataTypeProvider.defaultProps = {
   formatterComponent: undefined,
   editorComponent: undefined,
-  availableFilters: [],
+  availableFilterOperations: [],
 };

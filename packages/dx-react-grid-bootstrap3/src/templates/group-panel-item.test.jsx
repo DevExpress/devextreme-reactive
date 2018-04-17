@@ -145,7 +145,7 @@ describe('GroupPanelItem', () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it('should not apply the disabled class if grouping and sorting are not allowed', () => {
+  it('should not apply the disabled class if grouping and sorting are allowed', () => {
     const tree = shallow((
       <GroupPanelItem
         item={{ column: { name: 'test' } }}

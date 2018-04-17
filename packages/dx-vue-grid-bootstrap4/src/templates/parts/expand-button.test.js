@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { shallow } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
+import { shallow } from '@vue/test-utils';
 import { ExpandButton } from './expand-button';
 
 const defaultProps = {
@@ -13,13 +11,6 @@ const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 describe('ExpandButton', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-  afterAll(() => {
-    resetConsole();
-  });
 
   it('should handle click', () => {
     const onToggle = jest.fn();
@@ -30,7 +21,7 @@ describe('ExpandButton', () => {
       />
     ));
 
-    tree.find('i').simulate('click', { stopPropagation: () => {} });
+    tree.find('i').trigger('click', { stopPropagation: () => {} });
     expect(onToggle)
       .toHaveBeenCalled();
   });
@@ -42,7 +33,7 @@ describe('ExpandButton', () => {
       />
     ));
 
-    expect(tree.find('i').prop('tabIndex'))
+    expect(tree.find('i').props().tabIndex)
       .toBe(0);
   });
 
@@ -56,55 +47,19 @@ describe('ExpandButton', () => {
     ));
 
     const targetElement = tree.find('i');
-    targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, preventDefault: () => {} });
+    targetElement.trigger('keydown', { keyCode: ENTER_KEY_CODE, preventDefault: () => {} });
     expect(onToggle)
       .toHaveBeenCalled();
 
     onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE, preventDefault: () => {} });
+    targetElement.trigger('keydown', { keyCode: SPACE_KEY_CODE, preventDefault: () => {} });
     expect(onToggle)
       .toHaveBeenCalled();
 
     onToggle.mockClear();
-    targetElement.simulate('keydown', { keyCode: 51, preventDefault: () => {} });
+    targetElement.trigger('keydown', { keyCode: 51, preventDefault: () => {} });
     expect(onToggle)
       .not.toHaveBeenCalled();
-  });
-
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <ExpandButton
-        {...defaultProps}
-        style={{ color: 'gray' }}
-      />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ color: 'gray' });
-  });
-
-  it('should pass className to the root element', () => {
-    const tree = shallow((
-      <ExpandButton
-        {...defaultProps}
-        className="test"
-      />
-    ));
-
-    expect(tree.prop('className'))
-      .toContain('test');
-  });
-
-  it('should pass rest props to the root element', () => {
-    const tree = shallow((
-      <ExpandButton
-        {...defaultProps}
-        data={{ a: 1 }}
-      />
-    ));
-
-    expect(tree.props().data)
-      .toMatchObject({ a: 1 });
   });
 
   describe('hidden', () => {
@@ -118,7 +73,7 @@ describe('ExpandButton', () => {
         />
       ));
 
-      tree.find('i').simulate('click', { stopPropagation: () => {} });
+      tree.find('i').trigger('click', { stopPropagation: () => {} });
       expect(onToggle)
         .not.toHaveBeenCalled();
     });

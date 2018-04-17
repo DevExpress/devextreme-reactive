@@ -5,3 +5,5 @@ export * from './plugins/table';
 export * from './plugins/table-header-row';
 export * from './plugins/table-filter-row';
 export * from './plugins/toolbar';
+export * from './plugins/grouping-panel';
+export * from './plugins/table-group-row';

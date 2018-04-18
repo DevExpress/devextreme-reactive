@@ -14,10 +14,12 @@ const pluginDependencies = [
 
 const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
   groupCollapsedRowsGetter(getCollapsedRows);
+
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 
 export const IntegratedGrouping = {
+  name: 'IntegratedGrouping',
   props: {
     columnExtensions: {
       type: Array,

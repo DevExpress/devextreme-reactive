@@ -91,7 +91,14 @@ export const TableGroupRow = {
         >
           {params => (
             <TemplateConnector>
-              {({ expandedGroups }, { toggleGroupExpanded }) => (
+              {({
+                getters: {
+                  expandedGroups,
+                },
+                actions: {
+                  toggleGroupExpanded,
+                },
+              }) => (
                 <TemplatePlaceholder
                   name="valueFormatter"
                   params={{

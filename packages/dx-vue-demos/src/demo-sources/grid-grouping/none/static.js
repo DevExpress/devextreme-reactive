@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       grouping: [{ columnName: 'city' }],
+      expandedGroups: [],
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
@@ -32,6 +33,7 @@ export default {
       >
         <dx-grouping-state
           :grouping.sync="grouping"
+          :expandedGroups.sync="expandedGroups"
         />
         <dx-integrated-grouping />
         <dx-table />

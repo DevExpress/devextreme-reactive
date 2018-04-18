@@ -1071,10 +1071,6 @@ babel-plugin-transform-vue-jsx@^3.7.0:
   dependencies:
     esutils "^2.0.2"
 
-babel-plugin-vue-jsx-sync@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-vue-jsx-sync/-/babel-plugin-vue-jsx-sync-0.0.4.tgz#2641a13bbe6d6d96c942eb6b7ff5a5d6d52a4307"
-
 babel-polyfill@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"

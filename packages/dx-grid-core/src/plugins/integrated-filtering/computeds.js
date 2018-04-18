@@ -91,7 +91,7 @@ const buildPredicate = (
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
     const predicate = customPredicate || defaultPredicate;
     return row =>
-      predicate(getCellValue(row, columnName), filterExpression, row);
+      predicate(getCellValue(row, columnName), filterExpression, row, defaultPredicate);
   };
 
   const getOperatorPredicate = (filterExpression) => {

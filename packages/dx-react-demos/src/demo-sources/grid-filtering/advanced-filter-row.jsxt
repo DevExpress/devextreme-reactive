@@ -18,7 +18,7 @@ import Android from '@material-ui/icons/Android'
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
 const FilterIcon = ({ type, ...restProps }) => {
-  if (type === 'isSpring') return <Android />;
+  if (type === 'byMonth') return <Android />;
   return <TableFilterRow.Icon type={type} {...restProps} />
 };
 
@@ -79,13 +79,31 @@ export default class Demo extends React.PureComponent {
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'amount', title: 'Sale Amount' },
       ],
-      dateColumns: ['saleDate'],
-      currencyColumns: ['amount'],
       rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
+      dateColumns: ['saleDate'],
+      dateFilterOperations: ['contains', 'startsWith', 'endsWith', 'byMonth'],
+      currencyColumns: ['amount'],
+      currencyFilterOperations: ['equal', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual'],
+      filteringColumnExtensions: [
+        {
+          columnName: 'saleDate',
+          predicate: (value, filter, row, defaultPredicate) => {
+            if (!filter.value.length) return true;
+            if (filter && filter.operation === 'byMonth') {
+              const month = parseInt(value.split('-')[1]);
+              return month === parseInt(filter.value);
+            }
+            return defaultPredicate(value, filter, row);
+          },
+        }
+      ],
     };
   }
   render() {
-    const { rows, columns, dateColumns, currencyColumns } = this.state;
+    const {
+      rows, columns, dateColumns, dateFilterOperations, filteringColumnExtensions,
+      currencyColumns, currencyFilterOperations,
+    } = this.state;
 
     return (
       <<%&wrapperTag%>>
@@ -95,22 +113,21 @@ export default class Demo extends React.PureComponent {
         >
           <DataTypeProvider
             for={dateColumns}
-            availableFilterOperations={['contains', 'startsWith', 'endsWith', 'isSpring']}
+            availableFilterOperations={dateFilterOperations}
           />
           <DataTypeProvider
             for={currencyColumns}
-            availableFilterOperations={['equal', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual']}
+            availableFilterOperations={currencyFilterOperations}
             editorComponent={CurrencyEditor}
           />
           <FilteringState defaultFilters={[]} />
-          <IntegratedFiltering />
-          {/* <IntegratedFiltering columnExtensions={[{ columnName: 'sex', predicate: () => {}}]} /> */}
+          <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
 
           <Table />
           <TableHeaderRow />
           <TableFilterRow
             iconComponent={FilterIcon}
-            messages={{ isSpring: 'spring' }}
+            messages={{ byMonth: 'By month' }}
           />
         </Grid>
       </<%&wrapperTag%>>

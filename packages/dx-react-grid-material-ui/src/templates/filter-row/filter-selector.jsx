@@ -10,7 +10,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
-class DropDownBase extends React.PureComponent {
+class FilterSelectorBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -66,7 +66,7 @@ class DropDownBase extends React.PureComponent {
   }
 }
 
-DropDownBase.propTypes = {
+FilterSelectorBase.propTypes = {
   value: PropTypes.string,
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
@@ -75,10 +75,10 @@ DropDownBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-DropDownBase.defaultProps = {
+FilterSelectorBase.defaultProps = {
   value: undefined,
   availableValues: [],
   onChange: () => {},
 };
 
-export const DropDown = withStyles(styles, { name: 'DropDown' })(DropDownBase);
+export const FilterSelector = withStyles(styles, { name: 'DropDown' })(FilterSelectorBase);

@@ -4,8 +4,8 @@ const renderPageButtons = (
   currentPage,
   totalPageCount,
   currentPageChange,
-  /* eslint-disable-next-line */
-  h, // TODO remove h
+  /* eslint-disable-next-line no-unused-vars */
+  h,
 ) => {
   const pageButtons = [];
   const maxButtonCount = 3;

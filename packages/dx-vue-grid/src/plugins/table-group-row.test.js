@@ -25,7 +25,6 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
     tableBodyRows: [{ type: 'undefined', id: 1, row: 'row' }],
     grouping: [{ columnName: 'a' }],
-    draftGrouping: [{ columnName: 'a' }, { columnName: 'b' }],
     expandedGroups: [],
     isGroupRow: () => false,
   },
@@ -109,7 +108,6 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.columns,
           defaultDeps.getter.tableColumns,
           defaultDeps.getter.grouping,
-          defaultDeps.getter.draftGrouping,
           defaultProps.indentColumnWidth,
           expect.any(Function),
         );

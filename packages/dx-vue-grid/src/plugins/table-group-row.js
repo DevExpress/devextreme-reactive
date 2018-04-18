@@ -32,6 +32,7 @@ const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = 
 };
 
 export const TableGroupRow = {
+  name: 'TableGroupRow',
   props: {
     cellComponent: {
       type: Object,
@@ -66,17 +67,16 @@ export const TableGroupRow = {
     } = this;
 
     const tableColumnsComputed = ({
-      columns, tableColumns, grouping, draftGrouping,
+      columns, tableColumns, grouping,
     }) =>
       tableColumnsWithGrouping(
         columns,
         tableColumns,
         grouping,
-        draftGrouping,
+        [],
         indentColumnWidth,
         showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
       );
-
     return (
       <Plugin
         name="TableGroupRow"

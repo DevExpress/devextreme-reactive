@@ -9,7 +9,6 @@ export const TableGroupRow = {
         cellComponent={TableGroupCell}
         rowComponent={TableRow}
         indentColumnWidth={48}
-        {...this.props}
       />
     );
   },

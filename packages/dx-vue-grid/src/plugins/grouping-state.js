@@ -2,8 +2,6 @@ import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
-  draftColumnGrouping,
-  cancelColumnGroupingDraft,
   getColumnExtensionValueGetter,
   adjustSortIndex,
 } from '@devexpress/dx-grid-core';
@@ -20,7 +18,6 @@ const callback = (
   columnName,
 ) => {
   if (!sorting) return;
-
   const columnSortingIndex = sorting
     .findIndex(columnSorting => columnSorting.columnName === columnName);
   const prevGroupingIndex = prevGrouping
@@ -104,18 +101,12 @@ export const GroupingState = {
 
       callback({ ...prevState, ...stateChange }, prevState, getters, actions, columnName);
     },
-    draftColumnGrouping(payload) {
-      return draftColumnGrouping(payload);
-    },
     toggleGroupExpanded(payload) {
       return toggleExpandedGroups(payload);
     },
-    cancelColumnGroupingDraft(payload) {
-      return cancelColumnGroupingDraft(payload);
-    },
   },
   render() {
-    const { grouping, draftGrouping, expandedGroups } = this;
+    const { grouping, expandedGroups } = this;
     const { columnExtensions, columnGroupingEnabled } = this;
 
     return (
@@ -124,18 +115,13 @@ export const GroupingState = {
         dependencies={dependencies}
       >
         <Getter name="grouping" value={grouping} />
-        <Getter name="draftGrouping" value={draftGrouping || grouping} />
         <Getter
           name="isColumnGroupingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnGroupingEnabled)}
         />
         <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
-        <Action name="draftColumnGrouping" action={this.draftColumnGrouping} />
-        <Action name="cancelColumnGroupingDraft" action={this.cancelColumnGroupingDraft} />
-
         <Getter name="expandedGroups" value={expandedGroups} />
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
-
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </Plugin>
     );

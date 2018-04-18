@@ -90,23 +90,26 @@ var injectLiveDemos = function(content) {
       });
 };
 
+gulp.task('site:clean', function() {
+  return gulp.src([
+    'site/react/core/**/*.md',
+    'site/react/grid/**/*.md',
+    'site/vue/grid/**/*.md',
+  ], { read: false })
+    .pipe(clean());
+});
+
 gulp.task('site:docs', function() {
   return gulp.src([
-      'packages/**/*.md',
+      'packages/dx-react-core/**/*.md',
+      'packages/dx-react-grid/**/*.md',
+      'packages/dx-vue-grid/**/*.md',
       '!packages/**/LICENSE.md',
       '!packages/**/README.md',
-      '!packages/dx-react-demos/**/*',
-      '!packages/dx-react-vue/**/*',
-      '!packages/dx-demo-shell/**/*',
-      '!packages/dx-core/**/*',
-      '!packages/dx-grid-core/**/*',
-      '!packages/dx-testing/**/*',
       '!/**/node_modules/**/*'
-    ])
+    ], { base: 'packages' })
     .pipe(rename(function(path) {
       path.dirname = splitNameToPath('', path.dirname);
-      path.basename = path.basename
-        .replace(/readme/i, 'index');
     }))
     .pipe(intercept(function(file){
       if(file.contents) {
@@ -132,6 +135,7 @@ gulp.task('site:demos', function() {
 
 gulp.task('site', function(done) {
   runSequence(
+    'site:clean',
     'site:docs',
     'site:demos',
     done

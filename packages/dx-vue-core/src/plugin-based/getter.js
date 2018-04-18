@@ -91,8 +91,5 @@ export const Getter = {
     value() {
       this.generateId();
     },
-    computed() {
-      this.generateId();
-    },
   },
 };

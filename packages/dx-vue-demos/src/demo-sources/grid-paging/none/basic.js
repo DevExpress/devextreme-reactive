@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       currentPage: 0,
+      pageSize: 5,
     };
   },
   render() {
@@ -31,6 +32,7 @@ export default {
         >
           <PagingState
             currentPage$sync={this.currentPage}
+            pageSize={this.pageSize}
           />
 
           <IntegratedPaging />

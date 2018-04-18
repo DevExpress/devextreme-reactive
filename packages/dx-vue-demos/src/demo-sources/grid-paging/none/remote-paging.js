@@ -17,6 +17,14 @@ export default {
   data() {
     return {
       rows: [],
+      columns: [
+        { name: 'OrderNumber', title: 'Order Number' },
+        { name: 'OrderDate', title: 'Order Date' },
+        { name: 'StoreCity', title: 'Store City' },
+        { name: 'StoreState', title: 'Store State' },
+        { name: 'Employee', title: 'Employee' },
+        { name: 'SaleAmount', title: 'Sale Amount' },
+      ],
       currentPage: 0,
       totalCount: 0,
       pageSize: 6,
@@ -30,10 +38,6 @@ export default {
     this.loadData();
   },
   methods: {
-    changeCurrentPage(currentPage) {
-      this.currentPage = currentPage;
-      this.loading = true;
-    },
     queryString() {
       const { pageSize, currentPage } = this;
 
@@ -46,50 +50,38 @@ export default {
         return;
       }
 
+      this.loading = true;
       fetch(queryString)
         .then(response => response.json())
         .then((data) => {
           this.rows = data.items;
           this.totalCount = data.totalCount;
+          this.lastQuery = queryString;
           this.loading = false;
         })
         .catch(() => {
           this.loading = true;
         });
-      this.lastQuery = queryString;
     },
   },
   render() {
-    const {
-      currentPage,
-      pageSize,
-      totalCount,
-      loading,
-    } = this;
     return (
       <div class="card">
         <Grid
           rows={this.rows}
-          columns={[
-            { name: 'name', title: 'Name' },
-            { name: 'sex', title: 'Sex' },
-            { name: 'city', title: 'City' },
-            { name: 'car', title: 'Car' },
-          ]}
+          columns={this.columns}
         >
           <PagingState
-            currentPage$sync={currentPage}
-            pageSize$sync={pageSize}
-            // onCurrentPageChange={this.changeCurrentPage}
+            currentPage$sync={this.currentPage}
           />
           <CustomPaging
-            totalCount={totalCount}
+            totalCount={this.totalCount}
           />
           <Table />
           <TableHeaderRow />
           <PagingPanel />
         </Grid>
-        {loading && <Loading />}
+        {this.loading && <Loading />}
       </div>
     );
   },

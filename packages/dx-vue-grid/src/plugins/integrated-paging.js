@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Getter, Plugin } from '@devexpress/dx-react-core';
+import { Getter, Plugin } from '@devexpress/dx-vue-core';
 import { paginatedRows, rowsWithPageHeaders, rowCount, currentPage } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -14,8 +13,8 @@ const paginatedRowsComputed = ({ rows, pageSize, currentPage: page }) =>
 const currentPageComputed = ({ currentPage: page, totalCount, pageSize }, { setCurrentPage }) =>
   currentPage(page, totalCount, pageSize, setCurrentPage);
 
-// eslint-disable-next-line react/prefer-stateless-function
-export class IntegratedPaging extends React.PureComponent {
+export const IntegratedPaging = {
+  name: 'IntegratedPaging',
   render() {
     return (
       <Plugin
@@ -28,5 +27,5 @@ export class IntegratedPaging extends React.PureComponent {
         <Getter name="rows" computed={paginatedRowsComputed} />
       </Plugin>
     );
-  }
-}
+  },
+};

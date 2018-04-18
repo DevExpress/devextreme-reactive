@@ -38,10 +38,10 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-header | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid header.
+header | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the grid header.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the toolbar content.
+toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the toolbar content.

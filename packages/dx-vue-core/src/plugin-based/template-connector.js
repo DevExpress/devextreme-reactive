@@ -10,7 +10,7 @@ export const TemplateConnector = {
     pluginHost: { from: PLUGIN_HOST_CONTEXT },
   },
   render() {
-    const getters = getAvailableGetters(this.pluginHost);
+    const { getters } = getAvailableGetters(this.pluginHost);
     const actions = getAvailableActions(this.pluginHost);
     return this.$scopedSlots.default({ getters, actions });
   },

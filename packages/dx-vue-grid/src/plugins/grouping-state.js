@@ -122,8 +122,8 @@ export const GroupingState = {
           name="isColumnGroupingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnGroupingEnabled)}
         />
-        <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
         <Getter name="expandedGroups" value={expandedGroups} />
+        <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
         <Action name="changeColumnSorting" action={this.changeColumnSorting} />
       </Plugin>

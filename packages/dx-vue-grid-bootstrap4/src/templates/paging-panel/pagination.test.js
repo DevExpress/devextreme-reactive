@@ -44,7 +44,6 @@ describe('Pagination', () => {
     });
     const paginations = tree.findAll('ul');
 
-
     const arrows = paginations.at(1).findAll('li');
     const prew = arrows.at(0);
     const next = arrows.at(1);
@@ -71,7 +70,6 @@ describe('Pagination', () => {
     });
     const paginations = tree.findAll('ul');
 
-
     const arrows = paginations.at(1).findAll('li');
     const prew = arrows.at(0);
     const next = arrows.at(1);
@@ -93,7 +91,6 @@ describe('Pagination', () => {
       },
     });
     const paginations = tree.findAll('ul');
-
 
     const arrows = paginations.at(1).findAll('li');
     const prew = arrows.at(0);

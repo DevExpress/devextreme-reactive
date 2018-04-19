@@ -2,6 +2,22 @@
 
 A plugin that renders group rows and enables them to expand and collapse.
 
+## Importing
+
+Use the following import sentence in order to use a plugin with embedded theme components:
+
+```js
+import { TableGroupRow } from '@devexpress/dx-react-grid-material-ui';
+// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+For the advanced use cases import the themeless plugin:
+
+```js
+import { TableGroupRow } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

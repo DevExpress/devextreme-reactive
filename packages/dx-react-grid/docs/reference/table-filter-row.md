@@ -2,6 +2,22 @@
 
 A plugin that renders a filter row.
 
+## Importing
+
+Use the following import sentence in order to use a plugin with embedded theme components:
+
+```js
+import { TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
+// import { TableFilterRow } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableFilterRow } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+For the advanced use cases import the themeless plugin:
+
+```js
+import { TableFilterRow } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

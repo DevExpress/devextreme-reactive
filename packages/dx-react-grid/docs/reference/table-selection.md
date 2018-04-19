@@ -2,6 +2,22 @@
 
 A plugin that visualizes table rows' selection state by rendering selection checkboxes and highlighting the selected rows.
 
+## Importing
+
+Use the following import sentence in order to use a plugin with embedded theme components:
+
+```js
+import { TableSelection } from '@devexpress/dx-react-grid-material-ui';
+// import { TableSelection } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableSelection } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+For the advanced use cases import the themeless plugin:
+
+```js
+import { TableSelection } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

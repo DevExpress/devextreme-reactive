@@ -2,6 +2,22 @@
 
 A plugin that renders a command column. This column contains controls used for row editing, creating, or deleting and committing/canceling changes.
 
+## Importing
+
+Use the following import sentence in order to use a plugin with embedded theme components:
+
+```js
+import { TableEditColumn } from '@devexpress/dx-react-grid-material-ui';
+// import { TableEditColumn } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableEditColumn } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+For the advanced use cases import the themeless plugin:
+
+```js
+import { TableEditColumn } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

@@ -2,6 +2,14 @@
 
 A plugin that performs built-in grouping and group expanding/collapsing.
 
+## Importing
+
+Use the following import sentence:
+
+```js
+import { IntegratedGrouping } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

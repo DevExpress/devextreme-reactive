@@ -2,6 +2,22 @@
 
 A plugin that manages table column widths.
 
+## Importing
+
+Use the following import sentence in order to use a plugin with embedded theme components:
+
+```js
+import { TableColumnResizing } from '@devexpress/dx-react-grid-material-ui';
+// import { TableColumnResizing } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableColumnResizing } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+For the advanced use cases import the themeless plugin:
+
+```js
+import { TableColumnResizing } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

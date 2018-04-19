@@ -6,7 +6,6 @@ export const GroupPanelLayout = {
       type: Array,
       required: true,
     },
-    // onGroup: PropTypes.func,
     itemComponent: {
       type: Object,
       required: true,

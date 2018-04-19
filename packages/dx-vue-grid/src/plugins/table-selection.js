@@ -57,7 +57,6 @@ export const TableSelection = {
     const tableColumnsComputed = ({ tableColumns }) =>
       tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
-    debugger
     return (
       <Plugin
         name="TableSelection"

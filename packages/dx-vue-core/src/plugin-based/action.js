@@ -27,7 +27,7 @@ export const Action = {
       position: () => this.position(),
       [`${name}Action`]: (params) => {
         const { action } = this;
-        const getters = getAvailableGetters(
+        const { getters } = getAvailableGetters(
           pluginHost,
           getterName => pluginHost.get(`${getterName}Getter`, this.plugin),
         );

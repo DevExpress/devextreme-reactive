@@ -174,4 +174,57 @@ describe('Getter', () => {
     expect(wrapper.find('h1').text())
       .toBe('new');
   });
+
+  it('should return the same instance of the file value in several connections', () => {
+    const EncapsulatedPlugin = {
+      render() {
+        return (
+          <Plugin>
+            <Template name="root">
+              <div>
+                <TemplateConnector>
+                  {({ getters: { test } }) => <h1>{test}</h1>}
+                </TemplateConnector>
+                <TemplateConnector>
+                  {({ getters: { test } }) => <h2>{test}</h2>}
+                </TemplateConnector>
+              </div>
+            </Template>
+          </Plugin>
+        );
+      },
+    };
+
+    const Test = {
+      props: ['text'],
+      render() {
+        let counter = 0;
+        return (
+          <PluginHost>
+            <EncapsulatedPlugin />
+
+            <Getter
+              name="test"
+              computed={() => {
+                counter += 1;
+                return `${this.text}_${counter}`;
+              }}
+            />
+          </PluginHost>
+        );
+      },
+    };
+
+    const wrapper = mount({
+      data() {
+        return { text: 'old' };
+      },
+      render() {
+        return <Test text={this.text} />;
+      },
+    });
+
+    expect(wrapper.find('h2').text())
+      .toBe('old_1');
+  });
 });

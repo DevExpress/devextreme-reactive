@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = ({ production }) => ({
+  mode: production ? 'production' : 'development',
   context: path.join(__dirname, 'src'),
   entry: {
     index: ['babel-polyfill', 'whatwg-fetch', path.join(__dirname, 'src', 'index')]
@@ -43,21 +44,7 @@ module.exports = ({ production }) => ({
   },
   plugins: [
     new WriteFilePlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify(production ? "production" : "development")
-      }
-    }),
-    ...(!production ? [] :
-      [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true
-        })
-      ]
-    ),
   ],
-  devtool: production ? 'source-map' : 'eval-source-map',
   devServer: {
     host: '0.0.0.0',
     port: 3002,

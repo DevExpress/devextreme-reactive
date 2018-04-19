@@ -2,8 +2,10 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = ({ production }) => ({
+  mode: production ? 'production' : 'development',
   context: path.join(__dirname, 'src'),
   entry: {
     index: ['babel-polyfill', path.join(__dirname, 'src', 'index')]
@@ -44,19 +46,7 @@ module.exports = ({ production }) => ({
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify(production ? "production" : "development")
-      }
-    }),
-    ...(!production ? [] :
-      [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true
-        })
-      ]
-    ),
+    new WriteFilePlugin(),
   ],
   devtool: production ? 'source-map' : 'eval-source-map',
   devServer: {

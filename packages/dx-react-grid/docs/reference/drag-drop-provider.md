@@ -50,7 +50,7 @@ Additional properties are added to the component's root element.
 Name | Plugin | Type | Description
 -----|--------|------|------------
 columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Columns available for dragging.
-root | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid's root layout.
+root | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the grid's root layout.
 
 ### Exports
 

@@ -50,7 +50,7 @@ export const GroupPanelItem = ({
       <span
         className={classNames({
           'btn btn-outline-secondary': true,
-          disabled: !sortingEnabled && showSortingControls,
+          disabled: !sortingEnabled && (showSortingControls || !groupingEnabled),
         })}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}

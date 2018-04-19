@@ -1,12 +1,12 @@
 import {
-  PagingState,
-  IntegratedPaging,
+  PagingState as DxPagingState,
+  IntegratedPaging as DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  PagingPanel,
+  Grid as DxGrid,
+  Table as DxTable,
+  TableHeaderRow as DxTableHeaderRow,
+  PagingPanel as DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
@@ -14,36 +14,44 @@ import { generateRows } from '../../../demo-data/generator';
 export default {
   data() {
     return {
+      sorting: [],
+      columns: [
+        { name: 'name', title: 'Name' },
+        { name: 'sex', title: 'Sex' },
+        { name: 'city', title: 'City' },
+        { name: 'car', title: 'Car' },
+      ],
+      rows: generateRows({ length: 8 }),
       currentPage: 0,
       pageSize: 5,
       pageSizes: [5, 10, 15, 0],
     };
   },
-  render() {
-    return (
+  template: `
       <div class="card">
-        <Grid
-          rows={generateRows({ length: 60 })}
-          columns={[
-            { name: 'name', title: 'Name' },
-            { name: 'sex', title: 'Sex' },
-            { name: 'city', title: 'City' },
-            { name: 'car', title: 'Car' },
-          ]}
+        <dx-grid
+          :rows="rows"
+          :columns="columns"
         >
-          <PagingState
-            currentPage$sync={this.currentPage}
-            pageSize$sync={this.pageSize}
+          <dx-paging-state
+            :currentPage.sync="currentPage"
+            :pageSize.sync="pageSize"
           />
-
-          <IntegratedPaging />
-          <Table />
-          <TableHeaderRow />
-          <PagingPanel
-            pageSizes={this.pageSizes}
+          <dx-integrated-paging />
+          <dx-table />
+          <dx-table-header-row />
+          <dx-paging-panel
+            :pageSizes.sync="pageSizes"
           />
-        </Grid>
+        </dx-grid>
       </div>
-    );
+    `,
+  components: {
+    DxPagingState,
+    DxIntegratedPaging,
+    DxGrid,
+    DxTable,
+    DxTableHeaderRow,
+    DxPagingPanel,
   },
 };

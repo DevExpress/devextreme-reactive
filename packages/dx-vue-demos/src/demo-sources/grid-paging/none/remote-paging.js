@@ -1,15 +1,16 @@
 import {
-  PagingState,
-  CustomPaging,
+  PagingState as DxPagingState,
+  IntegratedPaging as DxIntegratedPaging,
+  CustomPaging as DxCustomPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  PagingPanel,
+  Grid as DxGrid,
+  Table as DxTable,
+  TableHeaderRow as DxTableHeaderRow,
+  PagingPanel as DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
-import { Loading } from '../../../theme-sources/none/components/loading';
+import { Loading as DxLoading } from '../../../theme-sources/none/components/loading';
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
@@ -64,25 +65,34 @@ export default {
         });
     },
   },
-  render() {
-    return (
-      <div class="card">
-        <Grid
-          rows={this.rows}
-          columns={this.columns}
-        >
-          <PagingState
-            currentPage$sync={this.currentPage}
-          />
-          <CustomPaging
-            totalCount={this.totalCount}
-          />
-          <Table />
-          <TableHeaderRow />
-          <PagingPanel />
-        </Grid>
-        {this.loading && <Loading />}
-      </div>
-    );
+  template: `
+    <div class="card">
+      <dx-grid
+        :rows="rows"
+        :columns="columns"
+      >
+        <dx-paging-state
+          :currentPage.sync="currentPage"
+          :pageSize="pageSize"
+        />
+        <dx-custom-paging
+          :totalCount="totalCount"
+        />
+        <dx-table />
+        <dx-table-header-row />
+        <dx-paging-panel />
+      </dx-grid>
+      <dx-loading v-if="loading" />
+    </div>
+  `,
+  components: {
+    DxPagingState,
+    DxIntegratedPaging,
+    DxCustomPaging,
+    DxGrid,
+    DxTable,
+    DxTableHeaderRow,
+    DxPagingPanel,
+    DxLoading,
   },
 };

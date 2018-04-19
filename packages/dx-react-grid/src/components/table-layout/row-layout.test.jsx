@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { RowLayout } from './row-layout';
-
-jest.mock('@devexpress/dx-grid-core', () => ({
-  getTableRowColumnsWithColSpan: jest.fn(),
-}));
 
 const defaultProps = {
   row: { key: 1, rowId: 1, height: 20 },
@@ -18,13 +13,13 @@ const defaultProps = {
   ],
   rowComponent: () => null,
   cellComponent: () => null,
+  getCellColSpan: () => 1,
 };
 
 describe('RowLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    getTableRowColumnsWithColSpan.mockImplementation(() => defaultProps.columns);
   });
 
   afterEach(() => {
@@ -61,23 +56,5 @@ describe('RowLayout', () => {
           tableColumn: column,
         });
     });
-  });
-
-  it('can span columns', () => {
-    const column = { key: 'b', column: { name: 'b' } };
-    getTableRowColumnsWithColSpan.mockImplementation(() => [{ ...column, colspan: 2 }]);
-
-    const tree = shallow((
-      <RowLayout
-        {...defaultProps}
-        row={defaultProps.row}
-      />
-    ));
-
-    expect(tree.find(defaultProps.cellComponent).at(0).props())
-      .toMatchObject({
-        tableRow: defaultProps.row,
-        tableColumn: { ...column, colspan: 2 },
-      });
   });
 });

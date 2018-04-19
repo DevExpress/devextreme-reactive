@@ -11,7 +11,7 @@ const defaultProps = {
     { key: 'd', column: { name: 'd' } },
   ],
   minWidth: 400,
-  rows: [
+  bodyRows: [
     { key: 1, rowId: 1 },
     { key: 2, rowId: 2 },
     { key: 3, rowId: 3 },
@@ -21,6 +21,7 @@ const defaultProps = {
   bodyComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,
+  getCellColSpan: () => 1,
 };
 
 describe('StaticTableLayout', () => {
@@ -60,13 +61,14 @@ describe('StaticTableLayout', () => {
         cellComponent: defaultProps.cellComponent,
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
-        rows: defaultProps.rows,
+        rows: defaultProps.bodyRows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 
   it('should render the head RowsBlockLayout', () => {
     const headComponent = () => null;
-    const headerRows = defaultProps.rows.slice(0, 1);
+    const headerRows = defaultProps.bodyRows.slice(0, 1);
 
     const tree = shallow((
       <StaticTableLayout
@@ -83,6 +85,7 @@ describe('StaticTableLayout', () => {
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: headerRows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 

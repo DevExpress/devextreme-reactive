@@ -6,3 +6,5 @@ export const isDetailRowExpanded = (expandedDetailRowIds, rowId) =>
 export const isDetailToggleTableCell = (tableRow, tableColumn) =>
   tableColumn.type === TABLE_DETAIL_TYPE && tableRow.type === TABLE_DATA_TYPE;
 export const isDetailTableRow = tableRow => tableRow.type === TABLE_DETAIL_TYPE;
+export const isDetailTableCell = (tableColumn, tableColumns) =>
+  tableColumns.indexOf(tableColumn) === 0;

@@ -12,6 +12,7 @@ export const TableContainer = ({
     style={{
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
+      border: 0,
       ...style,
     }}
   >

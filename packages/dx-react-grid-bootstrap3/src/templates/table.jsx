@@ -56,6 +56,7 @@ export class Table extends React.Component {
         style={{
           tableLayout: 'fixed',
           overflow: 'hidden',
+          marginBottom: 0,
           ...use === 'head' ? {
             position: stickyProp,
             top: 0,

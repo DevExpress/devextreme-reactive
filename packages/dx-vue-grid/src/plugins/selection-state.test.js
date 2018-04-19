@@ -22,7 +22,7 @@ describe('SelectionState', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide currentPage getter', () => {
+  it('should provide selection getter', () => {
     const defaultSelection = [1, 2, 3];
     const tree = mount({
       render() {

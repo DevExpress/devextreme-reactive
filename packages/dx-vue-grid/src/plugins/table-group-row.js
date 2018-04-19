@@ -4,6 +4,7 @@ import {
   Plugin,
   TemplatePlaceholder,
   TemplateConnector,
+  TemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
@@ -108,7 +109,7 @@ export const TableGroupRow = {
                 >
                   {content => (
                     <GroupCell
-                      {...params}
+                      {...{ attrs: { ...params } }}
                       row={params.tableRow.row}
                       column={params.tableColumn.column}
                       expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
@@ -145,7 +146,9 @@ export const TableGroupRow = {
             <GroupRow
               {...params}
               row={params.tableRow.row}
-            />
+            >
+              <TemplatePlaceholderSlot params={params} />
+            </GroupRow>
           )}
         </Template>
       </Plugin>

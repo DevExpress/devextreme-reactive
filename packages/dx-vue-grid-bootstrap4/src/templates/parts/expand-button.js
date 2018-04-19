@@ -8,6 +8,7 @@ export const ExpandButton = {
   props: {
     visible: {
       type: Boolean,
+      default: true,
     },
     expanded: {
       type: Boolean,

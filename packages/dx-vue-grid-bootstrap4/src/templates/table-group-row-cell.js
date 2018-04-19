@@ -14,9 +14,9 @@ export const TableGroupCell = {
     expanded: {
       type: Boolean,
     },
-    onToggle: {
-      type: Function,
-    },
+    // onToggle: {
+    //   type: Function,
+    // },
     tableRow: {
       type: Object,
     },
@@ -26,19 +26,19 @@ export const TableGroupCell = {
   },
   render() {
     const {
-      onToggle, colSpan, expanded, column, row,
+      // onToggle,
+      colSpan, expanded, column, row,
     } = this;
-    const handleClick = () => onToggle();
-
+    //const handleClick = () => onToggle();
     return (
       <td
         colSpan={colSpan}
         class="dx-g-bs4-cursor-pointer"
-        onClick={handleClick}
+        // onClick={handleClick}
       >
         <ExpandButton
           expanded={expanded}
-          onToggle={onToggle}
+          // onToggle={onToggle}
           class="mr-2"
         />
         <strong>{column.title || column.name}: </strong>

@@ -216,7 +216,7 @@ const gridInitialState = {
     { columnName: 'firstName', width: 130 },
     { columnName: 'lastName', width: 130 },
     { columnName: 'position', width: 170 },
-    { columnName: 'state', width: 125 },
+    { columnName: 'state', width: 110 },
     { columnName: 'birthDate', width: 115 },
   ],
 };

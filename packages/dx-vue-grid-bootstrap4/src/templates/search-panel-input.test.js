@@ -50,7 +50,7 @@ describe('Input search box', () => {
     const input = tree.find('input');
 
     input.element.value = 'abc';
-    input.trigger('change');
+    input.trigger('input');
     expect(onValueChange).toBeCalledWith('abc');
   });
 

@@ -21,7 +21,7 @@ export const SearchPanelInput = {
       <input
         type="text"
         class="form-control w-25"
-        onChange={e => onValueChange(e.target.value)}
+        onInput={e => onValueChange(e.target.value)}
         value={value}
         placeholder={getMessage('searchPlaceholder')}
       />

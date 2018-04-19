@@ -7,7 +7,7 @@ export class StaticTableLayout extends React.PureComponent {
   render() {
     const {
       headerRows,
-      rows,
+      bodyRows,
       columns,
       minWidth,
       containerComponent: Container,
@@ -16,6 +16,7 @@ export class StaticTableLayout extends React.PureComponent {
       bodyComponent,
       rowComponent,
       cellComponent,
+      getCellColSpan,
     } = this.props;
 
     return (
@@ -31,14 +32,16 @@ export class StaticTableLayout extends React.PureComponent {
               blockComponent={headComponent}
               rowComponent={rowComponent}
               cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
             />
           )}
           <RowsBlockLayout
-            rows={rows}
+            rows={bodyRows}
             columns={columns}
             blockComponent={bodyComponent}
             rowComponent={rowComponent}
             cellComponent={cellComponent}
+            getCellColSpan={getCellColSpan}
           />
         </Table>
       </Container>
@@ -48,7 +51,7 @@ export class StaticTableLayout extends React.PureComponent {
 
 StaticTableLayout.propTypes = {
   headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   minWidth: PropTypes.number.isRequired,
   containerComponent: PropTypes.func.isRequired,
@@ -57,6 +60,7 @@ StaticTableLayout.propTypes = {
   bodyComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };
 
 StaticTableLayout.defaultProps = {

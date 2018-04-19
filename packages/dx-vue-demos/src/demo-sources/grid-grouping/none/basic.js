@@ -39,7 +39,9 @@ export default {
         />
         <dx-integrated-grouping />
         <dx-table />
-        <dx-table-header-row />
+        <dx-table-header-row
+          showGroupingControls
+        />
         <dx-table-group-row />
         <dx-toolbar />
         <dx-grouping-panel

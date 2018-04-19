@@ -41,7 +41,7 @@ export const GroupPanelItem = {
       groupingEnabled,
       onSort,
       onGroup,
-      item: { column, draft },
+      item: { column },
       sortingDirection,
     } = this;
     const handleSortingChange = (e) => {
@@ -72,7 +72,6 @@ export const GroupPanelItem = {
       <div
         class={{
           'btn-group mb-1 mr-1': true,
-          'dx-g-bs4-inactive': draft,
         }}
       >
         <span

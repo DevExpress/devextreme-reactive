@@ -60,6 +60,7 @@ export const GroupingState = {
     },
     columnGroupingEnabled: {
       type: Boolean,
+      default: true,
     },
   },
   methods: {

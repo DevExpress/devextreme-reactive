@@ -1,3 +1,21 @@
+<a name="1.2.0-beta.2"></a>
+# [1.2.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.1...v1.2.0-beta.2) (2018-04-19)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect prop types for CustomGrouping ([#946](https://github.com/DevExpress/devextreme-reactive/issues/946)) ([fdf492f](https://github.com/DevExpress/devextreme-reactive/commit/fdf492f)), closes [#941](https://github.com/DevExpress/devextreme-reactive/issues/941)
+* **react-grid:** fix ts for TableColumnResizing ([#955](https://github.com/DevExpress/devextreme-reactive/issues/955)) ([d2cfcd6](https://github.com/DevExpress/devextreme-reactive/commit/d2cfcd6)), closes [#951](https://github.com/DevExpress/devextreme-reactive/issues/951)
+* **react-grid-material-ui:** change detail toggle icon ([#957](https://github.com/DevExpress/devextreme-reactive/issues/957)) ([ce9b453](https://github.com/DevExpress/devextreme-reactive/commit/ce9b453))
+* **react-grid-material-ui:** prevent click on disabled grouping control ([#935](https://github.com/DevExpress/devextreme-reactive/issues/935)) ([95fc44a](https://github.com/DevExpress/devextreme-reactive/commit/95fc44a))
+
+
+### Features
+
+* **react-grid:** support column virtualization ([#892](https://github.com/DevExpress/devextreme-reactive/issues/892)) ([67dc486](https://github.com/DevExpress/devextreme-reactive/commit/67dc486))
+
+
+
 <a name="1.2.0-beta.1"></a>
 # [1.2.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.1...v1.2.0-beta.1) (2018-04-12)
 

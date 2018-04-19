@@ -14,7 +14,7 @@ export const GroupingPanel = {
     },
   },
   render() {
-    const { messages, ...restProps } = this.props;
+    const { messages, ...restProps } = this;
 
     return (
       <GroupingPanelBase

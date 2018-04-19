@@ -14,11 +14,9 @@ export const TableSelection = {
   props: {
     highlightRow: {
       type: Boolean,
-      default: false,
     },
     selectByRowClick: {
       type: Boolean,
-      default: false,
     },
     showSelectionColumn: {
       type: Boolean,
@@ -26,7 +24,6 @@ export const TableSelection = {
     },
     showSelectAll: {
       type: Boolean,
-      default: false,
     },
     selectionColumnWidth: {
       type: Number,
@@ -60,6 +57,7 @@ export const TableSelection = {
     const tableColumnsComputed = ({ tableColumns }) =>
       tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
+    debugger
     return (
       <Plugin
         name="TableSelection"

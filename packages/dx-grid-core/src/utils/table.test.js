@@ -1,40 +1,10 @@
 import {
   getTableColumnGeometries,
   getTableTargetColumnIndex,
-  getTableRowColumnsWithColSpan,
   getAnimations,
 } from './table';
 
 describe('table utils', () => {
-  describe('#getTableRowColumnsWithColSpan', () => {
-    it('should return correct columns without colSpan', () => {
-      const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }];
-
-      expect(getTableRowColumnsWithColSpan(columns, null))
-        .toEqual(columns);
-    });
-
-    it('should return correct columns with numeric colSpan', () => {
-      const columns = [{ type: 'a', id: 1 }, { type: 'b', id: 2 }, { type: 'c', id: 3 }];
-
-      expect(getTableRowColumnsWithColSpan(columns, 0))
-        .toEqual([{ ...columns[0], colSpan: 3 }]);
-
-      expect(getTableRowColumnsWithColSpan(columns, 1))
-        .toEqual([columns[0], { ...columns[1], colSpan: 2 }]);
-    });
-
-    it('should return correct columns with string colSpan', () => {
-      const columns = [{ key: 'a_1' }, { key: 'b_2' }, { key: 'c_3' }];
-
-      expect(getTableRowColumnsWithColSpan(columns, 'a_1'))
-        .toEqual([{ ...columns[0], colSpan: 3 }]);
-
-      expect(getTableRowColumnsWithColSpan(columns, 'b_2'))
-        .toEqual([columns[0], { ...columns[1], colSpan: 2 }]);
-    });
-  });
-
   describe('#getTableColumnGeometries', () => {
     it('should correctly return geometries', () => {
       const columns = [{ width: 100 }, {}, {}];

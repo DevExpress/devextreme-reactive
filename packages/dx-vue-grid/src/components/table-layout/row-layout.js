@@ -1,5 +1,3 @@
-import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
-
 const getRowStyle = ({ row }) => (row.height !== undefined
   ? ({ height: `${row.height}px` })
   : undefined);
@@ -38,7 +36,7 @@ export const RowLayout = {
         style={getRowStyle({ row })}
       >
         {
-          getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+          columns
             .map(column => (
               <Cell
                 key={column.key}

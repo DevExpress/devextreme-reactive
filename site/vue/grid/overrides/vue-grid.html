@@ -1,22 +1,20 @@
 ---
-title: DevExtreme React Grid
-layout: default
-permalink: /react/grid/
+title: DevExtreme Vue Grid
+permalink: /vue/grid/
 redirect_from:
-  - /
-  - /react/
+  - /vue/
 ---
 
 <section id="home">
-	<div class="intro-header">
+	<div class="intro-header vue vue-grid">
 
 		<div class="container">
 
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="intro-message">
-						<h1>DevExtreme<span class="break"> </span>React&nbsp;Grid</h1>
-						<h3>for Bootstrap and Material&nbsp;UI</h3>
+						<h1>DevExtreme<span class="break"> </span>Vue&nbsp;Grid<sup>CTP</sup></h1>
+						<h3>for Bootstrap</h3>
 						<ul class="list-inline intro-action-buttons">
 							<li>
 								<a href="demos/featured/uncontrolled-mode/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
@@ -37,7 +35,7 @@ redirect_from:
 
 <section id="blocks">
 {% for post in site.posts reversed %}
-  {% if post.category == 'Landing' %}
+  {% if post.category == 'LandingGrid' or post.category == 'LandingGridVue' %}
     {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
       {% if thecycle == 'odd' %}
       <div class="content-section-a">
@@ -97,7 +95,7 @@ redirect_from:
 </section>
 
 <section id="contact">
-	<div class="banner">
+	<div class="banner vue">
 		<div class="container">
 
 			<div class="row">

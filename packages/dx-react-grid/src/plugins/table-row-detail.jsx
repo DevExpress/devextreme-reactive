@@ -3,11 +3,16 @@ import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
+  tableDetailCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
   isDetailTableRow,
+  isDetailTableCell,
 } from '@devexpress/dx-grid-core';
+
+const getCellColSpanComputed = ({ getTableCellColSpan }) =>
+  tableDetailCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
   { name: 'RowDetailState' },
@@ -37,6 +42,8 @@ export class TableRowDetail extends React.PureComponent {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
+
         <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
@@ -59,12 +66,21 @@ export class TableRowDetail extends React.PureComponent {
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <Cell
-              {...params}
-              row={params.tableRow.row}
-            >
-              <Content row={params.tableRow.row} />
-            </Cell>
+            <TemplateConnector>
+              {({ tableColumns }) => {
+                if (isDetailTableCell(params.tableColumn, tableColumns)) {
+                  return (
+                    <Cell
+                      {...params}
+                      row={params.tableRow.row}
+                    >
+                      <Content row={params.tableRow.row} />
+                    </Cell>
+                  );
+                }
+                return null;
+              }}
+            </TemplateConnector>
           )}
         </Template>
         <Template

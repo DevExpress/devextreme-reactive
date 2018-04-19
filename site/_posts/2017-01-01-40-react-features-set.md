@@ -2,7 +2,7 @@
 layout: default
 img: features.png
 cssClass: block-features
-category: Landing
+category: LandingGridReact
 title: Core Features Designed to<br/>Fit Any Business at Any Scale
 description: |
 ---

@@ -9,10 +9,12 @@ import {
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
+  tableCellColSpanGetter,
   isDataTableCell,
   isDataTableRow,
   isHeaderStubTableCell,
   isNoDataTableRow,
+  isNoDataTableCell,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
@@ -80,6 +82,10 @@ export const Table = {
       type: Object,
       required: true,
     },
+    stubRowComponent: {
+      type: Object,
+      required: true,
+    },
     stubCellComponent: {
       type: Object,
       required: true,
@@ -110,6 +116,7 @@ export const Table = {
       rowComponent: Row,
       noDataRowComponent: NoDataRow,
       noDataCellComponent: NoDataCell,
+      stubRowComponent: StubRow,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
       columnExtensions,
@@ -132,6 +139,7 @@ export const Table = {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
@@ -139,12 +147,12 @@ export const Table = {
         <Template name="table">
           <TemplateConnector>
             {({
-                getters: {
-                  tableHeaderRows: headerRows,
-                  tableBodyRows: bodyRows,
-                  tableColumns: columns,
-                },
-              }) => (
+              getters: {
+                tableHeaderRows: headerRows,
+                tableBodyRows: bodyRows,
+                tableColumns: columns,
+              },
+            }) => (
               <Layout
                 tableComponent={tableComponent}
                 headComponent={headComponent}
@@ -193,6 +201,33 @@ export const Table = {
           )}
         </Template>
         <Template
+          name="tableCell"
+          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
+        >
+          {params => (
+            <TemplateConnector>
+              {({ getters: { tableColumns } }) => {
+                if (isNoDataTableCell(params.tableColumn, tableColumns)) {
+                  return (
+                    <NoDataCell
+                      {...{ attrs: { ...params } }}
+                      getMessage={getMessage}
+                    />
+                  );
+                }
+                return null;
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+        <Template name="tableRow">
+          {params => (
+            <StubRow {...{ attrs: { ...params } }}>
+              <TemplatePlaceholderSlot params={params} />
+            </StubRow>
+          )}
+        </Template>
+        <Template
           name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
@@ -203,17 +238,6 @@ export const Table = {
             >
               <TemplatePlaceholderSlot params={params} />
             </Row>
-          )}
-        </Template>
-        <Template
-          name="tableCell"
-          predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
-        >
-          {params => (
-            <NoDataCell
-              {...{ attrs: { ...params } }}
-              getMessage={getMessage}
-            />
           )}
         </Template>
         <Template

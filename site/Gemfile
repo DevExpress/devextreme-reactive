@@ -9,7 +9,7 @@ ruby RUBY_VERSION
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "3.4.3"
+gem "jekyll", "3.7.3"
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima", "~> 2.0"
@@ -22,7 +22,7 @@ gem "minima", "~> 2.0"
 group :jekyll_plugins do
    gem "jekyll-feed", "~> 0.6"
    gem "jekyll-redirect-from", "~> 0.12.1"
-   gem "jekyll-relative-links", :git => 'git://github.com/benbalter/jekyll-relative-links.git'
+   gem "jekyll-relative-links", "~> 0.5.3"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

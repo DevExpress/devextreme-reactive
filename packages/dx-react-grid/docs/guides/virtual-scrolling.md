@@ -2,7 +2,7 @@
 
 Virtual scrolling allows the Grid component to display thousands of records on a single page. You can use this feature as an alternative to paging.
 
-*Browser Support Note:* Since virtual scrolling requires the browser to support `position: sticky`, it does not work in Android Browser/WebView for Android < 5.0 and Internet Explorer.
+*Browser Support Note:* Virtual scrolling does not work in Android Browser/WebView for Android < 5.0 and Internet Explorer because it requires the browser to support `position: sticky`.
 
 ## Related Plugins
 

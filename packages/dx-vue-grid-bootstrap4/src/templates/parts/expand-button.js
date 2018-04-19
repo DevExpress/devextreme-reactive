@@ -13,15 +13,12 @@ export const ExpandButton = {
     expanded: {
       type: Boolean,
     },
-    onToggle: {
-      type: Function,
-    },
   },
   render() {
-    const { expanded, visible, onToggle } = this;
+    const { expanded, visible } = this;
     const fireToggle = () => {
       if (!visible) return;
-      onToggle(!expanded);
+      this.$emit('toggle', !expanded);
     };
     const handleClick = (e) => {
       e.stopPropagation();

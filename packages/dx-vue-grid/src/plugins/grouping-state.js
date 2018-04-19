@@ -97,12 +97,14 @@ export const GroupingState = {
       const stateChange = changeColumnGrouping(prevState, { columnName, groupingIndex });
 
       this.$emit('update:grouping', stateChange.grouping);
-      this.$emit('update:expandedGroups', stateChange.expandedGroups);
 
       callback({ ...prevState, ...stateChange }, prevState, getters, actions, columnName);
     },
-    toggleGroupExpanded(payload) {
-      return toggleExpandedGroups(payload);
+    toggleGroupExpanded({ groupKey }) {
+      this.$emit(
+        'update:expandedGroups',
+        toggleExpandedGroups({ expandedGroups: this.expandedGroups }, { groupKey }).expandedGroups,
+      );
     },
   },
   render() {

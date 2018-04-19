@@ -75,9 +75,10 @@ export class TableFilterRow extends React.PureComponent {
                     onFilter({ value: filter.value, operation: value });
                   }
                 };
-                const handleFilterValueChange = value => onFilter(value !== undefined
-                  ? { value, operation: selectedFilterOperation }
-                  : null);
+                const handleFilterValueChange = value =>
+                  onFilter(value !== undefined && String(value).length > 0
+                    ? { value, operation: selectedFilterOperation }
+                    : null);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"

@@ -1,25 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';<%&additionalImports%>
-import {
-  FilteringState,
-  IntegratedFiltering,
-  DataTypeProvider,
-} from '@devexpress/dx-react-grid';
-import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  TableFilterRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
+import * as PropTypes from 'prop-types';
+import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
+import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
+import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import { withStyles } from 'material-ui/styles';
-import Android from '@material-ui/icons/Android'
+import DateRange from '@material-ui/icons/DateRange';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
 const FilterIcon = ({ type, ...restProps }) => {
-  if (type === 'byMonth') return <Android />;
-  return <TableFilterRow.Icon type={type} {...restProps} />
+  if (type === 'month') return <DateRange {...restProps} />;
+  return <TableFilterRow.Icon type={type} {...restProps} />;
 };
 
 const styles = {
@@ -81,7 +73,7 @@ export default class Demo extends React.PureComponent {
       ],
       rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
       dateColumns: ['saleDate'],
-      dateFilterOperations: ['contains', 'startsWith', 'endsWith', 'byMonth'],
+      dateFilterOperations: ['month', 'contains', 'startsWith', 'endsWith'],
       currencyColumns: ['amount'],
       currencyFilterOperations: ['equal', 'notEqual', 'greaterThan', 'greaterThanOrEqual', 'lessThan', 'lessThanOrEqual'],
       filteringColumnExtensions: [
@@ -89,13 +81,13 @@ export default class Demo extends React.PureComponent {
           columnName: 'saleDate',
           predicate: (value, filter, row, defaultPredicate) => {
             if (!filter.value.length) return true;
-            if (filter && filter.operation === 'byMonth') {
-              const month = parseInt(value.split('-')[1]);
-              return month === parseInt(filter.value);
+            if (filter && filter.operation === 'month') {
+              const month = parseInt(value.split('-')[1], 10);
+              return month === parseInt(filter.value, 10);
             }
             return defaultPredicate(value, filter, row);
           },
-        }
+        },
       ],
     };
   }
@@ -106,7 +98,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -127,10 +119,10 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableFilterRow
             iconComponent={FilterIcon}
-            messages={{ byMonth: 'By month' }}
+            messages={{ month: 'Month equals' }}
           />
         </Grid>
-      </<%&wrapperTag%>>
+      </Paper>
     );
   }
 }

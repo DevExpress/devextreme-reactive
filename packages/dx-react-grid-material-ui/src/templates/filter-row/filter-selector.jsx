@@ -16,7 +16,7 @@ class FilterSelectorBase extends React.PureComponent {
 
     this.state = { anchorEl: null };
 
-    this.handleClick = (event) => {
+    this.handleButtonClick = (event) => {
       this.setState({ anchorEl: event.currentTarget });
     };
     this.handleMenuClose = () => {
@@ -35,7 +35,7 @@ class FilterSelectorBase extends React.PureComponent {
     return (
       <React.Fragment>
         <IconButton
-          onClick={this.handleClick}
+          onClick={this.handleButtonClick}
           disabled={availableValues.length <= 1}
         >
           <Icon type={value} />

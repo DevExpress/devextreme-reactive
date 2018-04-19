@@ -14,15 +14,7 @@ export const TableFilterCell = ({
     }}
     {...restProps}
   >
-    {children || (
-      <input
-        type="text"
-        className="form-control"
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        readOnly={!filteringEnabled}
-      />
-    )}
+    {children}
   </th>
 );
 

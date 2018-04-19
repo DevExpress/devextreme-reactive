@@ -57,6 +57,14 @@ export const tableRowsWithGrouping = (tableRows, isGroupRow) =>
       ...tableRow,
       key: `${TABLE_GROUP_TYPE}_${tableRow.row.compoundKey}`,
       type: TABLE_GROUP_TYPE,
-      colSpanStart: `${TABLE_GROUP_TYPE}_${tableRow.row.groupedBy}`,
     };
   });
+
+export const tableGroupCellColSpanGetter = getTableCellColSpan => (params) => {
+  const { tableRow, tableColumns, tableColumn } = params;
+  if (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE
+    && tableRow.row.groupedBy === tableColumn.column.name) {
+    return tableColumns.length - tableColumns.indexOf(tableColumn);
+  }
+  return getTableCellColSpan(params);
+};

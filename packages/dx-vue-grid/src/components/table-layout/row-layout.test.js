@@ -75,25 +75,4 @@ describe('RowLayout', () => {
         });
     });
   });
-
-  it('can span columns', () => {
-    const column = { key: 'b', column: { name: 'b' } };
-    getTableRowColumnsWithColSpan.mockImplementation(() => [{ ...column, colspan: 2 }]);
-
-    const tree = shallow({
-      render() {
-        return (
-          <RowLayout
-            {...{ attrs: { ...defaultProps } }}
-          />
-        );
-      },
-    });
-
-    expect(tree.find(defaultProps.cellComponent).vm.$attrs)
-      .toMatchObject({
-        tableRow: defaultProps.row,
-        tableColumn: { ...column, colspan: 2 },
-      });
-  });
 });

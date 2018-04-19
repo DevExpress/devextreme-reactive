@@ -13,7 +13,7 @@ export const ItemLayout = {
     const {
       item,
       itemComponent: Item,
-    } = this.props;
-    return (<Item item={{ ...item }} />);
+    } = this;
+    return <Item item={{ ...item }} />;
   },
 };

@@ -14,7 +14,7 @@ export const GroupingPanel = {
     },
   },
   render() {
-    const { messages, ...restProps } = this;
+    const { messages } = this;
 
     return (
       <GroupingPanelBase
@@ -23,7 +23,6 @@ export const GroupingPanel = {
         itemComponent={GroupPanelItem}
         emptyMessageComponent={GroupPanelEmptyMessage}
         messages={{ ...defaultMessages, ...messages }}
-        {...restProps}
       />
     );
   },

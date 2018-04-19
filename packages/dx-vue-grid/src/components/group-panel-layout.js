@@ -16,7 +16,7 @@ export const GroupPanelLayout = {
       required: true,
     },
     emptyMessageComponent: {
-      type: Object,
+      type: Function,
       required: true,
     },
   },
@@ -27,8 +27,6 @@ export const GroupPanelLayout = {
       containerComponent: Container,
       itemComponent: Item,
     } = this;
-
-    this.itemRefs = [];
 
     const groupPanel = (items.length ? (
       <Container>

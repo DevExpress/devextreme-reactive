@@ -57,35 +57,49 @@ export const GroupingPanel = {
       />
     );
 
-    const ItemPlaceholder = ({ item }) => {
-      const { name: columnName } = item.column;
+    const ItemPlaceholder = {
+      props: {
+        item: {
+          type: Object,
+          required: true,
+        },
+      },
+      render() {
+        const { name: columnName } = this.item.column;
 
-      return (
-        <TemplateConnector>
-          {(
-            { sorting, isColumnSortingEnabled, isColumnGroupingEnabled },
-            { changeColumnGrouping, changeColumnSorting },
-          ) => {
-            const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
-            const groupingEnabled = isColumnGroupingEnabled && isColumnGroupingEnabled(columnName);
+        return (
+          <TemplateConnector>
+            {({
+              getters: {
+                sorting, isColumnSortingEnabled, isColumnGroupingEnabled,
+              },
+              actions: {
+                changeColumnGrouping, changeColumnSorting,
+              },
+            }) => {
+              const sortingEnabled =
+                isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+              const groupingEnabled =
+                isColumnGroupingEnabled && isColumnGroupingEnabled(columnName);
 
-            return (
-              <Item
-                item={item}
-                sortingEnabled={sortingEnabled}
-                groupingEnabled={groupingEnabled}
-                showSortingControls={showSortingControls}
-                sortingDirection={showSortingControls
-                  ? getColumnSortingDirection(sorting, columnName) : undefined}
-                showGroupingControls={showGroupingControls}
-                onGroup={() => changeColumnGrouping({ columnName })}
-                onSort={({ direction, keepOther }) =>
-                  changeColumnSorting({ columnName, direction, keepOther })}
-              />
-            );
-          }}
-        </TemplateConnector>
-      );
+              return (
+                <Item
+                  item={this.item}
+                  sortingEnabled={sortingEnabled}
+                  groupingEnabled={groupingEnabled}
+                  showSortingControls={showSortingControls}
+                  sortingDirection={showSortingControls
+                    ? getColumnSortingDirection(sorting, columnName) : undefined}
+                  showGroupingControls={showGroupingControls}
+                  onGroup={() => changeColumnGrouping({ columnName })}
+                  onSort={({ direction, keepOther }) =>
+                    changeColumnSorting({ columnName, direction, keepOther })}
+                />
+              );
+            }}
+          </TemplateConnector>
+        );
+      },
     };
 
     return (
@@ -100,17 +114,17 @@ export const GroupingPanel = {
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, grouping, draftGrouping, draggingEnabled, isColumnGroupingEnabled,
-            }, {
-              changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
+              getters: {
+                columns, grouping, isColumnGroupingEnabled,
+              },
+              actions: {
+                changeColumnGrouping,
+              },
             }) => (
               <Layout
-                items={groupingPanelItems(columns, grouping, draftGrouping)}
+                items={groupingPanelItems(columns, grouping, [])}
                 isColumnGroupingEnabled={isColumnGroupingEnabled}
-                draggingEnabled={draggingEnabled}
                 onGroup={changeColumnGrouping}
-                onGroupDraft={draftColumnGrouping}
-                onGroupDraftCancel={cancelColumnGroupingDraft}
                 itemComponent={ItemPlaceholder}
                 emptyMessageComponent={EmptyMessagePlaceholder}
                 containerComponent={Container}

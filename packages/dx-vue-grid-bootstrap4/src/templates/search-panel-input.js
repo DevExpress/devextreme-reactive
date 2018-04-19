@@ -1,10 +1,6 @@
 export const SearchPanelInput = {
   name: 'SearchPanelInput',
   props: {
-    onValueChange: {
-      type: Function,
-      required: true,
-    },
     value: {
       type: [Number, String],
       default: null,

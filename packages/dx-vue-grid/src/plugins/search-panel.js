@@ -33,7 +33,7 @@ export const SearchPanel = {
         dependencies={pluginDependencies}
       >
         <Template name="toolbarContent">
-          <div> {/* TODO: Wrapper required for multiple children */}
+          <div style={{ display: 'flex', flex: 1 }}> {/* TODO: Wrapper required for multiple children */}
             <TemplatePlaceholder />
             <TemplateConnector>
               {({

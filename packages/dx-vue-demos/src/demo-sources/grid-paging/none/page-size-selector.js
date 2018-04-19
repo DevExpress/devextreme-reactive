@@ -22,30 +22,30 @@ export default {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 8 }),
-      currentPage: 0,
       pageSize: 5,
+      currentPage: 0,
       pageSizes: [5, 10, 15, 0],
     };
   },
   template: `
-      <div class="card">
-        <dx-grid
-          :rows="rows"
-          :columns="columns"
-        >
-          <dx-paging-state
-            :currentPage.sync="currentPage"
-            :pageSize.sync="pageSize"
-          />
-          <dx-integrated-paging />
-          <dx-table />
-          <dx-table-header-row />
-          <dx-paging-panel
-            :pageSizes.sync="pageSizes"
-          />
-        </dx-grid>
-      </div>
-    `,
+    <div class="card">
+      <dx-grid
+        :rows="rows"
+        :columns="columns"
+      >
+        <dx-paging-state
+          :currentPage.sync="currentPage"
+          :pageSize.sync="pageSize"
+        />
+        <dx-integrated-paging />
+        <dx-table />
+        <dx-table-header-row />
+        <dx-paging-panel
+          :pageSizes.sync="pageSizes"
+        />
+      </dx-grid>
+    </div>
+  `,
   components: {
     DxPagingState,
     DxIntegratedPaging,

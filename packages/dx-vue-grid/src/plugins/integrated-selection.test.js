@@ -73,12 +73,16 @@ describe('IntegratedSelection', () => {
   });
 
   it('should provide allSelected getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedSelection />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedSelection />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).allSelected)
       .toBe('allSelected');
@@ -87,15 +91,20 @@ describe('IntegratedSelection', () => {
       .toHaveBeenCalledWith(
         rowsWithAvailableToSelect(),
         defaultDeps.getter.selection,
-    );
+      );
   });
+
   it('should provide someSelected getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedSelection />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedSelection />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).someSelected)
       .toBe('someSelected');
@@ -104,26 +113,36 @@ describe('IntegratedSelection', () => {
       .toHaveBeenCalledWith(
         rowsWithAvailableToSelect(),
         defaultDeps.getter.selection,
-    );
+      );
   });
+
   it('should provide selectAllAvailable getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedSelection />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedSelection />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).selectAllAvailable)
       .toBe(!!defaultDeps.getter.rows.length);
   });
+
   it('should provide toggleSelection action', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <IntegratedSelection />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <IntegratedSelection />
+          </PluginHost>
+        );
+      },
+    });
 
     executeComputedAction(tree, actions => actions.toggleSelectAll());
     expect(defaultDeps.action.toggleSelection.mock.calls).toHaveLength(1);

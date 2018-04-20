@@ -51,11 +51,16 @@ export const GroupingPanel = {
 
     const getMessage = getMessagesFormatter(messages);
 
-    const EmptyMessagePlaceholder = () => (
-      <EmptyMessage
-        getMessage={getMessage}
-      />
-    );
+    const EmptyMessagePlaceholder = {
+      name: 'EmptyMessagePlaceholder',
+      render() {
+        return (
+          <EmptyMessage
+            getMessage={getMessage}
+          />
+        );
+      },
+    };
 
     const ItemPlaceholder = {
       props: {
@@ -112,26 +117,28 @@ export const GroupingPanel = {
         ]}
       >
         <Template name="toolbarContent">
-          <TemplateConnector>
-            {({
-              getters: {
-                columns, grouping, isColumnGroupingEnabled,
-              },
-              actions: {
-                changeColumnGrouping,
-              },
-            }) => (
-              <Layout
-                items={groupingPanelItems(columns, grouping, [])}
-                isColumnGroupingEnabled={isColumnGroupingEnabled}
-                onGroup={changeColumnGrouping}
-                itemComponent={ItemPlaceholder}
-                emptyMessageComponent={EmptyMessagePlaceholder}
-                containerComponent={Container}
-              />
-            )}
-          </TemplateConnector>
-          <TemplatePlaceholder />
+          <div style={{ display: 'flex', flex: 1 }}> {/* TODO: Wrapper required for multiple children */}
+            <TemplateConnector>
+              {({
+                getters: {
+                  columns, grouping, isColumnGroupingEnabled,
+                },
+                actions: {
+                  changeColumnGrouping,
+                },
+              }) => (
+                <Layout
+                  items={groupingPanelItems(columns, grouping, [])}
+                  isColumnGroupingEnabled={isColumnGroupingEnabled}
+                  onGroup={changeColumnGrouping}
+                  itemComponent={ItemPlaceholder}
+                  emptyMessageComponent={EmptyMessagePlaceholder}
+                  containerComponent={Container}
+                />
+              )}
+            </TemplateConnector>
+            <TemplatePlaceholder />
+          </div>
         </Template>
       </Plugin>
     );

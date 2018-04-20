@@ -36,10 +36,10 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  layoutComponent: () => null,
-  containerComponent: () => null,
-  itemComponent: () => null,
-  emptyMessageComponent: () => null,
+  layoutComponent: { name: 'Layout', render() { return null; } },
+  containerComponent: { name: 'Container', render() { return null; } },
+  itemComponent: { name: 'Item', render() { return null; } },
+  emptyMessageComponent: { name: 'EmptyMessage', render() { return null; } },
 };
 
 describe('GroupingPanel', () => {
@@ -60,24 +60,26 @@ describe('GroupingPanel', () => {
     jest.resetAllMocks();
   });
 
-  it('should pass correct getMessage prop to emptyMessageComponent', () => {
-    const tree = mount((
-      <PluginHost>
-        <PluginDepsToComponents deps={defaultDeps} />
-        <GroupingPanel
-          {...defaultProps}
-          layoutComponent={({ emptyMessageComponent: EmptyMessage }) =>
-            <EmptyMessage />}
-          messages={{
-            groupByColumn: 'Group By Column',
-          }}
-        />
-      </PluginHost>
-    ));
+  fit('should pass correct getMessage prop to emptyMessageComponent', () => {
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <GroupingPanel
+              {...{ attrs: { ...defaultProps } }}
+              layoutComponent={defaultProps.emptyMessageComponent}
+              messages={{
+                groupByColumn: 'Group By Column',
+              }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
-    const { getMessage } = tree.find(defaultProps.emptyMessageComponent).props();
-    expect(getMessage('groupByColumn'))
-      .toBe('Group By Column');
+    const { getMessage } = tree.find(defaultProps.emptyMessageComponent).vm.$attrs;
+    expect(getMessage('groupByColumn')).toBe('Group By Column');
   });
 
   it('should pass correct parameters to itemComponent', () => {

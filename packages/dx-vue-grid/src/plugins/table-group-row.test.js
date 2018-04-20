@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -46,9 +46,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  cellComponent: () => null,
-  indentCellComponent: () => null,
-  rowComponent: () => null,
+  cellComponent: { name: 'Cell', render() { return null; } },
+  indentCellComponent: { name: 'IndentCell', render() { return null; } },
+  rowComponent: { name: 'Row', render() { return null; } },
   indentColumnWidth: 100,
 };
 
@@ -75,14 +75,18 @@ describe('TableGroupRow', () => {
 
   describe('table layout getters extending', () => {
     it('should extend tableBodyRows', () => {
-      const tree = mount((
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} />
-          <TableGroupRow
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(getComputedState(tree).tableBodyRows)
         .toBe('tableRowsWithGrouping');
@@ -91,15 +95,18 @@ describe('TableGroupRow', () => {
     });
 
     it('should extend tableColumns', () => {
-      const tree = mount((
-
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} />
-          <TableGroupRow
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -108,6 +115,7 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.columns,
           defaultDeps.getter.tableColumns,
           defaultDeps.getter.grouping,
+          defaultDeps.getter.grouping, // draftGrouping
           defaultProps.indentColumnWidth,
           expect.any(Function),
         );
@@ -124,16 +132,19 @@ describe('TableGroupRow', () => {
           ],
         },
       };
-
-      const tree = mount((
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
-          <TableGroupRow
-            {...defaultProps}
-            showColumnsWhenGrouped
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+                showColumnsWhenGrouped
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -143,18 +154,22 @@ describe('TableGroupRow', () => {
     });
 
     it('should keep column in table if column value specified', () => {
-      const tree = mount((
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} />
-          <TableGroupRow
-            {...defaultProps}
-            showColumnsWhenGrouped={false}
-            columnExtensions={[
-              { columnName: 'A', showWhenGrouped: true },
-            ]}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+                showColumnsWhenGrouped={false}
+                columnExtensions={[
+                  { columnName: 'A', showWhenGrouped: true },
+                ]}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithGrouping');
@@ -166,24 +181,27 @@ describe('TableGroupRow', () => {
 
   it('should render groupIndent cell on select group column and foreign group row intersection', () => {
     isGroupIndentTableCell.mockImplementation(() => true);
-    const indentCellComponent = () => null;
-
-    const tree = mount((
-      <PluginHost>
-        <PluginDepsToComponents deps={defaultDeps} />
-        <TableGroupRow
-          {...defaultProps}
-          indentCellComponent={indentCellComponent}
-        />
-      </PluginHost>
-    ));
+    const indentCellComponent = { name: 'IndentCell', render() { return null; } };
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <TableGroupRow
+              {...{ attrs: { ...defaultProps } }}
+              indentCellComponent={indentCellComponent}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(isGroupIndentTableCell)
       .toBeCalledWith(
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
       );
-    expect(tree.find(indentCellComponent).props())
+    expect(tree.find(indentCellComponent).vm.$attrs)
       .toMatchObject({
         ...defaultDeps.template.tableCell,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -194,22 +212,25 @@ describe('TableGroupRow', () => {
   describe('cellComponent', () => {
     it('should render group cell on select group column and group row intersection', () => {
       isGroupTableCell.mockImplementation(() => true);
-
-      const tree = mount((
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} />
-          <TableGroupRow
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(isGroupTableCell)
         .toBeCalledWith(
           defaultDeps.template.tableCell.tableRow,
           defaultDeps.template.tableCell.tableColumn,
         );
-      expect(tree.find(defaultProps.cellComponent).props())
+      expect(tree.find(defaultProps.cellComponent).vm.$attrs)
         .toMatchObject({
           ...defaultDeps.template.tableCell,
           row: defaultDeps.template.tableCell.tableRow.row,
@@ -219,7 +240,6 @@ describe('TableGroupRow', () => {
 
     it('should provide correct cell params', () => {
       isGroupTableCell.mockImplementation(() => true);
-
       const deps = {
         getter: {
           expandedGroups: [],
@@ -233,23 +253,26 @@ describe('TableGroupRow', () => {
       };
       jest.spyOn(deps.getter.expandedGroups, 'indexOf').mockReturnValue(1);
 
-      const tree = mount((
-        <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
-          <TableGroupRow
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-      expect(tree.find(defaultProps.cellComponent).props())
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
+      expect(tree.find(defaultProps.cellComponent).vm.$attrs)
         .toMatchObject({
           expanded: true,
-          onToggle: expect.any(Function),
         });
       expect(deps.getter.expandedGroups.indexOf)
         .toBeCalledWith('1');
 
-      tree.find(defaultProps.cellComponent).props().onToggle();
+      tree.find(defaultProps.cellComponent).vm.$listeners.toggle();
       expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
         .toEqual({ groupKey: '1' });
     });
@@ -258,20 +281,23 @@ describe('TableGroupRow', () => {
   it('can render custom formatted data in group row cell', () => {
     isGroupTableCell.mockImplementation(() => true);
 
-    const tree = mount((
-      <PluginHost>
-        <PluginDepsToComponents deps={defaultDeps} />
-        <TableGroupRow
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <TableGroupRow
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
-    const valueFormatterTemplatePlaceholder = tree
-      .find('TemplatePlaceholder')
-      .findWhere(node => node.prop('name') === 'valueFormatter');
+    const valueFormatterTemplatePlaceholder = tree.findAll(TemplatePlaceholder)
+      .filter(wrapper => wrapper.vm.name === 'valueFormatter').at(0);
 
-    expect(valueFormatterTemplatePlaceholder.prop('params'))
+    expect(valueFormatterTemplatePlaceholder.vm.params)
       .toMatchObject({
         column: defaultDeps.template.tableCell.tableColumn.column,
         value: defaultDeps.template.tableCell.tableRow.row.value,
@@ -280,19 +306,22 @@ describe('TableGroupRow', () => {
 
   it('should render row by using rowComponent', () => {
     isGroupTableRow.mockImplementation(() => true);
-
-    const tree = mount((
-      <PluginHost>
-        <PluginDepsToComponents deps={defaultDeps} />
-        <TableGroupRow
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <TableGroupRow
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(isGroupTableRow)
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
-    expect(tree.find(defaultProps.rowComponent).props())
+    expect(tree.find(defaultProps.rowComponent).vm.$attrs)
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         row: defaultDeps.template.tableRow.tableRow.row,

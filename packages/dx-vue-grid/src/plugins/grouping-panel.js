@@ -49,7 +49,6 @@ export const GroupingPanel = {
       messages,
     } = this;
 
-    debugger
     const getMessage = getMessagesFormatter(messages);
 
     const EmptyMessagePlaceholder = {

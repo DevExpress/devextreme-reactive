@@ -15,7 +15,7 @@ export const GroupPanelLayout = {
       required: true,
     },
     emptyMessageComponent: {
-      type: Function,
+      type: Object,
       required: true,
     },
   },

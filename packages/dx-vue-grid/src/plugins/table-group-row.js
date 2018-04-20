@@ -74,7 +74,7 @@ export const TableGroupRow = {
         columns,
         tableColumns,
         grouping,
-        [],
+        grouping, // draftGrouping
         indentColumnWidth,
         showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
       );
@@ -131,7 +131,7 @@ export const TableGroupRow = {
           >
             {params => (
               <GroupIndentCell
-                {...params}
+                {...{ attrs: { ...params } }}
                 row={params.tableRow.row}
                 column={params.tableColumn.column}
               />
@@ -144,7 +144,7 @@ export const TableGroupRow = {
         >
           {params => (
             <GroupRow
-              {...params}
+              {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
               <TemplatePlaceholderSlot params={params} />

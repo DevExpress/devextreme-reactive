@@ -52,7 +52,6 @@ export const GroupingPanel = {
     const getMessage = getMessagesFormatter(messages);
 
     const EmptyMessagePlaceholder = {
-      name: 'EmptyMessagePlaceholder',
       render() {
         return (
           <EmptyMessage

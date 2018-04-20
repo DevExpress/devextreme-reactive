@@ -60,7 +60,19 @@ describe('GroupingPanel', () => {
     jest.resetAllMocks();
   });
 
-  fit('should pass correct getMessage prop to emptyMessageComponent', () => {
+  it('should pass correct getMessage prop to emptyMessageComponent', () => {
+    const layoutComponent = {
+      name: 'LayoutComponent',
+      props: {
+        emptyMessageComponent: {},
+      },
+      render() {
+        const { emptyMessageComponent: EmptyMessage } = this;
+        return (
+          <EmptyMessage />
+        );
+      },
+    };
     const tree = mount({
       render() {
         return (
@@ -68,7 +80,7 @@ describe('GroupingPanel', () => {
             <PluginDepsToComponents deps={defaultDeps} />
             <GroupingPanel
               {...{ attrs: { ...defaultProps } }}
-              layoutComponent={defaultProps.emptyMessageComponent}
+              layoutComponent={layoutComponent}
               messages={{
                 groupByColumn: 'Group By Column',
               }}
@@ -86,25 +98,39 @@ describe('GroupingPanel', () => {
     const deps = {
       plugins: ['SortingState'],
     };
-    const tree = mount((
-      <PluginHost>
-        <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-        <GroupingPanel
-          {...defaultProps}
-          layoutComponent={({ itemComponent: Item }) =>
-            <Item item={{ column: { name: 'a' } }} />}
-          showSortingControls
-          showGroupingControls
-        />
-      </PluginHost>
-    ));
+    const layoutComponent = {
+      name: 'LayoutComponent',
+      props: {
+        itemComponent: {},
+      },
+      render() {
+        const { itemComponent: Item } = this;
+        return (
+          <Item item={{ column: { name: 'a' } }} />
+        );
+      },
+    };
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={{ ...defaultDeps, plugins: [...deps.plugins, ...defaultDeps.plugins] }} />
+            <GroupingPanel
+              {...{ attrs: { ...defaultProps } }}
+              layoutComponent={layoutComponent}
+              showSortingControls
+              showGroupingControls
+            />
+          </PluginHost>
+        );
+      },
+    });
 
-    expect(tree.find(defaultProps.itemComponent).props())
+    expect(tree.find(defaultProps.itemComponent).vm.$attrs)
       .toMatchObject({
         showSortingControls: true,
         showGroupingControls: true,
         sortingDirection: getColumnSortingDirection(),
-        onGroup: expect.any(Function),
       });
   });
 });

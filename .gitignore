@@ -13,13 +13,16 @@
 
 # Site
 /site/_site
-/site/react/core/*/
+/site/react/core/*
 !/site/react/core/overrides
-/site/react/grid/*/
+/site/react/grid/*
 !/site/react/grid/overrides
-/site/vue/grid/*/
-!/site/vue/grid/overrides/
+/site/vue/grid/*
+!/site/vue/grid/overrides
 
 # Demos
 /packages/*/src/demo-registry.js
 /packages/*/src/**/*.g*
+
+# Docs
+/packages/*/docs/**/*.g*

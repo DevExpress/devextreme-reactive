@@ -14,7 +14,7 @@ layout: default
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
-      {% for group in site.data.demos.navigation.react.grid %}
+      {% for group in site.data.demos.navigation[page.product_link] %}
         <h3>{{ group.title }}</h3>
 
         <ul class="list-unstyled">

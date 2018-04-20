@@ -54,3 +54,8 @@ defaults:
     values:
       product_name: Vue Grid
       product_link: /vue/grid
+  - scope:
+      path: vue/grid/docs
+      type: pages
+    values:
+      layout: docs

@@ -2,7 +2,9 @@ var gulp = require('gulp'),
     runSequence = require("run-sequence"),
     clean = require('gulp-clean'),
     rename = require('gulp-rename'),
-    intercept = require('gulp-intercept');
+    intercept = require('gulp-intercept')
+    glob = require('glob'),
+    generateMd = require('./scripts/generate-md');
 
 var distPath = 'site/';
 var versionTag = process.env.VERSION_TAG;
@@ -93,23 +95,31 @@ var injectLiveDemos = function(content) {
 gulp.task('site:clean', function() {
   return gulp.src([
     'site/react/core/**/*.md',
+    'packages/dx-react-grid/docs/guides/*.g.md',
     'site/react/grid/**/*.md',
+    'packages/dx-vue-grid/docs/guides/*.g.md',
     'site/vue/grid/**/*.md',
   ], { read: false })
     .pipe(clean());
 });
 
+gulp.task('site:prepare:docs', function() {
+  glob.sync('packages/dx-react-grid/docs/guides/*.json').forEach(match => generateMd(match));
+  glob.sync('packages/dx-vue-grid/docs/guides/*.json').forEach(match => generateMd(match));
+});
+
 gulp.task('site:docs', function() {
   return gulp.src([
-      'packages/dx-react-core/**/*.md',
-      'packages/dx-react-grid/**/*.md',
-      'packages/dx-vue-grid/**/*.md',
+      'packages/dx-react-core/docs/*/*.md',
+      'packages/dx-react-grid/demos/*/*.md',
+      'packages/dx-react-grid/docs/*/*.md',
+      'packages/dx-vue-grid/docs/*/*.md',
       '!packages/**/LICENSE.md',
       '!packages/**/README.md',
-      '!/**/node_modules/**/*'
     ], { base: 'packages' })
     .pipe(rename(function(path) {
       path.dirname = splitNameToPath('', path.dirname);
+      path.basename = path.basename.replace('.g', '');
     }))
     .pipe(intercept(function(file){
       if(file.contents) {
@@ -136,6 +146,7 @@ gulp.task('site:demos', function() {
 gulp.task('site', function(done) {
   runSequence(
     'site:clean',
+    'site:prepare:docs',
     'site:docs',
     'site:demos',
     done

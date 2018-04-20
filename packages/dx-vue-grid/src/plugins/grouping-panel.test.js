@@ -114,7 +114,9 @@ describe('GroupingPanel', () => {
       render() {
         return (
           <PluginHost>
-            <PluginDepsToComponents deps={{ ...defaultDeps, plugins: [...deps.plugins, ...defaultDeps.plugins] }} />
+            <PluginDepsToComponents
+              deps={{ ...defaultDeps, plugins: [...deps.plugins, ...defaultDeps.plugins] }}
+            />
             <GroupingPanel
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={layoutComponent}

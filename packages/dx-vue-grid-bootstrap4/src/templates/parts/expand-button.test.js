@@ -11,7 +11,6 @@ const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
 describe('ExpandButton', () => {
-
   it('should handle click', () => {
     const onToggle = jest.fn();
     const tree = shallow({
@@ -41,7 +40,6 @@ describe('ExpandButton', () => {
       },
     });
 
-    debugger
     expect(tree.find('i').element.tabIndex)
       .toBe(0);
   });

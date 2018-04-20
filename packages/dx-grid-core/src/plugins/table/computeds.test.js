@@ -2,6 +2,7 @@ import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
   tableRowsWithDataRows,
   tableColumnsWithDataRows,
+  tableCellColSpanGetter,
 } from './computeds';
 
 describe('Table Plugin computeds', () => {
@@ -72,8 +73,34 @@ describe('Table Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE, colSpanStart: 0 },
+          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE },
         ]);
+    });
+
+    describe('#tableGroupCellColSpanGetter', () => {
+      it('should return correct colspan', () => {
+        const tableColumn = { type: 'undefined' };
+        expect(tableCellColSpanGetter({
+          tableRow: { type: TABLE_NODATA_TYPE },
+          tableColumn,
+          tableColumns: [tableColumn, {}, {}],
+        }))
+          .toBe(3);
+
+        expect(tableCellColSpanGetter({
+          tableRow: { type: TABLE_NODATA_TYPE },
+          tableColumn,
+          tableColumns: [{}, tableColumn, {}],
+        }))
+          .toBe(1);
+
+        expect(tableCellColSpanGetter({
+          tableRow: { type: 'undefined' },
+          tableColumn: { type: 'undefined' },
+          tableColumns: [{}, tableColumn, {}],
+        }))
+          .toBe(1);
+      });
     });
   });
 });

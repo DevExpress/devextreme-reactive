@@ -27,7 +27,7 @@ export const Icon = ({ type, ...restProps }) => {
         <path d={path} />
       </SvgIcon>
     )
-    : <SearchIcon />;
+    : <SearchIcon {...restProps} />;
 };
 
 Icon.propTypes = {

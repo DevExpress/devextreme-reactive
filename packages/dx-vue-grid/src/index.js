@@ -15,3 +15,8 @@ export * from './plugins/table-filter-row';
 export * from './plugins/selection-state';
 export * from './plugins/integrated-selection';
 export * from './plugins/table-selection';
+
+export * from './plugins/paging-state';
+export * from './plugins/integrated-paging';
+export * from './plugins/custom-paging';
+export * from './plugins/paging-panel';

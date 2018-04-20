@@ -17,21 +17,20 @@ describe('SelectionControl', () => {
       .toBeTruthy();
   });
 
-  // it('should render indeterminate state checkbox if the `indeterminate` property is true', () => {
-  //   const tree = mount({
-  //     render() {
-  //       return (
-  //         <SelectionControl
-  //           indeterminate
-  //         />
-  //       );
-  //     },
-  //   });
+  it('should render indeterminate state checkbox if the `indeterminate` property is true', () => {
+    const tree = mount({
+      render() {
+        return (
+          <SelectionControl
+            indeterminate
+          />
+        );
+      },
+    });
 
-  //   debugger
-  //   expect(tree.find('input').element.indeterminate)
-  //     .toBeTruthy();
-  // });
+    expect(tree.find('input').element.indeterminate)
+      .toBeTruthy();
+  });
 
   it('should not fire the `onChange` event on cell click if selection is not available', () => {
     const onChange = jest.fn();

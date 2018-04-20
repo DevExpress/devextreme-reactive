@@ -11,13 +11,15 @@ export const SelectionControl = {
       type: Boolean,
     },
   },
-  attached() {
-    this.$root.indeterminate = this.indeterminate;
+  updated() {
+    this.$refs['my-ref'].indeterminate = this.indeterminate;
+  },
+  mounted() {
+    this.$refs['my-ref'].indeterminate = this.indeterminate;
   },
   render() {
     const { disabled, checked, indeterminate } = this;
     const { change: onChange } = this.$listeners;
-    // this.$root.indeterminate = indeterminate;
     return (
       <input
         class={{
@@ -28,11 +30,6 @@ export const SelectionControl = {
         disabled={disabled}
         checked={checked}
         indeterminate={indeterminate}
-        // ref={(ref) => {
-        //   console.log(this);
-        //   if (!ref) return;
-        //   ref.indeterminate = indeterminate; // eslint-disable-line no-param-reassign
-        // }}
         ref="my-ref"
         onChange={() => {
           if (disabled) return;

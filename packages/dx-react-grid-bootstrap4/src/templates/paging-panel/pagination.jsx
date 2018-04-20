@@ -1,15 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
-import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
-
-const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
-  Math.min(
-    currentPage - Math.floor(maxButtonCount / 2, 10),
-    (totalPageCount - maxButtonCount) + 1,
-  ),
-  1,
-);
+import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
 const renderPageButtons = (
   currentPage,

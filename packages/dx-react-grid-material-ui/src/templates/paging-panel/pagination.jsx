@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import { withStyles } from 'material-ui/styles';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
+import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
 const styles = theme => ({
   pagination: {
@@ -89,14 +89,6 @@ PageButton.defaultProps = {
 };
 
 const ellipsisSymbol = '\u2026';
-
-const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
-  Math.min(
-    currentPage - Math.floor(maxButtonCount / 2, 10),
-    (totalPageCount - maxButtonCount) + 1,
-  ),
-  1,
-);
 
 const renderPageButtons = (
   currentPage,

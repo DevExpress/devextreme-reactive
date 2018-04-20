@@ -1,4 +1,3 @@
-
 export const SelectionControl = {
   props: {
     disabled: {

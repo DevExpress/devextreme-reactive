@@ -49,6 +49,7 @@ export const GroupingPanel = {
       messages,
     } = this;
 
+    debugger
     const getMessage = getMessagesFormatter(messages);
 
     const EmptyMessagePlaceholder = {
@@ -71,6 +72,7 @@ export const GroupingPanel = {
       render() {
         const { name: columnName } = this.item.column;
 
+        debugger
         return (
           <TemplateConnector>
             {({

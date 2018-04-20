@@ -17,12 +17,6 @@ export const GroupPanelItem = {
     sortingDirection: {
       type: String,
     },
-    onSort: {
-      type: Function,
-    },
-    onGroup: {
-      type: Function,
-    },
     showGroupingControls: {
       type: Boolean,
     },
@@ -39,11 +33,11 @@ export const GroupPanelItem = {
       showGroupingControls,
       sortingEnabled,
       groupingEnabled,
-      onSort,
-      onGroup,
       item: { column },
       sortingDirection,
     } = this;
+    const { group: onGroup, sort: onSort } = this.$listeners;
+
     const handleSortingChange = (e) => {
       const isActionKeyDown = isActionKey(e.keyCode);
       const isMouseClick = e.keyCode === undefined;

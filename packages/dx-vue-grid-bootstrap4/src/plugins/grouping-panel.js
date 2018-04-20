@@ -8,13 +8,10 @@ const defaultMessages = {
 };
 
 export const GroupingPanel = {
-  props: {
-    messages: {
-      type: Object,
-    },
-  },
-  render() {
-    const { messages } = this;
+  name: 'GroupingPanel',
+  functional: true,
+  render(h, context) {
+    const { messages } = context.props;
 
     return (
       <GroupingPanelBase
@@ -23,6 +20,7 @@ export const GroupingPanel = {
         itemComponent={GroupPanelItem}
         emptyMessageComponent={GroupPanelEmptyMessage}
         messages={{ ...defaultMessages, ...messages }}
+        {...{ attrs: context.props, on: context.listeners }}
       />
     );
   },

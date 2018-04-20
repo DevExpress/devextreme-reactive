@@ -40,8 +40,8 @@ export const ExpandButton = {
         }}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={visible ? 0 : undefined}
-        onKeyDown={handleKeyDown}
-        onMouseDown={handleMouseDown}
+        onKeydown={handleKeyDown}
+        onMousedown={handleMouseDown}
         onBlur={handleBlur}
         onClick={handleClick}
       />

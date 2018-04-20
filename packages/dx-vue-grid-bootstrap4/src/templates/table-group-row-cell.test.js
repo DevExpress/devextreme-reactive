@@ -12,29 +12,35 @@ describe('TableGroupRowCell', () => {
   });
 
   it('should render column title and value', () => {
-    const tree = shallow((
-      <TableGroupCell
-        column={{ title: 'Title' }}
-        row={{ value: 'Value' }}
-      />
-    ));
+    const tree = shallow({
+      render() {
+        return (
+          <TableGroupCell
+            column={{ title: 'Title' }}
+            row={{ value: 'Value' }}
+          />
+        );
+      },
+    });
 
     expect(tree.text())
       .toMatch(/Title.*Value/);
   });
 
   it('should pass default slot content', () => {
-    const wrapper = shallow({
+    const tree = shallow({
       render() {
         return (
-          <TableGroupCell>
+          <TableGroupCell
+            column={{ title: 'Title' }}
+          >
             <div class="content" />
           </TableGroupCell>
         );
       },
     });
 
-    expect(wrapper.find('.content').exists())
+    expect(tree.find('.content').exists())
       .toBeTruthy();
   });
 });

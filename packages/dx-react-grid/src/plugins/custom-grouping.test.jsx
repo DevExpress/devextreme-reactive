@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
@@ -26,13 +27,13 @@ const defaultDeps = {
     rows: [{ id: 0 }, { id: 1 }],
     grouping: [{ columnName: 'a' }],
     expandedGroups: ['A', 'B'],
-    getRowId: () => {},
+    getRowId: () => { },
   },
   plugins: ['GroupingState'],
 };
 
 const defaultProps = {
-  getChildGroups: () => {},
+  getChildGroups: () => { },
 };
 
 describe('CustomGrouping', () => {
@@ -135,7 +136,7 @@ describe('CustomGrouping', () => {
   it('should provide getCollapsedRows getter', () => {
     const deps = {
       getter: {
-        getCollapsedRows: () => {},
+        getCollapsedRows: () => { },
       },
     };
     const tree = mount((

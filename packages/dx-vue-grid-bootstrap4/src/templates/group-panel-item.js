@@ -39,6 +39,7 @@ export const GroupPanelItem = {
     const { group: onGroup, sort: onSort } = this.$listeners;
 
     const handleSortingChange = (e) => {
+      debugger
       const isActionKeyDown = isActionKey(e.keyCode);
       const isMouseClick = e.keyCode === undefined;
       if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
@@ -74,7 +75,7 @@ export const GroupPanelItem = {
             disabled: !sortingEnabled && (showSortingControls || !groupingEnabled),
           }}
           onClick={handleSortingChange}
-          onKeyDown={handleSortingChange}
+          onKeydown={handleSortingChange}
           {...sortingEnabled ? { tabIndex: 0 } : null}
         >
           {column.title || column.name}

@@ -71,7 +71,6 @@ export const GroupingPanel = {
       render() {
         const { name: columnName } = this.item.column;
 
-        debugger
         return (
           <TemplateConnector>
             {({

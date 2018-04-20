@@ -112,7 +112,6 @@ export const GroupingState = {
     },
   },
   render() {
-    debugger
     const { grouping, expandedGroups } = this;
     const { columnExtensions, columnGroupingEnabled } = this;
 

@@ -51,12 +51,15 @@ export const GroupingState = {
   props: {
     grouping: {
       type: Array,
+      default: () => [],
     },
     expandedGroups: {
       type: Array,
+      default: () => [],
     },
     columnExtensions: {
       type: Array,
+      default: () => [],
     },
     columnGroupingEnabled: {
       type: Boolean,
@@ -109,6 +112,7 @@ export const GroupingState = {
     },
   },
   render() {
+    debugger
     const { grouping, expandedGroups } = this;
     const { columnExtensions, columnGroupingEnabled } = this;
 

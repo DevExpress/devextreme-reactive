@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Overlay } from '../parts/overlay';
+import { Popover, ListGroup, ListGroupItem } from 'reactstrap';
 
 export class FilterSelector extends React.PureComponent {
   constructor(props) {
@@ -12,8 +11,8 @@ export class FilterSelector extends React.PureComponent {
     this.handleButtonClick = () => {
       this.setState({ opened: true });
     };
-    this.handleOverlayHide = () => {
-      this.setState({ opened: false });
+    this.handleOverlayToggle = () => {
+      if (this.state.opened) this.setState({ opened: false });
     };
     this.handleMenuItemClick = (nextValue) => {
       this.setState({ opened: false });
@@ -27,42 +26,43 @@ export class FilterSelector extends React.PureComponent {
       value, availableValues, getMessage, iconComponent: Icon,
     } = this.props;
     const { opened } = this.state;
-
+    const target = this.getTargetElement();
     return (
       <React.Fragment>
         <button
-          className="btn btn-link"
-          style={{ marginRight: 8, color: 'black' }}
+          className="btn btn-link dx-rg-bs4-filter-selector-button"
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}
         >
           <Icon type={value} />
         </button>
-        <Overlay
-          visible={opened}
-          target={this.getTargetElement()}
-          container={undefined}
-          onHide={this.handleOverlayHide}
-        >
-          <ListGroup
-            style={{ marginBottom: 0 }}
+        {target && (
+          <Popover
+            placement="bottom"
+            isOpen={opened}
+            target={target}
+            toggle={this.handleOverlayToggle}
           >
-            {availableValues.map(valueItem => (
-              <ListGroupItem
-                key={valueItem}
-                active={valueItem === value}
-                style={{ outline: 'none', whiteSpace: 'nowrap' }}
-                onClick={() => this.handleMenuItemClick(valueItem)}
-              >
-                <Icon type={valueItem} />
-                <span style={{ marginLeft: 10 }}>
-                  {getMessage(valueItem)}
-                </span>
-              </ListGroupItem>
-            ))}
-          </ListGroup>
-        </Overlay>
+            <ListGroup>
+              {availableValues.map(valueItem => (
+                <ListGroupItem
+                  key={valueItem}
+                  className="dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
+                  tag="button"
+                  action
+                  active={valueItem === value}
+                  onClick={() => this.handleMenuItemClick(valueItem)}
+                >
+                  <Icon type={valueItem} />
+                  <span className="dx-rg-bs4-filter-selector-item-text">
+                    {getMessage(valueItem)}
+                  </span>
+                </ListGroupItem>
+              ))}
+            </ListGroup>
+          </Popover>
+        )}
       </React.Fragment>
     );
   }

@@ -1,19 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { Card } from 'reactstrap';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-bootstrap3';
+import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-bootstrap4';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
 const FilterIcon = ({ type, ...restProps }) => {
   if (type === 'month') {
-    return (
-      <i
-        className="glyphicon glyphicon-calendar"
-        style={{ width: 16, height: 16 }}
-        {...restProps}
-      />
-    );
+    return <span className="oi oi-calendar" {...restProps} />;
   }
   return <TableFilterRow.Icon type={type} {...restProps} />;
 };
@@ -29,12 +24,12 @@ const CurrencyEditor = ({ value, onValueChange }) => {
   };
   return (
     <input
-      type="number"
       className="form-control"
       style={{
-        width: 'calc(100% - 50px)',
         display: 'inline-block',
+        width: 'calc(100% - 50px)',
       }}
+      type="number"
       value={value === undefined ? '' : value}
       min={0}
       onChange={handleChange}
@@ -89,7 +84,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
+      <Card>
         <Grid
           rows={rows}
           columns={columns}
@@ -113,7 +108,7 @@ export default class Demo extends React.PureComponent {
             messages={{ month: 'Month equals' }}
           />
         </Grid>
-      </div>
+      </Card>
     );
   }
 }

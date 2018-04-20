@@ -160,4 +160,24 @@
 .dx-rg-bs4-banded-cell:last-child {
   border-right: 0!important;
 }
-
+.dx-g-bs4-filter-cell-editor {
+  display: inline-block;
+  width: calc(100% - 50px);
+}
+.dx-rg-bs4-filter-selector-button {
+  margin-right: 8px;
+  color: black;
+}
+.dx-rg-bs4-filter-selector-button:hover {
+  color: black;
+}
+.dx-rg-bs4-filter-selector-item:focus {
+  outline: none;
+}
+.dx-rg-bs4-filter-selector-item-text {
+  margin-left: 10px;
+}
+.dx-rg-bs4-filter-selector-icon {
+  width: 16px;
+  height: 16px;
+}

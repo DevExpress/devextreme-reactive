@@ -17,10 +17,7 @@ export const SelectionControl = {
   render() {
     const { disabled, checked, indeterminate } = this;
     const { change: onChange } = this.$listeners;
-    // this.$el = indeterminate;
-    this.$options.indeterminate = indeterminate;
-    this.$root.indeterminate = indeterminate;
-    debugger
+    // this.$root.indeterminate = indeterminate;
     return (
       <input
         class={{

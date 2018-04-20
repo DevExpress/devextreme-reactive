@@ -1,6 +1,6 @@
 import {
   Getter, Template, Plugin,
-  TemplateConnector,
+  TemplateConnector, TemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithSelection,
@@ -131,7 +131,9 @@ export const TableSelection = {
                       selectByRowClick
                       selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
                       onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
-                    />
+                    >
+                      <TemplatePlaceholderSlot params={params} />
+                    </Row>
                   )}
               </TemplateConnector>
             )}

@@ -23,6 +23,3 @@
 # Demos
 /packages/*/src/demo-registry.js
 /packages/*/src/**/*.g*
-
-# Docs
-/packages/*/docs/**/*.g*

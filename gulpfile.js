@@ -2,9 +2,7 @@ var gulp = require('gulp'),
     runSequence = require("run-sequence"),
     clean = require('gulp-clean'),
     rename = require('gulp-rename'),
-    intercept = require('gulp-intercept')
-    glob = require('glob'),
-    generateMd = require('./scripts/generate-md');
+    intercept = require('gulp-intercept');
 
 var distPath = 'site/';
 var versionTag = process.env.VERSION_TAG;
@@ -103,11 +101,6 @@ gulp.task('site:clean', function() {
     .pipe(clean());
 });
 
-gulp.task('site:prepare:docs', function() {
-  glob.sync('packages/dx-react-grid/docs/guides/*.json').forEach(match => generateMd(match));
-  glob.sync('packages/dx-vue-grid/docs/guides/*.json').forEach(match => generateMd(match));
-});
-
 gulp.task('site:docs', function() {
   return gulp.src([
       'packages/dx-react-core/docs/*/*.md',
@@ -151,7 +144,6 @@ gulp.task('site:demos:vue', function() {
 gulp.task('site', function(done) {
   runSequence(
     'site:clean',
-    'site:prepare:docs',
     'site:docs',
     'site:demos:react',
     'site:demos:vue',

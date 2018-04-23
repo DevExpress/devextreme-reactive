@@ -167,5 +167,3 @@
     items:
       - title: Getting Started
         path: /vue/grid/docs/guides/getting-started
-      - title: Paging
-        path: /vue/grid/docs/guides/paging

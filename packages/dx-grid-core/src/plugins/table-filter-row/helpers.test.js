@@ -4,6 +4,7 @@ import {
   isFilterTableCell,
   isFilterTableRow,
   getColumnFilterOperations,
+  isFilterValueEmpty,
 } from './helpers';
 
 describe('TableFilterRow Plugin helpers', () => {
@@ -31,13 +32,26 @@ describe('TableFilterRow Plugin helpers', () => {
         column1: ['a', 'b', 'c'],
         column2: ['d', 'a'],
       };
-      expect(getColumnFilterOperations(availableFilterOperations, 'column1'))
+      expect(getColumnFilterOperations(availableFilterOperations, 'column2'))
         .toEqual(availableFilterOperations.column2);
     });
 
     it('can return the default set of filter operations', () => {
       expect(getColumnFilterOperations({}, 'column1'))
         .toEqual(DEFAULT_FILTER_OPERATIONS);
+    });
+  });
+
+  describe('#isFilterValueEmpty', () => {
+    it('should determine empty values correctly', () => {
+      expect(isFilterValueEmpty(undefined))
+        .toBeTruthy();
+      expect(isFilterValueEmpty(''))
+        .toBeTruthy();
+      expect(isFilterValueEmpty(0))
+        .toBeFalsy();
+      expect(isFilterValueEmpty('0'))
+        .toBeFalsy();
     });
   });
 });

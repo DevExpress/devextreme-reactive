@@ -14,3 +14,5 @@ export const getColumnFilterOperations = (availableFilterOperations, columnName)
     ? availableFilterOperations[columnName]
     : DEFAULT_FILTER_OPERATIONS;
 };
+
+export const isFilterValueEmpty = value => value === undefined || !String(value).length;

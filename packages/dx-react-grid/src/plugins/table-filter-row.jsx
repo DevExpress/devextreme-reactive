@@ -8,6 +8,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   getMessagesFormatter,
+  isFilterValueEmpty,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -61,24 +62,24 @@ export class TableFilterRow extends React.PureComponent {
                 const onFilter = config => changeColumnFilter({ columnName, config });
                 const columnFilterOperations =
                   getColumnFilterOperations(availableFilterOperations, columnName);
-                const { filterOperations } = this.state;
-                const selectedFilterOperation = filterOperations[columnName]
+                const selectedFilterOperation = this.state.filterOperations[columnName]
                   || columnFilterOperations[0];
                 const handleFilterOperationChange = (value) => {
                   this.setState({
                     filterOperations: {
-                      ...filterOperations,
+                      ...this.state.filterOperations,
                       [columnName]: value,
                     },
                   });
-                  if (filter && filter.value !== undefined && String(filter.value).length) {
+                  if (filter && !isFilterValueEmpty(filter.value)) {
                     onFilter({ value: filter.value, operation: value });
                   }
                 };
                 const handleFilterValueChange = value =>
-                  onFilter(value !== undefined && String(value).length > 0
+                  onFilter(!isFilterValueEmpty(value)
                     ? { value, operation: selectedFilterOperation }
                     : null);
+                const filteringEnabled = isColumnFilteringEnabled(columnName);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
@@ -94,7 +95,7 @@ export class TableFilterRow extends React.PureComponent {
                         getMessage={getMessage}
                         column={params.tableColumn.column}
                         filter={filter}
-                        filteringEnabled={isColumnFilteringEnabled(columnName)}
+                        filteringEnabled={filteringEnabled}
                         onFilter={onFilter}
                       >
                         <FilterSelector
@@ -107,7 +108,7 @@ export class TableFilterRow extends React.PureComponent {
                         {content || (
                           <EditorComponent
                             value={filter ? filter.value : ''}
-                            disabled={!isColumnFilteringEnabled(columnName)}
+                            disabled={!filteringEnabled}
                             getMessage={getMessage}
                             onChange={event => handleFilterValueChange(event.target.value)}
                           />

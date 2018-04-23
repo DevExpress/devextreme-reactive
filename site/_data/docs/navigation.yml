@@ -63,8 +63,8 @@ react:
           path: /react/grid/docs/guides/column-resizing
         - title: Column Visibility
           path: /react/grid/docs/guides/column-visibility
-        - title: Band Columns
-          path: /react/grid/docs/guides/band-columns
+        - title: Banded Columns
+          path: /react/grid/docs/guides/banded-columns
         - title: Virtual Scrolling
           path: /react/grid/docs/guides/virtual-scrolling
         - title: Tree Data

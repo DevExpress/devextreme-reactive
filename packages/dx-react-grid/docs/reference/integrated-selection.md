@@ -2,6 +2,14 @@
 
 A plugin that performs built-in selection.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { IntegratedSelection } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

@@ -2,6 +2,14 @@
 
 A plugin that performs built-in data paging. It also changes the current page if the provided one cannot be applied due to fewer available pages.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { IntegratedPaging } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

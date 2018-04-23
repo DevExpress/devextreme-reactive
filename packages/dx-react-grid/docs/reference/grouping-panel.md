@@ -4,6 +4,22 @@ A plugin that renders the Grouping Panel in the Grid's header. This panel displa
 
 Optionally, the plugin allows an end-user to change grouped columns' sorting order and render sorting indicators.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { GroupingPanel } from '@devexpress/dx-react-grid-material-ui';
+// import { GroupingPanel } from '@devexpress/dx-react-grid-bootstrap4';
+// import { GroupingPanel } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { GroupingPanel } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

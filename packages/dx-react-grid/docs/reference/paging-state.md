@@ -2,6 +2,14 @@
 
 A plugin that manages the paging state. It controls the total page count depending on the total row count and the specified page size, controls the currently selected page number and changes it in response to the corresponding actions.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { PagingState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

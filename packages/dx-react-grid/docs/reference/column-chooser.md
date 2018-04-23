@@ -4,7 +4,7 @@ The ColumnChooser plugin allows a user to toggle grid columns' visibility at run
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { ColumnChooser } from '@devexpress/dx-react-grid-material-ui';

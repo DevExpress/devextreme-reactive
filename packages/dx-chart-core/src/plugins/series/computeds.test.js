@@ -68,15 +68,17 @@ const series = [
 
 
 describe('Series attributes', () => {
-  const getAttributes = (type, seriesName, stacks, axisType) => seriesAttributes(
+  const getAttributes = ({
+    seriesName = 'Series3', axisType = 'axisType', stacks = [], type = 'area',
+  }) => seriesAttributes(
     data,
     series,
-    seriesName || 'Series3',
-    { argumentAxisName: { type: axisType || 'axisType', orientation: 'orientation' }, axisName: 'axisName' },
+    seriesName,
+    { argumentAxisName: { type: axisType, orientation: 'orientation' }, axisName: 'axisName' },
     'argumentAxisName',
     { width: 20, height: 10 },
-    stacks || [],
-    type || 'area',
+    stacks,
+    type,
   );
   beforeAll(() => {
     createScale.mockImplementation(() => value => value);
@@ -89,7 +91,7 @@ describe('Series attributes', () => {
   });
 
   it('should create scales with proper parameters', () => {
-    getAttributes();
+    getAttributes({});
 
     expect(createScale).toHaveBeenCalledTimes(2);
     expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 0.3]);
@@ -100,7 +102,9 @@ describe('Series attributes', () => {
     const translateValue = value => value;
     translateValue.bandwidth = () => 55;
     createScale.mockImplementation(() => translateValue);
-    getAttributes('bar', 'Series3', ['stack1', 'stack2'], 'band');
+    getAttributes({
+      type: 'bar', seriesName: 'Series3', stacks: ['stack1', 'stack2'], axisType: 'band',
+    });
 
     expect(createScale).toHaveBeenCalledTimes(3);
     expect(createScale.mock.calls[0]).toEqual([{ type: 'band', orientation: 'orientation' }, 20, 10, 0.3]);
@@ -114,19 +118,19 @@ describe('Series attributes', () => {
   });
 
   it('should return d attribute for point', () => {
-    const { dPoint } = getAttributes();
+    const { dPoint } = getAttributes({});
     expect(dPoint).toBe('symbol path');
     expect(mockSymbol.size).toBeCalledWith([49]);
     expect(mockSymbol.type).toBeCalledWith(symbolCircle);
   });
 
   it('should return coordinates for path', () => {
-    const { coordinates } = getAttributes();
+    const { coordinates } = getAttributes({});
     expect(coordinates).toEqual(computedLine);
   });
 
   it('should return d attribute for area', () => {
-    const { d } = getAttributes();
+    const { d } = getAttributes({});
     expect(d).toBe('area');
     expect(mockArea.x).toBeCalled();
     expect(mockArea.y1).toBeCalled();
@@ -135,7 +139,7 @@ describe('Series attributes', () => {
   });
 
   it('should return d attribute for line', () => {
-    const { d } = getAttributes('line');
+    const { d } = getAttributes({ type: 'line' });
     expect(d).toBe('line');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
@@ -143,7 +147,7 @@ describe('Series attributes', () => {
   });
 
   it('should return d attribute for spline', () => {
-    const { d } = getAttributes('spline');
+    const { d } = getAttributes({ type: 'spline' });
     expect(d).toBe('spline');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
@@ -152,18 +156,29 @@ describe('Series attributes', () => {
   });
 
   it('should apply point size', () => {
-    getAttributes('area', 'Series2');
+    getAttributes({ seriesName: 'Series2' });
     expect(mockSymbol.size).toBeCalledWith([100]);
   });
 
   it('should return scales', () => {
-    const { scales } = getAttributes();
+    const { scales } = getAttributes({});
     expect(scales.xScale).toBeTruthy();
     expect(scales.yScale).toBeTruthy();
   });
 
   it('should return stack of the series', () => {
-    const { stack } = getAttributes();
+    const { stack } = getAttributes({});
     expect(stack).toBe('stack');
+  });
+
+  it('should return xOffset if axis is band', () => {
+    const translateValue = value => value;
+    translateValue.bandwidth = () => 55;
+    createScale.mockImplementation(() => translateValue);
+    const { xOffset } = getAttributes({ axisType: 'band' });
+
+    expect(xOffset).toBe(27.5);
+
+    createScale.mockImplementation(() => value => value);
   });
 });

@@ -11,11 +11,13 @@ const Series = ({
     pointComponent: Point,
     ...restProps
   } = props;
-  const { d, dPoint, coordinates } = attributes;
+  const {
+    d, dPoint, coordinates, xOffset = 0,
+  } = attributes;
   return (
     <React.Fragment>
       <Path
-        x={0}
+        x={xOffset}
         y={0}
         d={d}
         {...restProps}
@@ -25,7 +27,7 @@ const Series = ({
           (
             <Point
               key={item.id.toString()}
-              x={item.x}
+              x={item.x + xOffset}
               y={item.y}
               d={dPoint}
               style={pointStyle}

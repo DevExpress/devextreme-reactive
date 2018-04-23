@@ -85,5 +85,6 @@ export const seriesAttributes = (
     coordinates: path,
     scales,
     stack,
+    xOffset: scales.xScale.bandwidth && scales.xScale.bandwidth() / 2,
   };
 };

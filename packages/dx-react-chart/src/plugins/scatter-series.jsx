@@ -9,13 +9,13 @@ const Series = ({
     pointComponent: Point,
     ...restProps
   } = props;
-  const { dPoint, coordinates } = attributes;
+  const { dPoint, coordinates, xOffset = 0 } = attributes;
   return (
     coordinates.map(item =>
       (
         <Point
           key={item.id.toString()}
-          x={item.x}
+          x={item.x + xOffset}
           y={item.y}
           d={dPoint}
           {...restProps}

@@ -4,7 +4,7 @@ A plugin that manages the selection state.
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { SelectionState } from '@devexpress/dx-react-grid';

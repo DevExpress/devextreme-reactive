@@ -4,7 +4,7 @@ A plugin that allows implementing a custom totalCount calculation logic.
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { CustomPaging } from '@devexpress/dx-react-grid';

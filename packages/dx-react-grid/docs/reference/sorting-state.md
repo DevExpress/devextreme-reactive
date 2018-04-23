@@ -4,7 +4,7 @@ A plugin that manages the sorting state. It controls the list of columns that pa
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { SortingState } from '@devexpress/dx-react-grid';

@@ -4,7 +4,7 @@ A plugin that manages the search state.
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { SearchState } from '@devexpress/dx-react-grid';

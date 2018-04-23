@@ -4,7 +4,7 @@ A plugin that manages the expanded state for tree rows.
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { TreeDataState } from '@devexpress/dx-react-grid';

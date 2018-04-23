@@ -4,7 +4,7 @@ A plugin that renders a table column with toggle button and sorting indicators.
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { TableTreeColumn } from '@devexpress/dx-react-grid-material-ui';

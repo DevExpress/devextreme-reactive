@@ -4,7 +4,7 @@ A plugin that renders a filter row.
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { TableFilterRow } from '@devexpress/dx-react-grid-material-ui';

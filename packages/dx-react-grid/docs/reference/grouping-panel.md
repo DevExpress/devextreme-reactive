@@ -6,7 +6,7 @@ Optionally, the plugin allows an end-user to change grouped columns' sorting ord
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { GroupingPanel } from '@devexpress/dx-react-grid-material-ui';

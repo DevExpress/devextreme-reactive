@@ -4,7 +4,7 @@ The Grid is a root container component designed to process and display data spec
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { Grid } from '@devexpress/dx-react-grid-material-ui';

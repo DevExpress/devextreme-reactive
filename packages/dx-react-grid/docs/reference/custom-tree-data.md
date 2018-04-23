@@ -4,7 +4,7 @@ A plugin that converts custom formatted tree data to a supported format and perf
 
 ## Importing
 
-Use the following import sentence:
+Use the following import statement:
 
 ```js
 import { CustomTreeData } from '@devexpress/dx-react-grid';

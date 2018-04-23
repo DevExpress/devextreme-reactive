@@ -4,7 +4,7 @@ A plugin that visualizes table rows' selection state by rendering selection chec
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { TableSelection } from '@devexpress/dx-react-grid-material-ui';

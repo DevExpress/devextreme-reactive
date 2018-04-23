@@ -6,7 +6,7 @@ The plugin also allows you to manage a column's sorting and grouping state and i
 
 ## Importing
 
-Use the following import sentence in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';

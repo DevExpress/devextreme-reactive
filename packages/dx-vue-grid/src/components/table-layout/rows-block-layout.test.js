@@ -18,6 +18,7 @@ const defaultProps = {
   blockComponent: { name: 'Block', render() { return <div>{this.$slots.default}</div>; } },
   rowComponent: { name: 'Row', render() { return null; } },
   cellComponent: { name: 'Cell', render() { return null; } },
+  getCellColSpan: () => {},
 };
 
 describe('RowsBlockLayout', () => {

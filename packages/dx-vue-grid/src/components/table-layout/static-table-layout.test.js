@@ -22,6 +22,7 @@ const defaultProps = {
   bodyComponent: { name: 'Body', render() { return null; } },
   cellComponent: { name: 'Cell', render() { return null; } },
   rowComponent: { name: 'Row', render() { return null; } },
+  getCellColSpan: () => {},
 };
 
 describe('StaticTableLayout', () => {

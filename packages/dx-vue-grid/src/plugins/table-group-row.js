@@ -9,8 +9,9 @@ import {
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
-  isGroupTableCell,
+  tableGroupCellColSpanGetter,
   isGroupIndentTableCell,
+  isGroupTableCell,
   isGroupTableRow,
 } from '@devexpress/dx-grid-core';
 
@@ -22,6 +23,8 @@ const pluginDependencies = [
 
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
   tableRowsWithGrouping(tableBodyRows, isGroupRow);
+const getCellColSpanComputed = ({ getTableCellColSpan }) =>
+  tableGroupCellColSpanGetter(getTableCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
@@ -74,7 +77,7 @@ export const TableGroupRow = {
         columns,
         tableColumns,
         grouping,
-        grouping, // draftGrouping
+        grouping,
         indentColumnWidth,
         showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
       );
@@ -85,59 +88,64 @@ export const TableGroupRow = {
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isGroupTableCell(tableRow, tableColumn)}
+          predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (
             <TemplateConnector>
               {({
                 getters: {
+                  grouping,
                   expandedGroups,
                 },
                 actions: {
                   toggleGroupExpanded,
                 },
-              }) => (
-                <TemplatePlaceholder
-                  name="valueFormatter"
-                  params={{
-                    column: params.tableColumn.column,
-                    value: params.tableRow.row.value,
-                  }}
-                >
-                  {content => (
-                    <GroupCell
-                      {...{ attrs: { ...params } }}
-                      row={params.tableRow.row}
-                      column={params.tableColumn.column}
-                      expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
-                      onToggle={() =>
-                        toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
+              }) => {
+                if (isGroupTableCell(params.tableRow, params.tableColumn)) {
+                  return (
+                    <TemplatePlaceholder
+                      name="valueFormatter"
+                      params={{
+                        column: params.tableColumn.column,
+                        value: params.tableRow.row.value,
+                      }}
                     >
-                      {content}
-                    </GroupCell>
-                  )}
-                </TemplatePlaceholder>
-              )}
+                      {content => (
+                        <GroupCell
+                          {...{ attrs: { ...params } }}
+                          row={params.tableRow.row}
+                          column={params.tableColumn.column}
+                          expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
+                          onToggle={() =>
+                            toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
+                        >
+                          {content}
+                        </GroupCell>
+                      )}
+                    </TemplatePlaceholder>
+                  );
+                }
+                if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
+                  if (GroupIndentCell) {
+                    return (
+                      <GroupIndentCell
+                        {...{ attrs: { ...params } }}
+                        row={params.tableRow.row}
+                        column={params.tableColumn.column}
+                      />
+                    );
+                  }
+                  return <TemplatePlaceholder />;
+                }
+                return null;
+              }}
             </TemplateConnector>
           )}
         </Template>
-        {GroupIndentCell && (
-          <Template
-            name="tableCell"
-            predicate={({ tableRow, tableColumn }) => isGroupIndentTableCell(tableRow, tableColumn)}
-          >
-            {params => (
-              <GroupIndentCell
-                {...{ attrs: { ...params } }}
-                row={params.tableRow.row}
-                column={params.tableColumn.column}
-              />
-            )}
-          </Template>
-        )}
         <Template
           name="tableRow"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}

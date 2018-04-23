@@ -7,6 +7,7 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
+  tableGroupCellColSpanGetter,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow } from './table-group-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
@@ -17,6 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isGroupTableCell: jest.fn(),
   isGroupIndentTableCell: jest.fn(),
   isGroupTableRow: jest.fn(),
+  tableGroupCellColSpanGetter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -27,6 +29,7 @@ const defaultDeps = {
     grouping: [{ columnName: 'a' }],
     expandedGroups: [],
     isGroupRow: () => false,
+    getTableCellColSpan: () => 1,
   },
   action: {
     toggleGroupExpanded: jest.fn(),
@@ -68,6 +71,7 @@ describe('TableGroupRow', () => {
     isGroupTableCell.mockImplementation(() => false);
     isGroupIndentTableCell.mockImplementation(() => false);
     isGroupTableRow.mockImplementation(() => false);
+    tableGroupCellColSpanGetter.mockImplementation(() => 'tableGroupCellColSpanGetter');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -115,7 +119,7 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.columns,
           defaultDeps.getter.tableColumns,
           defaultDeps.getter.grouping,
-          defaultDeps.getter.grouping, // draftGrouping
+          defaultDeps.getter.grouping,
           defaultProps.indentColumnWidth,
           expect.any(Function),
         );
@@ -180,7 +184,9 @@ describe('TableGroupRow', () => {
   });
 
   it('should render groupIndent cell on select group column and foreign group row intersection', () => {
+    isGroupTableRow.mockImplementation(() => true);
     isGroupIndentTableCell.mockImplementation(() => true);
+
     const indentCellComponent = { name: 'IndentCell', render() { return null; } };
     const tree = mount({
       render() {
@@ -200,6 +206,7 @@ describe('TableGroupRow', () => {
       .toBeCalledWith(
         defaultDeps.template.tableCell.tableRow,
         defaultDeps.template.tableCell.tableColumn,
+        defaultDeps.getter.grouping,
       );
     expect(tree.find(indentCellComponent).vm.$attrs)
       .toMatchObject({
@@ -211,7 +218,9 @@ describe('TableGroupRow', () => {
 
   describe('cellComponent', () => {
     it('should render group cell on select group column and group row intersection', () => {
+      isGroupTableRow.mockImplementation(() => true);
       isGroupTableCell.mockImplementation(() => true);
+
       const tree = mount({
         render() {
           return (
@@ -239,7 +248,9 @@ describe('TableGroupRow', () => {
     });
 
     it('should provide correct cell params', () => {
+      isGroupTableRow.mockImplementation(() => true);
       isGroupTableCell.mockImplementation(() => true);
+
       const deps = {
         getter: {
           expandedGroups: [],
@@ -279,6 +290,7 @@ describe('TableGroupRow', () => {
   });
 
   it('can render custom formatted data in group row cell', () => {
+    isGroupTableRow.mockImplementation(() => true);
     isGroupTableCell.mockImplementation(() => true);
 
     const tree = mount({

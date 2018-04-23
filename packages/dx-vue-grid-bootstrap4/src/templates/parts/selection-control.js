@@ -11,13 +11,18 @@ export const SelectionControl = {
     },
   },
   updated() {
-    this.$refs['my-ref'].indeterminate = this.indeterminate;
+    this.applyIndeterminate();
   },
   mounted() {
-    this.$refs['my-ref'].indeterminate = this.indeterminate;
+    this.applyIndeterminate();
+  },
+  methods: {
+    applyIndeterminate() {
+      this.$refs['selection-control-ref'].indeterminate = this.indeterminate;
+    },
   },
   render() {
-    const { disabled, checked, indeterminate } = this;
+    const { disabled, checked } = this;
     const { change: onChange } = this.$listeners;
     return (
       <input
@@ -28,8 +33,7 @@ export const SelectionControl = {
         type="checkbox"
         disabled={disabled}
         checked={checked}
-        indeterminate={indeterminate}
-        ref="my-ref"
+        ref="selection-control-ref"
         onChange={() => {
           if (disabled) return;
           onChange();

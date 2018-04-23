@@ -5,5 +5,6 @@ export * from './plugins/table';
 export * from './plugins/table-header-row';
 export * from './plugins/table-filter-row';
 export * from './plugins/toolbar';
+export * from './plugins/search-panel';
 export * from './plugins/table-selection';
 export * from './plugins/paging-panel';

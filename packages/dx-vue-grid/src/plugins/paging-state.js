@@ -34,8 +34,8 @@ export const PagingState = {
       <Plugin
         name="PagingState"
       >
-        <Getter name="currentPage" value={currentPage} />
         <Getter name="pageSize" value={pageSize} />
+        <Getter name="currentPage" value={currentPage} />
 
         <Action name="setCurrentPage" action={this.setCurrentPage} />
         <Action name="setPageSize" action={this.setPageSize} />

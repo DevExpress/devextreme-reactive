@@ -17,7 +17,7 @@ const defaultProps = {
   ],
   rowComponent: { name: 'Row', render() { return <div>{this.$slots.default}</div>; } },
   cellComponent: { name: 'Cell', render() { return <div/>; } },
-  getCellColSpan: () => {},
+  getCellColSpan: () => 1,
 };
 
 describe('RowLayout', () => {

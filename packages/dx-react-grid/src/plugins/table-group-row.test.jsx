@@ -122,7 +122,6 @@ describe('TableGroupRow', () => {
 
     it('should extend getTableCellColSpan', () => {
       const tree = mount((
-
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow

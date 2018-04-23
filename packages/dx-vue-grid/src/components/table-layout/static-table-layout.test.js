@@ -22,7 +22,7 @@ const defaultProps = {
   bodyComponent: { name: 'Body', render() { return null; } },
   cellComponent: { name: 'Cell', render() { return null; } },
   rowComponent: { name: 'Row', render() { return null; } },
-  getCellColSpan: () => {},
+  getCellColSpan: () => 1,
 };
 
 describe('StaticTableLayout', () => {
@@ -71,6 +71,7 @@ describe('StaticTableLayout', () => {
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: defaultProps.bodyRows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 
@@ -97,6 +98,7 @@ describe('StaticTableLayout', () => {
         rowComponent: defaultProps.rowComponent,
         columns: defaultProps.columns,
         rows: headerRows,
+        getCellColSpan: defaultProps.getCellColSpan,
       });
   });
 

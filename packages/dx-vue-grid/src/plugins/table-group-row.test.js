@@ -124,6 +124,26 @@ describe('TableGroupRow', () => {
           expect.any(Function),
         );
     });
+
+    it('should extend getTableCellColSpan', () => {
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <TableGroupRow
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
+
+      expect(getComputedState(tree).getTableCellColSpan)
+        .toBe('tableGroupCellColSpanGetter');
+      expect(tableGroupCellColSpanGetter)
+        .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
+    });
   });
 
   describe('hide grouping column', () => {

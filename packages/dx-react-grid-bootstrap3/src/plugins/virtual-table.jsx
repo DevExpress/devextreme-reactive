@@ -10,6 +10,7 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableContainer } from '../templates/table-container';
+import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = props => <TableComponent use="head" {...props} />;
 const TableHead = props => <thead {...props} />;
@@ -52,6 +53,7 @@ export class VirtualTable extends React.PureComponent {
         cellComponent={TableCell}
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
+        stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubHeaderCell}
         messages={{ ...defaultMessages, ...messages }}
@@ -65,6 +67,7 @@ VirtualTable.Cell = TableCell;
 VirtualTable.Row = TableRow;
 VirtualTable.NoDataCell = TableNoDataCell;
 VirtualTable.NoDataRow = TableRow;
+VirtualTable.StubRow = TableStubRow;
 VirtualTable.StubCell = TableStubCell;
 VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = TableComponent;

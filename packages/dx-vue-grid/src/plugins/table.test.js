@@ -4,7 +4,9 @@ import { PluginHost } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
+  tableCellColSpanGetter,
   isNoDataTableRow,
+  isNoDataTableCell,
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
@@ -16,7 +18,9 @@ import { PluginDepsToComponents, getComputedState } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithDataRows: jest.fn(),
   tableRowsWithDataRows: jest.fn(),
+  tableCellColSpanGetter: jest.fn(),
   isNoDataTableRow: jest.fn(),
+  isNoDataTableCell: jest.fn(),
   isDataTableCell: jest.fn(),
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
@@ -43,6 +47,7 @@ const defaultProps = {
   layoutComponent: { render() { return null; } },
   cellComponent: { name: 'Cell', render() { return null; } },
   rowComponent: { name: 'Row', render() { return null; } },
+  stubRowComponent: { name: 'StubRow', render() { return null; } },
   stubCellComponent: { name: 'StubCell', render() { return null; } },
   stubHeaderCellComponent: { name: 'HeaderStubCell', render() { return null; } },
   noDataCellComponent: { name: 'NoDataCell', render() { return null; } },
@@ -61,7 +66,9 @@ describe('Table', () => {
   beforeEach(() => {
     tableColumnsWithDataRows.mockImplementation(() => 'tableColumnsWithDataRows');
     tableRowsWithDataRows.mockImplementation(() => 'tableRowsWithDataRows');
+    tableCellColSpanGetter.mockImplementation(() => 'tableCellColSpanGetter');
     isNoDataTableRow.mockImplementation(() => false);
+    isNoDataTableCell.mockImplementation(() => false);
     isDataTableCell.mockImplementation(() => false);
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
@@ -113,6 +120,24 @@ describe('Table', () => {
         .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithDataRows');
+    });
+
+    it('should provide getTableCellColSpan', () => {
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <Table
+                {...{ attrs: { ...defaultProps } }}
+              />
+            </PluginHost>
+          );
+        },
+      });
+
+      expect(getComputedState(tree).getTableCellColSpan)
+        .toBe(tableCellColSpanGetter);
     });
   });
 
@@ -184,6 +209,30 @@ describe('Table', () => {
       });
   });
 
+  it('should render stub row on plugin-defined row', () => {
+    const tableRowArgs = { tableRow: { row: 'row' } };
+
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+          <PluginDepsToComponents deps={defaultDeps} />
+            <Table
+              {...{ attrs: { ...defaultProps } }}
+              layoutComponent={{
+                props: { rowComponent: {} },
+                render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
+              }}
+            />
+          </PluginHost>
+        );
+      },
+    });
+
+    expect(tree.find(defaultProps.stubRowComponent).vm.$attrs)
+      .toMatchObject(tableRowArgs);
+  });
+
   it('should render stub cell on plugin-defined column and row intersection', () => {
     const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
 
@@ -237,6 +286,7 @@ describe('Table', () => {
 
   it('should render no data cell if rows are empty', () => {
     isNoDataTableRow.mockImplementation(() => true);
+    isNoDataTableCell.mockImplementation(() => true);
     const tableCellArgs = {
       tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4,
     };

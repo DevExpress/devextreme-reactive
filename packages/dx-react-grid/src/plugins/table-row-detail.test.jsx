@@ -4,20 +4,24 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
+  tableDetailCellColSpanGetter,
   isDetailRowExpanded,
   tableColumnsWithDetail,
   isDetailToggleTableCell,
   isDetailTableRow,
+  isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 import { TableRowDetail } from './table-row-detail';
 import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithExpandedDetail: jest.fn(),
+  tableDetailCellColSpanGetter: jest.fn(),
   isDetailRowExpanded: jest.fn(),
   tableColumnsWithDetail: jest.fn(),
   isDetailToggleTableCell: jest.fn(),
   isDetailTableRow: jest.fn(),
+  isDetailTableCell: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -25,6 +29,7 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', column: 'column' }],
     tableBodyRows: [{ type: 'undefined', rowId: 1, row: 'row' }],
     expandedDetailRowIds: { onClick: () => {} },
+    getTableCellColSpan: () => 1,
   },
   action: {
     toggleDetailRowExpanded: jest.fn(),
@@ -62,10 +67,12 @@ describe('TableRowDetail', () => {
 
   beforeEach(() => {
     tableRowsWithExpandedDetail.mockImplementation(() => 'tableRowsWithExpandedDetail');
+    tableDetailCellColSpanGetter.mockImplementation(() => 'tableDetailCellColSpanGetter');
     isDetailRowExpanded.mockImplementation(() => false);
     tableColumnsWithDetail.mockImplementation(() => 'tableColumnsWithDetail');
     isDetailToggleTableCell.mockImplementation(() => false);
     isDetailTableRow.mockImplementation(() => false);
+    isDetailTableCell.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -109,6 +116,23 @@ describe('TableRowDetail', () => {
       expect(tableColumnsWithDetail)
         .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
     });
+
+    it('should extend getTableCellColSpan', () => {
+      const tree = mount((
+
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableRowDetail
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).getTableCellColSpan)
+        .toBe('tableDetailCellColSpanGetter');
+      expect(tableDetailCellColSpanGetter)
+        .toBeCalledWith(defaultDeps.getter.getTableCellColSpan);
+    });
   });
 
   it('should render detailToggle cell on detail column and user-defined row intersection', () => {
@@ -137,6 +161,7 @@ describe('TableRowDetail', () => {
 
   it('should render detail cell on detail row', () => {
     isDetailTableRow.mockImplementation(() => true);
+    isDetailTableCell.mockImplementation(() => true);
 
     const tree = mount((
       <PluginHost>

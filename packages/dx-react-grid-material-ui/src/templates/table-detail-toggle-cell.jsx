@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { TableCell } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles';
 
-import ChevronRight from '@material-ui/icons/ChevronRight';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess';
 import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
@@ -47,7 +47,7 @@ const TableDetailToggleCellBase = ({
         {
           expanded
             ? <ExpandMore />
-            : <ChevronRight />
+            : <ExpandLess />
         }
       </IconButton>
     </TableCell>

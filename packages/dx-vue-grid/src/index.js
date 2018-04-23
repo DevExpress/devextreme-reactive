@@ -18,3 +18,14 @@ export * from './plugins/custom-grouping';
 export * from './plugins/grouping-panel';
 export * from './plugins/table-group-row';
 export * from './components/group-panel-layout';
+export * from './plugins/search-state';
+export * from './plugins/search-panel';
+
+export * from './plugins/selection-state';
+export * from './plugins/integrated-selection';
+export * from './plugins/table-selection';
+
+export * from './plugins/paging-state';
+export * from './plugins/integrated-paging';
+export * from './plugins/custom-paging';
+export * from './plugins/paging-panel';

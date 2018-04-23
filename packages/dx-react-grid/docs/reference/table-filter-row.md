@@ -12,7 +12,7 @@ import { TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
 // import { TableFilterRow } from '@devexpress/dx-react-grid-bootstrap3';
 ```
 
-For the advanced use cases import the themeless plugin:
+If you want to use custom components, you can import the themeless plugin:
 
 ```js
 import { TableFilterRow } from '@devexpress/dx-react-grid';

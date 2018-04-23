@@ -1,6 +1,6 @@
 # TableBandHeader Plugin Reference
 
-A plugin that renders the band cells.
+A plugin that renders the banded cells.
 
 ## User Reference
 

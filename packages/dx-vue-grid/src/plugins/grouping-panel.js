@@ -116,7 +116,7 @@ export const GroupingPanel = {
         ]}
       >
         <Template name="toolbarContent">
-          <div style={{ display: 'flex', flex: 1 }}> {/* TODO: Wrapper required for multiple children */}
+          <div style={{ display: 'flex', flex: 1 }}>
             <TemplateConnector>
               {({
                 getters: {

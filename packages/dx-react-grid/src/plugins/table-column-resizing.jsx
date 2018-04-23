@@ -92,4 +92,5 @@ TableColumnResizing.defaultProps = {
   defaultColumnWidths: [],
   columnWidths: undefined,
   onColumnWidthsChange: undefined,
+  minColumnWidth: 0,
 };

@@ -28,11 +28,9 @@ export const CustomGrouping = {
     },
     grouping: {
       type: Array,
-      default: undefined,
     },
     expandedGroups: {
       type: Array,
-      default: undefined,
     },
   },
   render() {

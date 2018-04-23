@@ -14,6 +14,7 @@ export * from './plugins/table-filter-row';
 
 export * from './plugins/grouping-state';
 export * from './plugins/integrated-grouping';
+export * from './plugins/custom-grouping';
 export * from './plugins/grouping-panel';
 export * from './plugins/table-group-row';
 export * from './components/group-panel-layout';

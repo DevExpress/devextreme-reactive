@@ -14,8 +14,6 @@ import { generateRows } from '../../../demo-data/generator';
 export default {
   data() {
     return {
-      grouping: [{ columnName: 'city' }],
-      expandedGroups: [],
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
@@ -23,6 +21,8 @@ export default {
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 8 }),
+      grouping: [{ columnName: 'city' }],
+      expandedGroups: [],
     };
   },
   template: `

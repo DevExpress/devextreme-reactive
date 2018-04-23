@@ -7,8 +7,6 @@ import {
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   TableGroupRow as DxTableGroupRow,
-  GroupingPanel as DxGroupingPanel,
-  Toolbar as DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
@@ -22,10 +20,21 @@ export default {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
       grouping: [{ columnName: 'city' }],
+      integratedGroupingColumnExtensions: [
+        { columnName: 'city', criteria: this.cityGroupCriteria },
+      ],
+      tableGroupColumnExtension: [
+        { columnName: 'city', showWhenGrouped: true },
+      ],
+      rows: generateRows({ length: 8 }),
       expandedGroups: [],
     };
+  },
+  methods: {
+    cityGroupCriteria(value) {
+      return ({ key: value.substr(0, 1) });
+    },
   },
   template: `
     <div class="card">
@@ -37,15 +46,13 @@ export default {
           :grouping.sync="grouping"
           :expandedGroups.sync="expandedGroups"
         />
-        <dx-integrated-grouping />
-        <dx-table />
-        <dx-table-header-row
-          showGroupingControls
+        <dx-integrated-grouping
+          :columnExtensions="integratedGroupingColumnExtensions"
         />
-        <dx-table-group-row />
-        <dx-toolbar />
-        <dx-grouping-panel
-          showGroupingControls
+        <dx-table />
+        <dx-table-header-row />
+        <dx-table-group-row
+          :columnExtensions="tableGroupColumnExtension"
         />
       </dx-grid>
     </div>
@@ -57,7 +64,5 @@ export default {
     DxTable,
     DxTableHeaderRow,
     DxTableGroupRow,
-    DxToolbar,
-    DxGroupingPanel,
   },
 };

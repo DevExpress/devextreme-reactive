@@ -25,6 +25,10 @@ export default {
       rows: generateRows({ length: 8 }),
       grouping: [{ columnName: 'city' }],
       expandedGroups: [],
+      groupingStateColumnExtensions: [
+        { columnName: 'name', groupingEnabled: false },
+        { columnName: 'city', groupingEnabled: false },
+      ],
     };
   },
   template: `
@@ -36,6 +40,7 @@ export default {
         <dx-grouping-state
           :grouping.sync="grouping"
           :expandedGroups.sync="expandedGroups"
+          :columnExtensions="groupingStateColumnExtensions"
         />
         <dx-integrated-grouping />
         <dx-table />

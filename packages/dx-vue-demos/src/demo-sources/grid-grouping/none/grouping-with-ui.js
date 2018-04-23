@@ -39,14 +39,10 @@ export default {
         />
         <dx-integrated-grouping />
         <dx-table />
-        <dx-table-header-row
-          showGroupingControls
-        />
+        <dx-table-header-row />
         <dx-table-group-row />
         <dx-toolbar />
-        <dx-grouping-panel
-          showGroupingControls
-        />
+        <dx-grouping-panel />
       </dx-grid>
     </div>
   `,

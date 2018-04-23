@@ -1,17 +1,15 @@
 import {
   GroupingState as DxGroupingState,
-  IntegratedGrouping as DxIntegratedGrouping,
+  CustomGrouping as DxCustomGrouping,
 } from '@devexpress/dx-vue-grid';
 import {
   Grid as DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   TableGroupRow as DxTableGroupRow,
-  GroupingPanel as DxGroupingPanel,
-  Toolbar as DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
-import { generateRows } from '../../../demo-data/generator';
+import { generateRows, defaultColumnValues } from '../../../demo-data/generator';
 
 export default {
   data() {
@@ -22,42 +20,54 @@ export default {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
-      grouping: [{ columnName: 'city' }],
+      grouping: [{ columnName: 'sex' }],
       expandedGroups: [],
+      data: [{
+        key: 'Male',
+        items: generateRows({
+          columnValues: { ...defaultColumnValues, sex: ['Male'] },
+          length: 5,
+        }),
+      }, {
+        key: 'Female',
+        items: generateRows({
+          columnValues: { ...defaultColumnValues, sex: ['Female'] },
+          length: 5,
+        }),
+      }],
+      rows: generateRows({ length: 8 }),
     };
+  },
+  methods: {
+    getChildGroups(groups) {
+      return groups.map(group => ({ key: group.key, childRows: group.items }));
+    },
   },
   template: `
     <div class="card">
       <dx-grid
-        :rows="rows"
+        :rows="data"
         :columns="columns"
       >
         <dx-grouping-state
           :grouping.sync="grouping"
           :expandedGroups.sync="expandedGroups"
         />
-        <dx-integrated-grouping />
+        <dx-custom-grouping
+          :getChildGroups="getChildGroups"
+        />
         <dx-table />
-        <dx-table-header-row
-          showGroupingControls
-        />
+        <dx-table-header-row />
         <dx-table-group-row />
-        <dx-toolbar />
-        <dx-grouping-panel
-          showGroupingControls
-        />
       </dx-grid>
     </div>
   `,
   components: {
     DxGroupingState,
-    DxIntegratedGrouping,
+    DxCustomGrouping,
     DxGrid,
     DxTable,
     DxTableHeaderRow,
     DxTableGroupRow,
-    DxToolbar,
-    DxGroupingPanel,
   },
 };

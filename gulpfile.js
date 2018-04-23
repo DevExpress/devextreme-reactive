@@ -79,7 +79,7 @@ var injectLiveDemos = function(content) {
         const options = {
           ...data,
           path: `/demo/${data.path}`,
-          scriptPath: `{{site.baseurl}}/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
+          scriptPath: `{{site.baseurl}}/{{page.demos_link}}/demos/dist/index.js?v={{ site.time | date: '%s' }}`,
         };
         return `<div
           class="embedded-demo"
@@ -138,9 +138,14 @@ gulp.task('site:docs', function() {
     .pipe(gulp.dest(distPath));
 });
 
-gulp.task('site:demos', function() {
+gulp.task('site:demos:react', function() {
   return gulp.src(['packages/dx-react-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
+    .pipe(gulp.dest(distPath + 'react/demos/dist/'));
+});
+
+gulp.task('site:demos:vue', function() {
+  return gulp.src(['packages/dx-vue-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'vue/demos/dist/'));
 });
 
 gulp.task('site', function(done) {
@@ -148,7 +153,8 @@ gulp.task('site', function(done) {
     'site:clean',
     'site:prepare:docs',
     'site:docs',
-    'site:demos',
+    'site:demos:react',
+    'site:demos:vue',
     done
   );
 });

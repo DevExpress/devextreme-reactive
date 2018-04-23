@@ -38,6 +38,7 @@ cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; 
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a stub table row if the row type is not recognized.
 stubCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
@@ -87,7 +88,6 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | Specifies a table row.
 tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
-style? | object | Styles that should be applied to the root cell element.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
@@ -121,7 +121,6 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | A table row.
 children | ReactNode | A React node used to render a table row.
-style? | object | Styles that should be applied to the root row element.
 
 ### Table.DataRowProps
 
@@ -151,6 +150,7 @@ Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that rende
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
 Table.NoDataCell | [Table.NoDataCellProps](#tablenodatacellprops) | A component that renders a table cell when the table is empty.
 Table.NoDataRow | [Table.RowProps](#tablerowprops) | A component that renders a table row when the table is empty.
+Table.StubRow | [Table.RowProps](#tablerowprops) | A component that renders a stub table row.
 Table.StubCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table cell.
 Table.StubHeaderCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table header cell.
 

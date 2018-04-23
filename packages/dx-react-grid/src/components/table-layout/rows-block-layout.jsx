@@ -10,6 +10,7 @@ export class RowsBlockLayout extends React.PureComponent {
       blockComponent: Block,
       rowComponent,
       cellComponent,
+      getCellColSpan,
     } = this.props;
 
     return (
@@ -23,6 +24,7 @@ export class RowsBlockLayout extends React.PureComponent {
                 columns={columns}
                 rowComponent={rowComponent}
                 cellComponent={cellComponent}
+                getCellColSpan={getCellColSpan}
               />
             ))
         }
@@ -37,4 +39,5 @@ RowsBlockLayout.propTypes = {
   blockComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };

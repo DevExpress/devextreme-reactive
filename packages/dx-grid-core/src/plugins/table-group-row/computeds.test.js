@@ -3,6 +3,7 @@ import { TABLE_GROUP_TYPE } from './constants';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
+  tableGroupCellColSpanGetter,
 } from './computeds';
 
 describe('TableGroupRow Plugin computeds', () => {
@@ -139,12 +140,40 @@ describe('TableGroupRow Plugin computeds', () => {
             key: `${TABLE_GROUP_TYPE}_B`,
             type: TABLE_GROUP_TYPE,
             row: { group: true, groupedBy: 'a', compoundKey: 'B' },
-            colSpanStart: `${TABLE_GROUP_TYPE}_a`,
           },
           { type: TABLE_DATA_TYPE, row: { id: 0 } },
           { type: TABLE_DATA_TYPE, row: { id: 1 } },
           { type: TABLE_DATA_TYPE, row: { id: 2 } },
         ]);
+    });
+  });
+
+  describe('#tableGroupCellColSpanGetter', () => {
+    const parentGetCellColSpan = () => 'original';
+    it('should return correct colspan', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(parentGetCellColSpan);
+
+      const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        tableColumn,
+        tableColumns: [tableColumn, {}, {}],
+      }))
+        .toBe(3);
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        tableColumn,
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe(2);
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
+        tableColumn,
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe('original');
     });
   });
 });

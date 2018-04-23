@@ -175,8 +175,16 @@ section {
     padding-bottom: 50px;
     text-align: center;
     color: #f0f2f4;
-    background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat bottom center;
-    background-size: contain;
+}
+
+.intro-header.react-grid {
+  background: #173952 url({{site.baseurl}}/img/banner-react-grid-bg.jpg) no-repeat bottom center;
+  background-size: contain;
+}
+
+.intro-header.vue-grid {
+  background: #04241b url({{site.baseurl}}/img/banner-vue-grid-bg.jpg) no-repeat bottom center;
+  background-size: contain;
 }
 
 .intro-message {
@@ -341,10 +349,18 @@ ul.banner-action-buttons .btn.demos:hover {
 .banner {
     padding: 100px 0;
     color: #f0f2f4;
-    background: #173952 url({{site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
-    background-size: cover;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     margin-bottom: -40px;
+}
+
+.banner.react {
+  background: #173952 url({{site.baseurl}}/img/bottom-react-bg.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+.banner.vue {
+  background: #04241b url({{site.baseurl}}/img/bottom-vue-bg.jpg) no-repeat center center;
+  background-size: cover;
 }
 
 .banner h2 {
@@ -448,8 +464,11 @@ footer ul > li.active > a {
         margin: 30px auto;
     }
 
-    .intro-header {
-        background: #173952 url({{site.baseurl}}/img/banner-bg-mobile.jpg) no-repeat center center;
+    .intro-header.react {
+        background: #173952 url({{site.baseurl}}/img/banner-react-bg-mobile.jpg) no-repeat center center;
+    }
+    .intro-header.vue {
+        background: #04241b url({{site.baseurl}}/img/banner-vue-bg-mobile.jpg)  no-repeat center center;
     }
 
     footer {

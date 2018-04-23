@@ -36,20 +36,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{site.baseurl}}/react/grid/">
+          <a class="navbar-brand" href="{{site.baseurl}}{{page.product_link}}/">
             <div>
-              <img src="{{site.baseurl}}/img/data-grid-logo.svg" alt="{{ site.title }}">
+              <img src="{{site.baseurl}}/img/data-grid-logo.svg" alt="{{page.product_name}}">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
-                <h3 class="logo-product">React Grid</h3>
+                <h3 class="logo-product">{{page.product_name}}</h3>
               </div>
             </div>
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
-            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/guides/getting-started/">Docs</a></li>
+            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>

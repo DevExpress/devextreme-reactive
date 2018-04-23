@@ -169,7 +169,7 @@ const getThemesTypeScript = (data, componentName) => {
         .replace(`${componentName}.`, `${componentName}Base.`)
         .replace('Table.', 'TableBase.')
         .replace('TableHeaderRow.', 'TableHeaderRowBase.'), '')
-        .replace(/(\w+: React\.ComponentType<.*)>/g, '$1 & { [x: string]: any }>');
+        .replace(/(\w+: React\.ComponentType<.*)>/g, '$1 & { className?: string; style?: React.CSSProperties; [x: string]: any }>');
 
   return 'import {\n'
     + `  ${componentName} as ${componentName}Base,\n`

@@ -94,6 +94,7 @@ export class TableLayout extends React.PureComponent {
         {...restProps}
         columns={columns}
         minWidth={minWidth}
+        minColumnWidth={minColumnWidth}
       />
     );
   }

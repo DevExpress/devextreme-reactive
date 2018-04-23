@@ -2,6 +2,7 @@ import { TABLE_DETAIL_TYPE } from './constants';
 import {
   tableRowsWithExpandedDetail,
   tableColumnsWithDetail,
+  tableDetailCellColSpanGetter,
 } from './computeds';
 
 describe('TableRowDetail Plugin computeds', () => {
@@ -22,7 +23,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
-          colSpanStart: 0,
           height: 100,
         },
       ]);
@@ -51,7 +51,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 1,
           row: 'row1',
-          colSpanStart: 0,
           height: 100,
         },
         { type: 'data', rowId: 2, row: 'row2' },
@@ -60,7 +59,6 @@ describe('TableRowDetail Plugin computeds', () => {
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
-          colSpanStart: 0,
           height: 100,
         },
       ]);
@@ -74,6 +72,35 @@ describe('TableRowDetail Plugin computeds', () => {
           { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: 50 },
           {},
         ]);
+    });
+  });
+
+  describe('#tableGroupCellColSpanGetter', () => {
+    const parentGetCellColSpan = () => 'original';
+    it('should return correct colspan', () => {
+      const getCellColSpanGetter = tableDetailCellColSpanGetter(parentGetCellColSpan);
+
+      const tableColumn = { type: 'undefined' };
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_DETAIL_TYPE },
+        tableColumn,
+        tableColumns: [tableColumn, {}, {}],
+      }))
+        .toBe(3);
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: TABLE_DETAIL_TYPE },
+        tableColumn,
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe('original');
+
+      expect(getCellColSpanGetter({
+        tableRow: { type: 'undefined' },
+        tableColumn: { type: 'undefined' },
+        tableColumns: [{}, tableColumn, {}],
+      }))
+        .toBe('original');
     });
   });
 });

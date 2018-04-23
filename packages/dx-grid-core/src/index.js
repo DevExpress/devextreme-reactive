@@ -90,7 +90,6 @@ export * from './plugins/data-type-provider/computeds';
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {
-  getTableRowColumnsWithColSpan,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,

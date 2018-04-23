@@ -8,16 +8,28 @@ import { BarSeries } from './bar-series';
 const PointComponent = () => null;
 // eslint-disable-next-line react/prop-types
 const RootComponent = ({ children }) => <div>{children}</div>;
+const OFFSET = 3;
 
 const coordinates = [
-  { x: 1, y: 3, id: 1 },
-  { x: 2, y: 5, id: 2 },
-  { x: 3, y: 7, id: 3 },
-  { x: 4, y: 10, id: 4 },
-  { x: 5, y: 15, id: 5 },
+  {
+    x: 1, y: 3, y1: 6, id: 1,
+  },
+  {
+    x: 2, y: 5, y1: 8, id: 2,
+  },
+  {
+    x: 3, y: 7, y1: 11, id: 3,
+  },
+  {
+    x: 4, y: 10, y1: 13, id: 4,
+  },
+  {
+    x: 5, y: 15, y1: 20, id: 5,
+  },
 ];
-const widgetHeight = 10;
 const bandwidth = 20;
+const x0Scale = jest.fn(stack => stack === 'seriesStack' && OFFSET);
+x0Scale.bandwidth = jest.fn(() => bandwidth);
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   seriesAttributes: jest.fn(),
@@ -25,8 +37,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 seriesAttributes.mockImplementation(() => ({
   coordinates,
-  height: widgetHeight,
-  scales: { xScale: { bandwidth: jest.fn(() => bandwidth) } },
+  scales: { x0Scale },
+  stack: 'seriesStack',
 }));
 
 describe('Bar series', () => {
@@ -61,11 +73,11 @@ describe('Bar series', () => {
 
     coordinates.forEach((coord, index) =>
       expect(tree.find(PointComponent).get(index).props).toEqual({
-        x: coord.x + 3,
+        x: coord.x + OFFSET,
         y: coord.y,
         styles: 'styles',
-        height: widgetHeight - coord.y,
-        width: bandwidth * 0.7,
+        height: coord.y1 - coord.y,
+        width: bandwidth,
       }));
   });
 });

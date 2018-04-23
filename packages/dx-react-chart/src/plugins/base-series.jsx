@@ -25,6 +25,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
               {({
                 series,
                 domains,
+                stacks,
                 data,
                 argumentAxisName,
                 layouts,
@@ -39,6 +40,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                     domains,
                     argumentAxisName,
                     layouts[placeholder],
+                    stacks,
                     pathType,
                   );
                 return (

@@ -25,6 +25,7 @@ describe('Base series', () => {
       data: 'data',
       series: 'series',
       domains: 'domains',
+      stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
     },
     template: {
@@ -79,6 +80,7 @@ describe('Base series', () => {
       'domains',
       'argumentAxisName',
       { x: 1, y: 2 },
+      ['one', 'two'],
       'pathType',
     );
   });

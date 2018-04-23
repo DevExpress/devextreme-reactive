@@ -4,26 +4,26 @@ import { baseSeries } from './base-series';
 
 class Series extends React.PureComponent {
   render() {
-    const { attributes, barWidth: percentWidth, ...props } = this.props;
+    const { attributes, ...props } = this.props;
     const {
       pointComponent: Point,
       ...restProps
     } = props;
     const {
-      coordinates, scales, height,
+      coordinates, scales, stack,
     } = attributes;
-    const bandwidth = scales.xScale.bandwidth();
-    const barWidth = bandwidth * percentWidth;
-    const xCorrection = ((bandwidth - barWidth) / 2);
+
+    const bandwidth = scales.x0Scale.bandwidth();
+    const offset = scales.x0Scale(stack);
     return (
       coordinates.map(item =>
         (
           <Point
             key={item.id.toString()}
-            x={item.x + xCorrection}
+            x={item.x + offset}
             y={item.y}
-            width={barWidth}
-            height={height - item.y}
+            width={bandwidth}
+            height={item.y1 - item.y}
             {...restProps}
           />
         ))
@@ -34,11 +34,10 @@ class Series extends React.PureComponent {
 export const BarSeries = baseSeries(Series, 'BarSeries');
 
 Series.propTypes = {
-  barWidth: PropTypes.number,
-  attributes: PropTypes.object.isRequired,
+  attributes: PropTypes.shape({
+    coordinates: PropTypes.array,
+    scales: PropTypes.object,
+    stack: PropTypes.string,
+  }).isRequired,
   pointComponent: PropTypes.func.isRequired,
-};
-
-Series.defaultProps = {
-  barWidth: 0.7,
 };

@@ -72,7 +72,6 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | Specifies a table row.
 tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
-style? | object | Styles that should be applied to the root cell element.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
@@ -106,7 +105,6 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | A table row.
 children | ReactNode | A React node used to render a table row.
-style? | object | Styles that should be applied to the root row element.
 
 ### Table.DataRowProps
 

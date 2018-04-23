@@ -1,6 +1,7 @@
 import {
   firstRowOnPage,
   lastRowOnPage,
+  calculateStartPage,
 } from './helpers';
 
 describe('PagingPanel helpers', () => {
@@ -29,6 +30,27 @@ describe('PagingPanel helpers', () => {
     it('should not be greater than total count', () => {
       const count = lastRowOnPage(1, 5, 9);
       expect(count).toEqual(9);
+    });
+  });
+
+  describe('#calculateStartPage', () => {
+    const maxButtonCount = 3;
+    const totalPageCount = 10;
+    it('should work', () => {
+      let startPage = calculateStartPage(1, maxButtonCount, totalPageCount);
+      expect(startPage).toEqual(1);
+
+      startPage = calculateStartPage(2, maxButtonCount, totalPageCount);
+      expect(startPage).toEqual(1);
+
+      startPage = calculateStartPage(5, maxButtonCount, totalPageCount);
+      expect(startPage).toEqual(4);
+
+      startPage = calculateStartPage(9, maxButtonCount, totalPageCount);
+      expect(startPage).toEqual(8);
+
+      startPage = calculateStartPage(10, maxButtonCount, totalPageCount);
+      expect(startPage).toEqual(8);
     });
   });
 });

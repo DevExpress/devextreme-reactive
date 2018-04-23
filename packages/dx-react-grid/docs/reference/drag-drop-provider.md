@@ -4,7 +4,7 @@ A plugin that implements the drag-and-drop functionality and visualizes columns 
 
 ## Importing
 
-Use the following import statement in order to use a plugin with embedded theme components:
+Use the following statement to import a plugin with embedded theme components:
 
 ```js
 import { DragDropProvider } from '@devexpress/dx-react-grid-material-ui';

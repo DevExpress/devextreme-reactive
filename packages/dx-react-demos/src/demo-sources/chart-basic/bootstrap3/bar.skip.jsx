@@ -14,29 +14,29 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 7),
+      width: 700,
+      height: 400,
+      axes: [{ name: 'commits', min: 0 }, { name: 'login', type: 'band' }],
+      series: [
+        {
+          valueField: 'contributions',
+          argumentField: 'login',
+          axisName: 'commits',
+          name: 'BarSeries',
+        },
+      ],
     };
   }
   render() {
     return (
       <Chart
         data={this.state.data}
-        width={700}
-        height={400}
-        style={{
-          border: '1px dashed lightgray',
-        }}
-        axes={[{ name: 'commits', min: 0 }, { name: 'login', type: 'band' }]}
-        series={[
-          {
-            valueField: 'contributions',
-            argumentField: 'login',
-            axisName: 'commits',
-            name: 'BarSeries',
-          },
-        ]}
+        width={this.state.width}
+        height={this.state.height}
+        axes={this.state.axes}
+        series={this.state.series}
       >
 
-        {/* <Legend placeholder="left" /> */}
         <ArgumentAxis />
         <ValueAxis name="commits" />
 

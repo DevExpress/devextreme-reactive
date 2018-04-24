@@ -14,28 +14,31 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
+      width: 700,
+      height: 400,
+      series: [
+        {
+          valueField: 'ru',
+          argumentField: 'year',
+          axisName: 'born',
+          name: 'Russia',
+        },
+        {
+          valueField: 'ch',
+          argumentField: 'year',
+          axisName: 'born',
+          name: 'China',
+        },
+      ],
     };
   }
   render() {
     return (
       <Chart
         data={this.state.data}
-        width={700}
-        height={400}
-        series={[
-          {
-            valueField: 'ru',
-            argumentField: 'year',
-            axisName: 'born',
-            name: 'Russia',
-          },
-          {
-            valueField: 'ch',
-            argumentField: 'year',
-            axisName: 'born',
-            name: 'China',
-          },
-        ]}
+        width={this.state.width}
+        height={this.state.height}
+        series={this.state.series}
       >
 
         <ArgumentAxis />

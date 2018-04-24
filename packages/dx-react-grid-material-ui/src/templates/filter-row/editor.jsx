@@ -1,22 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Input from 'material-ui/Input';
 import { withStyles } from 'material-ui/styles';
 
-const styles = ({ spacing }) => ({
+const styles = {
   input: {
-    width: `calc(100% - ${spacing.unit * 6}px)`,
+    width: '100%',
   },
-});
+};
 
 const EditorBase = ({
-  value, disabled, getMessage, onChange,
-  className, classes,
+  value, disabled, getMessage, onChange, classes,
   ...restProps
 }) => (
   <Input
-    className={classNames(classes.input, className)}
+    classes={{
+      input: classes.input,
+    }}
+    fullWidth
     disabled={disabled}
     value={value}
     onChange={onChange}
@@ -27,7 +28,6 @@ const EditorBase = ({
 
 EditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
   value: PropTypes.any,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
@@ -35,7 +35,6 @@ EditorBase.propTypes = {
 };
 
 EditorBase.defaultProps = {
-  className: undefined,
   value: '',
   disabled: false,
   onChange: () => {},

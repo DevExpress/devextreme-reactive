@@ -32,7 +32,11 @@ export class FilterSelector extends React.PureComponent {
       <React.Fragment>
         <button
           className="btn btn-link"
-          style={{ marginRight: 8, color: 'black' }}
+          style={{
+            marginRight: 5,
+            color: 'black',
+            flex: '0 0 auto',
+          }}
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}

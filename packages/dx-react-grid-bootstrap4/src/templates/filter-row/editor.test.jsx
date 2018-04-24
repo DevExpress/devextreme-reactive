@@ -27,7 +27,7 @@ describe('Editor', () => {
       />
     ));
 
-    expect(tree.is('.dx-g-bs4-filter-cell-editor'))
+    expect(tree.is('.form-control'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

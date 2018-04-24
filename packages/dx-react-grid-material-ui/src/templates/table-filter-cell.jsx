@@ -12,6 +12,11 @@ const styles = ({ spacing }) => ({
       paddingLeft: spacing.unit * 3,
     },
   },
+  flexContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
 
 class TableFilterCellBase extends React.PureComponent {
@@ -29,7 +34,9 @@ class TableFilterCellBase extends React.PureComponent {
         style={style}
         {...restProps}
       >
-        {children}
+        <div className={classes.flexContainer}>
+          {children}
+        </div>
       </TableCell>
     );
   }

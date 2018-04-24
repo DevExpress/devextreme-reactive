@@ -31,10 +31,6 @@ const CurrencyEditor = ({ value, onValueChange }) => {
     <input
       type="number"
       className="form-control"
-      style={{
-        width: 'calc(100% - 50px)',
-        display: 'inline-block',
-      }}
       value={value === undefined ? '' : value}
       min={0}
       onChange={handleChange}

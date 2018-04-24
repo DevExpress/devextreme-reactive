@@ -7,7 +7,9 @@ export const TableFilterCell = ({
   filteringEnabled, ...restProps
 }) => (
   <th {...restProps}>
-    {children}
+    <div className="dx-g-bs4-filter-cell-flex-container">
+      {children}
+    </div>
   </th>
 );
 

@@ -160,13 +160,15 @@
 .dx-rg-bs4-banded-cell:last-child {
   border-right: 0!important;
 }
-.dx-g-bs4-filter-cell-editor {
-  display: inline-block;
-  width: calc(100% - 50px);
+.dx-g-bs4-filter-cell-flex-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 .dx-rg-bs4-filter-selector-button {
-  margin-right: 8px;
+  margin-right: 5px;
   color: black;
+  flex: 0 0 auto;
 }
 .dx-rg-bs4-filter-selector-button:hover {
   color: black;

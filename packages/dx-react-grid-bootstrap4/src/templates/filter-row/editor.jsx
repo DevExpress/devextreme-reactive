@@ -8,7 +8,7 @@ export const Editor = ({
 }) => (
   <input
     type="text"
-    className={classNames('form-control', 'dx-g-bs4-filter-cell-editor', className)}
+    className={classNames('form-control', className)}
     value={value}
     onChange={onChange}
     readOnly={disabled}

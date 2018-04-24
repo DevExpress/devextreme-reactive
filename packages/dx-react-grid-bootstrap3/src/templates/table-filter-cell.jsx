@@ -9,12 +9,19 @@ export const TableFilterCell = ({
   <th
     style={{
       fontWeight: 'normal',
-      verticalAlign: 'middle',
       ...style,
     }}
     {...restProps}
   >
-    {children}
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      {children}
+    </div>
   </th>
 );
 

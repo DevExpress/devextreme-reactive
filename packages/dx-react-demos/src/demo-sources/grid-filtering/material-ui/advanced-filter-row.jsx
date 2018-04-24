@@ -15,11 +15,9 @@ const FilterIcon = ({ type, ...restProps }) => {
 };
 
 const styles = {
-  inputRoot: {
-    width: 'calc(100% - 48px)',
-  },
   numericInput: {
     textAlign: 'right',
+    width: '100%',
   },
 };
 
@@ -36,9 +34,9 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
     <Input
       type="number"
       classes={{
-        root: classes.inputRoot,
         input: classes.numericInput,
       }}
+      fullWidth
       value={value === undefined ? '' : value}
       inputProps={{
         min: 0,

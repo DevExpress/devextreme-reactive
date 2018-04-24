@@ -19,18 +19,6 @@ describe('Editor', () => {
       .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <Editor
-        {...defaultProps}
-        style={{ color: 'gray' }}
-      />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ display: 'inline-block', color: 'gray' });
-  });
-
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <Editor

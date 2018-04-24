@@ -1,7 +1,7 @@
 export const FlexibleSpace = {
   render() {
     return (
-      <div className="d-flex ml-auto" />
+      <div class="d-flex ml-auto" />
     );
   },
 };

@@ -2,6 +2,14 @@
 
 A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { EditingState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

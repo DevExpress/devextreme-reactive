@@ -28,3 +28,7 @@ export const TableEditColumn = {
     );
   },
 };
+
+TableEditColumn.Command = CommandButton;
+TableEditColumn.Cell = EditCommandCell;
+TableEditColumn.HeaderCell = EditCommandHeadingCell;

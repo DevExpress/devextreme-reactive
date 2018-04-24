@@ -1,0 +1,39 @@
+export const EditCell = {
+  props: {
+    tableRow: {},
+    column: {},
+    row: {},
+    tableColumn: {
+      type: Object,
+    },
+    value: {
+      type: String,
+      default: '',
+    },
+    editingEnabled: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  render() {
+    const { value, editingEnabled, tableColumn } = this;
+    const { valueChange: onValueChange } = this.$listeners;
+    return (
+      <td class="align-middle dx-g-bs4-table-edit-cell">
+        {this.$slots.default || (
+          <input
+            type="text"
+            class={{
+              'form-control w-100': true,
+              'text-right': tableColumn && tableColumn.align === 'right',
+              'text-center': tableColumn && tableColumn.align === 'center',
+            }}
+            readOnly={!editingEnabled}
+            value={value}
+            onChange={e => onValueChange(e.target.value)}
+          />
+        )}
+      </td>
+    );
+  },
+};

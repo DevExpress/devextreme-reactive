@@ -15,6 +15,9 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
         placeholder,
         name,
         rootComponent: Root,
+        point,
+        barWidth,
+        groupWidth,
         ...restProps
       } = this.props;
       return (
@@ -33,6 +36,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                 const {
                   x, y,
                 } = layouts[placeholder];
+                const { size } = point;
                 const attributes = seriesAttributes(
                     data,
                     series,
@@ -42,6 +46,9 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                     layouts[placeholder],
                     stacks,
                     pathType,
+                    size,
+                    groupWidth,
+                    barWidth,
                   );
                 return (
                   <Root x={x} y={y}>
@@ -62,9 +69,15 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     rootComponent: PropTypes.func.isRequired,
+    point: PropTypes.object,
+    barWidth: PropTypes.number,
+    groupWidth: PropTypes.number,
   };
   Component.defaultProps = {
     placeholder: 'pane',
+    point: { size: 7 },
+    barWidth: 0.9,
+    groupWidth: 0.7,
   };
   return Component;
 };

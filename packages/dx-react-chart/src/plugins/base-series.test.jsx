@@ -82,6 +82,9 @@ describe('Base series', () => {
       { x: 1, y: 2 },
       ['one', 'two'],
       'pathType',
+      7,
+      0.7,
+      0.9,
     );
   });
 });

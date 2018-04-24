@@ -7,10 +7,6 @@ import {
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
 
-const POINT_SIZE = 7;
-const GROUP_PADDING = 0.3;
-const BAR_PADDING = 0.1;
-
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
@@ -42,9 +38,18 @@ const getDAttribute = (type, path) => {
   }
 };
 
-const xyScales = (domainsOptions, argumentAxisName, domainName, width, height, stacks) => {
+const xyScales = (
+  domainsOptions,
+  argumentAxisName,
+  domainName,
+  layout,
+  stacks,
+  groupWidth,
+  barWidth,
+) => {
+  const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
-  const xScale = createScale(argumentDomainOptions, width, height, GROUP_PADDING);
+  const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
   const bandwidth = xScale.bandwidth && xScale.bandwidth();
 
   return {
@@ -54,7 +59,7 @@ const xyScales = (domainsOptions, argumentAxisName, domainName, width, height, s
       orientation: argumentDomainOptions.orientation,
       type: argumentDomainOptions.type,
       domain: stacks,
-    }, bandwidth, bandwidth, BAR_PADDING),
+    }, bandwidth, bandwidth, 1 - barWidth),
   };
 };
 
@@ -67,24 +72,32 @@ export const seriesAttributes = (
   layout,
   stacks,
   type,
+  size,
+  groupWidth,
+  barWidth,
 ) => {
-  const { width, height } = layout;
   const {
     axisName: domainName,
     argumentField,
     valueField,
-    point,
     stack,
   } = series.find(seriesItem => seriesItem.name === name);
-  const scales = xyScales(domains, argumentAxisName, domainName, width, height, stacks);
+  const scales = xyScales(
+    domains,
+    argumentAxisName,
+    domainName,
+    layout,
+    stacks,
+    groupWidth,
+    barWidth,
+  );
   const path = computeLinePath(data, scales, argumentField, valueField, name);
-  const { size } = point || {};
-  return {
-    dPoint: symbol().size([(size || POINT_SIZE) ** 2]).type(symbolCircle)(),
+  return ({
+    dPoint: symbol().size([size ** 2]).type(symbolCircle)(),
     d: getDAttribute(type, path),
     coordinates: path,
     scales,
     stack,
     xOffset: scales.xScale.bandwidth && scales.xScale.bandwidth() / 2,
-  };
+  });
 };

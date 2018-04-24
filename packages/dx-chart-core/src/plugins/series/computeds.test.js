@@ -59,12 +59,15 @@ const series = [
     valueField: 'val2', axisName: 'axisName', argumentField: 'arg', name: 'Series1',
   },
   {
-    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', point: { size: 10 }, name: 'Series2',
+    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', name: 'Series2',
   },
   {
     valueField: 'val1', axisName: 'axisName', argumentField: 'arg', name: 'Series3', stack: 'stack',
   },
 ];
+const size = 7;
+const groupWidth = 0.7;
+const barWidth = 0.9;
 
 
 describe('Series attributes', () => {
@@ -79,6 +82,9 @@ describe('Series attributes', () => {
     { width: 20, height: 10 },
     stacks,
     type,
+    size,
+    groupWidth,
+    barWidth,
   );
   beforeAll(() => {
     createScale.mockImplementation(() => value => value);
@@ -94,7 +100,7 @@ describe('Series attributes', () => {
     getAttributes({});
 
     expect(createScale).toHaveBeenCalledTimes(2);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 0.3]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 1 - groupWidth]);
     expect(createScale.mock.calls[1]).toEqual(['axisName', 20, 10]);
   });
 
@@ -107,13 +113,13 @@ describe('Series attributes', () => {
     });
 
     expect(createScale).toHaveBeenCalledTimes(3);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'band', orientation: 'orientation' }, 20, 10, 0.3]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'band', orientation: 'orientation' }, 20, 10, 1 - groupWidth]);
     expect(createScale.mock.calls[1]).toEqual(['axisName', 20, 10]);
     expect(createScale.mock.calls[2]).toEqual([{
       domain: ['stack1', 'stack2'],
       orientation: 'orientation',
       type: 'band',
-    }, 55, 55, 0.1]);
+    }, 55, 55, 1 - barWidth]);
     createScale.mockImplementation(() => value => value);
   });
 
@@ -153,11 +159,6 @@ describe('Series attributes', () => {
     expect(mockLine.y).toBeCalled();
     expect(mockLineResult.curve).toBeCalled();
     expect(mockCurveResult).toBeCalledWith(computedLine);
-  });
-
-  it('should apply point size', () => {
-    getAttributes({ seriesName: 'Series2' });
-    expect(mockSymbol.size).toBeCalledWith([100]);
   });
 
   it('should return scales', () => {

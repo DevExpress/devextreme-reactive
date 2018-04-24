@@ -30,7 +30,6 @@ export const EditingState = {
     },
     columnExtensions: {
       type: Array,
-      default: undefined,
     },
     editingRowIds: {
       type: Array,

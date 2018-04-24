@@ -2,6 +2,14 @@
 
 A plugin that manages the filtering state.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { FilteringState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

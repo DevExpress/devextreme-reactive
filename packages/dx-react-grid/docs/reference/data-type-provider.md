@@ -2,6 +2,14 @@
 
 A plugin that provides the capability to customize formatting options and editors depending on the data type.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { DataTypeProvider } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

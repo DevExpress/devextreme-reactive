@@ -2,6 +2,22 @@
 
 A plugin that renders the paging panel used for navigation through data pages.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { PagingPanel } from '@devexpress/dx-react-grid-material-ui';
+// import { PagingPanel } from '@devexpress/dx-react-grid-bootstrap4';
+// import { PagingPanel } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { PagingPanel } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

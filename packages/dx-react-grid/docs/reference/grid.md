@@ -2,6 +2,22 @@
 
 The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../README.md#plugins-overview) for details.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { Grid } from '@devexpress/dx-react-grid-material-ui';
+// import { Grid } from '@devexpress/dx-react-grid-bootstrap4';
+// import { Grid } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Grid } from '@devexpress/dx-react-grid';
+```
+
 ## User reference
 
 ### Properties

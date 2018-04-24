@@ -25,3 +25,4 @@ export * from './plugins/custom-paging';
 export * from './plugins/paging-panel';
 
 export * from './plugins/row-detail-state';
+export * from './plugins/table-row-detail';

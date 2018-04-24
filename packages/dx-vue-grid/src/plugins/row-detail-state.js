@@ -12,7 +12,7 @@ export const RowDetailState = {
     toggleDetailRowExpanded(payload) {
       this.$emit(
         'update:expandedRowIds',
-        toggleDetailRowExpanded({ expandedRowIds: this.expandedRowIds }, payload),
+        toggleDetailRowExpanded(this.expandedRowIds, payload),
       );
     },
   },

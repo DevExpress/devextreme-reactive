@@ -62,7 +62,7 @@ describe('RowDetailState', () => {
     expect(tree.find(RowDetailState).emitted()['update:expandedRowIds'][0][0])
       .toBe(toggleDetailRowExpandedValue);
     expect(toggleDetailRowExpanded.mock.calls[0][0])
-      .toEqual({ expandedRowIds: [1] });
+      .toEqual([1]);
     expect(toggleDetailRowExpanded.mock.calls[0][1])
       .toBe(toggleDetailRowExpandedPayload);
   });

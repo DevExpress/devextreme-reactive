@@ -28,7 +28,7 @@ const EditorBase = ({
 EditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   getMessage: PropTypes.func,

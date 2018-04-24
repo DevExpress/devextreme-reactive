@@ -18,7 +18,7 @@ export const Editor = ({
 );
 
 Editor.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.any,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   getMessage: PropTypes.func.isRequired,

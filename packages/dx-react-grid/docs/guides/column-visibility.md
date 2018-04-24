@@ -22,7 +22,7 @@ In the [uncontrolled mode](controlled-and-uncontrolled-modes.md#uncontrolled-mod
 
 In the [controlled mode](controlled-and-uncontrolled-modes.md#controlled-mode), pass the hidden column names to the `TableColumnVisibility` plugin's `hiddenColumnNames` property and handle the `onHiddenColumnNamesChange` event to control column visibility externally.
 
-embedded-demo({ "path": "grid-column-chooser/controlled", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-column-chooser/controlled", "showThemeSelector": true })
 
 ## Disable Column Visibility Toggling
 

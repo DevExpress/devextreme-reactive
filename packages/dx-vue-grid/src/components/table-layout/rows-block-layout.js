@@ -23,6 +23,10 @@ export const RowsBlockLayout = {
       type: Object,
       required: true,
     },
+    getCellColSpan: {
+      getCellColSpan: Function,
+      required: true,
+    },
   },
   render() {
     const {
@@ -31,6 +35,7 @@ export const RowsBlockLayout = {
       blockComponent: Block,
       rowComponent,
       cellComponent,
+      getCellColSpan,
     } = this;
 
     return (
@@ -44,6 +49,7 @@ export const RowsBlockLayout = {
                 columns={columns}
                 rowComponent={rowComponent}
                 cellComponent={cellComponent}
+                getCellColSpan={getCellColSpan}
               />
             ))
         }

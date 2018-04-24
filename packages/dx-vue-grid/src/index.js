@@ -12,6 +12,12 @@ export * from './plugins/filtering-state';
 export * from './plugins/integrated-filtering';
 export * from './plugins/table-filter-row';
 
+export * from './plugins/grouping-state';
+export * from './plugins/integrated-grouping';
+export * from './plugins/custom-grouping';
+export * from './plugins/grouping-panel';
+export * from './plugins/table-group-row';
+export * from './components/group-panel-layout';
 export * from './plugins/search-state';
 export * from './plugins/search-panel';
 

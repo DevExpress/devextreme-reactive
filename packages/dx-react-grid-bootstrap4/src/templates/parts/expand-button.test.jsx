@@ -83,18 +83,6 @@ describe('ExpandButton', () => {
       .toMatchObject({ color: 'gray' });
   });
 
-  it('should pass style to the root element', () => {
-    const tree = shallow((
-      <ExpandButton
-        {...defaultProps}
-        style={{ color: 'gray' }}
-      />
-    ));
-
-    expect(tree.prop('style'))
-      .toMatchObject({ color: 'gray' });
-  });
-
   it('should pass className to the root element', () => {
     const tree = shallow((
       <ExpandButton

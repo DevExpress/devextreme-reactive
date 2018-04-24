@@ -27,7 +27,7 @@ export class FilterSelector extends React.PureComponent {
     } = this.props;
     const { opened } = this.state;
     const target = this.getTargetElement();
-    return (
+    return availableValues.length ? (
       <React.Fragment>
         <button
           className="btn btn-link dx-rg-bs4-filter-selector-button"
@@ -37,34 +37,36 @@ export class FilterSelector extends React.PureComponent {
         >
           <Icon type={value} />
         </button>
-        {target && (
-          <Popover
-            placement="bottom"
-            isOpen={opened}
-            target={target}
-            toggle={this.handleOverlayToggle}
-          >
-            <ListGroup>
-              {availableValues.map(valueItem => (
-                <ListGroupItem
-                  key={valueItem}
-                  className="dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
-                  tag="button"
-                  action
-                  active={valueItem === value}
-                  onClick={() => this.handleMenuItemClick(valueItem)}
-                >
-                  <Icon type={valueItem} />
-                  <span className="dx-rg-bs4-filter-selector-item-text">
-                    {getMessage(valueItem)}
-                  </span>
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </Popover>
-        )}
+        {
+          target ? (
+            <Popover
+              placement="bottom"
+              isOpen={opened}
+              target={target}
+              toggle={this.handleOverlayToggle}
+            >
+              <ListGroup>
+                {availableValues.map(valueItem => (
+                  <ListGroupItem
+                    key={valueItem}
+                    className="dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
+                    tag="button"
+                    action
+                    active={valueItem === value}
+                    onClick={() => this.handleMenuItemClick(valueItem)}
+                  >
+                    <Icon type={valueItem} />
+                    <span className="dx-rg-bs4-filter-selector-item-text">
+                      {getMessage(valueItem)}
+                    </span>
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+            </Popover>
+          ) : null
+        }
       </React.Fragment>
-    );
+    ) : null;
   }
 }
 

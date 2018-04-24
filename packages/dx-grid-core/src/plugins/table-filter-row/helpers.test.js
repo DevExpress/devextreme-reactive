@@ -31,9 +31,12 @@ describe('TableFilterRow Plugin helpers', () => {
       const availableFilterOperations = {
         column1: ['a', 'b', 'c'],
         column2: ['d', 'a'],
+        column3: [],
       };
       expect(getColumnFilterOperations(availableFilterOperations, 'column2'))
         .toEqual(availableFilterOperations.column2);
+      expect(getColumnFilterOperations(availableFilterOperations, 'column3'))
+        .toEqual(availableFilterOperations.column3);
     });
 
     it('can return the default set of filter operations', () => {

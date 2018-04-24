@@ -62,5 +62,5 @@ DataTypeProvider.propTypes = {
 DataTypeProvider.defaultProps = {
   formatterComponent: undefined,
   editorComponent: undefined,
-  availableFilterOperations: [],
+  availableFilterOperations: undefined,
 };

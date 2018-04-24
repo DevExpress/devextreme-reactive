@@ -28,7 +28,7 @@ export class FilterSelector extends React.PureComponent {
     } = this.props;
     const { opened } = this.state;
 
-    return (
+    return availableValues.length ? (
       <React.Fragment>
         <button
           className="btn btn-link"
@@ -68,7 +68,7 @@ export class FilterSelector extends React.PureComponent {
           </ListGroup>
         </Overlay>
       </React.Fragment>
-    );
+    ) : null;
   }
 }
 

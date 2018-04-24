@@ -32,7 +32,7 @@ class FilterSelectorBase extends React.PureComponent {
       value, availableValues, getMessage, iconComponent: Icon, classes,
     } = this.props;
     const { anchorEl } = this.state;
-    return (
+    return availableValues.length ? (
       <React.Fragment>
         <IconButton
           onClick={this.handleButtonClick}
@@ -40,29 +40,27 @@ class FilterSelectorBase extends React.PureComponent {
         >
           <Icon type={value} />
         </IconButton>
-        {availableValues.length > 1 && (
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleMenuClose}
-          >
-            {availableValues.map(valueItem => (
-              <MenuItem
-                key={valueItem}
-                selected={valueItem === value}
-                onClick={() => this.handleMenuItemClick(valueItem)}
-              >
-                <Icon
-                  type={valueItem}
-                  className={classes.icon}
-                />
-                {getMessage(valueItem)}
-              </MenuItem>
-            ))}
-          </Menu>
-        )}
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleMenuClose}
+        >
+          {availableValues.map(valueItem => (
+            <MenuItem
+              key={valueItem}
+              selected={valueItem === value}
+              onClick={() => this.handleMenuItemClick(valueItem)}
+            >
+              <Icon
+                type={valueItem}
+                className={classes.icon}
+              />
+              {getMessage(valueItem)}
+            </MenuItem>
+          ))}
+        </Menu>
       </React.Fragment>
-    );
+    ) : null;
   }
 }
 

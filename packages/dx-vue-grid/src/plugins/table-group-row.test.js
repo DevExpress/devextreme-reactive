@@ -303,7 +303,7 @@ describe('TableGroupRow', () => {
       expect(deps.getter.expandedGroups.indexOf)
         .toBeCalledWith('1');
 
-      tree.find(defaultProps.cellComponent).vm.$listeners.toggle();
+      tree.find(defaultProps.cellComponent).vm.$emit('toggle');
       expect(defaultDeps.action.toggleGroupExpanded.mock.calls[0][0])
         .toEqual({ groupKey: '1' });
     });

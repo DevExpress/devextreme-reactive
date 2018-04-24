@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import {
   filteredRows,
   unwrappedFilteredRows,

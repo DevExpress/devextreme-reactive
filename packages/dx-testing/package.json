@@ -10,17 +10,12 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn run lint -- --fix"
+    "lint": "eslint \"./**.js\"",
+    "lint:fix": "yarn run lint --fix"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.10.0"
-  },
-  "peerDependencies": {
-    "@devexpress/dx-react-core": "1.1.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
   }
 }

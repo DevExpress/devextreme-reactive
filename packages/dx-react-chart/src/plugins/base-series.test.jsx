@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { getSeriesAttributes } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
 // eslint-disable-next-line react/prop-types

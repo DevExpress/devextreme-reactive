@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole, pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { IntegratedPaging } from './integrated-paging';

@@ -1,7 +1,4 @@
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-
 const { format } = require('util');
-
 
 module.exports = {
   setupConsole: (config = {}) => {
@@ -28,7 +25,4 @@ module.exports = {
     };
     /* eslint-enable no-console */
   },
-  pluginDepsToComponents,
-  getComputedState,
-  executeComputedAction,
 };

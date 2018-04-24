@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole, pluginDepsToComponents } from '@devexpress/dx-testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumn } from './table-tree-column';

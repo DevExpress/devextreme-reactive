@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole, pluginDepsToComponents } from '@devexpress/dx-testing';
+import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import {
   TABLE_DATA_TYPE,
   TABLE_REORDERING_TYPE,

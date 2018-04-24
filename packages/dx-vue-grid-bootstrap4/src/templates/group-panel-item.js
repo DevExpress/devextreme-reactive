@@ -36,8 +36,6 @@ export const GroupPanelItem = {
       item: { column },
       sortingDirection,
     } = this;
-    const { group: onGroup, sort: onSort } = this.$listeners;
-
     const handleSortingChange = (e) => {
       const isActionKeyDown = isActionKey(e.keyCode);
       const isMouseClick = e.keyCode === undefined;
@@ -49,7 +47,7 @@ export const GroupPanelItem = {
         : undefined;
 
       e.preventDefault();
-      onSort({
+      this.$emit('sort', {
         direction,
         keepOther: cancelSortingRelatedKey,
       });
@@ -60,7 +58,7 @@ export const GroupPanelItem = {
       const isMouseClick = e.keyCode === undefined;
 
       if (!isActionKeyDown && !isMouseClick) return;
-      onGroup();
+      this.$emit('group');
     };
     return (
       <div

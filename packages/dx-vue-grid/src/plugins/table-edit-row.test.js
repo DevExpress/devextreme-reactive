@@ -213,8 +213,7 @@ describe('TableEditRow', () => {
       },
     });
 
-    const { valueChange } = tree.find(defaultProps.cellComponent).vm.$listeners;
-    valueChange('test');
+    tree.find(defaultProps.cellComponent).vm.$emit('valueChange', 'test');
 
     expect(defaultDeps.getter.createRowChange)
       .toBeCalledWith({

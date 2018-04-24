@@ -32,7 +32,7 @@ export default {
         :columns="columns"
       >
         <dx-grouping-state
-          :grouping.sync="grouping"
+          :grouping="grouping"
           :expandedGroups.sync="expandedGroups"
         />
         <dx-integrated-grouping />

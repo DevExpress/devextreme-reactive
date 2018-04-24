@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { mount } from 'enzyme';
+import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import {
   groupRowChecker,
@@ -9,9 +8,9 @@ import {
   customGroupedRows,
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-vue-core';
 import { CustomGrouping } from './custom-grouping';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
+import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupRowChecker: jest.fn(),
@@ -58,42 +57,54 @@ describe('CustomGrouping', () => {
   });
 
   it('should provide isGroupRow getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <CustomGrouping
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).isGroupRow)
       .toBe(groupRowChecker);
   });
 
   it('should provide getRowLevelKey getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <CustomGrouping
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).getRowLevelKey)
       .toBe(groupRowLevelKeyGetter);
   });
 
   it('should provide rows getter based on grouping and expandedGroups getters', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <CustomGrouping
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(customGroupedRows)
       .toBeCalledWith(
@@ -114,14 +125,18 @@ describe('CustomGrouping', () => {
   });
 
   it('should provide getRowId getter based on grouped rows', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <CustomGrouping
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <CustomGrouping
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(customGroupingRowIdGetter)
       .toBeCalledWith(
@@ -139,14 +154,18 @@ describe('CustomGrouping', () => {
         getCollapsedRows: () => { },
       },
     };
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <CustomGrouping
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
+            <CustomGrouping
+              {...{ attrs: { ...defaultProps } }}
+            />
+          </PluginHost>
+        );
+      },
+    });
 
     expect(getComputedState(tree).getCollapsedRows)
       .toBe(groupCollapsedRowsGetter());
@@ -160,19 +179,23 @@ describe('CustomGrouping', () => {
       const grouping = [{ columnName: 'a' }];
       const expandedGroups = ['a', 'b'];
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <CustomGrouping
-            {...defaultProps}
-            grouping={grouping}
-            expandedGroups={expandedGroups}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <CustomGrouping
+                {...{ attrs: { ...defaultProps } }}
+                grouping={grouping}
+                expandedGroups={expandedGroups}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(getComputedState(tree).grouping)
-        .toBe(grouping);
+        .toEqual(grouping);
       expect(getComputedState(tree).expandedGroups)
         .toEqual(expandedGroups);
     });
@@ -181,16 +204,20 @@ describe('CustomGrouping', () => {
       const grouping = [{ columnName: 'a' }];
       const expandedGroups = ['a', 'b'];
 
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <CustomGrouping
-            {...defaultProps}
-            grouping={grouping}
-            expandedGroups={expandedGroups}
-          />
-        </PluginHost>
-      ));
+      const tree = mount({
+        render() {
+          return (
+            <PluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <CustomGrouping
+                {...{ attrs: { ...defaultProps } }}
+                grouping={grouping}
+                expandedGroups={expandedGroups}
+              />
+            </PluginHost>
+          );
+        },
+      });
 
       expect(customGroupedRows)
         .toBeCalledWith(

@@ -2,6 +2,14 @@
 
 A plugin that performs built-in data filtering.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { IntegratedFiltering } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

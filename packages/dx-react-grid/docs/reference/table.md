@@ -2,6 +2,22 @@
 
 A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { Table } from '@devexpress/dx-react-grid-material-ui';
+// import { Table } from '@devexpress/dx-react-grid-bootstrap4';
+// import { Table } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Table } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

@@ -154,8 +154,7 @@ describe('TableEditColumn', () => {
       expect(commandComponent.vm.$attrs)
         .toMatchObject({ text: 'addCommand' });
 
-      const { execute } = commandComponent.vm.$listeners;
-      execute();
+      commandComponent.vm.$emit('execute');
       expect(defaultDeps.action.addRow)
         .toBeCalled();
     });
@@ -215,8 +214,7 @@ describe('TableEditColumn', () => {
       expect(commandComponent.vm.$attrs)
         .toMatchObject({ text: 'editCommand' });
 
-      const { execute } = commandComponent.vm.$listeners;
-      execute();
+      commandComponent.vm.$emit('execute');
       expect(defaultDeps.action.startEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });
@@ -285,11 +283,11 @@ describe('TableEditColumn', () => {
         },
       });
 
-      expect(findCommandWithId(tree, 'delete').at(0).vm.$attrs)
+      const deleteComponent = findCommandWithId(tree, 'delete').at(0);
+      expect(deleteComponent.vm.$attrs)
         .toMatchObject({ text: 'deleteCommand' });
 
-      const { execute } = findCommandWithId(tree, 'delete').at(0).vm.$listeners;
-      execute();
+      deleteComponent.vm.$emit('execute');
       expect(defaultDeps.action.deleteRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.commitDeletedRows.mock.calls[0][0])
@@ -360,11 +358,11 @@ describe('TableEditColumn', () => {
         },
       });
 
-      expect(findCommandWithId(tree, 'commit').at(0).vm.$attrs)
+      const commitComponent = findCommandWithId(tree, 'commit').at(0);
+      expect(commitComponent.vm.$attrs)
         .toMatchObject({ text: 'commitCommand' });
 
-      const { execute } = findCommandWithId(tree, 'commit').at(0).vm.$listeners;
-      execute();
+      commitComponent.vm.$emit('execute');
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.commitChangedRows.mock.calls[0][0])
@@ -389,11 +387,11 @@ describe('TableEditColumn', () => {
         },
       });
 
-      expect(findCommandWithId(tree, 'commit').at(0).vm.$attrs)
+      const commitComponent = findCommandWithId(tree, 'commit').at(0);
+      expect(commitComponent.vm.$attrs)
         .toMatchObject({ text: 'commitCommand' });
 
-      const { execute } = findCommandWithId(tree, 'commit').at(0).vm.$listeners;
-      execute();
+      commitComponent.vm.$emit('execute');
       expect(defaultDeps.action.commitAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });
@@ -416,11 +414,11 @@ describe('TableEditColumn', () => {
         },
       });
 
-      expect(findCommandWithId(tree, 'cancel').at(0).vm.$attrs)
+      const cancelComponent = findCommandWithId(tree, 'cancel').at(0);
+      expect(cancelComponent.vm.$attrs)
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { execute } = findCommandWithId(tree, 'cancel').at(0).vm.$listeners;
-      execute();
+      cancelComponent.vm.$emit('execute');
       expect(defaultDeps.action.stopEditRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
       expect(defaultDeps.action.cancelChangedRows.mock.calls[0][0])
@@ -445,11 +443,11 @@ describe('TableEditColumn', () => {
         },
       });
 
-      expect(findCommandWithId(tree, 'cancel').at(0).vm.$attrs)
+      const cancelComponent = findCommandWithId(tree, 'cancel').at(0);
+      expect(cancelComponent.vm.$attrs)
         .toMatchObject({ text: 'cancelCommand' });
 
-      const { execute } = findCommandWithId(tree, 'cancel').at(0).vm.$listeners;
-      execute();
+      cancelComponent.vm.$emit('execute');
       expect(defaultDeps.action.cancelAddedRows.mock.calls[0][0])
         .toEqual({ rowIds: [defaultDeps.template.tableCell.tableRow.rowId] });
     });

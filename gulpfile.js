@@ -112,7 +112,6 @@ gulp.task('site:docs', function() {
     ], { base: 'packages' })
     .pipe(rename(function(path) {
       path.dirname = splitNameToPath('', path.dirname);
-      path.basename = path.basename.replace('.g', '');
     }))
     .pipe(intercept(function(file){
       if(file.contents) {

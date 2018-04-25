@@ -31,3 +31,4 @@ export * from './plugins/custom-paging';
 export * from './plugins/paging-panel';
 
 export * from './plugins/table-edit-column';
+export * from './plugins/table-edit-row';

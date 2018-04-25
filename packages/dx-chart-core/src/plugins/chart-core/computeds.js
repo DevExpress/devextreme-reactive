@@ -20,12 +20,13 @@ export const processData = (series, data) => data.map(singleData => series.reduc
 }, { singleData, collection: {} }).singleData);
 
 
-export const getSeriesWithStacks = series => series.reduce((prevResult, singleSeries, index) => {
-  const { stack = `stack${index}` } = singleSeries;
-  const { seriesWithStacks, allStacks } = prevResult;
+export const calculateSeriesWithStacks = series =>
+  series.reduce((prevResult, singleSeries, index) => {
+    const { stack = `stack${index}` } = singleSeries;
+    const { seriesWithStacks, allStacks } = prevResult;
 
-  return {
-    seriesWithStacks: [...seriesWithStacks, { ...singleSeries, stack }],
-    allStacks: [...allStacks, stack],
-  };
-}, { seriesWithStacks: [], allStacks: [] });
+    return {
+      seriesWithStacks: [...seriesWithStacks, { ...singleSeries, stack }],
+      allStacks: [...allStacks, stack],
+    };
+  }, { seriesWithStacks: [], allStacks: [] });

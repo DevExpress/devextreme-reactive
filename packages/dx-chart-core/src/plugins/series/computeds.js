@@ -4,6 +4,8 @@ import {
   line,
   curveCatmullRom,
   area,
+  arc,
+  pie,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
 
@@ -61,6 +63,28 @@ const xyScales = (
       domain: stacks,
     }, bandwidth, bandwidth, 1 - barWidth),
   };
+};
+
+export const calculatePieAttributes = (
+  series,
+  name,
+  data,
+  width,
+  height,
+  innerRadius,
+  outerRadius,
+) => {
+  const {
+    valueField,
+  } = series.find(seriesItem => seriesItem.name === name);
+  const radius = Math.min(width, height) / 2;
+  const pieData = pie().value(d => d[valueField])(data);
+
+  return pieData.map(d =>
+    arc().innerRadius(radius * innerRadius)
+      .outerRadius(radius * outerRadius || radius)
+      .startAngle(d.startAngle)
+      .endAngle(d.endAngle)());
 };
 
 export const seriesAttributes = (

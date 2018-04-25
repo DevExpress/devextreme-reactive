@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { argumentAxisName, processData, getSeriesWithStacks } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { argumentAxisName, processData, calculateSeriesWithStacks } from '@devexpress/dx-chart-core';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   argumentAxisName: jest.fn(),
   processData: jest.fn(),
-  getSeriesWithStacks: jest.fn(),
+  calculateSeriesWithStacks: jest.fn(),
 }));
 const RootComponent = () => null;
 
@@ -25,7 +25,7 @@ describe('Chart Core', () => {
   beforeEach(() => {
     argumentAxisName.mockImplementation(() => 'axisName');
     processData.mockImplementation(() => 'processed data');
-    getSeriesWithStacks.mockImplementation(() => ({
+    calculateSeriesWithStacks.mockImplementation(() => ({
       seriesWithStacks: 'seris with stacks',
       allStacks: 'all stacks',
     }));

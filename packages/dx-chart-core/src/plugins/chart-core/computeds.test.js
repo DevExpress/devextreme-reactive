@@ -1,4 +1,4 @@
-import { argumentAxisName, getSeriesWithStacks, processData } from './computeds';
+import { argumentAxisName, calculateSeriesWithStacks, processData } from './computeds';
 
 describe('Chart core', () => {
   describe('argumentAxisName', () => {
@@ -8,23 +8,23 @@ describe('Chart core', () => {
     });
   });
 
-  describe('getSeriesWithStacks', () => {
+  describe('calculateSeriesWithStacks', () => {
     it('should return stacks, stack in series is not specify', () => {
       const series = [{ name: '1' }, { name: '2' }];
-      const { allStacks } = getSeriesWithStacks(series);
+      const { allStacks } = calculateSeriesWithStacks(series);
       expect(allStacks).toEqual(['stack0', 'stack1']);
     });
 
     it('should return stacks, stack in series is specify', () => {
       const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
-      const { allStacks, seriesWithStacks } = getSeriesWithStacks(series);
+      const { allStacks, seriesWithStacks } = calculateSeriesWithStacks(series);
       expect(allStacks).toEqual(['one', 'two']);
       expect(seriesWithStacks).toEqual(series);
     });
 
     it('should return series with stacks, stack in series is not specify', () => {
       const series = [{ name: '1' }, { name: '2' }];
-      const { seriesWithStacks } = getSeriesWithStacks(series);
+      const { seriesWithStacks } = calculateSeriesWithStacks(series);
       expect(seriesWithStacks).toEqual([{ name: '1', stack: 'stack0' }, { name: '2', stack: 'stack1' }]);
     });
   });

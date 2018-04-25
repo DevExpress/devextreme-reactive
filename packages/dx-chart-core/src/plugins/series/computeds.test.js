@@ -4,9 +4,11 @@ import {
   line,
   area,
   symbolCircle,
+  arc,
+  pie,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
-import { seriesAttributes } from './computeds';
+import { seriesAttributes, calculatePieAttributes } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
@@ -15,6 +17,8 @@ jest.mock('d3-shape', () => ({
   symbol: jest.fn(),
   line: jest.fn(),
   area: jest.fn(),
+  pie: jest.fn(),
+  arc: jest.fn(),
 }));
 const mockSymbol = jest.fn().mockReturnThis();
 mockSymbol.size = jest.fn().mockReturnThis();
@@ -32,6 +36,16 @@ const mockAreaResult = jest.fn().mockReturnValue('area');
 mockArea.x = jest.fn().mockReturnThis();
 mockArea.y1 = jest.fn().mockReturnThis();
 mockArea.y0 = jest.fn(() => mockAreaResult);
+
+const mockPie = {
+  value: jest.fn(func => data =>
+    data.map(d => ({ startAngle: func(d), endAngle: func(d) }))),
+};
+const mockArc = jest.fn().mockReturnThis();
+mockArc.innerRadius = jest.fn().mockReturnThis();
+mockArc.outerRadius = jest.fn().mockReturnThis();
+mockArc.startAngle = jest.fn().mockReturnThis();
+mockArc.endAngle = jest.fn(() => jest.fn());
 
 const data = [
   {
@@ -181,5 +195,52 @@ describe('Series attributes', () => {
     expect(xOffset).toBe(27.5);
 
     createScale.mockImplementation(() => value => value);
+  });
+});
+
+describe('Pie attributes', () => {
+  beforeAll(() => {
+    pie.mockImplementation(() => mockPie);
+    arc.mockImplementation(() => mockArc);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should return array of arsc', () => {
+    expect(calculatePieAttributes(
+      series,
+      'Series3',
+      data,
+      20,
+      10,
+      0.1,
+      0.9,
+    )).toHaveLength(data.length);
+
+    data.forEach((d) => {
+      expect(mockArc.innerRadius).toHaveBeenCalledWith(0.5);
+      expect(mockArc.outerRadius).toHaveBeenCalledWith(4.5);
+      expect(mockArc.startAngle).toHaveBeenCalledWith(d.val1);
+      expect(mockArc.endAngle).toHaveBeenCalledWith(d.val1);
+    });
+  });
+
+  it('should return array of arcs, outerRadius is not set', () => {
+    calculatePieAttributes(
+      series,
+      'Series3',
+      data,
+      20,
+      10,
+      0,
+    );
+
+    data.forEach((d) => {
+      expect(mockArc.innerRadius).toHaveBeenCalledWith(0);
+      expect(mockArc.outerRadius).toHaveBeenCalledWith(5);
+      expect(mockArc.startAngle).toHaveBeenCalledWith(d.val1);
+      expect(mockArc.endAngle).toHaveBeenCalledWith(d.val1);
+    });
   });
 });

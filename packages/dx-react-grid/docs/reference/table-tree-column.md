@@ -2,6 +2,22 @@
 
 A plugin that renders a table column with toggle button and sorting indicators.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableTreeColumn } from '@devexpress/dx-react-grid-material-ui';
+// import { TableTreeColumn } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableTreeColumn } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableTreeColumn } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

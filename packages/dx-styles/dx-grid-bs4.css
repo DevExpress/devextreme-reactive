@@ -167,11 +167,7 @@
 }
 .dx-rg-bs4-filter-selector-button {
   margin-right: 5px;
-  color: black;
   flex: 0 0 auto;
-}
-.dx-rg-bs4-filter-selector-button:hover {
-  color: black;
 }
 .dx-rg-bs4-filter-selector-item:focus {
   outline: none;

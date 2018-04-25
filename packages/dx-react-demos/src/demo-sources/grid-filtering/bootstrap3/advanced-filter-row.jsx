@@ -5,17 +5,20 @@ import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-reac
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
-const FilterIcon = ({ type, ...restProps }) => {
+const FilterIcon = ({ type }) => {
   if (type === 'month') {
     return (
       <i
         className="glyphicon glyphicon-calendar"
-        style={{ width: 16, height: 16 }}
-        {...restProps}
+        style={{
+          width: 16,
+          height: 16,
+          color: 'black',
+        }}
       />
     );
   }
-  return <TableFilterRow.Icon type={type} {...restProps} />;
+  return <TableFilterRow.Icon type={type} />;
 };
 
 const CurrencyEditor = ({ value, onValueChange }) => {

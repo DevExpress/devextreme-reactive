@@ -6,11 +6,16 @@ import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-reac
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
-const FilterIcon = ({ type, ...restProps }) => {
+const FilterIcon = ({ type }) => {
   if (type === 'month') {
-    return <span className="oi oi-calendar" {...restProps} />;
+    return (
+      <span
+        className="oi oi-calendar"
+        style={{ color: 'black' }}
+      />
+    );
   }
-  return <TableFilterRow.Icon type={type} {...restProps} />;
+  return <TableFilterRow.Icon type={type} />;
 };
 
 const CurrencyEditor = ({ value, onValueChange }) => {

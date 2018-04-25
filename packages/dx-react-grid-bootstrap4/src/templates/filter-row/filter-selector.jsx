@@ -9,7 +9,7 @@ export class FilterSelector extends React.PureComponent {
     this.state = { opened: false };
 
     this.handleButtonClick = () => {
-      this.setState({ opened: true });
+      this.setState({ opened: !this.state.opened });
     };
     this.handleOverlayToggle = () => {
       if (this.state.opened) this.setState({ opened: false });

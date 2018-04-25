@@ -10,7 +10,7 @@ export class FilterSelector extends React.PureComponent {
     this.state = { opened: false };
 
     this.handleButtonClick = () => {
-      this.setState({ opened: true });
+      this.setState({ opened: !this.state.opened });
     };
     this.handleOverlayHide = () => {
       this.setState({ opened: false });
@@ -34,7 +34,6 @@ export class FilterSelector extends React.PureComponent {
           className="btn btn-link"
           style={{
             marginRight: 5,
-            color: 'black',
             flex: '0 0 auto',
           }}
           disabled={availableValues.length <= 1}

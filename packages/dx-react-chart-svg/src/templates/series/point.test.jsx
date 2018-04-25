@@ -11,7 +11,9 @@ describe('Point', () => {
 
   it('should render path element', () => {
     const tree = shallow((
-      <Point {...defaultProps} />
+      <Point
+        {...defaultProps}
+      />
     ));
     expect(tree.find('path').exists()).toBeTruthy();
   });

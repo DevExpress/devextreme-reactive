@@ -86,13 +86,15 @@ export class Axis extends React.Component {
                   {
                     coordinates.ticks.map(({
                       x1, x2, y1, y2, text,
-                    }) => (<Tick
-                      key={text}
-                      x1={x1 + (x - this.state.xCorrection)}
-                      x2={x2 + (x - this.state.xCorrection)}
-                      y1={y1 + (y - this.state.yCorrection)}
-                      y2={y2 + (y - this.state.yCorrection)}
-                    />))
+                    }) => (
+                      <Tick
+                        key={text}
+                        x1={x1 + (x - this.state.xCorrection)}
+                        x2={x2 + (x - this.state.xCorrection)}
+                        y1={y1 + (y - this.state.yCorrection)}
+                        y2={y2 + (y - this.state.yCorrection)}
+                      />
+                      ))
                   }
                   <Root
                     refsHandler={this.createRefsHandler(
@@ -103,7 +105,11 @@ export class Axis extends React.Component {
                     x={x - this.state.xCorrection}
                     y={y - this.state.yCorrection}
                   >
-                    <Line width={width} height={height} orientation={orientation} />
+                    <Line
+                      width={width}
+                      height={height}
+                      orientation={orientation}
+                    />
                     {coordinates.ticks.map(({
                       text,
                       xText,

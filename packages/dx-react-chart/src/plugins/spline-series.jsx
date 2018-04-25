@@ -22,13 +22,14 @@ const Series = ({
       />
       {
         coordinates.map(item =>
-          (<Point
-            key={item.id.toString()}
-            x={item.x}
-            y={item.y}
-            d={dPoint}
-            style={pointStyle}
-          />
+          (
+            <Point
+              key={item.id.toString()}
+              x={item.x}
+              y={item.y}
+              d={dPoint}
+              style={pointStyle}
+            />
         ))
       }
     </React.Fragment>

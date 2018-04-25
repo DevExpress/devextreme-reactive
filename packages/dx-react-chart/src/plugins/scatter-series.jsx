@@ -12,13 +12,14 @@ const Series = ({
   const { dPoint, coordinates } = attributes;
   return (
     coordinates.map(item =>
-      (<Point
-        key={item.id.toString()}
-        x={item.x}
-        y={item.y}
-        d={dPoint}
-        {...restProps}
-      />
+      (
+        <Point
+          key={item.id.toString()}
+          x={item.x}
+          y={item.y}
+          d={dPoint}
+          {...restProps}
+        />
       ))
   );
 };

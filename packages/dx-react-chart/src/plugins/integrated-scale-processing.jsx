@@ -9,5 +9,6 @@ export const IntegratedScaleProcessing = () => {
   return ((
     <Plugin name="IntegratedScaleProcessing">
       <Getter name="domains" computed={computedDomain} />
-    </Plugin>));
+    </Plugin>
+  ));
 };

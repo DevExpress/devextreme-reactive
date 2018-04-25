@@ -5,9 +5,12 @@ export class Root extends React.PureComponent {
   render() {
     const { x, y, children } = this.props;
     return (
-      <g transform={`translate(${x} ${y})`}>
+      <g
+        transform={`translate(${x} ${y})`}
+      >
         {children}
-      </g>);
+      </g>
+    );
   }
 }
 

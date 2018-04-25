@@ -6,14 +6,16 @@ export class Tick extends React.PureComponent {
     const {
       x1, x2, y1, y2,
     } = this.props;
-    return (<line
-      shapeRendering="crispEdges"
-      style={{ stroke: 'black', strokeWidth: '1px' }}
-      x1={x1}
-      x2={x2}
-      y1={y1}
-      y2={y2}
-    />);
+    return (
+      <line
+        shapeRendering="crispEdges"
+        style={{ stroke: 'black', strokeWidth: '1px' }}
+        x1={x1}
+        x2={x2}
+        y1={y1}
+        y2={y2}
+      />
+    );
   }
 }
 

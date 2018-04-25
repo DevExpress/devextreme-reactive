@@ -10,7 +10,9 @@ describe('Path', () => {
   };
   it('should render root element', () => {
     const tree = shallow((
-      <Path {...defaultProps} />
+      <Path
+        {...defaultProps}
+      />
     ));
     const { d, transform } = tree.find('path').props();
 

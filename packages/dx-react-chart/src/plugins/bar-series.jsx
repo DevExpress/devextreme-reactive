@@ -17,14 +17,15 @@ class Series extends React.PureComponent {
     const xCorrection = ((bandwidth - barWidth) / 2);
     return (
       coordinates.map(item =>
-        (<Point
-          key={item.id.toString()}
-          x={item.x + xCorrection}
-          y={item.y}
-          width={barWidth}
-          height={height - item.y}
-          {...restProps}
-        />
+        (
+          <Point
+            key={item.id.toString()}
+            x={item.x + xCorrection}
+            y={item.y}
+            width={barWidth}
+            height={height - item.y}
+            {...restProps}
+          />
         ))
     );
   }

@@ -6,16 +6,18 @@ export class Marker extends React.PureComponent {
     const {
       width, x, y, height, style,
     } = this.props;
-    return (<rect
-      x={x}
-      y={y}
-      width={width}
-      height={height}
-      style={{
+    return (
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        style={{
         fill: 'red',
         ...style,
       }}
-    />);
+      />
+    );
   }
 }
 

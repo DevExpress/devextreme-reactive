@@ -7,9 +7,14 @@ export class Root extends React.PureComponent {
       x, y, refsHandler, children,
     } = this.props;
     return (
-      <g ref={refsHandler} transform={`translate(${x} ${y})`} shapeRendering="crispEdges">
+      <g
+        ref={refsHandler}
+        transform={`translate(${x} ${y})`}
+        shapeRendering="crispEdges"
+      >
         {children}
-      </g>);
+      </g>
+    );
   }
 }
 

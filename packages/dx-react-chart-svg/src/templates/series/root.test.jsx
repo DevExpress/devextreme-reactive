@@ -10,7 +10,9 @@ describe('Scatter root', () => {
 
   it('should transform group', () => {
     const tree = shallow((
-      <Root {...defaultProps}>
+      <Root
+        {...defaultProps}
+      >
         <span className="test" />
       </Root>
     ));
@@ -20,7 +22,9 @@ describe('Scatter root', () => {
 
   it('should render children element', () => {
     const tree = shallow((
-      <Root {...defaultProps}>
+      <Root
+        {...defaultProps}
+      >
         <span className="test" />
       </Root>
     ));

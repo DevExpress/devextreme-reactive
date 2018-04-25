@@ -12,7 +12,9 @@ describe('Bar', () => {
 
   it('should render root element', () => {
     const tree = shallow((
-      <Bar {...defaultProps} />
+      <Bar
+        {...defaultProps}
+      />
     ));
     const {
       x, y, width, height,

@@ -52,7 +52,8 @@ export class Grid extends React.PureComponent {
                         y2={y2}
                       />
                     ))}
-                </Root>));
+                </Root>
+              ));
             }}
           </TemplateConnector>
         </Template>

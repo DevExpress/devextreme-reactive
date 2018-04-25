@@ -6,16 +6,18 @@ export class Path extends React.PureComponent {
     const {
       x, y, d, style,
     } = this.props;
-    return (<path
-      transform={`translate(${x} ${y})`}
-      d={d}
-      style={{
-        stroke: 'black',
-        strokeWidth: '1px',
-        fill: 'none',
-        ...style,
-      }}
-    />);
+    return (
+      <path
+        transform={`translate(${x} ${y})`}
+        d={d}
+        style={{
+          stroke: 'black',
+          strokeWidth: '1px',
+          fill: 'none',
+          ...style,
+        }}
+      />
+    );
   }
 }
 

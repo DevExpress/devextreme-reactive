@@ -8,7 +8,11 @@ export class Root extends React.PureComponent {
     } = this.props;
 
     return (
-      <svg width={width} height={height} {...restProps}>
+      <svg
+        width={width}
+        height={height}
+        {...restProps}
+      >
         {children}
       </svg>);
   }

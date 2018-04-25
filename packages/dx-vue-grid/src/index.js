@@ -29,3 +29,7 @@ export * from './plugins/paging-state';
 export * from './plugins/integrated-paging';
 export * from './plugins/custom-paging';
 export * from './plugins/paging-panel';
+
+export * from './plugins/editing-state';
+export * from './plugins/table-edit-column';
+export * from './plugins/table-edit-row';

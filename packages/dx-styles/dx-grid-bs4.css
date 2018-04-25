@@ -71,6 +71,8 @@ span.dx-g-bs4-group-panel-item-icon {
   text-overflow: ellipsis;
   margin: -5px;
   padding: 5px;
+  width: 100%;
+  width: calc(100% + 10px);
 }
 .dx-g-bs4-table-header-cell-left {
   margin-right: 14px;

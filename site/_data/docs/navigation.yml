@@ -155,3 +155,8 @@ react:
           path: /react/grid/docs/reference/custom-tree-data
         - title: TableTreeColumn
           path: /react/grid/docs/reference/table-tree-column
+/vue/grid:
+  - title: Guides
+    items:
+      - title: Fundamentals
+        path: /vue/grid/docs/guides/fundamentals

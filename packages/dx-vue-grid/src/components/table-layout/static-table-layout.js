@@ -44,6 +44,10 @@ export const StaticTableLayout = {
       type: Number,
       required: true,
     },
+    getCellColSpan: {
+      getCellColSpan: Function,
+      required: true,
+    },
   },
   render() {
     const {
@@ -57,6 +61,7 @@ export const StaticTableLayout = {
       bodyRows,
       headerRows,
       minWidth,
+      getCellColSpan,
     } = this;
 
     return (
@@ -72,6 +77,7 @@ export const StaticTableLayout = {
               blockComponent={headComponent}
               rowComponent={rowComponent}
               cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
             />
           )}
           <RowsBlockLayout
@@ -80,6 +86,7 @@ export const StaticTableLayout = {
             blockComponent={bodyComponent}
             rowComponent={rowComponent}
             cellComponent={cellComponent}
+            getCellColSpan={getCellColSpan}
           />
         </Table>
       </Container>

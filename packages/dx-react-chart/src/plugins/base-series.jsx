@@ -19,7 +19,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
       } = this.props;
       return (
         <Plugin name={pluginName}>
-          <Template name="canvas">
+          <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
               {({
@@ -28,25 +28,21 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                 data,
                 argumentAxisName,
                 layouts,
-              }) => {
-                const {
-                  x, y,
-                } = layouts[placeholder];
+                width,
+                height,
+               }) => {
                 const attributes = seriesAttributes(
-                    data,
-                    series,
-                    name,
-                    domains,
-                    argumentAxisName,
-                    layouts[placeholder],
-                    pathType,
-                  );
+                  data,
+                  series,
+                  name,
+                  domains,
+                  argumentAxisName,
+                  layouts.pane || { width, height },
+                  pathType,
+                );
                 return (
-                  <Root x={x} y={y}>
-                    <WrappedComponent
-                      attributes={attributes}
-                      {...restProps}
-                    />
+                  <Root x={0} y={0}>
+                    <WrappedComponent attributes={attributes} {...restProps} />
                   </Root>
                 );
               }}

@@ -22,6 +22,7 @@ describe('Chart', () => {
 
   const defaultProps = {
     data: [],
+    series: [],
     rootComponent: () => null,
   };
 

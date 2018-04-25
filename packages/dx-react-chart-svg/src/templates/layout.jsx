@@ -4,17 +4,23 @@ import * as PropTypes from 'prop-types';
 export class Root extends React.PureComponent {
   render() {
     const {
-      children, width, height, ...restProps
+      children, width, height, style, ...restProps
     } = this.props;
 
     return (
-      <svg
-        width={width}
-        height={height}
+      <div
+        style={{
+          ...style,
+          width: `${width}px`,
+          height: `${height}px`,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
         {...restProps}
       >
         {children}
-      </svg>);
+      </div>
+    );
   }
 }
 
@@ -22,8 +28,10 @@ Root.propTypes = {
   children: PropTypes.node,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  style: PropTypes.object,
 };
 
 Root.defaultProps = {
   children: undefined,
+  style: undefined,
 };

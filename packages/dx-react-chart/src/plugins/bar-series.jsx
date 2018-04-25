@@ -5,19 +5,16 @@ import { baseSeries } from './base-series';
 class Series extends React.PureComponent {
   render() {
     const { attributes, barWidth: percentWidth, ...props } = this.props;
+    const { pointComponent: Point, ...restProps } = props;
     const {
-      pointComponent: Point,
-      ...restProps
-    } = props;
-    const {
-      coordinates, scales, height,
+      coordinates, scales, height, width,
     } = attributes;
     const bandwidth = scales.xScale.bandwidth();
     const barWidth = bandwidth * percentWidth;
-    const xCorrection = ((bandwidth - barWidth) / 2);
+    const xCorrection = (bandwidth - barWidth) / 2;
     return (
-      coordinates.map(item =>
-        (
+      <svg width={width} height={height}>
+        {coordinates.map(item => (
           <Point
             key={item.id.toString()}
             x={item.x + xCorrection}
@@ -26,7 +23,8 @@ class Series extends React.PureComponent {
             height={height - item.y}
             {...restProps}
           />
-        ))
+        ))}
+      </svg>
     );
   }
 }

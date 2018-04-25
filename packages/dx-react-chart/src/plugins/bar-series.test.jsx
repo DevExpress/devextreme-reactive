@@ -35,7 +35,7 @@ describe('Bar series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 

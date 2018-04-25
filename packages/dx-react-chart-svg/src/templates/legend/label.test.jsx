@@ -6,22 +6,15 @@ describe('Label', () => {
   it('should render text', () => {
     const tree = shallow((
       <Label
-        x={1}
-        y={2}
         text="a"
-        dominantBaseline="middle"
-        textAnchor="end"
-        refsHandler={jest.fn()}
+        margin={5}
       />
     ));
 
     const {
-      x, y, dominantBaseline, textAnchor,
-    } = tree.find('text').props();
-    expect(x).toBe(1);
-    expect(y).toBe(2);
-    expect(dominantBaseline).toBe('middle');
-    expect(textAnchor).toBe('end');
+      style,
+    } = tree.find('span').props();
     expect(tree.text()).toBe('a');
+    expect(style.margin).toBe(5);
   });
 });

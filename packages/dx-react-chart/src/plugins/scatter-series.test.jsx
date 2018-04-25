@@ -32,7 +32,7 @@ describe('Scatter series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
@@ -51,8 +51,7 @@ describe('Scatter series', () => {
         <ScatterSeries
           {...defaultProps}
         />
-      </PluginHost>
-    ));
+      </PluginHost>));
 
     expect(tree.find(PointComponent)).toHaveLength(coordinates.length);
 

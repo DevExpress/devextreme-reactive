@@ -21,14 +21,14 @@ describe('Base series', () => {
   });
   const defaultDeps = {
     getter: {
-      layouts: { pane: { x: 1, y: 2 } },
+      layouts: { pane: { height: 50, width: 60 } },
       data: 'data',
       series: 'series',
       domains: 'domains',
       argumentAxisName: 'argumentAxisName',
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
@@ -52,8 +52,8 @@ describe('Base series', () => {
     ));
 
     const root = tree.find(RootComponent);
-    expect(root.props().x).toBe(1);
-    expect(root.props().y).toBe(2);
+    expect(root.props().x).toBe(0);
+    expect(root.props().y).toBe(0);
     expect(root.children().find(TestComponent).props()).toEqual({
       attributes: 'attributes',
       styles: 'styles',
@@ -78,7 +78,7 @@ describe('Base series', () => {
       'name',
       'domains',
       'argumentAxisName',
-      { x: 1, y: 2 },
+      { width: 60, height: 50 },
       'pathType',
     );
   });

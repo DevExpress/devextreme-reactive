@@ -4,29 +4,28 @@ import * as PropTypes from 'prop-types';
 export class Marker extends React.PureComponent {
   render() {
     const {
-      width, x, y, height, style,
+      width, height, style, margin,
     } = this.props;
     return (
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        style={{
-        fill: 'red',
-        ...style,
-      }}
-      />
+      <svg width={width} height={height} style={{ margin }}>
+        <rect
+          width={width}
+          height={height}
+          style={{
+            fill: 'red',
+            ...style,
+          }}
+        />
+      </svg>
     );
   }
 }
 
 Marker.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
   style: PropTypes.object,
+  margin: PropTypes.number.isRequired,
 };
 
 Marker.defaultProps = {
@@ -34,4 +33,3 @@ Marker.defaultProps = {
   width: 10,
   height: 10,
 };
-

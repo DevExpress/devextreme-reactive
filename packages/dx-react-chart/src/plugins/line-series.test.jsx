@@ -34,7 +34,7 @@ describe('Line series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 

@@ -34,7 +34,7 @@ describe('Spline series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 

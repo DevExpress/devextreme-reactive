@@ -10,10 +10,9 @@ import { generateRows } from '../../../demo-data/generator';
 
 const RowDetail = {
   props: ['row'],
-  render() {
-    const { row } = this;
-    return <div>Details for {row.name} from {row.city}</div>;
-  },
+  template: `
+    <div>Details for {{ row.name }} from {{ row.city }}</div>
+  `,
 };
 
 export default {

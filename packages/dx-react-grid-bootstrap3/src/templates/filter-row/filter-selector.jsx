@@ -35,6 +35,7 @@ export class FilterSelector extends React.PureComponent {
           style={{
             marginRight: 5,
             flex: '0 0 auto',
+            textDecoration: 'none',
           }}
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
@@ -55,7 +56,12 @@ export class FilterSelector extends React.PureComponent {
               <ListGroupItem
                 key={valueItem}
                 active={valueItem === value}
-                style={{ outline: 'none', whiteSpace: 'nowrap' }}
+                style={{
+                  outline: 'none',
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
                 onClick={() => this.handleMenuItemClick(valueItem)}
               >
                 <Icon type={valueItem} />

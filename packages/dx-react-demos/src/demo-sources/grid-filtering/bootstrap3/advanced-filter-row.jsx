@@ -14,6 +14,7 @@ const FilterIcon = ({ type }) => {
           width: 16,
           height: 16,
           color: 'black',
+          display: 'block',
         }}
       />
     );
@@ -33,7 +34,8 @@ const CurrencyEditor = ({ value, onValueChange }) => {
   return (
     <input
       type="number"
-      className="form-control"
+      className="form-control text-right"
+      placeholder="Filter..."
       value={value === undefined ? '' : value}
       min={0}
       onChange={handleChange}

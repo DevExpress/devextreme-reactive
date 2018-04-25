@@ -49,7 +49,7 @@ export class FilterSelector extends React.PureComponent {
                 {availableValues.map(valueItem => (
                   <ListGroupItem
                     key={valueItem}
-                    className="dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
+                    className="d-flex align-items-center dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
                     tag="button"
                     action
                     active={valueItem === value}

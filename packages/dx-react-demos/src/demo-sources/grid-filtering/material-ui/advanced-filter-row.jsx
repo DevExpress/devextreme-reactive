@@ -40,6 +40,7 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
       value={value === undefined ? '' : value}
       inputProps={{
         min: 0,
+        placeholder: 'Filter...',
       }}
       onChange={handleChange}
     />

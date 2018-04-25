@@ -22,6 +22,7 @@ export const Icon = ({ type, ...restProps }) => {
         style={{
           width: 16,
           height: 16,
+          display: 'block',
         }}
         viewBox="0 0 32 32"
         {...restProps}
@@ -34,6 +35,7 @@ export const Icon = ({ type, ...restProps }) => {
         style={{
           width: 16,
           height: 16,
+          display: 'block',
         }}
         className="glyphicon glyphicon-search"
         {...restProps}

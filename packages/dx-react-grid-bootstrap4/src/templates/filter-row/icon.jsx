@@ -20,7 +20,7 @@ export const Icon = ({ type, className, ...restProps }) => {
   return path
     ? (
       <svg
-        className={classNames('dx-rg-bs4-filter-selector-icon', className)}
+        className={classNames('d-block dx-rg-bs4-filter-selector-icon', className)}
         viewBox="0 0 32 32"
         {...restProps}
       >
@@ -30,6 +30,7 @@ export const Icon = ({ type, className, ...restProps }) => {
     : (
       <span
         className={classNames(
+          'd-block',
           'oi',
           'oi-magnifying-glass',
           'dx-rg-bs4-filter-selector-icon',

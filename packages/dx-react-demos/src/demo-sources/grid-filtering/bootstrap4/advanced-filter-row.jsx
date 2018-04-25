@@ -10,7 +10,7 @@ const FilterIcon = ({ type }) => {
   if (type === 'month') {
     return (
       <span
-        className="oi oi-calendar"
+        className="d-block oi oi-calendar"
         style={{ color: 'black' }}
       />
     );
@@ -29,8 +29,9 @@ const CurrencyEditor = ({ value, onValueChange }) => {
   };
   return (
     <input
-      className="form-control"
+      className="form-control text-right"
       type="number"
+      placeholder="Filter..."
       value={value === undefined ? '' : value}
       min={0}
       onChange={handleChange}

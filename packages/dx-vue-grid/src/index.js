@@ -32,3 +32,7 @@ export * from './plugins/paging-panel';
 
 export * from './plugins/row-detail-state';
 export * from './plugins/table-row-detail';
+
+export * from './plugins/editing-state';
+export * from './plugins/table-edit-column';
+export * from './plugins/table-edit-row';

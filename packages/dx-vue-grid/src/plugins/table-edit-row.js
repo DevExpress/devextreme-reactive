@@ -1,4 +1,4 @@
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, TemplatePlaceholderSlot  } from '@devexpress/dx-vue-core';
+import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, TemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,

@@ -74,9 +74,7 @@ export default {
           :deletedRowIds.sync="deletedRowIds"
           :editingRowIds.sync="editingRowIds"
         />
-        <dx-table
-          :columnExtensions="tableColumnExtensions"
-        />
+        <dx-table />
         <dx-table-header-row />
         <dx-table-edit-row />
         <dx-table-edit-column

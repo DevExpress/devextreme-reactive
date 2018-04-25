@@ -18,6 +18,7 @@ export * from './plugins/custom-grouping';
 export * from './plugins/grouping-panel';
 export * from './plugins/table-group-row';
 export * from './components/group-panel-layout';
+
 export * from './plugins/search-state';
 export * from './plugins/search-panel';
 

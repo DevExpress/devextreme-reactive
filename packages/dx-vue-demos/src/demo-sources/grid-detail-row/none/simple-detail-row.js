@@ -8,15 +8,12 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-// const RowDetail = ({ row }) => (
-//   <div>Details for {row.name} from {row.city}</div>
-// );
-
 const RowDetail = {
-  name: 'RowDetail',
-  template: `
-    <div>123</div>
-  `,
+  props: ['row'],
+  render() {
+    const { row } = this;
+    return <div>Details for {row.name} from {row.city}</div>;
+  },
 };
 
 export default {
@@ -43,7 +40,9 @@ export default {
         />
         <dx-table />
         <dx-table-header-row />
-        <dx-table-row-detail />
+        <dx-table-row-detail
+          :contentComponent="$options.components.RowDetail"
+        />
       </dx-grid>
     </div>
   `,

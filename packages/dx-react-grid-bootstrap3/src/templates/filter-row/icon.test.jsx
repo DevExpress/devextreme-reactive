@@ -18,4 +18,20 @@ describe('Icon', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should pass styles to the root element', () => {
+    let tree = shallow(<Icon style={{ color: 'red' }} />);
+    expect(tree.props().style)
+      .toMatchObject({
+        width: 16,
+        color: 'red',
+      });
+
+    tree = shallow(<Icon type="contains" style={{ color: 'red' }} />);
+    expect(tree.props().style)
+      .toMatchObject({
+        width: 16,
+        color: 'red',
+      });
+  });
 });

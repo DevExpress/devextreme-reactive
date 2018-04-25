@@ -167,10 +167,6 @@
   margin-right: 5px;
   flex: 0 0 auto;
 }
-.dx-rg-bs4-filter-selector-button:hover,
-.dx-rg-bs4-filter-selector-button:focus {
-  text-decoration: none;
-}
 .dx-rg-bs4-filter-selector-item:focus {
   outline: none;
 }
@@ -180,4 +176,5 @@
 .dx-rg-bs4-filter-selector-icon {
   width: 16px;
   height: 16px;
+  fill: currentColor;
 }

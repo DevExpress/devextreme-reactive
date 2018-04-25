@@ -30,7 +30,7 @@ export class FilterSelector extends React.PureComponent {
     return availableValues.length ? (
       <React.Fragment>
         <button
-          className="btn btn-link dx-rg-bs4-filter-selector-button"
+          className="btn border-0 btn-outline-secondary dx-rg-bs4-filter-selector-button"
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}

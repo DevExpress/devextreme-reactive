@@ -13,7 +13,6 @@ const FilterIcon = ({ type }) => {
         style={{
           width: 16,
           height: 16,
-          color: 'black',
           display: 'block',
         }}
       />

@@ -11,7 +11,6 @@ const FilterIcon = ({ type }) => {
     return (
       <span
         className="d-block oi oi-calendar"
-        style={{ color: 'black' }}
       />
     );
   }

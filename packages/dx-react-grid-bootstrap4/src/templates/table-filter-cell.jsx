@@ -7,7 +7,7 @@ export const TableFilterCell = ({
   filteringEnabled, ...restProps
 }) => (
   <th {...restProps}>
-    <div className="d-flex align-items-center dx-g-bs4-filter-cell-flex-container">
+    <div className="d-flex align-items-center w-100">
       {children}
     </div>
   </th>

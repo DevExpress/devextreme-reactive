@@ -21,6 +21,10 @@ export const RowLayout = {
       type: Object,
       required: true,
     },
+    getCellColSpan: {
+      getCellColSpan: Function,
+      required: true,
+    },
   },
   render() {
     const {
@@ -28,6 +32,7 @@ export const RowLayout = {
       columns,
       rowComponent: Row,
       cellComponent: Cell,
+      getCellColSpan,
     } = this;
 
     return (
@@ -42,7 +47,7 @@ export const RowLayout = {
                 key={column.key}
                 tableRow={row}
                 tableColumn={column}
-                colSpan={column.colSpan}
+                colSpan={getCellColSpan(row, column)}
               />
             ))
         }

@@ -17,7 +17,6 @@ export const PagingPanel = {
     },
     messages: {
       type: Object,
-      required: true,
     },
     containerComponent: {
       type: Object,

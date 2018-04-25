@@ -151,6 +151,7 @@ export const Table = {
                 tableHeaderRows: headerRows,
                 tableBodyRows: bodyRows,
                 tableColumns: columns,
+                getTableCellColSpan,
               },
             }) => (
               <Layout
@@ -163,6 +164,8 @@ export const Table = {
                 columns={columns}
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
+                getCellColSpan={(tableRow, tableColumn) =>
+                  getTableCellColSpan({ tableRow, tableColumn, tableColumns: columns })}
               />
             )}
           </TemplateConnector>

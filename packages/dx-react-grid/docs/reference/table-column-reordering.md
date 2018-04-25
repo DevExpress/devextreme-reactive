@@ -2,6 +2,22 @@
 
 A plugin that manages the displayed columns' order.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableColumnReordering } from '@devexpress/dx-react-grid-material-ui';
+// import { TableColumnReordering } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableColumnReordering } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableColumnReordering } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

@@ -33,12 +33,15 @@ export default class Demo extends React.PureComponent {
     };
   }
   render() {
+    const {
+      data: chartData, width, height, series,
+    } = this.state;
     return (
       <Chart
-        data={this.state.data}
-        width={this.state.width}
-        height={this.state.height}
-        series={this.state.series}
+        data={chartData}
+        width={width}
+        height={height}
+        series={series}
       >
 
         <ArgumentAxis />

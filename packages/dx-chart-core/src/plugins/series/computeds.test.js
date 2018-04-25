@@ -6,7 +6,7 @@ import {
   symbolCircle,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
-import { getSeriesAttributes } from './computeds';
+import { seriesAttributes } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
@@ -55,7 +55,7 @@ const series = [
 ];
 
 describe('Series attributes', () => {
-  const getAttributes = (type, seriesName) => getSeriesAttributes(
+  const getAttributes = (type, seriesName) => seriesAttributes(
     data,
     series,
     seriesName || 'Series3',

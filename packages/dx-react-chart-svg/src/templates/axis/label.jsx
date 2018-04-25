@@ -16,7 +16,8 @@ export class Label extends React.PureComponent {
         y={y}
       >
         {text}
-      </text>);
+      </text>
+    );
   }
 }
 

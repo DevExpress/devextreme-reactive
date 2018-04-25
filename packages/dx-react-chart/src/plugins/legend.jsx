@@ -109,6 +109,5 @@ Legend.propTypes = {
 };
 
 Legend.defaultProps = {
-  placeholder: undefined,
   position: 'right',
 };

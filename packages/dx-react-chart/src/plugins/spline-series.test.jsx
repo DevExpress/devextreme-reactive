@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { getSeriesAttributes } from '@devexpress/dx-chart-core';
+import { seriesAttributes } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { SplineSeries } from './spline-series';
 
@@ -19,10 +19,10 @@ const coordinates = [
 ];
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  getSeriesAttributes: jest.fn(),
+  seriesAttributes: jest.fn(),
 }));
 
-getSeriesAttributes.mockImplementation(() => ({
+seriesAttributes.mockImplementation(() => ({
   coordinates,
   dPoint: 'M10 10',
   d: 'M11 11',

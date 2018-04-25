@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { getArgumentAxisName } from '@devexpress/dx-chart-core';
+import { argumentAxisName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  getArgumentAxisName: jest.fn(),
+  argumentAxisName: jest.fn(),
 }));
 const RootComponent = () => null;
 
@@ -21,7 +21,7 @@ const defaultProps = {
 
 describe('Chart Core', () => {
   beforeEach(() => {
-    getArgumentAxisName.mockImplementation(() => 'axisName');
+    argumentAxisName.mockImplementation(() => 'axisName');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -36,7 +36,7 @@ describe('Chart Core', () => {
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
-    expect(getArgumentAxisName).toBeCalledWith(defaultProps.series);
+    expect(argumentAxisName).toBeCalledWith(defaultProps.series);
     expect(getComputedState(tree)).toEqual({
       argumentAxisName: 'axisName',
       axes: defaultProps.axes,

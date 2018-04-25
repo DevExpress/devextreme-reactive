@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { getSeriesAttributes } from '@devexpress/dx-chart-core';
+import { seriesAttributes } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
@@ -9,12 +9,12 @@ import { baseSeries } from './base-series';
 const RootComponent = ({ children }) => <div>{children}</div>;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  getSeriesAttributes: jest.fn(),
+  seriesAttributes: jest.fn(),
 }));
 
 describe('Base series', () => {
   beforeEach(() => {
-    getSeriesAttributes.mockImplementation(() => 'attributes');
+    seriesAttributes.mockImplementation(() => 'attributes');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -71,8 +71,8 @@ describe('Base series', () => {
       </PluginHost>
     ));
 
-    expect(getSeriesAttributes).toHaveBeenCalledTimes(1);
-    expect(getSeriesAttributes).toHaveBeenLastCalledWith(
+    expect(seriesAttributes).toHaveBeenCalledTimes(1);
+    expect(seriesAttributes).toHaveBeenLastCalledWith(
       'data',
       'series',
       'name',

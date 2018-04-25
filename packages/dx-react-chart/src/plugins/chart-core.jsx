@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { getArgumentAxisName } from '@devexpress/dx-chart-core';
+import { argumentAxisName } from '@devexpress/dx-chart-core';
 
 export class ChartCore extends React.PureComponent {
   render() {
@@ -14,14 +14,14 @@ export class ChartCore extends React.PureComponent {
       rootComponent: Root,
       ...restProps
     } = this.props;
-    const argumentAxisName = getArgumentAxisName(series);
+    const argumentAxis = argumentAxisName(series);
 
     return (
       <Plugin>
         <Getter name="data" value={data} />
         <Getter name="axes" value={axes} />
         <Getter name="series" value={series} />
-        <Getter name="argumentAxisName" value={argumentAxisName} />
+        <Getter name="argumentAxisName" value={argumentAxis} />
         <Template name="root">
           <Root width={width} height={height} {...restProps}>
             <TemplatePlaceholder name="canvas" />

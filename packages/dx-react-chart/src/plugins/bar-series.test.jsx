@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { getSeriesAttributes } from '@devexpress/dx-chart-core';
+import { seriesAttributes } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 
@@ -20,16 +20,16 @@ const widgetHeight = 10;
 const bandwidth = 20;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  getSeriesAttributes: jest.fn(),
+  seriesAttributes: jest.fn(),
 }));
 
-getSeriesAttributes.mockImplementation(() => ({
+seriesAttributes.mockImplementation(() => ({
   coordinates,
   height: widgetHeight,
   scales: { xScale: { bandwidth: jest.fn(() => bandwidth) } },
 }));
 
-describe('Scatter series', () => {
+describe('Bar series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },

@@ -10,7 +10,7 @@ jest.mock('../../utils/scale', () => ({
 const tickSize = 5;
 const indentFromAxis = 10;
 
-describe('getAxisCoordinates', () => {
+describe('AxisCoordinates', () => {
   beforeAll(() => {
     createScale.mockImplementation(() => scale);
   });

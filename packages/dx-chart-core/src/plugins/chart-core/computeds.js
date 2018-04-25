@@ -1,1 +1,1 @@
-export const getArgumentAxisName = series => series[0].argumentField;
+export const argumentAxisName = series => series[0].argumentField;

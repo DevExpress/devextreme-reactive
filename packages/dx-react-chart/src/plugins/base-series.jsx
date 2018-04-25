@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { getSeriesAttributes } from '@devexpress/dx-chart-core';
+import { seriesAttributes } from '@devexpress/dx-chart-core';
 
 export const baseSeries = (WrappedComponent, pluginName, pathType) => {
   class Component extends React.PureComponent {
@@ -32,7 +32,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                 const {
                   x, y,
                 } = layouts[placeholder];
-                const attributes = getSeriesAttributes(
+                const attributes = seriesAttributes(
                     data,
                     series,
                     name,

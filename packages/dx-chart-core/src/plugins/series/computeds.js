@@ -7,7 +7,7 @@ import {
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
 
-const POINTSIZE = 7;
+const POINT_SIZE = 7;
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -43,7 +43,7 @@ export const xyScales = (domainsOptions, argumentAxisName, domainName, width, he
   yScale: createScale(domainsOptions[domainName], width, height),
 });
 
-export const getSeriesAttributes = (
+export const seriesAttributes = (
   data,
   series,
   name,
@@ -62,11 +62,11 @@ export const getSeriesAttributes = (
   const scales = xyScales(domains, argumentAxisName, domainName, width, height);
   const path = computeLinePath(data, scales, argumentField, valueField);
   const { size } = point || {};
-  return ({
-    dPoint: symbol().size([(size || POINTSIZE) ** 2]).type(symbolCircle)(),
+  return {
+    dPoint: symbol().size([(size || POINT_SIZE) ** 2]).type(symbolCircle)(),
     d: getDAttribute(type, height, path),
     coordinates: path,
     scales,
     height,
-  });
+  };
 };

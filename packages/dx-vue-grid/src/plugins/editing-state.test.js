@@ -75,13 +75,13 @@ describe('EditingState', () => {
     });
 
     it('should provide editingRowIds', () => {
-      const defaultEditingRowIds = [1, 2, 3];
+      const editingRowIds = [1, 2, 3];
       const tree = mount({
         render() {
           return (
             <PluginHost>
               <EditingState
-                editingRowIds={defaultEditingRowIds}
+                editingRowIds={editingRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
             </PluginHost>
@@ -90,17 +90,17 @@ describe('EditingState', () => {
       });
 
       expect(getComputedState(tree).editingRowIds)
-        .toEqual(defaultEditingRowIds);
+        .toEqual(editingRowIds);
     });
 
     it('should provide rowChanges', () => {
-      const defaultRowChanges = { test: '123' };
+      const rowChanges = { test: '123' };
       const tree = mount({
         render() {
           return (
             <PluginHost>
               <EditingState
-                rowChanges={defaultRowChanges}
+                rowChanges={rowChanges}
               />
               <PluginDepsToComponents deps={defaultDeps} />
             </PluginHost>
@@ -109,17 +109,17 @@ describe('EditingState', () => {
       });
 
       expect(getComputedState(tree).rowChanges)
-        .toEqual(defaultRowChanges);
+        .toEqual(rowChanges);
     });
 
     it('should provide addedRows', () => {
-      const defaultAddedRows = [{ name: '2', city: '3' }];
+      const addedRows = [{ name: '2', city: '3' }];
       const tree = mount({
         render() {
           return (
             <PluginHost>
               <EditingState
-                addedRows={defaultAddedRows}
+                addedRows={addedRows}
               />
               <PluginDepsToComponents deps={defaultDeps} />
             </PluginHost>
@@ -128,17 +128,17 @@ describe('EditingState', () => {
       });
 
       expect(getComputedState(tree).addedRows)
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
     });
 
     it('should provide deletedRowIds', () => {
-      const defaultDeletedRowIds = [1, 2, 3];
+      const deletedRowIds = [1, 2, 3];
       const tree = mount({
         render() {
           return (
             <PluginHost>
               <EditingState
-                deletedRowIds={defaultDeletedRowIds}
+                deletedRowIds={deletedRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
             </PluginHost>
@@ -147,13 +147,13 @@ describe('EditingState', () => {
       });
 
       expect(getComputedState(tree).deletedRowIds)
-        .toEqual(defaultDeletedRowIds);
+        .toEqual(deletedRowIds);
     });
   });
 
   describe('actions', () => {
     it('should call startEditRows', () => {
-      const defaultEditingRowIds = [1, 2, 3];
+      const editingRowIds = [1, 2, 3];
       const payload = { rowIds: 4 };
       const nextEditingRowIds = [1, 2, 3, 4];
       startEditRows.mockImplementation(() => nextEditingRowIds);
@@ -163,7 +163,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                editingRowIds={defaultEditingRowIds}
+                editingRowIds={editingRowIds}
               />
             </PluginHost>
           );
@@ -176,13 +176,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(startEditRows.mock.calls[0][0])
-        .toEqual(defaultEditingRowIds);
+        .toEqual(editingRowIds);
       expect(startEditRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call stopEditRows', () => {
-      const defaultEditingRowIds = [1, 2, 3];
+      const editingRowIds = [1, 2, 3];
       const payload = { rowIds: 4 };
       const nextEditingRowIds = [1, 2, 3, 4];
       stopEditRows.mockImplementation(() => nextEditingRowIds);
@@ -192,7 +192,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                editingRowIds={defaultEditingRowIds}
+                editingRowIds={editingRowIds}
               />
             </PluginHost>
           );
@@ -205,13 +205,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(stopEditRows.mock.calls[0][0])
-        .toEqual(defaultEditingRowIds);
+        .toEqual(editingRowIds);
       expect(stopEditRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call changeRow', () => {
-      const defaultRowChanges = { test: 123 };
+      const rowChanges = { test: 123 };
       const payload = { rowIds: 4 };
       const nextRowChanges = [1, 2, 3, 4];
       changeRow.mockImplementation(() => nextRowChanges);
@@ -221,7 +221,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                rowChanges={defaultRowChanges}
+                rowChanges={rowChanges}
               />
             </PluginHost>
           );
@@ -234,13 +234,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(changeRow.mock.calls[0][0])
-        .toEqual(defaultRowChanges);
+        .toEqual(rowChanges);
       expect(changeRow.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call cancelChangedRows', () => {
-      const defaultRowChanges = { test: 123 };
+      const rowChanges = { test: 123 };
       const payload = { rowIds: 4 };
       const nextRowChanges = [1, 2, 3, 4];
       cancelChanges.mockImplementation(() => nextRowChanges);
@@ -250,7 +250,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                rowChanges={defaultRowChanges}
+                rowChanges={rowChanges}
               />
             </PluginHost>
           );
@@ -263,13 +263,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(cancelChanges.mock.calls[0][0])
-        .toEqual(defaultRowChanges);
+        .toEqual(rowChanges);
       expect(cancelChanges.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call commitChangedRows', () => {
-      const defaultRowChanges = { test: 123 };
+      const rowChanges = { test: 123 };
       const payload = { rowIds: 4 };
       const nextRowChanges = [1, 2, 3, 4];
       changedRowsByIds.mockImplementation(() => nextRowChanges);
@@ -280,7 +280,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                rowChanges={defaultRowChanges}
+                rowChanges={rowChanges}
               />
             </PluginHost>
           );
@@ -294,18 +294,18 @@ describe('EditingState', () => {
         .toEqual({ changed: nextRowChanges });
 
       expect(changedRowsByIds.mock.calls[0][0])
-        .toEqual(defaultRowChanges);
+        .toEqual(rowChanges);
       expect(changedRowsByIds.mock.calls[0][1])
         .toEqual(payload.rowIds);
 
       expect(cancelChanges.mock.calls[0][0])
-        .toEqual(defaultRowChanges);
+        .toEqual(rowChanges);
       expect(cancelChanges.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call addRow', () => {
-      const defaultAddedRows = [{ test: 123 }];
+      const addedRows = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextAddedRows = [1, 2, 3, 4];
       addRow.mockImplementation(() => nextAddedRows);
@@ -315,7 +315,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                addedRows={defaultAddedRows}
+                addedRows={addedRows}
               />
             </PluginHost>
           );
@@ -328,13 +328,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(addRow.mock.calls[0][0])
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
       expect(addRow.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call changeAddedRow', () => {
-      const defaultAddedRows = [{ test: 123 }];
+      const addedRows = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextAddedRows = [1, 2, 3, 4];
       changeAddedRow.mockImplementation(() => nextAddedRows);
@@ -344,7 +344,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                addedRows={defaultAddedRows}
+                addedRows={addedRows}
               />
             </PluginHost>
           );
@@ -357,13 +357,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(changeAddedRow.mock.calls[0][0])
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
       expect(changeAddedRow.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call cancelAddedRows', () => {
-      const defaultAddedRows = [{ test: 123 }];
+      const addedRows = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextAddedRows = [1, 2, 3, 4];
       cancelAddedRows.mockImplementation(() => nextAddedRows);
@@ -373,7 +373,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                addedRows={defaultAddedRows}
+                addedRows={addedRows}
               />
             </PluginHost>
           );
@@ -386,13 +386,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(cancelAddedRows.mock.calls[0][0])
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
       expect(cancelAddedRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call commitAddedRows', () => {
-      const defaultAddedRows = [{ test: 123 }];
+      const addedRows = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextAddedRows = [1, 2, 3, 4];
       addedRowsByIds.mockImplementation(() => nextAddedRows);
@@ -403,7 +403,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                addedRows={defaultAddedRows}
+                addedRows={addedRows}
               />
             </PluginHost>
           );
@@ -417,18 +417,18 @@ describe('EditingState', () => {
         .toEqual({ added: nextAddedRows });
 
       expect(addedRowsByIds.mock.calls[0][0])
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
       expect(addedRowsByIds.mock.calls[0][1])
         .toEqual(payload.rowIds);
 
       expect(cancelAddedRows.mock.calls[0][0])
-        .toEqual(defaultAddedRows);
+        .toEqual(addedRows);
       expect(cancelAddedRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call deleteRows', () => {
-      const defaultDeletedRowIds = [{ test: 123 }];
+      const deletedRowIds = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextDeletedRowIds = [1, 2, 3, 4];
       deleteRows.mockImplementation(() => nextDeletedRowIds);
@@ -438,7 +438,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                deletedRowIds={defaultDeletedRowIds}
+                deletedRowIds={deletedRowIds}
               />
             </PluginHost>
           );
@@ -451,13 +451,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(deleteRows.mock.calls[0][0])
-        .toEqual(defaultDeletedRowIds);
+        .toEqual(deletedRowIds);
       expect(deleteRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call cancelDeletedRows', () => {
-      const defaultDeletedRowIds = [{ test: 123 }];
+      const deletedRowIds = [{ test: 123 }];
       const payload = { rowIds: 4 };
       const nextDeletedRowIds = [1, 2, 3, 4];
       cancelDeletedRows.mockImplementation(() => nextDeletedRowIds);
@@ -467,7 +467,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                deletedRowIds={defaultDeletedRowIds}
+                deletedRowIds={deletedRowIds}
               />
             </PluginHost>
           );
@@ -480,13 +480,13 @@ describe('EditingState', () => {
       expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(cancelDeletedRows.mock.calls[0][0])
-        .toEqual(defaultDeletedRowIds);
+        .toEqual(deletedRowIds);
       expect(cancelDeletedRows.mock.calls[0][1])
         .toEqual(payload);
     });
 
     it('should call commitDeletedRows', () => {
-      const defaultDeletedRowIds = [1, 2, 3];
+      const deletedRowIds = [1, 2, 3];
       const payload = { rowIds: [4, 5, 6] };
       const nextDeletedRows = [1, 2, 3, 4];
       cancelDeletedRows.mockImplementation(() => nextDeletedRows);
@@ -496,7 +496,7 @@ describe('EditingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <EditingState
-                deletedRowIds={defaultDeletedRowIds}
+                deletedRowIds={deletedRowIds}
               />
             </PluginHost>
           );
@@ -510,7 +510,7 @@ describe('EditingState', () => {
         .toEqual({ deleted: payload.rowIds });
 
       expect(cancelDeletedRows.mock.calls[0][0])
-        .toEqual(defaultDeletedRowIds);
+        .toEqual(deletedRowIds);
       expect(cancelDeletedRows.mock.calls[0][1])
         .toEqual(payload);
     });

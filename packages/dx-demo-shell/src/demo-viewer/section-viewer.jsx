@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 import { ThemeViewer } from './theme-viewer';
-import { DemoRenderer } from './demo-renderer';
+import { DemoFrame } from './demo-frame';
 
 export const SectionViewerBase = ({
   match: { params: { sectionName } },
@@ -20,7 +20,7 @@ export const SectionViewerBase = ({
                 {demoName}
               </Link>
             </h4>
-            <DemoRenderer
+            <DemoFrame
               themeName={themeName}
               variantName={variantName}
               sectionName={sectionName}

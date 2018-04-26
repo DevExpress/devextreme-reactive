@@ -31,7 +31,7 @@ export class PaneLayout extends React.PureComponent {
       <Plugin name="PaneLayout">
         <Template name="canvas">
           <TemplateConnector>
-            {({ setBBox, layouts }) => (<Pane layouts={layouts} setBBox={setBBox} />)}
+            {({ layouts }, { changeBBox }) => (<Pane layouts={layouts} changeBBox={changeBBox} />)}
           </TemplateConnector>
         </Template>
       </Plugin>

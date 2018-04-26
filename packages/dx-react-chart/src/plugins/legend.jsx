@@ -26,7 +26,7 @@ const createRefsHandler = (placeholder, setBBox) => (el) => {
   if (!el) return;
   const { width, height } = el.getBoundingClientRect();
 
-  setBBox(placeholder, { width, height });
+  setBBox({ placeholder, bBox: { width, height } });
 };
 
 export class Legend extends React.PureComponent {
@@ -43,8 +43,8 @@ export class Legend extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              series, setBBox,
-            }) => (
+              series,
+            }, { changeBBox: setBBox }) => (
               <LayoutElement
                 name={`legend-${placeholder}`}
                 flexDirection="column"

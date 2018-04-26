@@ -19,7 +19,7 @@ export class Axis extends React.Component {
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
-  createRefsHandler(placeholder, setBBox, orientation) {
+  createRefsHandler(placeholder, changeBBox, orientation) {
     return (el) => {
       if (!el) {
         return;
@@ -29,9 +29,12 @@ export class Axis extends React.Component {
       } = el.getBBox();
 
       if (width === this.state.width && height === this.state.height) return;
-      setBBox(placeholder, {
-        width,
-        height,
+      changeBBox({
+        placeholder,
+        bBox: {
+          width,
+          height,
+        },
       });
       this.setState({
         width,
@@ -73,12 +76,11 @@ export class Axis extends React.Component {
           <TemplateConnector>
             {({
               domains,
-              setBBox,
               argumentAxisName,
               layouts,
               width: containerWidth,
               height: containerHeight,
-             }) => {
+             }, { changeBBox }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation } = domain;
@@ -119,7 +121,7 @@ export class Axis extends React.Component {
                     <Root
                       refsHandler={this.createRefsHandler(
                         placeholder,
-                        setBBox,
+                        changeBBox,
                         orientation,
                       )}
                       x={-this.state.xCorrection}

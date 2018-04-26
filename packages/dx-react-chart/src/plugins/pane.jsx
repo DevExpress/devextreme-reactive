@@ -3,10 +3,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { TemplatePlaceholder } from '@devexpress/dx-react-core';
 
-const createRefsHandler = (placeholder, setBBox) => (el) => {
+const createRefsHandler = (placeholder, changeBBox) => (el) => {
   if (!el) return;
   const { width, height } = el.getBoundingClientRect();
-  setBBox(placeholder, { width, height });
+  changeBBox({ placeholder, bBox: { width, height } });
 };
 
 export class Pane extends React.PureComponent {
@@ -15,12 +15,12 @@ export class Pane extends React.PureComponent {
     this.onContainerRef = this.onContainerRef.bind(this);
   }
   componentDidMount() {
-    const { setBBox } = this.props;
-    createRefsHandler('pane', setBBox)(this.node);
+    const { changeBBox } = this.props;
+    createRefsHandler('pane', changeBBox)(this.node);
   }
   componentDidUpdate() {
-    const { setBBox } = this.props;
-    createRefsHandler('pane', setBBox)(this.node);
+    const { changeBBox } = this.props;
+    createRefsHandler('pane', changeBBox)(this.node);
   }
   onContainerRef(node) {
     this.node = node;
@@ -38,7 +38,6 @@ export class Pane extends React.PureComponent {
     };
   }
   render() {
-  // eslint-disable-next-line  react/prop-types
     const { layouts } = this.props;
     const { widthLayout, heightLayout } = layouts.pane || {};
     const { width, height } = this.calculateLayout(widthLayout, heightLayout);
@@ -54,6 +53,7 @@ export class Pane extends React.PureComponent {
 }
 
 Pane.propTypes = {
-  setBBox: PropTypes.func.isRequired,
+  changeBBox: PropTypes.func.isRequired,
+  layouts: PropTypes.object.isRequired,
 };
 

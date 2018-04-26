@@ -31,6 +31,6 @@ Refer to the [Reference](../reference/grid.md) to see the complete plugin list.
 
 ## UI Plugins
 
-The Grid's UI plugins use special components to render the UI. You can implement your component suite or use a predefined one:
+The Grid's UI plugins use special components to render the UI. You can implement your component suite or use the predefined one:
 
 - [DevExtreme Vue Grid for Bootstrap 4](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-vue-grid-bootstrap4/) - renders the Grid's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components

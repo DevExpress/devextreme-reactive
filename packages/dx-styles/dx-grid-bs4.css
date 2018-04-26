@@ -82,7 +82,7 @@ span.dx-g-bs4-group-panel-item-icon {
 .table .dx-g-bs4-table-edit-cell {
   padding: 5px;
 }
-.dx-g-bs4-table-edit-command-cell {
+button.dx-g-bs4-table-edit-command-cell {
   padding: 11px;
 }
 .dx-g-bs4-toolbar {

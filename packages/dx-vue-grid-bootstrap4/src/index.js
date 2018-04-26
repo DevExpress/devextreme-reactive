@@ -10,4 +10,6 @@ export * from './plugins/table-group-row';
 export * from './plugins/search-panel';
 export * from './plugins/table-selection';
 export * from './plugins/paging-panel';
+export * from './plugins/table-edit-column';
+export * from './plugins/table-edit-row';
 export * from './plugins/table-row-detail';

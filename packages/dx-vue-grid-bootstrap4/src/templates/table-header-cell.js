@@ -20,6 +20,7 @@ export const TableHeaderCell = {
     groupingEnabled: {
       type: Boolean,
     },
+    getMessage: {},
   },
   render() {
     const isCellInteractive = this.showSortingControls && this.sortingEnabled;

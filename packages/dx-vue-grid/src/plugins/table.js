@@ -195,9 +195,8 @@ export const Table = {
                     {...{ attrs: { ...params } }}
                     row={params.tableRow.row}
                     column={params.tableColumn.column}
-                  >
-                    {String(value)}
-                  </Cell>
+                    value={value}
+                  />
                 );
               }}
             </TemplateConnector>

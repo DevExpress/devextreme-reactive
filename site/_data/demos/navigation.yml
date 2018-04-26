@@ -1,16 +1,15 @@
-react:
-  grid:
-    - title: DEMOS
-      items:
-        - title: Uncontrolled Mode
-          path: /react/grid/demos/featured/uncontrolled-mode
-        - title: Controlled Mode
-          path: /react/grid/demos/featured/controlled-mode
-        - title: Virtual Scrolling
-          path: /react/grid/demos/featured/virtual-scrolling
-        - title: Redux Integration
-          path: /react/grid/demos/featured/redux-integration
-        - title: Remote Data
-          path: /react/grid/demos/featured/remote-data
-        - title: Tree Data
-          path: /react/grid/demos/featured/tree-data
+/react/grid:
+  - title: DEMOS
+    items:
+      - title: Uncontrolled Mode
+        path: /react/grid/demos/featured/uncontrolled-mode
+      - title: Controlled Mode
+        path: /react/grid/demos/featured/controlled-mode
+      - title: Virtual Scrolling
+        path: /react/grid/demos/featured/virtual-scrolling
+      - title: Redux Integration
+        path: /react/grid/demos/featured/redux-integration
+      - title: Remote Data
+        path: /react/grid/demos/featured/remote-data
+      - title: Tree Data
+        path: /react/grid/demos/featured/tree-data

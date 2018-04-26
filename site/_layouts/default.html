@@ -48,7 +48,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            {% if site.data.demos.navigation[page.product_link].size > 0 %}
             <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/demos/featured/uncontrolled-mode/">Demos</a></li>
+            {% endif %}
             <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
@@ -64,7 +66,9 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
+                      {% if site.data.demos.navigation[page.product_link].size > 0 %}
                       <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+                      {% endif %}
                       <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>

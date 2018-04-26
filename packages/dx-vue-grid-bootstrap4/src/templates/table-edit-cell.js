@@ -17,7 +17,6 @@ export const EditCell = {
   },
   render() {
     const { value, editingEnabled, tableColumn } = this;
-    const { valueChange: onValueChange } = this.$listeners;
     return (
       <td class="align-middle dx-g-bs4-table-edit-cell">
         {this.$slots.default || (
@@ -30,7 +29,7 @@ export const EditCell = {
             }}
             readOnly={!editingEnabled}
             value={value}
-            onChange={e => onValueChange(e.target.value)}
+            onChange={e => this.$emit('valueChange', e.target.value)}
           />
         )}
       </td>

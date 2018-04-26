@@ -2,20 +2,6 @@ import { shallow } from '@vue/test-utils';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
-  it('should pass rest props to the root element', () => {
-    const tree = shallow({
-      render() {
-        return (
-          <EditCell
-            data="123"
-          />
-        );
-      },
-    });
-    expect(tree.find('td').attributes().data)
-      .toEqual('123');
-  });
-
   it('should render children if passed', () => {
     const tree = shallow({
       render() {

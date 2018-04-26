@@ -15,22 +15,10 @@ describe('EditCommandCells', () => {
       expect(tree.is('.p-0.text-nowrap.text-center.custom-class'))
         .toBeTruthy();
     });
-
-    it('should pass rest props to the root element', () => {
-      const tree = shallow({
-        render() {
-          return (
-            <EditCommandCell data="123" />
-          );
-        },
-      });
-      expect(tree.attributes().data)
-        .toBe('123');
-    });
   });
 
   describe('EditCommandHeadingCell', () => {
-    it('should pass rest props to the root element', () => {
+    it('should pass class to the root element', () => {
       const tree = shallow({
         render() {
           return (
@@ -42,22 +30,10 @@ describe('EditCommandCells', () => {
       expect(tree.is('.p-0.text-nowrap.text-center.custom-class'))
         .toBeTruthy();
     });
-
-    it('should pass rest props to the root element', () => {
-      const tree = shallow({
-        render() {
-          return (
-            <EditCommandHeadingCell data="123" />
-          );
-        },
-      });
-      expect(tree.attributes().data)
-        .toBe('123');
-    });
   });
 
   describe('CommandButton', () => {
-    it('should pass the className prop to the root element', () => {
+    it('should pass the class to the root element', () => {
       const tree = shallow({
         render() {
           return (
@@ -72,23 +48,6 @@ describe('EditCommandCells', () => {
 
       expect(tree.is('.btn.btn-link.dx-g-bs4-table-edit-command-cell.custom-class'))
         .toBeTruthy();
-    });
-
-    it('should pass rest props to the root element', () => {
-      const tree = shallow({
-        render() {
-          return (
-            <CommandButton
-              onExecute={() => {}}
-              text=""
-              data="123"
-            />
-          );
-        },
-      });
-
-      expect(tree.attributes().data)
-        .toBe('123');
     });
   });
 });

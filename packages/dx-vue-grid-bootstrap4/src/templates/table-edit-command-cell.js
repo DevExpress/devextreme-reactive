@@ -6,13 +6,11 @@ export const CommandButton = {
     },
   },
   render() {
-    const { execute: onExecute } = this.$listeners;
     return (
       <button
         class="btn btn-link dx-g-bs4-table-edit-command-cell"
-        onClick={(e) => {
-          e.stopPropagation();
-          onExecute();
+        onClick={() => {
+          this.$emit('execute');
         }}
       >
         {this.text}

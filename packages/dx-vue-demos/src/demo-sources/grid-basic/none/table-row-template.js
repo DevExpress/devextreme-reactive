@@ -33,6 +33,7 @@ const MyRow = {
   },
   methods: {
     handleClick() {
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(this.row));
     },
   },

@@ -37,7 +37,7 @@ export const TableHeaderCell = {
         >
           <div
             class={{
-              'w-100 dx-g-bs4-table-header-cell-wrapper': true,
+              'dx-g-bs4-table-header-cell-wrapper': true,
               [`text-${align}`]: align !== 'left',
             }}
           >

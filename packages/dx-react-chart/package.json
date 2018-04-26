@@ -72,7 +72,6 @@
   },
   "dependencies": {
     "@devexpress/dx-chart-core": "0.0.0",
-    "@devexpress/dx-flex-layout": "0.0.0",
     "d3-scale": "^2.0.0"
   },
   "peerDependencies": {

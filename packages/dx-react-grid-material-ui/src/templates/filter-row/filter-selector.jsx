@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 
 const styles = ({ spacing }) => ({
@@ -51,11 +52,15 @@ class FilterSelectorBase extends React.PureComponent {
               selected={valueItem === value}
               onClick={() => this.handleMenuItemClick(valueItem)}
             >
-              <Icon
-                type={valueItem}
-                className={classes.icon}
-              />
-              {getMessage(valueItem)}
+              <ListItemIcon>
+                <Icon
+                  type={valueItem}
+                  className={classes.icon}
+                />
+              </ListItemIcon>
+              <ListItemText>
+                {getMessage(valueItem)}
+              </ListItemText>
             </MenuItem>
           ))}
         </Menu>

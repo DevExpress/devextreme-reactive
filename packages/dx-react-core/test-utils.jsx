@@ -60,3 +60,5 @@ export const executeComputedAction = (tree, executor) => {
   actionExecutor = executor;
   tree.find(ComputedStateContainer).find('.actionExecutor').simulate('click');
 };
+
+export { testStatePluginField } from './src/utils/state-helper.test-utils';

@@ -11,7 +11,6 @@ export const TableCell = {
     return (
       <td class={{
         'text-nowrap dx-g-bs4-table-cell': true,
-        'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         'text-right': tableColumn && tableColumn.align === 'right',
         'text-center': tableColumn && tableColumn.align === 'center',
       }}

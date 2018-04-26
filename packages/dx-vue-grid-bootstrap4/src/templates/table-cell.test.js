@@ -26,4 +26,46 @@ describe('TableCell', () => {
     expect(wrapper.find('.content').exists())
       .toBeTruthy();
   });
+
+  it('should have correct text alignment', () => {
+    let tree = shallow({
+      render() {
+        return (
+          <TableCell />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-right'))
+      .toBeFalsy();
+
+    tree = shallow({
+      render() {
+        return (
+          <TableCell tableColumn={{ align: 'left' }} />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-right'))
+      .toBeFalsy();
+
+    tree = shallow({
+      render() {
+        return (
+          <TableCell tableColumn={{ align: 'right' }} />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-right.text-nowrap.dx-g-bs4-table-cell'))
+      .toBeTruthy();
+
+    tree = shallow({
+      render() {
+        return (
+          <TableCell tableColumn={{ align: 'center' }} />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-center.text-nowrap.dx-g-bs4-table-cell'))
+      .toBeTruthy();
+  });
 });

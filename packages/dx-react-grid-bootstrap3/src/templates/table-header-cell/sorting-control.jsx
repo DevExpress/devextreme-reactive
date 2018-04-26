@@ -8,8 +8,23 @@ const handleBlur = (e) => { e.currentTarget.style.outline = ''; };
 
 export const SortingControl = ({
   align, sortingDirection, columnTitle, onClick, disabled,
-}) => {
-  const content = [
+}) => (
+  <span
+    className={sortingDirection ? 'text-primary' : ''}
+    tabIndex={disabled ? -1 : 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+    onMouseDown={handleMouseDown}
+    onBlur={handleBlur}
+    onKeyDown={onClick}
+    onClick={onClick}
+    style={{
+      display: 'inline-flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      maxWidth: '100%',
+      ...!disabled ? { cursor: 'pointer' } : null,
+      ...(align === 'right' ? { flexDirection: 'row-reverse' } : null),
+    }}
+  >
     <span
       key="title"
       style={{
@@ -19,8 +34,8 @@ export const SortingControl = ({
       }}
     >
       {columnTitle}
-    </span>,
-    sortingDirection && (
+    </span>
+    {sortingDirection && (
       <SortingIndicator
         key="indicator"
         direction={sortingDirection}
@@ -30,29 +45,9 @@ export const SortingControl = ({
           display: 'inline-block',
         }}
       />
-    ),
-  ];
-
-  return (
-    <span
-      className={sortingDirection ? 'text-primary' : ''}
-      tabIndex={disabled ? -1 : 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onMouseDown={handleMouseDown}
-      onBlur={handleBlur}
-      onKeyDown={onClick}
-      onClick={onClick}
-      style={{
-        ...!disabled ? { cursor: 'pointer' } : null,
-        display: 'inline-flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        maxWidth: '100%',
-      }}
-    >
-      {align === 'right' ? content.reverse() : content}
-    </span>
-  );
-};
+    )}
+  </span>
+);
 
 SortingControl.propTypes = {
   align: PropTypes.string.isRequired,

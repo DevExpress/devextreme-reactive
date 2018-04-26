@@ -19,14 +19,26 @@ export const themes = [{
     name: 'default',
     title: 'Bootstrap 4',
     DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
+    links: [
+      'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    ],
   }, {
     name: 'cyborg',
     title: 'Bootstrap 4 (Bootswatch Cyborg)',
-    DemoContainer: require('./theme-sources/bootstrap4/demo-container').Cyborg,
+    DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
+    links: [
+      'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
+      'https://bootswatch.com/4/cyborg/bootstrap.min.css',
+    ],
   }, {
     name: 'custom',
     title: 'Bootstrap 4 (Custom)',
-    DemoContainer: require('./theme-sources/bootstrap4/demo-container').Custom,
+    DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
+    links: [
+      'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
+    ],
+    editableLink: 'https://bootswatch.com/4/sketchy/bootstrap.min.css',
   }],
 }, {
   name: 'bootstrap3',
@@ -34,14 +46,18 @@ export const themes = [{
   variants: [{
     name: 'default',
     title: 'Bootstrap 3',
-    DemoContainer: require('./theme-sources/bootstrap3/demo-container').default,
+    links: [
+      'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+    ],
   }, {
     name: 'darkly',
     title: 'Bootstrap 3 (Bootswatch Darkly)',
-    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Darkly,
+    links: [
+      'https://bootswatch.com/3/darkly/bootstrap.min.css',
+    ],
   }, {
     name: 'custom',
     title: 'Bootstrap 3 (Custom)',
-    DemoContainer: require('./theme-sources/bootstrap3/demo-container').Custom,
+    editableLink: 'https://bootswatch.com/4/sketchy/bootstrap.min.css',
   }],
 }];

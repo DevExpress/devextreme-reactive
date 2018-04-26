@@ -28,7 +28,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filteri
 
 .embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
 
-## <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
+## Using Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
@@ -39,6 +39,12 @@ You can also specify a filtering predicate using the `IntegratedFiltering` plugi
 You can prevent filtering by a specific column using the [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-filtering/disable-column-filtering", "showThemeSelector": true })
+
+## Custom filter operations
+
+It is possible to choose which filter operations are available for particular columns. Use the [DataTypeProvider](../reference/data-type-provider.md) `availableFilterOperations` property for this purpose. You can also define a custom operation yourself by defining a filtering predicate via the `columnExtensions` property of the [IntegratedFiltering](../reference/integrated-filtering.md) plugin.
+
+.embedded-demo({ "path": "grid-filtering/advanced-filter-row", "showThemeSelector": true })
 
 ## Remote Filtering
 

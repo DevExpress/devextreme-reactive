@@ -50,13 +50,7 @@ DataTypeProvider.propTypes = {
   for: PropTypes.arrayOf(PropTypes.string).isRequired,
   formatterComponent: PropTypes.func,
   editorComponent: PropTypes.func,
-  availableFilterOperations: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      name: PropTypes.string,
-      predicate: PropTypes.func,
-    }),
-  ])),
+  availableFilterOperations: PropTypes.arrayOf(PropTypes.string),
 };
 
 DataTypeProvider.defaultProps = {

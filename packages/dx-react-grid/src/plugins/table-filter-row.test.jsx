@@ -208,7 +208,7 @@ describe('TableFilterRow', () => {
       </PluginHost>
     ));
     tree.find(defaultProps.editorComponent)
-      .prop('onChange')({ target: { value: 'a' } });
+      .prop('onChange')('a');
 
     expect(defaultDeps.action.changeColumnFilter.mock.calls[0][0])
       .toMatchObject({ config: { value: 'a' } });

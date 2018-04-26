@@ -110,7 +110,7 @@ export class TableFilterRow extends React.PureComponent {
                             value={filter ? filter.value : ''}
                             disabled={!filteringEnabled}
                             getMessage={getMessage}
-                            onChange={event => handleFilterValueChange(event.target.value)}
+                            onChange={handleFilterValueChange}
                           />
                         )}
                       </FilterCell>

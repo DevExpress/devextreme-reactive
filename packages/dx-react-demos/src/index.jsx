@@ -12,16 +12,12 @@ initialize({
   renderDemo: ({
     element,
     demo: Demo,
-    demoContainer: DemoContainer,
-    embeddedDemoOptions,
-    frameUrl,
+    demoContainer,
   }) => {
+    const DemoContainer = demoContainer || 'div';
     ReactDOM.render(
       (
-        <DemoContainer
-          embeddedDemoOptions={embeddedDemoOptions}
-          frameUrl={frameUrl}
-        >
+        <DemoContainer>
           <Demo />
         </DemoContainer>
       ),

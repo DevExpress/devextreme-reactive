@@ -1,7 +1,9 @@
 export const TableHead = {
   render() {
     return (
-      <thead>
+      <thead
+        {...{ attrs: this.$attrs, on: this.$listeners }}
+      >
         {this.$slots.default}
       </thead>
     );

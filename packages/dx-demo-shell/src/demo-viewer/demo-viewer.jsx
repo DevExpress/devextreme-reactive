@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
 import { ThemeViewer } from './theme-viewer';
-import { DemoRenderer } from './demo-renderer';
+import { DemoFrame } from './demo-frame';
 import { SourceCode } from './source-code';
 
 export const DemoViewer = (
@@ -16,7 +16,7 @@ export const DemoViewer = (
       path={`${url}/:themeName/:variantName/clean`}
       render={({ match: { params: { themeName, variantName } } }) => (
         <div>
-          <DemoRenderer
+          <DemoFrame
             themeName={themeName}
             variantName={variantName}
             sectionName={sectionName}
@@ -48,7 +48,7 @@ export const DemoViewer = (
                     style={{ marginTop: '20px' }}
                   >
                     <Tab.Pane eventKey="preview">
-                      <DemoRenderer
+                      <DemoFrame
                         themeName={themeName}
                         variantName={variantName}
                         sectionName={sectionName}

@@ -20,6 +20,10 @@ defaults:
     values:
       layout: default
   # React
+  - scope:
+      path: react
+    values:
+      demos_link: /react
   # React Core
   - scope:
       path: react/core
@@ -48,9 +52,18 @@ defaults:
     values:
       layout: docs
   # Vue
+  - scope:
+      path: vue
+    values:
+      demos_link: /vue
   # Vue Grid
   - scope:
       path: vue/grid
     values:
       product_name: Vue Grid
       product_link: /vue/grid
+  - scope:
+      path: vue/grid/docs
+      type: pages
+    values:
+      layout: docs

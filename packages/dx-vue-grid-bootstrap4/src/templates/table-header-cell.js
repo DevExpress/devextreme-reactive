@@ -43,6 +43,7 @@ export const TableHeaderCell = {
             {this.showSortingControls ? (
               <SortingControl
                 direction={this.sortingDirection}
+                disabled={!this.sortingEnabled}
                 onChange={this.$emit.bind(this, 'sort')}
               >
                 {this.tableColumn.column.title || this.tableColumn.column.name}

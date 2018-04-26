@@ -51,8 +51,6 @@ export class DemoRenderer extends React.Component {
       element: this.root,
       demo: demoSource,
       demoContainer: demoContainerSource,
-      embeddedDemoOptions,
-      frameUrl: `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`,
     });
     this.demoRenderSkipped = false;
   }

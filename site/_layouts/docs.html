@@ -18,12 +18,7 @@ layout: default
         </li>
       </ul>
       <hr />
-      {% if page.path contains '/core/docs/' %}
-      {% assign docsPart = 'core' %}
-      {% else %}
-      {% assign docsPart = 'grid' %}
-      {% endif %}
-      {% for group in site.data.docs.navigation.react[docsPart] %}
+      {% for group in site.data.docs.navigation[page.product_link] %}
         <h3>{{ group.title }}</h3>
 
         <ul class="list-unstyled">
@@ -45,18 +40,8 @@ layout: default
         {% endfor %}
         </ul>
       {% endfor %}
-      <hr />
-      <ul class="list-unstyled">
-        <li>
-          {% if docsPart == 'core' %}
-          <a href="{{site.baseurl}}{{site.data.docs.navigation.react['grid'].first.items.first.path}}/">Grid Docs</a>
-          {% else %}
-          <a href="{{site.baseurl}}{{site.data.docs.navigation.react['core'].first.items.first.path}}/">Core Docs</a>
-          {% endif %}
-        </li>
-      </ul>
     </div>
   </div>
 </div>
 
-<script src="{{site.baseurl}}/react/grid/demos/dist/index.js?v={{ site.time | date: '%s' }}"></script>
+<script src="{{site.baseurl}}{{page.demos_link}}/demos/dist/index.js?v={{ site.time | date: '%s' }}"></script>

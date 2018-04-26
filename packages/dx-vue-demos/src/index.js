@@ -12,11 +12,12 @@ initialize({
   renderDemo: ({
     element,
     demo: Demo,
-    demoContainer: DemoContainer,
+    demoContainer,
   }) => {
     vms.set(element, new Vue({
       el: element,
       render() {
+        const DemoContainer = demoContainer || 'div';
         return (
           <DemoContainer>
             <Demo />

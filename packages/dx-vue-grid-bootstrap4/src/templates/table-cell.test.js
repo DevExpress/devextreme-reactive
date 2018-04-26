@@ -68,4 +68,37 @@ describe('TableCell', () => {
     expect(tree.find('td').is('.text-center.text-nowrap.dx-g-bs4-table-cell'))
       .toBeTruthy();
   });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow({
+      render() {
+        return (
+          <TableCell />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeTruthy();
+
+    tree = shallow({
+      render() {
+        return (
+          <TableCell tableColumn={{ wordWrapEnabled: true }} />
+        );
+      },
+    });
+    expect(tree.find('td').is('.text-nowrap'))
+      .toBeFalsy();
+  });
+
+  it('should have correct text', () => {
+    const tree = shallow({
+      render() {
+        return (
+          <TableCell value="text" />
+        );
+      },
+    });
+    expect(tree.find('td').text()).toBe('text');
+  });
 });

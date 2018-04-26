@@ -7,15 +7,17 @@ export const TableCell = {
     value: {},
   },
   render() {
-    const { value, tableColumn } = this;
+    const align = (this.tableColumn && this.tableColumn.align) || 'left';
     return (
-      <td class={{
-        'text-nowrap dx-g-bs4-table-cell': true,
-        'text-right': tableColumn && tableColumn.align === 'right',
-        'text-center': tableColumn && tableColumn.align === 'center',
-      }}
+      <td
+        class={{
+          'dx-g-bs4-table-cell': true,
+          'text-nowrap': !(this.tableColumn && this.tableColumn.wordWrapEnabled),
+          [`text-${align}`]: align !== 'left',
+        }}
+        {...{ attrs: this.$attrs, on: this.$listeners }}
       >
-        {this.$slots.default || value}
+        {this.$slots.default || this.value}
       </td>
     );
   },

@@ -4,12 +4,18 @@ import { SortingControl } from './sorting-control';
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
+const defaultProps = () => ({
+  align: '',
+});
+
 describe('SortingControl', () => {
   it('can get focus', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+          />
         );
       },
     });
@@ -22,7 +28,10 @@ describe('SortingControl', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl disabled />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+            disabled
+          />
         );
       },
     });
@@ -36,7 +45,10 @@ describe('SortingControl', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl onChange={onChange} />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+            onChange={onChange}
+          />
         );
       },
     });
@@ -66,7 +78,11 @@ describe('SortingControl', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl onChange={onChange} disabled />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+            onChange={onChange}
+            disabled
+          />
         );
       },
     });
@@ -81,7 +97,10 @@ describe('SortingControl', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl onChange={onChange} />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+            onChange={onChange}
+          />
         );
       },
     });
@@ -101,7 +120,11 @@ describe('SortingControl', () => {
     const tree = shallow({
       render() {
         return (
-          <SortingControl onChange={onChange} disabled />
+          <SortingControl
+            {...{ attrs: defaultProps() }}
+            onChange={onChange}
+            disabled
+          />
         );
       },
     });

@@ -70,7 +70,6 @@ export const SortingControl = {
         </span>
         {this.sortingDirection && (
           <SortingIndicator
-            key="indicator"
             direction={this.sortingDirection}
           />
         )}

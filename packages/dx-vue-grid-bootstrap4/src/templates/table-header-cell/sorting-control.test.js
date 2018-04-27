@@ -145,7 +145,6 @@ describe('SortingControl', () => {
         return (
           <SortingControl
             align="right"
-            columnTitle="Test"
           />
         );
       },

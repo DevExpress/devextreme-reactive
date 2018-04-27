@@ -4,9 +4,9 @@ import { SortingControl } from './sorting-control';
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
-const defaultProps = () => ({
+const defaultProps = {
   align: '',
-});
+};
 
 describe('SortingControl', () => {
   it('can get focus', () => {
@@ -14,7 +14,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
           />
         );
       },
@@ -29,7 +29,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
             disabled
           />
         );
@@ -46,7 +46,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
             onChange={onChange}
           />
         );
@@ -79,7 +79,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
             onChange={onChange}
             disabled
           />
@@ -98,7 +98,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
             onChange={onChange}
           />
         );
@@ -121,7 +121,7 @@ describe('SortingControl', () => {
       render() {
         return (
           <SortingControl
-            {...{ attrs: defaultProps() }}
+            {...{ attrs: { ...defaultProps } }}
             onChange={onChange}
             disabled
           />

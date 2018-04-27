@@ -21,7 +21,7 @@ export default {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
+      rows: generateRows({ length: 60 }),
       pageSize: 5,
       currentPage: 0,
       pageSizes: [5, 10, 15, 0],

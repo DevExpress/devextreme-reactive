@@ -209,6 +209,6 @@ describe('Table Selection', () => {
     ));
 
     expect(tree.find(defaultProps.rowComponent).prop('selectByRowClick'))
-      .toBeFalsy();
+      .toBe(false);
   });
 });

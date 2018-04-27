@@ -28,11 +28,15 @@ export const IntegratedFiltering = {
       rows,
       filterExpression,
       getCellValue,
+      getRowLevelKey,
+      getCollapsedRows,
     }) => filteredRows(
       rows,
       filterExpression,
       getCellValue,
       getColumnPredicate,
+      getRowLevelKey,
+      getCollapsedRows,
     );
 
     return (

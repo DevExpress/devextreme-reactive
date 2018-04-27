@@ -1,4 +1,4 @@
-# React Grid - Filtering
+# Vue Grid - Filtering
 
 The Grid component supports filtering data by a column value programmatically or using the value an end user types in the corresponding Filter Row editor. The filtering state management, Filter Row rendering, and filtering logic are implemented in the related plugins.
 
@@ -16,17 +16,9 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
-## Uncontrolled Mode
+Specify the filtering conditions in the `FilteringState` plugin's `filters` property and subscribe to the `update:filters` event. Use the `.sync` modifier to setup two-way binding for a property.
 
-In the [uncontrolled mode](controlled-and-uncontrolled-modes.md), specify the initial filtering conditions in the `FilteringState` plugin's `defaultFilters` property.
-
-.embedded-demo({ "path": "grid-filtering/filter-row", "showThemeSelector": true })
-
-## Controlled Mode
-
-In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filtering options to the `FilteringState` plugin's `filters` property and handle the `onFiltersChange` event to control the filtering state externally.
-
-.embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-filtering/basic", "showThemeSelector": true })
 
 ## Using Custom Filtering Algorithms
 
@@ -46,15 +38,15 @@ Pass a function that returns a custom component to the `TableFilterRow` plugin's
 
 .embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
 
-## Remote Filtering
+<!-- ## Remote Filtering
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 
-Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
+Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `update:filters` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
 
-.embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true }) -->
 
 ## Using Filtering with Other Data Processing Plugins
 

@@ -174,6 +174,19 @@ describe('TableHeaderCell', () => {
       .toBe('sortingHint');
   });
 
+  it('should add correct class if align is right', () => {
+    const tree = mount((
+      <TableHeaderCell
+        {...defaultProps}
+        showSortingControls
+        tableColumn={{ align: 'right' }}
+      />
+    ));
+
+    expect(tree.find(`.${classes.container} .${classes.contentRight}`).exists())
+      .toBeTruthy();
+  });
+
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableHeaderCell

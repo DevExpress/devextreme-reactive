@@ -215,4 +215,25 @@ describe('Table Selection', () => {
     expect(tree.find(defaultProps.rowComponent).exists())
       .toBeFalsy();
   });
+
+  it('should pass the selectByRowClick prop to row component', () => {
+    isDataTableRow.mockImplementation(() => true);
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <TableSelection
+              {...{ attrs: { ...defaultProps } }}
+              highlightRow
+              selectByRowClick={false}
+            />
+          </PluginHost>
+        );
+      },
+    });
+
+    expect(tree.find(defaultProps.rowComponent).vm.$attrs.selectByRowClick)
+      .toBe(false);
+  });
 });

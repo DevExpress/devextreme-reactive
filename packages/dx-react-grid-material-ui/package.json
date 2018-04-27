@@ -47,7 +47,7 @@
     "@devexpress/dx-react-core": "1.2.0-beta.2",
     "@devexpress/dx-react-grid": "1.2.0-beta.2",
     "@devexpress/dx-testing": "1.2.0-beta.2",
-    "@material-ui/icons": "1.0.0-beta.42",
+    "@material-ui/icons": "1.0.0-beta.43",
     "babel-core": "^6.26.2",
     "babel-jest": "^22.4.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -70,7 +70,7 @@
     "jss": "^9.8.1",
     "jss-preset-default": "^4.3.0",
     "jss-theme-reactor": "^0.11.1",
-    "material-ui": "1.0.0-beta.41",
+    "material-ui": "1.0.0-beta.43",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
@@ -87,8 +87,8 @@
     "@devexpress/dx-grid-core": "1.2.0-beta.2",
     "@devexpress/dx-react-core": "1.2.0-beta.2",
     "@devexpress/dx-react-grid": "1.2.0-beta.2",
-    "@material-ui/icons": "1.0.0-beta.42",
-    "material-ui": "1.0.0-beta.41",
+    "@material-ui/icons": "1.0.0-beta.43",
+    "material-ui": "1.0.0-beta.43",
     "react": "^16.2.0"
   }
 }

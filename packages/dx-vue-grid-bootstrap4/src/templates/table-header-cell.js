@@ -34,6 +34,7 @@ export const TableHeaderCell = {
     } = this;
     const isCellInteractive = showSortingControls && sortingEnabled;
     const align = (tableColumn && tableColumn.align) || 'left';
+    const columnTitle = column && (column.title || column.name);
     return (
       <th
         class={{
@@ -58,10 +59,10 @@ export const TableHeaderCell = {
                 sortingDirection={sortingDirection}
                 onChange={this.$emit.bind(this, 'sort')}
               >
-                {tableColumn.column.title || tableColumn.column.name}
+                {columnTitle}
               </SortingControl>
             ) : (
-              column.title || column.name
+              columnTitle
             )}
           </div>
           {showGroupingControls && (

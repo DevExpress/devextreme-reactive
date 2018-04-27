@@ -138,4 +138,20 @@ describe('SortingControl', () => {
     expect(onChange)
       .not.toHaveBeenCalled();
   });
+
+  it('should reverse content if align is right', () => {
+    const tree = shallow({
+      render() {
+        return (
+          <SortingControl
+            align="right"
+            columnTitle="Test"
+          />
+        );
+      },
+    });
+
+    expect(tree.find('.flex-row-reverse').exists())
+      .toBeTruthy();
+  });
 });

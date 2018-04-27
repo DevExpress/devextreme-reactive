@@ -5,8 +5,13 @@ const SPACE_KEY_CODE = 32;
 
 export const SortingControl = {
   props: {
-    direction: {
+    align: {
       type: String,
+      required: true,
+    },
+    sortingDirection: {
+      type: String,
+      default: null,
     },
     disabled: {
       type: Boolean,
@@ -47,8 +52,10 @@ export const SortingControl = {
     return (
       <span
         class={{
-          'text-primary': this.direction,
-          'dx-g-bs4-sorting-control': true,
+          'd-inline-flex flex-direction-row align-items-center mw-100': true,
+          'dx-g-bs4-cursor-pointer': !this.disabled,
+          'flex-row-reverse': this.align === 'right',
+          'text-primary': this.sortingDirection,
         }}
         onClick={this.handleClick}
         onKeydown={this.handleKeyDown}
@@ -56,11 +63,16 @@ export const SortingControl = {
         onBlur={this.handleBlur}
         onMousedown={this.handleMouseDown}
       >
-        {this.$slots.default}
-        &nbsp;
-        <SortingIndicator
-          direction={this.direction}
-        />
+        <span
+          class="dx-g-bs4-sorting-control-text text-nowrap"
+        >
+          {this.$slots.default}
+        </span>
+        {this.sortingDirection && (
+          <SortingIndicator
+            direction={this.sortingDirection}
+          />
+        )}
       </span>
     );
   },

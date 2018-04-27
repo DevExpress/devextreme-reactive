@@ -128,7 +128,7 @@ export const TableSelection = {
                 }) => (
                     <Row
                       {...{ attrs: { ...params } }}
-                      selectByRowClick
+                      selectByRowClick={selectByRowClick}
                       selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
                       onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                     >

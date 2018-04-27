@@ -23,16 +23,11 @@ const BooleanFormatter = {
 
 const BooleanEditor = {
   props: ['value'],
-  methods: {
-    onChange(event) {
-      this.$attrs.onValueChange(event.target.value);
-    },
-  },
   template: `
     <select
       class="form-control"
       :value="value"
-      v-on:change="onChange"
+      @change="e => this.$attrs.onValueChange(e.target.value)"
     >
       <option value="false">No</option>
       <option value="true">Yes</option>

@@ -17,7 +17,7 @@ import {
 
 const pluginDependencies = [
   { name: 'DxGroupingState' },
-  { name: 'Table' },
+  { name: 'DxTable' },
   { name: 'DxDataTypeProvider', optional: true },
 ];
 

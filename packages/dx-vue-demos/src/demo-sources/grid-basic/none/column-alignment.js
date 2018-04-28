@@ -1,6 +1,6 @@
 import {
   DxGrid,
-  Table as DxTable,
+  DxTable,
   DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 

@@ -1,9 +1,9 @@
 import { shallow } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { Table } from './table';
+import { DxTable } from './table';
 
-describe('Table', () => {
+describe('DxTable', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -16,9 +16,9 @@ describe('Table', () => {
     const wrapper = shallow({
       render() {
         return (
-          <Table>
+          <DxTable>
             <div class="content" />
-          </Table>
+          </DxTable>
         );
       },
     });

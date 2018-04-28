@@ -61,7 +61,7 @@ export const DxTableSelection = {
       <Plugin
         name="DxTableSelection"
         dependencies={[
-          { name: 'Table' },
+          { name: 'DxTable' },
           { name: 'DxSelectionState' },
           { name: 'DxIntegratedSelection', optional: !showSelectAll },
         ]}

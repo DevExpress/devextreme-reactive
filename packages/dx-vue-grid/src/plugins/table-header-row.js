@@ -17,7 +17,7 @@ import {
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
 const pluginDependencies = [
-  { name: 'Table' },
+  { name: 'DxTable' },
 ];
 
 export const DxTableHeaderRow = {

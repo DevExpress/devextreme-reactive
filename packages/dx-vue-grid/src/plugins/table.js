@@ -51,8 +51,8 @@ const pluginDependencies = [
   { name: 'DxDataTypeProvider', optional: true },
 ];
 
-export const Table = {
-  name: 'Table',
+export const DxTable = {
+  name: 'DxTable',
   props: {
     layoutComponent: {
       type: Object,
@@ -133,7 +133,7 @@ export const Table = {
 
     return (
       <Plugin
-        name="Table"
+        name="DxTable"
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />

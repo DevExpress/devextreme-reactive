@@ -9,7 +9,7 @@ import {
 
 const pluginDependencies = [
   { name: 'DxEditingState' },
-  { name: 'Table' },
+  { name: 'DxTable' },
   { name: 'DxDataTypeProvider', optional: true },
 ];
 

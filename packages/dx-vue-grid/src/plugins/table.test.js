@@ -12,7 +12,7 @@ import {
   isDataTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { Table } from './table';
+import { DxTable } from './table';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -54,7 +54,7 @@ const defaultProps = {
   noDataRowComponent: { name: 'NoDataRow', render() { return null; } },
 };
 
-describe('Table', () => {
+describe('DxTable', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -85,7 +85,7 @@ describe('Table', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <Table
+              <DxTable
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -107,7 +107,7 @@ describe('Table', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <Table
+              <DxTable
                 {...{ attrs: { ...defaultProps } }}
                 columnExtensions={columnExtensions}
               />
@@ -128,7 +128,7 @@ describe('Table', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <Table
+              <DxTable
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -154,7 +154,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { rowComponent: {} },
@@ -187,7 +187,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { cellComponent: {} },
@@ -221,7 +221,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { cellComponent: {} },
@@ -254,7 +254,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { rowComponent: {} },
@@ -278,7 +278,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { cellComponent: {} },
@@ -303,7 +303,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { cellComponent: {} },
@@ -333,7 +333,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               messages={{ noData: 'No data' }}
               layoutComponent={{
@@ -367,7 +367,7 @@ describe('Table', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <Table
+            <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
                 props: { rowComponent: {} },

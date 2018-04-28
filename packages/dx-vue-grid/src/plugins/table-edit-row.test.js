@@ -44,7 +44,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['DxEditingState', 'Table'],
+  plugins: ['DxEditingState', 'DxTable'],
 };
 
 const defaultProps = {

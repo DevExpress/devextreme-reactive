@@ -1,7 +1,7 @@
 import { DxEditingState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
-  Table as DxTable,
+  DxTable,
   DxTableHeaderRow,
   DxTableEditRow,
   DxTableEditColumn,

@@ -44,7 +44,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['DxRowDetailState', 'Table'],
+  plugins: ['DxRowDetailState', 'DxTable'],
 };
 
 const defaultProps = {

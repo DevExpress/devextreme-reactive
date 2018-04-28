@@ -10,7 +10,7 @@ import {
 
 const pluginDependencies = [
   { name: 'DxEditingState' },
-  { name: 'Table' },
+  { name: 'DxTable' },
 ];
 
 export const DxTableEditColumn = {

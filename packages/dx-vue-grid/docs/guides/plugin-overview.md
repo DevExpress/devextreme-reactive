@@ -6,7 +6,7 @@ Plugins are components that implement particular Grid features. They should be d
 
 The Grid plugins adhere to the data [piping](https://en.wikipedia.org/wiki/Pipeline_(computing)) principle. That is, plugins process Grid data in the same order they are defined in the Grid.
 
-Plugins implementing an interface should be linked before plugins that use it. For example, a data processing plugin is based on some state and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code.
+Plugins implementing an interface should be linked before plugins that use it. For example, a data processing plugin is based on some state and should follow the appropriate state plugin. Some visualization plugins extend the `DxTable`'s functionality and should follow it in the code.
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 

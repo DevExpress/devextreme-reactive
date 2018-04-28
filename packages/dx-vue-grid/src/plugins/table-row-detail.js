@@ -20,7 +20,7 @@ const getCellColSpanComputed = ({ getTableCellColSpan }) =>
 
 const pluginDependencies = [
   { name: 'DxRowDetailState' },
-  { name: 'Table' },
+  { name: 'DxTable' },
 ];
 
 export const DxTableRowDetail = {

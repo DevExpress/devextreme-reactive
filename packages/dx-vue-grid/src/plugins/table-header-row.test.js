@@ -37,7 +37,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['Table'],
+  plugins: ['DxTable'],
 };
 
 const defaultProps = {

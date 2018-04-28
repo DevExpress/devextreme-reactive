@@ -35,7 +35,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['DxSelectionState', 'Table', 'DxIntegratedSelection'],
+  plugins: ['DxSelectionState', 'DxTable', 'DxIntegratedSelection'],
 };
 
 const defaultProps = {
@@ -45,7 +45,7 @@ const defaultProps = {
   selectionColumnWidth: 100,
 };
 
-describe('Table Selection', () => {
+describe('DxTable Selection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

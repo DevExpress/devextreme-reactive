@@ -38,7 +38,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['DxFilteringState', 'Table'],
+  plugins: ['DxFilteringState', 'DxTable'],
 };
 
 const defaultProps = {

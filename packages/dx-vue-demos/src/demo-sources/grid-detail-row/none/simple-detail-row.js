@@ -1,7 +1,7 @@
 import { DxRowDetailState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
-  Table as DxTable,
+  DxTable,
   DxTableHeaderRow,
   DxTableRowDetail,
 } from '@devexpress/dx-vue-grid-bootstrap4';

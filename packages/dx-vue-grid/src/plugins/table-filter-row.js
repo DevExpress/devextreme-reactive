@@ -13,8 +13,8 @@ const pluginDependencies = [
   { name: 'DxDataTypeProvider', optional: true },
 ];
 
-export const TableFilterRow = {
-  name: 'TableFilterRow',
+export const DxTableFilterRow = {
+  name: 'DxTableFilterRow',
   props: {
     rowHeight: {
       type: Number,
@@ -46,7 +46,7 @@ export const TableFilterRow = {
 
     return (
       <Plugin
-        name="TableFilterRow"
+        name="DxTableFilterRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />

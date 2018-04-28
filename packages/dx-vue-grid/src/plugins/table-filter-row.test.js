@@ -7,7 +7,7 @@ import {
   isFilterTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableFilterRow } from './table-filter-row';
+import { DxTableFilterRow } from './table-filter-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -46,7 +46,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableFilterRow', () => {
+describe('DxTableFilterRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -72,7 +72,7 @@ describe('TableFilterRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableFilterRow
+              <DxTableFilterRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
@@ -96,7 +96,7 @@ describe('TableFilterRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -125,7 +125,7 @@ describe('TableFilterRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -146,7 +146,7 @@ describe('TableFilterRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
               messages={{
                 filterPlaceholder: 'Filter...',

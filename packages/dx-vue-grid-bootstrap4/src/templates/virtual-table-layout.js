@@ -1,0 +1,14 @@
+import {
+  TableLayout,
+  VirtualTableLayout as VirtualTableLayoutCore,
+} from '@devexpress/dx-vue-grid';
+
+const MINIMAL_COLUMN_WIDTH = 150;
+
+export const VirtualTableLayout = props => (
+  <TableLayout
+    layoutComponent={VirtualTableLayoutCore}
+    minColumnWidth={MINIMAL_COLUMN_WIDTH}
+    {...props}
+  />
+);

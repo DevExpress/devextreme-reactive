@@ -10,7 +10,7 @@ import {
   isEditTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableEditColumn } from './table-edit-column';
+import { DxTableEditColumn } from './table-edit-column';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -57,7 +57,7 @@ const defaultProps = {
 const findCommandWithId = (tree, id) =>
   tree.findAll(defaultProps.commandComponent).filter(wrapper => wrapper.vm.$attrs.id === id);
 
-describe('TableEditColumn', () => {
+describe('DxTableEditColumn', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -86,7 +86,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 width={120}
               />
@@ -111,7 +111,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -140,7 +140,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 showAddCommand
                 messages={{ addCommand: 'addCommand' }}
@@ -169,7 +169,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{ addCommand: 'addCommand' }}
               />
@@ -200,7 +200,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
@@ -228,7 +228,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
@@ -251,7 +251,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
@@ -273,7 +273,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
@@ -303,7 +303,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
@@ -326,7 +326,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
@@ -349,7 +349,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
@@ -378,7 +378,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
@@ -405,7 +405,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
@@ -434,7 +434,7 @@ describe('TableEditColumn', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />

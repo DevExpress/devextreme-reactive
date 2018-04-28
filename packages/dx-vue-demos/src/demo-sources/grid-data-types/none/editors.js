@@ -7,7 +7,7 @@ import {
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   TableEditRow as DxTableEditRow,
-  TableEditColumn as DxTableEditColumn,
+  DxTableEditColumn,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 import {
   generateRows,

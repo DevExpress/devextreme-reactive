@@ -1,4 +1,4 @@
-import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-vue-grid';
+import { DxTableEditColumn as DxTableEditColumnBase } from '@devexpress/dx-vue-grid';
 import {
   EditCommandHeadingCell,
   EditCommandCell,
@@ -13,12 +13,12 @@ const defaultMessages = {
   cancelCommand: 'Cancel',
 };
 
-export const TableEditColumn = {
-  name: 'TableEditColumn',
+export const DxTableEditColumn = {
+  name: 'DxTableEditColumn',
   functional: true,
   render(h, context) {
     return (
-      <TableEditColumnBase
+      <DxTableEditColumnBase
         cellComponent={EditCommandCell}
         headerCellComponent={EditCommandHeadingCell}
         commandComponent={CommandButton}
@@ -29,6 +29,6 @@ export const TableEditColumn = {
   },
 };
 
-TableEditColumn.Command = CommandButton;
-TableEditColumn.Cell = EditCommandCell;
-TableEditColumn.HeaderCell = EditCommandHeadingCell;
+DxTableEditColumn.Command = CommandButton;
+DxTableEditColumn.Cell = EditCommandCell;
+DxTableEditColumn.HeaderCell = EditCommandHeadingCell;

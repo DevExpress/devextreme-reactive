@@ -13,8 +13,8 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-export const TableEditColumn = {
-  name: 'TableEditColumn',
+export const DxTableEditColumn = {
+  name: 'DxTableEditColumn',
   props: {
     cellComponent: {
       type: Object,
@@ -62,7 +62,7 @@ export const TableEditColumn = {
 
     return (
       <Plugin
-        name="TableEditColumn"
+        name="DxTableEditColumn"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />

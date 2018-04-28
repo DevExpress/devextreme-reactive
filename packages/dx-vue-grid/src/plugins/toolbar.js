@@ -4,8 +4,8 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 
-export const Toolbar = {
-  name: 'Toolbar',
+export const DxToolbar = {
+  name: 'DxToolbar',
   props: {
     rootComponent: {
       type: Object,
@@ -23,7 +23,7 @@ export const Toolbar = {
     } = this;
     return (
       <Plugin
-        name="Toolbar"
+        name="DxToolbar"
       >
         <Template name="header">
           <Root>

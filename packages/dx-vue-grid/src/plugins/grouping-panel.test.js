@@ -32,7 +32,7 @@ const defaultDeps = {
   template: {
     toolbarContent: {},
   },
-  plugins: ['DxGroupingState', 'Toolbar'],
+  plugins: ['DxGroupingState', 'DxToolbar'],
 };
 
 const defaultProps = {

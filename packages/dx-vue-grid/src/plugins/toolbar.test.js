@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
-import { Toolbar } from './toolbar';
+import { DxToolbar } from './toolbar';
 
-describe('Toolbar', () => {
+describe('DxToolbar', () => {
   const Root = { render() { return null; } };
   const FlexibleSpaceComponent = { render() { return null; } };
   const defaultProps = {
@@ -10,11 +10,11 @@ describe('Toolbar', () => {
     flexibleSpaceComponent: FlexibleSpaceComponent,
   };
 
-  it('should render Toolbar', () => {
+  it('should render DxToolbar', () => {
     const tree = mount({
       render() {
         return (<PluginHost>
-          <Toolbar {...{ attrs: { ...defaultProps } }} />
+          <DxToolbar {...{ attrs: { ...defaultProps } }} />
           <TemplatePlaceholder name="header" />
         </PluginHost>);
       },
@@ -29,7 +29,7 @@ describe('Toolbar', () => {
       render() {
         return (
           <PluginHost>
-            <Toolbar {...{ attrs: { ...defaultProps } }} />
+            <DxToolbar {...{ attrs: { ...defaultProps } }} />
             <TemplatePlaceholder name="toolbarContent" />
           </PluginHost>
         );

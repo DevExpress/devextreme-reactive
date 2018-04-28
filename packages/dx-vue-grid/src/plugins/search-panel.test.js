@@ -9,7 +9,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 const defaultDeps = {
-  plugins: ['Toolbar', 'DxSearchState', 'DxIntegratedFiltering'],
+  plugins: ['DxToolbar', 'DxSearchState', 'DxIntegratedFiltering'],
   getter: {
     searchValue: 'abc',
   },

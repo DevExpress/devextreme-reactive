@@ -8,7 +8,7 @@ import {
   DxTableHeaderRow,
   DxTableGroupRow,
   DxGroupingPanel,
-  Toolbar as DxToolbar,
+  DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

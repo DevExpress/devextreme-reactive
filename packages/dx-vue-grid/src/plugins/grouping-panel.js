@@ -111,7 +111,7 @@ export const DxGroupingPanel = {
         name="DxGroupingPanel"
         dependencies={[
           { name: 'DxGroupingState' },
-          { name: 'Toolbar' },
+          { name: 'DxToolbar' },
           { name: 'DxSortingState', optional: !showSortingControls },
         ]}
       >

@@ -6,7 +6,7 @@ import {
   DxGrid,
   DxTable,
   DxTableHeaderRow,
-  Toolbar as DxToolbar,
+  DxToolbar,
   DxSearchPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 

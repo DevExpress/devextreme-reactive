@@ -17,7 +17,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `PagingState`, `IntegratedPaging` (or `CustomPaging`), and `PagingPanel` plugins to set up a Grid with paging.
 
-Specify the active page index in the `PagingState` plugin's `currentPage` property and subscribe to the `update:currentPage` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify the active page index in the `PagingState` plugin's `currentPage` property and subscribe to the `update:currentPage` event. Use the `.sync` modifier for two-way binding.
 
 In the following example, the page size is specified using the `PagingState` plugin's `pageSize` property. However, the `update:pageSize` event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.
 

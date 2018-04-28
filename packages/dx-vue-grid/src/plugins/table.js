@@ -191,13 +191,25 @@ export const Table = {
               {({ getters: { getCellValue } }) => {
                 const value = getCellValue(params.tableRow.row, params.tableColumn.column.name);
                 return (
-                  <Cell
-                    {...{ attrs: { ...params } }}
-                    row={params.tableRow.row}
-                    column={params.tableColumn.column}
+                  <TemplatePlaceholder
+                    name="valueFormatter"
+                    params={{
+                      row: params.tableRow.row,
+                      column: params.tableColumn.column,
+                      value,
+                    }}
                   >
-                    {String(value)}
-                  </Cell>
+                    {content => (
+                      <Cell
+                        {...{ attrs: { ...params } }}
+                        row={params.tableRow.row}
+                        column={params.tableColumn.column}
+                        value={value}
+                      >
+                        {content}
+                      </Cell>
+                    )}
+                  </TemplatePlaceholder>
                 );
               }}
             </TemplateConnector>

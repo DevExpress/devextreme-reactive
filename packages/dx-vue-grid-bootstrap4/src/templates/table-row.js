@@ -5,7 +5,9 @@ export const TableRow = {
   },
   render() {
     return (
-      <tr>
+      <tr
+        {...{ attrs: this.$attrs, on: this.$listeners }}
+      >
         {this.$slots.default}
       </tr>
     );

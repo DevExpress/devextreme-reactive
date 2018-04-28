@@ -77,7 +77,7 @@ var injectLiveDemos = function(content) {
         const options = {
           ...data,
           path: `/demo/${data.path}`,
-          scriptPath: `{{site.baseurl}}/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
+          scriptPath: `{{site.baseurl}}/{{page.demos_link}}/demos/dist/index.js?v={{ site.time | date: '%s' }}`,
         };
         return `<div
           class="embedded-demo"
@@ -93,7 +93,9 @@ var injectLiveDemos = function(content) {
 gulp.task('site:clean', function() {
   return gulp.src([
     'site/react/core/**/*.md',
+    'packages/dx-react-grid/docs/guides/*.g.md',
     'site/react/grid/**/*.md',
+    'packages/dx-vue-grid/docs/guides/*.g.md',
     'site/vue/grid/**/*.md',
   ], { read: false })
     .pipe(clean());
@@ -101,12 +103,12 @@ gulp.task('site:clean', function() {
 
 gulp.task('site:docs', function() {
   return gulp.src([
-      'packages/dx-react-core/**/*.md',
-      'packages/dx-react-grid/**/*.md',
-      'packages/dx-vue-grid/**/*.md',
+      'packages/dx-react-core/docs/*/*.md',
+      'packages/dx-react-grid/demos/*/*.md',
+      'packages/dx-react-grid/docs/*/*.md',
+      'packages/dx-vue-grid/docs/*/*.md',
       '!packages/**/LICENSE.md',
       '!packages/**/README.md',
-      '!/**/node_modules/**/*'
     ], { base: 'packages' })
     .pipe(rename(function(path) {
       path.dirname = splitNameToPath('', path.dirname);
@@ -128,16 +130,22 @@ gulp.task('site:docs', function() {
     .pipe(gulp.dest(distPath));
 });
 
-gulp.task('site:demos', function() {
+gulp.task('site:demos:react', function() {
   return gulp.src(['packages/dx-react-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
+    .pipe(gulp.dest(distPath + 'react/demos/dist/'));
+});
+
+gulp.task('site:demos:vue', function() {
+  return gulp.src(['packages/dx-vue-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'vue/demos/dist/'));
 });
 
 gulp.task('site', function(done) {
   runSequence(
     'site:clean',
     'site:docs',
-    'site:demos',
+    'site:demos:react',
+    'site:demos:vue',
     done
   );
 });

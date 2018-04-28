@@ -63,14 +63,12 @@ span.dx-g-bs4-group-panel-item-icon {
   margin: -5px;
   padding: 5px;
 }
-.dx-g-bs4-sorting-control {
-  margin: 2px;
-}
 .dx-g-bs4-table-header-cell-wrapper {
   overflow: hidden;
   text-overflow: ellipsis;
   margin: -5px;
   padding: 5px;
+  flex: 1;
 }
 .dx-g-bs4-table-header-cell-left {
   margin-right: 14px;
@@ -81,7 +79,7 @@ span.dx-g-bs4-group-panel-item-icon {
 .table .dx-g-bs4-table-edit-cell {
   padding: 5px;
 }
-.dx-g-bs4-table-edit-command-cell {
+button.dx-g-bs4-table-edit-command-cell {
   padding: 11px;
 }
 .dx-g-bs4-toolbar {

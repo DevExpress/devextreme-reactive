@@ -1,7 +1,7 @@
 import { Plugin, Template } from '@devexpress/dx-vue-core';
 
-export const DataTypeProvider = {
-  name: 'DataTypeProvider',
+export const DxDataTypeProvider = {
+  name: 'DxDataTypeProvider',
   props: {
     for: {
       type: Array,
@@ -21,7 +21,7 @@ export const DataTypeProvider = {
       editorComponent: Editor,
     } = this;
     return (
-      <Plugin name="DataTypeProvider">
+      <Plugin name="DxDataTypeProvider">
         {Formatter
           ? (
             <Template

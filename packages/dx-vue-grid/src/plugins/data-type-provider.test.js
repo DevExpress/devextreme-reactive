@@ -1,14 +1,14 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost, Template } from '@devexpress/dx-vue-core';
-import { DataTypeProvider } from './data-type-provider';
+import { DxDataTypeProvider } from './data-type-provider';
 
-describe('DataTypeProvider', () => {
+describe('DxDataTypeProvider', () => {
   it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
     const tree = mount({
       render() {
         return (
           <PluginHost>
-            <DataTypeProvider
+            <DxDataTypeProvider
               for={['test']}
               formatterComponent={{ render: () => null }}
             />
@@ -35,7 +35,7 @@ describe('DataTypeProvider', () => {
       render() {
         return (
           <PluginHost>
-            <DataTypeProvider
+            <DxDataTypeProvider
               for={['test']}
               editorComponent={{ render: () => null }}
             />

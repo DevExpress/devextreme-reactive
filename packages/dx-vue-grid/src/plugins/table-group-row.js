@@ -18,7 +18,7 @@ import {
 const pluginDependencies = [
   { name: 'GroupingState' },
   { name: 'Table' },
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
 const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>

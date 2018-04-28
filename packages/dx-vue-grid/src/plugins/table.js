@@ -48,7 +48,7 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 
 const pluginDependencies = [
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
 export const Table = {

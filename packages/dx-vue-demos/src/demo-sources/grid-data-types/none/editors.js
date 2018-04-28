@@ -1,6 +1,6 @@
 import {
   EditingState as DxEditingState,
-  DataTypeProvider as DxDataTypeProvider,
+  DxDataTypeProvider,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

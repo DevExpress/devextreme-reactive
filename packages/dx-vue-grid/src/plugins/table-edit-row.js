@@ -10,7 +10,7 @@ import {
 const pluginDependencies = [
   { name: 'EditingState' },
   { name: 'Table' },
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
 export const TableEditRow = {

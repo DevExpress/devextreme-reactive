@@ -35,8 +35,8 @@ const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = 
   return columnName => map[columnName] || showColumnsWhenGrouped;
 };
 
-export const TableGroupRow = {
-  name: 'TableGroupRow',
+export const DxTableGroupRow = {
+  name: 'DxTableGroupRow',
   props: {
     cellComponent: {
       type: Object,
@@ -83,7 +83,7 @@ export const TableGroupRow = {
       );
     return (
       <Plugin
-        name="TableGroupRow"
+        name="DxTableGroupRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />

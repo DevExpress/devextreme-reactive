@@ -9,7 +9,7 @@ import {
   isGroupTableRow,
   tableGroupCellColSpanGetter,
 } from '@devexpress/dx-grid-core';
-import { TableGroupRow } from './table-group-row';
+import { DxTableGroupRow } from './table-group-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -55,7 +55,7 @@ const defaultProps = {
   indentColumnWidth: 100,
 };
 
-describe('TableGroupRow', () => {
+describe('DxTableGroupRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -84,7 +84,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -104,7 +104,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -131,7 +131,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -161,7 +161,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
                 showColumnsWhenGrouped
               />
@@ -183,7 +183,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
                 showColumnsWhenGrouped={false}
                 columnExtensions={[
@@ -213,7 +213,7 @@ describe('TableGroupRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
               indentCellComponent={indentCellComponent}
             />
@@ -246,7 +246,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -289,7 +289,7 @@ describe('TableGroupRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -318,7 +318,7 @@ describe('TableGroupRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -343,7 +343,7 @@ describe('TableGroupRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>

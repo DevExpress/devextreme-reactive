@@ -1,13 +1,13 @@
-import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-vue-grid';
+import { DxTableGroupRow as DxTableGroupRowBase } from '@devexpress/dx-vue-grid';
 import { TableGroupCell } from '../templates/table-group-row-cell';
 import { TableRow } from '../templates/table-row';
 
-export const TableGroupRow = {
-  name: 'TableGroupRow',
+export const DxTableGroupRow = {
+  name: 'DxTableGroupRow',
   functional: true,
   render(h, context) {
     return (
-      <TableGroupRowBase
+      <DxTableGroupRowBase
         cellComponent={TableGroupCell}
         rowComponent={TableRow}
         indentColumnWidth={48}
@@ -17,6 +17,6 @@ export const TableGroupRow = {
   },
 };
 
-TableGroupRow.Row = TableRow;
-TableGroupRow.Cell = TableGroupCell;
+DxTableGroupRow.Row = TableRow;
+DxTableGroupRow.Cell = TableGroupCell;
 

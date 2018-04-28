@@ -8,7 +8,7 @@ import {
   DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
-  TableGroupRow as DxTableGroupRow,
+  DxTableGroupRow,
   DxGroupingPanel,
   Toolbar as DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';

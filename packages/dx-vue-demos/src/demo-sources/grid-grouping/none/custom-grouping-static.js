@@ -6,7 +6,7 @@ import {
   DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
-  TableGroupRow as DxTableGroupRow,
+  DxTableGroupRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows, defaultColumnValues } from '../../../demo-data/generator';

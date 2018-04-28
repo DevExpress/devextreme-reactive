@@ -20,7 +20,7 @@ describe('with keyboard navigation', () => {
   it('can not get focus if disabled is true', () => {
     const tree = mount((
       <SortingControl
-        align="Right"
+        align="right"
         columnTitle="Test"
         disabled
         onClick={() => {}}
@@ -29,5 +29,18 @@ describe('with keyboard navigation', () => {
 
     expect(tree.find('span').at(0).prop('tabIndex'))
       .toBe(-1);
+  });
+
+  it('should reverse content if align is right', () => {
+    const tree = mount((
+      <SortingControl
+        align="right"
+        columnTitle="Test"
+        onClick={() => {}}
+      />
+    ));
+
+    expect(tree.find('span').at(0).prop('style'))
+      .toMatchObject({ flexDirection: 'row-reverse' });
   });
 });

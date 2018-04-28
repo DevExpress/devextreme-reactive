@@ -16,6 +16,8 @@ export class RowLayout extends React.PureComponent {
       cellComponent: Cell,
       getCellColSpan,
     } = this.props;
+    const getColSpan = (tableRow, tableColumn) =>
+      getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
 
     return (
       <Row
@@ -30,7 +32,7 @@ export class RowLayout extends React.PureComponent {
                 tableRow={row}
                 tableColumn={column}
                 style={getColumnStyle({ column })}
-                colSpan={getCellColSpan(row, column)}
+                colSpan={getColSpan(row, column)}
               />
             ))
         }

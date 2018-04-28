@@ -16,7 +16,7 @@ const defaultProps = {
   rootComponent: { render() { return null; } },
 };
 
-describe('Grid', () => {
+describe('DxGrid', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

@@ -5,7 +5,7 @@ import {
   IntegratedPaging as DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
+  DxGrid,
   Table as DxTable,
   PagingPanel as DxPagingPanel,
   TableHeaderRow as DxTableHeaderRow,

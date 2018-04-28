@@ -46,7 +46,7 @@ Use the Table plugin to display the data as a simple table:
 
 ```js
 import {
-  Grid as DxGrid,
+  DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';

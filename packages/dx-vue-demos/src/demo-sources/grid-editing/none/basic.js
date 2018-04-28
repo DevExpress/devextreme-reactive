@@ -1,6 +1,6 @@
 import { EditingState as DxEditingState } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
+  DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   TableEditRow as DxTableEditRow,

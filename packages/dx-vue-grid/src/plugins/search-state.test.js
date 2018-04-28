@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { SearchState } from './search-state';
+import { DxSearchState } from './search-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),
@@ -26,7 +26,7 @@ describe('Search state', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <SearchState
+            <DxSearchState
               value={searchValue}
             />
           </PluginHost>
@@ -45,7 +45,7 @@ describe('Search state', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <SearchState
+            <DxSearchState
               value={searchValue}
             />
           </PluginHost>
@@ -67,7 +67,7 @@ describe('Search state', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <SearchState
+            <DxSearchState
               value={defaultSearchValue}
             />
           </PluginHost>
@@ -78,7 +78,7 @@ describe('Search state', () => {
     executeComputedAction(tree, (actions) => {
       actions.changeSearchValue(nextSearchValue);
     });
-    expect(tree.find(SearchState).emitted()['update:value'][0][0]).toBe(nextSearchValue);
+    expect(tree.find(DxSearchState).emitted()['update:value'][0][0]).toBe(nextSearchValue);
 
     expect(changeSearchValue.mock.calls[0][0])
       .toEqual(defaultSearchValue);

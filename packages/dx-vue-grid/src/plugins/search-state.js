@@ -1,8 +1,8 @@
 import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
 import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
 
-export const SearchState = {
-  name: 'SearchState',
+export const DxSearchState = {
+  name: 'DxSearchState',
   props: {
     value: {
       type: String,
@@ -20,7 +20,7 @@ export const SearchState = {
   render() {
     return (
       <Plugin
-        name="SearchState"
+        name="DxSearchState"
       >
         <Getter name="filterExpression" computed={pushSearchFilterExpression(this.value)} />
         <Getter name="searchValue" value={this.value} />

@@ -7,7 +7,7 @@ import {
 
 const pluginDependencies = [
   { name: 'DxFilteringState', optional: true },
-  { name: 'SearchState', optional: true },
+  { name: 'DxSearchState', optional: true },
 ];
 
 const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);

@@ -17,7 +17,7 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic searching.
 
-Specify the searching value in the `SearchState` plugin's `value` property and subscribe to the `update:value` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify the searching value in the `SearchState` plugin's `value` property and subscribe to the `update:value` event. Use the `.sync` modifier to setup two-way binding for the property.
 
 .embedded-demo({ "path": "grid-searching/basic", "showThemeSelector": true })
 

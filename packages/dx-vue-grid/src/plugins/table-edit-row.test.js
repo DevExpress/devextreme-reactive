@@ -8,7 +8,7 @@ import {
   isEditTableRow,
   isAddedTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableEditRow } from './table-edit-row';
+import { DxTableEditRow } from './table-edit-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -52,7 +52,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableEditRow', () => {
+describe('DxTableEditRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -79,7 +79,7 @@ describe('TableEditRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditRow
+              <DxTableEditRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
@@ -108,7 +108,7 @@ describe('TableEditRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
@@ -143,7 +143,7 @@ describe('TableEditRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
@@ -169,7 +169,7 @@ describe('TableEditRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
@@ -204,7 +204,7 @@ describe('TableEditRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
@@ -230,7 +230,7 @@ describe('TableEditRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />

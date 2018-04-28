@@ -7,7 +7,7 @@ import {
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   Toolbar as DxToolbar,
-  SearchPanel as DxSearchPanel,
+  DxSearchPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

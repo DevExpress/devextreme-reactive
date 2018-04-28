@@ -11,8 +11,8 @@ const pluginDependencies = [
   { name: 'SearchState' },
 ];
 
-export const SearchPanel = {
-  name: 'SearchPanel',
+export const DxSearchPanel = {
+  name: 'DxSearchPanel',
   props: {
     inputComponent: {
       type: Object,
@@ -29,7 +29,7 @@ export const SearchPanel = {
 
     return (
       <Plugin
-        name="SearchPanel"
+        name="DxSearchPanel"
         dependencies={pluginDependencies}
       >
         <Template name="toolbarContent">

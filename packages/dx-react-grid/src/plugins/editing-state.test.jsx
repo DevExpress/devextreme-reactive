@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
@@ -10,7 +11,6 @@ import {
   changeRow, cancelChanges,
   addRow, changeAddedRow, cancelAddedRows,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
 import { EditingState } from './editing-state';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 

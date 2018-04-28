@@ -49,8 +49,8 @@ describe('IntegratedFiltering', () => {
         defaultDeps.getter.filterExpression,
         defaultDeps.getter.getCellValue,
         expect.any(Function),
-        defaultDeps.getter.getCollapsedRows,
         defaultDeps.getter.getRowLevelKey,
+        defaultDeps.getter.getCollapsedRows,
       );
 
     expect(unwrappedFilteredRows)

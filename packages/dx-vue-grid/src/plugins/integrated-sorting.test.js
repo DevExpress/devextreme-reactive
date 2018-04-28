@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { sortedRows } from '@devexpress/dx-grid-core';
-import { IntegratedSorting } from './integrated-sorting';
+import { DxIntegratedSorting } from './integrated-sorting';
 import { PluginDepsToComponents } from './test-utils';
 
 const defaultDeps = {
@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   sortedRows: jest.fn(),
 }));
 
-describe('IntegratedSorting', () => {
+describe('DxIntegratedSorting', () => {
   beforeEach(() => {
     sortedRows.mockImplementation(() => 'sortedRows');
   });
@@ -35,7 +35,7 @@ describe('IntegratedSorting', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSorting />
+            <DxIntegratedSorting />
           </PluginHost>
         );
       },

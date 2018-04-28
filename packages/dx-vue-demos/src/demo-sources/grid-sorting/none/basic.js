@@ -1,6 +1,6 @@
 import {
   SortingState as DxSortingState,
-  IntegratedSorting as DxIntegratedSorting,
+  DxIntegratedSorting,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

@@ -5,8 +5,8 @@ const pluginDependencies = [
   { name: 'SortingState' },
 ];
 
-export const IntegratedSorting = {
-  name: 'IntegratedSorting',
+export const DxIntegratedSorting = {
+  name: 'DxIntegratedSorting',
   props: {
     columnExtensions: {
       type: Array,
@@ -24,7 +24,7 @@ export const IntegratedSorting = {
 
     return (
       <Plugin
-        name="IntegratedSorting"
+        name="DxIntegratedSorting"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />

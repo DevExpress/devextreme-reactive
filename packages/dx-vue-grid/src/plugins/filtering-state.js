@@ -4,8 +4,8 @@ import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
 
-export const FilteringState = {
-  name: 'FilteringState',
+export const DxFilteringState = {
+  name: 'DxFilteringState',
   props: {
     filters: {
       type: Array,
@@ -32,7 +32,7 @@ export const FilteringState = {
 
     return (
       <Plugin
-        name="FilteringState"
+        name="DxFilteringState"
       >
         <Getter name="filters" value={filters} />
         <Getter name="filterExpression" computed={pushFilterExpression(filters)} />

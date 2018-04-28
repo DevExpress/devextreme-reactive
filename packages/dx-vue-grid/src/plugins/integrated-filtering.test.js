@@ -10,7 +10,7 @@ const defaultDeps = {
     filterExpression: [{ columnName: 'a' }],
     getCellValue: () => {},
   },
-  plugins: ['FilteringState'],
+  plugins: ['DxFilteringState'],
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({

@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'FilteringState', optional: true },
+  { name: 'DxFilteringState', optional: true },
   { name: 'SearchState', optional: true },
 ];
 

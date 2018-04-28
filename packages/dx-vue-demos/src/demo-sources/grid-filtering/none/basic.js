@@ -1,5 +1,5 @@
 import {
-  FilteringState as DxFilteringState,
+  DxFilteringState,
   IntegratedFiltering as DxIntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
 import {

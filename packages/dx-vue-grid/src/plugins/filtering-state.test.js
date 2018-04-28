@@ -3,7 +3,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { FilteringState } from './filtering-state';
+import { DxFilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
@@ -17,7 +17,7 @@ const defaultDeps = {
   },
 };
 
-describe('FilteringState', () => {
+describe('DxFilteringState', () => {
   let resetConsole;
 
   beforeAll(() => {
@@ -40,7 +40,7 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState
+              <DxFilteringState
                 columnFilteringEnabled={false}
                 columnExtensions={columnExtensions}
               />
@@ -62,7 +62,7 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState
+              <DxFilteringState
                 filters={defaultFilters}
               />
             </PluginHost>
@@ -80,7 +80,7 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
+              <DxFilteringState filters={defaultFilters} />
             </PluginHost>
           );
         },
@@ -98,7 +98,7 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
+              <DxFilteringState filters={defaultFilters} />
             </PluginHost>
           );
         },
@@ -107,7 +107,7 @@ describe('FilteringState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeColumnFilter(changeColumnFilterPayload);
       });
-      expect(tree.find(FilteringState).emitted()['update:filters'][0][0]).toBe(changeColumnFilterValue);
+      expect(tree.find(DxFilteringState).emitted()['update:filters'][0][0]).toBe(changeColumnFilterValue);
 
       expect(changeColumnFilter.mock.calls[0][0])
         .toEqual(defaultFilters);

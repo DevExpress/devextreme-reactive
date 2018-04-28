@@ -19,8 +19,8 @@ const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
 const getRowIdComputed = ({ getRowId, rows }) =>
   customGroupingRowIdGetter(getRowId, rows);
 
-export const CustomGrouping = {
-  name: 'CustomGrouping',
+export const DxCustomGrouping = {
+  name: 'DxCustomGrouping',
   props: {
     getChildGroups: {
       type: Function,
@@ -44,7 +44,7 @@ export const CustomGrouping = {
 
     return (
       <Plugin
-        name="CustomGrouping"
+        name="DxCustomGrouping"
         dependencies={pluginDependencies}
       >
         {appliedGrouping && (

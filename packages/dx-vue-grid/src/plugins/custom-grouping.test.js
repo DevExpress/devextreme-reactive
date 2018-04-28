@@ -9,7 +9,7 @@ import {
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-vue-core';
-import { CustomGrouping } from './custom-grouping';
+import { DxCustomGrouping } from './custom-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -35,7 +35,7 @@ const defaultProps = {
   getChildGroups: () => { },
 };
 
-describe('CustomGrouping', () => {
+describe('DxCustomGrouping', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -62,7 +62,7 @@ describe('CustomGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -80,7 +80,7 @@ describe('CustomGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -98,7 +98,7 @@ describe('CustomGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -130,7 +130,7 @@ describe('CustomGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -159,7 +159,7 @@ describe('CustomGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -184,7 +184,7 @@ describe('CustomGrouping', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <CustomGrouping
+              <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}
@@ -209,7 +209,7 @@ describe('CustomGrouping', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <CustomGrouping
+              <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}

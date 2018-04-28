@@ -9,8 +9,8 @@ import {
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
 
-export const TableSelection = {
-  name: 'TableSelection',
+export const DxTableSelection = {
+  name: 'DxTableSelection',
   props: {
     highlightRow: {
       type: Boolean,
@@ -59,7 +59,7 @@ export const TableSelection = {
 
     return (
       <Plugin
-        name="TableSelection"
+        name="DxTableSelection"
         dependencies={[
           { name: 'Table' },
           { name: 'DxSelectionState' },

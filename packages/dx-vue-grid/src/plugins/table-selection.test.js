@@ -7,7 +7,7 @@ import {
   isSelectAllTableCell,
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableSelection } from './table-selection';
+import { DxTableSelection } from './table-selection';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -71,7 +71,7 @@ describe('Table Selection', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableSelection
+              <DxTableSelection
                 {...{ attrs: { ...defaultProps } }}
                 selectionColumnWidth={120}
               />
@@ -94,7 +94,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -122,7 +122,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               showSelectAll
             />
@@ -147,7 +147,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               selectByRowClick
             />
@@ -179,7 +179,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               highlightRow
             />
@@ -203,7 +203,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -223,7 +223,7 @@ describe('Table Selection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               highlightRow
               selectByRowClick={false}

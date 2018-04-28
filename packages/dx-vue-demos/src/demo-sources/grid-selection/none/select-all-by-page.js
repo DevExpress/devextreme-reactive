@@ -9,7 +9,7 @@ import {
   Table as DxTable,
   DxPagingPanel,
   DxTableHeaderRow,
-  TableSelection as DxTableSelection,
+  DxTableSelection,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

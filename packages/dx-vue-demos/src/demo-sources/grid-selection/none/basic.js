@@ -6,7 +6,7 @@ import {
   DxGrid,
   Table as DxTable,
   DxTableHeaderRow,
-  TableSelection as DxTableSelection,
+  DxTableSelection,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

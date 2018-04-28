@@ -20,7 +20,7 @@ const toggleSelectAll = (state, { rows: { availableToSelect } }, { toggleSelecti
 const unwrapRowsComputed = ({ rows }) => unwrapSelectedRows(rows);
 
 const pluginDependencies = [
-  { name: 'SelectionState' },
+  { name: 'DxSelectionState' },
 ];
 
 export const DxIntegratedSelection = {

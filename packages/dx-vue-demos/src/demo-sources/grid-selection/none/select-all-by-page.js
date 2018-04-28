@@ -1,5 +1,5 @@
 import {
-  SelectionState as DxSelectionState,
+  DxSelectionState,
   DxIntegratedSelection,
   DxPagingState,
   DxIntegratedPaging,

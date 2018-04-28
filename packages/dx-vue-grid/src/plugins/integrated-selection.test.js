@@ -27,7 +27,7 @@ const defaultDeps = {
   action: {
     toggleSelection: jest.fn(),
   },
-  plugins: ['SelectionState'],
+  plugins: ['DxSelectionState'],
 };
 
 describe('DxIntegratedSelection', () => {

@@ -1,5 +1,5 @@
 import {
-  SelectionState as DxSelectionState,
+  DxSelectionState,
   DxIntegratedSelection,
 } from '@devexpress/dx-vue-grid';
 import {

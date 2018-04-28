@@ -1,4 +1,5 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
+import Paper from 'material-ui/Paper';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -9,7 +10,7 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
+} from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from 'material-ui/styles';
 
 import {
@@ -63,19 +64,23 @@ const columnBands = [
 ];
 
 const styles = theme => ({
+  detailContainer: {
+    margin: '20px',
+  },
   title: {
     color: theme.palette.text.primary,
+    fontSize: theme.typography.fontSize,
   },
 });
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
 const GridDetailContainerBase = ({ row, classes }) => (
-  <div style={{ margin: 20 }}>
+  <div className={classes.detailContainer}>
     <div>
       <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
     </div>
-    <<%&wrapperTag%>>
+    <Paper>
       <Grid
         rows={row.tasks}
         columns={detailColumns}
@@ -85,7 +90,7 @@ const GridDetailContainerBase = ({ row, classes }) => (
         />
         <TableHeaderRow />
       </Grid>
-    </<%&wrapperTag%>>
+    </Paper>
   </div>
 );
 
@@ -117,7 +122,7 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <<%&wrapperTag%>>
+  <Paper>
     <Grid
       rows={rows}
       columns={columns}
@@ -186,7 +191,7 @@ const GridContainer = ({
         columnBands={columnBands}
       />
     </Grid>
-  </<%&wrapperTag%>>
+  </Paper>
 );
 
 const gridInitialState = {

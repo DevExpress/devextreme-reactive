@@ -3,7 +3,7 @@ import { PluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
-import { IntegratedPaging } from './integrated-paging';
+import { DxIntegratedPaging } from './integrated-paging';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   paginatedRows: jest.fn(),
@@ -25,7 +25,7 @@ const defaultDeps = {
   plugins: ['PagingState'],
 };
 
-describe('IntegratedPaging', () => {
+describe('DxIntegratedPaging', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -49,7 +49,7 @@ describe('IntegratedPaging', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedPaging />
+            <DxIntegratedPaging />
           </PluginHost>
         );
       },
@@ -65,7 +65,7 @@ describe('IntegratedPaging', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedPaging />
+            <DxIntegratedPaging />
           </PluginHost>
         );
       },
@@ -82,7 +82,7 @@ describe('IntegratedPaging', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <IntegratedPaging />
+            <DxIntegratedPaging />
           </PluginHost>
         );
       },

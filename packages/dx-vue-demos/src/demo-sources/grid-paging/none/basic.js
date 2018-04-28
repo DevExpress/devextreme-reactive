@@ -1,6 +1,6 @@
 import {
   PagingState as DxPagingState,
-  IntegratedPaging as DxIntegratedPaging,
+  DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

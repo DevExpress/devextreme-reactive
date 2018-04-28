@@ -13,12 +13,12 @@ const paginatedRowsComputed = ({ rows, pageSize, currentPage: page }) =>
 const currentPageComputed = ({ currentPage: page, totalCount, pageSize }, { setCurrentPage }) =>
   currentPage(page, totalCount, pageSize, setCurrentPage);
 
-export const IntegratedPaging = {
-  name: 'IntegratedPaging',
+export const DxIntegratedPaging = {
+  name: 'DxIntegratedPaging',
   render() {
     return (
       <Plugin
-        name="IntegratedPaging"
+        name="DxIntegratedPaging"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsWithHeadersComputed} />

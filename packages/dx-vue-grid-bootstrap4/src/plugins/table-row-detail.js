@@ -1,14 +1,14 @@
-import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-vue-grid';
+import { DxTableRowDetail as DxTableRowDetailBase } from '@devexpress/dx-vue-grid';
 import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
 import { TableDetailCell } from '../templates/table-detail-cell';
 import { TableRow } from '../templates/table-row';
 
-export const TableRowDetail = {
-  name: 'TableRowDetail',
+export const DxTableRowDetail = {
+  name: 'DxTableRowDetail',
   functional: true,
   render(h, context) {
     return (
-      <TableRowDetailBase
+      <DxTableRowDetailBase
         toggleCellComponent={TableDetailToggleCell}
         cellComponent={TableDetailCell}
         rowComponent={TableRow}
@@ -19,6 +19,6 @@ export const TableRowDetail = {
   },
 };
 
-TableRowDetail.Cell = TableDetailCell;
-TableRowDetail.ToggleCell = TableDetailToggleCell;
-TableRowDetail.Row = TableRow;
+DxTableRowDetail.Cell = TableDetailCell;
+DxTableRowDetail.ToggleCell = TableDetailToggleCell;
+DxTableRowDetail.Row = TableRow;

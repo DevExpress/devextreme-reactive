@@ -23,8 +23,8 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-export const TableRowDetail = {
-  name: 'TableRowDetail',
+export const DxTableRowDetail = {
+  name: 'DxTableRowDetail',
   props: {
     contentComponent: {
       type: Object,
@@ -66,7 +66,7 @@ export const TableRowDetail = {
 
     return (
       <Plugin
-        name="TableRowDetail"
+        name="DxTableRowDetail"
         dependencies={pluginDependencies}
       >
         <Getter name="tableColumns" computed={tableColumnsComputed} />

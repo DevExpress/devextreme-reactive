@@ -10,7 +10,7 @@ import {
   isDetailTableRow,
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
-import { TableRowDetail } from './table-row-detail';
+import { DxTableRowDetail } from './table-row-detail';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -60,7 +60,7 @@ const defaultProps = {
   toggleColumnWidth: 100,
 };
 
-describe('TableRowDetail', () => {
+describe('DxTableRowDetail', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -89,7 +89,7 @@ describe('TableRowDetail', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
@@ -114,7 +114,7 @@ describe('TableRowDetail', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
                 toggleColumnWidth={120}
               />
@@ -135,7 +135,7 @@ describe('TableRowDetail', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -158,7 +158,7 @@ describe('TableRowDetail', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -187,7 +187,7 @@ describe('TableRowDetail', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -217,7 +217,7 @@ describe('TableRowDetail', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>

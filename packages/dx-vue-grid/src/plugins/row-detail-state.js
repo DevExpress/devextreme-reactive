@@ -1,8 +1,8 @@
 import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 
-export const RowDetailState = {
-  name: 'RowDetailState',
+export const DxRowDetailState = {
+  name: 'DxRowDetailState',
   props: {
     expandedRowIds: {
       type: Array,
@@ -20,7 +20,7 @@ export const RowDetailState = {
   render() {
     return (
       <Plugin
-        name="RowDetailState"
+        name="DxRowDetailState"
       >
         <Getter name="expandedDetailRowIds" value={this.expandedRowIds} />
         <Action name="toggleDetailRowExpanded" action={this.toggleDetailRowExpanded} />

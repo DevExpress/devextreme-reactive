@@ -1,4 +1,4 @@
-import { RowDetailState as DxRowDetailState } from '@devexpress/dx-vue-grid';
+import { DxRowDetailState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   Table as DxTable,

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
-import { RowDetailState } from './row-detail-state';
+import { DxRowDetailState } from './row-detail-state';
 import { PluginDepsToComponents, executeComputedAction, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -14,7 +14,7 @@ const defaultDeps = {
   },
 };
 
-describe('RowDetailState', () => {
+describe('DxRowDetailState', () => {
   beforeEach(() => {
     toggleDetailRowExpanded.mockImplementation(() => []);
   });
@@ -29,7 +29,7 @@ describe('RowDetailState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <RowDetailState expandedRowIds={expandedRowIds} />
+            <DxRowDetailState expandedRowIds={expandedRowIds} />
           </PluginHost>
         );
       },
@@ -49,7 +49,7 @@ describe('RowDetailState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <RowDetailState expandedRowIds={[1]} />
+            <DxRowDetailState expandedRowIds={[1]} />
           </PluginHost>
         );
       },
@@ -59,7 +59,7 @@ describe('RowDetailState', () => {
       actions.toggleDetailRowExpanded(toggleDetailRowExpandedPayload);
     });
 
-    expect(tree.find(RowDetailState).emitted()['update:expandedRowIds'][0][0])
+    expect(tree.find(DxRowDetailState).emitted()['update:expandedRowIds'][0][0])
       .toBe(toggleDetailRowExpandedValue);
     expect(toggleDetailRowExpanded.mock.calls[0][0])
       .toEqual([1]);

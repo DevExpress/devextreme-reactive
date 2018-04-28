@@ -171,3 +171,5 @@
         path: /vue/grid/docs/guides/plugin-overview
       - title: Fundamentals
         path: /vue/grid/docs/guides/fundamentals
+      - title: Editing
+        path: /vue/grid/docs/guides/editing

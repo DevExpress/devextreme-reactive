@@ -18,8 +18,8 @@ import {
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
-export const EditingState = {
-  name: 'EditingState',
+export const DxEditingState = {
+  name: 'DxEditingState',
   props: {
     createRowChange: {
       type: Function,
@@ -138,7 +138,7 @@ export const EditingState = {
 
     return (
       <Plugin
-        name="EditingState"
+        name="DxEditingState"
       >
         <Getter
           name="createRowChange"

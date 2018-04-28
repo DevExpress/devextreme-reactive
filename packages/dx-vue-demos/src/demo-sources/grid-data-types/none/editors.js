@@ -1,5 +1,5 @@
 import {
-  EditingState as DxEditingState,
+  DxEditingState,
   DxDataTypeProvider,
 } from '@devexpress/dx-vue-grid';
 import {

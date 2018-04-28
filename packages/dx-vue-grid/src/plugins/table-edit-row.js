@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'EditingState' },
+  { name: 'DxEditingState' },
   { name: 'Table' },
   { name: 'DxDataTypeProvider', optional: true },
 ];

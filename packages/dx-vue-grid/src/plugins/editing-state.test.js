@@ -11,7 +11,7 @@ import {
   changedRowsByIds, addedRowsByIds,
 } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { EditingState } from './editing-state';
+import { DxEditingState } from './editing-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   ...require.requireActual('@devexpress/dx-grid-core'),
@@ -32,7 +32,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {};
 
-describe('EditingState', () => {
+describe('DxEditingState', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -58,7 +58,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 createRowChange={createRowChange}
                 columnExtensions={columnExtensions}
               />
@@ -80,7 +80,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
@@ -99,7 +99,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
               <PluginDepsToComponents deps={defaultDeps} />
@@ -118,7 +118,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
               <PluginDepsToComponents deps={defaultDeps} />
@@ -137,7 +137,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
@@ -162,7 +162,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
             </PluginHost>
@@ -173,7 +173,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.startEditRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(startEditRows.mock.calls[0][0])
         .toEqual(editingRowIds);
@@ -191,7 +191,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
             </PluginHost>
@@ -202,7 +202,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.stopEditRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(stopEditRows.mock.calls[0][0])
         .toEqual(editingRowIds);
@@ -220,7 +220,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
             </PluginHost>
@@ -231,7 +231,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
+      expect(tree.find(DxEditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(changeRow.mock.calls[0][0])
         .toEqual(rowChanges);
@@ -249,7 +249,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
             </PluginHost>
@@ -260,7 +260,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelChangedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
+      expect(tree.find(DxEditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(cancelChanges.mock.calls[0][0])
         .toEqual(rowChanges);
@@ -279,7 +279,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
             </PluginHost>
@@ -290,7 +290,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitChangedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ changed: nextRowChanges });
 
       expect(changedRowsByIds.mock.calls[0][0])
@@ -314,7 +314,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
             </PluginHost>
@@ -325,7 +325,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.addRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(addRow.mock.calls[0][0])
         .toEqual(addedRows);
@@ -343,7 +343,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
             </PluginHost>
@@ -354,7 +354,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeAddedRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(changeAddedRow.mock.calls[0][0])
         .toEqual(addedRows);
@@ -372,7 +372,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
             </PluginHost>
@@ -383,7 +383,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelAddedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(cancelAddedRows.mock.calls[0][0])
         .toEqual(addedRows);
@@ -402,7 +402,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
             </PluginHost>
@@ -413,7 +413,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitAddedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ added: nextAddedRows });
 
       expect(addedRowsByIds.mock.calls[0][0])
@@ -437,7 +437,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
             </PluginHost>
@@ -448,7 +448,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.deleteRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(deleteRows.mock.calls[0][0])
         .toEqual(deletedRowIds);
@@ -466,7 +466,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
             </PluginHost>
@@ -477,7 +477,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelDeletedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(cancelDeletedRows.mock.calls[0][0])
         .toEqual(deletedRowIds);
@@ -495,7 +495,7 @@ describe('EditingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
             </PluginHost>
@@ -506,7 +506,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitDeletedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ deleted: payload.rowIds });
 
       expect(cancelDeletedRows.mock.calls[0][0])
@@ -523,7 +523,7 @@ describe('EditingState', () => {
         render() {
           return (
             <PluginHost>
-              <EditingState
+              <DxEditingState
                 columnEditingEnabled={false}
                 columnExtensions={columnExtensions}
               />

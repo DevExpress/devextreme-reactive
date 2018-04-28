@@ -1,4 +1,4 @@
-import { EditingState as DxEditingState } from '@devexpress/dx-vue-grid';
+import { DxEditingState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   Table as DxTable,

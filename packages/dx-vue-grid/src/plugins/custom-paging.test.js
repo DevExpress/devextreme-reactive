@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
-import { CustomPaging } from './custom-paging';
+import { DxCustomPaging } from './custom-paging';
 
 const defaultDeps = {
   plugins: ['PagingState'],
 };
 
-describe('CustomPaging', () => {
+describe('DxCustomPaging', () => {
   it('should provide value from the "totalCount" property', () => {
     const totalCount = 100;
     const tree = mount({
@@ -15,7 +15,7 @@ describe('CustomPaging', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomPaging
+            <DxCustomPaging
               totalCount={totalCount}
             />
           </PluginHost>
@@ -33,7 +33,7 @@ describe('CustomPaging', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomPaging />
+            <DxCustomPaging />
           </PluginHost>
         );
       },

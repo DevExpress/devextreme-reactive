@@ -10,7 +10,7 @@ import {
   adjustSortIndex,
 } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { GroupingState } from './grouping-state';
+import { DxGroupingState } from './grouping-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnGrouping: jest.fn(),
@@ -28,7 +28,7 @@ const defaultDeps = {
   },
 };
 
-describe('GroupingState', () => {
+describe('DxGroupingState', () => {
   let resetConsole;
 
   beforeAll(() => {
@@ -58,7 +58,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -87,7 +87,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -123,7 +123,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -158,7 +158,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -192,7 +192,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -226,7 +226,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -262,7 +262,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={[]}
               />
             </PluginHost>
@@ -300,7 +300,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -339,7 +339,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -370,7 +370,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -402,7 +402,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <GroupingState
+              <DxGroupingState
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -426,7 +426,7 @@ describe('GroupingState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps }} />
-              <GroupingState
+              <DxGroupingState
                 columnGroupingEnabled={false}
                 columnExtensions={columnExtensions}
               />

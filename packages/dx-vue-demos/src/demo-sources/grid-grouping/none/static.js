@@ -1,5 +1,5 @@
 import {
-  GroupingState as DxGroupingState,
+  DxGroupingState,
   IntegratedGrouping as DxIntegratedGrouping,
 } from '@devexpress/dx-vue-grid';
 import {

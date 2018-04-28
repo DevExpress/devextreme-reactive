@@ -16,7 +16,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'GroupingState' },
+  { name: 'DxGroupingState' },
   { name: 'Table' },
   { name: 'DxDataTypeProvider', optional: true },
 ];

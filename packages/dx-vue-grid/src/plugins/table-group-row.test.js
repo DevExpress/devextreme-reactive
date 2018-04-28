@@ -45,7 +45,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['GroupingState', 'Table'],
+  plugins: ['DxGroupingState', 'Table'],
 };
 
 const defaultProps = {

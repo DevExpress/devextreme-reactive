@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'GroupingState' },
+  { name: 'DxGroupingState' },
 ];
 
 const getCollapsedRowsComputed = ({ getCollapsedRows }) =>

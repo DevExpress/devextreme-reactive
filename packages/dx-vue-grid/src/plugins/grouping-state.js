@@ -46,8 +46,8 @@ const callback = (
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
 
-export const GroupingState = {
-  name: 'GroupingState',
+export const DxGroupingState = {
+  name: 'DxGroupingState',
   props: {
     grouping: {
       type: Array,
@@ -117,7 +117,7 @@ export const GroupingState = {
 
     return (
       <Plugin
-        name="GroupingState"
+        name="DxGroupingState"
         dependencies={dependencies}
       >
         <Getter name="grouping" value={grouping} />

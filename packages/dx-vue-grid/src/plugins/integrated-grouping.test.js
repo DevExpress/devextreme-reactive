@@ -28,7 +28,7 @@ const defaultDeps = {
     expandedGroups: ['A', 'B'],
     getCellValue: () => { },
   },
-  plugins: ['GroupingState'],
+  plugins: ['DxGroupingState'],
 };
 
 describe('IntegratedGrouping', () => {

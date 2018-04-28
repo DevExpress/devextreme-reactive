@@ -28,7 +28,7 @@ const defaultDeps = {
     expandedGroups: ['A', 'B'],
     getRowId: () => { },
   },
-  plugins: ['GroupingState'],
+  plugins: ['DxGroupingState'],
 };
 
 const defaultProps = {

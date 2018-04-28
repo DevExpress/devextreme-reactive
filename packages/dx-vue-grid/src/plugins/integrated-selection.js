@@ -23,12 +23,12 @@ const pluginDependencies = [
   { name: 'SelectionState' },
 ];
 
-export const IntegratedSelection = {
-  name: 'IntegratedSelection',
+export const DxIntegratedSelection = {
+  name: 'DxIntegratedSelection',
   render() {
     return (
       <Plugin
-        name="IntegratedSelection"
+        name="DxIntegratedSelection"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsWithAvailableToSelectComputed} />

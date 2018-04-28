@@ -8,7 +8,7 @@ import {
   unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { IntegratedSelection } from './integrated-selection';
+import { DxIntegratedSelection } from './integrated-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),
@@ -30,7 +30,7 @@ const defaultDeps = {
   plugins: ['SelectionState'],
 };
 
-describe('IntegratedSelection', () => {
+describe('DxIntegratedSelection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -54,7 +54,7 @@ describe('IntegratedSelection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
+            <DxIntegratedSelection />
           </PluginHost>
         );
       },
@@ -78,7 +78,7 @@ describe('IntegratedSelection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
+            <DxIntegratedSelection />
           </PluginHost>
         );
       },
@@ -100,7 +100,7 @@ describe('IntegratedSelection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
+            <DxIntegratedSelection />
           </PluginHost>
         );
       },
@@ -122,7 +122,7 @@ describe('IntegratedSelection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
+            <DxIntegratedSelection />
           </PluginHost>
         );
       },
@@ -138,7 +138,7 @@ describe('IntegratedSelection', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
+            <DxIntegratedSelection />
           </PluginHost>
         );
       },

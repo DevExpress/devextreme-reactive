@@ -63,7 +63,7 @@ export const TableSelection = {
         dependencies={[
           { name: 'Table' },
           { name: 'SelectionState' },
-          { name: 'IntegratedSelection', optional: !showSelectAll },
+          { name: 'DxIntegratedSelection', optional: !showSelectAll },
         ]}
       >
         {showSelectionColumn && (

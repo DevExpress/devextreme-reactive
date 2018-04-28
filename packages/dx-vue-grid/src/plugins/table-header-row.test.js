@@ -8,7 +8,7 @@ import {
   getMessagesFormatter,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
-import { TableHeaderRow } from './table-header-row';
+import { DxTableHeaderRow } from './table-header-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -45,7 +45,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableHeaderRow', () => {
+describe('DxTableHeaderRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -72,7 +72,7 @@ describe('TableHeaderRow', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableHeaderRow
+              <DxTableHeaderRow
                 {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
@@ -95,7 +95,7 @@ describe('TableHeaderRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -123,7 +123,7 @@ describe('TableHeaderRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
             />
           </PluginHost>
@@ -148,7 +148,7 @@ describe('TableHeaderRow', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
               showSortingControls
               messages={{

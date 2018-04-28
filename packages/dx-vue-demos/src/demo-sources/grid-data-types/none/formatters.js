@@ -2,7 +2,7 @@ import { DxDataTypeProvider } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import {

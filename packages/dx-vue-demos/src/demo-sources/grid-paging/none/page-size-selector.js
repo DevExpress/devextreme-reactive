@@ -5,7 +5,7 @@ import {
 import {
   DxGrid,
   Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxTableHeaderRow,
   DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 

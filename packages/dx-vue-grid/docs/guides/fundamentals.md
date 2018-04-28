@@ -5,9 +5,9 @@ The Grid component displays data specified via the `rows` property. You should a
 The Grid requires the following plugins for basic data visualization:
 
 - [Table](../reference/table.md) - renders a data table
-- [TableHeaderRow](../reference/table-header-row.md) - renders the table's header row
+- [DxTableHeaderRow](../reference/table-header-row.md) - renders the table's header row
 
-The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
+The `DxTableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 
 .embedded-demo({ "path": "grid-basic/basic", "showThemeSelector": true })
 
@@ -53,4 +53,4 @@ The Grid cuts off values that do not fit in a cell. Assign true to the Table plu
 
 ### Other plugins
 
-Other plugins ([TableHeaderRow](../reference/table-header-row.md), [DxTableEditRow](../reference/table-edit-row.md), [DxTableFilterRow](../reference/table-filter-row.md), [DxTableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.
+Other plugins ([DxTableHeaderRow](../reference/table-header-row.md), [DxTableEditRow](../reference/table-edit-row.md), [DxTableFilterRow](../reference/table-filter-row.md), [DxTableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

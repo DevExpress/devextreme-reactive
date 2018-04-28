@@ -2,7 +2,7 @@ import { DxRowDetailState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxTableHeaderRow,
   TableRowDetail as DxTableRowDetail,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 

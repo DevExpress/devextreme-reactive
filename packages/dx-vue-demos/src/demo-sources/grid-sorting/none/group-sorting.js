@@ -7,7 +7,7 @@ import {
 import {
   DxGrid,
   Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxTableHeaderRow,
   DxTableGroupRow,
   DxGroupingPanel,
   Toolbar as DxToolbar,

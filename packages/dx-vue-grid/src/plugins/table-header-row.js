@@ -20,8 +20,8 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-export const TableHeaderRow = {
-  name: 'TableHeaderRow',
+export const DxTableHeaderRow = {
+  name: 'DxTableHeaderRow',
   props: {
     showSortingControls: {
       type: Boolean,
@@ -50,7 +50,7 @@ export const TableHeaderRow = {
 
     return (
       <Plugin
-        name="TableHeaderRow"
+        name="DxTableHeaderRow"
         dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />

@@ -22,7 +22,7 @@ const defaultDeps = {
   template: {
     footer: { },
   },
-  plugins: ['PagingState'],
+  plugins: ['DxPagingState'],
 };
 
 const DefaultPager = { name: 'DefaultPager', render() { return null; } };

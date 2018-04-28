@@ -22,7 +22,7 @@ const defaultDeps = {
   action: {
     setCurrentPage: jest.fn(),
   },
-  plugins: ['PagingState'],
+  plugins: ['DxPagingState'],
 };
 
 describe('DxIntegratedPaging', () => {

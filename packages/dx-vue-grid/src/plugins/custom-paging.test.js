@@ -4,7 +4,7 @@ import { PluginDepsToComponents, getComputedState } from './test-utils';
 import { DxCustomPaging } from './custom-paging';
 
 const defaultDeps = {
-  plugins: ['PagingState'],
+  plugins: ['DxPagingState'],
 };
 
 describe('DxCustomPaging', () => {

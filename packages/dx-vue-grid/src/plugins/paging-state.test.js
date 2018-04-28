@@ -3,14 +3,14 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-vue-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { PagingState } from './paging-state';
+import { DxPagingState } from './paging-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   setCurrentPage: jest.fn(),
   setPageSize: jest.fn(),
 }));
 
-describe('PagingState', () => {
+describe('DxPagingState', () => {
   let resetConsole;
 
   beforeAll(() => {
@@ -32,7 +32,7 @@ describe('PagingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState
+            <DxPagingState
               currentPage={defaultCurrentPage}
             />
           </PluginHost>
@@ -51,7 +51,7 @@ describe('PagingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState pageSize={defaultPageSize} />
+            <DxPagingState pageSize={defaultPageSize} />
           </PluginHost>
         );
       },
@@ -69,7 +69,7 @@ describe('PagingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState currentPage={defaultCurrentPage} />
+            <DxPagingState currentPage={defaultCurrentPage} />
           </PluginHost>
         );
       },
@@ -78,7 +78,7 @@ describe('PagingState', () => {
     executeComputedAction(tree, (actions) => {
       actions.setCurrentPage(changeCurrentPageValue);
     });
-    expect(tree.find(PagingState).emitted()['update:currentPage'][0][0]).toBe(changeCurrentPageValue);
+    expect(tree.find(DxPagingState).emitted()['update:currentPage'][0][0]).toBe(changeCurrentPageValue);
 
     expect(setCurrentPage.mock.calls[0][0])
       .toEqual(defaultCurrentPage);
@@ -95,7 +95,7 @@ describe('PagingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState pageSize={defaultPageSize} />
+            <DxPagingState pageSize={defaultPageSize} />
           </PluginHost>
         );
       },
@@ -104,7 +104,7 @@ describe('PagingState', () => {
     executeComputedAction(tree, (actions) => {
       actions.setPageSize(changePageSizeValue);
     });
-    expect(tree.find(PagingState).emitted()['update:pageSize'][0][0]).toBe(changePageSizeValue);
+    expect(tree.find(DxPagingState).emitted()['update:pageSize'][0][0]).toBe(changePageSizeValue);
 
     expect(setPageSize.mock.calls[0][0])
       .toEqual(defaultPageSize);

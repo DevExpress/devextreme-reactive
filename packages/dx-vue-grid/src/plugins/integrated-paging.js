@@ -2,7 +2,7 @@ import { Getter, Plugin } from '@devexpress/dx-vue-core';
 import { paginatedRows, rowsWithPageHeaders, rowCount, currentPage } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'PagingState' },
+  { name: 'DxPagingState' },
 ];
 
 const rowsWithHeadersComputed = ({ rows, pageSize, getRowLevelKey }) =>

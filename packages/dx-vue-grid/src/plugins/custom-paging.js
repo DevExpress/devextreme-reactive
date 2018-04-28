@@ -1,7 +1,7 @@
 import { Getter, Plugin } from '@devexpress/dx-vue-core';
 
 const pluginDependencies = [
-  { name: 'PagingState' },
+  { name: 'DxPagingState' },
 ];
 
 export const DxCustomPaging = {

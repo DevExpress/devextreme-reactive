@@ -5,7 +5,7 @@ import {
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'PagingState' },
+  { name: 'DxPagingState' },
 ];
 
 export const DxPagingPanel = {

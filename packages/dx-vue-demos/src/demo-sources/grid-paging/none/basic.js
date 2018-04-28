@@ -1,5 +1,5 @@
 import {
-  PagingState as DxPagingState,
+  DxPagingState,
   DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {

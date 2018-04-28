@@ -1,7 +1,7 @@
 import {
   SelectionState as DxSelectionState,
   DxIntegratedSelection,
-  PagingState as DxPagingState,
+  DxPagingState,
   DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {

@@ -96,7 +96,7 @@ describe('DxGroupingPanel', () => {
 
   it('should pass correct parameters to itemComponent', () => {
     const deps = {
-      plugins: ['SortingState'],
+      plugins: ['DxSortingState'],
     };
     const layoutComponent = {
       name: 'LayoutComponent',

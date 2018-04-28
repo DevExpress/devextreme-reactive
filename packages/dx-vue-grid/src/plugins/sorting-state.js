@@ -6,8 +6,8 @@ import {
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 
-export const SortingState = {
-  name: 'SortingState',
+export const DxSortingState = {
+  name: 'DxSortingState',
   props: {
     sorting: {
       type: Array,
@@ -40,7 +40,7 @@ export const SortingState = {
 
     return (
       <Plugin
-        name="SortingState"
+        name="DxSortingState"
       >
         <Getter name="sorting" value={this.sorting} />
         <Getter

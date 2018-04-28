@@ -2,7 +2,7 @@ import { Getter, Plugin } from '@devexpress/dx-vue-core';
 import { sortedRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'SortingState' },
+  { name: 'DxSortingState' },
 ];
 
 export const DxIntegratedSorting = {

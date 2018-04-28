@@ -1,5 +1,5 @@
 import {
-  SortingState as DxSortingState,
+  DxSortingState,
   DxGroupingState,
   DxIntegratedSorting,
   DxIntegratedGrouping,

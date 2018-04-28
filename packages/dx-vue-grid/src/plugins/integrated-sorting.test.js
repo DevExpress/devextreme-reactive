@@ -13,7 +13,7 @@ const defaultDeps = {
     getRowLevelKey: jest.fn(),
     sorting: [{ columnName: 'name' }],
   },
-  plugins: ['SortingState'],
+  plugins: ['DxSortingState'],
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({

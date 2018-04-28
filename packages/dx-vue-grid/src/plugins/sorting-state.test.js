@@ -6,7 +6,7 @@ import {
   getPersistentSortedColumns,
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
-import { SortingState } from './sorting-state';
+import { DxSortingState } from './sorting-state';
 import { PluginDepsToComponents, executeComputedAction, getComputedState } from './test-utils';
 
 const defaultDeps = {
@@ -25,7 +25,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   calculateKeepOther: jest.fn(),
 }));
 
-describe('SortingState', () => {
+describe('DxSortingState', () => {
   beforeEach(() => {
     changeColumnSorting.mockImplementation(() => ({}));
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
@@ -44,7 +44,7 @@ describe('SortingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SortingState sorting={sorting} />
+            <DxSortingState sorting={sorting} />
           </PluginHost>
         );
       },
@@ -61,7 +61,7 @@ describe('SortingState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SortingState sorting={['a']} />
+            <DxSortingState sorting={['a']} />
           </PluginHost>
         );
       },
@@ -71,7 +71,7 @@ describe('SortingState', () => {
       actions.changeColumnSorting({ keepOther: ['a'] });
     });
 
-    expect(tree.find(SortingState).emitted()['update:sorting'][0][0])
+    expect(tree.find(DxSortingState).emitted()['update:sorting'][0][0])
       .toBe(changeColumnSortingValue.sorting);
     expect(changeColumnSorting.mock.calls[0][0])
       .toEqual({ sorting: ['a'] });

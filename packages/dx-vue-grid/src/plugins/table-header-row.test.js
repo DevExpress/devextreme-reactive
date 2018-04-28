@@ -141,7 +141,7 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const deps = {
-      plugins: ['SortingState'],
+      plugins: ['DxSortingState'],
     };
     const tree = mount({
       render() {

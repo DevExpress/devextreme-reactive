@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const dependencies = [
-  { name: 'SortingState', optional: true },
+  { name: 'DxSortingState', optional: true },
 ];
 
 const callback = (

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-vue-core';
-import { PagingPanel } from './paging-panel';
+import { DxPagingPanel } from './paging-panel';
 import { PluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -27,7 +27,7 @@ const defaultDeps = {
 
 const DefaultPager = { name: 'DefaultPager', render() { return null; } };
 
-describe('PagingPanel', () => {
+describe('DxPagingPanel', () => {
   beforeEach(() => {
     pageCount.mockImplementation(() => 11);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
@@ -42,7 +42,7 @@ describe('PagingPanel', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <PagingPanel
+            <DxPagingPanel
               containerComponent={DefaultPager}
               pageSizes={[3, 5, 0]}
             />
@@ -73,7 +73,7 @@ describe('PagingPanel', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <PagingPanel
+            <DxPagingPanel
               containerComponent={DefaultPager}
               messages={{
                 showAll: 'Show all',

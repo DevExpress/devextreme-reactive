@@ -6,7 +6,7 @@ import {
   DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
-  PagingPanel as DxPagingPanel,
+  DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

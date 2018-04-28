@@ -7,7 +7,7 @@ import {
   DxGrid,
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
-  PagingPanel as DxPagingPanel,
+  DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { Loading as DxLoading } from '../../../theme-sources/none/components/loading';

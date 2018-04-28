@@ -8,8 +8,8 @@ const pluginDependencies = [
   { name: 'PagingState' },
 ];
 
-export const PagingPanel = {
-  name: 'PagingPanel',
+export const DxPagingPanel = {
+  name: 'DxPagingPanel',
   props: {
     pageSizes: {
       type: Array,
@@ -34,7 +34,7 @@ export const PagingPanel = {
 
     return (
       <Plugin
-        name="PagingPanel"
+        name="DxPagingPanel"
         dependencies={pluginDependencies}
       >
         <Template name="footer">

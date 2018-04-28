@@ -10,7 +10,7 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-export const GroupingPanel = {
+export const DxGroupingPanel = {
   props: {
     showSortingControls: {
       type: Boolean,
@@ -108,7 +108,7 @@ export const GroupingPanel = {
 
     return (
       <Plugin
-        name="GroupingPanel"
+        name="DxGroupingPanel"
         dependencies={[
           { name: 'GroupingState' },
           { name: 'Toolbar' },

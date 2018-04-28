@@ -9,7 +9,7 @@ import {
   Table as DxTable,
   TableHeaderRow as DxTableHeaderRow,
   TableGroupRow as DxTableGroupRow,
-  GroupingPanel as DxGroupingPanel,
+  DxGroupingPanel,
   Toolbar as DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 

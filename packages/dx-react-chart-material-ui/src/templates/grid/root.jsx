@@ -3,17 +3,20 @@ import * as PropTypes from 'prop-types';
 
 export class Root extends React.PureComponent {
   render() {
-    const {
-      children,
-    } = this.props;
+    const { x, y, children } = this.props;
     return (
-      <div shapeRendering="crispEdges" >
+      <g
+        transform={`translate(${x} ${y})`}
+        shapeRendering="crispEdges"
+      >
         {children}
-      </div>
+      </g>
     );
   }
 }
 
 Root.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
 };

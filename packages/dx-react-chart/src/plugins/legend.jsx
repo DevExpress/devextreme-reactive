@@ -8,32 +8,13 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 
-const LayoutElement = ({
-  // eslint-disable-next-line react/prop-types
-  children, refsHandler, ...restProps
-}) => (
-  <div
-    ref={refsHandler}
-    style={{
-    display: 'flex',
-    ...restProps,
-    }}
-  >{children}
-  </div>
-);
-
-const createRefsHandler = (placeholder, setBBox) => (el) => {
-  if (!el) return;
-  const { width, height } = el.getBoundingClientRect();
-
-  setBBox({ placeholder, bBox: { width, height } });
-};
-
 export class Legend extends React.PureComponent {
   render() {
     const {
       markerComponent: Marker,
       labelComponent: Label,
+      rootComponent: Root,
+      itemComponent: Item,
       position,
     } = this.props;
     const placeholder = position;
@@ -44,37 +25,25 @@ export class Legend extends React.PureComponent {
           <TemplateConnector>
             {({
               series,
-            }, { changeBBox: setBBox }) => (
-              <LayoutElement
+            }) => (
+              <Root
                 name={`legend-${placeholder}`}
-                flexDirection="column"
-                refsHandler={createRefsHandler(
-                    `${placeholder}`,
-                    setBBox,
-                  )}
               >
                 {series.map(({ name }) => (
-                  <LayoutElement
+                  <Item
                     key={name}
-                    flexDirection="row"
-                    alignItems="center"
-                    name={`${name}-legend-root-${placeholder}`}
                   >
                     <Marker
-                      name={`${name}-legend-marker-${placeholder}`}
                       margin={5}
+                      name={name}
                     />
                     <Label
                       margin={5}
-                      refsHandler={() => {}}
-                      name={`${name}-legend-label-${placeholder}`}
                       text={name}
-                      dominantBaseline="text-before-edge"
-                      textAnchor="start"
                     />
-                  </LayoutElement>
+                  </Item>
                   ))}
-              </LayoutElement>
+              </Root>
               )}
           </TemplateConnector>
         </Template>
@@ -86,6 +55,8 @@ export class Legend extends React.PureComponent {
 Legend.propTypes = {
   markerComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
+  rootComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
   position: PropTypes.string,
 };
 

@@ -14,6 +14,10 @@ describe('Root', () => {
       </Root>
     ));
 
-    expect(tree.find('div').children()).toHaveLength(1);
+    const g = tree.find('g');
+    const { transform } = g.props();
+
+    expect(transform).toBe('translate(1 2)');
+    expect(g.find('text').text()).toBe('a');
   });
 });

@@ -2,7 +2,7 @@ import {
   SortingState as DxSortingState,
   DxGroupingState,
   IntegratedSorting as DxIntegratedSorting,
-  IntegratedGrouping as DxIntegratedGrouping,
+  DxIntegratedGrouping,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

@@ -1,6 +1,6 @@
 import {
   DxGroupingState,
-  IntegratedGrouping as DxIntegratedGrouping,
+  DxIntegratedGrouping,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

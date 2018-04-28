@@ -9,7 +9,7 @@ import {
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-vue-core';
-import { IntegratedGrouping } from './integrated-grouping';
+import { DxIntegratedGrouping } from './integrated-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -31,7 +31,7 @@ const defaultDeps = {
   plugins: ['DxGroupingState'],
 };
 
-describe('IntegratedGrouping', () => {
+describe('DxIntegratedGrouping', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -58,7 +58,7 @@ describe('IntegratedGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
+            <DxIntegratedGrouping />
           </PluginHost >
         );
       },
@@ -74,7 +74,7 @@ describe('IntegratedGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
+            <DxIntegratedGrouping />
           </PluginHost >
         );
       },
@@ -95,7 +95,7 @@ describe('IntegratedGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-            <IntegratedGrouping />
+            <DxIntegratedGrouping />
           </PluginHost >
         );
       },
@@ -114,7 +114,7 @@ describe('IntegratedGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
+            <DxIntegratedGrouping />
           </PluginHost >
         );
       },
@@ -146,7 +146,7 @@ describe('IntegratedGrouping', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping
+            <DxIntegratedGrouping
               columnExtensions={columnExtensions}
             />
           </PluginHost >

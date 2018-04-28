@@ -18,8 +18,8 @@ const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 
-export const IntegratedGrouping = {
-  name: 'IntegratedGrouping',
+export const DxIntegratedGrouping = {
+  name: 'DxIntegratedGrouping',
   props: {
     columnExtensions: {
       type: Array,
@@ -35,7 +35,7 @@ export const IntegratedGrouping = {
 
     return (
       <Plugin
-        name="IntegratedGrouping"
+        name="DxIntegratedGrouping"
         dependencies={pluginDependencies}
       >
         <Getter name="isGroupRow" value={groupRowChecker} />

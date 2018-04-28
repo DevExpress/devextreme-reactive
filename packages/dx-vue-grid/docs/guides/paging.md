@@ -27,7 +27,7 @@ In the following example, the page size is specified using the `PagingState` plu
 
 Assign an array of available page sizes to the `PagingPanel` plugin's `pageSizes` property to enable page size selection via the UI. The Page Size Selector displays the 'All' item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the `messages.showAll` property.
 
-Specify the page size in the `PagingState` plugin's `pageSize` property and subscribe to the `update:pageSize` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify the page size in the `PagingState` plugin's `pageSize` property and subscribe to the `update:pageSize` event. Use the `.sync` modifier two-way binding.
 
 .embedded-demo({ "path": "grid-paging/page-size-selector", "showThemeSelector": true })
 

@@ -86,7 +86,8 @@ export const TableEditColumn = {
                     />
                   )}
                 </HeaderCell>
-              )}
+              )
+            }
             </TemplateConnector>
           )}
         </Template>

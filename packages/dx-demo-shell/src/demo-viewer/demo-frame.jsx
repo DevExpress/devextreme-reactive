@@ -28,7 +28,7 @@ class DemoFrameRenderer extends React.PureComponent {
       <head>
         ${themeLinks}
         <style>
-          body { margin: 8px; }
+          body { margin: 8px; overflow: hidden; }
           .panel { margin: 0 !important; }
         </style>
       </head>

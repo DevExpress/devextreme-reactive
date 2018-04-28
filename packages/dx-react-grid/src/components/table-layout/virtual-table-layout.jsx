@@ -165,6 +165,8 @@ export class VirtualTableLayout extends React.PureComponent {
       <Sizer>
         {({ width }) => {
           const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
+          const getColSpan = (tableRow, tableColumn) =>
+            getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
           const collapsedHeaderGrid = getCollapsedGrid({
             rows: headerRows,
             columns,
@@ -174,7 +176,7 @@ export class VirtualTableLayout extends React.PureComponent {
             height: headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
             getRowHeight: this.getRowHeight,
-            getColSpan: getCellColSpan,
+            getColSpan,
           });
           const collapsedBodyGrid = getCollapsedGrid({
             rows: bodyRows,
@@ -185,7 +187,7 @@ export class VirtualTableLayout extends React.PureComponent {
             height: height - headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
             getRowHeight: this.getRowHeight,
-            getColSpan: getCellColSpan,
+            getColSpan,
           });
 
           return (

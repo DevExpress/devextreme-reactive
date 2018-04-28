@@ -12,8 +12,8 @@ const pluginDependencies = [
 
 const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);
 
-export const IntegratedFiltering = {
-  name: 'IntegratedFiltering',
+export const DxIntegratedFiltering = {
+  name: 'DxIntegratedFiltering',
   props: {
     columnExtensions: {
       type: Array,
@@ -37,7 +37,7 @@ export const IntegratedFiltering = {
 
     return (
       <Plugin
-        name="IntegratedFiltering"
+        name="DxIntegratedFiltering"
         dependencies={pluginDependencies}
       >
         <Getter name="rows" computed={rowsComputed} />

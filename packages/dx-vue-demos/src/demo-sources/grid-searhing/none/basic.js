@@ -1,6 +1,6 @@
 import {
   SearchState as DxSearchState,
-  IntegratedFiltering as DxIntegratedFiltering,
+  DxIntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,

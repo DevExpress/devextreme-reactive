@@ -1,3 +1,14 @@
+<a name="1.2.0-beta.3"></a>
+# [1.2.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.2...v1.2.0-beta.3) (2018-04-28)
+
+
+### Bug Fixes
+
+* **react-grid:** fix the 'selectByRowClick' prop processing ([#1000](https://github.com/DevExpress/devextreme-reactive/issues/1000)) ([8dc1337](https://github.com/DevExpress/devextreme-reactive/commit/8dc1337)), closes [#998](https://github.com/DevExpress/devextreme-reactive/issues/998)
+* **react-grid:** improve className and style types ([#930](https://github.com/DevExpress/devextreme-reactive/issues/930)) ([0132e12](https://github.com/DevExpress/devextreme-reactive/commit/0132e12))
+
+
+
 <a name="1.2.0-beta.2"></a>
 # [1.2.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.1...v1.2.0-beta.2) (2018-04-19)
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   changeColumnSorting,
@@ -8,7 +9,6 @@ import {
   getPersistentSortedColumns,
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents } from './test-utils';
 import { SortingState } from './sorting-state';
 import { testStatePluginField } from '../utils/state-helper.test-utils';
 

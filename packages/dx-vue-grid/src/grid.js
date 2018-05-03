@@ -1,4 +1,4 @@
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { GridCore } from './plugins/grid-core';
 
 export const DxGrid = {
@@ -6,12 +6,12 @@ export const DxGrid = {
   functional: true,
   render(h, context) {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <GridCore
           {...{ attrs: context.props, on: context.listeners }}
         />
         {context.children}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };

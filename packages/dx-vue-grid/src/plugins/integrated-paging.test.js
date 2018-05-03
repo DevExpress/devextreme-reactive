@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
@@ -47,10 +47,10 @@ describe('DxIntegratedPaging', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedPaging />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -63,10 +63,10 @@ describe('DxIntegratedPaging', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedPaging />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -80,10 +80,10 @@ describe('DxIntegratedPaging', () => {
     mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
             <DxIntegratedPaging />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

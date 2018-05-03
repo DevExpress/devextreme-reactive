@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { DxSearchState } from './search-state';
@@ -24,12 +24,12 @@ describe('Search state', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxSearchState
               value={searchValue}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -43,12 +43,12 @@ describe('Search state', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxSearchState
               value={searchValue}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -65,12 +65,12 @@ describe('Search state', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxSearchState
               value={defaultSearchValue}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

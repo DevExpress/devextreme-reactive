@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import { sortedRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -23,12 +23,12 @@ export const DxIntegratedSorting = {
       sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxIntegratedSorting"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsComputed} />
+      </DxPlugin>
     );
   },
 };

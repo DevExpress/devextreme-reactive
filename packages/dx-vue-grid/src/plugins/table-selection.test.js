@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithSelection,
   isSelectTableCell,
@@ -69,13 +69,13 @@ describe('DxTable Selection', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableSelection
                 {...{ attrs: { ...defaultProps } }}
                 selectionColumnWidth={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -92,12 +92,12 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -120,13 +120,13 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               showSelectAll
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -145,13 +145,13 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               selectByRowClick
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -177,13 +177,13 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               highlightRow
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -201,12 +201,12 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -221,14 +221,14 @@ describe('DxTable Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               highlightRow
               selectByRowClick={false}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

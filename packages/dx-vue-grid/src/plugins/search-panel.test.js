@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { PluginDepsToComponents } from './test-utils';
 import { DxSearchPanel } from './search-panel';
 
@@ -32,13 +32,13 @@ describe('DxSearchPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxSearchPanel
               {...{ attrs: { ...defaultProps } }}
               messages={{ data: '123' }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -53,7 +53,7 @@ describe('DxSearchPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxSearchPanel
               {...{ attrs: { ...defaultProps } }}
@@ -61,7 +61,7 @@ describe('DxSearchPanel', () => {
                 searchPlaceholder: 'Search…',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

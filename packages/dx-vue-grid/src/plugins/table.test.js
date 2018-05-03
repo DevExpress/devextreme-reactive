@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -83,12 +83,12 @@ describe('DxTable', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTable
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -105,13 +105,13 @@ describe('DxTable', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTable
                 {...{ attrs: { ...defaultProps } }}
                 columnExtensions={columnExtensions}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -126,12 +126,12 @@ describe('DxTable', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTable
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -152,7 +152,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -161,7 +161,7 @@ describe('DxTable', () => {
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -185,7 +185,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -194,7 +194,7 @@ describe('DxTable', () => {
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -219,7 +219,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -228,13 +228,13 @@ describe('DxTable', () => {
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
     const valueFormatterTemplatePlaceholder = tree
-      .findAll(TemplatePlaceholder)
+      .findAll(DxTemplatePlaceholder)
       .wrappers
       .filter(wrapper => wrapper.props().name === 'valueFormatter')[0];
 
@@ -252,7 +252,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -261,7 +261,7 @@ describe('DxTable', () => {
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -276,7 +276,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -285,7 +285,7 @@ describe('DxTable', () => {
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -301,7 +301,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -310,7 +310,7 @@ describe('DxTable', () => {
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -331,7 +331,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -341,7 +341,7 @@ describe('DxTable', () => {
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -365,7 +365,7 @@ describe('DxTable', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTable
               {...{ attrs: { ...defaultProps } }}
@@ -374,7 +374,7 @@ describe('DxTable', () => {
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

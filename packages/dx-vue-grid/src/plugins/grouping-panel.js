@@ -1,8 +1,8 @@
 import {
-  Template,
-  TemplatePlaceholder,
-  Plugin,
-  TemplateConnector,
+  DxTemplate,
+  DxTemplatePlaceholder,
+  DxPlugin,
+  DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
 import {
   groupingPanelItems,
@@ -72,7 +72,7 @@ export const DxGroupingPanel = {
         const { name: columnName } = this.item.column;
 
         return (
-          <TemplateConnector>
+          <DxTemplateConnector>
             {({
               getters: {
                 sorting, isColumnSortingEnabled, isColumnGroupingEnabled,
@@ -101,13 +101,13 @@ export const DxGroupingPanel = {
                 />
               );
             }}
-          </TemplateConnector>
+          </DxTemplateConnector>
         );
       },
     };
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxGroupingPanel"
         dependencies={[
           { name: 'DxGroupingState' },
@@ -115,9 +115,9 @@ export const DxGroupingPanel = {
           { name: 'DxSortingState', optional: !showSortingControls },
         ]}
       >
-        <Template name="toolbarContent">
+        <DxTemplate name="toolbarContent">
           <div style={{ display: 'flex', flex: 1 }}>
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: {
                   columns, grouping, isColumnGroupingEnabled,
@@ -135,11 +135,11 @@ export const DxGroupingPanel = {
                   containerComponent={Container}
                 />
               )}
-            </TemplateConnector>
-            <TemplatePlaceholder />
+            </DxTemplateConnector>
+            <DxTemplatePlaceholder />
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

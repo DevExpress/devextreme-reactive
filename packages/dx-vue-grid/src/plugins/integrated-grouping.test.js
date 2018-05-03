@@ -8,7 +8,7 @@ import {
   expandedGroupRows,
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { DxIntegratedGrouping } from './integrated-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -56,10 +56,10 @@ describe('DxIntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedGrouping />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });
@@ -72,10 +72,10 @@ describe('DxIntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedGrouping />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });
@@ -93,10 +93,10 @@ describe('DxIntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
             <DxIntegratedGrouping />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });
@@ -112,10 +112,10 @@ describe('DxIntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedGrouping />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });
@@ -144,12 +144,12 @@ describe('DxIntegratedGrouping', () => {
     mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedGrouping
               columnExtensions={columnExtensions}
             />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });

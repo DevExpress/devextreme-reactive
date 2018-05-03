@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { DxFilteringState } from './filtering-state';
@@ -38,13 +38,13 @@ describe('DxFilteringState', () => {
       mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState
                 columnFilteringEnabled={false}
                 columnExtensions={columnExtensions}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -60,12 +60,12 @@ describe('DxFilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState
                 filters={defaultFilters}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -78,10 +78,10 @@ describe('DxFilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState filters={defaultFilters} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -96,10 +96,10 @@ describe('DxFilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState filters={defaultFilters} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

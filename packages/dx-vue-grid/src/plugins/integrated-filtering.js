@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   filteredRows,
   getColumnExtension,
@@ -36,13 +36,13 @@ export const DxIntegratedFiltering = {
     );
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxIntegratedFiltering"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsComputed} />
-        <Getter name="rows" computed={unwrappedRowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsComputed} />
+        <DxGetter name="rows" computed={unwrappedRowsComputed} />
+      </DxPlugin>
     );
   },
 };

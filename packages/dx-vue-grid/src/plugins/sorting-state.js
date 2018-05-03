@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
@@ -39,16 +39,16 @@ export const DxSortingState = {
       getColumnExtensionValueGetter(extensions, 'sortingEnabled', defaultValue);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxSortingState"
       >
-        <Getter name="sorting" value={this.sorting} />
-        <Getter
+        <DxGetter name="sorting" value={this.sorting} />
+        <DxGetter
           name="isColumnSortingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnSortingEnabled)}
         />
-        <Action name="changeColumnSorting" action={this.changeColumnSorting} />
-      </Plugin>
+        <DxAction name="changeColumnSorting" action={this.changeColumnSorting} />
+      </DxPlugin>
     );
   },
 };

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
@@ -56,12 +56,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -85,12 +85,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -121,12 +121,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -156,12 +156,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -190,12 +190,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -224,12 +224,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -260,12 +260,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={[]}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -298,12 +298,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -337,12 +337,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -368,12 +368,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -400,12 +400,12 @@ describe('DxGroupingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
                 grouping={defaultGrouping}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -424,13 +424,13 @@ describe('DxGroupingState', () => {
       mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps }} />
               <DxGroupingState
                 columnGroupingEnabled={false}
                 columnExtensions={columnExtensions}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

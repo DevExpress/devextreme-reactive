@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import { toggleSelection } from '@devexpress/dx-grid-core';
 
 export const DxSelectionState = {
@@ -19,12 +19,12 @@ export const DxSelectionState = {
   },
   render() {
     return (
-      <Plugin
+      <DxPlugin
         name="DxSelectionState"
       >
-        <Getter name="selection" value={this.selection} />
-        <Action name="toggleSelection" action={this.toggleSelection} />
-      </Plugin>
+        <DxGetter name="selection" value={this.selection} />
+        <DxAction name="toggleSelection" action={this.toggleSelection} />
+      </DxPlugin>
     );
   },
 };

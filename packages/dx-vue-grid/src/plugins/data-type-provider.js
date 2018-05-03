@@ -1,4 +1,4 @@
-import { Plugin, Template } from '@devexpress/dx-vue-core';
+import { DxPlugin, DxTemplate } from '@devexpress/dx-vue-core';
 
 export const DxDataTypeProvider = {
   name: 'DxDataTypeProvider',
@@ -21,30 +21,30 @@ export const DxDataTypeProvider = {
       editorComponent: Editor,
     } = this;
     return (
-      <Plugin name="DxDataTypeProvider">
+      <DxPlugin name="DxDataTypeProvider">
         {Formatter
           ? (
-            <Template
+            <DxTemplate
               name="valueFormatter"
               predicate={({ column }) => columnNames.includes(column.name)}
             >
               {params => <Formatter {...{ attrs: { ...params } }} />}
-            </Template>
+            </DxTemplate>
           )
           : null
         }
         {Editor
           ? (
-            <Template
+            <DxTemplate
               name="valueEditor"
               predicate={({ column }) => columnNames.includes(column.name)}
             >
               {params => <Editor {...{ attrs: { ...params } }} />}
-            </Template>
+            </DxTemplate>
           )
           : null
         }
-      </Plugin>
+      </DxPlugin>
     );
   },
 };

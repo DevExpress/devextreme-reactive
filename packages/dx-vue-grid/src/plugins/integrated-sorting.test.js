@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { sortedRows } from '@devexpress/dx-grid-core';
 import { DxIntegratedSorting } from './integrated-sorting';
 import { PluginDepsToComponents } from './test-utils';
@@ -33,10 +33,10 @@ describe('DxIntegratedSorting', () => {
     mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSorting />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

@@ -1,10 +1,10 @@
 import {
-  Getter,
-  Template,
-  Plugin,
-  TemplatePlaceholder,
-  TemplateConnector,
-  TemplatePlaceholderSlot,
+  DxGetter,
+  DxTemplate,
+  DxPlugin,
+  DxTemplatePlaceholder,
+  DxTemplateConnector,
+  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
@@ -82,20 +82,20 @@ export const DxTableGroupRow = {
         showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
       );
     return (
-      <Plugin
+      <DxPlugin
         name="DxTableGroupRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
+        <DxGetter name="tableColumns" computed={tableColumnsComputed} />
+        <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <DxGetter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
-        <Template
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: {
                   grouping,
@@ -107,7 +107,7 @@ export const DxTableGroupRow = {
               }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
                   return (
-                    <TemplatePlaceholder
+                    <DxTemplatePlaceholder
                       name="valueFormatter"
                       params={{
                         column: params.tableColumn.column,
@@ -126,7 +126,7 @@ export const DxTableGroupRow = {
                           {content}
                         </GroupCell>
                       )}
-                    </TemplatePlaceholder>
+                    </DxTemplatePlaceholder>
                   );
                 }
                 if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
@@ -139,14 +139,14 @@ export const DxTableGroupRow = {
                       />
                     );
                   }
-                  return <TemplatePlaceholder />;
+                  return <DxTemplatePlaceholder />;
                 }
                 return null;
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isGroupTableRow(tableRow)}
         >
@@ -155,11 +155,11 @@ export const DxTableGroupRow = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </GroupRow>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

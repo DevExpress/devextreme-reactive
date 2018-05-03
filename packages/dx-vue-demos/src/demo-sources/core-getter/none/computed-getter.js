@@ -1,4 +1,4 @@
-import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxPlugin, DxGetter, DxTemplate, DxTemplateConnector } from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -23,10 +23,10 @@ export default {
 const TasksList = {
   render() {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };
@@ -35,10 +35,10 @@ const TasksListCore = {
   props: { tasks: {} },
   render() {
     return (
-      <Plugin>
-        <Getter name="tasks" value={this.tasks} />
-        <Template name="root">
-          <TemplateConnector>
+      <DxPlugin>
+        <DxGetter name="tasks" value={this.tasks} />
+        <DxTemplate name="root">
+          <DxTemplateConnector>
             {({ getters: { tasks: processedTasks } }) => (
               <ul>
                 {processedTasks.map(({ title, done }, index) => (
@@ -50,9 +50,9 @@ const TasksListCore = {
                   </li>))}
               </ul>
             )}
-          </TemplateConnector>
-        </Template>
-      </Plugin>
+          </DxTemplateConnector>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };
@@ -61,13 +61,13 @@ const TasksFilter = {
   props: { done: {} },
   render() {
     return (
-      <Plugin>
-        <Getter
+      <DxPlugin>
+        <DxGetter
           name="tasks"
           computed={({ tasks }) =>
             tasks.filter(task => this.done === null || task.done === this.done)}
         />
-      </Plugin>
+      </DxPlugin>
     );
   },
 };

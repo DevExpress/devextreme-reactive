@@ -8,7 +8,7 @@ import {
   customGroupedRows,
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { DxCustomGrouping } from './custom-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
@@ -60,12 +60,12 @@ describe('DxCustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -78,12 +78,12 @@ describe('DxCustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -96,12 +96,12 @@ describe('DxCustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -128,12 +128,12 @@ describe('DxCustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -157,12 +157,12 @@ describe('DxCustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
             <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -182,14 +182,14 @@ describe('DxCustomGrouping', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -207,14 +207,14 @@ describe('DxCustomGrouping', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

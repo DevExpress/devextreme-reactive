@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   createRowChangeGetter,
   getColumnExtensionValueGetter,
@@ -57,13 +57,13 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 createRowChange={createRowChange}
                 columnExtensions={columnExtensions}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -79,12 +79,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 editingRowIds={editingRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -98,12 +98,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 rowChanges={rowChanges}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -117,12 +117,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 addedRows={addedRows}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -136,12 +136,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -160,12 +160,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 editingRowIds={editingRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -189,12 +189,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 editingRowIds={editingRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -218,12 +218,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -247,12 +247,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -277,12 +277,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -312,12 +312,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -341,12 +341,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -370,12 +370,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -400,12 +400,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -435,12 +435,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -464,12 +464,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -493,12 +493,12 @@ describe('DxEditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -522,13 +522,13 @@ describe('DxEditingState', () => {
       mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <DxEditingState
                 columnEditingEnabled={false}
                 columnExtensions={columnExtensions}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -77,13 +77,13 @@ describe('DxTableEditRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableEditRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -106,13 +106,13 @@ describe('DxTableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -141,13 +141,13 @@ describe('DxTableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -167,13 +167,13 @@ describe('DxTableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -202,13 +202,13 @@ describe('DxTableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
             <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -228,18 +228,18 @@ describe('DxTableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const valueEditorTemplatePlaceholder = tree.findAll(TemplatePlaceholder)
+    const valueEditorTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueEditor').at(0);
 
     expect(valueEditorTemplatePlaceholder.vm.params)

@@ -1,4 +1,4 @@
-import { Getter, Template, TemplateConnector, Plugin, TemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -45,17 +45,17 @@ export const DxTableFilterRow = {
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxTableFilterRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Template
+        <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: { filters, isColumnFilteringEnabled },
                 actions: { changeColumnFilter },
@@ -76,10 +76,10 @@ export const DxTableFilterRow = {
                   />
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
@@ -88,11 +88,11 @@ export const DxTableFilterRow = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </FilterRow>
           }
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

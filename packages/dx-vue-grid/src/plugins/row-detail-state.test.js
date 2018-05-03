@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { DxRowDetailState } from './row-detail-state';
 import { PluginDepsToComponents, executeComputedAction, getComputedState } from './test-utils';
@@ -27,10 +27,10 @@ describe('DxRowDetailState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxRowDetailState expandedRowIds={expandedRowIds} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -47,10 +47,10 @@ describe('DxRowDetailState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxRowDetailState expandedRowIds={[1]} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

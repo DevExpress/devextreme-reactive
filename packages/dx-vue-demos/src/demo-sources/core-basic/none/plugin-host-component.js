@@ -1,4 +1,4 @@
-import { PluginHost, Template } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplate } from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -22,8 +22,8 @@ const TasksList = {
   props: ['tasks'],
   render() {
     return (
-      <PluginHost>
-        <Template name="root">
+      <DxPluginHost>
+        <DxTemplate name="root">
           <ul>
             {this.tasks.map(({ title, done }, index) => (
               <li
@@ -34,8 +34,8 @@ const TasksList = {
               </li>
             ))}
           </ul>
-        </Template>
-      </PluginHost>
+        </DxTemplate>
+      </DxPluginHost>
     );
   },
 };

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
@@ -42,10 +42,10 @@ describe('DxSortingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxSortingState sorting={sorting} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -59,10 +59,10 @@ describe('DxSortingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxSortingState sorting={['a']} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

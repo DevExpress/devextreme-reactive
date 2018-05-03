@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
@@ -70,13 +70,13 @@ describe('DxTableFilterRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableFilterRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -94,12 +94,12 @@ describe('DxTableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -123,12 +123,12 @@ describe('DxTableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -144,7 +144,7 @@ describe('DxTableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
@@ -152,7 +152,7 @@ describe('DxTableFilterRow', () => {
                 filterPlaceholder: 'Filter...',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

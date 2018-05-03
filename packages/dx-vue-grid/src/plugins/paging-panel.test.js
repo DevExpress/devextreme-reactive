@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { DxPagingPanel } from './paging-panel';
 import { PluginDepsToComponents } from './test-utils';
 
@@ -40,13 +40,13 @@ describe('DxPagingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxPagingPanel
               containerComponent={DefaultPager}
               pageSizes={[3, 5, 0]}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -71,7 +71,7 @@ describe('DxPagingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxPagingPanel
               containerComponent={DefaultPager}
@@ -79,7 +79,7 @@ describe('DxPagingPanel', () => {
                 showAll: 'Show all',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

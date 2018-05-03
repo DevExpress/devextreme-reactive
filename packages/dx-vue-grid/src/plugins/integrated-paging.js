@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import { paginatedRows, rowsWithPageHeaders, rowCount, currentPage } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -17,15 +17,15 @@ export const DxIntegratedPaging = {
   name: 'DxIntegratedPaging',
   render() {
     return (
-      <Plugin
+      <DxPlugin
         name="DxIntegratedPaging"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsWithHeadersComputed} />
-        <Getter name="totalCount" computed={totalCountComputed} />
-        <Getter name="currentPage" computed={currentPageComputed} />
-        <Getter name="rows" computed={paginatedRowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsWithHeadersComputed} />
+        <DxGetter name="totalCount" computed={totalCountComputed} />
+        <DxGetter name="currentPage" computed={currentPageComputed} />
+        <DxGetter name="rows" computed={paginatedRowsComputed} />
+      </DxPlugin>
     );
   },
 };

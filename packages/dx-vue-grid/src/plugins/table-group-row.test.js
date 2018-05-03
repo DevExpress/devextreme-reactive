@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -82,12 +82,12 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -102,12 +102,12 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -129,12 +129,12 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -159,13 +159,13 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
                 showColumnsWhenGrouped
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -181,7 +181,7 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
@@ -190,7 +190,7 @@ describe('DxTableGroupRow', () => {
                   { columnName: 'A', showWhenGrouped: true },
                 ]}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -211,13 +211,13 @@ describe('DxTableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
               indentCellComponent={indentCellComponent}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -244,12 +244,12 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -287,12 +287,12 @@ describe('DxTableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -316,17 +316,17 @@ describe('DxTableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const valueFormatterTemplatePlaceholder = tree.findAll(TemplatePlaceholder)
+    const valueFormatterTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueFormatter').at(0);
 
     expect(valueFormatterTemplatePlaceholder.vm.params)
@@ -341,12 +341,12 @@ describe('DxTableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

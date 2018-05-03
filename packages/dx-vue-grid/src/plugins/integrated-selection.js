@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   rowsWithAvailableToSelect,
   someSelected,
@@ -27,17 +27,17 @@ export const DxIntegratedSelection = {
   name: 'DxIntegratedSelection',
   render() {
     return (
-      <Plugin
+      <DxPlugin
         name="DxIntegratedSelection"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsWithAvailableToSelectComputed} />
-        <Getter name="allSelected" computed={allSelectedComputed} />
-        <Getter name="someSelected" computed={someSelectedComputed} />
-        <Getter name="selectAllAvailable" computed={selectAllAvailableComputed} />
-        <Action name="toggleSelectAll" action={toggleSelectAll} />
-        <Getter name="rows" computed={unwrapRowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsWithAvailableToSelectComputed} />
+        <DxGetter name="allSelected" computed={allSelectedComputed} />
+        <DxGetter name="someSelected" computed={someSelectedComputed} />
+        <DxGetter name="selectAllAvailable" computed={selectAllAvailableComputed} />
+        <DxAction name="toggleSelectAll" action={toggleSelectAll} />
+        <DxGetter name="rows" computed={unwrapRowsComputed} />
+      </DxPlugin>
     );
   },
 };

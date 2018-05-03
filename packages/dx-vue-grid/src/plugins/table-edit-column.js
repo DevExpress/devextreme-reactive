@@ -1,4 +1,4 @@
-import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxPlugin, DxTemplateConnector } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -61,19 +61,19 @@ export const DxTableEditColumn = {
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxTableEditColumn"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <DxGetter name="tableColumns" computed={tableColumnsComputed} />
 
-        <Template
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) =>
             isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({ actions: { addRow } }) => (
                 <HeaderCell
                   {...{ attrs: { ...params } }}
@@ -88,16 +88,16 @@ export const DxTableEditColumn = {
                 </HeaderCell>
               )
             }
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) =>
             isEditCommandsTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 actions: {
                   startEditRows,
@@ -167,10 +167,10 @@ export const DxTableEditColumn = {
                   </Cell>
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

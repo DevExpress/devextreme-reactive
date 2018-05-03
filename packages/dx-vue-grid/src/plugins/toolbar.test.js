@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import { DxToolbar } from './toolbar';
 
 describe('DxToolbar', () => {
@@ -13,10 +13,10 @@ describe('DxToolbar', () => {
   it('should render DxToolbar', () => {
     const tree = mount({
       render() {
-        return (<PluginHost>
+        return (<DxPluginHost>
           <DxToolbar {...{ attrs: { ...defaultProps } }} />
-          <TemplatePlaceholder name="header" />
-        </PluginHost>);
+          <DxTemplatePlaceholder name="header" />
+        </DxPluginHost>);
       },
     });
 
@@ -28,10 +28,10 @@ describe('DxToolbar', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <DxToolbar {...{ attrs: { ...defaultProps } }} />
-            <TemplatePlaceholder name="toolbarContent" />
-          </PluginHost>
+            <DxTemplatePlaceholder name="toolbarContent" />
+          </DxPluginHost>
         );
       },
     });

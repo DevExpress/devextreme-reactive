@@ -5,7 +5,7 @@ import {
   getColumnSortingDirection,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { DxGroupingPanel } from './grouping-panel';
 import { PluginDepsToComponents } from './test-utils';
 
@@ -76,7 +76,7 @@ describe('DxGroupingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxGroupingPanel
               {...{ attrs: { ...defaultProps } }}
@@ -85,7 +85,7 @@ describe('DxGroupingPanel', () => {
                 groupByColumn: 'Group By Column',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -113,7 +113,7 @@ describe('DxGroupingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents
               deps={{ ...defaultDeps, plugins: [...deps.plugins, ...defaultDeps.plugins] }}
             />
@@ -123,7 +123,7 @@ describe('DxGroupingPanel', () => {
               showSortingControls
               showGroupingControls
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

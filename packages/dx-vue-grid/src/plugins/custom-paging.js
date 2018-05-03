@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 
 const pluginDependencies = [
   { name: 'DxPagingState' },
@@ -17,12 +17,12 @@ export const DxCustomPaging = {
     const { totalCount } = this;
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxCustomPaging"
         dependencies={pluginDependencies}
       >
-        <Getter name="totalCount" value={totalCount} />
-      </Plugin>
+        <DxGetter name="totalCount" value={totalCount} />
+      </DxPlugin>
     );
   },
 };

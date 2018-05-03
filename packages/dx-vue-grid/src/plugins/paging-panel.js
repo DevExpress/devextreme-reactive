@@ -1,6 +1,6 @@
 import {
-  Template, TemplatePlaceholder,
-  TemplateConnector, Plugin,
+  DxTemplate, DxTemplatePlaceholder,
+  DxTemplateConnector, DxPlugin,
 } from '@devexpress/dx-vue-core';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
@@ -33,14 +33,14 @@ export const DxPagingPanel = {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxPagingPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="footer">
+        <DxTemplate name="footer">
           <div> {/* TODO: Wrapper required for multiple children */}
-            <TemplatePlaceholder />
-            <TemplateConnector>
+            <DxTemplatePlaceholder />
+            <DxTemplateConnector>
               {({
                   getters: { currentPage, pageSize, totalCount },
                   actions: { setCurrentPage, setPageSize },
@@ -57,10 +57,10 @@ export const DxPagingPanel = {
                   />
                 )
               }
-            </TemplateConnector>
+            </DxTemplateConnector>
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

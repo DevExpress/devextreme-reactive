@@ -1,4 +1,4 @@
-import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxPlugin, DxTemplate, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 
 const ENTER_KEY = 13;
 
@@ -30,10 +30,10 @@ export default {
 const TasksList = {
   render() {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };
@@ -42,10 +42,10 @@ const TasksListCore = {
   props: ['tasks'],
   render() {
     return (
-      <Plugin>
-        <Template name="root">
+      <DxPlugin>
+        <DxTemplate name="root">
           <div>
-            <TemplatePlaceholder name="header" />
+            <DxTemplatePlaceholder name="header" />
             <ul>
               {this.tasks.map(({ title, done }, index) => (
                 <li
@@ -57,8 +57,8 @@ const TasksListCore = {
               ))}
             </ul>
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };
@@ -75,13 +75,13 @@ const NewTaskForm = {
   },
   render() {
     return (
-      <Plugin>
-        <Template name="header">
+      <DxPlugin>
+        <DxTemplate name="header">
           <input
             onKeyup={this.handleKeyup}
           />
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { DxPagingState } from './paging-state';
@@ -30,12 +30,12 @@ describe('DxPagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxPagingState
               currentPage={defaultCurrentPage}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -49,10 +49,10 @@ describe('DxPagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxPagingState pageSize={defaultPageSize} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -67,10 +67,10 @@ describe('DxPagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxPagingState currentPage={defaultCurrentPage} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -93,10 +93,10 @@ describe('DxPagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxPagingState pageSize={defaultPageSize} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

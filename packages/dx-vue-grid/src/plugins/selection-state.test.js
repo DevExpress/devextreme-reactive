@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { toggleSelection } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
@@ -27,12 +27,12 @@ describe('DxSelectionState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxSelectionState
               selection={defaultSelection}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -49,12 +49,12 @@ describe('DxSelectionState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxSelectionState
               selection={defaultSelection}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

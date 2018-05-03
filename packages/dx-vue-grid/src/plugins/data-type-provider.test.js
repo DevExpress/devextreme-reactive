@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost, Template } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplate } from '@devexpress/dx-vue-core';
 import { DxDataTypeProvider } from './data-type-provider';
 
 describe('DxDataTypeProvider', () => {
@@ -7,17 +7,17 @@ describe('DxDataTypeProvider', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <DxDataTypeProvider
               for={['test']}
               formatterComponent={{ render: () => null }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const templates = tree.findAll(Template);
+    const templates = tree.findAll(DxTemplate);
     const { name, predicate } = templates.at(0).props();
 
     expect(templates)
@@ -34,17 +34,17 @@ describe('DxDataTypeProvider', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <DxDataTypeProvider
               for={['test']}
               editorComponent={{ render: () => null }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const templates = tree.findAll(Template);
+    const templates = tree.findAll(DxTemplate);
     const { name, predicate } = templates.at(0).props();
 
     expect(templates)

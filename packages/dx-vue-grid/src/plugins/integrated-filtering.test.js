@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { filteredRows, unwrappedFilteredRows } from '@devexpress/dx-grid-core';
 import { DxIntegratedFiltering } from './integrated-filtering';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
@@ -30,10 +30,10 @@ describe('DxIntegratedFiltering', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedFiltering />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

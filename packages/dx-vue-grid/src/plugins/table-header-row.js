@@ -1,9 +1,9 @@
 import {
-  Getter,
-  Template,
-  TemplateConnector,
-  Plugin,
-  TemplatePlaceholderSlot,
+  DxGetter,
+  DxTemplate,
+  DxTemplateConnector,
+  DxPlugin,
+  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
@@ -49,18 +49,18 @@ export const DxTableHeaderRow = {
     const getMessage = getMessagesFormatter(this.messages);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxTableHeaderRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
-        <Template
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: {
                   sorting,
@@ -98,10 +98,10 @@ export const DxTableHeaderRow = {
                   />
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
@@ -109,11 +109,11 @@ export const DxTableHeaderRow = {
             <HeaderRow
               {...{ attrs: { ...params } }}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </HeaderRow>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

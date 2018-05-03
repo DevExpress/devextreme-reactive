@@ -1,8 +1,8 @@
 import {
-  Template,
-  TemplatePlaceholder,
-  Plugin,
-  TemplateConnector,
+  DxTemplate,
+  DxTemplatePlaceholder,
+  DxPlugin,
+  DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 
@@ -28,14 +28,14 @@ export const DxSearchPanel = {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <Plugin
+      <DxPlugin
         name="DxSearchPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="toolbarContent">
+        <DxTemplate name="toolbarContent">
           <div style={{ display: 'flex', flex: 1 }}>
-            <TemplatePlaceholder />
-            <TemplateConnector>
+            <DxTemplatePlaceholder />
+            <DxTemplateConnector>
               {({
                 getters: { searchValue },
                 actions: { changeSearchValue },
@@ -46,10 +46,10 @@ export const DxSearchPanel = {
                   getMessage={getMessage}
                 />
               )}
-            </TemplateConnector>
+            </DxTemplateConnector>
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

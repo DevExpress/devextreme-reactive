@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   rowsWithAvailableToSelect,
   someSelected,
@@ -52,10 +52,10 @@ describe('DxIntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSelection />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -76,10 +76,10 @@ describe('DxIntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSelection />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -98,10 +98,10 @@ describe('DxIntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSelection />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -120,10 +120,10 @@ describe('DxIntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSelection />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -136,10 +136,10 @@ describe('DxIntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
             <DxIntegratedSelection />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

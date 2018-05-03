@@ -1,7 +1,7 @@
 import {
-  Template,
-  Plugin,
-  TemplatePlaceholder,
+  DxTemplate,
+  DxPlugin,
+  DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 
 export const DxToolbar = {
@@ -22,19 +22,19 @@ export const DxToolbar = {
       flexibleSpaceComponent: FlexibleSpaceComponent,
     } = this;
     return (
-      <Plugin
+      <DxPlugin
         name="DxToolbar"
       >
-        <Template name="header">
+        <DxTemplate name="header">
           <Root>
-            <TemplatePlaceholder name="toolbarContent" />
+            <DxTemplatePlaceholder name="toolbarContent" />
           </Root>
-          <TemplatePlaceholder />
-        </Template>
-        <Template name="toolbarContent">
+          <DxTemplatePlaceholder />
+        </DxTemplate>
+        <DxTemplate name="toolbarContent">
           <FlexibleSpaceComponent />
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

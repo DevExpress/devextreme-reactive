@@ -175,3 +175,5 @@
         path: /vue/grid/docs/guides/sorting
       - title: Paging
         path: /vue/grid/docs/guides/paging
+      - title: Searching
+        path: /vue/grid/docs/guides/searching

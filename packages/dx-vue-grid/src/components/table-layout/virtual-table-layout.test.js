@@ -107,7 +107,7 @@ describe('VirtualTableLayout', () => {
       },
     });
 
-    expect(tree.find('Sizer').dive())
+    expect(tree.find('Sizer'))
       .toMatchSnapshot();
   });
 

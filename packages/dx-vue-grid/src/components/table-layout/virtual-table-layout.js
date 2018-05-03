@@ -67,21 +67,43 @@ export const VirtualTableLayout = {
       required: true,
     },
   },
-  data: () => ({
-    rowHeight: new Map(),
-    viewportTop: 0,
-    viewportLeft: 0,
-  }),
+  data() {
+    return ({
+      rowHeights: new Map(),
+      viewportTop: 0,
+      viewportLeft: 0,
+    });
+  },
   mounted() {
     this.storeRowHeights();
   },
-  beforeUpdate() {
-    if (
-      this.props.headerRows !== nextProps.headerRows ||
-      this.props.bodyRows !== nextProps.bodyRows
-    ) {
-      const { rowHeights: prevRowHeight } = this;
-      const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+  // beforeUpdate() {
+  //   if (
+  //     this.props.headerRows !== nextProps.headerRows ||
+  //     this.props.bodyRows !== nextProps.bodyRows
+  //   ) {
+  //     const { rowHeights: prevRowHeight } = this;
+  //     const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+  //       (acc, row) => {
+  //         const rowHeight = prevRowHeight.get(row.key);
+  //         if (rowHeight !== undefined) {
+  //           acc.set(row.key, rowHeight);
+  //         }
+  //         return acc;
+  //       },
+  //       new Map(),
+  //     );
+  //     // this.setState({ rowHeights });
+  //     this.rowHeights = rowHeights;
+  //   }
+  // },
+  updated() {
+    this.storeRowHeights();
+  },
+  watch: {
+    headerRows(headerRows) {
+      const { rowHeights: prevRowHeight, bodyRows } = this;
+      const rowHeights = [headerRows, bodyRows].reduce(
         (acc, row) => {
           const rowHeight = prevRowHeight.get(row.key);
           if (rowHeight !== undefined) {
@@ -93,43 +115,66 @@ export const VirtualTableLayout = {
       );
       // this.setState({ rowHeights });
       this.rowHeights = rowHeights;
-    }
-  },
-  updated() {
-    this.storeRowHeights();
+    },
+    bodyRows(bodyRows) {
+      const { rowHeights: prevRowHeight, headerRows } = this;
+      const rowHeights = [headerRows, bodyRows].reduce(
+        (acc, row) => {
+          const rowHeight = prevRowHeight.get(row.key);
+          if (rowHeight !== undefined) {
+            acc.set(row.key, rowHeight);
+          }
+          return acc;
+        },
+        new Map(),
+      );
+      // this.setState({ rowHeights });
+      this.rowHeights = rowHeights;
+    },
   },
   methods: {
     getRowHeight(row) {
-      const storedHeight = this.state.rowHeights.get(row.key);
+      const storedHeight = this.rowHeights.get(row.key);
       if (storedHeight !== undefined) return storedHeight;
       if (row.height) return row.height;
       return this.estimatedRowHeight;
     },
     storeRowHeights() {
-      const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
+      // const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
+      //   // eslint-disable-next-line react/no-find-dom-node
+      //   .map(([row, ref]) => [row, findDOMNode(ref)])
+      //   .filter(([, node]) => !!node)
+      //   .map(([row, node]) => [row, node.getBoundingClientRect().height])
+      //   .filter(([row, height]) => height !== this.getRowHeight(row));
+
+      // const rowsWithChangedHeights = Array.from(this.$refs)
+      //   .map(node => node.getBoundingClientRect().height);
+
+      const rowsWithChangedHeights = Array.from(this.$refs)
         // eslint-disable-next-line react/no-find-dom-node
-        .map(([row, ref]) => [row, findDOMNode(ref)])
+        .map(node => [{ key: node.split('-')[2], height: node.split('-')[3] }, node])
         .filter(([, node]) => !!node)
         .map(([row, node]) => [row, node.getBoundingClientRect().height])
         .filter(([row, height]) => height !== this.getRowHeight(row));
 
       if (rowsWithChangedHeights.length) {
-        const { rowHeights } = this.state;
+        const { rowHeights } = this;
         rowsWithChangedHeights
           .forEach(([row, height]) => rowHeights.set(row.key, height));
 
-        this.setState({
-          rowHeights,
-        });
+        this.rowHeights = rowHeights;
+        // this.setState({
+        //   rowHeights,
+        // });
       }
     },
-    registerRowRef(row, ref) {
-      if (ref === null) {
-        this.rowRefs.delete(row);
-      } else {
-        this.rowRefs.set(row, ref);
-      }
-    },
+    // registerRowRef(row, ref) {
+    //   if (ref === null) {
+    //     this.rowRefs.delete(row);
+    //   } else {
+    //     this.rowRefs.set(row, ref);
+    //   }
+    // },
     updateViewport(e) {
       const node = e.target;
 
@@ -170,13 +215,14 @@ export const VirtualTableLayout = {
             columns={collapsedGrid.columns}
           />
           <Body>
-            {collapsedGrid.rows.map((visibleRow, index) => {
+            {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
               return (
                 <RefHolder
                   key={row.key}
                   // ref={ref => this.registerRowRef(row, ref)}
-                  ref={`vtl-refHolder-${index}`}
+                  row={row}
+                  ref={`vtl-refHolder-${row.key}-${row.height}`}
                 >
                   <Row
                     tableRow={row}
@@ -230,7 +276,7 @@ export const VirtualTableLayout = {
             rows: headerRows,
             columns,
             top: 0,
-            left: this.state.viewportLeft,
+            left: this.viewportLeft,
             width,
             height: headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
@@ -240,8 +286,8 @@ export const VirtualTableLayout = {
           const collapsedBodyGrid = getCollapsedGrid({
             rows: bodyRows,
             columns,
-            top: this.state.viewportTop,
-            left: this.state.viewportLeft,
+            top: this.viewportTop,
+            left: this.viewportLeft,
             width,
             height: height - headHeight,
             getColumnWidth: column => column.width || minColumnWidth,

@@ -9,3 +9,4 @@ export { ScatterSeries } from './plugins/scatter-series';
 export { AreaSeries } from './plugins/area-series';
 export { PieSeries } from './plugins/pie-series';
 export { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
+export { SeriesFamily } from './plugins/series-family';

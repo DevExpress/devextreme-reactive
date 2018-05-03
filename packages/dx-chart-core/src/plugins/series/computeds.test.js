@@ -8,7 +8,7 @@ import {
   pie,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
-import { seriesAttributes, calculatePieAttributes } from './computeds';
+import { seriesAttributes, pieAttributes } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
@@ -208,7 +208,7 @@ describe('Pie attributes', () => {
   });
 
   it('should return array of arsc', () => {
-    expect(calculatePieAttributes(
+    expect(pieAttributes(
       series,
       'Series3',
       data,
@@ -227,7 +227,7 @@ describe('Pie attributes', () => {
   });
 
   it('should return array of arcs, outerRadius is not set', () => {
-    calculatePieAttributes(
+    pieAttributes(
       series,
       'Series3',
       data,

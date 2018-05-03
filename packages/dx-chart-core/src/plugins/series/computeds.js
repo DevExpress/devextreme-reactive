@@ -65,7 +65,7 @@ const xyScales = (
   };
 };
 
-export const calculatePieAttributes = (
+export const pieAttributes = (
   series,
   name,
   data,

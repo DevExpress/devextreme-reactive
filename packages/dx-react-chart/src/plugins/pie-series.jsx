@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { calculatePieAttributes } from '@devexpress/dx-chart-core';
+import { pieAttributes } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -34,7 +34,7 @@ export class PieSeries extends React.PureComponent {
                 const {
                   width, height,
                 } = layouts[placeholder];
-              const arcs = calculatePieAttributes(
+              const arcs = pieAttributes(
                 series,
                 name,
                 data,

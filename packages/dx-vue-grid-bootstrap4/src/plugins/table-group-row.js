@@ -15,8 +15,8 @@ export const TableGroupRow = {
       />
     );
   },
+  components: {
+    DxRow: TableRow,
+    DxCell: TableGroupCell,
+  },
 };
-
-TableGroupRow.Row = TableRow;
-TableGroupRow.Cell = TableGroupCell;
-

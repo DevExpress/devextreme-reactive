@@ -169,5 +169,7 @@
         path: /vue/grid/docs/guides/getting-started
       - title: Plugin Overview
         path: /vue/grid/docs/guides/plugin-overview
+      - title: Fundamentals
+        path: /vue/grid/docs/guides/fundamentals
       - title: Paging
         path: /vue/grid/docs/guides/paging

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-vue-demos",
-  "version": "1.2.0-beta.2",
+  "version": "1.2.0-beta.3",
   "description": "DevExtreme Vue Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -22,12 +22,12 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "1.2.0-beta.2",
-    "@devexpress/dx-vue-core": "1.2.0-beta.2",
-    "@devexpress/dx-vue-grid": "1.2.0-beta.2",
-    "@devexpress/dx-vue-grid-bootstrap4": "1.2.0-beta.2",
+    "@devexpress/dx-demo-shell": "1.2.0-beta.3",
+    "@devexpress/dx-vue-core": "1.2.0-beta.3",
+    "@devexpress/dx-vue-grid": "1.2.0-beta.3",
+    "@devexpress/dx-vue-grid-bootstrap4": "1.2.0-beta.3",
     "babel-polyfill": "^6.26.0",
-    "prismjs": "^1.13.0",
+    "prismjs": "^1.14.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
@@ -37,7 +37,7 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.2.0-beta.2",
+    "@devexpress/dx-testing": "1.2.0-beta.3",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-jest": "^22.4.3",
@@ -51,17 +51,17 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-jest": "^21.15.0",
-    "eslint-plugin-vue": "^4.4.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-vue": "^4.5.0",
     "jest": "^22.4.3",
     "mustache": "^2.3.0",
     "nodemon": "^1.17.3",
-    "style-loader": "^0.20.3",
-    "vue-loader": "^14.2.2",
+    "style-loader": "^0.21.0",
+    "vue-loader": "^15.0.3",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^3.1.3",
     "write-file-webpack-plugin": "^4.2.0"
   }

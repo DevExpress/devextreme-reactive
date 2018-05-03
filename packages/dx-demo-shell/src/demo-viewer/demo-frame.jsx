@@ -28,6 +28,7 @@ class DemoFrameRenderer extends React.PureComponent {
       <head>
         ${themeLinks}
         <style>
+          body { margin: 8px; overflow: hidden; }
           .panel { margin: 0 !important; }
         </style>
       </head>
@@ -105,21 +106,27 @@ class DemoFrameRenderer extends React.PureComponent {
             />
           )
           : (
-            <Frame
+            <div
               style={{
-                border: 'none',
-                width: '100%',
-                height: `${frameHeight}px`,
-                marginBottom: '20px',
+                margin: '-8px',
               }}
-              initialContent={this.markup}
-              mountTarget="#mountPoint"
             >
-              {editableLink ? (
-                <link rel="stylesheet" href={editableLink} />
-              ) : null}
-              <div ref={(node) => { this.node = node; }} />
-            </Frame>
+              <Frame
+                style={{
+                  border: 'none',
+                  width: '100%',
+                  height: `${frameHeight}px`,
+                  marginBottom: '20px',
+                }}
+                initialContent={this.markup}
+                mountTarget="#mountPoint"
+              >
+                {editableLink ? (
+                  <link rel="stylesheet" href={editableLink} />
+                ) : null}
+                <div ref={(node) => { this.node = node; }} />
+              </Frame>
+            </div>
         )}
       </div>
     );

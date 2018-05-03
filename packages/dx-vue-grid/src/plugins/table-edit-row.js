@@ -1,4 +1,4 @@
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-vue-core';
+import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, TemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -119,7 +119,9 @@ export const TableEditRow = {
             <EditRow
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
-            />
+            >
+              <TemplatePlaceholderSlot params={params} />
+            </EditRow>
           )}
         </Template>
       </Plugin>

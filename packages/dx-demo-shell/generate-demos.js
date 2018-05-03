@@ -49,7 +49,7 @@ const loadDemosToGenerate = () => {
         if (file.startsWith('.')) return;
         if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
           fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
-            if (nestedFile.startsWith('.')) return;
+            if (nestedFile.startsWith('.') || nestedFile.includes('.skip.test')) return;
             if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
@@ -60,7 +60,7 @@ const loadDemosToGenerate = () => {
               sectionName,
               demoName,
               themeName: file,
-              generateTest: true,
+              generateTest: !nestedFile.includes('.skip'),
               generateSsrTest,
               demoExtension,
             });

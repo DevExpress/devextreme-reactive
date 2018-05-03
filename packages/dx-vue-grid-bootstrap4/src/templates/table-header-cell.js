@@ -56,7 +56,7 @@ export const TableHeaderCell = {
               <SortingControl
                 align={align}
                 disabled={!sortingEnabled}
-                sortingDirection={sortingDirection}
+                direction={sortingDirection}
                 onChange={this.$emit.bind(this, 'sort')}
               >
                 {columnTitle}

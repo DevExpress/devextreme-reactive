@@ -2,8 +2,8 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { sortedRows } from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { IntegratedSorting } from './integrated-sorting';
-import { pluginDepsToComponents } from './test-utils';
 
 const defaultDeps = {
   getter: {

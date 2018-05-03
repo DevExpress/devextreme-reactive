@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-flex-layout",
+  "version": "0.0.0",
+  "main": "./lib/entry-browser.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": ""
+}

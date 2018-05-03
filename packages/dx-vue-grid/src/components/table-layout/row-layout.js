@@ -34,6 +34,8 @@ export const RowLayout = {
       cellComponent: Cell,
       getCellColSpan,
     } = this;
+    const getColSpan = (tableRow, tableColumn) =>
+      getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
 
     return (
       <Row
@@ -47,7 +49,7 @@ export const RowLayout = {
                 key={column.key}
                 tableRow={row}
                 tableColumn={column}
-                colSpan={getCellColSpan(row, column)}
+                colSpan={getColSpan(row, column)}
               />
             ))
         }

@@ -5,7 +5,9 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   groupInfo: {
-    color: theme.typography.title.color,
+    color: theme.typography.caption.color,
+    fontFamily: theme.typography.fontFamily,
+    fontSize: theme.typography.fontSize,
   },
 });
 

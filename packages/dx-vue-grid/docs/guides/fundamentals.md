@@ -47,7 +47,7 @@ Static widths for specific columns can be defined via the `DxTable` plugin's `co
 
 ### Multiline cells
 
-The Grid cuts off values that do not fit in a cell. Assign true to the DxTable plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
+The Grid cuts off values that do not fit in a cell. Assign true to the `DxTable` plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
 
 .embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 

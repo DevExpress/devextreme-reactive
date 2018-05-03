@@ -2,13 +2,13 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents, getComputedState, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
 import {
   rowsWithAvailableToSelect,
   someSelected,
   allSelected,
   unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { IntegratedSelection } from './integrated-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

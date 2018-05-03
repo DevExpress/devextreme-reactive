@@ -5,3 +5,8 @@ export { Getter } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
 export { TemplatePlaceholder, TemplatePlaceholderSlot } from './plugin-based/template-placeholder';
 export { TemplateConnector } from './plugin-based/template-connector';
+
+export { Sizer } from './sizer';
+export { RefHolder } from './ref-holder';
+
+export { createRenderComponent } from './render-component';

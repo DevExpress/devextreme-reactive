@@ -5,10 +5,14 @@ import {
 
 const MINIMAL_COLUMN_WIDTH = 150;
 
-export const VirtualTableLayout = props => (
-  <TableLayout
-    layoutComponent={VirtualTableLayoutCore}
-    minColumnWidth={MINIMAL_COLUMN_WIDTH}
-    {...props}
-  />
-);
+export const VirtualTableLayout = {
+  name: 'VirtualTableLayout',
+  render() {
+    return (
+      <TableLayout
+        layoutComponent={VirtualTableLayoutCore}
+        minColumnWidth={MINIMAL_COLUMN_WIDTH}
+      />
+    );
+  },
+};

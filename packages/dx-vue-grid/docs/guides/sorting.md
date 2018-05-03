@@ -21,7 +21,7 @@ Use the `SortingState`, `IntegratedSorting` and `TableHeaderRow` plugins to set 
 
 Set the `TableHeaderRow` plugin's `showSortingControls` property to true to enable changing the sorting criteria in the header row.
 
-Specify the sorting in the `PagingState` plugin's `sorting` property and subscribe to the `update:sorting` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify the sorting conditions in the `PagingState` plugin's `sorting` property and subscribe to the `update:sorting` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-sorting/basic", "showThemeSelector": true })
 

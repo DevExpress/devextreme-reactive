@@ -17,8 +17,9 @@ export const DxTableRowDetail = {
       />
     );
   },
+  components: {
+    DxCell: TableDetailCell,
+    DxToggleCell: TableDetailToggleCell,
+    DxRow: TableRow,
+  },
 };
-
-DxTableRowDetail.Cell = TableDetailCell;
-DxTableRowDetail.ToggleCell = TableDetailToggleCell;
-DxTableRowDetail.Row = TableRow;

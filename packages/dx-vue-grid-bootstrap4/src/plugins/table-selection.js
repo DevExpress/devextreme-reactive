@@ -17,7 +17,8 @@ export const DxTableSelection = {
       />
     );
   },
+  components: {
+    DxCell: TableSelectCell,
+    DxHeaderCell: TableSelectAllCell,
+  },
 };
-
-DxTableSelection.Cell = TableSelectCell;
-DxTableSelection.HeaderCell = TableSelectAllCell;

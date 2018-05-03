@@ -15,7 +15,8 @@ export const DxTableFilterRow = {
       />
     );
   },
+  components: {
+    DxCell: TableFilterCell,
+    DxRow: TableRow,
+  },
 };
-
-DxTableFilterRow.Cell = TableFilterCell;
-DxTableFilterRow.Row = TableRow;

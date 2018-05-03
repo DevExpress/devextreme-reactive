@@ -14,4 +14,8 @@ export const DxTableEditRow = {
       />
     );
   },
+  components: {
+    DxCell: EditCell,
+    DxRow: TableRow,
+  },
 };

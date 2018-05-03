@@ -27,8 +27,9 @@ export const DxTableEditColumn = {
       />
     );
   },
+  components: {
+    DxCommand: CommandButton,
+    DxCell: EditCommandCell,
+    DxHeaderCell: EditCommandHeadingCell,
+  },
 };
-
-DxTableEditColumn.Command = CommandButton;
-DxTableEditColumn.Cell = EditCommandCell;
-DxTableEditColumn.HeaderCell = EditCommandHeadingCell;

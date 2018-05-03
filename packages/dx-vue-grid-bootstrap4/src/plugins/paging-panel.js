@@ -20,6 +20,7 @@ export const DxPagingPanel = {
       />
     );
   },
+  components: {
+    DxContainer: Pager,
+  },
 };
-
-DxPagingPanel.Container = Pager;

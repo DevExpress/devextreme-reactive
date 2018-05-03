@@ -2,7 +2,7 @@ import { DxTable as DxTableBase } from '@devexpress/dx-vue-grid';
 
 import { TableLayout } from '../templates/table-layout';
 import { TableContainer } from '../templates/table-container';
-import { DxTable as TableRoot } from '../templates/table';
+import { Table as TableRoot } from '../templates/table';
 import { TableHead } from '../templates/table-head';
 import { TableBody } from '../templates/table-body';
 import { TableRow } from '../templates/table-row';

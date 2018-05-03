@@ -1,4 +1,4 @@
-export const DxTable = {
+export const Table = {
   render() {
     return (
       <table

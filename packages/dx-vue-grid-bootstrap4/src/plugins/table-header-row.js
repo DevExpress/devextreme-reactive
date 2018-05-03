@@ -15,4 +15,8 @@ export const DxTableHeaderRow = {
       />
     );
   },
+  components: {
+    DxCell: TableHeaderCell,
+    DxRow: TableRow,
+  },
 };

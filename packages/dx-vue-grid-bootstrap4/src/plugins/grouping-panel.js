@@ -24,8 +24,10 @@ export const DxGroupingPanel = {
       />
     );
   },
+  components: {
+    DxContainer: GroupPanelContainer,
+    DxItem: GroupPanelItem,
+    DxEmptyMessage: GroupPanelEmptyMessage,
+  },
 };
 
-DxGroupingPanel.Container = GroupPanelContainer;
-DxGroupingPanel.Item = GroupPanelItem;
-DxGroupingPanel.EmptyMessage = GroupPanelEmptyMessage;

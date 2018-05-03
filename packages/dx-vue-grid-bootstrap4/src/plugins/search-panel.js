@@ -17,6 +17,7 @@ export const DxSearchPanel = {
       />
     );
   },
+  components: {
+    DxInput: SearchPanelInput,
+  },
 };
-
-DxSearchPanel.Input = SearchPanelInput;

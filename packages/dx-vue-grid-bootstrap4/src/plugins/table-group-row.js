@@ -15,8 +15,9 @@ export const DxTableGroupRow = {
       />
     );
   },
+  components: {
+    DxRow: TableRow,
+    DxCell: TableGroupCell,
+  },
 };
-
-DxTableGroupRow.Row = TableRow;
-DxTableGroupRow.Cell = TableGroupCell;
 

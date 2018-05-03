@@ -12,6 +12,7 @@ export const DxToolbar = {
       />
     );
   },
+  components: {
+    DxRoot: Root,
+  },
 };
-
-DxToolbar.Root = Root;

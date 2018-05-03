@@ -86,8 +86,7 @@ export class Table extends React.PureComponent {
                 columns={columns}
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
-                getCellColSpan={(tableRow, tableColumn) =>
-                  getTableCellColSpan({ tableRow, tableColumn, tableColumns: columns })}
+                getCellColSpan={getTableCellColSpan}
               />
             )}
           </TemplateConnector>

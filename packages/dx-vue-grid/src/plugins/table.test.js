@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -209,6 +209,43 @@ describe('Table', () => {
       });
   });
 
+  it('can render custom formatted data in table cell', () => {
+    isDataTableCell.mockImplementation(() => true);
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: { name: 'column', dataType: 'column' } },
+      style: {},
+    };
+    const tree = mount({
+      render() {
+        return (
+          <PluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <Table
+              {...{ attrs: { ...defaultProps } }}
+              layoutComponent={{
+                props: { cellComponent: {} },
+                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+              }}
+            />
+          </PluginHost>
+        );
+      },
+    });
+
+    const valueFormatterTemplatePlaceholder = tree
+      .findAll(TemplatePlaceholder)
+      .wrappers
+      .filter(wrapper => wrapper.props().name === 'valueFormatter')[0];
+
+    expect(valueFormatterTemplatePlaceholder.props().params)
+      .toMatchObject({
+        column: tableCellArgs.tableColumn.column,
+        row: tableCellArgs.tableRow.row,
+        value: tableCellArgs.value,
+      });
+  });
+
   it('should render stub row on plugin-defined row', () => {
     const tableRowArgs = { tableRow: { row: 'row' } };
 
@@ -216,7 +253,7 @@ describe('Table', () => {
       render() {
         return (
           <PluginHost>
-          <PluginDepsToComponents deps={defaultDeps} />
+            <PluginDepsToComponents deps={defaultDeps} />
             <Table
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{

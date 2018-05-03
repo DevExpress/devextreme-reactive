@@ -18,6 +18,7 @@ export * from './plugins/custom-grouping';
 export * from './plugins/grouping-panel';
 export * from './plugins/table-group-row';
 export * from './components/group-panel-layout';
+
 export * from './plugins/search-state';
 export * from './plugins/search-panel';
 
@@ -29,6 +30,8 @@ export * from './plugins/paging-state';
 export * from './plugins/integrated-paging';
 export * from './plugins/custom-paging';
 export * from './plugins/paging-panel';
+
+export * from './plugins/data-type-provider';
 
 export * from './plugins/row-detail-state';
 export * from './plugins/table-row-detail';

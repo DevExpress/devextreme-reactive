@@ -7,6 +7,9 @@ const styles = theme => ({
   emptyMessage: {
     margin: '0 auto',
     padding: `${theme.spacing.unit * 5}px 0`,
+    fontFamily: theme.typography.fontFamily,
+    color: theme.typography.subheading.color,
+    fontSize: theme.typography.subheading.fontSize,
   },
 });
 

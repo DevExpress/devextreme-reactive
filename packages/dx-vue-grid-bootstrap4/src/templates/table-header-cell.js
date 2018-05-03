@@ -20,10 +20,21 @@ export const TableHeaderCell = {
     groupingEnabled: {
       type: Boolean,
     },
+    getMessage: {},
   },
   render() {
-    const isCellInteractive = this.showSortingControls && this.sortingEnabled;
-    const align = (this.tableColumn && this.tableColumn.align) || 'left';
+    const {
+      tableColumn,
+      column,
+      showSortingControls,
+      showGroupingControls,
+      sortingEnabled,
+      groupingEnabled,
+      sortingDirection,
+    } = this;
+    const isCellInteractive = showSortingControls && sortingEnabled;
+    const align = (tableColumn && tableColumn.align) || 'left';
+    const columnTitle = column && (column.title || column.name);
     return (
       <th
         class={{
@@ -36,26 +47,29 @@ export const TableHeaderCell = {
         >
           <div
             class={{
-              'w-100 dx-g-bs4-table-header-cell-wrapper': true,
+              'dx-g-bs4-table-header-cell-wrapper': true,
+              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
               [`text-${align}`]: align !== 'left',
             }}
           >
-            {this.showSortingControls ? (
+            {showSortingControls ? (
               <SortingControl
-                direction={this.sortingDirection}
+                align={align}
+                disabled={!sortingEnabled}
+                direction={sortingDirection}
                 onChange={this.$emit.bind(this, 'sort')}
               >
-                {this.tableColumn.column.title || this.tableColumn.column.name}
+                {columnTitle}
               </SortingControl>
             ) : (
-              this.tableColumn.column.title || this.tableColumn.column.name
+              columnTitle
             )}
           </div>
-          {this.showGroupingControls && (
+          {showGroupingControls && (
             <div>
               <GroupingControl
                 align={align}
-                disabled={!this.groupingEnabled}
+                disabled={!groupingEnabled}
                 onGroup={this.$emit.bind(this, 'group')}
               />
             </div>

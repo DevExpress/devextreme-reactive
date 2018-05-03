@@ -74,13 +74,13 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  containerRight: {
-    flexDirection: 'row-reversed',
-  },
   content: {
     width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  contentRight: {
+    flexDirection: 'row-reverse',
   },
   contentNoWrap: {
     whiteSpace: 'nowrap',
@@ -137,13 +137,10 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
-    const containerClassses = classNames({
-      [classes.container]: true,
-      [classes.containerRight]: align === 'right',
-    });
     const contentClassed = classNames({
       [classes.content]: true,
       [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      [classes.contentRight]: align === 'right',
     });
     const cellLayout = (
       <TableCell
@@ -152,7 +149,7 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        <div className={containerClassses}>
+        <div className={classes.container}>
           {before}
           <div className={contentClassed}>
             {showSortingControls ? (

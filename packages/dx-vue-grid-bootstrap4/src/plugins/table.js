@@ -39,4 +39,17 @@ export const Table = {
       />
     );
   },
+  components: {
+    DxContainer: TableContainer,
+    DxTable: TableRoot,
+    DxTableHead: TableHead,
+    DxTableBody: TableBody,
+    DxRow: TableRow,
+    DxCell: TableCell,
+    DxNoDataCell: TableNoDataCell,
+    DxNoDataRow: TableRow,
+    DxStubCell: TableStubCell,
+    DxStubHeaderCell: TableHeaderStubCell,
+    DxStubRow: TableStubRow,
+  },
 };

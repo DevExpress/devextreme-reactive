@@ -57,40 +57,31 @@ export const Sizer = {
 
       this.$refs['sizer-expandTrigger'].style.width = `${size.width + 1}px`;
       this.$refs['sizer-expandTrigger'].style.height = `${size.height + 1}px`;
-      // this.expand.scrollTop = 1;
-      // this.expand.scrollLeft = 1;
       this.$refs['sizer-expand'].scrollTop = 1;
       this.$refs['sizer-expand'].scrollLeft = 1;
 
       this.size = size;
-      // this.setState({ size });
     },
   },
   render() {
     const { size } = this;
-    // const { children } = this.props;
     return (
       <div
-        // ref={(node) => { this.root = node; }}
         ref="sizer-root"
         style={styles.root}
       >
-        {/* {children(size)} */}
-        {/* {this.$slots.default} */}
+        {this.$scopedSlots.default(size)}
         <div style={styles.triggers}>
           <div
-            // ref={(node) => { this.expand = node; }}
             ref="sizer-expand"
             style={styles.expand}
             onScroll={this.setupListeners}
           >
             <div
-              // ref={(node) => { this.expandTrigger = node; }}
               ref="sizer-expandTrigger"
             />
           </div>
           <div
-            // ref={(node) => { this.contract = node; }}
             ref="sizer-contract"
             style={styles.contract}
             onScroll={this.setupListeners}

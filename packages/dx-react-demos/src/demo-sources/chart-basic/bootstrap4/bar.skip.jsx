@@ -5,7 +5,8 @@ import {
   ArgumentAxis,
   ValueAxis,
   BarSeries,
-} from '@devexpress/dx-react-chart-svg';
+} from '@devexpress/dx-react-chart-bootstrap4';
+import { Card } from 'reactstrap';
 import { contributors as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -32,22 +33,24 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height, series, axes,
     } = this.state;
     return (
-      <Chart
-        data={chartData}
-        width={width}
-        height={height}
-        axes={axes}
-        series={series}
-      >
+      <Card>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+          axes={axes}
+          series={series}
+        >
 
-        <ArgumentAxis />
-        <ValueAxis name="commits" />
+          <ArgumentAxis />
+          <ValueAxis name="commits" />
 
-        <BarSeries
-          name="BarSeries"
-          style={{ stroke: 'none', fill: 'darkblue' }}
-        />
-      </Chart>
+          <BarSeries
+            name="BarSeries"
+            style={{ stroke: 'none', fill: 'darkblue' }}
+          />
+        </Chart>
+      </Card>
     );
   }
 }

@@ -26,21 +26,11 @@ export class Legend extends React.PureComponent {
             {({
               series,
             }) => (
-              <Root
-                name={`legend-${placeholder}`}
-              >
+              <Root name={`legend-${placeholder}`} >
                 {series.map(({ name }) => (
-                  <Item
-                    key={name}
-                  >
-                    <Marker
-                      margin={5}
-                      name={name}
-                    />
-                    <Label
-                      margin={5}
-                      text={name}
-                    />
+                  <Item key={name} >
+                    <Marker margin={5} name={name} />
+                    <Label margin={5} text={name} />
                   </Item>
                   ))}
               </Root>

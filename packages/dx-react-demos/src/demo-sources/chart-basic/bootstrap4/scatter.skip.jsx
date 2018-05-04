@@ -5,7 +5,8 @@ import {
   ValueAxis,
   Chart,
   ScatterSeries,
-} from '@devexpress/dx-react-chart-svg';
+} from '@devexpress/dx-react-chart-bootstrap4';
+import { Card } from 'reactstrap';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -37,25 +38,27 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height, series,
     } = this.state;
     return (
-      <Chart
-        data={chartData}
-        width={width}
-        height={height}
-        series={series}
-      >
+      <Card>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+          series={series}
+        >
 
-        <ArgumentAxis />
-        <ValueAxis name="born" />
+          <ArgumentAxis />
+          <ValueAxis name="born" />
 
-        <ScatterSeries
-          name="Russia"
-          style={{ stroke: 'red', fill: 'white' }}
-        />
-        <ScatterSeries
-          name="China"
-          style={{ stroke: 'orange', fill: 'blue' }}
-        />
-      </Chart>
+          <ScatterSeries
+            name="Russia"
+            style={{ stroke: 'red', fill: 'white' }}
+          />
+          <ScatterSeries
+            name="China"
+            style={{ stroke: 'orange', fill: 'blue' }}
+          />
+        </Chart>
+      </Card>
     );
   }
 }

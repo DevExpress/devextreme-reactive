@@ -6,6 +6,8 @@ import { Legend } from './legend';
 
 const Label = () => null;
 const Marker = () => null;
+const Root = ({ children }) => children;
+const Item = ({ children }) => children;
 
 describe('Legend', () => {
   afterEach(() => {
@@ -25,6 +27,8 @@ describe('Legend', () => {
   const defaultProps = {
     markerComponent: Marker,
     labelComponent: Label,
+    rootComponent: Root,
+    itemComponent: Item,
   };
 
   it('should render Marker and Label', () => {
@@ -53,7 +57,7 @@ describe('Legend', () => {
     ));
     expect(tree.find(Marker).get(0).props).toEqual({
       margin: 5,
-      name: 'first-legend-marker-right',
+      name: 'first',
     });
   });
 
@@ -68,12 +72,8 @@ describe('Legend', () => {
       </PluginHost>
     ));
     expect(tree.find(Label).get(0).props).toEqual({
-      dominantBaseline: 'text-before-edge',
       margin: 5,
-      name: 'first-legend-label-right',
-      textAnchor: 'start',
       text: 'first',
-      refsHandler: expect.any(Function),
     });
   });
 });

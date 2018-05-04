@@ -34,18 +34,4 @@ describe('LayoutManager', () => {
     expect(getComputedState(tree).width).toEqual(200);
     expect(getComputedState(tree).height).toEqual(100);
   });
-
-  it('should provide setBBox', () => {
-    const tree = mount((
-      <PluginHost>
-
-        <LayoutManager
-          {...defaultProps}
-        />
-        {pluginDepsToComponents(defaultDeps)}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).setBBox).toEqual(expect.any(Function));
-  });
 });

@@ -14,7 +14,7 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-Import the `SelectionState` and `TableSelection` plugins to set up a simple Grid with selection enabled. The following example demonstrates how to configure selection. Specify the selection in the `SelectionState` plugin’s `selection` property and subscribe to the `update:selection` event. Use the `.sync` modifier to setup two-way binding for a property.
+Import the `SelectionState` and `TableSelection` plugins to set up a simple Grid with selection enabled. Specify the selection using the `SelectionState` plugin’s `selection` property and subscribe to the `update:selection` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-selection/basic", "showThemeSelector": true })
 

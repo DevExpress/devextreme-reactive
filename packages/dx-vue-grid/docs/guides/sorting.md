@@ -33,13 +33,13 @@ You can prevent sorting by a specific column using the [DxSortingState](../refer
 
 ## Using Sorting with Grouping
 
-The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
+The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `DxGroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
 .embedded-demo({ "path": "grid-sorting/group-sorting", "showThemeSelector": true })
 
 ## Custom Sorting Algorithm
 
-The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExtensions` property allows you to implement a custom sorting algorithm for a specific column.
+The [DxIntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExtensions` property allows you to implement a custom sorting algorithm for a specific column.
 
 .embedded-demo({ "path": "grid-sorting/custom-sorting", "showThemeSelector": true })
 

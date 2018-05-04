@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-chart-core",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "Core library for the DevExtreme Reactive Chart component",
   "author": {
     "name": "Developer Express Inc.",

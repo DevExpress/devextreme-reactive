@@ -1,3 +1,8 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.3...v1.2.0) (2018-05-04)
+
+
+
 <a name="1.2.0-beta.3"></a>
 # [1.2.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.2...v1.2.0-beta.3) (2018-04-28)
 

@@ -13,17 +13,17 @@ import { TableStubRow } from '../templates/table-stub-row';
 const FixedHeader = {
   name: 'FixedHeader',
   functional: true,
-  render(h, context) { return <TableComponent use="head" {...{ attrs: context.props, on: context.listeners }} />; },
+  render(h, context) { return <TableComponent use="head" {...{ attrs: context.props, on: context.listeners }}/>; },
 };
 const TableHead = {
   name: 'TableHead',
   functional: true,
-  render(h, context) { return <thead {...{ attrs: context.props, on: context.listeners }} />; },
+  render(h, context) { return <thead {...{ attrs: context.props, on: context.listeners }}>{context.children}</thead>; },
 };
 const TableBody = {
   name: 'TableBody',
   functional: true,
-  render(h, context) { return <tbody {...{ attrs: context.props, on: context.listeners }} />; },
+  render(h, context) { return <tbody {...{ attrs: context.props, on: context.listeners }}>{context.children}</tbody>; },
 };
 
 const defaultMessages = {
@@ -64,8 +64,6 @@ export const VirtualTable = {
   render() {
     const { messages } = this;
 
-    debugger
-    console.log('VirtualTable plugin render');
     return (
       <TableBase
         layoutComponent={this.layoutRenderComponent().component}

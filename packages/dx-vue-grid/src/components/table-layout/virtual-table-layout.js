@@ -142,8 +142,10 @@ export const VirtualTableLayout = {
     //   }
     // },
     updateViewport(e) {
+      console.log('scroll updateViewport');
       const node = e.target;
 
+      debugger
       if (node !== e.currentTarget) {
         return;
       }
@@ -157,7 +159,6 @@ export const VirtualTableLayout = {
       }
 
       if (this.viewportTop !== node.scrollTop) {
-
         this.viewportTop = node.scrollTop;
         this.viewportLeft = node.scrollLeft;
       }
@@ -171,11 +172,11 @@ export const VirtualTableLayout = {
 
       return (
         <Table
-          style={{ minWidth: `${minWidth}px` }}
+        style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup
             columns={collapsedGrid.columns}
-          />
+            />
           <Body>
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
@@ -233,8 +234,6 @@ export const VirtualTableLayout = {
       renderRowsBlock,
     } = this;
 
-    console.log('VirtualTableLayout render');
-    debugger
     return (
       <Sizer>
         {({ width }) => {
@@ -268,7 +267,6 @@ export const VirtualTableLayout = {
             <Container
               style={{ height: `${height}px` }}
               onScroll={updateViewport}
-              // onClick={updateViewport}
             >
               {!!headerRows.length && renderRowsBlock(collapsedHeaderGrid, HeadTable, Head)}
               {renderRowsBlock(collapsedBodyGrid, Table, Body)}

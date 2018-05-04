@@ -21,7 +21,7 @@ export default {
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 10,
+        length: 1000,
       }),
     };
   },

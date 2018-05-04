@@ -127,8 +127,6 @@ export const Table = {
       messages,
     } = this;
 
-    debugger
-    console.log('Table plugin vue-grid');
     const getMessage = getMessagesFormatter(messages);
     const tableColumnsComputed = ({ columns }) =>
       tableColumnsWithDataRows(columns, columnExtensions);

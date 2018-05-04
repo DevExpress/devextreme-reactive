@@ -23,7 +23,7 @@ Specify the editing state values using the following `EditingState` plugin's pro
 - `rowChanges` and `update:rowChanges` - the row changes
 - `deletedRowIds` and `update:deletedRowIds` - the rows being deleted
 
-Use the `.sync` modifier to setup two-way binding for a properties.
+Use the `.sync` modifier for two-way binding.
 
 Handle the `EditingState` plugin's `commitChanges` event to commit changes made by an end-user to your data store.
 

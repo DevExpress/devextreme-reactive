@@ -33,7 +33,7 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
       ...domains,
       [axisName]: {
         domain: calculateDomainField(
-          `${valueField}${name}end`,
+          `${valueField}-${name}-end`,
           data,
           domains[axisName] && domains[axisName].domain,
           domains[axisName] && domains[axisName].type,

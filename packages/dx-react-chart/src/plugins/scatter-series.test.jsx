@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { pointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
 
@@ -9,7 +9,7 @@ const PointComponent = () => null;
 // eslint-disable-next-line react/prop-types
 const RootComponent = ({ children }) => <div>{children}</div>;
 
-const coordinates = [
+const coords = [
   { x: 1, y: 3, id: 1 },
   { x: 2, y: 5, id: 2 },
   { x: 3, y: 7, id: 3 },
@@ -18,13 +18,27 @@ const coordinates = [
 ];
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  seriesAttributes: jest.fn(),
+  pointAttributes: jest.fn(),
+  findSeriesByName: jest.fn(),
+  xyScales: jest.fn(),
+  coordinates: jest.fn(),
 }));
 
-seriesAttributes.mockImplementation(() => ({
-  coordinates,
-  dPoint: 'M10 10',
+pointAttributes.mockImplementation(() => () => ({
+  x: 4,
+  y: 3,
+  d: 'M12 12',
 }));
+
+findSeriesByName.mockImplementation(() => ({
+  axisName: 'axisName',
+  argumentField: 'arg',
+  valueField: 'val',
+  stack: 'stack',
+}));
+
+xyScales.mockImplementation();
+coordinates.mockImplementation(() => coords);
 
 describe('Scatter series', () => {
   const defaultDeps = {
@@ -54,14 +68,16 @@ describe('Scatter series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coordinates.length);
+    expect(tree.find(PointComponent)).toHaveLength(coords.length);
 
-    coordinates.forEach((coord, index) =>
-      expect(tree.find(PointComponent).get(index).props).toEqual({
-        d: 'M10 10',
-        x: coord.x,
-        y: coord.y,
-        styles: 'styles',
-      }));
+    coords.forEach((coord, index) => {
+      const {
+        d, x, y, styles,
+      } = tree.find(PointComponent).get(index).props;
+      expect(d).toBe('M12 12');
+      expect(x).toBe(4);
+      expect(y).toBe(3);
+      expect(styles).toBe('styles');
+    });
   });
 });

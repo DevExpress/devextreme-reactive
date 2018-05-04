@@ -6,9 +6,16 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { findSeriesByName, coordinates, xyScales } from '@devexpress/dx-chart-core';
 
-export const baseSeries = (WrappedComponent, pluginName, pathType) => {
+export const baseSeries = (
+  WrappedPath,
+  WrappedPoint,
+  pluginName,
+  pathType,
+  processLine,
+  processPoint,
+) => {
   class Component extends React.PureComponent {
     render() {
       const {
@@ -36,26 +43,46 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                 const {
                   x, y,
                 } = layouts[placeholder];
+                const {
+                  axisName: domainName,
+                  argumentField,
+                  valueField,
+                  stack,
+                } = findSeriesByName(name, series);
+                const scales = xyScales(
+                  domains,
+                  argumentAxisName,
+                  domainName,
+                  layouts[placeholder],
+                  stacks,
+                  groupWidth,
+                  barWidth,
+                );
+                const coord = coordinates(
+                  data,
+                  scales,
+                  argumentField,
+                  valueField,
+                  name,
+                );
                 const { size } = point;
-                const attributes = seriesAttributes(
-                    data,
-                    series,
-                    name,
-                    domains,
-                    argumentAxisName,
-                    layouts[placeholder],
-                    stacks,
-                    pathType,
-                    size,
-                    groupWidth,
-                    barWidth,
-                  );
+                const pointParameters = processPoint(scales, size, stack);
                 return (
                   <Root x={x} y={y}>
-                    <WrappedComponent
-                      attributes={attributes}
+                    <WrappedPath
+                      {...processLine(pathType, coord, scales)}
                       {...restProps}
                     />
+                    {
+                      coord.map(item =>
+                        (
+                          <WrappedPoint
+                            key={item.id.toString()}
+                            {...pointParameters(item)}
+                            {...restProps}
+                          />
+                        ))
+                    }
                   </Root>
                 );
               }}

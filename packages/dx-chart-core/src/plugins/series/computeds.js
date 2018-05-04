@@ -16,8 +16,8 @@ const getY1 = ({ y1 }) => y1;
 const computeLinePath = (data, scales, argumentField, valueField, name) =>
   data.map(dataItem => ({
     x: scales.xScale(dataItem[argumentField]),
-    y: scales.yScale(dataItem[`${valueField}${name}end`]),
-    y1: scales.yScale(dataItem[`${valueField}${name}start`]),
+    y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
+    y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
     id: dataItem[argumentField],
   }));
 
@@ -40,7 +40,7 @@ const getDAttribute = (type, path) => {
   }
 };
 
-const xyScales = (
+export const xyScales = (
   domainsOptions,
   argumentAxisName,
   domainName,
@@ -66,17 +66,13 @@ const xyScales = (
 };
 
 export const pieAttributes = (
-  series,
-  name,
+  valueField,
   data,
   width,
   height,
   innerRadius,
   outerRadius,
 ) => {
-  const {
-    valueField,
-  } = series.find(seriesItem => seriesItem.name === name);
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
@@ -87,41 +83,44 @@ export const pieAttributes = (
       .endAngle(d.endAngle)());
 };
 
-export const seriesAttributes = (
+export const coordinates = (
   data,
-  series,
+  scales,
+  argumentField,
+  valueField,
   name,
-  domains,
-  argumentAxisName,
-  layout,
-  stacks,
+) => computeLinePath(data, scales, argumentField, valueField, name);
+
+export const findSeriesByName = (name, series) =>
+  series.find(seriesItem => seriesItem.name === name);
+
+export const lineAttributes = (
   type,
-  size,
-  groupWidth,
-  barWidth,
-) => {
-  const {
-    axisName: domainName,
-    argumentField,
-    valueField,
-    stack,
-  } = series.find(seriesItem => seriesItem.name === name);
-  const scales = xyScales(
-    domains,
-    argumentAxisName,
-    domainName,
-    layout,
-    stacks,
-    groupWidth,
-    barWidth,
-  );
-  const path = computeLinePath(data, scales, argumentField, valueField, name);
-  return ({
-    dPoint: symbol().size([size ** 2]).type(symbolCircle)(),
-    d: getDAttribute(type, path),
-    coordinates: path,
-    scales,
-    stack,
-    xOffset: scales.xScale.bandwidth && scales.xScale.bandwidth() / 2,
+  path,
+  scales,
+) => ({
+  d: getDAttribute(type, path),
+  x: scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0,
+  y: 0,
+});
+
+export const pointAttributes = (scales, size) => {
+  const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
+  const offSet = scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0;
+  return item => ({
+    d: dPoint,
+    x: item.x + offSet,
+    y: item.y,
+  });
+};
+
+export const barPointAttributes = (scales, _, stack) => {
+  const bandwidth = scales.x0Scale.bandwidth();
+  const offset = scales.x0Scale(stack);
+  return item => ({
+    x: item.x + offset,
+    y: item.y,
+    width: bandwidth,
+    height: item.y1 - item.y,
   });
 };

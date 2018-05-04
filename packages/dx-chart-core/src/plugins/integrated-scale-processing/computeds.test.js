@@ -22,7 +22,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, valnameend: 9 }],
+      [{ arg: 1, val: 9, 'val-name-end': 9 }],
       'argumentAxis',
     );
 
@@ -38,7 +38,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, valnameend: 9 }],
+      [{ arg: 1, val: 9, 'val-name-end': 9 }],
       'argumentAxis',
     );
 
@@ -54,7 +54,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'a', val: 1, valnameend: 1 }, { arg: 'b', val: 2, valnameend: 2 }, { arg: 'c' }],
+      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: 'c' }],
       'argumentAxis',
     );
     expect(calculatedDomains).toEqual({

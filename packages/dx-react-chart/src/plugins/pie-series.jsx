@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { pieAttributes } from '@devexpress/dx-chart-core';
+import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -34,9 +34,9 @@ export class PieSeries extends React.PureComponent {
                 const {
                   width, height,
                 } = layouts[placeholder];
+              const { valueField } = findSeriesByName(name, series);
               const arcs = pieAttributes(
-                series,
-                name,
+                valueField,
                 data,
                 width,
                 height,
@@ -47,13 +47,14 @@ export class PieSeries extends React.PureComponent {
                   <Root x={cx || width / 2} y={cy || height / 2}>
                     {
                       arcs.map(item =>
-                        (<Point
-                          key={item}
-                          x={0}
-                          y={0}
-                          d={item}
-                          {...restProps}
-                        />
+                        (
+                          <Point
+                            key={item}
+                            x={0}
+                            y={0}
+                            d={item}
+                            {...restProps}
+                          />
                         ))
                     }
                   </Root>

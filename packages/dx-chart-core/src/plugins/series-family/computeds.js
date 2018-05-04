@@ -7,8 +7,8 @@ export const processData = (series, data) => data.map(singleData => series.reduc
   return {
     singleData: {
       ...prevValue.singleData,
-      [`${valueField}${name}start`]: startValue,
-      [`${valueField}${name}end`]: endValue,
+      [`${valueField}-${name}-start`]: startValue,
+      [`${valueField}-${name}-end`]: endValue,
     },
     collection: {
       ...prevValue.collection,

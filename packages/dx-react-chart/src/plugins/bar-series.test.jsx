@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { barPointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 
 const PointComponent = () => null;
 // eslint-disable-next-line react/prop-types
 const RootComponent = ({ children }) => <div>{children}</div>;
-const OFFSET = 3;
 
-const coordinates = [
+const coords = [
   {
     x: 1, y: 3, y1: 6, id: 1,
   },
@@ -27,19 +26,31 @@ const coordinates = [
     x: 5, y: 15, y1: 20, id: 5,
   },
 ];
-const bandwidth = 20;
-const x0Scale = jest.fn(stack => stack === 'seriesStack' && OFFSET);
-x0Scale.bandwidth = jest.fn(() => bandwidth);
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  seriesAttributes: jest.fn(),
+  lineAttributes: jest.fn(),
+  barPointAttributes: jest.fn(),
+  findSeriesByName: jest.fn(),
+  xyScales: jest.fn(),
+  coordinates: jest.fn(),
 }));
 
-seriesAttributes.mockImplementation(() => ({
-  coordinates,
-  scales: { x0Scale },
-  stack: 'seriesStack',
+barPointAttributes.mockImplementation(() => () => ({
+  x: 4,
+  y: 3,
+  width: 20,
+  height: 10,
 }));
+
+findSeriesByName.mockImplementation(() => ({
+  axisName: 'axisName',
+  argumentField: 'arg',
+  valueField: 'val',
+  stack: 'stack',
+}));
+
+xyScales.mockImplementation();
+coordinates.mockImplementation(() => coords);
 
 describe('Bar series', () => {
   const defaultDeps = {
@@ -69,15 +80,15 @@ describe('Bar series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coordinates.length);
+    expect(tree.find(PointComponent)).toHaveLength(coords.length);
 
-    coordinates.forEach((coord, index) =>
+    coords.forEach((coord, index) =>
       expect(tree.find(PointComponent).get(index).props).toEqual({
-        x: coord.x + OFFSET,
-        y: coord.y,
+        x: 4,
+        y: 3,
         styles: 'styles',
-        height: coord.y1 - coord.y,
-        width: bandwidth,
+        height: 10,
+        width: 20,
       }));
   });
 });

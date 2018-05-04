@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pieAttributes } from '@devexpress/dx-chart-core';
+import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PieSeries } from './pie-series';
 
@@ -11,9 +11,16 @@ const RootComponent = ({ children }) => <div>{children}</div>;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
+  findSeriesByName: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => ['M11 11', 'M22 22', 'M33 33']);
+findSeriesByName.mockImplementation(() => ({
+  axisName: 'axisName',
+  argumentField: 'arg',
+  valueField: 'val',
+  stack: 'stack',
+}));
 
 describe('Pie series', () => {
   const defaultDeps = {
@@ -30,7 +37,6 @@ describe('Pie series', () => {
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
-    outerRadius: 0.9,
   };
 
   it('should render root', () => {

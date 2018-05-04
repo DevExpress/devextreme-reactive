@@ -70,7 +70,7 @@
     "jss": "^9.8.1",
     "jss-preset-default": "^4.3.0",
     "jss-theme-reactor": "^0.11.1",
-    "material-ui": "1.0.0-beta.43",
+    "material-ui": "1.0.0-beta.44",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
@@ -88,7 +88,7 @@
     "@devexpress/dx-react-core": "1.2.0-beta.3",
     "@devexpress/dx-react-grid": "1.2.0-beta.3",
     "@material-ui/icons": "1.0.0-beta.43",
-    "material-ui": "1.0.0-beta.43",
+    "material-ui": "1.0.0-beta.44",
     "react": "^16.2.0"
   }
 }

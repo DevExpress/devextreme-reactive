@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import {
   TABLE_DATA_TYPE,
   TABLE_REORDERING_TYPE,
@@ -16,7 +17,6 @@ import {
   TemplateConnector,
   DragDropProvider,
 } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from './test-utils';
 import { TableColumnReordering } from './table-column-reordering';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

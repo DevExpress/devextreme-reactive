@@ -9,7 +9,7 @@ export const SortingControl = {
       type: String,
       required: true,
     },
-    sortingDirection: {
+    direction: {
       type: String,
       default: null,
     },
@@ -55,7 +55,7 @@ export const SortingControl = {
           'd-inline-flex flex-direction-row align-items-center mw-100': true,
           'dx-g-bs4-cursor-pointer': !this.disabled,
           'flex-row-reverse': this.align === 'right',
-          'text-primary': this.sortingDirection,
+          'text-primary': this.direction,
         }}
         onClick={this.handleClick}
         onKeydown={this.handleKeyDown}
@@ -68,9 +68,9 @@ export const SortingControl = {
         >
           {this.$slots.default}
         </span>
-        {this.sortingDirection && (
+        {this.direction && (
           <SortingIndicator
-            direction={this.sortingDirection}
+            direction={this.direction}
           />
         )}
       </span>

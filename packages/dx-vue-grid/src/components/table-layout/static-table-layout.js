@@ -55,7 +55,7 @@ export const StaticTableLayout = {
       rowComponent,
       bodyComponent,
       headComponent,
-      tableComponent: DxTable,
+      tableComponent: Table,
       containerComponent: Container,
       columns,
       bodyRows,
@@ -66,7 +66,7 @@ export const StaticTableLayout = {
 
     return (
       <Container>
-        <DxTable
+        <Table
           style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup columns={columns} />
@@ -88,7 +88,7 @@ export const StaticTableLayout = {
             cellComponent={cellComponent}
             getCellColSpan={getCellColSpan}
           />
-        </DxTable>
+        </Table>
       </Container>
     );
   },

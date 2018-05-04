@@ -2,7 +2,7 @@ import { shallow } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectRow } from './table-select-row';
 
-describe('DxTable Select Row', () => {
+describe('Table Select Row', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });

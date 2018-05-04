@@ -3,7 +3,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { Table } from './table';
 
-describe('DxTable', () => {
+describe('Table', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();

@@ -18,7 +18,7 @@ const defaultProps = {
     { key: 3, rowId: 3 },
   ],
   containerComponent: { name: 'Container', render() { return <div>{this.$slots.default}</div>; } },
-  tableComponent: { name: 'DxTable', render() { return <div>{this.$slots.default}</div>; } },
+  tableComponent: { name: 'Table', render() { return <div>{this.$slots.default}</div>; } },
   bodyComponent: { name: 'Body', render() { return null; } },
   cellComponent: { name: 'Cell', render() { return null; } },
   rowComponent: { name: 'Row', render() { return null; } },

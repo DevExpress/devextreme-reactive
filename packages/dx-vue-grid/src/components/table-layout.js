@@ -36,6 +36,8 @@ export const TableLayout = {
       layoutComponent: Layout,
     } = this;
 
+    debugger
+    console.log('TableLayout');
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
@@ -46,6 +48,7 @@ export const TableLayout = {
         {...{ attrs: this.$attrs }}
         columns={columns}
         minWidth={minWidth}
+        minColumnWidth={minColumnWidth}
       />
     );
   },

@@ -1,7 +1,6 @@
-import { findDOMNode } from 'react-dom';
+import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { Sizer } from '@devexpress/dx-vue-core';
 import { ColumnGroup } from './column-group';
-import { getCollapsedGrid } from './virtual-table-utils';
 
 export const VirtualTableLayout = {
   name: 'VirtualTableLayout',
@@ -121,7 +120,6 @@ export const VirtualTableLayout = {
       const rowsWithChangedHeights = Array.from(this.$refs)
         // eslint-disable-next-line react/no-find-dom-node
         .map((node) => {
-          debugger
           return [{ key: node.split('-')[2], height: node.split('-')[3] }, node];
         })
         .filter(([, node]) => !!node)
@@ -144,7 +142,6 @@ export const VirtualTableLayout = {
     //   }
     // },
     updateViewport(e) {
-      debugger
       const node = e.target;
 
       if (node !== e.currentTarget) {
@@ -236,6 +233,8 @@ export const VirtualTableLayout = {
       renderRowsBlock,
     } = this;
 
+    console.log('VirtualTableLayout render');
+    debugger
     return (
       <Sizer>
         {({ width }) => {

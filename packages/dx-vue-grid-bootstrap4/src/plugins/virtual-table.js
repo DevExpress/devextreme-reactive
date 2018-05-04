@@ -11,14 +11,17 @@ import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = {
+  name: 'FixedHeader',
   functional: true,
   render(h, context) { return <TableComponent use="head" {...{ attrs: context.props, on: context.listeners }} />; },
 };
 const TableHead = {
+  name: 'TableHead',
   functional: true,
   render(h, context) { return <thead {...{ attrs: context.props, on: context.listeners }} />; },
 };
 const TableBody = {
+  name: 'TableBody',
   functional: true,
   render(h, context) { return <tbody {...{ attrs: context.props, on: context.listeners }} />; },
 };
@@ -61,6 +64,8 @@ export const VirtualTable = {
   render() {
     const { messages } = this;
 
+    debugger
+    console.log('VirtualTable plugin render');
     return (
       <TableBase
         layoutComponent={this.layoutRenderComponent().component}
@@ -76,7 +81,7 @@ export const VirtualTable = {
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubHeaderCell}
         messages={{ ...defaultMessages, messages }}
-        // {...{ attrs: restProps, on: context.listeners }}
+        {...{ attrs: this.$attrs, on: this.$listeners }}
       />
     );
   },

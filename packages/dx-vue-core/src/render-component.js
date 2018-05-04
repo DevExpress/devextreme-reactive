@@ -12,11 +12,12 @@ export const createRenderComponent = (Component, initialAdditionalProps) => {
     },
     render() {
       debugger
+      console.log('Render Component render');
       return (
         <Component
           // {...this.props}
           // {...storedAdditionalProps}
-          // {...{ attrs: restProps, on: context.listeners }}
+          {...{ attrs: { ...this.$attrs, ...storedAdditionalProps }, on: { ...this.$listeners } }}
         />
       );
     },

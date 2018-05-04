@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VirtualTableLayout should render correct layout 1`] = `
+ErrorWrapper {
+  "selector": "Sizer",
+}
+`;

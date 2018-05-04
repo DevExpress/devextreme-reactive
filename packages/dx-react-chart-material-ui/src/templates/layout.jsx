@@ -28,6 +28,7 @@ export class RootBase extends React.PureComponent {
           height: `${height}px`,
           display: 'flex',
           flexDirection: 'column',
+          padding: '10px',
           ...style,
         }}
         {...restProps}

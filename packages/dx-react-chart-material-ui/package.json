@@ -43,8 +43,8 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-react-core": "1.2.0-beta.2",
-    "@devexpress/dx-testing": "1.2.0-beta.2",
+    "@devexpress/dx-react-core": "1.2.0-beta.3",
+    "@devexpress/dx-testing": "1.2.0-beta.3",
     "@material-ui/icons": "1.0.0-beta.42",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
@@ -82,9 +82,9 @@
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-chart-core": "1.2.0-beta.2",
-    "@devexpress/dx-react-core": "1.2.0-beta.2",
-    "@devexpress/dx-react-chart": "1.2.0-beta.2",
+    "@devexpress/dx-chart-core": "0.0.0",
+    "@devexpress/dx-react-core": "1.2.0-beta.3",
+    "@devexpress/dx-react-chart": "0.0.0",
     "@material-ui/icons": "1.0.0-beta.42",
     "material-ui": "1.0.0-beta.41",
     "react": "^16.2.0"

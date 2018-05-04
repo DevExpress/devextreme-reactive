@@ -8,6 +8,7 @@ The following plugins implement the searching feature:
 
 - [SearchState](../reference/search-state.md) - controls the search state
 - [IntegratedFiltering](../reference/integrated-filtering.md) - performs built-in data searching and filtering
+- [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar
 - [SearchPanel](../reference/search-panel.md) - renders the search panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.

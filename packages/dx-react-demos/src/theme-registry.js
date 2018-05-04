@@ -21,7 +21,7 @@ export const themes = [{
     DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
     links: [
       'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
-      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css',
     ],
   }, {
     name: 'cyborg',

@@ -9,26 +9,49 @@ import {
 
 import {
   generateRows,
-  defaultColumnValues,
+  defaultNestedColumnValues,
 } from '../../../demo-data/generator';
 
 export default {
   data() {
     return {
       columns: [
-        { name: 'id', title: 'ID' },
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        {
+          name: 'firstName',
+          title: 'First Name',
+          getCellValue: row => (row.user ? row.user.firstName : undefined),
+        },
+        {
+          name: 'lastName',
+          title: 'Last Name',
+          getCellValue: row => (row.user ? row.user.lastName : undefined),
+        },
+        {
+          name: 'car',
+          title: 'Car',
+          getCellValue: row => (row.car ? row.car.model : undefined),
+        },
+        { name: 'position', title: 'Position' },
         { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
+      ],
+      editingColumnExtensions: [
+        {
+          columnName: 'firstName',
+          createRowChange: (row, value) => ({ user: { ...row.user, firstName: value } }),
+        },
+        {
+          columnName: 'lastName',
+          createRowChange: (row, value) => ({ user: { ...row.user, lastName: value } }),
+        },
+        {
+          columnName: 'car',
+          createRowChange: (row, value) => ({ car: { model: value } }),
+        },
       ],
       rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        columnValues: { id: ({ index }) => index, ...defaultNestedColumnValues },
         length: 8,
       }),
-      tableColumnExtensions: [
-        { columnName: 'id', width: 60 },
-      ],
       editingRowIds: [],
       addedRows: [],
       rowChanges: {},
@@ -69,19 +92,18 @@ export default {
         :getRowId="getRowId"
       >
         <dx-editing-state
+          :columnExtensions="editingColumnExtensions"
           v-on:commitChanges="commitChanges"
           :addedRows.sync="addedRows"
           :rowChanges.sync="rowChanges"
           :deletedRowIds.sync="deletedRowIds"
           :editingRowIds.sync="editingRowIds"
         />
-        <dx-table
-          :columnExtensions="tableColumnExtensions"
-        />
+        <dx-table />
         <dx-table-header-row />
         <dx-table-edit-row />
         <dx-table-edit-column
-          :showAddCommand="!addedRows.length"
+          showAddCommand
           showEditCommand
           showDeleteCommand
         />
@@ -89,11 +111,11 @@ export default {
     </div>
   `,
   components: {
+    DxEditingState,
     DxGrid,
     DxTable,
     DxTableHeaderRow,
-    DxEditingState,
-    DxTableEditRow,
     DxTableEditColumn,
+    DxTableEditRow,
   },
 };

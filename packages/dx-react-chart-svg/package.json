@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-chart-svg",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "Composable plugin-based chart component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -48,8 +48,8 @@
     ]
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.2.0-beta.3",
-    "@devexpress/dx-react-chart": "0.0.0",
+    "@devexpress/dx-react-chart": "1.2.0",
+    "@devexpress/dx-testing": "1.2.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -78,11 +78,11 @@
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
-    "@devexpress/dx-chart-core": "0.0.0"
+    "@devexpress/dx-chart-core": "1.2.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "1.1.0",
-    "@devexpress/dx-react-chart": "0.0.0",
+    "@devexpress/dx-react-chart": "1.2.0",
+    "@devexpress/dx-react-core": "1.2.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

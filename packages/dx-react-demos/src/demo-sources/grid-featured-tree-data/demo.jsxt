@@ -13,7 +13,11 @@ import {
 import { tasks, employees, priorities } from '../data.json';
 
 const EmployeeFormatter = ({ row }) => (
-  <span>
+  <div
+    style={{
+      display: 'flex',
+    }}
+  >
     <div
       style={{
         display: 'inline-block',
@@ -35,7 +39,7 @@ const EmployeeFormatter = ({ row }) => (
       />
     </div>
     {employees.find(e => e.ID === row.Assigned_Employee_ID).Name}
-  </span>
+  </div>
 );
 
 const getChildRows = (row, rows) => {

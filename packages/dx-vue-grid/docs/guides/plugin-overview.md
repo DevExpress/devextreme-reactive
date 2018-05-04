@@ -1,6 +1,6 @@
 # Vue Grid - Plugin Overview
 
-Plugins are components that implement particular Grid features. They should be defined within the Grid component.
+Plugins are components that implement particular Grid features. They should be defined within the DxGrid component.
 
 ## Plugin Order
 

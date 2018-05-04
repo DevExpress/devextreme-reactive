@@ -171,6 +171,8 @@
         path: /vue/grid/docs/guides/plugin-overview
       - title: Fundamentals
         path: /vue/grid/docs/guides/fundamentals
+      - title: Data Accessors
+        path: /vue/grid/docs/guides/data-accessors
       - title: Sorting
         path: /vue/grid/docs/guides/sorting
       - title: Paging

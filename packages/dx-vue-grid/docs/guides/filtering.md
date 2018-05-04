@@ -16,13 +16,13 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
-Specify the filtering conditions in the `FilteringState` plugin's `filters` property and subscribe to the `update:filters` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify the filtering conditions in the `FilteringState` plugin's `filters` property and subscribe to the `update:filters` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-filtering/basic", "showThemeSelector": true })
 
 ## Using Custom Filtering Algorithms
 
-You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
+Specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
 .embedded-demo({ "path": "grid-filtering/custom-filtering-algorithm", "showThemeSelector": true })
 

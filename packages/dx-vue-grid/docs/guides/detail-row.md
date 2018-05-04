@@ -15,6 +15,6 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Add the required plugins listed above to the Grid and specify the detail row component via the `TableRowDetail` plugin's `contentComponent` property to set up a simple Grid with detail rows.
 
-Specify an array of the expanded row IDs to the `RowDetailState` plugin's `expandedRowIds` property and subscribe to the `update:expandedRowIds` event. Use the `.sync` modifier to setup two-way binding for a property.
+Specify an array of the expanded row IDs using the `RowDetailState` plugin's `expandedRowIds` property and subscribe to the `update:expandedRowIds` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-detail-row/basic", "showThemeSelector": true })

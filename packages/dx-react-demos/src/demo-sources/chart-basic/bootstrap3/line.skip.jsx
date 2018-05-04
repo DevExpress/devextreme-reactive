@@ -5,7 +5,7 @@ import {
   ValueAxis,
   Grid,
   Chart,
-  ScatterSeries,
+  LineSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -23,12 +23,19 @@ export default class Demo extends React.PureComponent {
           argumentField: 'year',
           axisName: 'born',
           name: 'Russia',
+          point: { size: 10 },
         },
         {
           valueField: 'ch',
           argumentField: 'year',
           axisName: 'born',
           name: 'China',
+        },
+        {
+          valueField: 'us',
+          argumentField: 'year',
+          axisName: 'born',
+          name: 'USA',
         },
       ],
     };
@@ -51,13 +58,20 @@ export default class Demo extends React.PureComponent {
         <Grid name="year" />
         <Grid name="born" />
 
-        <ScatterSeries
+        <LineSeries
           name="Russia"
-          style={{ stroke: 'red', fill: 'white' }}
+          style={{ stroke: 'green' }}
+          pointStyle={{ fill: 'green' }}
         />
-        <ScatterSeries
+        <LineSeries
           name="China"
-          style={{ stroke: 'orange', fill: 'blue' }}
+          style={{ stroke: 'red' }}
+          pointStyle={{ fill: 'red' }}
+        />
+        <LineSeries
+          name="USA"
+          style={{ stroke: 'blue' }}
+          pointStyle={{ fill: 'blue' }}
         />
       </Chart>
     );

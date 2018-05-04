@@ -3,6 +3,7 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
+  Grid,
   BarSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { ageStructure } from '../../../demo-data/data-vizualization';
@@ -50,6 +51,9 @@ export default class Demo extends React.PureComponent {
 
         <ArgumentAxis />
         <ValueAxis name="age" />
+
+        <Grid name="state" />
+        <Grid name="age" />
 
         <BarSeries
           name="Young"

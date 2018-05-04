@@ -4,6 +4,7 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
+  Grid,
   BarSeries,
 } from '@devexpress/dx-react-chart-svg';
 import { contributors as data } from '../../../demo-data/data-vizualization';
@@ -42,6 +43,9 @@ export default class Demo extends React.PureComponent {
 
         <ArgumentAxis />
         <ValueAxis name="commits" />
+
+        <Grid name="login" />
+        <Grid name="commits" />
 
         <BarSeries
           name="BarSeries"

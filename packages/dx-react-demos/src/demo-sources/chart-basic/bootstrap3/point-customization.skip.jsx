@@ -3,11 +3,30 @@ import * as React from 'react';
 import {
   ArgumentAxis,
   ValueAxis,
-  Grid,
   Chart,
-  ScatterSeries,
+  Grid,
+  LineSeries,
 } from '@devexpress/dx-react-chart-svg';
+import {
+  symbol,
+  symbolCross,
+  symbolDiamond,
+  symbolStar,
+} from 'd3-shape';
 import { born as data } from '../../../demo-data/data-vizualization';
+
+const Point = (type, styles) => (props) => {
+  const {
+    x, y,
+  } = props;
+  return (
+    <path
+      transform={`translate(${x} ${y})`}
+      d={symbol().size([10 ** 2]).type(type)()}
+      style={styles}
+    />
+  );
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -30,6 +49,12 @@ export default class Demo extends React.PureComponent {
           axisName: 'born',
           name: 'China',
         },
+        {
+          valueField: 'us',
+          argumentField: 'year',
+          axisName: 'born',
+          name: 'USA',
+        },
       ],
     };
   }
@@ -51,13 +76,32 @@ export default class Demo extends React.PureComponent {
         <Grid name="year" />
         <Grid name="born" />
 
-        <ScatterSeries
+        <LineSeries
           name="Russia"
-          style={{ stroke: 'red', fill: 'white' }}
+          style={{ stroke: 'red' }}
+          pointComponent={Point(symbolDiamond, {
+            stroke: 'white',
+            strokeWidth: '1px',
+            fill: 'red',
+          })}
         />
-        <ScatterSeries
+        <LineSeries
           name="China"
-          style={{ stroke: 'orange', fill: 'blue' }}
+          style={{ stroke: 'green' }}
+          pointComponent={Point(symbolCross, {
+            stroke: 'white',
+            strokeWidth: '1px',
+            fill: 'green',
+          })}
+        />
+        <LineSeries
+          name="USA"
+          style={{ stroke: 'blue' }}
+          pointComponent={Point(symbolStar, {
+            stroke: 'white',
+            strokeWidth: '1px',
+            fill: 'blue',
+          })}
         />
       </Chart>
     );

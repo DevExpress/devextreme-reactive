@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Grid - Fundamentals - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="vue-grid---fundamentals">Vue Grid - Fundamentals</h1>
+
+<p>The Grid component displays data specified via the <code class="highlighter-rouge">rows</code> property. You should also specify the <code class="highlighter-rouge">columns</code> property to define for which row fields the grid creates columns.</p>
+
+<p>The Grid requires the following plugins for basic data visualization:</p>
+
+<ul>
+  <li><a href="../reference/table.md">Table</a> - renders a data table</li>
+  <li><a href="../reference/table-header-row.md">TableHeaderRow</a> - renders the table’s header row</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">TableHeaderRow</code> plugin should follow the <code class="highlighter-rouge">Table</code> plugin. See the <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">Plugin Order</a> article for more details.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="appearance-customization">Appearance Customization</h2>
+
+<p>The Grid’s visualization plugins provide a rich API to customize grid elements’ appearance. Examples of the most popular customization tasks are described below.</p>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin allows you to customize the appearance of the table, table head and table body using the plugin’s <code class="highlighter-rouge">tableComponent</code>, <code class="highlighter-rouge">headComponent</code>, <code class="highlighter-rouge">bodyComponent</code> and <code class="highlighter-rouge">containerComponent</code> <a href="../reference/table.md/#properties">properties</a>. The following example demonstrated how to use the <code class="highlighter-rouge">tableComponent</code> and create a ‘striped’ table:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="cells">Cells</h3>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin also allows you to customize table cell appearance using the <code class="highlighter-rouge">cellComponent</code> property. For instance, you can implement conditional cell formatting as demonstrated in the following example:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-cell-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="rows">Rows</h3>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">rowComponent</code> property enables you to handle row events like <code class="highlighter-rouge">click</code>, <code class="highlighter-rouge">contextmenu</code>, etc., as demonstrated in the following demo:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/table-row-template&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>You can create a custom appearance from scratch or modify the default appearance settings the grid’s <code class="highlighter-rouge">Table.components.DxRow</code> component provides. Read <a href="../reference/table.md#plugin-components">Plugin Components</a> for details.</p>
+
+<h3 id="column-alignment">Column alignment</h3>
+
+<p>The <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">columnExtensions</code> allows you to specify the column alignment.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/column-alignment&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="column-width">Column width</h3>
+
+<p>Static widths for specific columns can be defined via the <code class="highlighter-rouge">Table</code> plugin’s <code class="highlighter-rouge">columnExtensions</code> property as shown in the demo below:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/static-column-width&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="multiline-cells">Multiline cells</h3>
+
+<p>The Grid cuts off values that do not fit in a cell. Assign true to the Table plugin’s <code class="highlighter-rouge">columnExtensions.wordWrapEnabled</code> property for the required column to enable word wrap.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-basic/cell-wordwrap&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="other-plugins">Other plugins</h3>
+
+<p>Other plugins (<a href="../reference/table-header-row.md">TableHeaderRow</a>, <a href="../reference/table-edit-row.md">TableEditRow</a>, <a href="../reference/table-filter-row.md">TableFilterRow</a>, <a href="../reference/table-group-row.md">TableGroupRow</a> and <a href="../reference/table-row-detail.md">TableRowDetail</a>) have a similar APIs for appearance customization.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
+            Version
+            <span>1.2.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Fundamentals</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1525434457"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

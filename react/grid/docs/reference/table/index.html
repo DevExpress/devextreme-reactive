@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1523444853">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1523444853">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,7 +36,7 @@
           </button>
           <a class="navbar-brand" href="/devextreme-reactive/react/grid/">
             <div>
-              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="DevExtreme Reactive Components">
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="React Grid">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">React Grid</h3>
@@ -46,7 +46,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            
             <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            
             <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
@@ -61,6 +63,20 @@
         <h1 id="table-plugin-reference">Table Plugin Reference</h1>
 
 <p>A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.</p>
+
+<h2 id="importing">Importing</h2>
+
+<p>Use the following statement to import a plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Table</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
+<span class="c1">// import { Table } from '@devexpress/dx-react-grid-bootstrap4';</span>
+<span class="c1">// import { Table } from '@devexpress/dx-react-grid-bootstrap3';</span>
+</code></pre></div></div>
+
+<p>If you want to use custom components, you can import the themeless plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Table</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+</code></pre></div></div>
 
 <h2 id="user-reference">User Reference</h2>
 
@@ -138,6 +154,12 @@
       <td>A component that renders a table row when the table is empty.</td>
     </tr>
     <tr>
+      <td>stubRowComponent</td>
+      <td>ComponentType&lt;<a href="#tablerowprops">Table.RowProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a stub table row if the row type is not recognized.</td>
+    </tr>
+    <tr>
       <td>stubCellComponent</td>
       <td>ComponentType&lt;<a href="#tablecellprops">Table.CellProps</a>&gt;</td>
       <td> </td>
@@ -187,6 +209,11 @@
       <td>align?</td>
       <td>‘left’ | ‘right’ | ‘center’</td>
       <td>The table column alignment.</td>
+    </tr>
+    <tr>
+      <td>wordWrapEnabled?</td>
+      <td>boolean</td>
+      <td>Specifies whether word wrap is enabled in a column’s cells.</td>
     </tr>
   </tbody>
 </table>
@@ -297,14 +324,14 @@
       <td>Specifies a table column.</td>
     </tr>
     <tr>
-      <td>style?</td>
-      <td>Object</td>
-      <td>Styles that should be applied to the root cell element.</td>
-    </tr>
-    <tr>
       <td>colSpan?</td>
       <td>number</td>
       <td>The count of columns that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>rowSpan?</td>
+      <td>number</td>
+      <td>The count of rows that the root cell element spans.</td>
     </tr>
   </tbody>
 </table>
@@ -387,11 +414,6 @@
       <td>children</td>
       <td>ReactNode</td>
       <td>A React node used to render a table row.</td>
-    </tr>
-    <tr>
-      <td>style?</td>
-      <td>Object</td>
-      <td>Styles that should be applied to the root row element.</td>
     </tr>
   </tbody>
 </table>
@@ -492,6 +514,11 @@
       <td>A component that renders a table row when the table is empty.</td>
     </tr>
     <tr>
+      <td>Table.StubRow</td>
+      <td><a href="#tablerowprops">Table.RowProps</a></td>
+      <td>A component that renders a stub table row.</td>
+    </tr>
+    <tr>
       <td>Table.StubCell</td>
       <td><a href="#tablecellprops">Table.CellProps</a></td>
       <td>A component that renders a stub table cell.</td>
@@ -544,6 +571,12 @@
       <td>(row: any, columnName: string) =&gt; any</td>
       <td>A function used to get a cell’s value.</td>
     </tr>
+    <tr>
+      <td>valueFormatter</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/#datatypeprovidervalueformatterprops">DataTypeProvider.ValueFormatterProps</a></td>
+      <td>A template that renders the formatted value.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -580,7 +613,7 @@
     <tr>
       <td>table</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
-      <td>Object?</td>
+      <td>object?</td>
       <td>A template that renders the table.</td>
     </tr>
     <tr>
@@ -603,14 +636,13 @@
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.1.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
             Version
-            <span>1.1.2</span>
+            <span>1.2.0</span>
           </a>
         </li>
       </ul>
       <hr />
-      
       
         <h3>Guides</h3>
 
@@ -757,7 +789,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/tree-data/">Tree Data</a></li>
           
 
         
@@ -813,6 +861,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-tree-data/">CustomTreeData</a></li>
           
 
         
@@ -980,6 +1036,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-band-header/">TableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-column-reordering/">TableColumnReordering</a></li>
           
 
@@ -1060,7 +1124,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-tree-column/">TableTreeColumn</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/tree-data-state/">TreeDataState</a></li>
           
 
         
@@ -1074,19 +1154,26 @@
         
         </ul>
       
-      <hr />
-      <ul class="list-unstyled">
-        <li>
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
           
-          <a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core Docs</a>
           
-        </li>
-      </ul>
+
+          
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">Core</a></li>
+          
+
+        
+        </ul>
+      
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1523444853"></script>
+<script src="/devextreme-reactive/react/demos/dist/index.js?v=1525434457"></script>
 
 
     <footer>
@@ -1094,7 +1181,9 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
+                      
                       <li><a href="/devextreme-reactive/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+                      
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
@@ -1125,7 +1214,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1523444853"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
     <script>
         trackingCookie.check();
     </script>

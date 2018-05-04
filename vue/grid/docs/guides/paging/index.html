@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Grid - Paging - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="vue-grid---paging">Vue Grid - Paging</h1>
+
+<p>The Grid component supports data paging. You can specify the page size and switch pages programmatically or via the Paging Panel’s UI controls. The paging state management, Paging Panel rendering, and built-in paging logic are implemented in the corresponding plugins. You can also configure the Grid to use server-side paging if your data service supports it.</p>
+
+<h2 id="related-plugins">Related Plugins</h2>
+
+<p>The following plugins implement filtering features:</p>
+
+<ul>
+  <li><a href="../reference/paging-state.md">PagingState</a> - controls the paging state</li>
+  <li><a href="../reference/integrated-paging.md">IntegratedPaging</a> - performs built-in data paging</li>
+  <li><a href="../reference/custom-paging.md">CustomPaging</a> - allows implementing a custom totalCount calculation logic</li>
+  <li><a href="../reference/paging-panel.md">PagingPanel</a> - renders the Paging Panel</li>
+</ul>
+
+<p>Note that the <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
+
+<h2 id="basic-paging-setup">Basic Paging Setup</h2>
+
+<p>Use the <code class="highlighter-rouge">PagingState</code>, <code class="highlighter-rouge">IntegratedPaging</code> (or <code class="highlighter-rouge">CustomPaging</code>), and <code class="highlighter-rouge">PagingPanel</code> plugins to set up a Grid with paging.</p>
+
+<p>Specify the active page index in the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">currentPage</code> property and subscribe to the <code class="highlighter-rouge">update:currentPage</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+
+<p>In the following example, the page size is specified using the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property. However, the <code class="highlighter-rouge">update:pageSize</code> event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="page-size-selection">Page Size Selection</h2>
+
+<p>Assign an array of available page sizes to the <code class="highlighter-rouge">PagingPanel</code> plugin’s <code class="highlighter-rouge">pageSizes</code> property to enable page size selection via the UI. The Page Size Selector displays the ‘All’ item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the <code class="highlighter-rouge">messages.showAll</code> property.</p>
+
+<p>Specify the page size in the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property and subscribe to the <code class="highlighter-rouge">update:pageSize</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier two-way binding.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="remote-paging">Remote Paging</h2>
+
+<p>You can handle the Grid’s paging state changes to request page data from the server according to the current page index and the page size if your data service supports paging.</p>
+
+<p>Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">update:currentPage</code> and <code class="highlighter-rouge">update:pageSize</code> events, and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+
+<p>For remote paging, use the <code class="highlighter-rouge">CustomPaging</code> plugin instead of the <code class="highlighter-rouge">IntegratedPaging</code> plugin.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="using-paging-with-other-data-processing-plugins">Using Paging with Other Data Processing Plugins</h2>
+
+<p>When you use paging features with sorting, grouping, or filtering, take note of the order in which the plugins appear in the Grid’s container. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
+            Version
+            <span>1.2.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Paging</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1525434457"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

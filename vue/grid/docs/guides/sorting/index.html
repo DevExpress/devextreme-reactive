@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Grid - Sorting - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="vue-grid---sorting">Vue Grid - Sorting</h1>
+
+<p>The Grid component supports sorting data by one or several column values. Use the corresponding plugins and UI (column headers and Group Panel) to manage the sorting state and sort data programmatically.</p>
+
+<p>Click several columns while holding <code class="highlighter-rouge">Shift</code> to sort data by these columns. Clicking a column while holding <code class="highlighter-rouge">Ctrl</code> (<code class="highlighter-rouge">Cmd</code> for MacOS) cancels sorting by this column.</p>
+
+<h2 id="related-plugins">Related Plugins</h2>
+
+<p>The following plugins implement sorting features:</p>
+
+<ul>
+  <li><a href="../reference/sorting-state.md">SortingState</a> - controls the sorting state</li>
+  <li><a href="../reference/integrated-sorting.md">IntegratedSorting</a> - performs built-in data sorting</li>
+  <li><a href="../reference/table-header-row.md">TableHeaderRow</a> - renders the header row with sorting indicators</li>
+  <li><a href="../reference/grouping-panel.md">GroupingPanel</a> - renders the Group Panel with sorting indicators</li>
+</ul>
+
+<p>Note that the <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
+
+<h2 id="basic-setup">Basic Setup</h2>
+
+<p>Use the <code class="highlighter-rouge">SortingState</code>, <code class="highlighter-rouge">IntegratedSorting</code> and <code class="highlighter-rouge">TableHeaderRow</code> plugins to set up a Grid with simple static sorting.</p>
+
+<p>Set the <code class="highlighter-rouge">TableHeaderRow</code> plugin’s <code class="highlighter-rouge">showSortingControls</code> property to true to enable changing the sorting criteria in the header row.</p>
+
+<p>Specify the sorting conditions in the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">sorting</code> property and subscribe to the <code class="highlighter-rouge">update:sorting</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="disable-sorting-by-a-column">Disable Sorting by a Column</h2>
+
+<p>You can prevent sorting by a specific column using the <a href="../reference/sorting-state.md">SortingState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/disable-column-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="using-sorting-with-grouping">Using Sorting with Grouping</h2>
+
+<p>The Grid’s grouping features allow you to sort groups as well as data rows. For this, set the <code class="highlighter-rouge">GroupingPanel</code> plugin’s <code class="highlighter-rouge">showSortingControls</code> property to true, which enables the sorting UI for the Group Panel’s column headers.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/group-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="custom-sorting-algorithm">Custom Sorting Algorithm</h2>
+
+<p>The <a href="../reference/integrated-sorting.md">IntegratedSorting</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property allows you to implement a custom sorting algorithm for a specific column.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/custom-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<!-- ## Remote Sorting
+
+You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
+
+Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `update:sorting` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
+
+Note that you do not need to use the `IntegratedSorting` plugin for remote sorting.
+
+<div
+          class="embedded-demo"
+          data-options='{"path":"/demo/grid-sorting/remote-sorting","showThemeSelector":true,"scriptPath":"/devextreme-reactive//vue/demos/dist/index.js?v=1525434457"}'
+        >
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div> -->
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
+            Version
+            <span>1.2.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Sorting</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1525434457"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
+    <script>
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

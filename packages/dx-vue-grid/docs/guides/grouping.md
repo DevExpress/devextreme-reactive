@@ -20,9 +20,9 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Use the `GroupingState`, `IntegratedGrouping` (or `CustomGrouping`) and `TableGroupRow` plugins to set up a Grid with simple static grouping.
 
-In the following examples, the grouping options are specified using the `GroupingState` plugin's `grouping` property. However, the `update:grouping` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
+Specify the expanded group keys in the `GroupingState` plugin's `expandedGroups` property and subscribe to the `update:expandedGroups` event to control group expanding/collapsing. Use the `.sync` modifier for two-way binding.
 
-Specify the expanded group keys in the `GroupingState` plugin's `expandedGroups` property and subscribe to the `update:expandedGroups` event. Use the `.sync` modifier to setup two-way binding for the property.
+In the following examples, the grouping options are specified using the `GroupingState` plugin's `grouping` property. However, the `update:grouping` event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.
 
 ### Built-in Grouping
 
@@ -42,15 +42,15 @@ In the following example, the data is specified as an array of groups. Specify t
 
 Use the `Toolbar`, `GroupingPanel` and `TableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to provide any of the following methods for specifying grouping options:
 
-- Drag a column header to or from the Group Panel
+- Drag a column header to or from the Group Panel  
  Import the [DragDropProvider](../reference/drag-drop-provider.md) plugin.
 
-- Use the corresponding button in a header cell
+- Use the corresponding button in a header cell  
  Assign true to the `TableHeaderRow` plugin's `showGroupingControls` and the `GroupingPanel` plugin's `showGroupingControls` properties.
 
 You can also set the `GroupingPanel` plugin's `showSortingControls` option to true to enable sorting data by a grouped column.
 
-Specify the groupin options in the `GroupingState` plugin's `grouping` property and subscribe to the `update:grouping` event. Use the `.sync` modifier to setup two-way binding for the property.
+Specify the grouping options in the `GroupingState` plugin's `grouping` property and subscribe to the `update:grouping` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-grouping/grouping-with-ui", "showThemeSelector": true })
 
@@ -80,7 +80,7 @@ Grouping options are updated whenever an end-user interacts with the grouping UI
 
 Use the `CustomGrouping` plugin instead of the `IntegratedGrouping` plugin for remote grouping.
 
-While waiting for a response from a server, there is a moment when the grouping state does not match the data in the `Grid`'s `rows` property. To avoid issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. This means configuration changes are not applied to the `Grid` immediately. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` simultaneously applies the changes to its grouping configuration and receives the updated data set.
+While waiting for a response from a server, there is a moment when the grouping state does not match the data in the `Grid`'s `rows` property. To avoid issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. This means configuration changes are not applied to the `Grid` immediately. Once the grouped data is received from the server, pass it to the `DxGrid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` simultaneously applies the changes to its grouping configuration and receives the updated data set.
 
 The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
 

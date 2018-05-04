@@ -70,7 +70,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
-    "reactstrap": "5.0.0",
+    "reactstrap": "^6.0.1",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-css-only": "^0.4.0",
@@ -86,6 +86,6 @@
     "@devexpress/dx-react-core": "1.2.0-beta.3",
     "@devexpress/dx-react-grid": "1.2.0-beta.3",
     "react": "^16.2.0",
-    "reactstrap": "5.0.0"
+    "reactstrap": ">=5.0.0"
   }
 }

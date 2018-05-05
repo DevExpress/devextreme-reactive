@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@devexpress/dx-react-chart-bootstrap4",
   "version": "0.0.0",
   "description": "Bootstrap 4 templates for DevExtreme React Chart component",
@@ -45,10 +46,10 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-chart-core": "0.0.0",
-    "@devexpress/dx-react-core": "1.2.0-beta.3",
-    "@devexpress/dx-react-chart": "0.0.0",
-    "@devexpress/dx-testing": "1.2.0-beta.3",
+    "@devexpress/dx-chart-core": "1.2.0",
+    "@devexpress/dx-react-core": "1.2.0",
+    "@devexpress/dx-react-chart": "1.2.0",
+    "@devexpress/dx-testing": "1.2.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^22.4.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -83,9 +84,9 @@
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-chart-core": "0.0.0",
-    "@devexpress/dx-react-core": "1.2.0-beta.3",
-    "@devexpress/dx-react-chart": "0.0.0",
+    "@devexpress/dx-chart-core": "1.2.0",
+    "@devexpress/dx-react-core": "1.2.0",
+    "@devexpress/dx-react-chart": "1.2.0",
     "react": "^16.2.0",
     "reactstrap": "5.0.0"
   }

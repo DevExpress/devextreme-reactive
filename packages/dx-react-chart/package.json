@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-chart",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "Composable plugin-based chart component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -42,7 +42,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.2.0-beta.3",
+    "@devexpress/dx-testing": "1.2.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -58,7 +58,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.7.0",
+    "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "jest": "^22.1.4",
@@ -67,15 +67,15 @@
     "react-test-renderer": "^16.2.0",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-license": "^0.5.0",
+    "rollup-plugin-license": "^0.6.0",
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
-    "@devexpress/dx-chart-core": "0.0.0",
+    "@devexpress/dx-chart-core": "1.2.0",
     "d3-scale": "^2.0.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "1.2.0-beta.3",
+    "@devexpress/dx-react-core": "1.2.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

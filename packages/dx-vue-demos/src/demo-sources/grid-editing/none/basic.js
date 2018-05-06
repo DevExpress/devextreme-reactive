@@ -6,6 +6,7 @@ import {
   TableEditRow as DxTableEditRow,
   TableEditColumn as DxTableEditColumn,
 } from '@devexpress/dx-vue-grid-bootstrap4';
+
 import {
   generateRows,
   defaultColumnValues,

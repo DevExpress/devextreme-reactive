@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({

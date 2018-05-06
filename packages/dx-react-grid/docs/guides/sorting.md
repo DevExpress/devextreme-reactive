@@ -43,8 +43,6 @@ You can prevent sorting by a specific column using the [SortingState](../referen
 
 The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
-Note that the `IntegratedGrouping` plugin should follow `IntegratedSorting` to provide correct group row sorting.
-
 .embedded-demo({ "path": "grid-sorting/group-sorting", "showThemeSelector": true })
 
 ## Custom Sorting Algorithm

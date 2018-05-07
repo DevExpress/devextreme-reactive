@@ -1,12 +1,12 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-core';
 
-export const SearchState = {
-  name: 'SearchState',
+export const DxSearchState = {
+  name: 'DxSearchState',
   props: {
     value: {
       type: String,
-      default: '',
+      required: true,
     },
   },
   methods: {
@@ -23,13 +23,13 @@ export const SearchState = {
       searchFilterExpression(value, columns, filterExpression);
 
     return (
-      <Plugin
-        name="SearchState"
+      <DxPlugin
+        name="DxSearchState"
       >
-        <Getter name="filterExpression" computed={filterExpressionComputed} />
-        <Getter name="searchValue" value={value} />
-        <Action name="changeSearchValue" action={changeValue} />
-      </Plugin>
+        <DxGetter name="filterExpression" computed={filterExpressionComputed} />
+        <DxGetter name="searchValue" value={value} />
+        <DxAction name="changeSearchValue" action={changeValue} />
+      </DxPlugin>
     );
   },
 };

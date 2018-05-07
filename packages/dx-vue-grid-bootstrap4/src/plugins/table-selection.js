@@ -1,14 +1,14 @@
-import { TableSelection as TableSelectionBase } from '@devexpress/dx-vue-grid';
+import { DxTableSelection as DxTableSelectionBase } from '@devexpress/dx-vue-grid';
 import { TableSelectAllCell } from '../templates/table-select-all-cell';
 import { TableSelectCell } from '../templates/table-select-cell';
 import { TableSelectRow } from '../templates/table-select-row';
 
-export const TableSelection = {
-  name: 'TableSelection',
+export const DxTableSelection = {
+  name: 'DxTableSelection',
   functional: true,
   render(h, context) {
     return (
-      <TableSelectionBase
+      <DxTableSelectionBase
         rowComponent={TableSelectRow}
         cellComponent={TableSelectCell}
         headerCellComponent={TableSelectAllCell}
@@ -17,7 +17,8 @@ export const TableSelection = {
       />
     );
   },
+  components: {
+    DxCell: TableSelectCell,
+    DxHeaderCell: TableSelectAllCell,
+  },
 };
-
-TableSelection.Cell = TableSelectCell;
-TableSelection.HeaderCell = TableSelectAllCell;

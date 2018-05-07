@@ -1,18 +1,18 @@
 # Vue Grid - Plugin Overview
 
-Plugins are components that implement particular Grid features. They should be defined within the Grid component.
+Plugins are components that implement particular Grid features. They should be defined within the DxGrid component.
 
 ## Plugin Order
 
 The Grid plugins adhere to the data [piping](https://en.wikipedia.org/wiki/Pipeline_(computing)) principle. That is, plugins process Grid data in the same order they are defined in the Grid.
 
-Plugins implementing an interface should be linked before plugins that use it. For example, a data processing plugin is based on some state and should follow the appropriate state plugin. Some visualization plugins extend the `Table`'s functionality and should follow it in the code.
+Plugins implementing an interface should be linked before plugins that use it. For example, a data processing plugin is based on some state and should follow the appropriate state plugin. Some visualization plugins extend the `DxTable`'s functionality and should follow it in the code.
 
 NOTE: Refer to the plugin's reference for information on its dependencies.
 
 ### Data Processing Plugins
 
-The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `IntegratedPaging` plugin precedes the `IntegratedSelection`, the 'Select All' checkbox selects only the current page's rows and swapping them around allow selecting rows on all pages. See this rule in action in the following demo:
+The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `DxIntegratedPaging` plugin precedes the `DxIntegratedSelection`, the 'Select All' checkbox selects only the current page's rows and swapping them around allow selecting rows on all pages. See this rule in action in the following demo:
 
 .embedded-demo({ "path": "grid-selection/select-all-by-page", "showThemeSelector": true })
 

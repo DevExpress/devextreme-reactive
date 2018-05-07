@@ -2,8 +2,8 @@ import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } f
 
 const SLOTS_SYMBOL = Symbol('slots');
 
-export const TemplatePlaceholder = {
-  name: 'TemplatePlaceholder',
+export const DxTemplatePlaceholder = {
+  name: 'DxTemplatePlaceholder',
   props: {
     name: {
       type: String,
@@ -78,8 +78,8 @@ export const TemplatePlaceholder = {
   },
 };
 
-export const TemplatePlaceholderSlot = {
-  name: 'TemplatePlaceholderSlot',
+export const DxTemplatePlaceholderSlot = {
+  name: 'DxTemplatePlaceholderSlot',
   functional: true,
   props: {
     name: {

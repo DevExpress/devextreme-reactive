@@ -1,17 +1,15 @@
-import * as React from 'react';<%&additionalImports%>
+import * as React from 'react';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
-  DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-import { withStyles } from 'material-ui/styles';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import {
   generateRows,
@@ -62,22 +60,15 @@ const columnBands = [
     ],
   },
 ];
-const customFilteringColumns = ['prefix'];
-
-const styles = theme => ({
-  title: {
-    color: theme.palette.text.primary,
-  },
-});
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainerBase = ({ row, classes }) => (
+const GridDetailContainer = ({ row }) => (
   <div style={{ margin: 20 }}>
     <div>
-      <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5><strong>{row.firstName} {row.lastName}&apos;s Tasks:</strong></h5>
     </div>
-    <<%&wrapperTag%>>
+    <div>
       <Grid
         rows={row.tasks}
         columns={detailColumns}
@@ -87,11 +78,9 @@ const GridDetailContainerBase = ({ row, classes }) => (
         />
         <TableHeaderRow />
       </Grid>
-    </<%&wrapperTag%>>
+    </div>
   </div>
 );
-
-const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
 const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 
@@ -119,7 +108,7 @@ const GridContainer = ({
   columnWidths,
   onColumnWidthsChange,
 }) => (
-  <<%&wrapperTag%>>
+  <div>
     <Grid
       rows={rows}
       columns={columns}
@@ -151,11 +140,6 @@ const GridContainer = ({
       <SelectionState
         selection={selection}
         onSelectionChange={onSelectionChange}
-      />
-
-      <DataTypeProvider
-        for={customFilteringColumns}
-        availableFilterOperations={[]}
       />
 
       <IntegratedFiltering />
@@ -193,7 +177,7 @@ const GridContainer = ({
         columnBands={columnBands}
       />
     </Grid>
-  </<%&wrapperTag%>>
+  </div>
 );
 
 const gridInitialState = {

@@ -1,10 +1,10 @@
 import {
-  Getter,
-  Action,
-  Template,
-  TemplatePlaceholder,
-  TemplateConnector,
-  Plugin,
+  DxGetter,
+  DxAction,
+  DxTemplate,
+  DxTemplatePlaceholder,
+  DxTemplateConnector,
+  DxPlugin,
 } from '@devexpress/dx-vue-core';
 
 const computedEntries = object => Object.getOwnPropertyNames(object)
@@ -41,36 +41,36 @@ export const PluginDepsToComponents = {
     } = this;
 
     return (
-      <Plugin>
+      <DxPlugin>
         {[...(deps.plugins || []), ...(depsOverrides.plugins || [])]
-          .map(plugin => <Plugin name={plugin} key={plugin}><div /></Plugin>)}
+          .map(plugin => <DxPlugin name={plugin} key={plugin}><div /></DxPlugin>)}
         {Object.entries({ ...deps.getter, ...depsOverrides.getter })
-          .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
+          .map(([name, value]) => <DxGetter key={`getter_${name}`} name={name} value={value} />)}
         {Object.entries({ ...deps.action, ...depsOverrides.action })
-          .map(([name, action]) => <Action key={`action_${name}`} name={name} action={action} />)}
+          .map(([name, action]) => <DxAction key={`action_${name}`} name={name} action={action} />)}
         {Object.entries({ ...deps.template, ...depsOverrides.template })
           .map(([name, templateParams]) => (
-            <Template key={`template_${name}`} name="root">
+            <DxTemplate key={`template_${name}`} name="root">
               <div>
-                <TemplatePlaceholder name={name} params={templateParams} />
-                <TemplatePlaceholder />
+                <DxTemplatePlaceholder name={name} params={templateParams} />
+                <DxTemplatePlaceholder />
               </div>
-            </Template>
+            </DxTemplate>
           ))}
-        <Template name="root">
+        <DxTemplate name="root">
           <div>
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({ getters, actions }) => (
                 <ComputedStateContainer
                   getters={computedEntries(getters)}
                   actions={computedEntries(actions)}
                 />
               )}
-            </TemplateConnector>
-            <TemplatePlaceholder />
+            </DxTemplateConnector>
+            <DxTemplatePlaceholder />
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

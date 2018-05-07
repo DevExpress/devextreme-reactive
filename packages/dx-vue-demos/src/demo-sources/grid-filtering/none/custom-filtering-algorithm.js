@@ -1,28 +1,33 @@
 import {
-  SearchState as DxSearchState,
-  IntegratedFiltering as DxIntegratedFiltering,
+  DxFilteringState,
+  DxIntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  Toolbar as DxToolbar,
-  SearchPanel as DxSearchPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableFilterRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
 
+const toLowerCase = value => String(value).toLowerCase();
+const cityPredicate = (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value));
+
 export default {
   data() {
     return {
+      filters: [],
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 6 }),
-      searchValue: 'Paris',
+      integratedFilteringColumnExtensions: [
+        { columnName: 'city', predicate: cityPredicate },
+      ],
+      rows: generateRows({ length: 8 }),
     };
   },
   template: `
@@ -31,24 +36,24 @@ export default {
         :rows="rows"
         :columns="columns"
       >
-        <dx-search-state
-          :value.sync="searchValue"
+        <dx-filtering-state
+          :filters.sync="filters"
         />
-        <dx-integrated-filtering />
+        <dx-integrated-filtering
+          :columnExtensions="integratedFilteringColumnExtensions"
+        />
         <dx-table />
         <dx-table-header-row />
-        <dx-toolbar />
-        <dx-search-panel />
+        <dx-table-filter-row />
       </dx-grid>
     </div>
   `,
   components: {
-    DxSearchState,
+    DxFilteringState,
     DxIntegratedFiltering,
     DxGrid,
     DxTable,
     DxTableHeaderRow,
-    DxToolbar,
-    DxSearchPanel,
+    DxTableFilterRow,
   },
 };

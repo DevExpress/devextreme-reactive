@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { changeColumnFilter, getColumnExtensionValueGetter } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { FilteringState } from './filtering-state';
+import { DxFilteringState } from './filtering-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnFilter: jest.fn(),
@@ -17,7 +17,11 @@ const defaultDeps = {
   },
 };
 
-describe('FilteringState', () => {
+describe('DxFilteringState', () => {
+  const defaultProps = {
+    filters: [],
+  };
+
   let resetConsole;
 
   beforeAll(() => {
@@ -38,13 +42,14 @@ describe('FilteringState', () => {
       mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
                 columnFilteringEnabled={false}
                 columnExtensions={columnExtensions}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -60,12 +65,13 @@ describe('FilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
                 filters={defaultFilters}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -78,10 +84,13 @@ describe('FilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
-            </PluginHost>
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
+            </DxPluginHost>
           );
         },
       });
@@ -96,10 +105,13 @@ describe('FilteringState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
-            </PluginHost>
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
+            </DxPluginHost>
           );
         },
       });
@@ -107,7 +119,7 @@ describe('FilteringState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeColumnFilter(changeColumnFilterPayload);
       });
-      expect(tree.find(FilteringState).emitted()['update:filters'][0][0]).toBe(changeColumnFilterValue);
+      expect(tree.find(DxFilteringState).emitted()['update:filters'][0][0]).toBe(changeColumnFilterValue);
 
       expect(changeColumnFilter.mock.calls[0][0])
         .toEqual(defaultFilters);

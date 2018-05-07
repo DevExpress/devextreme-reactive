@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   changeColumnFilter,
   getColumnExtensionValueGetter,
@@ -10,12 +10,12 @@ const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
 const filterExpressionComputed = ({ filters, filterExpression: filterExpressionValue }) =>
   filterExpression(filters, filterExpressionValue);
 
-export const FilteringState = {
-  name: 'FilteringState',
+export const DxFilteringState = {
+  name: 'DxFilteringState',
   props: {
     filters: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     columnExtensions: {
       type: Array,
@@ -37,17 +37,17 @@ export const FilteringState = {
     const { filters, columnExtensions, columnFilteringEnabled } = this;
 
     return (
-      <Plugin
-        name="FilteringState"
+      <DxPlugin
+        name="DxFilteringState"
       >
-        <Getter name="filters" value={filters} />
-        <Getter name="filterExpression" computed={filterExpressionComputed} />
-        <Getter
+        <DxGetter name="filters" value={filters} />
+        <DxGetter name="filterExpression" computed={filterExpressionComputed} />
+        <DxGetter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}
         />
-        <Action name="changeColumnFilter" action={this.changeColumnFilter} />
-      </Plugin>
+        <DxAction name="changeColumnFilter" action={this.changeColumnFilter} />
+      </DxPlugin>
     );
   },
 };

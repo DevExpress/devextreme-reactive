@@ -1,4 +1,4 @@
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin, TemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -8,13 +8,13 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'EditingState' },
-  { name: 'Table' },
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxEditingState' },
+  { name: 'DxTable' },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
-export const TableEditRow = {
-  name: 'TableEditRow',
+export const DxTableEditRow = {
+  name: 'DxTableEditRow',
   props: {
     rowHeight: {
       type: Number,
@@ -39,17 +39,17 @@ export const TableEditRow = {
       tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
 
     return (
-      <Plugin
-        name="TableEditRow"
+      <DxPlugin
+        name="DxTableEditRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Template
+        <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: {
                   getCellValue,
@@ -84,7 +84,7 @@ export const TableEditRow = {
                   }
                 };
                 return (
-                  <TemplatePlaceholder
+                  <DxTemplatePlaceholder
                     name="valueEditor"
                     params={{
                       column,
@@ -105,13 +105,13 @@ export const TableEditRow = {
                         {content}
                       </EditCell>
                     )}
-                  </TemplatePlaceholder>
+                  </DxTemplatePlaceholder>
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
@@ -120,11 +120,11 @@ export const TableEditRow = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </EditRow>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

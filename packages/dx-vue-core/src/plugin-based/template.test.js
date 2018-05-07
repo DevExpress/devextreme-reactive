@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './plugin-host';
-import { Template } from './template';
+import { DxPluginHost } from './plugin-host';
+import { DxTemplate } from './template';
 
 describe('Template', () => {
   let resetConsole;
@@ -17,11 +17,11 @@ describe('Template', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="root">
+          <DxPluginHost>
+            <DxTemplate name="root">
               <h1>Template content</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -33,11 +33,11 @@ describe('Template', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="root" predicate={() => false}>
+          <DxPluginHost>
+            <DxTemplate name="root" predicate={() => false}>
               <h1>Template content</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -52,11 +52,11 @@ describe('Template', () => {
       },
       render() {
         return (
-          <PluginHost>
-            <Template name="root">
+          <DxPluginHost>
+            <DxTemplate name="root">
               <h1>{this.text}</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     };

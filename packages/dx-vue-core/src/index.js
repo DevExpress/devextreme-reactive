@@ -1,7 +1,7 @@
-export { PluginHost } from './plugin-based/plugin-host';
-export { Plugin } from './plugin-based/plugin';
-export { Action } from './plugin-based/action';
-export { Getter } from './plugin-based/getter';
-export { Template } from './plugin-based/template';
-export { TemplatePlaceholder, TemplatePlaceholderSlot } from './plugin-based/template-placeholder';
-export { TemplateConnector } from './plugin-based/template-connector';
+export { DxPluginHost } from './plugin-based/plugin-host';
+export { DxPlugin } from './plugin-based/plugin';
+export { DxAction } from './plugin-based/action';
+export { DxGetter } from './plugin-based/getter';
+export { DxTemplate } from './plugin-based/template';
+export { DxTemplatePlaceholder, DxTemplatePlaceholderSlot } from './plugin-based/template-placeholder';
+export { DxTemplateConnector } from './plugin-based/template-connector';

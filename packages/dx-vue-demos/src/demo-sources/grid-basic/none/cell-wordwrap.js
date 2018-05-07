@@ -1,7 +1,7 @@
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import {

@@ -1,4 +1,4 @@
-import { Getter, Template, TemplateConnector, Plugin, TemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -8,13 +8,13 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'FilteringState' },
-  { name: 'Table' },
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxFilteringState' },
+  { name: 'DxTable' },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
-export const TableFilterRow = {
-  name: 'TableFilterRow',
+export const DxTableFilterRow = {
+  name: 'DxTableFilterRow',
   props: {
     rowHeight: {
       type: Number,
@@ -45,17 +45,17 @@ export const TableFilterRow = {
       tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
-      <Plugin
-        name="TableFilterRow"
+      <DxPlugin
+        name="DxTableFilterRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
-        <Template
+        <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: { filters, isColumnFilteringEnabled },
                 actions: { changeColumnFilter },
@@ -76,10 +76,10 @@ export const TableFilterRow = {
                   />
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isFilterTableRow(tableRow)}
         >
@@ -88,11 +88,11 @@ export const TableFilterRow = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </FilterRow>
           }
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

@@ -1,13 +1,13 @@
 import {
-  SearchState as DxSearchState,
-  IntegratedFiltering as DxIntegratedFiltering,
+  DxSearchState,
+  DxIntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  Toolbar as DxToolbar,
-  SearchPanel as DxSearchPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxToolbar,
+  DxSearchPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

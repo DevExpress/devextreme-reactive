@@ -1,17 +1,21 @@
-import { TableEditRow as TableEditRowBase } from '@devexpress/dx-vue-grid';
+import { DxTableEditRow as DxTableEditRowBase } from '@devexpress/dx-vue-grid';
 import { EditCell } from '../templates/table-edit-cell';
 import { TableRow } from '../templates/table-row';
 
-export const TableEditRow = {
-  name: 'TableEditRow',
+export const DxTableEditRow = {
+  name: 'DxTableEditRow',
   functional: true,
   render(h, context) {
     return (
-      <TableEditRowBase
+      <DxTableEditRowBase
         cellComponent={EditCell}
         rowComponent={TableRow}
         {...{ attrs: context.props, on: context.listeners }}
       />
     );
+  },
+  components: {
+    DxCell: EditCell,
+    DxRow: TableRow,
   },
 };

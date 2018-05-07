@@ -1,9 +1,9 @@
-import { RowDetailState as DxRowDetailState } from '@devexpress/dx-vue-grid';
+import { DxRowDetailState } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableRowDetail as DxTableRowDetail,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableRowDetail,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

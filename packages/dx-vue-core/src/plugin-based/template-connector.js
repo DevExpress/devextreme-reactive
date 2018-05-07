@@ -4,8 +4,8 @@ import {
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT } from './constants';
 
-export const TemplateConnector = {
-  name: 'TemplateConnector',
+export const DxTemplateConnector = {
+  name: 'DxTemplateConnector',
   inject: {
     pluginHost: { from: PLUGIN_HOST_CONTEXT },
   },

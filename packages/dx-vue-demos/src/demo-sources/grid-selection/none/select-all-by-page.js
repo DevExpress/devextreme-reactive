@@ -1,15 +1,15 @@
 import {
-  SelectionState as DxSelectionState,
-  IntegratedSelection as DxIntegratedSelection,
-  PagingState as DxPagingState,
-  IntegratedPaging as DxIntegratedPaging,
+  DxSelectionState,
+  DxIntegratedSelection,
+  DxPagingState,
+  DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  PagingPanel as DxPagingPanel,
-  TableHeaderRow as DxTableHeaderRow,
-  TableSelection as DxTableSelection,
+  DxGrid,
+  DxTable,
+  DxPagingPanel,
+  DxTableHeaderRow,
+  DxTableSelection,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -9,7 +9,7 @@ import {
   isGroupTableRow,
   tableGroupCellColSpanGetter,
 } from '@devexpress/dx-grid-core';
-import { TableGroupRow } from './table-group-row';
+import { DxTableGroupRow } from './table-group-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -45,7 +45,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['GroupingState', 'Table'],
+  plugins: ['DxGroupingState', 'DxTable'],
 };
 
 const defaultProps = {
@@ -55,7 +55,7 @@ const defaultProps = {
   indentColumnWidth: 100,
 };
 
-describe('TableGroupRow', () => {
+describe('DxTableGroupRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -82,12 +82,12 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -102,12 +102,12 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -129,12 +129,12 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -159,13 +159,13 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} ovedepsOverrides={deps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
                 showColumnsWhenGrouped
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -181,16 +181,16 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
                 showColumnsWhenGrouped={false}
                 columnExtensions={[
                   { columnName: 'A', showWhenGrouped: true },
                 ]}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -211,13 +211,13 @@ describe('TableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
               indentCellComponent={indentCellComponent}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -244,12 +244,12 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -287,12 +287,12 @@ describe('TableGroupRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-              <TableGroupRow
+              <DxTableGroupRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -316,17 +316,17 @@ describe('TableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const valueFormatterTemplatePlaceholder = tree.findAll(TemplatePlaceholder)
+    const valueFormatterTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueFormatter').at(0);
 
     expect(valueFormatterTemplatePlaceholder.vm.params)
@@ -341,12 +341,12 @@ describe('TableGroupRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableGroupRow
+            <DxTableGroupRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

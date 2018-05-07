@@ -6,7 +6,7 @@ export const SearchState = {
   props: {
     value: {
       type: String,
-      default: '',
+      required: true,
     },
   },
   methods: {

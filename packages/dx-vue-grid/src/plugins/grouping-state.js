@@ -51,11 +51,11 @@ export const GroupingState = {
   props: {
     grouping: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     expandedGroups: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     columnExtensions: {
       type: Array,

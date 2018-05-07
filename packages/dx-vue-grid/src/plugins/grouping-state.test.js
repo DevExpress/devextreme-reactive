@@ -28,6 +28,11 @@ const defaultDeps = {
   },
 };
 
+const defaultProps = {
+  grouping: [],
+  expandedGroups: [],
+};
+
 describe('GroupingState', () => {
   let resetConsole;
 
@@ -59,6 +64,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -88,6 +94,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -124,6 +131,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -159,6 +167,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -193,6 +202,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -227,6 +237,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -263,7 +274,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
-                grouping={[]}
+                {...{ attrs: { ...defaultProps } }}
               />
             </PluginHost>
           );
@@ -301,6 +312,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -340,6 +352,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -371,6 +384,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -403,6 +417,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </PluginHost>
@@ -427,6 +442,7 @@ describe('GroupingState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps }} />
               <GroupingState
+                {...{ attrs: { ...defaultProps } }}
                 columnGroupingEnabled={false}
                 columnExtensions={columnExtensions}
               />

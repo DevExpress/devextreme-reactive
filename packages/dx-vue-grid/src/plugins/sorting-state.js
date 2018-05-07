@@ -11,6 +11,7 @@ export const SortingState = {
   props: {
     sorting: {
       type: Array,
+      required: true,
     },
     columnExtensions: {
       type: Array,

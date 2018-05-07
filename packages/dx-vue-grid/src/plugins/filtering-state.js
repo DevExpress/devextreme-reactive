@@ -9,7 +9,7 @@ export const FilteringState = {
   props: {
     filters: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     columnExtensions: {
       type: Array,

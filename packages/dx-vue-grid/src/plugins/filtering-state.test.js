@@ -17,6 +17,10 @@ const defaultDeps = {
   },
 };
 
+const defaultProps = {
+  filters: [],
+};
+
 describe('FilteringState', () => {
   let resetConsole;
 
@@ -41,6 +45,7 @@ describe('FilteringState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <FilteringState
+                {...{ attrs: { ...defaultProps } }}
                 columnFilteringEnabled={false}
                 columnExtensions={columnExtensions}
               />
@@ -63,6 +68,7 @@ describe('FilteringState', () => {
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <FilteringState
+                {...{ attrs: { ...defaultProps } }}
                 filters={defaultFilters}
               />
             </PluginHost>
@@ -80,7 +86,10 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
+              <FilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
             </PluginHost>
           );
         },
@@ -98,7 +107,10 @@ describe('FilteringState', () => {
           return (
             <PluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <FilteringState filters={defaultFilters} />
+              <FilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
             </PluginHost>
           );
         },

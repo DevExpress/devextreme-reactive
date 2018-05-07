@@ -40,6 +40,7 @@ describe('PluginIndexer', () => {
       props: {
         enableGetter: {
           type: Boolean,
+          required: true,
         },
       },
       render() {

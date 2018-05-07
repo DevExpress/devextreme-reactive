@@ -63,7 +63,7 @@ const TasksListCore = {
 
 const TasksFilter = {
   props: {
-    done: null,
+    done: Boolean,
   },
   render() {
     return (

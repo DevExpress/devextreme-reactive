@@ -5,9 +5,6 @@ import { seriesAttributes } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
-
 jest.mock('@devexpress/dx-chart-core', () => ({
   seriesAttributes: jest.fn(),
 }));
@@ -33,7 +30,6 @@ describe('Base series', () => {
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     name: 'name',
     styles: 'styles',
   };
@@ -51,10 +47,7 @@ describe('Base series', () => {
       </PluginHost>
     ));
 
-    const root = tree.find(RootComponent);
-    expect(root.props().x).toBe(0);
-    expect(root.props().y).toBe(0);
-    expect(root.children().find(TestComponent).props()).toEqual({
+    expect(tree.find(TestComponent).props()).toEqual({
       attributes: 'attributes',
       styles: 'styles',
     });

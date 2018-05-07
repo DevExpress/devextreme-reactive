@@ -7,8 +7,6 @@ import { AreaSeries } from './area-series';
 
 const PointComponent = () => null;
 const PathComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coordinates = [
   { x: 1, y: 3, id: 1 },
@@ -39,7 +37,6 @@ describe('Area series', () => {
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     pathComponent: PathComponent,
     name: 'val1',

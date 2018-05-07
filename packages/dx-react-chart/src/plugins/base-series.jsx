@@ -14,7 +14,6 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
       const {
         placeholder,
         name,
-        rootComponent: Root,
         ...restProps
       } = this.props;
       return (
@@ -41,9 +40,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                   pathType,
                 );
                 return (
-                  <Root x={0} y={0}>
-                    <WrappedComponent attributes={attributes} {...restProps} />
-                  </Root>
+                  <WrappedComponent attributes={attributes} {...restProps} />
                 );
               }}
             </TemplateConnector>
@@ -55,7 +52,6 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
   Component.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    rootComponent: PropTypes.func.isRequired,
   };
   Component.defaultProps = {
     placeholder: 'pane',

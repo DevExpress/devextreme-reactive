@@ -6,26 +6,20 @@ class Series extends React.PureComponent {
   render() {
     const { attributes, barWidth: percentWidth, ...props } = this.props;
     const { pointComponent: Point, ...restProps } = props;
-    const {
-      coordinates, scales, height, width,
-    } = attributes;
+    const { coordinates, scales, height } = attributes;
     const bandwidth = scales.xScale.bandwidth();
     const barWidth = bandwidth * percentWidth;
     const xCorrection = (bandwidth - barWidth) / 2;
-    return (
-      <svg width={width} height={height}>
-        {coordinates.map(item => (
-          <Point
-            key={item.id.toString()}
-            x={item.x + xCorrection}
-            y={item.y}
-            width={barWidth}
-            height={height - item.y}
-            {...restProps}
-          />
-        ))}
-      </svg>
-    );
+    return coordinates.map(item => (
+      <Point
+        key={item.id.toString()}
+        x={item.x + xCorrection}
+        y={item.y}
+        width={barWidth}
+        height={height - item.y}
+        {...restProps}
+      />
+    ));
   }
 }
 

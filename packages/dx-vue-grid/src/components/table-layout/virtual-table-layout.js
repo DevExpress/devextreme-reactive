@@ -179,7 +179,6 @@ export const VirtualTableLayout = {
           <Body>
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
-              console.log(row.height);
               return (
                 // <div
                 //   key={row.key}
@@ -190,7 +189,6 @@ export const VirtualTableLayout = {
                     key={row.key}
                     ref={`vtl-refHolder-${row.key}-${row.height}`}
                     tableRow={row}
-                    data1={{ data: 1 }}
                     style={{
                       ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
                     }}

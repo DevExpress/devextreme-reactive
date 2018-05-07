@@ -1,8 +1,8 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 
-export const PagingState = {
-  name: 'PagingState',
+export const DxPagingState = {
+  name: 'DxPagingState',
   props: {
     currentPage: {
       type: Number,
@@ -31,15 +31,15 @@ export const PagingState = {
     const { pageSize, currentPage } = this;
 
     return (
-      <Plugin
-        name="PagingState"
+      <DxPlugin
+        name="DxPagingState"
       >
-        <Getter name="pageSize" value={pageSize} />
-        <Getter name="currentPage" value={currentPage} />
+        <DxGetter name="pageSize" value={pageSize} />
+        <DxGetter name="currentPage" value={currentPage} />
 
-        <Action name="setCurrentPage" action={this.setCurrentPage} />
-        <Action name="setPageSize" action={this.setPageSize} />
-      </Plugin>
+        <DxAction name="setCurrentPage" action={this.setCurrentPage} />
+        <DxAction name="setPageSize" action={this.setPageSize} />
+      </DxPlugin>
     );
   },
 };

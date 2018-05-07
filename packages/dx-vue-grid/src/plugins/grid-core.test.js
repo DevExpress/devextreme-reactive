@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, Template } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplate } from '@devexpress/dx-vue-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
@@ -16,7 +16,7 @@ const defaultProps = {
   rootComponent: { render() { return null; } },
 };
 
-describe('Grid', () => {
+describe('DxGrid', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -37,7 +37,7 @@ describe('Grid', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <GridCore
               {...{ attrs: { ...defaultProps } }}
               rootComponent={{
@@ -50,10 +50,10 @@ describe('Grid', () => {
                 },
               }}
             />
-            <Template name="header"><div class="header-content" /></Template>
-            <Template name="body"><div class="body-content" /></Template>
-            <Template name="footer"><div class="footer-content" /></Template>
-          </PluginHost>
+            <DxTemplate name="header"><div class="header-content" /></DxTemplate>
+            <DxTemplate name="body"><div class="body-content" /></DxTemplate>
+            <DxTemplate name="footer"><div class="footer-content" /></DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -69,12 +69,12 @@ describe('Grid', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <GridCore
               {...{ attrs: { ...defaultProps } }}
             />
             <PluginDepsToComponents deps={{}} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -89,13 +89,13 @@ describe('Grid', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <GridCore
               {...{ attrs: { ...defaultProps } }}
               getRowId={getRowId}
             />
             <PluginDepsToComponents deps={{}} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -112,13 +112,13 @@ describe('Grid', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <GridCore
               {...{ attrs: { ...defaultProps } }}
               getCellValue={getCellValue}
             />
             <PluginDepsToComponents deps={{}} />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

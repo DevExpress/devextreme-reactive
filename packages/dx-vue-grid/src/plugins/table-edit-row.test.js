@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -8,7 +8,7 @@ import {
   isEditTableRow,
   isAddedTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableEditRow } from './table-edit-row';
+import { DxTableEditRow } from './table-edit-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -44,7 +44,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['EditingState', 'Table'],
+  plugins: ['DxEditingState', 'DxTable'],
 };
 
 const defaultProps = {
@@ -52,7 +52,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableEditRow', () => {
+describe('DxTableEditRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -77,13 +77,13 @@ describe('TableEditRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditRow
+              <DxTableEditRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -106,13 +106,13 @@ describe('TableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -141,13 +141,13 @@ describe('TableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -167,13 +167,13 @@ describe('TableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -202,13 +202,13 @@ describe('TableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -228,18 +228,18 @@ describe('TableEditRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableEditRow
+            <DxTableEditRow
               {...{ attrs: { ...defaultProps } }}
               rowHeight={120}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const valueEditorTemplatePlaceholder = tree.findAll(TemplatePlaceholder)
+    const valueEditorTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueEditor').at(0);
 
     expect(valueEditorTemplatePlaceholder.vm.params)

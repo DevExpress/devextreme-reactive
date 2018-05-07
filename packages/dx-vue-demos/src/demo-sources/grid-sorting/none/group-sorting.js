@@ -1,16 +1,16 @@
 import {
-  SortingState as DxSortingState,
-  GroupingState as DxGroupingState,
-  IntegratedSorting as DxIntegratedSorting,
-  IntegratedGrouping as DxIntegratedGrouping,
+  DxSortingState,
+  DxGroupingState,
+  DxIntegratedSorting,
+  DxIntegratedGrouping,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableGroupRow as DxTableGroupRow,
-  GroupingPanel as DxGroupingPanel,
-  Toolbar as DxToolbar,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableGroupRow,
+  DxGroupingPanel,
+  DxToolbar,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

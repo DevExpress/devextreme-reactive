@@ -1,11 +1,11 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression } from '@devexpress/dx-grid-core';
 
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
 
-export const FilteringState = {
-  name: 'FilteringState',
+export const DxFilteringState = {
+  name: 'DxFilteringState',
   props: {
     filters: {
       type: Array,
@@ -31,17 +31,17 @@ export const FilteringState = {
     const { filters, columnExtensions, columnFilteringEnabled } = this;
 
     return (
-      <Plugin
-        name="FilteringState"
+      <DxPlugin
+        name="DxFilteringState"
       >
-        <Getter name="filters" value={filters} />
-        <Getter name="filterExpression" computed={pushFilterExpression(filters)} />
-        <Getter
+        <DxGetter name="filters" value={filters} />
+        <DxGetter name="filterExpression" computed={pushFilterExpression(filters)} />
+        <DxGetter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}
         />
-        <Action name="changeColumnFilter" action={this.changeColumnFilter} />
-      </Plugin>
+        <DxAction name="changeColumnFilter" action={this.changeColumnFilter} />
+      </DxPlugin>
     );
   },
 };

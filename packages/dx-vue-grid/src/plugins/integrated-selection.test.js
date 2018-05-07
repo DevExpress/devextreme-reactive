@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   rowsWithAvailableToSelect,
   someSelected,
@@ -8,7 +8,7 @@ import {
   unwrapSelectedRows,
 } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { IntegratedSelection } from './integrated-selection';
+import { DxIntegratedSelection } from './integrated-selection';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   someSelected: jest.fn(),
@@ -27,10 +27,10 @@ const defaultDeps = {
   action: {
     toggleSelection: jest.fn(),
   },
-  plugins: ['SelectionState'],
+  plugins: ['DxSelectionState'],
 };
 
-describe('IntegratedSelection', () => {
+describe('DxIntegratedSelection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole();
@@ -52,10 +52,10 @@ describe('IntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
-          </PluginHost>
+            <DxIntegratedSelection />
+          </DxPluginHost>
         );
       },
     });
@@ -76,10 +76,10 @@ describe('IntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
-          </PluginHost>
+            <DxIntegratedSelection />
+          </DxPluginHost>
         );
       },
     });
@@ -98,10 +98,10 @@ describe('IntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
-          </PluginHost>
+            <DxIntegratedSelection />
+          </DxPluginHost>
         );
       },
     });
@@ -120,10 +120,10 @@ describe('IntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
-          </PluginHost>
+            <DxIntegratedSelection />
+          </DxPluginHost>
         );
       },
     });
@@ -136,10 +136,10 @@ describe('IntegratedSelection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedSelection />
-          </PluginHost>
+            <DxIntegratedSelection />
+          </DxPluginHost>
         );
       },
     });

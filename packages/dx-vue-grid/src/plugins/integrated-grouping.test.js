@@ -8,8 +8,8 @@ import {
   expandedGroupRows,
   getColumnExtension,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
-import { IntegratedGrouping } from './integrated-grouping';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
+import { DxIntegratedGrouping } from './integrated-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -28,10 +28,10 @@ const defaultDeps = {
     expandedGroups: ['A', 'B'],
     getCellValue: () => { },
   },
-  plugins: ['GroupingState'],
+  plugins: ['DxGroupingState'],
 };
 
-describe('IntegratedGrouping', () => {
+describe('DxIntegratedGrouping', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -56,10 +56,10 @@ describe('IntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
-          </PluginHost >
+            <DxIntegratedGrouping />
+          </DxPluginHost >
         );
       },
     });
@@ -72,10 +72,10 @@ describe('IntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
-          </PluginHost >
+            <DxIntegratedGrouping />
+          </DxPluginHost >
         );
       },
     });
@@ -93,10 +93,10 @@ describe('IntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
-            <IntegratedGrouping />
-          </PluginHost >
+            <DxIntegratedGrouping />
+          </DxPluginHost >
         );
       },
     });
@@ -112,10 +112,10 @@ describe('IntegratedGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping />
-          </PluginHost >
+            <DxIntegratedGrouping />
+          </DxPluginHost >
         );
       },
     });
@@ -144,12 +144,12 @@ describe('IntegratedGrouping', () => {
     mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedGrouping
+            <DxIntegratedGrouping
               columnExtensions={columnExtensions}
             />
-          </PluginHost >
+          </DxPluginHost >
         );
       },
     });

@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   createRowChangeGetter,
   startEditRows,
@@ -18,8 +18,8 @@ import {
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
-export const EditingState = {
-  name: 'EditingState',
+export const DxEditingState = {
+  name: 'DxEditingState',
   props: {
     createRowChange: {
       type: Function,
@@ -137,39 +137,39 @@ export const EditingState = {
     } = this;
 
     return (
-      <Plugin
-        name="EditingState"
+      <DxPlugin
+        name="DxEditingState"
       >
-        <Getter
+        <DxGetter
           name="createRowChange"
           value={createRowChangeGetter(createRowChange, columnExtensions)}
         />
 
-        <Getter name="editingRowIds" value={editingRowIds} />
-        <Action name="startEditRows" action={this.startEditRows} />
-        <Action name="stopEditRows" action={this.stopEditRows} />
+        <DxGetter name="editingRowIds" value={editingRowIds} />
+        <DxAction name="startEditRows" action={this.startEditRows} />
+        <DxAction name="stopEditRows" action={this.stopEditRows} />
 
-        <Getter name="rowChanges" value={rowChanges} />
-        <Action name="changeRow" action={this.changeRow} />
-        <Action name="cancelChangedRows" action={this.cancelChangedRows} />
-        <Action name="commitChangedRows" action={this.commitChangedRows} />
+        <DxGetter name="rowChanges" value={rowChanges} />
+        <DxAction name="changeRow" action={this.changeRow} />
+        <DxAction name="cancelChangedRows" action={this.cancelChangedRows} />
+        <DxAction name="commitChangedRows" action={this.commitChangedRows} />
 
-        <Getter name="addedRows" value={addedRows} />
-        <Action name="addRow" action={this.addRow} />
-        <Action name="changeAddedRow" action={this.changeAddedRow} />
-        <Action name="cancelAddedRows" action={this.cancelAddedRows} />
-        <Action name="commitAddedRows" action={this.commitAddedRows} />
+        <DxGetter name="addedRows" value={addedRows} />
+        <DxAction name="addRow" action={this.addRow} />
+        <DxAction name="changeAddedRow" action={this.changeAddedRow} />
+        <DxAction name="cancelAddedRows" action={this.cancelAddedRows} />
+        <DxAction name="commitAddedRows" action={this.commitAddedRows} />
 
-        <Getter name="deletedRowIds" value={deletedRowIds} />
-        <Action name="deleteRows" action={this.deleteRows} />
-        <Action name="cancelDeletedRows" action={this.cancelDeletedRows} />
-        <Action name="commitDeletedRows" action={this.commitDeletedRows} />
+        <DxGetter name="deletedRowIds" value={deletedRowIds} />
+        <DxAction name="deleteRows" action={this.deleteRows} />
+        <DxAction name="cancelDeletedRows" action={this.cancelDeletedRows} />
+        <DxAction name="commitDeletedRows" action={this.commitDeletedRows} />
 
-        <Getter
+        <DxGetter
           name="isColumnEditingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnEditingEnabled)}
         />
-      </Plugin>
+      </DxPlugin>
     );
   },
 };

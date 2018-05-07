@@ -1,4 +1,4 @@
-import { Getter, Action, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const dependencies = [
-  { name: 'SortingState', optional: true },
+  { name: 'DxSortingState', optional: true },
 ];
 
 const callback = (
@@ -46,8 +46,8 @@ const callback = (
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
 
-export const GroupingState = {
-  name: 'GroupingState',
+export const DxGroupingState = {
+  name: 'DxGroupingState',
   props: {
     grouping: {
       type: Array,
@@ -116,20 +116,20 @@ export const GroupingState = {
     const { columnExtensions, columnGroupingEnabled } = this;
 
     return (
-      <Plugin
-        name="GroupingState"
+      <DxPlugin
+        name="DxGroupingState"
         dependencies={dependencies}
       >
-        <Getter name="grouping" value={grouping} />
-        <Getter
+        <DxGetter name="grouping" value={grouping} />
+        <DxGetter
           name="isColumnGroupingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnGroupingEnabled)}
         />
-        <Action name="changeColumnGrouping" action={this.changeColumnGrouping} />
-        <Getter name="expandedGroups" value={expandedGroups} />
-        <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
-        <Action name="changeColumnSorting" action={this.changeColumnSorting} />
-      </Plugin>
+        <DxAction name="changeColumnGrouping" action={this.changeColumnGrouping} />
+        <DxGetter name="expandedGroups" value={expandedGroups} />
+        <DxAction name="toggleGroupExpanded" action={this.toggleGroupExpanded} />
+        <DxAction name="changeColumnSorting" action={this.changeColumnSorting} />
+      </DxPlugin>
     );
   },
 };

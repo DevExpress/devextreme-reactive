@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   createRowChangeGetter,
   getColumnExtensionValueGetter,
@@ -11,7 +11,7 @@ import {
   changedRowsByIds, addedRowsByIds,
 } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { EditingState } from './editing-state';
+import { DxEditingState } from './editing-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   ...require.requireActual('@devexpress/dx-grid-core'),
@@ -32,7 +32,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {};
 
-describe('EditingState', () => {
+describe('DxEditingState', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -57,13 +57,13 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 createRowChange={createRowChange}
                 columnExtensions={columnExtensions}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -79,12 +79,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -98,12 +98,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 rowChanges={rowChanges}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -117,12 +117,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 addedRows={addedRows}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -136,12 +136,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -160,12 +160,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -173,7 +173,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.startEditRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(startEditRows.mock.calls[0][0])
         .toEqual(editingRowIds);
@@ -189,12 +189,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 editingRowIds={editingRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -202,7 +202,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.stopEditRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:editingRowIds'][0][0]).toBe(nextEditingRowIds);
 
       expect(stopEditRows.mock.calls[0][0])
         .toEqual(editingRowIds);
@@ -218,12 +218,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -231,7 +231,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
+      expect(tree.find(DxEditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(changeRow.mock.calls[0][0])
         .toEqual(rowChanges);
@@ -247,12 +247,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -260,7 +260,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelChangedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
+      expect(tree.find(DxEditingState).emitted()['update:rowChanges'][0][0]).toBe(nextRowChanges);
 
       expect(cancelChanges.mock.calls[0][0])
         .toEqual(rowChanges);
@@ -277,12 +277,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 rowChanges={rowChanges}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -290,7 +290,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitChangedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ changed: nextRowChanges });
 
       expect(changedRowsByIds.mock.calls[0][0])
@@ -312,12 +312,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -325,7 +325,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.addRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(addRow.mock.calls[0][0])
         .toEqual(addedRows);
@@ -341,12 +341,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -354,7 +354,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.changeAddedRow(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(changeAddedRow.mock.calls[0][0])
         .toEqual(addedRows);
@@ -370,12 +370,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -383,7 +383,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelAddedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
+      expect(tree.find(DxEditingState).emitted()['update:addedRows'][0][0]).toBe(nextAddedRows);
 
       expect(cancelAddedRows.mock.calls[0][0])
         .toEqual(addedRows);
@@ -400,12 +400,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 addedRows={addedRows}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -413,7 +413,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitAddedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ added: nextAddedRows });
 
       expect(addedRowsByIds.mock.calls[0][0])
@@ -435,12 +435,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -448,7 +448,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.deleteRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(deleteRows.mock.calls[0][0])
         .toEqual(deletedRowIds);
@@ -464,12 +464,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -477,7 +477,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.cancelDeletedRows(payload);
       });
-      expect(tree.find(EditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
+      expect(tree.find(DxEditingState).emitted()['update:deletedRowIds'][0][0]).toBe(nextDeletedRowIds);
 
       expect(cancelDeletedRows.mock.calls[0][0])
         .toEqual(deletedRowIds);
@@ -493,12 +493,12 @@ describe('EditingState', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <EditingState
+              <DxEditingState
                 deletedRowIds={deletedRowIds}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -506,7 +506,7 @@ describe('EditingState', () => {
       executeComputedAction(tree, (actions) => {
         actions.commitDeletedRows(payload);
       });
-      expect(tree.find(EditingState).emitted().commitChanges[0][0])
+      expect(tree.find(DxEditingState).emitted().commitChanges[0][0])
         .toEqual({ deleted: payload.rowIds });
 
       expect(cancelDeletedRows.mock.calls[0][0])
@@ -522,13 +522,13 @@ describe('EditingState', () => {
       mount({
         render() {
           return (
-            <PluginHost>
-              <EditingState
+            <DxPluginHost>
+              <DxEditingState
                 columnEditingEnabled={false}
                 columnExtensions={columnExtensions}
               />
               <PluginDepsToComponents deps={defaultDeps} />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

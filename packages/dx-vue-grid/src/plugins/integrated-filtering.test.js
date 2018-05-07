@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { filteredRows, unwrappedFilteredRows } from '@devexpress/dx-grid-core';
-import { IntegratedFiltering } from './integrated-filtering';
+import { DxIntegratedFiltering } from './integrated-filtering';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 const defaultDeps = {
@@ -12,7 +12,7 @@ const defaultDeps = {
     getCollapsedRows: () => [],
     getRowLevelKey: () => undefined,
   },
-  plugins: ['FilteringState'],
+  plugins: ['DxFilteringState'],
 };
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -20,7 +20,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   unwrappedFilteredRows: jest.fn(),
 }));
 
-describe('IntegratedFiltering', () => {
+describe('DxIntegratedFiltering', () => {
   beforeEach(() => {
     filteredRows.mockImplementation(() => ({ rows: 'filteredRows' }));
     unwrappedFilteredRows.mockImplementation(() => 'unwrappedFilteredRows');
@@ -32,10 +32,10 @@ describe('IntegratedFiltering', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedFiltering />
-          </PluginHost>
+            <DxIntegratedFiltering />
+          </DxPluginHost>
         );
       },
     });

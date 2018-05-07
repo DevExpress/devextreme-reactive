@@ -1,4 +1,4 @@
-export const Toolbar = {
+export const DxToolbar = {
   render() {
     return (
       <div

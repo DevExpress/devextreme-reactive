@@ -1,15 +1,15 @@
 import {
-  Template, TemplatePlaceholder,
-  TemplateConnector, Plugin,
+  DxTemplate, DxTemplatePlaceholder,
+  DxTemplateConnector, DxPlugin,
 } from '@devexpress/dx-vue-core';
 import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'PagingState' },
+  { name: 'DxPagingState' },
 ];
 
-export const PagingPanel = {
-  name: 'PagingPanel',
+export const DxPagingPanel = {
+  name: 'DxPagingPanel',
   props: {
     pageSizes: {
       type: Array,
@@ -33,14 +33,14 @@ export const PagingPanel = {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <Plugin
-        name="PagingPanel"
+      <DxPlugin
+        name="DxPagingPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="footer">
+        <DxTemplate name="footer">
           <div> {/* TODO: Wrapper required for multiple children */}
-            <TemplatePlaceholder />
-            <TemplateConnector>
+            <DxTemplatePlaceholder />
+            <DxTemplateConnector>
               {({
                   getters: { currentPage, pageSize, totalCount },
                   actions: { setCurrentPage, setPageSize },
@@ -57,10 +57,10 @@ export const PagingPanel = {
                   />
                 )
               }
-            </TemplateConnector>
+            </DxTemplateConnector>
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

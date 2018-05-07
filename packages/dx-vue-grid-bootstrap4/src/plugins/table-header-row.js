@@ -1,18 +1,22 @@
-import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-vue-grid';
+import { DxTableHeaderRow as DxTableHeaderRowBase } from '@devexpress/dx-vue-grid';
 
 import { TableRow } from '../templates/table-row';
 import { TableHeaderCell } from '../templates/table-header-cell';
 
-export const TableHeaderRow = {
-  name: 'TableHeaderRow',
+export const DxTableHeaderRow = {
+  name: 'DxTableHeaderRow',
   functional: true,
   render(h, context) {
     return (
-      <TableHeaderRowBase
+      <DxTableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
         {...{ attrs: context.props, on: context.listeners }}
       />
     );
+  },
+  components: {
+    DxCell: TableHeaderCell,
+    DxRow: TableRow,
   },
 };

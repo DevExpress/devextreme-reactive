@@ -1,12 +1,12 @@
 import {
-  PagingState as DxPagingState,
-  IntegratedPaging as DxIntegratedPaging,
+  DxPagingState,
+  DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  PagingPanel as DxPagingPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
@@ -21,7 +21,7 @@ export default {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
+      rows: generateRows({ length: 60 }),
       pageSize: 5,
       currentPage: 0,
       pageSizes: [5, 10, 15, 0],

@@ -7,7 +7,7 @@ export const EditCell = {
       type: Object,
     },
     value: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: '',
     },
     editingEnabled: {

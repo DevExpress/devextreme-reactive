@@ -9,10 +9,12 @@ import IconButton from 'material-ui/IconButton';
 
 const styles = theme => ({
   button: {
-    marginTop: -theme.spacing.unit,
-    marginBottom: -theme.spacing.unit,
+    marginTop: '-1px',
+    marginBottom: '-1px',
     marginLeft: -theme.spacing.unit,
     marginRight: theme.spacing.unit * 2,
+    width: theme.spacing.unit * 5,
+    height: theme.spacing.unit * 5,
   },
   hidden: {
     cursor: 'default',

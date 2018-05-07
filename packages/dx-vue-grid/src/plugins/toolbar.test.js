@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-vue-core';
-import { Toolbar } from './toolbar';
+import { DxPluginHost, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxToolbar } from './toolbar';
 
-describe('Toolbar', () => {
+describe('DxToolbar', () => {
   const Root = { render() { return null; } };
   const FlexibleSpaceComponent = { render() { return null; } };
   const defaultProps = {
@@ -10,13 +10,13 @@ describe('Toolbar', () => {
     flexibleSpaceComponent: FlexibleSpaceComponent,
   };
 
-  it('should render Toolbar', () => {
+  it('should render DxToolbar', () => {
     const tree = mount({
       render() {
-        return (<PluginHost>
-          <Toolbar {...{ attrs: { ...defaultProps } }} />
-          <TemplatePlaceholder name="header" />
-        </PluginHost>);
+        return (<DxPluginHost>
+          <DxToolbar {...{ attrs: { ...defaultProps } }} />
+          <DxTemplatePlaceholder name="header" />
+        </DxPluginHost>);
       },
     });
 
@@ -28,10 +28,10 @@ describe('Toolbar', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
-            <Toolbar {...{ attrs: { ...defaultProps } }} />
-            <TemplatePlaceholder name="toolbarContent" />
-          </PluginHost>
+          <DxPluginHost>
+            <DxToolbar {...{ attrs: { ...defaultProps } }} />
+            <DxTemplatePlaceholder name="toolbarContent" />
+          </DxPluginHost>
         );
       },
     });

@@ -1,4 +1,4 @@
-import { Table as TableBase } from '@devexpress/dx-vue-grid';
+import { DxTable as DxTableBase } from '@devexpress/dx-vue-grid';
 
 import { TableLayout } from '../templates/table-layout';
 import { TableContainer } from '../templates/table-container';
@@ -16,12 +16,12 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export const Table = {
-  name: 'Table',
+export const DxTable = {
+  name: 'DxTable',
   functional: true,
   render(h, context) {
     return (
-      <TableBase
+      <DxTableBase
         layoutComponent={TableLayout}
         containerComponent={TableContainer}
         tableComponent={TableRoot}

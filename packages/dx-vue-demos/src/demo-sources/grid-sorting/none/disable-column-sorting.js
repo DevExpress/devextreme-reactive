@@ -1,13 +1,11 @@
 import {
-  SearchState as DxSearchState,
-  IntegratedFiltering as DxIntegratedFiltering,
+  DxSortingState,
+  DxIntegratedSorting,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  Toolbar as DxToolbar,
-  SearchPanel as DxSearchPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
@@ -21,8 +19,13 @@ export default {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 6 }),
-      searchValue: 'Paris',
+      rows: generateRows({ length: 8 }),
+      sorting: [
+        { columnName: 'sex', direction: 'desc' },
+      ],
+      sortingStateColumnExtensions: [
+        { columnName: 'sex', sortingEnabled: false },
+      ],
     };
   },
   template: `
@@ -31,24 +34,23 @@ export default {
         :rows="rows"
         :columns="columns"
       >
-        <dx-search-state
-          :value.sync="searchValue"
+        <dx-sorting-state
+          :sorting.sync="sorting"
+          :columnExtensions="sortingStateColumnExtensions"
         />
-        <dx-integrated-filtering />
+        <dx-integrated-sorting />
         <dx-table />
-        <dx-table-header-row />
-        <dx-toolbar />
-        <dx-search-panel />
+        <dx-table-header-row
+          showSortingControls
+        />
       </dx-grid>
     </div>
   `,
   components: {
-    DxSearchState,
-    DxIntegratedFiltering,
+    DxSortingState,
+    DxIntegratedSorting,
     DxGrid,
     DxTable,
     DxTableHeaderRow,
-    DxToolbar,
-    DxSearchPanel,
   },
 };

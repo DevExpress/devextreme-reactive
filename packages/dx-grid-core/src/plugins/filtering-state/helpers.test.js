@@ -13,7 +13,7 @@ describe('FilteringPlugin helpers', () => {
       const filters = [{ columnName: 'a', value: 'test' }];
 
       const value = getColumnFilterConfig(filters, 'a');
-      expect(value).toEqual({ value: 'test' });
+      expect(value).toEqual({ columnName: 'a', value: 'test' });
     });
   });
 });

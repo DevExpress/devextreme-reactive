@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -10,7 +10,7 @@ import {
   isEditTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableEditColumn } from './table-edit-column';
+import { DxTableEditColumn } from './table-edit-column';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -45,7 +45,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['EditingState', 'Table'],
+  plugins: ['DxEditingState', 'DxTable'],
 };
 
 const defaultProps = {
@@ -57,7 +57,7 @@ const defaultProps = {
 const findCommandWithId = (tree, id) =>
   tree.findAll(defaultProps.commandComponent).filter(wrapper => wrapper.vm.$attrs.id === id);
 
-describe('TableEditColumn', () => {
+describe('DxTableEditColumn', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -84,13 +84,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 width={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -109,12 +109,12 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -138,14 +138,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 showAddCommand
                 messages={{ addCommand: 'addCommand' }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -167,13 +167,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{ addCommand: 'addCommand' }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -198,14 +198,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -226,14 +226,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -249,14 +249,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showEditCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -271,14 +271,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -301,14 +301,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -324,14 +324,14 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
                 showDeleteCommand
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -347,13 +347,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -376,13 +376,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -403,13 +403,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -432,13 +432,13 @@ describe('TableEditColumn', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableEditColumn
+              <DxTableEditColumn
                 {...{ attrs: { ...defaultProps } }}
                 messages={{}}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

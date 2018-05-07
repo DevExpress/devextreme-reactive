@@ -5,8 +5,8 @@ import {
   getColumnSortingDirection,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
-import { GroupingPanel } from './grouping-panel';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
+import { DxGroupingPanel } from './grouping-panel';
 import { PluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -32,7 +32,7 @@ const defaultDeps = {
   template: {
     toolbarContent: {},
   },
-  plugins: ['GroupingState', 'Toolbar'],
+  plugins: ['DxGroupingState', 'DxToolbar'],
 };
 
 const defaultProps = {
@@ -42,7 +42,7 @@ const defaultProps = {
   emptyMessageComponent: { name: 'EmptyMessage', render() { return null; } },
 };
 
-describe('GroupingPanel', () => {
+describe('DxGroupingPanel', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -76,16 +76,16 @@ describe('GroupingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <GroupingPanel
+            <DxGroupingPanel
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={layoutComponent}
               messages={{
                 groupByColumn: 'Group By Column',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -96,7 +96,7 @@ describe('GroupingPanel', () => {
 
   it('should pass correct parameters to itemComponent', () => {
     const deps = {
-      plugins: ['SortingState'],
+      plugins: ['DxSortingState'],
     };
     const layoutComponent = {
       name: 'LayoutComponent',
@@ -113,17 +113,17 @@ describe('GroupingPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents
               deps={{ ...defaultDeps, plugins: [...deps.plugins, ...defaultDeps.plugins] }}
             />
-            <GroupingPanel
+            <DxGroupingPanel
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={layoutComponent}
               showSortingControls
               showGroupingControls
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

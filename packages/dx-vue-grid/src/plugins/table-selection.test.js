@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
   isDataTableRow,
 } from '@devexpress/dx-grid-core';
-import { TableSelection } from './table-selection';
+import { DxTableSelection } from './table-selection';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -35,7 +35,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['SelectionState', 'Table', 'IntegratedSelection'],
+  plugins: ['DxSelectionState', 'DxTable', 'DxIntegratedSelection'],
 };
 
 const defaultProps = {
@@ -45,7 +45,7 @@ const defaultProps = {
   selectionColumnWidth: 100,
 };
 
-describe('Table Selection', () => {
+describe('DxTable Selection', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -69,13 +69,13 @@ describe('Table Selection', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableSelection
+              <DxTableSelection
                 {...{ attrs: { ...defaultProps } }}
                 selectionColumnWidth={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -92,12 +92,12 @@ describe('Table Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -120,13 +120,13 @@ describe('Table Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               showSelectAll
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -145,13 +145,13 @@ describe('Table Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               selectByRowClick
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -177,13 +177,13 @@ describe('Table Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
               highlightRow
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -201,12 +201,12 @@ describe('Table Selection', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableSelection
+            <DxTableSelection
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -214,5 +214,26 @@ describe('Table Selection', () => {
 
     expect(tree.find(defaultProps.rowComponent).exists())
       .toBeFalsy();
+  });
+
+  it('should pass the selectByRowClick prop to row component', () => {
+    isDataTableRow.mockImplementation(() => true);
+    const tree = mount({
+      render() {
+        return (
+          <DxPluginHost>
+            <PluginDepsToComponents deps={defaultDeps} />
+            <DxTableSelection
+              {...{ attrs: { ...defaultProps } }}
+              highlightRow
+              selectByRowClick={false}
+            />
+          </DxPluginHost>
+        );
+      },
+    });
+
+    expect(tree.find(defaultProps.rowComponent).vm.$attrs.selectByRowClick)
+      .toBe(false);
   });
 });

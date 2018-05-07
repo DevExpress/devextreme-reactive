@@ -1,4 +1,4 @@
-import { PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxPlugin, DxGetter, DxAction, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector } from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -24,10 +24,10 @@ export default {
 const TasksList = {
   render() {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };
@@ -40,12 +40,12 @@ const TasksListCore = {
   },
   render() {
     return (
-      <Plugin>
-        <Getter name="tasks" value={this.tasks} />
-        <Template name="root">
+      <DxPlugin>
+        <DxGetter name="tasks" value={this.tasks} />
+        <DxTemplate name="root">
           <div>
-            <TemplatePlaceholder name="header" />
-            <TemplateConnector>
+            <DxTemplatePlaceholder name="header" />
+            <DxTemplateConnector>
               {({ getters: { tasks } }) => (
                 <ul>
                   {tasks.map(({ title, done }, index) => (
@@ -58,10 +58,10 @@ const TasksListCore = {
                   ))}
                 </ul>
               )}
-            </TemplateConnector>
+            </DxTemplateConnector>
           </div>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };
@@ -84,15 +84,15 @@ const TasksFilter = {
   },
   render() {
     return (
-      <Plugin>
-        <Getter
+      <DxPlugin>
+        <DxGetter
           name="tasks"
           computed={({ tasks }) =>
             tasks.filter(task => this.done === null || task.done === this.done)}
         />
-        <Getter name="filter" value={this.done} />
-        <Action name="changeFilter" action={this.changeFilter} />
-      </Plugin>
+        <DxGetter name="filter" value={this.done} />
+        <DxAction name="changeFilter" action={this.changeFilter} />
+      </DxPlugin>
     );
   },
 };
@@ -100,9 +100,9 @@ const TasksFilter = {
 const FilterPanel = {
   render() {
     return (
-      <Plugin>
-        <Template name="header">
-          <TemplateConnector>
+      <DxPlugin>
+        <DxTemplate name="header">
+          <DxTemplateConnector>
             {({ getters: { filter }, actions: { changeFilter } }) => (
               <div>
                 Filter: ({JSON.stringify(filter)})
@@ -112,9 +112,9 @@ const FilterPanel = {
                 <button onClick={() => changeFilter(null)}>Clear</button>
               </div>
             )}
-          </TemplateConnector>
-        </Template>
-      </Plugin>
+          </DxTemplateConnector>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

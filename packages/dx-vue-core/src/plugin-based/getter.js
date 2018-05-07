@@ -8,8 +8,8 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 const GLOBAL_SHIFT = 0xffff;
 
 let globalGetterId = 0;
-export const Getter = {
-  name: 'Getter',
+export const DxGetter = {
+  name: 'DxGetter',
   props: {
     name: {
       type: String,

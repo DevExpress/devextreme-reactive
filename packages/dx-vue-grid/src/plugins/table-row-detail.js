@@ -1,9 +1,9 @@
 import {
-  Getter,
-  Template,
-  Plugin,
-  TemplateConnector,
-  TemplatePlaceholderSlot,
+  DxGetter,
+  DxTemplate,
+  DxPlugin,
+  DxTemplateConnector,
+  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithExpandedDetail,
@@ -19,12 +19,12 @@ const getCellColSpanComputed = ({ getTableCellColSpan }) =>
   tableDetailCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
-  { name: 'RowDetailState' },
-  { name: 'Table' },
+  { name: 'DxRowDetailState' },
+  { name: 'DxTable' },
 ];
 
-export const TableRowDetail = {
-  name: 'TableRowDetail',
+export const DxTableRowDetail = {
+  name: 'DxTableRowDetail',
   props: {
     contentComponent: {
       type: Object,
@@ -65,20 +65,20 @@ export const TableRowDetail = {
       tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
 
     return (
-      <Plugin
-        name="TableRowDetail"
+      <DxPlugin
+        name="DxTableRowDetail"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
+        <DxGetter name="tableColumns" computed={tableColumnsComputed} />
+        <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <DxGetter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
-        <Template
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: { expandedDetailRowIds },
                 actions: { toggleDetailRowExpanded },
@@ -90,15 +90,15 @@ export const TableRowDetail = {
                   onToggle={() => toggleDetailRowExpanded({ rowId: params.tableRow.rowId })}
                 />
               )}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: { tableColumns },
               }) => {
@@ -114,10 +114,10 @@ export const TableRowDetail = {
                 }
                 return null;
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isDetailTableRow(tableRow)}
         >
@@ -126,11 +126,11 @@ export const TableRowDetail = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </Row>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

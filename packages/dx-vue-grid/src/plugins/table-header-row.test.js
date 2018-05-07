@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
   isHeadingTableCell,
@@ -8,7 +8,7 @@ import {
   getMessagesFormatter,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
-import { TableHeaderRow } from './table-header-row';
+import { DxTableHeaderRow } from './table-header-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -37,7 +37,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['Table'],
+  plugins: ['DxTable'],
 };
 
 const defaultProps = {
@@ -45,7 +45,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableHeaderRow', () => {
+describe('DxTableHeaderRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -70,12 +70,12 @@ describe('TableHeaderRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableHeaderRow
+              <DxTableHeaderRow
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -93,12 +93,12 @@ describe('TableHeaderRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -121,12 +121,12 @@ describe('TableHeaderRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -141,21 +141,21 @@ describe('TableHeaderRow', () => {
     isHeadingTableCell.mockImplementation(() => true);
 
     const deps = {
-      plugins: ['SortingState'],
+      plugins: ['DxSortingState'],
     };
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <TableHeaderRow
+            <DxTableHeaderRow
               {...{ attrs: { ...defaultProps } }}
               showSortingControls
               messages={{
                 sortingHint: 'test',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

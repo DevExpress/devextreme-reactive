@@ -1,8 +1,8 @@
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
 let globalTemplateId = 0;
-export const Template = {
-  name: 'Template',
+export const DxTemplate = {
+  name: 'DxTemplate',
   props: {
     name: {
       type: String,

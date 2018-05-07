@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithExpandedDetail,
   tableDetailCellColSpanGetter,
@@ -10,7 +10,7 @@ import {
   isDetailTableRow,
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
-import { TableRowDetail } from './table-row-detail';
+import { DxTableRowDetail } from './table-row-detail';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -44,7 +44,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['RowDetailState', 'Table'],
+  plugins: ['DxRowDetailState', 'DxTable'],
 };
 
 const defaultProps = {
@@ -60,7 +60,7 @@ const defaultProps = {
   toggleColumnWidth: 100,
 };
 
-describe('TableRowDetail', () => {
+describe('DxTableRowDetail', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -87,13 +87,13 @@ describe('TableRowDetail', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -112,13 +112,13 @@ describe('TableRowDetail', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
                 toggleColumnWidth={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -133,12 +133,12 @@ describe('TableRowDetail', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableRowDetail
+              <DxTableRowDetail
                 {...{ attrs: { ...defaultProps } }}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -156,12 +156,12 @@ describe('TableRowDetail', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -185,12 +185,12 @@ describe('TableRowDetail', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -215,12 +215,12 @@ describe('TableRowDetail', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableRowDetail
+            <DxTableRowDetail
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

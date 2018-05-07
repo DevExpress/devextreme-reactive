@@ -1,4 +1,4 @@
-import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxPlugin, DxGetter, DxTemplate, DxTemplateConnector } from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -23,10 +23,10 @@ export default {
 const TasksList = {
   render() {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };
@@ -39,10 +39,10 @@ const TasksListCore = {
   },
   render() {
     return (
-      <Plugin>
-        <Getter name="tasks" value={this.tasks} />
-        <Template name="root">
-          <TemplateConnector>
+      <DxPlugin>
+        <DxGetter name="tasks" value={this.tasks} />
+        <DxTemplate name="root">
+          <DxTemplateConnector>
             {({ getters: { tasks } }) => (
               <ul>
                 {tasks.map(({ title, done }, index) => (
@@ -55,9 +55,9 @@ const TasksListCore = {
                 ))}
               </ul>
             )}
-          </TemplateConnector>
-        </Template>
-      </Plugin>
+          </DxTemplateConnector>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

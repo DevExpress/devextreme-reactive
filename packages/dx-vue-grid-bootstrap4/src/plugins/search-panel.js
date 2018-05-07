@@ -1,22 +1,23 @@
-import { SearchPanel as SearchPanelBase } from '@devexpress/dx-vue-grid';
+import { DxSearchPanel as DxSearchPanelBase } from '@devexpress/dx-vue-grid';
 import { SearchPanelInput } from '../templates/search-panel-input';
 
 const defaultMessages = {
   searchPlaceholder: 'Search...',
 };
 
-export const SearchPanel = {
-  name: 'SearchPanel',
+export const DxSearchPanel = {
+  name: 'DxSearchPanel',
   functional: true,
   render(h, context) {
     return (
-      <SearchPanelBase
+      <DxSearchPanelBase
         inputComponent={SearchPanelInput}
         messages={{ ...defaultMessages, ...context.messages }}
         {...{ attrs: context.props, on: context.listeners }}
       />
     );
   },
+  components: {
+    DxInput: SearchPanelInput,
+  },
 };
-
-SearchPanel.Input = SearchPanelInput;

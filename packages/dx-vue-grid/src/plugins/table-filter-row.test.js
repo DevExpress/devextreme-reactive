@@ -1,13 +1,13 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
-import { TableFilterRow } from './table-filter-row';
+import { DxTableFilterRow } from './table-filter-row';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -38,7 +38,7 @@ const defaultDeps = {
       style: {},
     },
   },
-  plugins: ['FilteringState', 'Table'],
+  plugins: ['DxFilteringState', 'DxTable'],
 };
 
 const defaultProps = {
@@ -46,7 +46,7 @@ const defaultProps = {
   rowComponent: { name: 'Row', render() { return null; } },
 };
 
-describe('TableFilterRow', () => {
+describe('DxTableFilterRow', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -70,13 +70,13 @@ describe('TableFilterRow', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <TableFilterRow
+              <DxTableFilterRow
                 {...{ attrs: { ...defaultProps } }}
                 rowHeight={120}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -94,12 +94,12 @@ describe('TableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -123,12 +123,12 @@ describe('TableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -144,15 +144,15 @@ describe('TableFilterRow', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <TableFilterRow
+            <DxTableFilterRow
               {...{ attrs: { ...defaultProps } }}
               messages={{
                 filterPlaceholder: 'Filter...',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

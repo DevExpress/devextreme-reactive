@@ -1,4 +1,4 @@
-import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPlugin, DxGetter, DxTemplate, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 
 export const GridCore = {
@@ -33,19 +33,19 @@ export const GridCore = {
     } = this;
 
     return (
-      <Plugin>
-        <Getter name="rows" value={rows} />
-        <Getter name="getRowId" value={rowIdGetter(getRowId, rows)} />
-        <Getter name="columns" value={columns} />
-        <Getter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
-        <Template name="root">
+      <DxPlugin>
+        <DxGetter name="rows" value={rows} />
+        <DxGetter name="getRowId" value={rowIdGetter(getRowId, rows)} />
+        <DxGetter name="columns" value={columns} />
+        <DxGetter name="getCellValue" value={cellValueGetter(getCellValue, columns)} />
+        <DxTemplate name="root">
           <Root>
-            <TemplatePlaceholder name="header" />
-            <TemplatePlaceholder name="body" />
-            <TemplatePlaceholder name="footer" />
+            <DxTemplatePlaceholder name="header" />
+            <DxTemplatePlaceholder name="body" />
+            <DxTemplatePlaceholder name="footer" />
           </Root>
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

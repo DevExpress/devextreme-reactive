@@ -1,13 +1,13 @@
 import {
-  PagingState as DxPagingState,
-  IntegratedPaging as DxIntegratedPaging,
-  CustomPaging as DxCustomPaging,
+  DxPagingState,
+  DxIntegratedPaging,
+  DxCustomPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  PagingPanel as DxPagingPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { Loading as DxLoading } from '../../../theme-sources/none/components/loading';

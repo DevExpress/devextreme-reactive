@@ -13,7 +13,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Detail Row Setup
 
-Add the required plugins listed above to the Grid and specify the detail row template via the `TableRowDetail` plugin's `template` property to set up a simple Grid with detail rows.
+Add the required plugins listed above to the Grid and specify the detail row component via the `TableRowDetail` plugin's `contentComponent` property to set up a simple Grid with detail rows.
 
 ## Uncontrolled Mode
 

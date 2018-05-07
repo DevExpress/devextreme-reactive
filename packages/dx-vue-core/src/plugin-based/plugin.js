@@ -1,8 +1,8 @@
 import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
-export const Plugin = {
-  name: 'Plugin',
+export const DxPlugin = {
+  name: 'DxPlugin',
   props: {
     name: {
       type: String,

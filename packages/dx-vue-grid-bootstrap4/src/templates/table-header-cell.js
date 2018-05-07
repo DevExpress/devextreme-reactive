@@ -17,15 +17,19 @@ export const TableHeaderCell = {
     },
     showSortingControls: {
       type: Boolean,
+      default: false,
     },
     showGroupingControls: {
       type: Boolean,
+      default: false,
     },
     sortingEnabled: {
       type: Boolean,
+      default: false,
     },
     groupingEnabled: {
       type: Boolean,
+      default: false,
     },
     getMessage: {
       type: Function,

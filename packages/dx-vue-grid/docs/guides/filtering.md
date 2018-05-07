@@ -6,9 +6,9 @@ The Grid component supports filtering data by a column value programmatically or
 
 The following plugins implement filtering features:
 
-- [FilteringState](../reference/filtering-state.md) - controls the filtering state
-- [IntegratedFiltering](../reference/integrated-filtering.md) - performs built-in data filtering
-- [TableFilterRow](../reference/table-filter-row.md) - renders a filter row
+- [DxFilteringState](../reference/filtering-state.md) - controls the filtering state
+- [DxIntegratedFiltering](../reference/integrated-filtering.md) - performs built-in data filtering
+- [DxTableFilterRow](../reference/table-filter-row.md) - renders a filter row
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -16,25 +16,25 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 Import the plugins listed above to set up a Grid with basic filtering.
 
-Specify the filtering conditions in the `FilteringState` plugin's `filters` property and subscribe to the `update:filters` event. Use the `.sync` modifier for two-way binding.
+Specify the filtering conditions in the `DxFilteringState` plugin's `filters` property and subscribe to the `update:filters` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-filtering/basic", "showThemeSelector": true })
 
 ## Using Custom Filtering Algorithms
 
-Specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
+Specify a filtering predicate using the `DxIntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
 .embedded-demo({ "path": "grid-filtering/custom-filtering-algorithm", "showThemeSelector": true })
 
 ## Disable Filtering by a Column
 
-You can prevent filtering by a specific column using the [FilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
+You can prevent filtering by a specific column using the [DxFilteringState](../reference/filtering-state.md) plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-filtering/disable-column-filtering", "showThemeSelector": true })
 
 ## Customizing Filter Row Appearance
 
-Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
+Pass a function that returns a custom component to the `DxTableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `DxTableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
 
 .embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
 
@@ -42,12 +42,12 @@ Pass a function that returns a custom component to the `TableFilterRow` plugin's
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 
-Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the `FilteringState` plugin's `update:filters` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
+Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the `DxFilteringState` plugin's `update:filters` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
-Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
+Note that you do not need to use the `DxIntegratedFiltering` plugin for remote filtering.
 
 .embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true }) -->
 
 ## Using Filtering with Other Data Processing Plugins
 
-The order in which the plugins appear in the Grid's container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `IntegratedFiltering` plugin before the `IntegratedPaging` one. Otherwise, inverse the plugins' order.
+The order in which the plugins appear in the Grid's container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the `DxIntegratedFiltering` plugin before the `DxIntegratedPaging` one. Otherwise, inverse the plugins' order.

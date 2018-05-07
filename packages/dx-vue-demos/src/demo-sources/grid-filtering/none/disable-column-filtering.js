@@ -1,12 +1,12 @@
 import {
-  FilteringState as DxFilteringState,
-  IntegratedFiltering as DxIntegratedFiltering,
+  DxFilteringState,
+  DxIntegratedFiltering,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableFilterRow as DxTableFilterRow,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableFilterRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

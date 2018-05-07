@@ -158,10 +158,6 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-rg-bs4-banded-cell:last-child {
   border-right: 0!important;
 }
-.dx-rg-bs4-filter-selector-button {
-  margin-right: 5px;
-  flex: 0 0 auto;
-}
 .dx-rg-bs4-filter-selector-item:focus {
   outline: none;
 }

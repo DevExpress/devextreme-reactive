@@ -28,9 +28,9 @@ export class FilterSelector extends React.PureComponent {
     const { opened } = this.state;
     const target = this.getTargetElement();
     return availableValues.length ? (
-      <React.Fragment>
+      <div className="input-group-prepend">
         <button
-          className="btn border-0 btn-outline-secondary dx-rg-bs4-filter-selector-button"
+          className="btn btn-outline-secondary"
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}
@@ -65,7 +65,7 @@ export class FilterSelector extends React.PureComponent {
             </Popover>
           ) : null
         }
-      </React.Fragment>
+      </div>
     ) : null;
   }
 }

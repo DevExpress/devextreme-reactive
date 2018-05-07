@@ -157,7 +157,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { rowComponent: {} },
+                props: {
+                  rowComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />
@@ -190,7 +194,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { cellComponent: {} },
+                props: {
+                  cellComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
@@ -224,7 +232,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { cellComponent: {} },
+                props: {
+                  cellComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
@@ -257,7 +269,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { rowComponent: {} },
+                props: {
+                  rowComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />
@@ -281,7 +297,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { cellComponent: {} },
+                props: {
+                  cellComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
@@ -306,7 +326,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { cellComponent: {} },
+                props: {
+                  cellComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
@@ -337,7 +361,11 @@ describe('DxTable', () => {
               {...{ attrs: { ...defaultProps } }}
               messages={{ noData: 'No data' }}
               layoutComponent={{
-                props: { cellComponent: {} },
+                props: {
+                  cellComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
               }}
             />
@@ -370,7 +398,11 @@ describe('DxTable', () => {
             <DxTable
               {...{ attrs: { ...defaultProps } }}
               layoutComponent={{
-                props: { rowComponent: {} },
+                props: {
+                  rowComponent: {
+                    type: Object,
+                  },
+                },
                 render() { return <this.rowComponent {...{ attrs: { ...tableRowArgs } }} />; },
               }}
             />

@@ -32,7 +32,11 @@ const TasksList = {
 };
 
 const TasksListCore = {
-  props: { tasks: {} },
+  props: {
+    tasks: {
+      type: Array,
+    },
+  },
   render() {
     return (
       <DxPlugin>

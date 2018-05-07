@@ -32,7 +32,11 @@ const TasksList = {
 };
 
 const TasksListCore = {
-  props: { tasks: {} },
+  props: {
+    tasks: {
+      type: Array,
+    },
+  },
   render() {
     return (
       <DxPlugin>
@@ -58,7 +62,9 @@ const TasksListCore = {
 };
 
 const TasksFilter = {
-  props: { done: {} },
+  props: {
+    done: Boolean,
+  },
   render() {
     return (
       <DxPlugin>

@@ -1,10 +1,16 @@
 export const TableCell = {
   props: {
-    row: {},
-    tableRow: {},
-    column: {},
-    tableColumn: {},
-    value: {},
+    row: null,
+    tableRow: {
+      type: Object,
+    },
+    column: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
+    value: null,
   },
   render() {
     const align = (this.tableColumn && this.tableColumn.align) || 'left';

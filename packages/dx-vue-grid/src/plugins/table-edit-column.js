@@ -43,7 +43,7 @@ export const DxTableEditColumn = {
     },
     messages: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   },
   render() {

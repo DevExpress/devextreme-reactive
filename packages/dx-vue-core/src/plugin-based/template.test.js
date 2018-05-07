@@ -48,7 +48,9 @@ describe('Template', () => {
   it('should be rerendered when content changes', () => {
     const Test = {
       props: {
-        text: {},
+        text: {
+          type: String,
+        },
       },
       render() {
         return (

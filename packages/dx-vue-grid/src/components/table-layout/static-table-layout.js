@@ -36,9 +36,7 @@ export const StaticTableLayout = {
     },
     headerRows: {
       type: Array,
-      default() {
-        return [];
-      },
+      default: () => [],
     },
     minWidth: {
       type: Number,

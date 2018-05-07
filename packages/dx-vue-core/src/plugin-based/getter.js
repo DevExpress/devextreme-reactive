@@ -15,7 +15,7 @@ export const DxGetter = {
       type: String,
       required: true,
     },
-    value: {},
+    value: null,
     computed: {
       type: Function,
       default: null,

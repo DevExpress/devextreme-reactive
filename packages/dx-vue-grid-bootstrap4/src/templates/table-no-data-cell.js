@@ -1,10 +1,15 @@
 export const TableNoDataCell = {
   props: {
-    row: {},
-    tableRow: {},
-    column: {},
-    tableColumn: {},
-    getMessage: {},
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
+    getMessage: {
+      type: Function,
+      required: true,
+    },
   },
   render() {
     return (

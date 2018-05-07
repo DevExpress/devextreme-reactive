@@ -20,7 +20,7 @@ export const DxSearchPanel = {
     },
     messages: {
       type: Object,
-      default: () => { },
+      default: () => ({}),
     },
   },
   render() {

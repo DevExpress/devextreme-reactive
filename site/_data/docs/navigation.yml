@@ -179,3 +179,9 @@
         path: /vue/grid/docs/guides/paging
       - title: Searching
         path: /vue/grid/docs/guides/searching
+      - title: Selection
+        path: /vue/grid/docs/guides/selection
+      - title: Editing
+        path: /vue/grid/docs/guides/editing
+      - title: Detail Row
+        path: /vue/grid/docs/guides/detail-row

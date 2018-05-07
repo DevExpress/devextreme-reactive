@@ -2,10 +2,17 @@ export const TableStubRow = {
   props: {
     row: {},
     tableRow: {},
+    height: {
+      type: String,
+    },
   },
   render() {
     return (
-      <tr>
+      <tr
+        style={{
+          height: this.height,
+        }}
+      >
         {this.$slots.default}
       </tr>
     );

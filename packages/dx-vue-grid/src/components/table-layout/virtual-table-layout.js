@@ -135,14 +135,13 @@ export const VirtualTableLayout = {
       }
     },
     // registerRowRef(row, ref) {
-    //   if (ref === null) {
+  //   if (ref === null) {
     //     this.rowRefs.delete(row);
     //   } else {
     //     this.rowRefs.set(row, ref);
     //   }
     // },
     updateViewport(e) {
-      console.log('scroll updateViewport');
       const node = e.target;
 
       if (node !== e.currentTarget) {
@@ -190,6 +189,7 @@ export const VirtualTableLayout = {
                     ref={`vtl-refHolder-${row.key}-${row.height}`}
                     tableRow={row}
                     style={{
+                      color: 'red',
                       ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
                     }}
                     height={row.height !== undefined ? `${row.height}px` : undefined}

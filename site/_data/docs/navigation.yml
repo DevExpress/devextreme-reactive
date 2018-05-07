@@ -177,8 +177,12 @@
         path: /vue/grid/docs/guides/sorting
       - title: Paging
         path: /vue/grid/docs/guides/paging
+      - title: Filtering
+        path: /vue/grid/docs/guides/filtering
       - title: Searching
         path: /vue/grid/docs/guides/searching
+      - title: Grouping
+        path: /vue/grid/docs/guides/grouping
       - title: Selection
         path: /vue/grid/docs/guides/selection
       - title: Editing

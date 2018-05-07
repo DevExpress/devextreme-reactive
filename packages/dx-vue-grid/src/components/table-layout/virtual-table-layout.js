@@ -145,7 +145,6 @@ export const VirtualTableLayout = {
       console.log('scroll updateViewport');
       const node = e.target;
 
-      debugger
       if (node !== e.currentTarget) {
         return;
       }
@@ -172,26 +171,30 @@ export const VirtualTableLayout = {
 
       return (
         <Table
-        style={{ minWidth: `${minWidth}px` }}
+          style={{ minWidth: `${minWidth}px` }}
         >
           <ColumnGroup
             columns={collapsedGrid.columns}
-            />
+          />
           <Body>
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
+              console.log(row.height);
               return (
-                <div
-                  key={row.key}
-                  // ref={ref => this.registerRowRef(row, ref)}
-                  row={row}
-                  ref={`vtl-refHolder-${row.key}-${row.height}`}
-                >
+                // <div
+                //   key={row.key}
+                //   // ref={ref => this.registerRowRef(row, ref)}
+                //   ref={`vtl-refHolder-${row.key}-${row.height}`}
+                // >
                   <Row
+                    key={row.key}
+                    ref={`vtl-refHolder-${row.key}-${row.height}`}
                     tableRow={row}
-                    style={row.height !== undefined
-                      ? { height: `${row.height}px` }
-                      : undefined}
+                    data1={{ data: 1 }}
+                    style={{
+                      ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
+                    }}
+                    height={row.height !== undefined ? `${row.height}px` : undefined}
                   >
                     {cells.map((cell) => {
                       const { column } = cell;
@@ -206,7 +209,7 @@ export const VirtualTableLayout = {
                       );
                     })}
                   </Row>
-                </div>
+                // </div>
               );
             })}
           </Body>

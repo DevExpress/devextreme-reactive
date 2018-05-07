@@ -13,7 +13,7 @@ import { TableStubRow } from '../templates/table-stub-row';
 const FixedHeader = {
   name: 'FixedHeader',
   functional: true,
-  render(h, context) { return <TableComponent use="head" {...{ attrs: context.props, on: context.listeners }}/>; },
+  render(h, context) { return <TableComponent use="head" {...{ attrs: context.props, on: context.listeners }}>{context.children}</TableComponent>; },
 };
 const TableHead = {
   name: 'TableHead',

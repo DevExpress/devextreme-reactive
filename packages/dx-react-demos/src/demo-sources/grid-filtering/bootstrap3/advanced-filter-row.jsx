@@ -7,16 +7,7 @@ import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
 const FilterIcon = ({ type }) => {
   if (type === 'month') {
-    return (
-      <i
-        className="glyphicon glyphicon-calendar"
-        style={{
-          width: 16,
-          height: 16,
-          display: 'block',
-        }}
-      />
-    );
+    return <i className="glyphicon glyphicon-calendar" />;
   }
   return <TableFilterRow.Icon type={type} />;
 };

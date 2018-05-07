@@ -13,13 +13,7 @@ export const TableFilterCell = ({
     }}
     {...restProps}
   >
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
+    <div className="input-group">
       {children}
     </div>
   </th>

@@ -29,14 +29,9 @@ export class FilterSelector extends React.PureComponent {
     const { opened } = this.state;
 
     return availableValues.length ? (
-      <React.Fragment>
+      <span className="input-group-btn">
         <button
-          className="btn btn-link"
-          style={{
-            marginRight: 5,
-            flex: '0 0 auto',
-            textDecoration: 'none',
-          }}
+          className="btn btn-default"
           disabled={availableValues.length <= 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}
@@ -72,7 +67,7 @@ export class FilterSelector extends React.PureComponent {
             ))}
           </ListGroup>
         </Overlay>
-      </React.Fragment>
+      </span>
     ) : null;
   }
 }

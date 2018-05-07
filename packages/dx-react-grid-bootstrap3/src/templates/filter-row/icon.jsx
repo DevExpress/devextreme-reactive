@@ -20,9 +20,10 @@ export const Icon = ({ type, style, ...restProps }) => {
     ? (
       <svg
         style={{
-          width: 16,
-          height: 16,
-          display: 'block',
+          width: 14,
+          height: 14,
+          position: 'relative',
+          top: 1,
           fill: 'currentColor',
           ...style,
         }}
@@ -34,12 +35,6 @@ export const Icon = ({ type, style, ...restProps }) => {
     )
     : (
       <i
-        style={{
-          width: 16,
-          height: 16,
-          display: 'block',
-          ...style,
-        }}
         className="glyphicon glyphicon-search"
         {...restProps}
       />

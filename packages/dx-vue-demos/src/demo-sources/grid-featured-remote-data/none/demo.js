@@ -97,7 +97,7 @@ export default {
     },
   },
   template: `
-    <div class="card" :style="{ position: 'relative' }">
+    <div class="card" style="'position': 'relative'">
       <dx-grid
         :rows="rows"
         :columns="columns"

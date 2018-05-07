@@ -20,7 +20,7 @@ const CurrencyEditor = {
     <input
       type="number"
       class="form-control text-right"
-      :style="{ width: '100%' }"
+      style="'width': '100%'"
       :value="value === undefined ? '' : value"
       min="0"
       @change="handleChange"

@@ -9,6 +9,8 @@ const defaultDeps = {
     rows: [{ id: 0 }, { id: 1 }],
     filterExpression: [{ columnName: 'a' }],
     getCellValue: () => {},
+    getCollapsedRows: () => [],
+    getRowLevelKey: () => undefined,
   },
   plugins: ['DxFilteringState'],
 };
@@ -47,6 +49,8 @@ describe('DxIntegratedFiltering', () => {
         defaultDeps.getter.filterExpression,
         defaultDeps.getter.getCellValue,
         expect.any(Function),
+        defaultDeps.getter.getRowLevelKey,
+        defaultDeps.getter.getCollapsedRows,
       );
 
     expect(unwrappedFilteredRows)

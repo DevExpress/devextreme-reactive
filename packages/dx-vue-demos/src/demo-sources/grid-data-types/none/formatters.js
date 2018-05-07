@@ -1,8 +1,8 @@
-import { DataTypeProvider as DxDataTypeProvider } from '@devexpress/dx-vue-grid';
+import { DxDataTypeProvider } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import {

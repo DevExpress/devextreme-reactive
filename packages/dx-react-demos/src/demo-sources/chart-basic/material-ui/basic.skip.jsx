@@ -62,8 +62,12 @@ export default class Demo extends React.PureComponent {
             name="Russia"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
+            point={{ size: 10 }}
           />
-          <SplineSeries name="China" style={{ stroke: 'green' }} />
+          <SplineSeries
+            name="China"
+            style={{ stroke: 'green' }}
+          />
           <AreaSeries
             name="USA"
             style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}

@@ -4,8 +4,8 @@ import {
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
-export const Action = {
-  name: 'Action',
+export const DxAction = {
+  name: 'DxAction',
   props: {
     name: {
       type: String,

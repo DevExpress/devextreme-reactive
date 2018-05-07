@@ -1,12 +1,12 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import { sortedRows, getColumnExtension } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'SortingState' },
+  { name: 'DxSortingState' },
 ];
 
-export const IntegratedSorting = {
-  name: 'IntegratedSorting',
+export const DxIntegratedSorting = {
+  name: 'DxIntegratedSorting',
   props: {
     columnExtensions: {
       type: Array,
@@ -23,12 +23,12 @@ export const IntegratedSorting = {
       sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
-      <Plugin
-        name="IntegratedSorting"
+      <DxPlugin
+        name="DxIntegratedSorting"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsComputed} />
+      </DxPlugin>
     );
   },
 };

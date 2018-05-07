@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { toggleSelection } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { SelectionState } from './selection-state';
+import { DxSelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   toggleSelection: jest.fn(),
 }));
 
-describe('SelectionState', () => {
+describe('DxSelectionState', () => {
   let resetConsole;
 
   beforeAll(() => {
@@ -27,12 +27,12 @@ describe('SelectionState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <SelectionState
+            <DxSelectionState
               selection={defaultSelection}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -49,12 +49,12 @@ describe('SelectionState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <SelectionState
+            <DxSelectionState
               selection={defaultSelection}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -62,7 +62,7 @@ describe('SelectionState', () => {
     executeComputedAction(tree, (actions) => {
       actions.toggleSelection(actionPayload);
     });
-    expect(tree.find(SelectionState).emitted()['update:selection'][0][0]).toBe(nextSelection);
+    expect(tree.find(DxSelectionState).emitted()['update:selection'][0][0]).toBe(nextSelection);
 
     expect(toggleSelection.mock.calls[0][0])
       .toEqual(defaultSelection);

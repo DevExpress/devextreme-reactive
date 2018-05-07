@@ -93,9 +93,7 @@ var injectLiveDemos = function(content) {
 gulp.task('site:clean', function() {
   return gulp.src([
     'site/react/core/**/*.md',
-    'packages/dx-react-grid/docs/guides/*.g.md',
     'site/react/grid/**/*.md',
-    'packages/dx-vue-grid/docs/guides/*.g.md',
     'site/vue/grid/**/*.md',
   ], { read: false })
     .pipe(clean());
@@ -106,6 +104,7 @@ gulp.task('site:docs', function() {
       'packages/dx-react-core/docs/*/*.md',
       'packages/dx-react-grid/demos/*/*.md',
       'packages/dx-react-grid/docs/*/*.md',
+      'packages/dx-vue-grid/demos/*/*.md',
       'packages/dx-vue-grid/docs/*/*.md',
       '!packages/**/LICENSE.md',
       '!packages/**/README.md',

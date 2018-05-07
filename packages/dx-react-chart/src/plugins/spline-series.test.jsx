@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { lineAttributes, pointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { SplineSeries } from './spline-series';
 
 const PointComponent = () => null;
 const PathComponent = () => null;
 
-const coordinates = [
+const coords = [
   { x: 1, y: 3, id: 1 },
   { x: 2, y: 5, id: 2 },
   { x: 3, y: 7, id: 3 },
@@ -17,14 +17,34 @@ const coordinates = [
 ];
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  seriesAttributes: jest.fn(),
+  lineAttributes: jest.fn(),
+  pointAttributes: jest.fn(),
+  findSeriesByName: jest.fn(),
+  xyScales: jest.fn(),
+  coordinates: jest.fn(),
 }));
 
-seriesAttributes.mockImplementation(() => ({
-  coordinates,
-  dPoint: 'M10 10',
+lineAttributes.mockImplementation(() => ({
+  x: 2,
+  y: 1,
   d: 'M11 11',
 }));
+
+pointAttributes.mockImplementation(() => () => ({
+  x: 4,
+  y: 3,
+  d: 'M12 12',
+}));
+
+findSeriesByName.mockImplementation(() => ({
+  axisName: 'axisName',
+  argumentField: 'arg',
+  valueField: 'val',
+  stack: 'stack',
+}));
+
+xyScales.mockImplementation();
+coordinates.mockImplementation(() => coords);
 
 describe('Spline series', () => {
   const defaultDeps = {
@@ -55,15 +75,17 @@ describe('Spline series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coordinates.length);
+    expect(tree.find(PointComponent)).toHaveLength(coords.length);
 
-    coordinates.forEach((coord, index) =>
-      expect(tree.find(PointComponent).get(index).props).toEqual({
-        d: 'M10 10',
-        x: coord.x,
-        y: coord.y,
-        style: { fill: 'point fill' },
-      }));
+    coords.forEach((coord, index) => {
+      const {
+        d, x, y, style,
+      } = tree.find(PointComponent).get(index).props;
+      expect(d).toBe('M12 12');
+      expect(x).toBe(4);
+      expect(y).toBe(3);
+      expect(style).toEqual({ fill: 'point fill' });
+    });
   });
 
   it('should render path', () => {
@@ -76,11 +98,12 @@ describe('Spline series', () => {
         />
       </PluginHost>
     ));
-    expect(tree.find(PathComponent).props()).toEqual({
-      d: 'M11 11',
-      styles: 'styles',
-      x: 0,
-      y: 0,
-    });
+    const {
+      d, styles, x, y,
+    } = tree.find(PathComponent).props();
+    expect(d).toBe('M11 11');
+    expect(styles).toBe('styles');
+    expect(x).toBe(2);
+    expect(y).toBe(1);
   });
 });

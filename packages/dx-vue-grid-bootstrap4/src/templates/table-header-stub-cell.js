@@ -1,7 +1,11 @@
 export const TableHeaderStubCell = {
   props: {
-    tableRow: {},
-    tableColumn: {},
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
   },
   render() {
     return (

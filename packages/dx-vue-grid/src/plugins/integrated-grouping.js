@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'GroupingState' },
+  { name: 'DxGroupingState' },
 ];
 
 const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
@@ -18,8 +18,8 @@ const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
 const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
   expandedGroupRows(rows, grouping, expandedGroups);
 
-export const IntegratedGrouping = {
-  name: 'IntegratedGrouping',
+export const DxIntegratedGrouping = {
+  name: 'DxIntegratedGrouping',
   props: {
     columnExtensions: {
       type: Array,
@@ -34,16 +34,16 @@ export const IntegratedGrouping = {
       groupedRows(rows, grouping, getCellValue, getColumnCriteria);
 
     return (
-      <Plugin
-        name="IntegratedGrouping"
+      <DxPlugin
+        name="DxIntegratedGrouping"
         dependencies={pluginDependencies}
       >
-        <Getter name="isGroupRow" value={groupRowChecker} />
-        <Getter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
-        <Getter name="getCollapsedRows" computed={getCollapsedRowsComputed} />
-        <Getter name="rows" computed={groupedRowsComputed} />
-        <Getter name="rows" computed={expandedGroupedRowsComputed} />
-      </Plugin>
+        <DxGetter name="isGroupRow" value={groupRowChecker} />
+        <DxGetter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
+        <DxGetter name="getCollapsedRows" computed={getCollapsedRowsComputed} />
+        <DxGetter name="rows" computed={groupedRowsComputed} />
+        <DxGetter name="rows" computed={expandedGroupedRowsComputed} />
+      </DxPlugin>
     );
   },
 };

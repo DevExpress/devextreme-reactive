@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export class Path extends React.PureComponent {
   render() {
     const {
-      x, y, className, ...restProps
+      x, y, className, pointComponent, pointStyle, ...restProps
     } = this.props;
     return (
       <path
@@ -22,8 +22,12 @@ Path.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
+  pointComponent: PropTypes.any,
+  pointStyle: PropTypes.any,
 };
 
 Path.defaultProps = {
   className: undefined,
+  pointComponent: undefined,
+  pointStyle: undefined,
 };

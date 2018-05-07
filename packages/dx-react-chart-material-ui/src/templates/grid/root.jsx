@@ -3,10 +3,9 @@ import * as PropTypes from 'prop-types';
 
 export class Root extends React.PureComponent {
   render() {
-    const { x, y, children } = this.props;
+    const { children } = this.props;
     return (
       <g
-        transform={`translate(${x} ${y})`}
         shapeRendering="crispEdges"
       >
         {children}
@@ -16,7 +15,5 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
 };

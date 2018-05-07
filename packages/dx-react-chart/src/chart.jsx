@@ -10,6 +10,7 @@ import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
 import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
+import { SeriesFamily } from './plugins/series-family';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -30,6 +31,7 @@ export class Chart extends React.PureComponent {
           axes={axes}
           series={series}
         />
+        <SeriesFamily />
         <IntegratedScaleProcessing />
         <LayoutManager
           width={width}

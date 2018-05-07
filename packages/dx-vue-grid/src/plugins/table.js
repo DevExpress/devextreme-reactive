@@ -1,10 +1,10 @@
 import {
-  Getter,
-  Template,
-  TemplatePlaceholder,
-  TemplatePlaceholderSlot,
-  TemplateConnector,
-  Plugin,
+  DxGetter,
+  DxTemplate,
+  DxTemplatePlaceholder,
+  DxTemplatePlaceholderSlot,
+  DxTemplateConnector,
+  DxPlugin,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithDataRows,
@@ -22,12 +22,12 @@ const RowPlaceholder = {
   functional: true,
   render(h, context) {
     return (
-      <TemplatePlaceholder
+      <DxTemplatePlaceholder
         name="tableRow"
         params={context.props}
       >
         {context.children}
-      </TemplatePlaceholder>
+      </DxTemplatePlaceholder>
     );
   },
 };
@@ -35,7 +35,7 @@ const CellPlaceholder = {
   functional: true,
   render(h, context) {
     return (
-      <TemplatePlaceholder
+      <DxTemplatePlaceholder
         name="tableCell"
         params={context.props}
       />
@@ -48,11 +48,11 @@ const tableBodyRowsComputed = ({ rows, getRowId }) =>
   tableRowsWithDataRows(rows, getRowId);
 
 const pluginDependencies = [
-  { name: 'DataTypeProvider', optional: true },
+  { name: 'DxDataTypeProvider', optional: true },
 ];
 
-export const Table = {
-  name: 'Table',
+export const DxTable = {
+  name: 'DxTable',
   props: {
     layoutComponent: {
       type: Object,
@@ -132,20 +132,20 @@ export const Table = {
       tableColumnsWithDataRows(columns, columnExtensions);
 
     return (
-      <Plugin
-        name="Table"
+      <DxPlugin
+        name="DxTable"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" value={tableHeaderRows} />
-        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
-        <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
+        <DxGetter name="tableHeaderRows" value={tableHeaderRows} />
+        <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <DxGetter name="tableColumns" computed={tableColumnsComputed} />
+        <DxGetter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
-        <Template name="body">
-          <TemplatePlaceholder name="table" />
-        </Template>
-        <Template name="table">
-          <TemplateConnector>
+        <DxTemplate name="body">
+          <DxTemplatePlaceholder name="table" />
+        </DxTemplate>
+        <DxTemplate name="table">
+          <DxTemplateConnector>
             {({
               getters: {
                 tableHeaderRows: headerRows,
@@ -167,30 +167,30 @@ export const Table = {
                 getCellColSpan={getTableCellColSpan}
               />
             )}
-          </TemplateConnector>
-        </Template>
-        <Template name="tableCell">
+          </DxTemplateConnector>
+        </DxTemplate>
+        <DxTemplate name="tableCell">
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({ getters: { tableHeaderRows: headerRows } }) =>
                 (isHeaderStubTableCell(params.tableRow, headerRows)
                   ? <StubHeaderCell {...{ attrs: { ...params } }} />
                   : <StubCell {...{ attrs: { ...params } }} />
                 )
               }
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isDataTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({ getters: { getCellValue } }) => {
                 const value = getCellValue(params.tableRow.row, params.tableColumn.column.name);
                 return (
-                  <TemplatePlaceholder
+                  <DxTemplatePlaceholder
                     name="valueFormatter"
                     params={{
                       row: params.tableRow.row,
@@ -208,18 +208,18 @@ export const Table = {
                         {content}
                       </Cell>
                     )}
-                  </TemplatePlaceholder>
+                  </DxTemplatePlaceholder>
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({ getters: { tableColumns } }) => {
                 if (isNoDataTableCell(params.tableColumn, tableColumns)) {
                   return (
@@ -231,17 +231,17 @@ export const Table = {
                 }
                 return null;
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template name="tableRow">
+        </DxTemplate>
+        <DxTemplate name="tableRow">
           {params => (
             <StubRow {...{ attrs: { ...params } }}>
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </StubRow>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isDataTableRow(tableRow)}
         >
@@ -250,21 +250,21 @@ export const Table = {
               {...{ attrs: { ...params } }}
               row={params.tableRow.row}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </Row>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isNoDataTableRow(tableRow)}
         >
           {params => (
             <NoDataRow {...{ attrs: { ...params } }}>
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </NoDataRow>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

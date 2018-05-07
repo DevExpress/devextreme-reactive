@@ -1,0 +1,13 @@
+/**
+ * @jest-environment node
+ */
+
+import Vue from 'vue';
+import { createRenderer } from 'vue-server-renderer';
+import Demo from './<%&demoName%>';
+
+it('should not fail', async () => {
+  const result = await createRenderer().renderToString(new Vue({ render() { return <Demo />; } }));
+  return expect(result)
+    .not.toBe(null);
+});

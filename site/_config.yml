@@ -63,6 +63,11 @@ defaults:
       product_name: Vue Grid
       product_link: /vue/grid
   - scope:
+      path: vue/grid/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
       path: vue/grid/docs
       type: pages
     values:

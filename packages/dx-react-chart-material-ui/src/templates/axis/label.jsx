@@ -19,7 +19,7 @@ const styles = (theme) => {
 export class LabelBase extends React.PureComponent {
   render() {
     const {
-      text, x, y, dominantBaseline, textAnchor, classes, className,
+      text, x, y, dominantBaseline, textAnchor, classes, className, ...restProps
     } = this.props;
 
     return (
@@ -27,9 +27,9 @@ export class LabelBase extends React.PureComponent {
         className={classNames(classes.root, className)}
         dominantBaseline={dominantBaseline}
         textAnchor={textAnchor}
-        key={text}
         x={x}
         y={y}
+        {...restProps}
       >
         {text}
       </text>

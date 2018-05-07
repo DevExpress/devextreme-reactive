@@ -5,10 +5,10 @@ import { ListItemText } from 'material-ui/List';
 export class Label extends React.PureComponent {
   render() {
     const {
-      text,
+      text, ...restProps
     } = this.props;
     return (
-      <ListItemText>{text}</ListItemText>
+      <ListItemText {...restProps}>{text}</ListItemText>
     );
   }
 }

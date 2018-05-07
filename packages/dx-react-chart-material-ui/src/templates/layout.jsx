@@ -10,6 +10,9 @@ const styles = (theme) => {
       fontFamily,
       fontSize,
       fontWeight: fontWeightLight,
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '10px',
     },
   });
 };
@@ -26,9 +29,6 @@ export class RootBase extends React.PureComponent {
         style={{
           width: `${width}px`,
           height: `${height}px`,
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '10px',
           ...style,
         }}
         {...restProps}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Point } from './point';
 
 describe('Point', () => {
@@ -7,7 +7,13 @@ describe('Point', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
+    style: {
+      strokeWidth: '1px',
+      fill: 'black',
+    },
   };
+  const shallow = createShallow({ dive: true });
+  const classes = getClasses(<Point {...defaultProps} />);
 
   it('should render path element', () => {
     const tree = shallow((
@@ -22,14 +28,9 @@ describe('Point', () => {
     const tree = shallow((
       <Point {...defaultProps} />
     ));
-    const { transform, d, style } = tree.find('path').props();
+    const { transform, d } = tree.find('path').props();
     expect(transform).toBe('translate(1 2)');
     expect(d).toBe('M11 11');
-    expect(style).toEqual({
-      stroke: 'none',
-      strokeWidth: '1px',
-      fill: 'black',
-    });
   });
 
   it('should render path element with custom styles', () => {
@@ -46,7 +47,21 @@ describe('Point', () => {
     const { style } = tree.find('path').props();
     expect(style).toEqual({
       ...customStyle,
-      strokeWidth: '1px',
     });
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((<Point {...defaultProps} className="custom-class" />));
+
+    expect(tree.is(`.${classes.root}`))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow((<Point {...defaultProps} customProperty />));
+    const { customProperty } = tree.find('path').props();
+    expect(customProperty).toBeTruthy();
   });
 });

@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Path } from './path';
 
+const defaultProps = {
+  x: 1,
+  y: 2,
+  d: 'M10 10',
+};
+
 describe('Path', () => {
-  const defaultProps = {
-    x: 1,
-    y: 2,
-    d: 'M10 10',
-  };
+  const shallow = createShallow({ dive: true });
+  const classes = getClasses(<Path {...defaultProps} />);
   it('should render root element', () => {
     const tree = shallow((
       <Path
@@ -33,9 +36,21 @@ describe('Path', () => {
     ));
     const { style } = tree.find('path').props();
 
-    expect(style).toEqual({
-      ...customStyle,
-      fill: 'none',
-    });
+    expect(style).toEqual(customStyle);
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((<Path {...defaultProps} className="custom-class" />));
+
+    expect(tree.is(`.${classes.root}`))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow((<Path {...defaultProps} customProperty />));
+    const { customProperty } = tree.find('path').props();
+    expect(customProperty).toBeTruthy();
   });
 });

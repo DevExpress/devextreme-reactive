@@ -42,4 +42,10 @@ describe('Label', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Label {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('text').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

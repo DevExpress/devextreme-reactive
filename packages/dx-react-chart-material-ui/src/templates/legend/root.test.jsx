@@ -24,4 +24,10 @@ describe('Root', () => {
     expect(span).toHaveLength(1);
     expect(span.type()).toEqual('span');
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Root customProperty>child</Root>);
+    const { customProperty } = tree.find(List).props();
+    expect(customProperty).toBeTruthy();
+  });
 });

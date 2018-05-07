@@ -6,8 +6,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PieSeries } from './pie-series';
 
 const PointComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
@@ -33,7 +31,6 @@ describe('Pie series', () => {
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',

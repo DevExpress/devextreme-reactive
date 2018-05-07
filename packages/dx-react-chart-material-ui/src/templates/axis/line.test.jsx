@@ -50,4 +50,10 @@ describe('Line', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Line {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('line').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

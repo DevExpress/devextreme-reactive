@@ -11,4 +11,10 @@ describe('Marker', () => {
 
     expect(tree.equals(<Timeline />)).toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow((<Marker customProperty />));
+    const { customProperty } = tree.find(Timeline).props();
+    expect(customProperty).toBeTruthy();
+  });
 });

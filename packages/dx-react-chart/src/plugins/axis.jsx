@@ -117,7 +117,13 @@ export class Axis extends React.Component {
                   }}
                   ref={(node) => { this.node = node; }}
                 >
-                  <svg width={widthPostCalculated} height={heightPostCalculated} style={{ position: 'absolute', left: 0, top: 0 }}>
+                  <svg
+                    width={widthPostCalculated}
+                    height={heightPostCalculated}
+                    style={{
+                      position: 'absolute', left: 0, top: 0, overflow: 'visible',
+                    }}
+                  >
                     <Root
                       refsHandler={this.createRefsHandler(
                         placeholder,

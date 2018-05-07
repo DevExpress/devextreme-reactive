@@ -7,6 +7,7 @@ import { getBorderColor } from '../utils';
 const styles = theme => ({
   root: {
     stroke: getBorderColor(theme),
+    shapeRendering: 'crispEdges',
   },
 });
 
@@ -22,7 +23,6 @@ export class LineBase extends React.PureComponent {
         x2={orientation === 'horizontal' ? width : 0}
         y1={0}
         y2={orientation === 'horizontal' ? 0 : height}
-        shapeRendering="crispEdges"
         {...restProps}
       />
     );

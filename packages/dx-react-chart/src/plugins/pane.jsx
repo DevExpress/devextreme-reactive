@@ -44,7 +44,13 @@ export class Pane extends React.PureComponent {
 
     return (
       <div ref={this.onContainerRef} style={{ position: 'relative', flexGrow: 1 }}>
-        <svg width={width} height={height} style={{ position: 'absolute', left: 0, top: 0 }}>
+        <svg
+          width={width}
+          height={height}
+          style={{
+            position: 'absolute', left: 0, top: 0, overflow: 'visible',
+          }}
+        >
           <TemplatePlaceholder name="series" />
         </svg>
       </div>

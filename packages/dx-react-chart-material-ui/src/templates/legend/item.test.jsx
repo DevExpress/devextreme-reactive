@@ -38,4 +38,10 @@ describe('Root', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Item customProperty>child</Item>);
+    const { customProperty } = tree.find(ListItem).props();
+    expect(customProperty).toBeTruthy();
+  });
 });

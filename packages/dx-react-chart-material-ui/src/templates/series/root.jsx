@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 
 export class Root extends React.PureComponent {
   render() {
-    const { x, y, children } = this.props;
+    const {
+      x, y, children, ...restProps
+    } = this.props;
     return (
-      <g
-        transform={`translate(${x} ${y})`}
-      >
+      <g transform={`translate(${x} ${y})`} {...restProps}>
         {children}
       </g>
     );

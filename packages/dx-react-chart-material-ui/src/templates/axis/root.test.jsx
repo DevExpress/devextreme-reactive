@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow, getClasses } from 'material-ui/test-utils';
 import { Root } from './root';
 
+const defaultProps = {
+  x: 1, y: 2, refsHandler: jest.fn(),
+};
+
 describe('Root', () => {
+  const shallow = createShallow({ dive: true });
+  const classes = getClasses(<Root {...defaultProps} >child</Root>);
   it('should render root element', () => {
     const tree = shallow((
-      <Root
-        x={1}
-        y={2}
-        refsHandler={() => {}}
-      >
+      <Root {...defaultProps}>
         <text>a</text>
       </Root>
     ));
@@ -19,5 +21,24 @@ describe('Root', () => {
 
     expect(transform).toBe('translate(1 2)');
     expect(g.find('text').text()).toBe('a');
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <Root {...defaultProps} className="custom-class" >
+        <text>a</text>
+      </Root>
+    ));
+
+    expect(tree.is(`.${classes.root}`))
+      .toBeTruthy();
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Root {...defaultProps} customProperty>child</Root>);
+    const { customProperty } = tree.find('g').props();
+    expect(customProperty).toBeTruthy();
   });
 });

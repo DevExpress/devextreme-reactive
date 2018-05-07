@@ -1,12 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from 'material-ui/styles';
 
-export class Root extends React.PureComponent {
+const styles = () => ({
+  root: {
+    shapeRendering: 'crispEdges',
+  },
+});
+
+class RootBase extends React.PureComponent {
   render() {
-    const { children } = this.props;
+    const {
+      children, className, classes, ...restProps
+    } = this.props;
     return (
       <g
-        shapeRendering="crispEdges"
+        className={classNames(classes.root, className)}
+        {...restProps}
       >
         {children}
       </g>
@@ -14,6 +25,14 @@ export class Root extends React.PureComponent {
   }
 }
 
-Root.propTypes = {
+RootBase.propTypes = {
   children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
+
+RootBase.defaultProps = {
+  className: undefined,
+};
+
+export const Root = withStyles(styles)(RootBase);

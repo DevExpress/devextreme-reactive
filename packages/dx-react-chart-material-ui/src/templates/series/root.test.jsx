@@ -31,4 +31,10 @@ describe('Scatter root', () => {
     expect(tree.find('.test').exists())
       .toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Root {...defaultProps} customProperty>child</Root>);
+    const { customProperty } = tree.find('g').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

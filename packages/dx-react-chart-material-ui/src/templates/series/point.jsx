@@ -1,33 +1,40 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import classNames from 'classnames';
 
-export class Point extends React.PureComponent {
+const styles = () => ({
+  root: {
+    stroke: 'none',
+  },
+});
+class PointBase extends React.PureComponent {
   render() {
     const {
-      x, y, d, style,
+      x, y, classes, className, pathComponent, ...restProps
     } = this.props;
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={d}
-        style={{
-          stroke: 'none',
-          strokeWidth: '1px',
-          fill: 'black',
-          ...style,
-        }}
+        className={classNames(classes.root, className)}
+        {...restProps}
       />
     );
   }
 }
 
-Point.propTypes = {
+PointBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
-  style: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  pathComponent: PropTypes.any,
 };
 
-Point.defaultProps = {
-  style: null,
+PointBase.defaultProps = {
+  className: undefined,
+  pathComponent: undefined,
 };
+
+export const Point = withStyles(styles)(PointBase);

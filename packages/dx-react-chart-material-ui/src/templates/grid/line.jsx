@@ -7,22 +7,23 @@ import { getBorderColor } from '../utils';
 const styles = theme => ({
   root: {
     stroke: getBorderColor(theme),
+    shapeRendering: 'crispEdges',
   },
 });
 
 export class LineBase extends React.PureComponent {
   render() {
     const {
-      x1, x2, y1, y2, classes, className,
+      x1, x2, y1, y2, classes, className, ...restProps
     } = this.props;
     return (
       <line
         className={classNames(classes.root, className)}
-        shapeRendering="crispEdges"
         x1={x1}
         x2={x2}
         y1={y1}
         y2={y2}
+        {...restProps}
       />
     );
   }

@@ -135,7 +135,7 @@ export const VirtualTableLayout = {
       }
     },
     // registerRowRef(row, ref) {
-  //   if (ref === null) {
+    //   if (ref === null) {
     //     this.rowRefs.delete(row);
     //   } else {
     //     this.rowRefs.set(row, ref);
@@ -184,29 +184,29 @@ export const VirtualTableLayout = {
                 //   // ref={ref => this.registerRowRef(row, ref)}
                 //   ref={`vtl-refHolder-${row.key}-${row.height}`}
                 // >
-                  <Row
-                    key={row.key}
-                    ref={`vtl-refHolder-${row.key}-${row.height}`}
-                    tableRow={row}
-                    style={{
-                      color: 'red',
-                      ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
-                    }}
-                    height={row.height !== undefined ? `${row.height}px` : undefined}
-                  >
-                    {cells.map((cell) => {
-                      const { column } = cell;
-                      return (
-                        <Cell
-                          key={column.key}
-                          tableRow={row}
-                          tableColumn={column}
-                          style={column.animationState}
-                          colSpan={cell.colSpan}
-                        />
-                      );
-                    })}
-                  </Row>
+                <Row
+                  key={row.key}
+                  ref={`vtl-refHolder-${row.key}-${row.height}`}
+                  tableRow={row}
+                  style={{
+                    color: 'red',
+                    ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
+                  }}
+                  height={row.height !== undefined ? `${row.height}px` : undefined}
+                >
+                  {cells.map((cell) => {
+                    const { column } = cell;
+                    return (
+                      <Cell
+                        key={column.key}
+                        tableRow={row}
+                        tableColumn={column}
+                        style={column.animationState}
+                        colSpan={cell.colSpan}
+                      />
+                    );
+                  })}
+                </Row>
                 // </div>
               );
             })}

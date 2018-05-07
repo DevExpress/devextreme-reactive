@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
-import { IntegratedPaging } from './integrated-paging';
+import { DxIntegratedPaging } from './integrated-paging';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   paginatedRows: jest.fn(),
@@ -22,10 +22,10 @@ const defaultDeps = {
   action: {
     setCurrentPage: jest.fn(),
   },
-  plugins: ['PagingState'],
+  plugins: ['DxPagingState'],
 };
 
-describe('IntegratedPaging', () => {
+describe('DxIntegratedPaging', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -47,10 +47,10 @@ describe('IntegratedPaging', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedPaging />
-          </PluginHost>
+            <DxIntegratedPaging />
+          </DxPluginHost>
         );
       },
     });
@@ -63,10 +63,10 @@ describe('IntegratedPaging', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <IntegratedPaging />
-          </PluginHost>
+            <DxIntegratedPaging />
+          </DxPluginHost>
         );
       },
     });
@@ -80,10 +80,10 @@ describe('IntegratedPaging', () => {
     mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <IntegratedPaging />
-          </PluginHost>
+            <DxIntegratedPaging />
+          </DxPluginHost>
         );
       },
     });

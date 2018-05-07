@@ -1,9 +1,9 @@
 import {
-  Getter,
-  Template,
-  TemplateConnector,
-  Plugin,
-  TemplatePlaceholderSlot,
+  DxGetter,
+  DxTemplate,
+  DxTemplateConnector,
+  DxPlugin,
+  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
@@ -17,11 +17,11 @@ import {
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
 
 const pluginDependencies = [
-  { name: 'Table' },
+  { name: 'DxTable' },
 ];
 
-export const TableHeaderRow = {
-  name: 'TableHeaderRow',
+export const DxTableHeaderRow = {
+  name: 'DxTableHeaderRow',
   props: {
     showSortingControls: {
       type: Boolean,
@@ -49,18 +49,18 @@ export const TableHeaderRow = {
     const getMessage = getMessagesFormatter(this.messages);
 
     return (
-      <Plugin
-        name="TableHeaderRow"
+      <DxPlugin
+        name="DxTableHeaderRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
 
-        <Template
+        <DxTemplate
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {params => (
-            <TemplateConnector>
+            <DxTemplateConnector>
               {({
                 getters: {
                   sorting,
@@ -98,10 +98,10 @@ export const TableHeaderRow = {
                   />
                 );
               }}
-            </TemplateConnector>
+            </DxTemplateConnector>
           )}
-        </Template>
-        <Template
+        </DxTemplate>
+        <DxTemplate
           name="tableRow"
           predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
         >
@@ -109,11 +109,11 @@ export const TableHeaderRow = {
             <HeaderRow
               {...{ attrs: { ...params } }}
             >
-              <TemplatePlaceholderSlot params={params} />
+              <DxTemplatePlaceholderSlot params={params} />
             </HeaderRow>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

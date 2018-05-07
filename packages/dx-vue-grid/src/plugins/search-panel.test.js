@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils';
 import { getMessagesFormatter } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { PluginDepsToComponents } from './test-utils';
-import { SearchPanel } from './search-panel';
+import { DxSearchPanel } from './search-panel';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   getMessagesFormatter: jest.fn().mockReturnValue(() => { }),
 }));
 
 const defaultDeps = {
-  plugins: ['Toolbar', 'SearchState', 'IntegratedFiltering'],
+  plugins: ['DxToolbar', 'DxSearchState', 'DxIntegratedFiltering'],
   getter: {
     searchValue: 'abc',
   },
@@ -24,7 +24,7 @@ const defaultProps = {
   inputComponent: { name: 'InputComponent', render() { return null; } },
 };
 
-describe('SearchPanel', () => {
+describe('DxSearchPanel', () => {
   beforeEach(() => {
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
@@ -32,13 +32,13 @@ describe('SearchPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SearchPanel
+            <DxSearchPanel
               {...{ attrs: { ...defaultProps } }}
               messages={{ data: '123' }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -53,15 +53,15 @@ describe('SearchPanel', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SearchPanel
+            <DxSearchPanel
               {...{ attrs: { ...defaultProps } }}
               messages={{
                 searchPlaceholder: 'Search…',
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });

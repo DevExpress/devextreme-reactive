@@ -1,11 +1,11 @@
 import {
-  Template,
-  Plugin,
-  TemplatePlaceholder,
+  DxTemplate,
+  DxPlugin,
+  DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 
-export const Toolbar = {
-  name: 'Toolbar',
+export const DxToolbar = {
+  name: 'DxToolbar',
   props: {
     rootComponent: {
       type: Object,
@@ -22,19 +22,19 @@ export const Toolbar = {
       flexibleSpaceComponent: FlexibleSpaceComponent,
     } = this;
     return (
-      <Plugin
-        name="Toolbar"
+      <DxPlugin
+        name="DxToolbar"
       >
-        <Template name="header">
+        <DxTemplate name="header">
           <Root>
-            <TemplatePlaceholder name="toolbarContent" />
+            <DxTemplatePlaceholder name="toolbarContent" />
           </Root>
-          <TemplatePlaceholder />
-        </Template>
-        <Template name="toolbarContent">
+          <DxTemplatePlaceholder />
+        </DxTemplate>
+        <DxTemplate name="toolbarContent">
           <FlexibleSpaceComponent />
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

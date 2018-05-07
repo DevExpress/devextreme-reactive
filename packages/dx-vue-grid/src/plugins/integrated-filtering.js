@@ -1,4 +1,4 @@
-import { Getter, Plugin } from '@devexpress/dx-vue-core';
+import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   filteredRows,
   getColumnExtension,
@@ -6,14 +6,14 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
-  { name: 'FilteringState', optional: true },
-  { name: 'SearchState', optional: true },
+  { name: 'DxFilteringState', optional: true },
+  { name: 'DxSearchState', optional: true },
 ];
 
 const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);
 
-export const IntegratedFiltering = {
-  name: 'IntegratedFiltering',
+export const DxIntegratedFiltering = {
+  name: 'DxIntegratedFiltering',
   props: {
     columnExtensions: {
       type: Array,
@@ -36,13 +36,13 @@ export const IntegratedFiltering = {
     );
 
     return (
-      <Plugin
-        name="IntegratedFiltering"
+      <DxPlugin
+        name="DxIntegratedFiltering"
         dependencies={pluginDependencies}
       >
-        <Getter name="rows" computed={rowsComputed} />
-        <Getter name="rows" computed={unwrappedRowsComputed} />
-      </Plugin>
+        <DxGetter name="rows" computed={rowsComputed} />
+        <DxGetter name="rows" computed={unwrappedRowsComputed} />
+      </DxPlugin>
     );
   },
 };

@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './plugin-host';
-import { Template } from './template';
-import { TemplatePlaceholder } from './template-placeholder';
+import { DxPluginHost } from './plugin-host';
+import { DxTemplate } from './template';
+import { DxTemplatePlaceholder } from './template-placeholder';
 
 describe('TemplatePlaceholder', () => {
   let resetConsole;
@@ -18,15 +18,15 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               <h1>Test content</h1>
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -39,17 +39,17 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               <span>Test content</span>
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test">
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test">
                 {content => <h1>{content}</h1>}
-              </TemplatePlaceholder>
-            </Template>
-          </PluginHost>
+              </DxTemplatePlaceholder>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -62,15 +62,15 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               {({ text }) => <h1>{text}</h1>}
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" params={{ text: 'param' }} />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -86,11 +86,11 @@ describe('TemplatePlaceholder', () => {
       },
       render() {
         return (
-          <Template name="test">
+          <DxTemplate name="test">
             {({ text }) => (
               <h1>{text}</h1>
             )}
-          </Template>
+          </DxTemplate>
         );
       },
     };
@@ -102,13 +102,13 @@ describe('TemplatePlaceholder', () => {
       },
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <EncapsulatedPlugin />
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" params={{ text: this.text }} />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" params={{ text: this.text }} />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -119,22 +119,22 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               <h1>Test content</h1>
-            </Template>
+            </DxTemplate>
 
-            <Template name="test">
+            <DxTemplate name="test">
               <div> {/* TODO: Wrapper required for multiple children */}
-                <TemplatePlaceholder />
+                <DxTemplatePlaceholder />
                 <h2>Test content</h2>
               </div>
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -149,23 +149,23 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               {({ text }) => (
                 <h1>{text}</h1>
               )}
-            </Template>
+            </DxTemplate>
 
-            <Template name="test">
+            <DxTemplate name="test">
               {() => (
-                <TemplatePlaceholder />
+                <DxTemplatePlaceholder />
               )}
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" params={{ text: 'param' }} />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -178,23 +178,23 @@ describe('TemplatePlaceholder', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="test">
+          <DxPluginHost>
+            <DxTemplate name="test">
               {({ text }) => (
                 <h1>{text}</h1>
               )}
-            </Template>
+            </DxTemplate>
 
-            <Template name="test">
+            <DxTemplate name="test">
               {() => (
-                <TemplatePlaceholder params={{ text: 'overriden' }} />
+                <DxTemplatePlaceholder params={{ text: 'overriden' }} />
               )}
-            </Template>
+            </DxTemplate>
 
-            <Template name="root">
-              <TemplatePlaceholder name="test" params={{ text: 'param' }} />
-            </Template>
-          </PluginHost>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -210,11 +210,11 @@ describe('TemplatePlaceholder', () => {
       },
       render() {
         return (
-          <Template name="test">
+          <DxTemplate name="test">
             {({ text }) => (
               <h1>{text}</h1>
             )}
-          </Template>
+          </DxTemplate>
         );
       },
     };
@@ -226,18 +226,18 @@ describe('TemplatePlaceholder', () => {
       },
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <EncapsulatedPlugin />
 
-            <Template name="test">
+            <DxTemplate name="test">
               {() => (
-                <TemplatePlaceholder />
+                <DxTemplatePlaceholder />
               )}
-            </Template>
-            <Template name="root">
-              <TemplatePlaceholder name="test" params={{ text: this.text }} />
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+            <DxTemplate name="root">
+              <DxTemplatePlaceholder name="test" params={{ text: this.text }} />
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });

@@ -1,14 +1,14 @@
 import { shallow } from '@vue/test-utils';
-import { Toolbar } from './toolbar';
+import { DxToolbar } from './toolbar';
 
-describe('Toolbar', () => {
+describe('DxToolbar', () => {
   it('should pass default slot content', () => {
     const wrapper = shallow({
       render() {
         return (
-          <Toolbar>
+          <DxToolbar>
             <div class="content" />
-          </Toolbar>
+          </DxToolbar>
         );
       },
     });

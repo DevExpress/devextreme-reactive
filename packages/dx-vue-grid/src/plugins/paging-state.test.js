@@ -1,16 +1,19 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { PagingState } from './paging-state';
+import { DxPagingState } from './paging-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   setCurrentPage: jest.fn(),
   setPageSize: jest.fn(),
 }));
 
-describe('PagingState', () => {
+describe('DxPagingState', () => {
+  const defaultProps = {
+    currentPage: 0,
+  };
   let resetConsole;
 
   beforeAll(() => {
@@ -30,12 +33,13 @@ describe('PagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
               currentPage={defaultCurrentPage}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -49,10 +53,13 @@ describe('PagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState pageSize={defaultPageSize} />
-          </PluginHost>
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              pageSize={defaultPageSize}
+            />
+          </DxPluginHost>
         );
       },
     });
@@ -67,10 +74,13 @@ describe('PagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState currentPage={defaultCurrentPage} />
-          </PluginHost>
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              currentPage={defaultCurrentPage}
+            />
+          </DxPluginHost>
         );
       },
     });
@@ -78,7 +88,7 @@ describe('PagingState', () => {
     executeComputedAction(tree, (actions) => {
       actions.setCurrentPage(changeCurrentPageValue);
     });
-    expect(tree.find(PagingState).emitted()['update:currentPage'][0][0]).toBe(changeCurrentPageValue);
+    expect(tree.find(DxPagingState).emitted()['update:currentPage'][0][0]).toBe(changeCurrentPageValue);
 
     expect(setCurrentPage.mock.calls[0][0])
       .toEqual(defaultCurrentPage);
@@ -93,10 +103,13 @@ describe('PagingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <PagingState pageSize={defaultPageSize} />
-          </PluginHost>
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              pageSize={defaultPageSize}
+            />
+          </DxPluginHost>
         );
       },
     });
@@ -104,7 +117,7 @@ describe('PagingState', () => {
     executeComputedAction(tree, (actions) => {
       actions.setPageSize(changePageSizeValue);
     });
-    expect(tree.find(PagingState).emitted()['update:pageSize'][0][0]).toBe(changePageSizeValue);
+    expect(tree.find(DxPagingState).emitted()['update:pageSize'][0][0]).toBe(changePageSizeValue);
 
     expect(setPageSize.mock.calls[0][0])
       .toEqual(defaultPageSize);

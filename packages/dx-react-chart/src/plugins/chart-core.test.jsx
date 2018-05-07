@@ -40,8 +40,8 @@ describe('Chart Core', () => {
     expect(getComputedState(tree)).toEqual({
       argumentAxisName: 'axisName',
       axes: defaultProps.axes,
-      series: defaultProps.series,
-      data: defaultProps.data,
+      originalSeries: defaultProps.series,
+      originalData: defaultProps.data,
     });
   });
 

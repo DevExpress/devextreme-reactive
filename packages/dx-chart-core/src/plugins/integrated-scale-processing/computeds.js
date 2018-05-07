@@ -27,11 +27,13 @@ const calculateDomainField = (field, data, domain = [], type) => {
 
 const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
   series.reduce(
-    (domains, { valueField, argumentField, axisName }) => ({
+    (domains, {
+      valueField, argumentField, axisName, name,
+    }) => ({
       ...domains,
       [axisName]: {
         domain: calculateDomainField(
-          valueField,
+          `${valueField}-${name}-end`,
           data,
           domains[axisName] && domains[axisName].domain,
           domains[axisName] && domains[axisName].type,

@@ -1,32 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { pointAttributes } from '@devexpress/dx-chart-core';
 import { baseSeries } from './base-series';
 
-const Series = ({
-  attributes, ...props
+const EmptyFunction = () => null;
+
+const Dot = ({
+  ...props
 }) => {
   const {
     pointComponent: Point,
     ...restProps
   } = props;
-  const { dPoint, coordinates } = attributes;
   return (
-    coordinates.map(item =>
-      (
-        <Point
-          key={item.id.toString()}
-          x={item.x}
-          y={item.y}
-          d={dPoint}
-          {...restProps}
-        />
-      ))
+    <Point
+      {...restProps}
+    />
   );
 };
 
-export const ScatterSeries = baseSeries(Series, 'ScatterSeries');
+export const ScatterSeries = baseSeries(EmptyFunction, Dot, 'ScatterSeries', 'scatter', EmptyFunction, pointAttributes);
 
-Series.propTypes = {
-  attributes: PropTypes.object.isRequired,
+Dot.propTypes = {
   pointComponent: PropTypes.func.isRequired,
 };

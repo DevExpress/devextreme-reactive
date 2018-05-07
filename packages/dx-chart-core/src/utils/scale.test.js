@@ -10,6 +10,8 @@ linearMockScale.range = jest.fn().mockReturnThis();
 linearMockScale.domain = jest.fn().mockReturnThis();
 
 const bandMockScale = jest.fn().mockReturnValue(10);
+bandMockScale.paddingInner = jest.fn().mockReturnThis();
+bandMockScale.paddingOuter = jest.fn().mockReturnThis();
 bandMockScale.range = jest.fn().mockReturnThis();
 bandMockScale.domain = jest.fn().mockReturnThis();
 
@@ -50,5 +52,12 @@ describe('Create scale', () => {
   it('should be create from d3 scale band', () => {
     const scale = createScale({ ...domainOptions, type: 'band' }, width, height);
     expect(scale).toBe(bandMockScale);
+    expect(bandMockScale.paddingInner).toBeCalledWith(0);
+  });
+
+  it('should be set paddings to d3 scale band', () => {
+    createScale({ ...domainOptions, type: 'band' }, width, height, 0.3);
+    expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
+    expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
   });
 });

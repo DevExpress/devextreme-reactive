@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { barPointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 
@@ -9,25 +9,48 @@ const PointComponent = () => null;
 // eslint-disable-next-line react/prop-types
 const RootComponent = ({ children }) => <div>{children}</div>;
 
-const coordinates = [
-  { x: 1, y: 3, id: 1 },
-  { x: 2, y: 5, id: 2 },
-  { x: 3, y: 7, id: 3 },
-  { x: 4, y: 10, id: 4 },
-  { x: 5, y: 15, id: 5 },
+const coords = [
+  {
+    x: 1, y: 3, y1: 6, id: 1,
+  },
+  {
+    x: 2, y: 5, y1: 8, id: 2,
+  },
+  {
+    x: 3, y: 7, y1: 11, id: 3,
+  },
+  {
+    x: 4, y: 10, y1: 13, id: 4,
+  },
+  {
+    x: 5, y: 15, y1: 20, id: 5,
+  },
 ];
-const widgetHeight = 10;
-const bandwidth = 20;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  seriesAttributes: jest.fn(),
+  lineAttributes: jest.fn(),
+  barPointAttributes: jest.fn(),
+  findSeriesByName: jest.fn(),
+  xyScales: jest.fn(),
+  coordinates: jest.fn(),
 }));
 
-seriesAttributes.mockImplementation(() => ({
-  coordinates,
-  height: widgetHeight,
-  scales: { xScale: { bandwidth: jest.fn(() => bandwidth) } },
+barPointAttributes.mockImplementation(() => () => ({
+  x: 4,
+  y: 3,
+  width: 20,
+  height: 10,
 }));
+
+findSeriesByName.mockImplementation(() => ({
+  axisName: 'axisName',
+  argumentField: 'arg',
+  valueField: 'val',
+  stack: 'stack',
+}));
+
+xyScales.mockImplementation();
+coordinates.mockImplementation(() => coords);
 
 describe('Bar series', () => {
   const defaultDeps = {
@@ -57,15 +80,15 @@ describe('Bar series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent)).toHaveLength(coordinates.length);
+    expect(tree.find(PointComponent)).toHaveLength(coords.length);
 
-    coordinates.forEach((coord, index) =>
+    coords.forEach((coord, index) =>
       expect(tree.find(PointComponent).get(index).props).toEqual({
-        x: coord.x + 3,
-        y: coord.y,
+        x: 4,
+        y: 3,
         styles: 'styles',
-        height: widgetHeight - coord.y,
-        width: bandwidth * 0.7,
+        height: 10,
+        width: 20,
       }));
   });
 });

@@ -1,50 +1,47 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { lineAttributes, pointAttributes } from '@devexpress/dx-chart-core';
 import { baseSeries } from './base-series';
 
 const Series = ({
-  attributes, ...props
+  ...props
 }) => {
   const {
-    pointStyle,
     pathComponent: Path,
-    pointComponent: Point,
     ...restProps
   } = props;
-  const { d, dPoint, coordinates } = attributes;
   return (
-    <React.Fragment>
-      <Path
-        x={0}
-        y={0}
-        d={d}
-        {...restProps}
-      />
-      {
-        coordinates.map(item =>
-          (
-            <Point
-              key={item.id.toString()}
-              x={item.x}
-              y={item.y}
-              d={dPoint}
-              style={pointStyle}
-            />
-        ))
-      }
-    </React.Fragment>
+    <Path {...restProps} />
   );
 };
 
-export const SplineSeries = baseSeries(Series, 'SplineSeries', 'spline');
+const Dot = ({
+  ...props
+}) => {
+  const {
+    pointStyle,
+    pointComponent: Point,
+    ...restProps
+  } = props;
+  return (
+    <Point
+      {...restProps}
+      style={pointStyle}
+    />
+  );
+};
+
+export const SplineSeries = baseSeries(Series, Dot, 'SplineSeries', 'spline', lineAttributes, pointAttributes);
 
 Series.propTypes = {
-  attributes: PropTypes.object.isRequired,
-  pointStyle: PropTypes.object,
-  pointComponent: PropTypes.func.isRequired,
   pathComponent: PropTypes.func.isRequired,
 };
 
-Series.defaultProps = {
-  pointStyle: { },
+Dot.propTypes = {
+  pointStyle: PropTypes.object,
+  pointComponent: PropTypes.func.isRequired,
+};
+
+Dot.defaultProps = {
+  pointStyle: {},
 };

@@ -29,7 +29,9 @@ describe('RowDetailState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <RowDetailState expandedRowIds={expandedRowIds} />
+            <RowDetailState
+              expandedRowIds={expandedRowIds}
+            />
           </PluginHost>
         );
       },
@@ -49,7 +51,9 @@ describe('RowDetailState', () => {
         return (
           <PluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <RowDetailState expandedRowIds={[1]} />
+            <RowDetailState
+              expandedRowIds={[1]}
+            />
           </PluginHost>
         );
       },

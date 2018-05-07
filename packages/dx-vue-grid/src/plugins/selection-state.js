@@ -6,7 +6,7 @@ export const SelectionState = {
   props: {
     selection: {
       type: Array,
-      default: () => [],
+      required: true,
     },
   },
   methods: {

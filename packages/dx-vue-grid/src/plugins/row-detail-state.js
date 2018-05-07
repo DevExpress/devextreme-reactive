@@ -6,7 +6,7 @@ export const RowDetailState = {
   props: {
     expandedRowIds: {
       type: Array,
-      default: () => [],
+      required: true,
     },
   },
   methods: {

@@ -181,6 +181,8 @@
         path: /vue/grid/docs/guides/filtering
       - title: Searching
         path: /vue/grid/docs/guides/searching
+      - title: Grouping
+        path: /vue/grid/docs/guides/grouping
       - title: Selection
         path: /vue/grid/docs/guides/selection
       - title: Editing

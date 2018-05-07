@@ -6,7 +6,7 @@ export const DxSearchState = {
   props: {
     value: {
       type: String,
-      default: '',
+      required: true,
     },
   },
   methods: {

@@ -9,7 +9,7 @@ export const DxFilteringState = {
   props: {
     filters: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     columnExtensions: {
       type: Array,

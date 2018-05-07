@@ -18,6 +18,10 @@ const defaultDeps = {
 };
 
 describe('DxFilteringState', () => {
+  const defaultProps = {
+    filters: [],
+  };
+
   let resetConsole;
 
   beforeAll(() => {
@@ -41,6 +45,7 @@ describe('DxFilteringState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
                 columnFilteringEnabled={false}
                 columnExtensions={columnExtensions}
               />
@@ -63,6 +68,7 @@ describe('DxFilteringState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
                 filters={defaultFilters}
               />
             </DxPluginHost>
@@ -80,7 +86,10 @@ describe('DxFilteringState', () => {
           return (
             <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <DxFilteringState filters={defaultFilters} />
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
             </DxPluginHost>
           );
         },
@@ -98,7 +107,10 @@ describe('DxFilteringState', () => {
           return (
             <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <DxFilteringState filters={defaultFilters} />
+              <DxFilteringState
+                {...{ attrs: { ...defaultProps } }}
+                filters={defaultFilters}
+              />
             </DxPluginHost>
           );
         },

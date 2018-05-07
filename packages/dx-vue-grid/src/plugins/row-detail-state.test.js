@@ -29,7 +29,9 @@ describe('DxRowDetailState', () => {
         return (
           <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <DxRowDetailState expandedRowIds={expandedRowIds} />
+            <DxRowDetailState
+              expandedRowIds={expandedRowIds}
+            />
           </DxPluginHost>
         );
       },
@@ -49,7 +51,9 @@ describe('DxRowDetailState', () => {
         return (
           <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <DxRowDetailState expandedRowIds={[1]} />
+            <DxRowDetailState
+              expandedRowIds={[1]}
+            />
           </DxPluginHost>
         );
       },

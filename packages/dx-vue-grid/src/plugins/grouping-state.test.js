@@ -29,6 +29,10 @@ const defaultDeps = {
 };
 
 describe('DxGroupingState', () => {
+  const defaultProps = {
+    grouping: [],
+    expandedGroups: [],
+  };
   let resetConsole;
 
   beforeAll(() => {
@@ -59,6 +63,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -88,6 +93,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -124,6 +130,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -159,6 +166,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -193,6 +201,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -227,6 +236,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -263,7 +273,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
-                grouping={[]}
+                {...{ attrs: { ...defaultProps } }}
               />
             </DxPluginHost>
           );
@@ -301,6 +311,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -340,6 +351,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -371,6 +383,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -403,6 +416,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps, ...deps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 grouping={defaultGrouping}
               />
             </DxPluginHost>
@@ -427,6 +441,7 @@ describe('DxGroupingState', () => {
             <DxPluginHost>
               <PluginDepsToComponents deps={{ ...defaultDeps }} />
               <DxGroupingState
+                {...{ attrs: { ...defaultProps } }}
                 columnGroupingEnabled={false}
                 columnExtensions={columnExtensions}
               />

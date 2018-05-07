@@ -11,6 +11,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 describe('DxPagingState', () => {
+  const defaultProps = {
+    currentPage: 0,
+  };
   let resetConsole;
 
   beforeAll(() => {
@@ -33,6 +36,7 @@ describe('DxPagingState', () => {
           <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
             <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
               currentPage={defaultCurrentPage}
             />
           </DxPluginHost>
@@ -51,7 +55,10 @@ describe('DxPagingState', () => {
         return (
           <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <DxPagingState pageSize={defaultPageSize} />
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              pageSize={defaultPageSize}
+            />
           </DxPluginHost>
         );
       },
@@ -69,7 +76,10 @@ describe('DxPagingState', () => {
         return (
           <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <DxPagingState currentPage={defaultCurrentPage} />
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              currentPage={defaultCurrentPage}
+            />
           </DxPluginHost>
         );
       },
@@ -95,7 +105,10 @@ describe('DxPagingState', () => {
         return (
           <DxPluginHost>
             <PluginDepsToComponents deps={{}} />
-            <DxPagingState pageSize={defaultPageSize} />
+            <DxPagingState
+              {...{ attrs: { ...defaultProps } }}
+              pageSize={defaultPageSize}
+            />
           </DxPluginHost>
         );
       },

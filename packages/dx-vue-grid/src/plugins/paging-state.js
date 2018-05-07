@@ -6,7 +6,7 @@ export const DxPagingState = {
   props: {
     currentPage: {
       type: Number,
-      default: 0,
+      required: true,
     },
     pageSize: {
       type: Number,

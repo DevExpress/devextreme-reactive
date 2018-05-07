@@ -6,7 +6,7 @@ export const DxSelectionState = {
   props: {
     selection: {
       type: Array,
-      default: () => [],
+      required: true,
     },
   },
   methods: {

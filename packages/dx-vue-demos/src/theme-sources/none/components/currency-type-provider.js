@@ -1,4 +1,4 @@
-import { DataTypeProvider as DxDataTypeProvider } from '@devexpress/dx-vue-grid';
+import { DxDataTypeProvider } from '@devexpress/dx-vue-grid';
 
 const CurrencyEditor = {
   props: {

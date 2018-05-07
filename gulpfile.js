@@ -93,9 +93,7 @@ var injectLiveDemos = function(content) {
 gulp.task('site:clean', function() {
   return gulp.src([
     'site/react/core/**/*.md',
-    'packages/dx-react-grid/docs/guides/*.g.md',
     'site/react/grid/**/*.md',
-    'packages/dx-vue-grid/docs/guides/*.g.md',
     'site/vue/grid/**/*.md',
   ], { read: false })
     .pipe(clean());

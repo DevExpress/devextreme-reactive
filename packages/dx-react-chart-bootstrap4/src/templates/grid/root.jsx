@@ -4,14 +4,9 @@ import classNames from 'classnames';
 
 export class Root extends React.PureComponent {
   render() {
-    const {
-      x, y, children, className,
-    } = this.props;
+    const { children, className, ...restProps } = this.props;
     return (
-      <g
-        transform={`translate(${x} ${y})`}
-        className={classNames('dx-c-bs4-crisp-edges', className)}
-      >
+      <g className={classNames('dx-c-bs4-crisp-edges', className)} {...restProps}>
         {children}
       </g>
     );
@@ -19,8 +14,6 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };

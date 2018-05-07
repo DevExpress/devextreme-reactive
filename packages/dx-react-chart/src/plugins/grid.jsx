@@ -42,7 +42,7 @@ export class Grid extends React.PureComponent {
               );
 
               return ((
-                <Root x={0} y={0}>
+                <Root>
                   {coordinates.ticks.map(({
                       x1, x2, y1, y2, text,
                     }) => (

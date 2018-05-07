@@ -6,13 +6,14 @@ import classNames from 'classnames';
 export class Root extends React.PureComponent {
   render() {
     const {
-      x, y, refsHandler, children, className,
+      x, y, refsHandler, children, className, ...restProps
     } = this.props;
     return (
       <g
         ref={refsHandler}
         transform={`translate(${x} ${y})`}
         className={classNames('dx-c-bs4-crisp-edges', className)}
+        {...restProps}
       >
         {children}
       </g>

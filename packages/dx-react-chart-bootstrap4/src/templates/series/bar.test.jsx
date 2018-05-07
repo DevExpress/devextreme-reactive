@@ -41,4 +41,10 @@ describe('Bar', () => {
 
     expect(style).toEqual(customStyle);
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Bar {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('rect').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

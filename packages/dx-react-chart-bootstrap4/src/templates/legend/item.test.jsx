@@ -1,38 +1,37 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Root } from './root';
+import { Item } from './item';
 
-describe('Root', () => {
-  it('should render root element', () => {
+describe('Item', () => {
+  it('should render root element with the child element', () => {
     const tree = shallow((
-      <Root>
+      <Item>
         <text>a</text>
-      </Root>
+      </Item>
     ));
 
-    const g = tree.find('g');
-
-    expect(g).toBeDefined();
-    expect(g.find('text').text()).toBe('a');
+    const li = tree.find('li');
+    expect(li).toBeDefined();
+    expect(li.find('text').text()).toBe('a');
   });
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <Root className="custom-class">
+      <Item className="custom-class">
         <text>a</text>
-      </Root>
+      </Item>
     ));
 
-    expect(tree.is('.dx-c-bs4-crisp-edges')).toBeTruthy();
+    expect(tree.is('.list-group-item')).toBeTruthy();
     expect(tree.is('.custom-class')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow((
-      <Root customProperty >
+      <Item customProperty >
         <text>a</text>
-      </Root>));
-    const { customProperty } = tree.find('g').props();
+      </Item>));
+    const { customProperty } = tree.find('li').props();
     expect(customProperty).toBeTruthy();
   });
 });

@@ -5,17 +5,17 @@ import classNames from 'classnames';
 export class Label extends React.PureComponent {
   render() {
     const {
-      text, x, y, dominantBaseline, textAnchor, className,
+      text, x, y, dominantBaseline, textAnchor, className, ...restProps
     } = this.props;
 
     return (
       <text
         dominantBaseline={dominantBaseline}
         textAnchor={textAnchor}
-        key={text}
         x={x}
         y={y}
         className={classNames('dx-c-bs4-fill-current-color', className)}
+        {...restProps}
       >
         {text}
       </text>

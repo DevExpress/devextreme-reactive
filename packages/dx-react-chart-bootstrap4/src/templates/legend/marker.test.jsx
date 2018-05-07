@@ -17,4 +17,10 @@ describe('Marker', () => {
     expect(tree.is('.custom-class.oi.oi-graph.mx-1'))
       .toBeTruthy();
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Marker customProperty />);
+    const { customProperty } = tree.find('span').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

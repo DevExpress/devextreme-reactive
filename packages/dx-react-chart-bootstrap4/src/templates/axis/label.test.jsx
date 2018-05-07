@@ -2,17 +2,17 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Label } from './label';
 
+const defaultProps = {
+  x: 1,
+  y: 2,
+  text: 'a',
+  dominantBaseline: 'middle',
+  textAnchor: 'end',
+};
+
 describe('Label', () => {
   it('should render text', () => {
-    const tree = shallow((
-      <Label
-        x={1}
-        y={2}
-        text="a"
-        dominantBaseline="middle"
-        textAnchor="end"
-      />
-    ));
+    const tree = shallow(<Label {...defaultProps} />);
 
     const {
       x, y, dominantBaseline, textAnchor,
@@ -22,5 +22,18 @@ describe('Label', () => {
     expect(dominantBaseline).toBe('middle');
     expect(textAnchor).toBe('end');
     expect(tree.text()).toBe('a');
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow(<Label {...defaultProps} className="custom-class" />);
+
+    expect(tree.is('.dx-c-bs4-fill-current-color')).toBeTruthy();
+    expect(tree.is('.custom-class')).toBeTruthy();
+  });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Label {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('text').props();
+    expect(customProperty).toBeTruthy();
   });
 });

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export class Tick extends React.PureComponent {
   render() {
     const {
-      x1, x2, y1, y2, className,
+      x1, x2, y1, y2, className, ...restProps
     } = this.props;
     return (
       <line
@@ -13,7 +13,11 @@ export class Tick extends React.PureComponent {
         x2={x2}
         y1={y1}
         y2={y2}
-        className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-crisp-edges', className)}
+        className={classNames(
+          'dx-c-bs4-stroke-current-color dx-c-bs4-crisp-edges',
+          className,
+        )}
+        {...restProps}
       />
     );
   }

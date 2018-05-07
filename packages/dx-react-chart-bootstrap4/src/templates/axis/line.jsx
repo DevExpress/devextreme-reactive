@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export class Line extends React.PureComponent {
   render() {
     const {
-      width, height, orientation, className,
+      width, height, orientation, className, ...restProps
     } = this.props;
     return (
       <line
@@ -14,6 +14,7 @@ export class Line extends React.PureComponent {
         y1={0}
         y2={orientation === 'horizontal' ? 0 : height}
         className={classNames('dx-c-bs4-stroke-current-color', className)}
+        {...restProps}
       />
     );
   }

@@ -5,14 +5,13 @@ import classNames from 'classnames';
 export class Path extends React.PureComponent {
   render() {
     const {
-      x, y, d, style, className,
+      x, y, className, ...restProps
     } = this.props;
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={d}
-        style={style}
         className={classNames('dx-c-bs4-fill-none', className)}
+        {...restProps}
       />
     );
   }
@@ -23,10 +22,8 @@ Path.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
-  style: PropTypes.object,
 };
 
 Path.defaultProps = {
   className: undefined,
-  style: null,
 };

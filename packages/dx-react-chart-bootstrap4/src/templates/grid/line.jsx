@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export class Line extends React.PureComponent {
   render() {
     const {
-      x1, x2, y1, y2, className,
+      x1, x2, y1, y2, className, ...restProps
     } = this.props;
     return (
       <line
@@ -14,6 +14,7 @@ export class Line extends React.PureComponent {
         y1={y1}
         y2={y2}
         className={classNames('dx-c-bs4-stroke-current-color', className)}
+        {...restProps}
       />
     );
   }

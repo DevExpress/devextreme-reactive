@@ -41,4 +41,10 @@ describe('Point', () => {
     const { style } = tree.find('path').props();
     expect(style).toEqual(customStyle);
   });
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Point {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('path').props();
+    expect(customProperty).toBeTruthy();
+  });
 });

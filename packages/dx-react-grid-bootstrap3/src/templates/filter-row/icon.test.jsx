@@ -23,14 +23,13 @@ describe('Icon', () => {
     let tree = shallow(<Icon style={{ color: 'red' }} />);
     expect(tree.props().style)
       .toMatchObject({
-        width: 16,
         color: 'red',
       });
 
     tree = shallow(<Icon type="contains" style={{ color: 'red' }} />);
     expect(tree.props().style)
       .toMatchObject({
-        width: 16,
+        width: 14,
         color: 'red',
       });
   });

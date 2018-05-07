@@ -36,6 +36,7 @@ export const Icon = ({ type, style, ...restProps }) => {
     : (
       <i
         className="glyphicon glyphicon-search"
+        style={style}
         {...restProps}
       />
     );

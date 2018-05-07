@@ -37,7 +37,11 @@ describe('PluginIndexer', () => {
 
   it('should correctly determine plugin position after children change', () => {
     const Test1 = {
-      props: { enableGetter: {} },
+      props: {
+        enableGetter: {
+          type: Boolean,
+        },
+      },
       render() {
         return (
           <PluginIndexer>

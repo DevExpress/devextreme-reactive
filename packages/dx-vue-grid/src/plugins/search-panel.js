@@ -20,7 +20,7 @@ export const SearchPanel = {
     },
     messages: {
       type: Object,
-      default: () => { },
+      default: () => ({}),
     },
   },
   render() {

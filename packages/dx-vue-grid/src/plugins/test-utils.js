@@ -15,8 +15,12 @@ let actionExecutor = () => {};
 const ComputedStateContainer = {
   name: 'ComputedStateContainer',
   props: {
-    getters: {},
-    actions: {},
+    getters: {
+      type: Object,
+    },
+    actions: {
+      type: Object,
+    },
   },
   render() {
     const { actions } = this;
@@ -31,8 +35,14 @@ const ComputedStateContainer = {
 
 export const PluginDepsToComponents = {
   props: {
-    deps: {},
-    depsOverrides: { default() { return {}; } },
+    deps: {
+      type: Object,
+      default: () => ({}),
+    },
+    depsOverrides: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   render() {
     const {

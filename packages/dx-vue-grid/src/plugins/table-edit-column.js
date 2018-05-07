@@ -43,7 +43,7 @@ export const TableEditColumn = {
     },
     messages: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   },
   render() {

@@ -10,9 +10,7 @@ export const Plugin = {
     },
     dependencies: {
       type: Array,
-      default() {
-        return [];
-      },
+      default: () => [],
     },
   },
   inject: {

@@ -3,11 +3,18 @@ import { GroupingControl } from './table-header-cell/grouping-control';
 
 export const TableHeaderCell = {
   props: {
-    row: {},
-    tableRow: {},
-    column: {},
-    tableColumn: {},
-    sortingDirection: {},
+    tableRow: {
+      type: Object,
+    },
+    column: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
+    sortingDirection: {
+      type: String,
+    },
     showSortingControls: {
       type: Boolean,
     },
@@ -20,7 +27,9 @@ export const TableHeaderCell = {
     groupingEnabled: {
       type: Boolean,
     },
-    getMessage: {},
+    getMessage: {
+      type: Function,
+    },
   },
   render() {
     const {

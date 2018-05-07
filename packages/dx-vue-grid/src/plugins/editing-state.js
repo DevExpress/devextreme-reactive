@@ -41,7 +41,7 @@ export const EditingState = {
     },
     rowChanges: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     deletedRowIds: {
       type: Array,

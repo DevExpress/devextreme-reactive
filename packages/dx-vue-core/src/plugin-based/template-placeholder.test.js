@@ -82,7 +82,9 @@ describe('TemplatePlaceholder', () => {
   it('should support template update on params change', () => {
     const EncapsulatedPlugin = {
       props: {
-        text: {},
+        text: {
+          type: String,
+        },
       },
       render() {
         return (
@@ -206,7 +208,9 @@ describe('TemplatePlaceholder', () => {
   it('should support templates chain update on params change', () => {
     const EncapsulatedPlugin = {
       props: {
-        text: {},
+        text: {
+          type: String,
+        },
       },
       render() {
         return (

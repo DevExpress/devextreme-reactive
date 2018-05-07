@@ -46,8 +46,8 @@ const TableDetailToggleCellBase = ({
       >
         {
           expanded
-            ? <ExpandMore />
-            : <ExpandLess />
+            ? <ExpandLess />
+            : <ExpandMore />
         }
       </IconButton>
     </TableCell>

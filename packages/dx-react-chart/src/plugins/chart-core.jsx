@@ -18,9 +18,9 @@ export class ChartCore extends React.PureComponent {
 
     return (
       <Plugin>
-        <Getter name="data" value={data} />
+        <Getter name="originalData" value={data} />
         <Getter name="axes" value={axes} />
-        <Getter name="series" value={series} />
+        <Getter name="originalSeries" value={series} />
         <Getter name="argumentAxisName" value={argumentAxis} />
         <Template name="root">
           <Root width={width} height={height} {...restProps}>

@@ -19,8 +19,10 @@ describe('calculateDomain', () => {
   it('should be computed from data and series option', () => {
     const calculatedDomains = domains(
       [argumentAxis, valueAxis],
-      [{ axisName: 'valueAxis', argumentField: 'arg', valueField: 'val' }],
-      [{ arg: 1, val: 9 }],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{ arg: 1, val: 9, 'val-name-end': 9 }],
       'argumentAxis',
     );
 
@@ -33,8 +35,10 @@ describe('calculateDomain', () => {
   it('should be computed from data and series option, axes is empty array', () => {
     const calculatedDomains = domains(
       [],
-      [{ axisName: 'valueAxis', argumentField: 'arg', valueField: 'val' }],
-      [{ arg: 1, val: 9 }],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{ arg: 1, val: 9, 'val-name-end': 9 }],
       'argumentAxis',
     );
 
@@ -47,8 +51,10 @@ describe('calculateDomain', () => {
   it('should be computed from data and series option with band type option', () => {
     const calculatedDomains = domains(
       [{ ...argumentAxis, type: 'band' }, valueAxis],
-      [{ axisName: 'valueAxis', argumentField: 'arg', valueField: 'val' }],
-      [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }, { arg: 'c' }],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: 'c' }],
       'argumentAxis',
     );
     expect(calculatedDomains).toEqual({

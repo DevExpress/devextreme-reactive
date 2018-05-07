@@ -6,15 +6,25 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { seriesAttributes } from '@devexpress/dx-chart-core';
+import { findSeriesByName, coordinates, xyScales } from '@devexpress/dx-chart-core';
 
-export const baseSeries = (WrappedComponent, pluginName, pathType) => {
+export const baseSeries = (
+  WrappedPath,
+  WrappedPoint,
+  pluginName,
+  pathType,
+  processLine,
+  processPoint,
+) => {
   class Component extends React.PureComponent {
     render() {
       const {
         placeholder,
         name,
         rootComponent: Root,
+        point,
+        barWidth,
+        groupWidth,
         ...restProps
       } = this.props;
       return (
@@ -25,6 +35,7 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
               {({
                 series,
                 domains,
+                stacks,
                 data,
                 argumentAxisName,
                 layouts,
@@ -32,21 +43,46 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
                 const {
                   x, y,
                 } = layouts[placeholder];
-                const attributes = seriesAttributes(
-                    data,
-                    series,
-                    name,
-                    domains,
-                    argumentAxisName,
-                    layouts[placeholder],
-                    pathType,
-                  );
+                const {
+                  axisName: domainName,
+                  argumentField,
+                  valueField,
+                  stack,
+                } = findSeriesByName(name, series);
+                const scales = xyScales(
+                  domains,
+                  argumentAxisName,
+                  domainName,
+                  layouts[placeholder],
+                  stacks,
+                  groupWidth,
+                  barWidth,
+                );
+                const coord = coordinates(
+                  data,
+                  scales,
+                  argumentField,
+                  valueField,
+                  name,
+                );
+                const { size } = point;
+                const pointParameters = processPoint(scales, size, stack);
                 return (
                   <Root x={x} y={y}>
-                    <WrappedComponent
-                      attributes={attributes}
+                    <WrappedPath
+                      {...processLine(pathType, coord, scales)}
                       {...restProps}
                     />
+                    {
+                      coord.map(item =>
+                        (
+                          <WrappedPoint
+                            key={item.id.toString()}
+                            {...pointParameters(item)}
+                            {...restProps}
+                          />
+                        ))
+                    }
                   </Root>
                 );
               }}
@@ -60,9 +96,15 @@ export const baseSeries = (WrappedComponent, pluginName, pathType) => {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     rootComponent: PropTypes.func.isRequired,
+    point: PropTypes.object,
+    barWidth: PropTypes.number,
+    groupWidth: PropTypes.number,
   };
   Component.defaultProps = {
     placeholder: 'pane',
+    point: { size: 7 },
+    barWidth: 0.9,
+    groupWidth: 0.7,
   };
   return Component;
 };

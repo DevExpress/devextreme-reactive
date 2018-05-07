@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-flex-layout",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "main": "./lib/entry-browser.js",
   "scripts": {
     "test": "exit 0"

@@ -1,4 +1,4 @@
-import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-vue-core';
+import { DxPluginHost, DxPlugin, DxTemplate, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -28,10 +28,10 @@ export default {
 const TasksList = {
   render() {
     return (
-      <PluginHost>
+      <DxPluginHost>
         <TasksListCore {...{ attrs: this.$attrs }} />
         {this.$slots.default}
-      </PluginHost>
+      </DxPluginHost>
     );
   },
 };
@@ -40,19 +40,19 @@ const TasksListCore = {
   props: ['tasks'],
   render() {
     return (
-      <Plugin>
-        <Template name="root">
+      <DxPlugin>
+        <DxTemplate name="root">
           <ul>
             {this.tasks.map((task, index) => (
-              <TemplatePlaceholder
+              <DxTemplatePlaceholder
                 key={index}
                 name="task"
                 params={{ index, ...task }}
               />
             ))}
           </ul>
-        </Template>
-        <Template name="task">
+        </DxTemplate>
+        <DxTemplate name="task">
           {({ title, done }) => (
             <li
               style={{ textDecoration: done ? 'line-through' : '' }}
@@ -60,8 +60,8 @@ const TasksListCore = {
               {title}
             </li>
           )}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };
@@ -69,17 +69,17 @@ const TasksListCore = {
 const TaskCompletion = {
   render() {
     return (
-      <Plugin>
-        <Template name="task">
+      <DxPlugin>
+        <DxTemplate name="task">
           {({ index, title, done }) => (done ? (
-            <TemplatePlaceholder />
+            <DxTemplatePlaceholder />
           ) : (
             <li>
               {title} <button onClick={() => this.$emit('complete', index)}>Complete</button>
             </li>
           ))}
-        </Template>
-      </Plugin>
+        </DxTemplate>
+      </DxPlugin>
     );
   },
 };

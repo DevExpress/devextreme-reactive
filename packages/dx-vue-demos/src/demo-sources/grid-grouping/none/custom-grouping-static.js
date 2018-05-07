@@ -1,12 +1,12 @@
 import {
-  GroupingState as DxGroupingState,
-  CustomGrouping as DxCustomGrouping,
+  DxGroupingState,
+  DxCustomGrouping,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableGroupRow as DxTableGroupRow,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableGroupRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows, defaultColumnValues } from '../../../demo-data/generator';

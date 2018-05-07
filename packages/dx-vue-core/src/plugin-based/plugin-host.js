@@ -1,10 +1,10 @@
 import { PluginHost as PluginHostCore } from '@devexpress/dx-core';
 import { PluginIndexer } from './plugin-indexer';
-import { TemplatePlaceholder } from './template-placeholder';
+import { DxTemplatePlaceholder } from './template-placeholder';
 import { PLUGIN_HOST_CONTEXT } from './constants';
 
-export const PluginHost = {
-  name: 'PluginHost',
+export const DxPluginHost = {
+  name: 'DxPluginHost',
   beforeCreate() {
     this.pluginHost = new PluginHostCore();
   },
@@ -19,7 +19,7 @@ export const PluginHost = {
         <PluginIndexer>
           {this.$slots.default}
         </PluginIndexer>
-        <TemplatePlaceholder name="root" />
+        <DxTemplatePlaceholder name="root" />
       </div>
     );
   },

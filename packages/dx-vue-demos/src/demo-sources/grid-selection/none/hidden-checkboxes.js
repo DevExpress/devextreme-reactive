@@ -1,12 +1,12 @@
 import {
-  SelectionState as DxSelectionState,
-  IntegratedSelection as DxIntegratedSelection,
+  DxSelectionState,
+  DxIntegratedSelection,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableSelection as DxTableSelection,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableSelection,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

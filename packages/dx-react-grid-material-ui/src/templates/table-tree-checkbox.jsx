@@ -6,10 +6,12 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   checkbox: {
-    marginTop: -theme.spacing.unit,
-    marginBottom: -theme.spacing.unit,
+    marginTop: '-1px',
+    marginBottom: '-1px',
     marginRight: theme.spacing.unit * 2,
     marginLeft: -theme.spacing.unit * 2,
+    width: theme.spacing.unit * 5,
+    height: theme.spacing.unit * 5,
   },
 });
 

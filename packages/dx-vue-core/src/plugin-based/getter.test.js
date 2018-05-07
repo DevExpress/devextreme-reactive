@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './plugin-host';
-import { Plugin } from './plugin';
-import { Template } from './template';
-import { Getter } from './getter';
-import { TemplateConnector } from './template-connector';
+import { DxPluginHost } from './plugin-host';
+import { DxPlugin } from './plugin';
+import { DxTemplate } from './template';
+import { DxGetter } from './getter';
+import { DxTemplateConnector } from './template-connector';
 
 describe('Getter', () => {
   let resetConsole;
@@ -20,15 +20,15 @@ describe('Getter', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="test" value="arg" />
+          <DxPluginHost>
+            <DxGetter name="test" value="arg" />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -40,19 +40,19 @@ describe('Getter', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="dep" value="dep" />
-            <Getter
+          <DxPluginHost>
+            <DxGetter name="dep" value="dep" />
+            <DxGetter
               name="test"
               computed={getters => getters.dep}
             />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -64,21 +64,21 @@ describe('Getter', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="dep" value="base" />
-            <Getter
+          <DxPluginHost>
+            <DxGetter name="dep" value="base" />
+            <DxGetter
               name="test"
               computed={getters => getters.dep}
             />
 
-            <Getter name="dep" value="overriden" />
+            <DxGetter name="dep" value="overriden" />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -90,17 +90,17 @@ describe('Getter', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="dep" value="base" />
+          <DxPluginHost>
+            <DxGetter name="dep" value="base" />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { dep } }) => <h1>{dep}</h1>}
-              </TemplateConnector>
-            </Template>
+              </DxTemplateConnector>
+            </DxTemplate>
 
-            <Getter name="dep" value="overriden" />
-          </PluginHost>
+            <DxGetter name="dep" value="overriden" />
+          </DxPluginHost>
         );
       },
     });
@@ -112,19 +112,19 @@ describe('Getter', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="test" value="base" />
-            <Getter
+          <DxPluginHost>
+            <DxGetter name="test" value="base" />
+            <DxGetter
               name="test"
               computed={getters => `${getters.test}_extended`}
             />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -136,13 +136,13 @@ describe('Getter', () => {
     const EncapsulatedPlugin = {
       render() {
         return (
-          <Plugin>
-            <Template name="root">
-              <TemplateConnector>
+          <DxPlugin>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ getters: { test } }) => <h1>{test}</h1>}
-              </TemplateConnector>
-            </Template>
-          </Plugin>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPlugin>
         );
       },
     };
@@ -151,11 +151,11 @@ describe('Getter', () => {
       props: ['text'],
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <EncapsulatedPlugin />
 
-            <Getter name="test" value={this.text} />
-          </PluginHost>
+            <DxGetter name="test" value={this.text} />
+          </DxPluginHost>
         );
       },
     };
@@ -179,18 +179,18 @@ describe('Getter', () => {
     const EncapsulatedPlugin = {
       render() {
         return (
-          <Plugin>
-            <Template name="root">
+          <DxPlugin>
+            <DxTemplate name="root">
               <div>
-                <TemplateConnector>
+                <DxTemplateConnector>
                   {({ getters: { test } }) => <h1>{test}</h1>}
-                </TemplateConnector>
-                <TemplateConnector>
+                </DxTemplateConnector>
+                <DxTemplateConnector>
                   {({ getters: { test } }) => <h2>{test}</h2>}
-                </TemplateConnector>
+                </DxTemplateConnector>
               </div>
-            </Template>
-          </Plugin>
+            </DxTemplate>
+          </DxPlugin>
         );
       },
     };
@@ -200,17 +200,17 @@ describe('Getter', () => {
       render() {
         let counter = 0;
         return (
-          <PluginHost>
+          <DxPluginHost>
             <EncapsulatedPlugin />
 
-            <Getter
+            <DxGetter
               name="test"
               computed={() => {
                 counter += 1;
                 return `${this.text}_${counter}`;
               }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     };

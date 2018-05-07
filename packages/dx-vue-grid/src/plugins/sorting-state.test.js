@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost } from '@devexpress/dx-vue-core';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
 import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
   getPersistentSortedColumns,
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
-import { SortingState } from './sorting-state';
+import { DxSortingState } from './sorting-state';
 import { PluginDepsToComponents, executeComputedAction, getComputedState } from './test-utils';
 
 const defaultDeps = {
@@ -25,7 +25,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   calculateKeepOther: jest.fn(),
 }));
 
-describe('SortingState', () => {
+describe('DxSortingState', () => {
   beforeEach(() => {
     changeColumnSorting.mockImplementation(() => ({}));
     getColumnExtensionValueGetter.mockImplementation(() => () => {});
@@ -42,10 +42,10 @@ describe('SortingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SortingState sorting={sorting} />
-          </PluginHost>
+            <DxSortingState sorting={sorting} />
+          </DxPluginHost>
         );
       },
     });
@@ -59,10 +59,10 @@ describe('SortingState', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <SortingState sorting={['a']} />
-          </PluginHost>
+            <DxSortingState sorting={['a']} />
+          </DxPluginHost>
         );
       },
     });
@@ -71,7 +71,7 @@ describe('SortingState', () => {
       actions.changeColumnSorting({ keepOther: ['a'] });
     });
 
-    expect(tree.find(SortingState).emitted()['update:sorting'][0][0])
+    expect(tree.find(DxSortingState).emitted()['update:sorting'][0][0])
       .toBe(changeColumnSortingValue.sorting);
     expect(changeColumnSorting.mock.calls[0][0])
       .toEqual({ sorting: ['a'] });

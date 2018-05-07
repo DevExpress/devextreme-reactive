@@ -1,12 +1,12 @@
 import {
-  PagingState as DxPagingState,
-  IntegratedPaging as DxIntegratedPaging,
+  DxPagingState,
+  DxIntegratedPaging,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  PagingPanel as DxPagingPanel,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxPagingPanel,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';

@@ -4,6 +4,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { ChartCore } from './plugins/chart-core';
 import { LayoutManager } from './plugins/layout-manager';
 import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
+import { SeriesFamily } from './plugins/series-family';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -24,6 +25,7 @@ export class Chart extends React.PureComponent {
           rootComponent={Root}
           {...restProps}
         />
+        <SeriesFamily />
         <LayoutManager
           width={width}
           height={height}

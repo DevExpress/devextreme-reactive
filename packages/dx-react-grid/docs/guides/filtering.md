@@ -28,7 +28,7 @@ In the [controlled mode](controlled-and-uncontrolled-modes.md), pass the filteri
 
 .embedded-demo({ "path": "grid-filtering/controlled-mode", "showThemeSelector": true })
 
-## <a name="using-custom-filtering-algorithm"></a>Using Custom Filtering Algorithms
+## Using Custom Filtering Algorithms
 
 You can also specify a filtering predicate using the `IntegratedFiltering` plugin's `columnExtenstions` property to implement custom filtering logic for specific columns.
 
@@ -40,6 +40,12 @@ You can prevent filtering by a specific column using the [FilteringState](../ref
 
 .embedded-demo({ "path": "grid-filtering/disable-column-filtering", "showThemeSelector": true })
 
+## Customizing Filter Row Appearance
+
+Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
+
+.embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
+
 ## Remote Filtering
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
@@ -49,12 +55,6 @@ Filtering options are updated once an end user modifies the text in a Filter Row
 Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
 
 .embedded-demo({ "path": "grid-filtering/remote-filtering", "showThemeSelector": true })
-
-## Customizing Filter Row Appearance
-
-Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
-
-.embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
 
 ## Using Filtering with Other Data Processing Plugins
 

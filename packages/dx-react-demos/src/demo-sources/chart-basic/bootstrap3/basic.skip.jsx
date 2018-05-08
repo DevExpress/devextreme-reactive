@@ -66,6 +66,7 @@ export default class Demo extends React.PureComponent {
           name="Russia"
           style={{ stroke: 'red' }}
           pointStyle={{ fill: 'green' }}
+          point={{ size: 10 }}
         />
         <SplineSeries
           name="China"

@@ -21,8 +21,12 @@ export const CommandButton = {
 
 export const EditCommandHeadingCell = {
   props: {
-    tableColumn: {},
-    tableRow: {},
+    tableColumn: {
+      type: Object,
+    },
+    tableRow: {
+      type: Object,
+    },
   },
   render() {
     return (
@@ -37,9 +41,13 @@ export const EditCommandHeadingCell = {
 
 export const EditCommandCell = {
   props: {
-    row: {},
-    tableRow: {},
-    tableColumn: {},
+    row: null,
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
   },
   render() {
     return (

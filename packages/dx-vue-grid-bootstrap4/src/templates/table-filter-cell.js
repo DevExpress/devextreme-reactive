@@ -1,14 +1,24 @@
 export const TableFilterCell = {
   props: {
-    column: {},
-    tableRow: {},
-    tableColumn: {},
-    getMessage: {},
+    column: {
+      type: Object,
+    },
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
+    getMessage: {
+      type: Function,
+    },
     filter: {
       type: Object,
+      default: null,
     },
     filteringEnabled: {
       type: Boolean,
+      default: true,
     },
   },
   render() {

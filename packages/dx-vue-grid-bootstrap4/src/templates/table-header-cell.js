@@ -3,24 +3,37 @@ import { GroupingControl } from './table-header-cell/grouping-control';
 
 export const TableHeaderCell = {
   props: {
-    row: {},
-    tableRow: {},
-    column: {},
-    tableColumn: {},
-    sortingDirection: {},
+    tableRow: {
+      type: Object,
+    },
+    column: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
+    sortingDirection: {
+      type: String,
+    },
     showSortingControls: {
       type: Boolean,
+      default: false,
     },
     showGroupingControls: {
       type: Boolean,
+      default: false,
     },
     sortingEnabled: {
       type: Boolean,
+      default: false,
     },
     groupingEnabled: {
       type: Boolean,
+      default: false,
     },
-    getMessage: {},
+    getMessage: {
+      type: Function,
+    },
   },
   render() {
     const {

@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-vue-core', () => ({
       return this.$slots.default[0];
     },
   },
-  Sizer: { name: 'Sizer', render() { return this.$scopedSlots.default({ width: 400, height: 100 }); } },
+  DxSizer: { name: 'DxSizer', render() { return this.$scopedSlots.default({ width: 400, height: 100 }); } },
 }));
 
 const defaultProps = {
@@ -94,7 +94,7 @@ describe('VirtualTableLayout', () => {
       },
     });
 
-    expect(tree.find('Sizer'))
+    expect(tree.find('DxSizer'))
       .toMatchSnapshot();
   });
 
@@ -111,7 +111,7 @@ describe('VirtualTableLayout', () => {
         },
       });
 
-      tree.find('Sizer');
+      tree.find('DxSizer');
 
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
@@ -143,7 +143,7 @@ describe('VirtualTableLayout', () => {
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
 
-      tree.find('Sizer');
+      tree.find('DxSizer');
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
           top: 0,

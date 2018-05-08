@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Popover, ListGroup, ListGroupItem } from 'reactstrap';
+import { Popover } from 'reactstrap';
+import classNames from 'classnames';
 
 export class FilterSelector extends React.PureComponent {
   constructor(props) {
@@ -45,23 +46,24 @@ export class FilterSelector extends React.PureComponent {
               target={target}
               toggle={this.handleOverlayToggle}
             >
-              <ListGroup tag="div">
+              <div className="py-2">
                 {availableValues.map(valueItem => (
-                  <ListGroupItem
+                  <button
                     key={valueItem}
-                    className="d-flex align-items-center dx-g-bs4-cursor-pointer dx-rg-bs4-filter-selector-item"
-                    tag="button"
-                    action
-                    active={valueItem === value}
+                    className={classNames({
+                      'dropdown-item d-flex align-items-center': true,
+                      'dx-g-bs4-cursor-pointer dx-g-bs4-filter-selector-item': true,
+                      active: valueItem === value,
+                    })}
                     onClick={() => this.handleMenuItemClick(valueItem)}
                   >
                     <Icon type={valueItem} />
-                    <span className="dx-rg-bs4-filter-selector-item-text">
+                    <span className="dx-g-bs4-filter-selector-item-text">
                       {getMessage(valueItem)}
                     </span>
-                  </ListGroupItem>
+                  </button>
                 ))}
-              </ListGroup>
+              </div>
             </Popover>
           ) : null
         }

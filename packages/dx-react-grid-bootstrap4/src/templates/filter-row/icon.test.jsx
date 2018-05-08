@@ -21,13 +21,13 @@ describe('Icon', () => {
 
   it('should pass the className prop to the root element', () => {
     let tree = shallow(<Icon className="custom-class" />);
-    expect(tree.is('.dx-rg-bs4-filter-selector-icon'))
+    expect(tree.is('.dx-g-bs4-filter-selector-icon'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();
 
     tree = shallow(<Icon type="contains" className="custom-class" />);
-    expect(tree.is('.dx-rg-bs4-filter-selector-icon'))
+    expect(tree.is('.dx-g-bs4-filter-selector-icon'))
       .toBeTruthy();
     expect(tree.is('.custom-class'))
       .toBeTruthy();

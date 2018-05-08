@@ -20,7 +20,7 @@ export const Icon = ({ type, className, ...restProps }) => {
   return path
     ? (
       <svg
-        className={classNames('d-block dx-rg-bs4-filter-selector-icon', className)}
+        className={classNames('d-block dx-g-bs4-filter-selector-icon', className)}
         viewBox="0 0 32 32"
         {...restProps}
       >
@@ -33,7 +33,7 @@ export const Icon = ({ type, className, ...restProps }) => {
           'd-block',
           'oi',
           'oi-magnifying-glass',
-          'dx-rg-bs4-filter-selector-icon',
+          'dx-g-bs4-filter-selector-icon',
           className,
         )}
         {...restProps}

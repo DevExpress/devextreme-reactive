@@ -45,6 +45,7 @@ class FilterSelectorBase extends React.PureComponent {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleMenuClose}
+          MenuListProps={{ dense: true }}
         >
           {availableValues.map(valueItem => (
             <MenuItem

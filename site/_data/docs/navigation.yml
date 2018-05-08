@@ -195,3 +195,5 @@
         path: /vue/grid/docs/reference/grid
       - title: DxTable
         path: /vue/grid/docs/reference/table
+      - title: DxDataTypeProvider
+        path: /vue/grid/docs/reference/data-type-provider

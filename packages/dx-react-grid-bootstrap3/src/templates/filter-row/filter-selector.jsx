@@ -24,7 +24,7 @@ export class FilterSelector extends React.PureComponent {
   }
   render() {
     const {
-      value, availableValues, getMessage, iconComponent: Icon,
+      value, availableValues, disabled, getMessage, iconComponent: Icon,
     } = this.props;
     const { opened } = this.state;
 
@@ -32,7 +32,7 @@ export class FilterSelector extends React.PureComponent {
       <span className="input-group-btn">
         <button
           className="btn btn-default"
-          disabled={availableValues.length <= 1}
+          disabled={disabled || availableValues.length === 1}
           onClick={this.handleButtonClick}
           ref={(ref) => { this.targetElement = ref; }}
         >
@@ -76,6 +76,7 @@ FilterSelector.propTypes = {
   value: PropTypes.string,
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
 };
@@ -84,4 +85,5 @@ FilterSelector.defaultProps = {
   value: undefined,
   availableValues: [],
   onChange: () => {},
+  disabled: false,
 };

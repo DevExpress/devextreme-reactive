@@ -103,6 +103,7 @@ export class TableFilterRow extends React.PureComponent {
                           value={selectedFilterOperation}
                           availableValues={columnFilterOperations}
                           onChange={handleFilterOperationChange}
+                          disabled={!filteringEnabled}
                           getMessage={getMessage}
                         />
                         {content || (

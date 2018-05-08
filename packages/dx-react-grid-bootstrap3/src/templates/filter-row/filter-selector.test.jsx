@@ -26,4 +26,17 @@ describe('FilterSelector', () => {
     expect(tree.find('button').prop('disabled'))
       .toBeTruthy();
   });
+
+  it('should render the disabled toggle button if the "disabled" prop is true', () => {
+    const tree = shallow((
+      <FilterSelector
+        {...defaultProps}
+        availableValues={['one', 'two']}
+        disabled
+      />
+    ));
+
+    expect(tree.find('button').prop('disabled'))
+      .toBeTruthy();
+  });
 });

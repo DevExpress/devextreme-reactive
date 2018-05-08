@@ -30,14 +30,14 @@ class FilterSelectorBase extends React.PureComponent {
   }
   render() {
     const {
-      value, availableValues, getMessage, iconComponent: Icon, classes,
+      value, availableValues, disabled, getMessage, iconComponent: Icon, classes,
     } = this.props;
     const { anchorEl } = this.state;
     return availableValues.length ? (
       <React.Fragment>
         <IconButton
           onClick={this.handleButtonClick}
-          disabled={availableValues.length <= 1}
+          disabled={disabled || availableValues.length === 1}
         >
           <Icon type={value} />
         </IconButton>
@@ -73,6 +73,7 @@ FilterSelectorBase.propTypes = {
   value: PropTypes.string,
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
@@ -82,6 +83,7 @@ FilterSelectorBase.defaultProps = {
   value: undefined,
   availableValues: [],
   onChange: () => {},
+  disabled: false,
 };
 
 export const FilterSelector = withStyles(styles, { name: 'DropDown' })(FilterSelectorBase);

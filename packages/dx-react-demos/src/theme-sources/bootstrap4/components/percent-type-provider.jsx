@@ -17,7 +17,6 @@ const Editor = ({ value, onValueChange }) => {
     <input
       type="number"
       className="form-control text-right"
-      style={{ width: '100%' }}
       placeholder="Filter..."
       value={getInputValue(value)}
       step={0.1}

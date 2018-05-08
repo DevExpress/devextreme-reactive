@@ -22,7 +22,7 @@ const styles = ({ spacing }) => ({
 class TableFilterCellBase extends React.PureComponent {
   render() {
     const {
-      style, filter, getMessage, onFilter,
+      filter, getMessage, onFilter,
       classes, children, className,
       tableRow, tableColumn, column, filteringEnabled,
       ...restProps
@@ -31,7 +31,6 @@ class TableFilterCellBase extends React.PureComponent {
     return (
       <TableCell
         className={classNames(classes.cell, className)}
-        style={style}
         {...restProps}
       >
         <div className={classes.flexContainer}>
@@ -43,7 +42,6 @@ class TableFilterCellBase extends React.PureComponent {
 }
 
 TableFilterCellBase.propTypes = {
-  style: PropTypes.object,
   filter: PropTypes.object,
   onFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
@@ -57,7 +55,6 @@ TableFilterCellBase.propTypes = {
 };
 
 TableFilterCellBase.defaultProps = {
-  style: null,
   filter: null,
   onFilter: () => {},
   children: undefined,

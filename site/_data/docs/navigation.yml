@@ -189,6 +189,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Virtual Scrolling
+        path: /vue/grid/docs/guides/virtual-scrolling
   - title: API Reference
     items:
       - title: DxGrid

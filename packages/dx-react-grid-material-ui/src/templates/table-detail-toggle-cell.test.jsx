@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { createShallow, getClasses } from 'material-ui/test-utils';
 import IconButton from 'material-ui/IconButton';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
@@ -62,5 +64,25 @@ describe('TableDetailToggleCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should correct render icon', () => {
+    let tree = shallow((
+      <TableDetailToggleCell expanded />
+    ));
+
+    expect(tree.find(ExpandLess).exists())
+      .toBeTruthy();
+    expect(tree.find(ExpandMore).exists())
+      .toBeFalsy();
+
+    tree = shallow((
+      <TableDetailToggleCell />
+    ));
+
+    expect(tree.find(ExpandLess).exists())
+      .toBeFalsy();
+    expect(tree.find(ExpandMore).exists())
+      .toBeTruthy();
   });
 });

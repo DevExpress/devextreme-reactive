@@ -19,8 +19,10 @@ describe('Path', () => {
     ));
     const { d, transform } = tree.find('path').props();
 
-    expect(transform).toBe('translate(1 2)');
-    expect(d).toBe('M10 10');
+    expect(transform)
+      .toBe('translate(1 2)');
+    expect(d)
+      .toBe('M10 10');
   });
 
   it('should apply custom styles if any', () => {
@@ -36,11 +38,12 @@ describe('Path', () => {
     ));
     const { style } = tree.find('path').props();
 
-    expect(style).toEqual(customStyle);
+    expect(style)
+      .toEqual(customStyle);
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((<Path {...defaultProps} className="custom-class" />));
+    const tree = shallow(<Path {...defaultProps} className="custom-class" />);
 
     expect(tree.is(`.${classes.root}`))
       .toBeTruthy();
@@ -49,8 +52,10 @@ describe('Path', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow((<Path {...defaultProps} customProperty />));
+    const tree = shallow(<Path {...defaultProps} customProperty />);
     const { customProperty } = tree.find('path').props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

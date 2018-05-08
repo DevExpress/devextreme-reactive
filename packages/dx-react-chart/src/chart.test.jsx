@@ -42,14 +42,14 @@ describe('Chart', () => {
   });
 
   it('should render chart core', () => {
-    const tree = shallow((<Chart {...defaultProps} />));
+    const tree = shallow(<Chart {...defaultProps} />);
 
     expect(tree.find(ChartCore).exists())
       .toBeTruthy();
   });
 
   it('should render layout manager', () => {
-    const tree = shallow((<Chart {...defaultProps} />));
+    const tree = shallow(<Chart {...defaultProps} />);
 
     expect(tree.find(LayoutManager).exists())
       .toBeTruthy();

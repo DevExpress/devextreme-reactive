@@ -26,22 +26,6 @@ describe('Bar', () => {
     expect(height).toBe(20);
   });
 
-  it('should apply custom styles if any', () => {
-    const customStyle = {
-      stroke: 'red',
-      strokeWidth: '2px',
-    };
-    const tree = shallow((
-      <Bar
-        {...defaultProps}
-        style={customStyle}
-      />
-    ));
-    const { style } = tree.find('rect').props();
-
-    expect(style).toEqual(customStyle);
-  });
-
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Bar {...defaultProps} customProperty />);
     const { customProperty } = tree.find('rect').props();

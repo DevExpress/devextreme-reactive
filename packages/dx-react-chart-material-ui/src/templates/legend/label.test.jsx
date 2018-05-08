@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { createShallow } from 'material-ui/test-utils';
 import { shallow, mount } from 'enzyme';
 import { ListItemText } from 'material-ui/List';
 import { Label } from './label';
@@ -8,9 +7,10 @@ const defaultProps = { text: 'a' };
 
 describe('Label', () => {
   it('should render ListItemText', () => {
-    const tree = shallow((<Label {...defaultProps} />));
+    const tree = shallow(<Label {...defaultProps} />);
 
-    expect(tree.find(ListItemText).exists()).toBeTruthy();
+    expect(tree.find(ListItemText).exists())
+      .toBeTruthy();
   });
 
   it('should render text', () => {
@@ -23,8 +23,10 @@ describe('Label', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow((<Label {...defaultProps} customProperty />));
+    const tree = shallow(<Label {...defaultProps} customProperty />);
     const { customProperty } = tree.find(ListItemText).props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

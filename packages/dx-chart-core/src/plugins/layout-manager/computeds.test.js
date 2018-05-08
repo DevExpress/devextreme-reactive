@@ -1,6 +1,6 @@
 import { bBoxes } from './computeds';
 
-describe('AxisCoordinates', () => {
+describe('bBoxes', () => {
   it('should set new placeholder bBox', () => {
     const result = bBoxes(
       {},

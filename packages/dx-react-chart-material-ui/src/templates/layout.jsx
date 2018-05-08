@@ -51,7 +51,7 @@ RootBase.propTypes = {
 RootBase.defaultProps = {
   className: undefined,
   children: undefined,
-  style: undefined,
+  style: null,
 };
 
 export const Root = withStyles(styles)(RootBase);

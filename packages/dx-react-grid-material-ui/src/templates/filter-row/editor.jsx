@@ -31,14 +31,13 @@ EditorBase.propTypes = {
   value: PropTypes.any,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  getMessage: PropTypes.func,
+  getMessage: PropTypes.func.isRequired,
 };
 
 EditorBase.defaultProps = {
   value: '',
   disabled: false,
   onChange: () => {},
-  getMessage: PropTypes.func.isRequired,
 };
 
 export const Editor = withStyles(styles)(EditorBase);

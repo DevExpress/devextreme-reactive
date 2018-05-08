@@ -118,10 +118,7 @@ export const VirtualTableLayout = {
     },
     storeRowHeights() {
       const rowsWithChangedHeights = Array.from(this.$refs)
-        // eslint-disable-next-line react/no-find-dom-node
-        .map((node) => {
-          return [{ key: node.split('-')[2], height: node.split('-')[3] }, node];
-        })
+        .map(node => [{ key: node.split('-')[2], height: node.split('-')[3] }, node])
         .filter(([, node]) => !!node)
         .map(([row, node]) => [row, node.getBoundingClientRect().height])
         .filter(([row, height]) => height !== this.getRowHeight(row));

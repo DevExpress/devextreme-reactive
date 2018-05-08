@@ -18,12 +18,16 @@ const FixedHeader = {
 const TableHead = {
   name: 'TableHead',
   functional: true,
-  render(h, context) { return <thead {...{ attrs: context.props, on: context.listeners }}>{context.children}</thead>; },
+  render(h, context) {
+    return <thead {...{ attrs: context.props, on: context.listeners }}>{context.children}</thead>;
+  },
 };
 const TableBody = {
   name: 'TableBody',
   functional: true,
-  render(h, context) { return <tbody {...{ attrs: context.props, on: context.listeners }}>{context.children}</tbody>; },
+  render(h, context) {
+    return <tbody {...{ attrs: context.props, on: context.listeners }}>{context.children}</tbody>;
+  },
 };
 
 const defaultMessages = {
@@ -53,8 +57,10 @@ export const VirtualTable = {
   methods: {
     layoutRenderComponent() {
       const { height, estimatedRowHeight, headTableComponent } = this;
-      const result = createRenderComponent(VirtualTableLayout, { height, estimatedRowHeight, headTableComponent });
-      return result;
+      return createRenderComponent(
+        VirtualTableLayout,
+        { height, estimatedRowHeight, headTableComponent },
+      );
     },
   },
   beforeUpdate() {

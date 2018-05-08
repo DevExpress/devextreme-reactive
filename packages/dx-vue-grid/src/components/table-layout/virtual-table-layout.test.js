@@ -1,25 +1,24 @@
 import { shallow, mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
+import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { VirtualTableLayout } from './virtual-table-layout';
-import { getCollapsedGrid } from './virtual-table-utils';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
-jest.mock('./virtual-table-utils', () => {
-  const actual = require.requireActual('./virtual-table-utils');
+jest.mock('@devexpress/dx-grid-core', () => {
+  const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrid');
   return actual;
 });
 jest.mock('./column-group', () => ({
   ColumnGroup: () => null,
 }));
-jest.mock('@devexpress/dx-vue-core', () => {
-  return {
-    // Sizer: ({ children }) => children({ width: 400, height: 100 }),
-    Sizer: { name: 'Sizer', render() { return this.$scopedSlots.default({ width: 400, height: 100 }); } },
-  };
-});
+jest.mock('@devexpress/dx-vue-core', () => ({
+  RefHolder: {
+    render() {
+      return this.$slots.default[0];
+    },
+  },
+  Sizer: { name: 'Sizer', render() { return this.$scopedSlots.default({ width: 400, height: 100 }); } },
+}));
 
 const defaultProps = {
   columns: [
@@ -55,11 +54,6 @@ describe('VirtualTableLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    // findDOMNode.mockImplementation(() => ({
-    //   getBoundingClientRect: () => ({
-    //     height: defaultProps.estimatedRowHeight,
-    //   }),
-    // }));
   });
 
   afterEach(() => {
@@ -79,11 +73,12 @@ describe('VirtualTableLayout', () => {
       currentTarget: target,
     };
 
+    // eslint-disable-next-line no-param-reassign
     tree.find(defaultProps.containerComponent).element.target = target;
+    // eslint-disable-next-line no-param-reassign
     tree.find(defaultProps.containerComponent).element.currentTarget = target;
 
     tree.find(defaultProps.containerComponent).vm.$listeners.scroll(eventData);
-    // tree.find(defaultProps.containerComponent).trigger('scroll');
     tree.update();
   };
 
@@ -179,7 +174,7 @@ describe('VirtualTableLayout', () => {
           expect(getRowHeight(rows[1]))
             .toEqual(10);
 
-          return require.requireActual('./virtual-table-utils').getCollapsedGrid(args);
+          return require.requireActual('@devexpress/dx-grid-core').getCollapsedGrid(args);
         });
 
       mount({

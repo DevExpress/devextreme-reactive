@@ -3,7 +3,7 @@ import { DxGrid as DxGridBase } from '@devexpress/dx-vue-grid';
 import { GridRoot } from './templates/grid-root';
 
 export const DxGrid = {
-  name: 'Grid',
+  name: 'DxGrid',
   functional: true,
   render(h, context) {
     return (
@@ -15,5 +15,7 @@ export const DxGrid = {
       </DxGridBase>
     );
   },
-  Root: GridRoot,
+  components: {
+    DxRoot: GridRoot,
+  },
 };

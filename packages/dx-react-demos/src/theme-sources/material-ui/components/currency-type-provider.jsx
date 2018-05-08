@@ -7,6 +7,7 @@ import { DataTypeProvider } from '@devexpress/dx-react-grid';
 const styles = {
   numericInput: {
     textAlign: 'right',
+    width: '100%',
   },
 };
 

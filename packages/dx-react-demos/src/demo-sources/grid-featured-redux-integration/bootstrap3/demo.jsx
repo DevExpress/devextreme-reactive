@@ -4,6 +4,7 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
+  DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
@@ -60,8 +61,26 @@ const columnBands = [
     ],
   },
 ];
+const customFilteredColumns = ['prefix'];
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
+
+const TitleFilterEditor = ({ value = '', onValueChange }) => (
+  <input
+    className="form-control"
+    style={{ borderRadius: 4 }}
+    placeholder="Filter..."
+    value={value}
+    onChange={event => onValueChange(event.target.value)}
+  />
+);
+const TitleTypeProvider = props => (
+  <DataTypeProvider
+    editorComponent={TitleFilterEditor}
+    availableFilterOperations={[]}
+    {...props}
+  />
+);
 
 const GridDetailContainer = ({ row }) => (
   <div style={{ margin: 20 }}>
@@ -140,6 +159,10 @@ const GridContainer = ({
       <SelectionState
         selection={selection}
         onSelectionChange={onSelectionChange}
+      />
+
+      <TitleTypeProvider
+        for={customFilteredColumns}
       />
 
       <IntegratedFiltering />

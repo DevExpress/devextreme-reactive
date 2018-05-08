@@ -33,7 +33,11 @@ const TasksList = {
 };
 
 const TasksListCore = {
-  props: { tasks: {} },
+  props: {
+    tasks: {
+      type: Array,
+    },
+  },
   render() {
     return (
       <DxPlugin>
@@ -63,7 +67,11 @@ const TasksListCore = {
 };
 
 const TasksFilter = {
-  props: { defaultDone: {} },
+  props: {
+    defaultDone: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       done: this.defaultDone,

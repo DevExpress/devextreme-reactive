@@ -1,7 +1,12 @@
 export const TableRow = {
   props: {
-    row: {},
-    tableRow: {},
+    row: null,
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
   },
   render() {
     return (

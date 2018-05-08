@@ -64,7 +64,9 @@ describe('DxGroupingPanel', () => {
     const layoutComponent = {
       name: 'LayoutComponent',
       props: {
-        emptyMessageComponent: {},
+        emptyMessageComponent: {
+          type: Object,
+        },
       },
       render() {
         const { emptyMessageComponent: EmptyMessage } = this;
@@ -101,7 +103,9 @@ describe('DxGroupingPanel', () => {
     const layoutComponent = {
       name: 'LayoutComponent',
       props: {
-        itemComponent: {},
+        itemComponent: {
+          type: Object,
+        },
       },
       render() {
         const { itemComponent: Item } = this;

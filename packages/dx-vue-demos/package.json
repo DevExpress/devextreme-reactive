@@ -60,6 +60,7 @@
     "style-loader": "^0.21.0",
     "vue-loader": "^15.0.7",
     "vue-template-compiler": "^2.5.16",
+    "vue-server-renderer": "^2.5.16",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.1.2",
     "webpack-dev-server": "^3.1.4",

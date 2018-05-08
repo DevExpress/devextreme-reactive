@@ -1,7 +1,8 @@
 export const TableStubRow = {
   props: {
-    row: {},
-    tableRow: {},
+    tableRow: {
+      type: Object,
+    },
   },
   render() {
     return (

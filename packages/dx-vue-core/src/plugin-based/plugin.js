@@ -10,9 +10,7 @@ export const DxPlugin = {
     },
     dependencies: {
       type: Array,
-      default() {
-        return [];
-      },
+      default: () => [],
     },
   },
   inject: {

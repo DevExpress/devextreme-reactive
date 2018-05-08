@@ -4,19 +4,25 @@ export const TableSelectAllCell = {
   props: {
     allSelected: {
       type: Boolean,
+      default: false,
     },
     someSelected: {
       type: Boolean,
+      default: false,
     },
     disabled: {
       type: Boolean,
+      default: false,
     },
     rowSpan: {
       type: Number,
-      default: undefined,
     },
-    tableColumn: {},
-    tableRow: {},
+    tableColumn: {
+      type: Object,
+    },
+    tableRow: {
+      type: Object,
+    },
   },
   render() {
     const {

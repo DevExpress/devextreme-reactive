@@ -195,3 +195,5 @@
         path: /vue/grid/docs/reference/grid
       - title: DxFilteringState
         path: /vue/grid/docs/reference/filtering-state
+      - title: DxIntegratedFiltering
+        path: /vue/grid/docs/reference/integrated-filtering

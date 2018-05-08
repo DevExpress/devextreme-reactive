@@ -6,19 +6,21 @@ describe('Item', () => {
   it('should render root element with the child element', () => {
     const tree = shallow((
       <Item>
-        <text>a</text>
+        <div />
       </Item>
     ));
 
     const li = tree.find('li');
-    expect(li).toBeDefined();
-    expect(li.find('text').text()).toBe('a');
+    expect(li)
+      .toBeDefined();
+    expect(li.find('div').exists())
+      .toBeTruthy();
   });
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <Item className="custom-class">
-        <text>a</text>
+        <div />
       </Item>
     ));
 
@@ -29,9 +31,12 @@ describe('Item', () => {
   it('should pass the rest property to the root element', () => {
     const tree = shallow((
       <Item customProperty >
-        <text>a</text>
+        <div />
       </Item>));
+
     const { customProperty } = tree.find('li').props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

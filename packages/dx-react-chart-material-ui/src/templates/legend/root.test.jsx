@@ -7,27 +7,33 @@ describe('Root', () => {
   it('should render List', () => {
     const tree = shallow((
       <Root >
-        <text>a</text>
+        <div />
       </Root>
     ));
-    expect(tree.find(List)).toHaveLength(1);
+    expect(tree.find(List))
+      .toHaveLength(1);
   });
 
   it('should render children item', () => {
     const tree = shallow((
       <Root >
-        <span>a</span>
+        <div />
       </Root>
     ));
-    const span = tree.find(List).children();
+    const children = tree.find(List).children();
 
-    expect(span).toHaveLength(1);
-    expect(span.type()).toEqual('span');
+    expect(children)
+      .toHaveLength(1);
+    expect(children.type())
+      .toEqual('div');
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Root customProperty>child</Root>);
+
     const { customProperty } = tree.find(List).props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

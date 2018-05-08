@@ -10,19 +10,18 @@ describe('Label', () => {
       <Label {...defaultProps} />
     ));
 
-    expect(tree.text()).toBe('a');
-    expect(tree.find('span')).toBeDefined();
-  });
-
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Label {...defaultProps} className="custom-class" />);
-
-    expect(tree.find('span').is('.custom-class')).toBeTruthy();
+    expect(tree.text())
+      .toBe('a');
+    expect(tree.find('span'))
+      .toBeDefined();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Label {...defaultProps} customProperty />);
+
     const { customProperty } = tree.find('span').props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

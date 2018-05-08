@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
@@ -11,7 +12,6 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { IntegratedGrouping } from './integrated-grouping';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupRowChecker: jest.fn(),

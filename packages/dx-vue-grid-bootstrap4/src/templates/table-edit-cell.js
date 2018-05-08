@@ -1,15 +1,16 @@
 export const EditCell = {
   props: {
-    tableRow: {},
-    column: {},
-    row: {},
+    tableRow: {
+      type: Object,
+    },
+    column: {
+      type: Object,
+    },
+    row: null,
     tableColumn: {
       type: Object,
     },
-    value: {
-      type: [String, Number, Boolean],
-      default: '',
-    },
+    value: null,
     editingEnabled: {
       type: Boolean,
       default: true,

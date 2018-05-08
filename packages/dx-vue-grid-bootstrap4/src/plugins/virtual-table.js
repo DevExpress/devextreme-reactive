@@ -34,8 +34,8 @@ const defaultMessages = {
   noData: 'No data',
 };
 
-export const VirtualTable = {
-  name: 'VirtualTable',
+export const DxVirtualTable = {
+  name: 'DxVirtualTable',
   props: {
     estimatedRowHeight: {
       type: Number,
@@ -51,7 +51,7 @@ export const VirtualTable = {
     },
     messages: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   methods: {
@@ -89,17 +89,18 @@ export const VirtualTable = {
       />
     );
   },
+  components: {
+    DxCell: TableCell,
+    DxRow: TableRow,
+    DxNoDataCell: TableNoDataCell,
+    DxNoDataRow: TableRow,
+    DxStubRow: TableStubRow,
+    DxStubCell: TableStubCell,
+    DxStubHeaderCell: TableStubCell,
+    DxTable: TableComponent,
+    DxTableHead: TableHead,
+    DxTableBody: TableBody,
+    DxFixedHeader: FixedHeader,
+    DxContainer: TableContainer,
+  },
 };
-
-VirtualTable.Cell = TableCell;
-VirtualTable.Row = TableRow;
-VirtualTable.NoDataCell = TableNoDataCell;
-VirtualTable.NoDataRow = TableRow;
-VirtualTable.StubRow = TableStubRow;
-VirtualTable.StubCell = TableStubCell;
-VirtualTable.StubHeaderCell = TableStubCell;
-VirtualTable.Table = TableComponent;
-VirtualTable.TableHead = TableHead;
-VirtualTable.TableBody = TableBody;
-VirtualTable.FixedHeader = FixedHeader;
-VirtualTable.Container = TableContainer;

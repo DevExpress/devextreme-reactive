@@ -1,13 +1,13 @@
 import {
-  EditingState as DxEditingState,
-  DataTypeProvider as DxDataTypeProvider,
+  DxEditingState,
+  DxDataTypeProvider,
 } from '@devexpress/dx-vue-grid';
 import {
-  Grid as DxGrid,
-  Table as DxTable,
-  TableHeaderRow as DxTableHeaderRow,
-  TableEditRow as DxTableEditRow,
-  TableEditColumn as DxTableEditColumn,
+  DxGrid,
+  DxTable,
+  DxTableHeaderRow,
+  DxTableEditRow,
+  DxTableEditColumn,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 import {
   generateRows,

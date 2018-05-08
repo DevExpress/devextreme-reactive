@@ -8,8 +8,8 @@ import {
   customGroupedRows,
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
-import { PluginHost } from '@devexpress/dx-vue-core';
-import { CustomGrouping } from './custom-grouping';
+import { DxPluginHost } from '@devexpress/dx-vue-core';
+import { DxCustomGrouping } from './custom-grouping';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -28,14 +28,14 @@ const defaultDeps = {
     expandedGroups: ['A', 'B'],
     getRowId: () => { },
   },
-  plugins: ['GroupingState'],
+  plugins: ['DxGroupingState'],
 };
 
 const defaultProps = {
   getChildGroups: () => { },
 };
 
-describe('CustomGrouping', () => {
+describe('DxCustomGrouping', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -60,12 +60,12 @@ describe('CustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -78,12 +78,12 @@ describe('CustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -96,12 +96,12 @@ describe('CustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -128,12 +128,12 @@ describe('CustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -157,12 +157,12 @@ describe('CustomGrouping', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
+          <DxPluginHost>
             <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <CustomGrouping
+            <DxCustomGrouping
               {...{ attrs: { ...defaultProps } }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
@@ -182,14 +182,14 @@ describe('CustomGrouping', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <CustomGrouping
+              <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });
@@ -207,14 +207,14 @@ describe('CustomGrouping', () => {
       const tree = mount({
         render() {
           return (
-            <PluginHost>
+            <DxPluginHost>
               <PluginDepsToComponents deps={defaultDeps} />
-              <CustomGrouping
+              <DxCustomGrouping
                 {...{ attrs: { ...defaultProps } }}
                 grouping={grouping}
                 expandedGroups={expandedGroups}
               />
-            </PluginHost>
+            </DxPluginHost>
           );
         },
       });

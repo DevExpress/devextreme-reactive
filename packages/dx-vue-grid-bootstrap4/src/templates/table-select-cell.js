@@ -4,10 +4,15 @@ export const TableSelectCell = {
   props: {
     selected: {
       type: Boolean,
+      default: false,
     },
-    row: {},
-    tableRow: {},
-    tableColumn: {},
+    row: null,
+    tableRow: {
+      type: Object,
+    },
+    tableColumn: {
+      type: Object,
+    },
   },
   render() {
     const { toggle: onToggle } = this.$listeners;

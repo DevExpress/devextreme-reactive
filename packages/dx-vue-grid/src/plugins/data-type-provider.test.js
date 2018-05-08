@@ -1,23 +1,23 @@
 import { mount } from '@vue/test-utils';
-import { PluginHost, Template } from '@devexpress/dx-vue-core';
-import { DataTypeProvider } from './data-type-provider';
+import { DxPluginHost, DxTemplate } from '@devexpress/dx-vue-core';
+import { DxDataTypeProvider } from './data-type-provider';
 
-describe('DataTypeProvider', () => {
+describe('DxDataTypeProvider', () => {
   it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
-            <DataTypeProvider
+          <DxPluginHost>
+            <DxDataTypeProvider
               for={['test']}
               formatterComponent={{ render: () => null }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const templates = tree.findAll(Template);
+    const templates = tree.findAll(DxTemplate);
     const { name, predicate } = templates.at(0).props();
 
     expect(templates)
@@ -34,17 +34,17 @@ describe('DataTypeProvider', () => {
     const tree = mount({
       render() {
         return (
-          <PluginHost>
-            <DataTypeProvider
+          <DxPluginHost>
+            <DxDataTypeProvider
               for={['test']}
               editorComponent={{ render: () => null }}
             />
-          </PluginHost>
+          </DxPluginHost>
         );
       },
     });
 
-    const templates = tree.findAll(Template);
+    const templates = tree.findAll(DxTemplate);
     const { name, predicate } = templates.at(0).props();
 
     expect(templates)

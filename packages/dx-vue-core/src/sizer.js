@@ -38,7 +38,7 @@ const styles = {
   },
 };
 
-export const Sizer = {
+export const DxSizer = {
   name: 'Sizer',
   data() {
     return {

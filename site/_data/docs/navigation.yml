@@ -193,3 +193,5 @@
     items:
       - title: DxGrid
         path: /vue/grid/docs/reference/grid
+      - title: DxFilteringState
+        path: /vue/grid/docs/reference/filtering-state

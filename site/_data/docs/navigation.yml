@@ -197,3 +197,5 @@
         path: /vue/grid/docs/reference/filtering-state
       - title: DxIntegratedFiltering
         path: /vue/grid/docs/reference/integrated-filtering
+      - title: DxTableFilterRow
+        path: /vue/grid/docs/reference/table-filter-row

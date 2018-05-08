@@ -60,7 +60,7 @@ Describes properties passed to a component that renders a filter selector.
 
 Field | Type | Description
 ------|------|------------
-iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; |  A component that renders icons.
+iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; | A component that renders filter selector icons.
 value | string | The currently selected filter operation.
 availableValues | Array&lt;string&gt; | The list of available filter operations.
 onChange | (value: string) => void | Handles filter operation changes.
@@ -88,7 +88,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 Field | Type | Default | Description
 ------|------|---------|------------
-filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
+filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text.
 contains? | string | 'Contains' | The 'contains' filter operation name.
 notContains? | string | 'Does not contain'| The 'notContains' filter operation name.
 startsWith? | string | 'Starts with'| The 'startsWith' filter operation name.
@@ -106,6 +106,9 @@ Name | Properties | Description
 -----|------------|------------
 TableFilterRow.Cell | [TableFilterRow.CellProps](#tablefilterrowcellprops) | A component that renders a filter row cell.
 TableFilterRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a filter row.
+TableFilterRow.FilterSelector | [TableFilterRow.FilterSelectorProps](#tablefilterrowselectorprops) | A component that renders a filter selector.
+TableFilterRow.Icon | [TableFilterRow.IconProps](#tablefilterrowiconprops) | A component that renders filter selector icons.
+TableFilterRow.Editor | [TableFilterRow.EditorProps](#tablefilterroweditorprops) | A component that renders a filter editor.
 
 Additional properties are added to the component's root element.
 

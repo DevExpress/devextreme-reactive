@@ -13,8 +13,12 @@ const testCSSProp = (property, value, noPrefixes) => {
 };
 
 export const Table = {
+  name: 'Table',
   props: {
     use: {
+      type: String,
+    },
+    minWidth: {
       type: String,
     },
   },
@@ -44,16 +48,15 @@ export const Table = {
   render() {
     return (
       <table
-        class="table mb-0 w-100 dx-g-bs4-overflow-hidden dx-g-bs4-table"
+        class={{
+          'table mb-0 dx-g-bs4-overflow-hidden dx-g-bs4-table': true,
+          'dx-g-bs4-table-head': this.use === 'head',
+        }}
         style={{
-          tableLayout: 'fixed',
-          overflow: 'hidden',
-          marginBottom: 0,
-          ...this.use === 'head' ? {
+            minWidth: this.minWidth,
+            ...this.use === 'head' ? {
             position: this.stickyProp,
-            top: 0,
-            zIndex: 1,
-            background: this.backgroundColor,
+            backgroundColor: this.backgroundColor,
           } : null,
         }}
         {...{ attrs: this.$attrs, on: this.$listeners }}

@@ -146,7 +146,7 @@ export const VirtualTableLayout = {
         return;
       }
 
-      if (this.viewportTop !== node.scrollTop) {
+      if (this.viewportTop !== node.scrollTop || this.viewportLeft !== node.scrollLeft) {
         this.viewportTop = node.scrollTop;
         this.viewportLeft = node.scrollLeft;
       }
@@ -161,6 +161,7 @@ export const VirtualTableLayout = {
       return (
         <Table
           style={{ minWidth: `${minWidth}px` }}
+          minWidth={`${minWidth}px`}
         >
           <ColumnGroup
             columns={collapsedGrid.columns}
@@ -175,10 +176,6 @@ export const VirtualTableLayout = {
                 >
                   <Row
                     tableRow={row}
-                    style={{
-                      color: 'red',
-                      ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
-                    }}
                     height={row.height !== undefined ? `${row.height}px` : undefined}
                   >
                     {cells.map((cell) => {
@@ -190,6 +187,7 @@ export const VirtualTableLayout = {
                           tableColumn={column}
                           style={column.animationState}
                           colSpan={cell.colSpan}
+                          width={column.width !== undefined ? `${column.width}px` : undefined}
                         />
                       );
                     })}

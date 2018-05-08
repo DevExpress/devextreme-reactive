@@ -6,6 +6,7 @@ export const TableStubHeaderCell = {
   render() {
     return (
       <th
+        {...{ attrs: this.$attrs, on: this.$listeners }}
         class="p-0"
       />
     );

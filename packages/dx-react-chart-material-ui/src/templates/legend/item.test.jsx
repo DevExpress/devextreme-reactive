@@ -9,28 +9,31 @@ describe('Root', () => {
   it('should render List item', () => {
     const tree = shallow((
       <Item >
-        <span>a</span>
+        <div />
       </Item>
     ));
 
-    expect(tree.find(ListItem)).toHaveLength(1);
+    expect(tree.find(ListItem))
+      .toHaveLength(1);
   });
 
   it('should render children item', () => {
     const tree = shallow((
       <Item >
-        <span>a</span>
+        <div />
       </Item>
     ));
     const span = tree.find(ListItem).children();
 
-    expect(span).toHaveLength(1);
-    expect(span.type()).toEqual('span');
+    expect(span)
+      .toHaveLength(1);
+    expect(span.type())
+      .toEqual('div');
   });
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <Item className="custom-class">a</Item>
+      <Item className="custom-class"><div /></Item>
     ));
 
     expect(tree.is(`.${classes.root}`))
@@ -41,7 +44,10 @@ describe('Root', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Item customProperty>child</Item>);
+
     const { customProperty } = tree.find(ListItem).props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

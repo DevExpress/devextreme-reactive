@@ -12,7 +12,7 @@ describe('Root', () => {
   it('should render List item', () => {
     const tree = shallow((
       <Root {...defaultProps} >
-        <span>a</span>
+        <span />
       </Root>
     ));
 
@@ -23,7 +23,7 @@ describe('Root', () => {
   it('should render children item', () => {
     const tree = shallow((
       <Root {...defaultProps} >
-        <span>a</span>
+        <span />
       </Root>
     ));
     const span = tree.find('div').children();
@@ -34,10 +34,23 @@ describe('Root', () => {
       .toEqual('span');
   });
 
-  it('should pass the className prop to the root element', () => {
+  it('should apply style to root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} className="custom-class" >a</Root>
+      <Root {...defaultProps} style={{ color: 'red' }} >
+        <span />
+      </Root>
     ));
+    const { style } = tree.find('div').props();
+    expect(style)
+      .toEqual({
+        width: '200px',
+        height: '100px',
+        color: 'red',
+      });
+  });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow(<Root {...defaultProps} className="custom-class" ><span /></Root>);
 
     expect(tree.is(`.${classes.root}`))
       .toBeTruthy();
@@ -46,9 +59,7 @@ describe('Root', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Root {...defaultProps} customProperty>a</Root>
-    ));
+    const tree = shallow(<Root {...defaultProps} customProperty><span /></Root>);
     const { customProperty } = tree.find('div').props();
     expect(customProperty)
       .toBeTruthy();

@@ -127,7 +127,6 @@ export class VirtualTableLayout extends React.PureComponent {
                     : undefined}
                 >
                   {cells.map((cell) => {
-                    console.log(cell.animationState);
                     const { column } = cell;
                     return (
                       <Cell

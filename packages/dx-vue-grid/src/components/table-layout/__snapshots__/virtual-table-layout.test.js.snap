@@ -2,6 +2,6 @@
 
 exports[`VirtualTableLayout should render correct layout 1`] = `
 ErrorWrapper {
-  "selector": "Sizer",
+  "selector": "DxSizer",
 }
 `;

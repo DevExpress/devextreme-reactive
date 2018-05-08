@@ -22,8 +22,8 @@ describe('Item', () => {
       </Item>
     ));
 
-    expect(tree.is('.list-group-item')).toBeTruthy();
-    expect(tree.is('.custom-class')).toBeTruthy();
+    expect(tree.is('.custom-class.list-group-item'))
+      .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {

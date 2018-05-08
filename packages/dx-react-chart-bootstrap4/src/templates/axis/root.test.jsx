@@ -31,8 +31,7 @@ describe('Root', () => {
       </Root>
     ));
 
-    expect(tree.is('.dx-c-bs4-crisp-edges')).toBeTruthy();
-    expect(tree.is('.custom-class')).toBeTruthy();
+    expect(tree.is('.custom-class.dx-c-bs4-crisp-edges')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
@@ -41,6 +40,8 @@ describe('Root', () => {
         <text>a</text>
       </Root>));
     const { customProperty } = tree.find('g').props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

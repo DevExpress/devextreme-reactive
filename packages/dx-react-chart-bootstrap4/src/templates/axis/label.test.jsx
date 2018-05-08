@@ -27,13 +27,15 @@ describe('Label', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow(<Label {...defaultProps} className="custom-class" />);
 
-    expect(tree.is('.dx-c-bs4-fill-current-color')).toBeTruthy();
-    expect(tree.is('.custom-class')).toBeTruthy();
+    expect(tree.is('.custom-class.dx-c-bs4-fill-current-color'))
+      .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Label {...defaultProps} customProperty />);
     const { customProperty } = tree.find('text').props();
-    expect(customProperty).toBeTruthy();
+
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

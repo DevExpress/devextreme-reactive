@@ -49,8 +49,8 @@ A component that renders the grid root layout.
 #### Slots
 
 Field | Description
-------|------|------------
-default | The default Vue slot
+------|------------
+default | The default Vue slot.
 
 ## Plugin Developer Reference
 

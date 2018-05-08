@@ -193,3 +193,5 @@
     items:
       - title: DxGrid
         path: /vue/grid/docs/reference/grid
+      - title: DxTable
+        path: /vue/grid/docs/reference/table

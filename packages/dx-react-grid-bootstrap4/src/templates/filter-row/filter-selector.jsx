@@ -45,7 +45,7 @@ export class FilterSelector extends React.PureComponent {
               target={target}
               toggle={this.handleOverlayToggle}
             >
-              <ListGroup>
+              <ListGroup tag="div">
                 {availableValues.map(valueItem => (
                   <ListGroupItem
                     key={valueItem}

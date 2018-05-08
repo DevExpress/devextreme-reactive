@@ -1,5 +1,5 @@
 import { getCollapsedGrid } from '@devexpress/dx-grid-core';
-import { Sizer } from '@devexpress/dx-vue-core';
+import { Sizer, RefHolder } from '@devexpress/dx-vue-core';
 import { ColumnGroup } from './column-group';
 
 export const VirtualTableLayout = {
@@ -134,13 +134,6 @@ export const VirtualTableLayout = {
         this.rowHeights = rowHeights;
       }
     },
-    // registerRowRef(row, ref) {
-    //   if (ref === null) {
-    //     this.rowRefs.delete(row);
-    //   } else {
-    //     this.rowRefs.set(row, ref);
-    //   }
-    // },
     updateViewport(e) {
       const node = e.target;
 
@@ -179,35 +172,32 @@ export const VirtualTableLayout = {
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
               return (
-                // <div
-                //   key={row.key}
-                //   // ref={ref => this.registerRowRef(row, ref)}
-                //   ref={`vtl-refHolder-${row.key}-${row.height}`}
-                // >
-                <Row
+                <RefHolder
                   key={row.key}
-                  ref={`vtl-refHolder-${row.key}-${row.height}`}
-                  tableRow={row}
-                  style={{
-                    color: 'red',
-                    ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
-                  }}
-                  height={row.height !== undefined ? `${row.height}px` : undefined}
+                  ref={`refHolder-${row.key}-${row.height}`}
                 >
-                  {cells.map((cell) => {
-                    const { column } = cell;
-                    return (
-                      <Cell
-                        key={column.key}
-                        tableRow={row}
-                        tableColumn={column}
-                        style={column.animationState}
-                        colSpan={cell.colSpan}
-                      />
-                    );
-                  })}
-                </Row>
-                // </div>
+                  <Row
+                    tableRow={row}
+                    style={{
+                      color: 'red',
+                      ...row.height !== undefined ? { height: `${row.height}px` } : undefined,
+                    }}
+                    height={row.height !== undefined ? `${row.height}px` : undefined}
+                  >
+                    {cells.map((cell) => {
+                      const { column } = cell;
+                      return (
+                        <Cell
+                          key={column.key}
+                          tableRow={row}
+                          tableColumn={column}
+                          style={column.animationState}
+                          colSpan={cell.colSpan}
+                        />
+                      );
+                    })}
+                  </Row>
+                </RefHolder>
               );
             })}
           </Body>
@@ -249,7 +239,7 @@ export const VirtualTableLayout = {
             width,
             height: headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight: getRowHeight,
+            getRowHeight,
             getColSpan,
           });
           const collapsedBodyGrid = getCollapsedGrid({
@@ -260,7 +250,7 @@ export const VirtualTableLayout = {
             width,
             height: height - headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight: getRowHeight,
+            getRowHeight,
             getColSpan,
           });
 

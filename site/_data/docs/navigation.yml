@@ -193,3 +193,5 @@
     items:
       - title: DxGrid
         path: /vue/grid/docs/reference/grid
+      - title: DxGroupingState
+        path: /vue/grid/docs/reference/grouping-state

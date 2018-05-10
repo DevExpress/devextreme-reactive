@@ -41,7 +41,6 @@ export class FilterSelector extends React.PureComponent {
         <Overlay
           visible={opened}
           target={this.getTargetElement()}
-          container={undefined}
           onHide={this.handleOverlayHide}
         >
           <ListGroup

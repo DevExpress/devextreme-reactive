@@ -39,7 +39,7 @@ const styles = {
 };
 
 export const DxSizer = {
-  name: 'Sizer',
+  name: 'DxSizer',
   data() {
     return {
       size: { width: 0, height: 0 },

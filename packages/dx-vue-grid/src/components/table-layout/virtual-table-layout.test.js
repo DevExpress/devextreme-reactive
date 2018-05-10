@@ -45,8 +45,8 @@ const defaultProps = {
   tableComponent: { render() { return <table />; } },
   headComponent: { render() { return <table />; } },
   bodyComponent: { render() { return <tbody />; } },
-  rowComponent: { name: 'Row', render() { return null; } },
-  cellComponent: { name: 'Cell', render() { return null; } },
+  rowComponent: { name: 'Row', render: () => null },
+  cellComponent: { name: 'Cell', render: () => null },
   getCellColSpan: () => 1,
 };
 
@@ -78,7 +78,7 @@ describe('VirtualTableLayout', () => {
     // eslint-disable-next-line no-param-reassign
     tree.find(defaultProps.containerComponent).element.currentTarget = target;
 
-    tree.find(defaultProps.containerComponent).vm.$listeners.scroll(eventData);
+    tree.find(defaultProps.containerComponent).vm.$emit('scroll', eventData);
     tree.update();
   };
 

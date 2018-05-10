@@ -51,7 +51,7 @@ export const DxVirtualTable = {
     },
     messages: {
       type: Object,
-      default: () => { },
+      default: () => ({}),
     },
   },
   methods: {

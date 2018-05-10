@@ -7,13 +7,13 @@ A plugin that renders a filter row.
 Use the following statement to import a plugin with embedded theme components:
 
 ```js
-import { TableFilterRow } from '@devexpress/dx-vue-grid-bootstrap4';
+import { DxTableFilterRow } from '@devexpress/dx-vue-grid-bootstrap4';
 ```
 
 If you want to use custom components, you can import the themeless plugin:
 
 ```js
-import { TableFilterRow } from '@devexpress/dx-vue-grid';
+import { DxTableFilterRow } from '@devexpress/dx-vue-grid';
 ```
 
 ## User Reference
@@ -82,7 +82,7 @@ isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function
 changeColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column's filter or clears it if config is null.
 tableCell | Template | [DxTable.CellProps](table.md#dxtablecellprops) | A template that renders a table cell.
 tableRow | Template | [DxTable.RowProps](table.md#dxtablerowprops) | A template that renders a table row.
-valueEditor | Template | [DxDataTypeProvider.ValueEditor](data-type-provider.md#datatypeprovidervalueeditor) | A template that renders the editor.
+valueEditor | Template | [DxDataTypeProvider.ValueEditor](data-type-provider.md#dxdatatypeprovidervalueeditor) | A template that renders the editor.
 
 ### Exports
 

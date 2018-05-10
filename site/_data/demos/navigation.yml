@@ -16,5 +16,7 @@
 /vue/grid:
   - title: DEMOS
     items:
+      - title: Integrated Data Shaping
+        path: /vue/grid/demos/featured/integrated-data-shaping
       - title: Remote Data
         path: /vue/grid/demos/featured/remote-data

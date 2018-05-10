@@ -47,7 +47,7 @@ const TableCellBase = ({
 TableCellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   tableRow: PropTypes.object,

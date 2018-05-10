@@ -36,9 +36,7 @@ describe('Root', () => {
       <Item className="custom-class"><div /></Item>
     ));
 
-    expect(tree.is(`.${classes.root}`))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 

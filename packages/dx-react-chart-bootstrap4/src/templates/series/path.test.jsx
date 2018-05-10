@@ -36,11 +36,10 @@ describe('Path', () => {
     expect(style).toEqual(customStyle);
   });
 
-  it.only('should pass the className prop to the root element', () => {
+  it('should pass the className prop to the root element', () => {
     const tree = shallow(<Path {...defaultProps} className="custom-class" />);
 
-    expect(tree.find('path').is('.custom-class')).toBeTruthy();
-    expect(tree.find('path').is('.dx-c-bs4-fill-none')).toBeTruthy();
+    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {

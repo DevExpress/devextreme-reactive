@@ -50,9 +50,7 @@ describe('Slice', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow(<Slice {...defaultProps} className="custom-class" />);
 
-    expect(tree.is(`.${classes.root}`))
-      .toBeTruthy();
-    expect(tree.is('.custom-class'))
+    expect(tree.is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 

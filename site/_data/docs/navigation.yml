@@ -197,3 +197,5 @@
         path: /vue/grid/docs/reference/grouping-state
       - title: DxIntegratedGrouping
         path: /vue/grid/docs/reference/integrated-grouping
+      - title: DxTableGroupRow
+        path: /vue/grid/docs/reference/table-group-row

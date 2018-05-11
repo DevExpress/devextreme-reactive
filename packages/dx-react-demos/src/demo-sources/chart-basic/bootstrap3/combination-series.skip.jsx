@@ -10,7 +10,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-svg';
 
-export default class Demo extends React.PureComponent {
+export default class Demo extends React.Component {
   constructor(props) {
     super(props);
 

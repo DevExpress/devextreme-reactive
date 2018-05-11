@@ -15,8 +15,4 @@ To visualize extra elements such as axes, grids and legend use following plugins
 - Grid - renders grids for axis
 - Legend - renders legend
 
-<div
-    class="embedded-demo"
-    data-options='{"path":"/demo/chart-basic/combination-series.skip","showThemeSelector":true,"scriptPath":"{{site.baseurl}}/{{page.demos_link}}/demos/dist/index.js?v={{ site.time | date: '%s' }}"}'
->
-</div>
+.embedded-demo({ "path": "chart-basic/combination-series.skip", "showThemeSelector": true })

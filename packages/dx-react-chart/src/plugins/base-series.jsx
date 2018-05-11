@@ -21,7 +21,6 @@ export const baseSeries = (
       const {
         placeholder,
         name,
-        rootComponent: Root,
         point,
         barWidth,
         groupWidth,
@@ -29,7 +28,7 @@ export const baseSeries = (
       } = this.props;
       return (
         <Plugin name={pluginName}>
-          <Template name="canvas">
+          <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
               {({
@@ -39,10 +38,9 @@ export const baseSeries = (
                 data,
                 argumentAxisName,
                 layouts,
+                width,
+                height,
               }) => {
-                const {
-                  x, y,
-                } = layouts[placeholder];
                 const {
                   axisName: domainName,
                   argumentField,
@@ -53,7 +51,7 @@ export const baseSeries = (
                   domains,
                   argumentAxisName,
                   domainName,
-                  layouts[placeholder],
+                  layouts.pane || { width, height },
                   stacks,
                   groupWidth,
                   barWidth,
@@ -68,7 +66,7 @@ export const baseSeries = (
                 const { size } = point;
                 const pointParameters = processPoint(scales, size, stack);
                 return (
-                  <Root x={x} y={y}>
+                  <React.Fragment>
                     <WrappedPath
                       {...processLine(pathType, coord, scales)}
                       {...restProps}
@@ -83,7 +81,7 @@ export const baseSeries = (
                           />
                         ))
                     }
-                  </Root>
+                  </React.Fragment>
                 );
               }}
             </TemplateConnector>
@@ -95,7 +93,6 @@ export const baseSeries = (
   Component.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    rootComponent: PropTypes.func.isRequired,
     point: PropTypes.object,
     barWidth: PropTypes.number,
     groupWidth: PropTypes.number,

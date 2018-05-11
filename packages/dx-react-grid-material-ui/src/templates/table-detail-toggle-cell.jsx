@@ -62,7 +62,7 @@ TableDetailToggleCellBase.propTypes = {
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
 };
 
 TableDetailToggleCellBase.defaultProps = {

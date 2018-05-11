@@ -24,7 +24,8 @@
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.2.0",
     "@devexpress/dx-react-chart": "1.2.0",
-    "@devexpress/dx-react-chart-svg": "1.2.0",
+    "@devexpress/dx-react-chart-bootstrap4": "0.0.0",
+    "@devexpress/dx-react-chart-material-ui": "0.0.0",
     "@devexpress/dx-react-core": "1.2.0",
     "@devexpress/dx-react-grid": "1.2.0",
     "@devexpress/dx-react-grid-bootstrap3": "1.2.0",

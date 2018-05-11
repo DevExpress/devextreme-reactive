@@ -2,9 +2,8 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { changeSearchValue } from '@devexpress/dx-grid-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, testStatePluginField } from '@devexpress/dx-react-core/test-utils';
 import { SearchState } from './search-state';
-import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),

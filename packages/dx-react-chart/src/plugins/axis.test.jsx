@@ -25,10 +25,9 @@ describe('Axis', () => {
           x: 1, y: 2, width: 200, height: 100,
         },
       },
-      addNodes: jest.fn(),
     },
     template: {
-      canvas: {},
+      'bottom-axis': {},
     },
   };
   const defaultProps = {
@@ -83,8 +82,8 @@ describe('Axis', () => {
     const {
       x, y, refsHandler, children,
     } = tree.find(RootComponent).props();
-    expect(x).toBe(1);
-    expect(y).toBe(2);
+    expect(x).toBe(-0);
+    expect(y).toBe(-0);
     expect(refsHandler).toEqual(expect.any(Function));
     expect(children).toEqual(expect.any(Object));
   });
@@ -107,8 +106,8 @@ describe('Axis', () => {
     const {
       x, y, refsHandler, children,
     } = tree.find(RootComponent).props();
-    expect(x).toBe(1);
-    expect(y).toBe(2);
+    expect(x).toBe(-0);
+    expect(y).toBe(-0);
     expect(refsHandler).toEqual(expect.any(Function));
     expect(children).toEqual(expect.any(Object));
   });
@@ -159,16 +158,16 @@ describe('Axis', () => {
       </PluginHost>
     ));
     expect(tree.find(TickComponent).get(0).props).toEqual({
-      x1: 2,
-      x2: 3,
-      y1: 5,
-      y2: 6,
+      x1: 1,
+      x2: 2,
+      y1: 3,
+      y2: 4,
     });
     expect(tree.find(TickComponent).get(1).props).toEqual({
-      x1: 12,
-      x2: 23,
-      y1: 35,
-      y2: 46,
+      x1: 11,
+      x2: 22,
+      y1: 33,
+      y2: 44,
     });
   });
 

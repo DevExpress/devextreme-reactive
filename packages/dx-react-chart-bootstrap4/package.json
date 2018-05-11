@@ -1,0 +1,93 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-react-chart-bootstrap4",
+  "version": "0.0.0",
+  "description": "Bootstrap 4 templates for DevExtreme React Chart component",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "react",
+    "data",
+    "chart",
+    "d3js",
+    "bootstrap",
+    "react-component",
+    "visualization"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/dx-react-chart-bootstrap4.umd.js",
+  "module": "dist/dx-react-chart-bootstrap4.es.js",
+  "styles": "dist/dx-react-chart-bootstrap4.css",
+  "globalName": "DevExpress.DXReactChartBootstrap4",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/dx-react-chart-bootstrap4.d.ts",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "lint": "eslint \"src/**\"",
+    "lint:fix": "yarn run lint -- --fix"
+  },
+  "devDependencies": {
+    "@devexpress/dx-chart-core": "1.2.0",
+    "@devexpress/dx-react-core": "1.2.0",
+    "@devexpress/dx-react-chart": "1.2.0",
+    "@devexpress/dx-testing": "1.2.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "core-js": "^2.5.5",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "reactstrap": "5.0.0",
+    "rollup": "0.50.0",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-css-only": "^0.4.0",
+    "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.2.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.1"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-chart-core": "1.2.0",
+    "@devexpress/dx-react-core": "1.2.0",
+    "@devexpress/dx-react-chart": "1.2.0",
+    "react": "^16.2.0",
+    "reactstrap": "5.0.0"
+  }
+}

@@ -67,7 +67,7 @@ const TableGroupCellBase = ({
 TableGroupCellBase.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
-  row: PropTypes.object,
+  row: PropTypes.any,
   column: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,

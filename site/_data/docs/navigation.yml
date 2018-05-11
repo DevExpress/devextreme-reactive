@@ -203,3 +203,7 @@
         path: /vue/grid/docs/reference/grouping-panel
       - title: DxCustomGrouping
         path: /vue/grid/docs/reference/custom-grouping
+      - title: DxSortingState
+        path: /vue/grid/docs/reference/sorting-state
+      - title: DxIntegratedSorting
+        path: /vue/grid/docs/reference/integrated-sorting

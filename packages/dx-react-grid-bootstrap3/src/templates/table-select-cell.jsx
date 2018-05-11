@@ -30,7 +30,7 @@ TableSelectCell.propTypes = {
   style: PropTypes.object,
   selected: PropTypes.bool,
   onToggle: PropTypes.func,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };

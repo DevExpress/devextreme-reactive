@@ -14,12 +14,12 @@ html {
 }
 
 h2,
-h3 {
+h3,
+h4 {
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
 }
 
 h1,
-h4,
 h5,
 h6 {
     font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";
@@ -42,9 +42,8 @@ h3 {
 }
 
 h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #5b7f98;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 h5 {

@@ -24,7 +24,7 @@ TableCell.propTypes = {
   style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,

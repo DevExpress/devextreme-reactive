@@ -42,7 +42,7 @@ export class RowLayout extends React.PureComponent {
 }
 
 RowLayout.propTypes = {
-  row: PropTypes.object.isRequired,
+  row: PropTypes.any.isRequired,
   columns: PropTypes.array.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,

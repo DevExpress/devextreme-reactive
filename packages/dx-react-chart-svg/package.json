@@ -78,12 +78,12 @@
     "rollup-plugin-node-resolve": "^3.0.2"
   },
   "dependencies": {
-    "@devexpress/dx-chart-core": "1.2.0"
+    "@devexpress/dx-chart-core": "1.2.0",
+    "prop-types": "^15.6.1"
   },
   "peerDependencies": {
     "@devexpress/dx-react-chart": "1.2.0",
     "@devexpress/dx-react-core": "1.2.0",
-    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

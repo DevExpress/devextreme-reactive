@@ -47,7 +47,7 @@ TableSelectCellBase.propTypes = {
   selected: PropTypes.bool,
   onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,

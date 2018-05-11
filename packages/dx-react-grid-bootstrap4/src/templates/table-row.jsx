@@ -14,7 +14,7 @@ export const TableRow = ({
 
 TableRow.propTypes = {
   children: PropTypes.node,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
 };

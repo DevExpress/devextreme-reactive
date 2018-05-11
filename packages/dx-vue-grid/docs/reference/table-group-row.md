@@ -30,8 +30,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
 columnExtensions? | Array&lt;[DxTableGroupRow.ColumnExtension](#dxtablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | Object | [DxTableGroupRow.components.Cell](#dxtablegrouprowcomponentscell) | A component that renders a group cell.
-rowComponent | Object | [DxTableGroupRow.components.Row](#dxtablegrouprowcomponentsrow) | A component that renders a group row.
+cellComponent | Object | [DxTableGroupRow.components.DxCell](#dxtablegrouprowcomponentsdxcell) | A component that renders a group cell.
+rowComponent | Object | [DxTableGroupRow.components.DxRow](#dxtablegrouprowcomponentsdxrow) | A component that renders a group row.
 indentCellComponent? | [DxTableGroupRow.IndentCellProps](#dxtablegrouprowindentcellprops) | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
@@ -68,9 +68,11 @@ column | [Column](grid.md#column) | A column associated with the group.
 
 ## Plugin Components
 
-### DxTableGroupRow.components.Row
+### DxTableGroupRow.components.DxRow
 
 A component that renders a group row.
+
+Inherits [DxTable.RowSlots](table.md#dxtablerowslots).
 
 #### Props
 
@@ -80,7 +82,7 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
 
-### DxTableGroupRow.components.Cell
+### DxTableGroupRow.components.DxCell
 
 A component that renders a group cell.
 

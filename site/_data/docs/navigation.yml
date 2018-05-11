@@ -199,3 +199,5 @@
         path: /vue/grid/docs/reference/integrated-sorting
       - title: DxPagingState
         path: /vue/grid/docs/reference/paging-state
+      - title: DxIntegratedPaging
+        path: /vue/grid/docs/reference/integrated-paging

@@ -201,3 +201,5 @@
         path: /vue/grid/docs/reference/table-group-row
       - title: DxGroupingPanel
         path: /vue/grid/docs/reference/grouping-panel
+      - title: DxCustomGrouping
+        path: /vue/grid/docs/reference/custom-grouping

@@ -1,4 +1,6 @@
 export const TableRow = {
+  name: 'TableRow',
+  functional: true,
   props: {
     row: null,
     tableRow: {
@@ -8,12 +10,12 @@ export const TableRow = {
       type: Object,
     },
   },
-  render() {
+  render(h, context) {
     return (
       <tr
-        {...{ attrs: this.$attrs, on: this.$listeners }}
+        {...{ attrs: context.attrs, on: context.listeners }}
       >
-        {this.$slots.default}
+        {context.children}
       </tr>
     );
   },

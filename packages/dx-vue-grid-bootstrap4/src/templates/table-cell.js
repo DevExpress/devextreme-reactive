@@ -1,4 +1,6 @@
 export const TableCell = {
+  name: 'TableCell',
+  functional: true,
   props: {
     row: null,
     tableRow: {
@@ -12,18 +14,20 @@ export const TableCell = {
     },
     value: null,
   },
-  render() {
-    const align = (this.tableColumn && this.tableColumn.align) || 'left';
+  render(h, context) {
+    const { tableColumn } = context.props;
+    const align = (tableColumn && tableColumn.align) || 'left';
+
     return (
       <td
         class={{
           'dx-g-bs4-table-cell': true,
-          'text-nowrap': !(this.tableColumn && this.tableColumn.wordWrapEnabled),
+          'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
           [`text-${align}`]: align !== 'left',
         }}
-        {...{ attrs: this.$attrs, on: this.$listeners }}
+        {...{ attrs: context.data, on: context.listeners } }
       >
-        {this.$slots.default || this.value}
+        {context.slots().default ? context.children : context.props.value}
       </td>
     );
   },

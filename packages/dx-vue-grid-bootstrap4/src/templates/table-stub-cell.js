@@ -1,4 +1,6 @@
 export const TableStubCell = {
+  name: 'TableStubCell',
+  functional: true,
   props: {
     tableRow: {
       type: Object,

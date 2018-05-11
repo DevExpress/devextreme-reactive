@@ -7,7 +7,7 @@ import {
 export default {
   data() {
     return {
-      columns: Array.from({ length: 1000 })
+      columns: Array.from({ length: 10000 })
         .map((item, index) => ({ name: `${index}`, title: `Column ${index}`, getCellValue: row => `[${row.id};${index}]` })),
       rows: Array.from({ length: 10000 })
         .map((item, index) => ({ id: index })),

@@ -28,8 +28,8 @@ import { DxTableFilterRow } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | Object | [DxTableFilterRow.components.DxCell](#dxtablefilterrowcomponentsdxcell) | A component that renders a filter cell.
-rowComponent | Object | [DxTableFilterRow.components.DxRow](#dxtablefilterrowcomponentsdxrow) | A component that renders a filter row.
+cellComponent | object | [DxTableFilterRow.components.DxCell](#dxtablefilterrowcomponentsdxcell) | A component that renders a filter cell.
+rowComponent | object | [DxTableFilterRow.components.DxRow](#dxtablefilterrowcomponentsdxrow) | A component that renders a filter row.
 rowHeight? | number | | The filter row's height.
 messages? | [DxTableFilterRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
@@ -49,14 +49,22 @@ A component that renders a filter cell.
 
 #### Props
 
-Extends [DxTable.CellProps](table.md#dxtablecellprops)
-
 Field | Type | Description
 ------|------|------------
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
+rowSpan? | number | The count of rows that the root cell element spans.
 filter | [Filter](filtering-state.md#filter) &#124; null | Filtering options that are applied to a column.
 column | [Column](grid.md#column) | A column.
 filteringEnabled | boolean | Specifies whether filtering by a column is enabled.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text. Available in the "@devexpress/dx-react-grid-material-ui" package.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the filter editor placeholder text.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 #### Events
 
@@ -68,7 +76,17 @@ filter | (filter: [Filter](filtering-state.md#filter) &#124; null) => void | An 
 
 A component that renders a filter row.
 
-Inherits [DxTable.RowProps](#dxtablerowprops) and [DxTable.RowSlots](#dxtablerowslots).
+#### Props
+
+Field | Type | Description
+------|------|------------
+tableRow | [TableRow](table.md#tablerow) | A table row.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 ## Plugin Developer Reference
 
@@ -80,8 +98,8 @@ tableHeaderRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Header r
 filters | Getter | Array&lt;[Filter](filtering-state.md#filter)&gt; | The filtering options.
 isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
 changeColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column's filter or clears it if config is null.
-tableCell | Template | [DxTable.CellProps](table.md#dxtablecellprops) | A template that renders a table cell.
-tableRow | Template | [DxTable.RowProps](table.md#dxtablerowprops) | A template that renders a table row.
+tableCell | Template | object? | A template that renders a table cell.
+tableRow | Template | object? | A template that renders a table row.
 valueEditor | Template | [DxDataTypeProvider.ValueEditor](data-type-provider.md#dxdatatypeprovidervalueeditor) | A template that renders the editor.
 
 ### Exports

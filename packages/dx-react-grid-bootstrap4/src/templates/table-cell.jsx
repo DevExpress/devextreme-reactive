@@ -23,7 +23,7 @@ export const TableCell = ({
 TableCell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),

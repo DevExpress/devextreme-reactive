@@ -79,7 +79,7 @@ EditCommandCell.propTypes = {
   ]),
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   className: PropTypes.string,
 };
 

@@ -24,7 +24,7 @@ export const RowBase = ({
 RowBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,

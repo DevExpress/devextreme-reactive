@@ -30,8 +30,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
 columnExtensions? | Array&lt;[DxTableGroupRow.ColumnExtension](#dxtablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | Object | [DxTableGroupRow.components.DxCell](#dxtablegrouprowcomponentsdxcell) | A component that renders a group cell.
-rowComponent | Object | [DxTableGroupRow.components.DxRow](#dxtablegrouprowcomponentsdxrow) | A component that renders a group row.
+cellComponent | object | [DxTableGroupRow.components.DxCell](#dxtablegrouprowcomponentsdxcell) | A component that renders a group cell.
+rowComponent | object | [DxTableGroupRow.components.DxRow](#dxtablegrouprowcomponentsdxrow) | A component that renders a group row.
 indentCellComponent? | [DxTableGroupRow.IndentCellProps](#dxtablegrouprowindentcellprops) | null | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
@@ -59,10 +59,12 @@ value | any | The current group value.
 
 Describes properties passed to a component that renders a group indent cell.
 
-Extends [DxTable.CellProps](table.md#dxtablecellprops).
-
 Field | Type | Description
 ------|------|------------
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
+rowSpan? | number | The count of rows that the root cell element spans.
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | A column associated with the group.
 
@@ -72,15 +74,18 @@ column | [Column](grid.md#column) | A column associated with the group.
 
 A component that renders a group row.
 
-Inherits [DxTable.RowSlots](table.md#dxtablerowslots).
-
 #### Props
-
-Extends [DxTable.RowProps](table.md#dxtablerowprops).
 
 Field | Type | Description
 ------|------|------------
+tableRow | [TableRow](table.md#tablerow) | A table row.
 row | [GroupRow](#grouprow) | The group row.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 ### DxTableGroupRow.components.DxCell
 
@@ -88,13 +93,21 @@ A component that renders a group cell.
 
 #### Props
 
-Extends [DxTable.CellProps](table.md#dxtablecellprops).
-
 Field | Type | Description
 ------|------|------------
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
+rowSpan? | number | The count of rows that the root cell element spans.
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 #### Events
 
@@ -116,8 +129,8 @@ draftGrouping | Getter | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | G
 expandedGroups | Getter | Array&lt;[GroupKey](grouping-state.md#groupkey)&gt; | Expanded groups.
 isGroupRow | Getter | (row: any) => boolean | A function used to identify a group row within ordinary rows.
 toggleGroupExpanded | Action | ({ groupKey: [GroupKey](grouping-state.md#groupkey) }) => void | Toggles the group's expanded state.
-tableCell | Template | [DxTable.CellProps](table.md#dxtablecellprops) | A template that renders a table cell.
-tableRow | Template | [DxTable.RowProps](table.md#dxtablerowprops) | A template that renders a table row.
+tableCell | Template | object? | A template that renders a table cell.
+tableRow | Template | object? | A template that renders a table row.
 valueFormatter | Template | [DxDataTypeProvider.ValueFormatterProps](data-type-provider.md#dxdatatypeprovidervalueformatter) | A template that renders the formatted value.
 
 ### Exports

@@ -32,9 +32,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [DxSortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-containerComponent | Object | [DxGroupingPanel.components.DxContainer](#dxgroupingpanelcomponentsdxcontainer) | A component that renders a group panel container.
-itemComponent | Object | [DxGroupingPanel.components.DxItem](#dxgroupingpanelcomponentsdxitem) | A component that renders a group panel item.
-emptyMessageComponent | Object | [DxGroupingPanel.components.DxEmptyMessage](#dxgroupingpanelcomponentsdxemptymessage) | A component that renders an empty group panel message.
+containerComponent | object | [DxGroupingPanel.components.DxContainer](#dxgroupingpanelcomponentsdxcontainer) | A component that renders a group panel container.
+itemComponent | object | [DxGroupingPanel.components.DxItem](#dxgroupingpanelcomponentsdxitem) | A component that renders a group panel item.
+emptyMessageComponent | object | [DxGroupingPanel.components.DxEmptyMessage](#dxgroupingpanelcomponentsdxemptymessage) | A component that renders an empty group panel message.
 messages? | [DxGroupingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces

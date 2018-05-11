@@ -201,3 +201,5 @@
         path: /vue/grid/docs/reference/paging-state
       - title: DxIntegratedPaging
         path: /vue/grid/docs/reference/integrated-paging
+      - title: DxCustomPaging
+        path: /vue/grid/docs/reference/custom-paging

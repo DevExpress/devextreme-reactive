@@ -14,7 +14,7 @@ import { DxIntegratedPaging } from '@devexpress/dx-vue-grid';
 
 ### Dependencies
 
-- [PagingState](paging-state.md)
+- [DxPagingState](paging-state.md)
 
 ### Properties
 

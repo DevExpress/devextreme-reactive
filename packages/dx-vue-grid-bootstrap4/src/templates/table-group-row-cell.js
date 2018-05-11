@@ -5,9 +5,7 @@ export const TableGroupCell = {
     colSpan: {
       type: Number,
     },
-    row: {
-      type: Object,
-    },
+    row: null,
     column: {
       type: Object,
     },

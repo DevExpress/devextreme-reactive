@@ -51,7 +51,7 @@ const EditCellBase = ({
 
 EditCellBase.propTypes = {
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   value: PropTypes.any,

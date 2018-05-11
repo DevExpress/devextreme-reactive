@@ -47,8 +47,6 @@ export default class Demo extends React.PureComponent {
 
           <BarSeries
             name="BarSeries"
-          // barWidth={1}
-          // groupWidth={0.3}
             style={{ stroke: 'none', fill: 'darkblue' }}
           />
         </Chart>

@@ -30,7 +30,7 @@ TableDetailToggleCell.propTypes = {
   onToggle: PropTypes.func,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
 };
 
 TableDetailToggleCell.defaultProps = {

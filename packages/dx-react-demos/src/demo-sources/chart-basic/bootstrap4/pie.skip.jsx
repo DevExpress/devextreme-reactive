@@ -34,19 +34,6 @@ export default class Demo extends React.PureComponent {
           <PieSeries
             name="PieSeries"
             style={{ stroke: 'white', fill: '#ff6666' }}
-            innerRadius={0}
-            outerRadius={0.7}
-            cx={700 / 4}
-            cy={400 / 2}
-          />
-
-          <PieSeries
-            name="PieSeries"
-            style={{ stroke: 'white', fill: '#9fff80' }}
-            innerRadius={0.2}
-            outerRadius={0.7}
-            cx={(700 / 2) + (700 / 4)}
-            cy={400 / 2}
           />
         </Chart>
       </Card>

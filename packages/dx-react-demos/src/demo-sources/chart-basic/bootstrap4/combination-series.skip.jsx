@@ -8,7 +8,8 @@ import {
   BarSeries,
   LineSeries,
   Legend,
-} from '@devexpress/dx-react-chart-svg';
+} from '@devexpress/dx-react-chart-bootstrap4';
+import { Card } from 'reactstrap';
 
 export default class Demo extends React.Component {
   constructor(props) {
@@ -27,16 +28,17 @@ export default class Demo extends React.Component {
   }
   render() {
     return (
-      <Chart
-        data={this.state.data}
-        width={700}
-        height={400}
-        axes={[
+      <Card>
+        <Chart
+          data={this.state.data}
+          width={700}
+          height={400}
+          axes={[
           { name: 'sale', min: 0 },
           { name: 'total' },
           { name: 'month', type: 'band' },
         ]}
-        series={[
+          series={[
           {
             valueField: 'sale',
             argumentField: 'month',
@@ -51,26 +53,27 @@ export default class Demo extends React.Component {
             stack: 'a',
           },
         ]}
-      >
+        >
 
-        <ArgumentAxis />
-        <ValueAxis name="sale" />
-        <ValueAxis name="total" position="right" />
+          <ArgumentAxis />
+          <ValueAxis name="sale" />
+          <ValueAxis name="total" position="right" />
 
-        <Grid name="month" />
+          <Grid name="month" />
 
-        <BarSeries
-          name="Units Sold"
-          style={{ stroke: 'none', fill: '#ff6666' }}
-        />
+          <BarSeries
+            name="Units Sold"
+            style={{ stroke: 'none', fill: '#ff6666' }}
+          />
 
-        <LineSeries
-          name="Total Transactions"
-          style={{ stroke: 'blue' }}
-        />
+          <LineSeries
+            name="Total Transactions"
+            style={{ stroke: 'blue' }}
+          />
 
-        <Legend />
-      </Chart>
+          <Legend />
+        </Chart>
+      </Card>
     );
   }
 }

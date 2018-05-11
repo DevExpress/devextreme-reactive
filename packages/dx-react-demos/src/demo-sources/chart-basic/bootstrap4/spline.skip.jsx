@@ -5,8 +5,9 @@ import {
   ValueAxis,
   Grid,
   Chart,
-  LineSeries,
-} from '@devexpress/dx-react-chart-svg';
+  SplineSeries,
+} from '@devexpress/dx-react-chart-bootstrap4';
+import { Card } from 'reactstrap';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -45,35 +46,37 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height, series,
     } = this.state;
     return (
-      <Chart
-        data={chartData}
-        width={width}
-        height={height}
-        series={series}
-      >
+      <Card>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+          series={series}
+        >
 
-        <ArgumentAxis />
-        <ValueAxis name="born" />
+          <ArgumentAxis />
+          <ValueAxis name="born" />
 
-        <Grid name="year" />
-        <Grid name="born" />
+          <Grid name="year" />
+          <Grid name="born" />
 
-        <LineSeries
-          name="Russia"
-          style={{ stroke: 'green' }}
-          pointStyle={{ fill: 'green' }}
-        />
-        <LineSeries
-          name="China"
-          style={{ stroke: 'red' }}
-          pointStyle={{ fill: 'red' }}
-        />
-        <LineSeries
-          name="USA"
-          style={{ stroke: 'blue' }}
-          pointStyle={{ fill: 'blue' }}
-        />
-      </Chart>
+          <SplineSeries
+            name="Russia"
+            style={{ stroke: 'green' }}
+            pointStyle={{ fill: 'green' }}
+          />
+          <SplineSeries
+            name="China"
+            style={{ stroke: 'red' }}
+            pointStyle={{ fill: 'red' }}
+          />
+          <SplineSeries
+            name="USA"
+            style={{ stroke: 'blue' }}
+            pointStyle={{ fill: 'blue' }}
+          />
+        </Chart>
+      </Card>
     );
   }
 }

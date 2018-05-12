@@ -51,6 +51,12 @@ column | [Column](grid.md#column) | A column.
 value | any | A value to be edited.
 editingEnabled | boolean | Specifies whether editing a column is enabled.
 
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
+
 #### Events
 
 Field | Type | Description
@@ -67,6 +73,12 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](table.md#tablerow) | A table row
 row | any | A row to be edited.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 ## Plugin Developer Reference
 

@@ -201,3 +201,5 @@
         path: /vue/grid/docs/reference/editing-state
       - title: DxTableEditRow
         path: /vue/grid/docs/reference/table-edit-row
+      - title: DxTableEditColumn
+        path: /vue/grid/docs/reference/table-edit-column

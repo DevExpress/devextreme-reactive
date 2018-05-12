@@ -199,3 +199,5 @@
         path: /vue/grid/docs/reference/integrated-sorting
       - title: DxEditingState
         path: /vue/grid/docs/reference/editing-state
+      - title: DxTableEditRow
+        path: /vue/grid/docs/reference/table-edit-row

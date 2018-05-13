@@ -201,3 +201,5 @@
         path: /vue/grid/docs/reference/selection-state
       - title: DxIntegratedSelection
         path: /vue/grid/docs/reference/integrated-selection
+      - title: DxTableSelection
+        path: /vue/grid/docs/reference/table-selection

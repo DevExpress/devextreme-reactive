@@ -199,3 +199,5 @@
         path: /vue/grid/docs/reference/integrated-sorting
       - title: DxSelectionState
         path: /vue/grid/docs/reference/selection-state
+      - title: DxIntegratedSelection
+        path: /vue/grid/docs/reference/integrated-selection

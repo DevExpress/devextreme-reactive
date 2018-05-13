@@ -20,13 +20,13 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-value? | string |  | Specifies the applied search value
+value? | string |  | Specifies the applied search value.
 
 ### Events
 
 Name | Type | Default | Description
 -----|------|---------|------------
-update:value? | (value: string) => void | | Handles search value changes
+update:value? | (value: string) => void | | Handles search value changes.
 
 ## Plugin Developer Reference
 
@@ -34,13 +34,13 @@ update:value? | (value: string) => void | | Handles search value changes
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-filterExpression | Getter | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions
-columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns
+filterExpression | Getter | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions.
+columns | Getter | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-searchValue | Getter | string | The applied search value
-filterExpression | Getter | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions
-changeSearchValue | Action | ({ value: string }) => void | Fires the `update:value` event with the corresponding value and changes the search value
+searchValue | Getter | string | The applied search value.
+filterExpression | Getter | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](filtering-state.md#filter) | The applied filter expressions.
+changeSearchValue | Action | ({ value: string }) => void | Fires the `update:value` event with the corresponding value and changes the search value.

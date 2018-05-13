@@ -199,3 +199,5 @@
         path: /vue/grid/docs/reference/integrated-sorting
       - title: DxSearchState
         path: /vue/grid/docs/reference/search-state
+      - title: DxSearchPanel
+        path: /vue/grid/docs/reference/search-panel

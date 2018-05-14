@@ -16,3 +16,5 @@ export { Sizer } from './sizer';
 export { RefHolder } from './ref-holder';
 
 export { createRenderComponent } from './render-component';
+
+export { createStateHelper } from './utils/state-helper';

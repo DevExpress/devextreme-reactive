@@ -203,3 +203,21 @@
         path: /vue/grid/docs/reference/table-edit-row
       - title: DxTableEditColumn
         path: /vue/grid/docs/reference/table-edit-column
+      - title: DxSearchState
+        path: /vue/grid/docs/reference/search-state
+      - title: DxSearchPanel
+        path: /vue/grid/docs/reference/search-panel
+      - title: DxSelectionState
+        path: /vue/grid/docs/reference/selection-state
+      - title: DxIntegratedSelection
+        path: /vue/grid/docs/reference/integrated-selection
+      - title: DxTableSelection
+        path: /vue/grid/docs/reference/table-selection
+      - title: DxRowDetailState
+        path: /vue/grid/docs/reference/row-detail-state
+      - title: DxTableRowDetail
+        path: /vue/grid/docs/reference/table-row-detail
+      - title: DxToolbar
+        path: /vue/grid/docs/reference/toolbar
+      - title: DxTableHeaderRow
+        path: /vue/grid/docs/reference/table-header-row

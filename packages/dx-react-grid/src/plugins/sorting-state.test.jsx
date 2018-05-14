@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, testStatePluginField } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   changeColumnSorting,
@@ -10,7 +10,6 @@ import {
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 import { SortingState } from './sorting-state';
-import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnSorting: jest.fn(),

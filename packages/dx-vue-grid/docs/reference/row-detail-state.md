@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-expandedRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being expanded.
+expandedRowIds | Array&lt;number &#124; string&gt; | | IDs of the rows being expanded.
 
 ### Events
 

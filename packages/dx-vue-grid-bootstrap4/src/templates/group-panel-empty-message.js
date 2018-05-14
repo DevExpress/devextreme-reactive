@@ -14,7 +14,7 @@ export const GroupPanelEmptyMessage = {
           this.getMessage('groupByColumn')
           ||
           <span>
-            Click <span class="oi oi-list dx-g-bs4-grouping-control-icon" /> icon in the column header to group by that column
+            Click the <span class="oi oi-list dx-g-bs4-grouping-control-icon" /> icon in the column header to group by that column
           </span>
         }
       </div>

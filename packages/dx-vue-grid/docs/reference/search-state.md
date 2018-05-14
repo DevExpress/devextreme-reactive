@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-value? | string |  | Specifies the applied search value.
+value | string |  | Specifies the applied search value.
 
 ### Events
 

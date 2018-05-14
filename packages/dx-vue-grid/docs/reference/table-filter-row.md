@@ -100,7 +100,7 @@ isColumnFilteringEnabled | Getter | (columnName: string) => boolean | A function
 changeColumnFilter | Action | ({ columnName: string, config: object }) => void | Changes a column's filter or clears it if config is null.
 tableCell | Template | object? | A template that renders a table cell.
 tableRow | Template | object? | A template that renders a table row.
-valueEditor | Template | [DxDataTypeProvider.ValueEditor](data-type-provider.md#dxdatatypeprovidervalueeditor) | A template that renders the editor.
+valueEditor | Template | [DxDataTypeProvider.DxValueEditor](data-type-provider.md#dxdatatypeproviderdxvalueeditor) | A template that renders the editor.
 
 ### Exports
 

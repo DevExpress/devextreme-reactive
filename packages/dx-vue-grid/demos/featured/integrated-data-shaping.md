@@ -1,5 +1,7 @@
 # Vue Grid Integrated Data Shaping
 
-This demo shows the Grid abilities in data shaping opereations. The sorting, grouping, filtering and paging are applied internaly. The selection feature is also embedded into a data shaping process to correctly identify the Select All checkbox state.
+This demo shows the Grid's integrated sorting, grouping, filtering and paging capabilities. 
+
+If you use selection with integrated data shaping, the way the Select All checkbox works depends on the plugin order. In this demo, the `dx-integrated-selection` plugin is linked after all the data shaping plugins. In this case, Select All affects only the displayed rows.
 
 .embedded-demo({ "path": "grid-featured-integrated-data-shaping/demo", "showThemeSelector": true, "showThemeVariants": true })

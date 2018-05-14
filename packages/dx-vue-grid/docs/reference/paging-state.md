@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-currentPage? | number | | Specifies the current page number.
+currentPage | number | | Specifies the current page number.
 pageSize? | number | | Specifies the page size. Set this property to `0` to show all rows on a page.
 
 #### Events

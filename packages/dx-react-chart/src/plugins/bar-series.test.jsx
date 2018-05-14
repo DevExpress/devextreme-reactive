@@ -6,8 +6,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 
 const PointComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coords = [
   {
@@ -58,12 +56,11 @@ describe('Bar series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',

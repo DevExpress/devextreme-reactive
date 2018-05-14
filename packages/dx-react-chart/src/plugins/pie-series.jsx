@@ -17,47 +17,43 @@ export class PieSeries extends React.PureComponent {
       outerRadius,
       cx,
       cy,
-      rootComponent: Root,
       pointComponent: Point,
       ...restProps
     } = this.props;
     return (
       <Plugin name="PieSeries">
-        <Template name="canvas">
+        <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
                 series,
                 data,
                 layouts,
+                width, height,
               }) => {
                 const {
-                  width, height,
-                } = layouts[placeholder];
+                  width: widthPane, height: heightPane,
+                } = layouts[placeholder] || { width, height };
               const { valueField } = findSeriesByName(name, series);
               const arcs = pieAttributes(
                 valueField,
                 data,
-                width,
-                height,
+                widthPane,
+                heightPane,
                 innerRadius,
                 outerRadius,
               );
                 return (
-                  <Root x={cx || width / 2} y={cy || height / 2}>
-                    {
                       arcs.map(item =>
                         (
                           <Point
                             key={item}
-                            x={0}
-                            y={0}
+                            x={cx || widthPane / 2}
+                            y={cy || heightPane / 2}
                             d={item}
                             {...restProps}
                           />
                         ))
-                    }
-                  </Root>
                 );
               }}
           </TemplateConnector>
@@ -70,7 +66,6 @@ export class PieSeries extends React.PureComponent {
 PieSeries.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  rootComponent: PropTypes.func.isRequired,
   pointComponent: PropTypes.func.isRequired,
   innerRadius: PropTypes.number,
   outerRadius: PropTypes.number,

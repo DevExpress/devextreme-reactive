@@ -20,8 +20,8 @@ import { DxGroupingState } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
-expandedGroups? | Array&lt;[GroupKey](#groupkey)&gt; | | Specifies expanded groups.
+grouping | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
+expandedGroups | Array&lt;[GroupKey](#groupkey)&gt; | | Specifies expanded groups.
 columnGroupingEnabled? | boolean | true | Specifies whether grouping is enabled for all columns.
 columnExtensions? | Array&lt;[DxGroupingState.ColumnExtension](#dxgroupingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 

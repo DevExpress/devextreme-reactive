@@ -29,6 +29,24 @@ const Point = (type, styles) => (props) => {
   );
 };
 
+const DiamondPoint = Point(symbolDiamond, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'red',
+});
+
+const CrossPoint = Point(symbolCross, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'green',
+});
+
+const StarPoint = Point(symbolStar, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'blue',
+});
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -81,29 +99,17 @@ export default class Demo extends React.PureComponent {
           <LineSeries
             name="Russia"
             style={{ stroke: 'red' }}
-            pointComponent={Point(symbolDiamond, {
-            stroke: 'white',
-            strokeWidth: '1px',
-            fill: 'red',
-          })}
+            pointComponent={DiamondPoint}
           />
           <LineSeries
             name="China"
             style={{ stroke: 'green' }}
-            pointComponent={Point(symbolCross, {
-            stroke: 'white',
-            strokeWidth: '1px',
-            fill: 'green',
-          })}
+            pointComponent={CrossPoint}
           />
           <LineSeries
             name="USA"
             style={{ stroke: 'blue' }}
-            pointComponent={Point(symbolStar, {
-            stroke: 'white',
-            strokeWidth: '1px',
-            fill: 'blue',
-          })}
+            pointComponent={StarPoint}
           />
         </Chart>
       </Paper>

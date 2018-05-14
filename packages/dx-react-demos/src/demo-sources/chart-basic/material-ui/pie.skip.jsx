@@ -13,22 +13,28 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 7),
+      series: [
+        {
+          valueField: 'contributions',
+          argumentField: 'login',
+          name: 'PieSeries',
+        },
+      ],
+      width: 700,
+      height: 400,
     };
   }
   render() {
+    const {
+      data: chartData, width, height, series,
+    } = this.state;
     return (
       <Paper>
         <Chart
-          data={this.state.data}
-          width={700}
-          height={400}
-          series={[
-          {
-            valueField: 'contributions',
-            argumentField: 'login',
-            name: 'PieSeries',
-          },
-        ]}
+          data={chartData}
+          width={width}
+          height={height}
+          series={series}
         >
 
           <PieSeries

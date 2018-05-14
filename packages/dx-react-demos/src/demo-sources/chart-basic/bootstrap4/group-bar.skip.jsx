@@ -16,37 +16,41 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: ageStructure,
+      width: 700,
+      height: 400,
+      axes: [{ name: 'age', min: 0 }, { name: 'state', type: 'band' }],
+      series: [
+        {
+          valueField: 'young',
+          argumentField: 'state',
+          axisName: 'age',
+          name: 'Young',
+        }, {
+          valueField: 'middle',
+          argumentField: 'state',
+          axisName: 'age',
+          name: 'Middle',
+        }, {
+          valueField: 'older',
+          argumentField: 'state',
+          axisName: 'age',
+          name: 'Older',
+        },
+      ],
     };
   }
   render() {
+    const {
+      data: chartData, width, height, series, axes,
+    } = this.state;
     return (
       <Card>
         <Chart
-          data={this.state.data}
-          width={700}
-          height={400}
-          style={{
-          border: '1px dashed lightgray',
-        }}
-          axes={[{ name: 'age', min: 0 }, { name: 'state', type: 'band' }]}
-          series={[
-          {
-            valueField: 'young',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Young',
-          }, {
-            valueField: 'middle',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Middle',
-          }, {
-            valueField: 'older',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Older',
-          },
-        ]}
+          data={chartData}
+          width={width}
+          height={height}
+          axes={axes}
+          series={series}
         >
 
           <ArgumentAxis />

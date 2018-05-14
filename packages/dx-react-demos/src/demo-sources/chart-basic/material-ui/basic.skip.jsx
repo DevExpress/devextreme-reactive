@@ -50,7 +50,12 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <Paper>
-        <Chart data={chartData} width={width} height={height} series={series}>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+          series={series}
+        >
           <ArgumentAxis position="top" />
           <ValueAxis name="born" />
           <Legend />

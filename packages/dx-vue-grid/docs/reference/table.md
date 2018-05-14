@@ -27,10 +27,10 @@ import { DxTable } from '@devexpress/dx-vue-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[DxTable.ColumnExtension](#dxtablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-tableComponent | object | | A component that renders a table.
-headComponent | object | | A component that renders a table head.
-bodyComponent | object | | A component that renders a table body.
-containerComponent | object | | A component that renders a table's container.
+tableComponent | object | [DxTable.components.DxTable](#dxtablecomponentsdxtable) | A component that renders a table.
+headComponent | object | [DxTable.components.DxHead](#dxtablecomponentsdxhead) | A component that renders a table head.
+bodyComponent | object | [DxTable.components.DxBody](#dxtablecomponentsdxbody) | A component that renders a table body.
+containerComponent | object | [DxTable.components.DxContainer](#dxtablecomponentsdxcontainer) | A component that renders a table's container.
 cellComponent | object | [DxTable.components.DxCell](#dxtablecomponentsdxcell) | A component that renders a table cell.
 rowComponent | object | [DxTable.components.DxRow](#dxtablecomponentsdxrow) | A component that renders a table row.
 noDataCellComponent | object | [DxTable.components.DxNoDataCell](#dxtablecomponentsdxnodatacell) | A component that renders a table cell when the table is empty.
@@ -84,6 +84,38 @@ Field | Type | Default | Description
 noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
 
 ## Plugin Components
+
+### DxTable.components.DxTable
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
+
+### DxTable.components.DxHead
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
+
+### DxTable.components.DxBody
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
+
+### DxTable.components.DxContainer
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
 
 ### DxTable.components.DxCell
 

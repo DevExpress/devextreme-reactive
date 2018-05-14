@@ -1,5 +1,5 @@
 import { getCollapsedGrid } from '@devexpress/dx-grid-core';
-import { DxSizer, DxRefHolder } from '@devexpress/dx-vue-core';
+import { DxSizer, RefHolder } from '@devexpress/dx-vue-core';
 import { ColumnGroup } from './column-group';
 
 export const VirtualTableLayout = {
@@ -170,9 +170,9 @@ export const VirtualTableLayout = {
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
               return (
-                <DxRefHolder
+                <RefHolder
                   key={row.key}
-                  ref={`DxRefHolder-${row.key}-${row.height}`}
+                  ref={`refHolder-${row.key}-${row.height}`}
                 >
                   <Row
                     tableRow={row}
@@ -192,7 +192,7 @@ export const VirtualTableLayout = {
                       );
                     })}
                   </Row>
-                </DxRefHolder>
+                </RefHolder>
               );
             })}
           </Body>

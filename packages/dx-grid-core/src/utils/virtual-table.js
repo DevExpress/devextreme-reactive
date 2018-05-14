@@ -96,7 +96,8 @@ export const collapseBoundaries = (itemsCount, visibleBoundary, spanBoundaries) 
 const getColumnsSize = (columns, startIndex, endIndex, getColumnSize) => {
   let size = 0;
   let index;
-  for (index = startIndex; index < endIndex + 1; index += 1) {
+  const loopEndIndex = endIndex + 1;
+  for (index = startIndex; index < loopEndIndex; index += 1) {
     size += getColumnSize(columns[index], 0);
   }
   return size;

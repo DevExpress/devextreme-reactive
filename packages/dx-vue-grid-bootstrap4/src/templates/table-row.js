@@ -15,7 +15,7 @@ export const TableRow = {
       <tr
         {...{ attrs: context.attrs, on: context.listeners }}
       >
-        {context.children}
+        {context.slots().default}
       </tr>
     );
   },

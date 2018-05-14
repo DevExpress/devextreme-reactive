@@ -50,15 +50,15 @@ export const DxSizer = {
   },
   methods: {
     setupListeners() {
-      const size = { height: this.$refs['sizer-root'].offsetHeight, width: this.$refs['sizer-root'].offsetWidth };
+      const size = { height: this.$refs.root.offsetHeight, width: this.$refs.root.offsetWidth };
 
-      this.$refs['sizer-contract'].scrollTop = size.height;
-      this.$refs['sizer-contract'].scrollLeft = size.width;
+      this.$refs.contract.scrollTop = size.height;
+      this.$refs.contract.scrollLeft = size.width;
 
-      this.$refs['sizer-expandTrigger'].style.width = `${size.width + 1}px`;
-      this.$refs['sizer-expandTrigger'].style.height = `${size.height + 1}px`;
-      this.$refs['sizer-expand'].scrollTop = 1;
-      this.$refs['sizer-expand'].scrollLeft = 1;
+      this.$refs.expandTrigger.style.width = `${size.width + 1}px`;
+      this.$refs.expandTrigger.style.height = `${size.height + 1}px`;
+      this.$refs.expand.scrollTop = 1;
+      this.$refs.expand.scrollLeft = 1;
 
       this.size = size;
     },
@@ -67,22 +67,22 @@ export const DxSizer = {
     const { size } = this;
     return (
       <div
-        ref="sizer-root"
+        ref="root"
         style={styles.root}
       >
         {this.$scopedSlots.default(size)}
         <div style={styles.triggers}>
           <div
-            ref="sizer-expand"
+            ref="expand"
             style={styles.expand}
             onScroll={this.setupListeners}
           >
             <div
-              ref="sizer-expandTrigger"
+              ref="expandTrigger"
             />
           </div>
           <div
-            ref="sizer-contract"
+            ref="contract"
             style={styles.contract}
             onScroll={this.setupListeners}
           >

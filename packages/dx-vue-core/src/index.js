@@ -7,6 +7,6 @@ export { DxTemplatePlaceholder, DxTemplatePlaceholderSlot } from './plugin-based
 export { DxTemplateConnector } from './plugin-based/template-connector';
 
 export { DxSizer } from './sizer';
-export { DxRefHolder } from './ref-holder';
+export { RefHolder } from './ref-holder';
 
 export { createRenderComponent } from './render-component';

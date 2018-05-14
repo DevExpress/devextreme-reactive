@@ -17,7 +17,12 @@ jest.mock('@devexpress/dx-vue-core', () => ({
       return this.$slots.default[0];
     },
   },
-  DxSizer: { name: 'DxSizer', render() { return this.$scopedSlots.default({ width: 400, height: 100 }); } },
+  DxSizer: {
+    name: 'DxSizer',
+    render() {
+      return this.$scopedSlots.default({ width: 800 });
+    },
+  },
 }));
 
 const defaultProps = {
@@ -40,11 +45,11 @@ const defaultProps = {
     { key: 5 },
     { key: 6 },
   ],
-  containerComponent: { render() { return <div />; } },
-  headTableComponent: { render() { return <table />; } },
-  tableComponent: { render() { return <table />; } },
-  headComponent: { render() { return <table />; } },
-  bodyComponent: { render() { return <tbody />; } },
+  containerComponent: { render() { return <div>{this.$slots.default}</div>; } },
+  headTableComponent: { render() { return <table>{this.$slots.default}</table>; } },
+  tableComponent: { render() { return <table>{this.$slots.default}</table>; } },
+  headComponent: { render() { return <table>{this.$slots.default}</table>; } },
+  bodyComponent: { render() { return <tbody>{this.$slots.default}</tbody>; } },
   rowComponent: { name: 'Row', render: () => null },
   cellComponent: { name: 'Cell', render: () => null },
   getCellColSpan: () => 1,
@@ -94,13 +99,13 @@ describe('VirtualTableLayout', () => {
       },
     });
 
-    expect(tree.find('DxSizer'))
+    expect(tree.find(defaultProps.containerComponent).vm.$el)
       .toMatchSnapshot();
   });
 
   describe('viewport', () => {
     it('should pass correct viewport at startup', () => {
-      const tree = shallow({
+      shallow({
         render() {
           return (
             <VirtualTableLayout
@@ -111,21 +116,19 @@ describe('VirtualTableLayout', () => {
         },
       });
 
-      tree.find('DxSizer');
-
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
           top: 0,
           left: 0,
           height: defaultProps.estimatedRowHeight,
-          width: 400,
+          width: 800,
         });
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
         .toMatchObject({
           top: 0,
           left: 0,
           height: defaultProps.height - defaultProps.estimatedRowHeight,
-          width: 400,
+          width: 800,
         });
     });
 
@@ -143,7 +146,6 @@ describe('VirtualTableLayout', () => {
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
 
-      tree.find('DxSizer');
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
           top: 0,

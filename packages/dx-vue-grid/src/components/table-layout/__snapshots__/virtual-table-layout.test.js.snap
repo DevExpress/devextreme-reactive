@@ -1,7 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VirtualTableLayout should render correct layout 1`] = `
-ErrorWrapper {
-  "selector": "DxSizer",
-}
+<div
+  style="height: 100px;"
+>
+  <table
+    minwidth="400px"
+    style="min-width: 400px;"
+  >
+    <!---->
+    <table>
+      <!---->
+    </table>
+  </table>
+  <table
+    minwidth="400px"
+    style="min-width: 400px;"
+  >
+    <!---->
+    <tbody>
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+    </tbody>
+  </table>
+</div>
 `;

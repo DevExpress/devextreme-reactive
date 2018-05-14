@@ -197,3 +197,7 @@
         path: /vue/grid/docs/reference/sorting-state
       - title: DxIntegratedSorting
         path: /vue/grid/docs/reference/integrated-sorting
+      - title: DxToolbar
+        path: /vue/grid/docs/reference/toolbar
+      - title: DxTableHeaderRow
+        path: /vue/grid/docs/reference/table-header-row

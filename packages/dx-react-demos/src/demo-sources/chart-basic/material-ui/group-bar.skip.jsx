@@ -5,6 +5,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   BarSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import Paper from 'material-ui/Paper';
 import { ageStructure } from '../../../demo-data/data-vizualization';
@@ -50,6 +51,9 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis />
           <ValueAxis name="age" />
+
+          <Grid name="state" />
+          <Grid name="age" />
 
           <BarSeries
             name="Young"

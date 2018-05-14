@@ -193,6 +193,12 @@
     items:
       - title: DxGrid
         path: /vue/grid/docs/reference/grid
+      - title: DxFilteringState
+        path: /vue/grid/docs/reference/filtering-state
+      - title: DxIntegratedFiltering
+        path: /vue/grid/docs/reference/integrated-filtering
+      - title: DxTableFilterRow
+        path: /vue/grid/docs/reference/table-filter-row
       - title: DxSortingState
         path: /vue/grid/docs/reference/sorting-state
       - title: DxIntegratedSorting

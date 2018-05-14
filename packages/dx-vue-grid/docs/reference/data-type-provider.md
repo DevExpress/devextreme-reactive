@@ -21,12 +21,12 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
-formatterComponent? | [DxDataTypeProvider.ValueFormatter](#dxdatatypeprovidervalueformatter) | | A component that renders the formatted value.
-editorComponent? | [DxDataTypeProvider.ValueEditor](#dxdatatypeprovidervalueeditor) | | A component that renders a custom editor.
+formatterComponent? | [DxDataTypeProvider.DxValueFormatter](#dxdatatypeproviderdxvalueformatter) | | A component that renders the formatted value.
+editorComponent? | [DxDataTypeProvider.DxValueEditor](#dxdatatypeproviderdxvalueeditor) | | A component that renders a custom editor.
 
-## Interfaces
+## Components
 
-### DxDataTypeProvider.ValueFormatter
+### DxDataTypeProvider.DxValueFormatter
 
 Describes properties passed to a component that renders the formatted value.
 
@@ -38,7 +38,7 @@ column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | The value to be formatted.
 
-### DxDataTypeProvider.ValueEditor
+### DxDataTypeProvider.DxValueEditor
 
 Describes properties and events passed to a component that renders the value editor.
 
@@ -66,5 +66,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-valueFormatter | Template | [DxDataTypeProvider.ValueFormatter](#dxdatatypeprovidervalueformatter) | A template that renders the formatted value.
-valueEditor | Template | [DxDataTypeProvider.ValueEditor](#dxdatatypeprovidervalueeditor) | A template that renders the editor.
+valueFormatter | Template | [DxDataTypeProvider.DxValueFormatter](#dxdatatypeproviderdxvalueformatter) | A template that renders the formatted value.
+valueEditor | Template | [DxDataTypeProvider.DxValueEditor](#dxdatatypeproviderdxvalueeditor) | A template that renders the editor.

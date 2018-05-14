@@ -197,3 +197,5 @@
         path: /vue/grid/docs/reference/sorting-state
       - title: DxIntegratedSorting
         path: /vue/grid/docs/reference/integrated-sorting
+      - title: DxRowDetailState
+        path: /vue/grid/docs/reference/row-detail-state

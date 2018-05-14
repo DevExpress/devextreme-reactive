@@ -2,7 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
+import {
+  pluginDepsToComponents,
+  getComputedState,
+  executeComputedAction,
+  testStatePluginField,
+} from '@devexpress/dx-react-core/test-utils';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
@@ -12,7 +17,6 @@ import {
   adjustSortIndex,
 } from '@devexpress/dx-grid-core';
 import { GroupingState } from './grouping-state';
-import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeColumnGrouping: jest.fn(),

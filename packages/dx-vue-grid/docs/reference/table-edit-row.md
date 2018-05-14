@@ -42,9 +42,9 @@ A component that renders an editable cell.
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.	
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.	
-colSpan? | number | The count of columns that the root cell element spans.	
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 row | any | A row to be edited.
 column | [Column](grid.md#column) | A column.
@@ -97,7 +97,7 @@ getCellValue | Getter | (row: any, columnName: string) => any | A function used 
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor's value changes.
 tableCell | Template | object? | A template that renders a table cell.
 tableRow | Template | object? | A template that renders a table row.
-valueEditor | Template | [DxDataTypeProvider.ValueEditor](data-type-provider.md#dxdatatypeprovidervalueeditor) | A template that renders the editor.
+valueEditor | Template | [DxDataTypeProvider.DxValueEditor](data-type-provider.md#dxdatatypeproviderdxvalueeditor) | A template that renders the editor.
 
 ### Exports
 

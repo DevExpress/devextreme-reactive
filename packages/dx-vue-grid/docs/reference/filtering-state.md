@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-filters? | Array&lt;[Filter](#filter)&gt; | | Specifies the applied filters.
+filters | Array&lt;[Filter](#filter)&gt; | | Specifies the applied filters.
 columnFilteringEnabled? | boolean | true | Specifies whether filtering is enabled for all columns.
 columnExtensions? | Array&lt;[DxFilteringState.ColumnExtension](#dxfilteringstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 

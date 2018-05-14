@@ -27,7 +27,7 @@ export const EditCell = ({
 );
 EditCell.propTypes = {
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   value: PropTypes.any,

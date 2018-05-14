@@ -10,8 +10,6 @@ import {
 
 import { axisCoordinates, HORIZONTAL } from '@devexpress/dx-chart-core';
 
-const LayoutElement = () => {};
-
 export class Axis extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ export class Axis extends React.Component {
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
-  createRefsHandler(placeholder, setBBox, orientation) {
+  createRefsHandler(placeholder, changeBBox, orientation) {
     return (el) => {
       if (!el) {
         return;
@@ -31,9 +29,12 @@ export class Axis extends React.Component {
       } = el.getBBox();
 
       if (width === this.state.width && height === this.state.height) return;
-      setBBox(placeholder, {
-        width: orientation === HORIZONTAL ? 0 : width,
-        height: orientation === HORIZONTAL ? height : 0,
+      changeBBox({
+        placeholder,
+        bBox: {
+          width,
+          height,
+        },
       });
       this.setState({
         width,
@@ -41,6 +42,19 @@ export class Axis extends React.Component {
         xCorrection: orientation !== HORIZONTAL ? x : 0,
         yCorrection: orientation !== HORIZONTAL ? 0 : y,
       });
+    };
+  }
+  calculateLayout(width, height, defaultWidth, defaultHeight) {
+    const calculatedWidth = width || defaultWidth;
+    const calculatedHeight = height || defaultHeight;
+    const {
+      width: containerWidth,
+      height: containerHeight,
+    } = (this.node && this.node.getBoundingClientRect()) || {};
+
+    return {
+      width: containerWidth || calculatedWidth,
+      height: containerHeight || calculatedHeight,
     };
   }
   render() {
@@ -57,60 +71,85 @@ export class Axis extends React.Component {
     } = this.props;
     return (
       <Plugin name="Axis">
-        <Template name="canvas">
+        <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              domains, setBBox, layouts, addNodes, argumentAxisName,
-             }) => {
+              domains,
+              argumentAxisName,
+              layouts,
+              width: containerWidth,
+              height: containerHeight,
+             }, { changeBBox }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation } = domain;
+              const { width: widthCalculated, height: heightCalculated } = layouts[placeholder] ||
+                    { width: containerWidth, height: containerHeight };
+
               const {
-                x, y, width, height,
-              } = layouts[placeholder];
+                width: widthPostCalculated,
+                height: heightPostCalculated,
+              } = this.calculateLayout(
+                widthCalculated,
+                heightCalculated,
+                containerWidth,
+                containerHeight,
+              );
+
 
               const coordinates = axisCoordinates(
                 domain,
                 position,
-                width,
-                height,
+                widthPostCalculated,
+                heightPostCalculated,
                 tickSize,
                 indentFromAxis,
               );
 
-              addNodes(<LayoutElement name={`${name}-axis-${placeholder}`} />, placeholder);
-
               return (
-                <React.Fragment>
-                  {
-                    coordinates.ticks.map(({
-                      x1, x2, y1, y2, text,
-                    }) => (
-                      <Tick
-                        key={text}
-                        x1={x1 + (x - this.state.xCorrection)}
-                        x2={x2 + (x - this.state.xCorrection)}
-                        y1={y1 + (y - this.state.yCorrection)}
-                        y2={y2 + (y - this.state.yCorrection)}
-                      />
-                      ))
-                  }
-                  <Root
-                    refsHandler={this.createRefsHandler(
-                    `${name}-axis-${placeholder}`,
-                    setBBox,
-                    orientation,
-                  )}
-                    x={x - this.state.xCorrection}
-                    y={y - this.state.yCorrection}
+                <div
+                  style={{
+                    position: 'relative',
+                    width: orientation === 'horizontal' ? undefined : widthCalculated,
+                    height: orientation === 'horizontal' ? heightCalculated : null,
+                    flexGrow: orientation === 'horizontal' ? 1 : undefined,
+                  }}
+                  ref={(node) => { this.node = node; }}
+                >
+                  <svg
+                    width={widthPostCalculated}
+                    height={heightPostCalculated}
+                    style={{
+                      position: 'absolute', left: 0, top: 0, overflow: 'visible',
+                    }}
                   >
-                    <Line
-                      width={width}
-                      height={height}
-                      orientation={orientation}
-                    />
-                    {coordinates.ticks.map(({
+                    <Root
+                      refsHandler={this.createRefsHandler(
+                        placeholder,
+                        changeBBox,
+                        orientation,
+                      )}
+                      x={-this.state.xCorrection}
+                      y={-this.state.yCorrection}
+                    >
+                      {
+                      coordinates.ticks.map(({
+                        x1, x2, y1, y2, text,
+                      }) => (<Tick
+                        key={text}
+                        x1={x1}
+                        x2={x2}
+                        y1={y1}
+                        y2={y2}
+                      />))
+                    }
+                      <Line
+                        width={widthPostCalculated}
+                        height={heightPostCalculated}
+                        orientation={orientation}
+                      />
+                      {coordinates.ticks.map(({
                       text,
                       xText,
                       yText,
@@ -127,8 +166,9 @@ export class Axis extends React.Component {
                         />
                       </React.Fragment>
                     ))}
-                  </Root>
-                </React.Fragment>
+                    </Root>
+                  </svg>
+                </div>
               );
             }}
           </TemplateConnector>

@@ -123,7 +123,7 @@ EditCommandCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
 };
 
 EditCommandCellBase.defaultProps = {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
 import {
   changeColumnGrouping,
   toggleExpandedGroups,
@@ -9,7 +9,6 @@ import {
   getColumnExtensionValueGetter,
   adjustSortIndex,
 } from '@devexpress/dx-grid-core';
-import { createStateHelper } from '../utils/state-helper';
 
 const dependencies = [
   { name: 'SortingState', optional: true },

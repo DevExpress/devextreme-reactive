@@ -7,8 +7,6 @@ import { LineSeries } from './line-series';
 
 const PointComponent = () => null;
 const PathComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coords = [
   { x: 1, y: 3, id: 1 },
@@ -54,12 +52,11 @@ describe('Line series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     pathComponent: PathComponent,
     name: 'val1',

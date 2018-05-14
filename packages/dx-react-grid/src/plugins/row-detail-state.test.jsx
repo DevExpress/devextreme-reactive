@@ -1,7 +1,7 @@
 import { setupConsole } from '@devexpress/dx-testing';
+import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 import { RowDetailState } from './row-detail-state';
-import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   toggleDetailRowExpanded: jest.fn(),

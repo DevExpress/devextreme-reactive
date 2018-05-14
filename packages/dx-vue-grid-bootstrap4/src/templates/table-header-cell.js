@@ -31,9 +31,6 @@ export const TableHeaderCell = {
       type: Boolean,
       default: false,
     },
-    getMessage: {
-      type: Function,
-    },
   },
   render() {
     const {

@@ -46,7 +46,7 @@ describe('Grid', () => {
       },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
   const defaultProps = {
@@ -74,9 +74,7 @@ describe('Grid', () => {
       </PluginHost>
     ));
 
-    const { x, y } = tree.find(RootComponent).props();
-    expect(x).toBe(1);
-    expect(y).toBe(2);
+    expect(tree.find(RootComponent)).toBeDefined();
   });
 
   it('should render ticks', () => {

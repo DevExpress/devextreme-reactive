@@ -197,6 +197,14 @@
         path: /vue/grid/docs/reference/sorting-state
       - title: DxIntegratedSorting
         path: /vue/grid/docs/reference/integrated-sorting
+      - title: DxPagingState
+        path: /vue/grid/docs/reference/paging-state
+      - title: DxIntegratedPaging
+        path: /vue/grid/docs/reference/integrated-paging
+      - title: DxCustomPaging
+        path: /vue/grid/docs/reference/custom-paging
+      - title: DxPagingPanel
+        path: /vue/grid/docs/reference/paging-panel
       - title: DxEditingState
         path: /vue/grid/docs/reference/editing-state
       - title: DxTableEditRow

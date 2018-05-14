@@ -197,6 +197,10 @@
         path: /vue/grid/docs/reference/sorting-state
       - title: DxIntegratedSorting
         path: /vue/grid/docs/reference/integrated-sorting
+      - title: DxSearchState
+        path: /vue/grid/docs/reference/search-state
+      - title: DxSearchPanel
+        path: /vue/grid/docs/reference/search-panel
       - title: DxSelectionState
         path: /vue/grid/docs/reference/selection-state
       - title: DxIntegratedSelection

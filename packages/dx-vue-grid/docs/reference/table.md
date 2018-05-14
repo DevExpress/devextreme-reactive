@@ -87,6 +87,8 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 ### DxTable.components.DxTable
 
+A component that renders a table.
+
 #### Slots
 
 Field | Description
@@ -94,6 +96,8 @@ Field | Description
 default | The default Vue slot.
 
 ### DxTable.components.DxHead
+
+A component that renders a table head.
 
 #### Slots
 
@@ -103,6 +107,8 @@ default | The default Vue slot.
 
 ### DxTable.components.DxBody
 
+A component that renders a table body.
+
 #### Slots
 
 Field | Description
@@ -110,6 +116,8 @@ Field | Description
 default | The default Vue slot.
 
 ### DxTable.components.DxContainer
+
+A component that renders a table's container.
 
 #### Slots
 

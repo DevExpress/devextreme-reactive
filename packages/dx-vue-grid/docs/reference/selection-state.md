@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection? | Array&lt;number &#124; string&gt; | | The selected row's IDs.
+selection | Array&lt;number &#124; string&gt; | | The selected row's IDs.
 
 ### Events
 

@@ -6,8 +6,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
 
 const PointComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coords = [
   { x: 1, y: 3, id: 1 },
@@ -46,12 +44,11 @@ describe('Scatter series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
@@ -65,8 +62,7 @@ describe('Scatter series', () => {
         <ScatterSeries
           {...defaultProps}
         />
-      </PluginHost>
-    ));
+      </PluginHost>));
 
     expect(tree.find(PointComponent)).toHaveLength(coords.length);
 

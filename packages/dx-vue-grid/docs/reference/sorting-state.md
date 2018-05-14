@@ -20,7 +20,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-sorting? | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
+sorting | Array&lt;[Sorting](#sorting)&gt; | | Specifies the applied sorting.
 columnSortingEnabled? | boolean | true | Specifies whether sorting is enabled for all columns.
 columnExtensions? | Array&lt;[DxSortingState.ColumnExtension](#dxsortingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
 

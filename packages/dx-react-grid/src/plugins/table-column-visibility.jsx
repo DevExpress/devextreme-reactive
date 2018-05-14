@@ -7,6 +7,7 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
+  createStateHelper,
 } from '@devexpress/dx-react-core';
 import {
   getMessagesFormatter,
@@ -15,7 +16,6 @@ import {
   tableDataColumnsExist,
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
-import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
   { name: 'Table' },

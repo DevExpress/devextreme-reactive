@@ -40,23 +40,8 @@ describe('Chart Core', () => {
     expect(getComputedState(tree)).toEqual({
       argumentAxisName: 'axisName',
       axes: defaultProps.axes,
-      originalSeries: defaultProps.series,
-      originalData: defaultProps.data,
+      series: defaultProps.series,
+      data: defaultProps.data,
     });
-  });
-
-  it('should render root template', () => {
-    const tree = mount((
-      <PluginHost>
-        <ChartCore
-          {...defaultProps}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-    const { width, height, children } = tree.find(RootComponent).props();
-    expect(width).toBe(20);
-    expect(height).toBe(30);
-    expect(children).toEqual(expect.any(Object));
   });
 });

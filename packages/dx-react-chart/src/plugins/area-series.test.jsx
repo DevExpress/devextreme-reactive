@@ -7,8 +7,6 @@ import { AreaSeries } from './area-series';
 
 const PointComponent = () => null;
 const PathComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   lineAttributes: jest.fn(),
@@ -54,12 +52,11 @@ describe('Area series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     pathComponent: PathComponent,
     name: 'val1',

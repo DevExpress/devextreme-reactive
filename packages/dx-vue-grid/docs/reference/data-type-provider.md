@@ -24,11 +24,9 @@ for | Array&lt;string&gt; | | The names of columns associated with the specified
 formatterComponent? | [DxDataTypeProvider.DxValueFormatter](#dxdatatypeproviderdxvalueformatter) | | A component that renders the formatted value.
 editorComponent? | [DxDataTypeProvider.DxValueEditor](#dxdatatypeproviderdxvalueeditor) | | A component that renders a custom editor.
 
-## Components
+## Component Types
 
 ### DxDataTypeProvider.DxValueFormatter
-
-Describes properties passed to a component that renders the formatted value.
 
 #### Props
 
@@ -39,8 +37,6 @@ row? | any | A row.
 value | any | The value to be formatted.
 
 ### DxDataTypeProvider.DxValueEditor
-
-Describes properties and events passed to a component that renders the value editor.
 
 #### Props
 

@@ -26,7 +26,6 @@ export default class Demo extends React.PureComponent {
           style={{
           border: '1px dashed lightgray',
         }}
-          axes={[{ name: 'age', min: 0 }, { name: 'state', type: 'band' }]}
           series={[
           {
             valueField: 'young',
@@ -50,8 +49,8 @@ export default class Demo extends React.PureComponent {
         ]}
         >
 
-          <ArgumentAxis />
-          <ValueAxis name="age" />
+          <ArgumentAxis name="state" type="band" />
+          <ValueAxis name="age" min={0} />
 
           <BarSeries
             name="Young"

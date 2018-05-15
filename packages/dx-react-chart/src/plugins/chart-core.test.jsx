@@ -12,7 +12,6 @@ const RootComponent = () => null;
 
 const defaultProps = {
   data: [{ arg: 1, val: 2 }],
-  axes: [{}],
   series: [{ arg: 1 }],
   width: 20,
   height: 30,
@@ -39,7 +38,6 @@ describe('Chart Core', () => {
     expect(argumentAxisName).toBeCalledWith(defaultProps.series);
     expect(getComputedState(tree)).toEqual({
       argumentAxisName: 'axisName',
-      axes: defaultProps.axes,
       series: defaultProps.series,
       data: defaultProps.data,
     });

@@ -7,7 +7,6 @@ export class ChartCore extends React.PureComponent {
   render() {
     const {
       data,
-      axes,
       series,
     } = this.props;
     const argumentAxis = argumentAxisName(series);
@@ -15,7 +14,6 @@ export class ChartCore extends React.PureComponent {
     return (
       <Plugin>
         <Getter name="data" value={data} />
-        <Getter name="axes" value={axes} />
         <Getter name="series" value={series} />
         <Getter name="argumentAxisName" value={argumentAxis} />
       </Plugin>
@@ -26,9 +24,5 @@ export class ChartCore extends React.PureComponent {
 ChartCore.propTypes = {
   data: PropTypes.array.isRequired,
   series: PropTypes.array.isRequired,
-  axes: PropTypes.array,
 };
 
-ChartCore.defaultProps = {
-  axes: [],
-};

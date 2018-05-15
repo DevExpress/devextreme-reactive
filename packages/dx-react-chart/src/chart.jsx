@@ -26,6 +26,7 @@ export class Chart extends React.PureComponent {
     } = this.props;
     return ((
       <PluginHost>
+        {children}
         <ChartCore
           data={data}
           axes={axes}
@@ -53,7 +54,6 @@ export class Chart extends React.PureComponent {
           `${BOTTOM}-${RIGHT}-axis`,
           ]}
         />
-        {children}
       </PluginHost>
     ));
   }

@@ -83,3 +83,5 @@ export const axisCoordinates = (
     indentFromAxis,
   );
 };
+
+export const axesData = (axes = [], axisProps) => [...axes, axisProps];

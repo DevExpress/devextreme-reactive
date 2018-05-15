@@ -6,9 +6,10 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
+  Getter,
 } from '@devexpress/dx-react-core';
 
-import { axisCoordinates, HORIZONTAL } from '@devexpress/dx-chart-core';
+import { axisCoordinates, HORIZONTAL, axesData } from '@devexpress/dx-chart-core';
 
 export class Axis extends React.Component {
   constructor(props) {
@@ -69,8 +70,10 @@ export class Axis extends React.Component {
       labelComponent: Label,
       lineComponent: Line,
     } = this.props;
+    const getAxesDataComputed = ({ axes }) => axesData(axes, this.props);
     return (
       <Plugin name="Axis">
+        <Getter name="axes" computed={getAxesDataComputed} />
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>

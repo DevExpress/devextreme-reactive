@@ -1,5 +1,5 @@
 import { getCollapsedGrid } from '@devexpress/dx-grid-core';
-import { DxSizer, RefHolder } from '@devexpress/dx-vue-core';
+import { DxSizer, DxRefHolder } from '@devexpress/dx-vue-core';
 import { ColumnGroup } from './column-group';
 
 export const VirtualTableLayout = {
@@ -118,7 +118,7 @@ export const VirtualTableLayout = {
     },
     storeRowHeights() {
       const rowsWithChangedHeights = Array.from(this.$refs)
-        .map(node => [{ key: node.split('-')[2], height: node.split('-')[3] }, node])
+        .map(node => [{ key: node.split('-')[0], height: node.split('-')[1] }, node])
         .filter(([, node]) => !!node)
         .map(([row, node]) => [row, node.getBoundingClientRect().height])
         .filter(([row, height]) => height !== this.getRowHeight(row));
@@ -170,9 +170,9 @@ export const VirtualTableLayout = {
             {collapsedGrid.rows.map((visibleRow) => {
               const { row, cells = [] } = visibleRow;
               return (
-                <RefHolder
+                <DxRefHolder
                   key={row.key}
-                  ref={`refHolder-${row.key}-${row.height}`}
+                  ref={`${row.key}-${row.height}`}
                 >
                   <Row
                     tableRow={row}
@@ -192,7 +192,7 @@ export const VirtualTableLayout = {
                       );
                     })}
                   </Row>
-                </RefHolder>
+                </DxRefHolder>
               );
             })}
           </Body>

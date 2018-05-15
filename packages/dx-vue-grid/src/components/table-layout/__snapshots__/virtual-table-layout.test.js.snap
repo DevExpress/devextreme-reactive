@@ -9,23 +9,14 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     style="min-width: 400px;"
   >
     <!---->
-    <table>
-      <!---->
-    </table>
+    <table />
   </table>
   <table
     minwidth="400px"
     style="min-width: 400px;"
   >
     <!---->
-    <tbody>
-      <!---->
-      <!---->
-      <!---->
-      <!---->
-      <!---->
-      <!---->
-    </tbody>
+    <tbody />
   </table>
 </div>
 `;

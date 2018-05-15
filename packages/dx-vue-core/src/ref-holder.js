@@ -1,4 +1,4 @@
-export const RefHolder = {
+export const DxRefHolder = {
   render() {
     return this.$slots.default[0];
   },

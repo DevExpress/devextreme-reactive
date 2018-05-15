@@ -27,17 +27,17 @@ import { DxTable } from '@devexpress/dx-vue-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 columnExtensions? | Array&lt;[DxTable.ColumnExtension](#dxtablecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-tableComponent | object | [DxTable.components.DxTable](#dxtablecomponentsdxtable) | A component that renders a table.
-headComponent | object | [DxTable.components.DxHead](#dxtablecomponentsdxhead) | A component that renders a table head.
-bodyComponent | object | [DxTable.components.DxBody](#dxtablecomponentsdxbody) | A component that renders a table body.
-containerComponent | object | [DxTable.components.DxContainer](#dxtablecomponentsdxcontainer) | A component that renders a table's container.
-cellComponent | object | [DxTable.components.DxCell](#dxtablecomponentsdxcell) | A component that renders a table cell.
-rowComponent | object | [DxTable.components.DxRow](#dxtablecomponentsdxrow) | A component that renders a table row.
-noDataCellComponent | object | [DxTable.components.DxNoDataCell](#dxtablecomponentsdxnodatacell) | A component that renders a table cell when the table is empty.
-noDataRowComponent | object | [DxTable.components.DxNoDataRow](#dxtablecomponentsdxnodatarow) | A component that renders a table row when the table is empty.
-stubRowComponent | object | [DxTable.components.DxStubRow](#dxtablecomponentsdxstubrow) | A component that renders a stub table row if the row type is not recognized.
-stubCellComponent | object | [DxTable.components.DxStubCell](#dxtablecomponentsdxstubcell) | A component that renders a stub table cell if the cell value is not provided.
-stubHeaderCellComponent | object | [DxTable.components.DxStubHeaderCell](#dxtablecomponentsdxstubheadercell) | A component that renders a stub header cell if the cell value is not provided.
+tableComponent | [DxTable.DxTable](#dxtabledxtable) | | A component that renders a table.
+headComponent | [DxTable.DxHead](#dxtabledxhead)  | | A component that renders a table head.
+bodyComponent | [DxTable.DxBody](#dxtabledxbody) | | A component that renders a table body.
+containerComponent | [DxTable.DxContainer](#dxtabledxcontainer) | | A component that renders a table's container.
+cellComponent | [DxTable.DxCell](#dxtabledxcell) | | A component that renders a table cell.
+rowComponent | [DxTable.DxRow](#dxtabledxrow) | | A component that renders a table row.
+noDataCellComponent | [DxTable.DxNoDataCell](#dxtabledxnodatacell) | | A component that renders a table cell when the table is empty.
+noDataRowComponent | [DxTable.DxNoDataRow](#dxtabledxnodatarow) | | A component that renders a table row when the table is empty.
+stubRowComponent | [DxTable.DxStubRow](#dxtabledxstubrow) | | A component that renders a stub table row if the row type is not recognized.
+stubCellComponent | [DxTable.DxStubCell](#dxtabledxstubcell) | | A component that renders a stub table cell if the cell value is not provided.
+stubHeaderCellComponent | [DxTable.DxStubHeaderCell](#dxtabledxstubheadercell) | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [DxTable.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
@@ -77,17 +77,9 @@ column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.
 
-## Localization Messages
+## Component Types
 
-Field | Type | Default | Description
-------|------|---------|------------
-noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
-
-## Plugin Components
-
-### DxTable.components.DxTable
-
-A component that renders a table.
+### DxTable.DxTable
 
 #### Slots
 
@@ -95,9 +87,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxHead
-
-A component that renders a table head.
+### DxTable.DxHead
 
 #### Slots
 
@@ -105,9 +95,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxBody
-
-A component that renders a table body.
+### DxTable.DxBody
 
 #### Slots
 
@@ -115,9 +103,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxContainer
-
-A component that renders a table's container.
+### DxTable.DxContainer
 
 #### Slots
 
@@ -125,9 +111,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxCell
-
-A component that renders a table cell.
+### DxTable.DxCell
 
 #### Props
 
@@ -147,9 +131,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxNoDataCell
-
-A component that renders a table cell when the table is empty.
+### DxTable.DxNoDataCell
 
 #### Props
 
@@ -161,9 +143,7 @@ colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
 
-### DxTable.components.DxRow
-
-A component that renders a table row.
+### DxTable.DxRow
 
 #### Props
 
@@ -178,9 +158,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxNoDataRow
-
-A component that renders a table row when the table is empty.
+### DxTable.DxNoDataRow
 
 #### Props
 
@@ -194,9 +172,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxStubRow
-
-A component that renders a stub table row if the row type is not recognized.
+### DxTable.DxStubRow
 
 #### Props
 
@@ -210,9 +186,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTable.components.DxStubCell
-
-A component that renders a stub table cell if the cell value is not provided.
+### DxTable.DxStubCell
 
 #### Props
 
@@ -223,9 +197,7 @@ tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
-### DxTable.components.DxStubHeaderCell
-
-A component that renders a stub header cell if the cell value is not provided.
+### DxTable.DxStubHeaderCell
 
 #### Props
 
@@ -235,6 +207,28 @@ tableRow | [TableRow](#tablerow) | Specifies a table row.
 tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+DxTable.components.DxTable | [DxTable.DxTable](#dxtabledxtable) | A component that renders a table.
+DxTable.components.DxHead | [DxTable.DxHead](#dxtabledxhead) | A component that renders a table head.
+DxTable.components.DxBody | [DxTable.DxBody](#dxtabledxbody) | A component that renders a table body.
+DxTable.components.DxContainer | [DxTable.DxContainer](#dxtabledxcontainer) | A component that renders a table's container.
+DxTable.components.DxCell | [DxTable.DxCell](#dxtabledxcell) | A component that renders a table data cell.
+DxTable.components.DxRow | [DxTable.DxRow](#dxtabledxrow) | A component that renders a table data row.
+DxTable.components.DxNoDataCell | [DxTable.DxNoDataCell](#dxtabledxnodatacell) | A component that renders a table cell when the table is empty.
+DxTable.components.DxNoDataRow | [DxTable.DxNoDataRow](#dxtabledxnodatarow) | A component that renders a table row when the table is empty.
+DxTable.components.DxStubRow | [DxTable.DxStubRow](#dxtabledxstubrow) | A component that renders a stub table row.
+DxTable.components.DxStubCell | [DxTable.DxStubCell](#dxtabledxstubcell) | A component that renders a stub table cell.
+DxTable.components.DxStubHeaderCell | [DxTable.DxStubHeaderCell](#dxtabledxstubheadercell) | A component that renders a stub table header cell.
 
 ## Plugin Developer Reference
 

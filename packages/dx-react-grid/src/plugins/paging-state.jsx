@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
+import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
-import { createStateHelper } from '../utils/state-helper';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {

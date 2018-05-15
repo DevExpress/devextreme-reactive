@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { memoize } from '@devexpress/dx-core';
-import { Plugin, Getter, Action } from '@devexpress/dx-react-core';
+import { Plugin, Getter, Action, createStateHelper } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   tableColumnsWithDraftWidths,
@@ -9,7 +9,6 @@ import {
   draftTableColumnWidth,
   cancelTableColumnWidthDraft,
 } from '@devexpress/dx-grid-core';
-import { createStateHelper } from '../utils/state-helper';
 
 const pluginDependencies = [
   { name: 'Table' },

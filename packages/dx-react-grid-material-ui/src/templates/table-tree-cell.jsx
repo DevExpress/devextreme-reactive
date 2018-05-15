@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell as TableCellMUI } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCellMUI from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {

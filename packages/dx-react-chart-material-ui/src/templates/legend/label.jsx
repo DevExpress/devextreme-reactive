@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListItemText } from 'material-ui/List';
+import ListItemText from '@material-ui/core/ListItemText';
 
 export class Label extends React.PureComponent {
   render() {

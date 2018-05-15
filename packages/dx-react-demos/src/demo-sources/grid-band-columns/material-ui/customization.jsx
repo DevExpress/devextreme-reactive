@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -7,7 +7,7 @@ import {
   TableBandHeader,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Equalizer from '@material-ui/icons/Equalizer';
 import People from '@material-ui/icons/People';
 import PieChart from '@material-ui/icons/PieChart';

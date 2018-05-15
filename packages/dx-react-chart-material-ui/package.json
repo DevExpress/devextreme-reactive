@@ -46,7 +46,8 @@
   "devDependencies": {
     "@devexpress/dx-react-core": "1.2.0",
     "@devexpress/dx-testing": "1.2.0",
-    "@material-ui/icons": "1.0.0-beta.43",
+    "@material-ui/core": "1.0.0-rc.0",
+    "@material-ui/icons": "1.0.0-rc.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -69,14 +70,13 @@
     "jss": "^9.8.1",
     "jss-preset-default": "^4.3.0",
     "jss-theme-reactor": "^0.11.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-test-renderer": "^16.2.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-test-renderer": "^16.3.2",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-license": "^0.6.0",
-    "rollup-plugin-node-resolve": "^3.2.0",
-    "material-ui": "1.0.0-beta.44"
+    "rollup-plugin-node-resolve": "^3.2.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -86,8 +86,8 @@
     "@devexpress/dx-chart-core": "1.2.0",
     "@devexpress/dx-react-core": "1.2.0",
     "@devexpress/dx-react-chart": "1.2.0",
-    "@material-ui/icons": "1.0.0-beta.43",
-    "material-ui": "1.0.0-beta.44",
+    "@material-ui/core": "1.0.0-rc.0",
+    "@material-ui/icons": "1.0.0-rc.0",
     "react": "^16.2.0"
   }
 }

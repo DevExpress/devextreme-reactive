@@ -3,7 +3,7 @@ import { HORIZONTAL, VERTICAL, BAND } from '../../constants';
 
 const isDefined = item => item !== undefined;
 
-const getAxesDomains = axes =>
+const collectAxesTypes = axes =>
   axes.reduce(
     (domains, {
       name, type,
@@ -24,7 +24,7 @@ const calculateDomainField = (field, data, domain = [], type) => {
   return extent([...domain, ...extent(data, getFieldItem)]);
 };
 
-const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
+const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
   series.reduce(
     (domains, {
       valueField, argumentField, axisName, name,
@@ -51,10 +51,10 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
         type: domains[argumentAxisName] && domains[argumentAxisName].type,
       },
     }),
-    axesDomains,
+    axesTypes,
   );
 
-const zoomingDomains = (axes, calculatedDomains) => axes.reduce(
+const adjustDomains = (axes, calculatedDomains) => axes.reduce(
   (domains, {
     name, min, max, type,
   }) => {
@@ -75,7 +75,7 @@ const zoomingDomains = (axes, calculatedDomains) => axes.reduce(
 );
 
 export const domains = (axes, series, data, argumentAxisName) => {
-  const axesDomains = getAxesDomains(axes);
-  const calculatedDomains = calculateDomain(series, data, axesDomains, argumentAxisName);
-  return zoomingDomains(axes, calculatedDomains);
+  const axesTypes = collectAxesTypes(axes);
+  const calculatedDomains = calculateDomain(series, data, axesTypes, argumentAxisName);
+  return adjustDomains(axes, calculatedDomains);
 };

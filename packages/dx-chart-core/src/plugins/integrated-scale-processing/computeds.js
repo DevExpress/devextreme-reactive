@@ -6,11 +6,10 @@ const isDefined = item => item !== undefined;
 const getAxesDomains = axes =>
   axes.reduce(
     (domains, {
-      name, min, max, type,
+      name, type,
     }) => ({
       ...domains,
       [name]: {
-        domain: [min, max].filter(isDefined),
         type,
       },
     }),
@@ -55,7 +54,28 @@ const calculateDomain = (series, data, axesDomains, argumentAxisName) =>
     axesDomains,
   );
 
+const zoomingDomains = (axes, calculatedDomains) => axes.reduce(
+  (domains, {
+    name, min, max, type,
+  }) => {
+    const currentDomain = domains[name];
+    return {
+      ...domains,
+      [name]: {
+        domain: type !== BAND ? [
+          isDefined(min) ? min : currentDomain.domain[0],
+          isDefined(max) ? max : currentDomain.domain[1],
+        ] : currentDomain.domain,
+        type: currentDomain.type,
+        orientation: currentDomain.orientation,
+      },
+    };
+  },
+  calculatedDomains,
+);
+
 export const domains = (axes, series, data, argumentAxisName) => {
   const axesDomains = getAxesDomains(axes);
-  return calculateDomain(series, data, axesDomains, argumentAxisName);
+  const calculatedDomains = calculateDomain(series, data, axesDomains, argumentAxisName);
+  return zoomingDomains(axes, calculatedDomains);
 };

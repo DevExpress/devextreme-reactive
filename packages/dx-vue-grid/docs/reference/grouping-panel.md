@@ -32,9 +32,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [DxSortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether column headers display a button that cancels grouping by that column.
-containerComponent | object | [DxGroupingPanel.components.DxContainer](#dxgroupingpanelcomponentsdxcontainer) | A component that renders a group panel container.
-itemComponent | object | [DxGroupingPanel.components.DxItem](#dxgroupingpanelcomponentsdxitem) | A component that renders a group panel item.
-emptyMessageComponent | object | [DxGroupingPanel.components.DxEmptyMessage](#dxgroupingpanelcomponentsdxemptymessage) | A component that renders an empty group panel message.
+containerComponent | [DxGroupingPanel.DxContainer](#dxgroupingpaneldxcontainer) | | A component that renders a group panel container.
+itemComponent | [DxGroupingPanel.DxItem](#dxgroupingpaneldxitem) | | A component that renders a group panel item.
+emptyMessageComponent | [DxGroupingPanel.DxEmptyMessage](#dxgroupingpaneldxemptymessage) | | A component that renders an empty group panel message.
 messages? | [DxGroupingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
 ## Interfaces
@@ -47,17 +47,9 @@ Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column associated with the item.
 
-## Localization Messages
+## Component Types
 
-Field | Type | Default | Description
-------|------|---------|------------
-groupByColumn? | string | '' | The text displayed in the group panel if the grid is not grouped.
-
-## Plugin Components
-
-### DxGroupingPanel.components.DxContainer
-
-A component that renders a group panel container.
+### DxGroupingPanel.DxContainer
 
 #### Slots
 
@@ -65,9 +57,7 @@ Field | Description
 ------|------------
 default | The default Vue slot
 
-### DxGroupingPanel.components.DxItem
-
-A component that renders a group panel item.
+### DxGroupingPanel.DxItem
 
 #### Props
 
@@ -87,15 +77,27 @@ Field | Type | Description
 group | () => void | An event that initiates grouping by column.
 sort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 
-### DxGroupingPanel.components.DxEmptyMessage
-
-A component that renders an empty group panel message.
+### DxGroupingPanel.DxEmptyMessage
 
 #### Props
 
 Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+groupByColumn? | string | '' | The text displayed in the group panel if the grid is not grouped.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------------|------------
+DxGroupingPanel.components.DxContainer | [DxGroupingPanel.DxContainer](#dxgroupingpaneldxcontainer) | A component that renders a group panel container.
+DxGroupingPanel.components.DxItem | [DxGroupingPanel.DxItem](#dxgroupingpaneldxitem) | A component that renders a group panel item.
+DxGroupingPanel.components.DxEmptyMessage | [DxGroupingPanel.DxEmptyMessage](#dxgroupingpaneldxemptymessage) | A component that renders an empty group panel message.
 
 ## Plugin Developer Reference
 

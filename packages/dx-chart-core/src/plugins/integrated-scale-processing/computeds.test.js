@@ -22,13 +22,15 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, 'val-name-end': 9 }],
+      [{
+        arg: 1, val: 9, 'val-name-end': 9, 'val-name-start': 0,
+      }],
       'argumentAxis',
     );
 
     expect(calculatedDomains).toEqual({
       argumentAxis: { domain: [1, 1], orientation: 'horizontal' },
-      valueAxis: { domain: [9, 9], orientation: 'vertical' },
+      valueAxis: { domain: [0, 9], orientation: 'vertical' },
     });
   });
 

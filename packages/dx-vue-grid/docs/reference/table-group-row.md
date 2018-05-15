@@ -30,9 +30,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 showColumnsWhenGrouped? | boolean | false | A Boolean value that specifies whether the grid's table displays a column by which data is grouped.
 columnExtensions? | Array&lt;[DxTableGroupRow.ColumnExtension](#dxtablegrouprowcolumnextension)&gt; | | Additional column properties that the plugin can handle.
-cellComponent | object | [DxTableGroupRow.components.DxCell](#dxtablegrouprowcomponentsdxcell) | A component that renders a group cell.
-rowComponent | object | [DxTableGroupRow.components.DxRow](#dxtablegrouprowcomponentsdxrow) | A component that renders a group row.
-indentCellComponent? | [DxTableGroupRow.IndentCellProps](#dxtablegrouprowindentcellprops) | null | A component that renders a group indent cell.
+cellComponent | [DxTableGroupRow.DxCell](#dxtablegrouprowdxcell) | | A component that renders a group cell.
+rowComponent | [DxTableGroupRow.DxRow](#dxtablegrouprowdxrow) | | A component that renders a group row.
+indentCellComponent? | [DxTableGroupRow.DxIndentCell](#dxtablegrouprowdxindentcell) | | A component that renders a group indent cell.
 indentColumnWidth | number | | The group indent column's width.
 
 ## Interfaces
@@ -55,41 +55,9 @@ Field | Type | Description
 key | number &#124; string | The current group key.
 value | any | The current group value.
 
-### DxTableGroupRow.IndentCellProps
+## Component Types
 
-Describes properties passed to a component that renders a group indent cell.
-
-Field | Type | Description
-------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
-colSpan? | number | The count of columns that the root cell element spans.
-rowSpan? | number | The count of rows that the root cell element spans.
-row | [GroupRow](#grouprow) | The group row.
-column | [Column](grid.md#column) | A column associated with the group.
-
-## Plugin Components
-
-### DxTableGroupRow.components.DxRow
-
-A component that renders a group row.
-
-#### Props
-
-Field | Type | Description
-------|------|------------
-tableRow | [TableRow](table.md#tablerow) | A table row.
-row | [GroupRow](#grouprow) | The group row.
-
-#### Slots
-
-Field | Description
-------|------------
-default | The default Vue slot.
-
-### DxTableGroupRow.components.DxCell
-
-A component that renders a group cell.
+### DxTableGroupRow.DxCell
 
 #### Props
 
@@ -114,6 +82,41 @@ default | The default Vue slot.
 Field | Type | Description
 ------|------|------------
 toggle | () => void | An event that initiates group row expanding or collapsing.
+
+### DxTableGroupRow.DxRow
+
+#### Props
+
+Field | Type | Description
+------|------|------------
+tableRow | [TableRow](table.md#tablerow) | A table row.
+row | [GroupRow](#grouprow) | The group row.
+
+#### Slots
+
+Field | Description
+------|------------
+default | The default Vue slot.
+
+### DxTableGroupRow.DxIndentCell
+
+#### Props
+
+Field | Type | Description
+------|------|------------
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
+rowSpan? | number | The count of rows that the root cell element spans.
+row | [GroupRow](#grouprow) | The group row.
+column | [Column](grid.md#column) | A column associated with the group.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------------|------------
+DxTableGroupRow.components.DxRow | [DxTableGroupRow.DxRow](#dxtablegrouprowdxrow) | A component that renders a group row.
+DxTableGroupRow.components.DxCell | [DxTableGroupRow.DxCell](#dxtablegrouprowdxcell) | A component that renders a group cell.
 
 ## Plugin Developer Reference
 

@@ -1,18 +1,21 @@
 # React Chart - Fundamentals
 
-The Chart component visualizes data from the 'data' property. For basic visualization in the Chart must be at least one of the following plugins, that each renders its type of series using data (line, spline, bar and etc):
+The Chart component visualizes data specified via the `data` property.
 
-- LineSeries
-- ScatterSeries
-- AreaSeries
-- SplineSeries
-- BarSeries
-- PieSeries
+At least one of the following plugins that render series of the specified type (line, area, bar, etc.) is also required:
 
-To visualize extra elements such as axes, grids and legend use following plugins:
-- ArgumentAxis - renders argumment axis
-- ValueAxis - renders value axis
-- Grid - renders grids for axis
-- Legend - renders legend
+- `LineSeries`
+- `ScatterSeries`
+- `AreaSeries`
+- `SplineSeries`
+- `BarSeries`
+- `PieSeries`
+
+To visualize extra elements such as the axes, grid and legend, use the following plugins:
+
+- `ArgumentAxis` - renders an argumment axis
+- `ValueAxis` - renders a value axis
+- `Grid` - renders a grid
+- `Legend` - renders a legend
 
 .embedded-demo({ "path": "chart-basic/combination-series.skip", "showThemeSelector": true })

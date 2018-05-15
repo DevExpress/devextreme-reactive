@@ -74,6 +74,7 @@ export class Axis extends React.Component {
     return (
       <Plugin name="Axis">
         <Getter name="axes" computed={getAxesDataComputed} />
+        {isArgumentAxis ? <Getter name="argumentAxisName" value={this.props.name} /> : null}
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>

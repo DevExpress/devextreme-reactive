@@ -19,16 +19,8 @@ export default class Demo extends React.PureComponent {
       height: 400,
       series: [
         {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
         },
         {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
         },
       ],
     };
@@ -46,15 +38,21 @@ export default class Demo extends React.PureComponent {
           series={series}
         >
 
-          <ArgumentAxis />
+          <ArgumentAxis name="year" />
           <ValueAxis name="born" />
 
           <ScatterSeries
             name="Russia"
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'red', fill: 'white' }}
           />
           <ScatterSeries
             name="China"
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'orange', fill: 'blue' }}
           />
         </Chart>

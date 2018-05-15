@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
+  Getter,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
+import { pieAttributes, seriesData } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -18,15 +19,21 @@ export class PieSeries extends React.PureComponent {
       cx,
       cy,
       pointComponent: Point,
+      valueField,
+      argumentField,
       ...restProps
     } = this.props;
+    const getSeriesDataComputed = ({ series }) =>
+      seriesData(series, {
+        valueField, argumentField, name,
+      });
     return (
       <Plugin name="PieSeries">
+        <Getter name="series" computed={getSeriesDataComputed} />
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                series,
                 data,
                 layouts,
                 width, height,
@@ -34,7 +41,6 @@ export class PieSeries extends React.PureComponent {
                 const {
                   width: widthPane, height: heightPane,
                 } = layouts[placeholder] || { width, height };
-              const { valueField } = findSeriesByName(name, series);
               const arcs = pieAttributes(
                 valueField,
                 data,
@@ -71,6 +77,8 @@ PieSeries.propTypes = {
   outerRadius: PropTypes.number,
   cx: PropTypes.number,
   cy: PropTypes.number,
+  valueField: PropTypes.string.isRequired,
+  argumentField: PropTypes.string.isRequired,
 };
 
 PieSeries.defaultProps = {

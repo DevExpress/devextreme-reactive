@@ -14,6 +14,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 const coords = [
@@ -37,10 +38,7 @@ pointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
-  stack: 'stack',
+  stack: 'stack1',
 }));
 
 xyScales.mockImplementation();
@@ -62,6 +60,9 @@ describe('Area series', () => {
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {

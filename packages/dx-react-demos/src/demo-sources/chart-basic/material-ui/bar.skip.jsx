@@ -17,19 +17,11 @@ export default class Demo extends React.PureComponent {
       data: data.slice(0, 7),
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'contributions',
-          argumentField: 'login',
-          axisName: 'commits',
-          name: 'BarSeries',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Paper>
@@ -37,7 +29,6 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
           <ArgumentAxis name="login" type="band" />
@@ -46,6 +37,9 @@ export default class Demo extends React.PureComponent {
           <BarSeries
             name="BarSeries"
             style={{ stroke: 'none', fill: 'darkblue' }}
+            valueField="contributions"
+            argumentField="login"
+            axisName="commits"
           />
         </Chart>
       </Paper>

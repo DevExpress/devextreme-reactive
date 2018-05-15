@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
+import { findSeriesByName, xyScales, coordinates, seriesData } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 const coords = [
@@ -26,18 +27,13 @@ const pointMethod = jest.fn();
 
 describe('Base series', () => {
   beforeEach(() => {
-    findSeriesByName.mockImplementation(() => ({
-      axisName: 'axisName',
-      argumentField: 'arg',
-      valueField: 'val',
-      stack: 'stack',
-    }));
+    findSeriesByName.mockReturnValue({
+      stack: 'stack1',
+    });
 
-    xyScales.mockImplementation();
-    coordinates.mockImplementation(() => coords);
-
-    lineMethod.mockImplementation();
-    pointMethod.mockImplementation(() => jest.fn());
+    coordinates.mockReturnValue(coords);
+    pointMethod.mockReturnValue(jest.fn());
+    seriesData.mockReturnValue('series');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -59,6 +55,10 @@ describe('Base series', () => {
   const defaultProps = {
     name: 'name',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
+    stack: 'stack',
   };
   const TestComponentPath = () => (<div>TestComponentPath</div>);
   const TestComponentPoint = () => (<div>TestComponentPoint</div>);
@@ -88,7 +88,7 @@ describe('Base series', () => {
     });
     expect(tree.children().find(TestComponentPoint)).toHaveLength(5);
     expect(lineMethod).toBeCalledWith('pathType', coords, undefined);
-    expect(pointMethod).toBeCalledWith(undefined, 7, 'stack');
+    expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
   });
 
   it('should call function to get attributes for series', () => {
@@ -124,9 +124,31 @@ describe('Base series', () => {
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
       undefined,
-      'arg',
-      'val',
+      'argumentField',
+      'valueField',
       'name',
+    );
+  });
+
+  it('should pass axesData correct arguments', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <WrappedComponent
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(seriesData).toHaveBeenCalledWith(
+      'series',
+      expect.objectContaining({
+        valueField: 'valueField',
+        argumentField: 'argumentField',
+        name: 'name',
+        axisName: 'axisName',
+        stack: 'stack',
+      }),
     );
   });
 });

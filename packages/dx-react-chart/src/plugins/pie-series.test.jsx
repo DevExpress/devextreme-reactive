@@ -10,6 +10,7 @@ const PointComponent = () => null;
 jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => ['M11 11', 'M22 22', 'M33 33']);
@@ -34,6 +35,8 @@ describe('Pie series', () => {
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
   };
 
   it('should render points', () => {

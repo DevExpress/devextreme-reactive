@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@devexpress/dx-vue-grid",
   "version": "1.2.0",
   "description": "Composable plugin-based data grid component for Vue",

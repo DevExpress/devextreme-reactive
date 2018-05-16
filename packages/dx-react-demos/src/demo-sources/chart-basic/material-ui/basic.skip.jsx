@@ -21,27 +21,6 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
-          point: { size: 10 },
-        },
-        {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
-        },
-        {
-          valueField: 'us',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'USA',
-        },
-      ],
     };
   }
   render() {
@@ -51,7 +30,7 @@ export default class Demo extends React.PureComponent {
     return (
       <Paper>
         <Chart data={chartData} width={width} height={height} series={series}>
-          <ArgumentAxis position="top" />
+          <ArgumentAxis position="top" name="year" />
           <ValueAxis name="born" />
           <Legend />
 
@@ -59,16 +38,25 @@ export default class Demo extends React.PureComponent {
           <Grid name="born" />
 
           <LineSeries
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
+            point={{ size: 10 }}
             name="Russia"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
-            point={{ size: 10 }}
           />
           <SplineSeries
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             name="China"
             style={{ stroke: 'green' }}
           />
           <AreaSeries
+            valueField="us"
+            argumentField="year"
+            axisName="born"
             name="USA"
             style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
             pointStyle={{ fill: 'orange' }}

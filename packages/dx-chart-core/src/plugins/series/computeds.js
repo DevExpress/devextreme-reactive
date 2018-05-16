@@ -124,3 +124,5 @@ export const barPointAttributes = (scales, _, stack) => {
     height: item.y1 - item.y,
   });
 };
+
+export const seriesData = (series = [], seriesProps) => [...series, seriesProps];

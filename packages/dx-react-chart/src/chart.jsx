@@ -16,21 +16,16 @@ export class Chart extends React.PureComponent {
   render() {
     const {
       data,
-      axes,
       width,
       height,
-      series,
       children,
       rootComponent: Root,
       ...restProps
     } = this.props;
     return ((
       <PluginHost>
-        <ChartCore
-          data={data}
-          axes={axes}
-          series={series}
-        />
+        {children}
+        <ChartCore data={data} />
         <SeriesFamily />
         <IntegratedScaleProcessing />
         <LayoutManager
@@ -53,7 +48,6 @@ export class Chart extends React.PureComponent {
           `${BOTTOM}-${RIGHT}-axis`,
           ]}
         />
-        {children}
       </PluginHost>
     ));
   }
@@ -61,8 +55,6 @@ export class Chart extends React.PureComponent {
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  axes: PropTypes.array,
-  series: PropTypes.array.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,
@@ -72,6 +64,5 @@ Chart.defaultProps = {
   width: 150,
   height: 150,
   children: null,
-  axes: [],
 };
 

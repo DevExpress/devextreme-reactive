@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
+  Getter,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { findSeriesByName, coordinates, xyScales } from '@devexpress/dx-chart-core';
+import { findSeriesByName, coordinates, xyScales, seriesData } from '@devexpress/dx-chart-core';
 
 export const baseSeries = (
   WrappedPath,
@@ -24,10 +25,19 @@ export const baseSeries = (
         point,
         barWidth,
         groupWidth,
+        valueField,
+        argumentField,
+        axisName,
+        stack: stackProp,
         ...restProps
       } = this.props;
+      const getSeriesDataComputed = ({ series }) =>
+        seriesData(series, {
+          valueField, argumentField, name, axisName, stack: stackProp,
+        });
       return (
         <Plugin name={pluginName}>
+          <Getter name="series" computed={getSeriesDataComputed} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
@@ -42,15 +52,12 @@ export const baseSeries = (
                 height,
               }) => {
                 const {
-                  axisName: domainName,
-                  argumentField,
-                  valueField,
                   stack,
                 } = findSeriesByName(name, series);
                 const scales = xyScales(
                   domains,
                   argumentAxisName,
-                  domainName,
+                  axisName,
                   layouts.pane || { width, height },
                   stacks,
                   groupWidth,
@@ -96,8 +103,13 @@ export const baseSeries = (
     point: PropTypes.object,
     barWidth: PropTypes.number,
     groupWidth: PropTypes.number,
+    valueField: PropTypes.string.isRequired,
+    argumentField: PropTypes.string.isRequired,
+    axisName: PropTypes.string.isRequired,
+    stack: PropTypes.string,
   };
   Component.defaultProps = {
+    stack: undefined,
     placeholder: 'pane',
     point: { size: 7 },
     barWidth: 0.9,

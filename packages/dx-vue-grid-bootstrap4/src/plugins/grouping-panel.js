@@ -4,7 +4,7 @@ import { GroupPanelItem } from '../templates/group-panel-item';
 import { GroupPanelEmptyMessage } from '../templates/group-panel-empty-message';
 
 const defaultMessages = {
-  groupByColumn: 'Drag a column header here to group by that column',
+  groupByColumn: '',
 };
 
 export const DxGroupingPanel = {

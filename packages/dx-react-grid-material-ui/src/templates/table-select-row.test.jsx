@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { TableRow as TableRowMUI } from 'material-ui/Table';
-import { createShallow } from 'material-ui/test-utils';
+import TableRowMUI from '@material-ui/core/TableRow';
+import { createShallow } from '@material-ui/core/test-utils';
 import { TableSelectRow } from './table-select-row';
 
 const defaultProps = {

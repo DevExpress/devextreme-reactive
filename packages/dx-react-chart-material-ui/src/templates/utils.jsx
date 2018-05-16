@@ -1,4 +1,4 @@
-import { darken, fade, lighten } from 'material-ui/styles/colorManipulator';
+import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
 
 export const getBorderColor = theme => (
   theme.palette.type !== 'light'

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListItem, ListItemText } from 'material-ui/List';
-import Checkbox from 'material-ui/Checkbox';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 export const Item = ({
   item: { column, hidden },

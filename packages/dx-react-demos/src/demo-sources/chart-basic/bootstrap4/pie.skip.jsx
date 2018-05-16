@@ -22,17 +22,12 @@ export default class Demo extends React.PureComponent {
           data={this.state.data}
           width={700}
           height={400}
-          series={[
-          {
-            valueField: 'contributions',
-            argumentField: 'login',
-            name: 'PieSeries',
-          },
-        ]}
         >
 
           <PieSeries
             name="PieSeries"
+            valueField="contributions"
+            argumentField="login"
             style={{ stroke: 'white', fill: '#ff6666' }}
             innerRadius={0}
             outerRadius={0.7}
@@ -42,6 +37,8 @@ export default class Demo extends React.PureComponent {
 
           <PieSeries
             name="PieSeries"
+            valueField="contributions"
+            argumentField="login"
             style={{ stroke: 'white', fill: '#9fff80' }}
             innerRadius={0.2}
             outerRadius={0.7}

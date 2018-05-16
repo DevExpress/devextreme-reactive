@@ -26,43 +26,32 @@ export default class Demo extends React.PureComponent {
           style={{
           border: '1px dashed lightgray',
         }}
-          axes={[{ name: 'age', min: 0 }, { name: 'state', type: 'band' }]}
-          series={[
-          {
-            valueField: 'young',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Young',
-            stack: 'a',
-          }, {
-            valueField: 'middle',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Middle',
-            stack: 'a',
-          }, {
-            valueField: 'older',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Older',
-            stack: 'a',
-          },
-        ]}
         >
-
-          <ArgumentAxis />
-          <ValueAxis name="age" />
+          <ArgumentAxis name="state" type="band" />
+          <ValueAxis name="age" min={0} />
 
           <AreaSeries
             name="Young"
+            valueField="young"
+            argumentField="state"
+            axisName="age"
+            stack="a"
             style={{ stroke: 'none', fill: 'rgba(200, 141, 214, 0.6)' }}
           />
           <AreaSeries
+            valueField="middle"
+            argumentField="state"
+            axisName="age"
+            stack="a"
             name="Middle"
             style={{ stroke: 'none', fill: 'rgba(138, 209, 132, 0.6)' }}
           />
           <AreaSeries
             name="Older"
+            valueField="older"
+            argumentField="state"
+            axisName="age"
+            stack="a"
             style={{ stroke: 'none', fill: 'rgba(120, 170, 227, 0.6)' }}
           />
         </Chart>

@@ -11,7 +11,7 @@ const styles = () => ({
 class PointBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, pathComponent, ...restProps
+      x, y, classes, className, seriesComponent, ...restProps
     } = this.props;
     return (
       <path
@@ -26,15 +26,14 @@ class PointBase extends React.PureComponent {
 PointBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  pathComponent: PropTypes.any,
+  seriesComponent: PropTypes.any,
 };
 
 PointBase.defaultProps = {
   className: undefined,
-  pathComponent: undefined,
+  seriesComponent: undefined,
 };
 
 export const Point = withStyles(styles)(PointBase);

@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export class Point extends React.PureComponent {
   render() {
     const {
-      x, y, pathComponent, ...restProps
+      x, y, seriesComponent, ...restProps
     } = this.props;
     return (
       <path
@@ -18,12 +18,9 @@ export class Point extends React.PureComponent {
 Point.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
-  pathComponent: PropTypes.any,
-  style: PropTypes.object,
+  seriesComponent: PropTypes.any,
 };
 
 Point.defaultProps = {
-  style: null,
-  pathComponent: null,
+  seriesComponent: null,
 };

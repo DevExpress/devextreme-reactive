@@ -84,10 +84,11 @@ describe('Base series', () => {
     ));
 
     expect(tree.find(TestComponentPath).props()).toEqual({
+      coordinates: coords,
       styles: 'styles',
     });
     expect(tree.children().find(TestComponentPoint)).toHaveLength(5);
-    expect(lineMethod).toBeCalledWith('pathType', coords, undefined);
+    expect(lineMethod).toBeCalledWith('pathType', undefined);
     expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
   });
 

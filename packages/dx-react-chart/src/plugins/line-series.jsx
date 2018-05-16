@@ -7,7 +7,7 @@ const Series = ({
   ...props
 }) => {
   const {
-    pathComponent: Path,
+    seriesComponent: Path,
     ...restProps
   } = props;
   return (
@@ -34,7 +34,7 @@ const Dot = ({
 export const LineSeries = baseSeries(Series, Dot, 'LineSeries', 'line', lineAttributes, pointAttributes);
 
 Series.propTypes = {
-  pathComponent: PropTypes.func.isRequired,
+  seriesComponent: PropTypes.func.isRequired,
 };
 
 Dot.propTypes = {

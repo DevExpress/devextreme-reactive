@@ -27,7 +27,6 @@ class SliceBase extends React.PureComponent {
 SliceBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };

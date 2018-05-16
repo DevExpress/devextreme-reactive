@@ -189,26 +189,26 @@ describe('Series attributes', () => {
     )).toEqual(computedLine);
   });
 
-  it('should return d attribute for area', () => {
-    const { d } = lineAttributes('area', computedLine, { xScale: {} });
-    expect(d).toBe('area');
+  it('should return generator for area', () => {
+    const { path } = lineAttributes('area', { xScale: {} });
+    expect(path(computedLine)).toBe('area');
     expect(mockArea.x).toBeCalled();
     expect(mockArea.y1).toBeCalled();
     expect(mockArea.y0).toBeCalled();
     expect(mockAreaResult).toBeCalledWith(computedLine);
   });
 
-  it('should return d attribute for line', () => {
-    const { d } = lineAttributes('line', computedLine, { xScale: {} });
-    expect(d).toBe('line');
+  it('should return generator for line', () => {
+    const { path } = lineAttributes('line', { xScale: {} });
+    expect(path(computedLine)).toBe('line');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
     expect(mockLineResult).toBeCalledWith(computedLine);
   });
 
-  it('should return d attribute for spline', () => {
-    const { d } = lineAttributes('spline', computedLine, { xScale: {} });
-    expect(d).toBe('spline');
+  it('should return generator for spline', () => {
+    const { path } = lineAttributes('spline', { xScale: {} });
+    expect(path(computedLine)).toBe('spline');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
     expect(mockLineResult.curve).toBeCalled();
@@ -216,13 +216,13 @@ describe('Series attributes', () => {
   });
 
   it('should return coordinates for lines', () => {
-    const { x, y } = lineAttributes('line', computedLine, { xScale: {} });
+    const { x, y } = lineAttributes('line', { xScale: {} });
     expect(x).toBe(0);
     expect(y).toBe(0);
   });
 
   it('should return coordinates for lines, type is band', () => {
-    const { x, y } = lineAttributes('line', computedLine, { xScale: { bandwidth: jest.fn(() => 20) } });
+    const { x, y } = lineAttributes('line', { xScale: { bandwidth: jest.fn(() => 20) } });
     expect(x).toBe(10);
     expect(y).toBe(0);
   });

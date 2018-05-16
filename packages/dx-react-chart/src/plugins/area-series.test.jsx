@@ -6,7 +6,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
 
 const PointComponent = () => null;
-const PathComponent = () => null;
+const SeriesComponent = () => null;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   lineAttributes: jest.fn(),
@@ -56,7 +56,7 @@ describe('Area series', () => {
 
   const defaultProps = {
     pointComponent: PointComponent,
-    pathComponent: PathComponent,
+    seriesComponent: SeriesComponent,
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
@@ -101,7 +101,7 @@ describe('Area series', () => {
     ));
     const {
       d, styles, x, y,
-    } = tree.find(PathComponent).props();
+    } = tree.find(SeriesComponent).props();
     expect(d).toBe('M11 11');
     expect(styles).toBe('styles');
     expect(x).toBe(2);

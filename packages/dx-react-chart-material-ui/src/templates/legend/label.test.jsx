@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { ListItemText } from 'material-ui/List';
+import ListItemText from '@material-ui/core/ListItemText';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };

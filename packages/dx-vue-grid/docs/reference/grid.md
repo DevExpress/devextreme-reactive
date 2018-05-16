@@ -26,7 +26,7 @@ rows | Array&lt;any&gt; | | An array containing custom data. A user defines the 
 columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId? | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier.
 getCellValue? | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
-rootComponent | Object | [DxGrid.components.DxRoot](#dxgridcomponentsdxroot) | A component that renders the grid root layout.
+rootComponent | object | [DxGrid.components.DxRoot](#dxgridcomponentsdxroot) | A component that renders the grid root layout.
 
 ## Interfaces
 
@@ -49,8 +49,8 @@ A component that renders the grid root layout.
 #### Slots
 
 Field | Description
-------|------|------------
-default | The default Vue slot
+------|------------
+default | The default Vue slot.
 
 ## Plugin Developer Reference
 

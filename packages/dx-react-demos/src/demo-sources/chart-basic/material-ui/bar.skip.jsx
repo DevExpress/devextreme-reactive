@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   ArgumentAxis,

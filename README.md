@@ -10,7 +10,7 @@
 ### Main Features
 
 - Composable and extendable plugin-based architecture
-- [Bootstrap](https://github.com/react-bootstrap/react-bootstrap) and [Material UI](https://github.com/callemall/material-ui) integration with seamless theming
+- [Material UI](https://github.com/callemall/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
 - 100% Native React (no jQuery or other dependencies)
@@ -23,6 +23,26 @@
 [Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/)
 |
 [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
+
+## Business Components for Vue
+
+[Website](https://devexpress.github.io/devextreme-reactive/vue/)
+
+### Main Features
+
+- Composable and extendable plugin-based architecture
+- [Bootstrap 4](http://getbootstrap.com) integration with seamless theming
+- [Vuex](https://vuex.vuejs.org/en/) integration with state persistence and time-traveling
+- 100% Native Vue (no jQuery or other dependencies)
+- High performance via functional components, immutable state, and memoization
+
+### Vue Grid
+
+[Website](https://devexpress.github.io/devextreme-reactive/vue/grid/)
+|
+[Demos](https://devexpress.github.io/devextreme-reactive/vue/grid/demos/)
+|
+[Docs](https://devexpress.github.io/devextreme-reactive/vue/grid/docs/)
 
 ## License
 

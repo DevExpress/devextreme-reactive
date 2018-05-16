@@ -40,6 +40,8 @@
 
 ### Vue Grid
 
+Project status: **CTP**
+
 [Website](https://devexpress.github.io/devextreme-reactive/vue/grid/)
 |
 [Demos](https://devexpress.github.io/devextreme-reactive/vue/grid/demos/)

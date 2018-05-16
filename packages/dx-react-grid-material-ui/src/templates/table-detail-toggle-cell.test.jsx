@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
-import IconButton from 'material-ui/IconButton';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import IconButton from '@material-ui/core/IconButton';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import { TableDetailToggleCell } from './table-detail-toggle-cell';

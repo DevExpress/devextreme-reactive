@@ -3,18 +3,23 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/DevExpress/devextreme-reactive/master.svg)](https://circleci.com/gh/DevExpress/devextreme-reactive)
 [![NPM](https://img.shields.io/npm/v/@devexpress/dx-core.svg)](https://www.npmjs.com/package/@devexpress/dx-core)
 
-## Business Components for React
-
-[Website](https://devexpress.github.io/devextreme-reactive/react/)
+## Business Components for React and Vue
 
 ### Main Features
 
 - Composable and extendable plugin-based architecture
+- 100% Native React and Vue (no jQuery or other dependencies)
+- High performance by using Vue and React best practicies
+
+## Business Components for React
+
+[Website](https://devexpress.github.io/devextreme-reactive/react/)
+
+### Main React Features
+
 - [Material UI](https://github.com/callemall/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
-- 100% Native React (no jQuery or other dependencies)
-- High performance via pure components, immutable state, and memoization
 
 ### React Grid
 
@@ -28,13 +33,10 @@
 
 [Website](https://devexpress.github.io/devextreme-reactive/vue/)
 
-### Main Features
+### Main Vue Features
 
-- Composable and extendable plugin-based architecture
 - [Bootstrap 4](http://getbootstrap.com) integration with seamless theming
 - [Vuex](https://vuex.vuejs.org/en/) integration with state persistence and time-traveling
-- 100% Native Vue (no jQuery or other dependencies)
-- High performance via functional components, immutable state, and memoization
 
 ### Vue Grid
 

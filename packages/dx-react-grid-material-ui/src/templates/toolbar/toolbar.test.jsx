@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getClasses, createShallow } from 'material-ui/test-utils';
+import { getClasses, createShallow } from '@material-ui/core/test-utils';
 import { Toolbar } from './toolbar';
 
 describe('Toolbar', () => {

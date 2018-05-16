@@ -55,12 +55,11 @@ span.dx-g-bs4-group-panel-item-icon {
   -webkit-overflow-scrolling: touch;
 }
 .dx-g-bs4-grouping-control {
-  width: 14px;
+  width: 19px;
 }
 .dx-g-bs4-grouping-control-icon {
   top: 0;
   font-size: 12px;
-  margin: -5px;
   padding: 5px;
 }
 .dx-g-bs4-table-header-cell-wrapper {

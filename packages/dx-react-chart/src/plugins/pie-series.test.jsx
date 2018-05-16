@@ -15,9 +15,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 pieAttributes.mockImplementation(() => ['M11 11', 'M22 22', 'M33 33']);
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 

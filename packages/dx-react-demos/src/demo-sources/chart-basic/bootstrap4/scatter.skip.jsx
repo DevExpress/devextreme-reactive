@@ -17,12 +17,6 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-        },
-        {
-        },
-      ],
     };
   }
   render() {

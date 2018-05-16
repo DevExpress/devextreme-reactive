@@ -42,9 +42,6 @@ barPointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 

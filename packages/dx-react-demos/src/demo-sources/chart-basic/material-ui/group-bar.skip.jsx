@@ -27,12 +27,6 @@ export default class Demo extends React.PureComponent {
           style={{
           border: '1px dashed lightgray',
         }}
-          series={[
-          {
-          }, {
-          }, {
-          },
-        ]}
         >
 
           <ArgumentAxis name="state" type="band" />

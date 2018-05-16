@@ -22,6 +22,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 lineAttributes.mockImplementation(() => ({
@@ -37,9 +38,6 @@ pointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 
@@ -62,6 +60,9 @@ describe('Spline series', () => {
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {

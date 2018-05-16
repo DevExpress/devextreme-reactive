@@ -20,6 +20,6 @@
         "jsx-a11y/anchor-is-valid": "off",
         "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
         "filenames/match-regex": [2, "^[a-z-\\.]+$"],
-        "no-restricted-imports": ["error", "material-ui", "@material-ui/icons"]
+        "no-restricted-imports": ["error", "@material-ui/core", "@material-ui/icons"]
     }
 }

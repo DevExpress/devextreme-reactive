@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import List from 'material-ui/List';
+import List from '@material-ui/core/List';
 import { Root } from './root';
 
 describe('Root', () => {

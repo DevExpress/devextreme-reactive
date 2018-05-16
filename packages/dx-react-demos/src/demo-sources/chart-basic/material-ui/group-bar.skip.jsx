@@ -6,7 +6,7 @@ import {
   ValueAxis,
   BarSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -27,39 +27,29 @@ export default class Demo extends React.PureComponent {
           style={{
           border: '1px dashed lightgray',
         }}
-          axes={[{ name: 'age', min: 0 }, { name: 'state', type: 'band' }]}
-          series={[
-          {
-            valueField: 'young',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Young',
-          }, {
-            valueField: 'middle',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Middle',
-          }, {
-            valueField: 'older',
-            argumentField: 'state',
-            axisName: 'age',
-            name: 'Older',
-          },
-        ]}
         >
 
-          <ArgumentAxis />
-          <ValueAxis name="age" />
+          <ArgumentAxis name="state" type="band" />
+          <ValueAxis name="age" min={0} />
 
           <BarSeries
+            valueField="young"
+            argumentField="state"
+            axisName="age"
             name="Young"
             style={{ stroke: 'none', fill: '#ff6666' }}
           />
           <BarSeries
+            valueField="middle"
+            argumentField="state"
+            axisName="age"
             name="Middle"
             style={{ stroke: 'none', fill: '#9fff80' }}
           />
           <BarSeries
+            valueField="older"
+            argumentField="state"
+            axisName="age"
             name="Older"
             style={{ stroke: 'none', fill: '#9999ff' }}
           />

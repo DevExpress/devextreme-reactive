@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Checkbox from 'material-ui/Checkbox';
-import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
+import Checkbox from '@material-ui/core/Checkbox';
+import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectCell } from './table-select-cell';
 

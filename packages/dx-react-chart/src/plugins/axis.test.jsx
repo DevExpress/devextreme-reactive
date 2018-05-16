@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { axisCoordinates } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { axisCoordinates, axesData } from '@devexpress/dx-chart-core';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
+  axesData: jest.fn(),
 }));
 
 describe('Axis', () => {
@@ -25,12 +26,15 @@ describe('Axis', () => {
           x: 1, y: 2, width: 200, height: 100,
         },
       },
+      axes: [{}],
     },
     template: {
       'bottom-axis': {},
     },
   };
   const defaultProps = {
+    type: 'band',
+    min: 0,
     position: 'bottom',
     name: 'name',
     rootComponent: RootComponent,
@@ -92,11 +96,7 @@ describe('Axis', () => {
   it('should render argument axis', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          getter: {
-            domains: { argumentAxis: { orientation: 'horizontal' } },
-          },
-        })}
+        {pluginDepsToComponents(defaultDeps)}
         <Axis
           {...{ ...defaultProps, isArgumentAxis: true }}
         />
@@ -110,6 +110,7 @@ describe('Axis', () => {
     expect(y).toBe(-0);
     expect(refsHandler).toEqual(expect.any(Function));
     expect(children).toEqual(expect.any(Object));
+    expect(getComputedState(tree).argumentAxisName).toBe('name');
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
@@ -213,5 +214,20 @@ describe('Axis', () => {
       width: 200,
       orientation: 'horizontal',
     });
+  });
+
+  it('should pass axesData correct arguments', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Axis
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(axesData).toHaveBeenCalledWith(
+      expect.arrayContaining([{}]),
+      expect.objectContaining(defaultProps),
+    );
   });
 });

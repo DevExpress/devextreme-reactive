@@ -32,23 +32,21 @@ highlightRow? | boolean | false | Specifies whether to highlight the selected ro
 selectByRowClick? | boolean | false | Specifies whether a user can select/deselect a row by clicking it. Note that `Table` plugin's `rowComponent` is ignored in this case.
 showSelectAll? | boolean | true | Specifies whether to render the Select All checkbox in the header row.
 showSelectionColumn? | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
-cellComponent | object | [DxTableSelection.components.DxCell](#dxtableselectioncomponentsdxcell) | A component that renders a selection cell (a cell containing a selection checkbox).
-headerCellComponent | object | [DxTableSelection.components.DxHeaderCell](#dxtableselectioncomponentsdxheadercell) | A component that renders a cell containing the Select All checkbox.
+cellComponent | [DxTableSelection.DxCell](#dxtableselectiondxcell) | | A component that renders a selection cell (a cell containing a selection checkbox).
+headerCellComponent | [DxTableSelection.DxHeaderCell](#dxtableselectiondxheadercell) | | A component that renders a cell containing the Select All checkbox.
 selectionColumnWidth | number | | The selection column's width.
 
-## Plugin Components
+## Component Types
 
-### DxTableSelection.components.DxHeaderCell
-
-A component that renders a cell containing the Select All checkbox.
+### DxTableSelection.DxHeaderCell
 
 #### Props
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.	
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.	
-colSpan? | number | The count of columns that the root cell element spans.	
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 disabled | boolean | Indicates if there are no rows that can be selected.
 allSelected | boolean | Indicates whether all the rows available for selection are selected.
@@ -60,17 +58,15 @@ Field | Type | Description
 ------|------|------------
 toggle | (select?: boolean) => void | Toggles the Select All checkbox state.
 
-### DxTableSelection.components.DxCell
-
-A component that renders a selection cell (a cell containing a selection checkbox).
+### DxTableSelection.DxCell
 
 #### Props
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.	
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.	
-colSpan? | number | The count of columns that the root cell element spans.	
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 row | any | A row.
 selected | boolean | Indicates whether a row is selected.
@@ -81,6 +77,13 @@ onToggle | () => void | An event that initiates row selecting or deselecting.
 Field | Type | Description
 ------|------|------------
 toggle | () => void | An event that initiates row selecting or deselecting.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableSelection.components.DxCell | [DxTableSelection.DxCell](#dxtableselectiondxcell) | A component that renders a selection cell (a cell containing a selection checkbox).
+DxTableSelection.components.DxHeaderCell | [DxTableSelection.DxHeaderCell](#dxtableselectiondxheadercell) | A component that renders a cell containing the Select All checkbox.
 
 ## Plugin Developer Reference
 

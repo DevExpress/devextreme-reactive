@@ -26,19 +26,23 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rootComponent | object | [DxToolbar.components.DxRoot](#dxtoolbarcomponentsdxroot) | A component that renders the toolbar root element.
+rootComponent | [DxToolbar.DxRoot](#dxtoolbardxroot) | | A component that renders the toolbar root element.
 
-## Plugin Components
+## Component Types
 
-### DxToolbar.components.DxRoot
-
-A component that renders the toolbar root element.
+### DxToolbar.DxRoot
 
 #### Slots
 
 Field | Description
 ------|------------
 default | The default Vue slot.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxToolbar.components.DxRoot | [DxToolbar.DxRoot](#dxtoolbardxroot) | A component that renders the toolbar root element.
 
 ## Plugin Developer Reference
 

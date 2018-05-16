@@ -27,40 +27,26 @@ import { DxTableEditColumn } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | object | [DxTableEditColumn.components.DxCell](#dxtableeditcolumncomponentsdxcell) | A component that renders a command cell within a data row.
-headerCellComponent | object | [DxTableEditColumn.components.DxHeaderCell](#dxtableeditcolumncomponentsdxheadercell) | A component that renders a command cell within the header row.
-commandComponent | object | [DxTableEditColumn.components.DxCommand](#dxtableeditcolumncomponentsdxcommand) | A component that renders command control within a command cell.
+cellComponent | [DxTableEditColumn.DxCell](#dxtableeditcolumndxcell) | | A component that renders a command cell within a data row.
+headerCellComponent | [DxTableEditColumn.DxHeaderCell](#dxtableeditcolumndxheadercell) | | A component that renders a command cell within the header row.
+commandComponent | [DxTableEditColumn.DxCommand](#dxtableeditcolumndxcommand) | | A component that renders command control within a command cell.
 showAddCommand? | boolean | false | Specifies whether to render the 'New' command within the header row's command cell.
 showEditCommand? | boolean | false | Specifies whether to render the 'Edit' command within the data row's command cell.
 showDeleteCommand? | boolean | false | Specifies whether to render the 'Delete' command within the data row's command cell.
 width? | number &#124; string | | Specifies the command column's width.
 messages? | [DxTableEditColumn.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
-## Interfaces
+## Component Types
 
-## Localization Messages
-
-Field | Type | Default | Description
-------|------|---------|------------
-addCommand? | string | 'New' | Specifies the add command button text.
-editCommand? | string | 'Edit' | Specifies the edit command button text.
-deleteCommand? | string | 'Delete' | Specifies the delete command button text.
-commitCommand? | string | 'Save' | Specifies the commit command button text.
-cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
-
-## Plugin Components
-
-### DxTableEditColumn.components.DxCell
-
-A component that renders a command cell within a data row.
+### DxTableEditColumn.DxCell
 
 #### Props
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.	
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.	
-colSpan? | number | The count of columns that the root cell element spans.	
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 row | any | Specifies an edited table row with the applied changes.
 
@@ -70,17 +56,15 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTableEditColumn.components.DxHeaderCell
-
-A component that renders a command cell within the header row.
+### DxTableEditColumn.DxHeaderCell
 
 #### Props
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.	
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.	
-colSpan? | number | The count of columns that the root cell element spans.	
+tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
 #### Slots
@@ -89,9 +73,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTableEditColumn.components.DxCommand
-
-A component that renders command control within a command cell.
+### DxTableEditColumn.DxCommand
 
 #### Props
 
@@ -105,6 +87,24 @@ text | string | The command action description.
 Field | Type | Description
 ------|------|------------
 execute | () => void | An event initiating the command execution.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+addCommand? | string | 'New' | Specifies the add command button text.
+editCommand? | string | 'Edit' | Specifies the edit command button text.
+deleteCommand? | string | 'Delete' | Specifies the delete command button text.
+commitCommand? | string | 'Save' | Specifies the commit command button text.
+cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableEditColumn.components.DxCell | [DxTableEditColumn.DxCell](#dxtableeditcolumndxcell) | A component that renders a command cell within a data row.
+DxTableEditColumn.components.DxHeaderCell | [DxTableEditColumn.DxHeaderCell](#dxtableeditcolumndxheadercell) | A component that renders a command cell within the header row.
+DxTableEditColumn.components.DxCommand | [DxTableEditColumn.DxCommand](#dxtableeditcolumndxcommand) | A component that renders command control within a command cell.
 
 ## Plugin Developer Reference
 

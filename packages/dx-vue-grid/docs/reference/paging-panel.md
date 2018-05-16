@@ -26,22 +26,13 @@ import { DxPagingPanel } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerComponent | object | [DxPagingPanel.components.DxContainer](#dxpagingpanelcomponentsdxcontainer) | A component that renders the paging panel.
+containerComponent | [DxPagingPanel.DxContainer](#dxpagingpaneldxcontainer) | | A component that renders the paging panel.
 pageSizes? | Array&lt;number&gt; | [] | The page sizes that a user can select.
 messages? | [DxPagingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
-## Localization Messages
+## Component Types
 
-Field | Type | Default | Description
-------|------|---------|------------
-showAll? | string | 'All' | Specifies the page size selector's 'All' item text.
-info? | (parameters: { from: number, to: number, count: number }) => string &#124; string | {from}-{to} of {count} | Specifies the 'Row count' text template.
-
-## Plugin Components
-
-### DxPagingPanel.components.DxContainer
-
-A component that renders the paging panel.
+### DxPagingPanel.DxContainer
 
 #### Props
 
@@ -59,6 +50,19 @@ Field | Type | Description
 ------|------|------------
 currentPageChange | (page: number) => void | Handles the current page changes.
 pageSizeChange | (size: number) => void | Handles the page size changes.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+showAll? | string | 'All' | Specifies the page size selector's 'All' item text.
+info? | (parameters: { from: number, to: number, count: number }) => string &#124; string | {from}-{to} of {count} | Specifies the 'Row count' text template.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxPagingPanel.components.DxContainer | [DxPagingPanel.DxContainer](#dxpagingpaneldxcontainer) | A component that renders the paging panel.
 
 ## Plugin Developer Reference
 

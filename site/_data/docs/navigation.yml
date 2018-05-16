@@ -193,6 +193,16 @@
     items:
       - title: DxGrid
         path: /vue/grid/docs/reference/grid
+      - title: DxGroupingState
+        path: /vue/grid/docs/reference/grouping-state
+      - title: DxIntegratedGrouping
+        path: /vue/grid/docs/reference/integrated-grouping
+      - title: DxTableGroupRow
+        path: /vue/grid/docs/reference/table-group-row
+      - title: DxGroupingPanel
+        path: /vue/grid/docs/reference/grouping-panel
+      - title: DxCustomGrouping
+        path: /vue/grid/docs/reference/custom-grouping
       - title: DxFilteringState
         path: /vue/grid/docs/reference/filtering-state
       - title: DxIntegratedFiltering

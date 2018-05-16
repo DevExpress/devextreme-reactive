@@ -6,8 +6,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 
 const PointComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coords = [
   {
@@ -32,6 +30,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   barPointAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
+  seriesData: jest.fn(),
   coordinates: jest.fn(),
 }));
 
@@ -43,9 +42,6 @@ barPointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 
@@ -58,15 +54,17 @@ describe('Bar series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render bars', () => {

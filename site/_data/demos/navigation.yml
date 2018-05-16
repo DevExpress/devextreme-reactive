@@ -16,6 +16,8 @@
 /vue/grid:
   - title: DEMOS
     items:
+      - title: Integrated Data Shaping
+        path: /vue/grid/demos/featured/integrated-data-shaping
       - title: Vuex Integration
         path: /react/grid/demos/featured/redux-integration
       - title: Remote Data

@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 import {
   Template,
   Plugin,
+  Getter,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
+import { pieAttributes, seriesData } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -17,47 +18,48 @@ export class PieSeries extends React.PureComponent {
       outerRadius,
       cx,
       cy,
-      rootComponent: Root,
       pointComponent: Point,
+      valueField,
+      argumentField,
       ...restProps
     } = this.props;
+    const getSeriesDataComputed = ({ series }) =>
+      seriesData(series, {
+        valueField, argumentField, name,
+      });
     return (
       <Plugin name="PieSeries">
-        <Template name="canvas">
+        <Getter name="series" computed={getSeriesDataComputed} />
+        <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                series,
                 data,
                 layouts,
+                width, height,
               }) => {
                 const {
-                  width, height,
-                } = layouts[placeholder];
-              const { valueField } = findSeriesByName(name, series);
+                  width: widthPane, height: heightPane,
+                } = layouts[placeholder] || { width, height };
               const arcs = pieAttributes(
                 valueField,
                 data,
-                width,
-                height,
+                widthPane,
+                heightPane,
                 innerRadius,
                 outerRadius,
               );
                 return (
-                  <Root x={cx || width / 2} y={cy || height / 2}>
-                    {
                       arcs.map(item =>
                         (
                           <Point
                             key={item}
-                            x={0}
-                            y={0}
+                            x={cx || widthPane / 2}
+                            y={cy || heightPane / 2}
                             d={item}
                             {...restProps}
                           />
                         ))
-                    }
-                  </Root>
                 );
               }}
           </TemplateConnector>
@@ -70,12 +72,13 @@ export class PieSeries extends React.PureComponent {
 PieSeries.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  rootComponent: PropTypes.func.isRequired,
   pointComponent: PropTypes.func.isRequired,
   innerRadius: PropTypes.number,
   outerRadius: PropTypes.number,
   cx: PropTypes.number,
   cy: PropTypes.number,
+  valueField: PropTypes.string.isRequired,
+  argumentField: PropTypes.string.isRequired,
 };
 
 PieSeries.defaultProps = {

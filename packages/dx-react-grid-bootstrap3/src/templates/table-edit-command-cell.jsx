@@ -86,7 +86,7 @@ EditCommandCell.propTypes = {
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
 };
 
 EditCommandCell.defaultProps = {

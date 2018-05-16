@@ -7,8 +7,6 @@ import { SplineSeries } from './spline-series';
 
 const PointComponent = () => null;
 const PathComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
 
 const coords = [
   { x: 1, y: 3, id: 1 },
@@ -24,6 +22,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 lineAttributes.mockImplementation(() => ({
@@ -39,9 +38,6 @@ pointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 
@@ -54,17 +50,19 @@ describe('Spline series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
     pathComponent: PathComponent,
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {

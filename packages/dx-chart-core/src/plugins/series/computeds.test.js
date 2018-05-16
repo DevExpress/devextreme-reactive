@@ -16,6 +16,7 @@ import {
   lineAttributes,
   findSeriesByName,
   barPointAttributes,
+  seriesData,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -279,5 +280,17 @@ describe('Pie attributes', () => {
       expect(mockArc.startAngle).toHaveBeenCalledWith(d.val1);
       expect(mockArc.endAngle).toHaveBeenCalledWith(d.val1);
     });
+  });
+});
+
+describe('seriesData', () => {
+  it('should return array with props', () => {
+    const seriesArray = seriesData(undefined, { first: true });
+    expect(seriesArray).toEqual([{ first: true }]);
+  });
+
+  it('should push new series props', () => {
+    const seriesArray = seriesData([{ first: true }], { second: true });
+    expect(seriesArray).toEqual([{ first: true }, { second: true }]);
   });
 });

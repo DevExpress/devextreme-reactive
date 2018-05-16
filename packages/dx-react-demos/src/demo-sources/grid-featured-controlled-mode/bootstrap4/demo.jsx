@@ -75,7 +75,7 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-export const LookupEditCell = ({
+const LookupEditCell = ({
   column, availableColumnValues, value, onValueChange,
 }) => (
   <td

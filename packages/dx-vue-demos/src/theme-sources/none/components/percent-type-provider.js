@@ -10,10 +10,10 @@ const PercentEditor = {
     handleChange(event) {
       const { value: targetValue } = event.target;
       if (targetValue.trim() === '') {
-        this.$emit('valueChange');
+        this.$attrs.onValueChange();
         return;
       }
-      this.$emit('valueChange', Math.min(Math.max(parseFloat(targetValue / 100), 0), 1));
+      this.$attrs.onValueChange(Math.min(Math.max(parseFloat(targetValue / 100), 0), 1));
     },
   },
   template: `

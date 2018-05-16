@@ -32,7 +32,7 @@ Describes additional column properties that the plugin can handle.
 Field | Type | Description
 ------|------|------------
 columnName | string | The name of a column to extend.
-predicate? | (value: any, filter: object, row: any) => boolean | A filter predicate. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [filter](table-filter-row.md#dxtablefilterrowcomponentsdxcell) event to extend this object to the fields your filtering algorithm requires.
+predicate? | (value: any, filter: object, row: any) => boolean | A filter predicate. The `filter` parameter accepts an object containing the 'value' field. Note that you can use the [filter](table-filter-row.md#dxtablefilterrowdxcell) event to extend this object to the fields your filtering algorithm requires.
 
 ### FilterExpression
 

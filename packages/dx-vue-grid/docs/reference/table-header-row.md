@@ -30,16 +30,14 @@ import { DxTableHeaderRow } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | object | [DxTableHeaderRow.components.DxCell](#dxtableheaderrowcomponentsdxcell) | A component that renders a header cell.
-rowComponent | object | [DxTableHeaderRow.components.DxRow](#dxtableheaderrowcomponentsdxrow) | A component that renders a header row.
+cellComponent | [DxTableHeaderRow.DxCell](#dxtableheaderrowdxcell) | | A component that renders a header cell.
+rowComponent | [DxTableHeaderRow.DxRow](#dxtableheaderrowdxrow) | | A component that renders a header row.
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [DxSortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [DxGroupingState](grouping-state.md) dependency.
 
-## Plugin Components
+## Component Types
 
-### DxTableHeaderRow.components.DxCell
-
-A component that renders a header cell.
+### DxTableHeaderRow.DxCell
 
 #### Props
 
@@ -63,9 +61,7 @@ Field | Type | Description
 sort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 group | () => void | An event that invokes grouping by the associated column.
 
-### DxTableHeaderRow.components.DxRow
-
-A component that renders a header row.
+### DxTableHeaderRow.DxRow
 
 #### Props
 
@@ -78,6 +74,13 @@ tableRow | [TableRow](table.md#tablerow) | A table row.
 Field | Description
 -------|------------
 default | The default Vue slot.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableHeaderRow.components.DxCell | [DxTableHeaderRow.DxCell](#dxtableheaderrowdxcell) | A component that renders a header cell.
+DxTableHeaderRow.components.DxRow | [DxTableHeaderRow.DxRow](#dxtableheaderrowdxrow) | A component that renders a header row.
 
 ## Plugin Developer Reference
 

@@ -114,7 +114,7 @@ column | [Column](grid.md#column) | A column associated with the group.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableGroupRow.components.DxRow | [DxTableGroupRow.DxRow](#dxtablegrouprowdxrow) | A component that renders a group row.
 DxTableGroupRow.components.DxCell | [DxTableGroupRow.DxCell](#dxtablegrouprowdxcell) | A component that renders a group cell.
 

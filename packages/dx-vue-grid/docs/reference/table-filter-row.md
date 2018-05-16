@@ -28,24 +28,14 @@ import { DxTableFilterRow } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | object | [DxTableFilterRow.components.DxCell](#dxtablefilterrowcomponentsdxcell) | A component that renders a filter cell.
-rowComponent | object | [DxTableFilterRow.components.DxRow](#dxtablefilterrowcomponentsdxrow) | A component that renders a filter row.
+cellComponent | [DxTableFilterRow.DxCell](#dxtablefilterrowdxcell) | | A component that renders a filter cell.
+rowComponent | [DxTableFilterRow.DxRow](#dxtablefilterrowdxrow) | | A component that renders a filter row.
 rowHeight? | number | | The filter row's height.
 messages? | [DxTableFilterRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
-## Interfaces
+## Component Types
 
-## Localization Messages
-
-Field | Type | Default | Description
-------|------|---------|------------
-filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text.
-
-## Plugin Components
-
-### DxTableFilterRow.components.DxCell
-
-A component that renders a filter cell.
+### DxTableFilterRow.DxCell
 
 #### Props
 
@@ -72,9 +62,7 @@ Field | Type | Description
 ------|------|------------
 filter | (filter: [Filter](filtering-state.md#filter) &#124; null) => void | An event that initiates applying a new filter to a column.
 
-### DxTableFilterRow.components.DxRow
-
-A component that renders a filter row.
+### DxTableFilterRow.DxRow
 
 #### Props
 
@@ -87,6 +75,19 @@ tableRow | [TableRow](table.md#tablerow) | A table row.
 Field | Description
 ------|------------
 default | The default Vue slot.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableFilterRow.components.DxCell | [DxTableFilterRow.DxCell](#dxtablefilterrowdxcell) | A component that renders a filter cell.
+DxTableFilterRow.components.DxRow | [DxTableFilterRow.DxRow](#dxtablefilterrowdxrow) | A component that renders a filter row.
 
 ## Plugin Developer Reference
 

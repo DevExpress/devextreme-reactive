@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { GroupPanelContainer } from './group-panel-container';
 
 describe('GroupPanelContainer', () => {

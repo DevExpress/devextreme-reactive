@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   toggleCell: {
@@ -62,7 +62,7 @@ TableDetailToggleCellBase.propTypes = {
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
 };
 
 TableDetailToggleCellBase.defaultProps = {

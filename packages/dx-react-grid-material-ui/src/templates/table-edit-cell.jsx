@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from 'material-ui/Input';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import Input from '@material-ui/core/Input';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
@@ -51,7 +51,7 @@ const EditCellBase = ({
 
 EditCellBase.propTypes = {
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   value: PropTypes.any,

@@ -10,7 +10,6 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   getColumnSortingDirection,
-  getMessagesFormatter,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -37,16 +36,12 @@ export const DxTableHeaderRow = {
       type: Object,
       required: true,
     },
-    messages: {
-      type: Object,
-    },
   },
   render() {
     const {
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
     } = this;
-    const getMessage = getMessagesFormatter(this.messages);
 
     return (
       <DxPlugin
@@ -94,7 +89,6 @@ export const DxTableHeaderRow = {
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
                     onGroup={() => changeColumnGrouping({ columnName })}
-                    getMessage={getMessage}
                   />
                 );
               }}

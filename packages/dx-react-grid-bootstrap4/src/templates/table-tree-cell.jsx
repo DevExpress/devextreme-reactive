@@ -17,7 +17,7 @@ export const TableTreeCell = ({
 
 TableTreeCell.propTypes = {
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Checkbox from 'material-ui/Checkbox';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
@@ -47,7 +47,7 @@ TableSelectCellBase.propTypes = {
   selected: PropTypes.bool,
   onToggle: PropTypes.func,
   classes: PropTypes.object.isRequired,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,

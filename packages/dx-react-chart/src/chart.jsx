@@ -1,8 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { TOP, BOTTOM, LEFT, RIGHT } from '@devexpress/dx-chart-core';
+
 import { ChartCore } from './plugins/chart-core';
+import { AxesLayout } from './plugins/axes-layout';
+import { SpaceFillingRects } from './plugins/space-filling-rects';
+import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
+import { ComponentLayout } from './plugins/component-layout';
 import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
 import { SeriesFamily } from './plugins/series-family';
 
@@ -18,20 +24,30 @@ export class Chart extends React.PureComponent {
     } = this.props;
     return ((
       <PluginHost>
-        <ChartCore
-          data={data}
+        {children}
+        <ChartCore data={data} />
+        <SeriesFamily />
+        <IntegratedScaleProcessing />
+        <LayoutManager
           width={width}
           height={height}
           rootComponent={Root}
           {...restProps}
         />
-        <SeriesFamily />
-        <LayoutManager
-          width={width}
-          height={height}
+        <PaneLayout />
+        <AxesLayout />
+        <ComponentLayout />
+        <SpaceFillingRects placeholders={[
+          `${TOP}-${LEFT}`,
+          `${TOP}-${RIGHT}`,
+          `${BOTTOM}-${LEFT}`,
+          `${BOTTOM}-${RIGHT}`,
+          `${TOP}-${LEFT}-axis`,
+          `${TOP}-${RIGHT}-axis`,
+          `${BOTTOM}-${LEFT}-axis`,
+          `${BOTTOM}-${RIGHT}-axis`,
+          ]}
         />
-        <IntegratedScaleProcessing />
-        {children}
       </PluginHost>
     ));
   }

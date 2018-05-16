@@ -57,7 +57,7 @@ searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxSearchPanel.components.DxInput | [DxSearchPanel.DxInput](#dxsearchpaneldxinput) | A component that renders the Search Panel input element.
 
 ## Plugin Developer Reference

@@ -99,7 +99,7 @@ toggle | () => void | An event that initiates row expanding or collapsing.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableRowDetail.components.DxContent | [DxTableRowDetail.DxContent](#dxtablerowdetaildxcontent) | A component that renders the detail row's content within the detail cell.
 DxTableRowDetail.components.DxCell | [DxTableRowDetail.DxCell](#dxtablerowdetaildxcell) | A component that renders a detail cell.
 DxTableRowDetail.components.DxRow | [DxTableRowDetail.DxRow](#dxtablerowdetaildxrow) | A component that renders a detail row.

@@ -47,13 +47,13 @@ getCellValue? | (row: any, columnName: string) => any | Specifies the function u
 #### Slots
 
 Field | Description
-------|------|------------
+------|------------
 default | The default Vue slot.
 
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxGrid.components.DxRoot | [DxGrid.DxRoot](#dxgriddxroot) | A component that renders the grid root layout.
 
 ## Plugin Developer Reference

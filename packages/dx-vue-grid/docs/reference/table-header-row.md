@@ -78,7 +78,7 @@ default | The default Vue slot.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableHeaderRow.components.DxCell | [DxTableHeaderRow.DxCell](#dxtableheaderrowdxcell) | A component that renders a header cell.
 DxTableHeaderRow.components.DxRow | [DxTableHeaderRow.DxRow](#dxtableheaderrowdxrow) | A component that renders a header row.
 

@@ -79,7 +79,7 @@ default | The default Vue slot.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableEditRow.components.DxCell | [DxTableEditRow.DxCell](#dxtableeditrowdxcell) | A component that renders an editable cell.
 DxTableEditRow.components.DxRow | [DxTableEditRow.DxRow](#dxtableeditrowdxrow) | A component that renders an editable row.
 

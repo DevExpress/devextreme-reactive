@@ -85,7 +85,7 @@ filterPlaceholder? | string | 'Filter...' | The filter editor placeholder text.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableFilterRow.components.DxCell | [DxTableFilterRow.DxCell](#dxtablefilterrowdxcell) | A component that renders a filter cell.
 DxTableFilterRow.components.DxRow | [DxTableFilterRow.DxRow](#dxtablefilterrowdxrow) | A component that renders a filter row.
 

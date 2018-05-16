@@ -94,7 +94,7 @@ groupByColumn? | string | '' | The text displayed in the group panel if the grid
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxGroupingPanel.components.DxContainer | [DxGroupingPanel.DxContainer](#dxgroupingpaneldxcontainer) | A component that renders a group panel container.
 DxGroupingPanel.components.DxItem | [DxGroupingPanel.DxItem](#dxgroupingpaneldxitem) | A component that renders a group panel item.
 DxGroupingPanel.components.DxEmptyMessage | [DxGroupingPanel.DxEmptyMessage](#dxgroupingpaneldxemptymessage) | A component that renders an empty group panel message.

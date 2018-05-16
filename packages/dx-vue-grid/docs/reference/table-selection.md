@@ -81,7 +81,7 @@ toggle | () => void | An event that initiates row selecting or deselecting.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableSelection.components.DxCell | [DxTableSelection.DxCell](#dxtableselectiondxcell) | A component that renders a selection cell (a cell containing a selection checkbox).
 DxTableSelection.components.DxHeaderCell | [DxTableSelection.DxHeaderCell](#dxtableselectiondxheadercell) | A component that renders a cell containing the Select All checkbox.
 

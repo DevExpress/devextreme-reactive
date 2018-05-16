@@ -61,7 +61,7 @@ info? | (parameters: { from: number, to: number, count: number }) => string &#12
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxPagingPanel.components.DxContainer | [DxPagingPanel.DxContainer](#dxpagingpaneldxcontainer) | A component that renders the paging panel.
 
 ## Plugin Developer Reference

@@ -101,7 +101,7 @@ cancelCommand? | string | 'Cancel' | Specifies the cancel command button text.
 ## Plugin Components
 
 Name | Type | Description
------|------------|------------
+-----|------|------------
 DxTableEditColumn.components.DxCell | [DxTableEditColumn.DxCell](#dxtableeditcolumndxcell) | A component that renders a command cell within a data row.
 DxTableEditColumn.components.DxHeaderCell | [DxTableEditColumn.DxHeaderCell](#dxtableeditcolumndxheadercell) | A component that renders a command cell within the header row.
 DxTableEditColumn.components.DxCommand | [DxTableEditColumn.DxCommand](#dxtableeditcolumndxcommand) | A component that renders command control within a command cell.

@@ -27,18 +27,16 @@ import { DxTableRowDetail } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-contentComponent? | object | [DxTableRowDetail.components.DxContent](#dxtablerowdetailcomponentsdxcontent) | A component that renders the detail row's content within the detail cell.
-cellComponent | object | [DxTableRowDetail.components.DxCell](#dxtablerowdetailcomponentsdxcell) | A component that renders a detail cell.
-rowComponent | object | [DxTableRowDetail.components.DxRow](#dxtablerowdetailcomponentsdxrow) | A component that renders a detail row.
-toggleCellComponent | object | [DxTableRowDetail.components.DxToggleCell](#dxtablerowdetailcomponentsdxtogglecell) | A component that renders a cell containing the expand/collapse control.
+contentComponent? | [DxTableRowDetail.DxContent](#dxtablerowdetaildxcontent) | | A component that renders the detail row's content within the detail cell.
+cellComponent | [DxTableRowDetail.DxCell](#dxtablerowdetaildxcell) | | A component that renders a detail cell.
+rowComponent | [DxTableRowDetail.DxRow](#dxtablerowdetaildxrow) | | A component that renders a detail row.
+toggleCellComponent | [DxTableRowDetail.DxToggleCell](#dxtablerowdetaildxtogglecell) | | A component that renders a cell containing the expand/collapse control.
 toggleColumnWidth | number | | Specifies the width of the column containing expand/collapse controls.
 rowHeight? | number | | Specifies the detail row height.
 
-## Plugin Components
+## Component Types
 
-### DxTableRowDetail.components.DxContent
-
-A component that renders the detail row's content within the detail cell.
+### DxTableRowDetail.DxContent
 
 #### Props
 
@@ -46,9 +44,7 @@ Field | Type | Description
 ------|------|------------
 row | any | A row.
 
-### DxTableRowDetail.components.DxCell
-
-A component that renders a detail cell.
+### DxTableRowDetail.DxCell
 
 #### Props
 
@@ -66,9 +62,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTableRowDetail.components.DxRow
-
-A component that renders a detail row.
+### DxTableRowDetail.DxRow
 
 #### Props
 
@@ -83,9 +77,7 @@ Field | Description
 ------|------------
 default | The default Vue slot.
 
-### DxTableRowDetail.components.DxToggleCell
-
-A component that renders a cell containing the expand/collapse control.
+### DxTableRowDetail.DxToggleCell
 
 #### Slots
 
@@ -103,6 +95,15 @@ expanded | boolean | Specifies whether to expand the detail row.
 Field | Type | Description
 ------|------|------------
 toggle | () => void | An event that initiates row expanding or collapsing.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableRowDetail.components.DxContent | [DxTableRowDetail.DxContent](#dxtablerowdetaildxcontent) | A component that renders the detail row's content within the detail cell.
+DxTableRowDetail.components.DxCell | [DxTableRowDetail.DxCell](#dxtablerowdetaildxcell) | A component that renders a detail cell.
+DxTableRowDetail.components.DxRow | [DxTableRowDetail.DxRow](#dxtablerowdetaildxrow) | A component that renders a detail row.
+DxTableRowDetail.components.DxToggleCell | [DxTableRowDetail.DxToggleCell](#dxtablerowdetaildxtogglecell) | A component that renders a cell containing the expand/collapse control.
 
 ## Plugin Developer Reference
 

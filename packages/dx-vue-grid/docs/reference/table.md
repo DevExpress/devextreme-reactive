@@ -216,8 +216,8 @@ noData? | string | 'No data' | Specifies text shown when the Grid does not conta
 
 ## Plugin Components
 
-Name | Properties | Description
------|------------|------------
+Name | Type | Description
+-----|------|------------
 DxTable.components.DxTable | [DxTable.DxTable](#dxtabledxtable) | A component that renders a table.
 DxTable.components.DxHead | [DxTable.DxHead](#dxtabledxhead) | A component that renders a table head.
 DxTable.components.DxBody | [DxTable.DxBody](#dxtabledxbody) | A component that renders a table body.

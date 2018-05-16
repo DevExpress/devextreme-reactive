@@ -28,15 +28,13 @@ import { DxTableEditRow } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | object | [DxTableEditRow.components.DxCell](#dxtableeditrowcomponentsdxcell) | A component that renders an editable cell.
-rowComponent | object | [DxTableEditRow.components.DxRow](#dxtableeditrowcomponentsdxrow) | A component that renders an editable row.
+cellComponent | [DxTableEditRow.DxCell](#dxtableeditrowdxcell) | | A component that renders an editable cell.
+rowComponent | [DxTableEditRow.DxRow](#dxtableeditrowdxrow) | | A component that renders an editable row.
 rowHeight? | number | | Specifies the editable row's height.
 
-## Plugin Components
+## Component Types
 
-### DxTableEditRow.components.DxCell
-
-A component that renders an editable cell.
+### DxTableEditRow.DxCell
 
 #### Props
 
@@ -63,9 +61,7 @@ Field | Type | Description
 ------|------|------------
 valueChange | (newValue: any) => void | Handles value changes.
 
-### DxTableEditRow.components.DxRow
-
-A component that renders an editable row.
+### DxTableEditRow.DxRow
 
 #### Props
 
@@ -79,6 +75,13 @@ row | any | A row to be edited.
 Field | Description
 ------|------------
 default | The default Vue slot.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxTableEditRow.components.DxCell | [DxTableEditRow.DxCell](#dxtableeditrowdxcell) | A component that renders an editable cell.
+DxTableEditRow.components.DxRow | [DxTableEditRow.DxRow](#dxtableeditrowdxrow) | A component that renders an editable row.
 
 ## Plugin Developer Reference
 

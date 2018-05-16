@@ -28,22 +28,12 @@ import { DxSearchPanel } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-inputComponent | object | [DxSearchPanel.components.DxInput](#dxsearchpanelcomponentsdxinput) | A component that renders the Search Panel input element.
+inputComponent | [DxSearchPanel.DxInput](#dxsearchpaneldxinput) | | A component that renders the Search Panel input element.
 messages? | [DxSearchPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
-## Interfaces
+## Component Types
 
-## Localization Messages
-
-Field | Type | Default | Description
-------|------|---------|------------
-searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
-
-## Plugin Components
-
-### DxSearchPanel.components.DxInput
-
-A component that renders the Search Panel input element.
+### DxSearchPanel.DxInput
 
 #### Props
 
@@ -57,6 +47,18 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 Field | Type | Description
 ------|------|------------
 valueChange | (value:string) => void | Handles the search value changes.
+
+## Localization Messages
+
+Field | Type | Default | Description
+------|------|---------|------------
+searchPlaceholder? | string | 'Search...' | The search editor placeholder text.
+
+## Plugin Components
+
+Name | Type | Description
+-----|------|------------
+DxSearchPanel.components.DxInput | [DxSearchPanel.DxInput](#dxsearchpaneldxinput) | A component that renders the Search Panel input element.
 
 ## Plugin Developer Reference
 

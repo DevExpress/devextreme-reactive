@@ -6,6 +6,7 @@ import {
   ValueAxis,
   Chart,
   ScatterSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -33,6 +34,9 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis name="year" />
           <ValueAxis name="born" />
+
+          <Grid name="year" />
+          <Grid name="born" />
 
           <ScatterSeries
             valueField="ru"

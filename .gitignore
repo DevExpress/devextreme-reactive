@@ -17,6 +17,8 @@
 !/site/react/core/overrides
 /site/react/grid/*
 !/site/react/grid/overrides
+/site/react/chart/*
+!/site/react/chart/overrides
 /site/vue/grid/*
 !/site/vue/grid/overrides
 

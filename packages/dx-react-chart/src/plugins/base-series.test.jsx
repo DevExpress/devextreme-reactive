@@ -15,11 +15,21 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 const coords = [
-  { x: 1, y: 3, id: 1 },
-  { x: 2, y: 5, id: 2 },
-  { x: 3, y: 7, id: 3 },
-  { x: 4, y: 10, id: 4 },
-  { x: 5, y: 15, id: 5 },
+  {
+    x: 1, y: 3, id: 1, value: 10,
+  },
+  {
+    x: 2, y: 5, id: 2, value: 20,
+  },
+  {
+    x: 3, y: 7, id: 3, value: 30,
+  },
+  {
+    x: 4, y: 10, id: 4, value: 40,
+  },
+  {
+    x: 5, y: 15, id: 5, value: 50,
+  },
 ];
 
 const lineMethod = jest.fn();
@@ -82,11 +92,15 @@ describe('Base series', () => {
         />
       </PluginHost>
     ));
+    const points = tree.children().find(TestComponentPoint);
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       styles: 'styles',
     });
-    expect(tree.children().find(TestComponentPoint)).toHaveLength(5);
+    for (let i = 0; i < coords.length; i += 1) {
+      expect(points.get(i).props.value).toBe(coords[i].value);
+    }
+
     expect(lineMethod).toBeCalledWith('pathType', coords, undefined);
     expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
   });

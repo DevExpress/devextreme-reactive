@@ -49,7 +49,7 @@ export const TableHeaderCell = {
       <th
         class={{
           'position-relative dx-g-bs4-header-cell': true,
-          'dx-g-bs4-cursor-pointer dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-user-select-none': isCellInteractive,
         }}
       >
         <div

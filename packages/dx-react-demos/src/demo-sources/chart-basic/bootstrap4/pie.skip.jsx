@@ -13,15 +13,20 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 7),
+      width: 700,
+      height: 400,
     };
   }
   render() {
+    const {
+      data: chartData, width, height,
+    } = this.state;
     return (
       <Card>
         <Chart
-          data={this.state.data}
-          width={700}
-          height={400}
+          data={chartData}
+          width={width}
+          height={height}
         >
 
           <PieSeries
@@ -29,21 +34,6 @@ export default class Demo extends React.PureComponent {
             valueField="contributions"
             argumentField="login"
             style={{ stroke: 'white', fill: '#ff6666' }}
-            innerRadius={0}
-            outerRadius={0.7}
-            cx={700 / 4}
-            cy={400 / 2}
-          />
-
-          <PieSeries
-            name="PieSeries"
-            valueField="contributions"
-            argumentField="login"
-            style={{ stroke: 'white', fill: '#9fff80' }}
-            innerRadius={0.2}
-            outerRadius={0.7}
-            cx={(700 / 2) + (700 / 4)}
-            cy={400 / 2}
           />
         </Chart>
       </Card>

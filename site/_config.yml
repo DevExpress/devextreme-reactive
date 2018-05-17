@@ -51,6 +51,22 @@ defaults:
       type: pages
     values:
       layout: docs
+  # React Chart
+  - scope:
+      path: react/chart
+    values:
+      product_name: React Chart
+      product_link: /react/chart
+  - scope:
+      path: react/chart/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
+      path: react/chart/docs
+      type: pages
+    values:
+      layout: docs
   # Vue
   - scope:
       path: vue

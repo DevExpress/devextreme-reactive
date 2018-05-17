@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   ArgumentAxis,
@@ -18,20 +18,11 @@ export default class Demo extends React.PureComponent {
       data: data.slice(0, 7),
       width: 700,
       height: 400,
-      axes: [{ name: 'commits', min: 0 }, { name: 'login', type: 'band' }],
-      series: [
-        {
-          valueField: 'contributions',
-          argumentField: 'login',
-          axisName: 'commits',
-          name: 'BarSeries',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series, axes,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Paper>
@@ -39,12 +30,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          axes={axes}
-          series={series}
         >
 
-          <ArgumentAxis />
-          <ValueAxis name="commits" />
+          <ArgumentAxis name="login" type="band" />
+          <ValueAxis name="commits" min={0} />
 
           <Grid name="login" />
           <Grid name="commits" />
@@ -52,6 +41,9 @@ export default class Demo extends React.PureComponent {
           <BarSeries
             name="BarSeries"
             style={{ stroke: 'none', fill: 'darkblue' }}
+            valueField="contributions"
+            argumentField="login"
+            axisName="commits"
           />
         </Chart>
       </Paper>

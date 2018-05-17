@@ -80,7 +80,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
-column | [Column](#column-extension) | A column associated with the group.
+column | [Column](grid.md#column) | A column associated with the group.
 
 ### GroupRow
 

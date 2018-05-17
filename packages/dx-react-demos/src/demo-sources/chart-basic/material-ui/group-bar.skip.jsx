@@ -7,7 +7,7 @@ import {
   BarSeries,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -53,21 +53,30 @@ export default class Demo extends React.PureComponent {
           series={series}
         >
 
-          <ArgumentAxis />
-          <ValueAxis name="age" />
+          <ArgumentAxis name="state" type="band" />
+          <ValueAxis name="age" min={0} />
 
           <Grid name="state" />
           <Grid name="age" />
 
           <BarSeries
+            valueField="young"
+            argumentField="state"
+            axisName="age"
             name="Young"
             style={{ stroke: 'none', fill: '#ff6666' }}
           />
           <BarSeries
+            valueField="middle"
+            argumentField="state"
+            axisName="age"
             name="Middle"
             style={{ stroke: 'none', fill: '#9fff80' }}
           />
           <BarSeries
+            valueField="older"
+            argumentField="state"
+            axisName="age"
             name="Older"
             style={{ stroke: 'none', fill: '#9999ff' }}
           />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Point } from './point';
 
 describe('Point', () => {
@@ -7,10 +7,7 @@ describe('Point', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
-    style: {
-      strokeWidth: '1px',
-      fill: 'black',
-    },
+    value: 10,
   };
   const shallow = createShallow({ dive: true });
   const classes = getClasses(<Point {...defaultProps} />);

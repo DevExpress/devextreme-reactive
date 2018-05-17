@@ -16,4 +16,4 @@ If editing features are enabled, you can use the editing column extension's `cre
 
 .embedded-demo({ "path": "grid-data-accessors/value-setters", "showThemeSelector": true })
 
-Specify the `EditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.
+Specify the `DxEditingState` plugin's `createRowChange` property if you use a common algorithm for all columns.

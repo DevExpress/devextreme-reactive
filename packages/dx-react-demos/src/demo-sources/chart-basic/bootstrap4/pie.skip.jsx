@@ -39,6 +39,8 @@ export default class Demo extends React.PureComponent {
 
           <PieSeries
             name="PieSeries"
+            valueField="contributions"
+            argumentField="login"
             style={{ stroke: 'white', fill: '#ff6666' }}
           />
         </Chart>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
+import { findSeriesByName, xyScales, coordinates, seriesData } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
@@ -11,14 +11,25 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 const coords = [
-  { x: 1, y: 3, id: 1 },
-  { x: 2, y: 5, id: 2 },
-  { x: 3, y: 7, id: 3 },
-  { x: 4, y: 10, id: 4 },
-  { x: 5, y: 15, id: 5 },
+  {
+    x: 1, y: 3, id: 1, value: 10,
+  },
+  {
+    x: 2, y: 5, id: 2, value: 20,
+  },
+  {
+    x: 3, y: 7, id: 3, value: 30,
+  },
+  {
+    x: 4, y: 10, id: 4, value: 40,
+  },
+  {
+    x: 5, y: 15, id: 5, value: 50,
+  },
 ];
 
 const lineMethod = jest.fn();
@@ -26,18 +37,13 @@ const pointMethod = jest.fn();
 
 describe('Base series', () => {
   beforeEach(() => {
-    findSeriesByName.mockImplementation(() => ({
-      axisName: 'axisName',
-      argumentField: 'arg',
-      valueField: 'val',
-      stack: 'stack',
-    }));
+    findSeriesByName.mockReturnValue({
+      stack: 'stack1',
+    });
 
-    xyScales.mockImplementation();
-    coordinates.mockImplementation(() => coords);
-
-    lineMethod.mockImplementation();
-    pointMethod.mockImplementation(() => jest.fn());
+    coordinates.mockReturnValue(coords);
+    pointMethod.mockReturnValue(jest.fn());
+    seriesData.mockReturnValue('series');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -59,6 +65,10 @@ describe('Base series', () => {
   const defaultProps = {
     name: 'name',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
+    stack: 'stack',
   };
   const TestComponentPath = () => (<div>TestComponentPath</div>);
   const TestComponentPoint = () => (<div>TestComponentPoint</div>);
@@ -82,13 +92,17 @@ describe('Base series', () => {
         />
       </PluginHost>
     ));
+    const points = tree.children().find(TestComponentPoint);
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       styles: 'styles',
     });
-    expect(tree.children().find(TestComponentPoint)).toHaveLength(5);
+    for (let i = 0; i < coords.length; i += 1) {
+      expect(points.get(i).props.value).toBe(coords[i].value);
+    }
+
     expect(lineMethod).toBeCalledWith('pathType', coords, undefined);
-    expect(pointMethod).toBeCalledWith(undefined, 7, 'stack');
+    expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
   });
 
   it('should call function to get attributes for series', () => {
@@ -124,9 +138,31 @@ describe('Base series', () => {
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
       undefined,
-      'arg',
-      'val',
+      'argumentField',
+      'valueField',
       'name',
+    );
+  });
+
+  it('should pass axesData correct arguments', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <WrappedComponent
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(seriesData).toHaveBeenCalledWith(
+      'series',
+      expect.objectContaining({
+        valueField: 'valueField',
+        argumentField: 'argumentField',
+        name: 'name',
+        axisName: 'axisName',
+        stack: 'stack',
+      }),
     );
   });
 });

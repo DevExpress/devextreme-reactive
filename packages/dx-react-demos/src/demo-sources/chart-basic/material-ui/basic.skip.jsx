@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import {
   ArgumentAxis,
   ValueAxis,
@@ -21,42 +21,21 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
-          point: { size: 10 },
-        },
-        {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
-        },
-        {
-          valueField: 'us',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'USA',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height
     } = this.state;
     return (
       <Paper>
-        <Chart
-          data={chartData}
-          width={width}
-          height={height}
-          series={series}
-        >
-          <ArgumentAxis position="top" />
+        <Chart 
+          data={chartData} 
+          width={width} 
+          height={height} 
+          >
+          
+          <ArgumentAxis position="top" name="year" />
           <ValueAxis name="born" />
           <Legend />
 
@@ -64,16 +43,25 @@ export default class Demo extends React.PureComponent {
           <Grid name="born" />
 
           <LineSeries
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
+            point={{ size: 10 }}
             name="Russia"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
-            point={{ size: 10 }}
           />
           <SplineSeries
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             name="China"
             style={{ stroke: 'green' }}
           />
           <AreaSeries
+            valueField="us"
+            argumentField="year"
+            axisName="born"
             name="USA"
             style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
             pointStyle={{ fill: 'orange' }}

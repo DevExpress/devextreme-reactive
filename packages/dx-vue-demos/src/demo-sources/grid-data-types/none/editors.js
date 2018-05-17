@@ -17,7 +17,7 @@ import {
 const BooleanFormatter = {
   props: ['value'],
   template: `
-    <span class="badge badge-secondary">{{ String(this.value) === 'true' ? 'Yes' : 'No' }}</span>
+    <span class="badge badge-secondary">{{ value === true ? 'Yes' : 'No' }}</span>
   `,
 };
 
@@ -27,7 +27,7 @@ const BooleanEditor = {
     <select
       class="form-control"
       :value="value"
-      @change="e => this.$attrs.onValueChange(e.target.value)"
+      @change="e => this.$attrs.onValueChange(e.target.value === 'true')"
     >
       <option value="false">No</option>
       <option value="true">Yes</option>

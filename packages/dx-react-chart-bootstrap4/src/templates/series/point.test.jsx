@@ -7,6 +7,7 @@ describe('Point', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
+    value: 10,
   };
 
   it('should render path element', () => {

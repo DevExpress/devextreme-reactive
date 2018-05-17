@@ -88,7 +88,7 @@ const App = {
 
 Follow the links below to try out the Vue Grid:
 
-- CodeSandbox for Bootstrap4
+- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/k2zml29n4v)
 
 ## License
 

@@ -83,6 +83,7 @@ export const baseSeries = (
                         (
                           <WrappedPoint
                             key={item.id.toString()}
+                            {...{ value: item.value }}
                             {...pointParameters(item)}
                             {...restProps}
                           />

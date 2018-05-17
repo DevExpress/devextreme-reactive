@@ -1,3 +1,16 @@
+<a name="1.3.0-beta.1"></a>
+# [1.3.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0...v1.3.0-beta.1) (2018-05-16)
+
+
+### Bug Fixes
+
+* **react-grid:** always pass the whole Filter object to the filter table cells ([#1011](https://github.com/DevExpress/devextreme-reactive/issues/1011)) ([8fa802d](https://github.com/DevExpress/devextreme-reactive/commit/8fa802d))
+* **react-grid:** change default prop type ([#1056](https://github.com/DevExpress/devextreme-reactive/issues/1056)) ([34c44e8](https://github.com/DevExpress/devextreme-reactive/commit/34c44e8))
+* **react-grid:** correct filtering predicate type ([#1062](https://github.com/DevExpress/devextreme-reactive/issues/1062)) ([b8367ee](https://github.com/DevExpress/devextreme-reactive/commit/b8367ee))
+* **react-grid-material-ui:** reverse detail toggle icons ([#1044](https://github.com/DevExpress/devextreme-reactive/issues/1044)) ([06e7dcd](https://github.com/DevExpress/devextreme-reactive/commit/06e7dcd))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.3...v1.2.0) (2018-05-04)
 

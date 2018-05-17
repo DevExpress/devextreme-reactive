@@ -11,7 +11,7 @@ const styles = () => ({
 class PointBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, seriesComponent, ...restProps
+      x, y, classes, className, seriesComponent, value, ...restProps
     } = this.props;
     return (
       <path
@@ -27,6 +27,7 @@ PointBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   seriesComponent: PropTypes.any,

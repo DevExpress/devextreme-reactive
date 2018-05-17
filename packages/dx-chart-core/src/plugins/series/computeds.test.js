@@ -75,7 +75,7 @@ const data = [
 ];
 
 const computedLine = data.map(item => ({
-  id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'],
+  id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'], value: item.val1,
 }));
 const series = [
   {

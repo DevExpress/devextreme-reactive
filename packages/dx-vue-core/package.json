@@ -20,6 +20,9 @@
     "vue-component"
   ],
   "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-vue-core.umd.js",
   "module": "dist/dx-vue-core.es.js",
   "globalName": "DevExpress.DXVueCore",

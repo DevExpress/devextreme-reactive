@@ -55,31 +55,11 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
-        },
-        {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
-        },
-        {
-          valueField: 'us',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'USA',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Paper>
@@ -87,10 +67,9 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
-          <ArgumentAxis />
+          <ArgumentAxis name="year" />
           <ValueAxis name="born" />
 
           <Grid name="year" />
@@ -98,16 +77,25 @@ export default class Demo extends React.PureComponent {
 
           <LineSeries
             name="Russia"
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'red' }}
             pointComponent={DiamondPoint}
           />
           <LineSeries
             name="China"
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'green' }}
             pointComponent={CrossPoint}
           />
           <LineSeries
             name="USA"
+            valueField="us"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'blue' }}
             pointComponent={StarPoint}
           />

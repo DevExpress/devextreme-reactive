@@ -18,30 +18,11 @@ export default class Demo extends React.PureComponent {
       data: ageStructure,
       width: 700,
       height: 400,
-      axes: [{ name: 'age', min: 0 }, { name: 'state', type: 'band' }],
-      series: [
-        {
-          valueField: 'young',
-          argumentField: 'state',
-          axisName: 'age',
-          name: 'Young',
-        }, {
-          valueField: 'middle',
-          argumentField: 'state',
-          axisName: 'age',
-          name: 'Middle',
-        }, {
-          valueField: 'older',
-          argumentField: 'state',
-          axisName: 'age',
-          name: 'Older',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series, axes,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -49,7 +30,6 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          axes={axes}
         >
 
           <ArgumentAxis name="state" type="band" />

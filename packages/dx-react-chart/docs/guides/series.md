@@ -1,6 +1,6 @@
 # React Chart - Series
 
-A series is a collection of related data points. The Chart provides an individual plugin for each series type. All the plugins have the `pointComponent` that renders the series points; the `LineSeries`, `SplineSeries`, and `AreaSeries` plugins also have the `pathComponent` that renders the path (line or area) connecting the series points.
+A series is a collection of related data points. The Chart provides an individual plugin for each series type. All the plugins have the `pointComponent` that renders the series points; the `LineSeries`, `SplineSeries`, and `AreaSeries` plugins also have the `seriesComponent` that renders the path (line or area) connecting the series points.
 
 ## Line and Spline Series
 

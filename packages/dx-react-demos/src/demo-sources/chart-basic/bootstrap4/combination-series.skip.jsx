@@ -24,33 +24,13 @@ export default class Demo extends React.Component {
         { month: 'May', sale: 95, total: 4300 },
         { month: 'June', sale: 150, total: 7500 },
       ],
-      series: [
-        {
-          valueField: 'sale',
-          argumentField: 'month',
-          axisName: 'sale',
-          name: 'Units Sold',
-          stack: 'a',
-        }, {
-          valueField: 'total',
-          argumentField: 'month',
-          axisName: 'total',
-          name: 'Total Transactions',
-          stack: 'a',
-        },
-      ],
-      axes: [
-        { name: 'sale', min: 0 },
-        { name: 'total' },
-        { name: 'month', type: 'band' },
-      ],
       width: 700,
       height: 400,
     };
   }
   render() {
     const {
-      data: chartData, width, height, series, axes,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -58,11 +38,12 @@ export default class Demo extends React.Component {
           data={chartData}
           width={width}
           height={height}
-          axes={axes}
-          series={series}
         >
 
-          <ArgumentAxis />
+          <ArgumentAxis
+            name="month"
+            type="band"
+          />
           <ValueAxis name="sale" />
           <ValueAxis name="total" position="right" />
 
@@ -70,11 +51,19 @@ export default class Demo extends React.Component {
 
           <BarSeries
             name="Units Sold"
+            valueField="sale"
+            argumentField="month"
+            axisName="sale"
+            stack="a"
             style={{ stroke: 'none', fill: '#ff6666' }}
           />
 
           <LineSeries
             name="Total Transactions"
+            valueField="total"
+            argumentField="month"
+            axisName="total"
+            stack="a"
             style={{ stroke: 'blue' }}
           />
 

@@ -25,19 +25,19 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      data: chartData, width, height
+      data: chartData, width, height,
     } = this.state;
     return (
       <Paper>
-        <Chart 
-          data={chartData} 
-          width={width} 
-          height={height} 
-          >
-          
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+        >
+
+          <Legend placeholder="right" />
           <ArgumentAxis position="top" name="year" />
           <ValueAxis name="born" />
-          <Legend />
 
           <Grid name="year" />
           <Grid name="born" />
@@ -46,7 +46,6 @@ export default class Demo extends React.PureComponent {
             valueField="ru"
             argumentField="year"
             axisName="born"
-            point={{ size: 10 }}
             name="Russia"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
@@ -59,10 +58,10 @@ export default class Demo extends React.PureComponent {
             style={{ stroke: 'green' }}
           />
           <AreaSeries
+            name="USA"
             valueField="us"
             argumentField="year"
             axisName="born"
-            name="USA"
             style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
             pointStyle={{ fill: 'orange' }}
           />

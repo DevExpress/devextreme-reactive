@@ -38,7 +38,7 @@ The `PieSeries` plugin visualizes data as a circle divided into sectors that eac
 
 ## Stacked Series
 
-Line, spline, area, and bar series can be collected in stacks. Assign the same value to the `stack` property of those series that should be put in the same stack.
+Line, spline, area, and bar series can be collected in stacks. Assign the same value to the `stack` property of the series that should be in the same stack.
 
 The following example demonstrates this capability on the bar series:
 
@@ -46,6 +46,6 @@ The following example demonstrates this capability on the bar series:
 
 ## Points' Appearance Customization
 
-The `pointComponent` property allows you to customize the points' appearance. The following example shows how to change the points' shape. The shapes are provided by [`d3-shape`](https://github.com/d3/d3-shape/blob/master/README.md), which is a 3rd-party plugin.
+The `pointComponent` property allows you to customize the points' appearance. The following example shows how to change the points' shape. [`d3-shape`](https://github.com/d3/d3-shape/blob/master/README.md) (a 3rd-party plugin) provides the shapes.
 
 .embedded-demo({ "path": "chart-basic/point-customization.skip", "showThemeSelector": true })

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   ArgumentAxis,
   ValueAxis,
+  Grid,
   Chart,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-bootstrap4';
@@ -21,7 +22,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -29,11 +30,13 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
           <ArgumentAxis name="year" />
           <ValueAxis name="born" />
+
+          <Grid name="year" />
+          <Grid name="born" />
 
           <ScatterSeries
             name="Russia"

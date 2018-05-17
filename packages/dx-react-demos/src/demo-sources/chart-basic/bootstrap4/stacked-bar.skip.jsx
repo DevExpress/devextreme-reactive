@@ -3,6 +3,7 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
+  Grid,
   BarSeries,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Card } from 'reactstrap';
@@ -14,22 +15,27 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: ageStructure,
+      width: 700,
+      height: 400,
     };
   }
   render() {
+    const {
+      data: chartData, width, height,
+    } = this.state;
     return (
       <Card>
         <Chart
-          data={this.state.data}
-          width={700}
-          height={400}
-          style={{
-          border: '1px dashed lightgray',
-        }}
+          data={chartData}
+          width={width}
+          height={height}
         >
 
           <ArgumentAxis name="state" type="band" />
           <ValueAxis name="age" min={0} />
+
+          <Grid name="state" />
+          <Grid name="age" />
 
           <BarSeries
             name="Young"

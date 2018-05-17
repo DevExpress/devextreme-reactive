@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
 import {
   ArgumentAxis,
   ValueAxis,
-  Chart,
-  ScatterSeries,
   Grid,
-} from '@devexpress/dx-react-chart-material-ui';
+  Chart,
+  LineSeries,
+} from '@devexpress/dx-react-chart-bootstrap4';
+import { Card } from 'reactstrap';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height,
     } = this.state;
     return (
-      <Paper>
+      <Card>
         <Chart
           data={chartData}
           width={width}
@@ -38,22 +38,32 @@ export default class Demo extends React.PureComponent {
           <Grid name="year" />
           <Grid name="born" />
 
-          <ScatterSeries
+          <LineSeries
+            name="Russia"
             valueField="ru"
             argumentField="year"
             axisName="born"
-            name="Russia"
-            style={{ stroke: 'red', fill: 'white' }}
+            style={{ stroke: 'green' }}
+            pointStyle={{ fill: 'green' }}
           />
-          <ScatterSeries
+          <LineSeries
             name="China"
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'orange', fill: 'blue' }}
+            style={{ stroke: 'red' }}
+            pointStyle={{ fill: 'red' }}
+          />
+          <LineSeries
+            name="USA"
+            valueField="us"
+            argumentField="year"
+            axisName="born"
+            style={{ stroke: 'blue' }}
+            pointStyle={{ fill: 'blue' }}
           />
         </Chart>
-      </Paper>
+      </Card>
     );
   }
 }

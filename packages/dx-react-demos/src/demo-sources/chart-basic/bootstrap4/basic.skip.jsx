@@ -25,7 +25,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -33,7 +33,6 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
           <Legend placeholder="right" />
@@ -48,7 +47,6 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             axisName="born"
             name="Russia"
-            point={{ size: 10 }}
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
           />

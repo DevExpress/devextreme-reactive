@@ -26,6 +26,7 @@ class PointBase extends React.PureComponent {
 PointBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
+  d: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   seriesComponent: PropTypes.any,

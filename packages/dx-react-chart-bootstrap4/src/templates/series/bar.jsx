@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export class Bar extends React.PureComponent {
   render() {
@@ -7,3 +8,10 @@ export class Bar extends React.PureComponent {
     );
   }
 }
+
+Bar.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+};

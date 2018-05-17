@@ -18,6 +18,7 @@ export class Point extends React.PureComponent {
 Point.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
+  d: PropTypes.string.isRequired,
   seriesComponent: PropTypes.any,
 };
 

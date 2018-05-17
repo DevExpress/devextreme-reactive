@@ -11,9 +11,9 @@ At least one of the following plugins that render series of the specified type (
 - `BarSeries`
 - `PieSeries`
 
-To visualize extra elements such as the axes, grid and legend, use the following plugins:
+Use the following plugins to visualize extra elements such as the axes, grid, and legend:
 
-- `ArgumentAxis` - renders an argumment axis
+- `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
 - `Grid` - renders a grid
 - `Legend` - renders a legend

@@ -163,6 +163,7 @@ describe('Base series', () => {
         name: 'name',
         axisName: 'axisName',
         stack: 'stack',
+        type: 'pathType',
       }),
     );
   });

@@ -1,8 +1,13 @@
 export const processData = (series, data) => data.map(singleData => series.reduce((prevValue, {
-  valueField, name, stack,
+  valueField, name, stack, type,
 }) => {
-  const startValue = prevValue.collection[stack] || 0;
-  const endValue = startValue + singleData[valueField];
+  let startValue = prevValue.collection[stack] || 0;
+  let endValue = startValue + singleData[valueField];
+
+  if (!prevValue.collection[stack] && type !== 'area' && type !== 'bar') {
+    startValue = singleData[valueField];
+    endValue = singleData[valueField];
+  }
 
   return {
     singleData: {
@@ -16,7 +21,6 @@ export const processData = (series, data) => data.map(singleData => series.reduc
     },
   };
 }, { singleData, collection: {} }).singleData);
-
 
 export const seriesWithStacks = series =>
   series.reduce((prevResult, singleSeries, index) => {

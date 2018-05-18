@@ -32,7 +32,7 @@ export default class Demo extends React.PureComponent {
           height={height}
         >
           <ArgumentAxis name="login" type="band" />
-          <ValueAxis name="commits" min={0} />
+          <ValueAxis name="commits" />
 
           <Grid name="login" />
           <Grid name="commits" />

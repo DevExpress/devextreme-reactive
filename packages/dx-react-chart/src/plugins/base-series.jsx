@@ -32,7 +32,7 @@ export const baseSeries = (
       } = this.props;
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, axisName, stack: stackProp,
+          valueField, argumentField, name, axisName, stack: stackProp, type: pathType,
         });
       return (
         <Plugin name={pluginName}>

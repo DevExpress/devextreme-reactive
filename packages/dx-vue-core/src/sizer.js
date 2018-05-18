@@ -42,7 +42,8 @@ export const DxSizer = {
   name: 'DxSizer',
   data() {
     return {
-      size: { width: 0, height: 0 },
+      width: 0,
+      height: 0,
     };
   },
   mounted() {
@@ -60,17 +61,21 @@ export const DxSizer = {
       this.$refs.expand.scrollTop = 1;
       this.$refs.expand.scrollLeft = 1;
 
-      this.size = size;
+
+      if (this.width === size.width && this.height === size.height) return;
+
+      this.width = size.width;
+      this.height = size.height;
     },
   },
   render() {
-    const { size } = this;
+    const { width, height } = this;
     return (
       <div
         ref="root"
         style={styles.root}
       >
-        {this.$scopedSlots.default(size)}
+        {width && height && this.$scopedSlots.default({ width, height })}
         <div style={styles.triggers}>
           <div
             ref="expand"

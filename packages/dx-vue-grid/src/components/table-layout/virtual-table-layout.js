@@ -117,18 +117,18 @@ export const VirtualTableLayout = {
       return this.estimatedRowHeight;
     },
     storeRowHeights() {
-      const rowsWithChangedHeights = Array.from(this.$refs)
-        .map(node => [{ key: node.split('-')[0], height: node.split('-')[1] }, node])
-        .filter(([, node]) => !!node)
-        .map(([row, node]) => [row, node.getBoundingClientRect().height])
+      const rowsWithChangedHeights = Object.keys(this.$refs)
+        .map(node => this.$refs[node])
+        .filter(node => !!node)
+        .map(node => [node.$attrs.row, node.$el.getBoundingClientRect().height])
         .filter(([row, height]) => height !== this.getRowHeight(row));
 
       if (rowsWithChangedHeights.length) {
-        const { rowHeights } = this;
+        const newRowHeights = new Map();
         rowsWithChangedHeights
-          .forEach(([row, height]) => rowHeights.set(row.key, height));
+          .forEach(([row, height]) => newRowHeights.set(row.key, height));
 
-        this.rowHeights = rowHeights;
+        this.rowHeights = newRowHeights;
       }
     },
     updateViewport(e) {
@@ -172,7 +172,8 @@ export const VirtualTableLayout = {
               return (
                 <DxRefHolder
                   key={row.key}
-                  ref={`${row.key}-${row.height}`}
+                  ref={`${row.key}`}
+                  row={row}
                 >
                   <Row
                     tableRow={row}
@@ -213,9 +214,6 @@ export const VirtualTableLayout = {
       headComponent: Head,
       bodyComponent: Body,
       getCellColSpan,
-      getRowHeight,
-      viewportLeft,
-      viewportTop,
       updateViewport,
       renderRowsBlock,
     } = this;
@@ -223,32 +221,31 @@ export const VirtualTableLayout = {
     return (
       <DxSizer>
         {({ width }) => {
-          const headHeight = headerRows.reduce((acc, row) => acc + getRowHeight(row), 0);
+          const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
           const getColSpan = (tableRow, tableColumn) =>
             getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
           const collapsedHeaderGrid = getCollapsedGrid({
             rows: headerRows,
             columns,
             top: 0,
-            left: viewportLeft,
+            left: this.viewportLeft,
             width,
             height: headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight,
+            getRowHeight: this.getRowHeight,
             getColSpan,
           });
           const collapsedBodyGrid = getCollapsedGrid({
             rows: bodyRows,
             columns,
-            top: viewportTop,
-            left: viewportLeft,
+            top: this.viewportTop,
+            left: this.viewportLeft,
             width,
             height: height - headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight,
+            getRowHeight: this.getRowHeight,
             getColSpan,
           });
-
           return (
             <Container
               style={{ height: `${height}px` }}

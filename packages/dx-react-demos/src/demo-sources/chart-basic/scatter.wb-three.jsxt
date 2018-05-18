@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
   Chart,
   ScatterSeries,
   Grid,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +24,7 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height,
     } = this.state;
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -53,7 +52,7 @@ export default class Demo extends React.PureComponent {
             style={{ stroke: 'orange', fill: 'blue' }}
           />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
   Grid,
   Chart,
-  SplineSeries,
-} from '@devexpress/dx-react-chart-material-ui';
+  AreaSeries,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -24,8 +23,9 @@ export default class Demo extends React.PureComponent {
     const {
       data: chartData, width, height,
     } = this.state;
+
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -38,32 +38,32 @@ export default class Demo extends React.PureComponent {
           <Grid name="year" />
           <Grid name="born" />
 
-          <SplineSeries
+          <AreaSeries
             name="Russia"
             valueField="ru"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'green' }}
-            pointStyle={{ fill: 'green' }}
+            style={{ fill: '#47d147', stroke: 'none', opacity: 0.5 }}
+            pointStyle={{ fill: '#47d147' }}
           />
-          <SplineSeries
+          <AreaSeries
             name="China"
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'red' }}
-            pointStyle={{ fill: 'red' }}
+            style={{ fill: '#ff3333', stroke: 'none', opacity: 0.5 }}
+            pointStyle={{ fill: '#ff3333' }}
           />
-          <SplineSeries
+          <AreaSeries
             name="USA"
             valueField="us"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'blue' }}
-            pointStyle={{ fill: 'blue' }}
+            style={{ fill: '#0099ff', stroke: 'none', opacity: 0.5 }}
+            pointStyle={{ fill: '#0099ff' }}
           />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

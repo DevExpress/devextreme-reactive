@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   PieSeries,
-} from '@devexpress/dx-react-chart-bootstrap4';
-import { Card } from 'reactstrap';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { contributors as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -22,7 +21,7 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height,
     } = this.state;
     return (
-      <Card>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -36,7 +35,7 @@ export default class Demo extends React.PureComponent {
             style={{ stroke: 'white', fill: '#ff6666' }}
           />
         </Chart>
-      </Card>
+      </<%&wrapperTag%>>
     );
   }
 }

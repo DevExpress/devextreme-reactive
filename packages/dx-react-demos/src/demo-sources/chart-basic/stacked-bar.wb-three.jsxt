@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
   ValueAxis,
   Grid,
   BarSeries,
-} from '@devexpress/dx-react-chart-bootstrap4';
-import { Card } from 'reactstrap';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -25,7 +24,7 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height,
     } = this.state;
     return (
-      <Card>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -43,24 +42,27 @@ export default class Demo extends React.PureComponent {
             valueField="young"
             argumentField="state"
             axisName="age"
+            stack="a"
             style={{ stroke: 'none', fill: '#ff6666' }}
           />
           <BarSeries
+            name="Middle"
             valueField="middle"
             argumentField="state"
             axisName="age"
-            name="Middle"
+            stack="a"
             style={{ stroke: 'none', fill: '#9fff80' }}
           />
           <BarSeries
+            name="Older"
             valueField="older"
             argumentField="state"
             axisName="age"
-            name="Older"
+            stack="a"
             style={{ stroke: 'none', fill: '#9999ff' }}
           />
         </Chart>
-      </Card>
+      </<%&wrapperTag%>>
     );
   }
 }

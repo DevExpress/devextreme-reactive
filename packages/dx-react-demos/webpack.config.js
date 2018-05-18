@@ -47,7 +47,7 @@ module.exports = ({ production }) => ({
   ],
   devServer: {
     host: '0.0.0.0',
-    port: 3002,
+    port: 3004,
     historyApiFallback: true,
     disableHostCheck: true,
   }

@@ -1,10 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
-  PieSeries,
-} from '@devexpress/dx-react-chart-material-ui';
-import Paper from '@material-ui/core/Paper';
+  ArgumentAxis,
+  ValueAxis,
+  Grid,
+  BarSeries,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { contributors as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -21,22 +23,29 @@ export default class Demo extends React.PureComponent {
     const {
       data: chartData, width, height,
     } = this.state;
+
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
           height={height}
         >
+          <ArgumentAxis name="login" type="band" />
+          <ValueAxis name="commits" min={0} />
 
-          <PieSeries
-            name="PieSeries"
+          <Grid name="login" />
+          <Grid name="commits" />
+
+          <BarSeries
+            name="BarSeries"
+            style={{ stroke: 'none', fill: 'darkblue' }}
             valueField="contributions"
             argumentField="login"
-            style={{ stroke: 'white', fill: '#ff6666' }}
+            axisName="commits"
           />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

@@ -51,7 +51,7 @@ module.exports = ({ production }) => ({
   devtool: production ? 'source-map' : 'eval-source-map',
   devServer: {
     host: '0.0.0.0',
-    port: 3003,
+    port: 3005,
     historyApiFallback: true,
     disableHostCheck: true,
   }

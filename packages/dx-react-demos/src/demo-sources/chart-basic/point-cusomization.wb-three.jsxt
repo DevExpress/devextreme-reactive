@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
   Chart,
   Grid,
   LineSeries,
-} from '@devexpress/dx-react-chart-bootstrap4';
-import { Card } from 'reactstrap';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import {
   symbol,
   symbolCross,
@@ -61,8 +60,9 @@ export default class Demo extends React.PureComponent {
     const {
       data: chartData, width, height,
     } = this.state;
+
     return (
-      <Card>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -100,7 +100,7 @@ export default class Demo extends React.PureComponent {
             pointComponent={StarPoint}
           />
         </Chart>
-      </Card>
+      </<%&wrapperTag%>>
     );
   }
 }

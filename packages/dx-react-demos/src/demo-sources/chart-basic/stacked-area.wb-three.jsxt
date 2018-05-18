@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
   ValueAxis,
+  AreaSeries,
   Grid,
-  BarSeries,
-} from '@devexpress/dx-react-chart-bootstrap4';
-import { Card } from 'reactstrap';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -24,45 +24,44 @@ export default class Demo extends React.PureComponent {
       data: chartData, width, height,
     } = this.state;
     return (
-      <Card>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
           height={height}
         >
-
           <ArgumentAxis name="state" type="band" />
           <ValueAxis name="age" min={0} />
 
           <Grid name="state" />
           <Grid name="age" />
 
-          <BarSeries
+          <AreaSeries
             name="Young"
             valueField="young"
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#ff6666' }}
+            style={{ stroke: 'none', fill: 'rgba(200, 141, 214, 0.6)' }}
           />
-          <BarSeries
-            name="Middle"
+          <AreaSeries
             valueField="middle"
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#9fff80' }}
+            name="Middle"
+            style={{ stroke: 'none', fill: 'rgba(138, 209, 132, 0.6)' }}
           />
-          <BarSeries
+          <AreaSeries
             name="Older"
             valueField="older"
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#9999ff' }}
+            style={{ stroke: 'none', fill: 'rgba(120, 170, 227, 0.6)' }}
           />
         </Chart>
-      </Card>
+      </<%&wrapperTag%>>
     );
   }
 }

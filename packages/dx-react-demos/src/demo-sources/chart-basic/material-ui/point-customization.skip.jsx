@@ -7,7 +7,7 @@ import {
   Grid,
   LineSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import {
   symbol,
   symbolCross,

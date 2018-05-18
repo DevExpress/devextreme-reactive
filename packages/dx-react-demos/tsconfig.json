@@ -9,5 +9,9 @@
   },
   "include": [
       "./src/**/*"
+  ],
+  "exclude": [
+      "**/*.g.test.tsx"
   ]
+
 }

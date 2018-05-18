@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
@@ -9,9 +7,9 @@ import {
   BarSeries,
   LineSeries,
   Legend,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 
-export default class Demo extends React.Component {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -32,8 +30,9 @@ export default class Demo extends React.Component {
     const {
       data: chartData, width, height,
     } = this.state;
+
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
@@ -69,7 +68,7 @@ export default class Demo extends React.Component {
 
           <Legend />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

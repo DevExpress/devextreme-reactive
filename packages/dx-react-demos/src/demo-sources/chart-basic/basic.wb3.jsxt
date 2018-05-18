@@ -1,13 +1,15 @@
-/* eslint-disable react/jsx-filename-extension */
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
-  Grid,
   Chart,
+  Legend,
+  Grid,
+  LineSeries,
   AreaSeries,
-} from '@devexpress/dx-react-chart-material-ui';
+  SplineSeries,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
@@ -24,46 +26,47 @@ export default class Demo extends React.PureComponent {
     const {
       data: chartData, width, height,
     } = this.state;
+
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
           width={width}
           height={height}
         >
 
-          <ArgumentAxis name="year" />
+          <Legend placeholder="right" />
+          <ArgumentAxis position="top" name="year" />
           <ValueAxis name="born" />
 
           <Grid name="year" />
           <Grid name="born" />
 
-          <AreaSeries
-            name="Russia"
+          <LineSeries
             valueField="ru"
             argumentField="year"
             axisName="born"
-            style={{ fill: '#47d147', stroke: 'none', opacity: 0.5 }}
-            pointStyle={{ fill: '#47d147' }}
+            name="Russia"
+            style={{ stroke: 'red' }}
+            pointStyle={{ fill: 'green' }}
           />
-          <AreaSeries
-            name="China"
+          <SplineSeries
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ fill: '#ff3333', stroke: 'none', opacity: 0.5 }}
-            pointStyle={{ fill: '#ff3333' }}
+            name="China"
+            style={{ stroke: 'green' }}
           />
           <AreaSeries
             name="USA"
             valueField="us"
             argumentField="year"
             axisName="born"
-            style={{ fill: '#0099ff', stroke: 'none', opacity: 0.5 }}
-            pointStyle={{ fill: '#0099ff' }}
+            style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
+            pointStyle={{ fill: 'orange' }}
           />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

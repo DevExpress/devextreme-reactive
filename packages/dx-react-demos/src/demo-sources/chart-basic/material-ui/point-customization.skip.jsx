@@ -1,17 +1,51 @@
+/* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
 import {
   ArgumentAxis,
   ValueAxis,
   Chart,
-  Legend,
   Grid,
   LineSeries,
-  AreaSeries,
-  SplineSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-
+import Paper from 'material-ui/Paper';
+import {
+  symbol,
+  symbolCross,
+  symbolDiamond,
+  symbolStar,
+} from 'd3-shape';
 import { born as data } from '../../../demo-data/data-vizualization';
+
+const Point = (type, styles) => (props) => {
+  const {
+    x, y,
+  } = props;
+  return (
+    <path
+      transform={`translate(${x} ${y})`}
+      d={symbol().size([10 ** 2]).type(type)()}
+      style={styles}
+    />
+  );
+};
+
+const DiamondPoint = Point(symbolDiamond, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'red',
+});
+
+const CrossPoint = Point(symbolCross, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'green',
+});
+
+const StarPoint = Point(symbolStar, {
+  stroke: 'white',
+  strokeWidth: '1px',
+  fill: 'blue',
+});
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -35,35 +69,35 @@ export default class Demo extends React.PureComponent {
           height={height}
         >
 
-          <Legend placeholder="right" />
-          <ArgumentAxis position="top" name="year" />
+          <ArgumentAxis name="year" />
           <ValueAxis name="born" />
 
           <Grid name="year" />
           <Grid name="born" />
 
           <LineSeries
+            name="Russia"
             valueField="ru"
             argumentField="year"
             axisName="born"
-            name="Russia"
             style={{ stroke: 'red' }}
-            pointStyle={{ fill: 'green' }}
+            pointComponent={DiamondPoint}
           />
-          <SplineSeries
+          <LineSeries
+            name="China"
             valueField="ch"
             argumentField="year"
             axisName="born"
-            name="China"
             style={{ stroke: 'green' }}
+            pointComponent={CrossPoint}
           />
-          <AreaSeries
+          <LineSeries
             name="USA"
             valueField="us"
             argumentField="year"
             axisName="born"
-            style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
-            pointStyle={{ fill: 'orange' }}
+            style={{ stroke: 'blue' }}
+            pointComponent={StarPoint}
           />
         </Chart>
       </Paper>

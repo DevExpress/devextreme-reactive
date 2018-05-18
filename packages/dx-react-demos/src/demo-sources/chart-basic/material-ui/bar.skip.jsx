@@ -6,6 +6,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   BarSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { contributors as data } from '../../../demo-data/data-vizualization';
 
@@ -33,6 +34,9 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis name="login" type="band" />
           <ValueAxis name="commits" min={0} />
+
+          <Grid name="login" />
+          <Grid name="commits" />
 
           <BarSeries
             name="BarSeries"

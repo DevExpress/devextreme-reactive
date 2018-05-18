@@ -162,6 +162,13 @@
     items:
       - title: Core
         path: /react/core/docs/guides/fundamentals
+/react/chart:
+  - title: Guides
+    items:
+      - title: Fundamentals
+        path: /react/chart/docs/guides/fundamentals
+      - title: Series
+        path: /react/chart/docs/guides/series
 /vue/grid:
   - title: Guides
     items:

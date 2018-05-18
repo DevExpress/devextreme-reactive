@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from 'material-ui/Paper';
 import {
   ArgumentAxis,
   ValueAxis,
-  Chart,
-  ScatterSeries,
   Grid,
+  Chart,
+  SplineSeries,
 } from '@devexpress/dx-react-chart-material-ui';
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -38,19 +38,29 @@ export default class Demo extends React.PureComponent {
           <Grid name="year" />
           <Grid name="born" />
 
-          <ScatterSeries
+          <SplineSeries
+            name="Russia"
             valueField="ru"
             argumentField="year"
             axisName="born"
-            name="Russia"
-            style={{ stroke: 'red', fill: 'white' }}
+            style={{ stroke: 'green' }}
+            pointStyle={{ fill: 'green' }}
           />
-          <ScatterSeries
+          <SplineSeries
             name="China"
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'orange', fill: 'blue' }}
+            style={{ stroke: 'red' }}
+            pointStyle={{ fill: 'red' }}
+          />
+          <SplineSeries
+            name="USA"
+            valueField="us"
+            argumentField="year"
+            axisName="born"
+            style={{ stroke: 'blue' }}
+            pointStyle={{ fill: 'blue' }}
           />
         </Chart>
       </Paper>

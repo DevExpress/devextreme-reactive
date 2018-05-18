@@ -1,6 +1,6 @@
 # DxVirtualTable Plugin Reference
 
-A plugin that renders a scrollable table instead of a static one. It contains the [DxVirtualTable.Row](#plugin-components) and [DxVirtualTable.components.DxCell](#plugin-components) components that provide ways to customize virtual table rows and columns and can be extended by other plugins.
+A plugin that renders a scrollable table instead of a static one. It contains the [DxVirtualTable.components.DxRow](#plugin-components) and [DxVirtualTable.components.DxCell](#plugin-components) components that provide ways to customize virtual table rows and columns and can be extended by other plugins.
 
 ## Importing
 

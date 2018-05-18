@@ -258,3 +258,5 @@
         path: /vue/grid/docs/reference/toolbar
       - title: DxTableHeaderRow
         path: /vue/grid/docs/reference/table-header-row
+      - title: DxVirtualTable
+        path: /vue/grid/docs/reference/virtual-table

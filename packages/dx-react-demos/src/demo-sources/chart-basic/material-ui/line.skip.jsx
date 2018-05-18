@@ -7,7 +7,7 @@ import {
   Chart,
   LineSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import { born as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   ArgumentAxis,
   ValueAxis,
+  Grid,
   Chart,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-bootstrap4';
@@ -17,25 +18,11 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
-        },
-        {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -43,18 +30,26 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
-          <ArgumentAxis />
+          <ArgumentAxis name="year" />
           <ValueAxis name="born" />
+
+          <Grid name="year" />
+          <Grid name="born" />
 
           <ScatterSeries
             name="Russia"
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'red', fill: 'white' }}
           />
           <ScatterSeries
             name="China"
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             style={{ stroke: 'orange', fill: 'blue' }}
           />
         </Chart>

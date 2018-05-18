@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
-import Chip from 'material-ui/Chip';
-import Input from 'material-ui/Input';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
+import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
   DataTypeProvider,
   EditingState,

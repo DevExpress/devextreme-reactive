@@ -21,32 +21,11 @@ export default class Demo extends React.PureComponent {
       data,
       width: 700,
       height: 400,
-      series: [
-        {
-          valueField: 'ru',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'Russia',
-          point: { size: 10 },
-        },
-        {
-          valueField: 'ch',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'China',
-        },
-        {
-          valueField: 'us',
-          argumentField: 'year',
-          axisName: 'born',
-          name: 'USA',
-        },
-      ],
     };
   }
   render() {
     const {
-      data: chartData, width, height, series,
+      data: chartData, width, height,
     } = this.state;
     return (
       <Card>
@@ -54,27 +33,35 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           width={width}
           height={height}
-          series={series}
         >
 
           <Legend placeholder="right" />
-          <ArgumentAxis position="top" />
+          <ArgumentAxis position="top" name="year" />
           <ValueAxis name="born" />
 
           <Grid name="year" />
           <Grid name="born" />
 
           <LineSeries
+            valueField="ru"
+            argumentField="year"
+            axisName="born"
             name="Russia"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'green' }}
           />
           <SplineSeries
+            valueField="ch"
+            argumentField="year"
+            axisName="born"
             name="China"
             style={{ stroke: 'green' }}
           />
           <AreaSeries
             name="USA"
+            valueField="us"
+            argumentField="year"
+            axisName="born"
             style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
             pointStyle={{ fill: 'orange' }}
           />

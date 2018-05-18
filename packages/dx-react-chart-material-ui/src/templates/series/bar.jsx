@@ -15,4 +15,3 @@ Bar.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
 };
-

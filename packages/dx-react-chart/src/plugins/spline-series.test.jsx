@@ -6,7 +6,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { SplineSeries } from './spline-series';
 
 const PointComponent = () => null;
-const PathComponent = () => null;
+const SeriesComponent = () => null;
 
 const coords = [
   { x: 1, y: 3, id: 1 },
@@ -22,6 +22,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 lineAttributes.mockImplementation(() => ({
@@ -37,9 +38,6 @@ pointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 
@@ -58,10 +56,13 @@ describe('Spline series', () => {
 
   const defaultProps = {
     pointComponent: PointComponent,
-    pathComponent: PathComponent,
+    seriesComponent: SeriesComponent,
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {
@@ -100,7 +101,7 @@ describe('Spline series', () => {
     ));
     const {
       d, styles, x, y,
-    } = tree.find(PathComponent).props();
+    } = tree.find(SeriesComponent).props();
     expect(d).toBe('M11 11');
     expect(styles).toBe('styles');
     expect(x).toBe(2);

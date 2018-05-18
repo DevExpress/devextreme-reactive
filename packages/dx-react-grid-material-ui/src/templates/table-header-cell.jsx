@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';

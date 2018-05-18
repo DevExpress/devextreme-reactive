@@ -20,7 +20,6 @@ export const baseSeries = (
   class Component extends React.PureComponent {
     render() {
       const {
-        placeholder,
         name,
         point,
         barWidth,
@@ -75,7 +74,8 @@ export const baseSeries = (
                 return (
                   <React.Fragment>
                     <WrappedPath
-                      {...processLine(pathType, coord, scales)}
+                      {...processLine(pathType, scales)}
+                      {...{ coordinates: coord }}
                       {...restProps}
                     />
                     {
@@ -100,7 +100,6 @@ export const baseSeries = (
   }
   Component.propTypes = {
     name: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
     point: PropTypes.object,
     barWidth: PropTypes.number,
     groupWidth: PropTypes.number,
@@ -111,7 +110,6 @@ export const baseSeries = (
   };
   Component.defaultProps = {
     stack: undefined,
-    placeholder: 'pane',
     point: { size: 7 },
     barWidth: 0.9,
     groupWidth: 0.7,

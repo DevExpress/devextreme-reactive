@@ -5,7 +5,8 @@ import { Path } from './path';
 const defaultProps = {
   x: 1,
   y: 2,
-  d: 'M10 10',
+  path: jest.fn(value => value),
+  coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
 };
 
 describe('Path', () => {
@@ -22,7 +23,7 @@ describe('Path', () => {
     expect(transform)
       .toBe('translate(1 2)');
     expect(d)
-      .toBe('M10 10');
+      .toEqual([{ x: 1, y: 2 }, { x: 2, y: 4 }]);
   });
 
   it('should apply custom styles if any', () => {

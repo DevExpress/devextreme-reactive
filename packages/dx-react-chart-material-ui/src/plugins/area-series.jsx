@@ -7,7 +7,7 @@ export class AreaSeries extends React.PureComponent {
   render() {
     return (
       <AreaSeriesBase
-        pathComponent={Path}
+        seriesComponent={Path}
         pointComponent={Point}
         {...this.props}
       />

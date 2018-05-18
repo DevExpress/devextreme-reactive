@@ -95,13 +95,14 @@ describe('Base series', () => {
     const points = tree.children().find(TestComponentPoint);
 
     expect(tree.find(TestComponentPath).props()).toEqual({
+      coordinates: coords,
       styles: 'styles',
     });
     for (let i = 0; i < coords.length; i += 1) {
       expect(points.get(i).props.value).toBe(coords[i].value);
     }
 
-    expect(lineMethod).toBeCalledWith('pathType', coords, undefined);
+    expect(lineMethod).toBeCalledWith('pathType', undefined);
     expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
   });
 

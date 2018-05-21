@@ -4,7 +4,7 @@ import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { Title } from './title';
 
-const titleComponent = () => null;
+const textComponent = () => null;
 
 const defaultDeps = {
   template: {
@@ -14,7 +14,7 @@ const defaultDeps = {
 
 const defaultProps = {
   text: 'chart',
-  titleComponent,
+  textComponent,
 };
 
 describe('Title', () => {
@@ -28,7 +28,7 @@ describe('Title', () => {
         />
       </PluginHost>));
 
-    expect(tree.find(titleComponent).props().text)
+    expect(tree.find(textComponent).props().text)
       .toBe('chart');
   });
 
@@ -45,7 +45,7 @@ describe('Title', () => {
         />
       </PluginHost>));
 
-    expect(tree.find(titleComponent).props().text)
+    expect(tree.find(textComponent).props().text)
       .toBe('chart');
     expect(tree.find('h1').text())
       .toBe('other template');

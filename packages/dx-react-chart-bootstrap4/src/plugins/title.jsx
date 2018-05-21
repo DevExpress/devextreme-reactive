@@ -6,7 +6,7 @@ export class Title extends React.PureComponent {
   render() {
     return (
       <TitleBase
-        titleComponent={Text}
+        textComponent={Text}
         {...this.props}
       />
     );

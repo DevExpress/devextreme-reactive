@@ -10,7 +10,7 @@ import {
 export class Title extends React.PureComponent {
   render() {
     const {
-      titleComponent: Text,
+      textComponent: Text,
       text,
       position,
     } = this.props;
@@ -27,7 +27,7 @@ export class Title extends React.PureComponent {
 }
 
 Title.propTypes = {
-  titleComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   position: PropTypes.string,
 };

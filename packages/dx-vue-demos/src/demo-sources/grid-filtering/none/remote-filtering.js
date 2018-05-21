@@ -1,6 +1,4 @@
-import {
-  DxFilteringState,
-} from '@devexpress/dx-vue-grid';
+import { DxFilteringState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   DxTable,

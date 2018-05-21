@@ -1,6 +1,4 @@
-import {
-  DxSortingState,
-} from '@devexpress/dx-vue-grid';
+import { DxSortingState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
   DxTable,

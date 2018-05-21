@@ -31,7 +31,7 @@ export default class Demo extends React.PureComponent {
           height={height}
         >
           <ArgumentAxis name="state" type="band" />
-          <ValueAxis name="age" min={0} />
+          <ValueAxis name="age" />
 
           <Grid name="state" />
           <Grid name="age" />

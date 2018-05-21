@@ -17,6 +17,7 @@ import {
   findSeriesByName,
   barPointAttributes,
   seriesData,
+  checkZeroStart,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -236,6 +237,15 @@ describe('Series attributes', () => {
     });
     expect(scale).toBeCalledWith('stack1');
   });
+
+  it('should return bar point attributes, bar is negative', () => {
+    const scale = jest.fn(() => 3);
+    scale.bandwidth = jest.fn(() => 20);
+    const barAttr = barPointAttributes({ x0Scale: scale }, undefined, 'stack1')({ x: 1, y: 5, y1: 2 });
+    expect(barAttr).toEqual({
+      x: 4, y: 2, height: 3, width: 20,
+    });
+  });
 });
 
 describe('Pie attributes', () => {
@@ -292,5 +302,22 @@ describe('seriesData', () => {
   it('should push new series props', () => {
     const seriesArray = seriesData([{ first: true }], { second: true });
     expect(seriesArray).toEqual([{ first: true }, { second: true }]);
+  });
+});
+
+describe('checkZeroStart', () => {
+  it('should return true for axis with bar', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'bar');
+    expect(fromZero).toEqual({ axis1: true });
+  });
+
+  it('should return true for axis with area', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'area');
+    expect(fromZero).toEqual({ axis1: true });
+  });
+
+  it('should return false for axis with another series type', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'line');
+    expect(fromZero).toEqual({ axis1: false });
   });
 });

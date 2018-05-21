@@ -6,9 +6,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
 
 const PointComponent = () => null;
-const PathComponent = () => null;
-// eslint-disable-next-line react/prop-types
-const RootComponent = ({ children }) => <div>{children}</div>;
+const SeriesComponent = () => null;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   lineAttributes: jest.fn(),
@@ -16,6 +14,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
 }));
 
 const coords = [
@@ -39,10 +38,7 @@ pointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
-  stack: 'stack',
+  stack: 'stack1',
 }));
 
 xyScales.mockImplementation();
@@ -54,17 +50,19 @@ describe('Area series', () => {
       layouts: { pane: {} },
     },
     template: {
-      canvas: {},
+      series: {},
     },
   };
 
   const defaultProps = {
-    rootComponent: RootComponent,
     pointComponent: PointComponent,
-    pathComponent: PathComponent,
+    seriesComponent: SeriesComponent,
     name: 'val1',
     styles: 'styles',
     pointStyle: { fill: 'point fill' },
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {
@@ -103,7 +101,7 @@ describe('Area series', () => {
     ));
     const {
       d, styles, x, y,
-    } = tree.find(PathComponent).props();
+    } = tree.find(SeriesComponent).props();
     expect(d).toBe('M11 11');
     expect(styles).toBe('styles');
     expect(x).toBe(2);

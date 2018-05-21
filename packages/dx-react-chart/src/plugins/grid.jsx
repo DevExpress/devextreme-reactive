@@ -18,18 +18,20 @@ export class Grid extends React.PureComponent {
     } = this.props;
     return (
       <Plugin name="Grid">
-        <Template name="canvas">
+        <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
               domains,
               layouts,
+                width: containerWidth,
+                height: containerHeight,
             }) => {
               const domain = domains[name];
               const { orientation } = domain;
               const {
-                x, y, width, height,
-              } = layouts[placeholder];
+                width, height,
+              } = layouts[placeholder] || { width: containerWidth, height: containerHeight };
 
               const coordinates = axisCoordinates(
                 domain,
@@ -40,7 +42,7 @@ export class Grid extends React.PureComponent {
               );
 
               return ((
-                <Root x={x} y={y}>
+                <Root>
                   {coordinates.ticks.map(({
                       x1, x2, y1, y2, text,
                     }) => (

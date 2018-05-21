@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   cell: {
@@ -19,27 +19,21 @@ const styles = ({ spacing }) => ({
   },
 });
 
-class TableFilterCellBase extends React.PureComponent {
-  render() {
-    const {
-      filter, getMessage, onFilter,
-      classes, children, className,
-      tableRow, tableColumn, column, filteringEnabled,
-      ...restProps
-    } = this.props;
-
-    return (
-      <TableCell
-        className={classNames(classes.cell, className)}
-        {...restProps}
-      >
-        <div className={classes.flexContainer}>
-          {children}
-        </div>
-      </TableCell>
-    );
-  }
-}
+const TableFilterCellBase = ({
+  filter, getMessage, onFilter,
+  classes, children, className,
+  tableRow, tableColumn, column, filteringEnabled,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <div className={classes.flexContainer}>
+      {children}
+    </div>
+  </TableCell>
+);
 
 TableFilterCellBase.propTypes = {
   filter: PropTypes.object,

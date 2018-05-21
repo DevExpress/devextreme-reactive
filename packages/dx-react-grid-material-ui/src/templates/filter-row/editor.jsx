@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Input from 'material-ui/Input';
-import { withStyles } from 'material-ui/styles';
+import Input from '@material-ui/core/Input';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   input: {
@@ -40,4 +40,4 @@ EditorBase.defaultProps = {
   onChange: () => {},
 };
 
-export const Editor = withStyles(styles)(EditorBase);
+export const Editor = withStyles(styles, { name: 'Editor' })(EditorBase);

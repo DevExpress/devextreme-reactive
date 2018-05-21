@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Popover from 'material-ui/Popover';
+import Popover from '@material-ui/core/Popover';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {

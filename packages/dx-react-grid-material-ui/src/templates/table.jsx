@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TableMUI from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableMUI from '@material-ui/core/Table';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   table: {
     tableLayout: 'fixed',
+    overflow: 'hidden',
   },
   headTable: {
     position: 'sticky',

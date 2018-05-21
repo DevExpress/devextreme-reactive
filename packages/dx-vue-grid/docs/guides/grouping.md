@@ -10,7 +10,7 @@ The following plugins implement grouping features:
 - [DxIntegratedGrouping](../reference/integrated-grouping.md) - performs built-in data grouping
 - [DxCustomGrouping](../reference/custom-grouping.md) - converts custom formatted grouped data to a supported format
 - [DxTableGroupRow](../reference/table-group-row.md) - renders group rows
-- [DxTableHeaderRow](../reference/table-header-row.md) - renders the header row and implements column dragging
+- [DxTableHeaderRow](../reference/table-header-row.md) - renders the header row
 - [DxToolbar](../reference/toolbar.md) - renders the Grid Toolbar
 - [DxGroupingPanel](../reference/grouping-panel.md) - renders the Group Panel
 
@@ -41,9 +41,6 @@ In the following example, the data is specified as an array of groups. Specify t
 ## Configure the Grouping UI
 
 Use the `DxToolbar`, `DxGroupingPanel` and `DxTableHeaderRow` plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to provide any of the following methods for specifying grouping options:
-
-- Drag a column header to or from the Group Panel
- Import the [DxDragDropProvider](../reference/drag-drop-provider.md) plugin.
 
 - Use the corresponding button in a header cell
  Assign true to the `DxTableHeaderRow` plugin's `showGroupingControls` and the `DxGroupingPanel` plugin's `showGroupingControls` properties.

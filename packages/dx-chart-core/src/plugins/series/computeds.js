@@ -19,24 +19,25 @@ const computeLinePath = (data, scales, argumentField, valueField, name) =>
     y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
     y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
     id: dataItem[argumentField],
+    value: dataItem[valueField],
   }));
 
-const getDAttribute = (type, path) => {
+const getGenerator = (type) => {
   switch (type) {
     case 'spline':
       return line()
         .x(getX)
         .y(getY)
-        .curve(curveCatmullRom)(path);
+        .curve(curveCatmullRom);
     case 'area':
       return area()
         .x(getX)
         .y1(getY)
-        .y0(getY1)(path);
+        .y0(getY1);
     default:
       return line()
         .x(getX)
-        .y(getY)(path);
+        .y(getY);
   }
 };
 
@@ -96,10 +97,9 @@ export const findSeriesByName = (name, series) =>
 
 export const lineAttributes = (
   type,
-  path,
   scales,
 ) => ({
-  d: getDAttribute(type, path),
+  path: getGenerator(type),
   x: scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0,
   y: 0,
 });
@@ -124,3 +124,5 @@ export const barPointAttributes = (scales, _, stack) => {
     height: item.y1 - item.y,
   });
 };
+
+export const seriesData = (series = [], seriesProps) => [...series, seriesProps];

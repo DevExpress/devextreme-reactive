@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 import { getBorderColor } from './../utils';
 
 const styles = theme => ({
@@ -41,7 +41,7 @@ const CellBase = ({
 CellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   tableRow: PropTypes.object,

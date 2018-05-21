@@ -27,7 +27,7 @@ TableSelectRow.propTypes = {
   onToggle: PropTypes.func,
   selectByRowClick: PropTypes.bool,
   className: PropTypes.string,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
 };

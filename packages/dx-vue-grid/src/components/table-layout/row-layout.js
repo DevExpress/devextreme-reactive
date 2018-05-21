@@ -6,7 +6,6 @@ export const RowLayout = {
   name: 'RowLayout',
   props: {
     row: {
-      type: Object,
       required: true,
     },
     columns: {

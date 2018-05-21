@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow } from 'material-ui/test-utils';
-import Input from 'material-ui/Input';
+import { createShallow } from '@material-ui/core/test-utils';
+import Input from '@material-ui/core/Input';
 import { Editor } from './editor';
 
 const defaultProps = {

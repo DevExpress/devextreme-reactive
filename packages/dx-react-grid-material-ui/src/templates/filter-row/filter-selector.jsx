@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import { ListItemIcon, ListItemText } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   icon: {
@@ -87,4 +89,4 @@ FilterSelectorBase.defaultProps = {
   disabled: false,
 };
 
-export const FilterSelector = withStyles(styles, { name: 'DropDown' })(FilterSelectorBase);
+export const FilterSelector = withStyles(styles, { name: 'FilterSelector' })(FilterSelectorBase);

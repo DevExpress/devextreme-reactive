@@ -32,11 +32,14 @@ export const baseSeries = (
       } = this.props;
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, axisName, stack: stackProp, type: pathType,
+          valueField, argumentField, name, axisName, stack: stackProp,
         });
+      const startFromZeroByAxes = ({ startFromZero = {} }) =>
+        ({ ...startFromZero, [axisName]: startFromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
+          <Getter name="startFromZero" computed={startFromZeroByAxes} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>

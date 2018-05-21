@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName, xyScales, coordinates, seriesData } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -163,8 +163,49 @@ describe('Base series', () => {
         name: 'name',
         axisName: 'axisName',
         stack: 'stack',
-        type: 'pathType',
       }),
     );
+  });
+
+  it('should pass axes with zero value, bar series', () => {
+    const WrappedComponentBar = baseSeries(
+      TestComponentPath,
+      TestComponentPoint,
+      'TestComponent',
+      'bar',
+      lineMethod,
+      pointMethod,
+    );
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <WrappedComponentBar
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(getComputedState(tree).startFromZero).toEqual({ axisName: true });
+  });
+
+  it('should pass axes with zero value, area series', () => {
+    const WrappedComponentBar = baseSeries(
+      TestComponentPath,
+      TestComponentPoint,
+      'TestComponent',
+      'area',
+      lineMethod,
+      pointMethod,
+    );
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <WrappedComponentBar
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(getComputedState(tree).startFromZero).toEqual({ axisName: true });
   });
 });

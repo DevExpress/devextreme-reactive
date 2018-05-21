@@ -112,62 +112,18 @@ describe('processData', () => {
   it('should return new data, bar series', () => {
     const series = [
       {
-        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val', type: 'bar',
+        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val', axisName: 'axis',
       },
       {
-        name: 's2', stack: 'two', argumentField: 'arg', valueField: 'val', type: 'bar',
+        name: 's2', stack: 'two', argumentField: 'arg', valueField: 'val', axisName: 'axis',
       },
       {
-        name: 's3', stack: 'two', argumentField: 'arg', valueField: 'val', type: 'bar',
+        name: 's3', stack: 'two', argumentField: 'arg', valueField: 'val', axisName: 'axis',
       },
     ];
     const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
 
-    expect(processData(series, data)).toEqual([{
-      arg: 1,
-      val: 11,
-      'val-s1-start': 0,
-      'val-s1-end': 11,
-      'val-s2-start': 0,
-      'val-s2-end': 11,
-      'val-s3-start': 11,
-      'val-s3-end': 22,
-    }, {
-      arg: 2,
-      val: 22,
-      'val-s1-start': 0,
-      'val-s1-end': 22,
-      'val-s2-start': 0,
-      'val-s2-end': 22,
-      'val-s3-start': 22,
-      'val-s3-end': 44,
-    }, {
-      arg: 3,
-      val: 33,
-      'val-s1-start': 0,
-      'val-s1-end': 33,
-      'val-s2-start': 0,
-      'val-s2-end': 33,
-      'val-s3-start': 33,
-      'val-s3-end': 66,
-    }]);
-  });
-
-  it('should return new data, area series', () => {
-    const series = [
-      {
-        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val', type: 'area',
-      },
-      {
-        name: 's2', stack: 'two', argumentField: 'arg', valueField: 'val', type: 'area',
-      },
-      {
-        name: 's3', stack: 'two', argumentField: 'arg', valueField: 'val', type: 'area',
-      },
-    ];
-    const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
-
-    expect(processData(series, data)).toEqual([{
+    expect(processData(series, data, { axis: true })).toEqual([{
       arg: 1,
       val: 11,
       'val-s1-start': 0,

@@ -119,10 +119,13 @@ export const barPointAttributes = (scales, _, stack) => {
   const offset = scales.x0Scale(stack);
   return item => ({
     x: item.x + offset,
-    y: item.y,
+    y: Math.min(item.y, item.y1),
     width: bandwidth,
-    height: item.y1 - item.y,
+    height: Math.abs(item.y1 - item.y),
   });
 };
 
 export const seriesData = (series = [], seriesProps) => [...series, seriesProps];
+
+export const checkZeroStart = (fromZero, axisName, pathType) =>
+  ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

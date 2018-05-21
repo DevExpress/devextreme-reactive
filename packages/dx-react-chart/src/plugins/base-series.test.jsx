@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, xyScales, coordinates, seriesData } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { baseSeries } from './base-series';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -12,6 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
+  checkZeroStart: jest.fn(),
 }));
 
 const coords = [
@@ -44,6 +45,7 @@ describe('Base series', () => {
     coordinates.mockReturnValue(coords);
     pointMethod.mockReturnValue(jest.fn());
     seriesData.mockReturnValue('series');
+    checkZeroStart.mockReturnValue('zeroAxes');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -167,45 +169,17 @@ describe('Base series', () => {
     );
   });
 
-  it('should pass axes with zero value, bar series', () => {
-    const WrappedComponentBar = baseSeries(
-      TestComponentPath,
-      TestComponentPoint,
-      'TestComponent',
-      'bar',
-      lineMethod,
-      pointMethod,
-    );
-    const tree = mount((
+  it('should pass correct arguments to checkZeroStart', () => {
+    mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <WrappedComponentBar
+        <WrappedComponent
           {...defaultProps}
         />
       </PluginHost>
     ));
-    expect(getComputedState(tree).startFromZero).toEqual({ axisName: true });
-  });
-
-  it('should pass axes with zero value, area series', () => {
-    const WrappedComponentBar = baseSeries(
-      TestComponentPath,
-      TestComponentPoint,
-      'TestComponent',
-      'area',
-      lineMethod,
-      pointMethod,
-    );
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponentBar
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(getComputedState(tree).startFromZero).toEqual({ axisName: true });
+    expect(checkZeroStart)
+      .toHaveBeenCalledWith({}, 'axisName', 'pathType');
   });
 });

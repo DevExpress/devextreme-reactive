@@ -1,20 +1,15 @@
-export const processData = (series, data, startFromZero = {}) =>
+export const processData = (series, data) =>
   data.map(singleData => series.reduce((prevValue, {
-    valueField, name, stack, axisName,
+    valueField, name, stack,
   }) => {
-    let startValue = prevValue.collection[stack] || 0;
-    let endValue = startValue + singleData[valueField];
-
-    if (!prevValue.collection[stack] && !startFromZero[axisName]) {
-      startValue = singleData[valueField];
-      endValue = singleData[valueField];
-    }
+    const startValue = prevValue.collection[stack] || 0;
+    const endValue = startValue + singleData[valueField];
 
     return {
       singleData: {
         ...prevValue.singleData,
-        [`${valueField}-${name}-start`]: Math.min(startValue, endValue),
-        [`${valueField}-${name}-end`]: Math.max(startValue, endValue),
+        [`${valueField}-${name}-start`]: startValue,
+        [`${valueField}-${name}-end`]: endValue,
       },
       collection: {
         ...prevValue.collection,

@@ -19,15 +19,12 @@ export class FilterSelector extends React.PureComponent {
       this.setState({ opened: false });
       this.props.onChange(nextValue);
     };
-
-    this.getTargetElement = () => this.targetElement;
   }
   render() {
     const {
       value, availableValues, disabled, getMessage, iconComponent: Icon,
     } = this.props;
     const { opened } = this.state;
-    const target = this.getTargetElement();
     return availableValues.length ? (
       <div className="input-group-prepend">
         <button
@@ -39,12 +36,12 @@ export class FilterSelector extends React.PureComponent {
           <Icon type={value} />
         </button>
         {
-          target ? (
+          this.targetElement ? (
             <Popover
               placement="bottom"
               isOpen={opened}
-              target={target}
-              container={target.parentElement}
+              target={this.targetElement}
+              container={this.targetElement.parentElement}
               toggle={this.handleOverlayToggle}
             >
               <div className="py-2">

@@ -19,8 +19,6 @@ export class FilterSelector extends React.PureComponent {
       this.setState({ opened: false });
       this.props.onChange(nextValue);
     };
-
-    this.getTargetElement = () => this.targetElement;
   }
   render() {
     const {
@@ -40,7 +38,7 @@ export class FilterSelector extends React.PureComponent {
         </button>
         <Overlay
           visible={opened}
-          target={this.getTargetElement()}
+          target={this.targetElement}
           onHide={this.handleOverlayHide}
         >
           <ListGroup

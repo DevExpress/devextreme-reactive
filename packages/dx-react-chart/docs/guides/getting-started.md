@@ -1,10 +1,8 @@
 # React Chart - Getting Started
 
 ## Overview
-DevExtreme React Chart is a data visualization component providing bar, line, stacked, area, scatter, pie and other series. 
-It has axis plugin for display scale and legend plugin for a description of series. 
-Now, DevExtreme React Chart is the stateless component and that depends on properties and working in a controlled mode only.
-The DevExtreme Chart component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box. 
+
+The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which additional elements (such as axes, legend, grid) are provided by plugins. Twitter Bootstrap and Material UI rendering and theming are supported out of the box.
 
 ## Installation
 
@@ -30,7 +28,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-bootstrap4.npm-tag()
   ```
 
-  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. Also you need add to your project the [OpenIconic](https://useiconic.com/open) icons.
+  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You will also need the [OpenIconic](https://useiconic.com/open) icons in your project.
 
   Add the DevExtreme React Chart styles in the root .js file:
 
@@ -44,17 +42,15 @@ This package does not contain visual components. In the examples below, visual c
 
 React Chart supports the latest stable releases of all major browsers: Google Chrome, Mozilla Firefox, Safari, Opera, and Microsoft Edge.
 
-React Chart can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, such browsers, including Internet Explorer, may not work correctly.
+React Chart can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, correct operation in such browsers, including Internet Explorer, is not guaranteed.
 
 ## Polyfills
 
-React Chart uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
+React Chart uses the latest web platform standards and does not support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.
 
-## Using Chart component
+## Using the Chart Component
 
-The Chart renders nothing by default. The root Chart component's nested plugin components implement its functionality, and it is necessary to specify at least one plugin that visualizes the chart data.
-
-Use the \*Series, \*Axis plugins to display the data as a simple chart:
+The Chart component renders nothing by default; all its functionality is implemented by plugins. To create a simple chart, add one of the [`*Series` plugins](series.md) (for example, `LineSeries`) to draw a series and the `ArgumentAxis` and `ValueAxis` plugins to add the axes:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";
@@ -80,4 +76,4 @@ const App = () => (
 
 ## License
 
-[DevExtreme licensing](https://js.devexpress.com/licensing/).
+[DevExtreme licensing](https://js.devexpress.com/licensing/)

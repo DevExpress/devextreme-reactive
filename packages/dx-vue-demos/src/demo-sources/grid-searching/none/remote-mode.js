@@ -1,7 +1,6 @@
 import { DxSearchState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
-  DxTable,
   DxVirtualTable,
   DxTableHeaderRow,
   DxToolbar,
@@ -93,7 +92,6 @@ export default {
     DxVirtualTable,
     DxTableHeaderRow,
     DxLoading,
-    DxTable,
     DxToolbar,
     DxSearchPanel,
   },

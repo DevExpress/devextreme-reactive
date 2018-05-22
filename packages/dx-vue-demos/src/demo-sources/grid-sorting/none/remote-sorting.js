@@ -1,7 +1,6 @@
 import { DxSortingState } from '@devexpress/dx-vue-grid';
 import {
   DxGrid,
-  DxTable,
   DxVirtualTable,
   DxTableHeaderRow,
 } from '@devexpress/dx-vue-grid-bootstrap4';
@@ -88,6 +87,5 @@ export default {
     DxVirtualTable,
     DxTableHeaderRow,
     DxLoading,
-    DxTable,
   },
 };

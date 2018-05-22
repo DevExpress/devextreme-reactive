@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = () => ({
@@ -13,12 +13,13 @@ const styles = () => ({
 class PathBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, pointComponent, pointStyle, ...restProps
+      x, y, classes, className, pointComponent, pointStyle, coordinates, path, ...restProps
     } = this.props;
     return (
       <path
         transform={`translate(${x} ${y})`}
         className={classNames(classes.root, className)}
+        d={path(coordinates)}
         {...restProps}
       />
     );
@@ -28,7 +29,8 @@ class PathBase extends React.PureComponent {
 PathBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
+  coordinates: PropTypes.array.isRequired,
+  path: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   pointComponent: PropTypes.any,

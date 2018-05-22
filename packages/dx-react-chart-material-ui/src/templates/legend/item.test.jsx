@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
-import { ListItem } from 'material-ui/List';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import ListItem from '@material-ui/core/ListItem';
 import { Item } from './item';
 
 describe('Root', () => {

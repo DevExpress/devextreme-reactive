@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = () => ({
@@ -11,7 +11,7 @@ const styles = () => ({
 class PointBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, pathComponent, ...restProps
+      x, y, classes, className, seriesComponent, value, ...restProps
     } = this.props;
     return (
       <path
@@ -27,14 +27,15 @@ PointBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  pathComponent: PropTypes.any,
+  seriesComponent: PropTypes.any,
 };
 
 PointBase.defaultProps = {
   className: undefined,
-  pathComponent: undefined,
+  seriesComponent: undefined,
 };
 
 export const Point = withStyles(styles)(PointBase);

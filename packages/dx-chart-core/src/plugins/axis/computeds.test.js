@@ -1,5 +1,5 @@
 import { createScale } from '../../utils/scale';
-import { axisCoordinates } from './computeds';
+import { axisCoordinates, axesData } from './computeds';
 
 const scale = jest.fn().mockReturnValue(10);
 
@@ -123,5 +123,17 @@ describe('AxisCoordinates', () => {
         }],
       });
     });
+  });
+});
+
+describe('axesData', () => {
+  it('should return array with props', () => {
+    const axes = axesData(undefined, { first: true });
+    expect(axes).toEqual([{ first: true }]);
+  });
+
+  it('should push new axis props', () => {
+    const axes = axesData([{ first: true }], { second: true });
+    expect(axes).toEqual([{ first: true }, { second: true }]);
   });
 });

@@ -16,6 +16,8 @@ import {
   lineAttributes,
   findSeriesByName,
   barPointAttributes,
+  seriesData,
+  checkZeroStart,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -74,7 +76,7 @@ const data = [
 ];
 
 const computedLine = data.map(item => ({
-  id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'],
+  id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'], value: item.val1,
 }));
 const series = [
   {
@@ -188,26 +190,26 @@ describe('Series attributes', () => {
     )).toEqual(computedLine);
   });
 
-  it('should return d attribute for area', () => {
-    const { d } = lineAttributes('area', computedLine, { xScale: {} });
-    expect(d).toBe('area');
+  it('should return generator for area', () => {
+    const { path } = lineAttributes('area', { xScale: {} });
+    expect(path(computedLine)).toBe('area');
     expect(mockArea.x).toBeCalled();
     expect(mockArea.y1).toBeCalled();
     expect(mockArea.y0).toBeCalled();
     expect(mockAreaResult).toBeCalledWith(computedLine);
   });
 
-  it('should return d attribute for line', () => {
-    const { d } = lineAttributes('line', computedLine, { xScale: {} });
-    expect(d).toBe('line');
+  it('should return generator for line', () => {
+    const { path } = lineAttributes('line', { xScale: {} });
+    expect(path(computedLine)).toBe('line');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
     expect(mockLineResult).toBeCalledWith(computedLine);
   });
 
-  it('should return d attribute for spline', () => {
-    const { d } = lineAttributes('spline', computedLine, { xScale: {} });
-    expect(d).toBe('spline');
+  it('should return generator for spline', () => {
+    const { path } = lineAttributes('spline', { xScale: {} });
+    expect(path(computedLine)).toBe('spline');
     expect(mockLine.x).toBeCalled();
     expect(mockLine.y).toBeCalled();
     expect(mockLineResult.curve).toBeCalled();
@@ -215,13 +217,13 @@ describe('Series attributes', () => {
   });
 
   it('should return coordinates for lines', () => {
-    const { x, y } = lineAttributes('line', computedLine, { xScale: {} });
+    const { x, y } = lineAttributes('line', { xScale: {} });
     expect(x).toBe(0);
     expect(y).toBe(0);
   });
 
   it('should return coordinates for lines, type is band', () => {
-    const { x, y } = lineAttributes('line', computedLine, { xScale: { bandwidth: jest.fn(() => 20) } });
+    const { x, y } = lineAttributes('line', { xScale: { bandwidth: jest.fn(() => 20) } });
     expect(x).toBe(10);
     expect(y).toBe(0);
   });
@@ -234,6 +236,15 @@ describe('Series attributes', () => {
       x: 4, y: 2, height: 3, width: 20,
     });
     expect(scale).toBeCalledWith('stack1');
+  });
+
+  it('should return bar point attributes, bar is negative', () => {
+    const scale = jest.fn(() => 3);
+    scale.bandwidth = jest.fn(() => 20);
+    const barAttr = barPointAttributes({ x0Scale: scale }, undefined, 'stack1')({ x: 1, y: 5, y1: 2 });
+    expect(barAttr).toEqual({
+      x: 4, y: 2, height: 3, width: 20,
+    });
   });
 });
 
@@ -279,5 +290,34 @@ describe('Pie attributes', () => {
       expect(mockArc.startAngle).toHaveBeenCalledWith(d.val1);
       expect(mockArc.endAngle).toHaveBeenCalledWith(d.val1);
     });
+  });
+});
+
+describe('seriesData', () => {
+  it('should return array with props', () => {
+    const seriesArray = seriesData(undefined, { first: true });
+    expect(seriesArray).toEqual([{ first: true }]);
+  });
+
+  it('should push new series props', () => {
+    const seriesArray = seriesData([{ first: true }], { second: true });
+    expect(seriesArray).toEqual([{ first: true }, { second: true }]);
+  });
+});
+
+describe('checkZeroStart', () => {
+  it('should return true for axis with bar', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'bar');
+    expect(fromZero).toEqual({ axis1: true });
+  });
+
+  it('should return true for axis with area', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'area');
+    expect(fromZero).toEqual({ axis1: true });
+  });
+
+  it('should return false for axis with another series type', () => {
+    const fromZero = checkZeroStart({}, 'axis1', 'line');
+    expect(fromZero).toEqual({ axis1: false });
   });
 });

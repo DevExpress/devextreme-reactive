@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ListItemText } from 'material-ui/List';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import ListItemText from '@material-ui/core/ListItemText';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };

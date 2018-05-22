@@ -6,7 +6,8 @@ describe('Path', () => {
   const defaultProps = {
     x: 1,
     y: 2,
-    d: 'M10 10',
+    path: jest.fn(value => value),
+    coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
   };
   it('should render root element', () => {
     const tree = shallow((
@@ -16,8 +17,10 @@ describe('Path', () => {
     ));
     const { d, transform } = tree.find('path').props();
 
-    expect(transform).toBe('translate(1 2)');
-    expect(d).toBe('M10 10');
+    expect(transform)
+      .toBe('translate(1 2)');
+    expect(d)
+      .toEqual([{ x: 1, y: 2 }, { x: 2, y: 4 }]);
   });
 
   it('should apply custom styles if any', () => {
@@ -33,7 +36,8 @@ describe('Path', () => {
     ));
     const { style } = tree.find('path').props();
 
-    expect(style).toEqual(customStyle);
+    expect(style)
+      .toEqual(customStyle);
   });
 
   it('should pass the className prop to the root element', () => {
@@ -45,6 +49,7 @@ describe('Path', () => {
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Path {...defaultProps} customProperty />);
     const { customProperty } = tree.find('path').props();
-    expect(customProperty).toBeTruthy();
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

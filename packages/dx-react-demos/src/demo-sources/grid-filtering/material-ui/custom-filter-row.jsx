@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
-import Input from 'material-ui/Input';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 import {
   FilteringState,
   IntegratedFiltering,

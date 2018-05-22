@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow } from 'material-ui/test-utils';
-import { TableSortLabel } from 'material-ui/Table';
+import { createShallow } from '@material-ui/core/test-utils';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { SortingControl } from './sorting-control';
 
 const defaultProps = {

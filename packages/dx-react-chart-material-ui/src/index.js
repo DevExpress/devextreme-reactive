@@ -1,5 +1,6 @@
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';
+export { Title } from './plugins/title';
 
 export { PieSeries } from './plugins/pie-series';
 export { BarSeries } from './plugins/bar-series';

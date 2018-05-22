@@ -5,7 +5,6 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
-  getMessagesFormatter,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { DxTableHeaderRow } from './table-header-row';
@@ -15,7 +14,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
-  getMessagesFormatter: jest.fn(),
   getColumnSortingDirection: jest.fn(),
 }));
 
@@ -58,7 +56,6 @@ describe('DxTableHeaderRow', () => {
     tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     getColumnSortingDirection.mockImplementation(() => null);
   });
   afterEach(() => {
@@ -135,32 +132,5 @@ describe('DxTableHeaderRow', () => {
       .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
     expect(tree.find(defaultProps.rowComponent).vm.$attrs)
       .toMatchObject(defaultDeps.template.tableRow);
-  });
-
-  it('should pass correct getMessage prop to TableHeaderRowTemplate', () => {
-    isHeadingTableCell.mockImplementation(() => true);
-
-    const deps = {
-      plugins: ['DxSortingState'],
-    };
-    const tree = mount({
-      render() {
-        return (
-          <DxPluginHost>
-            <PluginDepsToComponents deps={defaultDeps} depsOverrides={deps} />
-            <DxTableHeaderRow
-              {...{ attrs: { ...defaultProps } }}
-              showSortingControls
-              messages={{
-                sortingHint: 'test',
-              }}
-            />
-          </DxPluginHost>
-        );
-      },
-    });
-
-    const { getMessage } = tree.find(defaultProps.cellComponent).vm.$attrs;
-    expect(getMessage('sortingHint')).toBe('test');
   });
 });

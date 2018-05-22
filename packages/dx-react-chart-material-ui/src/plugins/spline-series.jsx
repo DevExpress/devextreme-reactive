@@ -7,7 +7,7 @@ export class SplineSeries extends React.PureComponent {
   render() {
     return (
       <SplineSeriesBase
-        pathComponent={Path}
+        seriesComponent={Path}
         pointComponent={Point}
         {...this.props}
       />

@@ -30,7 +30,9 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   barPointAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
+  seriesData: jest.fn(),
   coordinates: jest.fn(),
+  checkZeroStart: jest.fn(),
 }));
 
 barPointAttributes.mockImplementation(() => () => ({
@@ -41,9 +43,6 @@ barPointAttributes.mockImplementation(() => () => ({
 }));
 
 findSeriesByName.mockImplementation(() => ({
-  axisName: 'axisName',
-  argumentField: 'arg',
-  valueField: 'val',
   stack: 'stack',
 }));
 
@@ -64,6 +63,9 @@ describe('Bar series', () => {
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render bars', () => {

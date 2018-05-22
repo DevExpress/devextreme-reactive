@@ -20,6 +20,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
+  seriesData: jest.fn(),
+  checkZeroStart: jest.fn(),
 }));
 
 pointAttributes.mockImplementation(() => () => ({
@@ -52,6 +54,9 @@ describe('Scatter series', () => {
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+    axisName: 'axisName',
   };
 
   it('should render points', () => {

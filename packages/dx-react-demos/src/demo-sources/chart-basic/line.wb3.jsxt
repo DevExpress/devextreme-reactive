@@ -2,9 +2,9 @@ import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
-  Grid,
   Chart,
   LineSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 import { born as data } from '../../../demo-data/data-vizualization';
@@ -32,17 +32,16 @@ export default class Demo extends React.PureComponent {
           height={height}
         >
 
-          <ArgumentAxis name="year" />
-          <ValueAxis name="born" />
+          <ArgumentAxis />
+          <ValueAxis />
 
-          <Grid name="year" />
-          <Grid name="born" />
+          <Grid name="argumentAxis" />
+          <Grid />
 
           <LineSeries
             name="Russia"
             valueField="ru"
             argumentField="year"
-            axisName="born"
             style={{ stroke: 'green' }}
             pointStyle={{ fill: 'green' }}
           />
@@ -50,7 +49,6 @@ export default class Demo extends React.PureComponent {
             name="China"
             valueField="ch"
             argumentField="year"
-            axisName="born"
             style={{ stroke: 'red' }}
             pointStyle={{ fill: 'red' }}
           />
@@ -58,7 +56,6 @@ export default class Demo extends React.PureComponent {
             name="USA"
             valueField="us"
             argumentField="year"
-            axisName="born"
             style={{ stroke: 'blue' }}
             pointStyle={{ fill: 'blue' }}
           />

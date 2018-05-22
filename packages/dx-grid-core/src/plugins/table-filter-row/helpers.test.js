@@ -27,20 +27,16 @@ describe('TableFilterRow Plugin helpers', () => {
   });
 
   describe('#getColumnFilterOperations', () => {
-    it('can return column specific filter operations', () => {
-      const availableFilterOperations = {
-        column1: ['a', 'b', 'c'],
-        column2: ['d', 'a'],
-        column3: [],
-      };
-      expect(getColumnFilterOperations(availableFilterOperations, 'column2'))
-        .toEqual(availableFilterOperations.column2);
-      expect(getColumnFilterOperations(availableFilterOperations, 'column3'))
-        .toEqual(availableFilterOperations.column3);
+    it('should call the "getAvailableFilterOperations" function with correct parameters', () => {
+      const getAvailableFilterOperations = jest.fn();
+      getColumnFilterOperations(getAvailableFilterOperations, 'column');
+      expect(getAvailableFilterOperations)
+        .toHaveBeenCalledWith('column');
     });
 
     it('can return the default set of filter operations', () => {
-      expect(getColumnFilterOperations({}, 'column1'))
+      const getAvailableFilterOperations = jest.fn().mockReturnValue(undefined);
+      expect(getColumnFilterOperations(getAvailableFilterOperations, 'column'))
         .toEqual(DEFAULT_FILTER_OPERATIONS);
     });
   });

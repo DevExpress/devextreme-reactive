@@ -1,7 +1,8 @@
-export const filterOperations = (definedFilterOperations, targetFilterOperations, columnNames) => ({
-  ...definedFilterOperations,
-  ...columnNames.reduce((acc, columnName) => {
-    acc[columnName] = targetFilterOperations;
-    return acc;
-  }, {}),
-});
+export const getAvailableFilterOperationsGetter = (
+  getAvailableFilterOperations,
+  availableFilterOperations,
+  columnNames,
+) =>
+  columnName => (columnNames.indexOf(columnName) > -1 && availableFilterOperations)
+    || (typeof getAvailableFilterOperations === 'function' && getAvailableFilterOperations(columnName))
+    || undefined;

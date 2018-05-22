@@ -54,14 +54,14 @@ export class TableFilterRow extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {(
-                { filters, isColumnFilteringEnabled, availableFilterOperations },
+                { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
                 { changeColumnFilter },
               ) => {
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
                 const columnFilterOperations =
-                  getColumnFilterOperations(availableFilterOperations, columnName);
+                  getColumnFilterOperations(getAvailableFilterOperations, columnName);
                 const selectedFilterOperation = this.state.filterOperations[columnName]
                   || columnFilterOperations[0];
                 const handleFilterOperationChange = (value) => {

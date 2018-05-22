@@ -6,9 +6,8 @@ export const isFilterTableCell = (tableRow, tableColumn) =>
 
 export const isFilterTableRow = tableRow => tableRow.type === TABLE_FILTER_TYPE;
 
-export const getColumnFilterOperations = (availableFilterOperations, columnName) => (
-  availableFilterOperations && availableFilterOperations[columnName]
-    ? availableFilterOperations[columnName]
-    : DEFAULT_FILTER_OPERATIONS);
+export const getColumnFilterOperations = (getAvailableFilterOperations, columnName) =>
+  (getAvailableFilterOperations && getAvailableFilterOperations(columnName))
+  || DEFAULT_FILTER_OPERATIONS;
 
 export const isFilterValueEmpty = value => value === undefined || !String(value).length;

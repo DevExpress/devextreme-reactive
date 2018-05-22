@@ -1,21 +1,35 @@
-import { filterOperations } from './computeds';
+import { getAvailableFilterOperationsGetter } from './computeds';
 
 describe('DataTypeProvider computeds', () => {
-  describe('#filterOperations', () => {
-    it('should pass newly defined operations for the specified columns', () => {
-      const operations = ['a', 'b'];
-      expect(filterOperations(undefined, operations, ['col1', 'col2']))
-        .toEqual({ col1: operations, col2: operations });
+  describe('#getAvailableFilterOperationsGetter', () => {
+    it('should return a correct function', () => {
+      const getAvailableFilterOperations = getAvailableFilterOperationsGetter(
+        undefined,
+        ['operation1', 'operation2'],
+        ['column1'],
+      );
+      expect(getAvailableFilterOperations('column1'))
+        .toEqual(['operation1', 'operation2']);
+      expect(getAvailableFilterOperations('column2'))
+        .toEqual(undefined);
     });
-
-    it('should add newly defined operation to existing ones', () => {
-      const definedOperations = { col1: ['a', 'b'] };
-      const additionalOperations = ['a', 'c', 'd'];
-      expect(filterOperations(definedOperations, additionalOperations, ['col2']))
-        .toEqual({
-          ...definedOperations,
-          col2: additionalOperations,
-        });
+    it('should return a function that considers the previous getter definitions', () => {
+      const previousGetter = getAvailableFilterOperationsGetter(
+        undefined,
+        ['operation1'],
+        ['column1'],
+      );
+      const getAvailableFilterOperations = getAvailableFilterOperationsGetter(
+        previousGetter,
+        ['operation2', 'operation3'],
+        ['column2'],
+      );
+      expect(getAvailableFilterOperations('column1'))
+        .toEqual(['operation1']);
+      expect(getAvailableFilterOperations('column2'))
+        .toEqual(['operation2', 'operation3']);
+      expect(getAvailableFilterOperations('column3'))
+        .toEqual(undefined);
     });
   });
 });

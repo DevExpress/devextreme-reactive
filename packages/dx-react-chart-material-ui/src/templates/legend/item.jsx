@@ -7,6 +7,8 @@ import { ListItem } from 'material-ui/List';
 const styles = () => ({
   root: {
     alignItems: 'center',
+    paddingTop: 4,
+    paddingBottom: 4,
   },
 });
 

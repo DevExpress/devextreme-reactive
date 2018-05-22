@@ -10,7 +10,7 @@ export class Path extends React.PureComponent {
     return (
       <path
         transform={`translate(${x} ${y})`}
-        className={classNames('dx-c-bs4-fill-none', className)}
+        className={classNames('dx-c-bs4-fill-none dx-c-bs4-series-path', className)}
         {...restProps}
       />
     );

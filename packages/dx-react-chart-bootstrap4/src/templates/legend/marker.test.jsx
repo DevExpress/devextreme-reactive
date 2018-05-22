@@ -7,7 +7,7 @@ describe('Marker', () => {
     const tree = shallow(<Marker />);
 
     expect(tree.type())
-      .toEqual('span');
+      .toEqual('svg');
   });
 
   it('should pass the className prop to the root element', () => {
@@ -15,13 +15,13 @@ describe('Marker', () => {
       <Marker className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.oi.oi-graph.mx-1'))
+    expect(tree.is('.custom-class.mx-2'))
       .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Marker customProperty />);
-    const { customProperty } = tree.find('span').props();
+    const { customProperty } = tree.find('svg').props();
 
     expect(customProperty)
       .toBeTruthy();

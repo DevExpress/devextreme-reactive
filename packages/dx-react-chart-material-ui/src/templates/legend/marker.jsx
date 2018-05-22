@@ -1,4 +1,6 @@
 import * as React from 'react';
-import Timeline from '@material-ui/icons/Timeline';
 
-export const Marker = props => (<Timeline {...props} />);
+export const Marker = props => (
+  <svg width="10" height="10" {...props}>
+    <circle r={5} cx={5} cy={5} />
+  </svg>);

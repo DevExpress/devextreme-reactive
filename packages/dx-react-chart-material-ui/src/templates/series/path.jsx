@@ -6,6 +6,7 @@ import classNames from 'classnames';
 const styles = () => ({
   root: {
     fill: 'none',
+    strokeWidth: '2px',
   },
 });
 

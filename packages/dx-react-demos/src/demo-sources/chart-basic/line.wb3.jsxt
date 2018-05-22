@@ -4,6 +4,7 @@ import {
   ValueAxis,
   Chart,
   LineSeries,
+  Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 import { born as data } from '../../../demo-data/data-vizualization';
@@ -33,6 +34,9 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis />
           <ValueAxis />
+
+          <Grid name='argumentAxis' />
+          <Grid />
 
           <LineSeries
             name="Russia"

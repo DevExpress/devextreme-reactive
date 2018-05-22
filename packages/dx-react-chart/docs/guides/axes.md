@@ -1,25 +1,25 @@
-# React Chart - Axes
+# React Chart - Axes and Grid
 
-The Chart component allows to show argument and value axes, and their grids.
+The axes and grid help the viewer read the visualized data: axes - by displaying series point arguments and values; grid - by connecting series points with axis values.
 
 ## Related Plugins
 
-The following plugins implement axes:
+The following plugins implement the axes and grid:
 
-- ArgumentAxis - renders argument axis
-- ValueAxis - renders value axis
-- Grid - renders grids
+- `ArgumentAxis` - renders an argument axis
+- `ValueAxis` - renders a value axis
+- `Grid` - renders vertical or horizontal grid lines
 
 ## Basic Setup
 
-Import the plugins listed above to set up a Chart with axes and grids.
+Import the plugins listed above to set up a Chart with two axes and a grid.
 
-## Axis Type
+## Axis Types
 
-By default axes are linear. The following example demonstrates displaying numeric data on the argument and value axis.
+The default type for both axes is linear. It is sutable for numeric data. The following example illustrates this axis type:
 
 .embedded-demo({ "path": "chart-basic/line.wb3", "showThemeSelector": true })
 
-To display string values on an axis set the property type to 'band'. The following example show string values on the argument axis.
+Another axis type, band, is used to display string values. To apply it, set the axis' `type` property to `"band"` as it is done in the following example:
 
 .embedded-demo({ "path": "chart-basic/group-bar.wb3", "showThemeSelector": true })

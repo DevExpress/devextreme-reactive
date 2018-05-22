@@ -65,12 +65,13 @@ export class Grid extends React.PureComponent {
 }
 
 Grid.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
   rootComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
 };
 
 Grid.defaultProps = {
+  name: undefined,
   placeholder: 'pane',
 };

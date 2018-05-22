@@ -108,10 +108,11 @@ export const baseSeries = (
     groupWidth: PropTypes.number,
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
-    axisName: PropTypes.string.isRequired,
+    axisName: PropTypes.string,
     stack: PropTypes.string,
   };
   Component.defaultProps = {
+    axisName: undefined,
     stack: undefined,
     point: { size: 7 },
     barWidth: 0.9,

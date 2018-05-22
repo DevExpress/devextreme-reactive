@@ -2,7 +2,6 @@ import * as React from 'react';<%&additionalImports%>
 import {
   ArgumentAxis,
   ValueAxis,
-  Grid,
   Chart,
   LineSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';

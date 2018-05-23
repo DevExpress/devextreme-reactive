@@ -66,13 +66,13 @@ export default class Demo extends React.PureComponent {
       filteringColumnExtensions: [
         {
           columnName: 'saleDate',
-          predicate: (value, filter, row, defaultPredicate) => {
+          predicate: (value, filter, row) => {
             if (!filter.value.length) return true;
             if (filter && filter.operation === 'month') {
               const month = parseInt(value.split('-')[1], 10);
               return month === parseInt(filter.value, 10);
             }
-            return defaultPredicate(value, filter, row);
+            return IntegratedFiltering.defaultPredicate(value, filter, row);
           },
         },
       ],

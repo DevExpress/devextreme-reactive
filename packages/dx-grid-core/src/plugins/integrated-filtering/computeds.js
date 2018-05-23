@@ -23,7 +23,7 @@ const operationPredicates = {
   lessThanOrEqual: (value, filter) => value <= filter.value,
 };
 
-const defaultPredicate = (value, filter) => {
+export const defaultFilterPredicate = (value, filter) => {
   const operation = filter.operation || 'contains';
   return operationPredicates[operation](value, filter);
 };
@@ -89,9 +89,9 @@ const buildPredicate = (
   const getSimplePredicate = (filterExpression) => {
     const { columnName } = filterExpression;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
-    const predicate = customPredicate || defaultPredicate;
+    const predicate = customPredicate || defaultFilterPredicate;
     return row =>
-      predicate(getCellValue(row, columnName), filterExpression, row, defaultPredicate);
+      predicate(getCellValue(row, columnName), filterExpression, row);
   };
 
   const getOperatorPredicate = (filterExpression) => {

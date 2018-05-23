@@ -171,6 +171,8 @@
         path: /react/chart/docs/guides/fundamentals
       - title: Series
         path: /react/chart/docs/guides/series
+      - title: Axes
+        path: /react/chart/docs/guides/axes
 /vue/grid:
   - title: Guides
     items:

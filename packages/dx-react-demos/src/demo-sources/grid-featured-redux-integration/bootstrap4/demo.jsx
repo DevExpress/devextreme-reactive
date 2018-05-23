@@ -5,7 +5,6 @@ import { connect, Provider } from 'react-redux';
 import {
   SortingState, SelectionState, FilteringState, PagingState, GroupingState, RowDetailState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSorting, IntegratedSelection,
-  DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
@@ -62,7 +61,6 @@ const columnBands = [
     ],
   },
 ];
-const customFilteredColumns = ['prefix'];
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
@@ -143,11 +141,6 @@ const GridContainer = ({
       <SelectionState
         selection={selection}
         onSelectionChange={onSelectionChange}
-      />
-
-      <DataTypeProvider
-        for={customFilteredColumns}
-        availableFilterOperations={[]}
       />
 
       <IntegratedFiltering />

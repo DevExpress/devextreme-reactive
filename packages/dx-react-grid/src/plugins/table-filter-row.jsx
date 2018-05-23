@@ -28,6 +28,7 @@ export class TableFilterRow extends React.PureComponent {
   render() {
     const {
       rowHeight,
+      showFilterSelector,
       cellComponent: FilterCell,
       rowComponent: FilterRow,
       filterSelectorComponent: FilterSelector,
@@ -98,14 +99,18 @@ export class TableFilterRow extends React.PureComponent {
                         filteringEnabled={filteringEnabled}
                         onFilter={onFilter}
                       >
-                        <FilterSelector
-                          iconComponent={iconComponent}
-                          value={selectedFilterOperation}
-                          availableValues={columnFilterOperations}
-                          onChange={handleFilterOperationChange}
-                          disabled={!filteringEnabled}
-                          getMessage={getMessage}
-                        />
+                        {showFilterSelector
+                          ? (
+                            <FilterSelector
+                              iconComponent={iconComponent}
+                              value={selectedFilterOperation}
+                              availableValues={columnFilterOperations}
+                              onChange={handleFilterOperationChange}
+                              disabled={!filteringEnabled}
+                              getMessage={getMessage}
+                            />
+                          ) : null
+                        }
                         {content || (
                           <EditorComponent
                             value={filter ? filter.value : ''}
@@ -135,6 +140,7 @@ export class TableFilterRow extends React.PureComponent {
 
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
+  showFilterSelector: PropTypes.bool,
   messages: PropTypes.object,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
@@ -145,5 +151,6 @@ TableFilterRow.propTypes = {
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
+  showFilterSelector: false,
   messages: {},
 };

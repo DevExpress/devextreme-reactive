@@ -35,6 +35,7 @@ rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | |
 filterSelectorComponent | ComponentType&lt;[TableFilterRow.FilterSelectorProps](#tablefilterrowfilterselectorprops)&gt; | | A component that renders a filter selector.
 iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; | | A component that renders icons used in the filter selector.
 editorComponent | ComponentType&lt;[TableFilterRow.EditorProps](#tablefilterroweditorprops)&gt; | | A component that renders a filter editor.
+showFilterSelector | boolean | false | Specifies whether the FilterSelector should be displayed.
 rowHeight? | number | | The filter row's height.
 messages? | [TableFilterRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 

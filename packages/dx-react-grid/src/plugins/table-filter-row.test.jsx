@@ -231,6 +231,33 @@ describe('TableFilterRow', () => {
       .toMatchObject({ config: null });
   });
 
+  it('can render filter selector', () => {
+    let tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.filterSelectorComponent).exists())
+      .toBeFalsy();
+
+    tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          showFilterSelector
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.filterSelectorComponent).exists())
+      .toBeTruthy();
+  });
+
   it('should change filter correctly on filter operation change', () => {
     getColumnFilterConfig.mockImplementation(() => ({ value: 1 }));
     const tree = mount((
@@ -238,6 +265,7 @@ describe('TableFilterRow', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
+          showFilterSelector
         />
       </PluginHost>
     ));
@@ -255,6 +283,7 @@ describe('TableFilterRow', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
+          showFilterSelector
         />
       </PluginHost>
     ));
@@ -272,6 +301,7 @@ describe('TableFilterRow', () => {
         {pluginDepsToComponents(defaultDeps)}
         <TableFilterRow
           {...defaultProps}
+          showFilterSelector
         />
       </PluginHost>
     ));

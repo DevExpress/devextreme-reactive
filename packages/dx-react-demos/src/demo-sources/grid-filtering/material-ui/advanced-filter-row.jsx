@@ -117,6 +117,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableFilterRow
+            showFilterSelector
             iconComponent={FilterIcon}
             messages={{ month: 'Month equals' }}
           />

@@ -188,7 +188,6 @@ export const VirtualTableLayout = {
                           tableColumn={column}
                           style={column.animationState}
                           colSpan={cell.colSpan}
-                          width={column.width !== undefined ? `${column.width}px` : undefined}
                         />
                       );
                     })}

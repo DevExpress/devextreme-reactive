@@ -173,6 +173,32 @@
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+  - title: API Reference
+    items:
+      - title: AreaSeries
+        path: /react/chart/docs/reference/area-series
+      - title: ArgumentAxis
+        path: /react/chart/docs/reference/argument-axis
+      - title: BarSeries
+        path: /react/chart/docs/reference/bar-series
+      - title: Chart
+        path: /react/chart/docs/reference/chart
+      - title: Grid
+        path: /react/chart/docs/reference/grid
+      - title: Legend
+        path: /react/chart/docs/reference/legend
+      - title: LineSeries
+        path: /react/chart/docs/reference/line-series
+      - title: PieSeries
+        path: /react/chart/docs/reference/pie-series
+      - title: ScatterSeries
+        path: /react/chart/docs/reference/scatter-series
+      - title: SplineSeries
+        path: /react/chart/docs/reference/spline-series
+      - title: Title
+        path: /react/chart/docs/reference/title
+      - title: ValueAxis
+        path: /react/chart/docs/reference/value-axis
 /vue/grid:
   - title: Guides
     items:

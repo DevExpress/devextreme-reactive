@@ -43,7 +43,6 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#ff6666' }}
           />
           <BarSeries
             name="Middle"
@@ -51,7 +50,6 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#9fff80' }}
           />
           <BarSeries
             name="Older"
@@ -59,7 +57,6 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
             axisName="age"
             stack="a"
-            style={{ stroke: 'none', fill: '#9999ff' }}
           />
         </Chart>
       </<%&wrapperTag%>>

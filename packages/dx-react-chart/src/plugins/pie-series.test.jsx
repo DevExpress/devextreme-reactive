@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   seriesData: jest.fn(),
+  palette: jest.fn().mockReturnValue([{ themeColor: 'color' }, { themeColor: 'color' }, { themeColor: 'color' }]),
 }));
 
 pieAttributes.mockImplementation(() => ['M11 11', 'M22 22', 'M33 33']);
@@ -52,18 +53,21 @@ describe('Pie series', () => {
       x: 100,
       y: 50,
       styles: 'styles',
+      fill: 'color',
     });
     expect(tree.find(PointComponent).get(1).props).toEqual({
       d: 'M22 22',
       x: 100,
       y: 50,
       styles: 'styles',
+      fill: 'color',
     });
     expect(tree.find(PointComponent).get(2).props).toEqual({
       d: 'M33 33',
       x: 100,
       y: 50,
       styles: 'styles',
+      fill: 'color',
     });
   });
 });

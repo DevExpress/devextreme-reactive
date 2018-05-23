@@ -1,17 +1,33 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-export class Path extends React.PureComponent {
+const styles = () => ({
+  root: {
+    opacity: 0.5,
+  },
+});
+
+class PathBase extends React.PureComponent {
   render() {
     const {
-      x, y, className, pointComponent, pointStyle, coordinates, path, themeColor, ...restProps
+      x,
+      y,
+      classes,
+      className,
+      pointComponent,
+      pointStyle,
+      coordinates,
+      path,
+      themeColor,
+      ...restProps
     } = this.props;
     return (
       <path
-        stroke={themeColor}
+        fill={themeColor}
         transform={`translate(${x} ${y})`}
-        className={classNames('dx-c-bs4-fill-none dx-c-bs4-series-path', className)}
+        className={classNames(classes.root, className)}
         d={path(coordinates)}
         {...restProps}
       />
@@ -19,20 +35,24 @@ export class Path extends React.PureComponent {
   }
 }
 
-Path.propTypes = {
-  className: PropTypes.string,
+
+PathBase.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   coordinates: PropTypes.array.isRequired,
   path: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   pointComponent: PropTypes.any,
   pointStyle: PropTypes.any,
   themeColor: PropTypes.string,
 };
 
-Path.defaultProps = {
+PathBase.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,
   themeColor: undefined,
 };
+
+export const Area = withStyles(styles)(PathBase);

@@ -5,11 +5,13 @@ import { Marker } from './marker';
 describe('Marker', () => {
   it('should render svg icon', () => {
     const tree = shallow((
-      <Marker />
+      <Marker themeColor="color" />
     ));
 
     expect(tree.find('svg'))
       .toHaveLength(1);
+    expect(tree.find('svg').props().fill)
+      .toEqual('color');
   });
 
   it('should pass the rest property to the root element', () => {

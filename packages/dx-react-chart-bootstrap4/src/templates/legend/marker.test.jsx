@@ -2,12 +2,15 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Marker } from './marker';
 
+
 describe('Marker', () => {
   it('should render span', () => {
-    const tree = shallow(<Marker />);
+    const tree = shallow(<Marker themeColor="color" />);
 
     expect(tree.type())
       .toEqual('svg');
+    expect(tree.find('svg').props().fill)
+      .toEqual('color');
   });
 
   it('should pass the className prop to the root element', () => {

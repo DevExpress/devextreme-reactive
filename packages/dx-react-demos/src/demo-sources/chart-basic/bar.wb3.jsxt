@@ -39,7 +39,6 @@ export default class Demo extends React.PureComponent {
 
           <BarSeries
             name="BarSeries"
-            style={{ stroke: 'none', fill: 'darkblue' }}
             valueField="contributions"
             argumentField="login"
             axisName="commits"

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which additional elements (such as axes, legend, grid) are provided by plugins. Twitter Bootstrap and Material UI rendering and theming are supported out of the box.
+The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material UI rendering and theming are supported out of the box.
 
 ## Installation
 
@@ -28,7 +28,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-bootstrap4.npm-tag()
   ```
 
-  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You will also need the [OpenIconic](https://useiconic.com/open) icons in your project.
+  Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You also need the [OpenIconic](https://useiconic.com/open) icons in your project.
 
   Add the DevExtreme React Chart styles in the root .js file:
 
@@ -50,7 +50,7 @@ React Chart uses the latest web platform standards and does not support older br
 
 ## Using the Chart Component
 
-The Chart component renders nothing by default; all its functionality is implemented by plugins. To create a simple chart, add one of the [`*Series` plugins](series.md) (for example, `LineSeries`) to draw a series and the `ArgumentAxis` and `ValueAxis` plugins to add the axes:
+The Chart component renders nothing by default; plugins implement all its functionality. To create a simple chart, add one of the [`*Series` plugins](series.md) (for example, `LineSeries`) to draw a series and the `ArgumentAxis` and `ValueAxis` plugins to add the axes:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";

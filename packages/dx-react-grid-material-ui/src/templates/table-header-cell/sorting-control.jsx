@@ -30,7 +30,7 @@ const SortingControlBase = ({
     placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
     enterDelay={300}
     classes={{
-      root: classes.tooltipRoot,
+      tooltip: classes.tooltipRoot,
     }}
   >
     <TableSortLabel

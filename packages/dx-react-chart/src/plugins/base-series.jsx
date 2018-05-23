@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { findSeriesByName, coordinates, xyScales, seriesData } from '@devexpress/dx-chart-core';
+import { findSeriesByName, coordinates, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 
 export const baseSeries = (
   WrappedPath,
@@ -34,9 +34,12 @@ export const baseSeries = (
         seriesData(series, {
           valueField, argumentField, name, axisName, stack: stackProp,
         });
+      const startFromZeroByAxes = ({ startFromZero = {} }) =>
+        checkZeroStart(startFromZero, axisName, pathType);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
+          <Getter name="startFromZero" computed={startFromZeroByAxes} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
@@ -105,10 +108,11 @@ export const baseSeries = (
     groupWidth: PropTypes.number,
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
-    axisName: PropTypes.string.isRequired,
+    axisName: PropTypes.string,
     stack: PropTypes.string,
   };
   Component.defaultProps = {
+    axisName: undefined,
     stack: undefined,
     point: { size: 7 },
     barWidth: 0.9,

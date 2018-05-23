@@ -165,6 +165,8 @@
 /react/chart:
   - title: Guides
     items:
+      - title: Getting Started
+        path: /react/chart/docs/guides/getting-started
       - title: Fundamentals
         path: /react/chart/docs/guides/fundamentals
       - title: Series

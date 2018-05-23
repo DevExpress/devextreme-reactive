@@ -196,6 +196,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Tree Data
+        path: /vue/grid/docs/guides/tree-data
   - title: API Reference
     items:
       - title: DxGrid
@@ -256,3 +258,9 @@
         path: /vue/grid/docs/reference/toolbar
       - title: DxTableHeaderRow
         path: /vue/grid/docs/reference/table-header-row
+      - title: DxTreeDataState
+        path: /vue/grid/docs/reference/tree-data-state
+      - title: DxCustomTreeData
+        path: /vue/grid/docs/reference/custom-tree-data
+      - title: DxTableTreeColumn
+        path: /vue/grid/docs/reference/table-tree-column

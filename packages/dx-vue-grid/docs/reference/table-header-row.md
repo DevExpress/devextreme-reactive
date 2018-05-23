@@ -61,6 +61,12 @@ Field | Type | Description
 sort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 group | () => void | An event that invokes grouping by the associated column.
 
+#### Slots
+
+Field | Description
+-------|------------
+before | The Vue slot with controls that listed before column title.
+
 ### DxTableHeaderRow.DxRow
 
 #### Props

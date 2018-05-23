@@ -126,7 +126,7 @@ changeColumnFilter | [Action](../../../dx-react-core/docs/reference/action.md) |
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 valueEditor | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueEditorProps](data-type-provider.md#datatypeprovidervalueeditorprops) | A template that renders the editor.
-getAvailableFilterOperations | [Getter](../../../dx-react-core/docs/reference/getter.md) | { columnName: Array&lt;string&gt; } | Contains information about columns with customized filter operations.
+getAvailableFilterOperations | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => Array&lt;string&gt;? | A function that returns available for a particular column filter operation names.
 
 ### Exports
 

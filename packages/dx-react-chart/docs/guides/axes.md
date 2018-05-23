@@ -1,6 +1,6 @@
 # React Chart - Axes and Grid
 
-The axes and grid help the viewer read the visualized data: axes - by displaying series point arguments and values; grid - by connecting series points with axis values.
+The axes and grid improve the visualized data's readability: axes display series point arguments and values; the grid connects series points and axis values.
 
 ## Related Plugins
 
@@ -16,10 +16,10 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 ## Axis Types
 
-The default type for both axes is linear. It is sutable for numeric data. The following example illustrates this axis type:
+The default axis type is linear which is sutable for numeric data. The following example illustrates this axis type:
 
 .embedded-demo({ "path": "chart-basic/line.wb3", "showThemeSelector": true })
 
-Another axis type, band, is used to display string values. To apply it, set the axis' `type` property to `"band"` as it is done in the following example:
+The band axis type is used to display string values. To apply it, set the axis' `type` property to `"band"` as demonstrated in the following example:
 
 .embedded-demo({ "path": "chart-basic/group-bar.wb3", "showThemeSelector": true })

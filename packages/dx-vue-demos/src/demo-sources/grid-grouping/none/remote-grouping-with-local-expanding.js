@@ -47,9 +47,6 @@ export default {
       this.tempExpandedGroups = this.expandedGroups;
       this.grouping = grouping;
     },
-    changeExpandedGroups(expandedGroups) {
-      this.expandedGroups = expandedGroups;
-    },
     queryString() {
       const { grouping } = this;
       if (!grouping.length) return URL;
@@ -87,10 +84,9 @@ export default {
         :getRowId="getRowId"
       >
         <dx-grouping-state
-          :grouping.sync="grouping"
+          :grouping="grouping"
           :expandedGroups.sync="expandedGroups"
           @update:grouping="changeGrouping"
-          @update:expandedGroups="changeExpandedGroups"
         />
         <dx-custom-grouping
           :getChildGroups="getChildGroups"

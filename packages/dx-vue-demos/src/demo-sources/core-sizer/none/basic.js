@@ -1,4 +1,4 @@
-import { Sizer } from '@devexpress/dx-vue-core';
+import { DxSizer } from '@devexpress/dx-vue-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default {
@@ -9,7 +9,7 @@ export default {
           display: 'inline-block',
         }}
       >
-        <Sizer>
+        <DxSizer>
           {({ width, height }) => (
             <div
               style={{
@@ -21,7 +21,7 @@ export default {
               Width: {width}; Height: {height}
             </div>
           )}
-        </Sizer>
+        </DxSizer>
       </div>
     );
   },

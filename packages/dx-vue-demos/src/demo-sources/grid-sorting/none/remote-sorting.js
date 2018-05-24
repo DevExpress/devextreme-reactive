@@ -66,7 +66,7 @@ export default {
     },
   },
   template: `
-    <div class="card" style="'position': 'relative'">
+    <div class="card">
       <dx-grid
         :rows="rows"
         :columns="columns"

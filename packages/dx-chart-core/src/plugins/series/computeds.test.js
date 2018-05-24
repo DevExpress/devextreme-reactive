@@ -49,13 +49,13 @@ mockArea.y0 = jest.fn(() => mockAreaResult);
 
 const mockPie = {
   value: jest.fn(func => data =>
-    data.map(d => ({ startAngle: func(d), endAngle: func(d) }))),
+    data.map(d => ({ startAngle: func(d), endAngle: func(d), value: 'value' }))),
 };
 const mockArc = jest.fn().mockReturnThis();
 mockArc.innerRadius = jest.fn().mockReturnThis();
 mockArc.outerRadius = jest.fn().mockReturnThis();
 mockArc.startAngle = jest.fn().mockReturnThis();
-mockArc.endAngle = jest.fn(() => jest.fn());
+mockArc.endAngle = jest.fn(() => jest.fn(() => true));
 
 const data = [
   {
@@ -258,14 +258,19 @@ describe('Pie attributes', () => {
   });
 
   it('should return array of arsc', () => {
-    expect(pieAttributes(
+    const pieAttr = pieAttributes(
       'val1',
       data,
       20,
       10,
       0.1,
       0.9,
-    )).toHaveLength(data.length);
+    );
+    expect(pieAttr).toHaveLength(data.length);
+    pieAttr.forEach((attr) => {
+      expect(attr.d).toBeTruthy();
+      expect(attr.value).toBe('value');
+    });
 
     data.forEach((d) => {
       expect(mockArc.innerRadius).toHaveBeenCalledWith(0.5);

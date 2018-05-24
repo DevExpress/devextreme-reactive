@@ -77,11 +77,13 @@ export const pieAttributes = (
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
-  return pieData.map(d =>
-    arc().innerRadius(radius * innerRadius)
+  return pieData.map(d => ({
+    d: arc().innerRadius(radius * innerRadius)
       .outerRadius(radius * outerRadius || radius)
       .startAngle(d.startAngle)
-      .endAngle(d.endAngle)());
+      .endAngle(d.endAngle)(),
+    value: d.value,
+  }));
 };
 
 export const coordinates = (

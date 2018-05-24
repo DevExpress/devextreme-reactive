@@ -8,6 +8,7 @@ describe('Bar', () => {
     y: 2,
     width: 10,
     height: 20,
+    value: 15,
   };
 
   it('should render root element', () => {

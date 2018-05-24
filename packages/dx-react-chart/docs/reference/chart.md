@@ -36,4 +36,4 @@ Describes properties passed to a component that renders the chart root layout.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node to be placed in the root layout.
+children | ReactNode | A React node to be placed in the root layout.

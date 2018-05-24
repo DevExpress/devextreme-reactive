@@ -16,7 +16,7 @@ import { Grid } from '@devexpress/dx-react-chart-material-ui';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | Axis name.
+name? | string | | Axis name.
 rootComponent | ComponentType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the root.
 lineComponent | ComponentType&lt;[Grid.LineProps](#gridlineprops)&gt; | | A component that renders the line.
 

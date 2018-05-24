@@ -19,10 +19,10 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | Data field provides values for series points.
 argumentField | string | | Data field provides arguments for series points.
-axisName | string | | Axis to which the series is bonded.
-stack | string | | Specifies which stack the series should belongs to.
-barWidth | number | | Bar width in relative units.
-groupWidth | number | | Bar group width in relative units.
+axisName? | string | | Axis to which the series is bonded.
+stack? | string | | Specifies which stack the series should belongs to.
+barWidth? | number | | Bar width in relative units.
+groupWidth? | number | | Bar group width in relative units.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders the bars.
 
 ## Interfaces

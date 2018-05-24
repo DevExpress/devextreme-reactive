@@ -16,10 +16,10 @@ import { ValueAxis } from '@devexpress/dx-react-chart-material-ui';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tickSize | number | 5 | Length of the tick.
-position | 'left' &#124; 'right' | 'left' | Axis position.
+tickSize? | number | 5 | Length of the tick.
+position? | 'left' &#124; 'right' | 'left' | Axis position.
 name | string | | Axis name.
-indentFromAxis | number | 10 | Indent from axis
+indentFromAxis? | number | 10 | Indent from axis.
 rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the root.
 tickComponent | ComponentType&lt;[ValueAxis.TickProps](#valueaxistickprops)&gt; | | A component that renders the tick.
 labelComponent | ComponentType&lt;[ValueAxis.LabelProps](#valueaxislabelprops)&gt; | | A component that renders the label.

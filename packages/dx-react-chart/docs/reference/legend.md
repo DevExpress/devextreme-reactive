@@ -16,11 +16,11 @@ import { Legend } from '@devexpress/dx-react-chart-material-ui';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-markerComponent | ComponentType&lt;Legend.MarkerProps&gt; | | A component that renders the marker.
+markerComponent | ComponentType&lt;object&gt; | | A component that renders the marker.
 labelComponent | ComponentType&lt;[Legend.LabelProps](#legendlabelprops)&gt; | | A component that renders the label.
 rootComponent | ComponentType&lt;[Legend.RootProps](#legendrootprops)&gt; | | A component that renders the root.
 itemComponent | ComponentType&lt;[Legend.ItemProps](#legenditemprops)&gt; | | A component that renders the item.
-position | 'left' &#124; 'right' &#124; 'top' &#124; 'bottom' | 'right' | Legend position.
+position? | 'left' &#124; 'right' &#124; 'top' &#124; 'bottom' | 'right' | Legend position.
 
 ## Interfaces
 
@@ -54,5 +54,5 @@ Name | Properties | Description
 -----|------------|------------
 Legend.Root | [Legend.RootProps](#legendrootprops) | A component that renders the root.
 Legend.Item | [Legend.ItemProps](#legenditemprops) | A component that renders the item.
-Legend.Marker | Legend.MarkerProps | A component that renders the marker.
+Legend.Marker | object | A component that renders the marker.
 Legend.Label | [Legend.LabelProps](#legendlabelprops) | A component that renders the label.

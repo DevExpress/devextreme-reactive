@@ -19,8 +19,8 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | Data field provides values for series points.
 argumentField | string | | Data field provides arguments for series points.
-innerRadius | number | 0 | Inner radius in relative units.
-outerRadius | number | 1 | Outer radius in relative units.
+innerRadius? | number | 0 | Inner radius in relative units.
+outerRadius? | number | 1 | Outer radius in relative units.
 pointComponent | ComponentType&lt;[PieSeries.PointProps](#pieseriespointprops)&gt; | | A component that renders a slice.
 
 ## Interfaces

@@ -16,10 +16,10 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-tickSize | number | 5 | Length of a tick.
+tickSize? | number | 5 | Length of a tick.
 position | 'bottom' &#124; 'top' | 'bottom' | Axis position.
-name | string | | Axis name.
-indentFromAxis | number | 10 | Indent from axis
+name? | string | | Axis name.
+indentFromAxis? | number | 10 | Indent from axis.
 rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | | A component that renders the root.
 tickComponent | ComponentType&lt;[ArgumentAxis.TickProps](#argumentaxistickprops)&gt; | | A component that renders the tick.
 labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the label.

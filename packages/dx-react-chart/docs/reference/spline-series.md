@@ -19,9 +19,9 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | Data field provides values for series points.
 argumentField | string | | Data field provides arguments for series points.
-axisName | string | | Axis to which the series is bonded.
-stack | string | | Specifies which stack the series should belongs to.
-point | { size : number } | point: { size: 7 } | Specifies point options.
+axisName? | string | | Axis to which the series is bonded.
+stack? | string | | Specifies which stack the series should belongs to.
+point? | { size : number } | point: { size: 7 } | Specifies point options.
 seriesComponent | ComponentType&lt;[SplineSeries.SeriesProps](#splineseriesseriesprops)&gt; | | A component that renders the series.
 pointComponent | ComponentType&lt;[SplineSeries.PointProps](#splineseriespointprops)&gt; | | A component that renders the points.
 

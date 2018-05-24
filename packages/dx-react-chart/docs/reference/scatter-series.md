@@ -19,8 +19,8 @@ Name | Type | Default | Description
 name | string | | A series name.
 valueField | string | | Data field provides values for series points.
 argumentField | string | | Data field provides arguments for series points.
-axisName | string | | Axis to which the series is bonded.
-point | { size : number } | point: { size: 7 } | Specifies point options.
+axisName? | string | | Axis to which the series is bonded.
+point? | { size : number } | point: { size: 7 } | Specifies point options.
 pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders the points.
 
 ## Interfaces

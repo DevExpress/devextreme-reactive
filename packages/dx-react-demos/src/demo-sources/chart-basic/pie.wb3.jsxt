@@ -11,7 +11,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: data.slice(0, 7),
+      data: data.slice(0, 6),
       width: 700,
       height: 400,
     };

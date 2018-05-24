@@ -33,9 +33,9 @@
 
 Project status: **CTP**
 
-[Website](https://devexpress.github.io/devextreme-reactive/react/chart/)
+[Website](https://devexpress.github.io/devextreme-reactive/@next/react/chart/)
 |
-[Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
+[Docs](https://devexpress.github.io/devextreme-reactive/@next/react/chart/docs/)
 
 
 ## Business Components for Vue
@@ -51,11 +51,11 @@ Project status: **CTP**
 
 Project status: **CTP**
 
-[Website](https://devexpress.github.io/devextreme-reactive/vue/grid/)
+[Website](https://devexpress.github.io/devextreme-reactive/@next/vue/grid/)
 |
-[Demos](https://devexpress.github.io/devextreme-reactive/vue/grid/demos/)
+[Demos](https://devexpress.github.io/devextreme-reactive/@next/vue/grid/demos/)
 |
-[Docs](https://devexpress.github.io/devextreme-reactive/vue/grid/docs/)
+[Docs](https://devexpress.github.io/devextreme-reactive/@next/vue/grid/docs/)
 
 ## License
 

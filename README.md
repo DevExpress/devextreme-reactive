@@ -29,6 +29,15 @@
 |
 [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
+### React Chart
+
+Project status: **CTP**
+
+[Website](https://devexpress.github.io/devextreme-reactive/react/chart/)
+|
+[Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
+
+
 ## Business Components for Vue
 
 [Website](https://devexpress.github.io/devextreme-reactive/vue/)

@@ -8,7 +8,7 @@ export class Root extends React.PureComponent {
       children, className, ...restProps
     } = this.props;
     return (
-      <ul className={classNames('list-group ml-4 my-auto', className)} {...restProps}>
+      <ul className={classNames('list-group ml-4 py-3', className)} {...restProps}>
         {children}
       </ul>
     );

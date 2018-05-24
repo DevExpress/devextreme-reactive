@@ -48,4 +48,11 @@ describe('Point', () => {
     const { customProperty } = tree.find('path').props();
     expect(customProperty).toBeTruthy();
   });
+
+  it('should apply themeColor', () => {
+    const tree = shallow(<Point {...defaultProps} themeColor="color" />);
+
+    expect(tree.find('path').props().fill)
+      .toBe('color');
+  });
 });

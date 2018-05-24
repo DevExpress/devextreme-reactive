@@ -47,4 +47,11 @@ describe('Bar', () => {
     const { customProperty } = tree.find('rect').props();
     expect(customProperty).toBeTruthy();
   });
+
+  it('should apply themeColor', () => {
+    const tree = shallow(<Bar {...defaultProps} themeColor="color" />);
+
+    expect(tree.find('rect').props().fill)
+      .toBe('color');
+  });
 });

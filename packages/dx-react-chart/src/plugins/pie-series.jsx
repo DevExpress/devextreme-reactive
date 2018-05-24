@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { pieAttributes, seriesData } from '@devexpress/dx-chart-core';
+import { pieAttributes, seriesData, palette } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -41,6 +41,7 @@ export class PieSeries extends React.PureComponent {
                 const {
                   width: widthPane, height: heightPane,
                 } = layouts[placeholder] || { width, height };
+
               const arcs = pieAttributes(
                 valueField,
                 data,
@@ -49,14 +50,17 @@ export class PieSeries extends React.PureComponent {
                 innerRadius,
                 outerRadius,
               );
+              const colors = palette(Array.from(arcs));
                 return (
-                      arcs.map(item =>
+                      arcs.map((item, index) =>
                         (
                           <Point
-                            key={item}
+                            fill={colors[index].themeColor}
+                            key={item.value}
                             x={cx || widthPane / 2}
                             y={cy || heightPane / 2}
-                            d={item}
+                            value={item.value}
+                            d={item.d}
                             {...restProps}
                           />
                         ))

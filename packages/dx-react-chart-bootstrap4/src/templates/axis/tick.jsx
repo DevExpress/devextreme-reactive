@@ -14,7 +14,7 @@ export class Tick extends React.PureComponent {
         y1={y1}
         y2={y2}
         className={classNames(
-          'dx-c-bs4-stroke-current-color dx-c-bs4-crisp-edges',
+          'dx-c-bs4-stroke-current-color dx-c-bs4-crisp-edges dx-c-bs4-axis-opacity',
           className,
         )}
         {...restProps}

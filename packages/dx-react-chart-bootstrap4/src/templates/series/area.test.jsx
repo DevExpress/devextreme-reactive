@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Path } from './path';
+import { Area } from './area';
 
-describe('Path', () => {
+describe('Area', () => {
   const defaultProps = {
     x: 1,
     y: 2,
@@ -11,7 +11,7 @@ describe('Path', () => {
   };
   it('should render root element', () => {
     const tree = shallow((
-      <Path
+      <Area
         {...defaultProps}
       />
     ));
@@ -29,7 +29,7 @@ describe('Path', () => {
       strokeWidth: '2px',
     };
     const tree = shallow((
-      <Path
+      <Area
         {...defaultProps}
         style={customStyle}
       />
@@ -41,22 +41,22 @@ describe('Path', () => {
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Path {...defaultProps} className="custom-class" />);
+    const tree = shallow(<Area {...defaultProps} className="custom-class" />);
 
-    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none.dx-c-bs4-series-path')).toBeTruthy();
+    expect(tree.find('path').is('.custom-class.dx-c-bs4-series-opacity')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Path {...defaultProps} customProperty />);
+    const tree = shallow(<Area {...defaultProps} customProperty />);
     const { customProperty } = tree.find('path').props();
     expect(customProperty)
       .toBeTruthy();
   });
 
   it('should apply themeColor', () => {
-    const tree = shallow(<Path {...defaultProps} themeColor="color" />);
+    const tree = shallow(<Area {...defaultProps} themeColor="color" />);
 
-    expect(tree.find('path').props().stroke)
+    expect(tree.find('path').props().fill)
       .toBe('color');
   });
 });

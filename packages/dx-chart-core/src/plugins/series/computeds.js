@@ -53,14 +53,16 @@ export const xyScales = (
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
   const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
-  const bandwidth = xScale.bandwidth && xScale.bandwidth();
+  const bandwidth = xScale.bandwidth ?
+    xScale.bandwidth() :
+    width / xScale.ticks().length;
 
   return {
     xScale,
     yScale: createScale(domainsOptions[domainName], width, height),
-    x0Scale: argumentDomainOptions.type === 'band' && createScale({
+    x0Scale: createScale({
       orientation: argumentDomainOptions.orientation,
-      type: argumentDomainOptions.type,
+      type: 'band',
       domain: stacks,
     }, bandwidth, bandwidth, 1 - barWidth),
   };
@@ -77,11 +79,13 @@ export const pieAttributes = (
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
-  return pieData.map(d =>
-    arc().innerRadius(radius * innerRadius)
+  return pieData.map(d => ({
+    d: arc().innerRadius(radius * innerRadius)
       .outerRadius(radius * outerRadius || radius)
       .startAngle(d.startAngle)
-      .endAngle(d.endAngle)());
+      .endAngle(d.endAngle)(),
+    value: d.value,
+  }));
 };
 
 export const coordinates = (

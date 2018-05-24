@@ -29,22 +29,27 @@ import { ProgressBarCell } from '../../../theme-sources/none/components/progress
 import { HighlightedCell } from '../../../theme-sources/none/components/highlighted-cell';
 import { CurrencyTypeProvider } from '../../../theme-sources/none/components/currency-type-provider';
 import { PercentTypeProvider } from '../../../theme-sources/none/components/percent-type-provider';
+import { BooleanTypeProvider } from '../../../theme-sources/none/components/boolean-type-provider';
 
 const MyCell = {
   inheritAttrs: false,
   props: ['column'],
   data() {
-    const componentIds = {
-      discount: 'progress-bar-cell',
-      amount: 'highlighted-cell',
-    };
-    return {
-      componentId: componentIds[this.column.name] || 'dx-cell',
-    };
+    return ({
+      componentIds: {
+        discount: 'progress-bar-cell',
+        amount: 'highlighted-cell',
+      },
+    });
+  },
+  computed: {
+    currentCellComponent() {
+      return this.componentIds[this.column.name] || 'dx-cell';
+    },
   },
   template: `
     <component
-      :is="componentId"
+      :is="currentCellComponent"
       :column="column"
       v-bind="$attrs"
       v-on="$listeners"
@@ -82,10 +87,13 @@ export default {
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
         length: 200000,
       }),
-      filters: [],
-      sorting: [],
-      grouping: [],
-      expandedGroups: [],
+      filters: [{ columnName: 'saleDate', value: '2016-02' }],
+      sorting: [
+        { columnName: 'product', direction: 'asc' },
+        { columnName: 'saleDate', direction: 'asc' },
+      ],
+      grouping: [{ columnName: 'product' }],
+      expandedGroups: ['EnviroCare Max'],
       selection: [],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
@@ -109,6 +117,9 @@ export default {
         />
         <currency-type-provider
           :for="currencyColumns"
+        />
+        <boolean-type-provider
+          :for="booleanColumns"
         />
         <dx-filtering-state
           :filters.sync="filters"
@@ -168,5 +179,6 @@ export default {
     MyCell,
     CurrencyTypeProvider,
     PercentTypeProvider,
+    BooleanTypeProvider,
   },
 };

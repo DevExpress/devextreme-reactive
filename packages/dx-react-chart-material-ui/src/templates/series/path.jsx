@@ -6,16 +6,27 @@ import classNames from 'classnames';
 const styles = () => ({
   root: {
     fill: 'none',
+    strokeWidth: '2px',
   },
 });
 
 class PathBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, pointComponent, pointStyle, coordinates, path, ...restProps
+      x,
+      y,
+      classes,
+      className,
+      pointComponent,
+      pointStyle,
+      coordinates,
+      path,
+      themeColor,
+      ...restProps
     } = this.props;
     return (
       <path
+        stroke={themeColor}
         transform={`translate(${x} ${y})`}
         className={classNames(classes.root, className)}
         d={path(coordinates)}
@@ -34,12 +45,14 @@ PathBase.propTypes = {
   className: PropTypes.string,
   pointComponent: PropTypes.any,
   pointStyle: PropTypes.any,
+  themeColor: PropTypes.string,
 };
 
 PathBase.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,
+  themeColor: undefined,
 };
 
 export const Path = withStyles(styles)(PathBase);

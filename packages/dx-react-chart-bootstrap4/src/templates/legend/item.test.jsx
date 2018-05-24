@@ -24,7 +24,7 @@ describe('Item', () => {
       </Item>
     ));
 
-    expect(tree.is('.custom-class.list-group-item'))
+    expect(tree.is('.custom-class.d-flex.list-group-item.border-0.py-1.px-4.row.align-items-center'))
       .toBeTruthy();
   });
 

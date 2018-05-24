@@ -25,7 +25,7 @@ describe('Tick', () => {
       <Tick {...defaultProps} className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.dx-c-bs4-stroke-current-color.dx-c-bs4-crisp-edges'))
+    expect(tree.is('.custom-class.dx-c-bs4-stroke-current-color.dx-c-bs4-crisp-edges.dx-c-bs4-axis-opacity'))
       .toBeTruthy();
   });
 

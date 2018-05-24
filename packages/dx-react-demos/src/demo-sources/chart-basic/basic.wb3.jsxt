@@ -49,22 +49,18 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             axisName="born"
             name="Russia"
-            style={{ stroke: 'red' }}
-            pointStyle={{ fill: 'green' }}
           />
           <SplineSeries
             valueField="ch"
             argumentField="year"
             axisName="born"
             name="China"
-            style={{ stroke: 'green' }}
           />
           <AreaSeries
             name="USA"
             valueField="us"
             argumentField="year"
             axisName="born"
-            style={{ fill: 'rgba(255,0,0,0.3)', stroke: 'none' }}
             pointStyle={{ fill: 'orange' }}
           />
         </Chart>

@@ -24,4 +24,15 @@ describe('Label', () => {
     expect(customProperty)
       .toBeTruthy();
   });
+
+  it('should pass the className prop to the root element', () => {
+    const tree = shallow((
+      <Label {...defaultProps} className="custom-class">
+        <div />
+      </Label>
+    ));
+
+    expect(tree.is('.custom-class.text-body'))
+      .toBeTruthy();
+  });
 });

@@ -53,14 +53,16 @@ export const xyScales = (
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
   const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
-  const bandwidth = xScale.bandwidth && xScale.bandwidth();
+  const bandwidth = xScale.bandwidth ?
+    xScale.bandwidth() :
+    width / xScale.ticks().length;
 
   return {
     xScale,
     yScale: createScale(domainsOptions[domainName], width, height),
-    x0Scale: argumentDomainOptions.type === 'band' && createScale({
+    x0Scale: createScale({
       orientation: argumentDomainOptions.orientation,
-      type: argumentDomainOptions.type,
+      type: 'band',
       domain: stacks,
     }, bandwidth, bandwidth, 1 - barWidth),
   };

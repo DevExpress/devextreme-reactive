@@ -53,10 +53,11 @@ export class PieSeries extends React.PureComponent {
                       arcs.map(item =>
                         (
                           <Point
-                            key={item}
+                            key={item.value}
                             x={cx || widthPane / 2}
                             y={cy || heightPane / 2}
-                            d={item}
+                            value={item.value}
+                            d={item.d}
                             {...restProps}
                           />
                         ))

@@ -7,6 +7,7 @@ describe('Slice', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
+    value: 15,
   };
   const shallow = createShallow({ dive: true });
   const classes = getClasses(<Slice {...defaultProps} />);

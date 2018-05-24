@@ -69,3 +69,12 @@ Field | Type | Description
 width | number | The width of the line.
 height | number | The height of the line.
 orientation | 'horizontal' &#124; 'vertical' | Orientation of the axis.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+ArgumentAxis.Root | [ArgumentAxis.RootProps](#argumentaxisrootprops) | A component that renders the root.
+ArgumentAxis.Tick | [ArgumentAxis.TickProps](#argumentaxistickprops) | A component that renders the tick.
+ArgumentAxis.Label | [ArgumentAxis.LabelProps](#argumentaxislabelprops) | A component that renders the label.
+ArgumentAxis.Line | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the line.

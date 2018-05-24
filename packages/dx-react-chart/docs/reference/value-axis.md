@@ -69,3 +69,12 @@ Field | Type | Description
 width | number | The width of the line.
 height | number | The height of the line.
 orientation | 'horizontal' &#124; 'vertical' | Horizontal or vertical orientation of the axis.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+ValueAxis.Root | [ValueAxis.RootProps](#valueaxisrootprops) | A component that renders the root.
+ValueAxis.Tick | [ValueAxis.TickProps](#valueaxistickprops) | A component that renders the tick.
+ValueAxis.Label | [ValueAxis.LabelProps](#valueaxislabelprops) | A component that renders the label.
+ValueAxis.Line | [ValueAxis.LineProps](#valueaxislineprops) | A component that renders the line.

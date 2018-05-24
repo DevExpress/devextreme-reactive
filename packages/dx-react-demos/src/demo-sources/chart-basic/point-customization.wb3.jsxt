@@ -21,6 +21,7 @@ const Point = (type, styles) => (props) => {
   } = props;
   return (
     <path
+      fill={props.themeColor}
       transform={`translate(${x} ${y})`}
       d={symbol().size([10 ** 2]).type(type)()}
       style={styles}
@@ -31,19 +32,16 @@ const Point = (type, styles) => (props) => {
 const DiamondPoint = Point(symbolDiamond, {
   stroke: 'white',
   strokeWidth: '1px',
-  fill: 'red',
 });
 
 const CrossPoint = Point(symbolCross, {
   stroke: 'white',
   strokeWidth: '1px',
-  fill: 'green',
 });
 
 const StarPoint = Point(symbolStar, {
   stroke: 'white',
   strokeWidth: '1px',
-  fill: 'blue',
 });
 
 export default class Demo extends React.PureComponent {
@@ -80,7 +78,6 @@ export default class Demo extends React.PureComponent {
             valueField="ru"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'red' }}
             pointComponent={DiamondPoint}
           />
           <LineSeries
@@ -88,7 +85,6 @@ export default class Demo extends React.PureComponent {
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'green' }}
             pointComponent={CrossPoint}
           />
           <LineSeries
@@ -96,7 +92,6 @@ export default class Demo extends React.PureComponent {
             valueField="us"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'blue' }}
             pointComponent={StarPoint}
           />
         </Chart>

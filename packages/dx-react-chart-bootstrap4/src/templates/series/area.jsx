@@ -2,16 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export class Path extends React.PureComponent {
+export class Area extends React.PureComponent {
   render() {
     const {
       x, y, className, pointComponent, pointStyle, coordinates, path, themeColor, ...restProps
     } = this.props;
     return (
       <path
-        stroke={themeColor}
+        fill={themeColor}
         transform={`translate(${x} ${y})`}
-        className={classNames('dx-c-bs4-fill-none dx-c-bs4-series-path', className)}
+        className={classNames('dx-c-bs4-series-opacity', className)}
         d={path(coordinates)}
         {...restProps}
       />
@@ -19,7 +19,7 @@ export class Path extends React.PureComponent {
   }
 }
 
-Path.propTypes = {
+Area.propTypes = {
   className: PropTypes.string,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
@@ -30,7 +30,7 @@ Path.propTypes = {
   themeColor: PropTypes.string,
 };
 
-Path.defaultProps = {
+Area.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,

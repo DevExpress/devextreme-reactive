@@ -34,7 +34,7 @@ describe('Line', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow(<Line {...defaultProps} className="custom-class" />);
 
-    expect(tree.is('.custom-class.dx-c-bs4-stroke-current-color')).toBeTruthy();
+    expect(tree.is('.custom-class.dx-c-bs4-stroke-current-color.dx-c-bs4-axis-opacity')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {

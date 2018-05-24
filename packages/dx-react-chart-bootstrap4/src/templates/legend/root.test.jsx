@@ -19,7 +19,7 @@ describe('Root', () => {
         <div />
       </Root>));
 
-    expect(tree.find('ul').is('.custom-class'))
+    expect(tree.find('ul').is('.custom-class.list-group.ml-4.py-3'))
       .toBeTruthy();
   });
 

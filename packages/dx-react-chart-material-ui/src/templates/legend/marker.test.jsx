@@ -1,21 +1,22 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Timeline from '@material-ui/icons/Timeline';
 import { Marker } from './marker';
 
 describe('Marker', () => {
-  it('should render Timeline icon', () => {
+  it('should render svg icon', () => {
     const tree = shallow((
-      <Marker />
+      <Marker themeColor="color" />
     ));
 
-    expect(tree.equals(<Timeline />))
-      .toBeTruthy();
+    expect(tree.find('svg'))
+      .toHaveLength(1);
+    expect(tree.find('svg').props().fill)
+      .toEqual('color');
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Marker customProperty />);
-    const { customProperty } = tree.find(Timeline).props();
+    const { customProperty } = tree.find('svg').props();
     expect(customProperty)
       .toBeTruthy();
   });

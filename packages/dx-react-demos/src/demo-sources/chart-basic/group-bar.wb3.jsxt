@@ -34,7 +34,6 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis name="state" type="band" />
           <ValueAxis name="age" />
 
-          <Grid name="state" />
           <Grid name="age" />
 
           <BarSeries

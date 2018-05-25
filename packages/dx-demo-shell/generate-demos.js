@@ -49,7 +49,7 @@ const loadDemosToGenerate = () => {
         if (file.startsWith('.')) return;
         if (fs.lstatSync(path.join(DEMOS_FOLDER, sectionName, file)).isDirectory()) {
           fs.readdirSync(path.join(DEMOS_FOLDER, sectionName, file)).forEach((nestedFile) => {
-            if (nestedFile.startsWith('.') || nestedFile.includes('.skip.test')) return;
+            if (nestedFile.startsWith('.')) return;
             if (nestedFile.indexOf(GENERATED_SUFFIX) > -1) {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
@@ -60,7 +60,7 @@ const loadDemosToGenerate = () => {
               sectionName,
               demoName,
               themeName: file,
-              generateTest: !nestedFile.includes('.skip'),
+              generateTest: true,
               generateSsrTest,
               demoExtension,
             });
@@ -71,6 +71,9 @@ const loadDemosToGenerate = () => {
           const demoName = file.replace(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`, '');
           themeNames.forEach((themeName) => {
             if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.${demoExtension}`))) {
+              return;
+            }
+            if (file.includes('.wb3.') && themeName === 'bootstrap3') {
               return;
             }
             demos.push({

@@ -32,6 +32,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   xyScales: jest.fn(),
   seriesData: jest.fn(),
   coordinates: jest.fn(),
+  checkZeroStart: jest.fn(),
 }));
 
 barPointAttributes.mockImplementation(() => () => ({

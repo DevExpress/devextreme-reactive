@@ -1,5 +1,6 @@
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';
+export { Title } from './plugins/title';
 
 export { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
 export { SeriesFamily } from './plugins/series-family';

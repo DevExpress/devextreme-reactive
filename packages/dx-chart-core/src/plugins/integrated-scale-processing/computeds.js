@@ -16,15 +16,14 @@ const collectAxesTypes = axes =>
     {},
   );
 
-const calculateDomainField = (field1, field2, data, domain = [], type) => {
-  const getFieldItem = field => object => object[field];
+const calculateDomainField = (field, data, domain = [], type) => {
+  const getFieldItem = object => object[field];
   if (type === BAND) {
-    return [...domain, ...data.map(getFieldItem(field1))];
+    return [...domain, ...data.map(getFieldItem)];
   }
   return extent([
     ...domain,
-    ...extent(data, getFieldItem(field1)),
-    ...extent(data, getFieldItem(field2)),
+    ...extent(data, getFieldItem),
   ]);
 };
 
@@ -37,7 +36,6 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
       [axisName]: {
         domain: calculateDomainField(
           `${valueField}-${name}-end`,
-          `${valueField}-${name}-start`,
           data,
           domains[axisName] && domains[axisName].domain,
           domains[axisName] && domains[axisName].type,
@@ -48,7 +46,6 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
       [argumentAxisName]: {
         domain: calculateDomainField(
           argumentField,
-          undefined,
           data,
           domains[argumentAxisName] && domains[argumentAxisName].domain,
           domains[argumentAxisName] && domains[argumentAxisName].type,
@@ -60,17 +57,21 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
     axesTypes,
   );
 
-const adjustDomains = (axes, calculatedDomains) => axes.reduce(
+const adjustRangeToZero = range => [Math.min(range[0], 0), Math.max(0, range[1])];
+
+const adjustDomains = (axes, calculatedDomains, startFromZero) => axes.reduce(
   (domains, {
     name, min, max, type,
   }) => {
     const currentDomain = domains[name];
+    const range = startFromZero[name] ?
+      adjustRangeToZero(currentDomain.domain) : currentDomain.domain;
     return {
       ...domains,
       [name]: {
         domain: type !== BAND ? [
-          isDefined(min) ? min : currentDomain.domain[0],
-          isDefined(max) ? max : currentDomain.domain[1],
+          isDefined(min) ? min : range[0],
+          isDefined(max) ? max : range[1],
         ] : currentDomain.domain,
         type: currentDomain.type,
         orientation: currentDomain.orientation,
@@ -80,8 +81,8 @@ const adjustDomains = (axes, calculatedDomains) => axes.reduce(
   calculatedDomains,
 );
 
-export const domains = (axes, series, data, argumentAxisName) => {
+export const domains = (axes, series, data, argumentAxisName, startFromZero) => {
   const axesTypes = collectAxesTypes(axes);
   const calculatedDomains = calculateDomain(series, data, axesTypes, argumentAxisName);
-  return adjustDomains(axes, calculatedDomains);
+  return adjustDomains(axes, calculatedDomains, startFromZero);
 };

@@ -4,7 +4,7 @@ import { processData, seriesWithStacks, stacks } from '@devexpress/dx-chart-core
 
 const computedSeries = ({ series }) => seriesWithStacks(series);
 const computedStacks = ({ series }) => stacks(series);
-const computedData = ({ series, data }) => processData(series, data);
+const computedData = ({ series, data, startFromZero }) => processData(series, data, startFromZero);
 
 export const SeriesFamily = () => (
   <Plugin name="SeriesFamily">

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export class Label extends React.PureComponent {
   render() {
-    const { text, ...restProps } = this.props;
+    const { text, className, ...restProps } = this.props;
     return (
-      <span {...restProps}>{text}</span>
+      <span className={classNames('text-body', className)}{...restProps}>{text}</span>
     );
   }
 }
@@ -15,4 +16,9 @@ Label.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  className: PropTypes.string,
+};
+
+Label.defaultProps = {
+  className: undefined,
 };

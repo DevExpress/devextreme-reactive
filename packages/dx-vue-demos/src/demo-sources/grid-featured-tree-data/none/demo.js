@@ -166,6 +166,6 @@ export default {
     DxTableFilterRow,
     DxTableTreeColumn,
     DxPagingPanel,
-    MyEmployeeFormatter
+    MyEmployeeFormatter,
   },
 };

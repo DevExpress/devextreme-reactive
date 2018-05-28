@@ -10,6 +10,13 @@ Use the following import statement:
 import { Title } from '@devexpress/dx-react-chart-material-ui';
 // import { Title } from '@devexpress/dx-react-chart-bootstrap4';
 ```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Title } from '@devexpress/dx-react-chart';
+```
+
 ## User Reference
 
 ### Properties

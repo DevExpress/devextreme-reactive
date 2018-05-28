@@ -10,6 +10,13 @@ Use the following import statement:
 import { Grid } from '@devexpress/dx-react-chart-material-ui';
 // import { Grid } from '@devexpress/dx-react-chart-bootstrap4';
 ```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Grid } from '@devexpress/dx-react-chart';
+```
+
 ## User Reference
 
 ### Properties

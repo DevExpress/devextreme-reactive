@@ -10,6 +10,13 @@ Use the following import statement:
 import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
 // import { ArgumentAxis } from '@devexpress/dx-react-chart-bootstrap4';
 ```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { ArgumentAxis } from '@devexpress/dx-react-chart';
+```
+
 ## User Reference
 
 ### Properties
@@ -17,7 +24,7 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
 Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | Length of a tick.
-position | 'bottom' &#124; 'top' | 'bottom' | Axis position.
+position? | 'bottom' &#124; 'top' | 'bottom' | Axis position.
 name? | string | | Axis name.
 indentFromAxis? | number | 10 | Indent from axis.
 rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | | A component that renders the root.

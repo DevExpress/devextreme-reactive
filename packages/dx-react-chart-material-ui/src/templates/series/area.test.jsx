@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { Path } from './path';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { Area } from './area';
 
-describe('Path', () => {
-  const defaultProps = {
-    x: 1,
-    y: 2,
-    path: jest.fn(value => value),
-    coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
-  };
+const defaultProps = {
+  x: 1,
+  y: 2,
+  path: jest.fn(value => value),
+  coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
+};
+
+describe('Area', () => {
+  const shallow = createShallow({ dive: true });
+  const classes = getClasses(<Area {...defaultProps} />);
   it('should render root element', () => {
     const tree = shallow((
-      <Path
+      <Area
         {...defaultProps}
       />
     ));
@@ -29,34 +32,32 @@ describe('Path', () => {
       strokeWidth: '2px',
     };
     const tree = shallow((
-      <Path
+      <Area
         {...defaultProps}
         style={customStyle}
+        themeColor="color"
       />
     ));
-    const { style } = tree.find('path').props();
+    const { style, fill } = tree.find('path').props();
 
     expect(style)
       .toEqual(customStyle);
+    expect(fill)
+      .toEqual('color');
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Path {...defaultProps} className="custom-class" />);
+    const tree = shallow(<Area {...defaultProps} className="custom-class" />);
 
-    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none.dx-c-bs4-series-path')).toBeTruthy();
-  });
-
-  it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Path {...defaultProps} customProperty />);
-    const { customProperty } = tree.find('path').props();
-    expect(customProperty)
+    expect(tree.is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
-    const tree = shallow(<Path {...defaultProps} themeColor="color" />);
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow(<Area {...defaultProps} customProperty />);
+    const { customProperty } = tree.find('path').props();
 
-    expect(tree.find('path').props().stroke)
-      .toBe('color');
+    expect(customProperty)
+      .toBeTruthy();
   });
 });

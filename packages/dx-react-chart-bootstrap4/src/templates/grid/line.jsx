@@ -13,7 +13,7 @@ export class Line extends React.PureComponent {
         x2={x2}
         y1={y1}
         y2={y2}
-        className={classNames('dx-c-bs4-stroke-current-color', className)}
+        className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-axis-opacity', className)}
         {...restProps}
       />
     );

@@ -11,7 +11,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: data.slice(0, 7),
+      data: data.slice(0, 6),
       width: 700,
       height: 400,
     };
@@ -32,7 +32,6 @@ export default class Demo extends React.PureComponent {
             name="PieSeries"
             valueField="contributions"
             argumentField="login"
-            style={{ stroke: 'white', fill: '#ff6666' }}
           />
         </Chart>
       </<%&wrapperTag%>>

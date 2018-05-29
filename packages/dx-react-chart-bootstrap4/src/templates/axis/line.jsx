@@ -13,7 +13,7 @@ export class Line extends React.PureComponent {
         x2={orientation === 'horizontal' ? width : 0}
         y1={0}
         y2={orientation === 'horizontal' ? 0 : height}
-        className={classNames('dx-c-bs4-stroke-current-color', className)}
+        className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-axis-opacity', className)}
         {...restProps}
       />
     );

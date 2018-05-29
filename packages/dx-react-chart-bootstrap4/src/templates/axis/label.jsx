@@ -14,7 +14,7 @@ export class Label extends React.PureComponent {
         textAnchor={textAnchor}
         x={x}
         y={y}
-        className={classNames('dx-c-bs4-fill-current-color', className)}
+        className={classNames('dx-c-bs4-fill-current-color dx-c-bs4-axis-label text-muted', className)}
         {...restProps}
       >
         {text}

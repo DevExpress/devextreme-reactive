@@ -54,7 +54,6 @@ export default class Demo extends React.PureComponent {
             argumentField="month"
             axisName="sale"
             stack="a"
-            style={{ stroke: 'none', fill: '#ff6666' }}
           />
 
           <LineSeries
@@ -63,7 +62,6 @@ export default class Demo extends React.PureComponent {
             argumentField="month"
             axisName="total"
             stack="a"
-            style={{ stroke: 'blue' }}
           />
 
           <Legend />

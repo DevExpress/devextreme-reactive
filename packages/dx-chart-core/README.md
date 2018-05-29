@@ -1,5 +1,7 @@
 # DevExtreme Chart Core
 
+Project status: **CTP**
+
 Core library for the DevExtreme Reactive Chart component.
 
 ## License

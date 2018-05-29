@@ -19,6 +19,7 @@ defaults:
       type: pages
     values:
       layout: default
+      logo_file: data-grid-logo.svg
   # React
   - scope:
       path: react
@@ -57,6 +58,7 @@ defaults:
     values:
       product_name: React Chart
       product_link: /react/chart
+      logo_file: chart-logo.svg
   - scope:
       path: react/chart/demos
       type: pages

@@ -4,9 +4,6 @@ export const TableRow = {
     tableRow: {
       type: Object,
     },
-    tableColumn: {
-      type: Object,
-    },
   },
   render() {
     return (

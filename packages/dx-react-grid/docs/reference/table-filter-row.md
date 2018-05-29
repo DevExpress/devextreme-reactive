@@ -68,7 +68,7 @@ onChange | (value: string) => void | Handles filter operation changes.
 
 ### TableFilterRow.IconProps
 
-Describes properties passed to a component that renders filter selector icons.
+Describes properties passed to a component that renders a filter selector icon.
 
 Field | Type | Description
 ------|------|------------

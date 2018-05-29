@@ -15,20 +15,34 @@ const owner = 'facebook';
 const repository = 'react';
 
 const DashedLine = props => <Grid.Line {...props} strokeDasharray="10 5" />;
-const CentralText = props => <Title.Text {...props} style={{ textAlign: 'center', width: '100%', marginBottom: 4 }} />;
+const CentralText = props => (
+  <Title.Text
+    {...props}
+    style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
+  />
+);
 
 const getLabelWithAvatarComponents = data => (props) => {
   const { text, x, y } = props;
   const contributor = data.find(({ login }) => login === text);
   return (
     <React.Fragment>
-      <image href={contributor.avatar_url} width={imageSize} height={imageSize} transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`} />
+      <image
+        href={contributor.avatar_url}
+        width={imageSize}
+        height={imageSize}
+        transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
+      />
       <ArgumentAxis.Label {...props} y={y + imageSize} />
     </React.Fragment>);
 };
 
 const getPath = (x, y, width, height) =>
-  `M${x} ${y + height} L ${x + width} ${y + height} Q ${x + width} ${y} ${x + (width / 2)} ${y} Q ${x} ${y} ${x} ${y + height} Z`;
+  `M${x} ${y + height}
+  L ${x + width} ${y + height}
+  Q ${x + width} ${y} ${x + (width / 2)} ${y}
+  Q ${x} ${y} ${x} ${y + height}
+  Z`;
 
 const BarWithLabel = (props) => {
   const {
@@ -105,7 +119,10 @@ export default class Demo extends React.PureComponent {
                 axisName="commits"
                 pointComponent={BarWithLabel}
               />
-              <Title text={`Contributions commits to master ${owner}/${repository} repository`} textComponent={CentralText} />
+              <Title
+                text={`Contributions commits to master ${owner}/${repository} repository`}
+                textComponent={CentralText}
+              />
             </Chart>
           ) : (
             <h1>No data</h1>

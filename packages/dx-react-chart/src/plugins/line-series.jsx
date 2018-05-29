@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { lineAttributes, pointAttributes } from '@devexpress/dx-chart-core';
-import { hocSeries } from './hoc-series';
+import { withSeriesPlugin } from '../utils/series-helper';
 
 const Series = ({
   ...props
@@ -36,7 +36,7 @@ const options = ({ ...props }) => {
   return { size: point.size };
 };
 
-export const LineSeries = hocSeries(
+export const LineSeries = withSeriesPlugin(
   Series,
   Dot,
   'LineSeries',

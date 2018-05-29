@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { hocSeries } from './hoc-series';
+import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   lineAttributes: jest.fn(),
@@ -78,7 +78,7 @@ describe('Base series', () => {
   const TestComponentPath = () => (<div>TestComponentPath</div>);
   const TestComponentPoint = () => (<div>TestComponentPoint</div>);
 
-  const WrappedComponent = hocSeries(
+  const WrappedComponent = withSeriesPlugin(
     TestComponentPath,
     TestComponentPoint,
     'TestComponent',

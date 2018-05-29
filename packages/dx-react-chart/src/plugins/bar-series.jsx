@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { barPointAttributes } from '@devexpress/dx-chart-core';
-import { hocSeries } from './hoc-series';
+import { withSeriesPlugin } from '../utils/series-helper';
 
 const EmptyFunction = () => null;
 
@@ -24,7 +24,7 @@ const options = ({ ...props }) => {
   return { barWidth, groupWidth };
 };
 
-export const BarSeries = hocSeries(
+export const BarSeries = withSeriesPlugin(
   EmptyFunction,
   Dot,
   'BarSeries',

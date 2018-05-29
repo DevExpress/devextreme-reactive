@@ -9,9 +9,9 @@ import {
 } from '@devexpress/dx-react-core';
 import { findSeriesByName, coordinates, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 
-export const hocSeries = (
-  WrappedPath,
-  WrappedPoint,
+export const withSeriesPlugin = (
+  Path,
+  Point,
   pluginName,
   pathType,
   processLine,
@@ -73,7 +73,7 @@ export const hocSeries = (
                 const pointParameters = processPoint(scales, options, stack);
                 return (
                   <React.Fragment>
-                    <WrappedPath
+                    <Path
                       themeColor={themeColor}
                       coordinates={coord}
                       {...processLine(pathType, scales)}
@@ -82,7 +82,7 @@ export const hocSeries = (
                     {
                       coord.map(item =>
                         (
-                          <WrappedPoint
+                          <Point
                             themeColor={themeColor}
                             key={item.id.toString()}
                             value={item.value}

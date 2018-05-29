@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { pointAttributes } from '@devexpress/dx-chart-core';
-import { baseSeries } from './base-series';
+import { hocSeries } from './hoc-series';
 
 const EmptyFunction = () => null;
 
@@ -19,7 +19,20 @@ const Dot = ({
   );
 };
 
-export const ScatterSeries = baseSeries(EmptyFunction, Dot, 'ScatterSeries', 'scatter', EmptyFunction, pointAttributes);
+const options = ({ ...props }) => {
+  const { point = {} } = props;
+  return { size: point.size };
+};
+
+export const ScatterSeries = hocSeries(
+  EmptyFunction,
+  Dot,
+  'ScatterSeries',
+  'scatter',
+  EmptyFunction,
+  pointAttributes,
+  options,
+);
 
 Dot.propTypes = {
   pointComponent: PropTypes.func.isRequired,

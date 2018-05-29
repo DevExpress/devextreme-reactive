@@ -42,7 +42,7 @@ You can prevent filtering by a specific column using the [FilteringState](../ref
 
 ## Custom filter operations
 
-Specify the [TableFilterRow](../reference/table-filter-row.md) plugin's `showFilterSelector` property to allow filter operation selection for an end user. Define, which filter operations are available for a particular data type using the [DataTypeProvider](../reference/data-type-provider.md) `availableFilterOperations` property. You can also define a custom operation by passign a filtering predicate to the [IntegratedFiltering](../reference/integrated-filtering.md) plugin's `columnExtensions` property.
+Specify the [TableFilterRow](../reference/table-filter-row.md) plugin's `showFilterSelector` property to allow filter operation selection for an end user. Define, which filter operations are available for particular columns using the [DataTypeProvider](../reference/data-type-provider.md) `availableFilterOperations` property. You can also define a custom operation by passign a filtering predicate to the [IntegratedFiltering](../reference/integrated-filtering.md) plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-filtering/advanced-filter-row", "showThemeSelector": true })
 

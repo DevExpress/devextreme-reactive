@@ -8,7 +8,7 @@ import {
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
-import { PluginDepsToComponents, getComputedState } from './test-utils';
+import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { DxTableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -57,7 +57,27 @@ describe('DxTableColumnVisibility', () => {
     jest.resetAllMocks();
   });
 
-  describe('table layout getters extending', () => {
+  describe('getters', () => {
+    it('should provide the hiddenColumnNames getter', () => {
+      const hiddenColumnNames = ['b', 'a'];
+      const tree = mount({
+        render() {
+          return (
+            <DxPluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <DxTableColumnVisibility
+                {...{ attrs: { ...defaultProps } }}
+                hiddenColumnNames={hiddenColumnNames}
+              />
+            </DxPluginHost>
+          );
+        },
+      });
+
+      expect(getComputedState(tree).hiddenColumnNames)
+        .toEqual(hiddenColumnNames);
+    });
+
     it('should call the visibleTableColumns computed with correct arguments', () => {
       const hiddenColumnNames = ['b', 'a'];
       const tree = mount({
@@ -79,6 +99,60 @@ describe('DxTableColumnVisibility', () => {
 
       expect(getComputedState(tree).tableColumns)
         .toEqual(visibleTableColumns());
+    });
+  });
+
+  describe('column extensions', () => {
+    it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
+      const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
+      mount({
+        render() {
+          return (
+            <DxPluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <DxTableColumnVisibility
+                {...{ attrs: { ...defaultProps } }}
+                columnTogglingEnabled={false}
+                columnExtensions={columnExtensions}
+              />
+            </DxPluginHost>
+          );
+        },
+      });
+
+      expect(getColumnExtensionValueGetter)
+        .toBeCalledWith(columnExtensions, 'togglingEnabled', false);
+    });
+  });
+
+  describe('actions', () => {
+    it('should call toggleColumnVisibility', () => {
+      const defaultHiddenColumnNames = ['a', 'b'];
+      const nextHiddenColumnNames = ['c', 'd'];
+      toggleColumn.mockImplementation(() => nextHiddenColumnNames);
+
+      const tree = mount({
+        render() {
+          return (
+            <DxPluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <DxTableColumnVisibility
+                {...{ attrs: { ...defaultProps } }}
+                hiddenColumnNames={defaultHiddenColumnNames}
+              />
+            </DxPluginHost>
+          );
+        },
+      });
+
+      executeComputedAction(tree, (actions) => {
+        actions.toggleColumnVisibility();
+      });
+
+      expect(tree.find(DxTableColumnVisibility).emitted()['update:hiddenColumnNames'][0][0])
+        .toBe(nextHiddenColumnNames);
+      expect(toggleColumn.mock.calls[0][0])
+        .toEqual(defaultHiddenColumnNames);
     });
   });
 
@@ -104,28 +178,5 @@ describe('DxTableColumnVisibility', () => {
 
     expect(getMessage('noColumns'))
       .toBe('Nothing to show');
-  });
-
-  describe('column extensions', () => {
-    it('should correctly call getColumnExtensionValueGetter if columnExtensions prop is defined', () => {
-      const columnExtensions = [{ columnName: 'a', togglingEnabled: true }];
-      mount({
-        render() {
-          return (
-            <DxPluginHost>
-              <PluginDepsToComponents deps={defaultDeps} />
-              <DxTableColumnVisibility
-                {...{ attrs: { ...defaultProps } }}
-                columnTogglingEnabled={false}
-                columnExtensions={columnExtensions}
-              />
-            </DxPluginHost>
-          );
-        },
-      });
-
-      expect(getColumnExtensionValueGetter)
-        .toBeCalledWith(columnExtensions, 'togglingEnabled', false);
-    });
   });
 });

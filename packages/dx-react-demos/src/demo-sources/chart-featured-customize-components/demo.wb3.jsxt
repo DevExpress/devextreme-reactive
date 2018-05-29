@@ -1,0 +1,117 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  Grid,
+  BarSeries,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+const imageSize = 50;
+const labelOffset = 10;
+
+const owner = 'facebook';
+const repository = 'react';
+
+const DashedLine = props => <Grid.Line {...props} strokeDasharray="10 5" />;
+const CentralText = props => <Title.Text {...props} style={{ textAlign: 'center', width: '100%', marginBottom: 4 }} />;
+
+const getLabelWithAvatarComponents = data => (props) => {
+  const { text, x, y } = props;
+  const contributor = data.find(({ login }) => login === text);
+  return (
+    <React.Fragment>
+      <image href={contributor.avatar_url} width={imageSize} height={imageSize} transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`} />
+      <ArgumentAxis.Label {...props} y={y + imageSize} />
+    </React.Fragment>);
+};
+
+const getPath = (x, y, width, height) =>
+  `M${x} ${y + height} L ${x + width} ${y + height} Q ${x + width} ${y} ${x + (width / 2)} ${y} Q ${x} ${y} ${x} ${y + height} Z`;
+
+const BarWithLabel = (props) => {
+  const {
+    x, y, width, height, themeColor, value,
+  } = props;
+
+  return (
+    <React.Fragment>
+      <path d={getPath(x, y, width, height)} fill={themeColor} />;
+      <ArgumentAxis.Label
+        x={x + (width / 2)}
+        y={y + (height / 2)}
+        dominantBaseline="central"
+        textAnchor="middle"
+        text={value}
+        style={{ fill: '#BBDEFB' }}
+      />
+    </React.Fragment>);
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: false,
+      width: 700,
+      height: 400,
+    };
+  }
+  componentDidMount() {
+    this.getData();
+  }
+  componentDidUpdate() {
+    this.getData();
+  }
+  getData() {
+    if (!this.state.data) {
+      fetch(`https://api.github.com/repos/${owner}/${repository}/contributors`)
+        .then(response => response.json())
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            data: data.slice(0, 8),
+          });
+        })
+
+        .catch(() => this.setState({ data: false }));
+    }
+  }
+  render() {
+    const {
+      data: chartData, width, height,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        {
+          chartData ? (
+            <Chart data={chartData} width={width} height={height}>
+              <ArgumentAxis
+                name="login"
+                type="band"
+                labelComponent={getLabelWithAvatarComponents(chartData)}
+                tickComponent={() => null}
+              />
+              <ValueAxis name="commits" lineComponent={() => null} />
+              <Grid name="commits" lineComponent={DashedLine} />
+
+              <BarSeries
+                name="Contributions"
+                valueField="contributions"
+                argumentField="login"
+                axisName="commits"
+                pointComponent={BarWithLabel}
+              />
+              <Title text={`Contributions commits to master ${owner}/${repository} repository`} textComponent={CentralText} />
+            </Chart>
+          ) : (
+            <h1>No data</h1>
+          )
+        }
+      </<%&wrapperTag%>>
+    );
+  }
+}

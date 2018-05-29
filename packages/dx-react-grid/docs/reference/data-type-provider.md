@@ -58,6 +58,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-getAvailableFilterOperations | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => Array&lt;string&gt;? | A function that returns available for a particular column filter operation names.
+getAvailableFilterOperations | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => Array&lt;string&gt;? | A function that returns the names of filter operations available for a particular column.
 valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 valueEditor | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueEditorProps](#datatypeprovidervalueeditorprops) | A template that renders the editor.

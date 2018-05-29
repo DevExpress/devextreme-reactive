@@ -4,7 +4,7 @@ import TableRowMUI from '@material-ui/core/TableRow';
 
 export const TableRow = ({
   children,
-  row, tableRow, tableColumn,
+  row, tableRow,
   ...restProps
 }) => (
   <TableRowMUI
@@ -18,12 +18,10 @@ TableRow.propTypes = {
   children: PropTypes.node,
   row: PropTypes.any,
   tableRow: PropTypes.object,
-  tableColumn: PropTypes.object,
 };
 
 TableRow.defaultProps = {
   children: undefined,
   row: undefined,
   tableRow: undefined,
-  tableColumn: undefined,
 };

@@ -33,7 +33,7 @@ Name | Type | Default | Description
 cellComponent | ComponentType&lt;[TableFilterRow.CellProps](#tablefilterrowcellprops)&gt; | | A component that renders a filter cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a filter row.
 filterSelectorComponent | ComponentType&lt;[TableFilterRow.FilterSelectorProps](#tablefilterrowfilterselectorprops)&gt; | | A component that renders a filter selector.
-iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; | | A component that renders icons used in the filter selector.
+iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; | | A component that renders filter selector icons.
 editorComponent | ComponentType&lt;[TableFilterRow.EditorProps](#tablefilterroweditorprops)&gt; | | A component that renders a filter editor.
 showFilterSelector? | boolean | false | Specifies whether the FilterSelector should be displayed.
 rowHeight? | number | | The filter row's height.
@@ -68,11 +68,11 @@ onChange | (value: string) => void | Handles filter operation changes.
 
 ### TableFilterRow.IconProps
 
-Describes properties passed to a component that renders icons for the filter selector.
+Describes properties passed to a component that renders filter selector icons.
 
 Field | Type | Description
 ------|------|------------
-type | string | Specifies the type of icon to be used.
+type | string | Specifies the icon type.
 
 ### TableFilterRow.EditorProps
 
@@ -83,7 +83,7 @@ Field | Type | Description
 value | any | The current editor value.
 disabled | boolean | Specifies whether the editor is disabled.
 onChange | (value: string) => void | Handles filter value changes.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the specified localization message.
 
 ## Localization Messages
 

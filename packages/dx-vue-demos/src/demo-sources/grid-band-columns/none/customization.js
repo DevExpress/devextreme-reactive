@@ -27,6 +27,31 @@ const PercentTypeProvider = {
   },
 };
 
+const BandCell = {
+  inheritAttrs: false,
+  props: ['column'],
+  data() {
+    const { title } = this.column;
+    let icon = 0;
+    if (title === 'Population') icon = 'person';
+    if (title === 'Nominal GDP') icon = 'bar-chart';
+    if (title === 'By Sector') icon = 'globe';
+    return { icon };
+  },
+  template: `
+    <dx-cell
+      v-bind="$attrs"
+      v-on="$listeners"
+    >
+      <slot />
+      <span :class="\`ml-2 oi oi-\${icon}\`"></span>
+    </dx-cell>
+  `,
+  components: {
+    DxCell: DxTableBandHeader.components.DxCell,
+  },
+};
+
 export default {
   data() {
     return {
@@ -91,6 +116,7 @@ export default {
         <dx-table-header-row />
         <dx-table-band-header
           :columnBands="columnBands"
+          :cellComponent="$options.components.BandCell"
         />
       </dx-grid>
     </div>
@@ -101,5 +127,6 @@ export default {
     DxTableHeaderRow,
     DxTableBandHeader,
     PercentTypeProvider,
+    BandCell,
   },
 };

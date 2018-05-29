@@ -1,4 +1,6 @@
-# DevExtreme React Chart 
+# DevExtreme React Chart
+
+Project status: **CTP**
 
 ## License
 

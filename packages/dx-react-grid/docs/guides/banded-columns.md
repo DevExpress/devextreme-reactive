@@ -17,8 +17,8 @@ Import the plugins listed above and specify the `TableBandHeader` plugin's `colu
 
 ## Appearance Customization
 
-The `TableBandHeader` plugin allows you to customize the appearance of the header with bands by using the plugin's [properties](../reference/table-band-header.md#properties). The following example demonstrates how to use the `cellComponent` property for customize banded cells and how to use the the `TableHeaderRow` plugin's property `cellComponent` for customize header cells:
+You can customize the appearance of the header with bands by overriding the `cellComponent` properties of the `TableBandHeader` and `TableHeaderRow` plugins:
 
 .embedded-demo({ "path": "grid-band-columns/customization", "showThemeSelector": true })
 
-NOTE: while customize the `TableHeaderRow` plugin's property `cellComponent` with the Banded Columns feature should spread a `className` property.
+NOTE: we keep the default `className` property while customizing a cell component of the `TableHeaderRow` plugin.

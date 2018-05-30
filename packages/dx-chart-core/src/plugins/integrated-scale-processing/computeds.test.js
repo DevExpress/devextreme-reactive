@@ -55,6 +55,25 @@ describe('calculateDomain', () => {
     });
   });
 
+  it('should be computed from data and series option, startFromZero option set for value axis, no series component', () => {
+    const calculatedDomains = domains(
+      undefined,
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{
+        arg: 1, val: 9, 'val-name-end': 9,
+      }],
+      'argumentAxis',
+      { valueAxis: true },
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: { domain: [1, 1], orientation: 'horizontal', type: undefined },
+      valueAxis: { domain: [0, 9], orientation: 'vertical', type: undefined },
+    });
+  });
+
   it('should be computed from data and series option, axes is empty array', () => {
     const calculatedDomains = domains(
       [],
@@ -75,6 +94,29 @@ describe('calculateDomain', () => {
   it('should be computed from data and series option with band type option', () => {
     const calculatedDomains = domains(
       [{ ...argumentAxis, type: 'band' }, valueAxis],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: 'c' }],
+      'argumentAxis',
+      {},
+    );
+    expect(calculatedDomains).toEqual({
+      argumentAxis: {
+        domain: ['a', 'b', 'c'],
+        orientation: 'horizontal',
+        type: 'band',
+      },
+      valueAxis: {
+        domain: [1, 2],
+        orientation: 'vertical',
+      },
+    });
+  });
+
+  it('should be computed from data and series option, type is not set, arguments are string', () => {
+    const calculatedDomains = domains(
+      undefined,
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],

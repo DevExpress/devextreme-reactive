@@ -1,1 +1,1 @@
-export const getAxisName = argumentAxisName => argumentAxisName || 'argumentAxis';
+export const axisName = argumentAxisName => argumentAxisName || 'argumentAxis';

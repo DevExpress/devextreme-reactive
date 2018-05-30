@@ -12,7 +12,7 @@ import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = {
   name: 'FixedHeader',
-  render() { return <TableComponent use="head" {...{ attrs: this.$attrs, on: this.$listeners }}>{this.slots.default}</TableComponent>; },
+  render() { return <TableComponent use="head" {...{ attrs: this.$attrs, on: this.$listeners }}>{this.$slots.default}</TableComponent>; },
 };
 const TableHead = {
   name: 'TableHead',

@@ -26,7 +26,7 @@ export const TableCell = {
         }}
         {...{ attrs: this.$attrs, on: this.$listeners } }
       >
-        {this.$slots.default ? this.$children : this.value}
+        {this.$slots.default || this.value}
       </td>
     );
   },

@@ -144,6 +144,14 @@ export default {
           ],
         },
       ],
+      tableColumnExtensions: [
+        { columnName: 'prefix', width: 80 },
+        { columnName: 'firstName', width: 130 },
+        { columnName: 'lastName', width: 130 },
+        { columnName: 'position', width: 170 },
+        { columnName: 'state', width: 125 },
+        { columnName: 'birthDate', width: 125 },
+      ],
     };
   },
   computed: {
@@ -207,7 +215,9 @@ export default {
         <dx-integrated-grouping />
         <dx-integrated-selection />
         <dx-integrated-paging />
-        <dx-table />
+        <dx-table
+          :columnExtensions="tableColumnExtensions"
+        />
         <dx-table-header-row
           showSortingControls
           showGroupingControls

@@ -1,18 +1,17 @@
 export const TableRow = {
   name: 'TableRow',
-  functional: true,
   props: {
     row: null,
     tableRow: {
       type: Object,
     },
   },
-  render(h, context) {
+  render() {
     return (
       <tr
-        {...{ attrs: context.attrs, on: context.listeners }}
+        {...{ attrs: this.$attrs, on: this.$listeners }}
       >
-        {context.slots().default}
+        {this.$slots.default}
       </tr>
     );
   },

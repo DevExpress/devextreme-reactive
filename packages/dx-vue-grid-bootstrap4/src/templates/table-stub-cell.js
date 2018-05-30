@@ -1,6 +1,5 @@
 export const TableStubCell = {
   name: 'TableStubCell',
-  functional: true,
   props: {
     tableRow: {
       type: Object,
@@ -10,10 +9,6 @@ export const TableStubCell = {
     },
   },
   render() {
-    return (
-      <td
-        class="py-0"
-      />
-    );
+    return <td class="py-0" />;
   },
 };

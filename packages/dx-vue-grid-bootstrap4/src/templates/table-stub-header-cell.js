@@ -1,6 +1,5 @@
 export const TableStubHeaderCell = {
   name: 'TableStubHeaderCell',
-  functional: true,
   props: {
     tableRow: {
       type: Object,
@@ -9,10 +8,10 @@ export const TableStubHeaderCell = {
       type: Object,
     },
   },
-  render(h, context) {
+  render() {
     return (
       <th
-        {...{ attrs: context.props, on: context.listeners }}
+        {...{ attrs: this.$attrs, on: this.$listeners }}
         class="p-0"
       />
     );

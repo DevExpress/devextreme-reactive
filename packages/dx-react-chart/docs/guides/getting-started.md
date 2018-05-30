@@ -1,5 +1,7 @@
 # React Chart - Getting Started
 
+Project status: **CTP**
+
 ## Overview
 
 The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material UI rendering and theming are supported out of the box.
@@ -73,6 +75,13 @@ const App = () => (
 );
 
 ```
+
+## Try Out The React Chart
+
+Follow the links below to try out the React Chart:
+
+- [CodeSandbox for Material UI](https://codesandbox.io/s/vqo8yw5om7)
+- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/5x17l61xyk)
 
 ## License
 

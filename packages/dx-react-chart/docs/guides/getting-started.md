@@ -74,6 +74,13 @@ const App = () => (
 
 ```
 
+## Try Out The React Chart
+
+Follow the links below to try out the React Chart:
+
+- [CodeSandbox for Material UI](https://codesandbox.io/s/vqo8yw5om7)
+- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/5x17l61xyk)
+
 ## License
 
 [DevExtreme licensing](https://js.devexpress.com/licensing/)

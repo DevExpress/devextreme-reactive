@@ -10,7 +10,7 @@ export const DxTableGroupRow = {
       <DxTableGroupRowBase
         cellComponent={TableGroupCell}
         rowComponent={TableRow}
-        indentColumnWidth={33}
+        indentColumnWidth={48}
         {...{ attrs: context.props, on: context.listeners }}
       />
     );

@@ -29,8 +29,8 @@ import { DxTableBandHeader } from '@devexpress/dx-vue-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-cellComponent | ComponentType&lt;[DxTableBandHeader.DxCell](#dxtablebandheaderdxcell)&gt; | | A component that renders a band cell.
-rowComponent | ComponentType&lt;[DxTable.DxRow](table.md#dxtabledxrow)&gt; | | A component that renders a band cells' row.
+cellComponent | [DxTableBandHeader.DxCell](#dxtablebandheaderdxcell) | | A component that renders a band cell.
+rowComponent | [DxTable.DxRow](table.md#dxtabledxrow) | | A component that renders a band cells' row.
 columnBands | Array&lt;[DxTableBandHeader.ColumnBands](#dxtablebandheadercolumnbands)&gt; | | Specifies column bands for multi-level table header.
 
 ## Interfaces
@@ -59,8 +59,8 @@ default | The default Vue slot.
 
 Name | Properties | Description
 -----|------------|------------
-DxTableBandHeader.components.DxCell | ComponentType&lt;[DxTable.DxCell](table.md#dxtabledxcell)&gt; | A component that renders a band cell.
-DxTableBandHeader.components.DxRow | ComponentType&lt;[DxTable.DxRow](table.md#dxtabledxrow)&gt; | A component that renders a band cells' row.
+DxTableBandHeader.components.DxCell | [DxTable.DxCell](table.md#dxtabledxcell) | A component that renders a band cell.
+DxTableBandHeader.components.DxRow | [DxTable.DxRow](table.md#dxtabledxrow) | A component that renders a band cells' row.
 
 ## Plugin Developer Reference
 

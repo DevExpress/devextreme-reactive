@@ -13,14 +13,14 @@ export const Overlay = {
       visible, target,
     } = this;
     const handleToggle = () => {
-      if (visible) this.$listeners.hide();
+      if (visible) this.$emit('hide');
     };
     return (
       target ? (
         <Popover
           visible={visible}
           target={target}
-          toggle={handleToggle}
+          onToggle={handleToggle}
         >
           {this.$slots.default}
         </Popover>

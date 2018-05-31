@@ -5,14 +5,11 @@ export const Popover = {
     visible: {
       type: Boolean,
     },
-    toggle: {
-      type: Function,
-    },
   },
   methods: {
     handleDocumentClick(e) {
       if (e.target !== this.$el && !this.$el.contains(e.target)) {
-        this.toggle(e);
+        this.$emit('toggle', e);
       }
     },
   },

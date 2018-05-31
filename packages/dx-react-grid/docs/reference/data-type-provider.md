@@ -23,7 +23,7 @@ Name | Type | Default | Description
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
 formatterComponent? | ComponentType&lt;[DataTypeProvider.ValueFormatterProps](#datatypeprovidervalueformatterprops)&gt; | | A component that renders the formatted value.
 editorComponent? | ComponentType&lt;[DataTypeProvider.ValueEditorProps](#datatypeprovidervalueeditorprops)&gt; | | A component that renders a custom editor.
-availableFilterOperations? | Array&lt;string&gt; | | The names of filter operations available for an associated columns.
+availableFilterOperations? | Array&lt;string&gt; | | The names of filter operations available for associated columns.
 
 ## Interfaces
 

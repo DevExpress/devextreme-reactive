@@ -6,3 +6,4 @@ export * from './utils/scale';
 export * from './constants';
 export * from './plugins/series-family/computeds';
 export * from './plugins/theme-manager/computeds';
+export * from './plugins/chart/computeds';

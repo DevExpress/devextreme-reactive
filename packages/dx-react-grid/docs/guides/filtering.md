@@ -42,13 +42,13 @@ You can prevent filtering by a specific column using the [FilteringState](../ref
 
 ## Custom Filter Operations
 
-Specify the [TableFilterRow](../reference/table-filter-row.md) plugin's `showFilterSelector` property to allow filter operation selection for an end user. Define which filter operations are available for particular columns using the [DataTypeProvider](../reference/data-type-provider.md) `availableFilterOperations` property. You can also define a custom operation by passign a filtering predicate to the [IntegratedFiltering](../reference/integrated-filtering.md) plugin's `columnExtensions` property.
+Specify the [TableFilterRow](../reference/table-filter-row.md) plugin's `showFilterSelector` property to allow filter operation selection for an end user. Define which filter operations are available for particular columns using the [DataTypeProvider](../reference/data-type-provider.md) `availableFilterOperations` property. You can also define a custom operation by passing a filtering predicate to the [IntegratedFiltering](../reference/integrated-filtering.md) plugin's `columnExtensions` property.
 
 .embedded-demo({ "path": "grid-filtering/advanced-filter-row", "showThemeSelector": true })
 
 ## Customizing Filter Row Appearance
 
-Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the appropriate component's properties.
+Pass a function that returns a custom component to the `TableFilterRow` plugin's `cellComponent` property to substitute the built-in filter row editors. In this case, delegate the component's state management to the `TableFilterRow` plugin by assigning the function's `filter` and `onFilter` arguments to the corresponding component properties.
 
 .embedded-demo({ "path": "grid-filtering/custom-filter-row", "showThemeSelector": true })
 
@@ -56,7 +56,7 @@ Pass a function that returns a custom component to the `TableFilterRow` plugin's
 
 It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.
 
-Filtering options are updated once an end user modifies the text in the Filter Row editor or in another filtering control. Handle filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
+Filtering options are updated once an end user modifies the text in the Filter Row editor or in another filtering control. Handle the filtering option changes using the `FilteringState` plugin's `onFiltersChange` event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that you do not need to use the `IntegratedFiltering` plugin for remote filtering.
 

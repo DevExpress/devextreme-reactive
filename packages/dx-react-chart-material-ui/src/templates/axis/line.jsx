@@ -17,12 +17,9 @@ export class LineBase extends React.PureComponent {
       width, height, orientation, classes, className, ...restProps
     } = this.props;
     return (
-      <line
+      <path
         className={classNames(classes.root, className)}
-        x1={0}
-        x2={orientation === 'horizontal' ? width : 0}
-        y1={0}
-        y2={orientation === 'horizontal' ? 0 : height}
+        d={`M 0 0 L ${orientation === 'horizontal' ? width : 0} ${orientation === 'horizontal' ? 0 : height}`}
         {...restProps}
       />
     );

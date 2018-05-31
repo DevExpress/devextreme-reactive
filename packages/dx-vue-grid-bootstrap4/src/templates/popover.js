@@ -2,31 +2,27 @@ export const Popover = {
   name: 'Popover',
   props: {
     target: null,
-  },
-  data() {
-    return {
-      visible: false,
-    };
+    visible: {
+      type: Boolean,
+    },
+    toggle: {
+      type: Function,
+    },
   },
   methods: {
-    handleClick(e) {
-      if (
-        e.target === this.target ||
-        this.target.contains(e.target)
-      ) {
-        this.visible = !this.visible;
-      } else if (e.target !== this.$el && !this.$el.contains(e.target)) {
-        this.visible = false;
+    handleDocumentClick(e) {
+      if (e.target !== this.$el && !this.$el.contains(e.target)) {
+        this.toggle(e);
       }
     },
   },
   created() {
-    document.addEventListener('click', this.handleClick);
+    document.addEventListener('click', this.handleDocumentClick);
   },
   destroyed() {
-    document.removeEventListener('click', this.handleClick);
+    document.removeEventListener('click', this.handleDocumentClick);
   },
-  updated() {
+  mounted() {
     const {
       bottom,
       left,

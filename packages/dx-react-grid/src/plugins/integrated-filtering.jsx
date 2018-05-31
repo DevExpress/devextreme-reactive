@@ -6,6 +6,7 @@ import {
   filteredCollapsedRowsGetter,
   unwrappedFilteredRows,
   getColumnExtension,
+  defaultFilterPredicate,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -50,6 +51,8 @@ export class IntegratedFiltering extends React.PureComponent {
     );
   }
 }
+
+IntegratedFiltering.defaultPredicate = defaultFilterPredicate;
 
 IntegratedFiltering.propTypes = {
   columnExtensions: PropTypes.array,

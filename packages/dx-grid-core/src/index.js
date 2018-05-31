@@ -6,6 +6,7 @@ export * from './plugins/integrated-sorting/computeds';
 
 export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
+export * from './plugins/filtering-state/computeds';
 export * from './plugins/integrated-filtering/computeds';
 
 export * from './plugins/grouping-state/constants';
@@ -82,6 +83,9 @@ export * from './plugins/custom-tree-data/computeds';
 export * from './plugins/table-tree-column/helpers';
 
 export * from './plugins/search-state/reducers';
+export * from './plugins/search-state/computeds';
+
+export * from './plugins/data-type-provider/computeds';
 
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 

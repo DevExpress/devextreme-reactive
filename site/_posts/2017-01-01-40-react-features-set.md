@@ -18,8 +18,8 @@ description: |
 * Column chooser
 * Keyboard navigation
 * Bands (column groups)
+* Header filter
 
 **Features we expect to ship shortly:**
 
 * Fixed columns/rows
-* Header filter

@@ -1,5 +1,5 @@
 import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
-import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
+import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-core';
 
 export const DxSearchState = {
   name: 'DxSearchState',
@@ -18,13 +18,17 @@ export const DxSearchState = {
     },
   },
   render() {
+    const { value, changeValue } = this;
+    const filterExpressionComputed = ({ filterExpression, columns }) =>
+      searchFilterExpression(value, columns, filterExpression);
+
     return (
       <DxPlugin
         name="DxSearchState"
       >
-        <DxGetter name="filterExpression" computed={pushSearchFilterExpression(this.value)} />
-        <DxGetter name="searchValue" value={this.value} />
-        <DxAction name="changeSearchValue" action={this.changeValue} />
+        <DxGetter name="filterExpression" computed={filterExpressionComputed} />
+        <DxGetter name="searchValue" value={value} />
+        <DxAction name="changeSearchValue" action={changeValue} />
       </DxPlugin>
     );
   },

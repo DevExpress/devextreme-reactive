@@ -64,10 +64,9 @@ export const DxTableColumnVisibility = {
       columnTogglingEnabled,
     } = this;
     const getMessage = getMessagesFormatter(messages);
-
     return (
       <DxPlugin
-        name="TableColumnVisibility"
+        name="DxTableColumnVisibility"
         dependencies={pluginDependencies}
       >
         <DxGetter name="hiddenColumnNames" value={hiddenColumnNames} />
@@ -84,12 +83,12 @@ export const DxTableColumnVisibility = {
         <DxTemplate name="table">
           {params => (
             <DxTemplateConnector>
-              {({ tableColumns }) =>
+              {({ getters: { tableColumns } }) =>
                 (tableDataColumnsExist(tableColumns)
                 ? <DxTemplatePlaceholder />
                 : <EmptyMessage
-                  getMessage={getMessage}
-                  {...{ attrs: { ...params } }}
+                    getMessage={getMessage}
+                    {...{ attrs: { ...params } }}
                 />
               )}
             </DxTemplateConnector>

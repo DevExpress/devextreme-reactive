@@ -33,6 +33,19 @@ export const DxColumnChooser = {
       type: Object,
     },
   },
+  data() {
+    return {
+      visible: false,
+    };
+  },
+  methods: {
+    handleToggle() {
+      this.visible = !this.visible;
+    },
+    handleHide() {
+      this.visible = false;
+    },
+  },
   render() {
     const {
       overlayComponent: Overlay,
@@ -64,15 +77,15 @@ export const DxColumnChooser = {
                 }) => (
                     <div>
                       <ToggleButton
-                        // buttonRef={this.buttonRef}
-                        // onToggle={this.handleToggle}
+                        ref="toggle-button"
+                        onToggle={this.handleToggle}
                         getMessage={getMessage}
                         active={visible}
                       />
                       <Overlay
                         visible={visible}
-                        // target={this.button}
-                        // onHide={this.handleHide}
+                        target="toggle-button"
+                        onHide={this.handleHide}
                       >
                         <Container>
                           {columnChooserItems(columns, hiddenColumnNames)

@@ -44,6 +44,7 @@ export const DxTableColumnVisibility = {
     },
     columnTogglingEnabled: {
       type: Boolean,
+      default: true,
     },
   },
   methods: {

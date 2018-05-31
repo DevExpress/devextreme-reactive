@@ -17,7 +17,7 @@ const data = [
   { splineValue: 0.04, lineValue: 0.11, argument: 9.1 },
   { splineValue: -0.05, lineValue: 0.19, argument: 9.9 },
   { splineValue: -0.09, lineValue: 0.28, argument: 10.8 },
-  { splineValue: -0.07, lineValue: 0.38, argument: 11.6 }
+  { splineValue: -0.07, lineValue: 0.38, argument: 11.6 },
 ];
 
 export default class Demo extends React.PureComponent {

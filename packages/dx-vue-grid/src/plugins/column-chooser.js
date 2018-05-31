@@ -39,6 +39,9 @@ export const DxColumnChooser = {
     };
   },
   methods: {
+    buttonRef(button) {
+      this.button = button;
+    },
     handleToggle() {
       this.visible = !this.visible;
     },
@@ -77,14 +80,14 @@ export const DxColumnChooser = {
                 }) => (
                     <div>
                       <ToggleButton
-                        ref="toggle-button"
+                        buttonRef={this.buttonRef}
                         onToggle={this.handleToggle}
                         getMessage={getMessage}
                         active={visible}
                       />
                       <Overlay
                         visible={visible}
-                        target="toggle-button"
+                        target={this.button}
                         onHide={this.handleHide}
                       >
                         <Container>

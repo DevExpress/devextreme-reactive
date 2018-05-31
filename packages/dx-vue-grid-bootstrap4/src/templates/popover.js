@@ -1,9 +1,7 @@
 export const Popover = {
   name: 'Popover',
   props: {
-    target: {
-      type: String,
-    },
+    target: null,
   },
   data() {
     return {
@@ -13,8 +11,8 @@ export const Popover = {
   methods: {
     handleClick(e) {
       if (
-        e.target === this.targetElement ||
-        this.targetElement.contains(e.target)
+        e.target === this.target ||
+        this.target.contains(e.target)
       ) {
         this.visible = !this.visible;
       } else if (e.target !== this.$el && !this.$el.contains(e.target)) {
@@ -23,7 +21,6 @@ export const Popover = {
     },
   },
   created() {
-    this.targetElement = this.$parent.$refs[this.targetRef];
     document.addEventListener('click', this.handleClick);
   },
   destroyed() {
@@ -34,7 +31,7 @@ export const Popover = {
       bottom,
       left,
       width,
-    } = this.targetElement.getBoundingClientRect();
+    } = this.target.getBoundingClientRect();
 
     const x = (left + (width / 2)) - (this.$el.offsetWidth / 2);
     this.$el.style.transform = `translate(${x}px, ${bottom}px)`;

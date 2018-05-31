@@ -48,10 +48,10 @@ export const DxTableColumnVisibility = {
     },
   },
   methods: {
-    toggleColumnVisibility() {
+    toggleColumnVisibility(columnName) {
       this.$emit(
         'update:hiddenColumnNames',
-        toggleColumn(this.hiddenColumnNames),
+        toggleColumn(this.hiddenColumnNames, columnName),
       );
     },
   },

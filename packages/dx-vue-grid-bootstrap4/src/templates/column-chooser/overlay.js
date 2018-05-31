@@ -6,9 +6,7 @@ export const Overlay = {
     visible: {
       type: Boolean,
     },
-    target: {
-      type: String,
-    },
+    target: null,
   },
   render() {
     const {
@@ -24,7 +22,7 @@ export const Overlay = {
           target={target}
           toggle={handleToggle}
         >
-          {this.$slots.defauls}
+          {this.$slots.default}
         </Popover>
       ) : null
     );

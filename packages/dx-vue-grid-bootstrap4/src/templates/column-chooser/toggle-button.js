@@ -5,9 +5,16 @@ export const ToggleButton = {
       type: Function,
       required: true,
     },
+    buttonRef: {
+      type: Function,
+      required: true,
+    },
     active: {
       type: Boolean,
     },
+  },
+  mounted() {
+    this.buttonRef(this.$el);
   },
   render() {
     const { toggle: onToggle } = this.$listeners;

@@ -26,7 +26,13 @@ export const Popover = {
       width,
     } = this.target.getBoundingClientRect();
 
-    const x = (left + (width / 2)) - (this.$el.offsetWidth / 2);
+    const bodyWidth = document.body.offsetWidth;
+    const popoverWidth = this.$el.offsetWidth;
+    let x = (left + (width / 2)) - (popoverWidth / 2);
+    const delta = bodyWidth - (x + popoverWidth);
+    if (delta < 0) {
+      x += delta;
+    }
     this.$el.style.transform = `translate(${x}px, ${bottom}px)`;
   },
   render() {
@@ -38,7 +44,6 @@ export const Popover = {
         }}
       >
         <div class="popover-inner">{this.$slots.default}</div>
-        <div class="arrow" style="left: 50%; margin-left: -8px;" />
       </div>
     );
   },

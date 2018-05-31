@@ -42,14 +42,12 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             axisName="born"
             name="Russia"
-            style={{ stroke: 'red', fill: 'white' }}
           />
           <ScatterSeries
             name="China"
             valueField="ch"
             argumentField="year"
             axisName="born"
-            style={{ stroke: 'orange', fill: 'blue' }}
           />
         </Chart>
       </<%&wrapperTag%>>

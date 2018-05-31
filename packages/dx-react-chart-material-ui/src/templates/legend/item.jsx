@@ -4,9 +4,11 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 
-const styles = () => ({
+const styles = theme => ({
   root: {
     alignItems: 'center',
+    paddingTop: theme.spacing.unit * 0.5,
+    paddingBottom: theme.spacing.unit * 0.5,
   },
 });
 

@@ -7,6 +7,7 @@ describe('Slice', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
+    themeColor: 'color',
   };
 
   it('should render path element', () => {
@@ -20,14 +21,9 @@ describe('Slice', () => {
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
-    const { transform, d, style } = tree.find('path').props();
+    const { transform, d } = tree.find('path').props();
     expect(transform).toBe('translate(1 2)');
     expect(d).toBe('M11 11');
-    expect(style).toEqual({
-      stroke: 'none',
-      strokeWidth: '1px',
-      fill: 'black',
-    });
   });
 
   it('should render path element with custom styles', () => {
@@ -44,7 +40,6 @@ describe('Slice', () => {
     const { style } = tree.find('path').props();
     expect(style).toEqual({
       ...customStyle,
-      strokeWidth: '1px',
     });
   });
 });

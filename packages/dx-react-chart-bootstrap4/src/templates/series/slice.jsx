@@ -4,18 +4,13 @@ import * as PropTypes from 'prop-types';
 export class Slice extends React.PureComponent {
   render() {
     const {
-      x, y, d, style,
+      x, y, d, ...restProps
     } = this.props;
     return (
       <path
         transform={`translate(${x} ${y})`}
         d={d}
-        style={{
-          stroke: 'none',
-          strokeWidth: '1px',
-          fill: 'black',
-          ...style,
-        }}
+        {...restProps}
       />
     );
   }

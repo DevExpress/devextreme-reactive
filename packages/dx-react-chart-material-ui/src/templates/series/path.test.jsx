@@ -35,12 +35,15 @@ describe('Path', () => {
       <Path
         {...defaultProps}
         style={customStyle}
+        themeColor="color"
       />
     ));
-    const { style } = tree.find('path').props();
+    const { style, stroke } = tree.find('path').props();
 
     expect(style)
       .toEqual(customStyle);
+    expect(stroke)
+      .toEqual('color');
   });
 
   it('should pass the className prop to the root element', () => {

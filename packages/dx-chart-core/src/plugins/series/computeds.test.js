@@ -49,13 +49,13 @@ mockArea.y0 = jest.fn(() => mockAreaResult);
 
 const mockPie = {
   value: jest.fn(func => data =>
-    data.map(d => ({ startAngle: func(d), endAngle: func(d) }))),
+    data.map(d => ({ startAngle: func(d), endAngle: func(d), value: 'value' }))),
 };
 const mockArc = jest.fn().mockReturnThis();
 mockArc.innerRadius = jest.fn().mockReturnThis();
 mockArc.outerRadius = jest.fn().mockReturnThis();
 mockArc.startAngle = jest.fn().mockReturnThis();
-mockArc.endAngle = jest.fn(() => jest.fn());
+mockArc.endAngle = jest.fn(() => jest.fn(() => true));
 
 const data = [
   {
@@ -106,7 +106,9 @@ describe('Scales', () => {
     barWidth,
   );
   beforeAll(() => {
-    createScale.mockImplementation(() => value => value);
+    const translateValue = value => value;
+    translateValue.ticks = () => [1];
+    createScale.mockImplementation(() => translateValue);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -115,12 +117,13 @@ describe('Scales', () => {
   it('should create scales with proper parameters', () => {
     const { xScale, yScale, x0Scale } = getScales({});
 
-    expect(createScale).toHaveBeenCalledTimes(2);
+    expect(createScale).toHaveBeenCalledTimes(3);
     expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 1 - groupWidth]);
     expect(createScale.mock.calls[1]).toEqual(['axisName', 20, 10]);
+    expect(createScale.mock.calls[2]).toEqual([{ domain: [], orientation: 'orientation', type: 'band' }, 20, 20, 1 - barWidth]);
     expect(xScale).toBeTruthy();
     expect(yScale).toBeTruthy();
-    expect(x0Scale).toBeFalsy();
+    expect(x0Scale).toBeTruthy();
   });
 
   it('should create scales, argument axis is band', () => {
@@ -258,14 +261,19 @@ describe('Pie attributes', () => {
   });
 
   it('should return array of arsc', () => {
-    expect(pieAttributes(
+    const pieAttr = pieAttributes(
       'val1',
       data,
       20,
       10,
       0.1,
       0.9,
-    )).toHaveLength(data.length);
+    );
+    expect(pieAttr).toHaveLength(data.length);
+    pieAttr.forEach((attr) => {
+      expect(attr.d).toBeTruthy();
+      expect(attr.value).toBe('value');
+    });
 
     data.forEach((d) => {
       expect(mockArc.innerRadius).toHaveBeenCalledWith(0.5);

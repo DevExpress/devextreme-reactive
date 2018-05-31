@@ -54,7 +54,7 @@ export const baseSeries = (
                 height,
               }) => {
                 const {
-                  stack,
+                  stack, themeColor,
                 } = findSeriesByName(name, series);
                 const scales = xyScales(
                   domains,
@@ -77,16 +77,18 @@ export const baseSeries = (
                 return (
                   <React.Fragment>
                     <WrappedPath
+                      themeColor={themeColor}
+                      coordinates={coord}
                       {...processLine(pathType, scales)}
-                      {...{ coordinates: coord }}
                       {...restProps}
                     />
                     {
                       coord.map(item =>
                         (
                           <WrappedPoint
+                            themeColor={themeColor}
                             key={item.id.toString()}
-                            {...{ value: item.value }}
+                            value={item.value}
                             {...pointParameters(item)}
                             {...restProps}
                           />

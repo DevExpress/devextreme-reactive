@@ -29,6 +29,7 @@ SliceBase.propTypes = {
   y: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  value: PropTypes.number.isRequired,
 };
 
 SliceBase.defaultProps = {

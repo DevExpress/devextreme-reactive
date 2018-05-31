@@ -4,13 +4,13 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => {
-  const { fontFamily, fontSize, fontWeightLight } = theme.typography;
+  const { fontFamily } = theme.typography;
   return ({
     root: {
-      fill: theme.palette.text.primary,
+      fill: theme.palette.text.secondary,
       fontFamily,
-      fontSize,
-      fontWeight: fontWeightLight,
+      fontSize: 12,
+      fontWeight: 400,
       backgroundColor: theme.palette.background.paper,
     },
   });

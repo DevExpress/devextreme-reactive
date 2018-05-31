@@ -146,13 +146,15 @@ describe('DxTableColumnVisibility', () => {
       });
 
       executeComputedAction(tree, (actions) => {
-        actions.toggleColumnVisibility();
+        actions.toggleColumnVisibility('a');
       });
 
       expect(tree.find(DxTableColumnVisibility).emitted()['update:hiddenColumnNames'][0][0])
         .toBe(nextHiddenColumnNames);
       expect(toggleColumn.mock.calls[0][0])
         .toEqual(defaultHiddenColumnNames);
+      expect(toggleColumn.mock.calls[0][1])
+        .toEqual('a');
     });
   });
 

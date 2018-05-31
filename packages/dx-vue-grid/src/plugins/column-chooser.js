@@ -65,7 +65,7 @@ export const DxColumnChooser = {
         dependencies={pluginDependencies}
       >
         <DxTemplate name="toolbarContent">
-            <div>
+            <div style={{ display: 'flex', flex: 1 }}>
               <DxTemplatePlaceholder />
               <DxTemplateConnector>
                 {({

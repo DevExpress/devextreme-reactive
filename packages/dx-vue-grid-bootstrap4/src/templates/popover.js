@@ -44,8 +44,8 @@ export const Popover = {
           'd-none': !this.visible,
         }}
       >
+        <div class="popover-inner">{this.$slots.default}</div>
         <div class="arrow" style="left: 50%; margin-left: -8px;" />
-        <div class="popover-body">{this.$slots.default}</div>
       </div>
     );
   },

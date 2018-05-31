@@ -10,10 +10,10 @@ const CurrencyEditor = {
     handleChange(event) {
       const { value: targetValue } = event.target;
       if (targetValue.trim() === '') {
-        this.$attrs.onValueChange();
+        this.$emit('valueChange', undefined);
         return;
       }
-      this.$attrs.onValueChange(parseInt(targetValue, 10));
+      this.$emit('valueChange', parseInt(targetValue, 10));
     },
   },
   template: `

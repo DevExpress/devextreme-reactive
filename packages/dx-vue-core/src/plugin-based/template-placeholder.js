@@ -1,15 +1,10 @@
 import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
-const SLOTS_SYMBOL = Symbol('slots');
-
 export const DxTemplatePlaceholder = {
   name: 'DxTemplatePlaceholder',
   props: {
     name: {
       type: String,
-    },
-    params: {
-      type: Object,
     },
   },
   provide() {
@@ -21,10 +16,6 @@ export const DxTemplatePlaceholder = {
     Object.defineProperty(templateHost, 'templates', {
       enumerable: true,
       get: () => this.computedTemplates.slice(1),
-    });
-    Object.defineProperty(templateHost, 'slots', {
-      enumerable: true,
-      get: () => this.$slots,
     });
     return { [TEMPLATE_HOST_CONTEXT]: templateHost };
   },
@@ -49,9 +40,15 @@ export const DxTemplatePlaceholder = {
   },
   computed: {
     computedParams() {
-      return this.params === undefined
+      const that = this;
+      return !Object.keys(this.$attrs).length && !Object.keys(this.$attrs).length
         ? this.templateHost.params
-        : { ...this.params, [SLOTS_SYMBOL]: this.$slots };
+        : {
+          get attrs() { return that.$attrs; },
+          get listeners() { return that.$listeners; },
+          get slots() { return that.$slots; },
+          get scopedSlots() { return that.$scopedSlots; },
+        };
     },
     computedTemplates() {
       return this.name
@@ -75,22 +72,5 @@ export const DxTemplatePlaceholder = {
   },
   destroyed() {
     this.pluginHost.unregisterSubscription(this.subscription);
-  },
-};
-
-export const DxTemplatePlaceholderSlot = {
-  name: 'DxTemplatePlaceholderSlot',
-  functional: true,
-  props: {
-    name: {
-      type: String,
-      default: 'default',
-    },
-    params: {
-      type: Object,
-    },
-  },
-  render(h, { props }) {
-    return props.params[SLOTS_SYMBOL][props.name];
   },
 };

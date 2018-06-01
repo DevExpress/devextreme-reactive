@@ -8,11 +8,8 @@ export class Line extends React.PureComponent {
       width, height, orientation, className, ...restProps
     } = this.props;
     return (
-      <line
-        x1={0}
-        x2={orientation === 'horizontal' ? width : 0}
-        y1={0}
-        y2={orientation === 'horizontal' ? 0 : height}
+      <path
+        d={`M 0 0 L ${orientation === 'horizontal' ? width : 0} ${orientation === 'horizontal' ? 0 : height}`}
         className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-axis-opacity', className)}
         {...restProps}
       />

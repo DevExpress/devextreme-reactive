@@ -173,6 +173,8 @@
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+      - title: Legend and Title
+        path: /react/chart/docs/guides/legend_title
 /vue/grid:
   - title: Guides
     items:

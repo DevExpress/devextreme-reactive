@@ -1,0 +1,47 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  AreaSeries,
+  Legend,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [
+        {argument: 1, value: 10},
+        {argument: 3, value: 30}],
+      width: 700,
+      height: 200,
+    };
+  }
+  render() {
+    const {
+      data: chartData, width, height,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+        >
+          <AreaSeries
+            name="Series name"
+            valueField="value"
+            argumentField="argument"
+          />
+
+          <Legend />
+          <Title text="Title"/>
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

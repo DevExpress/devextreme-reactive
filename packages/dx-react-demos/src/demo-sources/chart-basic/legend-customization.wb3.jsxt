@@ -1,0 +1,84 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+const nullComponent = () => null;
+
+const specialMarkerComponent = ({ name, themeColor }) => {
+  if (name === 'Noisy signal') {
+    return (
+      <svg width="20" height="20" viewBox="0 0 40 40" fill={themeColor} >
+        <circle cx="20" cy="20" r="20" />
+        <path strokeWidth="2" stroke="black" d="M 0 20 L 5 15 L 10 30 L 15 15 L 20 10 L25 30 L 30 20 L 35 25  L 40 20" />
+      </svg>);
+  }
+  return (
+    <svg width="20" height="20" viewBox="0 0 40 40" fill={themeColor} >
+      <circle cx="20" cy="20" r="20" />
+      <path strokeWidth="2" stroke="black" d="M 0 20 C 25 50 15 0 40 20" />
+    </svg>);
+};
+
+const generateData = (start, end, step) => {
+  const data = [];
+  for (let i = start; i < end; i += step) {
+    const originalValue = Math.sin(i) / i;
+    data.push({ value: originalValue + ((0.5 - Math.random()) / 10), originalValue, argument: i });
+  }
+
+  return data;
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: generateData(2.5, 12, 0.1),
+      width: 700,
+      height: 400,
+    };
+  }
+  render() {
+    const {
+      data: chartData, width, height,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+          width={width}
+          height={height}
+        >
+
+          <ArgumentAxis name="argument"/>
+          <ValueAxis />
+
+          <LineSeries
+            name="Noisy signal"
+            valueField="value"
+            argumentField="argument"
+            pointComponent={nullComponent}
+          />
+
+          <LineSeries
+            name="Original signal"
+            valueField="originalValue"
+            argumentField="argument"
+            pointComponent={nullComponent}
+          />
+
+          <Legend
+            markerComponent={specialMarkerComponent}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

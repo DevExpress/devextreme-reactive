@@ -43,19 +43,25 @@ class DemoFrameRenderer extends React.PureComponent {
     this.state = {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
+      head: { id: null, tag: null },
     };
   }
   componentDidMount() {
     this.updateFrameHeight();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.editableLink !== prevState.editableLink) {
+    if (this.state.head.id !== prevState.head.id) {
       if (this.node) this.node.ownerDocument.location.reload();
     }
   }
   updateFrameHeight() {
     setTimeout(this.updateFrameHeight.bind(this));
-
+    this.setState({
+      head: {
+        id: this.state.editableLink,
+        tag: <link rel="stylesheet" href={this.state.editableLink} />,
+      },
+    });
     if (!this.node) return;
     const height = this.node.ownerDocument.documentElement.offsetHeight;
     if (height !== this.state.frameHeight) {
@@ -88,9 +94,15 @@ class DemoFrameRenderer extends React.PureComponent {
                 />
                 <InputGroup.Button>
                   <Button
-                    onClick={() =>
-                      this.setState({ editableLink: this.customThemeLinkNode.value })
-                    }
+                    onClick={() => {
+                      this.setState({
+                        head: {
+                          id: this.customThemeLinkNode.value,
+                          tag: <link rel="stylesheet" href={this.customThemeLinkNode.value} />,
+                        },
+                      });
+                      this.setState({ editableLink: this.customThemeLinkNode.value });
+                    }}
                   >
                     Apply
                   </Button>
@@ -123,7 +135,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   marginBottom: '20px',
                 }}
                 initialContent={this.markup}
-                head={editableLink ? <link rel="stylesheet" href={editableLink} /> : null}
+                head={this.state.head.tag}
                 mountTarget="#mountPoint"
               >
                 <div ref={(node) => { this.node = node; }} />

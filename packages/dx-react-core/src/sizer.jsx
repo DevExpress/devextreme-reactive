@@ -4,6 +4,9 @@ import * as PropTypes from 'prop-types';
 const styles = {
   root: {
     position: 'relative',
+    flex: '1',
+    // width: '100%',
+    // height: '100%',
   },
   triggers: {
     position: 'absolute',
@@ -70,6 +73,7 @@ export class Sizer extends React.PureComponent {
   render() {
     const { size } = this.state;
     const { children } = this.props;
+
     return (
       <div
         ref={(node) => { this.root = node; }}

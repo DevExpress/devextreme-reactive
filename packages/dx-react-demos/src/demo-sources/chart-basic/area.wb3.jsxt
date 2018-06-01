@@ -28,15 +28,15 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
+          // width={width}
+          // height={height}
         >
 
-          <ArgumentAxis name="year" />
+          {/* <ArgumentAxis name="year" />
           <ValueAxis />
 
           <Grid name="year" />
-          <Grid />
+          <Grid /> */}
 
           <AreaSeries
             name="Russia"

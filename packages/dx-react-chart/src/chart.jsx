@@ -31,8 +31,8 @@ export class Chart extends React.PureComponent {
         <IntegratedScaleProcessing />
         <ThemeManager />
         <LayoutManager
-          width={width}
-          height={height}
+          // width={width}
+          // height={height}
           rootComponent={Root}
           {...restProps}
         />

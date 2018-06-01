@@ -7,6 +7,8 @@ import {
   Template,
   TemplatePlaceholder,
   createStateHelper,
+  Sizer,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { bBoxes } from '@devexpress/dx-chart-core';
 
@@ -14,7 +16,7 @@ export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { bBoxes: {} };
+    this.state = { bBoxes: {}, width: 400, height: 500 };
 
     const stateHelper = createStateHelper(this);
 
@@ -23,31 +25,69 @@ export class LayoutManager extends React.Component {
       'bBoxes',
       bBoxes,
     );
+    this.change = width => this.setState({ width });
+    this.changeWidth = stateHelper.applyFieldReducer.bind(
+      stateHelper,
+      'changeWidth',
+      (prev, next) => (prev === next ? prev : next),
+    );
+    this.changeHeight = stateHelper.applyFieldReducer.bind(
+      stateHelper,
+      'changeHeight',
+      (prev, next) => (prev === next ? prev : next),
+    );
   }
 
   render() {
     const {
-      width, height, rootComponent: Root, ...restProps
+      rootComponent: Root, ...restProps
     } = this.props;
 
     return (
       <Plugin>
         <Getter name="layouts" value={this.state.bBoxes} />
         <Action name="changeBBox" action={this.changeBBox} />
-        <Getter name="height" value={height} />
-        <Getter name="width" value={width} />
+        <Action name="changeWidth" action={this.change} />
+        <Action name="changeHeight" action={this.changeHeight} />
+
+        <Getter name="height" value={this.state.height} />
+        <Getter name="width" value={this.state.width} />
+
         <Template name="root">
-          <Root width={width} height={height} {...restProps}>
+          {/* <TemplateConnector>
+            {(getters, { changeHeight, changeWidth }) => (
+              <Sizer>
+                {({ width }) => (
+                  <Root
+                    width={width}
+                    height={this.state.height}
+                    cw={changeWidth}
+                    ch={changeHeight}
+                    // cw={this.changeWidth}
+                    // ch={this.changeHeight}
+                    {...restProps}
+                  >
+                    <TemplatePlaceholder name="canvas" />
+                  </Root>
+                )}
+              </Sizer>
+            )} */}
+          <Root
+            // width={this.state.width}
+            height={this.state.height}
+            {...restProps}
+          >
             <TemplatePlaceholder name="canvas" />
           </Root>
+          {/* </TemplateConnector> */}
         </Template>
-      </Plugin>
+      </Plugin >
     );
   }
 }
 
 LayoutManager.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  // width: PropTypes.number.isRequired,
+  // height: PropTypes.number.isRequired,
   rootComponent: PropTypes.func.isRequired,
 };

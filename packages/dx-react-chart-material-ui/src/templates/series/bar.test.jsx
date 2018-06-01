@@ -18,13 +18,14 @@ describe('Bar', () => {
       />
     ));
     const {
-      x, y, width, height,
+      x, y, width, height, value,
     } = tree.find('rect').props();
 
     expect(x).toBe(1);
     expect(y).toBe(2);
     expect(width).toBe(10);
     expect(height).toBe(20);
+    expect(value).toBeUndefined();
   });
 
   it('should pass the rest property to the root element', () => {

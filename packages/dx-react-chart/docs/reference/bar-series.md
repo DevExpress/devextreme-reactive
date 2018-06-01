@@ -1,6 +1,6 @@
 # BarSeries Plugin Reference
 
-The BarSeries plugin allows to visualize bar series.
+The BarSeries plugin visualizes the bar series.
 
 ## Importing
 
@@ -24,30 +24,30 @@ import { BarSeries } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 name | string | | A series name.
-valueField | string | | Data field provides values for series points.
-argumentField | string | | Data field provides arguments for series points.
-axisName? | string | | Axis to which the series is bonded.
-stack? | string | | Specifies which stack the series should belongs to.
-barWidth? | number | | Bar width in relative units.
-groupWidth? | number | | Bar group width in relative units.
-pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders the bars.
+valueField | string | | The name of a data field that provides series point values.
+argumentField | string | | The name of a data field that provides series point argument values.
+axisName? | string | | The associated axis.
+stack? | string | | The associated stack.
+barWidth? | number | | The bar width in relative units.
+groupWidth? | number | | The bar group width in relative units.
+pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
 
 ## Interfaces
 
 ### BarSeries.PointProps
 
-Describes properties passed to a component that renders the bar.
+Describes properties passed to a component that renders a bar.
 
 Field | Type | Description
 ------|------|------------
-x | number | The x coordinate for a bar.
-y | number | The y coordinate for a bar.
-width | number | The width of a bar.
-height | number | The height of a bar.
-value | number | The value of a bar.
+x | number | The bar's x coordinate.
+y | number | The bar's y coordinate.
+width | number | The bar width.
+height | number | The bar height.
+value | number | The bar's value.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-BarSeries.Point | [BarSeries.PointProps](#barseriespointprops) | A component that renders the bar.
+BarSeries.Point | [BarSeries.PointProps](#barseriespointprops) | A component that renders a bar.

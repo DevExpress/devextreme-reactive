@@ -24,18 +24,9 @@ import { Grid } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | | Axis name.
-rootComponent | ComponentType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the root.
 lineComponent | ComponentType&lt;[Grid.LineProps](#gridlineprops)&gt; | | A component that renders the line.
 
 ## Interfaces
-
-### Grid.RootProps
-
-Describes properties passed to a component that renders the root.
-
-Field | Type | Description
-------|------|------------
-children | ReactNode | A React node used to render grid.
 
 ### Grid.LineProps
 
@@ -52,5 +43,4 @@ y2 | number | The end of the line on the y.
 
 Name | Properties | Description
 -----|------------|------------
-Grid.Root | [Grid.RootProps](#gridrootprops) | A component that renders the root.
 Grid.Line | [Grid.LineProps](#gridlineprops) | A component that renders the line.

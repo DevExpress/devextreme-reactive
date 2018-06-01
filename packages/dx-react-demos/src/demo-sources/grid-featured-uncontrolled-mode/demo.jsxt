@@ -105,7 +105,7 @@ export default class Demo extends React.PureComponent {
           <TableColumnReordering defaultOrder={columns.map(column => column.name)} />
 
           <TableHeaderRow showSortingControls />
-          <TableFilterRow />
+          <TableFilterRow showFilterSelector />
           <PagingPanel
             pageSizes={pageSizes}
           />

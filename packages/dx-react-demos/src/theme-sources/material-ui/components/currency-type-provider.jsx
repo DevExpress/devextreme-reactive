@@ -5,11 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 
 const styles = {
-  inputRoot: {
-    width: '100%',
-  },
   numericInput: {
     textAlign: 'right',
+    width: '100%',
   },
 };
 
@@ -28,12 +26,13 @@ const EditorBase = ({ value, onValueChange, classes }) => {
     <Input
       type="number"
       classes={{
-        root: classes.inputRoot,
         input: classes.numericInput,
       }}
+      fullWidth
       value={getInputValue(value)}
       inputProps={{
         min: 0,
+        placeholder: 'Filter...',
       }}
       onChange={handleChange}
     />
@@ -54,10 +53,17 @@ const Editor = withStyles(styles)(EditorBase);
 
 const Formatter = ({ value }) => `$${value}`;
 
+const availableFilterOperations = [
+  'equal', 'notEqual',
+  'greaterThan', 'greaterThanOrEqual',
+  'lessThan', 'lessThanOrEqual',
+];
+
 export const CurrencyTypeProvider = props => (
   <DataTypeProvider
     formatterComponent={Formatter}
     editorComponent={Editor}
+    availableFilterOperations={availableFilterOperations}
     {...props}
   />
 );

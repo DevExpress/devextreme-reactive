@@ -17,7 +17,7 @@ const Editor = ({ value, onValueChange }) => {
     <input
       type="number"
       className="form-control text-right"
-      style={{ width: '100%' }}
+      placeholder="Filter..."
       value={getInputValue(value)}
       step={0.1}
       min={0}
@@ -36,9 +36,16 @@ Editor.defaultProps = {
   value: undefined,
 };
 
+const availableFilterOperations = [
+  'equal', 'notEqual',
+  'greaterThan', 'greaterThanOrEqual',
+  'lessThan', 'lessThanOrEqual',
+];
+
 export const PercentTypeProvider = props => (
   <DataTypeProvider
     editorComponent={Editor}
+    availableFilterOperations={availableFilterOperations}
     {...props}
   />
 );

@@ -58,6 +58,6 @@ export const themes = [{
   }, {
     name: 'custom',
     title: 'Bootstrap 3 (Custom)',
-    editableLink: 'https://bootswatch.com/4/sketchy/bootstrap.min.css',
+    editableLink: 'https://bootswatch.com/3/journal/bootstrap.min.css',
   }],
 }];

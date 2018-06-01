@@ -22,15 +22,16 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = `
+    this.markup = link => (`
       <!DOCTYPE html>
       <html>
       <head>
-        ${themeLinks}
         <style>
           body { margin: 8px; overflow: hidden; }
           .panel { margin: 0 !important; }
         </style>
+        ${themeLinks}
+        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
       </head>
       <body>
         <div id="mountPoint"></div>
@@ -39,7 +40,7 @@ class DemoFrameRenderer extends React.PureComponent {
         </div>
         <script src="${scriptPath}"></script>
       </body>
-      </html>`;
+      </html>`);
 
     this.state = {
       editableLink: themeVariantOptions.editableLink,
@@ -118,16 +119,13 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup}
+                initialContent={this.markup(editableLink)}
                 mountTarget="#mountPoint"
               >
-                {editableLink ? (
-                  <link rel="stylesheet" href={editableLink} />
-                ) : null}
                 <div ref={(node) => { this.node = node; }} />
               </Frame>
             </div>
-        )}
+          )}
       </div>
     );
   }

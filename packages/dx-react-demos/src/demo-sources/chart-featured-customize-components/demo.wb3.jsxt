@@ -14,21 +14,6 @@ const labelOffset = 10;
 const owner = 'facebook';
 const repository = 'react';
 
-const getLabelWithAvatarComponents = data => (props) => {
-  const { text, x, y } = props;
-  const contributor = data.find(({ login }) => login === text);
-  return (
-    <React.Fragment>
-      <image
-        href={contributor.avatar_url}
-        width={imageSize}
-        height={imageSize}
-        transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
-      />
-      <ArgumentAxis.Label {...props} y={y + imageSize} />
-    </React.Fragment>);
-};
-
 const getPath = (x, y, width, height) =>
   `M ${x} ${height + y}
    L ${width + x} ${height + y}
@@ -65,6 +50,7 @@ export default class Demo extends React.PureComponent {
       width: 700,
       height: 400,
     };
+    this.getLabelWithAvatarComponents = this.getLabelWithAvatarComponents.bind(this);
   }
   componentDidMount() {
     this.getData();
@@ -85,6 +71,20 @@ export default class Demo extends React.PureComponent {
         .catch(() => this.setState({ data: false }));
     }
   }
+  getLabelWithAvatarComponents(props) {
+    const { text, x, y } = props;
+    const contributor = this.state.data.find(({ login }) => login === text);
+    return (
+      <React.Fragment>
+        <image
+          href={contributor.avatar_url}
+          width={imageSize}
+          height={imageSize}
+          transform={`translate(${x - (imageSize / 2)} ${y - labelOffset})`}
+        />
+        <ArgumentAxis.Label {...props} y={y + imageSize} />
+      </React.Fragment>);
+  }
   render() {
     const {
       data: chartData, width, height,
@@ -98,7 +98,7 @@ export default class Demo extends React.PureComponent {
               <ArgumentAxis
                 name="login"
                 type="band"
-                labelComponent={getLabelWithAvatarComponents(chartData)}
+                labelComponent={this.getLabelWithAvatarComponents}
                 tickComponent={() => null}
               />
               <ValueAxis name="commits" lineComponent={() => null} />

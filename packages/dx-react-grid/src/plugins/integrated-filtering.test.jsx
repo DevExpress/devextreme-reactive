@@ -7,6 +7,7 @@ import {
   unwrappedFilteredRows,
   filteredCollapsedRowsGetter,
   getColumnExtension,
+  defaultFilterPredicate,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { IntegratedFiltering } from './integrated-filtering';
@@ -16,6 +17,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   filteredCollapsedRowsGetter: jest.fn(),
   unwrappedFilteredRows: jest.fn(),
   getColumnExtension: jest.fn(),
+  defaultFilterPredicate: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -86,5 +88,10 @@ describe('IntegratedFiltering', () => {
 
     expect(filteredCollapsedRowsGetter)
       .toBeCalledWith(filteredRows());
+  });
+
+  it('should provide the default filter predicate as a static field', () => {
+    expect(IntegratedFiltering.defaultPredicate)
+      .toEqual(defaultFilterPredicate);
   });
 });

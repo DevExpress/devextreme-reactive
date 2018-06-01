@@ -37,12 +37,15 @@ const getLabelWithAvatarComponents = data => (props) => {
     </React.Fragment>);
 };
 
+
 const getPath = (x, y, width, height) =>
-  `M${x} ${y + height}
-  L ${x + width} ${y + height}
-  Q ${x + width} ${y} ${x + (width / 2)} ${y}
-  Q ${x} ${y} ${x} ${y + height}
-  Z`;
+  `M ${x} ${height + y}
+   L ${width + x} ${height + y}
+   L ${width + x} ${y + 30}
+   L ${(width / 2) + x} ${y}
+   L ${x} ${y + 30}
+   Z`;
+
 
 const BarWithLabel = (props) => {
   const {
@@ -84,7 +87,6 @@ export default class Demo extends React.PureComponent {
       fetch(`https://api.github.com/repos/${owner}/${repository}/contributors`)
         .then(response => response.json())
         .then((data) => {
-          console.log(data);
           this.setState({
             data: data.slice(0, 8),
           });

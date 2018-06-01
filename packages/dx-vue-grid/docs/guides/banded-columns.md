@@ -11,12 +11,12 @@ The following plugins implement the Banded Columns feature:
 
 ## Basic Setup
 
-Import the plugins listed above and specify the DxTableBandHeader plugin's `columnBands` property to set up a Grid with banded columns. The depth of band nesting level is unlimited.
+Import the plugins listed above and specify the `DxTableBandHeader` plugin's `columnBands` property to set up a Grid with banded columns. The band nesting depth is unlimited.
 
 .embedded-demo({ "path": "grid-band-columns/basic", "showThemeSelector": true })
 
 ## Appearance Customization
 
-The DxTableBandHeader plugin allows you to customize the appearance of the header with bands. The following example demonstrates how to use the cellComponent and add icons to band cells:
+The `DxTableBandHeader` plugin allows you to customize the appearance of the header with bands. The following example demonstrates how to use the `cellComponent` and add icons to band cells:
 
 .embedded-demo({ "path": "grid-band-columns/customization", "showThemeSelector": true })

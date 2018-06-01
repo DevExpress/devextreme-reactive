@@ -1,8 +1,6 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
-  ArgumentAxis,
-  ValueAxis,
   AreaSeries,
   Legend,
   Title,
@@ -14,8 +12,9 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: [
-        {argument: 1, value: 10},
-        {argument: 3, value: 30}],
+        { argument: 1, value: 10 },
+        { argument: 3, value: 30 },
+      ],
       width: 700,
       height: 200,
     };
@@ -39,7 +38,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <Legend />
-          <Title text="Title"/>
+          <Title text="Title" />
         </Chart>
       </<%&wrapperTag%>>
     );

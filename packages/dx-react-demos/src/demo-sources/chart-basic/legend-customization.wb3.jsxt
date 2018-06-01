@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
           height={height}
         >
 
-          <ArgumentAxis name="argument"/>
+          <ArgumentAxis />
           <ValueAxis />
 
           <LineSeries

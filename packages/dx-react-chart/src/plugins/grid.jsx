@@ -13,8 +13,8 @@ export class Grid extends React.PureComponent {
     const {
       placeholder,
       name,
-      rootComponent: Root,
       lineComponent: Line,
+      ...restProps
     } = this.props;
     return (
       <Plugin name="Grid">
@@ -42,7 +42,7 @@ export class Grid extends React.PureComponent {
               );
 
               return ((
-                <Root>
+                <React.Fragment>
                   {coordinates.ticks.map(({
                       x1, x2, y1, y2, text,
                     }) => (
@@ -52,9 +52,10 @@ export class Grid extends React.PureComponent {
                         x2={x2}
                         y1={orientation === 'horizontal' ? height : y1}
                         y2={y2}
+                        {...restProps}
                       />
                     ))}
-                </Root>
+                </React.Fragment>
               ));
             }}
           </TemplateConnector>
@@ -67,7 +68,6 @@ export class Grid extends React.PureComponent {
 Grid.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
-  rootComponent: PropTypes.func.isRequired,
   lineComponent: PropTypes.func.isRequired,
 };
 

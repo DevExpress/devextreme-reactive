@@ -1,6 +1,6 @@
 # AreaSeries Plugin Reference
 
-The AreaSeries plugin visualizes area series.
+The AreaSeries plugin visualizes the area series.
 
 ## Importing
 

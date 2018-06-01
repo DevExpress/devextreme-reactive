@@ -14,14 +14,6 @@ const labelOffset = 10;
 const owner = 'facebook';
 const repository = 'react';
 
-const DashedLine = props => <Grid.Line {...props} strokeDasharray="10 5" />;
-const CentralText = props => (
-  <Title.Text
-    {...props}
-    style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
-  />
-);
-
 const getLabelWithAvatarComponents = data => (props) => {
   const { text, x, y } = props;
   const contributor = data.find(({ login }) => login === text);
@@ -37,7 +29,6 @@ const getLabelWithAvatarComponents = data => (props) => {
     </React.Fragment>);
 };
 
-
 const getPath = (x, y, width, height) =>
   `M ${x} ${height + y}
    L ${width + x} ${height + y}
@@ -45,7 +36,6 @@ const getPath = (x, y, width, height) =>
    L ${(width / 2) + x} ${y}
    L ${x} ${y + 30}
    Z`;
-
 
 const BarWithLabel = (props) => {
   const {
@@ -112,7 +102,7 @@ export default class Demo extends React.PureComponent {
                 tickComponent={() => null}
               />
               <ValueAxis name="commits" lineComponent={() => null} />
-              <Grid name="commits" lineComponent={DashedLine} />
+              <Grid name="commits" strokeDasharray="10 5" />
 
               <BarSeries
                 name="Contributions"
@@ -123,7 +113,7 @@ export default class Demo extends React.PureComponent {
               />
               <Title
                 text={`Contributions commits to master ${owner}/${repository} repository`}
-                textComponent={CentralText}
+                style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
               />
             </Chart>
           ) : (

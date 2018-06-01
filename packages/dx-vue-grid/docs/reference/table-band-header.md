@@ -31,13 +31,13 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | [DxTableBandHeader.DxCell](#dxtablebandheaderdxcell) | | A component that renders a band cell.
 rowComponent | [DxTable.DxRow](table.md#dxtabledxrow) | | A component that renders a band cells' row.
-columnBands | Array&lt;[DxTableBandHeader.ColumnBands](#dxtablebandheadercolumnbands)&gt; | | Specifies column bands for multi-level table header.
+columnBands | Array&lt;[DxTableBandHeader.ColumnBands](#dxtablebandheadercolumnbands)&gt; | | Column bands for multi-level table header.
 
 ## Interfaces
 
 ### DxTableBandHeader.ColumnBands
 
-Describes properties of column bands that the DxTableBandHeader plugin renders.
+Describes properties of column bands that the `DxTableBandHeader` plugin renders.
 
 Name | Type | Description
 -----|------------|------------

@@ -22,7 +22,7 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = link => (`
+    this.markup = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -31,7 +31,6 @@ class DemoFrameRenderer extends React.PureComponent {
           .panel { margin: 0 !important; }
         </style>
         ${themeLinks}
-        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
       </head>
       <body>
         <div id="mountPoint"></div>
@@ -40,8 +39,7 @@ class DemoFrameRenderer extends React.PureComponent {
         </div>
         <script src="${scriptPath}"></script>
       </body>
-      </html>`);
-
+      </html>`;
     this.state = {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
@@ -49,6 +47,11 @@ class DemoFrameRenderer extends React.PureComponent {
   }
   componentDidMount() {
     this.updateFrameHeight();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.editableLink !== prevState.editableLink) {
+      if (this.node) this.node.ownerDocument.location.reload();
+    }
   }
   updateFrameHeight() {
     setTimeout(this.updateFrameHeight.bind(this));
@@ -119,7 +122,8 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup(editableLink)}
+                initialContent={this.markup}
+                head={editableLink ? <link rel="stylesheet" href={editableLink} /> : null}
                 mountTarget="#mountPoint"
               >
                 <div ref={(node) => { this.node = node; }} />

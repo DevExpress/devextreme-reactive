@@ -1,6 +1,6 @@
 # PieSeries Plugin Reference
 
-The PieSeries plugin allows to visualize pie series.
+The PieSeries plugin visualizes pie series.
 
 ## Importing
 
@@ -24,8 +24,8 @@ import { PieSeries } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 name | string | | A series name.
-valueField | string | | Data field provides values for series points.
-argumentField | string | | Data field provides arguments for series points.
+valueField | string | | The name of a data field that provides series point values.
+argumentField | string | | The name of a data field that provides series point argument values.
 innerRadius? | number | 0 | Inner radius in relative units.
 outerRadius? | number | 1 | Outer radius in relative units.
 pointComponent | ComponentType&lt;[PieSeries.PointProps](#pieseriespointprops)&gt; | | A component that renders a slice.
@@ -38,10 +38,10 @@ Describes properties passed to a component that renders the slice.
 
 Field | Type | Description
 ------|------|------------
-x | number | The x coordinate for a slice.
-y | number | The y coordinate for a slice.
-d | string | The path of a slice.
-value | number | The value of a slice.
+x | number | The slice's x coordinate.
+y | number | The slice's y coordinate.
+d | string | The slice's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
+value | number | The slice's value.
 
 ## Plugin Components
 

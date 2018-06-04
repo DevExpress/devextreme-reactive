@@ -47,13 +47,13 @@ export class LayoutManager extends React.Component {
             <TemplatePlaceholder name="canvas" />
           </Root>
         </Template>
-      </Plugin >
+      </Plugin>
     );
   }
 }
 
 LayoutManager.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
-  height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  rootComponent: PropTypes.func.isRequired,
 };

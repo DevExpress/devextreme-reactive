@@ -19,8 +19,8 @@ export class PaneLayout extends React.PureComponent {
                 {({ width, height }) => (
                   <Pane
                     changeBBox={changeBBox}
-                    width={width}
                     height={height}
+                    width={width}
                   />
                 )}
               </Sizer>

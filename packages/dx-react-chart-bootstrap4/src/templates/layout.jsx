@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export class Root extends React.PureComponent {
   render() {
     const {
-      children, height, width, style, className, ...restProps
+      children, width, height, style, className, ...restProps
     } = this.props;
 
     return (
@@ -26,14 +26,13 @@ export class Root extends React.PureComponent {
 
 Root.propTypes = {
   children: PropTypes.node,
+  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  width: PropTypes.number,
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
 Root.defaultProps = {
-  width: undefined,
   children: undefined,
   style: undefined,
   className: undefined,

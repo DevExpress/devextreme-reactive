@@ -17,8 +17,8 @@ export class Chart extends React.PureComponent {
   render() {
     const {
       data,
-      height,
       width,
+      height,
       children,
       rootComponent: Root,
       ...restProps
@@ -57,8 +57,8 @@ export class Chart extends React.PureComponent {
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  height: PropTypes.number,
   width: PropTypes.number,
+  height: PropTypes.number,
   children: PropTypes.node,
 };
 

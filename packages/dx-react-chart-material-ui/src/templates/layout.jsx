@@ -20,7 +20,7 @@ const styles = (theme) => {
 export class RootBase extends React.PureComponent {
   render() {
     const {
-      height, width, children, style, classes, className, ...restProps
+      children, width, height, style, classes, className, ...restProps
     } = this.props;
 
     return (
@@ -41,15 +41,14 @@ export class RootBase extends React.PureComponent {
 
 RootBase.propTypes = {
   children: PropTypes.node,
+  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  width: PropTypes.number,
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
-RootBase.defaultProps = {
-  width: undefined,
+RootBase.defaultProps = {,
   className: undefined,
   children: undefined,
   style: null,

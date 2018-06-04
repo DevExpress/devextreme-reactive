@@ -40,6 +40,7 @@ export class FilterSelector extends React.PureComponent {
           visible={opened}
           target={this.targetElement}
           onHide={this.handleOverlayHide}
+          container={undefined}
         >
           <ListGroup
             style={{ marginBottom: 0 }}

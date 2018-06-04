@@ -10,8 +10,6 @@ export class Pane extends React.PureComponent {
   }
   render() {
     const { width, height } = this.props;
-    // const { widthLayout, heightLayout } = layouts.pane || {};
-    // const { width, height } = this.calculateLayout(widthLayout, heightLayout);
 
     return (
       <div style={{ width: '100%' }}>
@@ -31,6 +29,7 @@ export class Pane extends React.PureComponent {
 
 Pane.propTypes = {
   changeBBox: PropTypes.func.isRequired,
-  // layouts: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
 };
 

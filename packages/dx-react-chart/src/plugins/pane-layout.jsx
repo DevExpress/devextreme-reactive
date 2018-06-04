@@ -7,20 +7,22 @@ import {
 } from '@devexpress/dx-react-core';
 import { Pane } from './pane';
 
+/* eslint-disable-next-line react/prefer-stateless-function */
 export class PaneLayout extends React.PureComponent {
   render() {
     return (
       <Plugin name="PaneLayout">
         <Template name="canvas">
           <TemplateConnector>
-            {({ }, { changeBBox }) => (
+            {(_, { changeBBox }) => (
               <Sizer>
-                {({ width, height }) => {
-                  return (
-                    <Pane changeBBox={changeBBox} width={width} height={height} />
-                  );
-                }
-                }
+                {({ width, height }) => (
+                  <Pane
+                    changeBBox={changeBBox}
+                    width={width}
+                    height={height}
+                  />
+                )}
               </Sizer>
             )}
           </TemplateConnector>

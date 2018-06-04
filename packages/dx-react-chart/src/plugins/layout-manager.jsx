@@ -7,8 +7,6 @@ import {
   Template,
   TemplatePlaceholder,
   createStateHelper,
-  Sizer,
-  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { bBoxes } from '@devexpress/dx-chart-core';
 
@@ -54,32 +52,12 @@ export class LayoutManager extends React.Component {
         <Getter name="width" value={this.state.width} />
 
         <Template name="root">
-          {/* <TemplateConnector>
-            {(getters, { changeHeight, changeWidth }) => (
-              <Sizer>
-                {({ width }) => (
-                  <Root
-                    width={width}
-                    height={this.state.height}
-                    cw={changeWidth}
-                    ch={changeHeight}
-                    // cw={this.changeWidth}
-                    // ch={this.changeHeight}
-                    {...restProps}
-                  >
-                    <TemplatePlaceholder name="canvas" />
-                  </Root>
-                )}
-              </Sizer>
-            )} */}
           <Root
-            // width={this.state.width}
             height={this.state.height}
             {...restProps}
           >
             <TemplatePlaceholder name="canvas" />
           </Root>
-          {/* </TemplateConnector> */}
         </Template>
       </Plugin >
     );
@@ -87,7 +65,5 @@ export class LayoutManager extends React.Component {
 }
 
 LayoutManager.propTypes = {
-  // width: PropTypes.number.isRequired,
-  // height: PropTypes.number.isRequired,
   rootComponent: PropTypes.func.isRequired,
 };

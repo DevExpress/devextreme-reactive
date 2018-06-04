@@ -1,6 +1,6 @@
 # Legend Plugin Reference
 
-The Legend plugin allows to visualize legend.
+The Legend plugin visualizes the legend.
 
 ## Importing
 
@@ -23,11 +23,11 @@ import { Legend } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-markerComponent | ComponentType&lt;object&gt; | | A component that renders the marker.
-labelComponent | ComponentType&lt;[Legend.LabelProps](#legendlabelprops)&gt; | | A component that renders the label.
-rootComponent | ComponentType&lt;[Legend.RootProps](#legendrootprops)&gt; | | A component that renders the root.
-itemComponent | ComponentType&lt;[Legend.ItemProps](#legenditemprops)&gt; | | A component that renders the item.
-position? | 'left' &#124; 'right' &#124; 'top' &#124; 'bottom' | 'right' | Legend position.
+markerComponent | ComponentType&lt;object&gt; | | A component that renders a marker.
+labelComponent | ComponentType&lt;[Legend.LabelProps](#legendlabelprops)&gt; | | A component that renders the legend label.
+rootComponent | ComponentType&lt;[Legend.RootProps](#legendrootprops)&gt; | | A component that renders the legend's root layout.
+itemComponent | ComponentType&lt;[Legend.ItemProps](#legenditemprops)&gt; | | A component that renders a legend item.
+position? | 'left' &#124; 'right' &#124; 'top' &#124; 'bottom' | 'right' | The legend position.
 
 ## Interfaces
 
@@ -41,25 +41,25 @@ text | string &#124; number | Item text.
 
 ### Legend.RootProps
 
-Describes properties passed to a component that renders the root.
+Describes properties passed to a component that renders the legend's root layout.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render legend root.
+children | ReactNode | A React node used to render the legend's root layout.
 
 ### Legend.ItemProps
 
-Describes properties passed to a component that renders the item.
+Describes properties passed to a component that renders a legend item.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render item.
+children | ReactNode | A React node used to render an item.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-Legend.Root | [Legend.RootProps](#legendrootprops) | A component that renders the root.
-Legend.Item | [Legend.ItemProps](#legenditemprops) | A component that renders the item.
-Legend.Marker | object | A component that renders the marker.
+Legend.Root | [Legend.RootProps](#legendrootprops) | A component that renders the root layout.
+Legend.Item | [Legend.ItemProps](#legenditemprops) | A component that renders an item.
+Legend.Marker | object | A component that renders a marker.
 Legend.Label | [Legend.LabelProps](#legendlabelprops) | A component that renders the label.

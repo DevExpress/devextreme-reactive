@@ -151,10 +151,23 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-banded-header-cell:last-child {
   border-right: 0!important;
 }
-.dx-rg-bs4-banded-cell:first-child {
+.dx-g-bs4-banded-cell:first-child {
   border-left: 0!important;
 }
-.dx-rg-bs4-banded-cell:last-child {
+.dx-g-bs4-banded-cell:last-child {
   border-right: 0!important;
 }
-
+.dx-g-bs4-filter-selector-item {
+  font-size: initial;
+}
+.dx-g-bs4-filter-selector-item:focus {
+  outline: none;
+}
+.dx-g-bs4-filter-selector-item-text {
+  margin-left: 10px;
+}
+.dx-g-bs4-filter-selector-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}

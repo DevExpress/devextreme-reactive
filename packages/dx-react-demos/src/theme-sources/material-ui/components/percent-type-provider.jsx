@@ -5,11 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 
 const styles = {
-  inputRoot: {
-    width: '100%',
-  },
   numericInput: {
     textAlign: 'right',
+    width: '100%',
   },
 };
 
@@ -28,14 +26,15 @@ const EditorBase = ({ value, onValueChange, classes }) => {
     <Input
       type="number"
       classes={{
-        root: classes.inputRoot,
         input: classes.numericInput,
       }}
+      fullWidth
       value={getInputValue(value)}
       inputProps={{
         step: 0.1,
         min: 0,
         max: 100,
+        placeholder: 'Filter...',
       }}
       onChange={handleChange}
     />
@@ -54,9 +53,16 @@ EditorBase.defaultProps = {
 
 const Editor = withStyles(styles)(EditorBase);
 
+const availableFilterOperations = [
+  'equal', 'notEqual',
+  'greaterThan', 'greaterThanOrEqual',
+  'lessThan', 'lessThanOrEqual',
+];
+
 export const PercentTypeProvider = props => (
   <DataTypeProvider
     editorComponent={Editor}
+    availableFilterOperations={availableFilterOperations}
     {...props}
   />
 );

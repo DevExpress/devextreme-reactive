@@ -10,7 +10,7 @@ export class Line extends React.PureComponent {
     return (
       <path
         d={`M ${x1} ${y1} L ${x2} ${y2}`}
-        className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-axis-opacity', className)}
+        className={classNames('dx-c-bs4-stroke-current-color dx-c-bs4-crisp-edges dx-c-bs4-axis-opacity', className)}
         {...restProps}
       />
     );

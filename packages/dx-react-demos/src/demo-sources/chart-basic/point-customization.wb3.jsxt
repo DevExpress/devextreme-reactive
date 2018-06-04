@@ -1,9 +1,6 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  ArgumentAxis,
-  ValueAxis,
   Chart,
-  Grid,
   LineSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
@@ -13,7 +10,39 @@ import {
   symbolDiamond,
   symbolStar,
 } from 'd3-shape';
-import { born as data } from '../../../demo-data/data-vizualization';
+
+const data = [
+  {
+    argument: 0, constantValue: 20, linearValue: 40, powValue: 0,
+  },
+  {
+    argument: 1, constantValue: 20, linearValue: 35, powValue: 1,
+  },
+  {
+    argument: 2, constantValue: 20, linearValue: 30, powValue: 4,
+  },
+  {
+    argument: 3, constantValue: 20, linearValue: 25, powValue: 9,
+  },
+  {
+    argument: 4, constantValue: 20, linearValue: 20, powValue: 16,
+  },
+  {
+    argument: 5, constantValue: 20, linearValue: 15, powValue: 25,
+  },
+  {
+    argument: 6, constantValue: 20, linearValue: 10, powValue: 36,
+  },
+  {
+    argument: 7, constantValue: 20, linearValue: 5, powValue: 49,
+  },
+  {
+    argument: 8, constantValue: 20, linearValue: 0, powValue: 64,
+  },
+  {
+    argument: 9, constantValue: 20, linearValue: -5, powValue: 81,
+  },
+];
 
 const Point = (type, styles) => (props) => {
   const {
@@ -66,32 +95,22 @@ export default class Demo extends React.PureComponent {
           width={width}
           height={height}
         >
-
-          <ArgumentAxis name="year" />
-          <ValueAxis name="born" />
-
-          <Grid name="year" />
-          <Grid name="born" />
-
           <LineSeries
-            name="Russia"
-            valueField="ru"
-            argumentField="year"
-            axisName="born"
+            name="Constant"
+            valueField="constantValue"
+            argumentField="argument"
             pointComponent={DiamondPoint}
           />
           <LineSeries
-            name="China"
-            valueField="ch"
-            argumentField="year"
-            axisName="born"
+            name="Linear"
+            valueField="linearValue"
+            argumentField="argument"
             pointComponent={CrossPoint}
           />
           <LineSeries
-            name="USA"
-            valueField="us"
-            argumentField="year"
-            axisName="born"
+            name="Pow"
+            valueField="powValue"
+            argumentField="argument"
             pointComponent={StarPoint}
           />
         </Chart>

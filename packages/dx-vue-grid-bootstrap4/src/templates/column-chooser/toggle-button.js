@@ -1,10 +1,6 @@
 export const ToggleButton = {
   name: 'ToggleButton',
   props: {
-    getMessage: {
-      type: Function,
-      required: true,
-    },
     buttonRef: {
       type: Function,
       required: true,

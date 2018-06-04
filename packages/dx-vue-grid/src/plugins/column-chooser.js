@@ -4,7 +4,7 @@ import {
   DxPlugin,
   DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
-import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
+import { columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'DxTableColumnVisibility' },
@@ -29,9 +29,6 @@ export const DxColumnChooser = {
       type: Object,
       required: true,
     },
-    messages: {
-      type: Object,
-    },
   },
   data() {
     return {
@@ -55,10 +52,9 @@ export const DxColumnChooser = {
       containerComponent: Container,
       itemComponent: Item,
       toggleButtonComponent: ToggleButton,
-      messages,
       visible,
     } = this;
-    const getMessage = getMessagesFormatter(messages);
+
     return (
       <DxPlugin
         name="DxColumnChooser"
@@ -82,7 +78,6 @@ export const DxColumnChooser = {
                       <ToggleButton
                         buttonRef={this.buttonRef}
                         onToggle={this.handleToggle}
-                        getMessage={getMessage}
                         active={visible}
                       />
                       <Overlay

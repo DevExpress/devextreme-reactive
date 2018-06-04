@@ -1,20 +1,42 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  ArgumentAxis,
-  ValueAxis,
   Chart,
   ScatterSeries,
-  Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { born as data } from '../../../demo-data/data-vizualization';
+const getRandom = () => {
+  const randomValue = Math.random();
+  if (randomValue === 0) {
+    return getRandom();
+  }
+  return randomValue;
+};
+
+function normalDistribution() {
+  const u = getRandom();
+  const v = getRandom();
+  return Math.sqrt(-4.0 * Math.log(u)) * Math.cos(1.0 * Math.PI * v);
+}
+
+const dataGenerator = (pointCount) => {
+  const data = [];
+  for (let i = 0; i < pointCount; i += 1) {
+    data.push({
+      argument0x0y: normalDistribution(),
+      value0x0y: normalDistribution(),
+      argument3x3y: normalDistribution() + 3,
+      value3x3y: normalDistribution() + 3,
+    });
+  }
+  return data;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data,
+      data: dataGenerator(100),
       width: 700,
       height: 400,
     };
@@ -30,24 +52,15 @@ export default class Demo extends React.PureComponent {
           width={width}
           height={height}
         >
-
-          <ArgumentAxis name="year" />
-          <ValueAxis name="born" />
-
-          <Grid name="year" />
-          <Grid name="born" />
-
           <ScatterSeries
-            valueField="ru"
-            argumentField="year"
-            axisName="born"
-            name="Russia"
+            name="x=0 y=0"
+            valueField="value0x0y"
+            argumentField="argument0x0y"
           />
           <ScatterSeries
-            name="China"
-            valueField="ch"
-            argumentField="year"
-            axisName="born"
+            name="x=3 y=3"
+            valueField="value3x3y"
+            argumentField="argument3x3y"
           />
         </Chart>
       </<%&wrapperTag%>>

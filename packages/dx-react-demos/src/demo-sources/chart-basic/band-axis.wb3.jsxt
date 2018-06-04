@@ -1,6 +1,9 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
+  ArgumentAxis,
+  ValueAxis,
+  Grid,
   BarSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
@@ -27,26 +30,29 @@ export default class Demo extends React.PureComponent {
           width={width}
           height={height}
         >
+
+          <ArgumentAxis name="state" type="band" />
+          <ValueAxis name="age" />
+
+          <Grid name="age" />
+
           <BarSeries
             name="Young"
             valueField="young"
             argumentField="state"
             axisName="age"
-            stack="a"
           />
           <BarSeries
-            name="Middle"
             valueField="middle"
             argumentField="state"
             axisName="age"
-            stack="a"
+            name="Middle"
           />
           <BarSeries
-            name="Older"
             valueField="older"
             argumentField="state"
             axisName="age"
-            stack="a"
+            name="Older"
           />
         </Chart>
       </<%&wrapperTag%>>

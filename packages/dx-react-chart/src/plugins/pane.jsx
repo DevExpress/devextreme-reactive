@@ -4,7 +4,7 @@ import { TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export class Pane extends React.PureComponent {
   componentWillReceiveProps({ width, height, changeBBox }) {
-    if (this.props.width !== width || this.props.height !== width) {
+    if (this.props.width !== width || this.props.height !== height) {
       changeBBox({ placeholder: 'pane', bBox: { width, height } });
     }
   }

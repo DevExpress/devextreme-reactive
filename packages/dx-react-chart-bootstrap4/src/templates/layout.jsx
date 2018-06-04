@@ -5,15 +5,15 @@ import classNames from 'classnames';
 export class Root extends React.PureComponent {
   render() {
     const {
-      children, width, height, style, className, ...restProps
+      children, height, width, style, className, ...restProps
     } = this.props;
 
     return (
       <div
         style={{
           ...style,
-          width: `${width}px`,
           height: `${height}px`,
+          ...width ? { width: `${width}px` } : null,
         }}
         className={classNames('dx-c-bs4-container', className)}
         {...restProps}
@@ -26,13 +26,14 @@ export class Root extends React.PureComponent {
 
 Root.propTypes = {
   children: PropTypes.node,
-  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  width: PropTypes.number,
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
 Root.defaultProps = {
+  width: undefined,
   children: undefined,
   style: undefined,
   className: undefined,

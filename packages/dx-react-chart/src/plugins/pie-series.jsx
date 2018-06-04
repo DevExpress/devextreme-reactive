@@ -36,11 +36,11 @@ export class PieSeries extends React.PureComponent {
             {({
                 data,
                 layouts,
-                width, height,
+                // width, height,
               }) => {
                 const {
                   width: widthPane, height: heightPane,
-                } = layouts[placeholder] || { width, height };
+                } = layouts[placeholder] || { width: 0, height: 0 };
 
               const arcs = pieAttributes(
                 valueField,

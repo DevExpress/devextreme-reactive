@@ -17,8 +17,8 @@ export class Chart extends React.PureComponent {
   render() {
     const {
       data,
-      width,
       height,
+      width,
       children,
       rootComponent: Root,
       ...restProps
@@ -31,8 +31,8 @@ export class Chart extends React.PureComponent {
         <IntegratedScaleProcessing />
         <ThemeManager />
         <LayoutManager
-          // width={width}
-          // height={height}
+          height={height}
+          width={width}
           rootComponent={Root}
           {...restProps}
         />
@@ -57,14 +57,14 @@ export class Chart extends React.PureComponent {
 Chart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  width: PropTypes.number,
   height: PropTypes.number,
+  width: PropTypes.number,
   children: PropTypes.node,
 };
 
 Chart.defaultProps = {
-  width: 150,
-  height: 150,
+  height: 500,
+  width: 0,
   children: null,
 };
 

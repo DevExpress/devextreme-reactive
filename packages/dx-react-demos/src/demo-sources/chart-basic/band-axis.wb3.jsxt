@@ -27,7 +27,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
           height={height}
         >
 

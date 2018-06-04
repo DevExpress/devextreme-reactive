@@ -24,14 +24,14 @@ export class Grid extends React.PureComponent {
             {({
               domains,
               layouts,
-                width: containerWidth,
-                height: containerHeight,
+              // width: containerWidth,
+              // height: containerHeight,
             }) => {
               const domain = domains[name];
               const { orientation } = domain;
               const {
                 width, height,
-              } = layouts[placeholder] || { width: containerWidth, height: containerHeight };
+              } = layouts[placeholder] || { width: 0 /*containerWidth*/, height: 0 /*containerHeight*/ };
 
               const coordinates = axisCoordinates(
                 domain,

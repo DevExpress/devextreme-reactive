@@ -35,8 +35,7 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
+          height={250}
         >
 
           <ArgumentAxis

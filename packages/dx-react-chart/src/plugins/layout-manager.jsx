@@ -14,7 +14,7 @@ export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { bBoxes: {}, width: 400, height: 500 };
+    this.state = { bBoxes: { pane: { width: this.props.width, height: this.props.height }} };
 
     const stateHelper = createStateHelper(this);
 
@@ -22,17 +22,6 @@ export class LayoutManager extends React.Component {
       stateHelper,
       'bBoxes',
       bBoxes,
-    );
-    this.change = width => this.setState({ width });
-    this.changeWidth = stateHelper.applyFieldReducer.bind(
-      stateHelper,
-      'changeWidth',
-      (prev, next) => (prev === next ? prev : next),
-    );
-    this.changeHeight = stateHelper.applyFieldReducer.bind(
-      stateHelper,
-      'changeHeight',
-      (prev, next) => (prev === next ? prev : next),
     );
   }
 
@@ -45,15 +34,14 @@ export class LayoutManager extends React.Component {
       <Plugin>
         <Getter name="layouts" value={this.state.bBoxes} />
         <Action name="changeBBox" action={this.changeBBox} />
-        <Action name="changeWidth" action={this.change} />
-        <Action name="changeHeight" action={this.changeHeight} />
 
-        <Getter name="height" value={this.state.height} />
-        <Getter name="width" value={this.state.width} />
+        {/* <Getter name="height" value={this.state.height} /> */}
+        {/* <Getter name="width" value={this.state.width} /> */}
 
         <Template name="root">
           <Root
-            height={this.state.height}
+            height={this.props.height}
+            width={this.props.width}
             {...restProps}
           >
             <TemplatePlaceholder name="canvas" />
@@ -66,4 +54,6 @@ export class LayoutManager extends React.Component {
 
 LayoutManager.propTypes = {
   rootComponent: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };

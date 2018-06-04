@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export class Slice extends React.PureComponent {
   render() {
     const {
-      x, y, d, ...restProps
+      x, y, d, value, ...restProps
     } = this.props;
     return (
       <path
@@ -20,6 +20,7 @@ Slice.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   d: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
   style: PropTypes.object,
 };
 

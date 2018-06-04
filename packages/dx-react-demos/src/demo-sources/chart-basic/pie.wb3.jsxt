@@ -12,8 +12,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 6),
-      width: 700,
-      height: 400,
     };
   }
   render() {
@@ -24,10 +22,7 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
-
           <PieSeries
             name="PieSeries"
             valueField="contributions"

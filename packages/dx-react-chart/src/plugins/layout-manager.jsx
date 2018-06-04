@@ -35,9 +35,6 @@ export class LayoutManager extends React.Component {
         <Getter name="layouts" value={this.state.bBoxes} />
         <Action name="changeBBox" action={this.changeBBox} />
 
-        {/* <Getter name="height" value={this.state.height} /> */}
-        {/* <Getter name="width" value={this.state.width} /> */}
-
         <Template name="root">
           <Root
             height={this.props.height}
@@ -53,7 +50,11 @@ export class LayoutManager extends React.Component {
 }
 
 LayoutManager.propTypes = {
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
   height: PropTypes.number.isRequired,
   rootComponent: PropTypes.func.isRequired,
+};
+
+LayoutManager.defaultProps = {
+  width: 0,
 };

@@ -29,8 +29,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      width: 700,
-      height: 400,
     };
   }
   render() {
@@ -42,8 +40,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <ArgumentAxis name="argumentAxis" />
           <ValueAxis />

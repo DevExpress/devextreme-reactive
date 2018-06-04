@@ -37,8 +37,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: dataGenerator(100),
-      width: 700,
-      height: 400,
     };
   }
   render() {
@@ -49,8 +47,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <ScatterSeries
             name="x=0 y=0"

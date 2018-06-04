@@ -22,8 +22,6 @@ export default class Demo extends React.PureComponent {
         { month: 'May', sale: 95, total: 4300 },
         { month: 'June', sale: 150, total: 7500 },
       ],
-      width: 700,
-      height: 400,
     };
   }
   render() {
@@ -35,9 +33,7 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          height={250}
         >
-
           <ArgumentAxis
             name="month"
             type="band"

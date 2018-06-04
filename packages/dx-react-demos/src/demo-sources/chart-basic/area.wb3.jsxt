@@ -12,7 +12,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      height: 300,
     };
   }
   render() {
@@ -24,7 +23,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          height={height}
         >
           <AreaSeries
             name="Russia"

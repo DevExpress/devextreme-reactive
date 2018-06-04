@@ -31,8 +31,8 @@ export class Chart extends React.PureComponent {
         <IntegratedScaleProcessing />
         <ThemeManager />
         <LayoutManager
-          height={height}
           width={width}
+          height={height}
           rootComponent={Root}
           {...restProps}
         />
@@ -64,7 +64,7 @@ Chart.propTypes = {
 
 Chart.defaultProps = {
   height: 500,
-  width: 0,
+  width: undefined,
   children: null,
 };
 

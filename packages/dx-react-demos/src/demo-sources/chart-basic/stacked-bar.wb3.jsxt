@@ -12,8 +12,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: ageStructure,
-      width: 700,
-      height: 400,
     };
   }
   render() {
@@ -24,8 +22,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <BarSeries
             name="Young"

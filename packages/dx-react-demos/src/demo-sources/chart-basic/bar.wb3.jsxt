@@ -15,8 +15,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 7),
-      width: 350,
-      height: 400,
     };
   }
   render() {
@@ -28,8 +26,6 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <ArgumentAxis name="login" type="band" />
           <ValueAxis name="commits" />

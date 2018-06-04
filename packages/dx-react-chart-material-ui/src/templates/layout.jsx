@@ -48,7 +48,7 @@ RootBase.propTypes = {
   className: PropTypes.string,
 };
 
-RootBase.defaultProps = {,
+RootBase.defaultProps = {
   className: undefined,
   children: undefined,
   style: null,

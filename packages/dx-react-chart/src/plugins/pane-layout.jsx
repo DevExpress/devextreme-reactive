@@ -15,7 +15,9 @@ export class PaneLayout extends React.PureComponent {
         <Template name="canvas">
           <TemplateConnector>
             {(_, { changeBBox }) => (
-              <Sizer>
+              <Sizer
+                style={{ flex: 1 }}
+              >
                 {({ width, height }) => (
                   <Pane
                     changeBBox={changeBBox}

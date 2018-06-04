@@ -1,6 +1,6 @@
 # Grid Plugin Reference
 
-The Grid plugin allows to visualize a grid for axis.
+The Grid plugin visualizes a grid for the specified axis.
 
 ## Importing
 
@@ -23,24 +23,24 @@ import { Grid } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | | Axis name.
-lineComponent | ComponentType&lt;[Grid.LineProps](#gridlineprops)&gt; | | A component that renders the line.
+name? | string | | An axis name.
+lineComponent | ComponentType&lt;[Grid.LineProps](#gridlineprops)&gt; | | A component that renders a grid line.
 
 ## Interfaces
 
 ### Grid.LineProps
 
-Describes properties passed to a component that renders the line.
+Describes properties passed to a component that renders a grid line.
 
 Field | Type | Description
 ------|------|------------
-x1 | number | The start of the line on the x.
-x2 | number | The end of the line on the x.
-y1 | number | The start of the line on the y.
-y2 | number | The end of the line on the y.
+x1 | number | The line start's x coordinate.
+x2 | number | The line end's x coordinate.
+y1 | number | The line start's y coordinate.
+y2 | number | The line end's y coordinate.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-Grid.Line | [Grid.LineProps](#gridlineprops) | A component that renders the line.
+Grid.Line | [Grid.LineProps](#gridlineprops) | A component that renders a grid line.

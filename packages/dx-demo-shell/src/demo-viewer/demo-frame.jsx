@@ -22,7 +22,7 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = `
+    this.markup = link => `
       <!DOCTYPE html>
       <html>
       <head>
@@ -31,6 +31,7 @@ class DemoFrameRenderer extends React.PureComponent {
           .panel { margin: 0 !important; }
         </style>
         ${themeLinks}
+        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
       </head>
       <body>
         <div id="mountPoint"></div>
@@ -43,25 +44,18 @@ class DemoFrameRenderer extends React.PureComponent {
     this.state = {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
-      head: { id: null, tag: null },
     };
   }
   componentDidMount() {
     this.updateFrameHeight();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.head.id !== prevState.head.id) {
+    if (this.state.editableLink !== prevState.editableLink) {
       if (this.node) this.node.ownerDocument.location.reload();
     }
   }
   updateFrameHeight() {
     setTimeout(this.updateFrameHeight.bind(this));
-    this.setState({
-      head: {
-        id: this.state.editableLink,
-        tag: <link rel="stylesheet" href={this.state.editableLink} />,
-      },
-    });
     if (!this.node) return;
     const height = this.node.ownerDocument.documentElement.offsetHeight;
     if (height !== this.state.frameHeight) {
@@ -95,12 +89,6 @@ class DemoFrameRenderer extends React.PureComponent {
                 <InputGroup.Button>
                   <Button
                     onClick={() => {
-                      this.setState({
-                        head: {
-                          id: this.customThemeLinkNode.value,
-                          tag: <link rel="stylesheet" href={this.customThemeLinkNode.value} />,
-                        },
-                      });
                       this.setState({ editableLink: this.customThemeLinkNode.value });
                     }}
                   >
@@ -134,8 +122,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup}
-                head={this.state.head.tag}
+                initialContent={this.markup(editableLink)}
                 mountTarget="#mountPoint"
               >
                 <div ref={(node) => { this.node = node; }} />

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Grid - Grouping - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1528101693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1528101693">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/img/data-grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="vue-grid---grouping">Vue Grid - Grouping</h1>
+
+<p>The Grid component supports grouping data by one or several column values. Use the corresponding plugins or UI (Group Panel and column headers) to manage the grouping state and group data programmatically.</p>
+
+<h2 id="related-plugins">Related Plugins</h2>
+
+<p>The following plugins implement grouping features:</p>
+
+<ul>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a> - controls the grouping state</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a> - performs built-in data grouping</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a> - converts custom formatted grouped data to a supported format</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-group-row/">DxTableGroupRow</a> - renders group rows</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a> - renders the header row</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/toolbar/">DxToolbar</a> - renders the Grid Toolbar</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a> - renders the Group Panel</li>
+</ul>
+
+<p>Note that <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
+
+<h2 id="basic-setup">Basic Setup</h2>
+
+<p>Use the <code class="highlighter-rouge">DxGroupingState</code>, <code class="highlighter-rouge">DxIntegratedGrouping</code> (or <code class="highlighter-rouge">DxCustomGrouping</code>) and <code class="highlighter-rouge">DxTableGroupRow</code> plugins to set up a Grid with simple static grouping.</p>
+
+<p>Specify the expanded group keys in the <code class="highlighter-rouge">DxGroupingState</code> plugin’s <code class="highlighter-rouge">expandedGroups</code> property and subscribe to the <code class="highlighter-rouge">update:expandedGroups</code> event to control group expanding/collapsing. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+
+<p>In the following examples, the grouping options are specified using the <code class="highlighter-rouge">DxGroupingState</code> plugin’s <code class="highlighter-rouge">grouping</code> property. However, the <code class="highlighter-rouge">update:grouping</code> event handler is not specified because the grouping option is not supposed to be changed internally as the grouping UI is not available.</p>
+
+<h3 id="built-in-grouping">Built-in Grouping</h3>
+
+<p>In the following example, the data is specified as plain rows. In this case, the data should be grouped using the <code class="highlighter-rouge">DxIntegratedGrouping</code> plugin.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h3 id="custom-grouping">Custom Grouping</h3>
+
+<p>Use the <code class="highlighter-rouge">DxCustomGrouping</code> plugin if the data has a hierarchical structure (already grouped).</p>
+
+<p>In the following example, the data is specified as an array of groups. Specify the <code class="highlighter-rouge">DxCustomGrouping</code> plugin’s <code class="highlighter-rouge">getChildGroups</code> property to parse a custom group structure.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-grouping-static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="configure-the-grouping-ui">Configure the Grouping UI</h2>
+
+<p>Use the <code class="highlighter-rouge">DxToolbar</code>, <code class="highlighter-rouge">DxGroupingPanel</code> and <code class="highlighter-rouge">DxTableHeaderRow</code> plugins in addition to those used for the basic setup to enable the grouping UI. You can configure the UI to provide any of the following methods for specifying grouping options:</p>
+
+<ul>
+  <li>Use the corresponding button in a header cell
+ Assign true to the <code class="highlighter-rouge">DxTableHeaderRow</code> plugin’s <code class="highlighter-rouge">showGroupingControls</code> and the <code class="highlighter-rouge">DxGroupingPanel</code> plugin’s <code class="highlighter-rouge">showGroupingControls</code> properties.</li>
+</ul>
+
+<p>You can also set the <code class="highlighter-rouge">DxGroupingPanel</code> plugin’s <code class="highlighter-rouge">showSortingControls</code> option to true to enable sorting data by a grouped column.</p>
+
+<p>Specify the grouping options in the <code class="highlighter-rouge">DxGroupingState</code> plugin’s <code class="highlighter-rouge">grouping</code> property and subscribe to the <code class="highlighter-rouge">update:grouping</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/grouping-with-ui&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="disable-grouping-by-a-column">Disable Grouping by a Column</h2>
+
+<p>You can disable grouping/ungrouping for a specific column using the <a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/disable-column-grouping&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="built-in-grouping-with-custom-values">Built-in Grouping with Custom Values</h2>
+
+<p>Pass a grouping criterion function to the <code class="highlighter-rouge">DxIntegratedGrouping</code> plugin’s <a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/#properties">columnExtensions</a> property to group data by a custom key based on the specified column’s value. Set the columns configuration’s <code class="highlighter-rouge">showWhenGrouped</code> field to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the “city” column’s values while still displaying the column.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<p>You can also assign a Boolean value to the <code class="highlighter-rouge">DxTableGroupRow</code> plugin’s <code class="highlighter-rouge">showColumnsWhenGrouped</code> property to define what columns should remain visible when they group data.</p>
+
+<p>Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the <code class="highlighter-rouge">DxTableGroupRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property as demonstrated in the following example:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-advanced&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<!-- ## Remote Grouping
+
+You can perform remote grouping by handling grouping state changes, generating a request based on the grouping state and sending it to a server that can return grouped data.
+
+Grouping options are updated whenever an end-user interacts with the grouping UI. Handle grouping option changes using the `DxGroupingState` plugin's `update:grouping` and `update:expandedGroups` events and request data from the server using the newly applied grouping options.
+
+Use the `CustomGrouping` plugin instead of the `DxIntegratedGrouping` plugin for remote grouping.
+
+While waiting for a response from a server, there is a moment when the grouping state does not match the data in the `DxGrid`'s `rows` property. To avoid issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `DxGroupingState` plugin. This means configuration changes are not applied to the `DxGrid` immediately. Once the grouped data is received from the server, pass it to the `DxGrid` component's `rows` property and reset the `DxCustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `DxGrid` simultaneously applies the changes to its grouping configuration and receives the updated data set.
+
+The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
+
+<div
+          class="embedded-demo"
+          data-options='{"path":"/demo/grid-grouping/remote-grouping-with-local-expanding","showThemeSelector":true,"scriptPath":"/devextreme-reactive//vue/demos/dist/index.js?v=1528101693"}'
+        >
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div> -->
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0">
+            Version
+            <span>1.3.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Grouping</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/editing-state/">DxEditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/filtering-state/">DxFilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grid/">DxGrid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-state/">DxPagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/row-detail-state/">DxRowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-panel/">DxSearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-state/">DxSearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/selection-state/">DxSelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/sorting-state/">DxSortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table/">DxTable</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-row/">DxTableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-filter-row/">DxTableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-group-row/">DxTableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-row-detail/">DxTableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-selection/">DxTableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1528101693"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1528101693"></script>
+    <script>
+        trackingCookie.notice();
+        trackingCookie.check();
+    </script>
+
+    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
+    <script>
+        trackDXPageview = function() {
+            if (!window.dxa) {
+                setTimeout(function() {
+                    trackDXPageview();
+                }, 300);
+                return;
+            }
+
+            if(!window.analytics)
+                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
+            window.analytics.addCookieToSave("DXVisitor");
+            window.analytics.pageVisited();
+        };
+
+        trackDXPageview();
+    </script>
+  </body>
+</html>

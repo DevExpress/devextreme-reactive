@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1528101693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1528101693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,8 +47,10 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
+            <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
             <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
@@ -67,23 +69,23 @@
 <p>The following plugins implement filtering features:</p>
 
 <ul>
-  <li><a href="../reference/paging-state.md">PagingState</a> - controls the paging state</li>
-  <li><a href="../reference/integrated-paging.md">IntegratedPaging</a> - performs built-in data paging</li>
-  <li><a href="../reference/custom-paging.md">CustomPaging</a> - allows implementing a custom totalCount calculation logic</li>
-  <li><a href="../reference/paging-panel.md">PagingPanel</a> - renders the Paging Panel</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-state/">DxPagingState</a> - controls the paging state</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a> - performs built-in data paging</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a> - allows implementing a custom totalCount calculation logic</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a> - renders the Paging Panel</li>
 </ul>
 
 <p>Note that the <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
 
 <h2 id="basic-paging-setup">Basic Paging Setup</h2>
 
-<p>Use the <code class="highlighter-rouge">PagingState</code>, <code class="highlighter-rouge">IntegratedPaging</code> (or <code class="highlighter-rouge">CustomPaging</code>), and <code class="highlighter-rouge">PagingPanel</code> plugins to set up a Grid with paging.</p>
+<p>Use the <code class="highlighter-rouge">DxPagingState</code>, <code class="highlighter-rouge">DxIntegratedPaging</code> (or <code class="highlighter-rouge">DxCustomPaging</code>), and <code class="highlighter-rouge">DxPagingPanel</code> plugins to set up a Grid with paging.</p>
 
-<p>Specify the active page index in the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">currentPage</code> property and subscribe to the <code class="highlighter-rouge">update:currentPage</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+<p>Specify the active page index in the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">currentPage</code> property and subscribe to the <code class="highlighter-rouge">update:currentPage</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
 
-<p>In the following example, the page size is specified using the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property. However, the <code class="highlighter-rouge">update:pageSize</code> event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.</p>
+<p>In the following example, the page size is specified using the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property. However, the <code class="highlighter-rouge">update:pageSize</code> event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -91,11 +93,11 @@
 
 <h2 id="page-size-selection">Page Size Selection</h2>
 
-<p>Assign an array of available page sizes to the <code class="highlighter-rouge">PagingPanel</code> plugin’s <code class="highlighter-rouge">pageSizes</code> property to enable page size selection via the UI. The Page Size Selector displays the ‘All’ item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the <code class="highlighter-rouge">messages.showAll</code> property.</p>
+<p>Assign an array of available page sizes to the <code class="highlighter-rouge">DxPagingPanel</code> plugin’s <code class="highlighter-rouge">pageSizes</code> property to enable page size selection via the UI. The Page Size Selector displays the ‘All’ item if the specified array contains an item whose value is 0. You can specify custom text for this Page Size Selector item using the <code class="highlighter-rouge">messages.showAll</code> property.</p>
 
-<p>Specify the page size in the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property and subscribe to the <code class="highlighter-rouge">update:pageSize</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier two-way binding.</p>
+<p>Specify the page size in the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property and subscribe to the <code class="highlighter-rouge">update:pageSize</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier two-way binding.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -105,11 +107,11 @@
 
 <p>You can handle the Grid’s paging state changes to request page data from the server according to the current page index and the page size if your data service supports paging.</p>
 
-<p>Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">update:currentPage</code> and <code class="highlighter-rouge">update:pageSize</code> events, and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+<p>Paging options are updated once an end-user interacts with Paging Panel controls. Handle paging option changes using the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">update:currentPage</code> and <code class="highlighter-rouge">update:pageSize</code> events, and request data from the server using the applied paging options. Once the page data is received from the server, pass it to the <code class="highlighter-rouge">DxGrid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
-<p>For remote paging, use the <code class="highlighter-rouge">CustomPaging</code> plugin instead of the <code class="highlighter-rouge">IntegratedPaging</code> plugin.</p>
+<p>For remote paging, use the <code class="highlighter-rouge">DxCustomPaging</code> plugin instead of the <code class="highlighter-rouge">DxIntegratedPaging</code> plugin.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -117,16 +119,16 @@
 
 <h2 id="using-paging-with-other-data-processing-plugins">Using Paging with Other Data Processing Plugins</h2>
 
-<p>When you use paging features with sorting, grouping, or filtering, take note of the order in which the plugins appear in the Grid’s container. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
+<p>When you use paging features with sorting, grouping, or filtering, take note of the order in which the plugins appear in the Grid’s container. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the <code class="highlighter-rouge">DxIntegratedFiltering</code> plugin before the <code class="highlighter-rouge">DxIntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
 
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0">
             Version
-            <span>1.2.0</span>
+            <span>1.3.0</span>
           </a>
         </li>
       </ul>
@@ -165,6 +167,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/vue/grid/docs/guides/sorting/">Sorting</a></li>
           
 
@@ -181,7 +191,286 @@
           
 
           
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/editing-state/">DxEditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/filtering-state/">DxFilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grid/">DxGrid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-state/">DxPagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/row-detail-state/">DxRowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-panel/">DxSearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-state/">DxSearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/selection-state/">DxSelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/sorting-state/">DxSortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table/">DxTable</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-row/">DxTableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-filter-row/">DxTableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-group-row/">DxTableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-row-detail/">DxTableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-selection/">DxTableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
           
 
         
@@ -191,7 +480,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1525434457"></script>
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1528101693"></script>
 
 
     <footer>
@@ -200,8 +489,10 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
@@ -230,8 +521,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1528101693"></script>
     <script>
+        trackingCookie.notice();
         trackingCookie.check();
     </script>
 

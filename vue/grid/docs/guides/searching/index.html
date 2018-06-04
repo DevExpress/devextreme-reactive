@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1525434457">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1525434457">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1528101693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1528101693">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -47,8 +47,10 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
+            <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
             <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
@@ -67,10 +69,10 @@
 <p>The following plugins implement the searching feature:</p>
 
 <ul>
-  <li><a href="../reference/search-state.md">SearchState</a> - controls the search state</li>
-  <li><a href="../reference/integrated-filtering.md">IntegratedFiltering</a> - performs built-in data searching and filtering</li>
-  <li><a href="../reference/toolbar.md">Toolbar</a> - renders the Grid Toolbar</li>
-  <li><a href="../reference/search-panel.md">SearchPanel</a> - renders the search panel</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-state/">DxSearchState</a> - controls the search state</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a> - performs built-in data searching and filtering</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/toolbar/">DxToolbar</a> - renders the Grid Toolbar</li>
+  <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-panel/">DxSearchPanel</a> - renders the search panel</li>
 </ul>
 
 <p>Note that <a href="/devextreme-reactive/vue/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
@@ -79,9 +81,9 @@
 
 <p>Import the plugins listed above to set up a Grid with basic searching.</p>
 
-<p>Specify the searching value in the <code class="highlighter-rouge">SearchState</code> plugin’s <code class="highlighter-rouge">value</code> property and subscribe to the <code class="highlighter-rouge">update:value</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
+<p>Specify the searching value in the <code class="highlighter-rouge">DxSearchState</code> plugin’s <code class="highlighter-rouge">value</code> property and subscribe to the <code class="highlighter-rouge">update:value</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-searching/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1525434457&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-searching/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/demos/dist/index.js?v=1528101693&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -91,13 +93,13 @@
 
 You can perform searching remotely by handling search value changes, generating a request, and sending it to the server.
 
-Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle search value changes using the `SearchState` plugin's `update:value` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `Grid` component's `rows` property.
+Searching options are updated once an end user modifies the text in a Search Panel editor or other searching control. Handle search value changes using the `DxSearchState` plugin's `update:value` event and request data from the server using the applied searching options. Once the search data is received from the server, pass it to the `DxGrid` component's `rows` property.
 
-NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
+NOTE: Do not use the `DxIntegratedFiltering` plugin for remote searching.
 
 <div
           class="embedded-demo"
-          data-options='{"path":"/demo/grid-searching/remote-mode","showThemeSelector":true,"scriptPath":"/devextreme-reactive//vue/demos/dist/index.js?v=1525434457"}'
+          data-options='{"path":"/demo/grid-searching/remote-mode","showThemeSelector":true,"scriptPath":"/devextreme-reactive//vue/demos/dist/index.js?v=1528101693"}'
         >
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
@@ -109,9 +111,9 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.2.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0">
             Version
-            <span>1.2.0</span>
+            <span>1.3.0</span>
           </a>
         </li>
       </ul>
@@ -150,6 +152,14 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
           
 
           
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/vue/grid/docs/guides/sorting/">Sorting</a></li>
           
 
@@ -166,7 +176,286 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
           
 
           
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
           <li>Searching</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/editing-state/">DxEditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/filtering-state/">DxFilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grid/">DxGrid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/paging-state/">DxPagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/row-detail-state/">DxRowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-panel/">DxSearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/search-state/">DxSearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/selection-state/">DxSelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/sorting-state/">DxSortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table/">DxTable</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-row/">DxTableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-filter-row/">DxTableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-group-row/">DxTableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-row-detail/">DxTableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-selection/">DxTableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
           
 
         
@@ -176,7 +465,7 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
   </div>
 </div>
 
-<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1525434457"></script>
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1528101693"></script>
 
 
     <footer>
@@ -185,8 +474,10 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li class="active"><a href="/devextreme-reactive/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="/devextreme-reactive/vue/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
@@ -215,8 +506,9 @@ NOTE: Do not use the `IntegratedFiltering` plugin for remote searching.
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1525434457"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1528101693"></script>
     <script>
+        trackingCookie.notice();
         trackingCookie.check();
     </script>
 

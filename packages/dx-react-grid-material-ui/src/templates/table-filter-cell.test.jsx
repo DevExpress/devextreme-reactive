@@ -1,49 +1,23 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import Input from '@material-ui/core/Input';
 import { TableFilterCell } from './table-filter-cell';
+
+const defaultProps = {
+  getMessage: key => key,
+  iconComponent: () => null,
+};
 
 describe('TableFilterCell', () => {
   let shallow;
   let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableFilterCell getMessage={key => key} />);
-  });
-
-  it('can use filter placeholder', () => {
-    const tree = shallow((
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-        getMessage={key => key}
-      />
-    ));
-
-    expect(tree.find(Input).prop('placeholder')).toBe('filterPlaceholder');
-  });
-
-  it('should not set filter with an empty value', () => {
-    const onFilterMock = jest.fn();
-    const tree = shallow((
-      <TableFilterCell
-        column={{
-          name: 'Test',
-        }}
-        onFilter={onFilterMock}
-        getMessage={key => key}
-        value="abc"
-      />
-    ));
-
-    tree.find(Input).simulate('change', { target: { value: '' } });
-    expect(onFilterMock.mock.calls[0][0]).toBeNull();
+    classes = getClasses(<TableFilterCell {...defaultProps} />);
   });
 
   it('should render children if passed', () => {
     const tree = shallow((
-      <TableFilterCell getMessage={key => key}>
+      <TableFilterCell {...defaultProps}>
         <span className="test" />
       </TableFilterCell>
     ));
@@ -54,7 +28,7 @@ describe('TableFilterCell', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <TableFilterCell className="custom-class" getMessage={key => key} />
+      <TableFilterCell {...defaultProps} className="custom-class" />
     ));
 
     expect(tree.is('.custom-class'))
@@ -65,19 +39,10 @@ describe('TableFilterCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableFilterCell data={{ a: 1 }} getMessage={key => key} />
+      <TableFilterCell {...defaultProps} data={{ a: 1 }} />
     ));
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  it('should render disabled filtering editor if filtering is not allowed', () => {
-    const tree = shallow((
-      <TableFilterCell filteringEnabled={false} getMessage={key => key} />
-    ));
-
-    expect(tree.find(Input).prop('disabled'))
-      .toBeTruthy();
   });
 });

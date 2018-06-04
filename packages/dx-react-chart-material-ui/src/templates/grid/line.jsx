@@ -17,12 +17,9 @@ export class LineBase extends React.PureComponent {
       x1, x2, y1, y2, classes, className, ...restProps
     } = this.props;
     return (
-      <line
+      <path
         className={classNames(classes.root, className)}
-        x1={x1}
-        x2={x2}
-        y1={y1}
-        y2={y2}
+        d={`M ${x1} ${y1} L ${x2} ${y2}`}
         {...restProps}
       />
     );

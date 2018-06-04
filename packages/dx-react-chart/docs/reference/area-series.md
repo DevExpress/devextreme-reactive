@@ -43,7 +43,7 @@ Field | Type | Description
 x | number | The x coordinate of the top left corner of the series' rendering area.
 y | number | The y coordinate of the top left corner of the series' rendering area.
 coordinates | Array&lt;{ x: number, y: number, y1: number }&gt; | Coordinates of the series' points.
-path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate series' path.
+path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
 
 ### AreaSeries.PointProps
 

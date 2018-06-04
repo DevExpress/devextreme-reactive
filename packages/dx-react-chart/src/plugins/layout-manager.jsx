@@ -14,7 +14,7 @@ export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { bBoxes: { pane: { width: this.props.width, height: this.props.height }} };
+    this.state = { bBoxes: { pane: { width: this.props.width, height: this.props.height } } };
 
     const stateHelper = createStateHelper(this);
 
@@ -27,7 +27,7 @@ export class LayoutManager extends React.Component {
 
   render() {
     const {
-      rootComponent: Root, ...restProps
+      width, height, rootComponent: Root, ...restProps
     } = this.props;
 
     return (
@@ -37,8 +37,8 @@ export class LayoutManager extends React.Component {
 
         <Template name="root">
           <Root
-            height={this.props.height}
-            width={this.props.width}
+            height={height}
+            width={width}
             {...restProps}
           >
             <TemplatePlaceholder name="canvas" />

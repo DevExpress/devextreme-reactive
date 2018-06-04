@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { shallow } from 'enzyme';
 import { Root } from './layout';
 
 const defaultProps = {
@@ -7,8 +7,6 @@ const defaultProps = {
 };
 
 describe('Root', () => {
-  const shallow = createShallow({ dive: true });
-  const classes = getClasses(<Root {...defaultProps}>children</Root>);
   it('should render List item', () => {
     const tree = shallow((
       <Root {...defaultProps} >
@@ -65,7 +63,7 @@ describe('Root', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow(<Root {...defaultProps} className="custom-class" ><span /></Root>);
 
-    expect(tree.is(`.${classes.root}.custom-class`))
+    expect(tree.is('.dx-c-bs4-container.custom-class'))
       .toBeTruthy();
   });
 

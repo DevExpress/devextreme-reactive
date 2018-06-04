@@ -120,6 +120,9 @@ button.dx-g-bs4-table-edit-command-cell {
   z-index: 100;
   opacity: 0;
 }
+.dx-g-bs4-header-cell:nth-last-child(2) .dx-g-bs4-resizing-control-wrapper {
+  right: 0;
+}
 .dx-g-bs4-resizing-control-wrapper-active {
   opacity: 1;
 }

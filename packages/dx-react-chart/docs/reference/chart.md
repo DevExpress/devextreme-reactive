@@ -24,8 +24,8 @@ import { Chart } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;any&gt; | | An array containing custom data.
-width | number | undefined | Chart width.
-height | number | 500 | Chart height.
+width? | number | undefined | Chart width.
+height? | number | 500 | Chart height.
 rootComponent | ComponentType&lt;[Chart.RootProps](#chartrootprops)&gt; | | A component that renders the chart root layout.
 
 ## Interfaces

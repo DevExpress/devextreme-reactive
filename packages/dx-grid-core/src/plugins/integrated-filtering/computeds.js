@@ -10,8 +10,23 @@ const operators = { or: OR, and: AND };
 
 const toLowerCase = value => String(value).toLowerCase();
 
-const defaultPredicate = (value, filter) =>
-  toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
+const operationPredicates = {
+  contains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+  notContains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) === -1,
+  startsWith: (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value)),
+  endsWith: (value, filter) => toLowerCase(value).endsWith(toLowerCase(filter.value)),
+  equal: (value, filter) => value === filter.value,
+  notEqual: (value, filter) => value !== filter.value,
+  greaterThan: (value, filter) => value > filter.value,
+  greaterThanOrEqual: (value, filter) => value >= filter.value,
+  lessThan: (value, filter) => value < filter.value,
+  lessThanOrEqual: (value, filter) => value <= filter.value,
+};
+
+export const defaultFilterPredicate = (value, filter) => {
+  const operation = filter.operation || 'contains';
+  return operationPredicates[operation](value, filter);
+};
 
 const filterTree = (tree, predicate) =>
   tree.reduce(
@@ -74,7 +89,7 @@ const buildPredicate = (
   const getSimplePredicate = (filterExpression) => {
     const { columnName } = filterExpression;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
-    const predicate = customPredicate || defaultPredicate;
+    const predicate = customPredicate || defaultFilterPredicate;
     return row =>
       predicate(getCellValue(row, columnName), filterExpression, row);
   };

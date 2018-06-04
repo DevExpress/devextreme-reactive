@@ -27,61 +27,92 @@ const calculateDomainField = (field, data, domain = [], type) => {
   ]);
 };
 
+const getCorrectAxisType = (type, data, field) => {
+  if (!type && typeof data[0][field] === 'string') {
+    return 'band';
+  }
+  return type;
+};
+
 const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
   series.reduce(
     (domains, {
       valueField, argumentField, axisName, name,
-    }) => ({
-      ...domains,
-      [axisName]: {
-        domain: calculateDomainField(
-          `${valueField}-${name}-end`,
-          data,
-          domains[axisName] && domains[axisName].domain,
-          domains[axisName] && domains[axisName].type,
-        ),
-        orientation: VERTICAL,
-        type: domains[axisName] && domains[axisName].type,
-      },
-      [argumentAxisName]: {
-        domain: calculateDomainField(
-          argumentField,
-          data,
-          domains[argumentAxisName] && domains[argumentAxisName].domain,
-          domains[argumentAxisName] && domains[argumentAxisName].type,
-        ),
-        orientation: HORIZONTAL,
-        type: domains[argumentAxisName] && domains[argumentAxisName].type,
-      },
-    }),
+    }) => {
+      const valueType = getCorrectAxisType(
+        domains[axisName] && domains[axisName].type,
+        data,
+        valueField,
+      );
+      const argumentType = getCorrectAxisType(
+        domains[argumentAxisName] && domains[argumentAxisName].type,
+        data,
+        argumentField,
+      );
+      return {
+        ...domains,
+        [axisName]: {
+          domain: calculateDomainField(
+            `${valueField}-${name}-end`,
+            data,
+            domains[axisName] && domains[axisName].domain,
+            valueType,
+          ),
+          orientation: VERTICAL,
+          type: valueType,
+        },
+        [argumentAxisName]: {
+          domain: calculateDomainField(
+            argumentField,
+            data,
+            domains[argumentAxisName] && domains[argumentAxisName].domain,
+            argumentType,
+          ),
+          orientation: HORIZONTAL,
+          type: argumentType,
+        },
+      };
+    },
     axesTypes,
   );
 
 const adjustRangeToZero = range => [Math.min(range[0], 0), Math.max(0, range[1])];
 
-const adjustDomains = (axes, calculatedDomains, startFromZero) => axes.reduce(
-  (domains, {
-    name, min, max, type,
-  }) => {
+const recalculateDomain = (range, currentDomain) => ({
+  domain: currentDomain.type !== BAND ? range : currentDomain.domain,
+  type: currentDomain.type,
+  orientation: currentDomain.orientation,
+});
+
+const adjustDomains = (axes, calculatedDomains, startFromZero) => {
+  const adjustedDomainsBySeries = Object.keys(calculatedDomains).reduce((domains, name) => {
     const currentDomain = domains[name];
     const range = startFromZero[name] ?
       adjustRangeToZero(currentDomain.domain) : currentDomain.domain;
     return {
       ...domains,
-      [name]: {
-        domain: type !== BAND ? [
-          isDefined(min) ? min : range[0],
-          isDefined(max) ? max : range[1],
-        ] : currentDomain.domain,
-        type: currentDomain.type,
-        orientation: currentDomain.orientation,
-      },
+      [name]: recalculateDomain(range, currentDomain),
     };
-  },
-  calculatedDomains,
-);
+  }, calculatedDomains);
 
-export const domains = (axes, series, data, argumentAxisName, startFromZero) => {
+  return axes.reduce(
+    (domains, {
+      name, min, max,
+    }) => {
+      const currentDomain = domains[name];
+      return {
+        ...domains,
+        [name]: recalculateDomain([
+          isDefined(min) ? min : currentDomain.domain[0],
+          isDefined(max) ? max : currentDomain.domain[1],
+        ], currentDomain),
+      };
+    },
+    adjustedDomainsBySeries,
+  );
+};
+
+export const domains = (axes = [], series, data, argumentAxisName, startFromZero) => {
   const axesTypes = collectAxesTypes(axes);
   const calculatedDomains = calculateDomain(series, data, axesTypes, argumentAxisName);
   return adjustDomains(axes, calculatedDomains, startFromZero);

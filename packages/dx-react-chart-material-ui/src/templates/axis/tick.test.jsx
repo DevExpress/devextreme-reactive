@@ -10,16 +10,11 @@ const classes = getClasses(<Tick {...defaultProps} />);
 
 describe('Tick', () => {
   it('should render line with correct coordinates', () => {
-    const {
-      x1, x2, y1, y2,
-    } = shallow((
+    const { d } = shallow((
       <Tick {...defaultProps} />
-    )).find('line').props();
+    )).find('path').props();
 
-    expect(x1).toBe(1);
-    expect(x2).toBe(2);
-    expect(y1).toBe(3);
-    expect(y2).toBe(4);
+    expect(d).toBe('M 1 3 L 2 4');
   });
 
   it('should pass the className prop to the root element', () => {
@@ -33,7 +28,7 @@ describe('Tick', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Tick {...defaultProps} customProperty />);
-    const { customProperty } = tree.find('line').props();
+    const { customProperty } = tree.find('path').props();
     expect(customProperty).toBeTruthy();
   });
 });

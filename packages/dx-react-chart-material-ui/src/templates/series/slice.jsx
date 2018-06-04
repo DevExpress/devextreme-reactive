@@ -12,7 +12,7 @@ const styles = () => ({
 class SliceBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, ...restProps
+      x, y, classes, className, value, ...restProps
     } = this.props;
     return (
       <path

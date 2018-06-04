@@ -79,6 +79,10 @@ const parseFile = (source) => {
   componentsBlock = componentsBlock.slice(0, componentsBlock.findIndex(el => el.indexOf('## ') === 0))
     .filter(line => line.match(/.+\|.+\|.+/));
 
+  let staticFieldsBlock = source.slice(source.indexOf('## Static Fields') + 1);
+  staticFieldsBlock = staticFieldsBlock.slice(0, staticFieldsBlock.findIndex(el => el.indexOf('## ') === 0))
+    .filter(line => line.match(/.+\|.+\|.+/));
+
   let messagesBlock = source.slice(source.indexOf('## Localization Messages') + 1);
   messagesBlock = messagesBlock
     .slice(0, messagesBlock.findIndex(el => el.indexOf('## ') === 0))
@@ -89,6 +93,7 @@ const parseFile = (source) => {
     properties: propertiesBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
+    staticFields: staticFieldsBlock,
     localizationMessages: messagesBlock,
   };
 };
@@ -137,11 +142,17 @@ const generateTypeScript = (data, componentName) => {
     + '}\n\n';
   }
 
+  const staticFields = data.staticFields
+    .reduce((acc, line) => acc
+      + getFormattedLine(line), '');
+
   result += `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
     + `/** ${data.description} */\n`
-    + `export declare const ${componentName}: React.ComponentType<${componentName}Props>;\n`;
+    + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
+    + `${staticFields.length ? ` & {\n${staticFields}}` : ''}`
+    + ';\n';
 
   return result;
 };

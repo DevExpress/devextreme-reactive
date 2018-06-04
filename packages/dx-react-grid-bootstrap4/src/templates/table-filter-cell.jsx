@@ -7,15 +7,9 @@ export const TableFilterCell = ({
   filteringEnabled, ...restProps
 }) => (
   <th {...restProps}>
-    {children || (
-      <input
-        type="text"
-        className="form-control"
-        value={filter ? filter.value : ''}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-        readOnly={!filteringEnabled}
-      />
-    )}
+    <div className="input-group">
+      {children}
+    </div>
   </th>
 );
 

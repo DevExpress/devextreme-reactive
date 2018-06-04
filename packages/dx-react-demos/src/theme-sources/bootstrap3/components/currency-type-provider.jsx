@@ -17,7 +17,7 @@ const Editor = ({ value, onValueChange }) => {
     <input
       type="number"
       className="form-control text-right"
-      style={{ width: '100%' }}
+      placeholder="Filter..."
       value={getInputValue(value)}
       min={0}
       onChange={handleChange}
@@ -36,10 +36,17 @@ Editor.defaultProps = {
 
 const Formatter = ({ value }) => `$${value}`;
 
+const availableFilterOperations = [
+  'equal', 'notEqual',
+  'greaterThan', 'greaterThanOrEqual',
+  'lessThan', 'lessThanOrEqual',
+];
+
 export const CurrencyTypeProvider = props => (
   <DataTypeProvider
     formatterComponent={Formatter}
     editorComponent={Editor}
+    availableFilterOperations={availableFilterOperations}
     {...props}
   />
 );

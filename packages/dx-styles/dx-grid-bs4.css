@@ -120,6 +120,10 @@ button.dx-g-bs4-table-edit-command-cell {
   z-index: 100;
   opacity: 0;
 }
+.dx-g-bs4-header-cell:nth-last-child(2) .dx-g-bs4-resizing-control-wrapper {
+  right: 0;
+  width: 8px;
+}
 .dx-g-bs4-resizing-control-wrapper-active {
   opacity: 1;
 }
@@ -151,10 +155,23 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-banded-header-cell:last-child {
   border-right: 0!important;
 }
-.dx-rg-bs4-banded-cell:first-child {
+.dx-g-bs4-banded-cell:first-child {
   border-left: 0!important;
 }
-.dx-rg-bs4-banded-cell:last-child {
+.dx-g-bs4-banded-cell:last-child {
   border-right: 0!important;
 }
-
+.dx-g-bs4-filter-selector-item {
+  font-size: initial;
+}
+.dx-g-bs4-filter-selector-item:focus {
+  outline: none;
+}
+.dx-g-bs4-filter-selector-item-text {
+  margin-left: 10px;
+}
+.dx-g-bs4-filter-selector-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}

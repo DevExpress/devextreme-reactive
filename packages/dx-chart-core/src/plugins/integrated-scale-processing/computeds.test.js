@@ -114,6 +114,29 @@ describe('calculateDomain', () => {
     });
   });
 
+  it('should be computed from data and series option with band type, one argument is undefined', () => {
+    const calculatedDomains = domains(
+      [{ ...argumentAxis, type: 'band' }, valueAxis],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: undefined }],
+      'argumentAxis',
+      {},
+    );
+    expect(calculatedDomains).toEqual({
+      argumentAxis: {
+        domain: ['a', 'b'],
+        orientation: 'horizontal',
+        type: 'band',
+      },
+      valueAxis: {
+        domain: [1, 2],
+        orientation: 'vertical',
+      },
+    });
+  });
+
   it('should be computed from data and series option, type is not set, arguments are string', () => {
     const calculatedDomains = domains(
       undefined,

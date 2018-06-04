@@ -75,6 +75,22 @@ const data = [
   },
 ];
 
+const dataWithUndefined = [
+  {
+    arg: 1, val1: 3, 'val1-Series3-end': 3, 'val1-Series3-start': 3,
+  },
+  {
+    arg: undefined, val1: 5, 'val1-Series3-end': 5, 'val1-Series3-start': 5,
+  },
+  {
+    arg: 3, val1: 7, 'val1-Series3-end': 7, 'val1-Series3-start': 7,
+  },
+  { arg: 4, val1: undefined },
+  {
+    arg: 5, val1: 15, 'val1-Series3-end': 15, 'val1-Series3-start': 15,
+  },
+];
+
 const computedLine = data.map(item => ({
   id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'], value: item.val1,
 }));
@@ -191,6 +207,26 @@ describe('Series attributes', () => {
       'val1',
       'Series3',
     )).toEqual(computedLine);
+  });
+
+  it('should return coordinates for path, some value and argument fields are undefined', () => {
+    expect(coordinates(
+      dataWithUndefined,
+      { xScale: createScale(), yScale: createScale() },
+      'arg',
+      'val1',
+      'Series3',
+    )).toEqual([
+      {
+        id: 1, x: 1, y: 3, y1: 3, value: 3,
+      },
+      {
+        id: 3, x: 3, y: 7, y1: 7, value: 7,
+      },
+      {
+        id: 5, x: 5, y: 15, y1: 15, value: 15,
+      },
+    ]);
   });
 
   it('should return generator for area', () => {

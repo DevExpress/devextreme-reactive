@@ -18,8 +18,15 @@ const collectAxesTypes = axes =>
 
 const calculateDomainField = (field, data, domain = [], type) => {
   const getFieldItem = object => object[field];
+  const getCategories = (prev, cur) => {
+    const categories = getFieldItem(cur);
+    if (categories !== undefined) {
+      return [...prev, categories];
+    }
+    return prev;
+  };
   if (type === BAND) {
-    return [...domain, ...data.map(getFieldItem)];
+    return [...domain, ...data.reduce(getCategories, [])];
   }
   return extent([
     ...domain,

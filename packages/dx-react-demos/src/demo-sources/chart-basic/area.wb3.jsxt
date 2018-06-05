@@ -23,17 +23,14 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <AreaSeries
-            name="Russia"
             valueField="ru"
             argumentField="year"
           />
           <AreaSeries
-            name="China"
             valueField="ch"
             argumentField="year"
           />
           <AreaSeries
-            name="USA"
             valueField="us"
             argumentField="year"
           />

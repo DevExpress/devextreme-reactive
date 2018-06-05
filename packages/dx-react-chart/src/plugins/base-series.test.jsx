@@ -126,7 +126,7 @@ describe('Base series', () => {
     expect(coordinates).toHaveBeenCalledTimes(1);
 
     expect(findSeriesByName).toHaveBeenLastCalledWith(
-      'name',
+      expect.anything(),
       'series',
     );
 

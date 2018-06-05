@@ -42,17 +42,17 @@ const TasksListCore = {
               <DxTemplatePlaceholder
                 key={index}
                 name="task"
-                params={task}
+                task={task}
               />
             ))}
           </ul>
         </DxTemplate>
         <DxTemplate name="task">
-          {({ title, done }) => (
+          {({ attrs: { task } }) => (
             <li
-              style={{ textDecoration: done ? 'line-through' : '' }}
+              style={{ textDecoration: task.done ? 'line-through' : '' }}
             >
-              {title}
+              {task.title}
             </li>
           )}
         </DxTemplate>

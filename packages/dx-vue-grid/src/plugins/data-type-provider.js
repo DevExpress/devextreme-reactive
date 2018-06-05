@@ -26,9 +26,9 @@ export const DxDataTypeProvider = {
           ? (
             <DxTemplate
               name="valueFormatter"
-              predicate={({ column }) => columnNames.includes(column.name)}
+              predicate={({ attrs: { column } }) => columnNames.includes(column.name)}
             >
-              {params => <Formatter {...{ attrs: { ...params } }} />}
+              {({ attrs }) => <Formatter {...{ attrs }} />}
             </DxTemplate>
           )
           : null
@@ -37,9 +37,11 @@ export const DxDataTypeProvider = {
           ? (
             <DxTemplate
               name="valueEditor"
-              predicate={({ column }) => columnNames.includes(column.name)}
+              predicate={({ attrs: { column } }) => columnNames.includes(column.name)}
             >
-              {params => <Editor {...{ attrs: { ...params } }} />}
+              {({ attrs, listeners }) => (
+                <Editor {...{ attrs: { ...attrs }, on: { ...listeners } }} />
+              )}
             </DxTemplate>
           )
           : null

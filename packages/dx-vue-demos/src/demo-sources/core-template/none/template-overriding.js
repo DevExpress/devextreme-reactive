@@ -47,17 +47,18 @@ const TasksListCore = {
               <DxTemplatePlaceholder
                 key={index}
                 name="task"
-                params={{ index, ...task }}
+                index={index}
+                task={task}
               />
             ))}
           </ul>
         </DxTemplate>
         <DxTemplate name="task">
-          {({ title, done }) => (
+          {({ attrs: { task } }) => (
             <li
-              style={{ textDecoration: done ? 'line-through' : '' }}
+              style={{ textDecoration: task.done ? 'line-through' : '' }}
             >
-              {title}
+              {task.title}
             </li>
           )}
         </DxTemplate>
@@ -71,11 +72,11 @@ const TaskCompletion = {
     return (
       <DxPlugin>
         <DxTemplate name="task">
-          {({ index, title, done }) => (done ? (
+          {({ attrs: { index, task } }) => (task.done ? (
             <DxTemplatePlaceholder />
           ) : (
             <li>
-              {title} <button onClick={() => this.$emit('complete', index)}>Complete</button>
+              {task.title} <button onClick={() => this.$emit('complete', index)}>Complete</button>
             </li>
           ))}
         </DxTemplate>

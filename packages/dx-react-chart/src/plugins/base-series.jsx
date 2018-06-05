@@ -50,8 +50,6 @@ export const baseSeries = (
                 data,
                 argumentAxisName,
                 layouts,
-                width,
-                height,
               }) => {
                 const {
                   stack, themeColor,
@@ -60,7 +58,7 @@ export const baseSeries = (
                   domains,
                   argumentAxisName,
                   axisName,
-                  layouts.pane || { width, height },
+                  layouts.pane,
                   stacks,
                   groupWidth,
                   barWidth,

@@ -22,23 +22,16 @@ export default class Demo extends React.PureComponent {
         { month: 'May', sale: 95, total: 4300 },
         { month: 'June', sale: 150, total: 7500 },
       ],
-      width: 700,
-      height: 400,
     };
   }
   render() {
-    const {
-      data: chartData, width, height,
-    } = this.state;
+    const { data: chartData } = this.state;
 
     return (
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
-
           <ArgumentAxis
             name="month"
             type="band"

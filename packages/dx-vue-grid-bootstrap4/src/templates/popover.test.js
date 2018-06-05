@@ -100,7 +100,7 @@ describe('Popover', () => {
     });
 
     expect(wrapper.element.style.transform)
-      .toBe('translate(85px, 10px)');
+      .toBe('translate(85px, 13px)');
   });
 
   it('should calculate position shift depend on container size', () => {
@@ -126,6 +126,6 @@ describe('Popover', () => {
     });
 
     expect(wrapper.element.style.transform)
-      .toBe('translate(250px, 10px)');
+      .toBe('translate(247px, 13px)');
   });
 });

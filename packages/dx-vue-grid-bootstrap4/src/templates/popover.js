@@ -1,3 +1,5 @@
+const offsetX = 3;
+const offsetY = 3;
 export const Popover = {
   name: 'Popover',
   props: {
@@ -35,15 +37,15 @@ export const Popover = {
     let x = (left + (targetWidth / 2)) - (popoverWidth / 2);
     const delta = container.offsetWidth - (x + popoverWidth);
     if (delta < 0) {
-      x += delta;
+      x += delta - offsetX;
     }
-    this.$el.style.transform = `translate(${x}px, ${bottom}px)`;
+    this.$el.style.transform = `translate(${x}px, ${bottom + offsetY}px)`;
   },
   render() {
     return (
       <div
         class={{
-          'popover bs-popover-bottom': true,
+          popover: true,
           'd-none': !this.visible,
         }}
       >

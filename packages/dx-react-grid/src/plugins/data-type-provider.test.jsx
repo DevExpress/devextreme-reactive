@@ -1,8 +1,15 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { DataTypeProvider } from './data-type-provider';
+
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  getAvailableFilterOperationsGetter: jest.fn(),
+}));
 
 describe('DataTypeProvider', () => {
   let resetConsole;
@@ -11,6 +18,9 @@ describe('DataTypeProvider', () => {
   });
   afterAll(() => {
     resetConsole();
+  });
+  beforeEach(() => {
+    getAvailableFilterOperationsGetter.mockImplementation(() => () => ['a', 'b']);
   });
 
   it('should define the "valueFormatter" with correct predicate if "formatterComponent" is specified', () => {
@@ -55,5 +65,19 @@ describe('DataTypeProvider', () => {
       .toBeTruthy();
     expect(valueEditor.prop('predicate')({ column: { name: 'value' } }))
       .toBeFalsy();
+  });
+
+  it('should define the "getAvailableFilterOperations" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <DataTypeProvider
+          for={['test']}
+          getAvailableFilterOperations={() => {}}
+        />
+      </PluginHost>
+    ));
+    expect(getComputedState(tree).getAvailableFilterOperations)
+      .toEqual(expect.any(Function));
   });
 });

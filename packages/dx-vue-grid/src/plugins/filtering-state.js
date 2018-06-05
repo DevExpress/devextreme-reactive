@@ -1,8 +1,14 @@
 import { DxGetter, DxAction, DxPlugin } from '@devexpress/dx-vue-core';
-import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression } from '@devexpress/dx-grid-core';
+import {
+  changeColumnFilter,
+  getColumnExtensionValueGetter,
+  filterExpression,
+} from '@devexpress/dx-grid-core';
 
 const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
   getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
+const filterExpressionComputed = ({ filters, filterExpression: filterExpressionValue }) =>
+  filterExpression(filters, filterExpressionValue);
 
 export const DxFilteringState = {
   name: 'DxFilteringState',
@@ -35,7 +41,7 @@ export const DxFilteringState = {
         name="DxFilteringState"
       >
         <DxGetter name="filters" value={filters} />
-        <DxGetter name="filterExpression" computed={pushFilterExpression(filters)} />
+        <DxGetter name="filterExpression" computed={filterExpressionComputed} />
         <DxGetter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}

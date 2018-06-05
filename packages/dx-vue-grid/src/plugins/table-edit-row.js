@@ -1,4 +1,4 @@
-import { DxGetter, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -46,9 +46,10 @@ export const DxTableEditRow = {
         <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isEditTableCell(tableRow, tableColumn)}
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
+            isEditTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
                 getters: {
@@ -62,11 +63,11 @@ export const DxTableEditRow = {
                   changeRow,
                 },
               }) => {
-                const { rowId, row } = params.tableRow;
-                const { column } = params.tableColumn;
+                const { rowId, row } = attrs.tableRow;
+                const { column } = attrs.tableColumn;
                 const { name: columnName } = column;
 
-                const isNew = isAddedTableRow(params.tableRow);
+                const isNew = isAddedTableRow(attrs.tableRow);
                 const changedRow = isNew
                   ? row
                   : { ...row, ...getRowChange(rowChanges, rowId) };
@@ -86,16 +87,14 @@ export const DxTableEditRow = {
                 return (
                   <DxTemplatePlaceholder
                     name="valueEditor"
-                    params={{
-                      column,
-                      row,
-                      value,
-                      onValueChange,
-                    }}
+                    column={column}
+                    row={row}
+                    value={value}
+                    onValueChange={onValueChange}
                   >
                     {content => (
                       <EditCell
-                        {...{ attrs: { ...params } }}
+                        {...{ attrs: { ...attrs }, on: { ...listeners } }}
                         row={row}
                         column={column}
                         value={value}
@@ -113,14 +112,15 @@ export const DxTableEditRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
+          predicate={({ attrs: { tableRow } }) =>
+            (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
-          {params => (
+          {({ attrs, listeners, slots }) => (
             <EditRow
-              {...{ attrs: { ...params } }}
-              row={params.tableRow.row}
+              {...{ attrs: { ...attrs }, on: { ...listeners } }}
+              row={attrs.tableRow.row}
             >
-              <DxTemplatePlaceholderSlot params={params} />
+              {slots.default}
             </EditRow>
           )}
         </DxTemplate>

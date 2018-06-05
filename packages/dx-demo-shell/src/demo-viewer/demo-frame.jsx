@@ -22,15 +22,16 @@ class DemoFrameRenderer extends React.PureComponent {
     const themeLinks = themeVariantOptions.links
       ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
-    this.markup = `
+    this.markup = link => `
       <!DOCTYPE html>
       <html>
       <head>
-        ${themeLinks}
         <style>
           body { margin: 8px; overflow: hidden; }
           .panel { margin: 0 !important; }
         </style>
+        ${themeLinks}
+        ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
       </head>
       <body>
         <div id="mountPoint"></div>
@@ -40,7 +41,6 @@ class DemoFrameRenderer extends React.PureComponent {
         <script src="${scriptPath}"></script>
       </body>
       </html>`;
-
     this.state = {
       editableLink: themeVariantOptions.editableLink,
       frameHeight: 600,
@@ -49,9 +49,13 @@ class DemoFrameRenderer extends React.PureComponent {
   componentDidMount() {
     this.updateFrameHeight();
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.editableLink !== prevState.editableLink) {
+      if (this.node) this.node.ownerDocument.location.reload();
+    }
+  }
   updateFrameHeight() {
     setTimeout(this.updateFrameHeight.bind(this));
-
     if (!this.node) return;
     const height = this.node.ownerDocument.documentElement.offsetHeight;
     if (height !== this.state.frameHeight) {
@@ -84,9 +88,9 @@ class DemoFrameRenderer extends React.PureComponent {
                 />
                 <InputGroup.Button>
                   <Button
-                    onClick={() =>
-                      this.setState({ editableLink: this.customThemeLinkNode.value })
-                    }
+                    onClick={() => {
+                      this.setState({ editableLink: this.customThemeLinkNode.value });
+                    }}
                   >
                     Apply
                   </Button>
@@ -118,16 +122,13 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.markup}
+                initialContent={this.markup(editableLink)}
                 mountTarget="#mountPoint"
               >
-                {editableLink ? (
-                  <link rel="stylesheet" href={editableLink} />
-                ) : null}
                 <div ref={(node) => { this.node = node; }} />
               </Frame>
             </div>
-        )}
+          )}
       </div>
     );
   }

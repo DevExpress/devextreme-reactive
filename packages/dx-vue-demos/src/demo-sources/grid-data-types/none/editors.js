@@ -27,7 +27,7 @@ const BooleanEditor = {
     <select
       class="form-control"
       :value="value"
-      @change="e => this.$attrs.onValueChange(e.target.value === 'true')"
+      @change="e => this.$emit('valueChange', e.target.value === 'true')"
     >
       <option value="false">No</option>
       <option value="true">Yes</option>

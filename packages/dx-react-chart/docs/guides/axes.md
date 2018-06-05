@@ -18,8 +18,8 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 The default axis type is linear which is sutable for numeric data. The following example illustrates this axis type:
 
-.embedded-demo({ "path": "chart-basic/line.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/default-axis.wb3", "showThemeSelector": true })
 
 The band axis type is used to display string values. To apply it, set the axis' `type` property to `"band"` as demonstrated in the following example:
 
-.embedded-demo({ "path": "chart-basic/group-bar.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/band-axis.wb3", "showThemeSelector": true })

@@ -74,7 +74,7 @@ export const DxColumnChooser = {
                     toggleColumnVisibility,
                   },
                 }) => (
-                    <div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                       <ToggleButton
                         buttonRef={this.buttonRef}
                         onToggle={this.handleToggle}

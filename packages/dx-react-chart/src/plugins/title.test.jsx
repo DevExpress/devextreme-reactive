@@ -15,6 +15,7 @@ const defaultDeps = {
 const defaultProps = {
   text: 'chart',
   textComponent,
+  style: 'style',
 };
 
 describe('Title', () => {
@@ -49,5 +50,19 @@ describe('Title', () => {
       .toBe('chart');
     expect(tree.find('h1').text())
       .toBe('other template');
+  });
+
+  it('should pass style to text', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <Title
+          {...defaultProps}
+        />
+      </PluginHost>));
+
+    expect(tree.find(textComponent).props().style)
+      .toBe('style');
   });
 });

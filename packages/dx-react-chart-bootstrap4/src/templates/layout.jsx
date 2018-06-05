@@ -12,8 +12,8 @@ export class Root extends React.PureComponent {
       <div
         style={{
           ...style,
-          width: `${width}px`,
           height: `${height}px`,
+          ...width ? { width: `${width}px` } : null,
         }}
         className={classNames('dx-c-bs4-container', className)}
         {...restProps}

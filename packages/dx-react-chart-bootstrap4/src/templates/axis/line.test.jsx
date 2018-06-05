@@ -6,29 +6,19 @@ const defaultProps = { width: 100, height: 100, orientation: 'horizontal' };
 
 describe('Line', () => {
   it('should render line', () => {
-    const {
-      x1, y1, x2, y2,
-    } = shallow((
+    const { d } = shallow((
       <Line {...defaultProps} />
-    )).find('line').props();
+    )).find('path').props();
 
-    expect(x1).toBe(0);
-    expect(y1).toBe(0);
-    expect(x2).toBe(100);
-    expect(y2).toBe(0);
+    expect(d).toBe('M 0 0 L 100 0');
   });
 
   it('should render line. Vertical', () => {
-    const {
-      x1, y1, x2, y2,
-    } = shallow((
+    const { d } = shallow((
       <Line {...defaultProps} orientation="vertical" />
-    )).find('line').props();
+    )).find('path').props();
 
-    expect(x1).toBe(0);
-    expect(y1).toBe(0);
-    expect(x2).toBe(0);
-    expect(y2).toBe(100);
+    expect(d).toBe('M 0 0 L 0 100');
   });
 
   it('should pass the className prop to the root element', () => {
@@ -39,7 +29,7 @@ describe('Line', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Line {...defaultProps} customProperty />);
-    const { customProperty } = tree.find('line').props();
+    const { customProperty } = tree.find('path').props();
 
     expect(customProperty)
       .toBeTruthy();

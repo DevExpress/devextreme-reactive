@@ -242,12 +242,15 @@ describe('DxTableEditRow', () => {
     const valueEditorTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueEditor').at(0);
 
-    expect(valueEditorTemplatePlaceholder.vm.params)
+    expect(valueEditorTemplatePlaceholder.vm.$attrs)
       .toMatchObject({
         column: defaultDeps.template.tableCell.tableColumn.column,
         row: defaultDeps.template.tableCell.tableRow.row,
         value: defaultDeps.getter.getCellValue(),
-        onValueChange: expect.any(Function),
+      });
+    expect(valueEditorTemplatePlaceholder.vm.$listeners)
+      .toMatchObject({
+        valueChange: expect.any(Function),
       });
   });
 });

@@ -15,21 +15,15 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: data.slice(0, 7),
-      width: 700,
-      height: 400,
     };
   }
   render() {
-    const {
-      data: chartData, width, height,
-    } = this.state;
+    const { data: chartData } = this.state;
 
     return (
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <ArgumentAxis name="login" type="band" />
           <ValueAxis name="commits" />

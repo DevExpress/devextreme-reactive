@@ -82,14 +82,12 @@ export class Axis extends React.Component {
               domains,
               argumentAxisName,
               layouts,
-              width: containerWidth,
-              height: containerHeight,
              }, { changeBBox }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation } = domain;
               const { width: widthCalculated, height: heightCalculated } = layouts[placeholder] ||
-                    { width: containerWidth, height: containerHeight };
+                    { width: 0, height: 0 };
 
               const {
                 width: widthPostCalculated,
@@ -97,10 +95,9 @@ export class Axis extends React.Component {
               } = this.calculateLayout(
                 widthCalculated,
                 heightCalculated,
-                containerWidth,
-                containerHeight,
+                0,
+                0,
               );
-
 
               const coordinates = axisCoordinates(
                 domain,

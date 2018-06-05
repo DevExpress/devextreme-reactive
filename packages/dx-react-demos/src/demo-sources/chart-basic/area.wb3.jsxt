@@ -1,8 +1,5 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  ArgumentAxis,
-  ValueAxis,
-  Grid,
   Chart,
   AreaSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -15,29 +12,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      width: 700,
-      height: 400,
     };
   }
   render() {
-    const {
-      data: chartData, width, height,
-    } = this.state;
+    const { data: chartData } = this.state;
 
     return (
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
-
-          <ArgumentAxis name="year" />
-          <ValueAxis />
-
-          <Grid name="year" />
-          <Grid />
-
           <AreaSeries
             name="Russia"
             valueField="ru"

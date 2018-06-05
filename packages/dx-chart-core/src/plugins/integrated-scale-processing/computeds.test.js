@@ -143,13 +143,13 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: 'c' }],
+      [{ arg: 'c' }, { arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }],
       'argumentAxis',
       {},
     );
     expect(calculatedDomains).toEqual({
       argumentAxis: {
-        domain: ['a', 'b', 'c'],
+        domain: ['c', 'a', 'b'],
         orientation: 'horizontal',
         type: 'band',
       },

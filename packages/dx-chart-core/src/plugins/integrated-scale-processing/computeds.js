@@ -20,7 +20,7 @@ const calculateDomainField = (field, data, domain = [], type) => {
   const getFieldItem = object => object[field];
   const getCategories = (prev, cur) => {
     const categories = getFieldItem(cur);
-    if (categories !== undefined) {
+    if (isDefined(categories)) {
       return [...prev, categories];
     }
     return prev;
@@ -35,7 +35,7 @@ const calculateDomainField = (field, data, domain = [], type) => {
 };
 
 const getCorrectAxisType = (type, data, field) => {
-  if (!type && typeof data[0][field] === 'string') {
+  if (!type && typeof data.find(item => isDefined(item[field]))[field] === 'string') {
     return 'band';
   }
   return type;

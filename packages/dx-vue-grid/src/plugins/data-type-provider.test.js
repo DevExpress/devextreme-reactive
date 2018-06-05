@@ -24,9 +24,9 @@ describe('DxDataTypeProvider', () => {
       .toHaveLength(1);
     expect(name)
       .toBe('valueFormatter');
-    expect(predicate({ column: { name: 'test' } }))
+    expect(predicate({ attrs: { column: { name: 'test' } } }))
       .toBeTruthy();
-    expect(predicate({ column: { name: 'value' } }))
+    expect(predicate({ attrs: { column: { name: 'value' } } }))
       .toBeFalsy();
   });
 
@@ -51,9 +51,9 @@ describe('DxDataTypeProvider', () => {
       .toHaveLength(1);
     expect(name)
       .toBe('valueEditor');
-    expect(predicate({ column: { name: 'test' } }))
+    expect(predicate({ attrs: { column: { name: 'test' } } }))
       .toBeTruthy();
-    expect(predicate({ column: { name: 'value' } }))
+    expect(predicate({ attrs: { column: { name: 'value' } } }))
       .toBeFalsy();
   });
 });

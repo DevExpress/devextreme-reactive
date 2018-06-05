@@ -1,6 +1,8 @@
 import {
-  DxGetter, DxTemplate, DxPlugin,
-  DxTemplateConnector, DxTemplatePlaceholderSlot,
+  DxGetter,
+  DxTemplate,
+  DxPlugin,
+  DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithSelection,
@@ -73,16 +75,17 @@ export const DxTableSelection = {
         {(showSelectionColumn && showSelectAll) && (
           <DxTemplate
             name="tableCell"
-            predicate={({ tableRow, tableColumn }) => isSelectAllTableCell(tableRow, tableColumn)}
+            predicate={({ attrs: { tableRow, tableColumn } }) =>
+              isSelectAllTableCell(tableRow, tableColumn)}
           >
-            {params => (
+            {({ attrs, listeners }) => (
               <DxTemplateConnector>
                 {({
                   getters: { selectAllAvailable, allSelected, someSelected },
                   actions: { toggleSelectAll },
                 }) => (
                     <HeaderCell
-                      {...{ attrs: { ...params } }}
+                      {...{ attrs: { ...attrs }, on: { ...listeners } }}
                       disabled={!selectAllAvailable}
                       allSelected={allSelected}
                       someSelected={someSelected}
@@ -96,19 +99,20 @@ export const DxTableSelection = {
         {showSelectionColumn && (
           <DxTemplate
             name="tableCell"
-            predicate={({ tableRow, tableColumn }) => isSelectTableCell(tableRow, tableColumn)}
+            predicate={({ attrs: { tableRow, tableColumn } }) =>
+              isSelectTableCell(tableRow, tableColumn)}
           >
-            {params => (
+            {({ attrs, listeners }) => (
               <DxTemplateConnector>
                 {({
                   getters: { selection },
                   actions: { toggleSelection },
                 }) => (
                     <Cell
-                      {...{ attrs: { ...params } }}
-                      row={params.tableRow.row}
-                      selected={selection.indexOf(params.tableRow.rowId) !== -1}
-                      onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
+                      {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                      row={attrs.tableRow.row}
+                      selected={selection.indexOf(attrs.tableRow.rowId) !== -1}
+                      onToggle={() => toggleSelection({ rowIds: [attrs.tableRow.rowId] })}
                     />
                   )}
               </DxTemplateConnector>
@@ -118,21 +122,21 @@ export const DxTableSelection = {
         {(highlightRow || selectByRowClick) && (
           <DxTemplate
             name="tableRow"
-            predicate={({ tableRow }) => isDataTableRow(tableRow)}
+            predicate={({ attrs: { tableRow } }) => isDataTableRow(tableRow)}
           >
-            {params => (
+            {({ attrs, listeners, slots }) => (
               <DxTemplateConnector>
                 {({
                   getters: { selection },
                   actions: { toggleSelection },
                 }) => (
                     <Row
-                      {...{ attrs: { ...params } }}
+                      {...{ attrs: { ...attrs }, on: { ...listeners } }}
                       selectByRowClick={selectByRowClick}
-                      selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
-                      onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
+                      selected={highlightRow && selection.indexOf(attrs.tableRow.rowId) !== -1}
+                      onToggle={() => toggleSelection({ rowIds: [attrs.tableRow.rowId] })}
                     >
-                      <DxTemplatePlaceholderSlot params={params} />
+                      {slots.default}
                     </Row>
                   )}
               </DxTemplateConnector>

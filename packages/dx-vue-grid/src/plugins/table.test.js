@@ -250,7 +250,7 @@ describe('DxTable', () => {
       .wrappers
       .filter(wrapper => wrapper.props().name === 'valueFormatter')[0];
 
-    expect(valueFormatterTemplatePlaceholder.props().params)
+    expect(valueFormatterTemplatePlaceholder.vm.$attrs)
       .toMatchObject({
         column: tableCellArgs.tableColumn.column,
         row: tableCellArgs.tableRow.row,

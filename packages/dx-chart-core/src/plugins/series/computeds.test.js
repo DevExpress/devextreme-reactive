@@ -94,15 +94,17 @@ const dataWithUndefined = [
 const computedLine = data.map(item => ({
   id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'], value: item.val1,
 }));
+
+const series2 = Symbol('Series2');
 const series = [
   {
-    valueField: 'val2', axisName: 'axisName', argumentField: 'arg', name: 'Series1',
+    valueField: 'val2', axisName: 'axisName', argumentField: 'arg', uniqueName: Symbol('Series2'),
   },
   {
-    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', name: 'Series2',
+    valueField: 'val3', axisName: 'axisName', argumentField: 'arg', uniqueName: series2,
   },
   {
-    valueField: 'val1', axisName: 'axisName', argumentField: 'arg', name: 'Series3', stack: 'stack',
+    valueField: 'val1', axisName: 'axisName', argumentField: 'arg', uniqueName: Symbol('Series3'), stack: 'stack',
   },
 ];
 const size = 7;
@@ -175,7 +177,7 @@ describe('Series attributes', () => {
   });
 
   it('should return series by name', () => {
-    expect(findSeriesByName('Series2', series)).toEqual(series[1]);
+    expect(findSeriesByName(series2, series)).toEqual(series[1]);
   });
 
   it('should return d attribute for point and coordinates', () => {

@@ -102,7 +102,7 @@ export const coordinates = (
 ) => computeLinePath(data, scales, argumentField, valueField, name);
 
 export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.name === name);
+  series.find(seriesItem => seriesItem.uniqueName === name);
 
 export const lineAttributes = (
   type,

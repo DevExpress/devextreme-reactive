@@ -23,7 +23,6 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <BarSeries
-            name="Young"
             valueField="young"
             argumentField="state"
             axisName="age"
@@ -32,13 +31,11 @@ export default class Demo extends React.PureComponent {
             valueField="middle"
             argumentField="state"
             axisName="age"
-            name="Middle"
           />
           <BarSeries
             valueField="older"
             argumentField="state"
             axisName="age"
-            name="Older"
           />
         </Chart>
       </<%&wrapperTag%>>

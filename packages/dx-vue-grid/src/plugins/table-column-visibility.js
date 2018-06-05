@@ -81,14 +81,14 @@ export const DxTableColumnVisibility = {
         />
 
         <DxTemplate name="table">
-          {params => (
+          {attrs => (
             <DxTemplateConnector>
               {({ getters: { tableColumns } }) =>
                 (tableDataColumnsExist(tableColumns)
                 ? <DxTemplatePlaceholder />
                 : <EmptyMessage
                     getMessage={getMessage}
-                    {...{ attrs: { ...params } }}
+                    {...{ attrs }}
                 />
               )}
             </DxTemplateConnector>

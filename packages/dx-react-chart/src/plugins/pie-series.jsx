@@ -12,7 +12,6 @@ import { pieAttributes, seriesData, palette } from '@devexpress/dx-chart-core';
 export class PieSeries extends React.PureComponent {
   render() {
     const {
-      placeholder,
       name,
       innerRadius,
       outerRadius,
@@ -36,11 +35,10 @@ export class PieSeries extends React.PureComponent {
             {({
                 data,
                 layouts,
-                width, height,
               }) => {
                 const {
                   width: widthPane, height: heightPane,
-                } = layouts[placeholder] || { width, height };
+                } = layouts.pane;
 
               const arcs = pieAttributes(
                 valueField,
@@ -75,7 +73,6 @@ export class PieSeries extends React.PureComponent {
 
 PieSeries.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
   pointComponent: PropTypes.func.isRequired,
   innerRadius: PropTypes.number,
   outerRadius: PropTypes.number,
@@ -86,7 +83,6 @@ PieSeries.propTypes = {
 };
 
 PieSeries.defaultProps = {
-  placeholder: 'pane',
   innerRadius: 0,
   outerRadius: undefined,
   cx: undefined,

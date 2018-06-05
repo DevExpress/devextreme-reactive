@@ -329,7 +329,7 @@ describe('DxTableGroupRow', () => {
     const valueFormatterTemplatePlaceholder = tree.findAll(DxTemplatePlaceholder)
       .filter(wrapper => wrapper.vm.name === 'valueFormatter').at(0);
 
-    expect(valueFormatterTemplatePlaceholder.vm.params)
+    expect(valueFormatterTemplatePlaceholder.vm.$attrs)
       .toMatchObject({
         column: defaultDeps.template.tableCell.tableColumn.column,
         value: defaultDeps.template.tableCell.tableRow.row.value,

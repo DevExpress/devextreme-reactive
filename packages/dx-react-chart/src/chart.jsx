@@ -63,8 +63,8 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-  width: 150,
-  height: 150,
+  height: 500,
+  width: undefined,
   children: null,
 };
 

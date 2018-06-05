@@ -200,6 +200,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Column Visibility
+        path: /vue/grid/docs/guides/column-visibility
   - title: API Reference
     items:
       - title: DxGrid

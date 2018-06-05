@@ -33,7 +33,6 @@ describe('Grid', () => {
     jest.resetAllMocks();
   });
   // eslint-disable-next-line react/prop-types
-  const RootComponent = ({ children }) => <div>{children}</div>;
   const LineComponent = () => null;
 
   const defaultDeps = {
@@ -51,8 +50,8 @@ describe('Grid', () => {
   };
   const defaultProps = {
     name: 'name',
-    rootComponent: RootComponent,
     lineComponent: LineComponent,
+    styles: 'styles',
   };
 
   beforeEach(() => {
@@ -62,19 +61,6 @@ describe('Grid', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should render root component', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Grid
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(RootComponent)).toBeDefined();
   });
 
   it('should render ticks', () => {
@@ -88,6 +74,7 @@ describe('Grid', () => {
     ));
 
     expect(tree.find(LineComponent).get(0).props).toEqual({
+      styles: 'styles',
       x1: 1,
       x2: 1,
       y1: 300,
@@ -95,6 +82,7 @@ describe('Grid', () => {
     });
 
     expect(tree.find(LineComponent).get(1).props).toEqual({
+      styles: 'styles',
       x1: 11,
       x2: 11,
       y1: 300,
@@ -115,6 +103,7 @@ describe('Grid', () => {
     ));
 
     expect(tree.find(LineComponent).get(0).props).toEqual({
+      styles: 'styles',
       x1: 200,
       x2: 1,
       y1: 0,
@@ -122,6 +111,7 @@ describe('Grid', () => {
     });
 
     expect(tree.find(LineComponent).get(1).props).toEqual({
+      styles: 'styles',
       x1: 200,
       x2: 11,
       y1: 33,

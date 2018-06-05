@@ -24,6 +24,7 @@ export const createStateHelper = (component, controlledStateProperties = {}) => 
 
   let lastStateUpdater = null;
   let initialState = null;
+  let lastInitialState = null;
   const applyReducer = (reduce, payload, callback) => {
     const stateUpdater = (prevState) => {
       if (initialState === null) {
@@ -36,7 +37,10 @@ export const createStateHelper = (component, controlledStateProperties = {}) => 
         callback(state, prevState);
       }
       if (stateUpdater === lastStateUpdater) {
-        notifyStateChange(state, initialState);
+        if (lastInitialState !== initialState) {
+          notifyStateChange(state, initialState);
+          lastInitialState = initialState;
+        }
         initialState = null;
       }
 

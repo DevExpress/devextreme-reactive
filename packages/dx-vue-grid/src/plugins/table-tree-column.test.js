@@ -244,7 +244,7 @@ describe('DxTableTreeColumn', () => {
       .wrappers
       .filter(wrapper => wrapper.props().name === 'valueFormatter')[0];
 
-    expect(valueFormatterTemplatePlaceholder.props().params)
+    expect(valueFormatterTemplatePlaceholder.vm.$attrs)
       .toMatchObject({
         column: defaultDeps.template.tableCell.tableColumn.column,
         row: defaultDeps.template.tableCell.tableRow.row,

@@ -4,7 +4,6 @@ import {
   DxTemplateConnector,
   DxPlugin,
   DxTemplatePlaceholder,
-  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
@@ -53,9 +52,10 @@ export const DxTableHeaderRow = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
+            isHeadingTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
                 getters: {
@@ -69,7 +69,7 @@ export const DxTableHeaderRow = {
                   changeColumnGrouping,
                 },
               }) => {
-                const { name: columnName } = params.tableColumn.column;
+                const { name: columnName } = attrs.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
                 const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
@@ -78,8 +78,8 @@ export const DxTableHeaderRow = {
 
                 return (
                   <HeaderCell
-                    {...{ attrs: { ...params } }}
-                    column={params.tableColumn.column}
+                    {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                    column={attrs.tableColumn.column}
                     showSortingControls={this.showSortingControls}
                     showGroupingControls={this.showGroupingControls}
                     sortingEnabled={sortingEnabled}
@@ -94,9 +94,7 @@ export const DxTableHeaderRow = {
                     <DxTemplatePlaceholder
                       slot="before"
                       name="tableHeaderCellBefore"
-                      params={{
-                        column: params.tableColumn.column,
-                      }}
+                      column={attrs.tableColumn.column}
                     />
                   </HeaderCell>
                 );
@@ -106,13 +104,13 @@ export const DxTableHeaderRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => isHeadingTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isHeadingTableRow(tableRow)}
         >
-          {params => (
+          {({ attrs, listeners, slots }) => (
             <HeaderRow
-              {...{ attrs: { ...params } }}
+              {...{ attrs: { ...attrs }, on: { ...listeners } }}
             >
-              <DxTemplatePlaceholderSlot params={params} />
+              {slots.default}
             </HeaderRow>
           )}
         </DxTemplate>

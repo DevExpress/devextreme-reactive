@@ -63,7 +63,7 @@ export const DxTableTreeColumn = {
       >
         <DxTemplate
           name="tableHeaderCellBefore"
-          predicate={({ column }) => column.name === forColumnName}
+          predicate={({ attrs: { column } }) => column.name === forColumnName}
         >
           <div style="display: flex">
             <ExpandButton
@@ -88,10 +88,10 @@ export const DxTableTreeColumn = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) =>
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
             isTreeTableCell(tableRow, tableColumn, forColumnName)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
                 getters: {
@@ -100,24 +100,22 @@ export const DxTableTreeColumn = {
                 },
                 actions: { toggleRowExpanded, toggleSelection },
               }) => {
-                const { row, rowId } = params.tableRow;
-                const columnName = params.tableColumn.column.name;
+                const { row, rowId } = attrs.tableRow;
+                const columnName = attrs.tableColumn.column.name;
                 const value = getCellValue(row, columnName);
                 const collapsedRows = getCollapsedRows(row);
                 return (
                   <DxTemplatePlaceholder
                     name="valueFormatter"
-                    params={{
-                      row,
-                      column: params.tableColumn.column,
-                      value,
-                    }}
+                    row={row}
+                    column={attrs.tableColumn.column}
+                    value={value}
                   >
                     {content => (
                       <Cell
-                        {...{ attrs: { ...params } }}
+                        {...{ attrs: { ...attrs }, on: { ...listeners } }}
                         row={row}
-                        column={params.tableColumn.column}
+                        column={attrs.tableColumn.column}
                         value={value}
                       >
                         <Indent

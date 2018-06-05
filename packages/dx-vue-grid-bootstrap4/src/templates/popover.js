@@ -2,6 +2,11 @@ export const Popover = {
   name: 'Popover',
   props: {
     target: null,
+    container: null,
+    width: {
+      type: Number,
+      default: 0,
+    },
     visible: {
       type: Boolean,
     },
@@ -23,13 +28,12 @@ export const Popover = {
     const {
       bottom,
       left,
-      width,
+      width: targetWidth,
     } = this.target.getBoundingClientRect();
-
-    const bodyWidth = document.body.offsetWidth;
-    const popoverWidth = this.$el.offsetWidth;
-    let x = (left + (width / 2)) - (popoverWidth / 2);
-    const delta = bodyWidth - (x + popoverWidth);
+    const { container = document.body, width } = this;
+    const popoverWidth = width || this.$el.offsetWidth;
+    let x = (left + (targetWidth / 2)) - (popoverWidth / 2);
+    const delta = container.offsetWidth - (x + popoverWidth);
     if (delta < 0) {
       x += delta;
     }

@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
       width: 700,
       height: 400,
     };
-    this.getLabelWithAvatarComponents = this.getLabelWithAvatarComponents.bind(this);
+    this.getLabelWithAvatarComponent = this.getLabelWithAvatarComponent.bind(this);
   }
   componentDidMount() {
     this.getData();
@@ -71,7 +71,7 @@ export default class Demo extends React.PureComponent {
         .catch(() => this.setState({ data: false }));
     }
   }
-  getLabelWithAvatarComponents(props) {
+  getLabelWithAvatarComponent(props) {
     const { text, x, y } = props;
     const contributor = this.state.data.find(({ login }) => login === text);
     return (
@@ -98,7 +98,7 @@ export default class Demo extends React.PureComponent {
               <ArgumentAxis
                 name="login"
                 type="band"
-                labelComponent={this.getLabelWithAvatarComponents}
+                labelComponent={this.getLabelWithAvatarComponent}
                 tickComponent={() => null}
               />
               <ValueAxis name="commits" lineComponent={() => null} />

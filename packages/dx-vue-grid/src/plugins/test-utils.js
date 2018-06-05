@@ -62,7 +62,7 @@ export const PluginDepsToComponents = {
           .map(([name, templateParams]) => (
             <DxTemplate key={`template_${name}`} name="root">
               <div>
-                <DxTemplatePlaceholder name={name} params={templateParams} />
+                <DxTemplatePlaceholder name={name} {...{ attrs: { ...templateParams } }} />
                 <DxTemplatePlaceholder />
               </div>
             </DxTemplate>

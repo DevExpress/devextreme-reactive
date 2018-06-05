@@ -69,14 +69,14 @@ export const DxTableEditColumn = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) =>
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
             isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({ actions: { addRow } }) => (
                 <HeaderCell
-                  {...{ attrs: { ...params } }}
+                  {...{ attrs: { ...attrs }, on: { ...listeners } }}
                 >
                   {showAddCommand && (
                     <Command
@@ -93,10 +93,10 @@ export const DxTableEditColumn = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) =>
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
             isEditCommandsTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
                 actions: {
@@ -110,14 +110,14 @@ export const DxTableEditColumn = {
                   cancelChangedRows,
                 },
               }) => {
-                const isEdit = isEditTableRow(params.tableRow);
-                const isNew = isAddedTableRow(params.tableRow);
+                const isEdit = isEditTableRow(attrs.tableRow);
+                const isNew = isAddedTableRow(attrs.tableRow);
                 const isEditing = isEdit || isNew;
-                const rowIds = [params.tableRow.rowId];
+                const rowIds = [attrs.tableRow.rowId];
                 return (
                   <Cell
-                    {...{ attrs: { ...params } }}
-                    row={params.tableRow.row}
+                    {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                    row={attrs.tableRow.row}
                   >
                     {showEditCommand && !isEditing && (
                       <Command

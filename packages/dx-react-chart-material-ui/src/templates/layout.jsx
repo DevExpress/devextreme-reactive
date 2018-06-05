@@ -27,8 +27,8 @@ export class RootBase extends React.PureComponent {
       <div
         className={classNames(classes.root, className)}
         style={{
-          width: `${width}px`,
           height: `${height}px`,
+          ...width ? { width: `${width}px` } : null,
           ...style,
         }}
         {...restProps}

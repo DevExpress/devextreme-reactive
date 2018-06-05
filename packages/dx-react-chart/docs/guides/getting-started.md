@@ -65,10 +65,8 @@ const App = () => (
         { argument: 2, value: 20 },
         { argument: 3, value: 30 }
       ]}
-      width={400}
-      height={200}
     >
-      <ArgumentAxis name="argumentAxis" />
+      <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />
     </Chart>

@@ -14,13 +14,18 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
 const computeLinePath = (data, scales, argumentField, valueField, name) =>
-  data.map(dataItem => ({
-    x: scales.xScale(dataItem[argumentField]),
-    y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
-    y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
-    id: dataItem[argumentField],
-    value: dataItem[valueField],
-  }));
+  data.reduce((result, dataItem) => {
+    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+      return [...result, {
+        x: scales.xScale(dataItem[argumentField]),
+        y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
+        y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
+        id: dataItem[argumentField],
+        value: dataItem[valueField],
+      }];
+    }
+    return result;
+  }, []);
 
 const getGenerator = (type) => {
   switch (type) {

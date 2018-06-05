@@ -2,6 +2,9 @@ export const processData = (series, data) =>
   data.map(singleData => series.reduce((prevValue, {
     valueField, name, stack,
   }) => {
+    if (singleData[valueField] === undefined) {
+      return prevValue;
+    }
     const startValue = prevValue.collection[stack] || 0;
     const endValue = startValue + singleData[valueField];
 

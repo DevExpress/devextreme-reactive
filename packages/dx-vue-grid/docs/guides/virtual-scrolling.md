@@ -6,7 +6,7 @@ Virtual scrolling allows the Grid component to display thousands of records on a
 
 ## Related Plugins
 
-The [DxVirtualTable](../reference/virtual-table.md) plugin implements the virtual scrolling mode. Use this plugin instead of the [DxTable](../reference/table.md) one.
+The [DxVirtualTable](../reference/virtual-table.md) plugin implements the virtual scrolling mode. Use this plugin instead of [DxTable](../reference/table.md).
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 

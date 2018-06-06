@@ -17,9 +17,7 @@ export const ToggleButton = {
     return (
       <button
         class={{
-          btn: true,
-          'btn-outline-secondary': true,
-          'border-0': true,
+          'btn btn-outline-secondary border-0': true,
           active: this.active,
         }}
         onClick={onToggle}

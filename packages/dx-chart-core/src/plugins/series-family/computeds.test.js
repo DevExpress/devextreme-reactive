@@ -64,4 +64,56 @@ describe('processData', () => {
       'val-s3-end': 66,
     }]);
   });
+
+  it('should return new data, undefined values', () => {
+    const series = [
+      {
+        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val0',
+      },
+      {
+        name: 's2', stack: 'one', argumentField: 'arg', valueField: 'val1',
+      },
+      {
+        name: 's3', stack: 'one', argumentField: 'arg', valueField: 'val2',
+      },
+    ];
+    const data = [{
+      arg: 1, val0: undefined, val1: 12, val2: 13,
+    }, {
+      arg: 2, val0: 21, val1: undefined, val2: 23,
+    }, {
+      arg: 3, val0: 31, val1: 32, val2: 33,
+    }];
+
+    expect(processData(series, data)).toEqual([{
+      arg: 1,
+      val0: undefined,
+      val1: 12,
+      val2: 13,
+      'val1-s2-end': 12,
+      'val1-s2-start': 0,
+      'val2-s3-end': 25,
+      'val2-s3-start': 12,
+    }, {
+      arg: 2,
+      val0: 21,
+      val1: undefined,
+      val2: 23,
+      'val0-s1-end': 21,
+      'val0-s1-start': 0,
+      'val2-s3-end': 44,
+      'val2-s3-start': 21,
+    }, {
+      arg: 3,
+      val0: 31,
+      val1: 32,
+      val2: 33,
+      'val0-s1-start': 0,
+      'val0-s1-end': 31,
+      'val1-s2-start': 31,
+      'val1-s2-end': 63,
+      'val2-s3-start': 63,
+      'val2-s3-end': 96,
+    }]);
+  });
 });

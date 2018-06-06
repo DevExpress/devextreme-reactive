@@ -48,12 +48,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ScatterSeries
-            name="x=0 y=0"
             valueField="value0x0y"
             argumentField="argument0x0y"
           />
           <ScatterSeries
-            name="x=3 y=3"
             valueField="value3x3y"
             argumentField="argument3x3y"
           />

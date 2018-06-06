@@ -90,19 +90,16 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <LineSeries
-            name="Constant"
             valueField="constantValue"
             argumentField="argument"
             pointComponent={DiamondPoint}
           />
           <LineSeries
-            name="Linear"
             valueField="linearValue"
             argumentField="argument"
             pointComponent={CrossPoint}
           />
           <LineSeries
-            name="Pow"
             valueField="powValue"
             argumentField="argument"
             pointComponent={StarPoint}

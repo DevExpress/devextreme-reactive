@@ -52,8 +52,7 @@ export const xyScales = (
   domainName,
   layout,
   stacks,
-  groupWidth,
-  barWidth,
+  { groupWidth = 1, barWidth = 1 },
 ) => {
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
@@ -113,7 +112,7 @@ export const lineAttributes = (
   y: 0,
 });
 
-export const pointAttributes = (scales, size) => {
+export const pointAttributes = (scales, { size = 7 }) => {
   const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
   const offSet = scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0;
   return item => ({

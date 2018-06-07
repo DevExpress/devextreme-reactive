@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { lineAttributes, pointAttributes } from '@devexpress/dx-chart-core';
-import { baseSeries } from './base-series';
+import { withSeriesPlugin } from '../utils/series-helper';
 
 const Series = ({
   ...props
@@ -31,7 +31,20 @@ const Dot = ({
   );
 };
 
-export const SplineSeries = baseSeries(Series, Dot, 'SplineSeries', 'spline', lineAttributes, pointAttributes);
+const options = ({ ...props }) => {
+  const { point = {} } = props;
+  return { size: point.size };
+};
+
+export const SplineSeries = withSeriesPlugin(
+  Series,
+  Dot,
+  'SplineSeries',
+  'spline',
+  lineAttributes,
+  pointAttributes,
+  options,
+);
 
 Series.propTypes = {
   seriesComponent: PropTypes.func.isRequired,

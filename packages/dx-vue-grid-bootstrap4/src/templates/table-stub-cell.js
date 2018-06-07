@@ -1,4 +1,5 @@
 export const TableStubCell = {
+  name: 'TableStubCell',
   props: {
     tableRow: {
       type: Object,
@@ -8,10 +9,6 @@ export const TableStubCell = {
     },
   },
   render() {
-    return (
-      <td
-        class="py-0"
-      />
-    );
+    return <td class="py-0" />;
   },
 };

@@ -93,6 +93,16 @@ export const collapseBoundaries = (itemsCount, visibleBoundary, spanBoundaries) 
   return boundaries;
 };
 
+const getColumnsSize = (columns, startIndex, endIndex, getColumnSize) => {
+  let size = 0;
+  let index;
+  const loopEndIndex = endIndex + 1;
+  for (index = startIndex; index < loopEndIndex; index += 1) {
+    size += getColumnSize(columns[index], 0);
+  }
+  return size;
+};
+
 export const getCollapsedColumns = (columns, visibleBoundary, boundaries, getColumnWidth) => {
   const collapsedColumns = [];
   boundaries.forEach((boundary) => {
@@ -101,11 +111,10 @@ export const getCollapsedColumns = (columns, visibleBoundary, boundaries, getCol
       const column = columns[boundary[0]];
       collapsedColumns.push(column);
     } else {
-      const boundaryColumns = columns.slice(boundary[0], boundary[1] + 1);
       collapsedColumns.push({
         key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
         type: STUB_TYPE,
-        width: boundaryColumns.reduce((acc, column) => acc + getColumnWidth(column), 0),
+        width: getColumnsSize(columns, boundary[0], boundary[1], getColumnWidth),
       });
     }
   });
@@ -123,12 +132,11 @@ export const getCollapsedRows = (rows, visibleBoundary, boundaries, getRowHeight
         cells: getCells(row),
       });
     } else {
-      const boundaryColumns = rows.slice(boundary[0], boundary[1] + 1);
       collapsedColumns.push({
         row: {
           type: STUB_TYPE,
           key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
-          height: boundaryColumns.reduce((acc, column) => acc + getRowHeight(column), 0),
+          height: getColumnsSize(rows, boundary[0], boundary[1], getRowHeight),
         },
       });
     }

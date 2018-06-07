@@ -41,18 +41,18 @@ export const DxCustomGrouping = {
     } = this;
     const groupedRowsComputed = ({ rows, grouping }) =>
       customGroupedRows(rows, grouping, getChildGroups);
+    const groupingComputed = ({ grouping }) =>
+      appliedGrouping || grouping;
+    const expandedGroupsComputed = ({ expandedGroups }) =>
+      appliedExpandedGroups || expandedGroups;
 
     return (
       <DxPlugin
         name="DxCustomGrouping"
         dependencies={pluginDependencies}
       >
-        {appliedGrouping && (
-          <DxGetter name="grouping" value={appliedGrouping} />
-        )}
-        {appliedExpandedGroups && (
-          <DxGetter name="expandedGroups" value={appliedExpandedGroups} />
-        )}
+        <DxGetter name="grouping" computed={groupingComputed} />
+        <DxGetter name="expandedGroups" computed={expandedGroupsComputed} />
         <DxGetter name="isGroupRow" value={groupRowChecker} />
         <DxGetter name="getRowLevelKey" value={groupRowLevelKeyGetter} />
         <DxGetter name="getCollapsedRows" computed={getCollapsedRowsComputed} />

@@ -1,18 +1,19 @@
-export const TableRow = {
-  name: 'TableRow',
+export const TableStubHeaderCell = {
+  name: 'TableStubHeaderCell',
   props: {
-    row: null,
     tableRow: {
+      type: Object,
+    },
+    tableColumn: {
       type: Object,
     },
   },
   render() {
     return (
-      <tr
+      <th
         {...{ attrs: this.$attrs, on: this.$listeners }}
-      >
-        {this.$slots.default}
-      </tr>
+        class="p-0"
+      />
     );
   },
 };

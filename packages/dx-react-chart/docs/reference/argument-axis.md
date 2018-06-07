@@ -11,7 +11,7 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
 // import { ArgumentAxis } from '@devexpress/dx-react-chart-bootstrap4';
 ```
 
-You can import the themeless plugin if you want to use custom components:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { ArgumentAxis } from '@devexpress/dx-react-chart';

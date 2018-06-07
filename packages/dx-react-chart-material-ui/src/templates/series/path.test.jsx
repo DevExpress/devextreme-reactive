@@ -35,7 +35,7 @@ describe('Path', () => {
       <Path
         {...defaultProps}
         style={customStyle}
-        themeColor="color"
+        color="color"
       />
     ));
     const { style, stroke } = tree.find('path').props();

@@ -5,11 +5,11 @@ import classNames from 'classnames';
 export class Path extends React.PureComponent {
   render() {
     const {
-      x, y, className, pointComponent, pointStyle, coordinates, path, themeColor, ...restProps
+      x, y, className, pointComponent, pointStyle, coordinates, path, color, ...restProps
     } = this.props;
     return (
       <path
-        stroke={themeColor}
+        stroke={color}
         transform={`translate(${x} ${y})`}
         className={classNames('dx-c-bs4-fill-none dx-c-bs4-series-path', className)}
         d={path(coordinates)}
@@ -27,12 +27,12 @@ Path.propTypes = {
   path: PropTypes.func.isRequired,
   pointComponent: PropTypes.any,
   pointStyle: PropTypes.any,
-  themeColor: PropTypes.string,
+  color: PropTypes.string,
 };
 
 Path.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,
-  themeColor: undefined,
+  color: undefined,
 };

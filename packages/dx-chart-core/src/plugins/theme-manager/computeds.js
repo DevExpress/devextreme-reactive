@@ -6,5 +6,5 @@ const getColor = index => Palette[index % Palette.length];
 export const palette = series =>
   series.map((singleSeries, index) => ({
     ...singleSeries,
-    themeColor: getColor(index),
+    color: singleSeries.color || getColor(index),
   }));

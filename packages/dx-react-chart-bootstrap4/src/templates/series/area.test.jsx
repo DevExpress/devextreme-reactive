@@ -53,8 +53,8 @@ describe('Area', () => {
       .toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
-    const tree = shallow(<Area {...defaultProps} themeColor="color" />);
+  it('should apply color', () => {
+    const tree = shallow(<Area {...defaultProps} color="color" />);
 
     expect(tree.find('path').props().fill)
       .toBe('color');

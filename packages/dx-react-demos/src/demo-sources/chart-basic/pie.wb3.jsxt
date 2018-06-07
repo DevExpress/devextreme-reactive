@@ -4,14 +4,22 @@ import {
   PieSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { contributors as data } from '../../../demo-data/data-vizualization';
-
+const data = [
+  { country: 'Russia', area: 12, color: 'red' },
+  { country: 'Canada', area: 7, color: 'orange' },
+  { country: 'USA', area: 7, color: 'blue' },
+  { country: 'China', area: 7, color: 'darkred' },
+  { country: 'Brazil', area: 6, color: 'green' },
+  { country: 'Australia', area: 5, color: 'purple' },
+  { country: 'India', area: 2, color: 'yellow' },
+  { country: 'Others', area: 55, color: 'black' },
+];
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: data.slice(0, 6),
+      data,
     };
   }
   render() {
@@ -23,8 +31,8 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <PieSeries
-            valueField="contributions"
-            argumentField="login"
+            valueField="area"
+            argumentField="country"
           />
         </Chart>
       </<%&wrapperTag%>>

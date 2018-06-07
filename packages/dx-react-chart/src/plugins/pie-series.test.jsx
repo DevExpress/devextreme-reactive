@@ -11,13 +11,12 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   seriesData: jest.fn(),
-  palette: jest.fn().mockReturnValue([{ themeColor: 'color' }, { themeColor: 'color' }, { themeColor: 'color' }]),
 }));
 
 pieAttributes.mockImplementation(() => [
-  { d: 'M11 11', value: 'value1' },
-  { d: 'M22 22', value: 'value2' },
-  { d: 'M33 33', value: 'value3' },
+  { d: 'M11 11', value: 'value1', data: { argumentField: 'argument1', color: 'color1' } },
+  { d: 'M22 22', value: 'value2', data: { argumentField: 'argument2', color: 'color2' } },
+  { d: 'M33 33', value: 'value3', data: { argumentField: 'argument3', color: 'color3' } },
 ]);
 findSeriesByName.mockImplementation(() => ({
   stack: 'stack',
@@ -58,7 +57,7 @@ describe('Pie series', () => {
       y: 50,
       value: 'value1',
       styles: 'styles',
-      fill: 'color',
+      fill: 'color1',
     });
     expect(tree.find(PointComponent).get(1).props).toEqual({
       d: 'M22 22',
@@ -66,7 +65,7 @@ describe('Pie series', () => {
       y: 50,
       value: 'value2',
       styles: 'styles',
-      fill: 'color',
+      fill: 'color2',
     });
     expect(tree.find(PointComponent).get(2).props).toEqual({
       d: 'M33 33',
@@ -74,7 +73,7 @@ describe('Pie series', () => {
       y: 50,
       value: 'value3',
       styles: 'styles',
-      fill: 'color',
+      fill: 'color3',
     });
   });
 });

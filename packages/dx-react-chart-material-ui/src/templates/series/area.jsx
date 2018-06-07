@@ -20,12 +20,12 @@ class PathBase extends React.PureComponent {
       pointStyle,
       coordinates,
       path,
-      themeColor,
+      color,
       ...restProps
     } = this.props;
     return (
       <path
-        fill={themeColor}
+        fill={color}
         transform={`translate(${x} ${y})`}
         className={classNames(classes.root, className)}
         d={path(coordinates)}
@@ -45,14 +45,14 @@ PathBase.propTypes = {
   className: PropTypes.string,
   pointComponent: PropTypes.any,
   pointStyle: PropTypes.any,
-  themeColor: PropTypes.string,
+  color: PropTypes.string,
 };
 
 PathBase.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,
-  themeColor: undefined,
+  color: undefined,
 };
 
 export const Area = withStyles(styles)(PathBase);

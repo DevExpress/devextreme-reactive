@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { pieAttributes, seriesData, palette } from '@devexpress/dx-chart-core';
+import { pieAttributes, seriesData } from '@devexpress/dx-chart-core';
 
 export class PieSeries extends React.PureComponent {
   render() {
@@ -20,6 +20,7 @@ export class PieSeries extends React.PureComponent {
       pointComponent: Point,
       valueField,
       argumentField,
+      colorField,
       ...restProps
     } = this.props;
     const getSeriesDataComputed = ({ series }) =>
@@ -47,18 +48,21 @@ export class PieSeries extends React.PureComponent {
                 heightPane,
                 innerRadius,
                 outerRadius,
+                argumentField,
               );
-              const colors = palette(Array.from(arcs));
+
                 return (
-                      arcs.map((item, index) =>
+                      arcs.map(({
+                        value, d, data: dataItem,
+                      }) =>
                         (
                           <Point
-                            fill={colors[index].themeColor}
-                            key={item.value}
+                            fill={dataItem[colorField]}
+                            key={dataItem[argumentField]}
                             x={cx || widthPane / 2}
                             y={cy || heightPane / 2}
-                            value={item.value}
-                            d={item.d}
+                            value={value}
+                            d={d}
                             {...restProps}
                           />
                         ))
@@ -80,9 +84,11 @@ PieSeries.propTypes = {
   cy: PropTypes.number,
   valueField: PropTypes.string.isRequired,
   argumentField: PropTypes.string.isRequired,
+  colorField: PropTypes.string,
 };
 
 PieSeries.defaultProps = {
+  colorField: 'color',
   name: 'defaultSeriesName',
   innerRadius: 0,
   outerRadius: undefined,

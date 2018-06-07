@@ -41,7 +41,7 @@ describe('Base series', () => {
   beforeEach(() => {
     findSeriesByName.mockReturnValue({
       stack: 'stack1',
-      themeColor: 'color',
+      color: 'color',
     });
 
     coordinates.mockReturnValue(coords);
@@ -103,7 +103,7 @@ describe('Base series', () => {
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
       styles: 'styles',
-      themeColor: 'color',
+      color: 'color',
     });
     for (let i = 0; i < coords.length; i += 1) {
       expect(points.get(i).props.value).toBe(coords[i].value);

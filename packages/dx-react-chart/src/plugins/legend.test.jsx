@@ -16,7 +16,7 @@ describe('Legend', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      series: [{ name: 'first', themeColor: 'color' }],
+      series: [{ name: 'first', color: 'color' }],
       setBBox: jest.fn(),
     },
     template: {
@@ -57,7 +57,7 @@ describe('Legend', () => {
     ));
     expect(tree.find(Marker).get(0).props).toEqual({
       name: 'first',
-      themeColor: 'color',
+      color: 'color',
     });
   });
 

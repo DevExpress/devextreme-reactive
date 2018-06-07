@@ -83,12 +83,15 @@ export const pieAttributes = (
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
-  return pieData.map(d => ({
+  return pieData.map(({
+    startAngle, endAngle, value, data: itemData,
+  }) => ({
     d: arc().innerRadius(radius * innerRadius)
       .outerRadius(radius * outerRadius || radius)
-      .startAngle(d.startAngle)
-      .endAngle(d.endAngle)(),
-    value: d.value,
+      .startAngle(startAngle)
+      .endAngle(endAngle)(),
+    value,
+    data: itemData,
   }));
 };
 

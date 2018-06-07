@@ -5,11 +5,11 @@ import classNames from 'classnames';
 export class Area extends React.PureComponent {
   render() {
     const {
-      x, y, className, pointComponent, pointStyle, coordinates, path, themeColor, ...restProps
+      x, y, className, pointComponent, pointStyle, coordinates, path, color, ...restProps
     } = this.props;
     return (
       <path
-        fill={themeColor}
+        fill={color}
         transform={`translate(${x} ${y})`}
         className={classNames('dx-c-bs4-series-opacity', className)}
         d={path(coordinates)}
@@ -27,12 +27,12 @@ Area.propTypes = {
   path: PropTypes.func.isRequired,
   pointComponent: PropTypes.any,
   pointStyle: PropTypes.any,
-  themeColor: PropTypes.string,
+  color: PropTypes.string,
 };
 
 Area.defaultProps = {
   className: undefined,
   pointComponent: undefined,
   pointStyle: undefined,
-  themeColor: undefined,
+  color: undefined,
 };

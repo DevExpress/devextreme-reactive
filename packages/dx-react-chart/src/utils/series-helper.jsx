@@ -26,13 +26,14 @@ export const withSeriesPlugin = (
         argumentField,
         axisName,
         stack: stackProp,
+        color,
         ...restProps
       } = this.props;
 
       const uniqueName = Symbol(name);
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, uniqueName, axisName, stack: stackProp,
+          valueField, argumentField, name, uniqueName, axisName, stack: stackProp, color,
         });
       const startFromZeroByAxes = ({ startFromZero = {} }) =>
         checkZeroStart(startFromZero, axisName, pathType);
@@ -52,7 +53,7 @@ export const withSeriesPlugin = (
                 layouts,
               }) => {
                 const {
-                  stack, themeColor,
+                  stack, color: seriesColor,
                 } = findSeriesByName(uniqueName, series);
                 const options = extraOptions({ ...restProps });
                 const scales = xyScales(
@@ -74,7 +75,7 @@ export const withSeriesPlugin = (
                 return (
                   <React.Fragment>
                     <Path
-                      themeColor={themeColor}
+                      color={seriesColor}
                       coordinates={coord}
                       {...processLine(pathType, scales)}
                       {...restProps}
@@ -83,7 +84,7 @@ export const withSeriesPlugin = (
                       coord.map(item =>
                         (
                           <Point
-                            themeColor={themeColor}
+                            color={seriesColor}
                             key={item.id.toString()}
                             value={item.value}
                             {...pointParameters(item)}
@@ -106,9 +107,11 @@ export const withSeriesPlugin = (
     argumentField: PropTypes.string.isRequired,
     axisName: PropTypes.string,
     stack: PropTypes.string,
+    color: PropTypes.string,
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
+    color: undefined,
     axisName: undefined,
     stack: undefined,
   };

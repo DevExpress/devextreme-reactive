@@ -50,7 +50,7 @@ const Point = (type, styles) => (props) => {
   } = props;
   return (
     <path
-      fill={props.themeColor}
+      fill={props.color}
       transform={`translate(${x} ${y})`}
       d={symbol().size([10 ** 2]).type(type)()}
       style={styles}

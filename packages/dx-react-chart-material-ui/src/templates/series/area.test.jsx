@@ -35,7 +35,7 @@ describe('Area', () => {
       <Area
         {...defaultProps}
         style={customStyle}
-        themeColor="color"
+        color="color"
       />
     ));
     const { style, fill } = tree.find('path').props();

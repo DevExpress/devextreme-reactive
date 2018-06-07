@@ -69,11 +69,12 @@ export class Sizer extends React.PureComponent {
   }
   render() {
     const { size } = this.state;
-    const { children } = this.props;
+    const { children, style } = this.props;
+
     return (
       <div
         ref={(node) => { this.root = node; }}
-        style={styles.root}
+        style={{ ...styles.root, ...style }}
       >
         {children(size)}
         <div style={styles.triggers}>
@@ -103,4 +104,9 @@ export class Sizer extends React.PureComponent {
 
 Sizer.propTypes = {
   children: PropTypes.func.isRequired,
+  style: PropTypes.object,
+};
+
+Sizer.defaultProps = {
+  style: null,
 };

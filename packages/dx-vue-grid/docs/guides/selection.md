@@ -36,11 +36,11 @@ Perform the following steps to enable the Select All capability:
 - Add the `DxTableHeaderRow` plugin.
 - Set the `DxTableSelection` plugin's `showSelectAll` property to true.
 
-<!-- ### Without Paging
+### Without Paging
 
 The following example demonstrates selection without paging. You can increase the row count using the Table's [virtual mode](virtual-scrolling.md).
 
-.embedded-demo({ "path": "grid-selection/select-all-virtual", "showThemeSelector": true }) -->
+.embedded-demo({ "path": "grid-selection/select-all-virtual", "showThemeSelector": true })
 
 ### With Paging
 

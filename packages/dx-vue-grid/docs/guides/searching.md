@@ -21,7 +21,7 @@ Specify the searching value in the `DxSearchState` plugin's `value` property and
 
 .embedded-demo({ "path": "grid-searching/basic", "showThemeSelector": true })
 
-<!-- ## Remote Searching
+## Remote Searching
 
 You can perform searching remotely by handling search value changes, generating a request, and sending it to the server.
 
@@ -29,4 +29,4 @@ Searching options are updated once an end user modifies the text in a Search Pan
 
 NOTE: Do not use the `DxIntegratedFiltering` plugin for remote searching.
 
-.embedded-demo({ "path": "grid-searching/remote-mode", "showThemeSelector": true }) -->
+.embedded-demo({ "path": "grid-searching/remote-mode", "showThemeSelector": true })

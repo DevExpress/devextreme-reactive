@@ -200,6 +200,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Virtual Scrolling
+        path: /vue/grid/docs/guides/virtual-scrolling
   - title: API Reference
     items:
       - title: DxGrid
@@ -260,3 +262,5 @@
         path: /vue/grid/docs/reference/toolbar
       - title: DxTableHeaderRow
         path: /vue/grid/docs/reference/table-header-row
+      - title: DxVirtualTable
+        path: /vue/grid/docs/reference/virtual-table

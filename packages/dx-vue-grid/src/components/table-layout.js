@@ -46,6 +46,7 @@ export const TableLayout = {
         {...{ attrs: this.$attrs }}
         columns={columns}
         minWidth={minWidth}
+        minColumnWidth={minColumnWidth}
       />
     );
   },

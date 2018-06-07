@@ -30,13 +30,27 @@ const RowPlaceholder = {
     );
   },
 };
+
 const CellPlaceholder = {
-  functional: true,
-  render(h, context) {
+  props: {
+    tableColumn: {
+      type: Object,
+      required: true,
+    },
+    tableRow: {
+      type: Object,
+      required: true,
+    },
+    colSpan: {
+      type: Number,
+      required: true,
+    },
+  },
+  render() {
     return (
       <DxTemplatePlaceholder
         name="tableCell"
-        {...context.data}
+        {...{ attrs: { ...this.$props } }}
       />
     );
   },

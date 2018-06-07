@@ -3,7 +3,7 @@ import {
   isTrackedDependenciesChanged,
   getAvailableActions,
 } from './helpers';
-import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 
 const GLOBAL_SHIFT = 0xffff;
 
@@ -90,6 +90,7 @@ export const DxGetter = {
   watch: {
     value() {
       this.generateId();
+      this.pluginHost.broadcast(UPDATE_CONNECTION_EVENT);
     },
   },
 };

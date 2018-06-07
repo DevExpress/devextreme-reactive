@@ -20,6 +20,6 @@ The following example demonstrates the basic Grid with virtual scrolling:
 
 .embedded-demo({ "path": "grid-virtual-scrolling/row-virtualization", "showThemeSelector": true })
 
-The Grid also supports culumn virtualization, which is demonstrated in the following demo:
+The Grid also supports column virtualization, which is demonstrated in the following demo:
 
 .embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })

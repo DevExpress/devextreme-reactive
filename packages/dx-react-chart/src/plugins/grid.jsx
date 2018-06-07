@@ -11,7 +11,6 @@ import { axisCoordinates, HORIZONTAL, TOP, LEFT } from '@devexpress/dx-chart-cor
 export class Grid extends React.PureComponent {
   render() {
     const {
-      placeholder,
       name,
       lineComponent: Line,
       ...restProps
@@ -24,14 +23,12 @@ export class Grid extends React.PureComponent {
             {({
               domains,
               layouts,
-                width: containerWidth,
-                height: containerHeight,
             }) => {
               const domain = domains[name];
               const { orientation } = domain;
               const {
                 width, height,
-              } = layouts[placeholder] || { width: containerWidth, height: containerHeight };
+              } = layouts.pane;
 
               const coordinates = axisCoordinates(
                 domain,
@@ -67,11 +64,9 @@ export class Grid extends React.PureComponent {
 
 Grid.propTypes = {
   name: PropTypes.string,
-  placeholder: PropTypes.string,
   lineComponent: PropTypes.func.isRequired,
 };
 
 Grid.defaultProps = {
   name: undefined,
-  placeholder: 'pane',
 };

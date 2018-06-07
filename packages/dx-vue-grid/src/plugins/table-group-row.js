@@ -4,7 +4,6 @@ import {
   DxPlugin,
   DxTemplatePlaceholder,
   DxTemplateConnector,
-  DxTemplatePlaceholderSlot,
 } from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithGrouping,
@@ -92,9 +91,9 @@ export const DxTableGroupRow = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow }) => isGroupTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isGroupTableRow(tableRow)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
                 getters: {
@@ -105,23 +104,21 @@ export const DxTableGroupRow = {
                   toggleGroupExpanded,
                 },
               }) => {
-                if (isGroupTableCell(params.tableRow, params.tableColumn)) {
+                if (isGroupTableCell(attrs.tableRow, attrs.tableColumn)) {
                   return (
                     <DxTemplatePlaceholder
                       name="valueFormatter"
-                      params={{
-                        column: params.tableColumn.column,
-                        value: params.tableRow.row.value,
-                      }}
+                      column={attrs.tableColumn.column}
+                      value={attrs.tableRow.row.value}
                     >
                       {content => (
                         <GroupCell
-                          {...{ attrs: { ...params } }}
-                          row={params.tableRow.row}
-                          column={params.tableColumn.column}
-                          expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
+                          {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                          row={attrs.tableRow.row}
+                          column={attrs.tableColumn.column}
+                          expanded={expandedGroups.indexOf(attrs.tableRow.row.compoundKey) !== -1}
                           onToggle={() =>
-                            toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
+                            toggleGroupExpanded({ groupKey: attrs.tableRow.row.compoundKey })}
                         >
                           {content}
                         </GroupCell>
@@ -129,13 +126,13 @@ export const DxTableGroupRow = {
                     </DxTemplatePlaceholder>
                   );
                 }
-                if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
+                if (isGroupIndentTableCell(attrs.tableRow, attrs.tableColumn, grouping)) {
                   if (GroupIndentCell) {
                     return (
                       <GroupIndentCell
-                        {...{ attrs: { ...params } }}
-                        row={params.tableRow.row}
-                        column={params.tableColumn.column}
+                        {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                        row={attrs.tableRow.row}
+                        column={attrs.tableColumn.column}
                       />
                     );
                   }
@@ -148,14 +145,14 @@ export const DxTableGroupRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => isGroupTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isGroupTableRow(tableRow)}
         >
-          {params => (
+          {({ attrs, listeners, slots }) => (
             <GroupRow
-              {...{ attrs: { ...params } }}
-              row={params.tableRow.row}
+              {...{ attrs: { ...attrs }, on: { ...listeners } }}
+              row={attrs.tableRow.row}
             >
-              <DxTemplatePlaceholderSlot params={params} />
+              {slots.default}
             </GroupRow>
           )}
         </DxTemplate>

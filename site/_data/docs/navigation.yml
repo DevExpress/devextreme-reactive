@@ -167,12 +167,38 @@
     items:
       - title: Getting Started
         path: /react/chart/docs/guides/getting-started
-      - title: Fundamentals
-        path: /react/chart/docs/guides/fundamentals
+      - title: Plugin Overview
+        path: /react/chart/docs/guides/plugin-overview
       - title: Series
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+  - title: API Reference
+    items:
+      - title: AreaSeries
+        path: /react/chart/docs/reference/area-series
+      - title: ArgumentAxis
+        path: /react/chart/docs/reference/argument-axis
+      - title: BarSeries
+        path: /react/chart/docs/reference/bar-series
+      - title: Chart
+        path: /react/chart/docs/reference/chart
+      - title: Grid
+        path: /react/chart/docs/reference/grid
+      - title: Legend
+        path: /react/chart/docs/reference/legend
+      - title: LineSeries
+        path: /react/chart/docs/reference/line-series
+      - title: PieSeries
+        path: /react/chart/docs/reference/pie-series
+      - title: ScatterSeries
+        path: /react/chart/docs/reference/scatter-series
+      - title: SplineSeries
+        path: /react/chart/docs/reference/spline-series
+      - title: Title
+        path: /react/chart/docs/reference/title
+      - title: ValueAxis
+        path: /react/chart/docs/reference/value-axis
 /vue/grid:
   - title: Guides
     items:
@@ -200,6 +226,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Virtual Scrolling
+        path: /vue/grid/docs/guides/virtual-scrolling
   - title: API Reference
     items:
       - title: DxGrid
@@ -260,3 +288,5 @@
         path: /vue/grid/docs/reference/toolbar
       - title: DxTableHeaderRow
         path: /vue/grid/docs/reference/table-header-row
+      - title: DxVirtualTable
+        path: /vue/grid/docs/reference/virtual-table

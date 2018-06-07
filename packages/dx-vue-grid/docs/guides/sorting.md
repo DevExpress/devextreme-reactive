@@ -43,12 +43,12 @@ The [DxIntegratedSorting](../reference/integrated-sorting.md) plugin's `columnEx
 
 .embedded-demo({ "path": "grid-sorting/custom-sorting", "showThemeSelector": true })
 
-<!-- ## Remote Sorting
+## Remote Sorting
 
-You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
+You can perform remote sorting by handling sorting state changes, generating a request, and sending it to the server.
 
 Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `DxSortingState` plugin's `update:sorting` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `DxGrid` component's `rows` property.
 
 Note that you do not need to use the `DxIntegratedSorting` plugin for remote sorting.
 
-.embedded-demo({ "path": "grid-sorting/remote-sorting", "showThemeSelector": true }) -->
+.embedded-demo({ "path": "grid-sorting/remote-sorting", "showThemeSelector": true })

@@ -30,9 +30,11 @@ export const baseSeries = (
         stack: stackProp,
         ...restProps
       } = this.props;
+
+      const uniqueName = Symbol(name);
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, axisName, stack: stackProp,
+          valueField, argumentField, name, uniqueName, axisName, stack: stackProp,
         });
       const startFromZeroByAxes = ({ startFromZero = {} }) =>
         checkZeroStart(startFromZero, axisName, pathType);
@@ -50,17 +52,15 @@ export const baseSeries = (
                 data,
                 argumentAxisName,
                 layouts,
-                width,
-                height,
               }) => {
                 const {
                   stack, themeColor,
-                } = findSeriesByName(name, series);
+                } = findSeriesByName(uniqueName, series);
                 const scales = xyScales(
                   domains,
                   argumentAxisName,
                   axisName,
-                  layouts.pane || { width, height },
+                  layouts.pane,
                   stacks,
                   groupWidth,
                   barWidth,
@@ -104,7 +104,7 @@ export const baseSeries = (
     }
   }
   Component.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     point: PropTypes.object,
     barWidth: PropTypes.number,
     groupWidth: PropTypes.number,
@@ -114,6 +114,7 @@ export const baseSeries = (
     stack: PropTypes.string,
   };
   Component.defaultProps = {
+    name: 'defaultSeriesName',
     axisName: undefined,
     stack: undefined,
     point: { size: 7 },

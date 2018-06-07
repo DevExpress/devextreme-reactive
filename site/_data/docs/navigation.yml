@@ -167,8 +167,8 @@
     items:
       - title: Getting Started
         path: /react/chart/docs/guides/getting-started
-      - title: Fundamentals
-        path: /react/chart/docs/guides/fundamentals
+      - title: Plugin Overview
+        path: /react/chart/docs/guides/plugin-overview
       - title: Series
         path: /react/chart/docs/guides/series
       - title: Axes

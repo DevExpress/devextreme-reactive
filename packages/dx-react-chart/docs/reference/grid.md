@@ -11,7 +11,7 @@ import { Grid } from '@devexpress/dx-react-chart-material-ui';
 // import { Grid } from '@devexpress/dx-react-chart-bootstrap4';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { Grid } from '@devexpress/dx-react-chart';

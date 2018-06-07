@@ -11,7 +11,7 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
 // import { ArgumentAxis } from '@devexpress/dx-react-chart-bootstrap4';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { ArgumentAxis } from '@devexpress/dx-react-chart';
@@ -50,10 +50,10 @@ Describes properties passed to a component that renders a tick line.
 
 Field | Type | Description
 ------|------|------------
-x1 | number | The line start's x coordinate.
-x2 | number | The line end's x coordinate.
-y1 | number | The line start's y coordinate.
-y2 | number | The line end's y coordinate.
+x1 | number | The x coordinate of the line's start.
+x2 | number | The x coordinate of the line's end.
+y1 | number | The y coordinate of the line's start.
+y2 | number | The y coordinate of the line's end.
 
 ### ArgumentAxis.LabelProps
 

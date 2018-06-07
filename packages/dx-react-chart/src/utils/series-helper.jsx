@@ -28,9 +28,11 @@ export const withSeriesPlugin = (
         stack: stackProp,
         ...restProps
       } = this.props;
+
+      const uniqueName = Symbol(name);
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, axisName, stack: stackProp,
+          valueField, argumentField, name, uniqueName, axisName, stack: stackProp,
         });
       const startFromZeroByAxes = ({ startFromZero = {} }) =>
         checkZeroStart(startFromZero, axisName, pathType);
@@ -48,18 +50,16 @@ export const withSeriesPlugin = (
                 data,
                 argumentAxisName,
                 layouts,
-                width,
-                height,
               }) => {
                 const {
                   stack, themeColor,
-                } = findSeriesByName(name, series);
+                } = findSeriesByName(uniqueName, series);
                 const options = extraOptions({ ...restProps });
                 const scales = xyScales(
                   domains,
                   argumentAxisName,
                   axisName,
-                  layouts.pane || { width, height },
+                  layouts.pane,
                   stacks,
                   options,
                 );
@@ -101,13 +101,14 @@ export const withSeriesPlugin = (
     }
   }
   Component.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
     axisName: PropTypes.string,
     stack: PropTypes.string,
   };
   Component.defaultProps = {
+    name: 'defaultSeriesName',
     axisName: undefined,
     stack: undefined,
   };

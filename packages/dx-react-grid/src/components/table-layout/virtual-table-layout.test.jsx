@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
+import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
-import { getCollapsedGrid } from './virtual-table-utils';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
-jest.mock('./virtual-table-utils', () => {
-  const actual = require.requireActual('./virtual-table-utils');
+jest.mock('@devexpress/dx-grid-core', () => {
+  const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrid');
   return actual;
 });
@@ -176,7 +176,7 @@ describe('VirtualTableLayout', () => {
           expect(getRowHeight(rows[1]))
             .toEqual(10);
 
-          return require.requireActual('./virtual-table-utils').getCollapsedGrid(args);
+          return require.requireActual('@devexpress/dx-grid-core').getCollapsedGrid(args);
         });
 
       mount((

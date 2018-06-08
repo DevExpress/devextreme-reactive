@@ -1,7 +1,7 @@
 import { calculateStartPage } from '@devexpress/dx-grid-core';
 
 export const PageButtons = {
-  name: 'pageButtons',
+  name: 'PageButtons',
   functional: true,
   props: {
     currentPage: {

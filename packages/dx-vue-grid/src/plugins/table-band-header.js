@@ -1,6 +1,6 @@
 import {
   DxGetter, DxTemplate, DxPlugin,
-  DxTemplateConnector, DxTemplatePlaceholderSlot, DxTemplatePlaceholder,
+  DxTemplateConnector, DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 import {
   getBandComponent,
@@ -11,11 +11,8 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = {
-  props: {
-    params: null,
-  },
   render() {
-    return <DxTemplatePlaceholder params={this.params} />;
+    return <DxTemplatePlaceholder />;
   },
 };
 
@@ -64,24 +61,31 @@ export const DxTableBandHeader = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow }) => isBandedOrHeaderRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isBandedOrHeaderRow(tableRow)}
         >
-          {params => (
+          {({ attrs }) => (
             <DxTemplateConnector>
               {({
                 getters: { tableColumns, tableHeaderRows },
               }) => {
                 const bandComponent =
-                  getBandComponent(params, tableHeaderRows, tableColumns, columnBands);
+                  getBandComponent(attrs, tableHeaderRows, tableColumns, columnBands);
+
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:
-                    return <DxTemplatePlaceholder params={params}/>;
+                    return (
+                      <DxTemplatePlaceholder
+                        colSpan={attrs.colSpan}
+                        tableColumn={attrs.tableColumn}
+                        tableRow={attrs.tableRow}
+                      />
+                    );
                   case BAND_EMPTY_CELL:
                     return <InvisibleCell />;
                   case BAND_GROUP_CELL: {
                     const { value, ...payload } = bandComponent.payload;
                     return (
-                      <Cell {...{ attrs: { ...params, ...payload } }}>
+                      <Cell {...{ attrs: { ...attrs, ...payload } }}>
                         {value}
                       </Cell>
                     );
@@ -90,7 +94,10 @@ export const DxTableBandHeader = {
                     return (
                       <DxTemplatePlaceholder
                         name="tableCell"
-                        params={{ ...params, ...bandComponent.payload }}
+                        colSpan={attrs.colSpan}
+                        tableColumn={attrs.tableColumn}
+                        tableRow={{ ...attrs.tableRow, ...bandComponent.payload.tableRow }}
+                        rowSpan={bandComponent.payload.rowSpan}
                       />
                     );
                   default:
@@ -102,17 +109,18 @@ export const DxTableBandHeader = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isHeadingTableCell(tableRow, tableColumn)}
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
+            isHeadingTableCell(tableRow, tableColumn)}
         >
-          {params => <HeaderCell component={CellPlaceholder} {...{ attrs: { ...params } }} />}
+          {({ attrs }) => <HeaderCell component={CellPlaceholder} {...{ attrs: { ...attrs } }} />}
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => isBandedTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isBandedTableRow(tableRow) }
         >
-          {params => (
-            <Row {...{ attrs: { ...params } }}>
-              <DxTemplatePlaceholderSlot params={params} />
+          {({ attrs, slots }) => (
+            <Row {...{ attrs: { ...attrs } }}>
+              {slots.default}
             </Row>
           )}
         </DxTemplate>

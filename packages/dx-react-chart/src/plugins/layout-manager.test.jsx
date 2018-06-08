@@ -21,7 +21,7 @@ describe('LayoutManager', () => {
     rootComponent: () => null,
   };
 
-  it('should provide width & height ', () => {
+  it('should provide default layouts getter', () => {
     const tree = mount((
       <PluginHost>
         <LayoutManager
@@ -31,7 +31,6 @@ describe('LayoutManager', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).width).toEqual(200);
-    expect(getComputedState(tree).height).toEqual(100);
+    expect(getComputedState(tree).layouts.pane).toEqual({ width: 200, height: 100 });
   });
 });

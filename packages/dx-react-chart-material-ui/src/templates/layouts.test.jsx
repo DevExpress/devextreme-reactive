@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Root } from './layout';
 
 const defaultProps = {
-  width: 200, height: 100,
+  width: 0, height: 100,
 };
 
 describe('Root', () => {
@@ -43,9 +43,22 @@ describe('Root', () => {
     const { style } = tree.find('div').props();
     expect(style)
       .toEqual({
-        width: '200px',
         height: '100px',
         color: 'red',
+      });
+  });
+
+  it('should apply correct width', () => {
+    const tree = shallow((
+      <Root {...defaultProps} width={10} >
+        <span />
+      </Root>
+    ));
+    const { style } = tree.find('div').props();
+    expect(style)
+      .toEqual({
+        width: '10px',
+        height: '100px',
       });
   });
 

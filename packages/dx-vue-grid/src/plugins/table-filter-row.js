@@ -1,4 +1,4 @@
-import { DxGetter, DxTemplate, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplateConnector, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -52,24 +52,25 @@ export const DxTableFilterRow = {
         <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
+            isFilterTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listerens }) => (
             <DxTemplateConnector>
               {({
                 getters: { filters, isColumnFilteringEnabled },
                 actions: { changeColumnFilter },
               }) => {
-                const { name: columnName } = params.tableColumn.column;
+                const { name: columnName } = attrs.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = (config) => {
                   changeColumnFilter({ columnName, config });
                 };
                 return (
                   <FilterCell
-                    {...{ attrs: { ...params } }}
+                    {...{ attrs, on: listerens }}
                     getMessage={getMessage}
-                    column={params.tableColumn.column}
+                    column={attrs.tableColumn.column}
                     filter={filter}
                     filteringEnabled={isColumnFilteringEnabled(columnName)}
                     onFilter={onFilter}
@@ -81,14 +82,14 @@ export const DxTableFilterRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => isFilterTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isFilterTableRow(tableRow)}
         >
-          {params =>
+          {({ attrs, listerens, slots }) =>
             <FilterRow
-              {...{ attrs: { ...params } }}
-              row={params.tableRow.row}
+              {...{ attrs, on: listerens }}
+              row={attrs.tableRow.row}
             >
-              <DxTemplatePlaceholderSlot params={params} />
+              {slots.default}
             </FilterRow>
           }
         </DxTemplate>

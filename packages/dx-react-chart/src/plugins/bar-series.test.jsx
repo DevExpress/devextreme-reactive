@@ -66,6 +66,8 @@ describe('Bar series', () => {
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
+    barWidth: 0.3,
+    groupWidth: 0.6,
   };
 
   it('should render bars', () => {
@@ -81,13 +83,16 @@ describe('Bar series', () => {
 
     expect(tree.find(PointComponent)).toHaveLength(coords.length);
 
-    coords.forEach((coord, index) =>
-      expect(tree.find(PointComponent).get(index).props).toEqual({
-        x: 4,
-        y: 3,
-        styles: 'styles',
-        height: 10,
-        width: 20,
-      }));
+    coords.forEach((coord, index) => {
+      const {
+        x, y, height, width, styles,
+      } = tree.find(PointComponent).get(index).props;
+      expect(x).toBe(4);
+      expect(y).toBe(3);
+      expect(width).toBe(20);
+      expect(height).toBe(10);
+      expect(styles).toBe('styles');
+    });
+    expect(barPointAttributes).toBeCalledWith(undefined, { barWidth: 0.3, groupWidth: 0.6 }, 'stack');
   });
 });

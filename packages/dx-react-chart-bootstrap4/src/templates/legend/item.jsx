@@ -8,7 +8,7 @@ export class Item extends React.PureComponent {
       children, className, ...restProps
     } = this.props;
     return (
-      <li className={classNames('d-flex list-group-item border-0 py-1 px-4 row align-items-center', className)} {...restProps}>
+      <li className={classNames('d-flex list-group-item border-0 py-1 px-4 align-items-center', className)} {...restProps}>
         {children}
       </li>
     );

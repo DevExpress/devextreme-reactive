@@ -1,4 +1,5 @@
 export const TableRow = {
+  name: 'TableRow',
   props: {
     row: null,
     tableRow: {

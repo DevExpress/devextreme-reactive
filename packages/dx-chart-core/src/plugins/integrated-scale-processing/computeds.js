@@ -18,8 +18,15 @@ const collectAxesTypes = axes =>
 
 const calculateDomainField = (field, data, domain = [], type) => {
   const getFieldItem = object => object[field];
+  const getCategories = (prev, cur) => {
+    const categories = getFieldItem(cur);
+    if (isDefined(categories)) {
+      return [...prev, categories];
+    }
+    return prev;
+  };
   if (type === BAND) {
-    return [...domain, ...data.map(getFieldItem)];
+    return [...domain, ...data.reduce(getCategories, [])];
   }
   return extent([
     ...domain,
@@ -28,7 +35,7 @@ const calculateDomainField = (field, data, domain = [], type) => {
 };
 
 const getCorrectAxisType = (type, data, field) => {
-  if (!type && typeof data[0][field] === 'string') {
+  if (!type && typeof data.find(item => isDefined(item[field]))[field] === 'string') {
     return 'band';
   }
   return type;

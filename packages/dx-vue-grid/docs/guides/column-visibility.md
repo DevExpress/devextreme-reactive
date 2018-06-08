@@ -12,7 +12,7 @@ The DxGrid component with the [DxTableColumnVisibility](../reference/table-colum
 
 Import the plugins listed above to enable a user to hide or show columns at runtime.
 
-Specify an array of the hidden column names using the `DxTableColumnVisibility` plugin's `hiddenColumnNames` property and subscribe to the `update:hiddenColumnNames` event. Use the `.sync` modifier for two-way binding.
+Pass the hidden column names to the `DxTableColumnVisibility` plugin's `hiddenColumnNames` property and subscribe to the `update:hiddenColumnNames` event. Use the `.sync` modifier for two-way binding.
 
 .embedded-demo({ "path": "grid-column-chooser/basic", "showThemeSelector": true })
 

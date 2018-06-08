@@ -41,5 +41,6 @@ export * from './plugins/editing-state';
 export * from './plugins/table-edit-column';
 export * from './plugins/table-edit-row';
 
+export * from './plugins/table-band-header';
 export * from './plugins/table-column-visibility';
 export * from './plugins/column-chooser';

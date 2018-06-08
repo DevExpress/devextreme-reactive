@@ -52,7 +52,7 @@ hidden | boolean | Specifies whether the associated column is hidden.
 Field | Type | Description
 ------|------|------------
 visible | boolean | Specifies whether the overlay is visible.
-target | HTMLElement | A HTML element that is used for overlay positioning.
+target | HTMLElement | An HTML element that is used for overlay positioning.
 
 #### Events
 

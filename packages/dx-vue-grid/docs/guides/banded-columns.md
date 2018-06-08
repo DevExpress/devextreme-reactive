@@ -17,6 +17,6 @@ Import the plugins listed above and specify the `DxTableBandHeader` plugin's `co
 
 ## Appearance Customization
 
-The `DxTableBandHeader` plugin allows you to customize the band header's appearance. The following example demonstrates how to use the `cellComponent` and add icons to band cells:
+You can customize the appearance of the header with bands by overriding the `DxTableBandHeader` and `DxTableHeaderRow` plugins' `cellComponent` properties:
 
 .embedded-demo({ "path": "grid-band-columns/customization", "showThemeSelector": true })

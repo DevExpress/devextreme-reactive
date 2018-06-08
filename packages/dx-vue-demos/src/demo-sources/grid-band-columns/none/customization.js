@@ -42,6 +42,7 @@ const BandCell = {
     <dx-cell
       v-bind="$attrs"
       v-on="$listeners"
+      class="text-secondary"
     >
       <slot />
       <span :class="\`ml-2 oi oi-\${icon}\`"></span>
@@ -49,6 +50,20 @@ const BandCell = {
   `,
   components: {
     DxCell: DxTableBandHeader.components.DxCell,
+  },
+};
+
+const HeaderCell = {
+  inheritAttrs: false,
+  template: `
+    <dx-header-cell
+      v-bind="$attrs"
+      v-on="$listeners"
+      class="text-info"
+    />
+  `,
+  components: {
+    DxHeaderCell: DxTableHeaderRow.components.DxCell,
   },
 };
 
@@ -113,7 +128,9 @@ export default {
         <dx-table
           :columnExtensions="tableColumnExtensions"
         />
-        <dx-table-header-row />
+        <dx-table-header-row
+          :cellComponent="$options.components.HeaderCell"
+        />
         <dx-table-band-header
           :columnBands="columnBands"
           :cellComponent="$options.components.BandCell"
@@ -128,5 +145,6 @@ export default {
     DxTableBandHeader,
     PercentTypeProvider,
     BandCell,
+    HeaderCell,
   },
 };

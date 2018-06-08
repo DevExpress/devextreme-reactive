@@ -72,7 +72,7 @@ export class PieSeries extends React.PureComponent {
 }
 
 PieSeries.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   pointComponent: PropTypes.func.isRequired,
   innerRadius: PropTypes.number,
   outerRadius: PropTypes.number,
@@ -83,6 +83,7 @@ PieSeries.propTypes = {
 };
 
 PieSeries.defaultProps = {
+  name: 'defaultSeriesName',
   innerRadius: 0,
   outerRadius: undefined,
   cx: undefined,

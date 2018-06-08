@@ -9,30 +9,30 @@ import {
 } from '@devexpress/dx-react-core';
 import { findSeriesByName, coordinates, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 
-export const baseSeries = (
-  WrappedPath,
-  WrappedPoint,
+export const withSeriesPlugin = (
+  Path,
+  Point,
   pluginName,
   pathType,
   processLine,
   processPoint,
+  extraOptions,
 ) => {
   class Component extends React.PureComponent {
     render() {
       const {
         name,
-        point,
-        barWidth,
-        groupWidth,
         valueField,
         argumentField,
         axisName,
         stack: stackProp,
         ...restProps
       } = this.props;
+
+      const uniqueName = Symbol(name);
       const getSeriesDataComputed = ({ series }) =>
         seriesData(series, {
-          valueField, argumentField, name, axisName, stack: stackProp,
+          valueField, argumentField, name, uniqueName, axisName, stack: stackProp,
         });
       const startFromZeroByAxes = ({ startFromZero = {} }) =>
         checkZeroStart(startFromZero, axisName, pathType);
@@ -53,15 +53,15 @@ export const baseSeries = (
               }) => {
                 const {
                   stack, themeColor,
-                } = findSeriesByName(name, series);
+                } = findSeriesByName(uniqueName, series);
+                const options = extraOptions({ ...restProps });
                 const scales = xyScales(
                   domains,
                   argumentAxisName,
                   axisName,
                   layouts.pane,
                   stacks,
-                  groupWidth,
-                  barWidth,
+                  options,
                 );
                 const coord = coordinates(
                   data,
@@ -70,11 +70,10 @@ export const baseSeries = (
                   valueField,
                   name,
                 );
-                const { size } = point;
-                const pointParameters = processPoint(scales, size, stack);
+                const pointParameters = processPoint(scales, options, stack);
                 return (
                   <React.Fragment>
-                    <WrappedPath
+                    <Path
                       themeColor={themeColor}
                       coordinates={coord}
                       {...processLine(pathType, scales)}
@@ -83,7 +82,7 @@ export const baseSeries = (
                     {
                       coord.map(item =>
                         (
-                          <WrappedPoint
+                          <Point
                             themeColor={themeColor}
                             key={item.id.toString()}
                             value={item.value}
@@ -102,21 +101,16 @@ export const baseSeries = (
     }
   }
   Component.propTypes = {
-    name: PropTypes.string.isRequired,
-    point: PropTypes.object,
-    barWidth: PropTypes.number,
-    groupWidth: PropTypes.number,
+    name: PropTypes.string,
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
     axisName: PropTypes.string,
     stack: PropTypes.string,
   };
   Component.defaultProps = {
+    name: 'defaultSeriesName',
     axisName: undefined,
     stack: undefined,
-    point: { size: 7 },
-    barWidth: 0.9,
-    groupWidth: 0.7,
   };
   return Component;
 };

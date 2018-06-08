@@ -1,0 +1,87 @@
+# ValueAxis Plugin Reference
+
+The ValueAxis plugin visualizes the value axis.
+
+## Importing
+
+Use the following import statement:
+
+```js
+import { ValueAxis } from '@devexpress/dx-react-chart-material-ui';
+// import { ValueAxis } from '@devexpress/dx-react-chart-bootstrap4';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { ValueAxis } from '@devexpress/dx-react-chart';
+```
+
+## User Reference
+
+### Properties
+
+Name | Type | Default | Description
+-----|------|---------|------------
+tickSize? | number | 5 | The tick size.
+position? | 'left' &#124; 'right' | 'left' | The axis position.
+name | string | | The axis name.
+indentFromAxis? | number | 10 | The indent from the axis.
+rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the axis root layout.
+tickComponent | ComponentType&lt;[ValueAxis.TickProps](#valueaxistickprops)&gt; | | A component that renders a tick.
+labelComponent | ComponentType&lt;[ValueAxis.LabelProps](#valueaxislabelprops)&gt; | | A component that renders the axis label.
+lineComponent | ComponentType&lt;[ValueAxis.LineProps](#valueaxislineprops)&gt; | | A component that renders the axis line.
+
+## Interfaces
+
+### ValueAxis.RootProps
+
+Describes properties passed to a component that renders the axis root layout.
+
+Field | Type | Description
+------|------|------------
+x | number | The x coordinate of the top left corner of the axis' rendering area.
+y | number | The y coordinate of the top left corner of the series' rendering area.
+children | ReactNode | A React node used to render the axis.
+
+### ValueAxis.TickProps
+
+Describes properties passed to a component that renders a tick line.
+
+Field | Type | Description
+------|------|------------
+x1 | number | The line start's x coordinate.
+x2 | number | The line end's x coordinate.
+y1 | number | The line start's y coordinate.
+y2 | number | The line end's y coordinate.
+
+### ValueAxis.LabelProps
+
+Describes properties passed to a component that renders the axis label.
+
+Field | Type | Description
+------|------|------------
+text | string &#124; number | The label text.
+x | number | The x coordinate of the label's top left corner.
+y | number | The y coordinate of the label's top left corner.
+dominantBaseline | 'hanging' &#124; 'middle' &#124; 'baseline' | The label's baseline.
+textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
+
+### ValueAxis.LineProps
+
+Describes properties passed to a component that renders the axis line.
+
+Field | Type | Description
+------|------|------------
+width | number | The line width.
+height | number | The line height.
+orientation | 'horizontal' &#124; 'vertical' | The axis orientation.
+
+## Plugin Components
+
+Name | Properties | Description
+-----|------------|------------
+ValueAxis.Root | [ValueAxis.RootProps](#valueaxisrootprops) | A component that renders the axis root layout.
+ValueAxis.Tick | [ValueAxis.TickProps](#valueaxistickprops) | A component that renders the tick.
+ValueAxis.Label | [ValueAxis.LabelProps](#valueaxislabelprops) | A component that renders the axis label.
+ValueAxis.Line | [ValueAxis.LineProps](#valueaxislineprops) | A component that renders the axis line.

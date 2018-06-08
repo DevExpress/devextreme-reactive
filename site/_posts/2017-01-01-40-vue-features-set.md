@@ -14,10 +14,10 @@ description: |
 * Advanced UI elements such as a filter row and record detail row
 * Bootstrap templates
 * Keyboard navigation
+* Virtual record scrolling
 
 **Features we expect to ship shortly:**
 
-* Virtual record scrolling
 * Column resizing/reordering
 * Column chooser
 * Fixed columns/rows

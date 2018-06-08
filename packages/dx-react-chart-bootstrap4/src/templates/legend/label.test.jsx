@@ -32,7 +32,7 @@ describe('Label', () => {
       </Label>
     ));
 
-    expect(tree.is('.custom-class.text-body'))
+    expect(tree.is('.custom-class.text-body.pl-2.pr-2'))
       .toBeTruthy();
   });
 });

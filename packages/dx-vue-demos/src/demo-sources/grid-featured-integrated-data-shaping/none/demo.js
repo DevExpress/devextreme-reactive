@@ -21,6 +21,8 @@ import {
   DxPagingPanel,
   DxToolbar,
   DxGroupingPanel,
+  DxColumnChooser,
+  DxTableColumnVisibility,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import {
@@ -90,6 +92,7 @@ export default {
       pageSizes: [5, 10, 15],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      hiddenColumnNames: ['customer'],
     };
   },
   template: `
@@ -139,6 +142,9 @@ export default {
           showSelectAll
         />
         <dx-table-group-row />
+        <dx-table-column-visibility
+          :hiddenColumnNames.sync="hiddenColumnNames"
+        />
         <dx-toolbar />
         <dx-grouping-panel
           showSortingControls
@@ -147,6 +153,7 @@ export default {
         <dx-paging-panel
           :pageSizes="pageSizes"
         />
+        <dx-column-chooser />
       </dx-grid>
     </div>
   `,
@@ -170,6 +177,8 @@ export default {
     DxPagingPanel,
     DxToolbar,
     DxGroupingPanel,
+    DxColumnChooser,
+    DxTableColumnVisibility,
     MyCell,
     CurrencyTypeProvider,
     PercentTypeProvider,

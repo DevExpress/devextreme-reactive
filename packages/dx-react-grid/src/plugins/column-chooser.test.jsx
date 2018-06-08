@@ -116,7 +116,7 @@ describe('ColumnChooser', () => {
   });
 
   it('should render OverlayComponent', () => {
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
@@ -126,7 +126,7 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(OverlayComponent)
+    expect(tree.find(OverlayComponent).exists())
       .toBeTruthy();
   });
 

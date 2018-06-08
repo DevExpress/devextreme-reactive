@@ -6,7 +6,7 @@ import {
   getCollapsedCells,
   getCollapsedGrid,
   STUB_TYPE,
-} from './virtual-table-utils';
+} from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
   describe('#getVisibleBoundary', () => {

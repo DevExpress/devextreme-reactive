@@ -226,6 +226,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Column Visibility
+        path: /vue/grid/docs/guides/column-visibility
       - title: Virtual Scrolling
         path: /vue/grid/docs/guides/virtual-scrolling
   - title: API Reference
@@ -288,5 +290,9 @@
         path: /vue/grid/docs/reference/toolbar
       - title: DxTableHeaderRow
         path: /vue/grid/docs/reference/table-header-row
+      - title: DxColumnChooser
+        path: /vue/grid/docs/reference/column-chooser
+      - title: DxTableColumnVisibility
+        path: /vue/grid/docs/reference/table-column-visibility
       - title: DxVirtualTable
         path: /vue/grid/docs/reference/virtual-table

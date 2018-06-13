@@ -226,6 +226,8 @@
         path: /vue/grid/docs/guides/editing
       - title: Detail Row
         path: /vue/grid/docs/guides/detail-row
+      - title: Banded Columns
+        path: /vue/grid/docs/guides/banded-columns
       - title: Column Visibility
         path: /vue/grid/docs/guides/column-visibility
       - title: Virtual Scrolling
@@ -272,6 +274,8 @@
         path: /vue/grid/docs/reference/table-edit-row
       - title: DxTableEditColumn
         path: /vue/grid/docs/reference/table-edit-column
+      - title: DxTableBandHeader
+        path: /vue/grid/docs/reference/table-band-header
       - title: DxSearchState
         path: /vue/grid/docs/reference/search-state
       - title: DxSearchPanel

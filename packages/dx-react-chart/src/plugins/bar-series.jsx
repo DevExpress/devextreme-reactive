@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { barPointAttributes } from '@devexpress/dx-chart-core';
+import { barPointAttributes, coordinates } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils/series-helper';
 
 const EmptyFunction = () => null;
@@ -32,6 +32,7 @@ export const BarSeries = withSeriesPlugin(
   EmptyFunction,
   barPointAttributes,
   options,
+  coordinates,
 );
 
 Dot.propTypes = {

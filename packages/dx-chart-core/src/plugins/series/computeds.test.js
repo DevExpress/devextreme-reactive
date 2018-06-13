@@ -48,10 +48,9 @@ mockArea.y1 = jest.fn().mockReturnThis();
 mockArea.y0 = jest.fn(() => mockAreaResult);
 
 const mockPie = {
-  value: jest.fn(func => data =>
-    data.map(d => ({
-      startAngle: func(d), endAngle: func(d), value: 'value', data: ['data'],
-    }))),
+  value: jest.fn(func => data => data.map(d => ({
+    startAngle: func(d), endAngle: func(d), value: 'value', data: d,
+  }))),
 };
 const mockArc = jest.fn().mockReturnThis();
 mockArc.innerRadius = jest.fn().mockReturnThis();
@@ -301,39 +300,19 @@ describe('Pie attributes', () => {
     jest.clearAllMocks();
   });
 
-  it('should return array of arsc', () => {
-    const pieAttr = pieAttributes(
-      'val1',
-      data,
-      20,
-      10,
-      0.1,
-      0.9,
-    );
+  it('should return array of arcs', () => {
+    const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
+    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1');
+
     expect(pieAttr).toHaveLength(data.length);
-    pieAttr.forEach((attr) => {
+    pieAttr.forEach((attr, index) => {
       expect(attr.d).toBeTruthy();
       expect(attr.value).toBe('value');
-      expect(attr.data).toEqual(['data']);
+      expect(attr.data).toEqual(data[index]);
+      expect(attr.id).toEqual(data[index].arg);
+      expect(attr.x).toEqual(5);
+      expect(attr.y).toEqual(5);
     });
-
-    data.forEach((d) => {
-      expect(mockArc.innerRadius).toHaveBeenCalledWith(0.5);
-      expect(mockArc.outerRadius).toHaveBeenCalledWith(4.5);
-      expect(mockArc.startAngle).toHaveBeenCalledWith(d.val1);
-      expect(mockArc.endAngle).toHaveBeenCalledWith(d.val1);
-    });
-  });
-
-  it('should return array of arcs, outerRadius is not set', () => {
-    pieAttributes(
-      'val1',
-      data,
-      20,
-      10,
-      0,
-    );
-
     data.forEach((d) => {
       expect(mockArc.innerRadius).toHaveBeenCalledWith(0);
       expect(mockArc.outerRadius).toHaveBeenCalledWith(5);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { lineAttributes, pointAttributes } from '@devexpress/dx-chart-core';
+import { lineAttributes, pointAttributes, coordinates } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils/series-helper';
 
 const Series = ({
@@ -44,6 +44,7 @@ export const AreaSeries = withSeriesPlugin(
   lineAttributes,
   pointAttributes,
   options,
+  coordinates,
 );
 
 Series.propTypes = {

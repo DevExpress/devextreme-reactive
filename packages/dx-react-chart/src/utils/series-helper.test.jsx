@@ -86,6 +86,7 @@ describe('Base series', () => {
     lineMethod,
     pointMethod,
     extraOptions,
+    coordinates,
   );
 
   it('should render test component', () => {

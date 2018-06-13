@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { findSeriesByName, coordinates, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
+import { findSeriesByName, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
   Path,
@@ -17,6 +17,7 @@ export const withSeriesPlugin = (
   processLine,
   processPoint,
   extraOptions,
+  calculateCoordinates,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -64,7 +65,7 @@ export const withSeriesPlugin = (
                   stacks,
                   options,
                 );
-                const coord = coordinates(
+                const calculatedCoordinates = calculateCoordinates(
                   data,
                   scales,
                   argumentField,
@@ -76,12 +77,12 @@ export const withSeriesPlugin = (
                   <React.Fragment>
                     <Path
                       color={seriesColor}
-                      coordinates={coord}
+                      coordinates={calculatedCoordinates}
                       {...processLine(pathType, scales)}
                       {...restProps}
                     />
                     {
-                      coord.map(item =>
+                      calculatedCoordinates.map(item =>
                         (
                           <Point
                             color={seriesColor}

@@ -73,25 +73,29 @@ export const xyScales = (
 };
 
 export const pieAttributes = (
-  valueField,
   data,
-  width,
-  height,
-  innerRadius,
-  outerRadius,
+  { xScale, yScale },
+  argumentField,
+  valueField,
 ) => {
+  const width = Math.max.apply(null, xScale.range());
+  const height = Math.max.apply(null, yScale.range());
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
   return pieData.map(({
     startAngle, endAngle, value, data: itemData,
   }) => ({
-    d: arc().innerRadius(radius * innerRadius)
-      .outerRadius(radius * outerRadius || radius)
+    d: arc()
+      .innerRadius(0)
+      .outerRadius(radius)
       .startAngle(startAngle)
       .endAngle(endAngle)(),
     value,
     data: itemData,
+    id: itemData[argumentField],
+    x: width / 2,
+    y: height / 2,
   }));
 };
 

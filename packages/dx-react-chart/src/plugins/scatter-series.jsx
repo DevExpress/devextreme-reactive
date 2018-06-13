@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { pointAttributes } from '@devexpress/dx-chart-core';
+import { pointAttributes, coordinates } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils/series-helper';
 
 const EmptyFunction = () => null;
@@ -32,6 +32,7 @@ export const ScatterSeries = withSeriesPlugin(
   EmptyFunction,
   pointAttributes,
   options,
+  coordinates,
 );
 
 Dot.propTypes = {

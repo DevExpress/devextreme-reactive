@@ -11,16 +11,16 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   seriesData: jest.fn(),
+  checkZeroStart: jest.fn(),
+  xyScales: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => [
-  { d: 'M11 11', value: 'value1', data: { argumentField: 'argument1', color: 'color1' } },
-  { d: 'M22 22', value: 'value2', data: { argumentField: 'argument2', color: 'color2' } },
-  { d: 'M33 33', value: 'value3', data: { argumentField: 'argument3', color: 'color3' } },
+  { value: 'value1', data: { argumentField: 'argument1', color: 'color1' }, id: 'value1' },
+  { value: 'value2', data: { argumentField: 'argument1', color: 'color2' }, id: 'value2' },
+  { value: 'value3', data: { argumentField: 'argument3', color: 'color3' }, id: 'value3' },
 ]);
-findSeriesByName.mockImplementation(() => ({
-  stack: 'stack',
-}));
+findSeriesByName.mockImplementation(() => ({}));
 
 describe('Pie series', () => {
   const defaultDeps = {
@@ -34,8 +34,8 @@ describe('Pie series', () => {
 
   const defaultProps = {
     pointComponent: PointComponent,
+    style: { opacity: 0.4 },
     name: 'val1',
-    styles: 'styles',
     valueField: 'valueField',
     argumentField: 'argumentField',
   };
@@ -51,29 +51,14 @@ describe('Pie series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent).get(0).props).toEqual({
-      d: 'M11 11',
-      x: 100,
-      y: 50,
-      value: 'value1',
-      styles: 'styles',
-      fill: 'color1',
-    });
-    expect(tree.find(PointComponent).get(1).props).toEqual({
-      d: 'M22 22',
-      x: 100,
-      y: 50,
-      value: 'value2',
-      styles: 'styles',
-      fill: 'color2',
-    });
-    expect(tree.find(PointComponent).get(2).props).toEqual({
-      d: 'M33 33',
-      x: 100,
-      y: 50,
-      value: 'value3',
-      styles: 'styles',
-      fill: 'color3',
+    tree.find(PointComponent).forEach((point, index) => {
+      const pointIndex = index + 1;
+      expect(point.props()).toEqual({
+        value: `value${pointIndex}`,
+        color: `color${pointIndex}`,
+        style: { opacity: 0.4 },
+        id: `value${pointIndex}`,
+      });
     });
   });
 });

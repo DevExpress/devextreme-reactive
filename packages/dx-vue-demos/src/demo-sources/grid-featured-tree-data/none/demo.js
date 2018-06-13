@@ -18,6 +18,9 @@ import {
   DxTableFilterRow,
   DxTableTreeColumn,
   DxPagingPanel,
+  DxTableColumnVisibility,
+  DxToolbar,
+  DxColumnChooser,
 } from '@devexpress/dx-vue-grid-bootstrap4';
 
 import { tasks, employees, priorities } from '../data.json';
@@ -92,6 +95,7 @@ export default {
         { columnName: 'Due_Date', width: 120 },
       ],
       employeeColumns: ['Assigned_Employee_ID'],
+      hiddenColumnNames: ['Priority', 'Completion'],
     };
   },
   template: `
@@ -142,9 +146,14 @@ export default {
           showSelectionControls
           showSelectAll
         />
+        <dx-table-column-visibility
+          :hiddenColumnNames.sync="hiddenColumnNames"
+        />
         <dx-paging-panel
           :pageSizes="pageSizes"
         />
+        <dx-toolbar />
+        <dx-column-chooser />
       </dx-grid>
     </div>
   `,
@@ -166,6 +175,9 @@ export default {
     DxTableFilterRow,
     DxTableTreeColumn,
     DxPagingPanel,
+    DxTableColumnVisibility,
+    DxToolbar,
+    DxColumnChooser,
     MyEmployeeFormatter,
   },
 };

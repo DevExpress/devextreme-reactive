@@ -48,12 +48,12 @@ showSelectAll? | boolean | false | Specifies whether to render Select All checkb
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](table.md#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](table.md#tablecolumn) | Specifies a table column.
+tableRow | [TableRow](table.md#tablerow) | A table row.
+tableColumn | [TableColumn](table.md#tablecolumn) | A table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
-value | any | Specifies a value to be rendered within the cell.
-row | any | Specifies the cell's row.
+value | any | A value to be rendered within the cell.
+row | any | The cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
 
 #### Slots
@@ -76,7 +76,7 @@ default | The default Vue slot.
 
 Field | Type | Description
 ------|------|------------
-level | number | Specifies the row level.
+level | number | The row level.
 
 ### DxTableTreeColumn.DxExpandButton
 
@@ -101,7 +101,7 @@ Field | Type | Description
 ------|------|------------
 disabled | boolean | Specifies whether a row is unavailable for selection.
 checked | boolean | Specifies whether a row is selected.
-indeterminate | boolean | Specifies whether a row's children are partially selected.
+indeterminate | boolean | Specifies whether row's children are partially selected.
 
 #### Events
 

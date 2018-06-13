@@ -53,10 +53,10 @@ Do the following to show the Select All checkbox in the header row:
 
 .embedded-demo({ "path": "grid-tree-data/select-all", "showThemeSelector": true })
 
-<!-- ## Remote Data Loading on Demand
+## Remote Data Loading on Demand
 
 You can handle the Grid's tree data state changes to request nested data from the server according to the expanded row ID.
 
 Tree data options are updated once an end-user interacts with the UI. Handle option changes using the `DxTreeDataState` plugin's `update:expandedRowIds` event and request data from the server using the applied tree data options. Once the page data is received from the server, pass it to the `DxGrid` component's `rows` property.
 
-.embedded-demo({ "path": "grid-tree-data/remote", "showThemeSelector": true }) -->
+.embedded-demo({ "path": "grid-tree-data/remote", "showThemeSelector": true })

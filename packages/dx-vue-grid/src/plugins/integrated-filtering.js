@@ -3,6 +3,7 @@ import {
   filteredRows,
   getColumnExtension,
   unwrappedFilteredRows,
+  defaultFilterPredicate,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -50,3 +51,5 @@ export const DxIntegratedFiltering = {
     );
   },
 };
+
+DxIntegratedFiltering.defaultPredicate = defaultFilterPredicate;

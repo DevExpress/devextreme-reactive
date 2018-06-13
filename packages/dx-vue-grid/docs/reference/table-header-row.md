@@ -65,7 +65,7 @@ group | () => void | An event that invokes grouping by the associated column.
 
 Field | Description
 -------|------------
-before | The Vue slot with controls that listed before column title.
+before | The Vue slot containing controls that are rendered before the column title.
 
 ### DxTableHeaderRow.DxRow
 

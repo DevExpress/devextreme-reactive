@@ -79,6 +79,7 @@ export class VirtualTableLayout extends React.PureComponent {
   updateViewport(e) {
     const node = e.target;
 
+    // NOTE: prevent nested scroll to update viewport
     if (node !== e.currentTarget) {
       return;
     }
@@ -91,12 +92,10 @@ export class VirtualTableLayout extends React.PureComponent {
       return;
     }
 
-    if (this.viewportTop !== node.scrollTop) {
-      this.setState({
-        viewportTop: node.scrollTop,
-        viewportLeft: node.scrollLeft,
-      });
-    }
+    this.setState({
+      viewportTop: node.scrollTop,
+      viewportLeft: node.scrollLeft,
+    });
   }
   renderRowsBlock(collapsedGrid, Table, Body) {
     const {

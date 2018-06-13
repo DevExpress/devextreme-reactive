@@ -2,6 +2,7 @@ import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } f
 
 export const DxTemplatePlaceholder = {
   name: 'DxTemplatePlaceholder',
+  inheritAttrs: false,
   props: {
     name: {
       type: String,

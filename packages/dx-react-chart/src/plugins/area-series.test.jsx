@@ -64,6 +64,7 @@ describe('Area series', () => {
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
+    point: { size: 5 },
   };
 
   it('should render points', () => {
@@ -88,6 +89,7 @@ describe('Area series', () => {
       expect(y).toBe(3);
       expect(style).toEqual({ fill: 'point fill' });
     });
+    expect(pointAttributes).toBeCalledWith(undefined, { size: 5 }, 'stack1');
   });
 
   it('should render path', () => {

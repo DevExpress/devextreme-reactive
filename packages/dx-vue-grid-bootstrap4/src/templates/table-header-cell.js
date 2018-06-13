@@ -51,6 +51,7 @@ export const TableHeaderCell = {
           'position-relative dx-g-bs4-header-cell': true,
           'dx-g-bs4-user-select-none': isCellInteractive,
         }}
+        scope="col"
       >
         <div
           class="d-flex flex-direction-row align-items-center"

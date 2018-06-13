@@ -7,6 +7,7 @@ export * from './plugins/toolbar';
 
 export * from './components/table-layout';
 export * from './components/table-layout/static-table-layout';
+export * from './components/table-layout/virtual-table-layout';
 
 export * from './plugins/filtering-state';
 export * from './plugins/integrated-filtering';
@@ -43,3 +44,7 @@ export * from './plugins/table-edit-row';
 export * from './plugins/tree-data-state';
 export * from './plugins/custom-tree-data';
 export * from './plugins/table-tree-column';
+
+export * from './plugins/table-band-header';
+export * from './plugins/table-column-visibility';
+export * from './plugins/column-chooser';

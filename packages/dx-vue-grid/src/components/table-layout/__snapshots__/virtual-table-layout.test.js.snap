@@ -9,14 +9,201 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     style="min-width: 400px;"
   >
     <!---->
-    <table />
+    <table>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+    </table>
   </table>
   <table
     minwidth="400px"
     style="min-width: 400px;"
   >
     <!---->
-    <tbody />
+    <tbody>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+      <tr
+        row="[object Object]"
+        tablerow="[object Object]"
+      >
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+        <td
+          colspan="1"
+          tablecolumn="[object Object]"
+          tablerow="[object Object]"
+        />
+      </tr>
+      <tr
+        height="40px"
+        row="[object Object]"
+        tablerow="[object Object]"
+      />
+    </tbody>
   </table>
 </div>
 `;

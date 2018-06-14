@@ -13,6 +13,11 @@
         path: /react/grid/demos/featured/remote-data
       - title: Tree Data
         path: /react/grid/demos/featured/tree-data
+/react/chart:
+  - title: DEMOS
+    items:
+      - title: Component customization
+        path: /react/chart/demos/featured/component-customization
 /vue/grid:
   - title: DEMOS
     items:

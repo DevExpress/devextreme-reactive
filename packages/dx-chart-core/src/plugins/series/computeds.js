@@ -14,13 +14,18 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
 const computeLinePath = (data, scales, argumentField, valueField, name) =>
-  data.map(dataItem => ({
-    x: scales.xScale(dataItem[argumentField]),
-    y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
-    y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
-    id: dataItem[argumentField],
-    value: dataItem[valueField],
-  }));
+  data.reduce((result, dataItem) => {
+    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+      return [...result, {
+        x: scales.xScale(dataItem[argumentField]),
+        y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
+        y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
+        id: dataItem[argumentField],
+        value: dataItem[valueField],
+      }];
+    }
+    return result;
+  }, []);
 
 const getGenerator = (type) => {
   switch (type) {
@@ -47,20 +52,21 @@ export const xyScales = (
   domainName,
   layout,
   stacks,
-  groupWidth,
-  barWidth,
+  { groupWidth = 1, barWidth = 1 },
 ) => {
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
   const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
-  const bandwidth = xScale.bandwidth && xScale.bandwidth();
+  const bandwidth = xScale.bandwidth ?
+    xScale.bandwidth() :
+    width / xScale.ticks().length;
 
   return {
     xScale,
     yScale: createScale(domainsOptions[domainName], width, height),
-    x0Scale: argumentDomainOptions.type === 'band' && createScale({
+    x0Scale: createScale({
       orientation: argumentDomainOptions.orientation,
-      type: argumentDomainOptions.type,
+      type: 'band',
       domain: stacks,
     }, bandwidth, bandwidth, 1 - barWidth),
   };
@@ -77,11 +83,13 @@ export const pieAttributes = (
   const radius = Math.min(width, height) / 2;
   const pieData = pie().value(d => d[valueField])(data);
 
-  return pieData.map(d =>
-    arc().innerRadius(radius * innerRadius)
+  return pieData.map(d => ({
+    d: arc().innerRadius(radius * innerRadius)
       .outerRadius(radius * outerRadius || radius)
       .startAngle(d.startAngle)
-      .endAngle(d.endAngle)());
+      .endAngle(d.endAngle)(),
+    value: d.value,
+  }));
 };
 
 export const coordinates = (
@@ -93,7 +101,7 @@ export const coordinates = (
 ) => computeLinePath(data, scales, argumentField, valueField, name);
 
 export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.name === name);
+  series.find(seriesItem => seriesItem.uniqueName === name);
 
 export const lineAttributes = (
   type,
@@ -104,7 +112,7 @@ export const lineAttributes = (
   y: 0,
 });
 
-export const pointAttributes = (scales, size) => {
+export const pointAttributes = (scales, { size = 7 }) => {
   const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
   const offSet = scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0;
   return item => ({
@@ -119,10 +127,13 @@ export const barPointAttributes = (scales, _, stack) => {
   const offset = scales.x0Scale(stack);
   return item => ({
     x: item.x + offset,
-    y: item.y,
+    y: Math.min(item.y, item.y1),
     width: bandwidth,
-    height: item.y1 - item.y,
+    height: Math.abs(item.y1 - item.y),
   });
 };
 
 export const seriesData = (series = [], seriesProps) => [...series, seriesProps];
+
+export const checkZeroStart = (fromZero, axisName, pathType) =>
+  ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

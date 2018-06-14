@@ -1,3 +1,30 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.2...v1.3.0) (2018-06-04)
+
+
+### Bug Fixes
+
+* **grid-core:** remove excess property from TableRow component ([#1128](https://github.com/DevExpress/devextreme-reactive/issues/1128)) ([2c6ed12](https://github.com/DevExpress/devextreme-reactive/commit/2c6ed12))
+* **react-grid:** fix double event call in strict mode ([#1157](https://github.com/DevExpress/devextreme-reactive/issues/1157)) ([e280eac](https://github.com/DevExpress/devextreme-reactive/commit/e280eac))
+* **vue-grid-bootstrap4:** change grouping indent ([#1127](https://github.com/DevExpress/devextreme-reactive/issues/1127)) ([a450470](https://github.com/DevExpress/devextreme-reactive/commit/a450470))
+
+
+### Features
+
+* **react-grid:** support filtering operations ([#976](https://github.com/DevExpress/devextreme-reactive/issues/976)) ([5151d78](https://github.com/DevExpress/devextreme-reactive/commit/5151d78))
+
+
+
+<a name="1.3.0-beta.2"></a>
+# [1.3.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2018-05-24)
+
+
+### Bug Fixes
+
+* **react:** update material-ui to 1.0.0 ([#1108](https://github.com/DevExpress/devextreme-reactive/issues/1108)) ([0fb5ba7](https://github.com/DevExpress/devextreme-reactive/commit/0fb5ba7))
+
+
+
 <a name="1.3.0-beta.1"></a>
 # [1.3.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0...v1.3.0-beta.1) (2018-05-16)
 

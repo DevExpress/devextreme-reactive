@@ -38,7 +38,7 @@
           </button>
           <a class="navbar-brand" href="{{site.baseurl}}{{page.product_link}}/">
             <div>
-              <img src="{{site.baseurl}}/img/data-grid-logo.svg" alt="{{page.product_name}}">
+              <img src="{{site.baseurl}}/img/{{page.logo_file}}" alt="{{page.product_name}}">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">{{page.product_name}}</h3>
@@ -51,8 +51,8 @@
             {% if site.data.demos.navigation[page.product_link].size > 0 %}
             <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{site.data.demos.navigation[page.product_link].first.items.first.path}}/">Demos</a></li>
             {% endif %}
-            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides{{page.initial_guide}}/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
@@ -69,8 +69,8 @@
                       {% if site.data.demos.navigation[page.product_link].size > 0 %}
                       <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{site.data.demos.navigation[page.product_link].first.items.first.path}}">Demos</a></li>
                       {% endif %}
-                      <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides/getting-started/">Docs</a></li>
-                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides{{page.initial_guide}}/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
@@ -101,6 +101,7 @@
 
     <script src="{{site.baseurl}}/js/tracking.js?v={{ site.time | date: '%s' }}"></script>
     <script>
+        trackingCookie.notice();
         trackingCookie.check();
     </script>
 

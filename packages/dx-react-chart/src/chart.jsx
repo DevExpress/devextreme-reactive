@@ -11,6 +11,7 @@ import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
 import { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
 import { SeriesFamily } from './plugins/series-family';
+import { ThemeManager } from './plugins/theme-manager';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -28,6 +29,7 @@ export class Chart extends React.PureComponent {
         <ChartCore data={data} />
         <SeriesFamily />
         <IntegratedScaleProcessing />
+        <ThemeManager />
         <LayoutManager
           width={width}
           height={height}
@@ -61,8 +63,8 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-  width: 150,
-  height: 150,
+  height: 500,
+  width: undefined,
   children: null,
 };
 

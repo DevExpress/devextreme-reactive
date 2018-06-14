@@ -2,6 +2,7 @@ import '../../dx-styles/dx-chart-bs4.css';
 
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';
+export { Title } from './plugins/title';
 
 export { BarSeries } from './plugins/bar-series';
 export { PieSeries } from './plugins/pie-series';

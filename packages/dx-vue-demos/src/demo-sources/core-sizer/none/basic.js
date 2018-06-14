@@ -1,6 +1,5 @@
 import { DxSizer } from '@devexpress/dx-vue-core';
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default {
   render() {
     return (

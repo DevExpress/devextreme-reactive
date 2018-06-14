@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
-import { changeSearchValue, pushSearchFilterExpression } from '@devexpress/dx-grid-core';
+import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
 import { DxSearchState } from './search-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   changeSearchValue: jest.fn(),
-  pushSearchFilterExpression: jest.fn().mockImplementation(() => jest.fn().mockReturnValue('filters')),
+  searchFilterExpression: jest.fn().mockReturnValue('filters'),
 }));
 
 describe('Search state', () => {
@@ -53,7 +53,8 @@ describe('Search state', () => {
       },
     });
 
-    expect(pushSearchFilterExpression).toBeCalled();
+    expect(searchFilterExpression)
+      .toBeCalled();
     expect(getComputedState(tree).filterExpression)
       .toBe('filters');
   });

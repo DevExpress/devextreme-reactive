@@ -23,7 +23,7 @@ const PercentTypeProvider = props => (
   />
 );
 
-const styles = theme => ({
+const cellStyles = theme => ({
   icon: {
     marginBottom: theme.spacing.unit / 2,
     marginLeft: theme.spacing.unit,
@@ -51,7 +51,22 @@ const BandCellBase = ({
   );
 };
 
-const BandCell = withStyles(styles, { name: 'BandCell' })(BandCellBase);
+const BandCell = withStyles(cellStyles, { name: 'BandCell' })(BandCellBase);
+
+const headerCellStyles = theme => ({
+  text: {
+    color: theme.palette.secondary.light,
+  },
+});
+
+const HeaderCellBase = ({ classes, className, ...restProps }) => (
+  <TableHeaderRow.Cell
+    {...restProps}
+    className={`${classes.text} ${className}`}
+  />
+);
+
+const HeaderCell = withStyles(headerCellStyles, { name: 'HeaderCellBase' })(HeaderCellBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -120,7 +135,9 @@ export default class Demo extends React.PureComponent {
           <Table
             columnExtensions={tableColumnExtensions}
           />
-          <TableHeaderRow />
+          <TableHeaderRow
+            cellComponent={HeaderCell}
+          />
           <TableBandHeader
             columnBands={columnBands}
             cellComponent={BandCell}

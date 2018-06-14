@@ -41,6 +41,9 @@ const knownGlobals = {
   'react-bootstrap': 'ReactBootstrap',
   reactstrap: 'Reactstrap',
   'classnames': 'classNames',
+  'd3-array': 'd3Array',
+  'd3-scale': 'd3Scale',
+  'd3-shape': 'd3Shape',
 };
 
 export const globals = () => {

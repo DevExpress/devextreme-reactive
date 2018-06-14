@@ -1,10 +1,10 @@
 # DxVirtualTable Plugin Reference
 
-A plugin that renders a scrollable table instead of a static one. It contains the [DxVirtualTable.components.DxRow](#plugin-components) and [DxVirtualTable.components.DxCell](#plugin-components) components that provide ways to customize virtual table rows and columns and can be extended by other plugins.
+A plugin that renders a scrollable table instead of a static one. It contains the [DxVirtualTable.components.DxRow](#plugin-components) and [DxVirtualTable.components.DxCell](#plugin-components) components that are used to customize virtual table rows and columns and can be extended by other plugins.
 
 ## Importing
 
-Use the following statement to import a plugin with embedded theme components:
+Use the following statement to import the plugin with embedded theme components:
 
 ```js
 import { DxVirtualTable } from '@devexpress/dx-vue-grid-bootstrap4';
@@ -47,7 +47,7 @@ Field | Type | Description
 columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
 align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
-wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
+wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in column's cells.
 
 ### TableRow
 
@@ -56,10 +56,10 @@ Describes properties of a table row that the Table plugin renders.
 Field | Type | Description
 ------|------|------------
 key | string | A unique table row identifier.
-type | string | Specifies the table row type. The specified value defines which cell template is used to render the row.
-rowId? | number &#124; string | Specifies the associated row's ID.
-row? | any | Specifies the associated row.
-height? | number | Specifies the table row height.
+type | string | The table row type. Defines which cell template is used to render the row.
+rowId? | number &#124; string | The associated row's ID.
+row? | any | The associated row.
+height? | number | The table row height.
 
 ### TableColumn
 
@@ -68,10 +68,10 @@ Describes properties of a table column that the Table plugin renders.
 Field | Type | Description
 ------|------|------------
 key | string | A unique table column identifier.
-type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
-column? | [Column](grid.md#column) | Specifies the associated user column.
-width? | number | Specifies the table column width.
-align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.
+type | string | The table column type. Defines which cell template is used to render the column.
+column? | [Column](grid.md#column) | The associated user column.
+width? | number | The column width.
+align? | 'left' &#124; 'right' &#124; 'center' | The column alignment.
 
 ## Component Types
 
@@ -113,13 +113,13 @@ default | The default Vue slot.
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
+tableRow | [TableRow](#tablerow) | A table row.
+tableColumn | [TableColumn](#tablecolumn) | A table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
-value | any | Specifies a value to be rendered within the cell.
-row | any | Specifies the cell's row.
-column | [Column](grid.md#column) | Specifies the cell's column.
+value | any | A value to be rendered within the cell.
+row | any | The cell's row.
+column | [Column](grid.md#column) | The cell's column.
 
 #### Slots
 
@@ -133,8 +133,8 @@ default | The default Vue slot.
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
+tableRow | [TableRow](#tablerow) | A table row.
+tableColumn | [TableColumn](#tablecolumn) | A table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a cell when a table is empty.
@@ -188,8 +188,8 @@ default | The default Vue slot.
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
+tableRow | [TableRow](#tablerow) | A table row.
+tableColumn | [TableColumn](#tablecolumn) | A table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
@@ -199,8 +199,8 @@ rowSpan? | number | The count of rows that the root cell element spans.
 
 Field | Type | Description
 ------|------|------------
-tableRow | [TableRow](#tablerow) | Specifies a table row.
-tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
+tableRow | [TableRow](#tablerow) | A table row.
+tableColumn | [TableColumn](#tablecolumn) | A table column.
 colSpan? | number | The count of columns that the root cell element spans.
 rowSpan? | number | The count of rows that the root cell element spans.
 
@@ -208,7 +208,7 @@ rowSpan? | number | The count of rows that the root cell element spans.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-noData? | string | 'No data' | Specifies text shown when the Grid does not contain data.
+noData? | string | 'No data' | The text shown when the Grid does not contain data.
 
 ## Plugin Components
 

@@ -1,6 +1,5 @@
 export const TableCell = {
   name: 'TableCell',
-  functional: true,
   props: {
     row: null,
     tableRow: {
@@ -14,8 +13,8 @@ export const TableCell = {
     },
     value: null,
   },
-  render(h, context) {
-    const { tableColumn } = context.props;
+  render() {
+    const { tableColumn } = this;
     const align = (tableColumn && tableColumn.align) || 'left';
 
     return (
@@ -25,9 +24,9 @@ export const TableCell = {
           'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
           [`text-${align}`]: align !== 'left',
         }}
-        {...{ attrs: context.data, on: context.listeners } }
+        {...{ attrs: this.$attrs, on: this.$listeners } }
       >
-        {context.slots().default ? context.children : context.props.value}
+        {this.$slots.default || this.value}
       </td>
     );
   },

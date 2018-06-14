@@ -43,7 +43,7 @@ describe('Path', () => {
   it('should pass the className prop to the root element', () => {
     const tree = shallow(<Path {...defaultProps} className="custom-class" />);
 
-    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none')).toBeTruthy();
+    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none.dx-c-bs4-series-path')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
@@ -51,5 +51,12 @@ describe('Path', () => {
     const { customProperty } = tree.find('path').props();
     expect(customProperty)
       .toBeTruthy();
+  });
+
+  it('should apply themeColor', () => {
+    const tree = shallow(<Path {...defaultProps} themeColor="color" />);
+
+    expect(tree.find('path').props().stroke)
+      .toBe('color');
   });
 });

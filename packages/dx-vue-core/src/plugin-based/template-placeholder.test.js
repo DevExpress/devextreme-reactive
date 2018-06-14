@@ -64,11 +64,11 @@ describe('TemplatePlaceholder', () => {
         return (
           <DxPluginHost>
             <DxTemplate name="test">
-              {({ text }) => <h1>{text}</h1>}
+              {({ attrs: { text } }) => <h1>{text}</h1>}
             </DxTemplate>
 
             <DxTemplate name="root">
-              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+              <DxTemplatePlaceholder name="test" text="param" />
             </DxTemplate>
           </DxPluginHost>
         );
@@ -89,7 +89,7 @@ describe('TemplatePlaceholder', () => {
       render() {
         return (
           <DxTemplate name="test">
-            {({ text }) => (
+            {({ attrs: { text } }) => (
               <h1>{text}</h1>
             )}
           </DxTemplate>
@@ -108,7 +108,7 @@ describe('TemplatePlaceholder', () => {
             <EncapsulatedPlugin />
 
             <DxTemplate name="root">
-              <DxTemplatePlaceholder name="test" params={{ text: this.text }} />
+              <DxTemplatePlaceholder name="test" text={this.text} />
             </DxTemplate>
           </DxPluginHost>
         );
@@ -153,7 +153,7 @@ describe('TemplatePlaceholder', () => {
         return (
           <DxPluginHost>
             <DxTemplate name="test">
-              {({ text }) => (
+              {({ attrs: { text } }) => (
                 <h1>{text}</h1>
               )}
             </DxTemplate>
@@ -165,7 +165,7 @@ describe('TemplatePlaceholder', () => {
             </DxTemplate>
 
             <DxTemplate name="root">
-              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+              <DxTemplatePlaceholder name="test" text="param" />
             </DxTemplate>
           </DxPluginHost>
         );
@@ -182,19 +182,19 @@ describe('TemplatePlaceholder', () => {
         return (
           <DxPluginHost>
             <DxTemplate name="test">
-              {({ text }) => (
+              {({ attrs: { text } }) => (
                 <h1>{text}</h1>
               )}
             </DxTemplate>
 
             <DxTemplate name="test">
               {() => (
-                <DxTemplatePlaceholder params={{ text: 'overriden' }} />
+                <DxTemplatePlaceholder text="overriden" />
               )}
             </DxTemplate>
 
             <DxTemplate name="root">
-              <DxTemplatePlaceholder name="test" params={{ text: 'param' }} />
+              <DxTemplatePlaceholder name="test" text="param" />
             </DxTemplate>
           </DxPluginHost>
         );
@@ -207,15 +207,10 @@ describe('TemplatePlaceholder', () => {
 
   it('should support templates chain update on params change', () => {
     const EncapsulatedPlugin = {
-      props: {
-        text: {
-          type: String,
-        },
-      },
       render() {
         return (
           <DxTemplate name="test">
-            {({ text }) => (
+            {({ attrs: { text } }) => (
               <h1>{text}</h1>
             )}
           </DxTemplate>
@@ -239,7 +234,7 @@ describe('TemplatePlaceholder', () => {
               )}
             </DxTemplate>
             <DxTemplate name="root">
-              <DxTemplatePlaceholder name="test" params={{ text: this.text }} />
+              <DxTemplatePlaceholder name="test" text={this.text} />
             </DxTemplate>
           </DxPluginHost>
         );

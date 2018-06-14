@@ -12,7 +12,7 @@ const styles = () => ({
 class SliceBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, ...restProps
+      x, y, classes, className, value, ...restProps
     } = this.props;
     return (
       <path
@@ -29,6 +29,7 @@ SliceBase.propTypes = {
   y: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  value: PropTypes.number.isRequired,
 };
 
 SliceBase.defaultProps = {

@@ -19,7 +19,7 @@
         "jsx-a11y/href-no-hash": "off",
         "jsx-a11y/anchor-is-valid": "off",
         "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*"]}],
-        "filenames/match-regex": [2, "^[a-z-\\.]+$"],
+        "filenames/match-regex": [2, "^[a-z-\\.\\d]+$"],
         "no-restricted-imports": ["error", "@material-ui/core", "@material-ui/icons"]
     }
 }

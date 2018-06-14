@@ -1,0 +1,44 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  BarSeries,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+import { ageStructure } from '../../../demo-data/data-vizualization';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: ageStructure,
+    };
+  }
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+          <BarSeries
+            valueField="young"
+            argumentField="state"
+            axisName="age"
+          />
+          <BarSeries
+            valueField="middle"
+            argumentField="state"
+            axisName="age"
+          />
+          <BarSeries
+            valueField="older"
+            argumentField="state"
+            axisName="age"
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

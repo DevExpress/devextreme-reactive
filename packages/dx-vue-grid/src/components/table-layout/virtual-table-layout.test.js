@@ -12,7 +12,8 @@ jest.mock('./column-group', () => ({
   ColumnGroup: () => null,
 }));
 jest.mock('@devexpress/dx-vue-core', () => ({
-  RefHolder: {
+  DxRefHolder: {
+    name: 'DxRefHolder',
     render() {
       return this.$slots.default[0];
     },
@@ -50,8 +51,8 @@ const defaultProps = {
   tableComponent: { render() { return <table>{this.$slots.default}</table>; } },
   headComponent: { render() { return <table>{this.$slots.default}</table>; } },
   bodyComponent: { render() { return <tbody>{this.$slots.default}</tbody>; } },
-  rowComponent: { name: 'Row', render: () => null },
-  cellComponent: { name: 'Cell', render: () => null },
+  rowComponent: { name: 'Row', render() { return <tr>{this.$slots.default}</tr>; } },
+  cellComponent: { name: 'Cell', render() { return <td />; } },
   getCellColSpan: () => 1,
 };
 
@@ -99,7 +100,7 @@ describe('VirtualTableLayout', () => {
       },
     });
 
-    expect(tree.find(defaultProps.containerComponent).vm.$el)
+    expect(tree.vm.$el)
       .toMatchSnapshot();
   });
 

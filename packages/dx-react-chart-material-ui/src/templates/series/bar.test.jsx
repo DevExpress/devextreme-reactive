@@ -8,6 +8,7 @@ describe('Bar', () => {
     y: 2,
     width: 10,
     height: 20,
+    value: 15,
   };
 
   it('should render root element', () => {
@@ -17,18 +18,31 @@ describe('Bar', () => {
       />
     ));
     const {
-      x, y, width, height,
+      x, y, width, height, value,
     } = tree.find('rect').props();
 
     expect(x).toBe(1);
     expect(y).toBe(2);
     expect(width).toBe(10);
     expect(height).toBe(20);
+    expect(value).toBeUndefined();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Bar {...defaultProps} customProperty />);
     const { customProperty } = tree.find('rect').props();
     expect(customProperty).toBeTruthy();
+  });
+
+  it('should apply themeColor', () => {
+    const tree = shallow((
+      <Bar
+        themeColor="color"
+        {...defaultProps}
+      />
+    ));
+
+    expect(tree.find('rect').props().fill)
+      .toBe('color');
   });
 });

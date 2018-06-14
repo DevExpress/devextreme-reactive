@@ -1,6 +1,5 @@
 export const TableStubRow = {
   name: 'TableStubRow',
-  functional: true,
   props: {
     tableRow: {
       type: Object,
@@ -9,14 +8,14 @@ export const TableStubRow = {
       type: String,
     },
   },
-  render(h, context) {
+  render() {
     return (
       <tr
         style={{
-          height: context.props.height,
+          height: this.height,
         }}
       >
-        {context.slots().default}
+        {this.$slots.default}
       </tr>
     );
   },

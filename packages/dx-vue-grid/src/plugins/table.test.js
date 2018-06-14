@@ -141,12 +141,54 @@ describe('DxTable', () => {
     });
   });
 
+  describe('Table Layout', () => {
+    it('should pass cell placeholder props to cell component attrs', () => {
+      isDataTableCell.mockImplementation(() => true);
+      const tableCellArgs = {
+        tableRow: { row: 'row', type: 'data' },
+        tableColumn: { column: 'row' },
+        colSpan: 4,
+        rowSpan: 2,
+      };
+
+      const wrapper = mount({
+        render() {
+          return (
+            <DxPluginHost>
+              <PluginDepsToComponents deps={defaultDeps} />
+              <DxTable
+                {...{ attrs: { ...defaultProps } }}
+                layoutComponent={{
+                  props: {
+                    cellComponent: {
+                      type: Object,
+                    },
+                  },
+                  render() {
+                    return (
+                      <this.cellComponent
+                        class="cell-component"
+                        {...{ props: { ...tableCellArgs } }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </DxPluginHost>
+          );
+        },
+      });
+
+      expect(wrapper.find(defaultProps.cellComponent).vm.$attrs)
+        .toMatchObject(tableCellArgs);
+    });
+  });
+
   it('should render row by using rowComponent', () => {
     isDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
-      style: {},
-      children: null,
+      height: 40,
     };
 
     const tree = mount({
@@ -183,7 +225,7 @@ describe('DxTable', () => {
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'a' } },
-      style: {},
+      colSpan: 1,
     };
 
     const tree = mount({
@@ -199,7 +241,7 @@ describe('DxTable', () => {
                     type: Object,
                   },
                 },
-                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+                render() { return <this.cellComponent {...{ props: { ...tableCellArgs } }} />; },
               }}
             />
           </DxPluginHost>
@@ -222,7 +264,7 @@ describe('DxTable', () => {
     const tableCellArgs = {
       tableRow: { row: 'row' },
       tableColumn: { column: { name: 'column', dataType: 'column' } },
-      style: {},
+      colSpan: 1,
     };
     const tree = mount({
       render() {
@@ -237,7 +279,7 @@ describe('DxTable', () => {
                     type: Object,
                   },
                 },
-                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+                render() { return <this.cellComponent {...{ props: { ...tableCellArgs } }} />; },
               }}
             />
           </DxPluginHost>
@@ -287,7 +329,11 @@ describe('DxTable', () => {
   });
 
   it('should render stub cell on plugin-defined column and row intersection', () => {
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: 'column' },
+      colSpan: 1,
+    };
 
     const tree = mount({
       render() {
@@ -302,7 +348,7 @@ describe('DxTable', () => {
                     type: Object,
                   },
                 },
-                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+                render() { return <this.cellComponent {...{ props: { ...tableCellArgs } }} />; },
               }}
             />
           </DxPluginHost>
@@ -316,7 +362,11 @@ describe('DxTable', () => {
 
   it('should render stub header cell on plugin-defined column and row intersection', () => {
     isHeaderStubTableCell.mockImplementation(() => true);
-    const tableCellArgs = { tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {} };
+    const tableCellArgs = {
+      tableRow: { row: 'row' },
+      tableColumn: { column: 'column' },
+      colSpan: 1,
+    };
 
     const tree = mount({
       render() {
@@ -331,7 +381,7 @@ describe('DxTable', () => {
                     type: Object,
                   },
                 },
-                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+                render() { return <this.cellComponent {...{ props: { ...tableCellArgs } }} />; },
               }}
             />
           </DxPluginHost>
@@ -349,7 +399,7 @@ describe('DxTable', () => {
     isNoDataTableRow.mockImplementation(() => true);
     isNoDataTableCell.mockImplementation(() => true);
     const tableCellArgs = {
-      tableRow: { row: 'row' }, tableColumn: { column: 'column' }, style: {}, colSpan: 4,
+      tableRow: { row: 'row' }, tableColumn: { column: 'column' }, colSpan: 4,
     };
 
     const tree = mount({
@@ -366,7 +416,7 @@ describe('DxTable', () => {
                     type: Object,
                   },
                 },
-                render() { return <this.cellComponent {...{ attrs: { ...tableCellArgs } }} />; },
+                render() { return <this.cellComponent {...{ props: { ...tableCellArgs } }} />; },
               }}
             />
           </DxPluginHost>
@@ -386,8 +436,6 @@ describe('DxTable', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'nodata' },
-      style: {},
-      children: null,
     };
 
     const tree = mount({

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { axisName } from '@devexpress/dx-chart-core';
+import { axisName, prepareData } from '@devexpress/dx-chart-core';
 
 export class ChartCore extends React.PureComponent {
   render() {
@@ -9,9 +9,10 @@ export class ChartCore extends React.PureComponent {
       data,
     } = this.props;
     const getArgumentAxisName = ({ argumentAxisName }) => axisName(argumentAxisName);
+    const processedData = ({ series }) => prepareData(data, series);
     return (
       <Plugin>
-        <Getter name="data" value={data} />
+        <Getter name="data" computed={processedData} />
         <Getter name="argumentAxisName" computed={getArgumentAxisName} />
       </Plugin>
     );

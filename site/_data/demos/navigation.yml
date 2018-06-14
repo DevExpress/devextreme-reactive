@@ -25,6 +25,8 @@
         path: /vue/grid/demos/featured/integrated-data-shaping
       - title: Data Editing
         path: /vue/grid/demos/featured/data-editing
+      - title: Virtual Scrolling
+        path: /vue/grid/demos/featured/virtual-scrolling
       - title: Vuex Integration
         path: /vue/grid/demos/featured/vuex-integration
       - title: Remote Data

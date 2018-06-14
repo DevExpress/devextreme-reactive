@@ -88,7 +88,7 @@ describe('VirtualTableLayout', () => {
     tree.update();
   };
 
-  fit('should render correct layout', () => {
+  it('should render correct layout', () => {
     const tree = shallow({
       render() {
         return (

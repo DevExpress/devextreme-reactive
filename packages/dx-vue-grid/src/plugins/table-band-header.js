@@ -78,6 +78,7 @@ export const DxTableBandHeader = {
                         colSpan={attrs.colSpan}
                         tableColumn={attrs.tableColumn}
                         tableRow={attrs.tableRow}
+                        rowSpan={attrs.rowSpan}
                       />
                     );
                   case BAND_EMPTY_CELL:
@@ -96,7 +97,7 @@ export const DxTableBandHeader = {
                         name="tableCell"
                         colSpan={attrs.colSpan}
                         tableColumn={attrs.tableColumn}
-                        tableRow={{ ...attrs.tableRow, ...bandComponent.payload.tableRow }}
+                        tableRow={bandComponent.payload.tableRow}
                         rowSpan={bandComponent.payload.rowSpan}
                       />
                     );
@@ -116,7 +117,7 @@ export const DxTableBandHeader = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ attrs: { tableRow } }) => isBandedTableRow(tableRow) }
+          predicate={({ attrs: { tableRow } }) => isBandedTableRow(tableRow)}
         >
           {({ attrs, slots }) => (
             <Row {...{ attrs: { ...attrs } }}>

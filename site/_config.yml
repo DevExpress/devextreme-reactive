@@ -31,6 +31,7 @@ defaults:
     values:
       product_name: React Core
       product_link: /react/core
+      initial_guide: /fundamentals
   - scope:
       path: react/core/docs
       type: pages
@@ -42,6 +43,7 @@ defaults:
     values:
       product_name: React Grid
       product_link: /react/grid
+      initial_guide: /getting-started
   - scope:
       path: react/grid/demos
       type: pages
@@ -59,6 +61,7 @@ defaults:
       product_name: React Chart
       product_link: /react/chart
       logo_file: chart-logo.svg
+      initial_guide: /getting-started
   - scope:
       path: react/chart/demos
       type: pages
@@ -80,6 +83,7 @@ defaults:
     values:
       product_name: Vue Grid
       product_link: /vue/grid
+      initial_guide: /getting-started
   - scope:
       path: vue/grid/demos
       type: pages

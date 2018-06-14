@@ -57,6 +57,7 @@ describe('Scatter series', () => {
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
+    point: { size: 5 },
   };
 
   it('should render points', () => {
@@ -80,5 +81,6 @@ describe('Scatter series', () => {
       expect(y).toBe(3);
       expect(styles).toBe('styles');
     });
+    expect(pointAttributes).toBeCalledWith(undefined, { size: 5 }, 'stack');
   });
 });

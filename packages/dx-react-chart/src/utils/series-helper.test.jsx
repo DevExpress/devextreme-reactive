@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { baseSeries } from './base-series';
+import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   lineAttributes: jest.fn(),
@@ -35,6 +35,7 @@ const coords = [
 
 const lineMethod = jest.fn();
 const pointMethod = jest.fn();
+const extraOptions = jest.fn();
 
 describe('Base series', () => {
   beforeEach(() => {
@@ -47,6 +48,7 @@ describe('Base series', () => {
     pointMethod.mockReturnValue(jest.fn());
     seriesData.mockReturnValue('series');
     checkZeroStart.mockReturnValue('zeroAxes');
+    extraOptions.mockReturnValue('extraOptions');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -76,13 +78,14 @@ describe('Base series', () => {
   const TestComponentPath = () => (<div>TestComponentPath</div>);
   const TestComponentPoint = () => (<div>TestComponentPoint</div>);
 
-  const WrappedComponent = baseSeries(
+  const WrappedComponent = withSeriesPlugin(
     TestComponentPath,
     TestComponentPoint,
     'TestComponent',
     'pathType',
     lineMethod,
     pointMethod,
+    extraOptions,
   );
 
   it('should render test component', () => {
@@ -107,7 +110,7 @@ describe('Base series', () => {
     }
 
     expect(lineMethod).toBeCalledWith('pathType', undefined);
-    expect(pointMethod).toBeCalledWith(undefined, 7, 'stack1');
+    expect(pointMethod).toBeCalledWith(undefined, 'extraOptions', 'stack1');
   });
 
   it('should call function to get attributes for series', () => {
@@ -136,8 +139,7 @@ describe('Base series', () => {
       'axisName',
       { width: 60, height: 50 },
       ['one', 'two'],
-      0.7,
-      0.9,
+      'extraOptions',
     );
 
     expect(coordinates).toHaveBeenLastCalledWith(

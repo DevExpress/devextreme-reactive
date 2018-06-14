@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { BandedHeaderCell } from './banded-header-cell';
 
-describe('TableCell', () => {
+describe('BandedHeaderCell', () => {
   const defaultProps = {
     component: () => <div />,
   };

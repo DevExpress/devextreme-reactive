@@ -107,7 +107,6 @@ const series = [
     valueField: 'val1', axisName: 'axisName', argumentField: 'arg', uniqueName: Symbol('Series3'), stack: 'stack',
   },
 ];
-const size = 7;
 const groupWidth = 0.7;
 const barWidth = 0.9;
 
@@ -120,8 +119,10 @@ describe('Scales', () => {
     'axisName',
     { width: 20, height: 10 },
     stacks,
-    groupWidth,
-    barWidth,
+    {
+      groupWidth,
+      barWidth,
+    },
   );
   beforeAll(() => {
     const translateValue = value => value;
@@ -181,7 +182,7 @@ describe('Series attributes', () => {
   });
 
   it('should return d attribute for point and coordinates', () => {
-    const { d, x, y } = pointAttributes({ xScale: {} }, size)({ x: 1, y: 2 });
+    const { d, x, y } = pointAttributes({ xScale: {} }, {})({ x: 1, y: 2 });
     expect(d).toBe('symbol path');
     expect(mockSymbol.size).toBeCalledWith([49]);
     expect(mockSymbol.type).toBeCalledWith(symbolCircle);
@@ -192,7 +193,7 @@ describe('Series attributes', () => {
   it('should return d attribute for point and coordinates, scale is band', () => {
     const { d, x, y } = pointAttributes(
       { xScale: { bandwidth: jest.fn(() => 20) } },
-      size,
+      { },
     )({ x: 1, y: 2 });
     expect(d).toBe('symbol path');
     expect(mockSymbol.size).toBeCalledWith([49]);

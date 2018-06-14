@@ -16,6 +16,7 @@ import {
 import {
   DxGrid,
   DxTable,
+  DxTableBandHeader,
   DxTableHeaderRow,
   DxTableRowDetail,
   DxTableGroupRow,
@@ -121,6 +122,36 @@ export default {
         { name: 'position', title: 'Position' },
         { name: 'state', title: 'State' },
       ],
+      columnBands: [
+        {
+          title: 'Personal Data',
+          children: [
+            {
+              title: 'Full Name',
+              children: [
+                { columnName: 'firstName' },
+                { columnName: 'lastName' },
+              ],
+            },
+            { columnName: 'birthDate' },
+          ],
+        },
+        {
+          title: 'Work Information',
+          children: [
+            { columnName: 'state' },
+            { columnName: 'position' },
+          ],
+        },
+      ],
+      tableColumnExtensions: [
+        { columnName: 'prefix', width: 80 },
+        { columnName: 'firstName', width: 130 },
+        { columnName: 'lastName', width: 130 },
+        { columnName: 'position', width: 170 },
+        { columnName: 'state', width: 125 },
+        { columnName: 'birthDate', width: 125 },
+      ],
     };
   },
   computed: {
@@ -184,7 +215,9 @@ export default {
         <dx-integrated-grouping />
         <dx-integrated-selection />
         <dx-integrated-paging />
-        <dx-table />
+        <dx-table
+          :columnExtensions="tableColumnExtensions"
+        />
         <dx-table-header-row
           showSortingControls
           showGroupingControls
@@ -204,6 +237,9 @@ export default {
         <dx-paging-panel
           :pageSizes="pageSizes"
         />
+        <dx-table-band-header
+          :columnBands="columnBands"
+        />
       </dx-grid>
     </div>
   `,
@@ -221,6 +257,7 @@ export default {
     DxIntegratedPaging,
     DxGrid,
     DxTable,
+    DxTableBandHeader,
     DxTableHeaderRow,
     DxTableGroupRow,
     DxTableFilterRow,

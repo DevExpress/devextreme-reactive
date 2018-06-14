@@ -6,7 +6,7 @@ export class Label extends React.PureComponent {
   render() {
     const { text, className, ...restProps } = this.props;
     return (
-      <span className={classNames('text-body', className)}{...restProps}>{text}</span>
+      <span className={classNames('text-body pl-2 pr-2', className)}{...restProps}>{text}</span>
     );
   }
 }

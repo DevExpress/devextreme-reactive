@@ -33,9 +33,6 @@ const MyUnitsFilterCell = {
       />
     </th>
   `,
-  components: {
-    DxCell: DxTableFilterRow.components.DxCell,
-  },
 };
 
 const MyFilterCell = {

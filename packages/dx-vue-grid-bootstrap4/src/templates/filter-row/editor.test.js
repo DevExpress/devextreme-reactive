@@ -22,7 +22,7 @@ describe('Editor', () => {
       .toBeTruthy();
   });
 
-  it('should trigger onChange when change event fire', () => {
+  it('should trigger changeValue when change event fire', () => {
     const onValueChange = jest.fn();
     const tree = shallow(({
       render() {

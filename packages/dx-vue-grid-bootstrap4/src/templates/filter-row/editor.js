@@ -12,7 +12,7 @@ export const Editor = {
     },
     getMessage: {
       type: Function,
-      default: () => undefined,
+      required: true,
     },
   },
   methods: {

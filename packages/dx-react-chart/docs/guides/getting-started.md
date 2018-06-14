@@ -22,7 +22,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-material-ui.npm-tag()
   ```
 
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
+  Make sure that the [Material UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
 
 - Bootstrap 4
 

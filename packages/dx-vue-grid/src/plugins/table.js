@@ -178,19 +178,19 @@ export const DxTable = {
                 getTableCellColSpan,
               },
             }) => (
-                <Layout
-                  tableComponent={tableComponent}
-                  headComponent={headComponent}
-                  bodyComponent={bodyComponent}
-                  containerComponent={containerComponent}
-                  headerRows={headerRows}
-                  bodyRows={bodyRows}
-                  columns={columns}
-                  rowComponent={RowPlaceholder}
-                  cellComponent={CellPlaceholder}
-                  getCellColSpan={getTableCellColSpan}
-                />
-              )}
+              <Layout
+                tableComponent={tableComponent}
+                headComponent={headComponent}
+                bodyComponent={bodyComponent}
+                containerComponent={containerComponent}
+                headerRows={headerRows}
+                bodyRows={bodyRows}
+                columns={columns}
+                rowComponent={RowPlaceholder}
+                cellComponent={CellPlaceholder}
+                getCellColSpan={getTableCellColSpan}
+              />
+            )}
           </DxTemplateConnector>
         </DxTemplate>
         <DxTemplate name="tableCell">

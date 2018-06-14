@@ -59,40 +59,40 @@ mockArc.endAngle = jest.fn(() => jest.fn(() => true));
 
 const data = [
   {
-    arg: 1, val1: 3, 'val1-Series3-end': 3, 'val1-Series3-start': 2,
+    arg: 1, val1: 3, 'val1-Series3-stack': [2, 3],
   },
   {
-    arg: 2, val1: 5, 'val1-Series3-end': 5, 'val1-Series3-start': 4,
+    arg: 2, val1: 5, 'val1-Series3-stack': [4, 5],
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-end': 7, 'val1-Series3-start': 6,
+    arg: 3, val1: 7, 'val1-Series3-stack': [6, 7],
   },
   {
-    arg: 4, val1: 10, 'val1-Series3-end': 10, 'val1-Series3-start': 9,
+    arg: 4, val1: 10, 'val1-Series3-stack': [9, 10],
   },
   {
-    arg: 5, val1: 15, 'val1-Series3-end': 15, 'val1-Series3-start': 14,
+    arg: 5, val1: 15, 'val1-Series3-stack': [14, 15],
   },
 ];
 
 const dataWithUndefined = [
   {
-    arg: 1, val1: 3, 'val1-Series3-end': 3, 'val1-Series3-start': 3,
+    arg: 1, val1: 3, 'val1-Series3-stack': [3, 3],
   },
   {
-    arg: undefined, val1: 5, 'val1-Series3-end': 5, 'val1-Series3-start': 5,
+    arg: undefined, val1: 5, 'val1-Series3-stack': [5, 5],
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-end': 7, 'val1-Series3-start': 7,
+    arg: 3, val1: 7, 'val1-Series3-stack': [7, 7],
   },
   { arg: 4, val1: undefined },
   {
-    arg: 5, val1: 15, 'val1-Series3-end': 15, 'val1-Series3-start': 15,
+    arg: 5, val1: 15, 'val1-Series3-stack': [15, 15],
   },
 ];
 
 const computedLine = data.map(item => ({
-  id: item.arg, x: item.arg, y: item['val1-Series3-end'], y1: item['val1-Series3-start'], value: item.val1,
+  id: item.arg, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
 }));
 
 const series2 = Symbol('Series2');
@@ -112,7 +112,7 @@ const barWidth = 0.9;
 
 describe('Scales', () => {
   const getScales = ({
-    axisType = 'axisType', stacks = [],
+    axisType = 'axisType', stacks,
   }) => xyScales(
     { argumentAxisName: { type: axisType, orientation: 'orientation' }, axisName: 'axisName' },
     'argumentAxisName',
@@ -278,6 +278,16 @@ describe('Series attributes', () => {
       x: 4, y: 2, height: 3, width: 20,
     });
     expect(scale).toBeCalledWith('stack1');
+  });
+
+  it('should return bar point attributes, stack is undefined', () => {
+    const scale = jest.fn();
+    scale.bandwidth = jest.fn(() => 20);
+    const barAttr = barPointAttributes({ x0Scale: scale })({ x: 1, y: 2, y1: 5 });
+    expect(barAttr).toEqual({
+      x: 1, y: 2, height: 3, width: 20,
+    });
+    expect(scale).toBeCalledWith(undefined);
   });
 
   it('should return bar point attributes, bar is negative', () => {

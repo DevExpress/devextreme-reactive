@@ -6,6 +6,7 @@ import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisName: jest.fn(() => 'argumentName'),
+  prepareData: jest.fn(data => data),
 }));
 
 const defaultProps = {

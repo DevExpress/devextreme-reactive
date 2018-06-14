@@ -18,14 +18,22 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = {
-  functional: true,
-  render(h, context) {
+  props: {
+    tableRow: {
+      type: Object,
+      required: true,
+    },
+    height: {
+      type: [Number, String],
+    },
+  },
+  render() {
     return (
       <DxTemplatePlaceholder
         name="tableRow"
-        {...context.data}
+        {...{ attrs: { ...this.$props } }}
       >
-        {context.children}
+        {this.$slots.default}
       </DxTemplatePlaceholder>
     );
   },
@@ -44,6 +52,9 @@ const CellPlaceholder = {
     colSpan: {
       type: Number,
       required: true,
+    },
+    rowSpan: {
+      type: Number,
     },
   },
   render() {
@@ -167,19 +178,19 @@ export const DxTable = {
                 getTableCellColSpan,
               },
             }) => (
-              <Layout
-                tableComponent={tableComponent}
-                headComponent={headComponent}
-                bodyComponent={bodyComponent}
-                containerComponent={containerComponent}
-                headerRows={headerRows}
-                bodyRows={bodyRows}
-                columns={columns}
-                rowComponent={RowPlaceholder}
-                cellComponent={CellPlaceholder}
-                getCellColSpan={getTableCellColSpan}
-              />
-            )}
+                <Layout
+                  tableComponent={tableComponent}
+                  headComponent={headComponent}
+                  bodyComponent={bodyComponent}
+                  containerComponent={containerComponent}
+                  headerRows={headerRows}
+                  bodyRows={bodyRows}
+                  columns={columns}
+                  rowComponent={RowPlaceholder}
+                  cellComponent={CellPlaceholder}
+                  getCellColSpan={getTableCellColSpan}
+                />
+              )}
           </DxTemplateConnector>
         </DxTemplate>
         <DxTemplate name="tableCell">

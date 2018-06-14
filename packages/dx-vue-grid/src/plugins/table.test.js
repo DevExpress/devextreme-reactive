@@ -148,6 +148,7 @@ describe('DxTable', () => {
         tableRow: { row: 'row', type: 'data' },
         tableColumn: { column: 'row' },
         colSpan: 4,
+        rowSpan: 2,
       };
 
       const wrapper = mount({
@@ -187,8 +188,7 @@ describe('DxTable', () => {
     isDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'data' },
-      style: {},
-      children: null,
+      height: 40,
     };
 
     const tree = mount({
@@ -436,8 +436,6 @@ describe('DxTable', () => {
     isNoDataTableRow.mockImplementation(() => true);
     const tableRowArgs = {
       tableRow: { row: 'row', type: 'nodata' },
-      style: {},
-      children: null,
     };
 
     const tree = mount({

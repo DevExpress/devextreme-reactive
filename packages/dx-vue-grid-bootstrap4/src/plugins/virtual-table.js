@@ -51,7 +51,7 @@ export const DxVirtualTable = {
       default: () => ({}),
     },
   },
-  beforeMount() {
+  created() {
     const { height, estimatedRowHeight, headTableComponent } = this;
     this.layoutRenderComponent = createRenderComponent(
       VirtualTableLayout,

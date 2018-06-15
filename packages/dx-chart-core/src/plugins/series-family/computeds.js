@@ -11,8 +11,7 @@ export const processData = (series, data) =>
     return {
       singleData: {
         ...prevValue.singleData,
-        [`${valueField}-${name}-start`]: startValue,
-        [`${valueField}-${name}-end`]: endValue,
+        [`${valueField}-${name}-stack`]: [startValue, endValue],
       },
       collection: {
         ...prevValue.collection,

@@ -22,7 +22,6 @@ const styles = theme => ({
   },
   cell: {
     outline: 'none',
-    position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,

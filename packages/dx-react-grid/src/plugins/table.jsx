@@ -179,6 +179,11 @@ export class Table extends React.PureComponent {
         >
           {params => <NoDataRow {...params} />}
         </Template>
+        {/* <Template name="tableCell" >
+          {params => (
+            <TemplateConnector></TemplateConnector>
+          )}
+        </Template> */}
       </Plugin>
     );
   }
@@ -197,6 +202,7 @@ Table.propTypes = {
   stubRowComponent: PropTypes.func.isRequired,
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
+  // fixedCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
   messages: PropTypes.object,
 };

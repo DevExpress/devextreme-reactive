@@ -1,4 +1,27 @@
+import {
+  stack,
+  stackOrderNone,
+  stackOffsetNone,
+} from 'd3-shape';
 import { seriesWithStacks, processData, stacks } from './computeds';
+
+jest.mock('d3-shape', () => ({
+  stack: jest.fn(),
+  stackOrderNone: jest.fn(),
+  stackOffsetNone: jest.fn(),
+}));
+
+const mockStackOrderNone = jest.fn();
+const mockStackOffsetNone = jest.fn();
+
+const mockStack = jest.fn().mockReturnThis();
+mockStack.keys = jest.fn().mockReturnThis();
+mockStack.order = jest.fn().mockReturnThis();
+mockStack.offset = jest.fn(() => jest.fn(() => [
+  [[1, 2], [3, 4], [5, 6]],
+  [[11, 12], [13, 14], [15, 16]],
+  [[21, 22], [23, 24], [25, 26]],
+]));
 
 describe('stacks', () => {
   it('should return stacks', () => {
@@ -21,6 +44,15 @@ describe('series with stacks', () => {
 });
 
 describe('processData', () => {
+  beforeAll(() => {
+    stack.mockImplementation(() => mockStack);
+    stackOrderNone.mockImplementation(() => mockStackOrderNone);
+    stackOffsetNone.mockImplementation(() => mockStackOffsetNone);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should return new data', () => {
     const series = [
       {
@@ -35,69 +67,31 @@ describe('processData', () => {
     ];
     const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
 
-    expect(processData(series, data)).toEqual([{
+    const processedData = processData(series, data);
+
+    expect(stack).toHaveBeenCalledTimes(2);
+    expect(mockStack.keys).toHaveBeenCalledWith(['val', 'val']);
+    expect(mockStack.order).toHaveBeenCalledWith(stackOrderNone);
+    expect(mockStack.offset).toHaveBeenCalledWith(stackOffsetNone);
+
+    expect(processedData).toEqual([{
       arg: 1,
       val: 11,
-      'val-s1-stack': [0, 11],
-      'val-s2-stack': [0, 11],
-      'val-s3-stack': [11, 22],
+      'val-s1-stack': [1, 2],
+      'val-s2-stack': [1, 2],
+      'val-s3-stack': [11, 12],
     }, {
       arg: 2,
       val: 22,
-      'val-s1-stack': [0, 22],
-      'val-s2-stack': [0, 22],
-      'val-s3-stack': [22, 44],
+      'val-s1-stack': [3, 4],
+      'val-s2-stack': [3, 4],
+      'val-s3-stack': [13, 14],
     }, {
       arg: 3,
       val: 33,
-      'val-s1-stack': [0, 33],
-      'val-s2-stack': [0, 33],
-      'val-s3-stack': [33, 66],
-    }]);
-  });
-
-  it('should return new data, undefined values', () => {
-    const series = [
-      {
-        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val0',
-      },
-      {
-        name: 's2', stack: 'one', argumentField: 'arg', valueField: 'val1',
-      },
-      {
-        name: 's3', stack: 'one', argumentField: 'arg', valueField: 'val2',
-      },
-    ];
-    const data = [{
-      arg: 1, val0: undefined, val1: 12, val2: 13,
-    }, {
-      arg: 2, val0: 21, val1: undefined, val2: 23,
-    }, {
-      arg: 3, val0: 31, val1: 32, val2: 33,
-    }];
-
-    expect(processData(series, data)).toEqual([{
-      arg: 1,
-      val0: undefined,
-      val1: 12,
-      val2: 13,
-      'val1-s2-stack': [0, 12],
-      'val2-s3-stack': [12, 25],
-    }, {
-      arg: 2,
-      val0: 21,
-      val1: undefined,
-      val2: 23,
-      'val0-s1-stack': [0, 21],
-      'val2-s3-stack': [21, 44],
-    }, {
-      arg: 3,
-      val0: 31,
-      val1: 32,
-      val2: 33,
-      'val0-s1-stack': [0, 31],
-      'val1-s2-stack': [31, 63],
-      'val2-s3-stack': [63, 96],
+      'val-s1-stack': [5, 6],
+      'val-s2-stack': [5, 6],
+      'val-s3-stack': [15, 16],
     }]);
   });
 });

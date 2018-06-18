@@ -22,4 +22,8 @@ describe('Prepare data', () => {
       arg: 2, val1: 5, val2: 6, 'val1-series1-stack': [0, 5], 'val2-series2-stack': [0, 6],
     }]);
   });
+
+  it('should perform function passed to prepareData', () => {
+    expect(prepareData([], [], jest.fn(() => 'preparedData'))).toBe('preparedData');
+  });
 });

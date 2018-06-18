@@ -1,33 +1,63 @@
-export const processData = (series, data) =>
-  data.map(singleData => series.reduce((prevValue, {
-    valueField, name, stack,
-  }) => {
-    if (singleData[valueField] === undefined) {
-      return prevValue;
-    }
-    const startValue = prevValue.collection[stack] || 0;
-    const endValue = startValue + singleData[valueField];
+import {
+  stack,
+  stackOrderNone,
+  stackOffsetNone,
+} from 'd3-shape';
 
+const getStacks = series => series.reduce((
+  prevValue,
+  { valueField, stack: seriesStack },
+  index,
+) => {
+  if (!prevValue[seriesStack]) {
     return {
-      singleData: {
-        ...prevValue.singleData,
-        [`${valueField}-${name}-stack`]: [startValue, endValue],
-      },
-      collection: {
-        ...prevValue.collection,
-        [stack]: endValue,
+      ...prevValue,
+      [seriesStack]: {
+        keys: [valueField],
+        series: [index],
       },
     };
-  }, { singleData, collection: {} }).singleData);
+  }
+  return {
+    ...prevValue,
+    [seriesStack]: {
+      keys: [...prevValue[seriesStack].keys, valueField],
+      series: [...prevValue[seriesStack].series, index],
+    },
+  };
+}, {});
+
+export const processData = (series, data) => {
+  const stacks = getStacks(series);
+
+  const arrayOfStacks = Object.entries(stacks).reduce((prevValue, item) => ({
+    ...prevValue,
+    [item[0]]: stack()
+      .keys(item[1].keys)
+      .order(stackOrderNone)
+      .offset(stackOffsetNone)(data),
+  }), {});
+
+
+  return data.map((singleData, dataIndex) => series.reduce((prevValue, {
+    valueField, name, stack: seriesStack,
+  }, index) => {
+    const seriesIndex = stacks[seriesStack].series.findIndex(item => item === index);
+    return {
+      ...prevValue,
+      [`${valueField}-${name}-stack`]: arrayOfStacks[seriesStack][seriesIndex][dataIndex],
+    };
+  }, singleData));
+};
 
 export const seriesWithStacks = series =>
   series.reduce((prevResult, singleSeries, index) => {
-    const { stack = `stack${index}` } = singleSeries;
+    const { stack: seriesStack = `stack${index}` } = singleSeries;
 
-    return [...prevResult, { ...singleSeries, stack }];
+    return [...prevResult, { ...singleSeries, stack: seriesStack }];
   }, []);
 
 export const stacks = series => series.reduce((prevResult, singleSeries) => {
-  const { stack } = singleSeries;
-  return [...prevResult, stack];
+  const { stack: seriesStack } = singleSeries;
+  return [...prevResult, seriesStack];
 }, []);

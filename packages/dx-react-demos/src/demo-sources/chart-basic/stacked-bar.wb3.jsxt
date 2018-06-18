@@ -41,7 +41,7 @@ export default class Demo extends React.PureComponent {
             axisName="age"
             stack="a"
           />
-          <SeriesFamily/>
+          <SeriesFamily />
         </Chart>
       </<%&wrapperTag%>>
     );

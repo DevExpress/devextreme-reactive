@@ -4,6 +4,7 @@ export const createRenderComponent = (Component, initialAdditionalProps) => {
 
   const RenderComponent = {
     name: 'RenderComponent',
+    inheritAttrs: false,
     beforeMount() {
       components.add(this);
     },

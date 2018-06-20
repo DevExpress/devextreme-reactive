@@ -10,13 +10,17 @@ const defaultMessages = {
 export const DxPagingPanel = {
   name: 'DxPagingPanel',
   functional: true,
+  props: {
+    messages: {
+      type: Object,
+    },
+  },
   render(h, context) {
-    const { messages } = context.props;
     return (
       <DxPagingPanelBase
         containerComponent={Pager}
-        messages={{ ...defaultMessages, ...messages }}
-        {...{ attrs: context.props, on: context.listeners }}
+        messages={{ ...defaultMessages, ...context.props.messages }}
+        {...{ attrs: context.data.attrs, on: context.listeners }}
       />
     );
   },

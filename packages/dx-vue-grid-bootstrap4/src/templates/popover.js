@@ -30,8 +30,7 @@ export const Popover = {
       let x = (targetWidth - popoverWidth) / 2;
       const popoverRight = targetLeft + ((targetWidth + popoverWidth) / 2);
       if (popoverRight > container.offsetWidth) {
-        /* eslint-disable-next-line no-mixed-operators */
-        x -= popoverRight - container.offsetWidth + offsetX;
+        x -= (popoverRight - container.offsetWidth) + offsetX;
       }
       if ((targetLeft - Math.abs(x)) < 0) {
         x = offsetX - targetLeft;

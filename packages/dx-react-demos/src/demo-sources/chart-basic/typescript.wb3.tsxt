@@ -6,8 +6,6 @@ import {
   ArgumentAxis,
   ValueAxis,
   Grid,
-  Legend,
-  Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 const chartData = [

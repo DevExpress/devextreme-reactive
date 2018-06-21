@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "@devexpress/dx-react-demos",
-  "version": "1.4.0",
+  "name": "@devexpress/dx-react-chart-demos",
+  "version": "1.3.0",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -26,11 +26,6 @@
     "@devexpress/dx-react-chart": "1.4.0",
     "@devexpress/dx-react-chart-bootstrap4": "1.4.0",
     "@devexpress/dx-react-chart-material-ui": "1.4.0",
-    "@devexpress/dx-react-core": "1.4.0",
-    "@devexpress/dx-react-grid": "1.4.0",
-    "@devexpress/dx-react-grid-bootstrap3": "1.4.0",
-    "@devexpress/dx-react-grid-bootstrap4": "1.4.0",
-    "@devexpress/dx-react-grid-material-ui": "1.4.0",
     "@material-ui/core": "^1.2.3",
     "@material-ui/icons": "^1.1.0",
     "@types/react": "^16.4.1",

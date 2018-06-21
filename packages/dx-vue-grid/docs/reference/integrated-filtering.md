@@ -43,6 +43,12 @@ Field | Type | Description
 operator | 'and' &#124; 'or' | Specifies the Boolean operator
 filters | Array&lt;[FilterExpression](#filterexpression) &#124; [Filter](filtering-state.md#filter)&gt;  | Specifies filters or filter expressions
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+defaultPredicate | (value: any, filter: [Filter](filtering-state.md#filter), row: any) => boolean | The built-in filter predicate. The `filter` parameter accepts an object containing the 'value' field.
+
 ## Plugin Developer Reference
 
 ### Imports

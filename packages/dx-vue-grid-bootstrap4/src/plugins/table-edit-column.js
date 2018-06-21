@@ -16,14 +16,19 @@ const defaultMessages = {
 export const DxTableEditColumn = {
   name: 'DxTableEditColumn',
   functional: true,
+  props: {
+    messages: {
+      type: Object,
+    },
+  },
   render(h, context) {
     return (
       <DxTableEditColumnBase
         cellComponent={EditCommandCell}
         headerCellComponent={EditCommandHeadingCell}
         commandComponent={CommandButton}
-        messages={{ ...defaultMessages, ...context.messages }}
-        {...{ attrs: context.props, on: context.listeners }}
+        messages={{ ...defaultMessages, ...context.props.messages }}
+        {...{ attrs: context.data.attrs, on: context.listeners }}
       />
     );
   },

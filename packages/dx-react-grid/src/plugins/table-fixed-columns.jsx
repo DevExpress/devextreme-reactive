@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
 import {
   Getter,
   Template,
@@ -8,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   isFixedCell,
-  getFixedPosition,
+  getFixedSide,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -18,6 +19,13 @@ const pluginDependencies = [
 ];
 
 export class TableFixedColumns extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.cellsPositions = {};
+  }
+  pushCellPosition(columnName, cellPosition) {
+    this.cellsPositions[columnName] = cellPosition;
+  }
   render() {
     const {
       beforeColumnNames,
@@ -37,13 +45,22 @@ export class TableFixedColumns extends React.PureComponent {
             && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
         >
           {(params) => {
-            const fixedPosition =
-              getFixedPosition(params.tableColumn.column.name, beforeColumnNames, afterColumnNames);
+            const columnName = params.tableColumn.column.name;
+            const side = getFixedSide(columnName, beforeColumnNames, afterColumnNames);
+
             return (
               <Cell
                 {...params}
-                fixedPosition={fixedPosition}
+                side={side}
                 component={CellPlaceholder}
+                ref={(ref) => {
+                  const element = findDOMNode(ref);
+                  const bounds = element.getBoundingClientRect();
+                  const sideProperty = side === 'before' ? 'left' : 'right';
+                  const position = bounds[sideProperty] - element.offsetParent.getBoundingClientRect()[sideProperty];
+                  this.pushCellPosition(params.tableColumn.column.name, position);
+                }}
+                getCellPosition={() => this.cellsPositions[params.tableColumn.column.name]}
               />
             );
           }}

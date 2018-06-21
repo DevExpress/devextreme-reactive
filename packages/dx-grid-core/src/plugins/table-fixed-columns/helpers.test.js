@@ -1,5 +1,5 @@
 import { FIXED_COLUMN_BEFORE_SIDE, FIXED_COLUMN_AFTER_SIDE } from './constants';
-import { isFixedCell, getFixedPosition } from './helpers';
+import { isFixedCell, getFixedSide } from './helpers';
 
 describe('TableFixedColumns Plugin helpers', () => {
   describe('#isFixedCell', () => {
@@ -18,29 +18,18 @@ describe('TableFixedColumns Plugin helpers', () => {
 
   describe('#getFixedPosition', () => {
     it('should determine the "before" side correctly', () => {
-      expect(getFixedPosition('column1', ['column1'], []))
-        .toEqual({
-          side: FIXED_COLUMN_BEFORE_SIDE,
-          index: 0,
-        });
-      expect(getFixedPosition('column1', ['column2', 'column1'], []))
-        .toEqual({
-          side: FIXED_COLUMN_BEFORE_SIDE,
-          index: 1,
-        });
+      expect(getFixedSide('column1', ['column2', 'column1'], []))
+        .toBe(FIXED_COLUMN_BEFORE_SIDE);
     });
 
     it('should determine the "after" side correctly', () => {
-      expect(getFixedPosition('column1', [], ['column1']))
-        .toEqual({
-          index: 0,
-          side: FIXED_COLUMN_AFTER_SIDE,
-        });
-      expect(getFixedPosition('column1', [], ['column2', 'column1']))
-        .toEqual({
-          side: FIXED_COLUMN_AFTER_SIDE,
-          index: 1,
-        });
+      expect(getFixedSide('column1', [], ['column2', 'column1']))
+        .toBe(FIXED_COLUMN_AFTER_SIDE);
+    });
+
+    it('should return "null" if column does not belong to any of sides', () => {
+      expect(getFixedSide('column1', [], []))
+        .toBe(null);
     });
   });
 });

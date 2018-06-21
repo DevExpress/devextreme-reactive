@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
         { columnName: 'product', width: 170 },
         { columnName: 'amount', align: 'right', width: 200 },
       ],
-      beforeColumnNames: ['region'],
+      beforeColumnNames: ['region', 'sector'],
       afterColumnNames: ['amount'],
       fixedColumns: { region: 'before' }
     };

@@ -1,5 +1,5 @@
-const offsetX = 3;
-const offsetY = 3;
+const offsetX = 5;
+const offsetY = 5;
 export const Popover = {
   name: 'Popover',
   props: {
@@ -19,6 +19,24 @@ export const Popover = {
         this.$emit('toggle', e);
       }
     },
+    setElementTranslate() {
+      const {
+        height: targetHeight,
+        width: targetWidth,
+        left: targetLeft,
+      } = this.target.getBoundingClientRect();
+      const { container = document.body, width } = this;
+      const popoverWidth = width || this.$el.offsetWidth;
+      let x = (targetWidth - popoverWidth) / 2;
+      const popoverRight = targetLeft + ((targetWidth + popoverWidth) / 2);
+      if (popoverRight > container.offsetWidth) {
+        x -= (popoverRight - container.offsetWidth) + offsetX;
+      }
+      if ((targetLeft - Math.abs(x)) < 0) {
+        x = offsetX - targetLeft;
+      }
+      this.$el.style.transform = `translate(${x}px, ${targetHeight + offsetY}px)`;
+    },
   },
   created() {
     document.addEventListener('click', this.handleDocumentClick);
@@ -27,19 +45,10 @@ export const Popover = {
     document.removeEventListener('click', this.handleDocumentClick);
   },
   mounted() {
-    const {
-      bottom,
-      left,
-      width: targetWidth,
-    } = this.target.getBoundingClientRect();
-    const { container = document.body, width } = this;
-    const popoverWidth = width || this.$el.offsetWidth;
-    let x = (left + (targetWidth / 2)) - (popoverWidth / 2);
-    const delta = container.offsetWidth - (x + popoverWidth);
-    if (delta < 0) {
-      x += delta - offsetX;
-    }
-    this.$el.style.transform = `translate(${x}px, ${bottom + offsetY}px)`;
+    this.setElementTranslate();
+  },
+  updated() {
+    this.setElementTranslate();
   },
   render() {
     return (

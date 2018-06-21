@@ -8,12 +8,17 @@ const defaultMessages = {
 export const DxTableColumnVisibility = {
   name: 'DxTableColumnVisibility',
   functional: true,
+  props: {
+    messages: {
+      type: Object,
+    },
+  },
   render(h, context) {
     return (
       <DxTableColumnVisibilityBase
         emptyMessageComponent={EmptyMessage}
-        messages={{ ...defaultMessages, ...context.messages }}
-        {...{ attrs: context.props, on: context.listeners }}
+        messages={{ ...defaultMessages, ...context.props.messages }}
+        {...{ attrs: context.data.attrs, on: context.listeners }}
       />
     );
   },

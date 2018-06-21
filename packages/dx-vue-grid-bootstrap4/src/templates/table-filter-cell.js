@@ -1,4 +1,5 @@
 export const TableFilterCell = {
+  name: 'TableFilterCell',
   props: {
     column: {
       type: Object,
@@ -22,18 +23,11 @@ export const TableFilterCell = {
     },
   },
   render() {
-    const { filter, filteringEnabled } = this;
     return (
-      <th {...this.$attrs}>
-        {this.$slots.default || (
-          <input
-            type="text"
-            class="form-control"
-            value={filter ? filter.value : ''}
-            onInput={e => this.$emit('filter', e.target.value ? { value: e.target.value } : null)}
-            readonly={!filteringEnabled}
-          />
-        )}
+      <th {...{ attrs: { ...this.$attrs }, on: { ...this.$listeners } }}>
+        <div class="input-group">
+          {this.$slots.default}
+        </div>
       </th>
     );
   },

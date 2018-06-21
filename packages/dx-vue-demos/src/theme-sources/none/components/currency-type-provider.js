@@ -23,6 +23,7 @@ const CurrencyEditor = {
       style="'width': '100%'"
       :value="value === undefined ? '' : value"
       min="0"
+      placeholder="Filter..."
       @change="handleChange"
     />
   `,
@@ -42,10 +43,20 @@ const CurrencyFormatter = {
 };
 
 export const CurrencyTypeProvider = {
+  data() {
+    return ({
+      availableFilterOperations: [
+        'equal', 'notEqual',
+        'greaterThan', 'greaterThanOrEqual',
+        'lessThan', 'lessThanOrEqual',
+      ],
+    });
+  },
   template: `
     <dx-data-type-provider
       :formatterComponent="$options.components.CurrencyFormatter"
       :editorComponent="$options.components.CurrencyEditor"
+      :availableFilterOperations="availableFilterOperations"
       :for="$attrs.for"
     />
   `,

@@ -1,4 +1,5 @@
-import { DxPlugin, DxTemplate } from '@devexpress/dx-vue-core';
+import { DxPlugin, DxTemplate, DxGetter } from '@devexpress/dx-vue-core';
+import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 
 export const DxDataTypeProvider = {
   name: 'DxDataTypeProvider',
@@ -13,15 +14,28 @@ export const DxDataTypeProvider = {
     editorComponent: {
       type: Object,
     },
+    availableFilterOperations: {
+      type: Array,
+    },
   },
   render() {
     const {
       for: columnNames,
       formatterComponent: Formatter,
       editorComponent: Editor,
+      availableFilterOperations,
     } = this;
+
+    const getAvailableFilterOperationsComputed = ({ getAvailableFilterOperations }) =>
+      getAvailableFilterOperationsGetter(
+        getAvailableFilterOperations,
+        availableFilterOperations,
+        columnNames,
+      );
+
     return (
       <DxPlugin name="DxDataTypeProvider">
+        <DxGetter name="getAvailableFilterOperations" computed={getAvailableFilterOperationsComputed} />
         {Formatter
           ? (
             <DxTemplate

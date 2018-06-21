@@ -1,5 +1,4 @@
 import { DxTableHeaderRow as DxTableHeaderRowBase } from '@devexpress/dx-vue-grid';
-
 import { TableRow } from '../templates/table-row';
 import { TableHeaderCell } from '../templates/table-header-cell';
 

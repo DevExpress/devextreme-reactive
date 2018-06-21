@@ -8600,9 +8600,9 @@ react@^16.4.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-reactstrap@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-6.0.1.tgz#944984ee8dc684c7dc09b8de9b722153a1ca7e95"
+reactstrap@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-6.1.0.tgz#7fe70db4c9804cd364bf6fd137172443d67636d9"
   dependencies:
     classnames "^2.2.3"
     lodash.isfunction "^3.0.9"

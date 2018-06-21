@@ -65,6 +65,8 @@ iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconp
 value | string | The currently selected filter operation.
 availableValues | Array&lt;string&gt; | The list of available filter operations.
 onChange | (value: string) => void | Handles filter operation changes.
+disabled | boolean | Specifies whether the FilterSelector is disabled.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns the specified localization message.
 
 ### TableFilterRow.IconProps
 

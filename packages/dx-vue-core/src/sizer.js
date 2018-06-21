@@ -40,6 +40,7 @@ const styles = {
 
 export const DxSizer = {
   name: 'DxSizer',
+  inheritAttrs: false,
   data() {
     return {
       width: 0,

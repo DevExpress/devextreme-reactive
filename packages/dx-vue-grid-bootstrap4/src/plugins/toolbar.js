@@ -3,6 +3,7 @@ import { DxToolbar as Root } from '../templates/toolbar/toolbar';
 import { FlexibleSpace } from '../templates/toolbar/flexible-space';
 
 export const DxToolbar = {
+  name: 'DxToolbar',
   render() {
     return (
       <DxToolbarBase

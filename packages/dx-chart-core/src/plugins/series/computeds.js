@@ -18,8 +18,8 @@ const computeLinePath = (data, scales, argumentField, valueField, name) =>
     if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
       return [...result, {
         x: scales.xScale(dataItem[argumentField]),
-        y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
-        y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
+        y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
+        y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
         id: dataItem[argumentField],
         value: dataItem[valueField],
       }];
@@ -51,7 +51,7 @@ export const xyScales = (
   argumentAxisName,
   domainName,
   layout,
-  stacks,
+  stacks = [],
   { groupWidth = 1, barWidth = 1 },
 ) => {
   const { width, height } = layout;
@@ -124,7 +124,7 @@ export const pointAttributes = (scales, { size = 7 }) => {
 
 export const barPointAttributes = (scales, _, stack) => {
   const bandwidth = scales.x0Scale.bandwidth();
-  const offset = scales.x0Scale(stack);
+  const offset = scales.x0Scale(stack) || 0;
   return item => ({
     x: item.x + offset,
     y: Math.min(item.y, item.y1),

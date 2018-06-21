@@ -24,7 +24,7 @@ describe('calculateDomain', () => {
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
       [{
-        arg: 1, val: 9, 'val-name-end': 9,
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
       }],
       'argumentAxis',
       {},
@@ -43,7 +43,7 @@ describe('calculateDomain', () => {
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
       [{
-        arg: 1, val: 9, 'val-name-end': 9,
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
       }],
       'argumentAxis',
       { valueAxis: true },
@@ -62,7 +62,7 @@ describe('calculateDomain', () => {
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
       [{
-        arg: 1, val: 9, 'val-name-end': 9,
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
       }],
       'argumentAxis',
       { valueAxis: true },
@@ -80,7 +80,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, 'val-name-end': 9 }],
+      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }],
       'argumentAxis',
       {},
     );
@@ -97,7 +97,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: 'c' }],
+      [{ arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }, { arg: 'c' }],
       'argumentAxis',
       {},
     );
@@ -120,7 +120,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }, { arg: undefined }],
+      [{ arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }, { arg: undefined }],
       'argumentAxis',
       {},
     );
@@ -143,7 +143,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'c' }, { arg: 'a', val: 1, 'val-name-end': 1 }, { arg: 'b', val: 2, 'val-name-end': 2 }],
+      [{ arg: 'c' }, { arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }],
       'argumentAxis',
       {},
     );
@@ -166,7 +166,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, 'val-name-end': 9 }, { arg: 4, val: 1, 'val-name-end': 1 }],
+      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }, { arg: 4, val: 1, 'val-name-stack': [0, 1] }],
       'argumentAxis',
       {},
     );
@@ -183,7 +183,7 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 1, val: 9, 'val-name-end': 9 }, { arg: 4, val: 1, 'val-name-end': 1 }],
+      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }, { arg: 4, val: 1, 'val-name-stack': [0, 1] }],
       'argumentAxis',
       {},
     );
@@ -204,9 +204,9 @@ describe('calculateDomain', () => {
       [{
         axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
       }],
-      [{ arg: 'one', val: 9, 'val-name-end': 9 },
-        { arg: 'two', val: 1, 'val-name-end': 1 },
-        { arg: 'three', val: 1, 'val-name-end': 1 }],
+      [{ arg: 'one', val: 9, 'val-name-stack': [0, 9] },
+        { arg: 'two', val: 1, 'val-name-stack': [0, 1] },
+        { arg: 'three', val: 1, 'val-name-stack': [0, 1] }],
       'argumentAxis',
       {},
     );

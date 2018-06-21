@@ -19,6 +19,11 @@ const defaultMessages = {
 export const DxTable = {
   name: 'DxTable',
   functional: true,
+  props: {
+    messages: {
+      type: Object,
+    },
+  },
   render(h, context) {
     return (
       <DxTableBase
@@ -35,7 +40,7 @@ export const DxTable = {
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableHeaderStubCell}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...{ attrs: context.data.attrs, on: context.listeners }}
       />
     );
   },

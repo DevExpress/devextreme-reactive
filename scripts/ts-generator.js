@@ -199,6 +199,11 @@ const ensureDirectory = (dir) => {
   }
 };
 
+const isNotRootComponent = (packageName, file) => {
+  return (packageName.indexOf('grid') > 0 && file.indexOf('grid') === -1) ||
+        (packageName.indexOf('chart') > 0 && file.indexOf('chart') === -1);
+};
+
 const generateTypeScriptForPackage = (packageName) => {
   let indexContent = 'import * as React from \'react\';\n';
   let themesIndexContent = '';
@@ -223,7 +228,7 @@ const generateTypeScriptForPackage = (packageName) => {
 
     if (!themes.length) return;
 
-    const themeFile = join((((packageName.indexOf('grid') > 0 && file.indexOf('grid') === -1) || (packageName.indexOf('chart') > 0 && file.indexOf('chart') === -1)) ? PLUGINS_FOLDER : ''), targetFileName);
+    const themeFile = join((isNotRootComponent(packageName, file) ? PLUGINS_FOLDER : ''), targetFileName);
     const targetThemeFolder = join(ROOT_PATH, `${packageName}-${themes[0]}`, 'src');
     if (existsSync(join(targetThemeFolder, `${themeFile}.jsx`))) {
       fileData.properties

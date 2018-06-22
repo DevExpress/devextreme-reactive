@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1528101693">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1528101693">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1529668665">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1529668665">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -109,6 +109,30 @@
       <td><a href="#dxtablefilterrowdxrow">DxTableFilterRow.DxRow</a></td>
       <td> </td>
       <td>A component that renders a filter row.</td>
+    </tr>
+    <tr>
+      <td>filterSelectorComponent</td>
+      <td><a href="#dxtablefilterrowdxfilterselector">DxTableFilterRow.DxFilterSelector</a></td>
+      <td> </td>
+      <td>A component that renders a filter selector.</td>
+    </tr>
+    <tr>
+      <td>iconComponent</td>
+      <td><a href="#dxtablefilterrowdxicon">DxTableFilterRow.DxIcon</a></td>
+      <td> </td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>editorComponent</td>
+      <td><a href="#dxtablefilterrowdxeditor">DxTableFilterRow.DxEditor</a></td>
+      <td> </td>
+      <td>A component that renders a filter editor.</td>
+    </tr>
+    <tr>
+      <td>showFilterSelector?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether the FilterSelector should be displayed.</td>
     </tr>
     <tr>
       <td>rowHeight?</td>
@@ -257,6 +281,137 @@
   </tbody>
 </table>
 
+<h3 id="dxtablefilterrowdxfilterselector">DxTableFilterRow.DxFilterSelector</h3>
+
+<h4 id="props-2">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>iconComponent</td>
+      <td><a href="#dxtablefilterrowdxicon">DxTableFilterRow.DxIcon</a></td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>string</td>
+      <td>The currently selected filter operation.</td>
+    </tr>
+    <tr>
+      <td>availableValues</td>
+      <td>Array<string></string></td>
+      <td>The list of available filter operations.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the FilterSelector is disabled.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(messageKey: string) =&gt; string</td>
+      <td>Returns the specified localization message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="events-1">Events</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>changeValue</td>
+      <td>(value: string) =&gt; void</td>
+      <td>Handles filter operation changes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtablefilterrowdxicon">DxTableFilterRow.DxIcon</h3>
+
+<h4 id="props-3">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>string</td>
+      <td>Specifies the icon type.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtablefilterrowdxeditor">DxTableFilterRow.DxEditor</h3>
+
+<h4 id="props-4">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>The current editor value.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the editor is disabled.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(messageKey: string) =&gt; string</td>
+      <td>Returns the specified localization message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="events-2">Events</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>changeValue</td>
+      <td>(value: string) =&gt; void</td>
+      <td>Handles filter value changes.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2 id="localization-messages">Localization Messages</h2>
 
 <table class="table table-bordered table-striped">
@@ -274,6 +429,66 @@
       <td>string</td>
       <td>‘Filter…’</td>
       <td>The filter editor placeholder text.</td>
+    </tr>
+    <tr>
+      <td>contains?</td>
+      <td>string</td>
+      <td>‘Contains’</td>
+      <td>The ‘contains’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>notContains?</td>
+      <td>string</td>
+      <td>‘Does not contain’</td>
+      <td>The ‘notContains’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>startsWith?</td>
+      <td>string</td>
+      <td>‘Starts with’</td>
+      <td>The ‘startsWith’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>endsWith?</td>
+      <td>string</td>
+      <td>‘Ends with’</td>
+      <td>The ‘endsWith’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>equal?</td>
+      <td>string</td>
+      <td>‘Equals’</td>
+      <td>The ‘equal’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>notEqual?</td>
+      <td>string</td>
+      <td>‘Does not equal’</td>
+      <td>The ‘notEqual’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>greaterThan?</td>
+      <td>string</td>
+      <td>‘Greater than’</td>
+      <td>The ‘greaterThan’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>greaterThanOrEqual?</td>
+      <td>string</td>
+      <td>‘Greater than or equal to’</td>
+      <td>The ‘greaterThanOrEqual’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>lessThan?</td>
+      <td>string</td>
+      <td>‘Less than’</td>
+      <td>The ‘lessThan’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>lessThanOrEqual?</td>
+      <td>string</td>
+      <td>‘Less than or equal to’</td>
+      <td>The ‘lessThanOrEqual’ filter operation name.</td>
     </tr>
   </tbody>
 </table>
@@ -298,6 +513,21 @@
       <td>DxTableFilterRow.components.DxRow</td>
       <td><a href="#dxtablefilterrowdxrow">DxTableFilterRow.DxRow</a></td>
       <td>A component that renders a filter row.</td>
+    </tr>
+    <tr>
+      <td>DxTableFilterRow.components.DxFilterSelector</td>
+      <td><a href="#dxtablefilterrowdxfilterselector">DxTableFilterRow.DxFilterSelector</a></td>
+      <td>A component that renders a filter selector.</td>
+    </tr>
+    <tr>
+      <td>DxTableFilterRow.components.DxIcon</td>
+      <td><a href="#dxtablefilterrowdxicon">DxTableFilterRow.DxIcon</a></td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>DxTableFilterRow.components.DxEditor</td>
+      <td><a href="#dxtablefilterrowdxeditor">DxTableFilterRow.DxEditor</a></td>
+      <td>A component that renders a filter editor.</td>
     </tr>
   </tbody>
 </table>
@@ -358,6 +588,12 @@
       <td><a href="/devextreme-reactive/vue/grid/docs/reference/data-type-provider/#dxdatatypeproviderdxvalueeditor">DxDataTypeProvider.DxValueEditor</a></td>
       <td>A template that renders the editor.</td>
     </tr>
+    <tr>
+      <td>getAvailableFilterOperations</td>
+      <td>Getter</td>
+      <td>(columnName: string) =&gt; Array&lt;string&gt;?</td>
+      <td>A function that returns the names of filter operations that are available for a particular column.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -387,9 +623,9 @@
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.4.0">
             Version
-            <span>1.3.0</span>
+            <span>1.4.0</span>
           </a>
         </li>
       </ul>
@@ -496,12 +732,44 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/column-chooser/">DxColumnChooser</a></li>
+          
+
         
           
           
@@ -675,6 +943,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-band-header/">DxTableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-column-visibility/">DxTableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
           
 
@@ -735,13 +1019,21 @@
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/reference/virtual-table/">DxVirtualTable</a></li>
+          
+
+        
         </ul>
       
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1528101693"></script>
+<script src="/devextreme-reactive/vue/demos/dist/index.js?v=1529668665"></script>
 
 
     <footer>
@@ -782,7 +1074,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1528101693"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1529668665"></script>
     <script>
         trackingCookie.notice();
         trackingCookie.check();

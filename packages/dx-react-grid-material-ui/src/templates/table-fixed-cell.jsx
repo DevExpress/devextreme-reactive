@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-// import { findDOMNode } from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -30,19 +30,9 @@ const styles = theme => ({
 });
 
 class FixedCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { position: 0 };
-  }
   componentDidMount() {
-    this.storePosition();
-  }
-  storePosition() {
-    setTimeout(() => {
-      this.setState({
-        position: this.props.getCellPosition(),
-      });
-    }, 0);
+    // eslint-disable-next-line react/no-find-dom-node
+    this.props.storeSize(findDOMNode(this).getBoundingClientRect().width);
   }
   render() {
     const {
@@ -51,21 +41,18 @@ class FixedCellBase extends React.PureComponent {
       className,
       classes,
       style,
-      getCellPosition,
+      getPosition,
+      storeSize,
       ...restProps
     } = this.props;
-    const sideProperty = side === 'before' ? 'left' : 'right';
+    const sideClassName = `fixedCell${side.charAt(0).toUpperCase()}${side.slice(1)}`;
 
     return (
       <CellPlaceholder
-        className={classNames({
-          [classes.fixedCell]: true,
-          [classes.fixedCellLeft]: side === 'before',
-          [classes.fixedCellRight]: side === 'after',
-        }, className)}
+        className={classNames(classes.fixedCell, classes[sideClassName], className)}
         style={{
           ...style,
-          [sideProperty]: this.state.position,
+          [side]: getPosition(),
         }}
         {...restProps}
       />
@@ -79,6 +66,8 @@ FixedCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   side: PropTypes.string.isRequired,
+  storeSize: PropTypes.func.isRequired,
+  getPosition: PropTypes.func.isRequired,
 };
 
 FixedCellBase.defaultProps = {

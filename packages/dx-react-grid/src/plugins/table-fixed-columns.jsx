@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { findDOMNode } from 'react-dom';
 import {
   Getter,
   Template,
@@ -8,6 +7,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  FIXED_COLUMN_BEFORE_SIDE,
   isFixedCell,
   getFixedSide,
 } from '@devexpress/dx-grid-core';
@@ -21,10 +21,7 @@ const pluginDependencies = [
 export class TableFixedColumns extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.cellsPositions = {};
-  }
-  pushCellPosition(columnName, cellPosition) {
-    this.cellsPositions[columnName] = cellPosition;
+    this.state = { sizes: {} };
   }
   render() {
     const {
@@ -51,16 +48,24 @@ export class TableFixedColumns extends React.PureComponent {
             return (
               <Cell
                 {...params}
-                side={side}
+                side={side === FIXED_COLUMN_BEFORE_SIDE ? 'left' : 'right'}
                 component={CellPlaceholder}
-                ref={(ref) => {
-                  const element = findDOMNode(ref);
-                  const bounds = element.getBoundingClientRect();
-                  const sideProperty = side === 'before' ? 'left' : 'right';
-                  const position = bounds[sideProperty] - element.offsetParent.getBoundingClientRect()[sideProperty];
-                  this.pushCellPosition(params.tableColumn.column.name, position);
+                storeSize={(width) => {
+                  if (this.state.sizes[columnName] !== width) {
+                    this.setState((prevState => ({
+                      sizes: { ...prevState.sizes, [columnName]: width },
+                    })));
+                  }
                 }}
-                getCellPosition={() => this.cellsPositions[params.tableColumn.column.name]}
+                getPosition={() => {
+                  const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
+                    ? beforeColumnNames
+                    : afterColumnNames;
+                  const index = targetArray.indexOf(columnName);
+                  const prevColumnName = targetArray[index - 1];
+                  const position = index === 0 ? 0 : this.state.sizes[prevColumnName];
+                  return position;
+                }}
               />
             );
           }}

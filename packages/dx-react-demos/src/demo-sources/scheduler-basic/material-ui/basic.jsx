@@ -1,0 +1,27 @@
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+
+import { Scheduler } from '@devexpress/dx-react-scheduler-material-ui';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [],
+    };
+  }
+  render() {
+    const { data } = this.state;
+
+    return (
+      <Paper>
+        <Scheduler
+          data={data}
+        >
+          <div>Scheduler...</div>
+        </Scheduler>
+      </Paper>
+    );
+  }
+}

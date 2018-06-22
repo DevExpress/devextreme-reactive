@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 
-import { Scheduler } from '@devexpress/dx-react-scheduler-material-ui';
+import { Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class Demo extends React.PureComponent {
         <Scheduler
           data={data}
         >
-          <div>Scheduler...</div>
+          <WeekView />
         </Scheduler>
       </Paper>
     );

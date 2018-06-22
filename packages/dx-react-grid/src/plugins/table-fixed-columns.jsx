@@ -44,12 +44,17 @@ export class TableFixedColumns extends React.PureComponent {
           {(params) => {
             const columnName = params.tableColumn.column.name;
             const side = getFixedSide(columnName, beforeColumnNames, afterColumnNames);
+            const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
+              ? beforeColumnNames
+              : afterColumnNames;
+            const index = targetArray.indexOf(columnName);
 
             return (
               <Cell
                 {...params}
                 side={side === FIXED_COLUMN_BEFORE_SIDE ? 'left' : 'right'}
                 component={CellPlaceholder}
+                showDivider={index === targetArray.length - 1}
                 storeSize={(width) => {
                   if (this.state.sizes[columnName] !== width) {
                     this.setState((prevState => ({
@@ -58,10 +63,6 @@ export class TableFixedColumns extends React.PureComponent {
                   }
                 }}
                 getPosition={() => {
-                  const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
-                    ? beforeColumnNames
-                    : afterColumnNames;
-                  const index = targetArray.indexOf(columnName);
                   const prevColumnName = targetArray[index - 1];
                   const position = index === 0 ? 0 : this.state.sizes[prevColumnName];
                   return position;

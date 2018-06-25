@@ -1,6 +1,6 @@
 # Vue Grid - Tree Data
 
-The Grid component can show tree data. Use the corresponding plugins to show tree data and manage the expanded rows' state programmatically or via the UI (a column that contains UI elements for row expanding/collapsing).
+You can use the corresponding plugins to show tree data in the Grid component and manage the expanded rows' state programmatically or via the UI (a column that contains UI elements to expand/collapse rows).
 
 ## Related Plugins
 

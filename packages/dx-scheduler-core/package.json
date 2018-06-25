@@ -59,5 +59,8 @@
   },
   "peerDependencies": {
     "@devexpress/dx-core": "1.4.0"
+  },
+  "dependencies": {
+    "moment": "^2.22.2"
   }
 }

@@ -18,8 +18,12 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          currentDate={new Date(2018, 5, 25)}
         >
-          <WeekView />
+          <WeekView
+            startDayHour={8}
+            endDayHour={18}
+          />
         </Scheduler>
       </Paper>
     );

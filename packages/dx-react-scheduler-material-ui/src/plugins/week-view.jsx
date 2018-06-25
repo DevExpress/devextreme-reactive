@@ -1,25 +1,23 @@
 import * as React from 'react';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
-import { DateTable } from '../templates/views/date-table';
-import { TimeScale } from '../templates/views/time-scale';
-import { DayScale } from '../templates/views/day-scale';
+
+import { Layout as TimeScaleLayout } from '../templates/time-scale/layout';
+import { Row as TimeScaleRow } from '../templates/time-scale/row';
+import { Cell as TimeScaleCell } from '../templates/time-scale/cell';
+import { Table as TimeScaleTable } from '../templates/time-scale/table';
 
 export class WeekView extends React.PureComponent {
   render() {
     return (
       <WeekViewBase
-        rootComponent={WeekLayout}
-        dateTableComponent={DateTable}
-        timeScaleComponent={TimeScale}
-        dayScaleComponent={DayScale}
+        layoutComponent={WeekLayout}
+        timeScaleLayoutComponent={TimeScaleLayout}
+        timeScaleTableComponent={TimeScaleTable}
+        timeScaleRowComponent={TimeScaleRow}
+        timeScaleCellComponent={TimeScaleCell}
         {...this.props}
       />
     );
   }
 }
-
-WeekView.Root = WeekLayout;
-WeekView.DateTable = DateTable;
-WeekView.TimeScale = TimeScale;
-WeekView.DayScale = DayScale;

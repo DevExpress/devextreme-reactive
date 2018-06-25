@@ -42,9 +42,9 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-scheduler-core": "1.4.0",
     "@devexpress/dx-react-core": "1.4.0",
     "@devexpress/dx-react-scheduler": "1.4.0",
+    "@devexpress/dx-scheduler-core": "1.4.0",
     "@devexpress/dx-testing": "1.4.0",
     "@material-ui/core": "^1.2.3",
     "@material-ui/icons": "^1.1.0",
@@ -80,12 +80,13 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-scheduler-core": "1.4.0",
     "@devexpress/dx-react-core": "1.4.0",
     "@devexpress/dx-react-scheduler": "1.4.0",
+    "@devexpress/dx-scheduler-core": "1.4.0",
     "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
     "react": "^16.2.0"

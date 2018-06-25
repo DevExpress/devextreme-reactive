@@ -2,41 +2,77 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Template,
-  TemplatePlaceholder,
   Plugin,
+  Getter,
+  TemplateConnector,
+  TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { timeUnits as timeUnitsComputed } from '@devexpress/dx-scheduler-core';
+
+const SidebarPlaceholder = props => (
+  <TemplatePlaceholder name="sidebar" params={props} />
+);
 
 export class WeekView extends React.PureComponent {
   render() {
     const {
-      rootComponent: Root,
-      dateTableComponent: DateTable,
-      timeScaleComponent: TimeScale,
-      dayScaleComponent: DayScale,
+      layoutComponent: ViewLayout,
+      timeScaleLayoutComponent: TimeScale,
+      timeScaleTableComponent: TimeScaleTable,
+      timeScaleRowComponent: TimeScaleRow,
+      timeScaleCellComponent: TimeScaleCell,
+      startDayHour,
+      endDayHour,
+      cellDuration,
     } = this.props;
+
+    const timeUnitsValue = timeUnitsComputed(startDayHour, endDayHour, cellDuration);
 
     return (
       <Plugin
         name="WeekView"
       >
+        <Getter name="timeUnits" value={timeUnitsValue} />
         <Template name="body">
-          <TemplatePlaceholder name="view" />
-        </Template>
-        <Template name="view">
-          <Root
-            dateTableComponent={DateTable}
-            timeScaleComponent={TimeScale}
-            dayScaleComponent={DayScale}
+          <ViewLayout
+            // headerComponent={}
+            // mainComponent={}
+            sidebarComponent={SidebarPlaceholder}
           />
         </Template>
+
+        <Template name="sidebar">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({ timeUnits }) => (
+              <TimeScale
+                rowComponent={TimeScaleRow}
+                cellComponent={TimeScaleCell}
+                tableComponent={TimeScaleTable}
+                timeUnits={timeUnits}
+              />
+            )}
+          </TemplateConnector>
+        </Template>
+
       </Plugin>
     );
   }
 }
 
 WeekView.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
-  dateTableComponent: PropTypes.func.isRequired,
-  timeScaleComponent: PropTypes.func.isRequired,
-  dayScaleComponent: PropTypes.func.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
+  timeScaleLayoutComponent: PropTypes.func.isRequired,
+  timeScaleTableComponent: PropTypes.func.isRequired,
+  timeScaleRowComponent: PropTypes.func.isRequired,
+  timeScaleCellComponent: PropTypes.func.isRequired,
+  startDayHour: PropTypes.number,
+  endDayHour: PropTypes.number,
+  cellDuration: PropTypes.number,
+};
+
+WeekView.defaultProps = {
+  startDayHour: 0,
+  endDayHour: 24,
+  cellDuration: 30,
 };

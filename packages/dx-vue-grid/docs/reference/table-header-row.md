@@ -12,7 +12,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { DxTableHeaderRow } from '@devexpress/dx-vue-grid-bootstrap4';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import a themeless plugin if you want to use custom components:
 
 ```js
 import { DxTableHeaderRow } from '@devexpress/dx-vue-grid';
@@ -32,8 +32,8 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | [DxTableHeaderRow.DxCell](#dxtableheaderrowdxcell) | | A component that renders a header cell.
 rowComponent | [DxTableHeaderRow.DxRow](#dxtableheaderrowdxrow) | | A component that renders a header row.
-showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [DxSortingState](sorting-state.md) dependency.
-showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [DxGroupingState](grouping-state.md) dependency.
+showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires [DxSortingState](sorting-state.md).
+showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires [DxGroupingState](grouping-state.md).
 
 ## Component Types
 

@@ -1,6 +1,6 @@
 # DxTableTreeColumn Plugin Reference
 
-A plugin that renders a table column with toggle button and sorting indicators.
+A plugin that renders a table column with a toggle button and sort indicators.
 
 ## Importing
 
@@ -34,11 +34,11 @@ Name | Type | Default | Description
 for | string | | The name of a column that should be represented as a tree.
 cellComponent | [DxTableTreeColumn.DxCell](#dxtabletreecolumndxcell) | | A component that renders a cell within a data row.
 contentComponent | [DxTableTreeColumn.DxContent](#dxtabletreecolumndxcontent) | | A component that renders a cell's content.
-indentComponent | [DxTableTreeColumn.DxIndent](#dxtabletreecolumndxindent) | | A component that renders an indent used to identify a row level.
+indentComponent | [DxTableTreeColumn.DxIndent](#dxtabletreecolumndxindent) | | A component that renders an indent used to identify a row's level.
 expandButtonComponent | [DxTableTreeColumn.DxExpandButton](#dxtabletreecolumndxexpandbutton) | | A component that renders a button that controls the row's expanded state.
 checkboxComponent | [DxTableTreeColumn.DxCheckbox](#dxtabletreecolumndxcheckbox) | | A component that renders a checkbox used to control selection.
-showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
-showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
+showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires [SelectionState](selection-state.md).
+showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires [IntegratedSelection](integrated-selection.md).
 
 ## Component Types
 
@@ -50,8 +50,8 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](table.md#tablerow) | A table row.
 tableColumn | [TableColumn](table.md#tablecolumn) | A table column.
-colSpan? | number | The count of columns that the root cell element spans.
-rowSpan? | number | The count of rows that the root cell element spans.
+colSpan? | number | The number of columns that the root cell element spans.
+rowSpan? | number | The number of rows that the root cell element spans.
 value | any | A value to be rendered within the cell.
 row | any | The cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
@@ -76,7 +76,7 @@ default | The default Vue slot.
 
 Field | Type | Description
 ------|------|------------
-level | number | The row level.
+level | number | The row's level.
 
 ### DxTableTreeColumn.DxExpandButton
 
@@ -115,7 +115,7 @@ Name | Properties | Description
 -----|------------|------------
 DxTableTreeColumn.components.DxCell | [DxTableTreeColumn.DxCell](#dxtabletreecolumndxcell) | A component that renders a cell within a data row.
 DxTableTreeColumn.components.DxContent | [DxTableTreeColumn.DxContent](#dxtabletreecolumndxcontent) | A component that renders a cell's content.
-DxTableTreeColumn.components.DxIndent | [DxTableTreeColumn.DxIndent](#dxtabletreecolumndxindent) | A component that renders an indent used to identify a row level.
+DxTableTreeColumn.components.DxIndent | [DxTableTreeColumn.DxIndent](#dxtabletreecolumndxindent) | A component that renders an indent used to identify a row's level.
 DxTableTreeColumn.components.DxExpandButton | [DxTableTreeColumn.DxExpandButton](#dxtabletreecolumndxexpandbutton) | A component that renders a button used to controls a row's expanded state.
 DxTableTreeColumn.components.DxCheckbox | [DxTableTreeColumn.DxCheckbox](#dxtabletreecolumndxcheckbox) | A component that renders a checkbox used to control selection.
 
@@ -128,7 +128,7 @@ Name | Plugin | Type | Description
 tableBodyRows | Getter | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 getRowLevelKey | Getter | (row: any) => string? | A function used to get a group row level key.
 getCellValue | Getter | (row: any, columnName: string) => any | A function used to get a given row's column value.
-getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get collapsed child rows of a given row.
+getCollapsedRows | Getter | (row: any) => Array&lt;any&gt;? | A function used to get collapsed a row's child rows.
 isTreeRowLeaf | Getter | (row: any) => boolean | A function used to identify a leaf node in tree data structure.
 getTreeRowLevel | Getter | (row: any) => number | A function used to identify a node level in tree data structure.
 expandedRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.

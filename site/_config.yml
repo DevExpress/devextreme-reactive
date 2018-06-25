@@ -19,7 +19,6 @@ defaults:
       type: pages
     values:
       layout: default
-      logo_file: data-grid-logo.svg
   # React
   - scope:
       path: react
@@ -31,6 +30,7 @@ defaults:
     values:
       product_name: React Core
       product_link: /react/core
+      logo_file: core-logo.svg
       initial_guide: /fundamentals
   - scope:
       path: react/core/docs
@@ -43,6 +43,7 @@ defaults:
     values:
       product_name: React Grid
       product_link: /react/grid
+      logo_file: grid-logo.svg
       initial_guide: /getting-started
   - scope:
       path: react/grid/demos
@@ -83,6 +84,7 @@ defaults:
     values:
       product_name: Vue Grid
       product_link: /vue/grid
+      logo_file: grid-logo.svg
       initial_guide: /getting-started
   - scope:
       path: vue/grid/demos

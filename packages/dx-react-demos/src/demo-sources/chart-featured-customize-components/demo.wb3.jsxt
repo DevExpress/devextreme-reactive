@@ -47,8 +47,6 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: false,
-      width: 700,
-      height: 400,
     };
     this.getLabelWithAvatarComponent = this.getLabelWithAvatarComponent.bind(this);
   }
@@ -87,14 +85,14 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      data: chartData, width, height,
+      data: chartData,
     } = this.state;
 
     return (
       <<%&wrapperTag%>>
         {
           chartData ? (
-            <Chart data={chartData} width={width} height={height}>
+            <Chart data={chartData} >
               <ArgumentAxis
                 name="login"
                 type="band"

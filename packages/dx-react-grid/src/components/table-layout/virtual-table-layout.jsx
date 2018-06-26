@@ -2,8 +2,8 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { Sizer, RefHolder } from '@devexpress/dx-react-core';
+import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
-import { getCollapsedGrid } from './virtual-table-utils';
 
 export class VirtualTableLayout extends React.PureComponent {
   constructor(props) {
@@ -79,6 +79,7 @@ export class VirtualTableLayout extends React.PureComponent {
   updateViewport(e) {
     const node = e.target;
 
+    // NOTE: prevent nested scroll to update viewport
     if (node !== e.currentTarget) {
       return;
     }
@@ -91,12 +92,10 @@ export class VirtualTableLayout extends React.PureComponent {
       return;
     }
 
-    if (this.viewportTop !== node.scrollTop) {
-      this.setState({
-        viewportTop: node.scrollTop,
-        viewportLeft: node.scrollLeft,
-      });
-    }
+    this.setState({
+      viewportTop: node.scrollTop,
+      viewportLeft: node.scrollLeft,
+    });
   }
   renderRowsBlock(collapsedGrid, Table, Body) {
     const {

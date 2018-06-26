@@ -14,13 +14,18 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
 const computeLinePath = (data, scales, argumentField, valueField, name) =>
-  data.map(dataItem => ({
-    x: scales.xScale(dataItem[argumentField]),
-    y: scales.yScale(dataItem[`${valueField}-${name}-end`]),
-    y1: scales.yScale(dataItem[`${valueField}-${name}-start`]),
-    id: dataItem[argumentField],
-    value: dataItem[valueField],
-  }));
+  data.reduce((result, dataItem) => {
+    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+      return [...result, {
+        x: scales.xScale(dataItem[argumentField]),
+        y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
+        y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
+        id: dataItem[argumentField],
+        value: dataItem[valueField],
+      }];
+    }
+    return result;
+  }, []);
 
 const getGenerator = (type) => {
   switch (type) {
@@ -46,9 +51,8 @@ export const xyScales = (
   argumentAxisName,
   domainName,
   layout,
-  stacks,
-  groupWidth,
-  barWidth,
+  stacks = [],
+  { groupWidth = 1, barWidth = 1 },
 ) => {
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
@@ -97,7 +101,7 @@ export const coordinates = (
 ) => computeLinePath(data, scales, argumentField, valueField, name);
 
 export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.name === name);
+  series.find(seriesItem => seriesItem.uniqueName === name);
 
 export const lineAttributes = (
   type,
@@ -108,7 +112,7 @@ export const lineAttributes = (
   y: 0,
 });
 
-export const pointAttributes = (scales, size) => {
+export const pointAttributes = (scales, { size = 7 }) => {
   const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
   const offSet = scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0;
   return item => ({
@@ -120,7 +124,7 @@ export const pointAttributes = (scales, size) => {
 
 export const barPointAttributes = (scales, _, stack) => {
   const bandwidth = scales.x0Scale.bandwidth();
-  const offset = scales.x0Scale(stack);
+  const offset = scales.x0Scale(stack) || 0;
   return item => ({
     x: item.x + offset,
     y: Math.min(item.y, item.y1),

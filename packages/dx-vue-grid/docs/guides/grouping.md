@@ -69,7 +69,7 @@ Note that if the grouping criterion function returns a non-primitive value, you 
 
 .embedded-demo({ "path": "grid-grouping/custom-advanced", "showThemeSelector": true })
 
-<!-- ## Remote Grouping
+## Remote Grouping
 
 You can perform remote grouping by handling grouping state changes, generating a request based on the grouping state and sending it to a server that can return grouped data.
 
@@ -81,4 +81,4 @@ While waiting for a response from a server, there is a moment when the grouping 
 
 The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
 
-.embedded-demo({ "path": "grid-grouping/remote-grouping-with-local-expanding", "showThemeSelector": true }) -->
+.embedded-demo({ "path": "grid-grouping/remote-grouping-with-local-expanding", "showThemeSelector": true })

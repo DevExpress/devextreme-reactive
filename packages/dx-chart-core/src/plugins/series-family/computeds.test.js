@@ -1,4 +1,27 @@
+import {
+  stack,
+  stackOrderNone,
+  stackOffsetNone,
+} from 'd3-shape';
 import { seriesWithStacks, processData, stacks } from './computeds';
+
+jest.mock('d3-shape', () => ({
+  stack: jest.fn(),
+  stackOrderNone: jest.fn(),
+  stackOffsetNone: jest.fn(),
+}));
+
+const mockStackOrderNone = jest.fn();
+const mockStackOffsetNone = jest.fn();
+
+const mockStack = jest.fn().mockReturnThis();
+mockStack.keys = jest.fn().mockReturnThis();
+mockStack.order = jest.fn().mockReturnThis();
+mockStack.offset = jest.fn(() => jest.fn(() => [
+  [[1, 2], [3, 4], [5, 6]],
+  [[11, 12], [13, 14], [15, 16]],
+  [[21, 22], [23, 24], [25, 26]],
+]));
 
 describe('stacks', () => {
   it('should return stacks', () => {
@@ -21,6 +44,15 @@ describe('series with stacks', () => {
 });
 
 describe('processData', () => {
+  beforeAll(() => {
+    stack.mockImplementation(() => mockStack);
+    stackOrderNone.mockImplementation(() => mockStackOrderNone);
+    stackOffsetNone.mockImplementation(() => mockStackOffsetNone);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should return new data', () => {
     const series = [
       {
@@ -35,33 +67,31 @@ describe('processData', () => {
     ];
     const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
 
-    expect(processData(series, data)).toEqual([{
+    const processedData = processData(series, data);
+
+    expect(stack).toHaveBeenCalledTimes(2);
+    expect(mockStack.keys).toHaveBeenCalledWith(['val', 'val']);
+    expect(mockStack.order).toHaveBeenCalledWith(stackOrderNone);
+    expect(mockStack.offset).toHaveBeenCalledWith(stackOffsetNone);
+
+    expect(processedData).toEqual([{
       arg: 1,
       val: 11,
-      'val-s1-start': 0,
-      'val-s1-end': 11,
-      'val-s2-start': 0,
-      'val-s2-end': 11,
-      'val-s3-start': 11,
-      'val-s3-end': 22,
+      'val-s1-stack': [1, 2],
+      'val-s2-stack': [1, 2],
+      'val-s3-stack': [11, 12],
     }, {
       arg: 2,
       val: 22,
-      'val-s1-start': 0,
-      'val-s1-end': 22,
-      'val-s2-start': 0,
-      'val-s2-end': 22,
-      'val-s3-start': 22,
-      'val-s3-end': 44,
+      'val-s1-stack': [3, 4],
+      'val-s2-stack': [3, 4],
+      'val-s3-stack': [13, 14],
     }, {
       arg: 3,
       val: 33,
-      'val-s1-start': 0,
-      'val-s1-end': 33,
-      'val-s2-start': 0,
-      'val-s2-end': 33,
-      'val-s3-start': 33,
-      'val-s3-end': 66,
+      'val-s1-stack': [5, 6],
+      'val-s2-stack': [5, 6],
+      'val-s3-stack': [15, 16],
     }]);
   });
 });

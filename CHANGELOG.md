@@ -1,3 +1,45 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0...v1.4.0) (2018-06-22)
+
+
+### Bug Fixes
+
+* **vue-grid:** fix spread messages property ([#1205](https://github.com/DevExpress/devextreme-reactive/issues/1205)) ([c19907f](https://github.com/DevExpress/devextreme-reactive/commit/c19907f))
+* **vue-grid:** get rid excess attrs ([#1204](https://github.com/DevExpress/devextreme-reactive/issues/1204)) ([87a87cc](https://github.com/DevExpress/devextreme-reactive/commit/87a87cc))
+
+
+### Features
+
+* **react-chart:** add a capability to stretch the Chart component ([#1166](https://github.com/DevExpress/devextreme-reactive/issues/1166)) ([c038e7c](https://github.com/DevExpress/devextreme-reactive/commit/c038e7c))
+* **vue-grid:** add column chooser ([#1150](https://github.com/DevExpress/devextreme-reactive/issues/1150)) ([ae6fdd0](https://github.com/DevExpress/devextreme-reactive/commit/ae6fdd0))
+* **vue-grid:** add the Advanced filtering feature ([#1186](https://github.com/DevExpress/devextreme-reactive/issues/1186)) ([b5a468c](https://github.com/DevExpress/devextreme-reactive/commit/b5a468c))
+* **vue-grid:** add the banded columns support ([#1131](https://github.com/DevExpress/devextreme-reactive/issues/1131)) ([71bd847](https://github.com/DevExpress/devextreme-reactive/commit/71bd847))
+* **vue-grid:** add the Virtual Scrolling feature ([#1047](https://github.com/DevExpress/devextreme-reactive/issues/1047)) ([d0ba194](https://github.com/DevExpress/devextreme-reactive/commit/d0ba194))
+
+
+### Performance Improvements
+
+* **vue-grid:** optimize cell rendering ([#1172](https://github.com/DevExpress/devextreme-reactive/issues/1172)) ([5fa970e](https://github.com/DevExpress/devextreme-reactive/commit/5fa970e))
+
+
+
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.2...v1.3.0) (2018-06-04)
+
+
+### Bug Fixes
+
+* **grid-core:** remove excess property from TableRow component ([#1128](https://github.com/DevExpress/devextreme-reactive/issues/1128)) ([2c6ed12](https://github.com/DevExpress/devextreme-reactive/commit/2c6ed12))
+* **react-grid:** fix double event call in strict mode ([#1157](https://github.com/DevExpress/devextreme-reactive/issues/1157)) ([e280eac](https://github.com/DevExpress/devextreme-reactive/commit/e280eac))
+* **vue-grid-bootstrap4:** change grouping indent ([#1127](https://github.com/DevExpress/devextreme-reactive/issues/1127)) ([a450470](https://github.com/DevExpress/devextreme-reactive/commit/a450470))
+
+
+### Features
+
+* **react-grid:** support filtering operations ([#976](https://github.com/DevExpress/devextreme-reactive/issues/976)) ([5151d78](https://github.com/DevExpress/devextreme-reactive/commit/5151d78))
+
+
+
 <a name="1.3.0-beta.2"></a>
 # [1.3.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2018-05-24)
 

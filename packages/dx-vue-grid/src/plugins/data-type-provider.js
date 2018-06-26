@@ -1,4 +1,5 @@
-import { DxPlugin, DxTemplate } from '@devexpress/dx-vue-core';
+import { DxPlugin, DxTemplate, DxGetter } from '@devexpress/dx-vue-core';
+import { getAvailableFilterOperationsGetter } from '@devexpress/dx-grid-core';
 
 export const DxDataTypeProvider = {
   name: 'DxDataTypeProvider',
@@ -13,22 +14,35 @@ export const DxDataTypeProvider = {
     editorComponent: {
       type: Object,
     },
+    availableFilterOperations: {
+      type: Array,
+    },
   },
   render() {
     const {
       for: columnNames,
       formatterComponent: Formatter,
       editorComponent: Editor,
+      availableFilterOperations,
     } = this;
+
+    const getAvailableFilterOperationsComputed = ({ getAvailableFilterOperations }) =>
+      getAvailableFilterOperationsGetter(
+        getAvailableFilterOperations,
+        availableFilterOperations,
+        columnNames,
+      );
+
     return (
       <DxPlugin name="DxDataTypeProvider">
+        <DxGetter name="getAvailableFilterOperations" computed={getAvailableFilterOperationsComputed} />
         {Formatter
           ? (
             <DxTemplate
               name="valueFormatter"
-              predicate={({ column }) => columnNames.includes(column.name)}
+              predicate={({ attrs: { column } }) => columnNames.includes(column.name)}
             >
-              {params => <Formatter {...{ attrs: { ...params } }} />}
+              {({ attrs }) => <Formatter {...{ attrs }} />}
             </DxTemplate>
           )
           : null
@@ -37,9 +51,11 @@ export const DxDataTypeProvider = {
           ? (
             <DxTemplate
               name="valueEditor"
-              predicate={({ column }) => columnNames.includes(column.name)}
+              predicate={({ attrs: { column } }) => columnNames.includes(column.name)}
             >
-              {params => <Editor {...{ attrs: { ...params } }} />}
+              {({ attrs, listeners }) => (
+                <Editor {...{ attrs: { ...attrs }, on: { ...listeners } }} />
+              )}
             </DxTemplate>
           )
           : null

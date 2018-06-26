@@ -10,17 +10,20 @@ const defaultMessages = {
 export const DxGroupingPanel = {
   name: 'DxGroupingPanel',
   functional: true,
+  props: {
+    messages: {
+      type: Object,
+    },
+  },
   render(h, context) {
-    const { messages } = context.props;
-
     return (
       <DxGroupingPanelBase
         layoutComponent={GroupPanelLayout}
         containerComponent={GroupPanelContainer}
         itemComponent={GroupPanelItem}
         emptyMessageComponent={GroupPanelEmptyMessage}
-        messages={{ ...defaultMessages, ...messages }}
-        {...{ attrs: context.props, on: context.listeners }}
+        messages={{ ...defaultMessages, ...context.props.messages }}
+        {...{ attrs: context.data.attrs, on: context.listeners }}
       />
     );
   },

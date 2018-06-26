@@ -30,6 +30,7 @@ const BandCell = ({
     <TableBandHeader.Cell
       {...restProps}
       column={column}
+      className="text-secondary"
     >
       {children}
       <span
@@ -38,6 +39,13 @@ const BandCell = ({
     </TableBandHeader.Cell>
   );
 };
+
+const HeaderCell = ({ className, ...restProps }) => (
+  <TableHeaderRow.Cell
+    {...restProps}
+    className={`text-info ${className}`}
+  />
+);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -106,7 +114,9 @@ export default class Demo extends React.PureComponent {
           <Table
             columnExtensions={tableColumnExtensions}
           />
-          <TableHeaderRow />
+          <TableHeaderRow
+            cellComponent={HeaderCell}
+          />
           <TableBandHeader
             columnBands={columnBands}
             cellComponent={BandCell}

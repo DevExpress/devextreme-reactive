@@ -6,11 +6,9 @@ A series is a collection of related data points. The Chart provides an individua
 
 The `LineSeries` plugin visualizes data as a collection of points connected by a broken line.
 
-.embedded-demo({ "path": "chart-basic/line.wb3", "showThemeSelector": true })
-
 The `SplineSeries` plugin connects the points by a line as well, but that line is smooth.
 
-.embedded-demo({ "path": "chart-basic/spline.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/line-spline.wb3", "showThemeSelector": true })
 
 ## Area Series
 

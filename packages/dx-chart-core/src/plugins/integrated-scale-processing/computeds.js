@@ -16,10 +16,16 @@ const collectAxesTypes = axes =>
     {},
   );
 
-const calculateDomainField = (field, data, domain = [], type) => {
-  const getFieldItem = object => object[field];
+const calculateDomainField = (getFieldItem, data, domain = [], type) => {
+  const getCategories = (prev, cur) => {
+    const categories = getFieldItem(cur);
+    if (isDefined(categories)) {
+      return [...prev, categories];
+    }
+    return prev;
+  };
   if (type === BAND) {
-    return [...domain, ...data.map(getFieldItem)];
+    return [...domain, ...data.reduce(getCategories, [])];
   }
   return extent([
     ...domain,
@@ -28,7 +34,7 @@ const calculateDomainField = (field, data, domain = [], type) => {
 };
 
 const getCorrectAxisType = (type, data, field) => {
-  if (!type && typeof data[0][field] === 'string') {
+  if (!type && typeof data.find(item => isDefined(item[field]))[field] === 'string') {
     return 'band';
   }
   return type;
@@ -53,7 +59,7 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
         ...domains,
         [axisName]: {
           domain: calculateDomainField(
-            `${valueField}-${name}-end`,
+            object => object[`${valueField}-${name}-stack`] && object[`${valueField}-${name}-stack`][1],
             data,
             domains[axisName] && domains[axisName].domain,
             valueType,
@@ -63,7 +69,7 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
         },
         [argumentAxisName]: {
           domain: calculateDomainField(
-            argumentField,
+            object => object[argumentField],
             data,
             domains[argumentAxisName] && domains[argumentAxisName].domain,
             argumentType,

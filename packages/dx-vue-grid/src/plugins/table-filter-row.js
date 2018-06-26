@@ -1,10 +1,12 @@
-import { DxGetter, DxTemplate, DxTemplateConnector, DxPlugin, DxTemplatePlaceholderSlot } from '@devexpress/dx-vue-core';
+import { DxGetter, DxTemplate, DxTemplateConnector, DxTemplatePlaceholder, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
+  getColumnFilterOperations,
   getMessagesFormatter,
+  isFilterValueEmpty,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -19,6 +21,10 @@ export const DxTableFilterRow = {
     rowHeight: {
       type: Number,
     },
+    showFilterSelector: {
+      type: Boolean,
+      default: false,
+    },
     messages: {
       type: Object,
     },
@@ -30,13 +36,35 @@ export const DxTableFilterRow = {
       type: Object,
       required: true,
     },
+    filterSelectorComponent: {
+      type: Object,
+      required: true,
+    },
+    iconComponent: {
+      type: Object,
+      required: true,
+    },
+    editorComponent: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return ({
+      filterOperations: {},
+    });
   },
   render() {
     const {
       rowHeight,
+      showFilterSelector,
       cellComponent: FilterCell,
       rowComponent: FilterRow,
+      filterSelectorComponent: FilterSelector,
+      iconComponent,
+      editorComponent: EditorComponent,
       messages,
+      filterOperations,
     } = this;
 
     const getMessage = getMessagesFormatter(messages);
@@ -52,28 +80,76 @@ export const DxTableFilterRow = {
         <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <DxTemplate
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => isFilterTableCell(tableRow, tableColumn)}
+          predicate={({ attrs: { tableRow, tableColumn } }) =>
+            isFilterTableCell(tableRow, tableColumn)}
         >
-          {params => (
+          {({ attrs, listeners }) => (
             <DxTemplateConnector>
               {({
-                getters: { filters, isColumnFilteringEnabled },
+                getters: { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
                 actions: { changeColumnFilter },
               }) => {
-                const { name: columnName } = params.tableColumn.column;
+                const { name: columnName } = attrs.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
-                const onFilter = (config) => {
-                  changeColumnFilter({ columnName, config });
+                const onFilter = config => changeColumnFilter({ columnName, config });
+                const columnFilterOperations =
+                  getColumnFilterOperations(getAvailableFilterOperations, columnName);
+                const selectedFilterOperation = filterOperations[columnName]
+                  || columnFilterOperations[0];
+                const handleFilterOperationChange = (value) => {
+                  this.filterOperations = {
+                    ...filterOperations,
+                    [columnName]: value,
+                  };
+                  if (filter && !isFilterValueEmpty(filter.value)) {
+                    onFilter({ value: filter.value, operation: value });
+                  }
                 };
+                const handleFilterValueChange = (value) => {
+                  onFilter(!isFilterValueEmpty(value)
+                    ? { value, operation: selectedFilterOperation }
+                    : null);
+                };
+                const filteringEnabled = isColumnFilteringEnabled(columnName);
                 return (
-                  <FilterCell
-                    {...{ attrs: { ...params } }}
-                    getMessage={getMessage}
-                    column={params.tableColumn.column}
-                    filter={filter}
-                    filteringEnabled={isColumnFilteringEnabled(columnName)}
-                    onFilter={onFilter}
-                  />
+                  <DxTemplatePlaceholder
+                    name="valueEditor"
+                    column={attrs.tableColumn.column}
+                    value={filter ? filter.value : undefined}
+                    onValueChange={handleFilterValueChange}
+                  >
+                    {content => (
+                      <FilterCell
+                        {...{ attrs: { ...attrs }, on: { ...listeners } }}
+                        getMessage={getMessage}
+                        column={attrs.tableColumn.column}
+                        filter={filter}
+                        filteringEnabled={filteringEnabled}
+                        onFilter={onFilter}
+                      >
+                        {showFilterSelector
+                          ? (
+                            <FilterSelector
+                              iconComponent={iconComponent}
+                              value={selectedFilterOperation}
+                              availableValues={columnFilterOperations}
+                              onChangeValue={handleFilterOperationChange}
+                              disabled={!filteringEnabled}
+                              getMessage={getMessage}
+                            />
+                          ) : null
+                        }
+                        {content || (
+                          <EditorComponent
+                            value={filter ? filter.value : ''}
+                            disabled={!filteringEnabled}
+                            getMessage={getMessage}
+                            onChangeValue={handleFilterValueChange}
+                          />
+                        )}
+                      </FilterCell>
+                    )}
+                  </DxTemplatePlaceholder>
                 );
               }}
             </DxTemplateConnector>
@@ -81,14 +157,14 @@ export const DxTableFilterRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ tableRow }) => isFilterTableRow(tableRow)}
+          predicate={({ attrs: { tableRow } }) => isFilterTableRow(tableRow)}
         >
-          {params =>
+          {({ attrs, listeners, slots }) =>
             <FilterRow
-              {...{ attrs: { ...params } }}
-              row={params.tableRow.row}
+              {...{ attrs: { ...attrs }, on: { ...listeners } }}
+              row={attrs.tableRow.row}
             >
-              <DxTemplatePlaceholderSlot params={params} />
+              {slots.default}
             </FilterRow>
           }
         </DxTemplate>

@@ -28,7 +28,7 @@ export class Legend extends React.PureComponent {
             }) => (
               <Root name={`legend-${placeholder}`} >
                 {series.map(({ name, themeColor }) => (
-                  <Item key={name} >
+                  <Item key={name + themeColor} >
                     <Marker name={name} themeColor={themeColor} />
                     <Label text={name} />
                   </Item>

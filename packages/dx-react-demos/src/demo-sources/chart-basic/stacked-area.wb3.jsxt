@@ -6,6 +6,7 @@ import {
   AreaSeries,
   Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { SeriesFamily } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
@@ -15,20 +16,15 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: ageStructure,
-      width: 700,
-      height: 400,
     };
   }
   render() {
-    const {
-      data: chartData, width, height,
-    } = this.state;
+    const { data: chartData } = this.state;
+
     return (
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
-          width={width}
-          height={height}
         >
           <ArgumentAxis name="state" type="band" />
           <ValueAxis name="age" />
@@ -57,6 +53,7 @@ export default class Demo extends React.PureComponent {
             axisName="age"
             stack="a"
           />
+          <SeriesFamily />
         </Chart>
       </<%&wrapperTag%>>
     );

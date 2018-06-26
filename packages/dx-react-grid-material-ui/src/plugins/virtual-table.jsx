@@ -4,6 +4,7 @@ import { createRenderComponent } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
+import TableFooter from '@material-ui/core/TableFooter';
 import { Table } from '../templates/table';
 import { VirtualTableLayout } from '../templates/virtual-table-layout';
 import { TableRow } from '../templates/table-row';
@@ -46,6 +47,7 @@ export class VirtualTable extends React.PureComponent {
         layoutComponent={this.layoutRenderComponent.component}
         bodyComponent={TableBody}
         headComponent={TableHead}
+        footerComponent={TableFooter}
         tableComponent={Table}
         containerComponent={TableContainer}
         rowComponent={TableRow}

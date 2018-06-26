@@ -15,6 +15,7 @@ import { TableStubRow } from '../templates/table-stub-row';
 const FixedHeader = props => <TableComponent use="head" {...props} />;
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
+const TableFooter = props => <tfoot {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -48,6 +49,7 @@ export class VirtualTable extends React.PureComponent {
         tableComponent={TableComponent}
         headComponent={TableHead}
         bodyComponent={TableBody}
+        footerComponent={TableFooter}
         containerComponent={TableContainer}
         rowComponent={TableRow}
         cellComponent={TableCell}
@@ -73,6 +75,7 @@ VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = TableComponent;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
+VirtualTable.TableFooter = TableFooter;
 VirtualTable.FixedHeader = FixedHeader;
 VirtualTable.Container = TableContainer;
 

@@ -40,13 +40,14 @@ export class WeekView extends React.PureComponent {
       startDayHour,
       endDayHour,
       cellDuration,
-      currentDate,
+      intervalCount,
       firstDayOfWeek,
       weekends,
     } = this.props;
 
     const timeUnitsValue = timeUnitsComputed(startDayHour, endDayHour, cellDuration);
-    const dayUnitsValue = dayUnitsComputed(currentDate, firstDayOfWeek, 7, weekends);
+    const dayUnitsValue = ({ currentDate }) =>
+      dayUnitsComputed(currentDate, firstDayOfWeek, intervalCount * 7, weekends);
 
     return (
       <Plugin
@@ -54,7 +55,7 @@ export class WeekView extends React.PureComponent {
       >
         <Getter name="timeUnits" value={timeUnitsValue} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
-        <Getter name="dayUnits" value={dayUnitsValue} />
+        <Getter name="dayUnits" computed={dayUnitsValue} />
         <Template name="body">
           <ViewLayout
             navbarComponent={DayScalePlaceholder}
@@ -127,7 +128,7 @@ WeekView.propTypes = {
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,
-  currentDate: PropTypes.object,
+  intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
   weekends: PropTypes.array,
 };
@@ -136,7 +137,7 @@ WeekView.defaultProps = {
   startDayHour: 0,
   endDayHour: 24,
   cellDuration: 30,
-  currentDate: new Date(),
+  intervalCount: 1,
   firstDayOfWeek: 0,
   weekends: [],
 };

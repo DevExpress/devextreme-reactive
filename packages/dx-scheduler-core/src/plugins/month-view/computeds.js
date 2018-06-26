@@ -4,6 +4,7 @@ const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
 
 export const cells = (currentDate, firstDayOfWeek) => {
+  const currentMonth = moment(currentDate).month();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
   const prevMonthDayCount = firstMonthDate.day(firstMonthDay).day() || DAY_COUNT;
@@ -19,7 +20,10 @@ export const cells = (currentDate, firstDayOfWeek) => {
   while (result.length < WEEK_COUNT) {
     const week = [];
     while (week.length < DAY_COUNT) {
-      week.push(from.toDate());
+      week.push({
+        value: from.toDate(),
+        isOtherMonth: from.month() !== currentMonth,
+      });
       from.add(1, 'day');
     }
     result.push(week);

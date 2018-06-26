@@ -1,1 +1,1 @@
-export * from './view/computeds';
+export * from './plugins/view/computeds';

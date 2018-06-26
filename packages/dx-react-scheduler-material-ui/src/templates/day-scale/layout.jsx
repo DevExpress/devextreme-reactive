@@ -13,7 +13,13 @@ export const Layout = ({
     <Row>
       {dayUnits.map((day) => {
         const currentDate = moment(day);
-        return (<Cell key={day}>{currentDate.format('ddd')} {currentDate.format('D')}</Cell>);
+        return (
+          <Cell
+            key={day}
+            dayOfMonth={currentDate.format('D')}
+            dayOfWeek={currentDate.format('ddd')}
+          />
+        );
       })}
     </Row>
   </Table>

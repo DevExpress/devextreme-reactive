@@ -16,8 +16,6 @@ import { Row as DateTableRow } from '../templates/date-table/row';
 import { Cell as DateTableCell } from '../templates/date-table/cell';
 import { Table as DateTableTable } from '../templates/date-table/table';
 
-import { EmptyTable } from '../templates/empty-table/empty-table';
-
 export class WeekView extends React.PureComponent {
   render() {
     return (
@@ -37,7 +35,6 @@ export class WeekView extends React.PureComponent {
         dateTableRowComponent={DateTableRow}
         dateTableCellComponent={DateTableCell}
 
-        emptyTableComponent={EmptyTable}
         {...this.props}
       />
     );

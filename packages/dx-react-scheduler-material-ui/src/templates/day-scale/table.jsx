@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TableMUI from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
 
 export const Table = ({
   children,
@@ -11,9 +11,9 @@ export const Table = ({
     {...restProps}
     style={{ tableLayout: 'fixed' }}
   >
-    <TableHead>
+    <TableBody>
       {children}
-    </TableHead>
+    </TableBody>
   </TableMUI>
 );
 

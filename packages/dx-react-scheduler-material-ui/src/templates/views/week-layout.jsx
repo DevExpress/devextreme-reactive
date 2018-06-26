@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-
 import { withStyles } from '@material-ui/core/styles';
+import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -17,6 +17,9 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
+  emptySpace: {
+    borderBottom: getBorderColor(theme),
+  },
 });
 
 export class WeekLayoutBase extends React.PureComponent {
@@ -25,7 +28,6 @@ export class WeekLayoutBase extends React.PureComponent {
       sidebarComponent: Sidebar,
       navbarComponent: Navbar,
       mainComponent: Main,
-      emptyTableComponent: EmptyTable,
       classes,
       ...restProps
     } = this.props;
@@ -41,9 +43,7 @@ export class WeekLayoutBase extends React.PureComponent {
           direction="row"
           className={classes.stickyHeader}
         >
-          <Grid item xs={1}>
-            <EmptyTable />
-          </Grid>
+          <Grid item xs={1} className={classes.emptySpace} />
 
           <Grid item xs={11}>
             <Navbar />
@@ -69,7 +69,6 @@ WeekLayoutBase.propTypes = {
   sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
-  emptyTableComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

@@ -6,7 +6,7 @@ import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   cell: {
-    borderRight: getBorderColor(theme),
+    // borderTop: getBorderColor(theme),
   },
 });
 

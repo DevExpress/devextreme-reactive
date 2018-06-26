@@ -37,7 +37,6 @@ export class WeekView extends React.PureComponent {
       dateTableTableComponent: DateTableTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
-      emptyTableComponent: EmptyTable,
       startDayHour,
       endDayHour,
       cellDuration,
@@ -61,7 +60,6 @@ export class WeekView extends React.PureComponent {
             navbarComponent={DayScalePlaceholder}
             mainComponent={DateTablePlaceholder}
             sidebarComponent={SidebarPlaceholder}
-            emptyTableComponent={EmptyTable}
           />
         </Template>
 
@@ -126,7 +124,6 @@ WeekView.propTypes = {
   dateTableTableComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
-  emptyTableComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,

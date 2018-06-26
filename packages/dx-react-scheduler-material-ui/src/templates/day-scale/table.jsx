@@ -1,16 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TableMUI from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 
 export const Table = ({
   children,
   ...restProps
 }) => (
-  <TableMUI {...restProps} style={{ tableLayout: 'fixed' }} >
-    <TableBody>
+  <TableMUI
+    {...restProps}
+    style={{ tableLayout: 'fixed' }}
+  >
+    <TableHead>
       {children}
-    </TableBody>
+    </TableHead>
   </TableMUI>
 );
 

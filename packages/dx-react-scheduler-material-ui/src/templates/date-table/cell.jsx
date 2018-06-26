@@ -7,6 +7,13 @@ import { getBorderColor } from '../utils';
 const styles = theme => ({
   cell: {
     borderRight: getBorderColor(theme),
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    '&:focus': {
+      backgroundColor: theme.palette.primary[100],
+      outline: 0,
+    },
   },
 });
 
@@ -16,6 +23,7 @@ const CellBase = ({
   ...restProps
 }) => (
   <TableCell
+    tabIndex={0}
     className={classes.cell}
     {...restProps}
   >

@@ -5,6 +5,7 @@ const WEEK_COUNT = 6;
 
 export const monthCells = (currentDate, firstDayOfWeek) => {
   const currentMonth = moment(currentDate).month();
+  const currentDay = moment(currentDate).date();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
   const prevMonthDayCount = firstMonthDate.day(firstMonthDay).day() || DAY_COUNT;
@@ -23,6 +24,7 @@ export const monthCells = (currentDate, firstDayOfWeek) => {
       week.push({
         value: from.toDate(),
         isOtherMonth: from.month() !== currentMonth,
+        isCurrent: currentDay === from.date() && from.month() === currentMonth,
       });
       from.add(1, 'day');
     }

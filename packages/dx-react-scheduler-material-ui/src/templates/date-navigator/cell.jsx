@@ -4,17 +4,31 @@ import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const styles = theme => ({
-  otherMonth: {
-    color: theme.palette.text.disabled,
-  },
+const styles = ({ palette, spacing }) => ({
   cell: {
     border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    textAlign: 'center',
+    verticalAlign: 'middle',
+  },
+  otherMonth: {
+    color: palette.text.disabled,
+  },
+  current: {
+    display: 'inline-block',
+    width: `${spacing.unit * 4}px`,
+    lineHeight: `${spacing.unit * 4}px`,
+    borderRadius: '50%',
+    background: palette.primary.main,
+    color: palette.primary.contrastText,
+    cursor: 'default',
   },
 });
 
 export const CellBase = ({
   otherMonth,
+  current,
   classes,
   children,
   ...restProps
@@ -26,19 +40,27 @@ export const CellBase = ({
     })}
     {...restProps}
   >
-    {children}
+    <span
+      className={classNames({
+        [classes.current]: current,
+      })}
+    >
+      {children}
+    </span>
   </TableCell>
 );
 
 CellBase.propTypes = {
   children: PropTypes.node,
   otherMonth: PropTypes.bool,
+  current: PropTypes.bool,
   classes: PropTypes.object.isRequired,
 };
 
 CellBase.defaultProps = {
   children: undefined,
   otherMonth: false,
+  current: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

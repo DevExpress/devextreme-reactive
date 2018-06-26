@@ -3,23 +3,23 @@ import { monthCells } from './computeds';
 describe('Month view computeds', () => {
   describe('#monthCells', () => {
     it('should work', () => {
-      const result = monthCells(new Date(2018, 5, 25), 1);
+      const cells = monthCells(new Date(2018, 5, 25), 1);
 
-      result.forEach(row => expect(row).toHaveLength(7));
-      expect(result)
+      cells.forEach(row => expect(row).toHaveLength(7));
+      expect(cells)
         .toHaveLength(6);
 
-      expect(result[0][0].value.toString())
+      expect(cells[0][0].value.toString())
         .toBe(new Date(2018, 4, 28).toString());
-      expect(result[5][6].value.toString())
+      expect(cells[5][6].value.toString())
         .toBe(new Date(2018, 6, 8).toString());
     });
 
     it('should mark cells from other months', () => {
-      const result = monthCells(new Date(2018, 5, 25), 1);
-      const firstCell = result[0][0];
-      const lastCell = result[5][6];
-      const cell = result[2][5];
+      const cells = monthCells(new Date(2018, 5, 25), 1);
+      const firstCell = cells[0][0];
+      const lastCell = cells[5][6];
+      const cell = cells[2][5];
 
       expect(firstCell.isOtherMonth)
         .toBeTruthy();
@@ -29,21 +29,32 @@ describe('Month view computeds', () => {
         .toBeFalsy();
     });
 
-    it('should add a full week from previous month', () => {
-      const result = monthCells(new Date(2010, 1, 1), 1);
+    it('should mark current day', () => {
+      const cells = monthCells(new Date(2018, 5, 25), 1);
+      const currentCell = cells[4][0];
+      const cell = cells[2][5];
 
-      expect(result[0][0].value.toString())
+      expect(currentCell.isCurrent)
+        .toBeTruthy();
+      expect(cell.isCurrent)
+        .toBeFalsy();
+    });
+
+    it('should add a full week from previous month', () => {
+      const cells = monthCells(new Date(2010, 1, 1), 1);
+
+      expect(cells[0][0].value.toString())
         .toBe(new Date(2010, 0, 25).toString());
-      expect(result[5][6].value.toString())
+      expect(cells[5][6].value.toString())
         .toBe(new Date(2010, 2, 7).toString());
     });
 
     it('should work with a custom first day of week', () => {
-      const result = monthCells(new Date(2010, 1, 1), 3);
+      const cells = monthCells(new Date(2010, 1, 1), 3);
 
-      expect(result[0][0].value.toString())
+      expect(cells[0][0].value.toString())
         .toBe(new Date(2010, 0, 27).toString());
-      expect(result[5][6].value.toString())
+      expect(cells[5][6].value.toString())
         .toBe(new Date(2010, 2, 9).toString());
     });
   });

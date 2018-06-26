@@ -28,10 +28,11 @@ export const TableBase = ({
         <Row
           key={`date_navigator_row_${row[0].value.toString()}`}
         >
-          {row.map(({ value, isOtherMonth }) => (
+          {row.map(({ value, isOtherMonth, isCurrent }) => (
             <Cell
               key={`date_navigator_cell_${value.toString()}`}
               otherMonth={isOtherMonth}
+              current={isCurrent}
             >
               {moment(value).format('D')}
             </Cell>

@@ -4,7 +4,9 @@ const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
 
 export const cells = (currentDate, firstDayOfWeek) => {
-  const prevMonthDayCount = moment(currentDate).date(1).day() - firstDayOfWeek;
+  const firstMonthDate = moment(currentDate).date(1);
+  const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
+  const prevMonthDayCount = firstMonthDate.day(firstMonthDay).day() || DAY_COUNT;
   const prevMonth = moment(currentDate).subtract(1, 'months');
   const prevMonthStartDay = prevMonth.daysInMonth() - (prevMonthDayCount - 1);
   const from = moment()

@@ -1,9 +1,9 @@
-import { cells } from './computeds';
+import { monthCells } from './computeds';
 
 describe('Month view computeds', () => {
-  describe('#cells', () => {
+  describe('#monthCells', () => {
     it('should work', () => {
-      const result = cells(new Date(2018, 5, 25), 1);
+      const result = monthCells(new Date(2018, 5, 25), 1);
 
       result.forEach(row => expect(row).toHaveLength(7));
       expect(result)
@@ -16,7 +16,7 @@ describe('Month view computeds', () => {
     });
 
     it('should mark cells from other months', () => {
-      const result = cells(new Date(2018, 5, 25), 1);
+      const result = monthCells(new Date(2018, 5, 25), 1);
       const firstCell = result[0][0];
       const lastCell = result[5][6];
       const cell = result[2][5];
@@ -30,7 +30,7 @@ describe('Month view computeds', () => {
     });
 
     it('should add a full week from previous month', () => {
-      const result = cells(new Date(2010, 1, 1), 1);
+      const result = monthCells(new Date(2010, 1, 1), 1);
 
       expect(result[0][0].value.toString())
         .toBe(new Date(2010, 0, 25).toString());
@@ -39,7 +39,7 @@ describe('Month view computeds', () => {
     });
 
     it('should work with a custom first day of week', () => {
-      const result = cells(new Date(2010, 1, 1), 3);
+      const result = monthCells(new Date(2010, 1, 1), 3);
 
       expect(result[0][0].value.toString())
         .toBe(new Date(2010, 0, 27).toString());

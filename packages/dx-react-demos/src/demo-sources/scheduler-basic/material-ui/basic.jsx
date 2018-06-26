@@ -1,7 +1,12 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 
-import { Scheduler, WeekView, Toolbar } from '@devexpress/dx-react-scheduler-material-ui';
+import {
+  Scheduler,
+  WeekView,
+  Toolbar,
+  DateNavigator,
+} from '@devexpress/dx-react-scheduler-material-ui';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -24,7 +29,9 @@ export default class Demo extends React.PureComponent {
           <WeekView
             startDayHour={8}
             endDayHour={18}
+            firstDayOfWeek={1}
           />
+          <DateNavigator />
         </Scheduler>
       </Paper>
     );

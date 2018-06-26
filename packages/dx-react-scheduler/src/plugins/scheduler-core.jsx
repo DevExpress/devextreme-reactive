@@ -6,12 +6,14 @@ export class SchedulerCore extends React.PureComponent {
   render() {
     const {
       data,
+      currentDate,
       rootComponent: Root,
     } = this.props;
 
     return (
       <Plugin>
         <Getter name="data" value={data} />
+        <Getter name="currentDate" value={currentDate} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />
@@ -27,4 +29,9 @@ export class SchedulerCore extends React.PureComponent {
 SchedulerCore.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
+  currentDate: PropTypes.instanceOf(Date),
+};
+
+SchedulerCore.defaultProps = {
+  currentDate: new Date(),
 };

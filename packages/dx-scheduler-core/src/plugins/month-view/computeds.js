@@ -3,7 +3,7 @@ import moment from 'moment';
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
 
-export const cells = (currentDate, firstDayOfWeek) => {
+export const monthCells = (currentDate, firstDayOfWeek) => {
   const currentMonth = moment(currentDate).month();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;

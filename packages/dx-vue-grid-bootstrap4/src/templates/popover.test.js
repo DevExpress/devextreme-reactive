@@ -4,7 +4,7 @@ import { Popover } from './popover';
 const defaultProps = {
   target: {
     getBoundingClientRect: () => ({
-      bottom: 10,
+      height: 10,
       left: 100,
       width: 20,
     }),
@@ -100,17 +100,17 @@ describe('Popover', () => {
     });
 
     expect(wrapper.element.style.transform)
-      .toBe('translate(85px, 13px)');
+      .toBe('translate(-15px, 15px)');
   });
 
-  it('should calculate position shift depend on container size', () => {
+  it('should calculate position shift depend on container right size', () => {
     const wrapper = shallow({
       render() {
         return (
           <Popover
             target={{
               getBoundingClientRect: () => ({
-                bottom: 10,
+                height: 10,
                 left: 290,
                 width: 20,
               }),
@@ -126,6 +126,32 @@ describe('Popover', () => {
     });
 
     expect(wrapper.element.style.transform)
-      .toBe('translate(247px, 13px)');
+      .toBe('translate(-45px, 15px)');
+  });
+
+  it('should calculate position shift depend on container left size', () => {
+    const wrapper = shallow({
+      render() {
+        return (
+          <Popover
+            target={{
+              getBoundingClientRect: () => ({
+                height: 10,
+                left: 10,
+                width: 20,
+              }),
+            }}
+            container={{
+              offsetWidth: 300,
+            }}
+            width={50}
+            visible
+          />
+        );
+      },
+    });
+
+    expect(wrapper.element.style.transform)
+      .toBe('translate(-5px, 15px)');
   });
 });

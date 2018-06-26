@@ -16,8 +16,7 @@ const collectAxesTypes = axes =>
     {},
   );
 
-const calculateDomainField = (field, data, domain = [], type) => {
-  const getFieldItem = object => object[field];
+const calculateDomainField = (getFieldItem, data, domain = [], type) => {
   const getCategories = (prev, cur) => {
     const categories = getFieldItem(cur);
     if (isDefined(categories)) {
@@ -60,7 +59,7 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
         ...domains,
         [axisName]: {
           domain: calculateDomainField(
-            `${valueField}-${name}-end`,
+            object => object[`${valueField}-${name}-stack`] && object[`${valueField}-${name}-stack`][1],
             data,
             domains[axisName] && domains[axisName].domain,
             valueType,
@@ -70,7 +69,7 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) =>
         },
         [argumentAxisName]: {
           domain: calculateDomainField(
-            argumentField,
+            object => object[argumentField],
             data,
             domains[argumentAxisName] && domains[argumentAxisName].domain,
             argumentType,

@@ -18,7 +18,7 @@ const MyUnitsFilterCell = {
   inheritAttrs: false,
   props: ['filter'],
   template: `
-    <dx-cell
+    <th
       v-bind="$attrs"
       v-on="$listeners"
     >
@@ -28,18 +28,16 @@ const MyUnitsFilterCell = {
         :value="filter ? filter.value : ''"
         min="1"
         max="4"
+        placeholder="Filter..."
         @change="e => this.$emit('filter', e.target.value ? { value: e.target.value } : null)"
       />
-    </dx-cell>
+    </th>
   `,
-  components: {
-    DxCell: DxTableFilterRow.components.DxCell,
-  },
 };
 
 const MyFilterCell = {
   inheritAttrs: false,
-  props: ['column'],
+  props: ['column', 'getMessage'],
   data() {
     return {
       componentId: this.column.name === 'units' ? 'my-units-filter-cell' : 'dx-cell',
@@ -51,7 +49,9 @@ const MyFilterCell = {
       :column="column"
       v-bind="$attrs"
       v-on="$listeners"
-    />
+    >
+      <slot />
+    </component>
   `,
   components: {
     DxCell: DxTableFilterRow.components.DxCell,

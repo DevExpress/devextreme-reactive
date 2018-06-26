@@ -27,4 +27,17 @@ describe('PaneLayout', () => {
     expect(tree.find('Pane').props().changeBBox)
       .toEqual(expect.any(Function));
   });
+
+  it('should render Sizer with correct styles', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <PaneLayout />
+        <TemplatePlaceholder name="canvas" />
+      </PluginHost>
+    ));
+
+    expect(tree.find('Sizer').props().style)
+      .toEqual({ flex: 1, zIndex: 1 });
+  });
 });

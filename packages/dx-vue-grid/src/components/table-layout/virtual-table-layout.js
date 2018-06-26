@@ -146,10 +146,8 @@ export const VirtualTableLayout = {
         return;
       }
 
-      if (this.viewportTop !== node.scrollTop || this.viewportLeft !== node.scrollLeft) {
-        this.viewportTop = node.scrollTop;
-        this.viewportLeft = node.scrollLeft;
-      }
+      this.viewportTop = node.scrollTop;
+      this.viewportLeft = node.scrollLeft;
     },
     renderRowsBlock(collapsedGrid, Table, Body) {
       const {

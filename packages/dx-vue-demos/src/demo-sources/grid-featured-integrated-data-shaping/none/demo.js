@@ -137,7 +137,9 @@ export default {
           showSortingControls
           showGroupingControls
         />
-        <dx-table-filter-row />
+        <dx-table-filter-row
+          showFilterSelector
+        />
         <dx-table-selection
           showSelectAll
         />

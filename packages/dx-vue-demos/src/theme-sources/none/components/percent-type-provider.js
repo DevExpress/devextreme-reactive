@@ -25,15 +25,26 @@ const PercentEditor = {
       step="0.1"
       min="0"
       max="100"
+      placeholder="Filter..."
       @change="handleChange"
     />
   `,
 };
 
 export const PercentTypeProvider = {
+  data() {
+    return ({
+      availableFilterOperations: [
+        'equal', 'notEqual',
+        'greaterThan', 'greaterThanOrEqual',
+        'lessThan', 'lessThanOrEqual',
+      ],
+    });
+  },
   template: `
     <dx-data-type-provider
       :editorComponent="$options.components.PercentEditor"
+      :availableFilterOperations="availableFilterOperations"
       :for="$attrs.for"
     />
   `,

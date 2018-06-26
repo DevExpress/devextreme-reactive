@@ -7,12 +7,13 @@ const MINIMAL_COLUMN_WIDTH = 150;
 
 export const VirtualTableLayout = {
   name: 'VirtualTableLayout',
+  inheritAttrs: false,
   render() {
     return (
       <TableLayout
         layoutComponent={VirtualTableLayoutCore}
         minColumnWidth={MINIMAL_COLUMN_WIDTH}
-        { ...{ attrs: { ...this.$attrs }, listeners: { ...this.$listeners } }}
+        { ...{ attrs: { ...this.$attrs }, on: { ...this.$listeners } }}
       />
     );
   },

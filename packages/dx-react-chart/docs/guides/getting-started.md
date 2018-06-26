@@ -4,7 +4,7 @@ Project status: **CTP**
 
 ## Overview
 
-The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material UI rendering and theming are supported out of the box.
+The DevExtreme React Chart is a component that visualizes data using a variety of series types, including bar, line, area, scatter, pie, and more. It is a stateless component - it relies on properties and works in controlled mode only. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as axes, legend, grid). Twitter Bootstrap and Material-UI rendering and theming are supported out of the box.
 
 ## Installation
 
@@ -14,15 +14,15 @@ Install the dx-react-chart package and its dependencies using the following comm
 npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-chart.npm-tag()
 ```
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:
+This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:
 
-- Material UI
+- Material-UI
 
   ```
   npm i --save @devexpress/dx-react-chart-material-ui.npm-tag()
   ```
 
-  Make sure that the [Material UI](https://material-ui-1dab0.firebaseapp.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui-1dab0.firebaseapp.com/getting-started/installation) article for configuration details.
+  Make sure that the [Material-UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material-UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
 
 - Bootstrap 4
 
@@ -78,7 +78,7 @@ const App = () => (
 
 Follow the links below to try out the React Chart:
 
-- [CodeSandbox for Material UI](https://codesandbox.io/s/vqo8yw5om7)
+- [CodeSandbox for Material-UI](https://codesandbox.io/s/vqo8yw5om7)
 - [CodeSandbox for Bootstrap4](https://codesandbox.io/s/5x17l61xyk)
 
 ## License

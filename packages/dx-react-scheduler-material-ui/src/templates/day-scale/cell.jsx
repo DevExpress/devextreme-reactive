@@ -6,29 +6,52 @@ import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   cell: {
-    // borderTop: getBorderColor(theme),
+    paddingBottom: 0,
+    borderLeft: getBorderColor(theme),
+  },
+  dayOfWeek: {
+    ...theme.typography.caption,
+    margin: 0,
+  },
+  dayOfMonth: {
+    ...theme.typography.display1,
   },
 });
 
 const CellBase = ({
   classes,
   children,
+  dayOfMonth,
+  dayOfWeek,
   ...restProps
 }) => (
   <TableCell
     className={classes.cell}
     {...restProps}
   >
-    {children}
+    {children || (
+      <React.Fragment>
+        <p className={classes.dayOfWeek}>
+          {dayOfWeek}
+        </p>
+        <span className={classes.dayOfMonth}>
+          {dayOfMonth}
+        </span>
+      </React.Fragment>
+    )}
   </TableCell>
 );
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  dayOfMonth: PropTypes.string,
+  dayOfWeek: PropTypes.string,
   children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
+  dayOfMonth: '',
+  dayOfWeek: '',
   children: null,
 };
 

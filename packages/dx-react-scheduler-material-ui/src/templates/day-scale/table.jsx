@@ -7,7 +7,10 @@ export const Table = ({
   children,
   ...restProps
 }) => (
-  <TableMUI {...restProps} style={{ tableLayout: 'fixed' }} >
+  <TableMUI
+    {...restProps}
+    style={{ tableLayout: 'fixed' }}
+  >
     <TableBody>
       {children}
     </TableBody>

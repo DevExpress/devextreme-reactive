@@ -24,20 +24,20 @@ export const themes = [{
       'https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css',
     ],
   }, {
-    name: 'cyborg',
-    title: 'Bootstrap 4 (Bootswatch Cyborg)',
+    name: 'lux',
+    title: 'Bootstrap 4 (Lux)',
     DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
     links: [
       'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
-      'https://bootswatch.com/4/cyborg/bootstrap.min.css',
     ],
+    editableLink: 'https://bootswatch.com/4/lux/bootstrap.min.css',
   }, {
-    name: 'custom',
-    title: 'Bootstrap 4 (Custom)',
+    name: 'solar',
+    title: 'Bootstrap 4 (Solar)',
     DemoContainer: require('./theme-sources/bootstrap4/demo-container').default,
     links: [
       'https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css',
+      'https://bootswatch.com/4/solar/bootstrap.min.css',
     ],
-    editableLink: 'https://bootswatch.com/4/sketchy/bootstrap.min.css',
   }],
 }];

@@ -53,8 +53,8 @@ export class WeekView extends React.PureComponent {
         name="WeekView"
       >
         <Getter name="timeUnits" value={timeUnitsValue} />
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="dayUnits" value={dayUnitsValue} />
-
         <Template name="body">
           <ViewLayout
             navbarComponent={DayScalePlaceholder}

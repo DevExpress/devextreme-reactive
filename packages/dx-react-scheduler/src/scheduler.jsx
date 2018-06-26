@@ -5,12 +5,14 @@ import { SchedulerCore } from './plugins/scheduler-core';
 
 export const Scheduler = ({
   data,
+  currentDate,
   rootComponent,
   children,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
+      currentDate={currentDate}
       rootComponent={rootComponent}
     />
     {children}
@@ -19,10 +21,12 @@ export const Scheduler = ({
 
 Scheduler.propTypes = {
   data: PropTypes.array.isRequired,
+  currentDate: PropTypes.instanceOf(Date),
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
 Scheduler.defaultProps = {
   children: undefined,
+  currentDate: new Date(),
 };

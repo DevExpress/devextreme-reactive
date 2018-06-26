@@ -11,16 +11,18 @@ export const Layout = ({
 }) => (
   <Table {...restProps}>
     {timeUnits.map((time, i) => {
-      const hour = time[0][0];
-      const minute = time[0][1];
+      const hour = time[1][0];
+      const minute = time[1][1];
       return (
         <Row key={time[0]}>
-          <Cell>
-            {i % 2
-              ? null
-              : moment().hour(hour).minute(minute).format('h:mm A')
-            }
-          </Cell>
+          {i % 2
+          ? null
+          : (
+            <Cell
+              rowSpan="2"
+              time={moment().hour(hour).minute(minute).format()}
+            />
+          )}
         </Row>
       );
     })}

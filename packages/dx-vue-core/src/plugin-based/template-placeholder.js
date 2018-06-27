@@ -2,6 +2,7 @@ import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } f
 
 export const DxTemplatePlaceholder = {
   name: 'DxTemplatePlaceholder',
+  inheritAttrs: false,
   props: {
     name: {
       type: String,
@@ -41,7 +42,7 @@ export const DxTemplatePlaceholder = {
   computed: {
     computedParams() {
       const that = this;
-      return !Object.keys(this.$attrs).length && !Object.keys(this.$attrs).length
+      return !Object.keys(this.$attrs).length && !Object.keys(this.$listeners).length
         ? this.templateHost.params
         : {
           get attrs() { return that.$attrs; },

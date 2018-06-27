@@ -18,7 +18,7 @@ describe('Marker', () => {
       <Marker className="custom-class" />
     ));
 
-    expect(tree.is('.custom-class.mx-2'))
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
 

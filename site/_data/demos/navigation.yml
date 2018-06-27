@@ -1,10 +1,10 @@
 /react/grid:
   - title: DEMOS
     items:
-      - title: Uncontrolled Mode
-        path: /react/grid/demos/featured/uncontrolled-mode
-      - title: Controlled Mode
-        path: /react/grid/demos/featured/controlled-mode
+      - title: Integrated Data Shaping
+        path: /react/grid/demos/featured/integrated-data-shaping
+      - title: Data Editing
+        path: /react/grid/demos/featured/data-editing
       - title: Virtual Scrolling
         path: /react/grid/demos/featured/virtual-scrolling
       - title: Redux Integration
@@ -25,7 +25,11 @@
         path: /vue/grid/demos/featured/integrated-data-shaping
       - title: Data Editing
         path: /vue/grid/demos/featured/data-editing
+      - title: Virtual Scrolling
+        path: /vue/grid/demos/featured/virtual-scrolling
       - title: Vuex Integration
         path: /vue/grid/demos/featured/vuex-integration
       - title: Remote Data
         path: /vue/grid/demos/featured/remote-data
+      - title: Tree Data
+        path: /vue/grid/demos/featured/tree-data

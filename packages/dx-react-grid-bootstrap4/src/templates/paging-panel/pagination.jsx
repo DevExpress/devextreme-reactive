@@ -99,7 +99,7 @@ export const Pagination = ({
   };
   return (
     <React.Fragment>
-      <PaginationBS4 className="float-right d-none d-sm-flex m-0">
+      <PaginationBS4 className="float-right d-none d-sm-flex" listClassName="m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous
@@ -117,7 +117,7 @@ export const Pagination = ({
         </PaginationItem>
       </PaginationBS4>
 
-      <PaginationBS4 className="float-right d-sm-none m-0">
+      <PaginationBS4 className="float-right d-sm-none" listClassName="m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous

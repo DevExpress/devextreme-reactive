@@ -18,25 +18,50 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = {
-  functional: true,
-  render(h, context) {
+  props: {
+    tableRow: {
+      type: Object,
+      required: true,
+    },
+    height: {
+      type: [Number, String],
+    },
+  },
+  render() {
     return (
       <DxTemplatePlaceholder
         name="tableRow"
-        {...context.data}
+        {...{ attrs: { ...this.$props } }}
       >
-        {context.children}
+        {this.$slots.default}
       </DxTemplatePlaceholder>
     );
   },
 };
+
 const CellPlaceholder = {
-  functional: true,
-  render(h, context) {
+  props: {
+    tableColumn: {
+      type: Object,
+      required: true,
+    },
+    tableRow: {
+      type: Object,
+      required: true,
+    },
+    colSpan: {
+      type: Number,
+      required: true,
+    },
+    rowSpan: {
+      type: Number,
+    },
+  },
+  render() {
     return (
       <DxTemplatePlaceholder
         name="tableCell"
-        {...context.data}
+        {...{ attrs: { ...this.$props } }}
       />
     );
   },

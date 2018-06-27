@@ -2,7 +2,9 @@ import { DxGetter, DxPlugin } from '@devexpress/dx-vue-core';
 import {
   filteredRows,
   getColumnExtension,
+  filteredCollapsedRowsGetter,
   unwrappedFilteredRows,
+  defaultFilterPredicate,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -10,6 +12,7 @@ const pluginDependencies = [
   { name: 'DxSearchState', optional: true },
 ];
 
+const getCollapsedRowsComputed = ({ rows }) => filteredCollapsedRowsGetter(rows);
 const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);
 
 export const DxIntegratedFiltering = {
@@ -45,8 +48,11 @@ export const DxIntegratedFiltering = {
         dependencies={pluginDependencies}
       >
         <DxGetter name="rows" computed={rowsComputed} />
+        <DxGetter name="getCollapsedRows" computed={getCollapsedRowsComputed} />
         <DxGetter name="rows" computed={unwrappedRowsComputed} />
       </DxPlugin>
     );
   },
 };
+
+DxIntegratedFiltering.defaultPredicate = defaultFilterPredicate;

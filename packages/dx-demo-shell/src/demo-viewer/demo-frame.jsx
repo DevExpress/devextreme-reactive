@@ -26,12 +26,12 @@ class DemoFrameRenderer extends React.PureComponent {
       <!DOCTYPE html>
       <html>
       <head>
-        <style>
-          body { margin: 8px; overflow: hidden; }
-          .panel { margin: 0 !important; }
-        </style>
         ${themeLinks}
         ${link !== undefined ? `<link rel="stylesheet" href="${link}">` : ''}
+        <style>
+          body { margin: 8px; overflow: hidden; }
+          .panel { margin: 0; }
+        </style>
       </head>
       <body>
         <div id="mountPoint"></div>

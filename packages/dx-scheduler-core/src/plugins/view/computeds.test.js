@@ -1,4 +1,4 @@
-import { timeUnits, dayUnits } from './computeds';
+import { timeUnits, dayUnits, startViewDate, endViewDate } from './computeds';
 
 describe('View computeds', () => {
   describe('#timeUnits', () => {
@@ -72,6 +72,23 @@ describe('View computeds', () => {
       expect(units).toHaveLength(3);
       expect(units[0].toString()).toBe(currentDate.toString());
       expect(units[units.length - 1].toString()).toBe(new Date(2018, 5, 28).toString());
+    });
+  });
+
+  describe('#startViewDate', () => {
+    it('should return start date', () => {
+      const startDate = startViewDate([new Date(2018, 5, 24)], [[[8, 0], [8, 30]], [[12, 0], [12, 33]]]);
+      expect(startDate.toString()).toBe(new Date(2018, 5, 24, 8, 0).toString());
+    });
+  });
+
+  describe('#endViewDate', () => {
+    it('should return end date', () => {
+      const endDate = endViewDate(
+        [new Date(2018, 5, 24), new Date(2018, 6, 25)],
+        [[[8, 0], [8, 30]], [[12, 0], [12, 33]]],
+      );
+      expect(endDate.toString()).toBe(new Date(2018, 6, 25, 12, 33).toString());
     });
   });
 });

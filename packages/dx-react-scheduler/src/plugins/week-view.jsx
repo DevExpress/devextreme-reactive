@@ -10,6 +10,7 @@ import {
 import {
   timeUnits as timeUnitsComputed,
   dayUnits as dayUnitsComputed,
+  startViewDate, endViewDate,
 } from '@devexpress/dx-scheduler-core';
 
 const SidebarPlaceholder = props => (
@@ -48,6 +49,8 @@ export class WeekView extends React.PureComponent {
     const timeUnitsValue = timeUnitsComputed(startDayHour, endDayHour, cellDuration);
     const dayUnitsValue = ({ currentDate }) =>
       dayUnitsComputed(currentDate, firstDayOfWeek, intervalCount * 7, weekends);
+    const startViewDateComputed = ({ dayUnits, timeUnits }) => startViewDate(dayUnits, timeUnits);
+    const endViewDateComputed = ({ dayUnits, timeUnits }) => endViewDate(dayUnits, timeUnits);
 
     return (
       <Plugin
@@ -56,6 +59,8 @@ export class WeekView extends React.PureComponent {
         <Getter name="timeUnits" value={timeUnitsValue} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="dayUnits" computed={dayUnitsValue} />
+        <Getter name="startViewDate" computed={startViewDateComputed} />
+        <Getter name="endViewDate" computed={endViewDateComputed} />
         <Template name="body">
           <ViewLayout
             navbarComponent={DayScalePlaceholder}

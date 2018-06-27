@@ -36,3 +36,15 @@ export const dayUnits = (
 
   return result;
 };
+
+export const startViewDate = (days, times) => {
+  const firstTimeOfRange = times[0][0];
+  const startDate = moment(days[0]).hour(firstTimeOfRange[0]).minute(firstTimeOfRange[1]);
+  return startDate.toDate();
+};
+
+export const endViewDate = (days, times) => {
+  const lastTimeOfRange = times[times.length - 1][1];
+  const startDate = moment(days[days.length - 1]).hour(lastTimeOfRange[0]).minute(lastTimeOfRange[1]);
+  return startDate.toDate();
+};

@@ -29,7 +29,7 @@ export const dayUnits = (
 
   for (let index = 0; index < dayCount; index += 1) {
     if (except.findIndex(item => item === date.day()) === -1) {
-      result.push(date.format());
+      result.push(date.toDate());
     }
     date.add(1, 'days');
   }

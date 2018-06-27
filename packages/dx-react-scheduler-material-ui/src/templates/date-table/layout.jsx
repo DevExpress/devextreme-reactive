@@ -12,7 +12,7 @@ export const Layout = ({
   <Table {...restProps}>
     {timeUnits.map(time => (
       <Row key={time}>
-        {dayUnits.map(day => <Cell key={day} />)}
+        {dayUnits.map(day => <Cell key={day} day={day} time={time} />)}
       </Row>
     ))}
   </Table>

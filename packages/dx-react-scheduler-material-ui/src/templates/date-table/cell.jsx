@@ -20,6 +20,8 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   children,
+  time,
+  day,
   ...restProps
 }) => (
   <TableCell
@@ -34,10 +36,14 @@ const CellBase = ({
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
+  time: PropTypes.array,
+  day: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: null,
+  time: [],
+  day: '',
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

@@ -6,6 +6,7 @@ import {
   WeekView,
   Toolbar,
   DateNavigator,
+  Appointment,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 export default class Demo extends React.PureComponent {
@@ -13,7 +14,11 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: [],
+      data: [{
+        title: 'Website Re-Design Plan',
+        startDate: new Date(2017, 4, 22, 9, 30),
+        endDate: new Date(2017, 4, 22, 11, 30),
+      }],
     };
   }
   render() {
@@ -32,6 +37,7 @@ export default class Demo extends React.PureComponent {
             firstDayOfWeek={1}
           />
           <DateNavigator />
+          <Appointment />
         </Scheduler>
       </Paper>
     );

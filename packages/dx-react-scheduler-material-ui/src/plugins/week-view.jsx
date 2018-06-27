@@ -34,9 +34,23 @@ export class WeekView extends React.PureComponent {
         dateTableTableComponent={DateTableTable}
         dateTableRowComponent={DateTableRow}
         dateTableCellComponent={DateTableCell}
-
         {...this.props}
       />
     );
   }
 }
+
+WeekView.TimeScaleLayout = TimeScaleLayout;
+WeekView.TimeScaleRow = TimeScaleRow;
+WeekView.TimeScaleCell = TimeScaleCell;
+WeekView.TimeScaleTable = TimeScaleTable;
+
+WeekView.DayScaleLayout = DayScaleLayout;
+WeekView.DayScaleTable = DayScaleTable;
+WeekView.DayScaleCell = DayScaleCell;
+WeekView.DayScaleRow = TimeScaleRow;
+
+WeekView.DateTableLayout = DateTableLayout;
+WeekView.DateTableRow = DateTableRow;
+WeekView.DateTableCell = DateTableCell;
+WeekView.DateTableTable = DateTableTable;

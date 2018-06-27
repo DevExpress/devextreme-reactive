@@ -28,49 +28,50 @@ describe('View computeds', () => {
   });
 
   describe('#dayUnits', () => {
+    const currentDate = new Date(2018, 5, 24);
     it('should return default day units', () => {
       const units = dayUnits();
       expect(units).toHaveLength(7);
     });
 
     it('should return day units depend on first day of week', () => {
-      let units = dayUnits(new Date(), 1);
+      let units = dayUnits(currentDate, 1);
 
-      expect(new Date(units[0]).getDay()).toBe(1);
-      expect(new Date(units[6]).getDay()).toBe(0);
+      expect(units[0].toString()).toBe(new Date(2018, 5, 25).toString());
+      expect(units[6].toString()).toBe(new Date(2018, 6, 1).toString());
 
-      units = dayUnits(new Date(), 3);
+      units = dayUnits(currentDate, 3);
 
-      expect(new Date(units[0]).getDay()).toBe(3);
-      expect(new Date(units[6]).getDay()).toBe(2);
+      expect(units[0].toString()).toBe(new Date(2018, 5, 27).toString());
+      expect(units[6].toString()).toBe(new Date(2018, 6, 3).toString());
     });
 
     it('should return day units depend on day count', () => {
-      let units = dayUnits(new Date(), 0, 5);
+      let units = dayUnits(currentDate, 0, 5);
 
-      expect(new Date(units[0]).getDay()).toBe(0);
-      expect(new Date(units[units.length - 1]).getDay()).toBe(4);
+      expect(units[0].toString()).toBe(currentDate.toString());
+      expect(units[units.length - 1].toString()).toBe(new Date(2018, 5, 28).toString());
 
-      units = dayUnits(new Date(), 0, 14);
+      units = dayUnits(currentDate, 0, 14);
 
-      expect(new Date(units[0]).getDay()).toBe(0);
-      expect(new Date(units[units.length - 1]).getDay()).toBe(6);
+      expect(units[0].toString()).toBe(currentDate.toString());
+      expect(units[units.length - 1].toString()).toBe(new Date(2018, 6, 7).toString());
     });
 
     it('should return day units depend on standard weekends', () => {
-      const units = dayUnits(new Date(), 0, 7, [0, 6]);
+      const units = dayUnits(currentDate, 0, 7, [0, 6]);
 
       expect(units).toHaveLength(5);
-      expect(new Date(units[0]).getDay()).toBe(1);
-      expect(new Date(units[units.length - 1]).getDay()).toBe(5);
+      expect(units[0].toString()).toBe(new Date(2018, 5, 25).toString());
+      expect(units[units.length - 1].toString()).toBe(new Date(2018, 5, 29).toString());
     });
 
     it('should return day units depend on weekends and day count', () => {
-      const units = dayUnits(new Date(), 0, 5, [1, 3]);
+      const units = dayUnits(currentDate, 0, 5, [1, 3]);
 
       expect(units).toHaveLength(3);
-      expect(new Date(units[0]).getDay()).toBe(0);
-      expect(new Date(units[units.length - 1]).getDay()).toBe(4);
+      expect(units[0].toString()).toBe(currentDate.toString());
+      expect(units[units.length - 1].toString()).toBe(new Date(2018, 5, 28).toString());
     });
   });
 });

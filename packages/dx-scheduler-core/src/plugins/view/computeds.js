@@ -83,19 +83,24 @@ export const getCoordinatesByDate = (
     index: cellIndex,
     startDate: cellStartDate,
   } = getCellByDate(days, times, date);
+
+  const cellElement = getCellElement(cellIndex);
+  const { top: parentTop, left: parentLeft } = cellElement.offsetParent.getBoundingClientRect();
+
   const {
     width: cellWidth,
     height: cellHeight,
     top: cellTop,
     left: cellLeft,
-  } = getCellElement(cellIndex).getBoundingClientRect();
+  } = cellElement.getBoundingClientRect();
+
   const timeOffset = moment(date).diff(cellStartDate, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
 
   return {
     width: cellWidth - (cellWidth * CELL_GAP),
-    top: cellTop + topOffset,
-    left: cellLeft,
+    top: cellTop + topOffset - parentTop,
+    left: cellLeft - parentLeft,
     height: 100,
   };
 };

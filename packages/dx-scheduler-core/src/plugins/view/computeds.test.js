@@ -126,6 +126,12 @@ describe('View computeds', () => {
         width: 100,
         height: 100,
       }),
+      offsetParent: {
+        getBoundingClientRect: () => ({
+          top: 10,
+          left: 10,
+        }),
+      },
     });
     it('should calculate geometry by date', () => {
       const times = [
@@ -149,8 +155,8 @@ describe('View computeds', () => {
         getCellElement,
       );
 
-      expect(top).toBe(60);
-      expect(left).toBe(20);
+      expect(top).toBe(50);
+      expect(left).toBe(10);
       expect(height).toBe(100);
       expect(width).toBe(85);
     });

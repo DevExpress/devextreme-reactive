@@ -1,40 +1,52 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
-import { getAppointmentMeta } from '@devexpress/dx-scheduler-core';
+import { getCoordinatesByDate } from '@devexpress/dx-scheduler-core';
 
 export class Appointments extends React.PureComponent {
   render() {
     const {
-      appointmentComponent: Unit,
+      appointmentComponent: Appointment,
       getTitle,
       getStartDate,
       getEndDate,
     } = this.props;
+
+    const getDateTableCellElement = index => document.querySelectorAll('#date-table td')[index];
+
+    const getReactComputed = ({ timeUnits, dayUnits, cellDuration }) => date =>
+      getCoordinatesByDate(dayUnits, timeUnits, cellDuration, date, getDateTableCellElement);
 
     return (
       <Plugin name="Appointment">
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
+        <Getter name="getRect" computed={getReactComputed} />
+
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ data, gridScale }) =>
-              data.map((item) => {
-                const appointmentMeta = getAppointmentMeta(item, gridScale);
-
+            {({
+              data,
+              getRect,
+              dateTableRef,
+            }) =>
+              (dateTableRef ? data.map((appointment) => {
+                const {
+                  top, left, width, height,
+                } = getRect(getStartDate(appointment));
                 return (
-                  <Unit
-                    key={item}
-                    top={appointmentMeta.top}
-                    left={appointmentMeta.left}
-                    width={appointmentMeta.width}
-                    height={appointmentMeta.height}
-                    title={appointmentMeta.title}
+                  <Appointment
+                    key={appointment}
+                    top={top}
+                    left={left}
+                    width={width}
+                    height={height}
+                    title={getTitle(appointment)}
                   />
                 );
-              })
+              }) : null)
             }
           </TemplateConnector>
         </Template>

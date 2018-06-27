@@ -24,6 +24,18 @@ const DateTablePlaceholder = props => (
 );
 
 export class WeekView extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dateTableRef: null,
+    };
+
+    this.dateTableRef = this.dateTableRef.bind(this);
+  }
+  dateTableRef(dateTableRef) {
+    this.setState({ dateTableRef });
+  }
   render() {
     const {
       layoutComponent: ViewLayout,
@@ -52,6 +64,8 @@ export class WeekView extends React.PureComponent {
     const startViewDateComputed = ({ dayUnits, timeUnits }) => startViewDate(dayUnits, timeUnits);
     const endViewDateComputed = ({ dayUnits, timeUnits }) => endViewDate(dayUnits, timeUnits);
 
+    // const getElement = cellIndex => this.dateTable.querySelectorAll('td')[cellIndex];
+
     return (
       <Plugin
         name="WeekView"
@@ -61,6 +75,9 @@ export class WeekView extends React.PureComponent {
         <Getter name="dayUnits" computed={dayUnitsValue} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
+        <Getter name="cellDuration" value={cellDuration} />
+        {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
+
         <Template name="body">
           <ViewLayout
             navbarComponent={DayScalePlaceholder}
@@ -107,11 +124,11 @@ export class WeekView extends React.PureComponent {
                 tableComponent={DateTableTable}
                 timeUnits={timeUnits}
                 dayUnits={dayUnits}
+                dateTableRef={this.dateTableRef}
               />
             )}
           </TemplateConnector>
         </Template>
-
       </Plugin>
     );
   }

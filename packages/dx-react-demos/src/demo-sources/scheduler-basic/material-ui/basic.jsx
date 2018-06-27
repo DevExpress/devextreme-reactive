@@ -15,9 +15,17 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: [{
-        title: 'Website Re-Design Plan',
-        startDate: new Date(2017, 4, 22, 9, 30),
-        endDate: new Date(2017, 4, 22, 11, 30),
+        title: 'A',
+        startDate: new Date(2018, 5, 25, 9),
+        endDate: new Date(2018, 5, 25, 10),
+      }, {
+        title: 'B',
+        startDate: new Date(2018, 5, 27, 14),
+        endDate: new Date(2018, 5, 25, 15),
+      }, {
+        title: 'C',
+        startDate: new Date(2018, 5, 29, 10, 45),
+        endDate: new Date(2018, 5, 29, 11),
       }],
     };
   }
@@ -37,11 +45,7 @@ export default class Demo extends React.PureComponent {
             firstDayOfWeek={1}
           />
           <DateNavigator />
-          <Appointments
-            getTitle={appointment => appointment.title}
-            getStartDate={appointment => appointment.title}
-            getEndDate={appointment => appointment.title}
-          />
+          <Appointments />
         </Scheduler>
       </Paper>
     );

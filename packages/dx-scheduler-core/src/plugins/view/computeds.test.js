@@ -1,4 +1,11 @@
-import { timeUnits, dayUnits, startViewDate, endViewDate } from './computeds';
+import {
+  timeUnits,
+  dayUnits,
+  startViewDate,
+  endViewDate,
+  getCellByDate,
+  getCoordinatesByDate,
+} from './computeds';
 
 describe('View computeds', () => {
   describe('#timeUnits', () => {
@@ -77,7 +84,10 @@ describe('View computeds', () => {
 
   describe('#startViewDate', () => {
     it('should return start date', () => {
-      const startDate = startViewDate([new Date(2018, 5, 24)], [[[8, 0], [8, 30]], [[12, 0], [12, 33]]]);
+      const startDate = startViewDate(
+        [new Date(2018, 5, 24)],
+        [[[8, 0], [8, 30]], [[12, 0], [12, 33]]],
+      );
       expect(startDate.toString()).toBe(new Date(2018, 5, 24, 8, 0).toString());
     });
   });
@@ -89,6 +99,60 @@ describe('View computeds', () => {
         [[[8, 0], [8, 30]], [[12, 0], [12, 33]]],
       );
       expect(endDate.toString()).toBe(new Date(2018, 6, 25, 12, 33).toString());
+    });
+  });
+
+  describe('#getCellByDate', () => {
+    it('should calculate cell index and start date', () => {
+      const times = [
+        [[8, 0], [8, 30]],
+        [[8, 30], [9, 0]],
+        [[9, 0], [9, 30]],
+      ];
+      const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
+      const { index, startDate } = getCellByDate(days, times, new Date(2018, 5, 25, 8, 30));
+      expect(index)
+        .toBe(4);
+      expect(startDate.toString())
+        .toBe(new Date(2018, 5, 25, 8, 30).toString());
+    });
+  });
+
+  describe('#getCoordinatesByDate', () => {
+    const getCellElement = () => ({
+      getBoundingClientRect: () => ({
+        top: 10,
+        left: 20,
+        width: 100,
+        height: 100,
+      }),
+    });
+    it('should calculate geometry by date', () => {
+      const times = [
+        [[8, 0], [8, 30]],
+        [[8, 30], [9, 0]],
+        [[9, 0], [9, 30]],
+      ];
+      const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
+      const cellDuration = 30;
+      const date = new Date(2018, 5, 25, 8, 45);
+      const {
+        top,
+        left,
+        height,
+        width,
+      } = getCoordinatesByDate(
+        days,
+        times,
+        cellDuration,
+        date,
+        getCellElement,
+      );
+
+      expect(top).toBe(60);
+      expect(left).toBe(20);
+      expect(height).toBe(100);
+      expect(width).toBe(85);
     });
   });
 });

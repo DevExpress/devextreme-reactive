@@ -80,6 +80,7 @@
     "react-test-renderer": "^16.4.1",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.21.0",
+    "svg-sprite-loader": "^3.8.0",
     "ts-jest": "^22.4.6",
     "typescript": "^2.9.2",
     "webpack": "^4.12.0",

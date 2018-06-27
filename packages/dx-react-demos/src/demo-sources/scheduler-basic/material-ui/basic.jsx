@@ -6,7 +6,7 @@ import {
   WeekView,
   Toolbar,
   DateNavigator,
-  Appointment,
+  Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 export default class Demo extends React.PureComponent {
@@ -37,7 +37,11 @@ export default class Demo extends React.PureComponent {
             firstDayOfWeek={1}
           />
           <DateNavigator />
-          <Appointment />
+          <Appointments
+            getTitle={appointment => appointment.title}
+            getStartDate={appointment => appointment.title}
+            getEndDate={appointment => appointment.title}
+          />
         </Scheduler>
       </Paper>
     );

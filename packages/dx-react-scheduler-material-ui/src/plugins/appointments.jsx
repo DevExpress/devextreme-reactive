@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Appointment as AppointmentBase } from '@devexpress/dx-react-scheduler';
+import { Appointments as AppointmentsBase } from '@devexpress/dx-react-scheduler';
 import { Appointment as AppointmentComponent } from '../templates/appointment/appointment';
 
-export class Appointment extends React.PureComponent {
+export class Appointments extends React.PureComponent {
   render() {
     return (
-      <AppointmentBase
+      <AppointmentsBase
         appointmentComponent={AppointmentComponent}
         {...this.props}
       />

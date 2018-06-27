@@ -20,6 +20,9 @@ const styles = theme => ({
   emptySpace: {
     borderBottom: getBorderColor(theme),
   },
+  main: {
+    position: 'relative',
+  },
 });
 
 export class WeekLayoutBase extends React.PureComponent {
@@ -55,7 +58,7 @@ export class WeekLayoutBase extends React.PureComponent {
             <Sidebar />
           </Grid>
 
-          <Grid item xs={11}>
+          <Grid item xs={11} className={classes.main}>
             <Main />
           </Grid>
         </Grid>

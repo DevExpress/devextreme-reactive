@@ -3,6 +3,7 @@ import {
   DxTemplate,
   DxTemplateConnector,
   DxPlugin,
+  DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
 import {
   tableRowsWithHeading,
@@ -89,7 +90,13 @@ export const DxTableHeaderRow = {
                     onSort={({ direction, keepOther }) =>
                       changeColumnSorting({ columnName, direction, keepOther })}
                     onGroup={() => changeColumnGrouping({ columnName })}
-                  />
+                  >
+                    <DxTemplatePlaceholder
+                      slot="before"
+                      name="tableHeaderCellBefore"
+                      column={attrs.tableColumn.column}
+                    />
+                  </HeaderCell>
                 );
               }}
             </DxTemplateConnector>

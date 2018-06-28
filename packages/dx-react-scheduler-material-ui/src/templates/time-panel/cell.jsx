@@ -42,14 +42,13 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
+  time: PropTypes.instanceOf(Date).isRequired,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
-  time: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: null,
-  time: '',
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

@@ -14,13 +14,13 @@ export const Layout = ({
       const hour = moment(time.end).hour();
       const minute = moment(time.end).minute();
       return (
-        <Row key={time[0]}>
+        <Row key={time.start}>
           {i % 2
           ? null
           : (
             <Cell
               rowSpan="2"
-              time={moment().hour(hour).minute(minute).format()}
+              time={moment().hour(hour).minute(minute).toDate()}
             />
           )}
         </Row>

@@ -134,17 +134,17 @@ gulp.task('site:docs', function() {
 
 gulp.task('site:demos:react:grid', function() {
   return gulp.src(['packages/dx-react-grid-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/grid-demos/dist/'));
+    .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
 });
 
 gulp.task('site:demos:react:chart', function() {
   return gulp.src(['packages/dx-react-chart-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/chart-demos/dist/'));
+    .pipe(gulp.dest(distPath + 'react/chart/demos/dist/'));
 });
 
 gulp.task('site:demos:vue', function() {
   return gulp.src(['packages/dx-vue-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'vue/grid-demos/dist/'));
+    .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
 gulp.task('site', function(done) {

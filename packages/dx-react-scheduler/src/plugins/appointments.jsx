@@ -42,13 +42,13 @@ export class Appointments extends React.PureComponent {
               getRect,
               dateTableCellRefs,
             }) =>
-              (dateTableCellRefs ? data.map((appointment) => {
+              (dateTableCellRefs ? data.map((appointment, index) => {
                 const {
                   top, left, width, height,
                 } = getRect(getStartDate(appointment), getEndDate(appointment));
                 return (
                   <Appointment
-                    key={appointment}
+                    key={index.toString()}
                     top={top}
                     left={left}
                     width={width}

@@ -10,8 +10,8 @@ export const Layout = ({
   ...restProps
 }) => (
   <Table {...restProps}>
-    {timeScale.map(time => (
-      <Row key={time}>
+    {timeScale.map((time, index) => (
+      <Row key={index.toString()}>
         {dayScale.map(day => <Cell key={day} day={day} time={time} />)}
       </Row>
     ))}

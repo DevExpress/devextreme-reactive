@@ -2,24 +2,20 @@ import moment from 'moment';
 
 const CELL_GAP = 0.15;
 
-export const timeUnits = (startDayHour = 0, endDayHour = 24, cellDuration = 30) => {
+export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate) => {
   const result = [];
-  const left = moment().startOf('hour').hour(startDayHour);
-  const right = moment().startOf('hour').hour(endDayHour);
+  const left = moment(startViewDate).startOf('hour').hour(startDayHour);
+  const right = moment(startViewDate).startOf('hour').hour(endDayHour);
   while (left.isBefore(right)) {
-    result.push([
-      [left.hour(), left.minute()],
-    ]);
+    const startDate = left.toDate();
     left.add(cellDuration, 'minutes');
-    result[result.length - 1].push([
-      left.hour(), left.minute(),
-    ]);
+    result.push({ start: startDate, end: left.toDate() });
   }
 
   return result;
 };
 
-export const dayUnits = (
+export const dayScale = (
   currentDate = new Date(),
   firsDayOfWeek = 0,
   dayCount = 7,
@@ -40,30 +36,35 @@ export const dayUnits = (
 };
 
 export const startViewDate = (days, times) => {
-  const firstTimeOfRange = times[0][0];
-  const startDate = moment(days[0]).hour(firstTimeOfRange[0]).minute(firstTimeOfRange[1]);
+  const firstTimeOfRange = moment(times[0].start);
+  const startDate = moment(days[0])
+    .hour(firstTimeOfRange.hours())
+    .minute(firstTimeOfRange.minutes());
   return startDate.toDate();
 };
 
 export const endViewDate = (days, times) => {
-  const lastTimeOfRange = times[times.length - 1][1];
+  const lastTimeOfRange = moment(times[times.length - 1].end);
   const startDate = moment(days[days.length - 1])
-    .hour(lastTimeOfRange[0])
-    .minute(lastTimeOfRange[1]);
+    .hour(lastTimeOfRange.hours())
+    .minute(lastTimeOfRange.minutes());
   return startDate.toDate();
 };
 
 export const getCellByDate = (days, times, date) => {
   const rowIndex = times.findIndex((timeCell) => {
-    const cellStart = moment(date).hour(timeCell[0][0]).minutes(timeCell[0][1]);
-    const cellEnd = moment(date).hour(timeCell[1][0]).minutes(timeCell[1][1]);
+    const startTime = moment(timeCell.start);
+    const endTime = moment(timeCell.end);
+    const cellStart = moment(date).hour(startTime.hours()).minutes(startTime.minutes());
+    const cellEnd = moment(date).hour(endTime.hours()).minutes(endTime.minutes());
     return moment(date).isBetween(cellStart, cellEnd, null, '[)');
   });
 
   const cellIndex = days.findIndex(day => moment(date).isSame(day, 'date'));
+  const cellStartTime = moment(times[rowIndex].start);
   const cellStartDate = moment(days[cellIndex])
-    .hour(times[rowIndex][0][0])
-    .minutes(times[rowIndex][0][1])
+    .hour(cellStartTime.hours())
+    .minutes(cellStartTime.minutes())
     .toDate();
   const totalCellIndex = (rowIndex * days.length) + cellIndex;
   return {
@@ -99,7 +100,7 @@ export const getCoordinatesByDate = (
 
   return {
     width: cellWidth - (cellWidth * CELL_GAP),
-    top: cellTop + topOffset - parentTop,
+    top: (cellTop + topOffset) - parentTop,
     left: cellLeft - parentLeft,
     height: 100,
   };

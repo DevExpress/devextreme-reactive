@@ -1,7 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
-import { getRectByDates } from '@devexpress/dx-scheduler-core';
+import { getRectByDates, filteredAppointments } from '@devexpress/dx-scheduler-core';
+
+const filterAppointmentsComputed = ({
+  data,
+  startViewDate,
+  endViewDate,
+  getAppointmentEndDate,
+  getAppointmentStartDate,
+}) => filteredAppointments(
+  startViewDate,
+  endViewDate,
+  data,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+);
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -32,6 +46,7 @@ export class Appointments extends React.PureComponent {
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
+        <Getter name="data" computed={filterAppointmentsComputed} />
         <Getter name="getRect" computed={getRectComputed} />
 
         <Template name="main">

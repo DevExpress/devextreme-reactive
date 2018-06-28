@@ -26,7 +26,10 @@ export class SchedulerCore extends React.PureComponent {
 }
 
 SchedulerCore.propTypes = {
-  data: PropTypes.array.isRequired,
+  currentDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]).isRequired,
   rootComponent: PropTypes.func.isRequired,
-  currentDate: PropTypes.instanceOf(Date).isRequired,
+  data: PropTypes.array.isRequired,
 };

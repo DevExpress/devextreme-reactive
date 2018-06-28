@@ -21,7 +21,10 @@ export const Scheduler = ({
 
 Scheduler.propTypes = {
   data: PropTypes.array.isRequired,
-  currentDate: PropTypes.instanceOf(Date),
+  currentDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]),
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
 };

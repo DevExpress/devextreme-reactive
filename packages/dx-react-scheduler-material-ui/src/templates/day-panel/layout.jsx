@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 
 export const Layout = ({
-  dayUnits,
+  dayScale,
   tableComponent: Table,
   cellComponent: Cell,
   rowComponent: Row,
@@ -11,7 +11,7 @@ export const Layout = ({
 }) => (
   <Table {...restProps}>
     <Row>
-      {dayUnits.map((day) => {
+      {dayScale.map((day) => {
         const currentDate = moment(day);
         return (
           <Cell
@@ -26,13 +26,13 @@ export const Layout = ({
 );
 
 Layout.propTypes = {
-  dayUnits: PropTypes.array,
+  dayScale: PropTypes.array,
   tableComponent: PropTypes.func,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
 };
 Layout.defaultProps = {
-  dayUnits: [],
+  dayScale: [],
   tableComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,

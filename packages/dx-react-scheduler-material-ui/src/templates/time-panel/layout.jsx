@@ -3,16 +3,16 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 
 export const Layout = ({
-  timeUnits,
+  timeScale,
   tableComponent: Table,
   cellComponent: Cell,
   rowComponent: Row,
   ...restProps
 }) => (
   <Table {...restProps}>
-    {timeUnits.map((time, i) => {
-      const hour = time[1][0];
-      const minute = time[1][1];
+    {timeScale.map((time, i) => {
+      const hour = moment(time.end).hour();
+      const minute = moment(time.end).minute();
       return (
         <Row key={time[0]}>
           {i % 2
@@ -30,13 +30,13 @@ export const Layout = ({
 );
 
 Layout.propTypes = {
-  timeUnits: PropTypes.array,
+  timeScale: PropTypes.array,
   tableComponent: PropTypes.func,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
 };
 Layout.defaultProps = {
-  timeUnits: [],
+  timeScale: [],
   tableComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,

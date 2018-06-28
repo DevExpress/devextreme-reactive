@@ -14,19 +14,8 @@ export class Appointments extends React.PureComponent {
 
     const getDateTableCellElement = dateTableRef => index => dateTableRef.querySelectorAll('td')[index];
 
-    const getReactComputed = ({
-      timeUnits,
-      dayUnits,
-      cellDuration,
-      dateTableRef,
-    }) => date =>
-      getCoordinatesByDate(
-        dayUnits,
-        timeUnits,
-        cellDuration,
-        date,
-        getDateTableCellElement(dateTableRef),
-      );
+    const getReactComputed = ({ timeScale, dayScale, cellDuration, dateTableRef }) => date =>
+      getCoordinatesByDate(dayScale, timeScale, cellDuration, date, getDateTableCellElement(dateTableRef));
 
     return (
       <Plugin name="Appointment">

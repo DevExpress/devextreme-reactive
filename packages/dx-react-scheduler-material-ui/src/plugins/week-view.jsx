@@ -2,14 +2,14 @@ import * as React from 'react';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
 
-import { Layout as TimeScaleLayout } from '../templates/time-scale/layout';
-import { Row as TimeScaleRow } from '../templates/time-scale/row';
-import { Cell as TimeScaleCell } from '../templates/time-scale/cell';
-import { Table as TimeScaleTable } from '../templates/time-scale/table';
+import { Layout as TimePanelLayout } from '../templates/time-panel/layout';
+import { Row as TimePanelRow } from '../templates/time-panel/row';
+import { Cell as TimePanelCell } from '../templates/time-panel/cell';
+import { Table as TimePanelTable } from '../templates/time-panel/table';
 
-import { Layout as DayScaleLayout } from '../templates/day-scale/layout';
-import { Table as DayScaleTable } from '../templates/day-scale/table';
-import { Cell as DayScaleCell } from '../templates/day-scale/cell';
+import { Layout as DayPanelLayout } from '../templates/day-panel/layout';
+import { Table as DayPanelTable } from '../templates/day-panel/table';
+import { Cell as DayPanelCell } from '../templates/day-panel/cell';
 
 import { Layout as DateTableLayout } from '../templates/date-table/layout';
 import { Row as DateTableRow } from '../templates/date-table/row';
@@ -21,14 +21,14 @@ export class WeekView extends React.PureComponent {
     return (
       <WeekViewBase
         layoutComponent={WeekLayout}
-        timeScaleLayoutComponent={TimeScaleLayout}
-        timeScaleTableComponent={TimeScaleTable}
-        timeScaleRowComponent={TimeScaleRow}
-        timeScaleCellComponent={TimeScaleCell}
+        timePanelLayoutComponent={TimePanelLayout}
+        timePanelTableComponent={TimePanelTable}
+        timePanelRowComponent={TimePanelRow}
+        timePanelCellComponent={TimePanelCell}
 
-        dayScaleLayoutComponent={DayScaleLayout}
-        dayScaleTableComponent={DayScaleTable}
-        dayScaleCellComponent={DayScaleCell}
+        dayPanelLayoutComponent={DayPanelLayout}
+        dayPanelTableComponent={DayPanelTable}
+        dayPanelCellComponent={DayPanelCell}
 
         dateTableLayoutComponent={DateTableLayout}
         dateTableTableComponent={DateTableTable}
@@ -40,15 +40,15 @@ export class WeekView extends React.PureComponent {
   }
 }
 
-WeekView.TimeScaleLayout = TimeScaleLayout;
-WeekView.TimeScaleRow = TimeScaleRow;
-WeekView.TimeScaleCell = TimeScaleCell;
-WeekView.TimeScaleTable = TimeScaleTable;
+WeekView.TimePanelLayout = TimePanelLayout;
+WeekView.TimePanelRow = TimePanelRow;
+WeekView.TimePanelCell = TimePanelCell;
+WeekView.TimePanelTable = TimePanelTable;
 
-WeekView.DayScaleLayout = DayScaleLayout;
-WeekView.DayScaleTable = DayScaleTable;
-WeekView.DayScaleCell = DayScaleCell;
-WeekView.DayScaleRow = TimeScaleRow;
+WeekView.DayPanelLayout = DayPanelLayout;
+WeekView.DayPanelTable = DayPanelTable;
+WeekView.DayPanelCell = DayPanelCell;
+WeekView.DayPanelRow = TimePanelRow;
 
 WeekView.DateTableLayout = DateTableLayout;
 WeekView.DateTableRow = DateTableRow;

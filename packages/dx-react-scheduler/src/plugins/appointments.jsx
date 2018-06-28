@@ -12,10 +12,21 @@ export class Appointments extends React.PureComponent {
       getEndDate,
     } = this.props;
 
-    const getDateTableCellElement = dateTableRef => index => dateTableRef.querySelectorAll('td')[index];
+    const getDateTableCellElement = dateTableCellRefs => index => dateTableCellRefs[index];
 
-    const getReactComputed = ({ timeScale, dayScale, cellDuration, dateTableRef }) => date =>
-      getCoordinatesByDate(dayScale, timeScale, cellDuration, date, getDateTableCellElement(dateTableRef));
+    const getReactComputed = ({
+      timeScale,
+      dayScale,
+      cellDuration,
+      dateTableCellRefs,
+    }) => date =>
+      getCoordinatesByDate(
+        dayScale,
+        timeScale,
+        cellDuration,
+        date,
+        getDateTableCellElement(dateTableCellRefs),
+      );
 
     return (
       <Plugin name="Appointment">
@@ -30,9 +41,9 @@ export class Appointments extends React.PureComponent {
             {({
               data,
               getRect,
-              dateTableRef,
+              dateTableCellRefs,
             }) =>
-              (dateTableRef ? data.map((appointment) => {
+              (dateTableCellRefs ? data.map((appointment) => {
                 const {
                   top, left, width, height,
                 } = getRect(getStartDate(appointment));

@@ -30,8 +30,16 @@ export default class Demo extends React.PureComponent {
         title: 'D',
         startDate: new Date(2018, 5, 24, 10, 45),
         endDate: new Date(2018, 5, 24, 11),
+      }, {
+        title: 'E',
+        startDate: new Date(2018, 6, 5, 10, 45),
+        endDate: new Date(2018, 6, 5, 11),
+      }, {
+        title: 'F',
+        startDate: new Date(2018, 6, 6, 10, 45),
+        endDate: new Date(2018, 6, 6, 11),
       }],
-      currentDate: new Date('2018-06-25'),
+      currentDate: new Date('2018-06-20'),
     };
   }
   render() {
@@ -40,9 +48,20 @@ export default class Demo extends React.PureComponent {
     return (
       <Paper>
         <button
-          onClick={() => { this.setState({ currentDate: new Date('2018-06-20') }); }}
+          onClick={() => {
+            const next = new Date(new Date(this.state.currentDate).setDate(this.state.currentDate.getDate() - 7));
+            this.setState({ currentDate: next });
+          }}
         >
-          Prev week
+          {'<-'}
+        </button>
+        <button
+          onClick={() => {
+            const next = new Date(new Date(this.state.currentDate).setDate(this.state.currentDate.getDate() + 7));
+            this.setState({ currentDate: next });
+          }}
+        >
+          {'->'}
         </button>
         <Scheduler
           data={data}

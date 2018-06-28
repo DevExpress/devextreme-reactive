@@ -30,7 +30,7 @@ export class Appointments extends React.PureComponent {
       timeScale,
       dayScale,
       cellDuration,
-      dateTableCellRefs,
+      dateTableRef,
     }) => (startDate, endDate) =>
       getRectByDates(
         startDate,
@@ -38,7 +38,7 @@ export class Appointments extends React.PureComponent {
         dayScale,
         timeScale,
         cellDuration,
-        dateTableCellRefs,
+        dateTableRef.querySelectorAll('td'),
       );
 
     return (
@@ -55,9 +55,8 @@ export class Appointments extends React.PureComponent {
             {({
               data,
               getRect,
-              dateTableCellRefs,
-            }) =>
-              (dateTableCellRefs ? data.map((appointment, index) => {
+              dateTableRef,
+            }) => (dateTableRef ? data.map((appointment, index) => {
                 const {
                   top, left, width, height,
                 } = getRect(getStartDate(appointment), getEndDate(appointment));
@@ -71,8 +70,7 @@ export class Appointments extends React.PureComponent {
                     title={getTitle(appointment)}
                   />
                 );
-              }) : null)
-            }
+              }) : null)}
           </TemplateConnector>
         </Template>
       </Plugin>

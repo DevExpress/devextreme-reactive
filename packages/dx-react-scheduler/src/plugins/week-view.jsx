@@ -64,8 +64,6 @@ export class WeekView extends React.PureComponent {
     const startViewDateComputed = ({ dayUnits, timeUnits }) => startViewDate(dayUnits, timeUnits);
     const endViewDateComputed = ({ dayUnits, timeUnits }) => endViewDate(dayUnits, timeUnits);
 
-    // const getElement = cellIndex => this.dateTable.querySelectorAll('td')[cellIndex];
-
     return (
       <Plugin
         name="WeekView"

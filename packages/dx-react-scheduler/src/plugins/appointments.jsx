@@ -12,10 +12,21 @@ export class Appointments extends React.PureComponent {
       getEndDate,
     } = this.props;
 
-    const getDateTableCellElement = index => document.querySelectorAll('#date-table td')[index];
+    const getDateTableCellElement = dateTableRef => index => dateTableRef.querySelectorAll('td')[index];
 
-    const getReactComputed = ({ timeUnits, dayUnits, cellDuration }) => date =>
-      getCoordinatesByDate(dayUnits, timeUnits, cellDuration, date, getDateTableCellElement);
+    const getReactComputed = ({
+      timeUnits,
+      dayUnits,
+      cellDuration,
+      dateTableRef,
+    }) => date =>
+      getCoordinatesByDate(
+        dayUnits,
+        timeUnits,
+        cellDuration,
+        date,
+        getDateTableCellElement(dateTableRef),
+      );
 
     return (
       <Plugin name="Appointment">

@@ -52,36 +52,50 @@ export const endViewDate = (days, times) => {
   return startDate.toDate();
 };
 
-export const getCoordinatesByDate = (
-  days,
-  times,
-  cellDuration,
-  date,
-  cellElements,
-) => {
+const getCellRect = (date, days, times, cellDuration, cellElements) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
   } = getCellByDate(days, times, date);
 
   const cellElement = cellElements[cellIndex];
-  const { top: parentTop, left: parentLeft } = cellElement.offsetParent.getBoundingClientRect();
-
   const {
-    width: cellWidth,
+    top,
+    left,
+    width,
     height: cellHeight,
-    top: cellTop,
-    left: cellLeft,
   } = cellElement.getBoundingClientRect();
-
   const timeOffset = moment(date).diff(cellStartDate, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
 
   return {
-    width: cellWidth - (cellWidth * CELL_GAP),
-    top: (cellTop + topOffset) - parentTop,
-    left: cellLeft - parentLeft,
-    height: 100,
+    top,
+    left,
+    width,
+    topOffset,
+    parentRect: cellElement.offsetParent.getBoundingClientRect(),
+  };
+};
+
+export const getRectByDates = (
+  startDate,
+  endDate,
+  days,
+  times,
+  cellDuration,
+  cellElements,
+) => {
+  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements);
+  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements);
+
+  const top = firstCellRect.top + firstCellRect.topOffset;
+  const height = (lastCellRect.top + lastCellRect.topOffset) - top;
+
+  return {
+    width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
+    top: top - firstCellRect.parentRect.top,
+    left: firstCellRect.left - firstCellRect.parentRect.left,
+    height,
   };
 };
 

@@ -16,8 +16,8 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: [{
         title: 'A',
-        startDate: new Date(2018, 5, 25, 9),
-        endDate: new Date(2018, 5, 25, 10),
+        startDate: new Date(2018, 5, 25, 9, 45),
+        endDate: new Date(2018, 5, 25, 10, 15),
       }, {
         title: 'B',
         startDate: new Date(2018, 5, 27, 14),

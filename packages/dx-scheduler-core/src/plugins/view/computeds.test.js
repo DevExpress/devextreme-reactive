@@ -1,13 +1,14 @@
+import { getCellByDate } from './helpers';
 import {
   timeScale,
   dayScale,
   startViewDate,
   endViewDate,
-  getCoordinatesByDate,
+  getRectByDates,
 } from './computeds';
 
 jest.mock('./helpers', () => ({
-  getCellByDate: () => ({ index: 0, startDate: new Date(2018, 5, 25, 8, 30) }),
+  getCellByDate: jest.fn(),
 }));
 
 describe('View computeds', () => {
@@ -132,46 +133,52 @@ describe('View computeds', () => {
     });
   });
 
-  describe('#getCoordinatesByDate', () => {
+  describe('#getRectByDates', () => {
+    beforeEach(() => {
+      getCellByDate
+        .mockImplementationOnce(() => ({ index: 0, startDate: new Date(2018, 5, 25, 8, 30) }))
+        .mockImplementationOnce(() => ({ index: 1, startDate: new Date(2018, 5, 25, 9) }));
+    });
     afterEach(() => {
       jest.clearAllMocks();
     });
-
+    const offsetParent = {
+      getBoundingClientRect: () => ({
+        top: 10, left: 10,
+      }),
+    };
     const cellElements = [{
       getBoundingClientRect: () => ({
-        top: 10,
-        left: 20,
-        width: 100,
-        height: 100,
+        top: 10, left: 20, width: 100, height: 100,
       }),
-      offsetParent: {
-        getBoundingClientRect: () => ({
-          top: 10,
-          left: 10,
-        }),
-      },
+      offsetParent,
+    }, {
+      getBoundingClientRect: () => ({
+        top: 110, left: 20, width: 100, height: 100,
+      }),
+      offsetParent,
     }];
 
-    it('should calculate geometry by date', () => {
+    it('should calculate geometry by dates', () => {
       const times = [
         { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
         { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
         { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
+        { start: new Date(2017, 6, 20, 9, 30), end: new Date(2017, 6, 20, 10, 0) },
       ];
       const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
       const cellDuration = 30;
-      const date = new Date(2018, 5, 25, 8, 45);
+      const startDate = new Date(2018, 5, 25, 8, 45);
+      const endDate = new Date(2018, 5, 25, 9, 15);
 
       const {
-        top,
-        left,
-        height,
-        width,
-      } = getCoordinatesByDate(
+        top, left, height, width,
+      } = getRectByDates(
+        startDate,
+        endDate,
         days,
         times,
         cellDuration,
-        date,
         cellElements,
       );
 

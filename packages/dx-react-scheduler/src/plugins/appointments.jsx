@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
-import { getCoordinatesByDate } from '@devexpress/dx-scheduler-core';
+import { getRectByDates } from '@devexpress/dx-scheduler-core';
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -12,17 +12,18 @@ export class Appointments extends React.PureComponent {
       getEndDate,
     } = this.props;
 
-    const getReactComputed = ({
+    const getRectComputed = ({
       timeScale,
       dayScale,
       cellDuration,
       dateTableCellRefs,
-    }) => date =>
-      getCoordinatesByDate(
+    }) => (startDate, endDate) =>
+      getRectByDates(
+        startDate,
+        endDate,
         dayScale,
         timeScale,
         cellDuration,
-        date,
         dateTableCellRefs,
       );
 
@@ -31,7 +32,7 @@ export class Appointments extends React.PureComponent {
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
-        <Getter name="getRect" computed={getReactComputed} />
+        <Getter name="getRect" computed={getRectComputed} />
 
         <Template name="main">
           <TemplatePlaceholder />
@@ -44,7 +45,7 @@ export class Appointments extends React.PureComponent {
               (dateTableCellRefs ? data.map((appointment) => {
                 const {
                   top, left, width, height,
-                } = getRect(getStartDate(appointment));
+                } = getRect(getStartDate(appointment), getEndDate(appointment));
                 return (
                   <Appointment
                     key={appointment}

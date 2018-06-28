@@ -12,8 +12,6 @@ export class Appointments extends React.PureComponent {
       getEndDate,
     } = this.props;
 
-    const getDateTableCellElement = dateTableCellRefs => index => dateTableCellRefs[index];
-
     const getReactComputed = ({
       timeScale,
       dayScale,
@@ -25,7 +23,7 @@ export class Appointments extends React.PureComponent {
         timeScale,
         cellDuration,
         date,
-        getDateTableCellElement(dateTableCellRefs),
+        dateTableCellRefs,
       );
 
     return (

@@ -3,9 +3,12 @@ import {
   dayScale,
   startViewDate,
   endViewDate,
-  getCellByDate,
   getCoordinatesByDate,
 } from './computeds';
+
+jest.mock('./helpers', () => ({
+  getCellByDate: () => ({ index: 0, startDate: new Date(2018, 5, 25, 8, 30) }),
+}));
 
 describe('View computeds', () => {
   describe('#timeScale', () => {
@@ -129,24 +132,12 @@ describe('View computeds', () => {
     });
   });
 
-  describe('#getCellByDate', () => {
-    it('should calculate cell index and start date', () => {
-      const times = [
-        { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
-        { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
-        { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
-      ];
-      const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
-      const { index, startDate } = getCellByDate(days, times, new Date(2018, 5, 25, 8, 30));
-      expect(index)
-        .toBe(4);
-      expect(startDate.toString())
-        .toBe(new Date(2018, 5, 25, 8, 30).toString());
-    });
-  });
-
   describe('#getCoordinatesByDate', () => {
-    const getCellElement = () => ({
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    const cellElements = [{
       getBoundingClientRect: () => ({
         top: 10,
         left: 20,
@@ -159,7 +150,8 @@ describe('View computeds', () => {
           left: 10,
         }),
       },
-    });
+    }];
+
     it('should calculate geometry by date', () => {
       const times = [
         { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
@@ -169,6 +161,7 @@ describe('View computeds', () => {
       const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
       const cellDuration = 30;
       const date = new Date(2018, 5, 25, 8, 45);
+
       const {
         top,
         left,
@@ -179,7 +172,7 @@ describe('View computeds', () => {
         times,
         cellDuration,
         date,
-        getCellElement,
+        cellElements,
       );
 
       expect(top).toBe(50);

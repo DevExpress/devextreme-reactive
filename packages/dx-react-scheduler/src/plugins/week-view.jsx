@@ -28,13 +28,13 @@ export class WeekView extends React.PureComponent {
     super(props);
 
     this.state = {
-      dateTableRef: null,
+      dateTableCellRefs: null,
     };
 
-    this.dateTableRef = this.dateTableRef.bind(this);
+    this.dateTableCellRefs = this.dateTableCellRefs.bind(this);
   }
-  dateTableRef(dateTableRef) {
-    this.setState({ dateTableRef });
+  dateTableCellRefs(dateTableCellRefs) {
+    this.setState({ dateTableCellRefs });
   }
   render() {
     const {
@@ -74,7 +74,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
         <Getter name="cellDuration" value={cellDuration} />
-        {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
+        {this.state.dateTableCellRefs && <Getter name="dateTableCellRefs" value={this.state.dateTableCellRefs} />}
 
         <Template name="body">
           <ViewLayout
@@ -122,7 +122,7 @@ export class WeekView extends React.PureComponent {
                 tableComponent={DateTableTable}
                 timeScale={timeScale}
                 dayScale={dayScale}
-                dateTableRef={this.dateTableRef}
+                dateTableCellRefs={this.dateTableCellRefs}
               />
             )}
           </TemplateConnector>

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
+import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorderColor } from '../utils';
@@ -20,38 +22,40 @@ const styles = theme => ({
 
 const CellBase = ({
   classes,
+  className,
   children,
-  dayOfMonth,
-  dayOfWeek,
+  date,
   ...restProps
-}) => (
-  <TableCell
-    className={classes.cell}
-    {...restProps}
-  >
-    {children || (
-      <React.Fragment>
-        <p className={classes.dayOfWeek}>
-          {dayOfWeek}
-        </p>
-        <span className={classes.dayOfMonth}>
-          {dayOfMonth}
-        </span>
-      </React.Fragment>
-    )}
-  </TableCell>
-);
+}) => {
+  const currentDate = moment(date);
+  return (
+    <TableCell
+      className={classNames({ [classes.cell]: true }, className)}
+      {...restProps}
+    >
+      {children || (
+        <React.Fragment>
+          <p className={classes.dayOfWeek}>
+            {currentDate.format('ddd')}
+          </p>
+          <span className={classes.dayOfMonth}>
+            {currentDate.format('D')}
+          </span>
+        </React.Fragment>
+      )}
+    </TableCell>
+  );
+};
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  dayOfMonth: PropTypes.string,
-  dayOfWeek: PropTypes.string,
+  date: PropTypes.instanceOf(Date).isRequired,
+  className: PropTypes.string,
   children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
-  dayOfMonth: '',
-  dayOfWeek: '',
+  className: undefined,
   children: null,
 };
 

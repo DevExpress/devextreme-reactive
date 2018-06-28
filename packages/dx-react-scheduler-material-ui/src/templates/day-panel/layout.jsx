@@ -11,16 +11,12 @@ export const Layout = ({
 }) => (
   <Table {...restProps}>
     <Row>
-      {dayScale.map((day) => {
-        const currentDate = moment(day);
-        return (
-          <Cell
-            key={day}
-            dayOfMonth={currentDate.format('D')}
-            dayOfWeek={currentDate.format('ddd')}
-          />
-        );
-      })}
+      {dayScale.map(day => (
+        <Cell
+          key={day}
+          date={moment(day).toDate()}
+        />
+      ))}
     </Row>
   </Table>
 );

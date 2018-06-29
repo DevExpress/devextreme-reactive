@@ -41,6 +41,10 @@ export * from './plugins/editing-state';
 export * from './plugins/table-edit-column';
 export * from './plugins/table-edit-row';
 
+export * from './plugins/tree-data-state';
+export * from './plugins/custom-tree-data';
+export * from './plugins/table-tree-column';
+
 export * from './plugins/table-band-header';
 export * from './plugins/table-column-visibility';
 export * from './plugins/column-chooser';

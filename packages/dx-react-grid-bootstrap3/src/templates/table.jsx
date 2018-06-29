@@ -57,11 +57,16 @@ export class Table extends React.Component {
           tableLayout: 'fixed',
           overflow: 'hidden',
           marginBottom: 0,
-          ...use === 'head' ? {
+          ...use ? {
             position: stickyProp,
-            top: 0,
             zIndex: 1,
             background: backgroundColor,
+          } : null,
+          ...use === 'head' ? {
+            top: 0,
+          } : null,
+          ...use === 'foot' ? {
+            top: 0,
           } : null,
           ...style,
         }}
@@ -74,7 +79,7 @@ export class Table extends React.Component {
 }
 
 Table.propTypes = {
-  use: PropTypes.oneOf(['head']),
+  use: PropTypes.oneOf(['head', 'foot']),
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,

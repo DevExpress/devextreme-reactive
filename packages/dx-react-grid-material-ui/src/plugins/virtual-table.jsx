@@ -15,6 +15,7 @@ import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = props => <Table use="head" {...props} />;
+const FixedFooter = props => <Table use="foot" {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -24,14 +25,32 @@ export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { height, estimatedRowHeight, headTableComponent } = props;
+    const {
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footTableComponent,
+    } = props;
     this.layoutRenderComponent =
       createRenderComponent(VirtualTableLayout, {
-        height, estimatedRowHeight, headTableComponent,
+        height,
+        estimatedRowHeight,
+        headTableComponent,
+        footTableComponent,
       });
   }
-  componentWillReceiveProps({ height, estimatedRowHeight, headTableComponent }) {
-    this.layoutRenderComponent.update({ height, estimatedRowHeight, headTableComponent });
+  componentWillReceiveProps({
+    height,
+    estimatedRowHeight,
+    headTableComponent,
+    footTableComponent,
+  }) {
+    this.layoutRenderComponent.update({
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footTableComponent,
+    });
   }
   render() {
     const {
@@ -74,6 +93,7 @@ VirtualTable.Table = Table;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
 VirtualTable.FixedHeader = FixedHeader;
+VirtualTable.FixedFooter = FixedFooter;
 VirtualTable.Container = TableContainer;
 VirtualTable.StubRow = TableStubRow;
 
@@ -81,6 +101,7 @@ VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   headTableComponent: PropTypes.func,
+  footTableComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
@@ -90,5 +111,6 @@ VirtualTable.defaultProps = {
   estimatedRowHeight: 48,
   height: 530,
   headTableComponent: FixedHeader,
+  footTableComponent: FixedFooter,
   messages: {},
 };

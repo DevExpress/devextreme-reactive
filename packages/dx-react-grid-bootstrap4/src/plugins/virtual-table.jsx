@@ -13,6 +13,7 @@ import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = props => <TableComponent use="head" {...props} />;
+const FixedFooter = props => <TableComponent use="foot" {...props} />;
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
 const TableFooter = props => <tfoot {...props} />;
@@ -25,14 +26,32 @@ export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { height, estimatedRowHeight, headTableComponent } = props;
+    const {
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footTableComponent,
+    } = props;
     this.layoutRenderComponent =
       createRenderComponent(VirtualTableLayout, {
-        height, estimatedRowHeight, headTableComponent,
+        height,
+        estimatedRowHeight,
+        headTableComponent,
+        footTableComponent,
       });
   }
-  componentWillReceiveProps({ height, estimatedRowHeight, headTableComponent }) {
-    this.layoutRenderComponent.update({ height, estimatedRowHeight, headTableComponent });
+  componentWillReceiveProps({
+    height,
+    estimatedRowHeight,
+    headTableComponent,
+    footTableComponent,
+  }) {
+    this.layoutRenderComponent.update({
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footTableComponent,
+    });
   }
   render() {
     const {
@@ -83,6 +102,7 @@ VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
   height: PropTypes.number,
   headTableComponent: PropTypes.func,
+  footTableComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
@@ -92,5 +112,6 @@ VirtualTable.defaultProps = {
   estimatedRowHeight: 49,
   height: 530,
   headTableComponent: FixedHeader,
+  footTableComponent: FixedFooter,
   messages: {},
 };

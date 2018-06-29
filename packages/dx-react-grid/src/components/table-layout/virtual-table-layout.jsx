@@ -13,15 +13,20 @@ export class VirtualTableLayout extends React.PureComponent {
       rowHeights: new Map(),
       viewportTop: 0,
       viewportLeft: 0,
+      headerHeight: 0,
+      bodyHeight: 0,
+      footerHeight: 0,
     };
 
     this.rowRefs = new Map();
+    this.blockRefs = new Map();
     this.registerRowRef = this.registerRowRef.bind(this);
     this.getRowHeight = this.getRowHeight.bind(this);
     this.updateViewport = this.updateViewport.bind(this);
   }
   componentDidMount() {
     this.storeRowHeights();
+    this.storeBloksHeights();
   }
   componentWillReceiveProps(nextProps) {
     if (
@@ -44,6 +49,7 @@ export class VirtualTableLayout extends React.PureComponent {
   }
   componentDidUpdate() {
     this.storeRowHeights();
+    this.storeBloksHeights();
   }
   getRowHeight(row) {
     const storedHeight = this.state.rowHeights.get(row.key);
@@ -69,11 +75,28 @@ export class VirtualTableLayout extends React.PureComponent {
       });
     }
   }
+  storeBloksHeights() {
+    this.setState({
+      // eslint-disable-next-line react/no-find-dom-node
+      headerHeight: findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height,
+      // eslint-disable-next-line react/no-find-dom-node
+      bodyHeight: findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height,
+      // eslint-disable-next-line react/no-find-dom-node
+      footerHeight: findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height,
+    });
+  }
   registerRowRef(row, ref) {
     if (ref === null) {
       this.rowRefs.delete(row);
     } else {
       this.rowRefs.set(row, ref);
+    }
+  }
+  registerBlockRef(name, ref) {
+    if (ref === null) {
+      this.blockRefs.delete(name);
+    } else {
+      this.blockRefs.set(name, ref);
     }
   }
   updateViewport(e) {
@@ -97,7 +120,7 @@ export class VirtualTableLayout extends React.PureComponent {
       viewportLeft: node.scrollLeft,
     });
   }
-  renderRowsBlock(collapsedGrid, Table, Body) {
+  renderRowsBlock(name, collapsedGrid, Table, Body, marginBottom) {
     const {
       minWidth,
       rowComponent: Row,
@@ -105,65 +128,72 @@ export class VirtualTableLayout extends React.PureComponent {
     } = this.props;
 
     return (
-      <Table
-        style={{ minWidth: `${minWidth}px` }}
+      <RefHolder
+        ref={ref => this.registerBlockRef(name, ref)}
       >
-        <ColumnGroup
-          columns={collapsedGrid.columns}
-        />
-        <Body>
-          {collapsedGrid.rows.map((visibleRow) => {
-            const { row, cells = [] } = visibleRow;
-            return (
-              <RefHolder
-                key={row.key}
-                ref={ref => this.registerRowRef(row, ref)}
-              >
-                <Row
-                  tableRow={row}
-                  style={row.height !== undefined
-                    ? { height: `${row.height}px` }
-                    : undefined}
+        <Table
+          style={{ minWidth: `${minWidth}px`, ...marginBottom ? { marginBottom: `${marginBottom}px` } : null }}
+        >
+          <ColumnGroup
+            columns={collapsedGrid.columns}
+          />
+          <Body>
+            {collapsedGrid.rows.map((visibleRow) => {
+              const { row, cells = [] } = visibleRow;
+              return (
+                <RefHolder
+                  key={row.key}
+                  ref={ref => this.registerRowRef(row, ref)}
                 >
-                  {cells.map((cell) => {
-                    const { column } = cell;
-                    return (
-                      <Cell
-                        key={column.key}
-                        tableRow={row}
-                        tableColumn={column}
-                        style={column.animationState}
-                        colSpan={cell.colSpan}
-                      />
-                    );
-                  })}
-                </Row>
-              </RefHolder>
-            );
-          })}
-        </Body>
-      </Table>
+                  <Row
+                    tableRow={row}
+                    style={row.height !== undefined
+                      ? { height: `${row.height}px` }
+                      : undefined}
+                  >
+                    {cells.map((cell) => {
+                      const { column } = cell;
+                      return (
+                        <Cell
+                          key={column.key}
+                          tableRow={row}
+                          tableColumn={column}
+                          style={column.animationState}
+                          colSpan={cell.colSpan}
+                        />
+                      );
+                    })}
+                  </Row>
+                </RefHolder>
+              );
+            })}
+          </Body>
+        </Table>
+      </RefHolder>
     );
   }
   render() {
     const {
       headerRows,
       bodyRows,
+      footerRows,
       columns,
       minColumnWidth,
       height,
       containerComponent: Container,
       headTableComponent: HeadTable,
+      footTableComponent: FootTable,
       tableComponent: Table,
       headComponent: Head,
       bodyComponent: Body,
+      footerComponent: Footer,
       getCellColSpan,
     } = this.props;
 
     return (
       <Sizer>
         {({ width }) => {
-          const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
+          const { headerHeight, bodyHeight, footerHeight } = this.state;
           const getColSpan = (tableRow, tableColumn) =>
             getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
           const collapsedHeaderGrid = getCollapsedGrid({
@@ -172,7 +202,7 @@ export class VirtualTableLayout extends React.PureComponent {
             top: 0,
             left: this.state.viewportLeft,
             width,
-            height: headHeight,
+            height: headerHeight,
             getColumnWidth: column => column.width || minColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
@@ -183,7 +213,18 @@ export class VirtualTableLayout extends React.PureComponent {
             top: this.state.viewportTop,
             left: this.state.viewportLeft,
             width,
-            height: height - headHeight,
+            height: height - headerHeight - footerHeight,
+            getColumnWidth: column => column.width || minColumnWidth,
+            getRowHeight: this.getRowHeight,
+            getColSpan,
+          });
+          const collapsedFooterGrid = getCollapsedGrid({
+            rows: footerRows,
+            columns,
+            top: 0,
+            left: this.state.viewportLeft,
+            width,
+            height: footerHeight,
             getColumnWidth: column => column.width || minColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
@@ -194,8 +235,9 @@ export class VirtualTableLayout extends React.PureComponent {
               style={{ height: `${height}px` }}
               onScroll={this.updateViewport}
             >
-              {!!headerRows.length && this.renderRowsBlock(collapsedHeaderGrid, HeadTable, Head)}
-              {this.renderRowsBlock(collapsedBodyGrid, Table, Body)}
+              {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
+              {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
+              {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
             </Container>
           );
         }}
@@ -210,13 +252,16 @@ VirtualTableLayout.propTypes = {
   height: PropTypes.number.isRequired,
   headerRows: PropTypes.array,
   bodyRows: PropTypes.array.isRequired,
+  footerRows: PropTypes.array,
   columns: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   bodyComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func,
+  footerComponent: PropTypes.func,
   tableComponent: PropTypes.func.isRequired,
   headTableComponent: PropTypes.func,
+  footTableComponent: PropTypes.func,
   containerComponent: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
@@ -224,6 +269,9 @@ VirtualTableLayout.propTypes = {
 
 VirtualTableLayout.defaultProps = {
   headerRows: [],
+  footerRows: [],
   headComponent: () => null,
   headTableComponent: () => null,
+  footerComponent: () => null,
+  footTableComponent: () => null,
 };

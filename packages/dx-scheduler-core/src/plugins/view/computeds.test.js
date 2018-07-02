@@ -90,7 +90,7 @@ describe('View computeds', () => {
       expect(units[units.length - 1].toString()).toBe(new Date(2018, 6, 7).toString());
     });
 
-    it('should return day units depend on standard weekends', () => {
+    it('can exclude days', () => {
       const units = dayScale(currentDate, 0, 7, [0, 6]);
 
       expect(units).toHaveLength(5);
@@ -98,7 +98,7 @@ describe('View computeds', () => {
       expect(units[units.length - 1].toString()).toBe(new Date(2018, 5, 29).toString());
     });
 
-    it('should return day units depend on weekends and day count', () => {
+    it('can excluded days depend on day count', () => {
       const units = dayScale(currentDate, 0, 5, [1, 3]);
 
       expect(units).toHaveLength(3);

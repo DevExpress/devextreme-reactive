@@ -55,12 +55,12 @@ export class WeekView extends React.PureComponent {
       cellDuration,
       intervalCount,
       firstDayOfWeek,
-      weekends,
+      excludedDays,
     } = this.props;
 
     const timeScaleComputed = getTimeScale(startDayHour, endDayHour, cellDuration);
     const dayScaleComputed = ({ currentDate }) =>
-      getDayScale(currentDate, firstDayOfWeek, intervalCount * 7, weekends);
+      getDayScale(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
     const startViewDateComputed = ({ dayScale, timeScale }) => startViewDate(dayScale, timeScale);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDate(dayScale, timeScale);
 
@@ -150,7 +150,7 @@ WeekView.propTypes = {
   cellDuration: PropTypes.number,
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
-  weekends: PropTypes.array,
+  excludedDays: PropTypes.array,
 };
 
 WeekView.defaultProps = {
@@ -159,5 +159,5 @@ WeekView.defaultProps = {
   cellDuration: 30,
   intervalCount: 1,
   firstDayOfWeek: 0,
-  weekends: [],
+  excludedDays: [],
 };

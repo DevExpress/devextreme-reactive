@@ -1,37 +1,70 @@
-import { appointmentWithOffset } from './helpers';
+import moment from 'moment';
+import {
+  sortAppointments,
+  findOverlappedAppointments,
+  adjustAppointments,
+} from './helpers';
 
-describe('#appointmentWithOffset', () => {
-  it('should find appointments intersection', () => {
-    const appointments = [
-      { start: '2018-06-29 12:00', end: '2018-06-29 12:15', dataItem: 'appointment_2' },
-      { start: '2018-06-29 10:00', end: '2018-06-29 11:00', dataItem: 'appointment_0' },
-      { start: '2018-06-29 12:00', end: '2018-06-29 12:30', dataItem: 'appointment_3' },
-      { start: '2018-06-29 10:30', end: '2018-06-29 11:00', dataItem: 'appointment_1' },
-    ];
-    const result = appointmentWithOffset(appointments);
-    expect(result)
-      .toEqual([
-        { ...appointments[1], offset: 0 },
-        { ...appointments[3], overlapped: true, offset: 1 },
-        { ...appointments[2], offset: 0 },
-        { ...appointments[0], overlapped: true, offset: 1 },
-      ]);
+describe('Appointments helper', () => {
+  const appointments = [
+    { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
+    { start: moment('2018-07-02 10:30'), end: moment('2018-07-02 12:00') },
+    { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
+    { start: moment('2018-07-01 11:30'), end: moment('2018-07-01 12:00') },
+    { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 11:00') },
+    { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
+    { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
+  ];
+  const sortedAppointments = [
+    appointments[2], appointments[4], appointments[3],
+    appointments[0], appointments[1], appointments[5], appointments[6],
+  ];
+  const overlappedAppointments = [
+    [appointments[2], appointments[4], appointments[3]],
+    [appointments[0], appointments[1], appointments[5]],
+    [appointments[6]],
+  ];
+  describe('#sortAppointments', () => {
+    it('should sort appointments', () => {
+      expect(sortAppointments(appointments))
+        .toEqual(sortedAppointments);
+    });
   });
 
-  it('should find all appointments intersection', () => {
-    const appointments = [
-      { start: '2018-06-29 09:00', end: '2018-06-29 12:00', dataItem: 'appointment_0' },
-      { start: '2018-06-29 10:00', end: '2018-06-29 10:30', dataItem: 'appointment_1' },
-      { start: '2018-06-29 10:40', end: '2018-06-29 11:00', dataItem: 'appointment_2' },
-      { start: '2018-06-29 10:50', end: '2018-06-29 12:30', dataItem: 'appointment_3' },
-    ];
-    const result = appointmentWithOffset(appointments);
-    expect(result)
-      .toEqual([
-        { ...appointments[0], offset: 0 },
-        { ...appointments[1], overlapped: true, offset: 1 },
-        { ...appointments[2], overlapped: true, offset: 1 },
-        { ...appointments[3], overlapped: true, offset: 2 },
-      ]);
+  describe('#findOverlappedAppointments', () => {
+    it('should detect overlapped appointments', () => {
+      expect(findOverlappedAppointments(sortedAppointments))
+        .toEqual(overlappedAppointments);
+    });
+  });
+
+  describe('#adjustAppointments', () => {
+    it('should calculate appointment offset and reduce coefficient', () => {
+      expect(adjustAppointments(overlappedAppointments))
+        .toEqual([
+          {
+            items: [
+              { ...appointments[2], offset: 0 },
+              { ...appointments[4], offset: 1 },
+              { ...appointments[3], offset: 1 },
+            ],
+            reduceValue: 2,
+          },
+          {
+            items: [
+              { ...appointments[0], offset: 0 },
+              { ...appointments[1], offset: 1 },
+              { ...appointments[5], offset: 2 },
+            ],
+            reduceValue: 3,
+          },
+          {
+            items: [
+              { ...appointments[6], offset: 0 },
+            ],
+            reduceValue: 1,
+          },
+        ]);
+    });
   });
 });

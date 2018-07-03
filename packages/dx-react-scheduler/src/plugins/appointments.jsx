@@ -6,6 +6,7 @@ import {
   filteredAppointments,
   formattedAppointments,
   sliceAppointments,
+  appointmentsWithOffset,
 } from '@devexpress/dx-scheduler-core';
 
 const filterAppointmentsComputed = ({
@@ -31,6 +32,10 @@ const formattedAppointmentsComputed = ({
   getAppointmentStartDate,
   getAppointmentEndDate,
 );
+
+const appointmentsWithOffsetComputed = ({
+  appointments,
+}) => appointmentsWithOffset(appointments);
 
 const sliceAppointmentsComputed = ({
   appointments,
@@ -62,6 +67,32 @@ export class Appointments extends React.PureComponent {
         dateTableRef.querySelectorAll('td'),
       );
 
+    const appointmentsRendering = (appointments, getRect) => {
+      const renderedAppointments = [];
+      appointments.forEach(({ items, reduceValue }, index) => {
+        const renderedItems = items.map((appointment) => {
+          const {
+            top, left, width, height,
+          } = getRect(appointment.start, appointment.end);
+          return (
+            <Appointment
+              key={index.toString()}
+              top={top}
+              left={left + ((width / reduceValue) * appointment.offset)}
+              width={width / reduceValue}
+              height={height}
+              getTitle={getTitle}
+              getEndDate={getEndDate}
+              getStartDate={getStartDate}
+              appointment={appointment.dataItem}
+            />
+          );
+        });
+        renderedAppointments.push(...renderedItems);
+      });
+      return renderedAppointments;
+    };
+
     return (
       <Plugin name="Appointment">
         <Getter name="getAppointmentTitle" value={getTitle} />
@@ -70,6 +101,7 @@ export class Appointments extends React.PureComponent {
         <Getter name="data" computed={filterAppointmentsComputed} />
         <Getter name="appointments" computed={formattedAppointmentsComputed} />
         <Getter name="appointments" computed={sliceAppointmentsComputed} />
+        <Getter name="appointments" computed={appointmentsWithOffsetComputed} />
 
         <Getter name="getRect" computed={getRectComputed} />
 
@@ -80,24 +112,7 @@ export class Appointments extends React.PureComponent {
               getRect,
               dateTableRef,
               appointments,
-            }) => (dateTableRef ? appointments.map((appointment, index) => {
-                const {
-                  top, left, width, height,
-                } = getRect(appointment.start, appointment.end);
-                return (
-                  <Appointment
-                    key={index.toString()}
-                    top={top}
-                    left={left}
-                    width={width}
-                    height={height}
-                    getTitle={getTitle}
-                    getEndDate={getEndDate}
-                    getStartDate={getStartDate}
-                    appointment={appointment.dataItem}
-                  />
-                );
-              }) : null)}
+            }) => (dateTableRef ? (appointmentsRendering(appointments, getRect)) : null)}
           </TemplateConnector>
         </Template>
       </Plugin>

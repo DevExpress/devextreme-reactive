@@ -1,3 +1,12 @@
+import moment from 'moment';
+
+export const momentAppointments = formattedAppointments =>
+  formattedAppointments.map(appointment => ({
+    start: moment(appointment.start),
+    end: moment(appointment.end),
+    dataItem: appointment.dataItem,
+  }));
+
 export const sortAppointments = appointments =>
   appointments.slice().sort((a, b) => {
     if (a.start.isBefore(b.start)) return -1;

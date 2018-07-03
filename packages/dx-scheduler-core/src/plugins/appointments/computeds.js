@@ -1,4 +1,10 @@
 import moment from 'moment';
+import {
+  sortAppointments,
+  findOverlappedAppointments,
+  adjustAppointments,
+  momentAppointments,
+} from './helpers';
 
 export const filteredAppointments = (
   startViewDate,
@@ -24,6 +30,14 @@ export const filteredAppointments = (
     );
   })
 );
+
+export const appointmentsWithOffset = (appointments) => {
+  const mAppointments = momentAppointments(appointments);
+  const sorted = sortAppointments(mAppointments);
+  const groups = findOverlappedAppointments(sorted);
+  const withOffset = adjustAppointments(groups);
+  return withOffset;
+};
 
 export const formattedAppointments = (
   appointments,

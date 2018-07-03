@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorderColor } from '../utils';
 
@@ -7,6 +8,7 @@ const styles = theme => ({
   appointment: {
     position: 'absolute',
     display: 'block',
+    overflow: 'hidden',
     backgroundColor: theme.palette.primary[300],
     borderLeft: getBorderColor(theme),
     ...theme.typography.caption,
@@ -23,7 +25,10 @@ const styles = theme => ({
 const AppointmentBase = ({
   classes,
   children,
-  title,
+  getTitle,
+  getStartDate,
+  getEndDate,
+  appointment,
   top,
   left,
   width,
@@ -38,9 +43,18 @@ const AppointmentBase = ({
     {...restProps}
   >
     {children || (
-      <span>
-        {title}
-      </span>
+      <div>
+        <p>
+          {getTitle(appointment)}
+        </p>
+        <span>
+          {moment(getStartDate(appointment)).format('D MMM H:mmA')}
+        </span>
+        -
+        <span>
+          {moment(getEndDate(appointment)).format('D MMM H:mmA')}
+        </span>
+      </div>
     )}
   </div>
 );
@@ -48,7 +62,10 @@ const AppointmentBase = ({
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
-  title: PropTypes.string,
+  getTitle: PropTypes.func,
+  getStartDate: PropTypes.func,
+  getEndDate: PropTypes.func,
+  appointment: PropTypes.object,
   top: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
@@ -57,7 +74,10 @@ AppointmentBase.propTypes = {
 
 AppointmentBase.defaultProps = {
   children: null,
-  title: '',
+  getTitle: undefined,
+  getStartDate: undefined,
+  getEndDate: undefined,
+  appointment: undefined,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

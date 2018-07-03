@@ -18,7 +18,7 @@ describe('View computeds', () => {
       const units = timeScale(0, 1, 30, startDate);
       expect(units[0].start.toString()).toBe(startDate.toString());
     });
-    it('should return time units1', () => {
+    it('should return time units', () => {
       const units = timeScale(0, 24, 30, startDate);
       expect(units).toHaveLength(48);
       expect(units[0].start.getHours()).toBe(0);

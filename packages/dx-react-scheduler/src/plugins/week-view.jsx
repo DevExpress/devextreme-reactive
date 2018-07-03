@@ -74,6 +74,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
         <Getter name="cellDuration" value={cellDuration} />
+        <Getter name="excludedDays" value={excludedDays} />
         {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
 
         <Template name="body">

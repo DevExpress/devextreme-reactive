@@ -1,4 +1,9 @@
-import { filteredAppointments, sliceAppointments, formattedAppointments } from './computeds';
+import {
+  filteredAppointments,
+  sliceAppointments,
+  formattedAppointments,
+  sliceAppointmentsByDay,
+} from './computeds';
 
 describe('Appointment computeds', () => {
   describe('#filteredAppointments', () => {
@@ -31,7 +36,7 @@ describe('Appointment computeds', () => {
       ]);
     });
 
-    fit('should filter appointments from excluded days', () => {
+    it('should filter appointments from excluded days', () => {
       const appointments = [
         { start: new Date(2018, 6, 3, 9), end: new Date(2018, 6, 3, 11) }, // true
         { start: new Date(2018, 6, 4, 9), end: new Date(2018, 6, 5, 11) }, // true
@@ -162,6 +167,33 @@ describe('Appointment computeds', () => {
           dataItem: { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
         },
       ]);
+    });
+  });
+
+  describe('#sliceAppointmentsByDay', () => {
+    it('should slice appointment to two days', () => {
+      const appointments = [
+        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 28, 11), dataItem: {} },
+      ];
+      expect(sliceAppointmentsByDay(appointments))
+        .toEqual([
+          {
+            start: new Date(2018, 5, 27, 9),
+            end: new Date(2018, 5, 27, 23, 59, 59, 999),
+            dataItem: {},
+          },
+          { start: new Date(2018, 5, 28, 0), end: new Date(2018, 5, 28, 11), dataItem: {} },
+        ]);
+    });
+
+    it('should not slice appointment if it in one day', () => {
+      const appointments = [
+        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
+      ];
+      expect(sliceAppointmentsByDay(appointments))
+        .toEqual([
+          { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
+        ]);
     });
   });
 });

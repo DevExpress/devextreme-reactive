@@ -35,14 +35,14 @@ const predicate = (start, end, boundary, excludedDays) => {
     (start.isSameOrBefore(left) && end.isSameOrAfter(right))
   );
 
-  const isAppointmentInExcludedDays = !excludedIntervals(excludedDays, moment(left))
+  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (
       start.isBetween(...interval, null, '[]')
       &&
       end.isBetween(...interval, null, '[]')
     ));
 
-  return isAppointmentInBoundary && isAppointmentInExcludedDays;
+  return isAppointmentInBoundary && !isAppointmentInExcludedDays;
 };
 
 export const filteredAppointments = (
@@ -84,6 +84,21 @@ export const formattedAppointments = (
     end: getAppointmentEndDate(appointment),
     dataItem: appointment,
   }));
+
+export const sliceAppointmentsByDay = (appointments) => {
+  const result = appointments.reduce((acc, appointment) => {
+    const startDate = moment(appointment.start);
+    const endDate = moment(appointment.end);
+    if (startDate.isSame(endDate, 'day')) {
+      acc.push(appointment);
+    } else {
+      acc.push({ end: moment(startDate).endOf('day').toDate(), start: startDate.toDate(), dataItem: appointment.dataItem });
+      acc.push({ start: moment(endDate).startOf('day').toDate(), end: endDate.toDate(), dataItem: appointment.dataItem });
+    }
+    return acc;
+  }, []);
+  return result;
+};
 
 export const sliceAppointments = (appointments, startViewDate, endViewDate) => {
   const nextAppointments = [];

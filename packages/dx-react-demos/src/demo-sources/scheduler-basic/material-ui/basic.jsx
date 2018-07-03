@@ -52,8 +52,8 @@ export default class Demo extends React.PureComponent {
         endDate: new Date(2018, 5, 27, 11, 30),
       }, {
         title: 'I',
-        startDate: new Date(2018, 5, 27, 15, 30),
-        endDate: new Date(2018, 5, 28, 10),
+        startDate: new Date(2018, 5, 26, 15, 30),
+        endDate: new Date(2018, 5, 28, 9, 45),
       }],
       currentDate: new Date('2018-06-20'),
     };

@@ -52,11 +52,11 @@ export const endViewDate = (days, times) => {
   return startDate.toDate();
 };
 
-const getCellRect = (date, days, times, cellDuration, cellElements) => {
+const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getCellByDate(days, times, date);
+  } = getCellByDate(days, times, date, takePrev);
 
   const cellElement = cellElements[cellIndex];
   const {
@@ -85,8 +85,8 @@ export const getRectByDates = (
   cellDuration,
   cellElements,
 ) => {
-  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements);
-  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements);
+  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
+  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

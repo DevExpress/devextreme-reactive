@@ -15,5 +15,18 @@ describe('Helpers', () => {
       expect(startDate.toString())
         .toBe(new Date(2018, 5, 25, 8, 30).toString());
     });
+
+    it('should calculate cell index by takePref property', () => {
+      const times = [
+        { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+        { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+      ];
+      const takePrev = true;
+      const days = [new Date(2018, 5, 26)];
+      expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30), takePrev).index)
+        .toBe(0);
+      expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30)).index)
+        .toBe(1);
+    });
   });
 });

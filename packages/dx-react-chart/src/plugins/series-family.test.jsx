@@ -30,7 +30,7 @@ describe('Series Family', () => {
     ));
 
     expect(getComputedState(tree)).toEqual({
-      processingData: processData,
+      processingData: 'processData',
       series: 'seriesWithStacks',
       stacks: 'stacks',
     });

@@ -1,18 +1,18 @@
 import {
   stack,
   stackOrderNone,
-  stackOffsetNone,
+  stackOffsetDiverging,
 } from 'd3-shape';
 import { seriesWithStacks, processData, stacks } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
   stackOrderNone: jest.fn(),
-  stackOffsetNone: jest.fn(),
+  stackOffsetDiverging: jest.fn(),
 }));
 
 const mockStackOrderNone = jest.fn();
-const mockStackOffsetNone = jest.fn();
+const mockStackOffsetDiverging = jest.fn();
 
 const mockStack = jest.fn().mockReturnThis();
 mockStack.keys = jest.fn().mockReturnThis();
@@ -27,6 +27,13 @@ describe('stacks', () => {
   it('should return stacks', () => {
     const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
     expect(stacks(series)).toEqual(['one', 'two']);
+  });
+
+  it('should return user stacks', () => {
+    const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
+    const userCallback = jest.fn(({ name, stack: sereisStack }) => (name === '1' ? sereisStack : undefined));
+    expect(stacks(series, userCallback)).toEqual(['one']);
+    expect(userCallback).toHaveBeenCalledTimes(2);
   });
 });
 
@@ -47,7 +54,7 @@ describe('processData', () => {
   beforeAll(() => {
     stack.mockImplementation(() => mockStack);
     stackOrderNone.mockImplementation(() => mockStackOrderNone);
-    stackOffsetNone.mockImplementation(() => mockStackOffsetNone);
+    stackOffsetDiverging.mockImplementation(() => mockStackOffsetDiverging);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -67,12 +74,12 @@ describe('processData', () => {
     ];
     const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
 
-    const processedData = processData(series, data);
+    const processedData = processData()(series, data);
 
     expect(stack).toHaveBeenCalledTimes(2);
     expect(mockStack.keys).toHaveBeenCalledWith(['val', 'val']);
     expect(mockStack.order).toHaveBeenCalledWith(stackOrderNone);
-    expect(mockStack.offset).toHaveBeenCalledWith(stackOffsetNone);
+    expect(mockStack.offset).toHaveBeenCalledWith(stackOffsetDiverging);
 
     expect(processedData).toEqual([{
       arg: 1,
@@ -93,5 +100,26 @@ describe('processData', () => {
       'val-s2-stack': [5, 6],
       'val-s3-stack': [15, 16],
     }]);
+  });
+
+  it('should be called with user offsets and order of stacks', () => {
+    const series = [
+      {
+        name: 's1', stack: 'one', argumentField: 'arg', valueField: 'val',
+      },
+      {
+        name: 's2', stack: 'two', argumentField: 'arg', valueField: 'val',
+      },
+      {
+        name: 's3', stack: 'two', argumentField: 'arg', valueField: 'val',
+      },
+    ];
+    const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
+    const offset = jest.fn();
+    const order = jest.fn();
+    processData(offset, order)(series, data);
+
+    expect(mockStack.order).toHaveBeenCalledWith(order);
+    expect(mockStack.offset).toHaveBeenCalledWith(offset);
   });
 });

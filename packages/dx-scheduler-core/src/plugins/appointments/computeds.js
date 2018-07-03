@@ -25,13 +25,32 @@ export const filteredAppointments = (
   })
 );
 
+export const formattedAppointments = (
+  appointments,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+) =>
+  appointments.map(appointment => ({
+    start: getAppointmentStartDate(appointment),
+    end: getAppointmentEndDate(appointment),
+    dataItem: appointment,
+  }));
+
 export const sliceAppointments = (appointments, startViewDate, endViewDate) => {
   const nextAppointments = [];
   appointments.forEach((appointment) => {
-    const appointmentStartViewStart = moment(startViewDate).date(moment(appointment.start).date());
-    const appointmentStartViewEnd = moment(endViewDate).date(moment(appointment.start).date());
-    const appointmentEndViewStart = moment(startViewDate).date(moment(appointment.end).date());
-    const appointmentEndViewEnd = moment(endViewDate).date(moment(appointment.end).date());
+    const appointmentStartViewStart = moment(appointment.start)
+      .hour(moment(startViewDate).hour())
+      .minutes(moment(startViewDate).minutes());
+    const appointmentStartViewEnd = moment(appointment.start)
+      .hour(moment(endViewDate).hour())
+      .minutes(moment(endViewDate).minutes());
+    const appointmentEndViewStart = moment(appointment.end)
+      .hour(moment(startViewDate).hour())
+      .minutes(moment(startViewDate).minutes());
+    const appointmentEndViewEnd = moment(appointment.end)
+      .hour(moment(endViewDate).hour())
+      .minutes(moment(endViewDate).minutes());
 
     if (moment(appointment.start).isBefore(startViewDate)) { // start before startViewDate
       if (moment(appointment.end).isBefore(appointmentEndViewEnd)) {

@@ -1,4 +1,4 @@
-import { filteredAppointments, sliceAppointments } from './computeds';
+import { filteredAppointments, sliceAppointments, formattedAppointments } from './computeds';
 
 describe('Appointment computeds', () => {
   describe('#filteredAppointments', () => {
@@ -90,6 +90,50 @@ describe('Appointment computeds', () => {
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 27, 14), end: new Date(2018, 5, 27, 15), dataItem: {} },
         { start: new Date(2018, 5, 28, 10), end: new Date(2018, 5, 28, 12), dataItem: {} },
+      ]);
+    });
+
+    it('should slice if two different months', () => {
+      const appointments = [
+        { start: new Date(2018, 5, 29, 14), end: new Date(2018, 5, 30, 12), dataItem: {} },
+      ];
+      const startView = new Date(2018, 5, 29, 10);
+      const endView = new Date(2018, 6, 1, 15);
+      const slicedAppointments = sliceAppointments(appointments, startView, endView, timeScale);
+
+      expect(slicedAppointments).toEqual([
+        { start: new Date(2018, 5, 29, 14), end: new Date(2018, 5, 29, 15), dataItem: {} },
+        { start: new Date(2018, 5, 30, 10), end: new Date(2018, 5, 30, 12), dataItem: {} },
+      ]);
+    });
+  });
+
+  describe('#formattedAppointments', () => {
+    const getAppointmentStartDate = appointment => appointment.startField;
+    const getAppointmentEndDate = appointment => appointment.endField;
+    const appointments = [
+      { startField: new Date(2018, 5, 27, 9), endField: new Date(2018, 5, 27, 11) },
+      { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
+    ];
+
+    it('should work', () => {
+      const filtered = formattedAppointments(
+        appointments,
+        getAppointmentStartDate,
+        getAppointmentEndDate,
+      );
+
+      expect(filtered).toEqual([
+        {
+          start: new Date(2018, 5, 27, 9),
+          end: new Date(2018, 5, 27, 11),
+          dataItem: { startField: new Date(2018, 5, 27, 9), endField: new Date(2018, 5, 27, 11) },
+        },
+        {
+          start: new Date(2018, 5, 27, 11),
+          end: new Date(2018, 5, 27, 16),
+          dataItem: { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
+        },
       ]);
     });
   });

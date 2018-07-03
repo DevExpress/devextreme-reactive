@@ -7,12 +7,14 @@ const filterAppointmentsComputed = ({
   data,
   startViewDate,
   endViewDate,
+  excludedDays,
   getAppointmentEndDate,
   getAppointmentStartDate,
 }) => filteredAppointments(
+  data,
   startViewDate,
   endViewDate,
-  data,
+  excludedDays,
   getAppointmentStartDate,
   getAppointmentEndDate,
 );

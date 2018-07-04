@@ -2,9 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
-  ValueAxis,
   AreaSeries,
-  Grid,
   Legend,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -30,19 +28,16 @@ const Area = (props) => {
       ...restProps
     } = props;
 
-    const path = area()
-        .x(getX)
-        .y1(getY)
-        .y0(getY1)
-        .curve(curveCatmullRom);
-
     return (
       <path
         fill={themeColor}
         transform={`translate(${x} ${y})`}
-        d={path(coordinates)}
+        d={area()
+        .x(getX)
+        .y1(getY)
+        .y0(getY1)
+        .curve(curveCatmullRom)(coordinates)}
         opacity={0.5}
-        {...restProps}
       />
     );
 }
@@ -63,33 +58,26 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argument" type="band" />
-          <ValueAxis name="value" />
-
-          <Grid name="argument" />
-          <Grid name="value" />
+          <ArgumentAxis name="argument" />
 
           <AreaSeries
             name="Mysteries"
             valueField="mysteries"
             argumentField="month"
-            axisName="value"
             seriesComponent={Area}
             stack="a"
           />
           <AreaSeries
+            name="Science Fiction"
             valueField="scienceFiction"
             argumentField="month"
-            axisName="value"
-            stack="a"
             seriesComponent={Area}
-            name="Science Fiction"
+            stack="a"
           />
           <AreaSeries
             name="Romance"
             valueField="romance"
             argumentField="month"
-            axisName="value"
             seriesComponent={Area}
             stack="a"
           />
@@ -97,7 +85,6 @@ export default class Demo extends React.PureComponent {
             name="Fantasy"
             valueField="fantasy"
             argumentField="month"
-            axisName="value"
             seriesComponent={Area}
             stack="a"
           />
@@ -105,7 +92,6 @@ export default class Demo extends React.PureComponent {
             name="Thrillers"
             valueField="thrillers"
             argumentField="month"
-            axisName="value"
             seriesComponent={Area}
             stack="a"
           />

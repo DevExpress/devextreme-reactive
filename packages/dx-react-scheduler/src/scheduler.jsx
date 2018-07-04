@@ -20,7 +20,7 @@ export const Scheduler = ({
 );
 
 Scheduler.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   currentDate: PropTypes.oneOfType([
     PropTypes.instanceOf(Date),
     PropTypes.string,
@@ -31,5 +31,6 @@ Scheduler.propTypes = {
 
 Scheduler.defaultProps = {
   children: undefined,
+  data: [],
   currentDate: new Date(),
 };

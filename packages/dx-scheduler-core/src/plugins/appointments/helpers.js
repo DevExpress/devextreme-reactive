@@ -1,5 +1,27 @@
 import moment from 'moment';
 
+export const getCellByDate = (days, times, date, takePrev = false) => {
+  const rowIndex = times.findIndex((timeCell) => {
+    const startTime = moment(timeCell.start);
+    const endTime = moment(timeCell.end);
+    const cellStart = moment(date).hour(startTime.hours()).minutes(startTime.minutes());
+    const cellEnd = moment(date).hour(endTime.hours()).minutes(endTime.minutes());
+    return moment(date).isBetween(cellStart, cellEnd, null, takePrev ? '(]' : '[)');
+  });
+
+  const cellIndex = days.findIndex(day => moment(date).isSame(day, 'date'));
+  const cellStartTime = moment(times[rowIndex].start);
+  const cellStartDate = moment(days[cellIndex])
+    .hour(cellStartTime.hours())
+    .minutes(cellStartTime.minutes())
+    .toDate();
+  const totalCellIndex = (rowIndex * days.length) + cellIndex;
+  return {
+    index: totalCellIndex,
+    startDate: cellStartDate,
+  };
+};
+
 export const filterAppointmentsByBoundary = (
   appointments,
   startViewDate,
@@ -134,3 +156,42 @@ export const adjustAppointments = groups => groups.map((items) => {
   }
   return { items: appointments, reduceValue };
 });
+
+const createExcludedInterval = (day, start) => {
+  const leftBound = moment(start.day(day));
+  return [
+    leftBound,
+    moment(leftBound).hour(start.hour()).endOf('day'),
+  ];
+};
+
+const excludedIntervals = (excludedDays, start) => excludedDays
+  .map(day => (day === 0 ? 7 : day))
+  .sort()
+  .reduce((acc, day, i, allDays) => {
+    if (i && day === allDays[i - 1] + 1) {
+      acc[i - 1][1].day(day);
+    } else {
+      acc.push(createExcludedInterval(day, start));
+    }
+    return acc;
+  }, []);
+
+export const predicate = (start, end, boundary, excludedDays) => {
+  const { left, right } = boundary;
+
+  const isAppointmentInBoundary = (
+    start.isBetween(left, right) || end.isBetween(left, right)
+    ||
+    (start.isSameOrBefore(left) && end.isSameOrAfter(right))
+  );
+
+  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
+    .find(interval => (
+      start.isBetween(...interval, null, '[]')
+      &&
+      end.isBetween(...interval, null, '[]')
+    ));
+
+  return isAppointmentInBoundary && !isAppointmentInExcludedDays;
+};

@@ -1,12 +1,27 @@
+import { getCellByDate, predicate } from './helpers';
 import {
   filteredAppointments,
   sliceAppointments,
   formattedAppointments,
   sliceAppointmentsByDay,
+  getRectByDates,
 } from './computeds';
+
+jest.mock('./helpers', () => ({
+  getCellByDate: jest.fn(),
+  predicate: jest.fn(),
+}));
 
 describe('Appointment computeds', () => {
   describe('#filteredAppointments', () => {
+    beforeEach(() => {
+      predicate
+        .mockImplementationOnce(() => true)
+        .mockImplementationOnce(() => false);
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
     const getAppointmentStartDate = appointment => appointment.start;
     const getAppointmentEndDate = appointment => appointment.end;
 
@@ -14,10 +29,6 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11) },
         { start: new Date(2018, 5, 27, 11), end: new Date(2018, 5, 27, 16) },
-        { start: new Date(2018, 5, 27, 11), end: new Date(2018, 5, 27, 12) },
-        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 16) },
-        { start: new Date(2018, 5, 27, 8), end: new Date(2018, 5, 27, 9) },
-        { start: new Date(2018, 5, 27, 16), end: new Date(2018, 5, 27, 17) },
       ];
       const filtered = filteredAppointments(
         appointments,
@@ -29,38 +40,7 @@ describe('Appointment computeds', () => {
       );
 
       expect(filtered).toEqual([
-        appointments[0],
-        appointments[1],
-        appointments[2],
-        appointments[3],
-      ]);
-    });
-
-    it('should filter appointments from excluded days', () => {
-      const appointments = [
-        { start: new Date(2018, 6, 3, 9), end: new Date(2018, 6, 3, 11) }, // true
-        { start: new Date(2018, 6, 4, 9), end: new Date(2018, 6, 5, 11) }, // true
-        { start: new Date(2018, 6, 5, 9), end: new Date(2018, 6, 5, 11) }, // false
-        { start: new Date(2018, 6, 5, 9), end: new Date(2018, 6, 6, 11) }, // true
-        { start: new Date(2018, 6, 7, 9), end: new Date(2018, 6, 7, 9) }, // false
-        { start: new Date(2018, 6, 7, 9), end: new Date(2018, 6, 8, 10) }, // false
-        { start: new Date(2018, 6, 5, 9), end: new Date(2018, 6, 7, 10) }, // true
-      ];
-
-      const filtered = filteredAppointments(
-        appointments,
-        new Date(2018, 6, 2),
-        new Date(2018, 6, 8, 23, 59),
-        [4, 6, 0],
-        getAppointmentStartDate,
-        getAppointmentEndDate,
-      );
-
-      expect(filtered).toEqual([
-        appointments[0],
-        appointments[1],
-        appointments[3],
-        appointments[6],
+        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11) },
       ]);
     });
   });
@@ -73,7 +53,8 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 26, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
       ];
-      const slicedAppointments = sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
+      const slicedAppointments =
+        sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
 
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 27, 10), end: new Date(2018, 5, 27, 11), dataItem: {} },
@@ -84,7 +65,8 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 29, 12), end: new Date(2018, 5, 30, 11), dataItem: {} },
       ];
-      const slicedAppointments = sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
+      const slicedAppointments =
+        sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
 
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 29, 12), end: new Date(2018, 5, 29, 15), dataItem: {} },
@@ -95,7 +77,8 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 26, 12), end: new Date(2018, 5, 27, 16), dataItem: {} },
       ];
-      const slicedAppointments = sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
+      const slicedAppointments =
+        sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
 
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 27, 10), end: new Date(2018, 5, 27, 15), dataItem: {} },
@@ -106,7 +89,8 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 26, 12), end: new Date(2018, 5, 27, 16), dataItem: {} },
       ];
-      const slicedAppointments = sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
+      const slicedAppointments =
+        sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
 
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 27, 10), end: new Date(2018, 5, 27, 15), dataItem: {} },
@@ -117,7 +101,8 @@ describe('Appointment computeds', () => {
       const appointments = [
         { start: new Date(2018, 5, 27, 14), end: new Date(2018, 5, 28, 12), dataItem: {} },
       ];
-      const slicedAppointments = sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
+      const slicedAppointments =
+        sliceAppointments(appointments, startViewDate, endViewDate, timeScale);
 
       expect(slicedAppointments).toEqual([
         { start: new Date(2018, 5, 27, 14), end: new Date(2018, 5, 27, 15), dataItem: {} },
@@ -194,6 +179,62 @@ describe('Appointment computeds', () => {
         .toEqual([
           { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
         ]);
+    });
+  });
+
+  describe('#getRectByDates', () => {
+    beforeEach(() => {
+      getCellByDate
+        .mockImplementationOnce(() => ({ index: 0, startDate: new Date(2018, 5, 25, 8, 30) }))
+        .mockImplementationOnce(() => ({ index: 1, startDate: new Date(2018, 5, 25, 9) }));
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+    const offsetParent = {
+      getBoundingClientRect: () => ({
+        top: 10, left: 10,
+      }),
+    };
+    const cellElements = [{
+      getBoundingClientRect: () => ({
+        top: 10, left: 20, width: 100, height: 100,
+      }),
+      offsetParent,
+    }, {
+      getBoundingClientRect: () => ({
+        top: 110, left: 20, width: 100, height: 100,
+      }),
+      offsetParent,
+    }];
+
+    it('should calculate geometry by dates', () => {
+      const times = [
+        { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+        { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+        { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
+        { start: new Date(2017, 6, 20, 9, 30), end: new Date(2017, 6, 20, 10, 0) },
+      ];
+      const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
+      const cellDuration = 30;
+      const startDate = new Date(2018, 5, 25, 8, 45);
+      const endDate = new Date(2018, 5, 25, 9, 15);
+
+      const {
+        top, left, height, width,
+      } = getRectByDates(
+        startDate,
+        endDate,
+        days,
+        times,
+        cellDuration,
+        cellElements,
+      );
+
+      expect(top).toBe(50);
+      expect(left).toBe(10);
+      expect(height).toBe(100);
+      expect(width).toBe(85);
     });
   });
 });

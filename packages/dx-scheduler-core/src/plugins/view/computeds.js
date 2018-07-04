@@ -1,7 +1,4 @@
 import moment from 'moment';
-import { getCellByDate } from './helpers';
-
-const CELL_GAP = 0.15;
 
 export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate) => {
   const result = [];
@@ -12,7 +9,6 @@ export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate)
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-
   return result;
 };
 
@@ -32,7 +28,6 @@ export const dayScale = (
     }
     date.add(1, 'days');
   }
-
   return result;
 };
 
@@ -50,51 +45,4 @@ export const endViewDate = (days, times) => {
     .hour(lastTimeOfRange.hours())
     .minute(lastTimeOfRange.minutes());
   return startDate.toDate();
-};
-
-const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
-  const {
-    index: cellIndex,
-    startDate: cellStartDate,
-  } = getCellByDate(days, times, date, takePrev);
-
-  const cellElement = cellElements[cellIndex];
-  const {
-    top,
-    left,
-    width,
-    height: cellHeight,
-  } = cellElement.getBoundingClientRect();
-  const timeOffset = moment(date).diff(cellStartDate, 'minutes');
-  const topOffset = cellHeight * (timeOffset / cellDuration);
-
-  return {
-    top,
-    left,
-    width,
-    topOffset,
-    parentRect: cellElement.offsetParent.getBoundingClientRect(),
-  };
-};
-
-export const getRectByDates = (
-  startDate,
-  endDate,
-  days,
-  times,
-  cellDuration,
-  cellElements,
-) => {
-  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
-  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
-
-  const top = firstCellRect.top + firstCellRect.topOffset;
-  const height = (lastCellRect.top + lastCellRect.topOffset) - top;
-
-  return {
-    width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
-    top: top - firstCellRect.parentRect.top,
-    left: firstCellRect.left - firstCellRect.parentRect.left,
-    height,
-  };
 };

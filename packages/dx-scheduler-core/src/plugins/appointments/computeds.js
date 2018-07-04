@@ -4,45 +4,57 @@ import {
   findOverlappedAppointments,
   adjustAppointments,
   momentAppointments,
+  getCellByDate,
+  predicate,
 } from './helpers';
 
-const createExcludedInterval = (day, start) => {
-  const leftBound = moment(start.day(day));
-  return [
-    leftBound,
-    moment(leftBound).hour(start.hour()).endOf('day'),
-  ];
+const CELL_GAP = 0.15;
+
+const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
+  const {
+    index: cellIndex,
+    startDate: cellStartDate,
+  } = getCellByDate(days, times, date, takePrev);
+
+  const cellElement = cellElements[cellIndex];
+  const {
+    top,
+    left,
+    width,
+    height: cellHeight,
+  } = cellElement.getBoundingClientRect();
+  const timeOffset = moment(date).diff(cellStartDate, 'minutes');
+  const topOffset = cellHeight * (timeOffset / cellDuration);
+
+  return {
+    top,
+    left,
+    width,
+    topOffset,
+    parentRect: cellElement.offsetParent.getBoundingClientRect(),
+  };
 };
 
-const excludedIntervals = (excludedDays, start) => excludedDays
-  .map(day => (day === 0 ? 7 : day))
-  .sort()
-  .reduce((acc, day, i, allDays) => {
-    if (i && day === allDays[i - 1] + 1) {
-      acc[i - 1][1].day(day);
-    } else {
-      acc.push(createExcludedInterval(day, start));
-    }
-    return acc;
-  }, []);
+export const getRectByDates = (
+  startDate,
+  endDate,
+  days,
+  times,
+  cellDuration,
+  cellElements,
+) => {
+  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
+  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
 
-const predicate = (start, end, boundary, excludedDays) => {
-  const { left, right } = boundary;
+  const top = firstCellRect.top + firstCellRect.topOffset;
+  const height = (lastCellRect.top + lastCellRect.topOffset) - top;
 
-  const isAppointmentInBoundary = (
-    start.isBetween(left, right) || end.isBetween(left, right)
-    ||
-    (start.isSameOrBefore(left) && end.isSameOrAfter(right))
-  );
-
-  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
-    .find(interval => (
-      start.isBetween(...interval, null, '[]')
-      &&
-      end.isBetween(...interval, null, '[]')
-    ));
-
-  return isAppointmentInBoundary && !isAppointmentInExcludedDays;
+  return {
+    width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
+    top: top - firstCellRect.parentRect.top,
+    left: firstCellRect.left - firstCellRect.parentRect.left,
+    height,
+  };
 };
 
 export const filteredAppointments = (
@@ -143,11 +155,24 @@ export const sliceAppointments = (appointments, startViewDate, endViewDate) => {
     } else if (moment(appointment.start).isBefore(appointmentStartViewEnd)) {
       if (moment(appointment.end).isBefore(appointmentStartViewEnd)) {
         nextAppointments.push(appointment);
-      } else if (moment(appointment.end).isAfter(appointmentStartViewEnd) && moment(appointment.end).isBefore(appointmentEndViewStart)) {
-        nextAppointments.push({ dataItem: appointment.dataItem, start: appointment.start, end: appointmentStartViewEnd.toDate() });
+      } else if (moment(appointment.end).isAfter(appointmentStartViewEnd)
+        && moment(appointment.end).isBefore(appointmentEndViewStart)) {
+        nextAppointments.push({
+          dataItem: appointment.dataItem,
+          start: appointment.start,
+          end: appointmentStartViewEnd.toDate(),
+        });
       } else {
-        nextAppointments.push({ dataItem: appointment.dataItem, start: appointment.start, end: appointmentStartViewEnd.toDate() });
-        nextAppointments.push({ dataItem: appointment.dataItem, start: appointmentEndViewStart.toDate(), end: appointment.end });
+        nextAppointments.push({
+          dataItem: appointment.dataItem,
+          start: appointment.start,
+          end: appointmentStartViewEnd.toDate(),
+        });
+        nextAppointments.push({
+          dataItem: appointment.dataItem,
+          start: appointmentEndViewStart.toDate(),
+          end: appointment.end,
+        });
       }
     }
   });

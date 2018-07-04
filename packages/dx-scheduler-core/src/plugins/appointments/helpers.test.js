@@ -5,6 +5,8 @@ import {
   adjustAppointments,
   filterAppointmentsByBoundary,
   cutDayAppointments,
+  getCellByDate,
+  predicate,
 } from './helpers';
 
 describe('Appointments helper', () => {
@@ -69,6 +71,38 @@ describe('Appointments helper', () => {
         ]);
     });
   });
+
+  describe('Helpers', () => {
+    describe('#getCellByDate', () => {
+      it('should calculate cell index and start date', () => {
+        const times = [
+          { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+          { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+          { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
+        ];
+        const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
+        const { index, startDate } = getCellByDate(days, times, new Date(2018, 5, 25, 8, 30));
+        expect(index)
+          .toBe(4);
+        expect(startDate.toString())
+          .toBe(new Date(2018, 5, 25, 8, 30).toString());
+      });
+
+      it('should calculate cell index by takePref property', () => {
+        const times = [
+          { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+          { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+        ];
+        const takePrev = true;
+        const days = [new Date(2018, 5, 26)];
+        expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30), takePrev).index)
+          .toBe(0);
+        expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30)).index)
+          .toBe(1);
+      });
+    });
+  });
+
 
   describe('#filterAppointmentsByBoundary', () => {
     it('should remove appointment if it is excluded day', () => {
@@ -219,6 +253,27 @@ describe('Appointments helper', () => {
         .toEqual([
           { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
         ]);
+    });
+  });
+
+  describe('#predicate', () => {
+    it('should filter appointments from excluded days', () => {
+      const boundary = { left: new Date(2018, 6, 2), right: new Date(2018, 6, 8, 23, 59) };
+      const excludedDays = [4, 6, 0];
+      const items = [
+        { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)), v: true },
+        { start: moment(new Date(2018, 6, 4, 9)), end: moment(new Date(2018, 6, 5, 11)), v: true },
+        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 5, 11)), v: false },
+        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 11)), v: true },
+        { start: moment(new Date(2018, 6, 7, 9)), end: moment(new Date(2018, 6, 7, 9)), v: false },
+        { start: moment(new Date(2018, 6, 7, 9)), end: moment(new Date(2018, 6, 8, 10)), v: false },
+        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 7, 10)), v: true },
+      ];
+
+      items.forEach((item) => {
+        expect(predicate(item.start, item.end, boundary, excludedDays))
+          .toBe(item.v);
+      });
     });
   });
 });

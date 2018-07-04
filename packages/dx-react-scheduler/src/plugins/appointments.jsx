@@ -3,47 +3,25 @@ import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
 import {
   getRectByDates,
-  filteredAppointments,
-  formattedAppointments,
-  sliceAppointments,
-  appointmentsWithOffset,
+  appointmentsWithCoordinates,
 } from '@devexpress/dx-scheduler-core';
 
-const filterAppointmentsComputed = ({
-  data,
-  startViewDate,
-  endViewDate,
-  excludedDays,
-  getAppointmentEndDate,
-  getAppointmentStartDate,
-}) => filteredAppointments(
+const appointmentsWithCoordinatesComputed = ({
   data,
   startViewDate,
   endViewDate,
   excludedDays,
   getAppointmentStartDate,
   getAppointmentEndDate,
-);
-
-const formattedAppointmentsComputed = ({
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-}) => formattedAppointments(
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-);
-
-const appointmentsWithOffsetComputed = ({
-  appointments,
-}) => appointmentsWithOffset(appointments);
-
-const sliceAppointmentsComputed = ({
-  appointments,
-  startViewDate,
-  endViewDate,
-}) => sliceAppointments(appointments, startViewDate, endViewDate);
+}) =>
+  appointmentsWithCoordinates(
+    data,
+    startViewDate,
+    endViewDate,
+    excludedDays,
+    getAppointmentStartDate,
+    getAppointmentEndDate,
+  );
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -100,11 +78,8 @@ export class Appointments extends React.PureComponent {
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
-        <Getter name="data" computed={filterAppointmentsComputed} />
-        <Getter name="appointments" computed={formattedAppointmentsComputed} />
-        <Getter name="appointments" computed={sliceAppointmentsComputed} />
-        <Getter name="appointments" computed={appointmentsWithOffsetComputed} />
 
+        <Getter name="appointments" computed={appointmentsWithCoordinatesComputed} />
         <Getter name="getRect" computed={getRectComputed} />
 
         <Template name="main">

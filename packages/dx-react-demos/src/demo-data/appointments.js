@@ -5,8 +5,8 @@ export const appointments = [
     endDate: new Date(2018, 5, 25, 10, 15),
   }, {
     title: 'Install New Router in Dev Room',
-    startDate: new Date(2018, 5, 27, 14),
-    endDate: new Date(2018, 5, 25, 15),
+    startDate: new Date(2018, 5, 25, 14),
+    endDate: new Date(2018, 5, 27, 15),
   }, {
     title: 'Approve Personal Computer Upgrade Plan',
     startDate: new Date(2018, 5, 29, 10, 45),

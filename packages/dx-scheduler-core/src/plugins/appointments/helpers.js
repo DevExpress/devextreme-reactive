@@ -79,7 +79,7 @@ export const cutDayAppointments = (appointments, startViewDate, endViewDate) => 
         start: startDayTime.toDate(), end: endDayTime.toDate(), dataItem: appointment.dataItem,
       });
     }
-    if (appointmentStart.isSameOfAfter(startDayTime)
+    if (appointmentStart.isSameOrAfter(startDayTime)
       && appointmentEnd.isSameOrAfter(endDayTime)) {
       return ({
         start: appointment.start, end: endDayTime.toDate(), dataItem: appointment.dataItem,

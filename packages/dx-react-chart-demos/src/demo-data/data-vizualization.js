@@ -25,6 +25,45 @@ export const born = [
   },
 ];
 
+export const booksSale = [
+  {
+    month: 'january', mysteries: 10, scienceFiction: 8, romance: 3, fantasy: 12, thrillers: 20,
+  },
+  {
+    month: 'february', mysteries: 3, scienceFiction: 15, romance: 0, fantasy: 30, thrillers: 10,
+  },
+  {
+    month: 'march', mysteries: 1, scienceFiction: 5, romance: 1, fantasy: 24, thrillers: 16,
+  },
+  {
+    month: 'april', mysteries: 11, scienceFiction: 6, romance: 12, fantasy: 14, thrillers: 19,
+  },
+  {
+    month: 'may', mysteries: 4, scienceFiction: 18, romance: 25, fantasy: 22, thrillers: 16,
+  },
+  {
+    month: 'june', mysteries: 23, scienceFiction: 1, romance: 12, fantasy: 2, thrillers: 5,
+  },
+  {
+    month: 'july', mysteries: 13, scienceFiction: 6, romance: 3, fantasy: 4, thrillers: 6,
+  },
+  {
+    month: 'august', mysteries: 10, scienceFiction: 11, romance: 19, fantasy: 9, thrillers: 7,
+  },
+  {
+    month: 'september', mysteries: 9, scienceFiction: 7, romance: 16, fantasy: 38, thrillers: 11,
+  },
+  {
+    month: 'oktober', mysteries: 12, scienceFiction: 21, romance: 7, fantasy: 31, thrillers: 17,
+  },
+  {
+    month: 'november', mysteries: 3, scienceFiction: 9, romance: 4, fantasy: 13, thrillers: 1,
+  },
+  {
+    month: 'december', mysteries: 7, scienceFiction: 12, romance: 23, fantasy: 7, thrillers: 3,
+  },
+];
+
 export const ageStructure = [{
   state: 'Germany',
   young: 6.7,

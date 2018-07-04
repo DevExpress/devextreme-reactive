@@ -26,7 +26,6 @@ columnExtensions? | Array&lt;[DxEditingState.ColumnExtension](#dxeditingstatecol
 editingRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 addedRows? | Array&lt;any&gt; | | Created but not committed rows.
 rowChanges? | { [key: string]: any } | | Not committed row changes.
-deletedRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows prepared for deletion.
 
 ### Events
 
@@ -35,9 +34,7 @@ Name | Type | Default | Description
 update:addedRows? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.
 update:editingRowIds? | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
 update:rowChanges? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-update:deletedRowIds? | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
-commitChanges | (changes: Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-
+commitChanges | (changes: Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
 
@@ -83,9 +80,6 @@ rowChanges | Getter | { [key: string]: any } | An associative array that stores 
 changeRow | Action | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `rowChanges` array.
 cancelChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows' data from the `rowChanges` array.
 commitChangedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `commitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `rowChanges` array.
-deletedRowIds | Getter | Array&lt;number &#124; string&gt; | Rows prepared for deletion.
-deleteRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Adds rows the ID specifies to the `deletedRowIds` array.
-cancelDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes the specified rows from the `deletedRowIds` array.
-commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `commitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `deletedRowIds` array.
+commitDeletedRows | Action | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `commitChanges` event with the corresponding [ChangeSet](#changeset).
 createRowChange | Getter | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the column's editor values for the current row. This function is called each time the editor's value changes.
 isColumnEditingEnabled | Getter | (columnName: string) => boolean |  A function that returns a value that specifies if editing by a column is enabled.

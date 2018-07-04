@@ -8,6 +8,7 @@ import {
   predicate,
   filterAppointmentsByBoundary,
   cutDayAppointments,
+  removeAllDayAppointments,
 } from './helpers';
 
 const CELL_GAP = 0.15;
@@ -107,7 +108,14 @@ export const sliceAppointmentsByDay = (appointments) => {
 };
 
 /* MAIN */
-export const appointmentsWithCoordinates = (appointments, startViewDate, endViewDate, excludedDays, getAppointmentStartDate, getAppointmentEndDate) => {
+export const appointmentsWithCoordinates = (
+  appointments,
+  startViewDate,
+  endViewDate,
+  excludedDays,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+) => {
   const filteredByViewAppointments =
     filteredAppointments(
       appointments,
@@ -118,9 +126,15 @@ export const appointmentsWithCoordinates = (appointments, startViewDate, endView
       getAppointmentEndDate,
     );
   const formattedAppointments2 =
-    formattedAppointments(filteredByViewAppointments, getAppointmentStartDate, getAppointmentEndDate);
+    formattedAppointments(
+      filteredByViewAppointments,
+      getAppointmentStartDate,
+      getAppointmentEndDate,
+    );
+  const removedAllDayAppointments =
+    removeAllDayAppointments(formattedAppointments2);
   const slicedByDayAppointments =
-    sliceAppointmentsByDay(formattedAppointments2);
+    sliceAppointmentsByDay(removedAllDayAppointments);
   const filteredByBoundarysAppointments =
     filterAppointmentsByBoundary(
       slicedByDayAppointments,

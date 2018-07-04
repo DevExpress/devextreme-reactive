@@ -38,15 +38,19 @@ export const filterAppointmentsByBoundary = (
       .hour(endView.hour())
       .minutes(endView.minutes());
 
-    if (excludedDays.findIndex(day => day === moment(appointment.start).day()) !== -1) return false;
-    if (moment(appointment.start).isSameOrBefore(startDayTime)
-      && moment(appointment.end).isSameOrAfter(endViewDate)) return true;
-    if (moment(appointment.start).isBetween(startDayTime, endDayTime, null, '[)')
-      || moment(appointment.end).isBetween(startDayTime, endDayTime, null, '(]')) {
-      return true;
-    } return false;
+    if (excludedDays.findIndex(day =>
+      day === moment(appointment.start).day()) !== -1) return false;
+    if (moment(appointment.start).isBefore(startDayTime)
+      && moment(appointment.end).isSameOrBefore(startDayTime)) return false;
+    if (moment(appointment.start).isSameOrAfter(endDayTime)
+      && moment(appointment.end).isAfter(endDayTime)) return false;
+    return true;
   });
 };
+
+export const removeAllDayAppointments = appointments =>
+  appointments.filter(appointment =>
+    moment(appointment.end).diff(moment(appointment.start), 'hours') < 24);
 
 export const cutDayAppointments = (appointments, startViewDate, endViewDate) => {
   const startView = moment(startViewDate);

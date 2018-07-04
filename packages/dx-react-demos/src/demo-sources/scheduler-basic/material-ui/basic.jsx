@@ -9,52 +9,14 @@ import {
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
+import { appointments } from '../../../demo-data/appointments';
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [{
-        title: 'A',
-        startDate: new Date(2018, 5, 25, 9, 45),
-        endDate: new Date(2018, 5, 25, 10, 15),
-      }, {
-        title: 'B',
-        startDate: new Date(2018, 5, 27, 14),
-        endDate: new Date(2018, 5, 25, 15),
-      }, {
-        title: 'C',
-        startDate: new Date(2018, 5, 29, 10, 45),
-        endDate: new Date(2018, 5, 29, 11),
-      }, {
-        title: 'D',
-        startDate: new Date(2018, 5, 24, 10, 45),
-        endDate: new Date(2018, 5, 24, 11),
-      }, {
-        title: 'E',
-        startDate: new Date(2018, 6, 5, 10, 45),
-        endDate: new Date(2018, 6, 5, 11),
-      }, {
-        title: 'F',
-        startDate: new Date(2018, 6, 6, 10, 45),
-        endDate: new Date(2018, 6, 6, 11),
-      }, {
-        title: 'G',
-        startDate: new Date(2018, 5, 26, 17, 45),
-        endDate: new Date(2018, 5, 27, 11),
-      }, {
-        title: 'G - 2',
-        startDate: new Date(2018, 5, 26, 17, 45),
-        endDate: new Date(2018, 5, 27, 10),
-      }, {
-        title: 'G - 3',
-        startDate: new Date(2018, 5, 27, 10, 30),
-        endDate: new Date(2018, 5, 27, 11, 30),
-      }, {
-        title: 'I',
-        startDate: new Date(2018, 5, 26, 15, 30),
-        endDate: new Date(2018, 5, 28, 9, 45),
-      }],
+      data: appointments,
       currentDate: new Date('2018-06-20'),
     };
   }
@@ -65,7 +27,8 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <button
           onClick={() => {
-            const next = new Date(new Date(this.state.currentDate).setDate(this.state.currentDate.getDate() - 7));
+            const next = new Date(new Date(this.state.currentDate)
+              .setDate(this.state.currentDate.getDate() - 7));
             this.setState({ currentDate: next });
           }}
         >
@@ -73,7 +36,8 @@ export default class Demo extends React.PureComponent {
         </button>
         <button
           onClick={() => {
-            const next = new Date(new Date(this.state.currentDate).setDate(this.state.currentDate.getDate() + 7));
+            const next = new Date(new Date(this.state.currentDate)
+              .setDate(this.state.currentDate.getDate() + 7));
             this.setState({ currentDate: next });
           }}
         >

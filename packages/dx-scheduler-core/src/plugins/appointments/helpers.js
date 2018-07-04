@@ -48,6 +48,10 @@ export const filterAppointmentsByBoundary = (
   });
 };
 
+export const removeAllDayAppointments = appointments =>
+  appointments.filter(appointment =>
+    moment(appointment.end).diff(moment(appointment.start), 'hours') < 24);
+
 export const cutDayAppointments = (appointments, startViewDate, endViewDate) => {
   const startView = moment(startViewDate);
   const endView = moment(endViewDate);

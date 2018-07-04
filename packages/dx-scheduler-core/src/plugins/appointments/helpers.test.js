@@ -7,6 +7,7 @@ import {
   cutDayAppointments,
   getCellByDate,
   predicate,
+  removeAllDayAppointments,
 } from './helpers';
 
 describe('Appointments helper', () => {
@@ -274,6 +275,24 @@ describe('Appointments helper', () => {
         expect(predicate(item.start, item.end, boundary, excludedDays))
           .toBe(item.v);
       });
+    });
+  });
+
+  describe('#removeAllDayAppointments', () => {
+    it('should remove all day appointments', () => {
+      const items = [
+        { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)) },
+        { start: moment(new Date(2018, 6, 4, 9)), end: moment(new Date(2018, 6, 5, 11)) },
+        { start: moment(new Date(2018, 6, 5)), end: moment(new Date(2018, 6, 5, 23, 59)) },
+        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 8, 59)) },
+      ];
+
+      expect(removeAllDayAppointments(items))
+        .toEqual([
+          { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)) },
+          { start: moment(new Date(2018, 6, 5)), end: moment(new Date(2018, 6, 5, 23, 59)) },
+          { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 8, 59)) },
+        ]);
     });
   });
 });

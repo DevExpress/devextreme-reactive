@@ -80,24 +80,68 @@ describe('Appointments helper', () => {
         {
           reduceValue: 1,
           items: [
-            { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30), itemData: {} },
-            { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0), itemData: {} },
+            {
+              start: moment([2017, 6, 20, 8, 0]),
+              end: moment([2017, 6, 20, 8, 30]),
+              dataItem: {},
+              offset: 1,
+            },
+            {
+              start: moment([2017, 6, 20, 8, 30]),
+              end: moment([2017, 6, 20, 9, 0]),
+              dataItem: {},
+              offset: 2,
+            },
           ],
         },
         {
           reduceValue: 2,
           items: [
-            { start: new Date(2017, 3, 20, 8, 0), end: new Date(2017, 3, 22, 8, 30), itemData: {} },
-            { start: new Date(2017, 4, 25, 8), end: new Date(2017, 4, 25, 9, 15), itemData: {} },
+            {
+              start: moment([2017, 3, 20, 8, 0]),
+              end: moment([2017, 3, 22, 8, 30]),
+              dataItem: {},
+              offset: 0,
+            },
+            {
+              start: moment([2017, 4, 25, 8]),
+              end: moment([2017, 4, 25, 9, 15]),
+              dataItem: {},
+              offset: 1,
+            },
           ],
         },
       ];
       expect(groupsToPlain(appointmentsGroups))
         .toEqual([
-          { ...appointmentsGroups[0].items[0], reduceValue: 1 },
-          { ...appointmentsGroups[0].items[1], reduceValue: 1 },
-          { ...appointmentsGroups[1].items[0], reduceValue: 2 },
-          { ...appointmentsGroups[1].items[1], reduceValue: 2 },
+          {
+            start: new Date(2017, 6, 20, 8, 0),
+            end: new Date(2017, 6, 20, 8, 30),
+            dataItem: {},
+            reduceValue: 1,
+            offset: 1,
+          },
+          {
+            start: new Date(2017, 6, 20, 8, 30),
+            end: new Date(2017, 6, 20, 9, 0),
+            dataItem: {},
+            reduceValue: 1,
+            offset: 2,
+          },
+          {
+            start: new Date(2017, 3, 20, 8, 0),
+            end: new Date(2017, 3, 22, 8, 30),
+            dataItem: {},
+            reduceValue: 2,
+            offset: 0,
+          },
+          {
+            start: new Date(2017, 4, 25, 8),
+            end: new Date(2017, 4, 25, 9, 15),
+            dataItem: {},
+            reduceValue: 2,
+            offset: 1,
+          },
         ]);
     });
   });

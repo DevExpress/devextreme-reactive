@@ -166,7 +166,10 @@ export const groupsToPlain = (groups) => {
   groups.forEach(({ items, reduceValue }) => {
     items.forEach((appointment) => {
       planeAppointments.push({
-        ...appointment,
+        start: appointment.start.toDate(),
+        end: appointment.end.toDate(),
+        dataItem: appointment.dataItem,
+        offset: appointment.offset,
         reduceValue,
       });
     });

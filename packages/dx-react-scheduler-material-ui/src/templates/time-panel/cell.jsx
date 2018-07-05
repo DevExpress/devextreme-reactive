@@ -7,9 +7,9 @@ import moment from 'moment';
 const styles = theme => ({
   cell: {
     border: 0,
-    padding: 10,
+    padding: theme.spacing.unit,
     '&:last-child': {
-      padding: 10,
+      padding: theme.spacing.unit,
     },
   },
   text: {
@@ -32,9 +32,7 @@ const CellBase = ({
     >
       {children || (
         <span className={classes.text}>
-          {currentTime.format('h')}:
-          {currentTime.format('mm')}
-          {currentTime.format('A')}
+          {currentTime.format('h:mm A')}
         </span>
       )}
     </TableCell>

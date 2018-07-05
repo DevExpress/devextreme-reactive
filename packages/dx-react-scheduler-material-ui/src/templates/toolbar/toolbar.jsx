@@ -12,10 +12,9 @@ const styles = theme => ({
 });
 
 const ToolbarBase = ({
-  children, classes, className, style, ...restProps
+  children, classes, className, ...restProps
 }) => (
   <ToolbarMUI
-    style={style}
     className={classNames(classes.toolbar, className)}
     {...restProps}
   >
@@ -27,13 +26,10 @@ ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  style: PropTypes.object,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
-  style: null,
 };
-
 
 export const Toolbar = withStyles(styles, { name: 'Toolbar' })(ToolbarBase);

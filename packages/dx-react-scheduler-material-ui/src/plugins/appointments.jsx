@@ -12,3 +12,5 @@ export class Appointments extends React.PureComponent {
     );
   }
 }
+
+Appointments.Appointment = AppointmentComponent;

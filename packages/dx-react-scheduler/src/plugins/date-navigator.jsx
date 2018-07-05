@@ -1,11 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Template, TemplatePlaceholder, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
-import { monthCells } from '@devexpress/dx-scheduler-core';
+import {
+  Plugin,
+  Getter,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+} from '@devexpress/dx-react-core';
+import { monthCells as getMonthCells } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
 ];
+
+const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
+  getMonthCells(currentDate, firstDayOfWeek);
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -40,13 +49,14 @@ export class DateNavigator extends React.PureComponent {
     const { visible } = this.state;
     return (
       <Plugin
-        name="ColumnChooser"
+        name="DateNavigator"
         dependencies={pluginDependencies}
       >
+        <Getter name="monthCells" computed={monthCellsComputed} />
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ currentDate, firstDayOfWeek }) => (
+            {({ monthCells }) => (
               <React.Fragment>
                 <ToggleButton
                   buttonRef={this.buttonRef}
@@ -59,7 +69,7 @@ export class DateNavigator extends React.PureComponent {
                   onHide={this.handleHide}
                 >
                   <Table
-                    cells={monthCells(currentDate, firstDayOfWeek)}
+                    cells={monthCells}
                     rowComponent={Row}
                     cellComponent={Cell}
                   />

@@ -29,13 +29,16 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   } = cellElement.getBoundingClientRect();
   const timeOffset = moment(date).diff(cellStartDate, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
-
+  let parentRect = { left: 0, top: 0 };
+  if (cellElement.offsetParent) {
+    parentRect = cellElement.offsetParent.getBoundingClientRect();
+  }
   return {
     top,
     left,
     width,
     topOffset,
-    parentRect: cellElement.offsetParent.getBoundingClientRect(),
+    parentRect,
   };
 };
 

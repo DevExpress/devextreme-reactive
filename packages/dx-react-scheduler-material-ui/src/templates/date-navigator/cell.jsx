@@ -31,13 +31,14 @@ export const CellBase = ({
   current,
   classes,
   children,
+  className,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
       [classes.otherMonth]: otherMonth,
-    })}
+    }, className)}
     {...restProps}
   >
     <span
@@ -55,12 +56,14 @@ CellBase.propTypes = {
   otherMonth: PropTypes.bool,
   current: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: undefined,
   otherMonth: false,
   current: false,
+  className: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

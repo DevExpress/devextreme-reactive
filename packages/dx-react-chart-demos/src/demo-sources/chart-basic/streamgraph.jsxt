@@ -16,31 +16,31 @@ import {
 import { SeriesFamily } from '@devexpress/dx-react-chart';
 
 import { booksSale } from '../../../demo-data/data-vizualization';
+
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 const Area = (props) => {
   const {
-      x,
-      y,
-      coordinates,
-      themeColor,
-      ...restProps
-    } = props;
+    x,
+    y,
+    coordinates,
+    themeColor,
+  } = props;
 
-    return (
-      <path
-        fill={themeColor}
-        transform={`translate(${x} ${y})`}
-        d={area()
+  return (
+    <path
+      fill={themeColor}
+      transform={`translate(${x} ${y})`}
+      d={area()
         .x(getX)
         .y1(getY)
         .y0(getY1)
         .curve(curveCatmullRom)(coordinates)}
-        opacity={0.5}
-      />
-    );
-}
+      opacity={0.5}
+    />
+  );
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -97,7 +97,7 @@ export default class Demo extends React.PureComponent {
           />
           <Legend />
           <Title
-            text='Book Sales'
+            text="Book Sales"
             style={{ textAlign: 'center', width: '100%' }}
           />
           <SeriesFamily

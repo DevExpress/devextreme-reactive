@@ -161,7 +161,7 @@ export const adjustAppointments = groups => groups.map((items) => {
   return { items: appointments, reduceValue };
 });
 
-export const groupsToPlain = groups =>
+export const unwrapGroups = groups =>
   groups.reduce((acc, { items, reduceValue }) => {
     acc.push(...items.map(appointment => ({
       start: appointment.start.toDate(),

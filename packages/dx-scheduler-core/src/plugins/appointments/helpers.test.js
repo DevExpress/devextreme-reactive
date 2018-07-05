@@ -8,7 +8,7 @@ import {
   getCellByDate,
   predicate,
   removeAllDayAppointments,
-  groupsToPlain,
+  unwrapGroups,
 } from './helpers';
 
 describe('Appointments helper', () => {
@@ -74,7 +74,7 @@ describe('Appointments helper', () => {
     });
   });
 
-  describe('#groupsToPlain', () => {
+  describe('#unwrapGroups', () => {
     it('should calculate appointment offset and reduce coefficient', () => {
       const appointmentsGroups = [
         {
@@ -112,7 +112,7 @@ describe('Appointments helper', () => {
           ],
         },
       ];
-      expect(groupsToPlain(appointmentsGroups))
+      expect(unwrapGroups(appointmentsGroups))
         .toEqual([
           {
             start: new Date(2017, 6, 20, 8, 0),

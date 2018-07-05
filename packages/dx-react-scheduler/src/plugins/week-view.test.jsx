@@ -21,6 +21,12 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
   },
+  template: {
+    body: {},
+    navbar: {},
+    sidebar: {},
+    main: {},
+  },
 };
 
 const defaultProps = {
@@ -49,122 +55,186 @@ describe('Week View', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide the "timeScale" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          startDayHour={8}
-          endDayHour={18}
-          cellDuration={60}
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+  describe('Getters', () => {
+    it('should provide the "timeScale" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            startDayHour={8}
+            endDayHour={18}
+            cellDuration={60}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
 
-    expect(timeScale)
-      .toBeCalledWith(8, 18, 60);
-    expect(getComputedState(tree).timeScale)
-      .toEqual([8, 9, 10]);
+      expect(timeScale)
+        .toBeCalledWith(8, 18, 60);
+      expect(getComputedState(tree).timeScale)
+        .toEqual([8, 9, 10]);
+    });
+
+    it('should provide the "dayScale" getter', () => {
+      const firstDayOfWeek = 2;
+      const intervalCount = 2;
+      const excludedDays = [1, 2];
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            firstDayOfWeek={firstDayOfWeek}
+            intervalCount={intervalCount}
+            excludedDays={excludedDays}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(dayScale)
+        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
+      expect(getComputedState(tree).dayScale)
+        .toEqual([1, 2, 3]);
+    });
+
+    it('should provide the "firstDayOfWeek" getter', () => {
+      const firstDayOfWeek = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            firstDayOfWeek={firstDayOfWeek}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).firstDayOfWeek)
+        .toBe(firstDayOfWeek);
+    });
+
+    it('should provide the "startViewDate" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+      expect(startViewDate)
+        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+      expect(getComputedState(tree).startViewDate)
+        .toBe('2018-07-04');
+    });
+
+    it('should provide the "endViewDate" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+      expect(endViewDate)
+        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+      expect(getComputedState(tree).endViewDate)
+        .toBe('2018-07-11');
+    });
+
+    it('should provide the "cellDuration" getter', () => {
+      const cellDuration = 60;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            cellDuration={cellDuration}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).cellDuration)
+        .toBe(cellDuration);
+    });
+
+    it('should provide the "excludedDays" getter', () => {
+      const excludedDays = [1, 2];
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            excludedDays={excludedDays}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).excludedDays)
+        .toBe(excludedDays);
+    });
   });
 
-  it('should provide the "dayScale" getter', () => {
-    const firstDayOfWeek = 2;
-    const intervalCount = 2;
-    const excludedDays = [1, 2];
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          firstDayOfWeek={firstDayOfWeek}
-          intervalCount={intervalCount}
-          excludedDays={excludedDays}
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+  describe('Templates', () => {
+    it('Should render view layout', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            layoutComponent={() => <div className="view-layout" />}
+          />
+        </PluginHost>
+      ));
 
-    expect(dayScale)
-      .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
-    expect(getComputedState(tree).dayScale)
-      .toEqual([1, 2, 3]);
-  });
+      expect(tree.find('.view-layout').exists())
+        .toBeTruthy();
+    });
 
-  it('should provide the "firstDayOfWeek" getter', () => {
-    const firstDayOfWeek = 2;
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          firstDayOfWeek={firstDayOfWeek}
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    it('Should render day panel', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            dayPanelLayoutComponent={() => <div className="day-panel" />}
+          />
+        </PluginHost>
+      ));
 
-    expect(getComputedState(tree).firstDayOfWeek)
-      .toBe(firstDayOfWeek);
-  });
+      expect(tree.find('.day-panel').exists())
+        .toBeTruthy();
+    });
 
-  it('should provide the "startViewDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(startViewDate)
-      .toBeCalledWith([1, 2, 3], [8, 9, 10]);
-    expect(getComputedState(tree).startViewDate)
-      .toBe('2018-07-04');
-  });
+    it('Should render time panel', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            timePanelLayoutComponent={() => <div className="time-panel" />}
+          />
+        </PluginHost>
+      ));
 
-  it('should provide the "endViewDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(endViewDate)
-      .toBeCalledWith([1, 2, 3], [8, 9, 10]);
-    expect(getComputedState(tree).endViewDate)
-      .toBe('2018-07-11');
-  });
+      expect(tree.find('.time-panel').exists())
+        .toBeTruthy();
+    });
 
-  it('should provide the "cellDuration" getter', () => {
-    const cellDuration = 60;
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          cellDuration={cellDuration}
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+    it('Should render date table', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            dateTableLayoutComponent={() => <div className="date-table" />}
+          />
+        </PluginHost>
+      ));
 
-    expect(getComputedState(tree).cellDuration)
-      .toBe(cellDuration);
-  });
-
-  it('should provide the "excludedDays" getter', () => {
-    const excludedDays = [1, 2];
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <WeekView
-          excludedDays={excludedDays}
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).excludedDays)
-      .toBe(excludedDays);
+      expect(tree.find('.date-table').exists())
+        .toBeTruthy();
+    });
   });
 });

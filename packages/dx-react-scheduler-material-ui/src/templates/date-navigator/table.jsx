@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,11 +17,12 @@ export const TableBase = ({
   rowComponent: Row,
   cellComponent: Cell,
   classes,
+  className,
   cells,
   ...restProps
 }) => (
   <TableMUI
-    className={classes.table}
+    className={classNames(classes.table, className)}
     {...restProps}
   >
     <TableBody>
@@ -48,6 +50,11 @@ TableBase.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   cells: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+TableBase.defaultProps = {
+  className: undefined,
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

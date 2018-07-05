@@ -32,14 +32,12 @@ export class WeekLayoutBase extends React.PureComponent {
       navbarComponent: Navbar,
       mainComponent: Main,
       classes,
-      ...restProps
     } = this.props;
 
     return (
       <Grid
         container
         className={classes.container}
-        {...restProps}
       >
         <Grid
           container

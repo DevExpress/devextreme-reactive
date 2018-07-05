@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorderColor } from '../utils';
 
@@ -24,6 +25,7 @@ const styles = theme => ({
 
 const AppointmentBase = ({
   classes,
+  className,
   children,
   getTitle,
   getStartDate,
@@ -36,7 +38,7 @@ const AppointmentBase = ({
   ...restProps
 }) => (
   <div
-    className={classes.appointment}
+    className={classNames(classes.appointment, className)}
     style={{
       top, left, width, height,
     }}
@@ -61,6 +63,7 @@ const AppointmentBase = ({
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node,
   getTitle: PropTypes.func,
   getStartDate: PropTypes.func,
@@ -73,6 +76,7 @@ AppointmentBase.propTypes = {
 };
 
 AppointmentBase.defaultProps = {
+  className: undefined,
   children: null,
   getTitle: undefined,
   getStartDate: undefined,

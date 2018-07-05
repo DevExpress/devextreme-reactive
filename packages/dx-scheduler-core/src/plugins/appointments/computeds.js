@@ -9,6 +9,7 @@ import {
   filterAppointmentsByBoundary,
   cutDayAppointments,
   removeAllDayAppointments,
+  groupsToPlain,
 } from './helpers';
 
 const CELL_GAP = 0.15;
@@ -135,7 +136,7 @@ export const appointmentsWithCoordinates = (
     removeAllDayAppointments(formattedAppointments2);
   const slicedByDayAppointments =
     sliceAppointmentsByDay(removedAllDayAppointments);
-  const filteredByBoundarysAppointments =
+  const filteredByBoundaryAppointments =
     filterAppointmentsByBoundary(
       slicedByDayAppointments,
       startViewDate,
@@ -143,11 +144,12 @@ export const appointmentsWithCoordinates = (
       excludedDays,
     );
   const appointmentParts =
-    cutDayAppointments(filteredByBoundarysAppointments, startViewDate, endViewDate);
+    cutDayAppointments(filteredByBoundaryAppointments, startViewDate, endViewDate);
   const mAppointments = momentAppointments(appointmentParts);
   const sorted = sortAppointments(mAppointments);
   const groups = findOverlappedAppointments(sorted);
   const withOffset = adjustAppointments(groups);
+  const plainAppointments = groupsToPlain(withOffset);
 
-  return withOffset;
+  return plainAppointments;
 };

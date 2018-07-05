@@ -161,6 +161,19 @@ export const adjustAppointments = groups => groups.map((items) => {
   return { items: appointments, reduceValue };
 });
 
+export const groupsToPlain = (groups) => {
+  const planeAppointments = [];
+  groups.forEach(({ items, reduceValue }) => {
+    items.forEach((appointment) => {
+      planeAppointments.push({
+        ...appointment,
+        reduceValue,
+      });
+    });
+  });
+  return planeAppointments;
+};
+
 const createExcludedInterval = (day, start) => {
   const leftBound = moment(start.day(day));
   return [

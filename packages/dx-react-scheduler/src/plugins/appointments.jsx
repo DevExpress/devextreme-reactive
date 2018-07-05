@@ -23,6 +23,21 @@ const appointmentsWithCoordinatesComputed = ({
     getAppointmentEndDate,
   );
 
+const getRectComputed = ({
+  timeScale,
+  dayScale,
+  cellDuration,
+  dateTableRef,
+}) => (startDate, endDate) =>
+  getRectByDates(
+    startDate,
+    endDate,
+    dayScale,
+    timeScale,
+    cellDuration,
+    dateTableRef.querySelectorAll('td'),
+  );
+
 export class Appointments extends React.PureComponent {
   render() {
     const {
@@ -31,47 +46,6 @@ export class Appointments extends React.PureComponent {
       getStartDate,
       getEndDate,
     } = this.props;
-
-    const getRectComputed = ({
-      timeScale,
-      dayScale,
-      cellDuration,
-      dateTableRef,
-    }) => (startDate, endDate) =>
-      getRectByDates(
-        startDate,
-        endDate,
-        dayScale,
-        timeScale,
-        cellDuration,
-        dateTableRef.querySelectorAll('td'),
-      );
-
-    const appointmentsRendering = (appointments, getRect) => {
-      const renderedAppointments = [];
-      appointments.forEach(({ items, reduceValue }, index) => {
-        const renderedItems = items.map((appointment) => {
-          const {
-            top, left, width, height,
-          } = getRect(appointment.start, appointment.end);
-          return (
-            <Appointment
-              key={index.toString()}
-              top={top}
-              left={left + ((width / reduceValue) * appointment.offset)}
-              width={width / reduceValue}
-              height={height}
-              getTitle={getTitle}
-              getEndDate={getEndDate}
-              getStartDate={getStartDate}
-              appointment={appointment.dataItem}
-            />
-          );
-        });
-        renderedAppointments.push(...renderedItems);
-      });
-      return renderedAppointments;
-    };
 
     return (
       <Plugin name="Appointment">
@@ -89,7 +63,25 @@ export class Appointments extends React.PureComponent {
               getRect,
               dateTableRef,
               appointments,
-            }) => (dateTableRef ? (appointmentsRendering(appointments, getRect)) : null)}
+            }) => (dateTableRef ? (
+              appointments.map((appointment, index) => {
+              const {
+                top, left, width, height,
+              } = getRect(appointment.start, appointment.end);
+              return (
+                <Appointment
+                  key={index.toString()}
+                  top={top}
+                  left={left + ((width / appointment.reduceValue) * appointment.offset)}
+                  width={width / appointment.reduceValue}
+                  height={height}
+                  getTitle={getTitle}
+                  getEndDate={getEndDate}
+                  getStartDate={getStartDate}
+                  appointment={appointment.dataItem}
+                />
+              );
+            })) : null)}
           </TemplateConnector>
         </Template>
       </Plugin>

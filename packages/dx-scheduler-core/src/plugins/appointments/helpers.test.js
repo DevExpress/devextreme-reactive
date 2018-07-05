@@ -8,6 +8,7 @@ import {
   getCellByDate,
   predicate,
   removeAllDayAppointments,
+  groupsToPlain,
 } from './helpers';
 
 describe('Appointments helper', () => {
@@ -69,6 +70,34 @@ describe('Appointments helper', () => {
             ],
             reduceValue: 1,
           },
+        ]);
+    });
+  });
+
+  describe('#groupsToPlain', () => {
+    it('should calculate appointment offset and reduce coefficient', () => {
+      const appointmentsGroups = [
+        {
+          reduceValue: 1,
+          items: [
+            { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30), itemData: {} },
+            { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0), itemData: {} },
+          ],
+        },
+        {
+          reduceValue: 2,
+          items: [
+            { start: new Date(2017, 3, 20, 8, 0), end: new Date(2017, 3, 22, 8, 30), itemData: {} },
+            { start: new Date(2017, 4, 25, 8), end: new Date(2017, 4, 25, 9, 15), itemData: {} },
+          ],
+        },
+      ];
+      expect(groupsToPlain(appointmentsGroups))
+        .toEqual([
+          { ...appointmentsGroups[0].items[0], reduceValue: 1 },
+          { ...appointmentsGroups[0].items[1], reduceValue: 1 },
+          { ...appointmentsGroups[1].items[0], reduceValue: 2 },
+          { ...appointmentsGroups[1].items[1], reduceValue: 2 },
         ]);
     });
   });

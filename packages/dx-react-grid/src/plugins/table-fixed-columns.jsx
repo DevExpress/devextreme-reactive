@@ -34,8 +34,8 @@ export class TableFixedColumns extends React.PureComponent {
         name="TableFixedColumns"
         dependencies={pluginDependencies}
       >
-        <Getter name="beforeColumnNames" value={beforeColumnNames} />
-        <Getter name="afterColumnNames" value={afterColumnNames} />
+        <Getter name="beforeFixedColumnNames" value={beforeColumnNames} />
+        <Getter name="afterFixedColumnNames" value={afterColumnNames} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => (tableColumn.column

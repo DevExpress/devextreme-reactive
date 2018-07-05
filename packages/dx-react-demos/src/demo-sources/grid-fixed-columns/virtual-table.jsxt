@@ -1,7 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
   TableFixedColumns,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
         { columnName: 'product', width: 170 },
         { columnName: 'amount', align: 'right', width: 200 },
       ],
-      beforeColumnNames: ['region', 'channel'],
+      beforeColumnNames: ['region', 'sector'],
       afterColumnNames: ['amount'],
       fixedColumns: { region: 'before' }
     };
@@ -50,7 +50,7 @@ export default class Demo extends React.PureComponent {
           rows={rows}
           columns={columns}
         >
-          <Table
+          <VirtualTable
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />

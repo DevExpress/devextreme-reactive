@@ -11,52 +11,63 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const Navigation = ({ currentDate, goNext }) => (
+  <div>
+    <button
+      onClick={() => {
+        const next = new Date(new Date(currentDate)
+          .setDate(currentDate.getDate() - 7));
+        goNext(next);
+      }}
+    >
+      {'<-'}
+    </button>
+    <button
+      onClick={() => {
+        const next = new Date(new Date(currentDate)
+          .setDate(currentDate.getDate() + 7));
+        goNext(next);
+      }}
+    >
+      {'->'}
+    </button>
+  </div>
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       data: appointments,
-      currentDate: new Date('2018-06-20'),
+      currentDate: new Date('2018-06-27'),
     };
   }
   render() {
     const { data, currentDate } = this.state;
 
     return (
-      <Paper>
-        <button
-          onClick={() => {
-            const next = new Date(new Date(this.state.currentDate)
-              .setDate(this.state.currentDate.getDate() - 7));
-            this.setState({ currentDate: next });
-          }}
-        >
-          {'<-'}
-        </button>
-        <button
-          onClick={() => {
-            const next = new Date(new Date(this.state.currentDate)
-              .setDate(this.state.currentDate.getDate() + 7));
-            this.setState({ currentDate: next });
-          }}
-        >
-          {'->'}
-        </button>
-        <Scheduler
-          data={data}
+      <div>
+        <Navigation
           currentDate={currentDate}
-        >
-          <Toolbar />
-          <WeekView
-            startDayHour={8}
-            endDayHour={18}
-            firstDayOfWeek={1}
-          />
-          <DateNavigator />
-          <Appointments />
-        </Scheduler>
-      </Paper>
+          goNext={(next) => { this.setState({ currentDate: next }); }}
+        />
+        <Paper>
+          <Scheduler
+            data={data}
+            currentDate={currentDate}
+          >
+            <Toolbar />
+            <WeekView
+              startDayHour={8}
+              endDayHour={18}
+              firstDayOfWeek={1}
+            />
+            <DateNavigator />
+            <Appointments />
+          </Scheduler>
+        </Paper>
+      </div>
     );
   }
 }

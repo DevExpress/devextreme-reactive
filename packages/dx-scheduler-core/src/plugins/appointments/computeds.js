@@ -9,7 +9,7 @@ import {
   filterAppointmentsByBoundary,
   cutDayAppointments,
   removeAllDayAppointments,
-  groupsToPlain,
+  unwrapGroups,
 } from './helpers';
 
 const CELL_GAP = 0.15;
@@ -109,13 +109,17 @@ export const sliceAppointmentsByDay = appointments =>
     return acc;
   }, []);
 
-export const appointmentsWithCoordinates = (
+export const appointmentRects = (
   appointments,
   startViewDate,
   endViewDate,
   excludedDays,
   getAppointmentStartDate,
   getAppointmentEndDate,
+  dayScale,
+  timeScale,
+  cellDuration,
+  cellElements,
 ) => {
   const filteredByViewAppointments =
     filteredAppointments(
@@ -149,7 +153,27 @@ export const appointmentsWithCoordinates = (
   const sorted = sortAppointments(mAppointments);
   const groups = findOverlappedAppointments(sorted);
   const withOffset = adjustAppointments(groups);
-  const plainAppointments = groupsToPlain(withOffset);
 
-  return plainAppointments;
+  return unwrapGroups(withOffset).map((appt) => {
+    const {
+      top,
+      left,
+      width,
+      height,
+    } = getRectByDates(
+      appt.start,
+      appt.end,
+      dayScale,
+      timeScale,
+      cellDuration,
+      cellElements,
+    );
+    return {
+      top,
+      height,
+      left: left + ((width / appt.reduceValue) * appt.offset),
+      width: width / appt.reduceValue,
+      dataItem: appt.dataItem,
+    };
+  });
 };

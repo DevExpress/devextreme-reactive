@@ -89,7 +89,7 @@ export const cutDayAppointments = (appointments, startViewDate, endViewDate) => 
         start: appointment.start, end: endDayTime.toDate(), dataItem: appointment.dataItem,
       });
     }
-    return (appointment);
+    return appointment;
   });
 };
 
@@ -161,21 +161,17 @@ export const adjustAppointments = groups => groups.map((items) => {
   return { items: appointments, reduceValue };
 });
 
-export const groupsToPlain = (groups) => {
-  const planeAppointments = [];
-  groups.forEach(({ items, reduceValue }) => {
-    items.forEach((appointment) => {
-      planeAppointments.push({
-        start: appointment.start.toDate(),
-        end: appointment.end.toDate(),
-        dataItem: appointment.dataItem,
-        offset: appointment.offset,
-        reduceValue,
-      });
-    });
-  });
-  return planeAppointments;
-};
+export const groupsToPlain = groups =>
+  groups.reduce((acc, { items, reduceValue }) => {
+    acc.push(...items.map(appointment => ({
+      start: appointment.start.toDate(),
+      end: appointment.end.toDate(),
+      dataItem: appointment.dataItem,
+      offset: appointment.offset,
+      reduceValue,
+    })));
+    return acc;
+  }, []);
 
 const createExcludedInterval = (day, start) => {
   const leftBound = moment(start.day(day));
@@ -206,11 +202,10 @@ export const predicate = (start, end, boundary, excludedDays) => {
     (start.isSameOrBefore(left) && end.isSameOrAfter(right))
   );
 
+  const inInterval = (date, interval) => date.isBetween(...interval, null, '[]');
   const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (
-      start.isBetween(...interval, null, '[]')
-      &&
-      end.isBetween(...interval, null, '[]')
+      inInterval(start, interval) && inInterval(end, interval)
     ));
 
   return isAppointmentInBoundary && !isAppointmentInExcludedDays;

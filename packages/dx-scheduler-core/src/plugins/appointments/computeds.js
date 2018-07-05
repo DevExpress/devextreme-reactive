@@ -72,11 +72,12 @@ export const filteredAppointments = (
   appointments.filter((appointment) => {
     const appointmentStartDate = getAppointmentStartDate(appointment);
     const appointmentEndDate = getAppointmentEndDate(appointment);
+    const boundaries = { left: startViewDate, right: endViewDate };
 
     return predicate(
       moment(appointmentStartDate),
       moment(appointmentEndDate),
-      { left: startViewDate, right: endViewDate },
+      boundaries,
       excludedDays,
     );
   })
@@ -93,22 +94,21 @@ export const formattedAppointments = (
     dataItem: appointment,
   }));
 
-export const sliceAppointmentsByDay = (appointments) => {
-  const result = appointments.reduce((acc, appointment) => {
+export const sliceAppointmentsByDay = appointments =>
+  appointments.reduce((acc, appointment) => {
     const startDate = moment(appointment.start);
     const endDate = moment(appointment.end);
     if (startDate.isSame(endDate, 'day')) {
       acc.push(appointment);
     } else {
-      acc.push({ end: moment(startDate).endOf('day').toDate(), start: startDate.toDate(), dataItem: appointment.dataItem });
-      acc.push({ start: moment(endDate).startOf('day').toDate(), end: endDate.toDate(), dataItem: appointment.dataItem });
+      acc.push(
+        { start: startDate.toDate(), end: moment(startDate).endOf('day').toDate(), dataItem: appointment.dataItem },
+        { start: moment(endDate).startOf('day').toDate(), end: endDate.toDate(), dataItem: appointment.dataItem },
+      );
     }
     return acc;
   }, []);
-  return result;
-};
 
-/* MAIN */
 export const appointmentsWithCoordinates = (
   appointments,
   startViewDate,

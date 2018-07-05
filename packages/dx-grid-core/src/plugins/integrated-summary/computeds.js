@@ -75,3 +75,47 @@ export const groupSummaries = (
   });
   return summaries;
 };
+
+export const treeSummaries = (
+  rows,
+  summaryItems,
+  getCellValue,
+  getRowLevelKey,
+  isGroupRow,
+  getRowId,
+) => {
+  let levels = [];
+  const summaries = rows.reduce((acc, row) => {
+    const levelKey = getRowLevelKey(row);
+    if (levelKey) {
+      const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
+      if (levelIndex > -1) {
+        levels.slice(levelIndex).forEach((level) => {
+          if (level.rows.length) {
+            acc[getRowId(level.row)] = rowsSummary(level.rows, summaryItems, getCellValue);
+          }
+        });
+        levels = levels.slice(0, levelIndex);
+      }
+      if (!isGroupRow || !isGroupRow(row)) {
+        if (levels.length) {
+          levels[levels.length - 1].rows.push(row);
+        }
+        levels.push({
+          levelKey,
+          row,
+          rows: [],
+        });
+      }
+    } else {
+      levels[levels.length - 1].rows.push(row);
+    }
+    return acc;
+  }, {});
+  levels.forEach((level) => {
+    if (level.rows.length) {
+      summaries[getRowId(level.row)] = rowsSummary(level.rows, summaryItems, getCellValue);
+    }
+  });
+  return summaries;
+};

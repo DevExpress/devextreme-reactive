@@ -1,40 +1,53 @@
-export const tableRowsWithSummaries = (tableRows, getRowLevelKey, isGroupRow) => {
+import { TABLE_TOTAL_SUMMARY_TYPE, TABLE_GROUP_SUMMARY_TYPE, TABLE_TREE_SUMMARY_TYPE } from './constants';
+
+export const tableRowsWithTotalSummary = footerRows =>
+  [{ key: TABLE_TOTAL_SUMMARY_TYPE, type: TABLE_TOTAL_SUMMARY_TYPE }, ...footerRows];
+
+export const tableRowsWithSummaries = (tableRows, getRowLevelKey, isGroupRow, getRowId) => {
   if (!getRowLevelKey) return tableRows;
 
+  const result = [];
+  const closeLevel = (level) => {
+    if (!level.opened) return;
+    if (isGroupRow && isGroupRow(level.row)) {
+      const { compoundKey } = level.row;
+      result.push({ key: `${TABLE_GROUP_SUMMARY_TYPE}_${compoundKey}`, type: TABLE_GROUP_SUMMARY_TYPE, compoundKey });
+    } else {
+      const rowId = getRowId(level.row);
+      result.push({ key: `${TABLE_TREE_SUMMARY_TYPE}_${rowId}`, type: TABLE_TREE_SUMMARY_TYPE, rowId });
+    }
+  };
+
   let levels = [];
-  const result = tableRows.reduce((acc, tableRow) => {
+  tableRows.forEach((tableRow) => {
     const { row } = tableRow;
     const levelKey = getRowLevelKey(row);
     if (levelKey) {
       const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
       if (levelIndex > -1) {
-        levels.slice(levelIndex).forEach((level) => {
-          if (!level.opened) return;
-          const { compoundKey } = level.row;
-          acc.push({ key: `groupSummary_${compoundKey}`, type: 'groupSummary', compoundKey });
-        });
+        levels.slice(levelIndex).forEach(closeLevel);
         levels = levels.slice(0, levelIndex);
       }
-      if (isGroupRow && isGroupRow(row)) {
-        levels.push({
-          levelKey,
-          row,
-          opened: false,
-        });
+      if (!isGroupRow || !isGroupRow(row)) {
+        levels = levels.map(level => ({
+          ...level,
+          opened: true,
+        }));
       }
-    } else {
-      levels.forEach((level) => {
-        // eslint-disable-next-line no-param-reassign
-        level.opened = true;
+      levels.push({
+        levelKey,
+        row,
+        opened: false,
       });
+    } else {
+      levels = levels.map(level => ({
+        ...level,
+        opened: true,
+      }));
     }
-    acc.push(tableRow);
-    return acc;
-  }, []);
-  levels.forEach((level) => {
-    if (!level.opened) return;
-    const { compoundKey } = level.row;
-    result.push({ key: `groupSummary_${compoundKey}`, type: 'groupSummary', compoundKey });
+    result.push(tableRow);
   });
+  levels.slice().reverse().forEach(closeLevel);
+
   return result;
 };

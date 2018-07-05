@@ -1,4 +1,4 @@
-import { totalSummary, groupSummaries } from './computeds';
+import { totalSummary, groupSummaries, treeSummaries } from './computeds';
 
 describe('IntegratedSummary', () => {
   const getCellValue = (row, columnName) => row[columnName];
@@ -200,6 +200,72 @@ describe('IntegratedSummary', () => {
         getCellValue,
         getRowLevelKey,
         isGroupRow,
+      ))
+        .toEqual(result);
+    });
+  });
+
+  describe('treeSummaries', () => {
+    it('should culculate count summary', () => {
+      const rows = [
+        { levelKey: 'a', a: 1 },
+        { levelKey: 'a', a: 2 },
+        { levelKey: 'b', a: 3 },
+        { a: 4 },
+        { levelKey: 'b', a: 5 },
+        { levelKey: 'a', a: 6 },
+        { a: 7 },
+      ];
+      const summaryItems = [
+        { columnName: 'a', type: 'count' },
+      ];
+      const result = {
+        2: [2],
+        3: [1],
+        6: [1],
+      };
+      const getRowLevelKey = row => row.levelKey;
+      const isGroupRow = () => false;
+      const getRowId = row => row.a;
+
+      expect(treeSummaries(
+        rows,
+        summaryItems,
+        getCellValue,
+        getRowLevelKey,
+        isGroupRow,
+        getRowId,
+      ))
+        .toEqual(result);
+    });
+
+    it('should correctly handle groups', () => {
+      const rows = [
+        { levelKey: 'b', compoundKey: 'b|1', group: true },
+        { levelKey: 'c', a: 4 },
+        { a: 5 },
+        { a: 6 },
+        { levelKey: 'c', a: 7 },
+        { a: 8 },
+      ];
+      const summaryItems = [
+        { columnName: 'a', type: 'count' },
+      ];
+      const result = {
+        4: [2],
+        7: [1],
+      };
+      const getRowLevelKey = row => row.levelKey;
+      const isGroupRow = row => row.group;
+      const getRowId = row => row.a;
+
+      expect(treeSummaries(
+        rows,
+        summaryItems,
+        getCellValue,
+        getRowLevelKey,
+        isGroupRow,
+        getRowId,
       ))
         .toEqual(result);
     });

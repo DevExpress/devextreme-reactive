@@ -1,10 +1,22 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { getMessagesFormatter, tableRowsWithSummaries } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter, tableRowsWithSummaries, tableRowsWithTotalSummary } from '@devexpress/dx-grid-core';
+
+const tableBodyRowsComputed = ({
+  tableBodyRows,
+  getRowLevelKey,
+  isGroupRow,
+  getRowId,
+}) =>
+  tableRowsWithSummaries(tableBodyRows, getRowLevelKey, isGroupRow, getRowId);
+const tableFooterRowsComputed = ({ tableFooterRows }) =>
+  tableRowsWithTotalSummary(tableFooterRows);
+
+const defaultTypelessSummaries = ['count'];
 
 export class TableSummaryRow extends React.PureComponent {
-  render() {
+  renderCell(column, columnSummary) {
     const {
       cellComponent: Cell,
       messages,
@@ -13,6 +25,39 @@ export class TableSummaryRow extends React.PureComponent {
     const getMessage = getMessagesFormatter(messages);
 
     return (
+      <Cell>
+        {columnSummary.map((summary) => {
+          if (defaultTypelessSummaries.includes(summary.type)) {
+            return (
+              <div
+                key={summary.type}
+              >
+                {getMessage(summary.type)}: {String(summary.value)}
+              </div>
+            );
+          }
+          return (
+            <TemplatePlaceholder
+              key={summary.type}
+              name="valueFormatter"
+              params={{
+                column,
+                value: summary.value,
+              }}
+            >
+              {content => (
+                <div>
+                  {getMessage(summary.type)}: {content || String(summary.value)}
+                </div>
+              )}
+            </TemplatePlaceholder>
+          );
+        })}
+      </Cell>
+    );
+  }
+  render() {
+    return (
       <Plugin
         name="TableSummaryRow"
         dependencies={[
@@ -20,8 +65,8 @@ export class TableSummaryRow extends React.PureComponent {
           { name: 'SummaryState' },
         ]}
       >
-        <Getter name="tableBodyRows" computed={({ tableBodyRows, getRowLevelKey, isGroupRow }) => tableRowsWithSummaries(tableBodyRows, getRowLevelKey, isGroupRow)} />
-        <Getter name="tableFooterRows" computed={({ tableFooterRows }) => [...tableFooterRows, { type: 'totalSummary', key: 'totalSummary' }]} />
+        <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter name="tableFooterRows" computed={tableFooterRowsComputed} />
         <Template
           name="tableCell"
           predicate={({ tableRow, tableColumn }) => tableColumn.type === 'data' && tableRow.type === 'totalSummary'}
@@ -34,26 +79,7 @@ export class TableSummaryRow extends React.PureComponent {
                   .filter(([item]) => item.columnName === params.tableColumn.column.name);
                 const columnSummary = columnSummaryItems
                   .map(([item, index]) => ({ type: item.type, value: totalSummary[index] }));
-                return (
-                  <Cell>
-                    {columnSummary.map(summary => (
-                      <TemplatePlaceholder
-                        key={summary.type}
-                        name="valueFormatter"
-                        params={{
-                          column: params.tableColumn.column,
-                          value: summary.value,
-                        }}
-                      >
-                        {content => (
-                          <div>
-                            {getMessage(summary.type)}: {content || String(summary.value)}
-                          </div>
-                        )}
-                      </TemplatePlaceholder>
-                    ))}
-                  </Cell>
-                );
+                return this.renderCell(params.tableColumn.column, columnSummary);
               }}
             </TemplateConnector>
           )}
@@ -70,26 +96,24 @@ export class TableSummaryRow extends React.PureComponent {
                   .filter(([item]) => item.columnName === params.tableColumn.column.name);
                 const columnSummary = columnSummaryItems
                   .map(([item, index]) => ({ type: item.type, value: groupSummaries[params.tableRow.compoundKey][index] }));
-                return (
-                  <Cell>
-                    {columnSummary.map(summary => (
-                      <TemplatePlaceholder
-                        key={summary.type}
-                        name="valueFormatter"
-                        params={{
-                          column: params.tableColumn.column,
-                          value: summary.value,
-                        }}
-                      >
-                        {content => (
-                          <div>
-                            {getMessage(summary.type)}: {content || String(summary.value)}
-                          </div>
-                        )}
-                      </TemplatePlaceholder>
-                    ))}
-                  </Cell>
-                );
+                return this.renderCell(params.tableColumn.column, columnSummary);
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+        <Template
+          name="tableCell"
+          predicate={({ tableRow, tableColumn }) => tableColumn.type === 'data' && tableRow.type === 'treeSummary'}
+        >
+          {params => (
+            <TemplateConnector>
+              {({ treeSummaryItems, treeSummaries }) => {
+                const columnSummaryItems = treeSummaryItems
+                  .map((item, index) => [item, index])
+                  .filter(([item]) => item.columnName === params.tableColumn.column.name);
+                const columnSummary = columnSummaryItems
+                  .map(([item, index]) => ({ type: item.type, value: treeSummaries[params.tableRow.rowId][index] }));
+                return this.renderCell(params.tableColumn.column, columnSummary);
               }}
             </TemplateConnector>
           )}

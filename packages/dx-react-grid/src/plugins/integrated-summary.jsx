@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
-import { totalSummary, groupSummaries } from '@devexpress/dx-grid-core';
+import { totalSummary, groupSummaries, treeSummaries } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
@@ -41,6 +41,23 @@ export class IntegratedSummary extends React.PureComponent {
         isGroupRow,
       );
 
+    const treeSummariesComputed = ({
+      rows,
+      treeSummaryItems,
+      getCellValue,
+      getRowLevelKey,
+      isGroupRow,
+      getRowId,
+    }) =>
+      treeSummaries(
+        rows,
+        treeSummaryItems,
+        getCellValue,
+        getRowLevelKey,
+        isGroupRow,
+        getRowId,
+      );
+
     return (
       <Plugin
         name="IntegratedSummary"
@@ -48,6 +65,7 @@ export class IntegratedSummary extends React.PureComponent {
       >
         <Getter name="totalSummary" computed={totalSummaryComputed} />
         <Getter name="groupSummaries" computed={groupSummariesComputed} />
+        <Getter name="treeSummaries" computed={treeSummariesComputed} />
       </Plugin>
     );
   }

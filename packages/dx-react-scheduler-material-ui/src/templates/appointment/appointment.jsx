@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
 
 const styles = theme => ({
   appointment: {
@@ -11,7 +10,6 @@ const styles = theme => ({
     display: 'block',
     overflow: 'hidden',
     backgroundColor: theme.palette.primary[300],
-    borderLeft: getBorderColor(theme),
     ...theme.typography.caption,
     '&:hover': {
       backgroundColor: theme.palette.primary[400],
@@ -24,16 +22,11 @@ const styles = theme => ({
 });
 
 const AppointmentBase = ({
-  classes,
-  className,
-  children,
-  getTitle,
-  getStartDate,
-  getEndDate,
-  appointment,
-  top,
-  left,
-  width,
+  classes, className,
+  children, getTitle,
+  getStartDate, getEndDate,
+  appointment, top,
+  left, width,
   height,
   ...restProps
 }) => (
@@ -63,25 +56,21 @@ const AppointmentBase = ({
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  children: PropTypes.node,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
-  appointment: PropTypes.object,
+  getTitle: PropTypes.func.isRequired,
+  getStartDate: PropTypes.func.isRequired,
+  getEndDate: PropTypes.func.isRequired,
+  appointment: PropTypes.object.isRequired,
   top: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 AppointmentBase.defaultProps = {
   className: undefined,
   children: null,
-  getTitle: undefined,
-  getStartDate: undefined,
-  getEndDate: undefined,
-  appointment: undefined,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

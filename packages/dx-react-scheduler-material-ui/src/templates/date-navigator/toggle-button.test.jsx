@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { ToggleButton } from './toggle-button';
 
-describe('Date Navigator', () => {
+describe('DateNavigator', () => {
   const defaultProps = {
     onToggle: () => undefined,
     buttonRef: () => undefined,

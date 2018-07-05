@@ -1,19 +1,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Overlay } from './overlay';
+import { Row } from './row';
 
-describe('DateNavigator', () => {
-  const defaultProps = {
-    onHide: () => undefined,
-  };
-  beforeAll(() => {
-  });
-  describe('Overlay', () => {
+describe('TimePanel', () => {
+  describe('Row', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Overlay {...defaultProps} data={{ a: 1 }}>
+        <Row data={{ a: 1 }}>
           <div />
-        </Overlay>
+        </Row>
       ));
 
       expect(tree.props().data)

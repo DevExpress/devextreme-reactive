@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, createMount, getClasses } from '@material-ui/core/test-utils';
 import { Table } from './table';
 
-describe('Date Navigator', () => {
+describe('DateNavigator', () => {
   const defaultProps = {
     rowComponent: () => null,
     cellComponent: () => null,

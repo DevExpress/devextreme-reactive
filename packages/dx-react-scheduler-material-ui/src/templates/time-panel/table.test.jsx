@@ -1,31 +1,35 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Cell } from './cell';
+import { Table } from './table';
 
-describe('DateNavigator', () => {
+describe('TimePanel', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell />);
+    classes = getClasses(<Table><div /></Table>);
     shallow = createShallow({ dive: true });
   });
-  describe('Cell', () => {
+  describe('Table', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Cell className="custom-class" />
+        <Table className="custom-class">
+          <div />
+        </Table>
       ));
 
-      expect(tree.is('.custom-class'))
+      expect(tree.find('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.cell}`))
+      expect(tree.find(`.${classes.table}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Cell data={{ a: 1 }} />
+        <Table data={{ a: 1 }}>
+          <div />
+        </Table>
       ));
 
-      expect(tree.props().data)
+      expect(tree.find(`.${classes.table}`).props().data)
         .toMatchObject({ a: 1 });
     });
   });

@@ -77,7 +77,7 @@ var injectLiveDemos = function(content) {
         const options = {
           ...data,
           path: `/demo/${data.path}`,
-          scriptPath: `{{site.baseurl}}/{{page.demos_link}}/demos/dist/index.js?v={{ site.time | date: '%s' }}`,
+          scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
         };
         return `<div
           class="embedded-demo"
@@ -132,22 +132,28 @@ gulp.task('site:docs', function() {
     .pipe(gulp.dest(distPath));
 });
 
-gulp.task('site:demos:react', function() {
-  return gulp.src(['packages/dx-react-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'react/demos/dist/'));
+gulp.task('site:demos:react:grid', function() {
+  return gulp.src(['packages/dx-react-grid-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
+});
+
+gulp.task('site:demos:react:chart', function() {
+  return gulp.src(['packages/dx-react-chart-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/chart/demos/dist/'));
 });
 
 gulp.task('site:demos:vue', function() {
   return gulp.src(['packages/dx-vue-demos/dist/*'])
-    .pipe(gulp.dest(distPath + 'vue/demos/dist/'));
+    .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
 gulp.task('site', function(done) {
   runSequence(
     'site:clean',
     'site:docs',
-    'site:demos:react',
+    'site:demos:react:grid',
     'site:demos:vue',
+    'site:demos:react:chart',
     done
   );
 });

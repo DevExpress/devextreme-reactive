@@ -10,7 +10,6 @@ const appointmentRectsComputed = ({
   excludedDays,
   getAppointmentStartDate,
   getAppointmentEndDate,
-  //
   dayScale,
   timeScale,
   cellDuration,

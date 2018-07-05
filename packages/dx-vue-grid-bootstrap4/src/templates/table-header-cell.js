@@ -56,6 +56,7 @@ export const TableHeaderCell = {
         <div
           class="d-flex flex-direction-row align-items-center"
         >
+          {this.$slots.before}
           <div
             class={{
               'dx-g-bs4-table-header-cell-wrapper': true,

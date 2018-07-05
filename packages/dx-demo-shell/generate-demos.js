@@ -73,9 +73,6 @@ const loadDemosToGenerate = () => {
             if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.${demoExtension}`))) {
               return;
             }
-            if (file.includes('.wb3.') && themeName === 'bootstrap3') {
-              return;
-            }
             demos.push({
               sectionName,
               demoName,

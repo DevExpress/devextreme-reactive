@@ -31,3 +31,5 @@
         path: /vue/grid/demos/featured/vuex-integration
       - title: Remote Data
         path: /vue/grid/demos/featured/remote-data
+      - title: Tree Data
+        path: /vue/grid/demos/featured/tree-data

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -7,9 +8,9 @@ import moment from 'moment';
 const styles = theme => ({
   cell: {
     border: 0,
-    padding: 10,
+    padding: theme.spacing.unit,
     '&:last-child': {
-      padding: 10,
+      padding: theme.spacing.unit,
     },
   },
   text: {
@@ -19,6 +20,7 @@ const styles = theme => ({
 
 const CellBase = ({
   classes,
+  className,
   children,
   time,
   ...restProps
@@ -27,14 +29,12 @@ const CellBase = ({
   return (
     <TableCell
       numeric
-      className={classes.cell}
+      className={classNames(classes.cell, className)}
       {...restProps}
     >
       {children || (
         <span className={classes.text}>
-          {currentTime.format('h')}:
-          {currentTime.format('mm')}
-          {currentTime.format('A')}
+          {currentTime.format('h:mm A')}
         </span>
       )}
     </TableCell>
@@ -45,10 +45,12 @@ CellBase.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: null,
+  className: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

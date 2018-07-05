@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorderColor } from '../utils';
@@ -19,6 +20,7 @@ const styles = theme => ({
 
 const CellBase = ({
   classes,
+  className,
   children,
   time,
   date,
@@ -26,7 +28,7 @@ const CellBase = ({
 }) => (
   <TableCell
     tabIndex={0}
-    className={classes.cell}
+    className={classNames(classes.cell, className)}
     {...restProps}
   >
     {children}
@@ -38,11 +40,13 @@ CellBase.propTypes = {
   time: PropTypes.object.isRequired,
   date: PropTypes.instanceOf(Date),
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: null,
   date: undefined,
+  className: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

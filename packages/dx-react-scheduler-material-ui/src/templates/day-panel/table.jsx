@@ -1,15 +1,25 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Table = ({
+const styles = {
+  table: {
+    tableLayout: 'fixed',
+  },
+};
+
+const TableBase = ({
   children,
+  classes,
+  className,
   ...restProps
 }) => (
   <TableMUI
+    className={classNames(classes.table, className)}
     {...restProps}
-    style={{ tableLayout: 'fixed' }}
   >
     <TableBody>
       {children}
@@ -17,6 +27,14 @@ export const Table = ({
   </TableMUI>
 );
 
-Table.propTypes = {
+TableBase.propTypes = {
   children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
+
+TableBase.defaultProps = {
+  className: undefined,
+};
+
+export const Table = withStyles(styles, { name: 'Table' })(TableBase);

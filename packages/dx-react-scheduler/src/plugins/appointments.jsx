@@ -42,6 +42,7 @@ export class Appointments extends React.PureComponent {
   render() {
     const {
       appointmentComponent: Appointment,
+      containerComponent: Container,
       getTitle,
       getStartDate,
       getEndDate,
@@ -58,31 +59,33 @@ export class Appointments extends React.PureComponent {
 
         <Template name="main">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-              getRect,
-              dateTableRef,
-              appointments,
-            }) => (dateTableRef ? (
-              appointments.map((appointment, index) => {
-              const {
-                top, left, width, height,
-              } = getRect(appointment.start, appointment.end);
-              return (
-                <Appointment
-                  key={index.toString()}
-                  top={top}
-                  left={left + ((width / appointment.reduceValue) * appointment.offset)}
-                  width={width / appointment.reduceValue}
-                  height={height}
-                  getTitle={getTitle}
-                  getEndDate={getEndDate}
-                  getStartDate={getStartDate}
-                  appointment={appointment.dataItem}
-                />
-              );
-            })) : null)}
-          </TemplateConnector>
+          <Container>
+            <TemplateConnector>
+              {({
+                getRect,
+                dateTableRef,
+                appointments,
+              }) => (dateTableRef ? (
+                appointments.map((appointment, index) => {
+                const {
+                  top, left, width, height,
+                } = getRect(appointment.start, appointment.end);
+                return (
+                  <Appointment
+                    key={index.toString()}
+                    top={top}
+                    left={left + ((width / appointment.reduceValue) * appointment.offset)}
+                    width={width / appointment.reduceValue}
+                    height={height}
+                    getTitle={getTitle}
+                    getEndDate={getEndDate}
+                    getStartDate={getStartDate}
+                    appointment={appointment.dataItem}
+                  />
+                );
+              })) : null)}
+            </TemplateConnector>
+          </Container>
         </Template>
       </Plugin>
     );
@@ -91,6 +94,7 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   getTitle: PropTypes.func,
   getStartDate: PropTypes.func,
   getEndDate: PropTypes.func,

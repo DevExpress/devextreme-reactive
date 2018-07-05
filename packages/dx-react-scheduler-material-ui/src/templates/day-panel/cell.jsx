@@ -30,7 +30,7 @@ const CellBase = ({
   const currentDate = moment(date);
   return (
     <TableCell
-      className={classNames({ [classes.cell]: true }, className)}
+      className={classNames(classes.cell, className)}
       {...restProps}
     >
       {children || (

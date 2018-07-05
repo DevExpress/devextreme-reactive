@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 
 export const Layout = ({
   dayScale,
@@ -11,10 +10,10 @@ export const Layout = ({
 }) => (
   <Table {...restProps}>
     <Row>
-      {dayScale.map(day => (
+      {dayScale.map(date => (
         <Cell
-          key={day}
-          date={moment(day).toDate()}
+          key={date}
+          date={date}
         />
       ))}
     </Row>
@@ -22,7 +21,7 @@ export const Layout = ({
 );
 
 Layout.propTypes = {
-  dayScale: PropTypes.array,
+  dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   tableComponent: PropTypes.func,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,

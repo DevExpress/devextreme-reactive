@@ -21,7 +21,7 @@ const CellBase = ({
   classes,
   children,
   time,
-  day,
+  date,
   ...restProps
 }) => (
   <TableCell
@@ -36,13 +36,13 @@ const CellBase = ({
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   time: PropTypes.object.isRequired,
-  day: PropTypes.instanceOf(Date),
+  date: PropTypes.instanceOf(Date),
   children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
   children: null,
-  day: undefined,
+  date: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

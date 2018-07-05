@@ -12,7 +12,7 @@ export const Layout = ({
   <Table {...restProps}>
     {timeScale.map((time, index) => (
       <Row key={index.toString()}>
-        {dayScale.map(day => <Cell key={day} day={day} time={time} />)}
+        {dayScale.map(date => <Cell key={date} date={date} time={time} />)}
       </Row>
     ))}
   </Table>
@@ -20,7 +20,7 @@ export const Layout = ({
 
 Layout.propTypes = {
   timeScale: PropTypes.array,
-  dayScale: PropTypes.array,
+  dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   tableComponent: PropTypes.func,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,

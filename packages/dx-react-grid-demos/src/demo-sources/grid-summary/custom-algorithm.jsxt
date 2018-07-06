@@ -25,7 +25,7 @@ const summaryTypes = {
     if (rows.length % 2 === 1) {
       return getValue(sortedRows[(sortedRows.length + 1) / 2]);
     }
-    return (getValue(sortedRows[sortedRows.length / 2]) + getValue(sortedRows[sortedRows.length / 2 + 1])) / 2;
+    return (getValue(sortedRows[sortedRows.length / 2]) + getValue(sortedRows[(sortedRows.length / 2) + 1])) / 2;
   },
 };
 

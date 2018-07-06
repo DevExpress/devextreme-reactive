@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { TableSummaryRow as TableSummaryRowBase } from '@devexpress/dx-react-grid';
+import { TableSummaryItem } from '../templates/table-summary-item';
 import { TableCell } from '../templates/table-cell';
 
 const defaultMessages = {
@@ -21,6 +22,7 @@ export class TableSummaryRow extends React.PureComponent {
     return (
       <TableSummaryRowBase
         cellComponent={TableCell}
+        itemComponent={TableSummaryItem}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -43,3 +45,4 @@ TableSummaryRow.defaultProps = {
 };
 
 TableSummaryRow.Cell = TableCell;
+TableSummaryRow.Item = TableSummaryItem;

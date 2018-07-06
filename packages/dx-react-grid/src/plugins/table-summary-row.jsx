@@ -19,6 +19,7 @@ export class TableSummaryRow extends React.PureComponent {
   renderCell(params, columnSummary) {
     const {
       cellComponent: Cell,
+      itemComponent: Item,
       messages,
     } = this.props;
 
@@ -31,11 +32,11 @@ export class TableSummaryRow extends React.PureComponent {
         {columnSummary.map((summary) => {
           if (defaultTypelessSummaries.includes(summary.type)) {
             return (
-              <div
+              <Item
                 key={summary.type}
               >
-                {getMessage(summary.type)}: {String(summary.value)}
-              </div>
+                {getMessage(summary.type)}:  {String(summary.value)}
+              </Item>
             );
           }
           return (
@@ -48,9 +49,9 @@ export class TableSummaryRow extends React.PureComponent {
               }}
             >
               {content => (
-                <div>
-                  {getMessage(summary.type)}: {content || String(summary.value)}
-                </div>
+                <Item>
+                  {getMessage(summary.type)}:  {content || String(summary.value)}
+                </Item>
               )}
             </TemplatePlaceholder>
           );
@@ -127,6 +128,7 @@ export class TableSummaryRow extends React.PureComponent {
 
 TableSummaryRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

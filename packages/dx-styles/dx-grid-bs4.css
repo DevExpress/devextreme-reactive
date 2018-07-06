@@ -183,3 +183,6 @@ button.dx-g-bs4-table-edit-command-cell {
   height: 16px;
   fill: currentColor;
 }
+.dx-g-bs4-table-summary-item {
+  font-weight: bold;
+}

@@ -48,11 +48,10 @@ export default class Demo extends React.PureComponent {
       ],
       totalSummaryItems: [
         { columnName: 'region', type: 'count' },
+        { columnName: 'amount', type: 'sum' },
       ],
       groupSummaryItems: [
         { columnName: 'region', type: 'count' },
-        { columnName: 'amount', type: 'count' },
-        { columnName: 'amount', type: 'max' },
         { columnName: 'amount', type: 'sum' },
       ],
       currencyColumns: ['amount'],

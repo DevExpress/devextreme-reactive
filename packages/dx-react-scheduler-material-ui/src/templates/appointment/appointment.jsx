@@ -4,7 +4,7 @@ import moment from 'moment';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, typography }) => ({
+const styles = ({ palette, typography, spacing }) => ({
   appointment: {
     position: 'absolute',
     display: 'block',
@@ -22,13 +22,13 @@ const styles = ({ palette, typography }) => ({
     },
   },
   main: {
-    padding: theme.spacing.unit / 2,
+    padding: spacing.unit / 2,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   title: {
-    color: theme.palette.background.default,
+    color: palette.background.default,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -38,7 +38,7 @@ const styles = ({ palette, typography }) => ({
     overflow: 'hidden',
   },
   time: {
-    color: theme.palette.background.default,
+    color: palette.background.default,
     display: 'inline-block',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

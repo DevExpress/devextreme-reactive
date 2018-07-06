@@ -112,7 +112,7 @@ describe('Appointment computeds', () => {
     });
     const offsetParent = {
       getBoundingClientRect: () => ({
-        top: 10, left: 10,
+        top: 10, left: 10, width: 250,
       }),
     };
     const cellElements = [{
@@ -140,7 +140,7 @@ describe('Appointment computeds', () => {
       const endDate = new Date(2018, 5, 25, 9, 15);
 
       const {
-        top, left, height, width,
+        top, left, height, width, parentWidth,
       } = getRectByDates(
         startDate,
         endDate,
@@ -154,6 +154,7 @@ describe('Appointment computeds', () => {
       expect(left).toBe(10);
       expect(height).toBe(100);
       expect(width).toBe(85);
+      expect(parentWidth).toBe(250);
     });
   });
 });

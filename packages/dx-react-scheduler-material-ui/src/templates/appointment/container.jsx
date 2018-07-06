@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   container: {
     position: 'absolute',
+    width: '100%',
     top: 0,
     left: 0,
   },

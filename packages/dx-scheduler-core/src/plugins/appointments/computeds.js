@@ -14,6 +14,8 @@ import {
 
 const CELL_GAP = 0.15;
 
+const toPercentage = (value, total) => (value * 100) / total;
+
 const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
   const {
     index: cellIndex,
@@ -29,7 +31,7 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   } = cellElement.getBoundingClientRect();
   const timeOffset = moment(date).diff(cellStartDate, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
-  let parentRect = { left: 0, top: 0 };
+  let parentRect = { left: 0, top: 0, width: 0 };
   if (cellElement.offsetParent) {
     parentRect = cellElement.offsetParent.getBoundingClientRect();
   }
@@ -60,6 +62,7 @@ export const getRectByDates = (
     width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
     top: top - firstCellRect.parentRect.top,
     left: firstCellRect.left - firstCellRect.parentRect.left,
+    parentWidth: firstCellRect.parentRect.width,
     height,
   };
 };
@@ -163,6 +166,7 @@ export const appointmentRects = (
       left,
       width,
       height,
+      parentWidth,
     } = getRectByDates(
       appt.start,
       appt.end,
@@ -171,11 +175,12 @@ export const appointmentRects = (
       cellDuration,
       cellElements,
     );
+    const widthInPx = width / appt.reduceValue;
     return {
       top,
       height,
-      left: left + ((width / appt.reduceValue) * appt.offset),
-      width: width / appt.reduceValue,
+      left: toPercentage(left + (widthInPx * appt.offset), parentWidth),
+      width: toPercentage(widthInPx, parentWidth),
       dataItem: appt.dataItem,
     };
   });

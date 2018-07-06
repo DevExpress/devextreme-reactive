@@ -189,7 +189,7 @@ describe('TemplatePlaceholder', () => {
 
             <DxTemplate name="test">
               {() => (
-                <DxTemplatePlaceholder text="overriden" />
+                <DxTemplatePlaceholder text="overridden" />
               )}
             </DxTemplate>
 
@@ -202,7 +202,7 @@ describe('TemplatePlaceholder', () => {
     });
 
     expect(wrapper.find('h1').text())
-      .toBe('overriden');
+      .toBe('overridden');
   });
 
   it('should support templates chain update on params change', () => {

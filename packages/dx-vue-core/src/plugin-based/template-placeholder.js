@@ -42,7 +42,7 @@ export const DxTemplatePlaceholder = {
   computed: {
     computedParams() {
       const that = this;
-      return !Object.keys(this.$attrs).length && !Object.keys(this.$attrs).length
+      return !Object.keys(this.$attrs).length && !Object.keys(this.$listeners).length
         ? this.templateHost.params
         : {
           get attrs() { return that.$attrs; },

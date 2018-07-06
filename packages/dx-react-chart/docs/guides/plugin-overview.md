@@ -13,7 +13,7 @@ The following plugins render a corresponding series:
 - `BarSeries`
 - `PieSeries`
 
-The plugins below render extra elements like a grid, legend, axes, etc. 
+The plugins below render extra elements like a grid, legend, axes, etc.
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
@@ -24,7 +24,7 @@ The plugins below render extra elements like a grid, legend, axes, etc.
 
 The plugin order is important because plugins are rendered in the same order they are defined in the Chart component. For example, if the `BarSeries` plugin precedes the `LineSeries`, the line series overlays the bar series.
 
-.embedded-demo({ "path": "chart-basic/combination-series.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/combination-series", "showThemeSelector": true })
 
 The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined one:
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
 import { totalSummary, groupSummaries, treeSummaries } from '@devexpress/dx-grid-core';
 
@@ -9,6 +10,8 @@ const pluginDependencies = [
 // eslint-disable-next-line react/prefer-stateless-function
 export class IntegratedSummary extends React.PureComponent {
   render() {
+    const { types } = this.props;
+
     const totalSummaryComputed = ({
       rows,
       totalSummaryItems,
@@ -24,6 +27,7 @@ export class IntegratedSummary extends React.PureComponent {
         getRowLevelKey,
         isGroupRow,
         getCollapsedRows,
+        types,
       );
 
     const groupSummariesComputed = ({
@@ -39,6 +43,7 @@ export class IntegratedSummary extends React.PureComponent {
         getCellValue,
         getRowLevelKey,
         isGroupRow,
+        types,
       );
 
     const treeSummariesComputed = ({
@@ -56,6 +61,7 @@ export class IntegratedSummary extends React.PureComponent {
         getRowLevelKey,
         isGroupRow,
         getRowId,
+        types,
       );
 
     return (
@@ -70,3 +76,11 @@ export class IntegratedSummary extends React.PureComponent {
     );
   }
 }
+
+IntegratedSummary.propTypes = {
+  types: PropTypes.object,
+};
+
+IntegratedSummary.defaultProps = {
+  types: undefined,
+};

@@ -1,16 +1,13 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   SummaryState,
-  TreeDataState,
-  CustomTreeData,
   IntegratedSummary,
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
-  VirtualTable,
+  Table,
   TableHeaderRow,
-  TableTreeColumn,
   TableSummaryRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
@@ -18,6 +15,23 @@ import {
   generateRows,
   globalSalesValues,
 } from '../../../demo-data/generator';
+
+const summaryTypes = {
+  median: (rows, getValue) => {
+    if (!rows.length) {
+      return 0;
+    }
+    const sortedRows = rows.sort((a, b) => getValue(a) - getValue(b));
+    if (rows.length % 2 === 1) {
+      return getValue(sortedRows[(sortedRows.length + 1) / 2]);
+    }
+    return (getValue(sortedRows[sortedRows.length / 2]) + getValue(sortedRows[sortedRows.length / 2 + 1])) / 2;
+  },
+};
+
+const messages = {
+  median: 'Median',
+};
 
 const CurrencyFormatter = ({ value }) =>
   <span>${value}</span>;
@@ -28,11 +42,6 @@ const CurrencyTypeProvider = props => (
     {...props}
   />
 );
-
-const getChildRows = (row, rootRows) => {
-  const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
-  return childRows.length ? childRows : null;
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -48,60 +57,43 @@ export default class Demo extends React.PureComponent {
         { name: 'amount', title: 'Sale Amount' },
       ],
       tableColumnExtensions: [
-        { columnName: 'region', width: 250 },
         { columnName: 'amount', align: 'right' },
       ],
       totalSummaryItems: [
-        { columnName: 'region', type: 'count' },
-      ],
-      treeSummaryItems: [
-        { columnName: 'region', type: 'count' },
-        { columnName: 'amount', type: 'count' },
-        { columnName: 'amount', type: 'max' },
-        { columnName: 'amount', type: 'sum' },
+        { columnName: 'amount', type: 'avg' },
+        { columnName: 'amount', type: 'median' },
       ],
       currencyColumns: ['amount'],
-      data: generateRows({
-        columnValues: {
-          id: ({ index }) => index,
-          parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
-          ...globalSalesValues,
-        },
-        length: 200,
-      }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
   render() {
     const {
-      data, columns, tableColumnExtensions, currencyColumns, totalSummaryItems, treeSummaryItems,
+      rows, columns, tableColumnExtensions, currencyColumns, totalSummaryItems,
     } = this.state;
 
     return (
       <<%&wrapperTag%>>
         <Grid
-          rows={data}
+          rows={rows}
           columns={columns}
         >
           <CurrencyTypeProvider
             for={currencyColumns}
           />
-          <TreeDataState />
           <SummaryState
             totalItems={totalSummaryItems}
-            treeItems={treeSummaryItems}
           />
-          <CustomTreeData
-            getChildRows={getChildRows}
+          <IntegratedSummary
+            types={summaryTypes}
           />
-          <IntegratedSummary />
-          <VirtualTable
+          <Table
             columnExtensions={tableColumnExtensions}
           />
           <TableHeaderRow />
-          <TableTreeColumn
-            for="region"
+          <TableSummaryRow
+            messages={messages}
           />
-          <TableSummaryRow />
         </Grid>
       </<%&wrapperTag%>>
     );

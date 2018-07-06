@@ -43,6 +43,9 @@ export default class Demo extends React.PureComponent {
         { name: 'amount', title: 'Sale Amount' },
       ],
       grouping: [{ columnName: 'region' }],
+      tableColumnExtensions: [
+        { columnName: 'amount', align: 'right' },
+      ],
       totalSummaryItems: [
         { columnName: 'region', type: 'count' },
       ],
@@ -58,7 +61,7 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, grouping, currencyColumns, totalSummaryItems, groupSummaryItems,
+      rows, columns, tableColumnExtensions, grouping, currencyColumns, totalSummaryItems, groupSummaryItems,
     } = this.state;
 
     return (
@@ -79,7 +82,9 @@ export default class Demo extends React.PureComponent {
           />
           <IntegratedGrouping />
           <IntegratedSummary />
-          <Table />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow />
           <TableGroupRow
             showColumnsWhenGrouped={true}

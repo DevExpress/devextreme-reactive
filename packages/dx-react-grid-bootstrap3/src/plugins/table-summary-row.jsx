@@ -5,7 +5,7 @@ import { TableSummaryRow as TableSummaryRowBase } from '@devexpress/dx-react-gri
 import { TableCell } from '../templates/table-cell';
 
 const defaultMessages = {
-  sum: 'Total',
+  sum: 'Sum',
   min: 'Min',
   max: 'Max',
   avg: 'Avg',

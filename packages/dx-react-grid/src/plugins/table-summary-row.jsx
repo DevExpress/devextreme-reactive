@@ -16,7 +16,7 @@ const tableFooterRowsComputed = ({ tableFooterRows }) =>
 const defaultTypelessSummaries = ['count'];
 
 export class TableSummaryRow extends React.PureComponent {
-  renderCell(column, columnSummary) {
+  renderCell(params, columnSummary) {
     const {
       cellComponent: Cell,
       messages,
@@ -25,7 +25,9 @@ export class TableSummaryRow extends React.PureComponent {
     const getMessage = getMessagesFormatter(messages);
 
     return (
-      <Cell>
+      <Cell
+        {...params}
+      >
         {columnSummary.map((summary) => {
           if (defaultTypelessSummaries.includes(summary.type)) {
             return (
@@ -41,7 +43,7 @@ export class TableSummaryRow extends React.PureComponent {
               key={summary.type}
               name="valueFormatter"
               params={{
-                column,
+                column: params.tableColumn.column,
                 value: summary.value,
               }}
             >
@@ -79,7 +81,7 @@ export class TableSummaryRow extends React.PureComponent {
                   .filter(([item]) => item.columnName === params.tableColumn.column.name);
                 const columnSummary = columnSummaryItems
                   .map(([item, index]) => ({ type: item.type, value: totalSummary[index] }));
-                return this.renderCell(params.tableColumn.column, columnSummary);
+                return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>
           )}
@@ -96,7 +98,7 @@ export class TableSummaryRow extends React.PureComponent {
                   .filter(([item]) => item.columnName === params.tableColumn.column.name);
                 const columnSummary = columnSummaryItems
                   .map(([item, index]) => ({ type: item.type, value: groupSummaries[params.tableRow.compoundKey][index] }));
-                return this.renderCell(params.tableColumn.column, columnSummary);
+                return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>
           )}
@@ -113,7 +115,7 @@ export class TableSummaryRow extends React.PureComponent {
                   .filter(([item]) => item.columnName === params.tableColumn.column.name);
                 const columnSummary = columnSummaryItems
                   .map(([item, index]) => ({ type: item.type, value: treeSummaries[params.tableRow.rowId][index] }));
-                return this.renderCell(params.tableColumn.column, columnSummary);
+                return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>
           )}

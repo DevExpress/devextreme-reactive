@@ -4,18 +4,20 @@ import moment from 'moment';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = ({ palette, typography }) => ({
   appointment: {
     position: 'absolute',
     display: 'block',
     overflow: 'hidden',
-    backgroundColor: theme.palette.primary[300],
-    ...theme.typography.caption,
+    backgroundColor: palette.primary[300],
+    boxSizing: 'border-box',
+    borderRight: `1px solid ${palette.background.paper}`,
+    ...typography.caption,
     '&:hover': {
-      backgroundColor: theme.palette.primary[400],
+      backgroundColor: palette.primary[400],
     },
     '&:focus': {
-      backgroundColor: theme.palette.primary[100],
+      backgroundColor: palette.primary[100],
       outline: 0,
     },
   },

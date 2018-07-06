@@ -1,5 +1,13 @@
 import moment from 'moment';
 
+const calculateViewBound = (dateBound, timeBound) => {
+  const time = moment(timeBound);
+  return moment(dateBound)
+    .hour(time.hours())
+    .minute(time.minutes())
+    .toDate();
+};
+
 export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate) => {
   const result = [];
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
@@ -16,14 +24,13 @@ export const dayScale = (
   currentDate = new Date(),
   firsDayOfWeek = 0,
   dayCount = 7,
-  except = [],
+  excluded = [],
 ) => {
   const result = [];
   const date = moment(currentDate).startOf('hour');
   date.day(firsDayOfWeek);
-
   for (let index = 0; index < dayCount; index += 1) {
-    if (except.findIndex(item => item === date.day()) === -1) {
+    if (excluded.findIndex(item => item === date.day()) === -1) {
       result.push(date.toDate());
     }
     date.add(1, 'days');
@@ -31,18 +38,8 @@ export const dayScale = (
   return result;
 };
 
-export const startViewDate = (days, times) => {
-  const firstTimeOfRange = moment(times[0].start);
-  const startDate = moment(days[0])
-    .hour(firstTimeOfRange.hours())
-    .minute(firstTimeOfRange.minutes());
-  return startDate.toDate();
-};
+export const startViewDate = (days, times) =>
+  calculateViewBound(days[0], times[0].start);
 
-export const endViewDate = (days, times) => {
-  const lastTimeOfRange = moment(times[times.length - 1].end);
-  const startDate = moment(days[days.length - 1])
-    .hour(lastTimeOfRange.hours())
-    .minute(lastTimeOfRange.minutes());
-  return startDate.toDate();
-};
+export const endViewDate = (days, times) =>
+  calculateViewBound(days[days.length - 1], times[times.length - 1].end);

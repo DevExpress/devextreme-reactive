@@ -7,7 +7,7 @@ import { getBorderColor } from '../utils';
 const styles = theme => ({
   container: {
     overflowY: 'auto',
-    height: 500,
+    height: 700,
   },
   stickyHeader: {
     top: 0,

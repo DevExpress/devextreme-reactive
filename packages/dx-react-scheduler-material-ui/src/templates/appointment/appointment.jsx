@@ -21,6 +21,29 @@ const styles = ({ palette, typography }) => ({
       outline: 0,
     },
   },
+  main: {
+    padding: theme.spacing.unit / 2,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  title: {
+    color: theme.palette.background.default,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  textContainer: {
+    whiteSpace: 'pre',
+    overflow: 'hidden',
+  },
+  time: {
+    color: theme.palette.background.default,
+    display: 'inline-block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
 });
 
 const AppointmentBase = ({
@@ -40,17 +63,19 @@ const AppointmentBase = ({
     {...restProps}
   >
     {children || (
-      <div>
-        <p>
+      <div className={classes.main}>
+        <div className={classes.title} >
           {getTitle(appointment)}
-        </p>
-        <span>
-          {moment(getStartDate(appointment)).format('D MMM H:mmA')}
-        </span>
-        -
-        <span>
-          {moment(getEndDate(appointment)).format('D MMM H:mmA')}
-        </span>
+        </div>
+        <div className={classes.textContainer} >
+          <div className={classes.time} >
+            {moment(getStartDate(appointment)).format('h:mm A')}
+          </div>
+          <div className={classes.time} >-</div>
+          <div className={classes.time} >
+            {moment(getEndDate(appointment)).format('h:mm A')}
+          </div>
+        </div>
       </div>
     )}
   </div>

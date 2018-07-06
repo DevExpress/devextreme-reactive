@@ -135,5 +135,5 @@ export const appointments = [
     text: 'Launch New Website',
     startDate: new Date(2018, 6, 4, 12, 20),
     endDate: new Date(2018, 6, 4, 14, 10),
-  }
+  },
 ];

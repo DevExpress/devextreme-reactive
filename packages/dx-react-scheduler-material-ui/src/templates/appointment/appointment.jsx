@@ -37,6 +37,7 @@ const styles = ({ palette, typography, spacing }) => ({
   textContainer: {
     whiteSpace: 'pre',
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   time: {
     color: palette.background.default,

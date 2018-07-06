@@ -60,7 +60,9 @@ const AppointmentBase = ({
   <div
     className={classNames(classes.appointment, className)}
     style={{
-      top, left, width, height,
+      width,
+      height,
+      transform: `translate(${left}px, ${top}px)`,
     }}
     {...restProps}
   >

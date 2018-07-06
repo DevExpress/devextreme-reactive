@@ -46,8 +46,7 @@ describe('Appointment', () => {
 
       expect(tree.props().style)
         .toEqual({
-          top: defaultProps.top,
-          left: defaultProps.left,
+          transform: `translate(${defaultProps.left}px, ${defaultProps.top}px)`,
           width: defaultProps.width,
           height: defaultProps.height,
         });

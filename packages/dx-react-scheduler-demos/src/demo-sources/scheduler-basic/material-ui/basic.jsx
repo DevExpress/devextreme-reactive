@@ -59,12 +59,14 @@ export default class Demo extends React.PureComponent {
           >
             <Toolbar />
             <WeekView
-              startDayHour={8}
-              endDayHour={18}
+              startDayHour={9}
+              endDayHour={19}
               firstDayOfWeek={1}
             />
             <DateNavigator />
-            <Appointments />
+            <Appointments
+              getTitle={appointment => appointment.text}
+            />
           </Scheduler>
         </Paper>
       </div>

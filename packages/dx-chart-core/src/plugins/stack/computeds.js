@@ -23,6 +23,8 @@ const getStacks = series => series.reduce((
   };
 }, {});
 
+const filtering = ({ stack: seriesStack }) => seriesStack;
+
 export const processData = (offset, order) => (series, data) => {
   const stacks = getStacks(series);
 
@@ -53,11 +55,8 @@ export const seriesWithStacks = series =>
     return [...prevResult, { ...singleSeries, stack: seriesStack }];
   }, []);
 
-export const stacks = (series, filtering) =>
-  [...new Set(series.reduce((prevResult, singleSeries) => {
-    const element = filtering(singleSeries);
-    return element ? [...prevResult, element] : prevResult;
-  }, []))];
-
-export const filtering = ({ stack: seriesStack }) => seriesStack;
-
+export const stacks = series => [
+  ...new Set(series
+    .filter(singleSeries => filtering(singleSeries))
+    .map(({ stack: seriesStack }) => seriesStack)),
+];

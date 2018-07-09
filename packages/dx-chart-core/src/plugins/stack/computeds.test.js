@@ -1,5 +1,5 @@
 import { stack } from 'd3-shape';
-import { seriesWithStacks, processData, stacks, filtering } from './computeds';
+import { seriesWithStacks, processData, stacks } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
@@ -16,10 +16,8 @@ mockStack.offset = jest.fn(() => jest.fn(() => [
 
 describe('stacks', () => {
   it('should return stacks', () => {
-    const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
-    const filter = jest.fn(({ name, stack: sereisStack }) => (name === '1' ? sereisStack : undefined));
-    expect(stacks(series, filter)).toEqual(['one']);
-    expect(filter).toHaveBeenCalledTimes(2);
+    const series = [{ name: '1', stack: 'one' }, { name: '2', stack: null }, { name: '3', stack: 'two' }, { name: '4', stack: 'one' }];
+    expect(stacks(series)).toEqual(['one', 'two']);
   });
 });
 
@@ -33,12 +31,6 @@ describe('series with stacks', () => {
   it('should return series with stacks, stack in series is specify', () => {
     const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
     expect(seriesWithStacks(series)).toEqual([{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }]);
-  });
-});
-
-describe('filtering', () => {
-  it('should return series stack', () => {
-    expect(filtering({ stack: 'seriesStack' })).toBe('seriesStack');
   });
 });
 

@@ -102,8 +102,8 @@ export default class Demo extends React.PureComponent {
             style={{ textAlign: 'center', width: '100%' }}
           />
           <Stack
-            stackOffset={stackOffsetWiggle}
-            stackOrder={stackOrderInsideOut}
+            offset={stackOffsetWiggle}
+            order={stackOrderInsideOut}
           />
         </Chart>
       </<%&wrapperTag%>>

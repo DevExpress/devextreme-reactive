@@ -57,41 +57,42 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         <Chart
           data={chartData}
+          style={{ paddingLeft: '20px' }}
         >
           <ArgumentAxis name="argument" />
 
           <AreaSeries
             name="Mysteries"
             valueField="mysteries"
-            argumentField="month"
+            argumentField="year"
             seriesComponent={Area}
             stack="a"
           />
           <AreaSeries
             name="Science Fiction"
             valueField="scienceFiction"
-            argumentField="month"
+            argumentField="year"
             seriesComponent={Area}
             stack="a"
           />
           <AreaSeries
             name="Romance"
             valueField="romance"
-            argumentField="month"
+            argumentField="year"
             seriesComponent={Area}
             stack="a"
           />
           <AreaSeries
             name="Fantasy"
             valueField="fantasy"
-            argumentField="month"
+            argumentField="year"
             seriesComponent={Area}
             stack="a"
           />
           <AreaSeries
             name="Thrillers"
             valueField="thrillers"
-            argumentField="month"
+            argumentField="year"
             seriesComponent={Area}
             stack="a"
           />

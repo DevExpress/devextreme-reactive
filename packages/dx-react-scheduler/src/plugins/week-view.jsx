@@ -69,7 +69,8 @@ export class WeekView extends React.PureComponent {
       );
     const dayScaleComputed = ({ currentDate }) =>
       getDayScale(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
-    const startViewDateComputed = ({ dayScale, timeScale }) => startViewDate(dayScale, timeScale);
+    const startViewDateComputed = ({ dayScale, timeScale }) =>
+      startViewDate(dayScale, timeScale, startDayHour);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDate(dayScale, timeScale);
 
     return (

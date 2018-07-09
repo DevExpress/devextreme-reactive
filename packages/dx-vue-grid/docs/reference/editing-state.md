@@ -26,7 +26,6 @@ columnExtensions? | Array&lt;[DxEditingState.ColumnExtension](#dxeditingstatecol
 editingRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows being edited.
 addedRows? | Array&lt;any&gt; | | Created but not committed rows.
 rowChanges? | { [key: string]: any } | | Not committed row changes.
-deletedRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows prepared for deletion.
 
 ### Events
 
@@ -35,9 +34,7 @@ Name | Type | Default | Description
 update:addedRows? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.
 update:editingRowIds? | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
 update:rowChanges? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-update:deletedRowIds? | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
-commitChanges | (changes: Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
-
+commitChanges | (changes: Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
 

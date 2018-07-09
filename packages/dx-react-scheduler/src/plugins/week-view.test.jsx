@@ -64,13 +64,14 @@ describe('Week View', () => {
             startDayHour={8}
             endDayHour={18}
             cellDuration={60}
+            firstDayOfWeek={1}
             {...defaultProps}
           />
         </PluginHost>
       ));
 
       expect(timeScale)
-        .toBeCalledWith(8, 18, 60);
+        .toBeCalledWith('2018-07-04', 1, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
     });
@@ -119,11 +120,12 @@ describe('Week View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
+            startDayHour={2}
           />
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });

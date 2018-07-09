@@ -7,13 +7,16 @@ import {
 
 describe('View computeds', () => {
   describe('#timeScale', () => {
-    const startDate = new Date(2018, 5, 25);
-    it('should use startDate date for all calculations', () => {
-      const units = timeScale(0, 1, 30, startDate);
-      expect(units[0].start).toEqual(startDate);
+    const currentDate = new Date(2018, 5, 28);
+    const firstDateOfWeek = new Date(2018, 5, 25);
+    const format = date => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    it('should start calculation from start view date', () => {
+      const units = timeScale(currentDate, 1, 0, 1, 30);
+      expect(format(units[0].start))
+        .toEqual(format(firstDateOfWeek));
     });
     it('should return time units', () => {
-      const units = timeScale(0, 24, 30, startDate);
+      const units = timeScale(currentDate, 1, 0, 24, 30);
       expect(units).toHaveLength(48);
       expect(units[0].start.getHours()).toBe(0);
       expect(units[0].start.getMinutes()).toBe(0);
@@ -27,7 +30,7 @@ describe('View computeds', () => {
     });
 
     it('should return time units depend on start/end day hours', () => {
-      const units = timeScale(10, 11, 30, startDate);
+      const units = timeScale(currentDate, 1, 10, 11, 30);
       expect(units[0].start.getHours()).toBe(10);
       expect(units[0].start.getMinutes()).toBe(0);
       expect(units[0].end.getHours()).toBe(10);
@@ -40,7 +43,7 @@ describe('View computeds', () => {
     });
 
     it('should return time units depend on cell duration', () => {
-      const units = timeScale(10, 11, 20, startDate);
+      const units = timeScale(currentDate, 1, 10, 11, 20);
       expect(units[0].start.getHours()).toBe(10);
       expect(units[0].start.getMinutes()).toBe(0);
       expect(units[0].end.getHours()).toBe(10);

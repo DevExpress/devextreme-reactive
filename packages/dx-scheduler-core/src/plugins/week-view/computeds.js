@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { calculateFirstDateOfWeek } from './helpers';
 
 const calculateViewBound = (dateBound, timeBound) => {
   const time = moment(timeBound);
@@ -8,8 +9,16 @@ const calculateViewBound = (dateBound, timeBound) => {
     .toDate();
 };
 
-export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate) => {
+export const timeScale = (
+  currentDate,
+  firstDayOfWeek,
+  startDayHour,
+  endDayHour,
+  cellDuration,
+  excludedDays,
+) => {
   const result = [];
+  const startViewDate = calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays);
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
   const right = moment(startViewDate).startOf('hour').hour(endDayHour);
   while (left.isBefore(right)) {
@@ -17,6 +26,7 @@ export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate)
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
+
   return result;
 };
 

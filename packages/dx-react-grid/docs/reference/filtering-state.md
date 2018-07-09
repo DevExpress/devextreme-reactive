@@ -35,6 +35,7 @@ Describes a filter.
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of a column whose value is used for filtering.
+operation? | string | Specifies the operation name. By default, the 'contains' operation is set.
 value? | string | Specifies the filter value.
 
 ### FilteringState.ColumnExtension

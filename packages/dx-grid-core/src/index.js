@@ -89,6 +89,7 @@ export * from './plugins/data-type-provider/computeds';
 
 export * from './plugins/integrated-summary/computeds';
 export * from './plugins/table-summary-row/computeds';
+export * from './plugins/table-summary-row/helpers';
 
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 

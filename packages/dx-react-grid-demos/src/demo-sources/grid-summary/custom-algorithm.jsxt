@@ -19,7 +19,7 @@ import {
 const summaryTypes = {
   median: (rows, getValue) => {
     if (!rows.length) {
-      return 0;
+      return null;
     }
     const sortedRows = rows.sort((a, b) => getValue(a) - getValue(b));
     if (rows.length % 2 === 1) {

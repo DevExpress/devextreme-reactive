@@ -1,7 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
-import { getMessagesFormatter, tableRowsWithSummaries, tableRowsWithTotalSummary } from '@devexpress/dx-grid-core';
+import {
+  getMessagesFormatter,
+  tableRowsWithSummaries,
+  tableRowsWithTotalSummary,
+  isTotalSummaryTableCell,
+  isGroupSummaryTableCell,
+  isTreeSummaryTableCell,
+  getColumnSummaries,
+} from '@devexpress/dx-grid-core';
 
 const tableBodyRowsComputed = ({
   tableBodyRows,
@@ -30,7 +38,7 @@ export class TableSummaryRow extends React.PureComponent {
         {...params}
       >
         {columnSummary.map((summary) => {
-          if (defaultTypelessSummaries.includes(summary.type)) {
+          if (summary.value === null || defaultTypelessSummaries.includes(summary.type)) {
             return (
               <Item
                 key={summary.type}
@@ -50,7 +58,7 @@ export class TableSummaryRow extends React.PureComponent {
             >
               {content => (
                 <Item>
-                  {getMessage(summary.type)}:  {content || String(summary.value)}
+                  {getMessage(summary.type)}:&nbsp;&nbsp;{content || String(summary.value)}
                 </Item>
               )}
             </TemplatePlaceholder>
@@ -72,16 +80,16 @@ export class TableSummaryRow extends React.PureComponent {
         <Getter name="tableFooterRows" computed={tableFooterRowsComputed} />
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableColumn.type === 'data' && tableRow.type === 'totalSummary'}
+          predicate={({ tableRow, tableColumn }) => isTotalSummaryTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
               {({ totalSummaryItems, totalSummary }) => {
-                const columnSummaryItems = totalSummaryItems
-                  .map((item, index) => [item, index])
-                  .filter(([item]) => item.columnName === params.tableColumn.column.name);
-                const columnSummary = columnSummaryItems
-                  .map(([item, index]) => ({ type: item.type, value: totalSummary[index] }));
+                const columnSummary = getColumnSummaries(
+                  totalSummaryItems,
+                  params.tableColumn.column.name,
+                  totalSummary,
+                );
                 return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>
@@ -89,16 +97,16 @@ export class TableSummaryRow extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableColumn.type === 'data' && tableRow.type === 'groupSummary'}
+          predicate={({ tableRow, tableColumn }) => isGroupSummaryTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
               {({ groupSummaryItems, groupSummaries }) => {
-                const columnSummaryItems = groupSummaryItems
-                  .map((item, index) => [item, index])
-                  .filter(([item]) => item.columnName === params.tableColumn.column.name);
-                const columnSummary = columnSummaryItems
-                  .map(([item, index]) => ({ type: item.type, value: groupSummaries[params.tableRow.compoundKey][index] }));
+                const columnSummary = getColumnSummaries(
+                  groupSummaryItems,
+                  params.tableColumn.column.name,
+                  groupSummaries[params.tableRow.compoundKey],
+                );
                 return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>
@@ -106,16 +114,16 @@ export class TableSummaryRow extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) => tableColumn.type === 'data' && tableRow.type === 'treeSummary'}
+          predicate={({ tableRow, tableColumn }) => isTreeSummaryTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
               {({ treeSummaryItems, treeSummaries }) => {
-                const columnSummaryItems = treeSummaryItems
-                  .map((item, index) => [item, index])
-                  .filter(([item]) => item.columnName === params.tableColumn.column.name);
-                const columnSummary = columnSummaryItems
-                  .map(([item, index]) => ({ type: item.type, value: treeSummaries[params.tableRow.rowId][index] }));
+                const columnSummary = getColumnSummaries(
+                  treeSummaryItems,
+                  params.tableColumn.column.name,
+                  treeSummaries[params.tableRow.rowId],
+                );
                 return this.renderCell(params, columnSummary);
               }}
             </TemplateConnector>

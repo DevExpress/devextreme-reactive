@@ -1,9 +1,12 @@
 const defaultTypes = {
   count: rows => rows.length,
   sum: (rows, getValue) => rows.reduce((acc, row) => acc + getValue(row), 0),
-  max: (rows, getValue) => rows.reduce((acc, row) => Math.max(acc, getValue(row)), -Infinity),
-  min: (rows, getValue) => rows.reduce((acc, row) => Math.min(acc, getValue(row)), Infinity),
-  avg: (rows, getValue) => rows.reduce((acc, row) => acc + getValue(row), 0) / rows.length,
+  max: (rows, getValue) =>
+    (rows.length ? rows.reduce((acc, row) => Math.max(acc, getValue(row)), -Infinity) : null),
+  min: (rows, getValue) =>
+    (rows.length ? rows.reduce((acc, row) => Math.min(acc, getValue(row)), Infinity) : null),
+  avg: (rows, getValue) =>
+    (rows.length ? rows.reduce((acc, row) => acc + getValue(row), 0) / rows.length : null),
 };
 
 const rowsSummary = (rows, summaryItems, getCellValue, types) =>

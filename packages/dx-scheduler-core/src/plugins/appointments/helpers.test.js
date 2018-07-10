@@ -4,10 +4,8 @@ import {
   findOverlappedAppointments,
   adjustAppointments,
   filterAppointmentsByBoundary,
-  cutDayAppointments,
   getCellByDate,
   predicate,
-  removeAllDayAppointments,
   unwrapGroups,
 } from './helpers';
 
@@ -81,14 +79,14 @@ describe('Appointments helper', () => {
           reduceValue: 1,
           items: [
             {
-              start: moment([2017, 6, 20, 8, 0]),
-              end: moment([2017, 6, 20, 8, 30]),
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 08:30'),
               dataItem: {},
               offset: 1,
             },
             {
-              start: moment([2017, 6, 20, 8, 30]),
-              end: moment([2017, 6, 20, 9, 0]),
+              start: moment('2017-07-20 08:30'),
+              end: moment('2017-07-20 09:00'),
               dataItem: {},
               offset: 2,
             },
@@ -98,14 +96,14 @@ describe('Appointments helper', () => {
           reduceValue: 2,
           items: [
             {
-              start: moment([2017, 3, 20, 8, 0]),
-              end: moment([2017, 3, 22, 8, 30]),
+              start: moment('2017-04-20 08:00'),
+              end: moment('2017-04-22 08:30'),
               dataItem: {},
               offset: 0,
             },
             {
-              start: moment([2017, 4, 25, 8]),
-              end: moment([2017, 4, 25, 9, 15]),
+              start: moment('2017-05-25 08:00'),
+              end: moment('2017-05-25 09:15'),
               dataItem: {},
               offset: 1,
             },
@@ -115,68 +113,105 @@ describe('Appointments helper', () => {
       expect(unwrapGroups(appointmentsGroups))
         .toEqual([
           {
-            start: new Date(2017, 6, 20, 8, 0),
-            end: new Date(2017, 6, 20, 8, 30),
-            dataItem: {},
+            ...appointmentsGroups[0].items[0],
             reduceValue: 1,
-            offset: 1,
           },
           {
-            start: new Date(2017, 6, 20, 8, 30),
-            end: new Date(2017, 6, 20, 9, 0),
-            dataItem: {},
+            ...appointmentsGroups[0].items[1],
             reduceValue: 1,
-            offset: 2,
           },
           {
-            start: new Date(2017, 3, 20, 8, 0),
-            end: new Date(2017, 3, 22, 8, 30),
-            dataItem: {},
+            ...appointmentsGroups[1].items[0],
             reduceValue: 2,
-            offset: 0,
           },
           {
-            start: new Date(2017, 4, 25, 8),
-            end: new Date(2017, 4, 25, 9, 15),
-            dataItem: {},
+            ...appointmentsGroups[1].items[1],
             reduceValue: 2,
-            offset: 1,
           },
         ]);
     });
   });
 
-  describe('Helpers', () => {
-    describe('#getCellByDate', () => {
-      it('should calculate cell index and start date', () => {
-        const times = [
-          { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
-          { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
-          { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
-        ];
-        const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
-        const { index, startDate } = getCellByDate(days, times, new Date(2018, 5, 25, 8, 30));
-        expect(index)
-          .toBe(4);
-        expect(startDate.toString())
-          .toBe(new Date(2018, 5, 25, 8, 30).toString());
-      });
+  describe('#getCellByDate', () => {
+    it('should calculate cell index and start date', () => {
+      const times = [
+        { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+        { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+        { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
+      ];
+      const days = [new Date(2018, 5, 24), new Date(2018, 5, 25), new Date(2018, 5, 26)];
+      const { index, startDate } = getCellByDate(days, times, new Date(2018, 5, 25, 8, 30));
+      expect(index)
+        .toBe(4);
+      expect(startDate.toString())
+        .toBe(new Date(2018, 5, 25, 8, 30).toString());
+    });
 
-      it('should calculate cell index by takePref property', () => {
-        const times = [
-          { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
-          { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
-        ];
-        const takePrev = true;
-        const days = [new Date(2018, 5, 26)];
-        expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30), takePrev).index)
-          .toBe(0);
-        expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30)).index)
-          .toBe(1);
-      });
+    it('should calculate cell index by takePref property', () => {
+      const times = [
+        { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
+        { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
+      ];
+      const takePrev = true;
+      const days = [new Date(2018, 5, 26)];
+      expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30), takePrev).index)
+        .toBe(0);
+      expect(getCellByDate(days, times, new Date(2018, 5, 26, 8, 30)).index)
+        .toBe(1);
     });
   });
 
+  describe('#predicate', () => {
+    it('should filter outside appointments', () => {
+      const boundary = { left: '2018-07-10 09:00', right: '2018-07-10 11:00' };
+      const items = [
+        { start: moment('2018-07-10 08:00'), end: moment('2018-07-10 10:00'), expected: true },
+        { start: moment('2018-07-10 10:00'), end: moment('2018-07-10 12:00'), expected: true },
+        { start: moment('2018-07-10 08:00'), end: moment('2018-07-10 12:00'), expected: true },
+        { start: moment('2018-07-10 09:30'), end: moment('2018-07-10 10:30'), expected: true },
+        { start: moment('2018-07-10 08:00'), end: moment('2018-07-10 09:00'), expected: false },
+        { start: moment('2018-07-10 11:00'), end: moment('2018-07-10 12:00'), expected: false },
+      ];
+
+      items.forEach((item) => {
+        expect(predicate(item.start, item.end, boundary))
+          .toBe(item.expected);
+      });
+    });
+
+    it('should filter appointments from excluded days', () => {
+      const boundary = { left: '2018-07-02', right: '2018-07-08 23:59' };
+      const excludedDays = [4, 6, 0];
+      const items = [
+        { start: moment('2018-07-03 09:00'), end: moment('2018-07-03 11:00'), expected: true },
+        { start: moment('2018-07-04 09:00'), end: moment('2018-07-05 11:00'), expected: true },
+        { start: moment('2018-07-05 09:00'), end: moment('2018-07-05 11:00'), expected: false },
+        { start: moment('2018-07-05 09:00'), end: moment('2018-07-06 11:00'), expected: true },
+        { start: moment('2018-07-07 09:00'), end: moment('2018-07-07 09:00'), expected: false },
+        { start: moment('2018-07-07 09:00'), end: moment('2018-07-08 10:00'), expected: false },
+        { start: moment('2018-07-05 09:00'), end: moment('2018-07-07 10:00'), expected: true },
+      ];
+
+      items.forEach((item) => {
+        expect(predicate(item.start, item.end, boundary, excludedDays, false))
+          .toBe(item.expected);
+      });
+    });
+
+    it('should filter all-day appointments', () => {
+      const boundary = { left: '2018-07-08', right: '2018-07-12' };
+      const items = [
+        { start: moment('2018-07-10 08:00'), end: moment('2018-07-10 10:00'), expected: true },
+        { start: moment('2018-07-10 22:00'), end: moment('2018-07-11 02:00'), expected: true },
+        { start: moment('2018-07-09 08:00'), end: moment('2018-07-10 08:00'), expected: false },
+      ];
+
+      items.forEach((item) => {
+        expect(predicate(item.start, item.end, boundary, []))
+          .toBe(item.expected);
+      });
+    });
+  });
 
   describe('#filterAppointmentsByBoundary', () => {
     it('should remove appointment if it is excluded day', () => {
@@ -273,99 +308,6 @@ describe('Appointments helper', () => {
       )).toEqual([
         { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 18), dataItem: {} },
       ]);
-    });
-  });
-
-  describe('#cutDayAppointments', () => {
-    it('should cut if appointment `start` before `startViewTime` and `end` before `endViewTime`', () => {
-      const dayAppointments = [
-        { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 15), dataItem: {} },
-      ];
-      const startViewDate = new Date(2018, 5, 24, 12);
-      const endViewDate = new Date(2018, 5, 24, 15);
-
-      expect(cutDayAppointments(dayAppointments, startViewDate, endViewDate))
-        .toEqual([
-          { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
-        ]);
-    });
-
-    it('should cut if appointment `start` after `startViewTime` and `end` before `endViewTime`', () => {
-      const dayAppointments = [
-        { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
-      ];
-      const startViewDate = new Date(2018, 5, 24, 12);
-      const endViewDate = new Date(2018, 5, 24, 15);
-
-      expect(cutDayAppointments(dayAppointments, startViewDate, endViewDate))
-        .toEqual([
-          { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
-        ]);
-    });
-
-    it('should cut if appointment `start` after `startViewTime` and `end` after `endViewTime`', () => {
-      const dayAppointments = [
-        { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 18), dataItem: {} },
-      ];
-      const startViewDate = new Date(2018, 5, 24, 12);
-      const endViewDate = new Date(2018, 5, 24, 15);
-
-      expect(cutDayAppointments(dayAppointments, startViewDate, endViewDate))
-        .toEqual([
-          { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
-        ]);
-    });
-
-    it('should cut if appointment `start` after `startViewTime` and `end` after `endViewTime`', () => {
-      const dayAppointments = [
-        { start: new Date(2018, 5, 24, 10), end: new Date(2018, 5, 24, 18), dataItem: {} },
-      ];
-      const startViewDate = new Date(2018, 5, 24, 12);
-      const endViewDate = new Date(2018, 5, 24, 15);
-
-      expect(cutDayAppointments(dayAppointments, startViewDate, endViewDate))
-        .toEqual([
-          { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
-        ]);
-    });
-  });
-
-  describe('#predicate', () => {
-    it('should filter appointments from excluded days', () => {
-      const boundary = { left: new Date(2018, 6, 2), right: new Date(2018, 6, 8, 23, 59) };
-      const excludedDays = [4, 6, 0];
-      const items = [
-        { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)), v: true },
-        { start: moment(new Date(2018, 6, 4, 9)), end: moment(new Date(2018, 6, 5, 11)), v: true },
-        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 5, 11)), v: false },
-        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 11)), v: true },
-        { start: moment(new Date(2018, 6, 7, 9)), end: moment(new Date(2018, 6, 7, 9)), v: false },
-        { start: moment(new Date(2018, 6, 7, 9)), end: moment(new Date(2018, 6, 8, 10)), v: false },
-        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 7, 10)), v: true },
-      ];
-
-      items.forEach((item) => {
-        expect(predicate(item.start, item.end, boundary, excludedDays))
-          .toBe(item.v);
-      });
-    });
-  });
-
-  describe('#removeAllDayAppointments', () => {
-    it('should remove all day appointments', () => {
-      const items = [
-        { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)) },
-        { start: moment(new Date(2018, 6, 4, 9)), end: moment(new Date(2018, 6, 5, 11)) },
-        { start: moment(new Date(2018, 6, 5)), end: moment(new Date(2018, 6, 5, 23, 59)) },
-        { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 8, 59)) },
-      ];
-
-      expect(removeAllDayAppointments(items))
-        .toEqual([
-          { start: moment(new Date(2018, 6, 3, 9)), end: moment(new Date(2018, 6, 3, 11)) },
-          { start: moment(new Date(2018, 6, 5)), end: moment(new Date(2018, 6, 5, 23, 59)) },
-          { start: moment(new Date(2018, 6, 5, 9)), end: moment(new Date(2018, 6, 6, 8, 59)) },
-        ]);
     });
   });
 });

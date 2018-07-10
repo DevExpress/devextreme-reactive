@@ -75,7 +75,7 @@ export const cutDayAppointments = (appointments, startViewDate, endViewDate) => 
     if (appointmentStart.isSameOrBefore(startDayTime)
       && appointmentEnd.isSameOrBefore(endDayTime)) {
       return {
-        start: startDayTime.toDate(),
+        start: startDayTime,
         end: appointment.end,
         dataItem: appointment.dataItem,
       };
@@ -91,8 +91,8 @@ export const cutDayAppointments = (appointments, startViewDate, endViewDate) => 
     if (appointmentStart.isSameOrBefore(startDayTime)
       && appointmentEnd.isSameOrAfter(endDayTime)) {
       return {
-        start: startDayTime.toDate(),
-        end: endDayTime.toDate(),
+        start: startDayTime,
+        end: endDayTime,
         dataItem: appointment.dataItem,
       };
     }
@@ -100,20 +100,13 @@ export const cutDayAppointments = (appointments, startViewDate, endViewDate) => 
       && appointmentEnd.isSameOrAfter(endDayTime)) {
       return {
         start: appointment.start,
-        end: endDayTime.toDate(),
+        end: endDayTime,
         dataItem: appointment.dataItem,
       };
     }
     return appointment;
   });
 };
-
-export const momentAppointments = formattedAppointments =>
-  formattedAppointments.map(appointment => ({
-    start: moment(appointment.start),
-    end: moment(appointment.end),
-    dataItem: appointment.dataItem,
-  }));
 
 export const sortAppointments = appointments =>
   appointments.slice().sort((a, b) => {
@@ -179,8 +172,8 @@ export const adjustAppointments = groups => groups.map((items) => {
 export const unwrapGroups = groups =>
   groups.reduce((acc, { items, reduceValue }) => {
     acc.push(...items.map(appointment => ({
-      start: appointment.start.toDate(),
-      end: appointment.end.toDate(),
+      start: appointment.start,
+      end: appointment.end,
       dataItem: appointment.dataItem,
       offset: appointment.offset,
       reduceValue,
@@ -208,20 +201,27 @@ const excludedIntervals = (excludedDays, start) => excludedDays
     return acc;
   }, []);
 
-export const predicate = (start, end, boundary, excludedDays) => {
+export const predicate = (
+  start,
+  end,
+  boundary,
+  excludedDays = [],
+  filterAllDayAppointments = true,
+) => {
   const { left, right } = boundary;
-
-  const isAppointmentInBoundary = (
-    start.isBetween(left, right) || end.isBetween(left, right)
-    ||
-    (start.isSameOrBefore(left) && end.isSameOrAfter(right))
-  );
-
+  const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
   const inInterval = (date, interval) => date.isBetween(...interval, null, '[]');
   const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (
       inInterval(start, interval) && inInterval(end, interval)
     ));
+  const considerAllDayAppointment = filterAllDayAppointments ? moment(end).diff(start, 'hours') < 24 : true;
 
-  return isAppointmentInBoundary && !isAppointmentInExcludedDays;
+  return (
+    isAppointmentInBoundary
+    &&
+    !isAppointmentInExcludedDays
+    &&
+    considerAllDayAppointment
+  );
 };

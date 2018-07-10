@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { getCellByDate, predicate } from './helpers';
 import {
   filteredAppointments,
@@ -73,27 +74,36 @@ describe('Appointment computeds', () => {
   describe('#sliceAppointmentsByDay', () => {
     it('should slice appointment to two days', () => {
       const appointments = [
-        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 28, 11), dataItem: {} },
+        { start: moment('2018-06-27 09:00'), end: moment('2018-06-28 11:00') },
       ];
-      expect(sliceAppointmentsByDay(appointments))
-        .toEqual([
-          {
-            start: new Date(2018, 5, 27, 9),
-            end: new Date(2018, 5, 27, 23, 59, 59, 999),
-            dataItem: {},
-          },
-          { start: new Date(2018, 5, 28, 0), end: new Date(2018, 5, 28, 11), dataItem: {} },
-        ]);
+      const slicedAppointments = sliceAppointmentsByDay(appointments);
+      const [first, last] = slicedAppointments;
+
+      expect(slicedAppointments)
+        .toHaveLength(2);
+      expect(first.start.toJSON())
+        .toEqual(moment('2018-06-27 09:00').toJSON());
+      expect(first.end.toJSON())
+        .toEqual(moment('2018-06-27').endOf('day').toJSON());
+      expect(last.start.toJSON())
+        .toEqual(moment('2018-06-28').toJSON());
+      expect(last.end.toJSON())
+        .toEqual(moment('2018-06-28 11:00').toJSON());
     });
 
     it('should not slice appointment if it in one day', () => {
       const appointments = [
-        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
+        { start: moment('2018-06-27 09:00'), end: moment('2018-06-27 11:00') },
       ];
-      expect(sliceAppointmentsByDay(appointments))
-        .toEqual([
-          { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
-        ]);
+      const slicedAppointments = sliceAppointmentsByDay(appointments);
+
+      expect(slicedAppointments)
+        .toHaveLength(1);
+
+      expect(slicedAppointments[0].start.toJSON())
+        .toEqual(moment('2018-06-27 09:00').toJSON());
+      expect(slicedAppointments[0].end.toJSON())
+        .toEqual(moment('2018-06-27 11:00').toJSON());
     });
   });
 

@@ -3,12 +3,10 @@ import {
   sortAppointments,
   findOverlappedAppointments,
   adjustAppointments,
-  momentAppointments,
   getCellByDate,
   predicate,
   filterAppointmentsByBoundary,
   cutDayAppointments,
-  removeAllDayAppointments,
   unwrapGroups,
 } from './helpers';
 
@@ -79,15 +77,17 @@ export const filteredAppointments = (
   startViewDate,
   endViewDate,
   excludedDays,
+  filterAllDayAppointments = false,
 ) => (
   appointments.filter((appointment) => {
     const boundaries = { left: startViewDate, right: endViewDate };
 
     return predicate(
-      moment(appointment.start),
-      moment(appointment.end),
+      appointment.start,
+      appointment.end,
       boundaries,
       excludedDays,
+      filterAllDayAppointments,
     );
   })
 );
@@ -95,14 +95,12 @@ export const filteredAppointments = (
 export const sliceAppointmentsByDay = appointments =>
   appointments.reduce((acc, appointment) => {
     const { start, end, dataItem } = appointment;
-    const startDate = moment(start);
-    const endDate = moment(end);
-    if (startDate.isSame(endDate, 'day')) {
+    if (start.isSame(end, 'day')) {
       acc.push(appointment);
     } else {
       acc.push(
-        { start, end: moment(startDate).endOf('day').toDate(), dataItem },
-        { start: moment(endDate).startOf('day').toDate(), end, dataItem },
+        { start, end: moment(start).endOf('day'), dataItem },
+        { start: moment(end).startOf('day'), end, dataItem },
       );
     }
     return acc;
@@ -120,15 +118,15 @@ export const appointmentRects = (
 ) => {
   const filteredByViewAppointments =
     filteredAppointments(
-      appointments,
+      appointments.map(({ start, end, ...restArgs }) =>
+        ({ start: moment(start), end: moment(end), ...restArgs })),
       startViewDate,
       endViewDate,
       excludedDays,
+      true,
     );
-  const removedAllDayAppointments =
-    removeAllDayAppointments(filteredByViewAppointments);
   const slicedAppointments =
-    sliceAppointmentsByDay(removedAllDayAppointments);
+    sliceAppointmentsByDay(filteredByViewAppointments);
 
   const filteredByBoundaryAppointments =
     filterAppointmentsByBoundary(
@@ -139,8 +137,7 @@ export const appointmentRects = (
     );
   const appointmentParts =
     cutDayAppointments(filteredByBoundaryAppointments, startViewDate, endViewDate);
-  const mAppointments = momentAppointments(appointmentParts);
-  const sorted = sortAppointments(mAppointments);
+  const sorted = sortAppointments(appointmentParts);
   const groups = findOverlappedAppointments(sorted);
   const withOffset = adjustAppointments(groups);
 

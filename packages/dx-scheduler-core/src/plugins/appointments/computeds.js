@@ -102,14 +102,15 @@ export const formattedAppointments = (
 
 export const sliceAppointmentsByDay = appointments =>
   appointments.reduce((acc, appointment) => {
-    const startDate = moment(appointment.start);
-    const endDate = moment(appointment.end);
+    const { start, end, dataItem } = appointment;
+    const startDate = moment(start);
+    const endDate = moment(end);
     if (startDate.isSame(endDate, 'day')) {
       acc.push(appointment);
     } else {
       acc.push(
-        { start: startDate.toDate(), end: moment(startDate).endOf('day').toDate(), dataItem: appointment.dataItem },
-        { start: moment(endDate).startOf('day').toDate(), end: endDate.toDate(), dataItem: appointment.dataItem },
+        { start, end: moment(startDate).endOf('day').toDate(), dataItem },
+        { start: moment(endDate).startOf('day').toDate(), end, dataItem },
       );
     }
     return acc;
@@ -144,11 +145,11 @@ export const appointmentRects = (
     );
   const removedAllDayAppointments =
     removeAllDayAppointments(formattedAppointments2);
-  const slicedByDayAppointments =
+  const slicedAppointments =
     sliceAppointmentsByDay(removedAllDayAppointments);
   const filteredByBoundaryAppointments =
     filterAppointmentsByBoundary(
-      slicedByDayAppointments,
+      slicedAppointments,
       startViewDate,
       endViewDate,
       excludedDays,

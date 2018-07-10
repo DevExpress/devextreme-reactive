@@ -42,12 +42,8 @@ export const filterAppointmentsByBoundary = (
     if (excludedDays.findIndex(day =>
       day === moment(appointment.start).day()) !== -1) return false;
 
-    if (moment(appointment.start).isBefore(startDayTime)
-      && moment(appointment.end).isSameOrBefore(startDayTime)) return false;
-
-    if (moment(appointment.start).isSameOrAfter(endDayTime)
-      && moment(appointment.end).isAfter(endDayTime)) return false;
-    return true;
+    return (appointment.end.isAfter(startDayTime)
+      && appointment.start.isBefore(endDayTime));
   });
 };
 

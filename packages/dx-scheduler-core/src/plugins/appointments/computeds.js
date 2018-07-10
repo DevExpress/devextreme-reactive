@@ -125,8 +125,7 @@ export const appointmentRects = (
       excludedDays,
       true,
     );
-  const slicedAppointments =
-    sliceAppointmentsByDay(filteredByViewAppointments);
+  const slicedAppointments = sliceAppointmentsByDay(filteredByViewAppointments);
 
   const filteredByBoundaryAppointments =
     filterAppointmentsByBoundary(
@@ -135,8 +134,10 @@ export const appointmentRects = (
       endViewDate,
       excludedDays,
     );
+
   const appointmentParts =
     cutDayAppointments(filteredByBoundaryAppointments, startViewDate, endViewDate);
+
   const sorted = sortAppointments(appointmentParts);
   const groups = findOverlappedAppointments(sorted);
   const withOffset = adjustAppointments(groups);

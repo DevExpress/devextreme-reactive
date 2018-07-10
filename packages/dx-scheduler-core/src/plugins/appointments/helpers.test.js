@@ -216,10 +216,10 @@ describe('Appointments helper', () => {
   describe('#filterAppointmentsByBoundary', () => {
     it('should remove appointment if it is excluded day', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 10), end: new Date(2018, 5, 24, 11), dataItem: {} },
+        { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 21, 9);
-      const endViewDate = new Date(2018, 6, 27, 18);
+      const startViewDate = '2018-03-21 09:00';
+      const endViewDate = '2019-06-27 18:00';
       const excludedDays = [0];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -231,10 +231,10 @@ describe('Appointments helper', () => {
 
     it('should remove appointment if it `end` before `startViewDate`', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 10), end: new Date(2018, 5, 24, 11), dataItem: {} },
+        { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 21, 11);
-      const endViewDate = new Date(2018, 6, 27, 18);
+      const startViewDate = '2018-03-21 11:00';
+      const endViewDate = '2018-06-27 18:00';
       const excludedDays = [];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -246,10 +246,10 @@ describe('Appointments helper', () => {
 
     it('should remove appointment if it `start` after `endViewDate`', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 15), dataItem: {} },
+        { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 22, 11);
-      const endViewDate = new Date(2018, 6, 27, 12);
+      const startViewDate = '2018-03-22 11:00';
+      const endViewDate = '2018-06-27 12:00';
       const excludedDays = [];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -261,10 +261,10 @@ describe('Appointments helper', () => {
 
     it('should keep appointment if it `start` between `startViewDate` and `endViewDate`', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 18), dataItem: {} },
+        { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 22, 12);
-      const endViewDate = new Date(2018, 6, 27, 15);
+      const startViewDate = '2018-04-22 12:00';
+      const endViewDate = '2018-07-24 15:00';
       const excludedDays = [];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -272,16 +272,16 @@ describe('Appointments helper', () => {
         endViewDate,
         excludedDays,
       )).toEqual([
-        { start: new Date(2018, 5, 24, 12), end: new Date(2018, 5, 24, 18), dataItem: {} },
+        { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
       ]);
     });
 
     it('should keep appointment if it `end` between `startViewDate` and `endViewDate`', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 15), dataItem: {} },
+        { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 26, 12);
-      const endViewDate = new Date(2018, 6, 29, 18);
+      const startViewDate = '2018-04-26 12:00';
+      const endViewDate = '2018-04-29 18:00';
       const excludedDays = [];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -289,16 +289,16 @@ describe('Appointments helper', () => {
         endViewDate,
         excludedDays,
       )).toEqual([
-        { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 15), dataItem: {} },
+        { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
       ]);
     });
 
     it('should keep appointment if it `start` before `startViewDate` and `end` after `endViewDate`', () => {
       const dayAppointments = [
-        { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 18), dataItem: {} },
+        { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
       ];
-      const startViewDate = new Date(2018, 3, 22, 12);
-      const endViewDate = new Date(2018, 6, 28, 15);
+      const startViewDate = '2018-04-22 12:00';
+      const endViewDate = '2018-07-26 15:00';
       const excludedDays = [];
       expect(filterAppointmentsByBoundary(
         dayAppointments,
@@ -306,7 +306,7 @@ describe('Appointments helper', () => {
         endViewDate,
         excludedDays,
       )).toEqual([
-        { start: new Date(2018, 5, 24, 9), end: new Date(2018, 5, 24, 18), dataItem: {} },
+        { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
       ]);
     });
   });

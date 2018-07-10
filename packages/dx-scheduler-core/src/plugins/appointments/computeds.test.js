@@ -1,7 +1,7 @@
 import { getCellByDate, predicate } from './helpers';
 import {
   filteredAppointments,
-  formattedAppointments,
+  getAppointments,
   sliceAppointmentsByDay,
   getRectByDates,
 } from './computeds';
@@ -21,40 +21,36 @@ describe('Appointment computeds', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    const getAppointmentStartDate = appointment => appointment.start;
-    const getAppointmentEndDate = appointment => appointment.end;
 
     it('should work', () => {
       const appointments = [
-        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11) },
-        { start: new Date(2018, 5, 27, 11), end: new Date(2018, 5, 27, 16) },
+        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
+        { start: new Date(2018, 5, 27, 11), end: new Date(2018, 5, 27, 16), dataItem: {} },
       ];
       const filtered = filteredAppointments(
         appointments,
         new Date(2018, 5, 27, 10),
         new Date(2018, 5, 27, 15),
         [],
-        getAppointmentStartDate,
-        getAppointmentEndDate,
       );
 
       expect(filtered).toEqual([
-        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11) },
+        { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
       ]);
     });
   });
 
-  describe('#formattedAppointments', () => {
+  describe('#getAppointments', () => {
     const getAppointmentStartDate = appointment => appointment.startField;
     const getAppointmentEndDate = appointment => appointment.endField;
-    const appointments = [
+    const data = [
       { startField: new Date(2018, 5, 27, 9), endField: new Date(2018, 5, 27, 11) },
       { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
     ];
 
     it('should work', () => {
-      const filtered = formattedAppointments(
-        appointments,
+      const filtered = getAppointments(
+        data,
         getAppointmentStartDate,
         getAppointmentEndDate,
       );

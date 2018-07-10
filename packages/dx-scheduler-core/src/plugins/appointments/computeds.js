@@ -44,6 +44,13 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   };
 };
 
+export const getAppointments = (data, getAppointmentStartDate, getAppointmentEndDate) =>
+  data.map(appointment => ({
+    start: getAppointmentStartDate(appointment),
+    end: getAppointmentEndDate(appointment),
+    dataItem: appointment,
+  }));
+
 export const getRectByDates = (
   startDate,
   endDate,
@@ -72,33 +79,18 @@ export const filteredAppointments = (
   startViewDate,
   endViewDate,
   excludedDays,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
 ) => (
   appointments.filter((appointment) => {
-    const appointmentStartDate = getAppointmentStartDate(appointment);
-    const appointmentEndDate = getAppointmentEndDate(appointment);
     const boundaries = { left: startViewDate, right: endViewDate };
 
     return predicate(
-      moment(appointmentStartDate),
-      moment(appointmentEndDate),
+      moment(appointment.start),
+      moment(appointment.end),
       boundaries,
       excludedDays,
     );
   })
 );
-
-export const formattedAppointments = (
-  appointments,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-) =>
-  appointments.map(appointment => ({
-    start: getAppointmentStartDate(appointment),
-    end: getAppointmentEndDate(appointment),
-    dataItem: appointment,
-  }));
 
 export const sliceAppointmentsByDay = appointments =>
   appointments.reduce((acc, appointment) => {
@@ -120,8 +112,6 @@ export const appointmentRects = (
   startViewDate,
   endViewDate,
   excludedDays,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
   dayScale,
   timeScale,
   cellDuration,
@@ -133,19 +123,13 @@ export const appointmentRects = (
       startViewDate,
       endViewDate,
       excludedDays,
-      getAppointmentStartDate,
-      getAppointmentEndDate,
-    );
-  const formattedAppointments2 =
-    formattedAppointments(
-      filteredByViewAppointments,
-      getAppointmentStartDate,
-      getAppointmentEndDate,
     );
   const removedAllDayAppointments =
-    removeAllDayAppointments(formattedAppointments2);
+    removeAllDayAppointments(filteredByViewAppointments);
+
   const slicedByDayAppointments =
     sliceAppointmentsByDay(removedAllDayAppointments);
+
   const filteredByBoundaryAppointments =
     filterAppointmentsByBoundary(
       slicedByDayAppointments,

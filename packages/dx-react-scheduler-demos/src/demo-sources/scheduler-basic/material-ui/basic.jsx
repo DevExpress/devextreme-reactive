@@ -56,6 +56,7 @@ export default class Demo extends React.PureComponent {
           <Scheduler
             data={data}
             currentDate={currentDate}
+            getTitle={appointment => appointment.text}
           >
             <Toolbar />
             <WeekView
@@ -64,9 +65,7 @@ export default class Demo extends React.PureComponent {
               firstDayOfWeek={1}
             />
             <DateNavigator />
-            <Appointments
-              getTitle={appointment => appointment.text}
-            />
+            <Appointments />
           </Scheduler>
         </Paper>
       </div>

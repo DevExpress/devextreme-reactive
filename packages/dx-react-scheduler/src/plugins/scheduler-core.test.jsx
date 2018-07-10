@@ -8,6 +8,9 @@ const defaultProps = {
   data: [1, 2, 3],
   currentDate: '2018-07-04',
   rootComponent: () => null,
+  getTitle: () => 'a',
+  getEndDate: () => '2018-07-05',
+  getStartDate: () => '2018-07-06',
 };
 
 describe('Scheduler Core', () => {
@@ -37,6 +40,51 @@ describe('Scheduler Core', () => {
 
     expect(getComputedState(tree).currentDate)
       .toBe(defaultProps.currentDate);
+  });
+
+  it('should provide the "getAppointmentTitle" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+          getTitle={() => 'a'}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getAppointmentTitle())
+      .toBe('a');
+  });
+
+  it('should provide the "getAppointmentStartDate" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+          getStartDate={() => '2018-07-05'}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getAppointmentStartDate())
+      .toBe('2018-07-05');
+  });
+
+  it('should provide the "getAppointmentEndDate" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+          getEndDate={() => '2018-07-05'}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getAppointmentEndDate())
+      .toBe('2018-07-05');
   });
 
   it('should render root template', () => {

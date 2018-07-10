@@ -38,16 +38,10 @@ export class Appointments extends React.PureComponent {
     const {
       appointmentComponent: Appointment,
       containerComponent: Container,
-      getTitle,
-      getStartDate,
-      getEndDate,
     } = this.props;
 
     return (
       <Plugin name="Appointment">
-        <Getter name="getAppointmentTitle" value={getTitle} />
-        <Getter name="getAppointmentStartDate" value={getStartDate} />
-        <Getter name="getAppointmentEndDate" value={getEndDate} />
         <Getter name="appointments" computed={appointmentsComputed} />
         <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
@@ -57,15 +51,19 @@ export class Appointments extends React.PureComponent {
             <TemplateConnector>
               {({
                 appointmentRects,
-              }) => appointmentRects.map(({
+                getAppointmentTitle,
+                getAppointmentStartDate,
+                getAppointmentEndDate,
+              }) =>
+                appointmentRects.map(({
                 dataItem, ...geometry
               }, index) => (
                 <Appointment
                   {...geometry}
                   key={index.toString()}
-                  getTitle={getTitle}
-                  getEndDate={getEndDate}
-                  getStartDate={getStartDate}
+                  getTitle={getAppointmentTitle}
+                  getEndDate={getAppointmentEndDate}
+                  getStartDate={getAppointmentStartDate}
                   appointment={dataItem}
                 />
               ))}
@@ -80,13 +78,4 @@ export class Appointments extends React.PureComponent {
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
-};
-
-Appointments.defaultProps = {
-  getTitle: appointment => appointment.title,
-  getStartDate: appointment => appointment.startDate,
-  getEndDate: appointment => appointment.endDate,
 };

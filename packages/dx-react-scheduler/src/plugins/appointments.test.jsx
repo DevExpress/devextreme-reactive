@@ -20,6 +20,9 @@ const defaultDeps = {
       querySelectorAll: () => {},
     },
     data: [{ startDate: new Date(2018, 6, 24), endDate: new Date(2018, 5, 5) }],
+    getAppointmentTitle: () => 'a',
+    getAppointmentEndDate: () => '2018-07-05',
+    getAppointmentStartDate: () => '2018-07-06',
   },
   template: {
     main: {},
@@ -42,51 +45,6 @@ describe('Appointments', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should provide the "getAppointmentTitle" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Appointments
-          {...defaultProps}
-          getTitle={() => 'a'}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentTitle())
-      .toBe('a');
-  });
-
-  it('should provide the "getAppointmentStartDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Appointments
-          {...defaultProps}
-          getStartDate={() => '2018-07-05'}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentStartDate())
-      .toBe('2018-07-05');
-  });
-
-  it('should provide the "getAppointmentEndDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Appointments
-          {...defaultProps}
-          getEndDate={() => '2018-07-05'}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentEndDate())
-      .toBe('2018-07-05');
   });
 
   it('should provide the "appointmentRects" getter', () => {
@@ -142,9 +100,6 @@ describe('Appointments', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Appointments
           {...defaultProps}
-          getTitle={() => 'a'}
-          getEndDate={() => '2018-07-05'}
-          getStartDate={() => '2018-07-06'}
         />
       </PluginHost>
     )).find(Appointment);

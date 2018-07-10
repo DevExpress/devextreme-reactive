@@ -8,12 +8,19 @@ export const Scheduler = ({
   currentDate,
   rootComponent,
   children,
+  getTitle,
+  getStartDate,
+  getEndDate,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       currentDate={currentDate}
       rootComponent={rootComponent}
+      appointmentExtension
+      getTitle={getTitle}
+      getStartDate={getStartDate}
+      getEndDate={getEndDate}
     />
     {children}
   </PluginHost>
@@ -27,10 +34,16 @@ Scheduler.propTypes = {
   ]),
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
+  getTitle: PropTypes.func,
+  getStartDate: PropTypes.func,
+  getEndDate: PropTypes.func,
 };
 
 Scheduler.defaultProps = {
   children: undefined,
   data: [],
   currentDate: new Date(),
+  getTitle: appointment => appointment.title,
+  getStartDate: appointment => appointment.startDate,
+  getEndDate: appointment => appointment.endDate,
 };

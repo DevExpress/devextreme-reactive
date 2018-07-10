@@ -58,23 +58,32 @@ export class WeekView extends React.PureComponent {
       excludedDays,
     } = this.props;
 
-    const timeScaleComputed = getTimeScale(startDayHour, endDayHour, cellDuration);
+    const timeScaleComputed = ({ currentDate }) =>
+      getTimeScale(
+        currentDate,
+        firstDayOfWeek,
+        startDayHour,
+        endDayHour,
+        cellDuration,
+        excludedDays,
+      );
     const dayScaleComputed = ({ currentDate }) =>
       getDayScale(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
-    const startViewDateComputed = ({ dayScale, timeScale }) => startViewDate(dayScale, timeScale);
+    const startViewDateComputed = ({ dayScale, timeScale }) =>
+      startViewDate(dayScale, timeScale, startDayHour);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDate(dayScale, timeScale);
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="timeScale" value={timeScaleComputed} />
-        <Getter name="dayScale" computed={dayScaleComputed} />
-        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
-        <Getter name="startViewDate" computed={startViewDateComputed} />
-        <Getter name="endViewDate" computed={endViewDateComputed} />
         <Getter name="cellDuration" value={cellDuration} />
         <Getter name="excludedDays" value={excludedDays} />
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
+        <Getter name="timeScale" computed={timeScaleComputed} />
+        <Getter name="dayScale" computed={dayScaleComputed} />
+        <Getter name="startViewDate" computed={startViewDateComputed} />
+        <Getter name="endViewDate" computed={endViewDateComputed} />
         {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
 
         <Template name="body">

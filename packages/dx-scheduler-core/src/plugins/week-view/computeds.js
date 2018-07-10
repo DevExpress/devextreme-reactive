@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { calculateFirstDateOfWeek } from './helpers';
 
 const calculateViewBound = (dateBound, timeBound) => {
   const time = moment(timeBound);
@@ -8,8 +9,19 @@ const calculateViewBound = (dateBound, timeBound) => {
     .toDate();
 };
 
-export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate) => {
+const substractSecond = date =>
+  moment(date).subtract(1, 'second').toDate();
+
+export const timeScale = (
+  currentDate,
+  firstDayOfWeek,
+  startDayHour,
+  endDayHour,
+  cellDuration,
+  excludedDays,
+) => {
   const result = [];
+  const startViewDate = calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays);
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
   const right = moment(startViewDate).startOf('hour').hour(endDayHour);
   while (left.isBefore(right)) {
@@ -17,6 +29,7 @@ export const timeScale = (startDayHour, endDayHour, cellDuration, startViewDate)
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
+  result[result.length - 1].end = substractSecond(result[result.length - 1].end);
   return result;
 };
 
@@ -41,5 +54,7 @@ export const dayScale = (
 export const startViewDate = (days, times) =>
   calculateViewBound(days[0], times[0].start);
 
-export const endViewDate = (days, times) =>
-  calculateViewBound(days[days.length - 1], times[times.length - 1].end);
+export const endViewDate = (days, times) => {
+  const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
+  return substractSecond(bound);
+};

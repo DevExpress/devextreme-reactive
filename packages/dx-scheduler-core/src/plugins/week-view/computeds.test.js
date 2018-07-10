@@ -25,8 +25,8 @@ describe('View computeds', () => {
 
       expect(units[47].start.getHours()).toBe(23);
       expect(units[47].start.getMinutes()).toBe(30);
-      expect(units[47].end.getHours()).toBe(0);
-      expect(units[47].end.getMinutes()).toBe(0);
+      expect(units[47].end.getHours()).toBe(23);
+      expect(units[47].end.getMinutes()).toBe(59);
     });
 
     it('should return time units depend on start/end day hours', () => {
@@ -38,8 +38,8 @@ describe('View computeds', () => {
 
       expect(units[1].start.getHours()).toBe(10);
       expect(units[1].start.getMinutes()).toBe(30);
-      expect(units[1].end.getHours()).toBe(11);
-      expect(units[1].end.getMinutes()).toBe(0);
+      expect(units[1].end.getHours()).toBe(10);
+      expect(units[1].end.getMinutes()).toBe(59);
     });
 
     it('should return time units depend on cell duration', () => {
@@ -126,7 +126,7 @@ describe('View computeds', () => {
           { start: new Date(2017, 6, 20, 12, 0), end: new Date(2017, 6, 20, 12, 33) },
         ],
       );
-      expect(endDate).toEqual(new Date(2018, 5, 24, 12, 33));
+      expect(endDate).toEqual(new Date(2018, 5, 24, 12, 32, 59));
     });
   });
 });

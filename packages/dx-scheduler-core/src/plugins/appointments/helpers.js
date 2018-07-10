@@ -30,6 +30,7 @@ export const filterAppointmentsByBoundary = (
 ) => {
   const startView = moment(startViewDate);
   const endView = moment(endViewDate);
+
   return appointments.filter((appointment) => {
     const startDayTime = moment(appointment.start)
       .hour(startView.hour())
@@ -40,8 +41,10 @@ export const filterAppointmentsByBoundary = (
 
     if (excludedDays.findIndex(day =>
       day === moment(appointment.start).day()) !== -1) return false;
+
     if (moment(appointment.start).isBefore(startDayTime)
       && moment(appointment.end).isSameOrBefore(startDayTime)) return false;
+
     if (moment(appointment.start).isSameOrAfter(endDayTime)
       && moment(appointment.end).isAfter(endDayTime)) return false;
     return true;
@@ -55,39 +58,51 @@ export const removeAllDayAppointments = appointments =>
 export const cutDayAppointments = (appointments, startViewDate, endViewDate) => {
   const startView = moment(startViewDate);
   const endView = moment(endViewDate);
+
   return appointments.map((appointment) => {
     const startDayTime = moment(appointment.start)
       .hour(startView.hour())
-      .minutes(startView.minutes());
+      .minutes(startView.minutes())
+      .seconds(startView.seconds());
     const endDayTime = moment(appointment.start)
       .hour(endView.hour())
-      .minutes(endView.minutes());
+      .minutes(endView.minutes())
+      .seconds(endView.seconds());
+
     const appointmentStart = moment(appointment.start);
     const appointmentEnd = moment(appointment.end);
 
     if (appointmentStart.isSameOrBefore(startDayTime)
       && appointmentEnd.isSameOrBefore(endDayTime)) {
-      return ({
-        start: startDayTime.toDate(), end: appointment.end, dataItem: appointment.dataItem,
-      });
+      return {
+        start: startDayTime.toDate(),
+        end: appointment.end,
+        dataItem: appointment.dataItem,
+      };
     }
     if (appointmentStart.isSameOrAfter(startDayTime)
       && appointmentEnd.isSameOrBefore(endDayTime)) {
-      return ({
-        start: appointment.start, end: appointment.end, dataItem: appointment.dataItem,
-      });
+      return {
+        start: appointment.start,
+        end: appointment.end,
+        dataItem: appointment.dataItem,
+      };
     }
     if (appointmentStart.isSameOrBefore(startDayTime)
       && appointmentEnd.isSameOrAfter(endDayTime)) {
-      return ({
-        start: startDayTime.toDate(), end: endDayTime.toDate(), dataItem: appointment.dataItem,
-      });
+      return {
+        start: startDayTime.toDate(),
+        end: endDayTime.toDate(),
+        dataItem: appointment.dataItem,
+      };
     }
     if (appointmentStart.isSameOrAfter(startDayTime)
       && appointmentEnd.isSameOrAfter(endDayTime)) {
-      return ({
-        start: appointment.start, end: endDayTime.toDate(), dataItem: appointment.dataItem,
-      });
+      return {
+        start: appointment.start,
+        end: endDayTime.toDate(),
+        dataItem: appointment.dataItem,
+      };
     }
     return appointment;
   });

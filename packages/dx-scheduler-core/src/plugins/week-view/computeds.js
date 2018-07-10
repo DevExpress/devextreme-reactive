@@ -9,6 +9,9 @@ const calculateViewBound = (dateBound, timeBound) => {
     .toDate();
 };
 
+const substractSecond = date =>
+  moment(date).subtract(1, 'second').toDate();
+
 export const timeScale = (
   currentDate,
   firstDayOfWeek,
@@ -26,7 +29,7 @@ export const timeScale = (
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-
+  result[result.length - 1].end = substractSecond(result[result.length - 1].end);
   return result;
 };
 
@@ -51,5 +54,7 @@ export const dayScale = (
 export const startViewDate = (days, times) =>
   calculateViewBound(days[0], times[0].start);
 
-export const endViewDate = (days, times) =>
-  calculateViewBound(days[days.length - 1], times[times.length - 1].end);
+export const endViewDate = (days, times) => {
+  const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
+  return substractSecond(bound);
+};

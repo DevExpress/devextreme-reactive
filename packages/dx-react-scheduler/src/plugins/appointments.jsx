@@ -1,17 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Template, Getter, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
-import { appointmentRects as getAppointmentRects, getAppointments } from '@devexpress/dx-scheduler-core';
-
-const appointmentsComputed = ({
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-}) => getAppointments(
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-);
+import { appointmentRects as getAppointmentRects } from '@devexpress/dx-scheduler-core';
 
 const appointmentRectsComputed = ({
   appointments,
@@ -42,9 +32,7 @@ export class Appointments extends React.PureComponent {
 
     return (
       <Plugin name="Appointment">
-        <Getter name="appointments" computed={appointmentsComputed} />
         <Getter name="appointmentRects" computed={appointmentRectsComputed} />
-
         <Template name="main">
           <TemplatePlaceholder />
           <Container>

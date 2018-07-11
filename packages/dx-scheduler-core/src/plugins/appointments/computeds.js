@@ -42,13 +42,6 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   };
 };
 
-export const getAppointments = (data, getAppointmentStartDate, getAppointmentEndDate) =>
-  data.map(appointment => ({
-    start: getAppointmentStartDate(appointment),
-    end: getAppointmentEndDate(appointment),
-    dataItem: appointment,
-  }));
-
 export const getRectByDates = (
   startDate,
   endDate,

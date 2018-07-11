@@ -1,7 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { appointments } from '@devexpress/dx-scheduler-core';
 
+const appointmentsComputed = ({
+  data,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+}) => appointments(
+  data,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+);
 export class SchedulerCore extends React.PureComponent {
   render() {
     const {
@@ -21,6 +31,7 @@ export class SchedulerCore extends React.PureComponent {
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
+        <Getter name="appointments" computed={appointmentsComputed} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

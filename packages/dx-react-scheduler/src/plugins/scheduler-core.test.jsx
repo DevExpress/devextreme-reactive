@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
+import { appointments } from '@devexpress/dx-scheduler-core';
 import { SchedulerCore } from './scheduler-core';
 
 const defaultProps = {
@@ -13,7 +14,19 @@ const defaultProps = {
   getStartDate: () => '2018-07-06',
 };
 
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  appointments: jest.fn(),
+}));
+
 describe('Scheduler Core', () => {
+  beforeEach(() => {
+    appointments.mockImplementation(() => [
+      { start: '2018-07-24', end: '2018-07-25' },
+    ]);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
   it('should provide the "data" getter', () => {
     const tree = mount((
       <PluginHost>
@@ -85,6 +98,22 @@ describe('Scheduler Core', () => {
 
     expect(getComputedState(tree).getAppointmentEndDate())
       .toBe('2018-07-05');
+  });
+
+  it('should provide the "appointment" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).appointments)
+      .toEqual([
+        { start: '2018-07-24', end: '2018-07-25' },
+      ]);
   });
 
   it('should render root template', () => {

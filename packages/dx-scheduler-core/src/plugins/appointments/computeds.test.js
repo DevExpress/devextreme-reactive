@@ -2,7 +2,6 @@ import moment from 'moment';
 import { getCellByDate, predicate } from './helpers';
 import {
   filteredAppointments,
-  getAppointments,
   sliceAppointmentsByDay,
   getRectByDates,
 } from './computeds';
@@ -37,36 +36,6 @@ describe('Appointment computeds', () => {
 
       expect(filtered).toEqual([
         { start: new Date(2018, 5, 27, 9), end: new Date(2018, 5, 27, 11), dataItem: {} },
-      ]);
-    });
-  });
-
-  describe('#getAppointments', () => {
-    const getAppointmentStartDate = appointment => appointment.startField;
-    const getAppointmentEndDate = appointment => appointment.endField;
-    const data = [
-      { startField: new Date(2018, 5, 27, 9), endField: new Date(2018, 5, 27, 11) },
-      { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
-    ];
-
-    it('should work', () => {
-      const filtered = getAppointments(
-        data,
-        getAppointmentStartDate,
-        getAppointmentEndDate,
-      );
-
-      expect(filtered).toEqual([
-        {
-          start: new Date(2018, 5, 27, 9),
-          end: new Date(2018, 5, 27, 11),
-          dataItem: { startField: new Date(2018, 5, 27, 9), endField: new Date(2018, 5, 27, 11) },
-        },
-        {
-          start: new Date(2018, 5, 27, 11),
-          end: new Date(2018, 5, 27, 16),
-          dataItem: { startField: new Date(2018, 5, 27, 11), endField: new Date(2018, 5, 27, 16) },
-        },
       ]);
     });
   });

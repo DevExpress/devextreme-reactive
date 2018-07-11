@@ -20,12 +20,11 @@ const excludedIntervals = (excludedDays, start) => excludedDays
     return acc;
   }, []);
 
-const appointmentPredicate = (
-  appointment, boundary,
-  excludedDays,
-  filterAllDayAppointments,
+export const viewPredicate = (
+  appointment, left, right,
+  excludedDays = [],
+  filterAllDayAppointments = false,
 ) => {
-  const { left, right } = boundary;
   const { start, end } = appointment;
   const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
   const inInterval = (date, interval) => date.isBetween(...interval, null, '[]');
@@ -39,15 +38,13 @@ const appointmentPredicate = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
-export const filterAppointments = (
-  appointments,
-  left,
-  right,
-  excludedDays = [],
-  filterAllDayAppointments = false,
-) => appointments.filter(({ start, end }) => appointmentPredicate(
-  { start, end },
-  { left, right },
-  excludedDays,
-  filterAllDayAppointments,
-));
+export const sortAppointments = appointments =>
+  appointments.slice().sort((a, b) => {
+    if (a.start.isBefore(b.start)) return -1;
+    if (a.start.isAfter(b.start)) return 1;
+    if (a.start.isSame(b.start)) {
+      if (a.end.isBefore(b.end)) return 1;
+      if (a.end.isAfter(b.end)) return -1;
+    }
+    return 0;
+  });

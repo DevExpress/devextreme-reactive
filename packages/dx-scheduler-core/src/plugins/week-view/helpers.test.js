@@ -1,12 +1,11 @@
 import moment from 'moment';
 import {
   calculateFirstDateOfWeek,
-  sortAppointments,
   findOverlappedAppointments,
+  sliceAppointmentByDay,
   adjustAppointments,
-  filterAppointmentsByBoundary,
+  dayBoundaryPredicate,
   getCellByDate,
-  predicate,
   unwrapGroups,
 } from './helpers';
 
@@ -44,12 +43,6 @@ describe('Week view helpers', () => {
       [appointments[0], appointments[1], appointments[5]],
       [appointments[6]],
     ];
-    describe('#sortAppointments', () => {
-      it('should sort appointments', () => {
-        expect(sortAppointments(appointments))
-          .toEqual(sortedAppointments);
-      });
-    });
 
     describe('#findOverlappedAppointments', () => {
       it('should detect overlapped appointments', () => {
@@ -177,101 +170,90 @@ describe('Week view helpers', () => {
       });
     });
 
-    describe('#filterAppointmentsByBoundary', () => {
-      it('should remove appointment if it is excluded day', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-03-21 09:00';
-        const endViewDate = '2019-06-27 18:00';
-        const excludedDays = [0];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([]);
+    describe('#sliceAppointmentByDay', () => {
+      it('should slice multi-days appointment', () => {
+        const slicedAppointments = sliceAppointmentByDay({
+          start: moment('2018-06-27 09:00'),
+          end: moment('2018-06-28 11:00'),
+        });
+        const [first, last] = slicedAppointments;
+
+        expect(slicedAppointments)
+          .toHaveLength(2);
+        expect(first.start.toJSON())
+          .toEqual(moment('2018-06-27 09:00').toJSON());
+        expect(first.end.toJSON())
+          .toEqual(moment('2018-06-27').endOf('day').toJSON());
+        expect(last.start.toJSON())
+          .toEqual(moment('2018-06-28').toJSON());
+        expect(last.end.toJSON())
+          .toEqual(moment('2018-06-28 11:00').toJSON());
       });
 
-      it('should remove appointment if it `end` before `startViewDate`', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-03-21 11:00';
-        const endViewDate = '2018-06-27 18:00';
-        const excludedDays = [];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([]);
+      it('should not slice one-day appointment', () => {
+        const slicedAppointments = sliceAppointmentByDay({
+          start: moment('2018-06-27 09:00'),
+          end: moment('2018-06-27 11:00'),
+        });
+
+        expect(slicedAppointments)
+          .toHaveLength(1);
+
+        expect(slicedAppointments[0].start.toJSON())
+          .toEqual(moment('2018-06-27 09:00').toJSON());
+        expect(slicedAppointments[0].end.toJSON())
+          .toEqual(moment('2018-06-27 11:00').toJSON());
+      });
+    });
+
+    describe('#dayBoundaryPredicate', () => {
+      it('should not take appointment from excluded days', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00') },
+          '2018-03-21 09:00',
+          '2019-06-27 18:00',
+          [0],
+        )).toBeFalsy();
       });
 
-      it('should remove appointment if it `start` after `endViewDate`', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-03-22 11:00';
-        const endViewDate = '2018-06-27 12:00';
-        const excludedDays = [];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([]);
+      it('should not take appointment that ends before left bound', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 10:00'), end: moment('2018-06-24 11:00') },
+          '2018-03-21 11:00',
+          '2018-06-27 18:00',
+        )).toBeFalsy();
       });
 
-      it('should keep appointment if it `start` between `startViewDate` and `endViewDate`', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-04-22 12:00';
-        const endViewDate = '2018-07-24 15:00';
-        const excludedDays = [];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([
-          { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
-        ]);
+      it('should not take appointment that starts after right bound', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 15:00') },
+          '2018-03-22 11:00',
+          '2018-06-27 12:00',
+        )).toBeFalsy();
       });
 
-      it('should keep appointment if it `end` between `startViewDate` and `endViewDate`', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-04-26 12:00';
-        const endViewDate = '2018-04-29 18:00';
-        const excludedDays = [];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([
-          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00'), dataItem: {} },
-        ]);
+      it('should take appointment that starts between left and right bounds', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 12:00'), end: moment('2018-06-24 18:00') },
+          '2018-04-22 12:00',
+          '2018-07-24 15:00',
+        )).toBeTruthy();
       });
 
-      it('should keep appointment if it `start` before `startViewDate` and `end` after `endViewDate`', () => {
-        const dayAppointments = [
-          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
-        ];
-        const startViewDate = '2018-04-22 12:00';
-        const endViewDate = '2018-07-26 15:00';
-        const excludedDays = [];
-        expect(filterAppointmentsByBoundary(
-          dayAppointments,
-          startViewDate,
-          endViewDate,
-          excludedDays,
-        )).toEqual([
-          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 18:00'), dataItem: {} },
-        ]);
+      it('should take appointment that ends between left and right bounds', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00') },
+          '2018-04-26 12:00',
+          '2018-04-29 18:00',
+        )).toBeTruthy();
+      });
+
+      it('should take appointment that starts before left bound and ends after right bound', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 18:00') },
+          '2018-04-22 12:00',
+          '2018-07-26 15:00',
+        )).toBeTruthy();
       });
     });
   });

@@ -93,94 +93,74 @@ export const calculateFirstDateOfWeek = (currentDate, firstDayOfWeek, excludedDa
   return firstDateOfWeek.toDate();
 };
 
-export const filterAppointmentsByBoundary = (
-  appointments,
-  startViewDate,
-  endViewDate,
-  excludedDays,
+export const sliceAppointmentByDay = (appointment) => {
+  const { start, end, dataItem } = appointment;
+  if (start.isSame(end, 'day')) {
+    return [appointment];
+  }
+  return [
+    { start, end: moment(start).endOf('day'), dataItem },
+    { start: moment(end).startOf('day'), end, dataItem },
+  ];
+};
+
+export const dayBoundaryPredicate = (
+  appointment,
+  leftBound, rightBound,
+  excludedDays = [],
 ) => {
-  const startView = moment(startViewDate);
-  const endView = moment(endViewDate);
+  const dayStart = moment(leftBound);
+  const dayEnd = moment(rightBound);
+  const startDayTime = moment(appointment.start)
+    .hour(dayStart.hour())
+    .minutes(dayStart.minutes());
+  const endDayTime = moment(appointment.start)
+    .hour(dayEnd.hour())
+    .minutes(dayEnd.minutes());
 
-  return appointments.filter((appointment) => {
-    const startDayTime = moment(appointment.start)
-      .hour(startView.hour())
-      .minutes(startView.minutes());
-    const endDayTime = moment(appointment.start)
-      .hour(endView.hour())
-      .minutes(endView.minutes());
+  if (excludedDays.findIndex(day =>
+    day === moment(appointment.start).day()) !== -1) return false;
 
-    if (excludedDays.findIndex(day =>
-      day === moment(appointment.start).day()) !== -1) return false;
-
-    return (appointment.end.isAfter(startDayTime)
-      && appointment.start.isBefore(endDayTime));
-  });
+  return (appointment.end.isAfter(startDayTime)
+    && appointment.start.isBefore(endDayTime));
 };
 
-export const cutDayAppointments = (appointments, startViewDate, endViewDate) => {
-  const startView = moment(startViewDate);
-  const endView = moment(endViewDate);
+export const reduceAppointmentByDayBounds = (appointment, leftBound, rightBound) => {
+  const dayStart = moment(leftBound);
+  const dayEnd = moment(rightBound);
+  const startDayTime = moment(appointment.start)
+    .hour(dayStart.hour())
+    .minutes(dayStart.minutes())
+    .seconds(dayStart.seconds());
+  const endDayTime = moment(appointment.start)
+    .hour(dayEnd.hour())
+    .minutes(dayEnd.minutes())
+    .seconds(dayEnd.seconds());
 
-  return appointments.map((appointment) => {
-    const startDayTime = moment(appointment.start)
-      .hour(startView.hour())
-      .minutes(startView.minutes())
-      .seconds(startView.seconds());
-    const endDayTime = moment(appointment.start)
-      .hour(endView.hour())
-      .minutes(endView.minutes())
-      .seconds(endView.seconds());
-
-    const appointmentStart = moment(appointment.start);
-    const appointmentEnd = moment(appointment.end);
-
-    if (appointmentStart.isSameOrBefore(startDayTime)
-      && appointmentEnd.isSameOrBefore(endDayTime)) {
-      return {
-        start: startDayTime,
-        end: appointment.end,
-        dataItem: appointment.dataItem,
-      };
-    }
-    if (appointmentStart.isSameOrAfter(startDayTime)
-      && appointmentEnd.isSameOrBefore(endDayTime)) {
-      return {
-        start: appointment.start,
-        end: appointment.end,
-        dataItem: appointment.dataItem,
-      };
-    }
-    if (appointmentStart.isSameOrBefore(startDayTime)
-      && appointmentEnd.isSameOrAfter(endDayTime)) {
-      return {
-        start: startDayTime,
-        end: endDayTime,
-        dataItem: appointment.dataItem,
-      };
-    }
-    if (appointmentStart.isSameOrAfter(startDayTime)
-      && appointmentEnd.isSameOrAfter(endDayTime)) {
-      return {
-        start: appointment.start,
-        end: endDayTime,
-        dataItem: appointment.dataItem,
-      };
-    }
-    return appointment;
-  });
+  if (appointment.start.isSameOrBefore(startDayTime)
+    && appointment.end.isSameOrBefore(endDayTime)) {
+    return {
+      ...appointment,
+      start: startDayTime,
+    };
+  }
+  if (appointment.start.isSameOrBefore(startDayTime)
+    && appointment.end.isSameOrAfter(endDayTime)) {
+    return {
+      ...appointment,
+      start: startDayTime,
+      end: endDayTime,
+    };
+  }
+  if (appointment.start.isSameOrAfter(startDayTime)
+    && appointment.end.isSameOrAfter(endDayTime)) {
+    return {
+      ...appointment,
+      end: endDayTime,
+    };
+  }
+  return appointment;
 };
-
-export const sortAppointments = appointments =>
-  appointments.slice().sort((a, b) => {
-    if (a.start.isBefore(b.start)) return -1;
-    if (a.start.isAfter(b.start)) return 1;
-    if (a.start.isSame(b.start)) {
-      if (a.end.isBefore(b.end)) return 1;
-      if (a.end.isAfter(b.end)) return -1;
-    }
-    return 0;
-  });
 
 export const findOverlappedAppointments = (sortedAppointments) => {
   const appointments = sortedAppointments.slice();

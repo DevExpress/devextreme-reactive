@@ -1,16 +1,19 @@
 import moment from 'moment';
 import {
   calculateFirstDateOfWeek,
-  sortAppointments,
   findOverlappedAppointments,
   adjustAppointments,
   getRectByDates,
-  filterAppointmentsByBoundary,
-  cutDayAppointments,
+  sliceAppointmentByDay,
+  dayBoundaryPredicate,
+  reduceAppointmentByDayBounds,
   unwrapGroups,
 } from './helpers';
 
-import { filterAppointments } from '../../utils';
+import {
+  sortAppointments,
+  viewPredicate,
+} from '../../utils';
 
 const toPercentage = (value, total) => (value * 100) / total;
 const substractSecond = date => moment(date).subtract(1, 'second').toDate();
@@ -23,19 +26,70 @@ const calculateViewBound = (dateBound, timeBound) => {
     .toDate();
 };
 
-const sliceAppointmentsByDay = appointments =>
-  appointments.reduce((acc, appointment) => {
-    const { start, end, dataItem } = appointment;
-    if (start.isSame(end, 'day')) {
-      acc.push(appointment);
-    } else {
-      acc.push(
-        { start, end: moment(start).endOf('day'), dataItem },
-        { start: moment(end).startOf('day'), end, dataItem },
+const calculateDateIntervals = (
+  appointments,
+  leftBound, rightBound,
+  excludedDays,
+) => appointments
+  .map(({ start, end, ...restArgs }) =>
+    ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment =>
+    viewPredicate(appointment, leftBound, rightBound, excludedDays, true))
+  .reduce((acc, appointment) =>
+    ([...acc, ...sliceAppointmentByDay(appointment)]), [])
+  .filter(appointment =>
+    dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays))
+  .map(appointment =>
+    reduceAppointmentByDayBounds(appointment, leftBound, rightBound));
+
+const calculateRectsByDateIntervals = (
+  intervals,
+  dayScale, timeScale,
+  cellDuration, cellElements,
+) => {
+  const sorted = sortAppointments(intervals);
+  const grouped = findOverlappedAppointments(sorted);
+
+  return unwrapGroups(adjustAppointments(grouped))
+    .map((appointmentt) => {
+      const {
+        top, left,
+        width, height,
+        parentWidth,
+      } = getRectByDates(
+        appointmentt.start, appointmentt.end,
+        dayScale, timeScale,
+        cellDuration, cellElements,
       );
-    }
-    return acc;
-  }, []);
+      const widthInPx = width / appointmentt.reduceValue;
+      return {
+        top,
+        height,
+        left: toPercentage(left + (widthInPx * appointmentt.offset), parentWidth),
+        width: toPercentage(widthInPx, parentWidth),
+        dataItem: appointmentt.dataItem,
+      };
+    });
+};
+
+export const appointmentRects = (
+  appointments,
+  leftBound, rightBound,
+  excludedDays,
+  dayScale, timeScale,
+  cellDuration, cellElements,
+) => {
+  const dateIntervals = calculateDateIntervals(
+    appointments,
+    leftBound, rightBound,
+    excludedDays,
+  );
+  return calculateRectsByDateIntervals(
+    dateIntervals,
+    dayScale, timeScale,
+    cellDuration, cellElements,
+  );
+};
 
 export const timeScale = (
   currentDate,
@@ -82,66 +136,4 @@ export const startViewDate = (days, times) =>
 export const endViewDate = (days, times) => {
   const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
   return substractSecond(bound);
-};
-
-export const appointmentRects = (
-  appointments,
-  leftBound,
-  rightBound,
-  excludedDays,
-  dayScaleCore,
-  timeScaleCore,
-  cellDuration,
-  cellElements,
-) => {
-  const filteredAppointments =
-    filterAppointments(
-      appointments.map(({ start, end, ...restArgs }) =>
-        ({ start: moment(start), end: moment(end), ...restArgs })),
-      leftBound,
-      rightBound,
-      excludedDays,
-      true,
-    );
-  const slicedAppointments = sliceAppointmentsByDay(filteredAppointments);
-
-  const filteredByBoundaryAppointments =
-    filterAppointmentsByBoundary(
-      slicedAppointments,
-      leftBound,
-      rightBound,
-      excludedDays,
-    );
-
-  const appointmentParts =
-    cutDayAppointments(filteredByBoundaryAppointments, leftBound, rightBound);
-
-  const sorted = sortAppointments(appointmentParts);
-  const groups = findOverlappedAppointments(sorted);
-  const withOffset = adjustAppointments(groups);
-
-  return unwrapGroups(withOffset).map((appt) => {
-    const {
-      top,
-      left,
-      width,
-      height,
-      parentWidth,
-    } = getRectByDates(
-      appt.start,
-      appt.end,
-      dayScaleCore,
-      timeScaleCore,
-      cellDuration,
-      cellElements,
-    );
-    const widthInPx = width / appt.reduceValue;
-    return {
-      top,
-      height,
-      left: toPercentage(left + (widthInPx * appt.offset), parentWidth),
-      width: toPercentage(widthInPx, parentWidth),
-      dataItem: appt.dataItem,
-    };
-  });
 };

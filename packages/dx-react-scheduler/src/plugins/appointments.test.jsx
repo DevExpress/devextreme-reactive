@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { appointmentRects } from '@devexpress/dx-scheduler-core';
 import { Appointments } from './appointments';
 
 // eslint-disable-next-line react/prop-types
@@ -16,10 +15,9 @@ const defaultProps = {
 
 const defaultDeps = {
   getter: {
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
-    data: [{ startDate: new Date(2018, 6, 24), endDate: new Date(2018, 5, 5) }],
+    appointmentRects: [{
+      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+    }],
     getAppointmentTitle: () => 'a',
     getAppointmentEndDate: () => '2018-07-05',
     getAppointmentStartDate: () => '2018-07-06',
@@ -29,37 +27,7 @@ const defaultDeps = {
   },
 };
 
-jest.mock('@devexpress/dx-scheduler-core', () => ({
-  appointmentRects: jest.fn(),
-}));
-
 describe('Appointments', () => {
-  beforeEach(() => {
-    appointmentRects.mockImplementation(() => [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-    }]);
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  it('should provide the "appointmentRects" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <Appointments
-          {...defaultProps}
-          getEndDate={() => '2018-07-05'}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).appointmentRects)
-      .toEqual([{
-        x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-      }]);
-  });
-
   it('should render container', () => {
     const tree = mount((
       <PluginHost>

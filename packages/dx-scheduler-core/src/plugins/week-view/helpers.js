@@ -1,22 +1,6 @@
 import moment from 'moment';
 
-export const calculateFirstDateOfWeek = (currentDate, firstDayOfWeek, excludedDays = []) => {
-  const currentLocale = moment.locale();
-  moment.updateLocale('tmp-locale', {
-    week: { dow: firstDayOfWeek },
-  });
-  const firstDateOfWeek = moment(currentDate).startOf('week');
-  if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
-    excludedDays.slice().sort().forEach((day) => {
-      if (day === firstDateOfWeek.day()) {
-        firstDateOfWeek.add(1, 'days');
-      }
-    });
-  }
-  moment.locale(currentLocale);
-
-  return firstDateOfWeek.toDate();
-};
+const CELL_GAP = 0.15;
 
 export const getCellByDate = (days, times, date, takePrev = false) => {
   const rowIndex = times.findIndex((timeCell) => {
@@ -38,6 +22,75 @@ export const getCellByDate = (days, times, date, takePrev = false) => {
     index: totalCellIndex,
     startDate: cellStartDate,
   };
+};
+
+const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
+  const {
+    index: cellIndex,
+    startDate: cellStartDate,
+  } = getCellByDate(days, times, date, takePrev);
+
+  const cellElement = cellElements[cellIndex];
+  const {
+    top,
+    left,
+    width,
+    height: cellHeight,
+  } = cellElement.getBoundingClientRect();
+  const timeOffset = moment(date).diff(cellStartDate, 'minutes');
+  const topOffset = cellHeight * (timeOffset / cellDuration);
+  let parentRect = { left: 0, top: 0, width: 0 };
+  if (cellElement.offsetParent) {
+    parentRect = cellElement.offsetParent.getBoundingClientRect();
+  }
+  return {
+    top,
+    left,
+    width,
+    topOffset,
+    parentRect,
+  };
+};
+
+export const getRectByDates = (
+  startDate,
+  endDate,
+  days,
+  times,
+  cellDuration,
+  cellElements,
+) => {
+  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
+  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
+
+  const top = firstCellRect.top + firstCellRect.topOffset;
+  const height = (lastCellRect.top + lastCellRect.topOffset) - top;
+
+  return {
+    width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
+    top: top - firstCellRect.parentRect.top,
+    left: firstCellRect.left - firstCellRect.parentRect.left,
+    parentWidth: firstCellRect.parentRect.width,
+    height,
+  };
+};
+
+export const calculateFirstDateOfWeek = (currentDate, firstDayOfWeek, excludedDays = []) => {
+  const currentLocale = moment.locale();
+  moment.updateLocale('tmp-locale', {
+    week: { dow: firstDayOfWeek },
+  });
+  const firstDateOfWeek = moment(currentDate).startOf('week');
+  if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
+    excludedDays.slice().sort().forEach((day) => {
+      if (day === firstDateOfWeek.day()) {
+        firstDateOfWeek.add(1, 'days');
+      }
+    });
+  }
+  moment.locale(currentLocale);
+
+  return firstDateOfWeek.toDate();
 };
 
 export const filterAppointmentsByBoundary = (
@@ -190,48 +243,3 @@ export const unwrapGroups = groups =>
     })));
     return acc;
   }, []);
-
-const createExcludedInterval = (day, start) => {
-  const leftBound = moment(start.day(day));
-  return [
-    leftBound,
-    moment(leftBound).hour(start.hour()).endOf('day'),
-  ];
-};
-
-const excludedIntervals = (excludedDays, start) => excludedDays
-  .map(day => (day === 0 ? 7 : day))
-  .sort()
-  .reduce((acc, day, i, allDays) => {
-    if (i && day === allDays[i - 1] + 1) {
-      acc[i - 1][1].day(day);
-    } else {
-      acc.push(createExcludedInterval(day, start));
-    }
-    return acc;
-  }, []);
-
-export const predicate = (
-  start,
-  end,
-  boundary,
-  excludedDays = [],
-  filterAllDayAppointments = true,
-) => {
-  const { left, right } = boundary;
-  const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
-  const inInterval = (date, interval) => date.isBetween(...interval, null, '[]');
-  const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
-    .find(interval => (
-      inInterval(start, interval) && inInterval(end, interval)
-    ));
-  const considerAllDayAppointment = filterAllDayAppointments ? moment(end).diff(start, 'hours') < 24 : true;
-
-  return (
-    isAppointmentInBoundary
-    &&
-    !isAppointmentInExcludedDays
-    &&
-    considerAllDayAppointment
-  );
-};

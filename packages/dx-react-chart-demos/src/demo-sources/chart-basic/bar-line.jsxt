@@ -33,7 +33,7 @@ export default class Demo extends React.PureComponent {
 
           <ArgumentAxis name="argument" />
           <ValueAxis name="oil" />
-          <ValueAxis name="price" position="right" />
+          <ValueAxis name="price" position="right" min={0} />
 
           <Grid name="oil" />
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <BarSeries
-            name="Usa"
+            name="USA"
             valueField="usa"
             argumentField="year"
             axisName="oil"

@@ -8,7 +8,7 @@ To draw several series side-by-side you should only use `Stack` plugin. The foll
 
 .embedded-demo({ "path": "chart-basic/band-axis", "showThemeSelector": true })
 
-To draw several series in one stack assign the same value to the `stack` property of series. If you don't want to draw a series in the stack, for example, a line series, set `stack` property to null.
+To draw several series in one stack assign the same value to the `stack` property of series. If you don't want a series to be in the calculation of the stack, for example, a line series, set `stack` property to null.
 
 .embedded-demo({ "path": "chart-basic/bar-line", "showThemeSelector": true })
 

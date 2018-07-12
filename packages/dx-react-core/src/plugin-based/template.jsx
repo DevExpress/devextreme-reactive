@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT } from './constants';
 
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
@@ -23,6 +23,7 @@ export class Template extends React.PureComponent {
       },
     };
     pluginHost.registerPlugin(this.plugin);
+    pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
   }
   componentDidUpdate() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
@@ -31,6 +32,7 @@ export class Template extends React.PureComponent {
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterPlugin(this.plugin);
+    pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, this.props.name);
   }
   render() {
     return null;

@@ -137,29 +137,11 @@ export const reduceAppointmentByDayBounds = (appointment, leftBound, rightBound)
     .minutes(dayEnd.minutes())
     .seconds(dayEnd.seconds());
 
-  if (appointment.start.isSameOrBefore(startDayTime)
-    && appointment.end.isSameOrBefore(endDayTime)) {
-    return {
-      ...appointment,
-      start: startDayTime,
-    };
-  }
-  if (appointment.start.isSameOrBefore(startDayTime)
-    && appointment.end.isSameOrAfter(endDayTime)) {
-    return {
-      ...appointment,
-      start: startDayTime,
-      end: endDayTime,
-    };
-  }
-  if (appointment.start.isSameOrAfter(startDayTime)
-    && appointment.end.isSameOrAfter(endDayTime)) {
-    return {
-      ...appointment,
-      end: endDayTime,
-    };
-  }
-  return appointment;
+  return {
+    ...appointment,
+    ...(appointment.start.isSameOrBefore(startDayTime) ? { start: startDayTime } : null),
+    ...(appointment.end.isSameOrAfter(endDayTime) ? { end: endDayTime } : null),
+  };
 };
 
 export const findOverlappedAppointments = (sortedAppointments) => {

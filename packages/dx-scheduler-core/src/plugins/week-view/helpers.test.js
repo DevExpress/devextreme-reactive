@@ -8,6 +8,7 @@ import {
   getCellByDate,
   getRectByDates,
   unwrapGroups,
+  reduceAppointmentByDayBounds,
 } from './helpers';
 
 describe('Week view helpers', () => {
@@ -303,6 +304,49 @@ describe('Week view helpers', () => {
         expect(height).toBe(100);
         expect(width).toBe(85);
         expect(parentWidth).toBe(250);
+      });
+    });
+
+    describe('#reduceAppointmentByDayBounds', () => {
+      it('should crop appointment start', () => {
+        const appointemnt = reduceAppointmentByDayBounds(
+          { start: moment('2018-07-12 04:00'), end: moment('2018-07-12 11:00') },
+          '2018-07-12 10:00', '2018-07-12 15:00',
+        );
+        expect(appointemnt.start.format())
+          .toBe(moment('2018-07-12 10:00').format());
+        expect(appointemnt.end.format())
+          .toBe(moment('2018-07-12 11:00').format());
+      });
+      it('should crop appointment start and end', () => {
+        const appointemnt = reduceAppointmentByDayBounds(
+          { start: moment('2018-07-12 03:00'), end: moment('2018-07-12 11:00') },
+          '2018-07-12 04:00', '2018-07-12 07:00',
+        );
+        expect(appointemnt.start.format())
+          .toBe(moment('2018-07-12 04:00').format());
+        expect(appointemnt.end.format())
+          .toBe(moment('2018-07-12 07:00').format());
+      });
+      it('should crop apoitnment end', () => {
+        const appointemnt = reduceAppointmentByDayBounds(
+          { start: moment('2018-07-12 03:00'), end: moment('2018-07-12 11:00') },
+          '2018-07-12 02:00', '2018-07-12 07:00',
+        );
+        expect(appointemnt.start.format())
+          .toBe(moment('2018-07-12 03:00').format());
+        expect(appointemnt.end.format())
+          .toBe(moment('2018-07-12 07:00').format());
+      });
+      it('should not crop appointment', () => {
+        const appointemnt = reduceAppointmentByDayBounds(
+          { start: moment('2018-07-12 03:00'), end: moment('2018-07-12 11:00') },
+          '2018-07-12 02:00', '2018-07-12 15:00',
+        );
+        expect(appointemnt.start.format())
+          .toBe(moment('2018-07-12 03:00').format());
+        expect(appointemnt.end.format())
+          .toBe(moment('2018-07-12 11:00').format());
       });
     });
   });

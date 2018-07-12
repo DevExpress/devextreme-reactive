@@ -7,6 +7,7 @@ import {
   dayScale,
   startViewDate,
   endViewDate,
+  appointmentRects,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 
@@ -15,11 +16,15 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
+  appointmentRects: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
+    dateTableRef: {
+      querySelectorAll: () => {},
+    },
   },
   template: {
     body: {},
@@ -50,6 +55,9 @@ describe('Week View', () => {
     dayScale.mockImplementation(() => [1, 2, 3]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
+    appointmentRects.mockImplementation(() => [{
+      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+    }]);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -175,6 +183,22 @@ describe('Week View', () => {
 
       expect(getComputedState(tree).excludedDays)
         .toBe(excludedDays);
+    });
+
+    it('should provide the "appointmentRects" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).appointmentRects)
+        .toEqual([{
+          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+        }]);
     });
   });
 

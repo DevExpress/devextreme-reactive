@@ -7,14 +7,14 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { monthCells as getMonthCells } from '@devexpress/dx-scheduler-core';
+import { monthCells as monthCellsCore } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
 ];
 
 const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
-  getMonthCells(currentDate, firstDayOfWeek);
+  monthCellsCore(currentDate, firstDayOfWeek);
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {

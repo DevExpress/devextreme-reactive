@@ -1,5 +1,22 @@
 import moment from 'moment';
-import { calculateFirstDateOfWeek } from './helpers';
+import {
+  calculateFirstDateOfWeek,
+  findOverlappedAppointments,
+  adjustAppointments,
+  getRectByDates,
+  sliceAppointmentByDay,
+  dayBoundaryPredicate,
+  reduceAppointmentByDayBounds,
+  unwrapGroups,
+} from './helpers';
+
+import {
+  sortAppointments,
+  viewPredicate,
+} from '../../utils';
+
+const toPercentage = (value, total) => (value * 100) / total;
+const substractSecond = date => moment(date).subtract(1, 'second').toDate();
 
 const calculateViewBound = (dateBound, timeBound) => {
   const time = moment(timeBound);
@@ -9,8 +26,70 @@ const calculateViewBound = (dateBound, timeBound) => {
     .toDate();
 };
 
-const substractSecond = date =>
-  moment(date).subtract(1, 'second').toDate();
+const calculateDateIntervals = (
+  appointments,
+  leftBound, rightBound,
+  excludedDays,
+) => appointments
+  .map(({ start, end, ...restArgs }) =>
+    ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment =>
+    viewPredicate(appointment, leftBound, rightBound, excludedDays, true))
+  .reduce((acc, appointment) =>
+    ([...acc, ...sliceAppointmentByDay(appointment)]), [])
+  .filter(appointment =>
+    dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays))
+  .map(appointment =>
+    reduceAppointmentByDayBounds(appointment, leftBound, rightBound));
+
+const calculateRectsByDateIntervals = (
+  intervals,
+  dayScale, timeScale,
+  cellDuration, cellElements,
+) => {
+  const sorted = sortAppointments(intervals);
+  const grouped = findOverlappedAppointments(sorted);
+
+  return unwrapGroups(adjustAppointments(grouped))
+    .map((appointmentt) => {
+      const {
+        top, left,
+        width, height,
+        parentWidth,
+      } = getRectByDates(
+        appointmentt.start, appointmentt.end,
+        dayScale, timeScale,
+        cellDuration, cellElements,
+      );
+      const widthInPx = width / appointmentt.reduceValue;
+      return {
+        top,
+        height,
+        left: toPercentage(left + (widthInPx * appointmentt.offset), parentWidth),
+        width: toPercentage(widthInPx, parentWidth),
+        dataItem: appointmentt.dataItem,
+      };
+    });
+};
+
+export const appointmentRects = (
+  appointments,
+  leftBound, rightBound,
+  excludedDays,
+  dayScale, timeScale,
+  cellDuration, cellElements,
+) => {
+  const dateIntervals = calculateDateIntervals(
+    appointments,
+    leftBound, rightBound,
+    excludedDays,
+  );
+  return calculateRectsByDateIntervals(
+    dateIntervals,
+    dayScale, timeScale,
+    cellDuration, cellElements,
+  );
+};
 
 export const timeScale = (
   currentDate,

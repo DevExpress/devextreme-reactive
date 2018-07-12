@@ -8,6 +8,7 @@ import { HeaderCell } from '../templates/date-navigator/header-cell';
 import { Row } from '../templates/date-navigator/row';
 import { Navigator } from '../templates/date-navigator/navigator';
 import { Title } from '../templates/date-navigator/title';
+import { NavigationButton } from '../templates/date-navigator/navigation-button';
 
 export class DateNavigator extends React.PureComponent {
   render() {
@@ -22,6 +23,7 @@ export class DateNavigator extends React.PureComponent {
         headerCellComponent={HeaderCell}
         navigatorComponent={Navigator}
         titleComponent={Title}
+        navigationButtonComponent={NavigationButton}
         {...this.props}
       />
     );
@@ -37,3 +39,4 @@ DateNavigator.HeaderRow = Row;
 DateNavigator.Overlay = Overlay;
 DateNavigator.Navigator = Navigator;
 DateNavigator.Title = Title;
+DateNavigator.NavigationButton = NavigationButton;

@@ -16,6 +16,7 @@ const NavigatorBase = ({
   className,
   currentDate,
   titleComponent: Title,
+  navigationButtonComponent: NavigationButton,
   ...restProps
 }) => (
   <Toolbar
@@ -24,15 +25,16 @@ const NavigatorBase = ({
     }, className)}
     {...restProps}
   >
-    <Title
-      currentDate={currentDate}
-    />
+    <NavigationButton back />
+    <Title currentDate={currentDate} />
+    <NavigationButton />
   </Toolbar>
 );
 
 NavigatorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   titleComponent: PropTypes.func.isRequired,
+  navigationButtonComponent: PropTypes.func.isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),

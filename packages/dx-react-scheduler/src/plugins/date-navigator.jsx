@@ -51,6 +51,7 @@ export class DateNavigator extends React.PureComponent {
       toggleButtonComponent: ToggleButton,
       navigatorComponent: Navigator,
       titleComponent: Title,
+      navigationButtonComponent: NavigationButton,
     } = this.props;
 
     const { visible } = this.state;
@@ -79,6 +80,7 @@ export class DateNavigator extends React.PureComponent {
                   <Navigator
                     currentDate={currentDate}
                     titleComponent={Title}
+                    navigationButtonComponent={NavigationButton}
                   />
                   <Table
                     headerCells={weekDays}
@@ -108,4 +110,5 @@ DateNavigator.propTypes = {
   toggleButtonComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
   titleComponent: PropTypes.func.isRequired,
+  navigationButtonComponent: PropTypes.func.isRequired,
 };

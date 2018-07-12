@@ -6,9 +6,11 @@ describe('DateNavigator', () => {
   let classes;
   let shallow;
   const Title = () => null;
+  const NavigationButton = () => null;
   const defaultProps = {
     currentDate: '2018-07-12',
     titleComponent: Title,
+    navigationButtonComponent: NavigationButton,
   };
   beforeAll(() => {
     classes = getClasses(<Navigator {...defaultProps} />);
@@ -42,6 +44,18 @@ describe('DateNavigator', () => {
         .toBeTruthy();
       expect(title.prop('currentDate'))
         .toBe('2018-07-12');
+    });
+    it('should render navigation buttons', () => {
+      const buttons = shallow((
+        <Navigator {...defaultProps} />
+      )).find(NavigationButton);
+
+      expect(buttons)
+        .toHaveLength(2);
+      expect(buttons.at(0).prop('back'))
+        .toBeTruthy();
+      expect(buttons.at(1).prop('back'))
+        .toBeFalsy();
     });
   });
 });

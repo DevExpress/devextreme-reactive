@@ -27,6 +27,7 @@ const TableComponent = () => null;
 const NavigatorComponent = () => null;
 const ToggleButtonComponent = () => null;
 const TitleComponent = () => null;
+const NavigationButton = () => null;
 
 const defaultProps = {
   overlayComponent: OverlayComponent,
@@ -34,6 +35,7 @@ const defaultProps = {
   toggleButtonComponent: ToggleButtonComponent,
   navigatorComponent: NavigatorComponent,
   titleComponent: TitleComponent,
+  navigationButtonComponent: NavigationButton,
   cellComponent: () => null,
   rowComponent: () => null,
   headerRowComponent: () => null,
@@ -128,7 +130,7 @@ describe('DateNavigator', () => {
         />
       </PluginHost>
     )).find(NavigatorComponent);
-    const { currentDate, titleComponent } = navigator.props();
+    const { currentDate, titleComponent, navigationButtonComponent } = navigator.props();
 
     expect(navigator.exists())
       .toBeTruthy();
@@ -136,6 +138,8 @@ describe('DateNavigator', () => {
       .toBe('2018-07-05');
     expect(titleComponent)
       .toBe(TitleComponent);
+    expect(navigationButtonComponent)
+      .toBe(NavigationButton);
   });
 
   it('should calculate table cells via the "monthCells" computed', () => {

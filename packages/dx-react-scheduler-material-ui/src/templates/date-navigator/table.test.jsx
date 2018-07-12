@@ -4,8 +4,12 @@ import { Table } from './table';
 
 describe('DateNavigator', () => {
   const defaultProps = {
-    rowComponent: () => null,
-    cellComponent: () => null,
+    // eslint-disable-next-line react/prop-types
+    rowComponent: ({ children }) => <tr className="table-row">{children}</tr>,
+    // eslint-disable-next-line react/prop-types
+    headerRowComponent: ({ children }) => <tr className="header-row">{children}</tr>,
+    cellComponent: () => <td className="table-cell" />,
+    headerCellComponent: () => <th className="header-cell" />,
     cells: [],
   };
   let classes;
@@ -16,7 +20,7 @@ describe('DateNavigator', () => {
     shallow = createShallow({ dive: true });
     mount = createMount();
   });
-  describe('Table', () => {
+  describe('DateNavigator Table', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <Table {...defaultProps} className="custom-class" />
@@ -35,30 +39,42 @@ describe('DateNavigator', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render cell and rows by props', () => {
-      const props = {
-        // eslint-disable-next-line react/prop-types
-        rowComponent: ({ children }) => <tr>{children}</tr>,
-        cellComponent: () => <td />,
-        cells: [
-          [
-            { value: 1, isOtherMonth: 1, isCurrent: 1 },
-            { value: 2, isOtherMonth: 1, isCurrent: 1 },
-          ],
-          [
-            { value: 3, isOtherMonth: 1, isCurrent: 1 },
-            { value: 4, isOtherMonth: 1, isCurrent: 1 },
-          ],
+    it('should render cell and rows by the "cells" props', () => {
+      const cells = [
+        [
+          { value: 1, isOtherMonth: 1, isCurrent: 1 },
+          { value: 2, isOtherMonth: 1, isCurrent: 1 },
         ],
-      };
+        [
+          { value: 3, isOtherMonth: 1, isCurrent: 1 },
+          { value: 4, isOtherMonth: 1, isCurrent: 1 },
+        ],
+      ];
       const tree = mount((
-        <Table {...props} />
+        <Table
+          {...defaultProps}
+          cells={cells}
+        />
       ));
 
-      expect(tree.find('tr'))
+      expect(tree.find('.table-row'))
         .toHaveLength(2);
-      expect(tree.find('td'))
+      expect(tree.find('.table-cell'))
         .toHaveLength(4);
+    });
+
+    it('should render header cell and rows by the "headerCells" props', () => {
+      const tree = mount((
+        <Table
+          {...defaultProps}
+          headerCells={['2018-07-12', '2018-07-13']}
+        />
+      ));
+
+      expect(tree.find('.header-row'))
+        .toHaveLength(1);
+      expect(tree.find('.header-cell'))
+        .toHaveLength(2);
     });
   });
 });

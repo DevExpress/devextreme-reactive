@@ -26,7 +26,7 @@ const styles = ({ palette, spacing }) => ({
   },
 });
 
-export const CellBase = ({
+const CellBase = ({
   otherMonth,
   current,
   classes,

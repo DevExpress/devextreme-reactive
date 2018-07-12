@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { monthCells as monthCellsCore } from '@devexpress/dx-scheduler-core';
+import { monthCells as monthCellsCore, dayScale } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
@@ -15,6 +15,9 @@ const pluginDependencies = [
 
 const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
   monthCellsCore(currentDate, firstDayOfWeek);
+
+const weekDaysComputed = ({ currentDate, firstDayOfWeek }) =>
+  dayScale(currentDate, firstDayOfWeek);
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -41,8 +44,10 @@ export class DateNavigator extends React.PureComponent {
     const {
       overlayComponent: Overlay,
       tableComponent: Table,
-      cellComponent: Cell,
       rowComponent: Row,
+      cellComponent: Cell,
+      headerRowComponent: HeaderRow,
+      headerCellComponent: HeaderCell,
       toggleButtonComponent: ToggleButton,
     } = this.props;
 
@@ -53,10 +58,11 @@ export class DateNavigator extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Getter name="monthCells" computed={monthCellsComputed} />
+        <Getter name="weekDays" computed={weekDaysComputed} />
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ monthCells }) => (
+            {({ monthCells, weekDays }) => (
               <React.Fragment>
                 <ToggleButton
                   buttonRef={this.buttonRef}
@@ -69,9 +75,12 @@ export class DateNavigator extends React.PureComponent {
                   onHide={this.handleHide}
                 >
                   <Table
+                    headerCells={weekDays}
                     cells={monthCells}
                     rowComponent={Row}
                     cellComponent={Cell}
+                    headerRowComponent={HeaderRow}
+                    headerCellComponent={HeaderCell}
                   />
                 </Overlay>
               </React.Fragment>
@@ -86,7 +95,9 @@ export class DateNavigator extends React.PureComponent {
 DateNavigator.propTypes = {
   overlayComponent: PropTypes.func.isRequired,
   tableComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  headerRowComponent: PropTypes.func.isRequired,
+  headerCellComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
 };

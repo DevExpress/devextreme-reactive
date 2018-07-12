@@ -4,6 +4,7 @@ import { Overlay } from '../templates/date-navigator/overlay';
 import { Table } from '../templates/date-navigator/table';
 import { ToggleButton } from '../templates/date-navigator/toggle-button';
 import { Cell } from '../templates/date-navigator/cell';
+import { HeaderCell } from '../templates/date-navigator/header-cell';
 import { Row } from '../templates/date-navigator/row';
 
 export class DateNavigator extends React.PureComponent {
@@ -15,6 +16,8 @@ export class DateNavigator extends React.PureComponent {
         toggleButtonComponent={ToggleButton}
         cellComponent={Cell}
         rowComponent={Row}
+        headerRowComponent={Row}
+        headerCellComponent={HeaderCell}
         {...this.props}
       />
     );
@@ -25,4 +28,6 @@ DateNavigator.Table = Table;
 DateNavigator.ToggleButton = ToggleButton;
 DateNavigator.Cell = Cell;
 DateNavigator.Row = Row;
+DateNavigator.HeaderCell = HeaderCell;
+DateNavigator.HeaderRow = Row;
 DateNavigator.Overlay = Overlay;

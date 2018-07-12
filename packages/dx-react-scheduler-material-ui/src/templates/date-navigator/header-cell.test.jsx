@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Cell } from './cell';
+import { HeaderCell } from './header-cell';
 
-describe('DateNavigator Cell', () => {
+describe('DateNavigator Header Cell', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell />);
+    classes = getClasses(<HeaderCell />);
     shallow = createShallow({ dive: true });
   });
-  describe('Cell', () => {
+  describe('Header Cell', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Cell className="custom-class" />
+        <HeaderCell className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -22,7 +22,7 @@ describe('DateNavigator Cell', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Cell data={{ a: 1 }} />
+        <HeaderCell data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)

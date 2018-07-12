@@ -2,11 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { monthCells } from '@devexpress/dx-scheduler-core';
+import { monthCells, dayScale } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   monthCells: jest.fn(),
+  dayScale: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -26,20 +27,26 @@ const TableComponent = ({ children }) => <div>{children}</div>;
 const OverlayComponent = ({ children }) => <div>{children}</div>;
 // eslint-disable-next-line react/prop-types
 const RowComponent = ({ children }) => <div>{children}</div>;
+// eslint-disable-next-line react/prop-types
+const HeaderRowComponent = ({ children }) => <div>{children}</div>;
 const ToggleButtonComponent = () => null;
 const CellComponent = () => null;
+const HeaderCellComponent = () => null;
 
 const defaultProps = {
   overlayComponent: OverlayComponent,
   tableComponent: TableComponent,
   cellComponent: CellComponent,
   rowComponent: RowComponent,
+  headerRowComponent: HeaderRowComponent,
+  headerCellComponent: HeaderCellComponent,
   toggleButtonComponent: ToggleButtonComponent,
 };
 
 describe('DateNavigator', () => {
   beforeEach(() => {
     monthCells.mockImplementation(() => [[{ value: '2018-04-07' }]]);
+    dayScale.mockImplementation(() => ['Mon', 'Tue', 'Wed']);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -57,6 +64,20 @@ describe('DateNavigator', () => {
 
     expect(getComputedState(tree).monthCells)
       .toEqual([[{ value: '2018-04-07' }]]);
+  });
+
+  it('should provide the "weekDays" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <DateNavigator
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).weekDays)
+      .toEqual(['Mon', 'Tue', 'Wed']);
   });
 
   it('should render overlay', () => {

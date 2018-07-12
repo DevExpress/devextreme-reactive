@@ -22,25 +22,22 @@ const defaultDeps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const TableComponent = ({ children }) => <div>{children}</div>;
-// eslint-disable-next-line react/prop-types
 const OverlayComponent = ({ children }) => <div>{children}</div>;
-// eslint-disable-next-line react/prop-types
-const RowComponent = ({ children }) => <div>{children}</div>;
-// eslint-disable-next-line react/prop-types
-const HeaderRowComponent = ({ children }) => <div>{children}</div>;
+const TableComponent = () => null;
+const NavigatorComponent = () => null;
 const ToggleButtonComponent = () => null;
-const CellComponent = () => null;
-const HeaderCellComponent = () => null;
+const TitleComponent = () => null;
 
 const defaultProps = {
   overlayComponent: OverlayComponent,
   tableComponent: TableComponent,
-  cellComponent: CellComponent,
-  rowComponent: RowComponent,
-  headerRowComponent: HeaderRowComponent,
-  headerCellComponent: HeaderCellComponent,
   toggleButtonComponent: ToggleButtonComponent,
+  navigatorComponent: NavigatorComponent,
+  titleComponent: TitleComponent,
+  cellComponent: () => null,
+  rowComponent: () => null,
+  headerRowComponent: () => null,
+  headerCellComponent: () => null,
 };
 
 describe('DateNavigator', () => {
@@ -120,6 +117,25 @@ describe('DateNavigator', () => {
 
     expect(tree.find(TableComponent).exists())
       .toBeTruthy();
+  });
+
+  it('should render navigator', () => {
+    const navigator = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <DateNavigator
+          {...defaultProps}
+        />
+      </PluginHost>
+    )).find(NavigatorComponent);
+    const { currentDate, titleComponent } = navigator.props();
+
+    expect(navigator.exists())
+      .toBeTruthy();
+    expect(currentDate)
+      .toBe('2018-07-05');
+    expect(titleComponent)
+      .toBe(TitleComponent);
   });
 
   it('should calculate table cells via the "monthCells" computed', () => {

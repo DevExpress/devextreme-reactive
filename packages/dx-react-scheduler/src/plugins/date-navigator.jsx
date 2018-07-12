@@ -49,6 +49,8 @@ export class DateNavigator extends React.PureComponent {
       headerRowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
       toggleButtonComponent: ToggleButton,
+      navigatorComponent: Navigator,
+      titleComponent: Title,
     } = this.props;
 
     const { visible } = this.state;
@@ -62,7 +64,7 @@ export class DateNavigator extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ monthCells, weekDays }) => (
+            {({ monthCells, weekDays, currentDate }) => (
               <React.Fragment>
                 <ToggleButton
                   buttonRef={this.buttonRef}
@@ -74,6 +76,10 @@ export class DateNavigator extends React.PureComponent {
                   target={this.button}
                   onHide={this.handleHide}
                 >
+                  <Navigator
+                    currentDate={currentDate}
+                    titleComponent={Title}
+                  />
                   <Table
                     headerCells={weekDays}
                     cells={monthCells}
@@ -100,4 +106,6 @@ DateNavigator.propTypes = {
   headerRowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
+  navigatorComponent: PropTypes.func.isRequired,
+  titleComponent: PropTypes.func.isRequired,
 };

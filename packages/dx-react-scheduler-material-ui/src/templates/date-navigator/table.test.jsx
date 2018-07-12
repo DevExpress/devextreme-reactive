@@ -20,7 +20,7 @@ describe('DateNavigator', () => {
     shallow = createShallow({ dive: true });
     mount = createMount();
   });
-  describe('DateNavigator Table', () => {
+  describe('Table', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <Table {...defaultProps} className="custom-class" />

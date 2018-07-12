@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { HeaderCell } from './header-cell';
 
-describe('DateNavigator Header Cell', () => {
+describe('DateNavigator', () => {
   let classes;
   let shallow;
   beforeAll(() => {

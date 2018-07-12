@@ -20,7 +20,7 @@ const rowsSummary = (rows, summaryItems, getCellValue, types) =>
     return acc;
   }, []);
 
-export const totalSummary = (
+export const totalSummaryValues = (
   rows,
   summaryItems,
   getCellValue,
@@ -46,7 +46,7 @@ export const totalSummary = (
   return rowsSummary(plainRows, summaryItems, getCellValue, types);
 };
 
-export const groupSummaries = (
+export const groupSummaryValues = (
   rows,
   summaryItems,
   getCellValue,
@@ -87,7 +87,7 @@ export const groupSummaries = (
   return summaries;
 };
 
-export const treeSummaries = (
+export const treeSummaryValues = (
   rows,
   summaryItems,
   getCellValue,

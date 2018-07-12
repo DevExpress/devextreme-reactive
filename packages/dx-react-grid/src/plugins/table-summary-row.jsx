@@ -4,7 +4,7 @@ import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from
 import {
   getMessagesFormatter,
   tableRowsWithSummaries,
-  tableRowsWithTotalSummary,
+  tableRowsWithTotalSummaries,
   isTotalSummaryTableCell,
   isGroupSummaryTableCell,
   isTreeSummaryTableCell,
@@ -19,12 +19,12 @@ const tableBodyRowsComputed = ({
 }) =>
   tableRowsWithSummaries(tableBodyRows, getRowLevelKey, isGroupRow, getRowId);
 const tableFooterRowsComputed = ({ tableFooterRows }) =>
-  tableRowsWithTotalSummary(tableFooterRows);
+  tableRowsWithTotalSummaries(tableFooterRows);
 
 const defaultTypelessSummaries = ['count'];
 
 export class TableSummaryRow extends React.PureComponent {
-  renderCell(params, columnSummary) {
+  renderCell(params, columnSummaries) {
     const {
       cellComponent: Cell,
       itemComponent: Item,
@@ -37,13 +37,13 @@ export class TableSummaryRow extends React.PureComponent {
       <Cell
         {...params}
       >
-        {columnSummary.map((summary) => {
+        {columnSummaries.map((summary) => {
           if (summary.value === null || defaultTypelessSummaries.includes(summary.type)) {
             return (
               <Item
                 key={summary.type}
               >
-                {getMessage(summary.type)}:  {String(summary.value)}
+                {getMessage(summary.type)}:&nbsp;&nbsp;{String(summary.value)}
               </Item>
             );
           }
@@ -84,13 +84,13 @@ export class TableSummaryRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ totalSummaryItems, totalSummary }) => {
-                const columnSummary = getColumnSummaries(
+              {({ totalSummaryItems, totalSummaryValues }) => {
+                const columnSummaries = getColumnSummaries(
                   totalSummaryItems,
                   params.tableColumn.column.name,
-                  totalSummary,
+                  totalSummaryValues,
                 );
-                return this.renderCell(params, columnSummary);
+                return this.renderCell(params, columnSummaries);
               }}
             </TemplateConnector>
           )}
@@ -101,13 +101,13 @@ export class TableSummaryRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ groupSummaryItems, groupSummaries }) => {
-                const columnSummary = getColumnSummaries(
+              {({ groupSummaryItems, groupSummaryValues }) => {
+                const columnSummaries = getColumnSummaries(
                   groupSummaryItems,
                   params.tableColumn.column.name,
-                  groupSummaries[params.tableRow.compoundKey],
+                  groupSummaryValues[params.tableRow.compoundKey],
                 );
-                return this.renderCell(params, columnSummary);
+                return this.renderCell(params, columnSummaries);
               }}
             </TemplateConnector>
           )}
@@ -118,13 +118,13 @@ export class TableSummaryRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ treeSummaryItems, treeSummaries }) => {
-                const columnSummary = getColumnSummaries(
+              {({ treeSummaryItems, treeSummaryValues }) => {
+                const columnSummaries = getColumnSummaries(
                   treeSummaryItems,
                   params.tableColumn.column.name,
-                  treeSummaries[params.tableRow.rowId],
+                  treeSummaryValues[params.tableRow.rowId],
                 );
-                return this.renderCell(params, columnSummary);
+                return this.renderCell(params, columnSummaries);
               }}
             </TemplateConnector>
           )}
@@ -135,8 +135,24 @@ export class TableSummaryRow extends React.PureComponent {
 }
 
 TableSummaryRow.propTypes = {
-  cellComponent: PropTypes.func.isRequired,
+  // rowComponent: PropTypes.func.isRequired,
+
+  totalRowComponent: PropTypes.func.isRequired,
+  groupRowComponent: PropTypes.func.isRequired,
+  treeRowConponent: PropTypes.func.isRequired,
+
+  // cellComponent: PropTypes.func.isRequired,
+
+  totalCellComponent: PropTypes.func.isRequired,
+  groupCellComponent: PropTypes.func.isRequired,
+  treeCellConponent: PropTypes.func.isRequired,
+
+  treeColumnCellComponent: PropTypes.func.isRequired,
+  treeColumnContentComponent: PropTypes.func.isRequired,
+  treeColumnIndentComponent: PropTypes.func.isRequired,
+
   itemComponent: PropTypes.func.isRequired,
+
   messages: PropTypes.object,
 };
 

@@ -1,9 +1,9 @@
-import { totalSummary, groupSummaries, treeSummaries } from './computeds';
+import { totalSummaryValues, groupSummaryValues, treeSummaryValues } from './computeds';
 
 describe('IntegratedSummary', () => {
   const getCellValue = (row, columnName) => row[columnName];
 
-  describe('totalSummary', () => {
+  describe('totalSummaryValues', () => {
     it('should culculate count summary', () => {
       const rows = [
         { a: 1 },
@@ -17,7 +17,7 @@ describe('IntegratedSummary', () => {
         3,
       ];
 
-      expect(totalSummary(rows, summaryItems, getCellValue))
+      expect(totalSummaryValues(rows, summaryItems, getCellValue))
         .toEqual(result);
     });
 
@@ -34,7 +34,7 @@ describe('IntegratedSummary', () => {
         6,
       ];
 
-      expect(totalSummary(rows, summaryItems, getCellValue))
+      expect(totalSummaryValues(rows, summaryItems, getCellValue))
         .toEqual(result);
     });
 
@@ -51,7 +51,7 @@ describe('IntegratedSummary', () => {
         3,
       ];
 
-      expect(totalSummary(rows, summaryItems, getCellValue))
+      expect(totalSummaryValues(rows, summaryItems, getCellValue))
         .toEqual(result);
     });
 
@@ -68,7 +68,7 @@ describe('IntegratedSummary', () => {
         1,
       ];
 
-      expect(totalSummary(rows, summaryItems, getCellValue))
+      expect(totalSummaryValues(rows, summaryItems, getCellValue))
         .toEqual(result);
     });
 
@@ -85,7 +85,7 @@ describe('IntegratedSummary', () => {
         2,
       ];
 
-      expect(totalSummary(rows, summaryItems, getCellValue))
+      expect(totalSummaryValues(rows, summaryItems, getCellValue))
         .toEqual(result);
     });
 
@@ -106,7 +106,7 @@ describe('IntegratedSummary', () => {
       const isGroupRow = row => row.group;
       const getCollapsedRows = row => row.collapsedRows;
 
-      expect(totalSummary(
+      expect(totalSummaryValues(
         rows,
         summaryItems,
         getCellValue,
@@ -133,7 +133,7 @@ describe('IntegratedSummary', () => {
       const isGroupRow = () => false;
       const getCollapsedRows = row => row.collapsedRows;
 
-      expect(totalSummary(
+      expect(totalSummaryValues(
         rows,
         summaryItems,
         getCellValue,
@@ -145,7 +145,7 @@ describe('IntegratedSummary', () => {
     });
   });
 
-  describe('groupSummaries', () => {
+  describe('groupSummaryValues', () => {
     it('should culculate count summary', () => {
       const rows = [
         { levelKey: 'b', compoundKey: 'b|1', group: true },
@@ -166,7 +166,7 @@ describe('IntegratedSummary', () => {
       const getRowLevelKey = row => row.levelKey;
       const isGroupRow = row => row.group;
 
-      expect(groupSummaries(
+      expect(groupSummaryValues(
         rows,
         summaryItems,
         getCellValue,
@@ -194,7 +194,7 @@ describe('IntegratedSummary', () => {
       const getRowLevelKey = row => row.levelKey;
       const isGroupRow = row => row.group;
 
-      expect(groupSummaries(
+      expect(groupSummaryValues(
         rows,
         summaryItems,
         getCellValue,
@@ -205,7 +205,7 @@ describe('IntegratedSummary', () => {
     });
   });
 
-  describe('treeSummaries', () => {
+  describe('treeSummaryValues', () => {
     it('should culculate count summary', () => {
       const rows = [
         { levelKey: 'a', a: 1 },
@@ -228,7 +228,7 @@ describe('IntegratedSummary', () => {
       const isGroupRow = () => false;
       const getRowId = row => row.a;
 
-      expect(treeSummaries(
+      expect(treeSummaryValues(
         rows,
         summaryItems,
         getCellValue,
@@ -259,7 +259,7 @@ describe('IntegratedSummary', () => {
       const isGroupRow = row => row.group;
       const getRowId = row => row.a;
 
-      expect(treeSummaries(
+      expect(treeSummaryValues(
         rows,
         summaryItems,
         getCellValue,

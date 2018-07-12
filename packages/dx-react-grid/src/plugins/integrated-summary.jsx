@@ -1,18 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
-import { totalSummary, groupSummaries, treeSummaries } from '@devexpress/dx-grid-core';
+import { totalSummaryValues, groupSummaryValues, treeSummaryValues } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
 ];
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class IntegratedSummary extends React.PureComponent {
   render() {
     const { types } = this.props;
 
-    const totalSummaryComputed = ({
+    const totalSummaryValuesComputed = ({
       rows,
       totalSummaryItems,
       getCellValue,
@@ -20,7 +19,7 @@ export class IntegratedSummary extends React.PureComponent {
       isGroupRow,
       getCollapsedRows,
     }) =>
-      totalSummary(
+      totalSummaryValues(
         rows,
         totalSummaryItems,
         getCellValue,
@@ -30,14 +29,14 @@ export class IntegratedSummary extends React.PureComponent {
         types,
       );
 
-    const groupSummariesComputed = ({
+    const groupSummaryValuesComputed = ({
       rows,
       groupSummaryItems,
       getCellValue,
       getRowLevelKey,
       isGroupRow,
     }) =>
-      groupSummaries(
+      groupSummaryValues(
         rows,
         groupSummaryItems,
         getCellValue,
@@ -46,7 +45,7 @@ export class IntegratedSummary extends React.PureComponent {
         types,
       );
 
-    const treeSummariesComputed = ({
+    const treeSummaryValuesComputed = ({
       rows,
       treeSummaryItems,
       getCellValue,
@@ -54,7 +53,7 @@ export class IntegratedSummary extends React.PureComponent {
       isGroupRow,
       getRowId,
     }) =>
-      treeSummaries(
+      treeSummaryValues(
         rows,
         treeSummaryItems,
         getCellValue,
@@ -69,9 +68,9 @@ export class IntegratedSummary extends React.PureComponent {
         name="IntegratedSummary"
         dependencies={pluginDependencies}
       >
-        <Getter name="totalSummary" computed={totalSummaryComputed} />
-        <Getter name="groupSummaries" computed={groupSummariesComputed} />
-        <Getter name="treeSummaries" computed={treeSummariesComputed} />
+        <Getter name="totalSummaryValues" computed={totalSummaryValuesComputed} />
+        <Getter name="groupSummaryValues" computed={groupSummaryValuesComputed} />
+        <Getter name="treeSummaryValues" computed={treeSummaryValuesComputed} />
       </Plugin>
     );
   }

@@ -1,6 +1,6 @@
 import { TABLE_TOTAL_SUMMARY_TYPE, TABLE_GROUP_SUMMARY_TYPE, TABLE_TREE_SUMMARY_TYPE } from './constants';
 
-export const tableRowsWithTotalSummary = footerRows =>
+export const tableRowsWithTotalSummaries = footerRows =>
   [{ key: TABLE_TOTAL_SUMMARY_TYPE, type: TABLE_TOTAL_SUMMARY_TYPE }, ...footerRows];
 
 export const tableRowsWithSummaries = (tableRows, getRowLevelKey, isGroupRow, getRowId) => {

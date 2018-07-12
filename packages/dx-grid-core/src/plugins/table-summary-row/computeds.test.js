@@ -1,10 +1,10 @@
 import { TABLE_TOTAL_SUMMARY_TYPE, TABLE_GROUP_SUMMARY_TYPE, TABLE_TREE_SUMMARY_TYPE } from './constants';
-import { tableRowsWithTotalSummary, tableRowsWithSummaries } from './computeds';
+import { tableRowsWithTotalSummaries, tableRowsWithSummaries } from './computeds';
 
 describe('TableSummaryRow', () => {
-  describe('#tableRowsWithTotalSummary', () => {
+  describe('#tableRowsWithTotalSummaries', () => {
     it('should work', () => {
-      expect(tableRowsWithTotalSummary([{}]))
+      expect(tableRowsWithTotalSummaries([{}]))
         .toEqual([{ key: TABLE_TOTAL_SUMMARY_TYPE, type: TABLE_TOTAL_SUMMARY_TYPE }, {}]);
     });
   });

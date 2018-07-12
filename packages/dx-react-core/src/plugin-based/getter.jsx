@@ -20,7 +20,7 @@ export class Getter extends React.PureComponent {
       position: () => this.context[POSITION_CONTEXT](),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
-        if (value !== undefined) return value;
+        if (computed === undefined) return value;
 
         const getGetterValue = getterName => ((getterName === name)
           ? original
@@ -66,7 +66,7 @@ Getter.propTypes = {
 
 Getter.defaultProps = {
   value: undefined,
-  computed: null,
+  computed: undefined,
 };
 
 Getter.contextTypes = {

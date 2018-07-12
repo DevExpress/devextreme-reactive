@@ -25,6 +25,104 @@ export const born = [
   },
 ];
 
+export const booksSale = [{
+  year: 1970, mysteries: 9, scienceFiction: 16, romance: 5, fantasy: 4, thrillers: 19,
+}, {
+  year: 1971, mysteries: 15, scienceFiction: 18, romance: 2, fantasy: 4, thrillers: 14,
+}, {
+  year: 1972, mysteries: 10, scienceFiction: 20, romance: 1, fantasy: 16, thrillers: 11,
+}, {
+  year: 1973, mysteries: 12, scienceFiction: 17, romance: 15, fantasy: 5, thrillers: 14,
+}, {
+  year: 1974, mysteries: 8, scienceFiction: 13, romance: 10, fantasy: 19, thrillers: 5,
+}, {
+  year: 1975, mysteries: 7, scienceFiction: 18, romance: 20, fantasy: 18, thrillers: 12,
+}, {
+  year: 1976, mysteries: 12, scienceFiction: 12, romance: 5, fantasy: 2, thrillers: 3,
+}, {
+  year: 1977, mysteries: 18, scienceFiction: 16, romance: 1, fantasy: 6, thrillers: 3,
+}, {
+  year: 1978, mysteries: 3, scienceFiction: 13, romance: 9, fantasy: 15, thrillers: 11,
+}, {
+  year: 1979, mysteries: 11, scienceFiction: 13, romance: 14, fantasy: 1, thrillers: 12,
+}, {
+  year: 1980, mysteries: 6, scienceFiction: 19, romance: 16, fantasy: 6, thrillers: 16,
+}, {
+  year: 1981, mysteries: 2, scienceFiction: 15, romance: 4, fantasy: 6, thrillers: 13,
+}, {
+  year: 1982, mysteries: 4, scienceFiction: 17, romance: 20, fantasy: 7, thrillers: 10,
+}, {
+  year: 1983, mysteries: 3, scienceFiction: 2, romance: 18, fantasy: 18, thrillers: 17,
+}, {
+  year: 1984, mysteries: 10, scienceFiction: 19, romance: 6, fantasy: 13, thrillers: 11,
+}, {
+  year: 1985, mysteries: 16, scienceFiction: 6, romance: 5, fantasy: 2, thrillers: 7,
+}, {
+  year: 1986, mysteries: 17, scienceFiction: 4, romance: 8, fantasy: 10, thrillers: 4,
+}, {
+  year: 1987, mysteries: 9, scienceFiction: 18, romance: 17, fantasy: 6, thrillers: 9,
+}, {
+  year: 1988, mysteries: 6, scienceFiction: 8, romance: 17, fantasy: 13, thrillers: 1,
+}, {
+  year: 1989, mysteries: 3, scienceFiction: 10, romance: 13, fantasy: 17, thrillers: 2,
+}, {
+  year: 1990, mysteries: 10, scienceFiction: 8, romance: 14, fantasy: 12, thrillers: 7,
+}, {
+  year: 1991, mysteries: 18, scienceFiction: 1, romance: 2, fantasy: 8, thrillers: 16,
+}, {
+  year: 1992, mysteries: 19, scienceFiction: 18, romance: 11, fantasy: 20, thrillers: 11,
+}, {
+  year: 1993, mysteries: 7, scienceFiction: 14, romance: 4, fantasy: 8, thrillers: 10,
+}, {
+  year: 1994, mysteries: 2, scienceFiction: 18, romance: 13, fantasy: 11, thrillers: 15,
+}, {
+  year: 1995, mysteries: 2, scienceFiction: 6, romance: 7, fantasy: 11, thrillers: 10,
+}, {
+  year: 1996, mysteries: 10, scienceFiction: 19, romance: 17, fantasy: 17, thrillers: 9,
+}, {
+  year: 1997, mysteries: 3, scienceFiction: 7, romance: 4, fantasy: 15, thrillers: 9,
+}, {
+  year: 1998, mysteries: 13, scienceFiction: 1, romance: 7, fantasy: 16, thrillers: 13,
+}, {
+  year: 1999, mysteries: 19, scienceFiction: 7, romance: 18, fantasy: 14, thrillers: 1,
+}, {
+  year: 2000, mysteries: 2, scienceFiction: 11, romance: 12, fantasy: 11, thrillers: 5,
+}, {
+  year: 2001, mysteries: 16, scienceFiction: 9, romance: 12, fantasy: 6, thrillers: 8,
+}, {
+  year: 2002, mysteries: 11, scienceFiction: 15, romance: 2, fantasy: 9, thrillers: 3,
+}, {
+  year: 2003, mysteries: 1, scienceFiction: 6, romance: 9, fantasy: 9, thrillers: 16,
+}, {
+  year: 2004, mysteries: 18, scienceFiction: 14, romance: 3, fantasy: 2, thrillers: 11,
+}, {
+  year: 2005, mysteries: 9, scienceFiction: 16, romance: 7, fantasy: 8, thrillers: 20,
+}, {
+  year: 2006, mysteries: 18, scienceFiction: 2, romance: 5, fantasy: 6, thrillers: 16,
+}, {
+  year: 2007, mysteries: 5, scienceFiction: 17, romance: 14, fantasy: 4, thrillers: 7,
+}, {
+  year: 2008, mysteries: 15, scienceFiction: 2, romance: 12, fantasy: 3, thrillers: 8,
+}, {
+  year: 2009, mysteries: 16, scienceFiction: 20, romance: 7, fantasy: 14, thrillers: 11,
+}, {
+  year: 2010, mysteries: 14, scienceFiction: 11, romance: 3, fantasy: 1, thrillers: 6,
+}, {
+  year: 2011, mysteries: 18, scienceFiction: 20, romance: 5, fantasy: 4, thrillers: 5,
+}, {
+  year: 2012, mysteries: 3, scienceFiction: 3, romance: 10, fantasy: 5, thrillers: 18,
+}, {
+  year: 2013, mysteries: 1, scienceFiction: 1, romance: 0, fantasy: 6, thrillers: 16,
+}, {
+  year: 2014, mysteries: 15, scienceFiction: 7, romance: 1, fantasy: 2, thrillers: 20,
+}, {
+  year: 2015, mysteries: 12, scienceFiction: 19, romance: 3, fantasy: 3, thrillers: 12,
+}, {
+  year: 2016, mysteries: 11, scienceFiction: 20, romance: 11, fantasy: 5, thrillers: 17,
+}, {
+  year: 2017, mysteries: 4, scienceFiction: 20, romance: 3, fantasy: 12, thrillers: 5,
+}];
+
 export const ageStructure = [{
   state: 'Germany',
   young: 6.7,

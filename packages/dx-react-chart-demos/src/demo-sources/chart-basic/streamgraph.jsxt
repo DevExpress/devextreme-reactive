@@ -1,0 +1,112 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  AreaSeries,
+  Legend,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import {
+  stackOffsetWiggle,
+  stackOrderInsideOut,
+  curveCatmullRom,
+  area,
+} from 'd3-shape';
+
+import { Stack } from '@devexpress/dx-react-chart';
+
+import { booksSale } from '../../../demo-data/data-vizualization';
+
+const getX = ({ x }) => x;
+const getY = ({ y }) => y;
+const getY1 = ({ y1 }) => y1;
+const Area = (props) => {
+  const {
+    x,
+    y,
+    coordinates,
+    themeColor,
+  } = props;
+
+  return (
+    <path
+      fill={themeColor}
+      transform={`translate(${x} ${y})`}
+      d={area()
+        .x(getX)
+        .y1(getY)
+        .y0(getY1)
+        .curve(curveCatmullRom)(coordinates)}
+      opacity={0.5}
+    />
+  );
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: booksSale,
+    };
+  }
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+          style={{ paddingLeft: '20px' }}
+        >
+          <ArgumentAxis name="argument" />
+
+          <AreaSeries
+            name="Mysteries"
+            valueField="mysteries"
+            argumentField="year"
+            seriesComponent={Area}
+            stack="a"
+          />
+          <AreaSeries
+            name="Science Fiction"
+            valueField="scienceFiction"
+            argumentField="year"
+            seriesComponent={Area}
+            stack="a"
+          />
+          <AreaSeries
+            name="Romance"
+            valueField="romance"
+            argumentField="year"
+            seriesComponent={Area}
+            stack="a"
+          />
+          <AreaSeries
+            name="Fantasy"
+            valueField="fantasy"
+            argumentField="year"
+            seriesComponent={Area}
+            stack="a"
+          />
+          <AreaSeries
+            name="Thrillers"
+            valueField="thrillers"
+            argumentField="year"
+            seriesComponent={Area}
+            stack="a"
+          />
+          <Legend />
+          <Title
+            text="Book Sales"
+            style={{ textAlign: 'center', width: '100%' }}
+          />
+          <Stack
+            offset={stackOffsetWiggle}
+            order={stackOrderInsideOut}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

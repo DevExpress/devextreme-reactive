@@ -36,6 +36,27 @@ describe('calculateDomain', () => {
     });
   });
 
+  it('should be computed from data, negative values', () => {
+    const calculatedDomains = domains(
+      [argumentAxis, valueAxis],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
+      }, {
+        arg: 2, val: -10, 'val-name-stack': [-10, 0],
+      }],
+      'argumentAxis',
+      {},
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: { domain: [1, 2], orientation: 'horizontal', type: undefined },
+      valueAxis: { domain: [-10, 9], orientation: 'vertical', type: undefined },
+    });
+  });
+
   it('should be computed from data and series option, startFromZero option set for value axis', () => {
     const calculatedDomains = domains(
       [argumentAxis, valueAxis],

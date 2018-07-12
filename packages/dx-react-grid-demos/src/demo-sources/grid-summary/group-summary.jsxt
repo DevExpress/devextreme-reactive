@@ -60,7 +60,8 @@ export default class Demo extends React.PureComponent {
   }
   render() {
     const {
-      rows, columns, tableColumnExtensions, grouping, currencyColumns, totalSummaryItems, groupSummaryItems,
+      rows, columns, tableColumnExtensions, grouping,
+      currencyColumns, totalSummaryItems, groupSummaryItems,
     } = this.state;
 
     return (
@@ -86,7 +87,7 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow />
           <TableGroupRow
-            showColumnsWhenGrouped={true}
+            showColumnsWhenGrouped
           />
           <TableSummaryRow />
         </Grid>

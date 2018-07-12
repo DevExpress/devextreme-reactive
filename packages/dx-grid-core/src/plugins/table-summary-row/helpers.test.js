@@ -6,7 +6,7 @@ import {
   isTreeSummaryTableCell,
   isGroupSummaryTableRow,
   isTotalSummaryTableRow,
-  isTreeSummaryTableRow
+  isTreeSummaryTableRow,
 } from './helpers';
 
 describe('TableSummaryRow Plugin helpers', () => {

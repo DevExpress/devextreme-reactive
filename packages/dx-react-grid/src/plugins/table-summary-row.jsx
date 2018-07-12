@@ -137,19 +137,19 @@ export class TableSummaryRow extends React.PureComponent {
 TableSummaryRow.propTypes = {
   // rowComponent: PropTypes.func.isRequired,
 
-  totalRowComponent: PropTypes.func.isRequired,
-  groupRowComponent: PropTypes.func.isRequired,
-  treeRowConponent: PropTypes.func.isRequired,
+  // totalRowComponent: PropTypes.func.isRequired,
+  // groupRowComponent: PropTypes.func.isRequired,
+  // treeRowConponent: PropTypes.func.isRequired,
 
-  // cellComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
 
-  totalCellComponent: PropTypes.func.isRequired,
-  groupCellComponent: PropTypes.func.isRequired,
-  treeCellConponent: PropTypes.func.isRequired,
+  // totalCellComponent: PropTypes.func.isRequired,
+  // groupCellComponent: PropTypes.func.isRequired,
+  // treeCellConponent: PropTypes.func.isRequired,
 
-  treeColumnCellComponent: PropTypes.func.isRequired,
-  treeColumnContentComponent: PropTypes.func.isRequired,
-  treeColumnIndentComponent: PropTypes.func.isRequired,
+  // treeColumnCellComponent: PropTypes.func.isRequired,
+  // treeColumnContentComponent: PropTypes.func.isRequired,
+  // treeColumnIndentComponent: PropTypes.func.isRequired,
 
   itemComponent: PropTypes.func.isRequired,
 

@@ -142,8 +142,8 @@ gulp.task('site:demos:react:chart', function() {
     .pipe(gulp.dest(distPath + 'react/chart/demos/dist/'));
 });
 
-gulp.task('site:demos:vue', function() {
-  return gulp.src(['packages/dx-vue-demos/dist/*'])
+gulp.task('site:demos:vue:grid', function() {
+  return gulp.src(['packages/dx-vue-grid-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
@@ -152,7 +152,7 @@ gulp.task('site', function(done) {
     'site:clean',
     'site:docs',
     'site:demos:react:grid',
-    'site:demos:vue',
+    'site:demos:vue:grid',
     'site:demos:react:chart',
     done
   );

@@ -78,4 +78,84 @@ describe('Template', () => {
     expect(wrapper.find('h1').text())
       .toEqual('new');
   });
+
+  it('should be rerendered when added', () => {
+    const Test = {
+      props: {
+        showSecond: {
+          type: Boolean,
+        },
+      },
+      render() {
+        return (
+          <DxPluginHost>
+            <DxTemplate name="root">
+              <h1>first</h1>
+            </DxTemplate>
+            {this.showSecond && (
+              <DxTemplate name="root">
+                <h1>second</h1>
+              </DxTemplate>
+            )}
+          </DxPluginHost>
+        );
+      },
+    };
+
+    const wrapper = mount({
+      data() {
+        return {
+          showSecond: false,
+        };
+      },
+      render() {
+        return (
+          <Test showSecond={this.showSecond} />
+        );
+      },
+    });
+    wrapper.setData({ showSecond: true });
+    expect(wrapper.find('h1').text())
+      .toEqual('second');
+  });
+
+  it('should be rerendered when removed', () => {
+    const Test = {
+      props: {
+        showSecond: {
+          type: Boolean,
+        },
+      },
+      render() {
+        return (
+          <DxPluginHost>
+            <DxTemplate name="root">
+              <h1>first</h1>
+            </DxTemplate>
+            {this.showSecond && (
+              <DxTemplate name="root">
+                <h1>second</h1>
+              </DxTemplate>
+            )}
+          </DxPluginHost>
+        );
+      },
+    };
+
+    const wrapper = mount({
+      data() {
+        return {
+          showSecond: true,
+        };
+      },
+      render() {
+        return (
+          <Test showSecond={this.showSecond} />
+        );
+      },
+    });
+    wrapper.setData({ showSecond: false });
+    expect(wrapper.find('h1').text())
+      .toEqual('first');
+  });
 });

@@ -14,14 +14,12 @@ import { Stack } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
-const Label = (symbol) => (props) => {
-    return (
-      <ValueAxis.Label
-      {...props}
-      text={props.text + symbol}
-      />
-    )
-}
+const Label = symbol => props => (
+  <ValueAxis.Label
+    {...props}
+    text={props.text + symbol}
+  />
+);
 
 const PriceLabel = Label(' $');
 const LabelWithThousand = Label(' k');

@@ -12,8 +12,6 @@ const styles = () => ({
 class PathBase extends React.PureComponent {
   render() {
     const {
-      x,
-      y,
       classes,
       className,
       pointComponent,
@@ -26,7 +24,6 @@ class PathBase extends React.PureComponent {
     return (
       <path
         fill={color}
-        transform={`translate(${x} ${y})`}
         className={classNames(classes.root, className)}
         d={path(coordinates)}
         {...restProps}
@@ -37,8 +34,6 @@ class PathBase extends React.PureComponent {
 
 
 PathBase.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
   coordinates: PropTypes.array.isRequired,
   path: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

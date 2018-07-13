@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { lineAttributes, pointAttributes, coordinates } from '@devexpress/dx-chart-core';
+import { dLine, coordinates } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils/series-helper';
 
 const Series = ({
@@ -11,51 +11,17 @@ const Series = ({
     ...restProps
   } = props;
   return (
-    <Path {...restProps} />
+    <Path {...restProps} path={dLine} />
   );
-};
-
-const Dot = ({
-  ...props
-}) => {
-  const {
-    pointStyle,
-    pointComponent: Point,
-    ...restProps
-  } = props;
-  return (
-    <Point
-      {...restProps}
-      style={pointStyle}
-    />
-  );
-};
-
-const options = ({ ...props }) => {
-  const { point = {} } = props;
-  return { size: point.size };
 };
 
 export const LineSeries = withSeriesPlugin(
   Series,
-  Dot,
   'LineSeries',
   'line',
-  lineAttributes,
-  pointAttributes,
-  options,
   coordinates,
 );
 
 Series.propTypes = {
   seriesComponent: PropTypes.func.isRequired,
-};
-
-Dot.propTypes = {
-  pointStyle: PropTypes.object,
-  pointComponent: PropTypes.func.isRequired,
-};
-
-Dot.defaultProps = {
-  pointStyle: {},
 };

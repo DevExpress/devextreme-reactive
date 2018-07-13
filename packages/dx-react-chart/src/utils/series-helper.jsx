@@ -10,13 +10,9 @@ import {
 import { findSeriesByName, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
-  Path,
-  Point,
+  Series,
   pluginName,
   pathType,
-  processLine,
-  processPoint,
-  extraOptions,
   calculateCoordinates,
 ) => {
   class Component extends React.PureComponent {
@@ -28,6 +24,7 @@ export const withSeriesPlugin = (
         axisName,
         stack: stackProp,
         color,
+        groupWidth,
         ...restProps
       } = this.props;
 
@@ -54,16 +51,14 @@ export const withSeriesPlugin = (
                 layouts,
               }) => {
                 const {
-                  stack, color: seriesColor,
+                  color: seriesColor, stack,
                 } = findSeriesByName(uniqueName, series);
-                const options = extraOptions({ ...restProps });
+
                 const scales = xyScales(
-                  domains,
-                  argumentAxisName,
-                  axisName,
+                  domains[argumentAxisName],
+                  domains[axisName],
                   layouts.pane,
-                  stacks,
-                  options,
+                  groupWidth,
                 );
                 const calculatedCoordinates = calculateCoordinates(
                   data,
@@ -71,29 +66,17 @@ export const withSeriesPlugin = (
                   argumentField,
                   valueField,
                   name,
+                  stack,
+                  stacks,
+                  restProps,
                 );
-                const pointParameters = processPoint(scales, options, stack);
+
                 return (
-                  <React.Fragment>
-                    <Path
-                      color={seriesColor}
-                      coordinates={calculatedCoordinates}
-                      {...processLine(pathType, scales)}
-                      {...restProps}
-                    />
-                    {
-                      calculatedCoordinates.map(item =>
-                        (
-                          <Point
-                            color={seriesColor}
-                            key={item.id.toString()}
-                            value={item.value}
-                            {...pointParameters(item)}
-                            {...restProps}
-                          />
-                        ))
-                    }
-                  </React.Fragment>
+                  <Series
+                    color={seriesColor}
+                    coordinates={calculatedCoordinates}
+                    {...restProps}
+                  />
                 );
               }}
             </TemplateConnector>
@@ -109,12 +92,14 @@ export const withSeriesPlugin = (
     axisName: PropTypes.string,
     stack: PropTypes.string,
     color: PropTypes.string,
+    groupWidth: PropTypes.number,
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
     color: undefined,
     axisName: undefined,
     stack: undefined,
+    groupWidth: 0.7,
   };
   return Component;
 };

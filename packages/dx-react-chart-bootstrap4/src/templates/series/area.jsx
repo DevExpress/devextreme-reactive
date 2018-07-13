@@ -5,12 +5,11 @@ import classNames from 'classnames';
 export class Area extends React.PureComponent {
   render() {
     const {
-      x, y, className, pointComponent, pointStyle, coordinates, path, color, ...restProps
+      className, pointComponent, pointStyle, coordinates, path, color, ...restProps
     } = this.props;
     return (
       <path
         fill={color}
-        transform={`translate(${x} ${y})`}
         className={classNames('dx-c-bs4-series-opacity', className)}
         d={path(coordinates)}
         {...restProps}
@@ -21,8 +20,6 @@ export class Area extends React.PureComponent {
 
 Area.propTypes = {
   className: PropTypes.string,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
   coordinates: PropTypes.array.isRequired,
   path: PropTypes.func.isRequired,
   pointComponent: PropTypes.any,

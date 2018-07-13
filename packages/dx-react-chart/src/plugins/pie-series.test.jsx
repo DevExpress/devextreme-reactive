@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 pieAttributes.mockImplementation(() => [
   { value: 'value1', data: { argumentField: 'argument1', color: 'color1' }, id: 'value1' },
-  { value: 'value2', data: { argumentField: 'argument1', color: 'color2' }, id: 'value2' },
+  { value: 'value2', data: { argumentField: 'argument2', color: 'color2' }, id: 'value2' },
   { value: 'value3', data: { argumentField: 'argument3', color: 'color3' }, id: 'value3' },
 ]);
 findSeriesByName.mockImplementation(() => ({}));
@@ -26,6 +26,7 @@ describe('Pie series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },
+      domains: {},
     },
     template: {
       series: {},
@@ -54,6 +55,7 @@ describe('Pie series', () => {
     tree.find(PointComponent).forEach((point, index) => {
       const pointIndex = index + 1;
       expect(point.props()).toEqual({
+        data: { argumentField: `argument${pointIndex}`, color: `color${pointIndex}` },
         value: `value${pointIndex}`,
         color: `color${pointIndex}`,
         style: { opacity: 0.4 },

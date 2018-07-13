@@ -3,45 +3,35 @@ import * as PropTypes from 'prop-types';
 import { pieAttributes } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils/series-helper';
 
-const EmptyFunction = () => null;
-
-const Dot = ({
+const Series = ({
   ...props
 }) => {
   const {
     pointComponent: Point,
-    data,
+    coordinates,
     ...restProps
   } = props;
-  return (
-    <Point
-      {...restProps}
-      color={data.color}
-    />
-  );
+  return (coordinates.map(item => (<Point
+    key={item.id.toString()}
+    {...item}
+    {...restProps}
+    color={item.data.color}
+  />)));
 };
 
-const options = ({ ...props }) => ({ style: props.style });
-
 export const PieSeries = withSeriesPlugin(
-  EmptyFunction,
-  Dot,
+  Series,
   'PieSeries',
   'arc',
-  EmptyFunction,
-  () => item => item,
-  options,
   pieAttributes,
 );
 
 
-Dot.propTypes = {
+Series.propTypes = {
   style: PropTypes.object,
   pointComponent: PropTypes.func.isRequired,
-  data: PropTypes.object,
 };
 
-Dot.defaultProps = {
+Series.defaultProps = {
   style: {},
-  data: {},
 };

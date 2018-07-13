@@ -14,6 +14,18 @@ import { Stack } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
+const Label = (symbol) => (props) => {
+    return (
+      <ValueAxis.Label
+      {...props}
+      text={props.text + symbol}
+      />
+    )
+}
+
+const PriceLabel = Label(' $');
+const LabelWithThousand = Label(' k');
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -32,8 +44,8 @@ export default class Demo extends React.PureComponent {
         >
 
           <ArgumentAxis name="argument" />
-          <ValueAxis name="oil" />
-          <ValueAxis name="price" position="right" min={0} />
+          <ValueAxis name="oil" labelComponent={LabelWithThousand} />
+          <ValueAxis name="price" position="right" min={0} labelComponent={PriceLabel} />
 
           <Grid name="oil" />
 

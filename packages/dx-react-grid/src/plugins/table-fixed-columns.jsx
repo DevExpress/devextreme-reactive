@@ -29,13 +29,14 @@ export class TableFixedColumns extends React.PureComponent {
       afterColumnNames,
       cellComponent: Cell,
     } = this.props;
+
+    const fixedColumnNames = [...beforeColumnNames, ...afterColumnNames];
     return (
       <Plugin
         name="TableFixedColumns"
         dependencies={pluginDependencies}
       >
-        <Getter name="beforeFixedColumnNames" value={beforeColumnNames} />
-        <Getter name="afterFixedColumnNames" value={afterColumnNames} />
+        <Getter name="fixedColumnNames" value={fixedColumnNames} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => (tableColumn.column

@@ -75,8 +75,7 @@ export class Table extends React.PureComponent {
               tableBodyRows: bodyRows,
               tableColumns: columns,
               getTableCellColSpan,
-              beforeFixedColumnNames,
-              afterFixedColumnNames,
+              fixedColumnNames,
             }) => (
               <Layout
                 tableComponent={tableComponent}
@@ -89,7 +88,7 @@ export class Table extends React.PureComponent {
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
                 getCellColSpan={getTableCellColSpan}
-                fixedColumns={[...beforeFixedColumnNames, ...afterFixedColumnNames]}
+                fixedColumns={fixedColumnNames}
               />
             )}
           </TemplateConnector>

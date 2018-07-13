@@ -34,7 +34,10 @@ const styles = theme => ({
 class FixedCellBase extends React.PureComponent {
   componentDidMount() {
     // eslint-disable-next-line react/no-find-dom-node
-    this.props.storeSize(findDOMNode(this).getBoundingClientRect().width);
+    const element = findDOMNode(this);
+    if (element) {
+      this.props.storeSize(element.getBoundingClientRect().width);
+    }
   }
   render() {
     const {

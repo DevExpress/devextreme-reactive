@@ -17,6 +17,7 @@ const NavigatorBase = ({
   currentDate,
   titleComponent: Title,
   navigationButtonComponent: NavigationButton,
+  onNavigate,
   ...restProps
 }) => (
   <Toolbar
@@ -25,9 +26,14 @@ const NavigatorBase = ({
     }, className)}
     {...restProps}
   >
-    <NavigationButton back />
+    <NavigationButton
+      back
+      onClick={() => { onNavigate(true); }}
+    />
     <Title currentDate={currentDate} />
-    <NavigationButton />
+    <NavigationButton
+      onClick={() => { onNavigate(); }}
+    />
   </Toolbar>
 );
 
@@ -40,10 +46,12 @@ NavigatorBase.propTypes = {
     PropTypes.instanceOf(Date),
   ]).isRequired,
   className: PropTypes.string,
+  onNavigate: PropTypes.func,
 };
 
 NavigatorBase.defaultProps = {
   className: undefined,
+  onNavigate: () => {},
 };
 
 export const Navigator = withStyles(styles, { name: 'Navigator' })(NavigatorBase);

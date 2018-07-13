@@ -1,1 +1,5 @@
-export const setCurrentDate = (prevCurrentDate, currentDate) => currentDate;
+import moment from 'moment';
+
+export const setCurrentDate = (currentDate, { nextDate, step, back = false }) => (
+  nextDate || moment(currentDate)[back ? 'subtract' : 'add'](step, 'days').toDate()
+);

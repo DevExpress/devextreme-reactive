@@ -57,5 +57,21 @@ describe('DateNavigator', () => {
       expect(buttons.at(1).prop('back'))
         .toBeFalsy();
     });
+    it('should pass onNavigate handler to navigation buttons', () => {
+      const onNavigate = jest.fn();
+      const buttons = shallow((
+        <Navigator
+          {...defaultProps}
+          onNavigate={onNavigate}
+        />
+      )).find(NavigationButton);
+
+      buttons.at(0).props().onClick();
+      buttons.at(1).props().onClick();
+      expect(onNavigate.mock.calls[0][0])
+        .toBeTruthy();
+      expect(onNavigate.mock.calls[1][0])
+        .toBeFalsy();
+    });
   });
 });

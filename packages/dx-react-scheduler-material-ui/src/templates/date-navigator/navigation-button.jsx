@@ -6,10 +6,12 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 
 export const NavigationButton = ({
   back,
+  onClick,
   ...restProps
 }) => (
   <IconButton
     color="inherit"
+    onClick={onClick}
     {...restProps}
   >
     {back ? <ChevronLeft /> : <ChevronRight />}
@@ -18,8 +20,10 @@ export const NavigationButton = ({
 
 NavigationButton.propTypes = {
   back: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 NavigationButton.defaultProps = {
   back: false,
+  onClick: () => {},
 };

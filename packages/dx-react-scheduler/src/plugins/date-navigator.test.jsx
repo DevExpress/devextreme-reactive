@@ -15,6 +15,9 @@ const defaultDeps = {
     currentDate: '2018-07-05',
     firstDayOfWeek: 1,
   },
+  action: {
+    setCurrentDate: jest.fn(),
+  },
   template: {
     toolbarContent: {},
   },
@@ -130,10 +133,19 @@ describe('DateNavigator', () => {
         />
       </PluginHost>
     )).find(NavigatorComponent);
-    const { currentDate, titleComponent, navigationButtonComponent } = navigator.props();
+    const {
+      currentDate,
+      titleComponent,
+      navigationButtonComponent,
+      onNavigate,
+    } = navigator.props();
+
+    onNavigate(true);
 
     expect(navigator.exists())
       .toBeTruthy();
+    expect(defaultDeps.action.setCurrentDate.mock.calls[0][0])
+      .toEqual({ back: true, step: 7 });
     expect(currentDate)
       .toBe('2018-07-05');
     expect(titleComponent)

@@ -66,34 +66,44 @@ export class DateNavigator extends React.PureComponent {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ monthCells, weekDays, currentDate }) => (
-              <React.Fragment>
-                <ToggleButton
-                  buttonRef={this.buttonRef}
-                  onToggle={this.handleToggle}
-                  active={visible}
-                />
-                <Overlay
-                  visible={visible}
-                  target={this.button}
-                  onHide={this.handleHide}
-                >
-                  <Navigator
-                    currentDate={currentDate}
-                    titleComponent={Title}
-                    navigationButtonComponent={NavigationButton}
+            {({
+                monthCells,
+                weekDays,
+                currentDate,
+              }, {
+                setCurrentDate,
+              }) => {
+              const navigate = back => setCurrentDate({ back, step: 7 });
+              return (
+                <React.Fragment>
+                  <ToggleButton
+                    buttonRef={this.buttonRef}
+                    onToggle={this.handleToggle}
+                    active={visible}
                   />
-                  <Table
-                    headerCells={weekDays}
-                    cells={monthCells}
-                    rowComponent={Row}
-                    cellComponent={Cell}
-                    headerRowComponent={HeaderRow}
-                    headerCellComponent={HeaderCell}
-                  />
-                </Overlay>
-              </React.Fragment>
-            )}
+                  <Overlay
+                    visible={visible}
+                    target={this.button}
+                    onHide={this.handleHide}
+                  >
+                    <Navigator
+                      currentDate={currentDate}
+                      titleComponent={Title}
+                      navigationButtonComponent={NavigationButton}
+                      onNavigate={navigate}
+                    />
+                    <Table
+                      headerCells={weekDays}
+                      cells={monthCells}
+                      rowComponent={Row}
+                      cellComponent={Cell}
+                      headerRowComponent={HeaderRow}
+                      headerCellComponent={HeaderCell}
+                    />
+                  </Overlay>
+                </React.Fragment>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>

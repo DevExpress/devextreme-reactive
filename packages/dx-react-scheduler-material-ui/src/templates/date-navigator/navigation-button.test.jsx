@@ -34,5 +34,15 @@ describe('DateNavigator', () => {
       expect(prev.exists())
         .toBeTruthy();
     });
+    it('should handle onClink event', () => {
+      const onClick = jest.fn();
+      const button = shallow((
+        <NavigationButton onClick={onClick} />
+      ));
+      button.simulate('click');
+
+      expect(onClick)
+        .toBeCalled();
+    });
   });
 });

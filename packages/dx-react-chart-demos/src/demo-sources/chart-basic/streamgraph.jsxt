@@ -22,16 +22,13 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 const Area = (props) => {
   const {
-    x,
-    y,
     coordinates,
-    themeColor,
+    color,
   } = props;
 
   return (
     <path
-      fill={themeColor}
-      transform={`translate(${x} ${y})`}
+      fill={color}
       d={area()
         .x(getX)
         .y1(getY)

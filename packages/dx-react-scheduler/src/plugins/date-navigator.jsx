@@ -11,6 +11,7 @@ import { monthCells as monthCellsCore, dayScale } from '@devexpress/dx-scheduler
 
 const pluginDependencies = [
   { name: 'Toolbar' },
+  { name: 'ViewState' },
 ];
 
 const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>

@@ -18,7 +18,7 @@ const defaultDeps = {
   template: {
     toolbarContent: {},
   },
-  plugins: ['Toolbar'],
+  plugins: ['Toolbar', 'ViewState'],
 };
 
 // eslint-disable-next-line react/prop-types

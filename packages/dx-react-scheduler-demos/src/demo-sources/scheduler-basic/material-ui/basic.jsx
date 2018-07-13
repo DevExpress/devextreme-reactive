@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 
+import { ViewState } from '@devexpress/dx-react-scheduler';
+
 import {
   Scheduler,
   WeekView,
@@ -55,9 +57,11 @@ export default class Demo extends React.PureComponent {
         <Paper>
           <Scheduler
             data={data}
-            currentDate={currentDate}
             getTitle={appointment => appointment.text}
           >
+            <ViewState
+              defaultCurrentDate={currentDate}
+            />
             <Toolbar />
             <WeekView
               startDayHour={9}

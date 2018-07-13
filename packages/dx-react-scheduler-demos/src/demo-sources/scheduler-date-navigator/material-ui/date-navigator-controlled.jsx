@@ -21,6 +21,7 @@ export default class Demo extends React.PureComponent {
       data: appointments,
       currentDate: '2018-06-27',
     };
+    this.currentDateChange = (currentDate) => { this.setState({ currentDate }); };
   }
   render() {
     const { data, currentDate } = this.state;
@@ -29,10 +30,10 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          getTitle={appointment => appointment.text}
         >
           <ViewState
-            defaultCurrentDate={currentDate}
+            currentDate={currentDate}
+            onCurrentDateChange={this.currentDateChange}
           />
           <Toolbar />
           <WeekView

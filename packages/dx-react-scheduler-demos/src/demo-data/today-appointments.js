@@ -14,11 +14,11 @@ const makeToday = prevDate => (
     prevDate.getMinutes(),
   )
 );
-export default appointments.map(({ startDate, endDate, text }) => {
+export default appointments.map(({ startDate, endDate, ...restArgs }) => {
   const result = {
-    title: text,
     startDate: makeToday(startDate),
     endDate: makeToday(endDate),
+    ...restArgs,
   };
   date += 1;
   if (date > 31) date = 1;

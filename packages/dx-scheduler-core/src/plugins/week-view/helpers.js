@@ -144,7 +144,7 @@ export const reduceAppointmentByDayBounds = (appointment, leftBound, rightBound)
   };
 };
 
-export const findOverlappedAppointments = (sortedAppointments) => {
+export const findOverlappedAppointments = (sortedAppointments, byDay = false) => {
   const appointments = sortedAppointments.slice();
   const groups = [];
   let totalIndex = 0;
@@ -158,7 +158,7 @@ export const findOverlappedAppointments = (sortedAppointments) => {
 
     currentGroup.push(current);
     totalIndex += 1;
-    while (next && maxBoundary.isAfter(next.start)) {
+    while (next && (maxBoundary.isAfter(next.start) || (byDay && maxBoundary.diff(next.start, 'days') <= 0))) { // !!!!!!!!!!
       currentGroup.push(next);
       if (maxBoundary.isBefore(next.end)) maxBoundary = next.end;
       totalIndex += 1;
@@ -168,7 +168,7 @@ export const findOverlappedAppointments = (sortedAppointments) => {
   return groups;
 };
 
-export const adjustAppointments = groups => groups.map((items) => {
+export const adjustAppointments = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
   const appointments = items.slice();
@@ -180,7 +180,8 @@ export const adjustAppointments = groups => groups.map((items) => {
       appointment.offset = offset;
       for (let index = startIndex + 1; index < groupLength; index += 1) {
         if (appointments[index].offset === undefined) {
-          if (maxBoundary.isSameOrBefore(appointments[index].start)) {
+          if ((!byDay && maxBoundary.isSameOrBefore(appointments[index].start))
+            || (byDay && appointments[index].start.diff(maxBoundary, 'days') > 0)) { // !!!!!!!
             maxBoundary = appointments[index].end;
             appointments[index].offset = offset;
           }

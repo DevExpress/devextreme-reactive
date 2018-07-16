@@ -4,8 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import {
   Scheduler,
   MonthView,
-  Toolbar,
-  DateNavigator,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
@@ -58,12 +56,10 @@ export default class Demo extends React.PureComponent {
             currentDate={currentDate}
             getTitle={appointment => appointment.text}
           >
-            {/* <Toolbar /> */}
             <MonthView
               firstDayOfWeek={1}
             />
-            {/* <DateNavigator /> */}
-            {/* <Appointments /> */}
+            <Appointments />
           </Scheduler>
         </Paper>
       </div>

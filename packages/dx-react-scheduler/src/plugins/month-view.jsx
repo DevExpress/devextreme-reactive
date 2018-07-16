@@ -8,32 +8,24 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  appointmentRects,
+  monthAppointmentRect,
   dayScale as dayScaleCore,
-  startViewDate as startViewDateCore,
-  endViewDate as endViewDateCore,
   monthCells as monthCellsCore,
 } from '@devexpress/dx-scheduler-core';
 
-// const appointmentRectsComputed = ({
-//   appointments,
-//   startViewDate,
-//   endViewDate,
-//   excludedDays,
-//   dayScale,
-//   timeScale,
-//   cellDuration,
-//   dateTableRef,
-// }) => (dateTableRef ? appointmentRects(
-//   appointments,
-//   startViewDate,
-//   endViewDate,
-//   excludedDays,
-//   dayScale,
-//   timeScale,
-//   cellDuration,
-//   dateTableRef.querySelectorAll('td'),
-// ) : []);
+const appointmentRectsComputed = ({
+  appointments,
+  startViewDate,
+  endViewDate,
+  monthCells,
+  dateTableRef,
+}) => (dateTableRef ? monthAppointmentRect(
+  appointments,
+  startViewDate,
+  endViewDate,
+  monthCells,
+  dateTableRef.querySelectorAll('td'),
+) : []);
 
 const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
   monthCellsCore(currentDate, firstDayOfWeek);
@@ -74,9 +66,10 @@ export class MonthView extends React.PureComponent {
 
     const dayScaleComputed = ({ currentDate }) =>
       dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
-    const startViewDateComputed = ({ dayScale, timeScale }) =>
-      startViewDateCore(dayScale, timeScale);
-    const endViewDateComputed = ({ dayScale, timeScale }) => endViewDateCore(dayScale, timeScale);
+    const startViewDateComputed = ({ monthCells }) =>
+      monthCells[0][0].value;
+    const endViewDateComputed = ({ monthCells }) =>
+      new Date(monthCells[5][6].value.setDate(monthCells[5][6].value.getDate() + 1));
 
     return (
       <Plugin
@@ -84,11 +77,11 @@ export class MonthView extends React.PureComponent {
       >
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="dayScale" computed={dayScaleComputed} />
+        <Getter name="monthCells" computed={monthCellsComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
-        <Getter name="monthCells" computed={monthCellsComputed} />
-        {/* {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
-        <Getter name="appointmentRects" computed={appointmentRectsComputed} /> */}
+        {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
+        <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">
           <ViewLayout

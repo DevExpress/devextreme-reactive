@@ -35,9 +35,9 @@ const CellBase = ({
       {...restProps}
     >
       {children || (
-        <p className={classes.dayOfWeek}>
+        <div className={classes.dayOfWeek}>
           {currentDate.format('ddd')}
-        </p>
+        </div>
       )}
     </TableCell>
   );

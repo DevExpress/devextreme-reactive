@@ -1,18 +1,22 @@
 import moment from 'moment';
 import {
-  filteredAppointments,
-  toPercentage,
-} from './../appointments/computeds';
-import {
   sortAppointments,
+  viewPredicate,
+} from './../../utils';
+import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
-} from './../appointments/helpers';
-import { sliceAppointmentsByWeek } from './helpers';
+} from './../week-view/helpers';
+import {
+  sliceAppointmentsByWeek,
+  getRectByDates,
+} from './helpers';
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
+
+const toPercentage = (value, total) => (value * 100) / total;
 
 export const monthCells = (currentDate, firstDayOfWeek) => {
   const currentMonth = moment(currentDate).month();
@@ -49,53 +53,42 @@ export const monthAppointmentRect = (
   appointments,
   startViewDate,
   endViewDate,
-  cellElements, // [cell0, cell1, cell2, ...]
+  monthCells1,
+  cellElements,
 ) => {
-  const filteredByViewAppointments =
-    filteredAppointments(
-      appointments.map(({ start, end, ...restArgs }) =>
-        ({ start: moment(start), end: moment(end), ...restArgs })),
-      startViewDate,
-      endViewDate,
-      [],
-      true,
-    );
-  const slicedAppointments = sliceAppointmentsByWeek(filteredByViewAppointments);
-  const filteredByViewAppointments2 =
-    filteredAppointments(
-      slicedAppointments,
-      startViewDate,
-      endViewDate,
-      [],
-      true,
-    );
+  const mAppointments = appointments.map(({ start, end, ...appointment }) =>
+    ({ start: moment(start), end: moment(end), ...appointment }));
+  const filteredByViewAppointments = mAppointments
+    .filter(appointment =>
+      viewPredicate(appointment, startViewDate, endViewDate));
+  const slicedAppointments = sliceAppointmentsByWeek(filteredByViewAppointments, monthCells1);
+  const filteredByViewAppointments2 = slicedAppointments.filter(appointment =>
+    viewPredicate(appointment, startViewDate, endViewDate));
 
   const sorted = sortAppointments(filteredByViewAppointments2);
-  const groups = findOverlappedAppointments(sorted);
-  const withOffset = adjustAppointments(groups);
-
-  return unwrapGroups(withOffset).map((appt) => {
+  const groups = findOverlappedAppointments(sorted, true);
+  const groupsWithReduceValue = adjustAppointments(groups, true);
+  const planeAppointments = unwrapGroups(groupsWithReduceValue);
+  const reacts = planeAppointments.map((appointmentt) => {
     const {
-      top,
-      left,
-      width,
-      height,
+      top, left,
+      width, height,
       parentWidth,
     } = getRectByDates(
-      appt.start,
-      appt.end,
-      dayScale,
-      timeScale,
-      cellDuration,
+      appointmentt.start,
+      appointmentt.end,
+      monthCells1,
       cellElements,
     );
-    const widthInPx = width / appt.reduceValue;
+
     return {
-      top,
-      height,
-      left: toPercentage(left + (widthInPx * appt.offset), parentWidth),
-      width: toPercentage(widthInPx, parentWidth),
-      dataItem: appt.dataItem,
+      top: top + ((height / appointmentt.reduceValue) * appointmentt.offset),
+      height: height / appointmentt.reduceValue,
+      left: toPercentage(left, parentWidth),
+      width: toPercentage(width, parentWidth),
+      dataItem: appointmentt.dataItem,
     };
   });
+
+  return reacts;
 };

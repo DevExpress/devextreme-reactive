@@ -7,21 +7,18 @@ export const Layout = ({
   cellComponent: Cell,
   rowComponent: Row,
   ...restProps
-}) => {
-  debugger
-  return (
-    <Table {...restProps}>
-      <Row>
-        {dayScale.map((date, index) => (
-          <Cell
-            key={index.toString()}
-            date={date}
-          />
-        ))}
-      </Row>
-    </Table>
-  );
-};
+}) => (
+  <Table {...restProps}>
+    <Row>
+      {dayScale.map((date, index) => (
+        <Cell
+          key={index.toString()}
+          date={date}
+        />
+      ))}
+    </Row>
+  </Table>
+);
 
 Layout.propTypes = {
   dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),

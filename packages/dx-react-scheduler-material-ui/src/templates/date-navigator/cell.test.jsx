@@ -20,6 +20,22 @@ describe('DateNavigator Cell', () => {
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
     });
+    it('should render the current cell', () => {
+      const span = shallow((
+        <Cell current />
+      )).find('span');
+
+      expect(span.is(`.${classes.current}`))
+        .toBeTruthy();
+    });
+    it('should render a cell from other month', () => {
+      const cell = shallow((
+        <Cell otherMonth />
+      ));
+
+      expect(cell.is(`.${classes.otherMonth}`))
+        .toBeTruthy();
+    });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Cell data={{ a: 1 }} />

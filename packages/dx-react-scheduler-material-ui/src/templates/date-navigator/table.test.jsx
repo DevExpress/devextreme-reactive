@@ -8,7 +8,7 @@ describe('DateNavigator', () => {
     rowComponent: ({ children }) => <tr className="table-row">{children}</tr>,
     // eslint-disable-next-line react/prop-types
     headerRowComponent: ({ children }) => <tr className="header-row">{children}</tr>,
-    cellComponent: () => <td className="table-cell" />,
+    cellComponent: () => <td />,
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],
   };
@@ -41,14 +41,8 @@ describe('DateNavigator', () => {
     });
     it('should render cell and rows by the "cells" props', () => {
       const cells = [
-        [
-          { value: 1, isOtherMonth: 1, isCurrent: 1 },
-          { value: 2, isOtherMonth: 1, isCurrent: 1 },
-        ],
-        [
-          { value: 3, isOtherMonth: 1, isCurrent: 1 },
-          { value: 4, isOtherMonth: 1, isCurrent: 1 },
-        ],
+        [{ value: 1, isOtherMonth: true }, { value: 2 }],
+        [{ value: 3 }, { value: 4, isCurrent: true }],
       ];
       const tree = mount((
         <Table
@@ -56,11 +50,15 @@ describe('DateNavigator', () => {
           cells={cells}
         />
       ));
-
+      const cellComponents = tree.find(defaultProps.cellComponent);
       expect(tree.find('.table-row'))
         .toHaveLength(2);
-      expect(tree.find('.table-cell'))
+      expect(cellComponents)
         .toHaveLength(4);
+      expect(cellComponents.first().props().otherMonth)
+        .toBeTruthy();
+      expect(cellComponents.last().props().current)
+        .toBeTruthy();
     });
 
     it('should render header cell and rows by the "headerCells" props', () => {
@@ -82,12 +80,13 @@ describe('DateNavigator', () => {
       const tree = mount((
         <Table
           {...defaultProps}
-          cells={[{ value: '2018-07-16' }]}
+          cells={[[{ value: '2018-07-16' }]]}
           onCellClick={cellClickMock}
         />
       ));
 
-      tree.find('.table-cell').simulate('click');
+      tree.find(defaultProps.cellComponent).props().onClick();
+
       expect(cellClickMock)
         .toBeCalledWith({ nextDate: '2018-07-16' });
     });

@@ -9,7 +9,7 @@ import {
   unwrapGroups,
 } from './../week-view/helpers';
 import {
-  sliceAppointmentsByWeek,
+  sliceAppointmentByWeek,
   getRectByDates,
 } from './helpers';
 
@@ -49,6 +49,51 @@ export const monthCells = (currentDate, firstDayOfWeek) => {
   return result;
 };
 
+const calculateDateIntervals = (
+  appointments,
+  leftBound, rightBound,
+  monthCells1,
+) => appointments
+  .map(({ start, end, ...restArgs }) =>
+    ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment =>
+    viewPredicate(appointment, leftBound, rightBound))
+  .reduce((acc, appointment) =>
+    ([...acc, ...sliceAppointmentByWeek(appointment, monthCells1)]), [])
+  .filter(appointment =>
+    viewPredicate(appointment, leftBound, rightBound));
+
+const calculateRectsByDateIntervals = (
+  intervals,
+  monthCells1,
+  cellElements,
+) => {
+  const sorted = sortAppointments(intervals, true);
+  const grouped = findOverlappedAppointments(sorted, true);
+
+  return unwrapGroups(adjustAppointments(grouped, true))
+    .map((appointmentt) => {
+      const {
+        top, left,
+        width, height,
+        parentWidth,
+      } = getRectByDates(
+        appointmentt.start,
+        appointmentt.end,
+        monthCells1,
+        cellElements,
+      );
+
+      return {
+        top: top + ((height / appointmentt.reduceValue) * appointmentt.offset),
+        height: height / appointmentt.reduceValue,
+        left: toPercentage(left, parentWidth),
+        width: toPercentage(width, parentWidth),
+        dataItem: appointmentt.dataItem,
+      };
+    });
+};
+
 export const monthAppointmentRect = (
   appointments,
   startViewDate,
@@ -56,39 +101,15 @@ export const monthAppointmentRect = (
   monthCells1,
   cellElements,
 ) => {
-  const mAppointments = appointments.map(({ start, end, ...appointment }) =>
-    ({ start: moment(start), end: moment(end), ...appointment }));
-  const filteredByViewAppointments = mAppointments
-    .filter(appointment =>
-      viewPredicate(appointment, startViewDate, endViewDate));
-  const slicedAppointments = sliceAppointmentsByWeek(filteredByViewAppointments, monthCells1);
-  const filteredByViewAppointments2 = slicedAppointments.filter(appointment =>
-    viewPredicate(appointment, startViewDate, endViewDate));
-
-  const sorted = sortAppointments(filteredByViewAppointments2, true);
-  const groups = findOverlappedAppointments(sorted, true);
-  const groupsWithReduceValue = adjustAppointments(groups, true);
-  const planeAppointments = unwrapGroups(groupsWithReduceValue);
-  const reacts = planeAppointments.map((appointmentt) => {
-    const {
-      top, left,
-      width, height,
-      parentWidth,
-    } = getRectByDates(
-      appointmentt.start,
-      appointmentt.end,
-      monthCells1,
-      cellElements,
-    );
-
-    return {
-      top: top + ((height / appointmentt.reduceValue) * appointmentt.offset),
-      height: height / appointmentt.reduceValue,
-      left: toPercentage(left, parentWidth),
-      width: toPercentage(width, parentWidth),
-      dataItem: appointmentt.dataItem,
-    };
-  });
-
-  return reacts;
+  const dateIntervals = calculateDateIntervals(
+    appointments,
+    startViewDate,
+    endViewDate,
+    monthCells1,
+  );
+  return calculateRectsByDateIntervals(
+    dateIntervals,
+    monthCells1,
+    cellElements,
+  );
 };

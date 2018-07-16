@@ -33,6 +33,50 @@ export const sliceAppointmentsByWeek2 = (
   return nextAppointments;
 };
 
+export const sliceAppointmentByWeek = (
+  appointment,
+  monthCells,
+) => {
+  const nextAppointments = [];
+  const leftBound = moment(monthCells[0][0].value).startOf('day');
+  const rightBound = moment(leftBound).add(7, 'days');
+  const { start, end } = appointment;
+
+  while (leftBound.isBefore(end)) {
+    if (start.isBetween(leftBound, rightBound, null, '[)')
+      && !end.isBetween(leftBound, rightBound, null, '()')) {
+      nextAppointments.push({
+        ...appointment,
+        start,
+        end: moment(rightBound).add(-1, 'hours').endOf('day'),
+      });
+    }
+    if (!start.isBetween(leftBound, rightBound, null, '[)')
+      && end.isBetween(leftBound, rightBound, null, '(]')) {
+      nextAppointments.push({
+        ...appointment,
+        start: moment(leftBound),
+        end,
+      });
+    }
+
+    if (start.isBefore(leftBound) && end.isAfter(rightBound)) {
+      nextAppointments.push({
+        ...appointment,
+        start: moment(leftBound),
+        end: moment(rightBound).add(-1, 'hours').endOf('day'),
+      });
+    }
+    if (start.isBetween(leftBound, rightBound, null, '[)')
+      && end.isBetween(leftBound, rightBound, null, '()')) {
+      nextAppointments.push(appointment);
+    }
+    leftBound.add(7, 'days');
+    rightBound.add(7, 'days');
+  }
+  return nextAppointments;
+};
+
 export const sliceAppointmentsByWeek = (
   appointments,
   monthCells,

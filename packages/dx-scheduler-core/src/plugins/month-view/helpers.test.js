@@ -1,64 +1,67 @@
 import moment from 'moment';
-import { sliceAppointmentsByWeek } from './helpers';
+import {
+  sliceAppointmentsByWeek,
+  getRectByDates,
+} from './helpers';
 
 describe('MonthView Helpers', () => {
+  const monthCells = [
+    [
+      { value: moment('2018-06-28') },
+      { value: moment('2018-06-29') },
+      { value: moment('2018-06-30') },
+      { value: moment('2018-07-01') },
+      { value: moment('2018-07-02') },
+      { value: moment('2018-07-03') },
+      { value: moment('2018-07-04') },
+    ],
+    [
+      { value: moment('2018-07-05') },
+      { value: moment('2018-07-06') },
+      { value: moment('2018-07-07') },
+      { value: moment('2018-07-08') },
+      { value: moment('2018-07-09') },
+      { value: moment('2018-07-10') },
+      { value: moment('2018-07-11') },
+    ],
+    [
+      { value: moment('2018-07-12') },
+      { value: moment('2018-07-13') },
+      { value: moment('2018-07-14') },
+      { value: moment('2018-07-15') },
+      { value: moment('2018-07-16') },
+      { value: moment('2018-07-17') },
+      { value: moment('2018-07-18') },
+    ],
+    [
+      { value: moment('2018-07-19') },
+      { value: moment('2018-07-20') },
+      { value: moment('2018-07-21') },
+      { value: moment('2018-07-22') },
+      { value: moment('2018-07-23') },
+      { value: moment('2018-07-24') },
+      { value: moment('2018-07-25') },
+    ],
+    [
+      { value: moment('2018-07-26') },
+      { value: moment('2018-07-27') },
+      { value: moment('2018-07-28') },
+      { value: moment('2018-07-29') },
+      { value: moment('2018-07-30') },
+      { value: moment('2018-07-31') },
+      { value: moment('2018-08-01') },
+    ],
+    [
+      { value: moment('2018-08-02') },
+      { value: moment('2018-08-03') },
+      { value: moment('2018-08-04') },
+      { value: moment('2018-08-05') },
+      { value: moment('2018-08-06') },
+      { value: moment('2018-08-07') },
+      { value: moment('2018-08-08') },
+    ],
+  ];
   describe('#sliceAppointmentsByWeek', () => {
-    const monthCells = [
-      [
-        { value: moment('2018-06-28') },
-        { value: moment('2018-06-29') },
-        { value: moment('2018-06-30') },
-        { value: moment('2018-07-01') },
-        { value: moment('2018-07-02') },
-        { value: moment('2018-07-03') },
-        { value: moment('2018-07-04') },
-      ],
-      [
-        { value: moment('2018-07-05') },
-        { value: moment('2018-07-06') },
-        { value: moment('2018-07-07') },
-        { value: moment('2018-07-08') },
-        { value: moment('2018-07-09') },
-        { value: moment('2018-07-10') },
-        { value: moment('2018-07-11') },
-      ],
-      [
-        { value: moment('2018-07-12') },
-        { value: moment('2018-07-13') },
-        { value: moment('2018-07-14') },
-        { value: moment('2018-07-15') },
-        { value: moment('2018-07-16') },
-        { value: moment('2018-07-17') },
-        { value: moment('2018-07-18') },
-      ],
-      [
-        { value: moment('2018-07-19') },
-        { value: moment('2018-07-20') },
-        { value: moment('2018-07-21') },
-        { value: moment('2018-07-22') },
-        { value: moment('2018-07-23') },
-        { value: moment('2018-07-24') },
-        { value: moment('2018-07-25') },
-      ],
-      [
-        { value: moment('2018-07-26') },
-        { value: moment('2018-07-27') },
-        { value: moment('2018-07-28') },
-        { value: moment('2018-07-29') },
-        { value: moment('2018-07-30') },
-        { value: moment('2018-07-31') },
-        { value: moment('2018-08-01') },
-      ],
-      [
-        { value: moment('2018-08-02') },
-        { value: moment('2018-08-03') },
-        { value: moment('2018-08-04') },
-        { value: moment('2018-08-05') },
-        { value: moment('2018-08-06') },
-        { value: moment('2018-08-07') },
-        { value: moment('2018-08-08') },
-      ],
-    ];
     it('should not slice appointments if they are short', () => {
       const appointments = [
         { start: moment('2018-07-05'), end: moment('2018-07-12'), dataItem: {} },
@@ -117,6 +120,61 @@ describe('MonthView Helpers', () => {
         .toEqual(moment('2018-07-19 00:00').format());
       expect(slicedAppointments[2].end.format())
         .toEqual(moment('2018-07-23 05:00').format());
+    });
+    describe('#getRectByDates', () => {
+      const offsetParent = {
+        getBoundingClientRect: () => ({
+          top: 10, left: 10, width: 250,
+        }),
+      };
+      const cellElements = [{}, {}, {}, {}, {}, {}, {}, {
+        getBoundingClientRect: () => ({
+          top: 110, left: 20, width: 100, height: 100,
+        }),
+        offsetParent,
+      }, {}, {
+        getBoundingClientRect: () => ({
+          top: 110, left: 320, width: 100, height: 100,
+        }),
+        offsetParent,
+      }];
+
+      it('should calculate geometry by dates for one day long', () => {
+        const startDate = new Date('2018-07-05 10:20');
+        const endDate = new Date('2018-07-06 00:00');
+        const {
+          top, left, height, width, parentWidth,
+        } = getRectByDates(
+          startDate,
+          endDate,
+          monthCells,
+          cellElements,
+        );
+
+        expect(top).toBe(130);
+        expect(left).toBe(11);
+        expect(height).toBe(70);
+        expect(width).toBe(98);
+        expect(parentWidth).toBe(250);
+      });
+      it('should calculate geometry by dates for many days long', () => {
+        const startDate = new Date('2018-07-05 00:00');
+        const endDate = new Date('2018-07-08 00:00');
+        const {
+          top, left, height, width, parentWidth,
+        } = getRectByDates(
+          startDate,
+          endDate,
+          monthCells,
+          cellElements,
+        );
+
+        expect(top).toBe(130);
+        expect(left).toBe(11);
+        expect(height).toBe(70);
+        expect(width).toBe(398);
+        expect(parentWidth).toBe(250);
+      });
     });
   });
 });

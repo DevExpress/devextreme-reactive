@@ -118,11 +118,12 @@ export const getRectByDates = (
 
   const top = firstCellRect.top + (firstCellRect.height * CELL_GAP);
   const height = firstCellRect.height - (firstCellRect.height * CELL_GAP);
+  const boundaryOffset = firstCellRect.width * CELL_BOUND_OFFSET;
 
   return {
     top: top - firstCellRect.parentRect.top,
-    left: firstCellRect.left - firstCellRect.parentRect.left + (firstCellRect.width * CELL_BOUND_OFFSET),
-    width: (lastCellRect.left - firstCellRect.left) + lastCellRect.width - (firstCellRect.width * CELL_BOUND_OFFSET),
+    left: (firstCellRect.left - firstCellRect.parentRect.left) + boundaryOffset,
+    width: ((lastCellRect.left - firstCellRect.left) + lastCellRect.width) - (2 * boundaryOffset),
     height,
     parentWidth: firstCellRect.parentRect.width,
   };

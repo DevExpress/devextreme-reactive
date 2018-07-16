@@ -65,7 +65,7 @@ export const monthAppointmentRect = (
   const filteredByViewAppointments2 = slicedAppointments.filter(appointment =>
     viewPredicate(appointment, startViewDate, endViewDate));
 
-  const sorted = sortAppointments(filteredByViewAppointments2);
+  const sorted = sortAppointments(filteredByViewAppointments2, true);
   const groups = findOverlappedAppointments(sorted, true);
   const groupsWithReduceValue = adjustAppointments(groups, true);
   const planeAppointments = unwrapGroups(groupsWithReduceValue);

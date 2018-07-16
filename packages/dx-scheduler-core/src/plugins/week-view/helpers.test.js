@@ -35,15 +35,16 @@ describe('Week view helpers', () => {
       { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 11:00') },
       { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
       { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
+      { start: moment('2018-07-02 12:00'), end: moment('2018-07-02 15:00') },
     ];
     const sortedAppointments = [
       appointments[2], appointments[4], appointments[3],
       appointments[0], appointments[1], appointments[5], appointments[6],
     ];
     const overlappedAppointments = [
-      [appointments[2], appointments[4], appointments[3]],
-      [appointments[0], appointments[1], appointments[5]],
-      [appointments[6]],
+      [{ ...appointments[2] }, { ...appointments[4] }, { ...appointments[3] }],
+      [{ ...appointments[0] }, { ...appointments[1] }, { ...appointments[5] }],
+      [{ ...appointments[6] }],
     ];
 
     describe('#findOverlappedAppointments', () => {
@@ -76,6 +77,22 @@ describe('Week view helpers', () => {
             {
               items: [
                 { ...appointments[6], offset: 0 },
+              ],
+              reduceValue: 1,
+            },
+          ]);
+      });
+
+      it('should consider if appointments start and end in a same time', () => {
+        const groups = [
+          [{ ...appointments[1] }, { ...appointments[7] }],
+        ];
+        expect(adjustAppointments(groups))
+          .toEqual([
+            {
+              items: [
+                { ...appointments[1], offset: 0 },
+                { ...appointments[7], offset: 0 },
               ],
               reduceValue: 1,
             },

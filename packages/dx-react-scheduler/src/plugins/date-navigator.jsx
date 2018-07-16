@@ -7,7 +7,11 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { monthCells as monthCellsCore, dayScale } from '@devexpress/dx-scheduler-core';
+import {
+  monthCells as monthCellsCore,
+  viewBoundTitle,
+  dayScale,
+} from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
@@ -32,9 +36,9 @@ export class DateNavigator extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.buttonRef = this.buttonRef.bind(this);
+    this.targetRef = this.targetRef.bind(this);
   }
-  buttonRef(button) {
+  targetRef(button) {
     this.button = button;
   }
   handleToggle() {
@@ -45,6 +49,7 @@ export class DateNavigator extends React.PureComponent {
   }
   render() {
     const {
+      rootComponent: Root,
       overlayComponent: Overlay,
       tableComponent: Table,
       rowComponent: Row,
@@ -72,16 +77,22 @@ export class DateNavigator extends React.PureComponent {
                 monthCells,
                 weekDays,
                 currentDate,
+                startViewDate,
+                endViewDate,
               }, {
                 setCurrentDate,
               }) => {
               const navigateAction = navigate(setCurrentDate);
+              const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
               return (
                 <React.Fragment>
-                  <ToggleButton
-                    buttonRef={this.buttonRef}
+                  <Root
+                    navigationButtonComponent={NavigationButton}
+                    toggleButtonComponent={ToggleButton}
+                    navigatorTitle={navigatorTitle}
+                    targetRef={this.targetRef}
                     onToggle={this.handleToggle}
-                    active={visible}
+                    onNavigate={navigateAction}
                   />
                   <Overlay
                     visible={visible}
@@ -115,6 +126,7 @@ export class DateNavigator extends React.PureComponent {
 }
 
 DateNavigator.propTypes = {
+  rootComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
   tableComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

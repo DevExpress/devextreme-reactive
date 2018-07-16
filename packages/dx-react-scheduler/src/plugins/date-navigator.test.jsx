@@ -2,12 +2,13 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { monthCells, dayScale } from '@devexpress/dx-scheduler-core';
+import { monthCells, dayScale, viewBoundTitle } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   monthCells: jest.fn(),
   dayScale: jest.fn(),
+  viewBoundTitle: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -31,8 +32,10 @@ const NavigatorComponent = () => null;
 const ToggleButtonComponent = () => null;
 const TitleComponent = () => null;
 const NavigationButton = () => null;
+const Root = () => null;
 
 const defaultProps = {
+  rootComponent: Root,
   overlayComponent: OverlayComponent,
   tableComponent: TableComponent,
   toggleButtonComponent: ToggleButtonComponent,
@@ -49,6 +52,7 @@ describe('DateNavigator', () => {
   beforeEach(() => {
     monthCells.mockImplementation(() => [[{ value: '2018-04-07' }]]);
     dayScale.mockImplementation(() => ['Mon', 'Tue', 'Wed']);
+    viewBoundTitle.mockImplementation(() => 'July 2018');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -96,18 +100,34 @@ describe('DateNavigator', () => {
       .toBeTruthy();
   });
 
-  it('should render toggle button', () => {
-    const tree = mount((
+  it('should render root component', () => {
+    const root = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <DateNavigator
           {...defaultProps}
         />
       </PluginHost>
-    ));
+    )).find(Root);
+    const {
+      navigationButtonComponent,
+      toggleButtonComponent,
+      navigatorTitle,
+      onNavigate,
+    } = root.props();
 
-    expect(tree.find(ToggleButtonComponent).exists())
+    onNavigate();
+
+    expect(root.exists())
       .toBeTruthy();
+    expect(navigationButtonComponent)
+      .toBe(NavigationButton);
+    expect(toggleButtonComponent)
+      .toBe(ToggleButtonComponent);
+    expect(navigatorTitle)
+      .toBe('July 2018');
+    expect(defaultDeps.action.setCurrentDate)
+      .toBeCalled();
   });
 
   it('should render table', () => {

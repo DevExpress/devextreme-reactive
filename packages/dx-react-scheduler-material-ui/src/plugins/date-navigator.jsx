@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DateNavigator as DateNavigatorBase } from '@devexpress/dx-react-scheduler';
+import { Root } from '../templates/date-navigator/root';
 import { Overlay } from '../templates/date-navigator/overlay';
 import { Table } from '../templates/date-navigator/table';
 import { ToggleButton } from '../templates/date-navigator/toggle-button';
@@ -14,6 +15,7 @@ export class DateNavigator extends React.PureComponent {
   render() {
     return (
       <DateNavigatorBase
+        rootComponent={Root}
         overlayComponent={Overlay}
         tableComponent={Table}
         toggleButtonComponent={ToggleButton}
@@ -30,6 +32,7 @@ export class DateNavigator extends React.PureComponent {
   }
 }
 
+DateNavigator.Root = Root;
 DateNavigator.Table = Table;
 DateNavigator.ToggleButton = ToggleButton;
 DateNavigator.Cell = Cell;

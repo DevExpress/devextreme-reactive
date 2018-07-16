@@ -50,21 +50,33 @@ describe('Utils', () => {
     });
   });
   describe('#sortAppointments', () => {
-    const appointments = [
-      { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
-      { start: moment('2018-07-02 10:30'), end: moment('2018-07-02 12:00') },
-      { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
-      { start: moment('2018-07-01 11:30'), end: moment('2018-07-01 12:00') },
-      { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 11:00') },
-      { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
-      { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
-    ];
-    const sortedAppointments = [
-      appointments[2], appointments[4], appointments[3],
-      appointments[0], appointments[1], appointments[5], appointments[6],
-    ];
     it('should sort appointments', () => {
+      const appointments = [
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
+        { start: moment('2018-07-02 10:30'), end: moment('2018-07-02 12:00') },
+        { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
+        { start: moment('2018-07-01 11:30'), end: moment('2018-07-01 12:00') },
+        { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 11:00') },
+        { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
+        { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
+      ];
+      const sortedAppointments = [
+        appointments[2], appointments[4], appointments[3],
+        appointments[0], appointments[1], appointments[5], appointments[6],
+      ];
       expect(sortAppointments(appointments))
+        .toEqual(sortedAppointments);
+    });
+    it('should sort appointments consider of day', () => {
+      const appointments = [
+        { start: moment('2018-07-01 09:00'), end: moment('2018-07-01 12:00') },
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
+        { start: moment('2018-07-01 10:00'), end: moment('2018-07-02 11:00') },
+      ];
+      const sortedAppointments = [
+        appointments[2], appointments[0], appointments[1],
+      ];
+      expect(sortAppointments(appointments, true))
         .toEqual(sortedAppointments);
     });
   });

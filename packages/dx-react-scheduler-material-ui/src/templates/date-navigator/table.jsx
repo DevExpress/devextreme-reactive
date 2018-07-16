@@ -23,6 +23,7 @@ export const TableBase = ({
   className,
   cells,
   headerCells,
+  onCellClick,
   ...restProps
 }) => (
   <TableMUI
@@ -53,6 +54,9 @@ export const TableBase = ({
               key={`date_navigator_cell_${value.toString()}`}
               otherMonth={isOtherMonth}
               current={isCurrent}
+              onClick={() => {
+                onCellClick({ nextDate: value });
+              }}
             >
               {moment(value).format('D')}
             </Cell>
@@ -69,14 +73,16 @@ TableBase.propTypes = {
   headerRowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   cells: PropTypes.array.isRequired,
-  headerCells: PropTypes.array,
   classes: PropTypes.object.isRequired,
+  headerCells: PropTypes.array,
   className: PropTypes.string,
+  onCellClick: PropTypes.func,
 };
 
 TableBase.defaultProps = {
   className: undefined,
   headerCells: [],
+  onCellClick: () => {},
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

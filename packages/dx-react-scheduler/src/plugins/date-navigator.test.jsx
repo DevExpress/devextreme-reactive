@@ -140,7 +140,7 @@ describe('DateNavigator', () => {
       onNavigate,
     } = navigator.props();
 
-    onNavigate(true);
+    onNavigate({ back: true });
 
     expect(navigator.exists())
       .toBeTruthy();

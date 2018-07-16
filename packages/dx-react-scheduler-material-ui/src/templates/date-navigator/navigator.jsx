@@ -28,11 +28,11 @@ const NavigatorBase = ({
   >
     <NavigationButton
       back
-      onClick={() => { onNavigate(true); }}
+      onClick={() => { onNavigate({ back: true }); }}
     />
     <Title currentDate={currentDate} />
     <NavigationButton
-      onClick={() => { onNavigate(); }}
+      onClick={() => { onNavigate({ back: false }); }}
     />
   </Toolbar>
 );

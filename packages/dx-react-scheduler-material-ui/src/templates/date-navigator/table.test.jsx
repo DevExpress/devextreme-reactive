@@ -76,5 +76,20 @@ describe('DateNavigator', () => {
       expect(tree.find('.header-cell'))
         .toHaveLength(2);
     });
+
+    it('should handle the "onCellClick" event', () => {
+      const cellClickMock = jest.fn();
+      const tree = mount((
+        <Table
+          {...defaultProps}
+          cells={[{ value: '2018-07-16' }]}
+          onCellClick={cellClickMock}
+        />
+      ));
+
+      tree.find('.table-cell').simulate('click');
+      expect(cellClickMock)
+        .toBeCalledWith({ nextDate: '2018-07-16' });
+    });
   });
 });

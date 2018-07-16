@@ -20,6 +20,8 @@ const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
 const weekDaysComputed = ({ currentDate, firstDayOfWeek }) =>
   dayScale(currentDate, firstDayOfWeek);
 
+const navigate = action => payload => action({ ...payload, step: 7 });
+
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -73,7 +75,7 @@ export class DateNavigator extends React.PureComponent {
               }, {
                 setCurrentDate,
               }) => {
-              const navigate = back => setCurrentDate({ back, step: 7 });
+              const navigateAction = navigate(setCurrentDate);
               return (
                 <React.Fragment>
                   <ToggleButton
@@ -90,7 +92,7 @@ export class DateNavigator extends React.PureComponent {
                       currentDate={currentDate}
                       titleComponent={Title}
                       navigationButtonComponent={NavigationButton}
-                      onNavigate={navigate}
+                      onNavigate={navigateAction}
                     />
                     <Table
                       headerCells={weekDays}
@@ -99,6 +101,7 @@ export class DateNavigator extends React.PureComponent {
                       cellComponent={Cell}
                       headerRowComponent={HeaderRow}
                       headerCellComponent={HeaderCell}
+                      onCellClick={navigateAction}
                     />
                   </Overlay>
                 </React.Fragment>

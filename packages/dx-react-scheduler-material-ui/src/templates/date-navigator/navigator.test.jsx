@@ -68,9 +68,9 @@ describe('DateNavigator', () => {
 
       buttons.at(0).props().onClick();
       buttons.at(1).props().onClick();
-      expect(onNavigate.mock.calls[0][0])
+      expect(onNavigate.mock.calls[0][0].back)
         .toBeTruthy();
-      expect(onNavigate.mock.calls[1][0])
+      expect(onNavigate.mock.calls[1][0].back)
         .toBeFalsy();
     });
   });

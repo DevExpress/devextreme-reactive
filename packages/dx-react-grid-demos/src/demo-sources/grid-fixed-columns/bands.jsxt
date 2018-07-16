@@ -52,6 +52,7 @@ const tableColumnExtensions = [
   { columnName: 'prefix', width: 150 },
   { columnName: 'firstName', width: 220 },
   { columnName: 'lastName', width: 220 },
+  { columnName: 'birthDate', width: 200 },
 ];
 
 export default class Demo extends React.PureComponent {

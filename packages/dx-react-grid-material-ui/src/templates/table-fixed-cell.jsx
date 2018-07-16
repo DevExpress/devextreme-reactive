@@ -8,9 +8,10 @@ const styles = theme => ({
   fixedCell: {
     backgroundColor: theme.palette.background.paper,
     position: 'sticky',
+    zIndex: 200,
   },
   divider: {
-    '&:before': {
+    '&:after': {
       content: '""',
       position: 'absolute',
       background: theme.palette.divider,
@@ -20,12 +21,12 @@ const styles = theme => ({
     },
   },
   dividerLeft: {
-    '&:before': {
+    '&:after': {
       right: 0,
     },
   },
   dividerRight: {
-    '&:before': {
+    '&:after': {
       left: 0,
     },
   },

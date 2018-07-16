@@ -52,7 +52,7 @@ export const getColSpan = (
 export const getBandComponent = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
   tableHeaderRows, tableColumns,
-  columnBands, fixedColumns,
+  columnBands, fixedColumns = [],
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 

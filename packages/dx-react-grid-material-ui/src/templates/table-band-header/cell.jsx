@@ -3,27 +3,44 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from './../utils';
 
 const styles = theme => ({
   cell: {
+    position: 'relative',
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
+    borderBottom: 'none',
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      background: theme.palette.divider,
+      height: 1,
+      bottom: 0,
+      right: 0,
+      left: 0,
+    },
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
-      borderLeft: 0,
     },
     '&:last-child': {
       paddingRight: theme.spacing.unit * 3,
-      borderRight: 0,
+      '&:after': {
+        content: 'none',
+      },
     },
     height: theme.spacing.unit * 6,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    borderBottom: getBorderColor(theme),
-    borderLeft: getBorderColor(theme),
-    borderRight: getBorderColor(theme),
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      background: theme.palette.divider,
+      width: 1,
+      top: 0,
+      bottom: 0,
+      right: 0,
+    },
   },
 });
 

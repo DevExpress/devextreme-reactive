@@ -10,7 +10,7 @@ const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     padding: 0,
-    height: 80,
+    height: 100,
     borderLeft: getBorderColor(theme),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,

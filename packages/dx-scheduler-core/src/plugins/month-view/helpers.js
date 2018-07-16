@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const CELL_GAP = 0.3;
+const CELL_GAP = 0.32;
 const CELL_BOUND_OFFSET = 0.01;
 
 export const sliceAppointmentsByWeek2 = (

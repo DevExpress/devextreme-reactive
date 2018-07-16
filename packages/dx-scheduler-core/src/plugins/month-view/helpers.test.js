@@ -151,9 +151,9 @@ describe('MonthView Helpers', () => {
           cellElements,
         );
 
-        expect(top).toBe(130);
+        expect(top).toBe(132);
         expect(left).toBe(11);
-        expect(height).toBe(70);
+        expect(height).toBe(68);
         expect(width).toBe(98);
         expect(parentWidth).toBe(250);
       });
@@ -169,9 +169,9 @@ describe('MonthView Helpers', () => {
           cellElements,
         );
 
-        expect(top).toBe(130);
+        expect(top).toBe(132);
         expect(left).toBe(11);
-        expect(height).toBe(70);
+        expect(height).toBe(68);
         expect(width).toBe(398);
         expect(parentWidth).toBe(250);
       });

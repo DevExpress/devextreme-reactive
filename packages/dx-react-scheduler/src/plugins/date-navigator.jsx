@@ -53,7 +53,6 @@ export class DateNavigator extends React.PureComponent {
       overlayComponent: Overlay,
       toggleButtonComponent: ToggleButton,
       navigationButtonComponent: NavigationButton,
-
       calendarComponent: Calendar,
       calendarRowComponent: CalendarRow,
       calendarCellComponent: CalendarCell,

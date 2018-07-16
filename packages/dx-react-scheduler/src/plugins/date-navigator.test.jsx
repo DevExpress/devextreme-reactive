@@ -27,25 +27,34 @@ const defaultDeps = {
 
 // eslint-disable-next-line react/prop-types
 const OverlayComponent = ({ children }) => <div>{children}</div>;
-const TableComponent = () => null;
-const NavigatorComponent = () => null;
-const ToggleButtonComponent = () => null;
-const TitleComponent = () => null;
-const NavigationButton = () => null;
 const Root = () => null;
+const ToggleButtonComponent = () => null;
+const NavigationButton = () => null;
+
+const CalendarComponent = () => null;
+const CalendarTitleComponent = () => null;
+const CalendarNavigationButtonComponent = () => null;
+const CalendarNavigatorComponent = () => null;
+const CalendarCell = () => null;
+const CalendarRow = () => null;
+const CalendarHeaderRow = () => null;
+const CalendarHeaderCell = () => null;
+
 
 const defaultProps = {
   rootComponent: Root,
   overlayComponent: OverlayComponent,
-  tableComponent: TableComponent,
-  toggleButtonComponent: ToggleButtonComponent,
-  navigatorComponent: NavigatorComponent,
-  titleComponent: TitleComponent,
   navigationButtonComponent: NavigationButton,
-  cellComponent: () => null,
-  rowComponent: () => null,
-  headerRowComponent: () => null,
-  headerCellComponent: () => null,
+  toggleButtonComponent: ToggleButtonComponent,
+
+  calendarComponent: CalendarComponent,
+  calendarNavigatorComponent: CalendarNavigatorComponent,
+  calendarTitleComponent: CalendarTitleComponent,
+  calendarNavigationButtonComponent: CalendarNavigationButtonComponent,
+  calendarCellComponent: CalendarCell,
+  calendarRowComponent: CalendarRow,
+  calendarHeaderRowComponent: CalendarHeaderRow,
+  calendarHeaderCellComponent: CalendarHeaderCell,
 };
 
 describe('DateNavigator', () => {
@@ -130,51 +139,44 @@ describe('DateNavigator', () => {
       .toBeCalled();
   });
 
-  it('should render table', () => {
-    const tree = mount((
+  it('should render calendar', () => {
+    const calendar = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <DateNavigator
           {...defaultProps}
         />
       </PluginHost>
-    ));
-
-    expect(tree.find(TableComponent).exists())
-      .toBeTruthy();
-  });
-
-  it('should render navigator', () => {
-    const navigator = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <DateNavigator
-          {...defaultProps}
-        />
-      </PluginHost>
-    )).find(NavigatorComponent);
+    )).find(CalendarComponent);
     const {
       currentDate,
       titleComponent,
       navigationButtonComponent,
+      rowComponent,
+      cellComponent,
+      headerRowComponent,
+      headerCellComponent,
+      navigatorComponent,
+      onCellClick,
       onNavigate,
-    } = navigator.props();
+    } = calendar.props();
 
-    onNavigate({ back: true });
+    onCellClick();
+    onNavigate();
 
-    expect(navigator.exists())
-      .toBeTruthy();
-    expect(defaultDeps.action.setCurrentDate.mock.calls[0][0])
-      .toEqual({ back: true, step: 7 });
-    expect(currentDate)
-      .toBe('2018-07-05');
-    expect(titleComponent)
-      .toBe(TitleComponent);
-    expect(navigationButtonComponent)
-      .toBe(NavigationButton);
+    expect(calendar.exists()).toBeTruthy();
+    expect(currentDate).toBe('2018-07-05');
+    expect(titleComponent).toBe(CalendarTitleComponent);
+    expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
+    expect(rowComponent).toBe(CalendarRow);
+    expect(cellComponent).toBe(CalendarCell);
+    expect(headerRowComponent).toBe(CalendarHeaderRow);
+    expect(headerCellComponent).toBe(CalendarHeaderCell);
+    expect(navigatorComponent).toBe(CalendarNavigatorComponent);
+    expect(defaultDeps.action.setCurrentDate).toHaveBeenCalledTimes(2);
   });
 
-  it('should calculate table cells via the "monthCells" computed', () => {
+  it('should calculate calendar cells via the "monthCells" computed', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

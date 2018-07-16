@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, createMount, getClasses } from '@material-ui/core/test-utils';
 import { Table } from './table';
 
-describe('DateNavigator', () => {
+describe('Calendar', () => {
   const defaultProps = {
     // eslint-disable-next-line react/prop-types
     rowComponent: ({ children }) => <tr className="table-row">{children}</tr>,

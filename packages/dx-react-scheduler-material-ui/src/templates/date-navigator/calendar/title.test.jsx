@@ -4,7 +4,7 @@ import { Title } from './title';
 
 jest.mock('moment', () => () => ({ format: () => 'July 2018' }));
 
-describe('DateNavigator', () => {
+describe('Calendar', () => {
   let classes;
   let shallow;
   const defaultProps = {

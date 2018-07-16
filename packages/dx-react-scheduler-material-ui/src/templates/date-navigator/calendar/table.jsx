@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-export const TableBase = ({
+const TableBase = ({
   rowComponent: Row,
   cellComponent: Cell,
   headerRowComponent: HeaderRow,

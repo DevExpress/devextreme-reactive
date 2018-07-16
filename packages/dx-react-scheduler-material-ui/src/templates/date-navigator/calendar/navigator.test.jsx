@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Navigator } from './navigator';
 
-describe('DateNavigator', () => {
+describe('Calendar', () => {
   let classes;
   let shallow;
   const Title = () => null;

@@ -36,7 +36,6 @@ export const Root = ({
 );
 
 Root.propTypes = {
-  currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   titleComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   headerCells: PropTypes.array.isRequired,
@@ -46,6 +45,7 @@ Root.propTypes = {
   headerRowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
+  currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   onCellClick: PropTypes.func,
   onNavigate: PropTypes.func,
 };

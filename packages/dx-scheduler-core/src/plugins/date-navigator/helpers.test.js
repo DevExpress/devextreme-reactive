@@ -1,6 +1,6 @@
-import { viewBoundTitle } from './computeds';
+import { viewBoundTitle } from './helpers';
 
-describe('DateNavigator computends', () => {
+describe('DateNavigator helpers', () => {
   describe('viewBoundTitle', () => {
     it('should caclulate title for single day view', () => {
       const title = viewBoundTitle('2018-07-06 10:00', '2018-07-06 15:00');

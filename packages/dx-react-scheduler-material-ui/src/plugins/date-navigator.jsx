@@ -2,14 +2,15 @@ import * as React from 'react';
 import { DateNavigator as DateNavigatorBase } from '@devexpress/dx-react-scheduler';
 import { Root } from '../templates/date-navigator/root';
 import { Overlay } from '../templates/date-navigator/overlay';
-import { Table } from '../templates/date-navigator/table';
 import { ToggleButton } from '../templates/date-navigator/toggle-button';
-import { Cell } from '../templates/date-navigator/cell';
-import { HeaderCell } from '../templates/date-navigator/header-cell';
-import { Row } from '../templates/date-navigator/row';
-import { Navigator } from '../templates/date-navigator/navigator';
-import { Title } from '../templates/date-navigator/title';
 import { NavigationButton } from '../templates/date-navigator/navigation-button';
+
+import { Root as Calendar } from '../templates/date-navigator/calendar/root';
+import { Cell as CalendarCell } from '../templates/date-navigator/calendar/cell';
+import { HeaderCell as CalendarHeaderCell } from '../templates/date-navigator/calendar/header-cell';
+import { Row as CalendarRow } from '../templates/date-navigator/calendar/row';
+import { Navigator as CalendarNavigator } from '../templates/date-navigator/calendar/navigator';
+import { Title as CalendarTitle } from '../templates/date-navigator/calendar/title';
 
 export class DateNavigator extends React.PureComponent {
   render() {
@@ -17,15 +18,16 @@ export class DateNavigator extends React.PureComponent {
       <DateNavigatorBase
         rootComponent={Root}
         overlayComponent={Overlay}
-        tableComponent={Table}
         toggleButtonComponent={ToggleButton}
-        cellComponent={Cell}
-        rowComponent={Row}
-        headerRowComponent={Row}
-        headerCellComponent={HeaderCell}
-        navigatorComponent={Navigator}
-        titleComponent={Title}
         navigationButtonComponent={NavigationButton}
+        calendarComponent={Calendar}
+        calendarNavigatorComponent={CalendarNavigator}
+        calendarCellComponent={CalendarCell}
+        calendarRowComponent={CalendarRow}
+        calendarHeaderRowComponent={CalendarRow}
+        calendarHeaderCellComponent={CalendarHeaderCell}
+        calendarTitleComponent={CalendarTitle}
+        calendarNavigationButtonComponent={NavigationButton}
         {...this.props}
       />
     );
@@ -33,13 +35,15 @@ export class DateNavigator extends React.PureComponent {
 }
 
 DateNavigator.Root = Root;
-DateNavigator.Table = Table;
 DateNavigator.ToggleButton = ToggleButton;
-DateNavigator.Cell = Cell;
-DateNavigator.Row = Row;
-DateNavigator.HeaderCell = HeaderCell;
-DateNavigator.HeaderRow = Row;
 DateNavigator.Overlay = Overlay;
-DateNavigator.Navigator = Navigator;
-DateNavigator.Title = Title;
 DateNavigator.NavigationButton = NavigationButton;
+
+DateNavigator.Calendar = Calendar;
+DateNavigator.CalendarNavigator = CalendarNavigator;
+DateNavigator.CalendarCell = CalendarCell;
+DateNavigator.CalendarRow = CalendarRow;
+DateNavigator.CalendarHeaderCell = CalendarHeaderCell;
+DateNavigator.CalendarHeaderRow = CalendarRow;
+DateNavigator.CalendarTitle = CalendarTitle;
+DateNavigator.CalendarNavigationButton = NavigationButton;

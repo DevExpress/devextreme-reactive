@@ -21,9 +21,7 @@ const NavigatorBase = ({
   ...restProps
 }) => (
   <Toolbar
-    className={classNames({
-      [classes.navigator]: true,
-    }, className)}
+    className={classNames(classes.navigator, className)}
     {...restProps}
   >
     <NavigationButton

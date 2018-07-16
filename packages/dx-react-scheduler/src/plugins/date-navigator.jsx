@@ -51,15 +51,17 @@ export class DateNavigator extends React.PureComponent {
     const {
       rootComponent: Root,
       overlayComponent: Overlay,
-      tableComponent: Table,
-      rowComponent: Row,
-      cellComponent: Cell,
-      headerRowComponent: HeaderRow,
-      headerCellComponent: HeaderCell,
       toggleButtonComponent: ToggleButton,
-      navigatorComponent: Navigator,
-      titleComponent: Title,
       navigationButtonComponent: NavigationButton,
+
+      calendarComponent: Calendar,
+      calendarRowComponent: CalendarRow,
+      calendarCellComponent: CalendarCell,
+      calendarHeaderRowComponent: CalendarHeaderRow,
+      calendarHeaderCellComponent: CalendarHeaderCell,
+      calendarTitleComponent: CalendarTitle,
+      calendarNavigationButtonComponent: CalendarNavigationButton,
+      calendarNavigatorComponent: CalendarNavigator,
     } = this.props;
 
     const { visible } = this.state;
@@ -99,20 +101,19 @@ export class DateNavigator extends React.PureComponent {
                     target={this.button}
                     onHide={this.handleHide}
                   >
-                    <Navigator
+                    <Calendar
                       currentDate={currentDate}
-                      titleComponent={Title}
-                      navigationButtonComponent={NavigationButton}
-                      onNavigate={navigateAction}
-                    />
-                    <Table
-                      headerCells={weekDays}
                       cells={monthCells}
-                      rowComponent={Row}
-                      cellComponent={Cell}
-                      headerRowComponent={HeaderRow}
-                      headerCellComponent={HeaderCell}
+                      headerCells={weekDays}
+                      titleComponent={CalendarTitle}
+                      navigationButtonComponent={CalendarNavigationButton}
+                      rowComponent={CalendarRow}
+                      cellComponent={CalendarCell}
+                      headerRowComponent={CalendarHeaderRow}
+                      headerCellComponent={CalendarHeaderCell}
+                      navigatorComponent={CalendarNavigator}
                       onCellClick={navigateAction}
+                      onNavigate={navigateAction}
                     />
                   </Overlay>
                 </React.Fragment>
@@ -128,13 +129,14 @@ export class DateNavigator extends React.PureComponent {
 DateNavigator.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
-  tableComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  headerRowComponent: PropTypes.func.isRequired,
-  headerCellComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
-  navigatorComponent: PropTypes.func.isRequired,
-  titleComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
+  calendarComponent: PropTypes.func.isRequired,
+  calendarRowComponent: PropTypes.func.isRequired,
+  calendarCellComponent: PropTypes.func.isRequired,
+  calendarHeaderRowComponent: PropTypes.func.isRequired,
+  calendarHeaderCellComponent: PropTypes.func.isRequired,
+  calendarTitleComponent: PropTypes.func.isRequired,
+  calendarNavigationButtonComponent: PropTypes.func.isRequired,
+  calendarNavigatorComponent: PropTypes.func.isRequired,
 };

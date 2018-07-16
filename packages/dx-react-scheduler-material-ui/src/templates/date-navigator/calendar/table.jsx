@@ -47,11 +47,11 @@ export const TableBase = ({
     <TableBody>
       {cells.map(row => (
         <Row
-          key={`date_navigator_row_${row[0].value.toString()}`}
+          key={`calendar_row_${row[0].value.toString()}`}
         >
           {row.map(({ value, isOtherMonth, isCurrent }) => (
             <Cell
-              key={`date_navigator_cell_${value.toString()}`}
+              key={`calendar_cell_${value.toString()}`}
               otherMonth={isOtherMonth}
               current={isCurrent}
               onClick={() => {

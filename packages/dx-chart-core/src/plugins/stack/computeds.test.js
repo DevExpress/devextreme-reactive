@@ -1,18 +1,9 @@
-import {
-  stack,
-  stackOrderNone,
-  stackOffsetNone,
-} from 'd3-shape';
+import { stack } from 'd3-shape';
 import { seriesWithStacks, processData, stacks } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
-  stackOrderNone: jest.fn(),
-  stackOffsetNone: jest.fn(),
 }));
-
-const mockStackOrderNone = jest.fn();
-const mockStackOffsetNone = jest.fn();
 
 const mockStack = jest.fn().mockReturnThis();
 mockStack.keys = jest.fn().mockReturnThis();
@@ -25,7 +16,7 @@ mockStack.offset = jest.fn(() => jest.fn(() => [
 
 describe('stacks', () => {
   it('should return stacks', () => {
-    const series = [{ name: '1', stack: 'one' }, { name: '2', stack: 'two' }];
+    const series = [{ name: '1', stack: 'one' }, { name: '2', stack: null }, { name: '3', stack: 'two' }, { name: '4', stack: 'one' }];
     expect(stacks(series)).toEqual(['one', 'two']);
   });
 });
@@ -46,8 +37,6 @@ describe('series with stacks', () => {
 describe('processData', () => {
   beforeAll(() => {
     stack.mockImplementation(() => mockStack);
-    stackOrderNone.mockImplementation(() => mockStackOrderNone);
-    stackOffsetNone.mockImplementation(() => mockStackOffsetNone);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -67,12 +56,15 @@ describe('processData', () => {
     ];
     const data = [{ arg: 1, val: 11 }, { arg: 2, val: 22 }, { arg: 3, val: 33 }];
 
-    const processedData = processData(series, data);
+    const order = jest.fn();
+    const offset = jest.fn();
+
+    const processedData = processData(offset, order)(series, data);
 
     expect(stack).toHaveBeenCalledTimes(2);
     expect(mockStack.keys).toHaveBeenCalledWith(['val', 'val']);
-    expect(mockStack.order).toHaveBeenCalledWith(stackOrderNone);
-    expect(mockStack.offset).toHaveBeenCalledWith(stackOffsetNone);
+    expect(mockStack.order).toHaveBeenCalledWith(order);
+    expect(mockStack.offset).toHaveBeenCalledWith(offset);
 
     expect(processedData).toEqual([{
       arg: 1,

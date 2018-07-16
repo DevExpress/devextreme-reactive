@@ -7,7 +7,7 @@ import {
   BarSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { SeriesFamily } from '@devexpress/dx-react-chart';
+import { Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
@@ -51,7 +51,7 @@ export default class Demo extends React.PureComponent {
             axisName="age"
             name="Older"
           />
-          <SeriesFamily />
+          <Stack />
         </Chart>
       </<%&wrapperTag%>>
     );

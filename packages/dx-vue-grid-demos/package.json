@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@devexpress/dx-vue-demos",
+  "name": "@devexpress/dx-vue-grid-demos",
   "version": "1.4.0",
   "description": "DevExtreme Vue Components Demos",
   "author": {

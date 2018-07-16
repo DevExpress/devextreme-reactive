@@ -47,4 +47,50 @@ describe('Template', () => {
 
     expect(tree.find('h1').text()).toBe('new');
   });
+
+  it('should be rerendered when added', () => {
+    const Test = ({ showSecond }) => (
+      <PluginHost>
+        <Template name="root">
+          <h1>first</h1>
+        </Template>
+        {showSecond && (
+          <Template name="root">
+            <h1>second</h1>
+          </Template>
+        )}
+      </PluginHost>
+    );
+    Test.propTypes = {
+      showSecond: PropTypes.bool.isRequired,
+    };
+
+    const tree = mount(<Test showSecond={false} />);
+    tree.setProps({ showSecond: true });
+
+    expect(tree.find('h1').text()).toBe('second');
+  });
+
+  it('should be rerendered when removed', () => {
+    const Test = ({ showSecond }) => (
+      <PluginHost>
+        <Template name="root">
+          <h1>first</h1>
+        </Template>
+        {showSecond && (
+          <Template name="root">
+            <h1>second</h1>
+          </Template>
+        )}
+      </PluginHost>
+    );
+    Test.propTypes = {
+      showSecond: PropTypes.bool.isRequired,
+    };
+
+    const tree = mount(<Test showSecond />);
+    tree.setProps({ showSecond: false });
+
+    expect(tree.find('h1').text()).toBe('first');
+  });
 });

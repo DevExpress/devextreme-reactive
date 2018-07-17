@@ -3,15 +3,6 @@ import * as PropTypes from 'prop-types';
 import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
 
-const appointmentsComputed = ({
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-}) => appointments(
-  data,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-);
 export class SchedulerCore extends React.PureComponent {
   render() {
     const {
@@ -22,11 +13,20 @@ export class SchedulerCore extends React.PureComponent {
       getStartDate,
       getEndDate,
     } = this.props;
+
+    const appointmentsComputed = ({
+      getAppointmentStartDate,
+      getAppointmentEndDate,
+    }) => appointments(
+      data,
+      getAppointmentStartDate,
+      getAppointmentEndDate,
+    );
+
     return (
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="data" value={data} />
         <Getter name="currentDate" value={currentDate} />
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />

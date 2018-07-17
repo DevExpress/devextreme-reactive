@@ -203,7 +203,7 @@ describe('Week View', () => {
   });
 
   describe('Templates', () => {
-    it('Should render view layout', () => {
+    it('should render view layout', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -218,7 +218,7 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('Should render day panel', () => {
+    it('should render day panel', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -233,7 +233,7 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('Should render time panel', () => {
+    it('should render time panel', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -248,7 +248,7 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('Should render date table', () => {
+    it('should render date table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

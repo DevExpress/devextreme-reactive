@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 import { Row } from './row';
 
 describe('DateTable', () => {
-  beforeAll(() => {
-  });
   describe('Row', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((

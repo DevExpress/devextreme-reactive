@@ -67,9 +67,9 @@ export class MonthView extends React.PureComponent {
     const dayScaleComputed = ({ currentDate }) =>
       dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
     const startViewDateComputed = ({ monthCells }) =>
-      monthCells[0][0].value;
+      new Date(monthCells[0][0].value);
     const endViewDateComputed = ({ monthCells }) =>
-      new Date(monthCells[5][6].value.setDate(monthCells[5][6].value.getDate() + 1));
+      new Date(new Date(monthCells[5][6].value).setDate(monthCells[5][6].value.getDate() + 1));
 
     return (
       <Plugin

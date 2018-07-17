@@ -9,9 +9,9 @@ export const viewBoundTitle = (startViewDate, endViewDate, step) => {
       if (moment(startViewDate).isSame(endViewDate, 'month')) {
         return `${moment(startViewDate).date()}-${moment(endViewDate).format('D MMMM YYYY')}`;
       }
-      return `${moment(startViewDate).format('D MMM')}-${moment(endViewDate).format('D MMM YYYY')}`;
+      return `${moment(startViewDate).format('D MMM')} - ${moment(endViewDate).format('D MMM YYYY')}`;
     }
-    return `${moment(startViewDate).format('D MMM YY')}-${moment(endViewDate).format('D MMM YY')}`;
+    return `${moment(startViewDate).format('D MMM YY')} - ${moment(endViewDate).format('D MMM YY')}`;
   }
   if (moment(startViewDate).isSame(endViewDate, 'year')) {
     if (moment(startViewDate).isSame(endViewDate, 'month')) {
@@ -19,5 +19,5 @@ export const viewBoundTitle = (startViewDate, endViewDate, step) => {
     }
     return `${moment(startViewDate).format('MMM')}-${moment(endViewDate).format('MMM YYYY')}`;
   }
-  return `${moment(startViewDate).format('MMM YY')}-${moment(endViewDate).format('MMM YY')}`;
+  return `${moment(startViewDate).format('MMM YY')} - ${moment(endViewDate).format('MMM YY')}`;
 };

@@ -15,12 +15,12 @@ describe('DateNavigator helpers', () => {
     it('should caclulate title for multi days view and different months', () => {
       const title = viewBoundTitle('2018-07-28', '2018-08-02');
       expect(title)
-        .toBe('28 Jul-2 Aug 2018');
+        .toBe('28 Jul - 2 Aug 2018');
     });
     it('should caclulate title for multi days view and different years', () => {
       const title = viewBoundTitle('2018-12-30', '2019-01-02');
       expect(title)
-        .toBe('30 Dec 18-2 Jan 19');
+        .toBe('30 Dec 18 - 2 Jan 19');
     });
     it('should caclulate title for single month view', () => {
       const title = viewBoundTitle('2018-07-16', '2018-07-16', 'month');
@@ -35,7 +35,7 @@ describe('DateNavigator helpers', () => {
     it('should caclulate title for multi months view and different years', () => {
       const title = viewBoundTitle('2018-12-29', '2019-01-02', 'month');
       expect(title)
-        .toBe('Dec 18-Jan 19');
+        .toBe('Dec 18 - Jan 19');
     });
   });
 });

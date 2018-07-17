@@ -37,6 +37,7 @@ describe('Week view helpers', () => {
       { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
       { start: moment('2018-07-02 12:00'), end: moment('2018-07-02 15:00') },
       { start: moment('2018-07-02 12:00'), end: moment('2018-07-03 09:30') },
+      { start: moment('2018-07-01 12:00'), end: moment('2018-07-02 00:00') },
     ];
     const sortedAppointments = [
       appointments[2], appointments[4], appointments[3],
@@ -60,6 +61,18 @@ describe('Week view helpers', () => {
         ];
         const overlappedAppointmentsForDay = [
           [{ ...appointments[0] }, { ...appointments[7] }],
+        ];
+        expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
+          .toEqual(overlappedAppointmentsForDay);
+      });
+
+      it('should detect if appointment end is 12:00 am in day mode', () => {
+        const sortedAppointmentsForDay = [
+          appointments[9], appointments[0],
+        ];
+        const overlappedAppointmentsForDay = [
+          [{ ...appointments[9] }],
+          [{ ...appointments[0] }],
         ];
         expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
           .toEqual(overlappedAppointmentsForDay);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { monthCells, dayScale, viewBoundTitle } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
@@ -67,34 +67,6 @@ describe('DateNavigator', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide the "monthCells" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <DateNavigator
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).monthCells)
-      .toEqual([[{ value: '2018-04-07' }]]);
-  });
-
-  it('should provide the "weekDays" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <DateNavigator
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).weekDays)
-      .toEqual(['Mon', 'Tue', 'Wed']);
-  });
-
   it('should render overlay', () => {
     const tree = mount((
       <PluginHost>
@@ -150,6 +122,7 @@ describe('DateNavigator', () => {
     )).find(CalendarComponent);
     const {
       currentDate,
+      firstDayOfWeek,
       titleComponent,
       navigationButtonComponent,
       rowComponent,
@@ -157,15 +130,14 @@ describe('DateNavigator', () => {
       headerRowComponent,
       headerCellComponent,
       navigatorComponent,
-      onCellClick,
       onNavigate,
     } = calendar.props();
 
-    onCellClick();
     onNavigate();
 
     expect(calendar.exists()).toBeTruthy();
     expect(currentDate).toBe('2018-07-05');
+    expect(firstDayOfWeek).toBe(1);
     expect(titleComponent).toBe(CalendarTitleComponent);
     expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
     expect(rowComponent).toBe(CalendarRow);
@@ -173,22 +145,22 @@ describe('DateNavigator', () => {
     expect(headerRowComponent).toBe(CalendarHeaderRow);
     expect(headerCellComponent).toBe(CalendarHeaderCell);
     expect(navigatorComponent).toBe(CalendarNavigatorComponent);
-    expect(defaultDeps.action.setCurrentDate).toHaveBeenCalledTimes(2);
+    expect(defaultDeps.action.setCurrentDate).toHaveBeenCalled();
   });
 
-  it('should calculate calendar cells via the "monthCells" computed', () => {
-    mount((
+  it('should calculate calendar cells via the "monthCells" and "dayScale" computeds', () => {
+    const { getCells, getHeaderCells } = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <DateNavigator
           {...defaultProps}
         />
       </PluginHost>
-    ));
+    )).find(CalendarComponent).props();
 
-    expect(monthCells)
-      .toHaveBeenCalledTimes(1);
-    expect(monthCells)
-      .toHaveBeenCalledWith(defaultDeps.getter.currentDate, defaultDeps.getter.firstDayOfWeek);
+    expect(getCells())
+      .toEqual([[{ value: '2018-04-07' }]]);
+    expect(getHeaderCells())
+      .toEqual(['Mon', 'Tue', 'Wed']);
   });
 });

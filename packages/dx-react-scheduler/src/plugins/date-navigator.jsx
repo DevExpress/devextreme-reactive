@@ -2,13 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Plugin,
-  Getter,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  monthCells as monthCellsCore,
+  monthCells,
   viewBoundTitle,
   dayScale,
 } from '@devexpress/dx-scheduler-core';
@@ -17,12 +16,6 @@ const pluginDependencies = [
   { name: 'Toolbar' },
   { name: 'ViewState' },
 ];
-
-const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
-  monthCellsCore(currentDate, firstDayOfWeek);
-
-const weekDaysComputed = ({ currentDate, firstDayOfWeek }) =>
-  dayScale(currentDate, firstDayOfWeek);
 
 const navigate = action => payload => action({ ...payload, step: 7 });
 
@@ -69,17 +62,14 @@ export class DateNavigator extends React.PureComponent {
         name="DateNavigator"
         dependencies={pluginDependencies}
       >
-        <Getter name="monthCells" computed={monthCellsComputed} />
-        <Getter name="weekDays" computed={weekDaysComputed} />
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                monthCells,
-                weekDays,
                 currentDate,
                 startViewDate,
                 endViewDate,
+                firstDayOfWeek,
               }, {
                 setCurrentDate,
               }) => {
@@ -102,8 +92,9 @@ export class DateNavigator extends React.PureComponent {
                   >
                     <Calendar
                       currentDate={currentDate}
-                      cells={monthCells}
-                      headerCells={weekDays}
+                      firstDayOfWeek={firstDayOfWeek}
+                      getCells={monthCells}
+                      getHeaderCells={dayScale}
                       titleComponent={CalendarTitle}
                       navigationButtonComponent={CalendarNavigationButton}
                       rowComponent={CalendarRow}
@@ -111,7 +102,6 @@ export class DateNavigator extends React.PureComponent {
                       headerRowComponent={CalendarHeaderRow}
                       headerCellComponent={CalendarHeaderCell}
                       navigatorComponent={CalendarNavigator}
-                      onCellClick={navigateAction}
                       onNavigate={navigateAction}
                     />
                   </Overlay>

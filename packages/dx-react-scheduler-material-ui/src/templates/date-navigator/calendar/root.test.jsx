@@ -11,8 +11,8 @@ describe('Calendar', () => {
     headerRowComponent: () => null,
     headerCellComponent: () => null,
     navigatorComponent: () => null,
-    headerCells: [],
-    cells: [],
+    getHeaderCells: () => [],
+    getCells: () => [],
   };
 
   describe('Root', () => {
@@ -35,12 +35,10 @@ describe('Calendar', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render navigator', () => {
-      const onNavigateMock = jest.fn();
       const navigator = mount((
         <Root
           {...defaultProps}
           currentDate="2018-07-16"
-          onNavigate={onNavigateMock}
         />
       )).find(defaultProps.navigatorComponent);
 
@@ -48,16 +46,29 @@ describe('Calendar', () => {
         currentDate,
         titleComponent,
         navigationButtonComponent,
-        onNavigate,
       } = navigator.props();
-
-      onNavigate();
 
       expect(navigator.exists()).toBeTruthy();
       expect(currentDate).toBe('2018-07-16');
       expect(titleComponent).toBe(defaultProps.titleComponent);
       expect(navigationButtonComponent).toBe(defaultProps.navigationButtonComponent);
-      expect(onNavigateMock).toBeCalled();
+    });
+    it('should navigate to the prev and next month', () => {
+      const tree = mount((
+        <Root
+          {...defaultProps}
+          currentDate="2018-07-16"
+        />
+      ));
+      const { onNavigate } = tree.find(defaultProps.navigatorComponent).props();
+
+      onNavigate({ back: true });
+      expect(tree.state().currentDate.toString())
+        .toBe(new Date(2018, 5, 16).toString());
+
+      onNavigate({ back: false });
+      expect(tree.state().currentDate.toString())
+        .toBe(new Date(2018, 6, 16).toString());
     });
   });
 });

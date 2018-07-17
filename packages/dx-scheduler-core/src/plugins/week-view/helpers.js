@@ -159,7 +159,7 @@ export const findOverlappedAppointments = (sortedAppointments, byDay = false) =>
     currentGroup.push(current);
     totalIndex += 1;
     while (next && (maxBoundary.isAfter(next.start)
-      || (byDay && (maxBoundary.diff(next.start, 'days') > 0 || maxBoundary.isSame(next.start, 'day'))))) { // !!!!!!!!!!
+      || (byDay && maxBoundary.isSameOrAfter(next.start, 'day')))) {
       currentGroup.push(next);
       if (maxBoundary.isBefore(next.end)) maxBoundary = next.end;
       totalIndex += 1;

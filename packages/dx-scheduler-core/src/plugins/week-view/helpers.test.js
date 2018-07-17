@@ -36,6 +36,7 @@ describe('Week view helpers', () => {
       { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
       { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
       { start: moment('2018-07-02 12:00'), end: moment('2018-07-02 15:00') },
+      { start: moment('2018-07-02 12:00'), end: moment('2018-07-03 09:30') },
     ];
     const sortedAppointments = [
       appointments[2], appointments[4], appointments[3],
@@ -51,6 +52,17 @@ describe('Week view helpers', () => {
       it('should detect overlapped appointments', () => {
         expect(findOverlappedAppointments(sortedAppointments))
           .toEqual(overlappedAppointments);
+      });
+
+      it('should detect overlapped appointments by day mode', () => {
+        const sortedAppointmentsForDay = [
+          appointments[0], appointments[7],
+        ];
+        const overlappedAppointmentsForDay = [
+          [{ ...appointments[0] }, { ...appointments[7] }],
+        ];
+        expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
+          .toEqual(overlappedAppointmentsForDay);
       });
     });
 
@@ -95,6 +107,22 @@ describe('Week view helpers', () => {
                 { ...appointments[7], offset: 0 },
               ],
               reduceValue: 1,
+            },
+          ]);
+      });
+
+      it('should calculate appointment offset by day mode', () => {
+        const groups = [
+          [{ ...appointments[8] }, { ...appointments[6] }],
+        ];
+        expect(adjustAppointments(groups, true))
+          .toEqual([
+            {
+              items: [
+                { ...appointments[8], offset: 0 },
+                { ...appointments[6], offset: 1 },
+              ],
+              reduceValue: 2,
             },
           ]);
       });

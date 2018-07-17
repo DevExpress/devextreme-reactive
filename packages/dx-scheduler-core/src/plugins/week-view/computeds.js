@@ -16,7 +16,7 @@ import {
 } from '../../utils';
 
 const toPercentage = (value, total) => (value * 100) / total;
-const substractSecond = date => moment(date).subtract(1, 'second').toDate();
+const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
 const calculateViewBound = (dateBound, timeBound) => {
   const time = moment(timeBound);
@@ -108,7 +108,7 @@ export const timeScale = (
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = substractSecond(result[result.length - 1].end);
+  result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
   return result;
 };
 
@@ -135,5 +135,5 @@ export const startViewDate = (days, times) =>
 
 export const endViewDate = (days, times) => {
   const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
-  return substractSecond(bound);
+  return subtractSecond(bound);
 };

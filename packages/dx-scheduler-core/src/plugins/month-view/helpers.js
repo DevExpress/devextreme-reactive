@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const CELL_GAP = 0.32;
-const CELL_BOUND_OFFSET = 0.01;
+const CELL_BOUND_OFFSET_PX = 2;
 
 export const sliceAppointmentsByWeek2 = (
   appointments,
@@ -162,12 +162,11 @@ export const getRectByDates = (
 
   const top = firstCellRect.top + (firstCellRect.height * CELL_GAP);
   const height = firstCellRect.height - (firstCellRect.height * CELL_GAP);
-  const boundaryOffset = firstCellRect.width * CELL_BOUND_OFFSET;
 
   return {
     top: top - firstCellRect.parentRect.top,
-    left: (firstCellRect.left - firstCellRect.parentRect.left) + boundaryOffset,
-    width: ((lastCellRect.left - firstCellRect.left) + firstCellRect.width) - (2 * boundaryOffset),
+    left: (firstCellRect.left - firstCellRect.parentRect.left) + CELL_BOUND_OFFSET_PX,
+    width: ((lastCellRect.left - firstCellRect.left) + firstCellRect.width) - CELL_BOUND_OFFSET_PX,
     height,
     parentWidth: firstCellRect.parentRect.width,
   };

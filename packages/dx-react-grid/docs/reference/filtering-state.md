@@ -35,8 +35,12 @@ Describes a filter.
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of a column whose value is used for filtering.
-operation? | string | Specifies the operation name. By default, the 'contains' operation is set.
+operation? | [FilterOperation](#filteroperation) | Specifies the operation name. The value is 'contains' if the operation name is not set.
 value? | string | Specifies the filter value.
+
+### FilterOperation
+
+A string value that contains the operation name by which rows are filtered. There are several preconfigured operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual`. The operation name can contain any custom operation.
 
 ### FilteringState.ColumnExtension
 

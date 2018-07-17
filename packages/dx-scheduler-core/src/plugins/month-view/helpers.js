@@ -167,7 +167,7 @@ export const getRectByDates = (
   return {
     top: top - firstCellRect.parentRect.top,
     left: (firstCellRect.left - firstCellRect.parentRect.left) + boundaryOffset,
-    width: ((lastCellRect.left - firstCellRect.left) + lastCellRect.width) - (2 * boundaryOffset),
+    width: ((lastCellRect.left - firstCellRect.left) + firstCellRect.width) - (2 * boundaryOffset),
     height,
     parentWidth: firstCellRect.parentRect.width,
   };

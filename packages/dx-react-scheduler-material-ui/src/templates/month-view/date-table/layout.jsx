@@ -7,17 +7,15 @@ export const Layout = ({
   cellComponent: Cell,
   rowComponent: Row,
   ...restProps
-}) => {
-  return (
-    <Table {...restProps}>
-      {monthCells.map(row => (
-        <Row key={`date_navigator_row_${row[0].value.toString()}`}>
-          {row.map(date => <Cell key={date.value} date={date} />)}
-        </Row>
-      ))}
-    </Table>
-  );
-}
+}) => (
+  <Table {...restProps}>
+    {monthCells.map(row => (
+      <Row key={`date_navigator_row_${row[0].value.toString()}`}>
+        {row.map(date => <Cell key={date.value} date={date} />)}
+      </Row>
+    ))}
+  </Table>
+);
 
 Layout.propTypes = {
   monthCells: PropTypes.array.isRequired,

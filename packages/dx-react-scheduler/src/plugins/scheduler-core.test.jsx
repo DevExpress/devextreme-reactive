@@ -7,7 +7,6 @@ import { SchedulerCore } from './scheduler-core';
 
 const defaultProps = {
   data: [1, 2, 3],
-  currentDate: '2018-07-04',
   rootComponent: () => null,
   getTitle: () => 'a',
   getEndDate: () => '2018-07-05',
@@ -26,20 +25,6 @@ describe('Scheduler Core', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should provide the "currentDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).currentDate)
-      .toBe(defaultProps.currentDate);
   });
 
   it('should provide the "getAppointmentTitle" getter', () => {

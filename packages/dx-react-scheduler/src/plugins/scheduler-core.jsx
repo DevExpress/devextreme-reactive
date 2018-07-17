@@ -7,7 +7,6 @@ export class SchedulerCore extends React.PureComponent {
   render() {
     const {
       data,
-      currentDate,
       rootComponent: Root,
       getTitle,
       getStartDate,
@@ -27,7 +26,6 @@ export class SchedulerCore extends React.PureComponent {
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="currentDate" value={currentDate} />
         <Getter name="getAppointmentTitle" value={getTitle} />
         <Getter name="getAppointmentStartDate" value={getStartDate} />
         <Getter name="getAppointmentEndDate" value={getEndDate} />
@@ -45,10 +43,6 @@ export class SchedulerCore extends React.PureComponent {
 }
 
 SchedulerCore.propTypes = {
-  currentDate: PropTypes.oneOfType([
-    PropTypes.instanceOf(Date),
-    PropTypes.string,
-  ]).isRequired,
   rootComponent: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
   getTitle: PropTypes.func.isRequired,

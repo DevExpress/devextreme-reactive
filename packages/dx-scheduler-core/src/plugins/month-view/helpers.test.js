@@ -152,7 +152,7 @@ describe('MonthView Helpers', () => {
         );
 
         expect(top).toBe(132);
-        expect(left).toBe(11);
+        expect(left).toBe(12);
         expect(height).toBe(68);
         expect(width).toBe(98);
         expect(parentWidth).toBe(250);
@@ -170,7 +170,7 @@ describe('MonthView Helpers', () => {
         );
 
         expect(top).toBe(132);
-        expect(left).toBe(11);
+        expect(left).toBe(12);
         expect(height).toBe(68);
         expect(width).toBe(398);
         expect(parentWidth).toBe(250);

@@ -7,7 +7,7 @@ import {
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { appointments } from '../../../demo-data/appointments';
+import { appointments } from '../../../demo-data/month-appointments';
 
 const Navigation = ({ currentDate, goNext }) => (
   <div>
@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentDate: new Date(),
+      currentDate: new Date('2018-07-17'),
     };
   }
   render() {

@@ -44,11 +44,11 @@ value? | string | Specifies the filter value.
 
 ### FilterOperation
 
+Describes a filter operation name. Can be one of the built-in operations or a custom one.
+
 Type: `string`
 
-Describes a filter operation name.
-
-A string value that contains the operation name by which rows are filtered. There are several preconfigured operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual`. The operation name can contain any custom operation.
+Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual`
 
 ### DxFilteringState.ColumnExtension
 

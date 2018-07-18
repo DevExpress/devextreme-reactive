@@ -14,7 +14,6 @@ import { Cell as DayPanelCell } from '../templates/day-panel/cell';
 import { Layout as DateTableLayout } from '../templates/date-table/layout';
 import { Row as DateTableRow } from '../templates/date-table/row';
 import { Cell as DateTableCell } from '../templates/date-table/cell';
-import { Table as DateTableTable } from '../templates/date-table/table';
 
 export class WeekView extends React.PureComponent {
   render() {
@@ -31,7 +30,6 @@ export class WeekView extends React.PureComponent {
         dayPanelCellComponent={DayPanelCell}
 
         dateTableLayoutComponent={DateTableLayout}
-        dateTableTableComponent={DateTableTable}
         dateTableRowComponent={DateTableRow}
         dateTableCellComponent={DateTableCell}
         {...this.props}
@@ -53,4 +51,3 @@ WeekView.DayPanelRow = TimePanelRow;
 WeekView.DateTableLayout = DateTableLayout;
 WeekView.DateTableRow = DateTableRow;
 WeekView.DateTableCell = DateTableCell;
-WeekView.DateTableTable = DateTableTable;

@@ -10,7 +10,7 @@ const createExcludedInterval = (day, start) => {
 
 const excludedIntervals = (excludedDays, start) => excludedDays
   .map(day => (day === 0 ? 7 : day))
-  .sort()
+  .sort((a, b) => a - b)
   .reduce((acc, day, i, allDays) => {
     if (i && day === allDays[i - 1] + 1) {
       acc[i - 1][1].day(day);

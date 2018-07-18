@@ -51,23 +51,23 @@ const calculateRectsByDateIntervals = (
   const grouped = findOverlappedAppointments(sorted);
 
   return unwrapGroups(adjustAppointments(grouped))
-    .map((appointmentt) => {
+    .map((appointment) => {
       const {
         top, left,
         width, height,
         parentWidth,
       } = getRectByDates(
-        appointmentt.start, appointmentt.end,
+        appointment.start, appointment.end,
         dayScale, timeScale,
         cellDuration, cellElements,
       );
-      const widthInPx = width / appointmentt.reduceValue;
+      const widthInPx = width / appointment.reduceValue;
       return {
         top,
         height,
-        left: toPercentage(left + (widthInPx * appointmentt.offset), parentWidth),
+        left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
-        dataItem: appointmentt.dataItem,
+        dataItem: appointment.dataItem,
       };
     });
 };

@@ -87,8 +87,8 @@ export class VirtualTableLayout extends React.PureComponent {
     // NOTE: prevent iOS to flicker in bounces
     if (node.scrollTop < 0 ||
       node.scrollLeft < 0 ||
-      node.scrollLeft + node.clientWidth > node.scrollWidth ||
-      node.scrollTop + node.clientHeight > node.scrollHeight) {
+      node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth) ||
+      node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
       return;
     }
 

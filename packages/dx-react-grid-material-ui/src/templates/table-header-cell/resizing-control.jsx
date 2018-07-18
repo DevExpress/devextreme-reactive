@@ -19,7 +19,7 @@ const styles = theme => ({
   },
   resizeHandleLine: {
     position: 'absolute',
-    backgroundColor: theme.palette.primary[300],
+    backgroundColor: theme.palette.primary.light,
     height: '50%',
     width: '1px',
     top: '25%',
@@ -37,7 +37,7 @@ const styles = theme => ({
   resizeHandleActive: {
     '& $resizeHandleLine': {
       opacity: '1',
-      backgroundColor: theme.palette.primary[300],
+      backgroundColor: theme.palette.primary.light,
       height: 'calc(100% - 4px)',
       top: '2px',
     },

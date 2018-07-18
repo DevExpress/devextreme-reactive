@@ -101,6 +101,7 @@ describe('VirtualTableLayout', () => {
       <VirtualTableLayout
         {...defaultProps}
         headerRows={defaultProps.bodyRows.slice(0, 1)}
+        footerRows={defaultProps.bodyRows.slice(0, 1)}
       />
     ));
 
@@ -114,23 +115,32 @@ describe('VirtualTableLayout', () => {
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
+          footerRows={defaultProps.bodyRows.slice(0, 1)}
         />
       ));
 
       tree.find('Sizer').dive();
 
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
           top: 0,
           left: 0,
           height: defaultProps.estimatedRowHeight,
           width: 400,
         });
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+        .toMatchObject({
+          top: 0,
+          left: 0,
+          height: defaultProps.height - (defaultProps.estimatedRowHeight * 2),
+          width: 400,
+        });
+
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
         .toMatchObject({
           top: 0,
           left: 0,
-          height: defaultProps.height - defaultProps.estimatedRowHeight,
+          height: defaultProps.estimatedRowHeight,
           width: 400,
         });
     });
@@ -146,14 +156,19 @@ describe('VirtualTableLayout', () => {
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
 
       tree.find('Sizer').dive();
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
           top: 0,
           left: 50,
         });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
           top: 100,
+          left: 50,
+        });
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
+        .toMatchObject({
+          top: 0,
           left: 50,
         });
     });

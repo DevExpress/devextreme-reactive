@@ -21,16 +21,8 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentView: 'MonthView',
+      currentView: 'Week',
     };
-    this.changeCurrentView = this.changeCurrentView.bind(this);
-  }
-  changeCurrentView() {
-    let nextView = 'MonthView';
-    if (nextView === this.state.currentView) {
-      nextView = 'WeekView';
-    }
-    this.setState({ currentView: nextView });
   }
   render() {
     const { data, currentView } = this.state;
@@ -41,7 +33,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            // currentView={currentView}
+            defaultCurrentView={currentView}
             defaultCurrentDate="2018-07-25"
           />
           <Toolbar />

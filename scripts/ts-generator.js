@@ -119,8 +119,11 @@ const getInterfaceExport = ({
 
 const generateTypeScript = (data, componentName) => {
   const interfaces = data.interfaces.reduce((acc, currentInterface) => {
-    const { name, type } = currentInterface;
-    if (type) return `${acc}export type ${name} = ${type};\n\n`;
+    const { name, type, description } = currentInterface;
+    if (type) {
+      return `${acc}/** ${description} */\n` +
+        `export type ${name} = ${type};\n\n`;
+    }
     if (name.indexOf('.') !== -1) {
       const [namespace, interfaceName] = name.split('.');
       return `${acc}export namespace ${namespace} {\n`

@@ -4,5 +4,6 @@ export * from './plugins/month-view';
 
 export * from './plugins/toolbar';
 export * from './plugins/date-navigator';
+export * from './plugins/view-switcher';
 export * from './plugins/appointments';
 export * from './plugins/view-state';

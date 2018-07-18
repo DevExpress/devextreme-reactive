@@ -66,7 +66,10 @@ export class MonthView extends React.PureComponent {
     } = this.props;
 
     const currentViewComputed = ({ currentView }) => {
-      return (!currentView || viewName === currentView) ? viewName : currentView;
+      if (!currentView || viewName === currentView) {
+        return viewName;
+      }
+      return currentView;
     };
     const dayScaleComputed = ({ currentDate }) =>
       dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
@@ -157,5 +160,5 @@ MonthView.propTypes = {
 MonthView.defaultProps = {
   intervalCount: 1,
   firstDayOfWeek: 0,
-  viewName: 'MonthView',
+  viewName: 'Month',
 };

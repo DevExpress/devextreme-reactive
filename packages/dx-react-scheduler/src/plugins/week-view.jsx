@@ -82,7 +82,11 @@ export class WeekView extends React.PureComponent {
     } = this.props;
 
     const currentViewComputed = ({ currentView }) => {
-      return (!currentView || viewName === currentView) ? viewName : currentView;
+      debugger
+      if (!currentView || viewName === currentView) {
+        return viewName;
+      }
+      return currentView;
     };
     const timeScaleComputed = ({ currentDate }) =>
       timeScaleCore(
@@ -212,5 +216,5 @@ WeekView.defaultProps = {
   intervalCount: 1,
   firstDayOfWeek: 0,
   excludedDays: [],
-  viewName: 'WeekView',
+  viewName: 'Week',
 };

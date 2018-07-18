@@ -9,6 +9,7 @@ import {
   Toolbar,
   DateNavigator,
   Appointments,
+  MonthView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/month-appointments';
@@ -19,25 +20,42 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
+      currentView: 'MonthView',
     };
+    this.changeCurrentView = this.changeCurrentView.bind(this);
+  }
+  changeCurrentView() {
+    let nextView = 'MonthView';
+    if (nextView === this.state.currentView) {
+      nextView = 'WeekView';
+    }
+    this.setState({ currentView: nextView });
   }
   render() {
-    const { data } = this.state;
+    const { data, currentView } = this.state;
 
     return (
       <Paper>
+        <button
+          onClick={this.changeCurrentView}
+        >
+          Change View
+        </button>
         <Scheduler
           data={data}
         >
           <ViewState
+            // currentView={currentView}
             defaultCurrentDate="2018-07-25"
           />
           <Toolbar />
+
           <WeekView
             startDayHour={9}
             endDayHour={19}
             firstDayOfWeek={1}
           />
+          <MonthView />
           <DateNavigator />
           <Appointments />
         </Scheduler>

@@ -17,3 +17,12 @@ export const dayScale = (
   }
   return result;
 };
+
+export const availableViews = (views, viewName) => {
+  if (!views) return [viewName];
+  if (views.findIndex(view => viewName === view) === -1) {
+    const nextViews = views.slice();
+    nextViews.push(viewName);
+    return nextViews;
+  } return views;
+};

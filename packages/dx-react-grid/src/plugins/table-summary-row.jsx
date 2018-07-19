@@ -28,6 +28,7 @@ export class TableSummaryRow extends React.PureComponent {
     const {
       cellComponent: Cell,
       itemComponent: Item,
+      formatlessSummaryTypes,
       messages,
     } = this.props;
 
@@ -38,7 +39,9 @@ export class TableSummaryRow extends React.PureComponent {
         {...params}
       >
         {columnSummaries.map((summary) => {
-          if (summary.value === null || defaultTypelessSummaries.includes(summary.type)) {
+          if (summary.value === null
+            || formatlessSummaryTypes.includes(summary.type)
+            || defaultTypelessSummaries.includes(summary.type)) {
             return (
               <Item
                 key={summary.type}
@@ -135,6 +138,7 @@ export class TableSummaryRow extends React.PureComponent {
 }
 
 TableSummaryRow.propTypes = {
+  formatlessSummaryTypes: PropTypes.array,
   // rowComponent: PropTypes.func.isRequired,
 
   // totalRowComponent: PropTypes.func.isRequired,
@@ -157,5 +161,6 @@ TableSummaryRow.propTypes = {
 };
 
 TableSummaryRow.defaultProps = {
+  formatlessSummaryTypes: [],
   messages: {},
 };

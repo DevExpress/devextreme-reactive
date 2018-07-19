@@ -38,15 +38,12 @@ export class ViewState extends React.PureComponent {
   render() {
     const { currentDate } = this.state;
 
-    debugger
     const currentViewComputed = ({ currentView }) => {
-      debugger
       if (currentView !== this.state.currentView) {
         if (!currentView) return this.state.currentView;
         if (!this.state.currentView) return currentView;
       } return currentView;
     };
-
     return (
       <Plugin
         name="ViewState"

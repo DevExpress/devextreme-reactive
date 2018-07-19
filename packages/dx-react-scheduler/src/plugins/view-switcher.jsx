@@ -13,35 +13,10 @@ const pluginDependencies = [
 ];
 
 export class ViewSwitcher extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      visible: false,
-    };
-
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleHide = this.handleHide.bind(this);
-    this.targetRef = this.targetRef.bind(this);
-  }
-  targetRef(button) {
-    this.button = button;
-  }
-  handleToggle() {
-    this.setState({ visible: !this.state.visible });
-  }
-  handleHide() {
-    this.setState({ visible: false });
-  }
   render() {
     const {
-      overlayComponent: Overlay,
-      toggleButtonComponent: ToggleButton,
-      listComponent: List,
-      itemComponent: Item,
+      switcherComponent: Switcher,
     } = this.props;
-    const { visible } = this.state;
-
     return (
       <Plugin
         name="ViewSwitcher"
@@ -56,29 +31,11 @@ export class ViewSwitcher extends React.PureComponent {
               }, {
                 setCurrentView,
               }) => (
-                <React.Fragment>
-                  <ToggleButton
-                    currentView={currentView}
-                    onClick={this.handleToggle}
-                    targetRef={this.targetRef}
-                  />
-                  <Overlay
-                    open={visible}
-                    target={this.button}
-                    onHide={this.handleHide}
-                  >
-                    <List>
-                      {availableViews.map(item => (
-                        <Item
-                          key={item}
-                          onItemClick={setCurrentView}
-                          onHide={this.handleHide}
-                          viewName={item}
-                        />
-                      ))}
-                    </List>
-                  </Overlay>
-                </React.Fragment>
+                <Switcher
+                  currentView={currentView}
+                  availableViews={availableViews}
+                  onItemClick={setCurrentView}
+                />
               )}
           </TemplateConnector>
         </Template>
@@ -88,8 +45,5 @@ export class ViewSwitcher extends React.PureComponent {
 }
 
 ViewSwitcher.propTypes = {
-  overlayComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
-  listComponent: PropTypes.func.isRequired,
-  itemComponent: PropTypes.func.isRequired,
+  switcherComponent: PropTypes.func.isRequired,
 };

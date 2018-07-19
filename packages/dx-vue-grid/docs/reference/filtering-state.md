@@ -44,7 +44,7 @@ value? | string | Specifies the filter value.
 
 ### FilterOperation
 
-Describes a filter operation name. Can be one of the built-in operations or a custom one.
+Describes a filter operation. Accepts one of the built-in operations or a custom string.
 
 Type: `string`
 

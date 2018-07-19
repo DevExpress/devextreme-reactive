@@ -1,4 +1,4 @@
-const defaultTypes = {
+const defaultSummaryCalculators = {
   count: rows => rows.length,
   sum: (rows, getValue) => rows.reduce((acc, row) => acc + getValue(row), 0),
   max: (rows, getValue) =>
@@ -9,14 +9,18 @@ const defaultTypes = {
     (rows.length ? rows.reduce((acc, row) => acc + getValue(row), 0) / rows.length : null),
 };
 
-const rowsSummary = (rows, summaryItems, getCellValue, types) =>
+export const defaultSummaryCalculator = (type, rows, getValue) => {
+  const summaryCulculator = defaultSummaryCalculators[type];
+  if (!summaryCulculator) {
+    throw new Error(`The summary type '${type}' is not defined`);
+  }
+  return summaryCulculator(rows, getValue);
+};
+
+const rowsSummary = (rows, summaryItems, getCellValue, calculator) =>
   summaryItems.reduce((acc, { type, columnName }) => {
     const getValue = row => getCellValue(row, columnName);
-    const summary = (types && types[type]) || defaultTypes[type];
-    if (!summary) {
-      throw new Error(`The summary type '${type}' is undefined`);
-    }
-    acc.push(summary(rows, getValue));
+    acc.push(calculator(type, rows, getValue));
     return acc;
   }, []);
 
@@ -27,7 +31,7 @@ export const totalSummaryValues = (
   getRowLevelKey,
   isGroupRow,
   getCollapsedRows,
-  types,
+  calculator = defaultSummaryCalculator,
 ) => {
   const plainRows = rows.reduce((acc, row) => {
     if (getRowLevelKey && getRowLevelKey(row)) {
@@ -43,7 +47,7 @@ export const totalSummaryValues = (
     acc.push(row);
     return acc;
   }, []);
-  return rowsSummary(plainRows, summaryItems, getCellValue, types);
+  return rowsSummary(plainRows, summaryItems, getCellValue, calculator);
 };
 
 export const groupSummaryValues = (
@@ -52,7 +56,7 @@ export const groupSummaryValues = (
   getCellValue,
   getRowLevelKey,
   isGroupRow,
-  types,
+  calculator = defaultSummaryCalculator,
 ) => {
   let levels = [];
   const summaries = rows.reduce((acc, row) => {
@@ -62,7 +66,7 @@ export const groupSummaryValues = (
       if (levelIndex > -1) {
         levels.slice(levelIndex).forEach((level) => {
           acc[level.row.compoundKey] =
-            rowsSummary(level.rows, summaryItems, getCellValue, types);
+            rowsSummary(level.rows, summaryItems, getCellValue, calculator);
         });
         levels = levels.slice(0, levelIndex);
       }
@@ -82,7 +86,7 @@ export const groupSummaryValues = (
   }, {});
   levels.forEach((level) => {
     summaries[level.row.compoundKey] =
-      rowsSummary(level.rows, summaryItems, getCellValue, types);
+      rowsSummary(level.rows, summaryItems, getCellValue, calculator);
   });
   return summaries;
 };
@@ -94,7 +98,7 @@ export const treeSummaryValues = (
   getRowLevelKey,
   isGroupRow,
   getRowId,
-  types,
+  calculator = defaultSummaryCalculator,
 ) => {
   let levels = [];
   const summaries = rows.reduce((acc, row) => {
@@ -105,7 +109,7 @@ export const treeSummaryValues = (
         levels.slice(levelIndex).forEach((level) => {
           if (level.rows.length) {
             acc[getRowId(level.row)] =
-              rowsSummary(level.rows, summaryItems, getCellValue, types);
+              rowsSummary(level.rows, summaryItems, getCellValue, calculator);
           }
         });
         levels = levels.slice(0, levelIndex);
@@ -128,7 +132,7 @@ export const treeSummaryValues = (
   levels.forEach((level) => {
     if (level.rows.length) {
       summaries[getRowId(level.row)] =
-        rowsSummary(level.rows, summaryItems, getCellValue, types);
+        rowsSummary(level.rows, summaryItems, getCellValue, calculator);
     }
   });
   return summaries;

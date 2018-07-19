@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
-import { totalSummaryValues, groupSummaryValues, treeSummaryValues } from '@devexpress/dx-grid-core';
+import { defaultSummaryCalculator, totalSummaryValues, groupSummaryValues, treeSummaryValues } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
@@ -9,7 +9,7 @@ const pluginDependencies = [
 
 export class IntegratedSummary extends React.PureComponent {
   render() {
-    const { types } = this.props;
+    const { calculator } = this.props;
 
     const totalSummaryValuesComputed = ({
       rows,
@@ -26,7 +26,7 @@ export class IntegratedSummary extends React.PureComponent {
         getRowLevelKey,
         isGroupRow,
         getCollapsedRows,
-        types,
+        calculator,
       );
 
     const groupSummaryValuesComputed = ({
@@ -42,7 +42,7 @@ export class IntegratedSummary extends React.PureComponent {
         getCellValue,
         getRowLevelKey,
         isGroupRow,
-        types,
+        calculator,
       );
 
     const treeSummaryValuesComputed = ({
@@ -60,7 +60,7 @@ export class IntegratedSummary extends React.PureComponent {
         getRowLevelKey,
         isGroupRow,
         getRowId,
-        types,
+        calculator,
       );
 
     return (
@@ -76,10 +76,12 @@ export class IntegratedSummary extends React.PureComponent {
   }
 }
 
+IntegratedSummary.defaultCalculator = defaultSummaryCalculator;
+
 IntegratedSummary.propTypes = {
-  types: PropTypes.object,
+  calculator: PropTypes.object,
 };
 
 IntegratedSummary.defaultProps = {
-  types: undefined,
+  calculator: undefined,
 };

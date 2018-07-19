@@ -2,6 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   SummaryState,
   CustomSummary,
+  IntegratedSummary,
   SelectionState,
   IntegratedSelection,
   DataTypeProvider,
@@ -64,18 +65,7 @@ export default class Demo extends React.PureComponent {
     const selectedRows = this.state.rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
     return this.state.totalSummaryItems.map((summary) => {
       const { columnName, type } = summary;
-      let value;
-      if (type === 'sum') {
-        value = selectedRows.reduce((acc, row) => acc + row[columnName], 0);
-      }
-      if (type === 'count') {
-        value = selectedRows.length;
-      }
-      if (type === 'max') {
-        if (selectedRows.length === 0) value = null;
-        else value = selectedRows.reduce((acc, row) => Math.max(acc, row[columnName]), -Infinity);
-      }
-      return value;
+      return IntegratedSummary.defaultCalculator(type, selectedRows, row => row[columnName]);
     });
   }
   render() {

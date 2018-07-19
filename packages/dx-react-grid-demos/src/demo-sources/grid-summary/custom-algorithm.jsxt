@@ -16,8 +16,8 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const summaryTypes = {
-  median: (rows, getValue) => {
+const summaryCalculator = (type, rows, getValue) => {
+  if (type === 'median') {
     if (!rows.length) {
       return null;
     }
@@ -27,7 +27,8 @@ const summaryTypes = {
     }
     const halfIndex = sortedRows.length / 2;
     return (getValue(sortedRows[halfIndex]) + getValue(sortedRows[halfIndex + 1])) / 2;
-  },
+  }
+  return IntegratedSummary.defaultCalculator(type, rows, getValue);
 };
 
 const messages = {
@@ -86,7 +87,7 @@ export default class Demo extends React.PureComponent {
             totalItems={totalSummaryItems}
           />
           <IntegratedSummary
-            types={summaryTypes}
+            calculator={summaryCalculator}
           />
           <Table
             columnExtensions={tableColumnExtensions}

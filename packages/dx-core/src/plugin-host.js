@@ -87,16 +87,10 @@ export class PluginHost {
     return result;
   }
   registerSubscription(subscription) {
-    // const index = this.subscriptions.indexOf(subscription);
-    // if (index === -1) {
-      this.subscriptions.add(subscription);
-    // }
+    this.subscriptions.add(subscription);
   }
   unregisterSubscription(subscription) {
-    // const index = this.subscriptions.indexOf(subscription);
-    // if (index !== -1) {
-      this.subscriptions.delete(subscription);
-    // }
+    this.subscriptions.delete(subscription);
   }
   broadcast(event, message) {
     this.subscriptions.forEach(subscription => subscription[event] && subscription[event](message));

@@ -42,13 +42,12 @@ export default class Demo extends React.PureComponent {
             viewName="Week"
             startDayHour={9}
             endDayHour={19}
-            firstDayOfWeek={1}
           />
           <WeekView
             viewName="Work Week"
             excludedDays={[0, 6]}
-            startDayHour={8}
-            endDayHour={20}
+            startDayHour={9}
+            endDayHour={19}
           />
           <MonthView />
 

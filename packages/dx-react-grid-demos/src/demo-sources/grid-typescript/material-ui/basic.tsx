@@ -1,6 +1,7 @@
 import { Column, Table as TableBase } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
-import * as React from 'react';<%&additionalImports%>
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import Paper from '@material-ui/core/Paper';
+import * as React from 'react';
 import { generateRows } from '../../../demo-data/generator';
 
 interface IRow {
@@ -24,7 +25,7 @@ const tableColumnExtensions: TableBase.ColumnExtension[] = [
 export default class Demo extends React.Component<object, object> {
   public render(): React.ReactNode {
     return (
-      <<%&wrapperTag%>>
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -32,7 +33,7 @@ export default class Demo extends React.Component<object, object> {
           <Table columnExtensions={tableColumnExtensions} />
           <TableHeaderRow />
         </Grid>
-      </<%&wrapperTag%>>
+      </Paper>
     );
   }
 }

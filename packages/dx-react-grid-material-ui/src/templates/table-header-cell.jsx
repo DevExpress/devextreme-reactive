@@ -22,20 +22,9 @@ const styles = theme => ({
   },
   cell: {
     outline: 'none',
-    position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
-    borderBottom: 'none',
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      background: theme.palette.divider,
-      height: 1,
-      bottom: 0,
-      right: 0,
-      left: 0,
-    },
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
     },

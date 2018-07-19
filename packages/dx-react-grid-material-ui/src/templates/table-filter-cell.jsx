@@ -4,23 +4,12 @@ import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, spacing }) => ({
+const styles = ({ spacing }) => ({
   cell: {
     paddingRight: spacing.unit,
     paddingLeft: spacing.unit,
     '&:first-child': {
       paddingLeft: spacing.unit * 3,
-    },
-    position: 'relative',
-    borderBottom: 'none',
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      background: palette.divider,
-      height: 1,
-      bottom: 0,
-      right: 0,
-      left: 0,
     },
   },
   flexContainer: {

@@ -11,17 +11,6 @@ const styles = theme => ({
     paddingRight: 0,
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
-    position: 'relative',
-    borderBottom: 'none',
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      background: theme.palette.divider,
-      height: 1,
-      bottom: 0,
-      right: 0,
-      left: 0,
-    },
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',

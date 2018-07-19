@@ -8,7 +8,6 @@ import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';
 import { TableCell } from '../templates/table-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
-import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
@@ -37,7 +36,7 @@ export class Table extends React.PureComponent {
         noDataCellComponent={TableNoDataCell}
         stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
-        stubHeaderCellComponent={TableStubHeaderCell}
+        stubHeaderCellComponent={TableStubCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

@@ -63,7 +63,6 @@ export default class Demo extends React.PureComponent {
     this.getData();
   }
   getLabelWithAvatarComponent(props) {
-    debugger
     const { text, x, y } = props;
     if (text === '') return <ArgumentAxis.Label {...props} y={y + imageSize} />;
     const contributor = this.state.data.find(({ name }) => name === text);

@@ -13,7 +13,6 @@ export const ToggleButton = ({
     rootRef={targetRef}
   >
     <Button
-      // variant="contained"
       onClick={onToggle}
       {...restProps}
     >

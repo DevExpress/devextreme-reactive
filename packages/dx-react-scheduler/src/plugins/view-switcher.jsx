@@ -42,8 +42,6 @@ export class ViewSwitcher extends React.PureComponent {
     } = this.props;
     const { visible } = this.state;
 
-    const viewList = ['Month', 'Week'];
-
     return (
       <Plugin
         name="ViewSwitcher"
@@ -54,10 +52,10 @@ export class ViewSwitcher extends React.PureComponent {
           <TemplateConnector>
             {({
                 currentView,
+                availableViews,
               }, {
                 setCurrentView,
-              }) => {
-              return (
+              }) => (
                 <React.Fragment>
                   <ToggleButton
                     currentView={currentView}
@@ -70,7 +68,7 @@ export class ViewSwitcher extends React.PureComponent {
                     onHide={this.handleHide}
                   >
                     <List>
-                      {viewList.map(item => (
+                      {availableViews.map(item => (
                         <Item
                           key={item}
                           onItemClick={setCurrentView}
@@ -81,8 +79,7 @@ export class ViewSwitcher extends React.PureComponent {
                     </List>
                   </Overlay>
                 </React.Fragment>
-              );
-            }}
+              )}
           </TemplateConnector>
         </Template>
       </Plugin>

@@ -4,21 +4,18 @@ import Popover from '@material-ui/core/Popover';
 
 export const Overlay = ({
   visible, onHide, children, target, ...restProps
-}) => {
-  debugger
-  return (
-    <Popover
-      open={visible}
-      anchorEl={target}
-      onClose={onHide}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      {...restProps}
-    >
-      {children}
-    </Popover>
-  );
-};
+}) => (
+  <Popover
+    open={visible}
+    anchorEl={target}
+    onClose={onHide}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    {...restProps}
+  >
+    {children}
+  </Popover>
+);
 
 Overlay.propTypes = {
   onHide: PropTypes.func.isRequired,

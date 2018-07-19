@@ -11,6 +11,7 @@ import {
   monthAppointmentRect,
   dayScale as dayScaleCore,
   monthCells as monthCellsCore,
+  availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 
 const appointmentRectsComputed = ({
@@ -30,13 +31,6 @@ const appointmentRectsComputed = ({
 const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
   monthCellsCore(currentDate, firstDayOfWeek);
 
-const DayScalePlaceholder = props => (
-  <TemplatePlaceholder name="navbar" params={props} />
-);
-const DateTablePlaceholder = props => (
-  <TemplatePlaceholder name="main" params={props} />
-);
-
 export class MonthView extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -46,6 +40,10 @@ export class MonthView extends React.PureComponent {
     };
 
     this.dateTableRef = this.dateTableRef.bind(this);
+    this.dayScalePlaceholder = params =>
+      <TemplatePlaceholder name="navbar" params={params} />;
+    this.dateTablePlaceholder = params =>
+      <TemplatePlaceholder name="main" params={params} />;
   }
   dateTableRef(dateTableRef) {
     this.setState({ dateTableRef });
@@ -78,15 +76,18 @@ export class MonthView extends React.PureComponent {
     const endViewDateComputed = ({ monthCells }) =>
       new Date(new Date(monthCells[5][6].value).setDate(monthCells[5][6].value.getDate() + 1));
     const dateTableRefComputed = ({ currentView, dateTableRef }) => {
-      if (currentView === viewName && this.state.dateTableRef) {
+      if (currentView === viewName) {
         return this.state.dateTableRef;
       } return dateTableRef;
     };
+    const availableViewsComputed = ({ availableViews }) =>
+      availableViewsCore(availableViews, viewName);
 
     return (
       <Plugin
         name="MonthView"
       >
+        <Getter name="availableViews" computed={availableViewsComputed} />
         <Getter name="currentView" computed={currentViewComputed} />
         <Getter name="dateTableRef" computed={dateTableRefComputed} />
         <TemplateConnector>
@@ -103,8 +104,8 @@ export class MonthView extends React.PureComponent {
 
                   <Template name="body">
                     <ViewLayout
-                      navbarComponent={DayScalePlaceholder}
-                      mainComponent={DateTablePlaceholder}
+                      navbarComponent={this.dayScalePlaceholder}
+                      mainComponent={this.dateTablePlaceholder}
                     />
                   </Template>
 

@@ -13,6 +13,7 @@ import {
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
+  availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 
 const appointmentRectsComputed = ({
@@ -35,16 +36,6 @@ const appointmentRectsComputed = ({
   dateTableRef.querySelectorAll('td'),
 ) : []);
 
-const SidebarPlaceholder = props => (
-  <TemplatePlaceholder name="sidebar" params={props} />
-);
-const DayScalePlaceholder = props => (
-  <TemplatePlaceholder name="navbar" params={props} />
-);
-const DateTablePlaceholder = props => (
-  <TemplatePlaceholder name="main" params={props} />
-);
-
 export class WeekView extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -54,6 +45,13 @@ export class WeekView extends React.PureComponent {
     };
 
     this.dateTableRef = this.dateTableRef.bind(this);
+
+    this.sidebarPlaceholder = params =>
+      <TemplatePlaceholder name="sidebar" params={params} />;
+    this.dayScalePlaceholder = params =>
+      <TemplatePlaceholder name="navbar" params={params} />;
+    this.dateTablePlaceholder = params =>
+      <TemplatePlaceholder name="main" params={params} />;
   }
   dateTableRef(dateTableRef) {
     this.setState({ dateTableRef });
@@ -81,7 +79,6 @@ export class WeekView extends React.PureComponent {
     } = this.props;
 
     const currentViewComputed = ({ currentView }) => {
-      debugger
       if (!currentView || viewName === currentView) {
         return viewName;
       }
@@ -102,15 +99,18 @@ export class WeekView extends React.PureComponent {
       startViewDateCore(dayScale, timeScale, startDayHour);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDateCore(dayScale, timeScale);
     const dateTableRefComputed = ({ currentView, dateTableRef }) => {
-      if (currentView === viewName && this.state.dateTableRef) {
+      if (currentView === viewName) {
         return this.state.dateTableRef;
       } return dateTableRef;
     };
+    const availableViewsComputed = ({ availableViews }) =>
+      availableViewsCore(availableViews, viewName);
 
     return (
       <Plugin
         name="WeekView"
       >
+        <Getter name="availableViews" computed={availableViewsComputed} />
         <Getter name="currentView" computed={currentViewComputed} />
         <Getter name="dateTableRef" computed={dateTableRefComputed} />
         <TemplateConnector>
@@ -118,7 +118,6 @@ export class WeekView extends React.PureComponent {
             if (currentView !== viewName) return null;
               return (
                 <React.Fragment>
-
                   <Getter name="cellDuration" value={cellDuration} />
                   <Getter name="excludedDays" value={excludedDays} />
                   <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
@@ -126,14 +125,13 @@ export class WeekView extends React.PureComponent {
                   <Getter name="dayScale" computed={dayScaleComputed} />
                   <Getter name="startViewDate" computed={startViewDateComputed} />
                   <Getter name="endViewDate" computed={endViewDateComputed} />
-
                   <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
                   <Template name="body">
                     <ViewLayout
-                      navbarComponent={DayScalePlaceholder}
-                      mainComponent={DateTablePlaceholder}
-                      sidebarComponent={SidebarPlaceholder}
+                      navbarComponent={this.dayScalePlaceholder}
+                      mainComponent={this.dateTablePlaceholder}
+                      sidebarComponent={this.sidebarPlaceholder}
                     />
                   </Template>
 
@@ -165,7 +163,7 @@ export class WeekView extends React.PureComponent {
 
                   <Template name="main">
                     <TemplateConnector>
-                      {({ timeScale, dayScale }) => (
+                      {({ dayScale, timeScale }) => (
                         <DateTable
                           rowComponent={DateTableRow}
                           cellComponent={DateTableCell}

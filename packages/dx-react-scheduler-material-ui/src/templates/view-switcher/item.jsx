@@ -11,7 +11,7 @@ export const Item = ({
 }) => (
   <ListItem
     button
-    onClick={() => { debugger; onItemClick({ nextView: viewName }); onHide(); console.log(viewName); }}
+    onClick={() => { onItemClick({ nextView: viewName }); onHide(); }}
     {...restProps}
   >
     <ListItemText primary={viewName} />
@@ -20,10 +20,12 @@ export const Item = ({
 
 Item.propTypes = {
   onItemClick: PropTypes.func,
+  onHide: PropTypes.func,
   viewName: PropTypes.string,
 };
 
 Item.defaultProps = {
   onItemClick: () => undefined,
+  onHide: () => undefined,
   viewName: undefined,
 };

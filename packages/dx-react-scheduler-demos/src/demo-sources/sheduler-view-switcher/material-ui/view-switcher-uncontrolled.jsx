@@ -21,7 +21,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentView: 'Week',
+      currentView: 'Work Week',
     };
   }
   render() {
@@ -39,11 +39,19 @@ export default class Demo extends React.PureComponent {
           <Toolbar />
 
           <WeekView
+            viewName="Week"
             startDayHour={9}
             endDayHour={19}
             firstDayOfWeek={1}
           />
+          <WeekView
+            viewName="Work Week"
+            excludedDays={[0, 6]}
+            startDayHour={8}
+            endDayHour={20}
+          />
           <MonthView />
+
           <ViewSwitcher />
           <DateNavigator />
           <Appointments />

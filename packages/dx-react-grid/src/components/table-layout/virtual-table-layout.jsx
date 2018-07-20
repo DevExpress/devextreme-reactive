@@ -78,11 +78,11 @@ export class VirtualTableLayout extends React.PureComponent {
   storeBloksHeights() {
     this.setState({
       // eslint-disable-next-line react/no-find-dom-node
-      headerHeight: findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height,
+      headerHeight: this.blockRefs.get('header') ? findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height : 0,
       // eslint-disable-next-line react/no-find-dom-node
-      bodyHeight: findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height,
+      bodyHeight: this.blockRefs.get('body') ? findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height : 0,
       // eslint-disable-next-line react/no-find-dom-node
-      footerHeight: findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height,
+      footerHeight: this.blockRefs.get('footer') ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height : 0,
     });
   }
   registerRowRef(row, ref) {

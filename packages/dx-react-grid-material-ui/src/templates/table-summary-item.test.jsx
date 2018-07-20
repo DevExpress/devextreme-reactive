@@ -28,7 +28,7 @@ describe('TableSummaryItem', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is(`.${classes.content}`))
+    expect(tree.is(`.${classes.item}`))
       .toBeTruthy();
   });
 

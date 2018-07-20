@@ -79,7 +79,7 @@ export class IntegratedSummary extends React.PureComponent {
 IntegratedSummary.defaultCalculator = defaultSummaryCalculator;
 
 IntegratedSummary.propTypes = {
-  calculator: PropTypes.object,
+  calculator: PropTypes.func,
 };
 
 IntegratedSummary.defaultProps = {

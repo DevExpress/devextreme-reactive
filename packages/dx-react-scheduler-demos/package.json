@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@devexpress/dx-react-grid-demos",
+  "name": "@devexpress/dx-react-scheduler-demos",
   "version": "1.4.0",
   "description": "DevExtreme React Components Demos",
   "author": {
@@ -24,10 +24,6 @@
   "dependencies": {
     "@devexpress/dx-demo-shell": "1.4.0",
     "@devexpress/dx-react-core": "1.4.0",
-    "@devexpress/dx-react-grid": "1.4.0",
-    "@devexpress/dx-react-grid-bootstrap3": "1.4.0",
-    "@devexpress/dx-react-grid-bootstrap4": "1.4.0",
-    "@devexpress/dx-react-grid-material-ui": "1.4.0",
     "@devexpress/dx-react-scheduler": "1.4.0",
     "@devexpress/dx-react-scheduler-material-ui": "1.4.0",
     "@material-ui/core": "^1.2.3",

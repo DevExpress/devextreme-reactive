@@ -2,6 +2,7 @@ import moment from 'moment';
 import {
   sortAppointments,
   viewPredicate,
+  toPercentage,
 } from './../../utils';
 import {
   findOverlappedAppointments,
@@ -15,8 +16,6 @@ import {
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
-
-const toPercentage = (value, total) => (value * 100) / total;
 
 export const endViewBoundary = (cells) => {
   const cellsLastIndex = cells.length - 1;

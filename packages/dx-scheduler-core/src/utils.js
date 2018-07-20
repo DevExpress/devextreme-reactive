@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+export const toPercentage = (value, total) => (value * 100) / total;
+
 const createExcludedInterval = (day, start) => {
   const leftBound = moment(start.day(day));
   return [

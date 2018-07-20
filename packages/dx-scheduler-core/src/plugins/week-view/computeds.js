@@ -13,9 +13,9 @@ import {
 import {
   sortAppointments,
   viewPredicate,
+  toPercentage,
 } from '../../utils';
 
-const toPercentage = (value, total) => (value * 100) / total;
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
 const calculateViewBound = (dateBound, timeBound) => {

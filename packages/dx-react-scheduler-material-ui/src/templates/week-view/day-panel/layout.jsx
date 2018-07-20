@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TableMUI from '@material-ui/core/Table';
+import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -12,7 +12,6 @@ const styles = {
 };
 
 export const LayoutBase = ({
-  tableComponent: Table,
   cellComponent: Cell,
   rowComponent: Row,
   className,
@@ -20,7 +19,7 @@ export const LayoutBase = ({
   classes,
   ...restProps
 }) => (
-  <TableMUI
+  <Table
     className={classNames(classes.table, className)}
     {...restProps}
   >
@@ -34,19 +33,17 @@ export const LayoutBase = ({
         ))}
       </Row>
     </TableBody>
-  </TableMUI>
+  </Table>
 );
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-  tableComponent: PropTypes.func,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  tableComponent: () => null,
   cellComponent: () => null,
   rowComponent: () => null,
   className: undefined,

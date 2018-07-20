@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Table } from './table';
+import { Layout } from './layout';
 
-describe('TimePanel', () => {
+describe('Week View TimePanel', () => {
+  const defaultProps = {
+    dateTableRef: () => undefined,
+    monthCells: [],
+  };
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Table><div /></Table>);
+    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Table', () => {
+  describe('Layout', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Table className="custom-class">
-          <div />
-        </Table>
+        <Layout {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.find('.custom-class'))
@@ -24,9 +26,7 @@ describe('TimePanel', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Table data={{ a: 1 }}>
-          <div />
-        </Table>
+        <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.find(`.${classes.table}`).props().data)

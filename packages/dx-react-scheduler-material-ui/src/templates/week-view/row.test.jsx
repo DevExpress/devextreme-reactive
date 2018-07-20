@@ -2,9 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Row } from './row';
 
-describe('DateTable', () => {
-  beforeAll(() => {
-  });
+describe('Week View', () => {
   describe('Row', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((

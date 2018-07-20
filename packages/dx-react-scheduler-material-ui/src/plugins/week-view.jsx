@@ -2,16 +2,15 @@ import * as React from 'react';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
 
+import { Row } from '../templates/week-view/row';
+
 import { Layout as TimePanelLayout } from '../templates/week-view/time-panel/layout';
-import { Row as TimePanelRow } from '../templates/week-view/time-panel/row';
 import { Cell as TimePanelCell } from '../templates/week-view/time-panel/cell';
-import { Table as TimePanelTable } from '../templates/week-view/time-panel/table';
 
 import { Layout as DayPanelLayout } from '../templates/week-view/day-panel/layout';
 import { Cell as DayPanelCell } from '../templates/week-view/day-panel/cell';
 
 import { Layout as DateTableLayout } from '../templates/week-view/date-table/layout';
-import { Row as DateTableRow } from '../templates/week-view/date-table/row';
 import { Cell as DateTableCell } from '../templates/week-view/date-table/cell';
 
 export class WeekView extends React.PureComponent {
@@ -19,17 +18,18 @@ export class WeekView extends React.PureComponent {
     return (
       <WeekViewBase
         layoutComponent={WeekLayout}
+
         timePanelLayoutComponent={TimePanelLayout}
-        timePanelTableComponent={TimePanelTable}
-        timePanelRowComponent={TimePanelRow}
         timePanelCellComponent={TimePanelCell}
+        timePanelRowComponent={Row}
 
         dayPanelLayoutComponent={DayPanelLayout}
         dayPanelCellComponent={DayPanelCell}
+        dayPanelRowComponent={Row}
 
         dateTableLayoutComponent={DateTableLayout}
-        dateTableRowComponent={DateTableRow}
         dateTableCellComponent={DateTableCell}
+        dateTableRowComponent={Row}
         {...this.props}
       />
     );
@@ -37,14 +37,13 @@ export class WeekView extends React.PureComponent {
 }
 
 WeekView.TimePanelLayout = TimePanelLayout;
-WeekView.TimePanelRow = TimePanelRow;
 WeekView.TimePanelCell = TimePanelCell;
-WeekView.TimePanelTable = TimePanelTable;
+WeekView.TimePanelRow = Row;
 
 WeekView.DayPanelLayout = DayPanelLayout;
 WeekView.DayPanelCell = DayPanelCell;
-WeekView.DayPanelRow = TimePanelRow;
+WeekView.DayPanelRow = Row;
 
 WeekView.DateTableLayout = DateTableLayout;
-WeekView.DateTableRow = DateTableRow;
 WeekView.DateTableCell = DateTableCell;
+WeekView.DateTableRow = Row;

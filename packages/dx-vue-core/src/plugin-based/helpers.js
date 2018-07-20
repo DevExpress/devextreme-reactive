@@ -18,6 +18,9 @@ export const getAvailableGetters = (
       getOwnPropertyDescriptor(target, prop) {
         return { configurable: true, enumerable: true, value: this.get(target, prop) };
       },
+      ownKeys() {
+        return pluginHost.knownKeys('Getter');
+      },
     });
   } else {
     getters = pluginHost.knownKeys('Getter')
@@ -64,6 +67,9 @@ export const getAvailableActions = (
       },
       getOwnPropertyDescriptor(target, prop) {
         return { configurable: true, enumerable: true, value: this.get(target, prop) };
+      },
+      ownKeys() {
+        return pluginHost.knownKeys('Action');
       },
     });
   } else {

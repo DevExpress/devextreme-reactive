@@ -51,23 +51,23 @@ const calculateRectsByDateIntervals = (
   const grouped = findOverlappedAppointments(sorted);
 
   return unwrapGroups(adjustAppointments(grouped))
-    .map((appointmentt) => {
+    .map((appointment) => {
       const {
         top, left,
         width, height,
         parentWidth,
       } = getRectByDates(
-        appointmentt.start, appointmentt.end,
+        appointment.start, appointment.end,
         dayScale, timeScale,
         cellDuration, cellElements,
       );
-      const widthInPx = width / appointmentt.reduceValue;
+      const widthInPx = width / appointment.reduceValue;
       return {
         top,
         height,
-        left: toPercentage(left + (widthInPx * appointmentt.offset), parentWidth),
+        left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
-        dataItem: appointmentt.dataItem,
+        dataItem: appointment.dataItem,
       };
     });
 };
@@ -109,6 +109,24 @@ export const timeScale = (
     result.push({ start: startDate, end: left.toDate() });
   }
   result[result.length - 1].end = substractSecond(result[result.length - 1].end);
+  return result;
+};
+
+export const dayScale = (
+  currentDate = new Date(),
+  firsDayOfWeek = 0,
+  dayCount = 7,
+  excluded = [],
+) => {
+  const result = [];
+  const date = moment(currentDate).startOf('hour');
+  date.day(firsDayOfWeek);
+  for (let index = 0; index < dayCount; index += 1) {
+    if (excluded.findIndex(item => item === date.day()) === -1) {
+      result.push(date.toDate());
+    }
+    date.add(1, 'days');
+  }
   return result;
 };
 

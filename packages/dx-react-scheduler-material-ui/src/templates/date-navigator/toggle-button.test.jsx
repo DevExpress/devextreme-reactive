@@ -1,57 +1,48 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import Button from '@material-ui/core/Button';
-import { ToggleButton } from './toggle-button';
+import { createShallow } from '@material-ui/core/test-utils';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import { NavigationButton } from './navigation-button';
 
 describe('DateNavigator', () => {
-  const defaultProps = {
-    onToggle: () => null,
-  };
-  let classes;
-  let mount;
+  let shallow;
   beforeAll(() => {
-    classes = getClasses(<ToggleButton {...defaultProps} />);
-    mount = createMount();
+    shallow = createShallow({ dive: true });
   });
-  describe('ToggleButton', () => {
+  describe('NavigationButton', () => {
     it('should pass rest props to the root element', () => {
-      const tree = mount((
-        <ToggleButton {...defaultProps} data={{ a: 1 }} />
+      const tree = shallow((
+        <NavigationButton data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should pass className to the root element', () => {
-      const tree = mount((
-        <ToggleButton {...defaultProps} className="custom-class" />
-      )).find(Button);
+    it('should render next button', () => {
+      const next = shallow((
+        <NavigationButton />
+      )).find(ChevronRight);
 
-      expect(tree.hasClass('custom-class'))
-        .toBeTruthy();
-      expect(tree.hasClass(classes.button))
+      expect(next.exists())
         .toBeTruthy();
     });
-    it('should handle the "onClick" event', () => {
-      const onToggle = jest.fn();
-      mount((
-        <ToggleButton
-          onToggle={onToggle}
-        />
-      )).find(Button).simulate('click');
+    it('should render prev button', () => {
+      const prev = shallow((
+        <NavigationButton back />
+      )).find(ChevronLeft);
 
-      expect(onToggle)
+      expect(prev.exists())
+        .toBeTruthy();
+    });
+    it('should handle onClink event', () => {
+      const onClick = jest.fn();
+      const button = shallow((
+        <NavigationButton onClick={onClick} />
+      ));
+      button.simulate('click');
+
+      expect(onClick)
         .toBeCalled();
-    });
-    it('should render title', () => {
-      const title = mount((
-        <ToggleButton
-          {...defaultProps}
-          title="a"
-        />
-      )).find(Button);
-      expect(title.text())
-        .toBe('a');
     });
   });
 });

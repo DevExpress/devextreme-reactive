@@ -31,8 +31,8 @@ export class DateNavigator extends React.PureComponent {
     this.handleHide = this.handleHide.bind(this);
     this.targetRef = this.targetRef.bind(this);
   }
-  targetRef(button) {
-    this.button = button;
+  targetRef(target) {
+    this.target = target;
   }
   handleToggle() {
     this.setState({ visible: !this.state.visible });
@@ -87,7 +87,7 @@ export class DateNavigator extends React.PureComponent {
                   />
                   <Overlay
                     visible={visible}
-                    target={this.button}
+                    target={this.target}
                     onHide={this.handleHide}
                   >
                     <Calendar

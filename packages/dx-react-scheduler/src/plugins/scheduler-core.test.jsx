@@ -26,19 +26,6 @@ describe('Scheduler Core', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('should provide the "data" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).data)
-      .toBe(defaultProps.data);
-  });
 
   it('should provide the "getAppointmentTitle" getter', () => {
     const tree = mount((

@@ -16,7 +16,6 @@ const styles = theme => ({
     color: 'inherit',
   },
   sortLabelText: {
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

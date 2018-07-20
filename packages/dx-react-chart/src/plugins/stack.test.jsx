@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { processData, seriesWithStacks, stacks } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { SeriesFamily } from './series-family';
+import { Stack } from './stack';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   processData: jest.fn(),
@@ -24,13 +24,13 @@ describe('Series Family', () => {
   it('should provide optinos', () => {
     const tree = mount((
       <PluginHost>
-        <SeriesFamily />
+        <Stack />
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
 
     expect(getComputedState(tree)).toEqual({
-      processingData: processData,
+      processingData: 'processData',
       series: 'seriesWithStacks',
       stacks: 'stacks',
     });

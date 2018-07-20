@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   dayScale,
   monthCells,
+  endViewBoundary,
   monthAppointmentRect,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
@@ -12,6 +13,7 @@ import { MonthView } from './month-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
   monthCells: jest.fn(),
+  endViewBoundary: jest.fn(),
   monthAppointmentRect: jest.fn(),
 }));
 
@@ -42,6 +44,7 @@ const defaultProps = {
 
 describe('Week View', () => {
   beforeEach(() => {
+    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     dayScale.mockImplementation(() => [1, 2, 3]);
     monthCells.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}, {}, {}, {}, {}, {}],

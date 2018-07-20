@@ -12,7 +12,7 @@ const styles = {
   },
 };
 
-export const LayoutBase = ({
+const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
   timeScale,

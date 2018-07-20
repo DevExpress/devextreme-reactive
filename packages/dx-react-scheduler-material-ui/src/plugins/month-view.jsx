@@ -2,11 +2,12 @@ import * as React from 'react';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { MonthLayout } from '../templates/views/month-layout';
 
+import { Row } from '../templates/month-view/date-table/row';
+
 import { Layout as DayPanelLayout } from '../templates/month-view/day-panel/layout';
 import { Cell as DayPanelCell } from '../templates/month-view/day-panel/cell';
 
 import { Layout as DateTableLayout } from '../templates/month-view/date-table/layout';
-import { Row as DateTableRow } from '../templates/month-view/date-table/row';
 import { Cell as DateTableCell } from '../templates/month-view/date-table/cell';
 
 export class MonthView extends React.PureComponent {
@@ -17,11 +18,11 @@ export class MonthView extends React.PureComponent {
 
         dayPanelLayoutComponent={DayPanelLayout}
         dayPanelCellComponent={DayPanelCell}
-        dayPanelRowComponent={DateTableRow}
+        dayPanelRowComponent={Row}
 
         dateTableLayoutComponent={DateTableLayout}
-        dateTableRowComponent={DateTableRow}
         dateTableCellComponent={DateTableCell}
+        dateTableRowComponent={Row}
         {...this.props}
       />
     );
@@ -30,8 +31,8 @@ export class MonthView extends React.PureComponent {
 
 MonthView.DayPanelLayout = DayPanelLayout;
 MonthView.DayPanelCell = DayPanelCell;
-MonthView.DayPanelRow = DateTableRow;
+MonthView.DayPanelRow = Row;
 
 MonthView.DateTableLayout = DateTableLayout;
-MonthView.DateTableRow = DateTableRow;
 MonthView.DateTableCell = DateTableCell;
+MonthView.DateTableRow = Row;

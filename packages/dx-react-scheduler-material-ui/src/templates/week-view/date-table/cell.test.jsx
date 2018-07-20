@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('DateTable', () => {
+describe('Week VIew DateTable', () => {
   const defaultProps = {
     time: { start: new Date(2018, 6, 7, 16), end: new Date(2018, 6, 7, 18) },
   };

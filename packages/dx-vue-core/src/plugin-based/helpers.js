@@ -11,9 +11,9 @@ export const getAvailableGetters = (
     getters = new Proxy({}, {
       get(target, prop) {
         if (typeof prop !== 'string') return undefined;
-        const result = getGetterValue(prop);
-        trackedDependencies[prop] = result;
-        return result;
+        const boxedGetter = getGetterValue(prop);
+        trackedDependencies[prop] = boxedGetter && boxedGetter.id;
+        return boxedGetter && boxedGetter.value;
       },
       getOwnPropertyDescriptor(target, prop) {
         return { configurable: true, enumerable: true, value: this.get(target, prop) };
@@ -24,9 +24,9 @@ export const getAvailableGetters = (
       .reduce((acc, getterName) => {
         Object.defineProperty(acc, getterName, {
           get: () => {
-            const result = getGetterValue(getterName);
-            trackedDependencies[getterName] = result;
-            return result;
+            const boxedGetter = getGetterValue(getterName);
+            trackedDependencies[getterName] = boxedGetter && boxedGetter.id;
+            return boxedGetter && boxedGetter.value;
           },
         });
         return acc;

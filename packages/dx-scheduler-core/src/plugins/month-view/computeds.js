@@ -18,6 +18,13 @@ const WEEK_COUNT = 6;
 
 const toPercentage = (value, total) => (value * 100) / total;
 
+export const endViewBoundary = (cells) => {
+  const cellsLastIndex = cells.length - 1;
+  const lastDate = moment(cells[cellsLastIndex][6].value);
+
+  return lastDate.startOf('day').add(1, 'days').toDate();
+};
+
 export const monthCells = (currentDate, firstDayOfWeek) => {
   const currentMonth = moment(currentDate).month();
   const currentDay = moment(currentDate).date();

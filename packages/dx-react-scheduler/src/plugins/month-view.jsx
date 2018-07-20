@@ -9,6 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   monthAppointmentRect,
+  endViewBoundary,
   dayScale as dayScaleCore,
   monthCells as monthCellsCore,
 } from '@devexpress/dx-scheduler-core';
@@ -68,7 +69,7 @@ export class MonthView extends React.PureComponent {
     const startViewDateComputed = ({ monthCells }) =>
       new Date(monthCells[0][0].value);
     const endViewDateComputed = ({ monthCells }) =>
-      new Date(new Date(monthCells[5][6].value).setDate(monthCells[5][6].value.getDate() + 1));
+      endViewBoundary(monthCells);
 
     return (
       <Plugin

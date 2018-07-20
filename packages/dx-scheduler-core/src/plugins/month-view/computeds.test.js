@@ -1,4 +1,7 @@
-import { monthCells } from './computeds';
+import {
+  monthCells,
+  endViewBoundary,
+} from './computeds';
 
 describe('Month view computeds', () => {
   describe('#monthCells', () => {
@@ -56,6 +59,22 @@ describe('Month view computeds', () => {
         .toBe(new Date(2010, 0, 27).toString());
       expect(cells[5][6].value.toString())
         .toBe(new Date(2010, 2, 9).toString());
+    });
+  });
+  describe('#endViewBoundary', () => {
+    it('should work', () => {
+      const cells = [
+        [], [], [], [
+          {}, {}, {}, {}, {}, {}, {
+            value: new Date('2018-07-31 10:30'),
+          },
+        ],
+      ];
+
+      expect(endViewBoundary(cells).toString())
+        .toBe(new Date('2018-08-01 00:00').toString());
+      expect(cells[3][6].value)
+        .toEqual(new Date('2018-07-31 10:30'));
     });
   });
 });

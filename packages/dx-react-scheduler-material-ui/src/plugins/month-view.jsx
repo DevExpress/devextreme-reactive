@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { MonthLayout } from '../templates/views/month-layout';
 
-import { Row } from '../templates/month-view/date-table/row';
+import { Row } from '../templates/month-view/row';
 
 import { Layout as DayPanelLayout } from '../templates/month-view/day-panel/layout';
 import { Cell as DayPanelCell } from '../templates/month-view/day-panel/cell';

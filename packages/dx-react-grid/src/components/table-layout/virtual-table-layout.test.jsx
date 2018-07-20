@@ -135,7 +135,6 @@ describe('VirtualTableLayout', () => {
           height: defaultProps.height - (defaultProps.estimatedRowHeight * 2),
           width: 400,
         });
-
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
         .toMatchObject({
           top: 0,

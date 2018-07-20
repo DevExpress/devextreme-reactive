@@ -76,13 +76,25 @@ export class VirtualTableLayout extends React.PureComponent {
     }
   }
   storeBloksHeights() {
+    const headerHeight = this.blockRefs.get('header')
+      // eslint-disable-next-line react/no-find-dom-node
+      ? findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height
+      : this.props.headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
+
+    const footerHeight = this.blockRefs.get('footer')
+      // eslint-disable-next-line react/no-find-dom-node
+      ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height
+      : this.props.footerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
+
+    const bodyHeight = this.blockRefs.get('body')
+      // eslint-disable-next-line react/no-find-dom-node
+      ? findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height
+      : this.props.height - headerHeight - footerHeight;
+
     this.setState({
-      // eslint-disable-next-line react/no-find-dom-node
-      headerHeight: this.blockRefs.get('header') ? findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height : 0,
-      // eslint-disable-next-line react/no-find-dom-node
-      bodyHeight: this.blockRefs.get('body') ? findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height : 0,
-      // eslint-disable-next-line react/no-find-dom-node
-      footerHeight: this.blockRefs.get('footer') ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height : 0,
+      headerHeight,
+      bodyHeight,
+      footerHeight,
     });
   }
   registerRowRef(row, ref) {

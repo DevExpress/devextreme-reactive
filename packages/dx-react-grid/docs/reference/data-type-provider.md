@@ -1,6 +1,6 @@
 # DataTypeProvider Plugin Reference
 
-A plugin that provides the capability to customize formatting options and editors depending on the data type.
+A plugin that allows you to customize formatting options and editors depending on the data type.
 
 ## Importing
 

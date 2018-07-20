@@ -10,9 +10,13 @@ export const getAvailableGetters = (
   if (Proxy) {
     getters = new Proxy({}, {
       get(target, prop) {
+        if (typeof prop !== 'string') return undefined;
         const result = getGetterValue(prop);
         trackedDependencies[prop] = result;
         return result;
+      },
+      getOwnPropertyDescriptor(target, prop) {
+        return { configurable: true, enumerable: true, value: this.get(target, prop) };
       },
     });
   } else {
@@ -55,7 +59,11 @@ export const getAvailableActions = (
   if (Proxy) {
     actions = new Proxy({}, {
       get(target, prop) {
+        if (typeof prop !== 'string') return undefined;
         return getAction(prop);
+      },
+      getOwnPropertyDescriptor(target, prop) {
+        return { configurable: true, enumerable: true, value: this.get(target, prop) };
       },
     });
   } else {

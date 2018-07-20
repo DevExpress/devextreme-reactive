@@ -41,10 +41,8 @@ const defaultProps = {
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
-  dayPanelTableComponent: () => null,
   dayPanelCellComponent: () => null,
   dateTableLayoutComponent: () => null,
-  dateTableTableComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
 };

@@ -66,7 +66,6 @@ export class WeekView extends React.PureComponent {
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelTableComponent: DayScaleTable,
       dayPanelCellComponent: DayScaleCell,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
@@ -123,7 +122,6 @@ export class WeekView extends React.PureComponent {
               <DayPanel
                 rowComponent={TimePanelRow}
                 cellComponent={DayScaleCell}
-                tableComponent={DayScaleTable}
                 dayScale={dayScale}
               />
             )}
@@ -170,7 +168,6 @@ WeekView.propTypes = {
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelTableComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,

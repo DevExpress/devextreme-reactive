@@ -8,7 +8,6 @@ import { Cell as TimePanelCell } from '../templates/week-view/time-panel/cell';
 import { Table as TimePanelTable } from '../templates/week-view/time-panel/table';
 
 import { Layout as DayPanelLayout } from '../templates/week-view/day-panel/layout';
-import { Table as DayPanelTable } from '../templates/week-view/day-panel/table';
 import { Cell as DayPanelCell } from '../templates/week-view/day-panel/cell';
 
 import { Layout as DateTableLayout } from '../templates/week-view/date-table/layout';
@@ -26,7 +25,6 @@ export class WeekView extends React.PureComponent {
         timePanelCellComponent={TimePanelCell}
 
         dayPanelLayoutComponent={DayPanelLayout}
-        dayPanelTableComponent={DayPanelTable}
         dayPanelCellComponent={DayPanelCell}
 
         dateTableLayoutComponent={DateTableLayout}
@@ -44,7 +42,6 @@ WeekView.TimePanelCell = TimePanelCell;
 WeekView.TimePanelTable = TimePanelTable;
 
 WeekView.DayPanelLayout = DayPanelLayout;
-WeekView.DayPanelTable = DayPanelTable;
 WeekView.DayPanelCell = DayPanelCell;
 WeekView.DayPanelRow = TimePanelRow;
 

@@ -9,29 +9,6 @@ import {
 
 import { appointments } from '../../../demo-data/month-appointments';
 
-const Navigation = ({ currentDate, goNext }) => (
-  <div>
-    <button
-      onClick={() => {
-        const next = new Date(new Date(currentDate)
-          .setDate(currentDate.getDate() - 7));
-        goNext(next);
-      }}
-    >
-      {'<-'}
-    </button>
-    <button
-      onClick={() => {
-        const next = new Date(new Date(currentDate)
-          .setDate(currentDate.getDate() + 7));
-        goNext(next);
-      }}
-    >
-      {'->'}
-    </button>
-  </div>
-);
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -45,24 +22,15 @@ export default class Demo extends React.PureComponent {
     const { data, currentDate } = this.state;
 
     return (
-      <div>
-        <Navigation
+      <Paper>
+        <Scheduler
+          data={data}
           currentDate={currentDate}
-          goNext={(next) => { this.setState({ currentDate: next }); }}
-        />
-        <Paper>
-          <Scheduler
-            data={data}
-            currentDate={currentDate}
-            getTitle={appointment => appointment.text}
-          >
-            <MonthView
-              firstDayOfWeek={1}
-            />
-            <Appointments />
-          </Scheduler>
-        </Paper>
-      </div>
+        >
+          <MonthView />
+          <Appointments />
+        </Scheduler>
+      </Paper>
     );
   }
 }

@@ -1,30 +1,54 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import TableMUI from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import RootRef from '@material-ui/core/RootRef';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Layout = ({
-  monthCells,
-  tableComponent: Table,
+const styles = {
+  table: {
+    tableLayout: 'fixed',
+  },
+};
+
+export const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
+  monthCells,
+  classes,
+  dateTableRef,
+  className,
   ...restProps
 }) => (
-  <Table {...restProps}>
-    {monthCells.map(row => (
-      <Row key={`date_navigator_row_${row[0].value.toString()}`}>
-        {row.map(date => <Cell key={date.value} date={date} />)}
-      </Row>
-    ))}
-  </Table>
+  <RootRef rootRef={dateTableRef}>
+    <TableMUI
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {monthCells.map(row => (
+          <Row key={`date_navigator_row_${row[0].value.toString()}`}>
+            {row.map(date => <Cell key={date.value} date={date} />)}
+          </Row>
+      ))}
+      </TableBody>
+    </TableMUI>
+  </RootRef>
 );
 
-Layout.propTypes = {
+LayoutBase.propTypes = {
   monthCells: PropTypes.array.isRequired,
-  tableComponent: PropTypes.func,
+  dateTableRef: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
+  className: PropTypes.string,
 };
-Layout.defaultProps = {
-  tableComponent: () => null,
+LayoutBase.defaultProps = {
   cellComponent: () => null,
   rowComponent: () => null,
+  className: undefined,
 };
+
+export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

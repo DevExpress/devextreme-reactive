@@ -57,7 +57,6 @@ export class MonthView extends React.PureComponent {
       dayPanelTableComponent: DayScaleTable,
       dayPanelCellComponent: DayScaleCell,
       dateTableLayoutComponent: DateTable,
-      dateTableTableComponent: DateTableTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
       intervalCount,
@@ -111,7 +110,6 @@ export class MonthView extends React.PureComponent {
               <DateTable
                 rowComponent={DateTableRow}
                 cellComponent={DateTableCell}
-                tableComponent={DateTableTable}
                 monthCells={monthCells}
                 dateTableRef={this.dateTableRef}
               />
@@ -129,7 +127,6 @@ MonthView.propTypes = {
   dayPanelTableComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
-  dateTableTableComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
   intervalCount: PropTypes.number,

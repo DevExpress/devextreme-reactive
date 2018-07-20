@@ -74,8 +74,9 @@ export const getBandComponent = (
     };
   }
 
-  const isColumnFixed = ({ column }) =>
-    fixedColumns.indexOf(column.name) !== -1;
+  const isColumnFixed = ({ column }) => (fixedColumns
+    ? fixedColumns.indexOf(column.name) !== -1
+    : false);
   const isCurrentColumnFixed = isColumnFixed(currentTableColumn);
   const currentColumnIndex = tableColumns.findIndex(column =>
     column.key === currentTableColumn.key);

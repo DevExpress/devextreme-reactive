@@ -8,26 +8,13 @@ const styles = theme => ({
   fixedCell: {
     backgroundColor: theme.palette.background.paper,
     position: 'sticky',
-  },
-  divider: {
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      background: theme.palette.divider,
-      width: 1,
-      top: 0,
-      bottom: 0,
-    },
+    zIndex: 500,
   },
   dividerLeft: {
-    '&:before': {
-      right: 0,
-    },
+    borderRight: `1px solid ${theme.palette.divider}`,
   },
   dividerRight: {
-    '&:before': {
-      left: 0,
-    },
+    borderLeft: `1px solid ${theme.palette.divider}`,
   },
 });
 
@@ -57,7 +44,6 @@ class FixedCellBase extends React.PureComponent {
       <CellPlaceholder
         className={classNames({
           [classes.fixedCell]: true,
-          [classes.divider]: showDivider,
           [classes[dividerSideClassName]]: showDivider,
         }, className)}
         style={{

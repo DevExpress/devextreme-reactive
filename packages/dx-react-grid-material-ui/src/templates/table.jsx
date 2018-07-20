@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   table: {
     tableLayout: 'fixed',
+    borderCollapse: 'separate',
   },
   headTable: {
     position: 'sticky',

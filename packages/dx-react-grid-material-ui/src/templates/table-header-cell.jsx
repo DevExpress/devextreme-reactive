@@ -22,6 +22,7 @@ const styles = theme => ({
   },
   cell: {
     outline: 'none',
+    position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
@@ -31,7 +32,12 @@ const styles = theme => ({
     '&:hover $resizeHandleLine': {
       opacity: 1,
     },
+    '&:nth-last-child(2) $resizeHandle': {
+      width: `${theme.spacing.unit}px`,
+      right: '1px',
+    },
   },
+  resizeHandle: {},
   resizeHandleLine: {
     opacity: 0,
   },
@@ -180,6 +186,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            resizeLastHandleClass={classes.resizeHandle}
             resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}

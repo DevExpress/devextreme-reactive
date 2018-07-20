@@ -65,7 +65,18 @@ const styles = theme => ({
     cursor: 'pointer',
   },
   cellDimmed: {
-    opacity: 0.3,
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      background: 'white',
+      opacity: 0.7,
+      pointerEvents: 'none',
+      zIndex: 700,
+    },
   },
   cellRight: {
     paddingLeft: theme.spacing.unit,

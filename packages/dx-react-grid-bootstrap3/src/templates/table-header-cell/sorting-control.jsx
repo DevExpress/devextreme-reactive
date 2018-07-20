@@ -28,7 +28,6 @@ export const SortingControl = ({
     <span
       key="title"
       style={{
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       }}

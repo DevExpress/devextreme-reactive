@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
-import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, TEMPLATE_HOST_CONTEXT } from './constants';
+import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT } from './constants';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
@@ -10,6 +10,11 @@ export class TemplatePlaceholder extends React.Component {
     this.subscription = {
       [RERENDER_TEMPLATE_EVENT]: (id) => {
         if (this.template && this.template.id === id) {
+          this.forceUpdate();
+        }
+      },
+      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name) => {
+        if (this.props.name === name) {
           this.forceUpdate();
         }
       },

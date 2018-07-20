@@ -24,7 +24,7 @@ export const SortingControl = ({
   >
     <span
       key="title"
-      className="dx-g-bs4-sorting-control-text text-nowrap"
+      className="dx-g-bs4-sorting-control-text"
     >
       {columnTitle}
     </span>

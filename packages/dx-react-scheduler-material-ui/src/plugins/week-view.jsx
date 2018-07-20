@@ -2,18 +2,18 @@ import * as React from 'react';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
 
-import { Layout as TimePanelLayout } from '../templates/time-panel/layout';
-import { Row as TimePanelRow } from '../templates/time-panel/row';
-import { Cell as TimePanelCell } from '../templates/time-panel/cell';
-import { Table as TimePanelTable } from '../templates/time-panel/table';
+import { Layout as TimePanelLayout } from '../templates/week-view/time-panel/layout';
+import { Row as TimePanelRow } from '../templates/week-view/time-panel/row';
+import { Cell as TimePanelCell } from '../templates/week-view/time-panel/cell';
+import { Table as TimePanelTable } from '../templates/week-view/time-panel/table';
 
-import { Layout as DayPanelLayout } from '../templates/day-panel/layout';
-import { Table as DayPanelTable } from '../templates/day-panel/table';
-import { Cell as DayPanelCell } from '../templates/day-panel/cell';
+import { Layout as DayPanelLayout } from '../templates/week-view/day-panel/layout';
+import { Table as DayPanelTable } from '../templates/week-view/day-panel/table';
+import { Cell as DayPanelCell } from '../templates/week-view/day-panel/cell';
 
-import { Layout as DateTableLayout } from '../templates/date-table/layout';
-import { Row as DateTableRow } from '../templates/date-table/row';
-import { Cell as DateTableCell } from '../templates/date-table/cell';
+import { Layout as DateTableLayout } from '../templates/week-view/date-table/layout';
+import { Row as DateTableRow } from '../templates/week-view/date-table/row';
+import { Cell as DateTableCell } from '../templates/week-view/date-table/cell';
 
 export class WeekView extends React.PureComponent {
   render() {

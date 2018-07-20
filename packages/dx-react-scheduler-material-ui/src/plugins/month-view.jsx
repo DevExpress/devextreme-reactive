@@ -2,10 +2,7 @@ import * as React from 'react';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { MonthLayout } from '../templates/views/month-layout';
 
-import { Row as TimePanelRow } from '../templates/time-panel/row';
-
 import { Layout as DayPanelLayout } from '../templates/month-view/day-panel/layout';
-import { Table as DayPanelTable } from '../templates/month-view/day-panel/table';
 import { Cell as DayPanelCell } from '../templates/month-view/day-panel/cell';
 
 import { Layout as DateTableLayout } from '../templates/month-view/date-table/layout';
@@ -19,8 +16,8 @@ export class MonthView extends React.PureComponent {
         layoutComponent={MonthLayout}
 
         dayPanelLayoutComponent={DayPanelLayout}
-        dayPanelTableComponent={DayPanelTable}
         dayPanelCellComponent={DayPanelCell}
+        dayPanelRowComponent={DateTableRow}
 
         dateTableLayoutComponent={DateTableLayout}
         dateTableRowComponent={DateTableRow}
@@ -32,9 +29,8 @@ export class MonthView extends React.PureComponent {
 }
 
 MonthView.DayPanelLayout = DayPanelLayout;
-MonthView.DayPanelTable = DayPanelTable;
 MonthView.DayPanelCell = DayPanelCell;
-MonthView.DayPanelRow = TimePanelRow;
+MonthView.DayPanelRow = DateTableRow;
 
 MonthView.DateTableLayout = DateTableLayout;
 MonthView.DateTableRow = DateTableRow;

@@ -54,8 +54,8 @@ export class MonthView extends React.PureComponent {
     const {
       layoutComponent: ViewLayout,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelTableComponent: DayScaleTable,
-      dayPanelCellComponent: DayScaleCell,
+      dayPanelCellComponent: DayPanelCell,
+      dayPanelRowComponent: DayPanelRow,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
@@ -94,9 +94,8 @@ export class MonthView extends React.PureComponent {
           <TemplateConnector>
             {({ dayScale }) => (
               <DayPanel
-                cellComponent={DayScaleCell}
-                rowComponent={DateTableRow}
-                tableComponent={DayScaleTable}
+                cellComponent={DayPanelCell}
+                rowComponent={DayPanelRow}
                 dayScale={dayScale}
               />
             )}
@@ -124,8 +123,8 @@ export class MonthView extends React.PureComponent {
 MonthView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelTableComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
+  dayPanelRowComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,

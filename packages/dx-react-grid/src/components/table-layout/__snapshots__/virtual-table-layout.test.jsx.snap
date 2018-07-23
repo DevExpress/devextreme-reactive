@@ -609,7 +609,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     </tableComponent>
   </RefHolder>
   <RefHolder>
-    <footTableComponent
+    <footerTableComponent
       style={
         Object {
           "minWidth": "400px",
@@ -751,7 +751,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
           </rowComponent>
         </RefHolder>
       </footerComponent>
-    </footTableComponent>
+    </footerTableComponent>
   </RefHolder>
 </containerComponent>
 `;

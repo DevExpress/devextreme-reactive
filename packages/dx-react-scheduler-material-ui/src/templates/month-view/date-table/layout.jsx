@@ -28,7 +28,7 @@ const LayoutBase = ({
     >
       <TableBody>
         {monthCells.map(row => (
-          <Row key={`date_navigator_row_${row[0].value.toString()}`}>
+          <Row key={`date_table_row_${row[0].value.toString()}`}>
             {row.map(date => <Cell key={date.value} date={date} />)}
           </Row>
       ))}

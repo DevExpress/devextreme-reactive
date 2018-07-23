@@ -19,8 +19,8 @@ const WEEK_COUNT = 6;
 const MONTH_COUNT = 31;
 
 export const endViewBoundary = (cells) => {
-  const cellsLastIndex = cells.length - 1;
-  const lastDate = moment(cells[cellsLastIndex][6].value);
+  const lastCellIndex = cells.length - 1;
+  const lastDate = moment(cells[lastCellIndex][WEEK_COUNT].value);
 
   return lastDate.startOf('day').add(1, 'days').toDate();
 };

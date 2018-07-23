@@ -47,12 +47,8 @@ describe('Month View', () => {
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     dayScale.mockImplementation(() => [1, 2, 3]);
     monthCells.mockImplementation(() => ([
-      [{ value: new Date('2018-06-25') }, {}, {}, {}, {}, {}, {}],
-      [{}, {}, {}, {}, {}, {}, {}],
-      [{}, {}, {}, {}, {}, {}, {}],
-      [{}, {}, {}, {}, {}, {}, {}],
-      [{}, {}, {}, {}, {}, {}, {}],
-      [{}, {}, {}, {}, {}, {}, { value: new Date('2018-08-05') }],
+      [{ value: new Date('2018-06-25') }, {}],
+      [{}, { value: new Date('2018-08-05') }],
     ]));
     monthAppointmentRect.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',

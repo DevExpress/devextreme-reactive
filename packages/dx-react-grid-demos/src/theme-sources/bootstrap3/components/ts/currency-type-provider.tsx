@@ -1,7 +1,7 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
 import * as React from 'react';
 
-const getInputValue = (value?: string) =>
+const getInputValue = (value?: string) : string =>
   (value === undefined ? '' : value);
 
 const Editor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
@@ -26,7 +26,7 @@ const Editor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) =>
   }
 
 const Formatter : React.ComponentType<DataTypeProvider.ValueFormatterProps> =
-  ({ value }: DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
+  ({ value } : DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
 
 const availableFilterOperations : string[] = [
   'equal', 'notEqual',

@@ -1,6 +1,6 @@
+import * as React from 'react';<%&additionalImports%>
 import { Column, Table as TableBase } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
-import * as React from 'react';<%&additionalImports%>
 import { generateRows } from '../../../demo-data/generator';
 
 interface IRow {

@@ -6,5 +6,8 @@
       "node_modules/**/*.ts",
       "**/*.g.test.tsx"
     ]
-  }
+  },
+  "rules": {
+		"ordered-imports": false
+	}
 }

@@ -42,7 +42,7 @@ const defaultProps = {
   dateTableCellComponent: () => null,
 };
 
-describe('Week View', () => {
+describe('Month View', () => {
   beforeEach(() => {
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     dayScale.mockImplementation(() => [1, 2, 3]);
@@ -80,7 +80,7 @@ describe('Week View', () => {
       ));
 
       expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, []);
+        .toBeCalledWith('2018-07-04', firstDayOfWeek, 7, []);
       expect(getComputedState(tree).dayScale)
         .toEqual([1, 2, 3]);
     });

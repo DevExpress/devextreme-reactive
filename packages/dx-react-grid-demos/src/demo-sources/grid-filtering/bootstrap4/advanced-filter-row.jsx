@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Card } from 'reactstrap';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-bootstrap4';
+import {
+  Grid, Table, TableHeaderRow, TableFilterRow,
+} from '@devexpress/dx-react-grid-bootstrap4';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 
@@ -78,6 +80,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const {
       rows, columns, dateColumns, dateFilterOperations, filteringColumnExtensions,

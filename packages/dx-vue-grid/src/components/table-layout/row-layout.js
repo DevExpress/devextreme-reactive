@@ -33,8 +33,9 @@ export const RowLayout = {
       cellComponent: Cell,
       getCellColSpan,
     } = this;
-    const getColSpan = (tableRow, tableColumn) =>
-      getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
+    const getColSpan = (
+      tableRow, tableColumn,
+    ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
 
     return (
       <Row

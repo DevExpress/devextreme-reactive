@@ -56,8 +56,9 @@ export const DxTableSelection = {
       selectionColumnWidth,
     } = this;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+    const tableColumnsComputed = (
+      { tableColumns },
+    ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
     return (
       <DxPlugin
@@ -75,8 +76,9 @@ export const DxTableSelection = {
         {(showSelectionColumn && showSelectAll) && (
           <DxTemplate
             name="tableCell"
-            predicate={({ attrs: { tableRow, tableColumn } }) =>
-              isSelectAllTableCell(tableRow, tableColumn)}
+            predicate={(
+              { attrs: { tableRow, tableColumn } },
+            ) => isSelectAllTableCell(tableRow, tableColumn)}
           >
             {({ attrs, listeners }) => (
               <DxTemplateConnector>
@@ -91,7 +93,7 @@ export const DxTableSelection = {
                       someSelected={someSelected}
                       onToggle={select => toggleSelectAll(select)}
                     />
-                  )}
+                )}
               </DxTemplateConnector>
             )}
           </DxTemplate>
@@ -99,8 +101,9 @@ export const DxTableSelection = {
         {showSelectionColumn && (
           <DxTemplate
             name="tableCell"
-            predicate={({ attrs: { tableRow, tableColumn } }) =>
-              isSelectTableCell(tableRow, tableColumn)}
+            predicate={(
+              { attrs: { tableRow, tableColumn } },
+            ) => isSelectTableCell(tableRow, tableColumn)}
           >
             {({ attrs, listeners }) => (
               <DxTemplateConnector>
@@ -114,7 +117,7 @@ export const DxTableSelection = {
                       selected={selection.indexOf(attrs.tableRow.rowId) !== -1}
                       onToggle={() => toggleSelection({ rowIds: [attrs.tableRow.rowId] })}
                     />
-                  )}
+                )}
               </DxTemplateConnector>
             )}
           </DxTemplate>
@@ -138,7 +141,7 @@ export const DxTableSelection = {
                     >
                       {slots.default}
                     </Row>
-                  )}
+                )}
               </DxTemplateConnector>
             )}
           </DxTemplate>

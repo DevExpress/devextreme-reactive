@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import {
+  Route, Switch, Redirect, withRouter,
+} from 'react-router-dom';
 
 import { ThemeSelector } from './theme-selector';
 
@@ -48,12 +50,14 @@ const ThemeViewerBase = (
         path={`${url}/:themeName/:variantName`}
         render={({ match: { params: { themeName, variantName } } }) => (
           <div>
-            {(showThemeSelector && <ThemeSelector
+            {(showThemeSelector && (
+            <ThemeSelector
               selectedThemeName={themeName}
               avaliableThemes={normalizedAvaliableThemes}
               selectedVariantName={variantName}
               onChange={changeTheme}
-            />)}
+            />
+            ))}
             <div>
               {children({ themeName, variantName })}
             </div>

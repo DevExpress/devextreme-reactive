@@ -17,7 +17,7 @@ const TableBase = ({
   className,
   ...restProps
 }) => (
-  <TableMUI {...restProps} className={classNames(classes.table, className)} >
+  <TableMUI {...restProps} className={classNames(classes.table, className)}>
     <TableBody>
       {children}
     </TableBody>

@@ -10,7 +10,15 @@ import {
 import { generateRows } from '../../../demo-data/generator';
 
 const RowDetail = ({ row }) => (
-  <div>Details for {row.name} from {row.city}</div>
+  <div>
+    Details for
+    {' '}
+    {row.name}
+    {' '}
+    from
+    {' '}
+    {row.city}
+  </div>
 );
 
 export default class Demo extends React.PureComponent {
@@ -30,6 +38,7 @@ export default class Demo extends React.PureComponent {
 
     this.changeExpandedDetails = expandedRowIds => this.setState({ expandedRowIds });
   }
+
   render() {
     const { rows, columns, expandedRowIds } = this.state;
 

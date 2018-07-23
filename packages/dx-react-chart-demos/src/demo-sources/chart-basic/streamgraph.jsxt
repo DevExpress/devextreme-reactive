@@ -50,6 +50,7 @@ export default class Demo extends React.PureComponent {
       data: booksSale,
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

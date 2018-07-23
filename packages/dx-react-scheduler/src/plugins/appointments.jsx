@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Plugin, Template, TemplatePlaceholder, TemplateConnector,
+} from '@devexpress/dx-react-core';
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -20,8 +22,7 @@ export class Appointments extends React.PureComponent {
                 getAppointmentTitle,
                 getAppointmentStartDate,
                 getAppointmentEndDate,
-              }) =>
-                appointmentRects.map(({
+              }) => appointmentRects.map(({
                 dataItem, ...geometry
               }, index) => (
                 <Appointment

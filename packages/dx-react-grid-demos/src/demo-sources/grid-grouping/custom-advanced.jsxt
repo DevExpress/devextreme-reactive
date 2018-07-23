@@ -12,14 +12,24 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-const NameGroupCell = props => (
-  <TableGroupRow.Cell {...props}>
-    from {props.row.value.from} to {props.row.value.to}
-  </TableGroupRow.Cell>
-);
+const NameGroupCell = (props) => {
+  const { row } = props;
+  return (
+    <TableGroupRow.Cell {...props}>
+      from
+      {' '}
+      {row.value.from}
+      {' '}
+      to
+      {' '}
+      {row.value.to}
+    </TableGroupRow.Cell>
+  );
+};
 
 const GroupCell = (props) => {
-  if (props.column.name === 'name') {
+  const { column } = props;
+  if (column.name === 'name') {
     return <NameGroupCell {...props} />;
   }
   return <TableGroupRow.Cell {...props} />;
@@ -59,6 +69,7 @@ export default class Demo extends React.PureComponent {
 
     this.changeGrouping = grouping => this.setState({ grouping });
   }
+
   render() {
     const {
       rows, columns, integratedGroupingColumnExtensions, tableGroupColumnExtension, grouping,

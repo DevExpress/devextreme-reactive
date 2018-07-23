@@ -17,4 +17,3 @@ Scheduler.Root = Root;
 Scheduler.propTypes = {
   children: PropTypes.node.isRequired,
 };
-

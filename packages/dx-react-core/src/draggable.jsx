@@ -44,19 +44,25 @@ export class Draggable extends React.Component {
     this.touchStartListener = this.touchStartListener.bind(this);
     this.globalListener = this.globalListener.bind(this);
   }
+
   componentDidMount() {
     getSharedEventEmitter().subscribe(this.globalListener);
     this.setupNodeSubscription();
   }
+
   shouldComponentUpdate(nextProps) {
-    return nextProps.children !== this.props.children;
+    const { children } = this.props;
+    return nextProps.children !== children;
   }
+
   componentDidUpdate() {
     this.setupNodeSubscription();
   }
+
   componentWillUnmount() {
     getSharedEventEmitter().unsubscribe(this.globalListener);
   }
+
   setupNodeSubscription() {
     // eslint-disable-next-line react/no-find-dom-node
     const node = findDOMNode(this);
@@ -66,16 +72,19 @@ export class Draggable extends React.Component {
     node.addEventListener('mousedown', this.mouseDownListener, { passive: true });
     node.addEventListener('touchstart', this.touchStartListener, { passive: true });
   }
+
   mouseDownListener(e) {
     if (this.touchStrategy.isWaiting() || e[draggingHandled]) return;
     this.mouseStrategy.start(e);
     e[draggingHandled] = true;
   }
+
   touchStartListener(e) {
     if (e[draggingHandled]) return;
     this.touchStrategy.start(e);
     e[draggingHandled] = true;
   }
+
   globalListener([name, e]) {
     switch (name) {
       case 'mousemove':
@@ -100,8 +109,10 @@ export class Draggable extends React.Component {
       clear();
     }
   }
+
   render() {
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 

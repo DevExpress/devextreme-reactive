@@ -38,7 +38,11 @@ describe('DateNavigator', () => {
     it('should render cell and rows by props', () => {
       const props = {
         // eslint-disable-next-line react/prop-types
-        rowComponent: ({ children }) => <tr>{children}</tr>,
+        rowComponent: ({ children }) => (
+          <tr>
+            {children}
+          </tr>
+        ),
         cellComponent: () => <td />,
         cells: [
           [

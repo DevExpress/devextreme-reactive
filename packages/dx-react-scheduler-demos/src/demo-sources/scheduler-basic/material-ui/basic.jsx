@@ -14,6 +14,7 @@ import { appointments } from '../../../demo-data/appointments';
 const Navigation = ({ currentDate, goNext }) => (
   <div>
     <button
+      type="button"
       onClick={() => {
         const next = new Date(new Date(currentDate)
           .setDate(currentDate.getDate() - 7));
@@ -23,6 +24,7 @@ const Navigation = ({ currentDate, goNext }) => (
       {'<-'}
     </button>
     <button
+      type="button"
       onClick={() => {
         const next = new Date(new Date(currentDate)
           .setDate(currentDate.getDate() + 7));
@@ -43,6 +45,7 @@ export default class Demo extends React.PureComponent {
       currentDate: new Date('2018-06-27'),
     };
   }
+
   render() {
     const { data, currentDate } = this.state;
 

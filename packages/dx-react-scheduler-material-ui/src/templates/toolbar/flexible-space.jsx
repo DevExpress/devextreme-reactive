@@ -9,8 +9,7 @@ const styles = {
   },
 };
 
-export const FlexibleSpaceBase = ({ classes }) =>
-  <div className={classes.flexibleSpace} />;
+export const FlexibleSpaceBase = ({ classes }) => <div className={classes.flexibleSpace} />;
 
 FlexibleSpaceBase.propTypes = {
   classes: PropTypes.object.isRequired,

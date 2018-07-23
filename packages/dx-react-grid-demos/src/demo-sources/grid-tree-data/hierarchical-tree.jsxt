@@ -17,8 +17,7 @@ import {
   defaultColumnValues,
 } from '../../../demo-data/generator';
 
-const getChildRows = (row, rootRows) =>
-  (row ? row.items : rootRows);
+const getChildRows = (row, rootRows) => (row ? row.items : rootRows);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -60,6 +59,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
   }
+
   render() {
     const { data, columns, tableColumnExtensions } = this.state;
 

@@ -19,9 +19,11 @@ const Editor = withStyles(styles)(
   ({ onValueChange, classes, value } : EditorProps) => {
     const handleChange = (event) => {
       const { value: targetValue } = event.target;
-      if (targetValue.trim() !== '') {
-        onValueChange(parseInt(targetValue, 10));
+      if (targetValue.trim() === '') {
+        onValueChange(undefined);
+        return;
       }
+      onValueChange(parseInt(targetValue, 10));
     };
     return (
       <Input

@@ -7,9 +7,11 @@ const getInputValue = (value?: string) : string =>
 const Editor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
     const handleChange = (event) => {
       const { value: targetValue } = event.target;
-      if (targetValue.trim() !== '') {
-        onValueChange(parseInt(targetValue, 10));
+      if (targetValue.trim() === '') {
+        onValueChange(undefined);
+        return;
       }
+      onValueChange(parseInt(targetValue, 10));
     };
     return (
       <input

@@ -6,6 +6,10 @@ const getInputValue = (value) : string => (value === undefined ? '' : (value * 1
 const Editor : React.ComponentType<DataTypeProvider.ValueEditorProps> =
   ({ value, onValueChange } : DataTypeProvider.ValueEditorProps) => {
     const handleChange = (event) => {
+      if (event.target.value === '') {
+        onValueChange(undefined);
+        return;
+      }
       const targetValue : number = Number(event.target.value) / 100;
       onValueChange(Math.min(Math.max(targetValue, 0), 1));
     };

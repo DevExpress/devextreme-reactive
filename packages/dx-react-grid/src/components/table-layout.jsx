@@ -7,9 +7,8 @@ import {
   getAnimations,
   filterActiveAnimations,
   evalAnimations,
+  TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
-
-const TABLE_FLEX_TYPE = 'flex';
 
 const areColumnsChanged = (prevColumns, nextColumns) => {
   if (prevColumns.length !== nextColumns.length) return true;

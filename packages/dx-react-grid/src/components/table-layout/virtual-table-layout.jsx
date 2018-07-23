@@ -2,7 +2,7 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { Sizer, RefHolder } from '@devexpress/dx-react-core';
-import { getCollapsedGrid } from '@devexpress/dx-grid-core';
+import { getCollapsedGrid, TABLE_FLEX_TYPE } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 
 export class VirtualTableLayout extends React.PureComponent {
@@ -161,6 +161,10 @@ export class VirtualTableLayout extends React.PureComponent {
       fixedColumns,
     } = this.props;
 
+    const getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
+      ? 0
+      : column.width || minColumnWidth);
+
     return (
       <Sizer>
         {({ width }) => {
@@ -174,7 +178,7 @@ export class VirtualTableLayout extends React.PureComponent {
             left: this.state.viewportLeft,
             width,
             height: headHeight,
-            getColumnWidth: column => column.width || minColumnWidth,
+            getColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
             fixedColumns,
@@ -186,7 +190,7 @@ export class VirtualTableLayout extends React.PureComponent {
             left: this.state.viewportLeft,
             width,
             height: height - headHeight,
-            getColumnWidth: column => column.width || minColumnWidth,
+            getColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
             fixedColumns,

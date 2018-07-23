@@ -19,7 +19,7 @@ const styles = (theme: Theme) => createStyles({
 
 export const ProgressBarCell = withStyles(styles, { name: 'ProgressBarCell' })(
   ({ value, classes }: ProgressBarCellProps) => {
-    const percent = value * 100;
+    const percent : number = value * 100;
     return (
       <TableCell
         className={classes.progressBarCell}

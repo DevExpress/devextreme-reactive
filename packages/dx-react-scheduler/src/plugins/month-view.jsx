@@ -14,6 +14,8 @@ import {
   monthCells as monthCellsCore,
 } from '@devexpress/dx-scheduler-core';
 
+const WEEK_COUNT = 7;
+
 const appointmentRectsComputed = ({
   appointments,
   startViewDate,
@@ -27,9 +29,6 @@ const appointmentRectsComputed = ({
   monthCells,
   dateTableRef.querySelectorAll('td'),
 ) : []);
-
-const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
-  monthCellsCore(currentDate, firstDayOfWeek);
 
 const DayScalePlaceholder = props => (
   <TemplatePlaceholder name="navbar" params={props} />
@@ -65,11 +64,13 @@ export class MonthView extends React.PureComponent {
     } = this.props;
 
     const dayScaleComputed = ({ currentDate }) =>
-      dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
+      dayScaleCore(currentDate, firstDayOfWeek, WEEK_COUNT, []);
     const startViewDateComputed = ({ monthCells }) =>
       new Date(monthCells[0][0].value);
     const endViewDateComputed = ({ monthCells }) =>
       endViewBoundary(monthCells);
+    const monthCellsComputed = ({ currentDate }) =>
+      monthCellsCore(currentDate, firstDayOfWeek, intervalCount);
 
     return (
       <Plugin

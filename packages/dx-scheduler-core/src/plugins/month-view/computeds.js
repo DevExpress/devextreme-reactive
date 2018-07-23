@@ -16,6 +16,7 @@ import {
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
+const MONTH_COUNT = 31;
 
 export const endViewBoundary = (cells) => {
   const cellsLastIndex = cells.length - 1;
@@ -24,8 +25,12 @@ export const endViewBoundary = (cells) => {
   return lastDate.startOf('day').add(1, 'days').toDate();
 };
 
-export const monthCells = (currentDate, firstDayOfWeek) => {
+export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();
+  const currentMonths = [moment(currentDate).month()];
+  for (; currentMonths.length < intervalCount;) {
+    currentMonths.push(moment(currentDate).add(1, 'months').month());
+  }
   const currentDay = moment(currentDate).date();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
@@ -36,15 +41,15 @@ export const monthCells = (currentDate, firstDayOfWeek) => {
     .year(prevMonth.year())
     .month(prevMonth.month())
     .date(prevMonthStartDay)
-    .startOf('date');
+    .startOf('day');
 
   const result = [];
-  while (result.length < WEEK_COUNT) {
+  while (result.length < (Math.trunc((MONTH_COUNT * intervalCount) / WEEK_COUNT) + 1)) {
     const week = [];
     while (week.length < DAY_COUNT) {
       week.push({
         value: from.toDate(),
-        isOtherMonth: from.month() !== currentMonth,
+        isOtherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
         isCurrent: currentDay === from.date() && from.month() === currentMonth,
       });
       from.add(1, 'day');

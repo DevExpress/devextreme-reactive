@@ -60,6 +60,28 @@ describe('Month view computeds', () => {
       expect(cells[5][6].value.toString())
         .toBe(new Date(2010, 2, 9).toString());
     });
+
+    it('should work with interval count', () => {
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
+
+      expect(cells[0][0].value.toString())
+        .toBe(new Date(2009, 11, 27).toString());
+      expect(cells[10][6].value.toString())
+        .toBe(new Date(2010, 2, 13).toString());
+    });
+
+    it('should mark other month with interval count', () => {
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
+
+      expect(cells[0][4].isOtherMonth)
+        .toBeTruthy();
+      expect(cells[0][5].isOtherMonth)
+        .toBeFalsy();
+      expect(cells[9][0].isOtherMonth)
+        .toBeFalsy();
+      expect(cells[9][1].isOtherMonth)
+        .toBeTruthy();
+    });
   });
   describe('#endViewBoundary', () => {
     it('should work', () => {

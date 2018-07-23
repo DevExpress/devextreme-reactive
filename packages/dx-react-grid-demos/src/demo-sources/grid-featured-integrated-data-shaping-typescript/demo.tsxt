@@ -1,3 +1,4 @@
+import * as React from 'react';<%&additionalImports%>
 import {
   Column,
   FilteringState, GroupingState,
@@ -9,14 +10,12 @@ import {
   Grid, GroupingPanel, PagingPanel,
   Table, TableColumnReordering, TableColumnVisibility, TableFilterRow, TableGroupRow,
   TableHeaderRow, TableSelection, Toolbar,
-} from '@devexpress/dx-react-grid-material-ui';
-import Paper from '@material-ui/core/Paper';
-import * as React from 'react';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import { CurrencyTypeProvider } from '../../../theme-sources/material-ui/components/ts/currency-type-provider';
-import { HighlightedCell } from '../../../theme-sources/material-ui/components/ts/highlighted-cell';
-import { PercentTypeProvider } from '../../../theme-sources/material-ui/components/ts/percent-type-provider';
-import { ProgressBarCell } from '../../../theme-sources/material-ui/components/ts/progress-bar-cell';
+import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/ts/currency-type-provider';
+import { HighlightedCell } from '../../../theme-sources/<%&themeName%>/components/ts/highlighted-cell';
+import { PercentTypeProvider } from '../../../theme-sources/<%&themeName%>/components/ts/percent-type-provider';
+import { ProgressBarCell } from '../../../theme-sources/<%&themeName%>/components/ts/progress-bar-cell';
 
 import {
   generateRows,
@@ -82,7 +81,7 @@ export default class Demo extends React.Component<object, IGridState> {
     } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Grid
           rows={rows}
           columns={columns}
@@ -138,7 +137,7 @@ export default class Demo extends React.Component<object, IGridState> {
           <GroupingPanel showSortingControls={true} />
           <ColumnChooser />
         </Grid>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

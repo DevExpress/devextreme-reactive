@@ -44,6 +44,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
   }
+
   render() {
     const { data, columns, tableColumnExtensions } = this.state;
 

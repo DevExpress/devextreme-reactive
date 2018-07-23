@@ -15,7 +15,7 @@ const DefaultContainer = ({ clientOffset, children }) => (
 );
 // eslint-disable-next-line react/prop-types
 const DefaultColumn = ({ column }) => (
-  <li className="column" >
+  <li className="column">
     {column.title}
   </li>
 );

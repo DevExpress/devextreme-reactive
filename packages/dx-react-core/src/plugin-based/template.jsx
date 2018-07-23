@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT } from './constants';
+import {
+  PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, RERENDER_TEMPLATE_EVENT, RERENDER_TEMPLATE_SCOPE_EVENT,
+} from './constants';
 
 let globalTemplateId = 0;
 export class Template extends React.PureComponent {
@@ -10,30 +12,36 @@ export class Template extends React.PureComponent {
     globalTemplateId += 1;
     this.id = globalTemplateId;
   }
+
   componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
-    const { name } = this.props;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
+    const { name, predicate } = this.props;
+    const getChildren = () => { const { children } = this.props; return children; };
 
     this.plugin = {
-      position: () => this.context[POSITION_CONTEXT](),
+      position: () => positionContext(),
       [`${name}Template`]: {
         id: this.id,
-        predicate: params => (this.props.predicate ? this.props.predicate(params) : true),
-        children: () => this.props.children,
+        predicate: params => (predicate ? predicate(params) : true),
+        children: () => getChildren(),
       },
     };
     pluginHost.registerPlugin(this.plugin);
     pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
   }
+
   componentDidUpdate() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.broadcast(RERENDER_TEMPLATE_EVENT, this.id);
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { name } = this.props;
     pluginHost.unregisterPlugin(this.plugin);
-    pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, this.props.name);
+    pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
   }
+
   render() {
     return null;
   }

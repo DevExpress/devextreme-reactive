@@ -13,17 +13,22 @@ export class DropTarget extends React.Component {
 
     this.handleDrag = this.handleDrag.bind(this);
   }
+
   componentWillMount() {
     const { dragDropProvider: { dragEmitter } } = this.context;
     dragEmitter.subscribe(this.handleDrag);
   }
+
   shouldComponentUpdate(nextProps) {
-    return nextProps.children !== this.props.children;
+    const { children } = this.props;
+    return nextProps.children !== children;
   }
+
   componentWillUnmount() {
     const { dragDropProvider: { dragEmitter } } = this.context;
     dragEmitter.unsubscribe(this.handleDrag);
   }
+
   handleDrag({ payload, clientOffset, end }) {
     const {
       left,
@@ -31,17 +36,21 @@ export class DropTarget extends React.Component {
       right,
       bottom,
     } = findDOMNode(this).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+    const {
+      onDrop, onEnter, onLeave, onOver,
+    } = this.props;
     const isOver = clientOffset
       && clamp(clientOffset.x, left, right) === clientOffset.x
       && clamp(clientOffset.y, top, bottom) === clientOffset.y;
 
-    if (!this.isOver && isOver) this.props.onEnter({ payload, clientOffset });
-    if (this.isOver && isOver) this.props.onOver({ payload, clientOffset });
-    if (this.isOver && !isOver) this.props.onLeave({ payload, clientOffset });
-    if (isOver && end) this.props.onDrop({ payload, clientOffset });
+    if (!this.isOver && isOver) onEnter({ payload, clientOffset });
+    if (this.isOver && isOver) onOver({ payload, clientOffset });
+    if (this.isOver && !isOver) onLeave({ payload, clientOffset });
+    if (isOver && end) onDrop({ payload, clientOffset });
 
     this.isOver = isOver && !end;
   }
+
   render() {
     const { children } = this.props;
     return React.Children.only(children);

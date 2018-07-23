@@ -15,14 +15,17 @@ export class Plugin extends React.PureComponent {
     };
     pluginHost.registerPlugin(this.plugin);
   }
+
   componentWillUpdate() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.ensureDependencies();
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterPlugin(this.plugin);
   }
+
   render() {
     const { children } = this.props;
     return (

@@ -85,6 +85,7 @@ export class GroupPanelLayout extends React.PureComponent {
       this.resetState();
     };
   }
+
   resetState() {
     const { onGroupDraftCancel } = this.props;
     onGroupDraftCancel();
@@ -93,6 +94,7 @@ export class GroupPanelLayout extends React.PureComponent {
       targetItemIndex: -1,
     });
   }
+
   render() {
     const {
       items,

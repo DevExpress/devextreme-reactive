@@ -23,16 +23,18 @@ const applyColumnGrouping = (grouping, { columnName, groupIndex }) => {
 export const changeColumnGrouping = ({ grouping, expandedGroups }, { columnName, groupIndex }) => {
   const nextGrouping = applyColumnGrouping(grouping, { columnName, groupIndex });
 
-  const ungroupedColumnIndex = grouping.findIndex((group, index) =>
-    !nextGrouping[index] || group.columnName !== nextGrouping[index].columnName);
+  const ungroupedColumnIndex = grouping.findIndex(
+    (group, index) => !nextGrouping[index] || group.columnName !== nextGrouping[index].columnName,
+  );
   if (ungroupedColumnIndex === -1) {
     return {
       grouping: nextGrouping,
     };
   }
 
-  const filteredExpandedGroups = expandedGroups.filter(group =>
-    group.split(GROUP_KEY_SEPARATOR).length <= ungroupedColumnIndex);
+  const filteredExpandedGroups = expandedGroups.filter(
+    group => group.split(GROUP_KEY_SEPARATOR).length <= ungroupedColumnIndex,
+  );
   if (filteredExpandedGroups.length === expandedGroups.length) {
     return {
       grouping: nextGrouping,

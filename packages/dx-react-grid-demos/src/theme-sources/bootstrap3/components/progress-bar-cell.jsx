@@ -20,11 +20,12 @@ export const ProgressBarCell = ({ value, style }) => {
       >
         <OverlayTrigger
           placement="top"
-          overlay={
+          overlay={(
             <Tooltip id="progress-bar-cell-tooltip">
-              {percent.toFixed(1)}%
+              {percent.toFixed(1)}
+              %
             </Tooltip>
-          }
+)}
         >
           <div
             className="progress-bar"
@@ -34,7 +35,10 @@ export const ProgressBarCell = ({ value, style }) => {
             aria-valuemax="100"
             style={{ width: `${percent}%` }}
           >
-            <span className="sr-only">{percent.toFixed()}%</span>
+            <span className="sr-only">
+              {percent.toFixed()}
+              %
+            </span>
           </div>
         </OverlayTrigger>
       </div>

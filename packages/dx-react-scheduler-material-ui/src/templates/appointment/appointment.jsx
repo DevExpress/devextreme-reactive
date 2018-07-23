@@ -69,15 +69,17 @@ const AppointmentBase = ({
   >
     {children || (
       <div className={classes.main}>
-        <div className={classes.title} >
+        <div className={classes.title}>
           {getTitle(appointment)}
         </div>
-        <div className={classes.textContainer} >
-          <div className={classes.time} >
+        <div className={classes.textContainer}>
+          <div className={classes.time}>
             {moment(getStartDate(appointment)).format('h:mm A')}
           </div>
-          <div className={classes.time} >-</div>
-          <div className={classes.time} >
+          <div className={classes.time}>
+-
+          </div>
+          <div className={classes.time}>
             {moment(getEndDate(appointment)).format('h:mm A')}
           </div>
         </div>

@@ -18,6 +18,7 @@ export default class Demo extends React.PureComponent {
       data: ageStructure,
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

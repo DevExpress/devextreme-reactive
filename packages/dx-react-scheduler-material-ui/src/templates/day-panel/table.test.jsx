@@ -6,7 +6,11 @@ describe('DayPanel', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Table><div /></Table>);
+    classes = getClasses(
+      <Table>
+        <div />
+      </Table>,
+    );
     shallow = createShallow({ dive: true });
   });
   describe('Table', () => {

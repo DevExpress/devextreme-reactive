@@ -10,6 +10,7 @@ export class ItemLayout extends React.PureComponent {
       dragging: false,
     };
   }
+
   render() {
     const {
       item,

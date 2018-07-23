@@ -19,11 +19,13 @@ const pluginDependencies = [
   { name: 'DxTable' },
 ];
 
-const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
-  visibleTableColumns(tableColumns, hiddenColumnNames);
+const visibleTableColumnsComputed = (
+  { tableColumns, hiddenColumnNames },
+) => visibleTableColumns(tableColumns, hiddenColumnNames);
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
+const columnExtensionValueGetter = (
+  columnExtensions, defaultValue,
+) => getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
 
 export const DxTableColumnVisibility = {
   name: 'DxTableColumnVisibility',
@@ -83,8 +85,7 @@ export const DxTableColumnVisibility = {
         <DxTemplate name="table">
           {attrs => (
             <DxTemplateConnector>
-              {({ getters: { tableColumns } }) =>
-                (tableDataColumnsExist(tableColumns)
+              {({ getters: { tableColumns } }) => (tableDataColumnsExist(tableColumns)
                 ? <DxTemplatePlaceholder />
                 : <EmptyMessage
                     getMessage={getMessage}

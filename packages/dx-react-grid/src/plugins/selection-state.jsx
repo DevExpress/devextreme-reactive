@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import { toggleSelection } from '@devexpress/dx-grid-core';
 
 export class SelectionState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { onSelectionChange } = this.props;
 
     this.state = {
       selection: props.selection || props.defaultSelection,
@@ -14,13 +17,14 @@ export class SelectionState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        selection: () => this.props.onSelectionChange,
+        selection: () => onSelectionChange,
       },
     );
 
     this.toggleSelection = stateHelper.applyFieldReducer
       .bind(stateHelper, 'selection', toggleSelection);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       selection,
@@ -29,6 +33,7 @@ export class SelectionState extends React.PureComponent {
       ...selection !== undefined ? { selection } : null,
     });
   }
+
   render() {
     const { selection } = this.state;
 

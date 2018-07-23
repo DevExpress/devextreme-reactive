@@ -17,7 +17,9 @@ class Toggle extends React.PureComponent {
           onClick(e);
         }}
       >
-        <span className="caption">{children}</span>
+        <span className="caption">
+          {children}
+        </span>
         <span className="caret" />
       </a>
     );
@@ -70,7 +72,8 @@ export const ThemeSelector = (
                 disabled={!avaliable}
                 active={activeTheme}
               >
-                {themeTitle}{!avaliable && ' (coming soon)'}
+                {themeTitle}
+                {!avaliable && ' (coming soon)'}
               </MenuItem>
             );
           }
@@ -84,7 +87,8 @@ export const ThemeSelector = (
                 disabled={!avaliable}
                 active={activeTheme && activeVariant}
               >
-                {variantTitle}{!avaliable && ' (coming soon)'}
+                {variantTitle}
+                {!avaliable && ' (coming soon)'}
               </MenuItem>
             );
           });

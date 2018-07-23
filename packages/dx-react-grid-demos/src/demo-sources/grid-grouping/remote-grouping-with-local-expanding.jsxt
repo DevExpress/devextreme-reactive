@@ -42,25 +42,31 @@ export default class Demo extends React.PureComponent {
     this.changeGrouping = this.changeGrouping.bind(this);
     this.changeExpandedGroups = this.changeExpandedGroups.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeGrouping(grouping) {
+    const { grouping: stateGrouping, expandedGroups } = this.state;
     this.setState({
       loading: true,
       grouping,
-      tempGrouping: this.state.grouping,
-      tempExpandedGroups: this.state.expandedGroups,
+      tempGrouping: stateGrouping,
+      tempExpandedGroups: expandedGroups,
     });
   }
+
   changeExpandedGroups(expandedGroups) {
     this.setState({
       expandedGroups,
     });
   }
+
   queryString() {
     const { grouping } = this.state;
     if (!grouping.length) return URL;
@@ -72,8 +78,10 @@ export default class Demo extends React.PureComponent {
       }));
     return `${URL}?group=${JSON.stringify(groupConfig)}`;
   }
+
   loadData() {
-    if (!this.state.loading) return;
+    const { loading } = this.state;
+    if (!loading) return;
 
     const queryString = this.queryString();
     fetch(queryString, { mode: 'cors' })
@@ -90,6 +98,7 @@ export default class Demo extends React.PureComponent {
 
     this.lastQuery = queryString;
   }
+
   render() {
     const {
       data,

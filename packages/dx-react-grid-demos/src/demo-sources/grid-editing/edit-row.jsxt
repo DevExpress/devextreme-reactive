@@ -34,6 +34,7 @@ export default class Demo extends React.PureComponent {
 
     this.commitChanges = this.commitChanges.bind(this);
   }
+
   commitChanges({ added, changed, deleted }) {
     let { rows } = this.state;
     if (added) {
@@ -55,6 +56,7 @@ export default class Demo extends React.PureComponent {
     }
     this.setState({ rows });
   }
+
   render() {
     const { rows, columns } = this.state;
 

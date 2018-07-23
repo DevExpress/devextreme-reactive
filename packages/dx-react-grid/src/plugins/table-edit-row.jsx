@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
+} from '@devexpress/dx-react-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -23,8 +25,9 @@ export class TableEditRow extends React.PureComponent {
       rowHeight,
     } = this.props;
 
-    const tableBodyRowsComputed = ({ tableBodyRows, editingRowIds, addedRows }) =>
-      tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
+    const tableBodyRowsComputed = (
+      { tableBodyRows, editingRowIds, addedRows },
+    ) => tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
 
     return (
       <Plugin

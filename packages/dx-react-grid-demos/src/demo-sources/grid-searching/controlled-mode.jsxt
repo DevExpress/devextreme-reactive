@@ -30,6 +30,7 @@ export default class Demo extends React.PureComponent {
 
     this.changeSearchValue = value => this.setState({ searchValue: value });
   }
+
   render() {
     const { rows, columns, searchValue } = this.state;
 

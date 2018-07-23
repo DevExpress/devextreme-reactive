@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Getter, Plugin } from '@devexpress/dx-react-core';
-import { defaultSummaryCalculator, totalSummaryValues, groupSummaryValues, treeSummaryValues } from '@devexpress/dx-grid-core';
+import {
+  defaultSummaryCalculator,
+  totalSummaryValues,
+  groupSummaryValues,
+  treeSummaryValues,
+} from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
@@ -18,16 +23,15 @@ export class IntegratedSummary extends React.PureComponent {
       getRowLevelKey,
       isGroupRow,
       getCollapsedRows,
-    }) =>
-      totalSummaryValues(
-        rows,
-        totalSummaryItems,
-        getCellValue,
-        getRowLevelKey,
-        isGroupRow,
-        getCollapsedRows,
-        calculator,
-      );
+    }) => totalSummaryValues(
+      rows,
+      totalSummaryItems,
+      getCellValue,
+      getRowLevelKey,
+      isGroupRow,
+      getCollapsedRows,
+      calculator,
+    );
 
     const groupSummaryValuesComputed = ({
       rows,
@@ -35,15 +39,14 @@ export class IntegratedSummary extends React.PureComponent {
       getCellValue,
       getRowLevelKey,
       isGroupRow,
-    }) =>
-      groupSummaryValues(
-        rows,
-        groupSummaryItems,
-        getCellValue,
-        getRowLevelKey,
-        isGroupRow,
-        calculator,
-      );
+    }) => groupSummaryValues(
+      rows,
+      groupSummaryItems,
+      getCellValue,
+      getRowLevelKey,
+      isGroupRow,
+      calculator,
+    );
 
     const treeSummaryValuesComputed = ({
       rows,
@@ -52,16 +55,15 @@ export class IntegratedSummary extends React.PureComponent {
       getRowLevelKey,
       isGroupRow,
       getRowId,
-    }) =>
-      treeSummaryValues(
-        rows,
-        treeSummaryItems,
-        getCellValue,
-        getRowLevelKey,
-        isGroupRow,
-        getRowId,
-        calculator,
-      );
+    }) => treeSummaryValues(
+      rows,
+      treeSummaryItems,
+      getCellValue,
+      getRowLevelKey,
+      isGroupRow,
+      getRowId,
+      calculator,
+    );
 
     return (
       <Plugin

@@ -22,17 +22,19 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-interface IRow {
-  name: string,
-  sex: string,
-  city: string,
-  car: string
+interface ISale {
+  product: string,
+  region: string,
+  amount: string,
+  discount: string,
+  saleDate: string,
+  customer: string,
 }
 
 interface IGridState {
   columns: Column[],
   tableColumnExtensions: TableBase.ColumnExtension[],
-  rows: IRow[],
+  rows: ISale[],
   pageSizes: number[],
   currencyColumns: string[],
   percentColumns: string[],
@@ -47,6 +49,8 @@ const Cell = (props: TableBase.DataCellProps) => {
   }
   return <Table.Cell {...props} />;
 };
+
+const sales: ISale[] = generateRows({ columnValues: globalSalesValues, length: 1000 });
 
 export default class Demo extends React.Component<object, IGridState> {
   constructor(props) {
@@ -64,7 +68,7 @@ export default class Demo extends React.Component<object, IGridState> {
       currencyColumns: ['amount'],
       pageSizes: [5, 10, 15],
       percentColumns: ['discount'],
-      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }) as IRow[],
+      rows: sales,
       tableColumnExtensions: [
         { columnName: 'amount', align: 'right' },
       ],

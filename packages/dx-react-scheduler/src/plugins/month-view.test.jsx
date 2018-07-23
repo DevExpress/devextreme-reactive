@@ -4,7 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   dayScale,
-  monthCells,
+  monthCellsCore,
   endViewBoundary,
   monthAppointmentRect,
 } from '@devexpress/dx-scheduler-core';
@@ -12,7 +12,7 @@ import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
-  monthCells: jest.fn(),
+  monthCellsCore: jest.fn(),
   endViewBoundary: jest.fn(),
   monthAppointmentRect: jest.fn(),
 }));
@@ -46,7 +46,7 @@ describe('Month View', () => {
   beforeEach(() => {
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     dayScale.mockImplementation(() => [1, 2, 3]);
-    monthCells.mockImplementation(() => ([
+    monthCellsCore.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}],
       [{}, { value: new Date('2018-08-05') }],
     ]));

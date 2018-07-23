@@ -10,8 +10,8 @@ import {
 import {
   monthAppointmentRect,
   endViewBoundary,
+  monthCellsCore,
   dayScale as dayScaleCore,
-  monthCells as monthCellsCore,
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;

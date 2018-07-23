@@ -12,11 +12,11 @@ const styles = createStyles({
 
 type EditorProps = DataTypeProvider.ValueEditorProps & WithStyles<typeof styles>;
 
-const getInputValue = (value?: string) =>
+const getInputValue = (value?: string) : string =>
   (value === undefined ? '' : value);
 
 const Editor = withStyles(styles)(
-  ({ onValueChange, classes, value }: EditorProps) => {
+  ({ onValueChange, classes, value } : EditorProps) => {
     const handleChange = (event) => {
       const { value: targetValue } = event.target;
       if (targetValue.trim() !== '') {
@@ -41,19 +41,21 @@ const Editor = withStyles(styles)(
   }
 );
 
-const Formatter = ({ value }: DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
+const Formatter : React.ComponentType<DataTypeProvider.ValueFormatterProps> =
+  ({ value } : DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
 
-const availableFilterOperations = [
+const availableFilterOperations : string[] = [
   'equal', 'notEqual',
   'greaterThan', 'greaterThanOrEqual',
   'lessThan', 'lessThanOrEqual',
 ];
 
-export const CurrencyTypeProvider = (props: DataTypeProviderProps) => (
-  <DataTypeProvider
-    formatterComponent={Formatter}
-    editorComponent={Editor}
-    availableFilterOperations={availableFilterOperations}
-    {...props}
-  />
+export const CurrencyTypeProvider : React.ComponentType<DataTypeProviderProps> =
+  (props: DataTypeProviderProps) => (
+    <DataTypeProvider
+      formatterComponent={Formatter}
+      editorComponent={Editor}
+      availableFilterOperations={availableFilterOperations}
+      {...props}
+    />
 );

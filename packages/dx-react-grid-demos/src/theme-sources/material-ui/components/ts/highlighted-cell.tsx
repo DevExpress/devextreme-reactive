@@ -3,7 +3,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/s
 import TableCell from '@material-ui/core/TableCell';
 import * as React from 'react';
 
-const getColor = (amount: number) => {
+const getColor = (amount: number) : string => {
   if (amount < 3000) {
     return '#F44336';
   }

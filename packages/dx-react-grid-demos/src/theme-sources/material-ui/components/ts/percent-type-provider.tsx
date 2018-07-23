@@ -12,12 +12,12 @@ const styles = createStyles({
 
 type EditorProps = DataTypeProvider.ValueEditorProps & WithStyles<typeof styles>;
 
-const getInputValue = value => (value === undefined ? '' : (value * 100).toFixed(1));
+const getInputValue = (value) : string => (value === undefined ? '' : (value * 100).toFixed(1));
 
 const Editor = withStyles(styles)(
   ({ value, onValueChange, classes }: EditorProps) => {
     const handleChange = (event) => {
-      const targetValue = Number(event.target.value) / 100;
+      const targetValue : number = Number(event.target.value) / 100;
       onValueChange(Math.min(Math.max(targetValue, 0), 1));
     };
     return (
@@ -40,16 +40,17 @@ const Editor = withStyles(styles)(
   }
 );
 
-const availableFilterOperations = [
+const availableFilterOperations : string[] = [
   'equal', 'notEqual',
   'greaterThan', 'greaterThanOrEqual',
   'lessThan', 'lessThanOrEqual',
 ];
 
-export const PercentTypeProvider = (props: DataTypeProviderProps) => (
-  <DataTypeProvider
-    editorComponent={Editor}
-    availableFilterOperations={availableFilterOperations}
-    {...props}
-  />
+export const PercentTypeProvider : React.ComponentType<DataTypeProviderProps> =
+  (props: DataTypeProviderProps) => (
+    <DataTypeProvider
+      editorComponent={Editor}
+      availableFilterOperations={availableFilterOperations}
+      {...props}
+    />
 );

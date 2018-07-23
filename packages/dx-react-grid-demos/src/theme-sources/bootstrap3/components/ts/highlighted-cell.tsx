@@ -1,7 +1,7 @@
 import { Table } from '@devexpress/dx-react-grid';
 import * as React from 'react';
 
-const getColor = (amount: number) => {
+const getColor = (amount: number) : string => {
   if (amount < 3000) {
     return '#fc7a76';
   }
@@ -14,7 +14,8 @@ const getColor = (amount: number) => {
   return '#c3e2b7';
 };
 
-export const HighlightedCell = ({ tableColumn, value, children } : Table.DataCellProps) => (
+export const HighlightedCell : React.ComponentType<Table.DataCellProps> =
+  ({ tableColumn, value, children } : Table.DataCellProps) => (
     <td
       style={{
         backgroundColor: getColor(value),

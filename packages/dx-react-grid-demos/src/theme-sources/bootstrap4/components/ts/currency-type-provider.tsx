@@ -1,10 +1,10 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
 import * as React from 'react';
 
-const getInputValue = (value?: string) =>
+const getInputValue = (value?: string) : string =>
   (value === undefined ? '' : value);
 
-const Editor = ({ onValueChange, value }: DataTypeProvider.ValueEditorProps) => {
+const Editor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
     const handleChange = (event) => {
       const { value: targetValue } = event.target;
       if (targetValue.trim() !== '') {
@@ -23,19 +23,21 @@ const Editor = ({ onValueChange, value }: DataTypeProvider.ValueEditorProps) => 
     );
   }
 
-const Formatter = ({ value }: DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
+const Formatter : React.ComponentType<DataTypeProvider.ValueFormatterProps> =
+  ({ value }: DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
 
-const availableFilterOperations = [
+const availableFilterOperations : string[] = [
   'equal', 'notEqual',
   'greaterThan', 'greaterThanOrEqual',
   'lessThan', 'lessThanOrEqual',
 ];
 
-export const CurrencyTypeProvider = (props: DataTypeProviderProps) => (
-  <DataTypeProvider
-    formatterComponent={Formatter}
-    editorComponent={Editor}
-    availableFilterOperations={availableFilterOperations}
-    {...props}
-  />
+export const CurrencyTypeProvider : React.ComponentType<DataTypeProviderProps> =
+  (props: DataTypeProviderProps) => (
+    <DataTypeProvider
+      formatterComponent={Formatter}
+      editorComponent={Editor}
+      availableFilterOperations={availableFilterOperations}
+      {...props}
+    />
 );

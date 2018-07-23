@@ -41,7 +41,7 @@ interface IGridState {
   percentColumns: string[],
 }
 
-const Cell = (props: TableBase.DataCellProps) => {
+const Cell: React.ComponentType<TableBase.DataCellProps> = (props: TableBase.DataCellProps) => {
   if (props.column.name === 'discount') {
     return <ProgressBarCell {...props} />;
   }

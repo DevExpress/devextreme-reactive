@@ -1,8 +1,4 @@
-import {
-  stack,
-  stackOrderNone,
-  stackOffsetNone,
-} from 'd3-shape';
+import { stack } from 'd3-shape';
 
 const getStacks = series => series.reduce((
   prevValue,
@@ -27,15 +23,17 @@ const getStacks = series => series.reduce((
   };
 }, {});
 
-export const processData = (series, data) => {
+const filtering = ({ stack: seriesStack }) => seriesStack;
+
+export const processData = (offset, order) => (series, data) => {
   const stacks = getStacks(series);
 
   const arrayOfStacks = Object.entries(stacks).reduce((prevValue, item) => ({
     ...prevValue,
     [item[0]]: stack()
       .keys(item[1].keys)
-      .order(stackOrderNone)
-      .offset(stackOffsetNone)(data),
+      .order(order)
+      .offset(offset)(data),
   }), {});
 
 
@@ -57,7 +55,8 @@ export const seriesWithStacks = series =>
     return [...prevResult, { ...singleSeries, stack: seriesStack }];
   }, []);
 
-export const stacks = series => series.reduce((prevResult, singleSeries) => {
-  const { stack: seriesStack } = singleSeries;
-  return [...prevResult, seriesStack];
-}, []);
+export const stacks = series => [
+  ...new Set(series
+    .filter(singleSeries => filtering(singleSeries))
+    .map(({ stack: seriesStack }) => seriesStack)),
+];

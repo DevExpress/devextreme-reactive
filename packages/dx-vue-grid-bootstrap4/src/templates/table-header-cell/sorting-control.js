@@ -64,7 +64,7 @@ export const SortingControl = {
         onMousedown={this.handleMouseDown}
       >
         <span
-          class="dx-g-bs4-sorting-control-text text-nowrap"
+          class="dx-g-bs4-sorting-control-text"
         >
           {this.$slots.default}
         </span>

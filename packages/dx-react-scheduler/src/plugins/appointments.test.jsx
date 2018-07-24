@@ -5,7 +5,11 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
 // eslint-disable-next-line react/prop-types
-const Container = ({ children }) => <div>{children}</div>;
+const Container = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 const Appointment = () => null;
 
 const defaultProps = {

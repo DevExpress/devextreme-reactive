@@ -40,8 +40,8 @@ export const viewPredicate = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
-export const sortAppointments = (appointments, byDay = false) =>
-  appointments.slice().sort((a, b) => {
+export const sortAppointments = (appointments, byDay = false) => appointments
+  .slice().sort((a, b) => {
     const compareValue = byDay ? 'day' : undefined;
     if (a.start.isBefore(b.start, compareValue)) return -1;
     if (a.start.isAfter(b.start, compareValue)) return 1;

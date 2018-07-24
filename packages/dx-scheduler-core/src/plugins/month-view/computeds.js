@@ -3,12 +3,12 @@ import {
   sortAppointments,
   viewPredicate,
   toPercentage,
-} from './../../utils';
+} from '../../utils';
 import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
-} from './../week-view/helpers';
+} from '../week-view/helpers';
 import {
   sliceAppointmentByWeek,
   getRectByDates,
@@ -64,14 +64,10 @@ const calculateDateIntervals = (
   leftBound, rightBound,
   monthCells,
 ) => appointments
-  .map(({ start, end, ...restArgs }) =>
-    ({ start: moment(start), end: moment(end), ...restArgs }))
-  .filter(appointment =>
-    viewPredicate(appointment, leftBound, rightBound))
-  .reduce((acc, appointment) =>
-    ([...acc, ...sliceAppointmentByWeek(appointment, monthCells)]), [])
-  .filter(appointment =>
-    viewPredicate(appointment, leftBound, rightBound));
+  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment => viewPredicate(appointment, leftBound, rightBound))
+  .reduce((acc, appointment) => ([...acc, ...sliceAppointmentByWeek(appointment, monthCells)]), [])
+  .filter(appointment => viewPredicate(appointment, leftBound, rightBound));
 
 const calculateRectsByDateIntervals = (
   intervals,

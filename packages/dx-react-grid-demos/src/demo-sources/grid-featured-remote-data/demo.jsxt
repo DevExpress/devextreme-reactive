@@ -47,27 +47,33 @@ export default class Demo extends React.PureComponent {
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
     this.changePageSize = this.changePageSize.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeSorting(sorting) {
     this.setState({
       loading: true,
       sorting,
     });
   }
+
   changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
       currentPage,
     });
   }
+
   changePageSize(pageSize) {
-    const totalPages = Math.ceil(this.state.totalCount / pageSize);
-    const currentPage = Math.min(this.state.currentPage, totalPages - 1);
+    const { totalCount, currentPage: stateCurrentPage } = this.state;
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const currentPage = Math.min(stateCurrentPage, totalPages - 1);
 
     this.setState({
       loading: true,
@@ -75,6 +81,7 @@ export default class Demo extends React.PureComponent {
       currentPage,
     });
   }
+
   queryString() {
     const { sorting, pageSize, currentPage } = this.state;
 
@@ -88,6 +95,7 @@ export default class Demo extends React.PureComponent {
 
     return queryString;
   }
+
   loadData() {
     const queryString = this.queryString();
     if (queryString === this.lastQuery) {
@@ -105,6 +113,7 @@ export default class Demo extends React.PureComponent {
       .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
+
   render() {
     const {
       rows,

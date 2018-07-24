@@ -10,7 +10,15 @@ import {
 import { generateRows } from '../../../demo-data/generator';
 
 const RowDetail = ({ row }) => (
-  <div>Details for {row.name} from {row.city}</div>
+  <div>
+    Details for
+    {' '}
+    {row.name}
+    {' '}
+    from
+    {' '}
+    {row.city}
+  </div>
 );
 
 export default class Demo extends React.PureComponent {
@@ -27,6 +35,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 

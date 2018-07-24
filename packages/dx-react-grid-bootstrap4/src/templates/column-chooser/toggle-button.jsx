@@ -15,6 +15,7 @@ export const ToggleButton = ({
   }, className);
   return (
     <button
+      type="button"
       className={buttonClasses}
       onClick={onToggle}
       ref={buttonRef}

@@ -17,6 +17,7 @@ export default class Demo extends React.PureComponent {
       data: data.slice(0, 7),
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

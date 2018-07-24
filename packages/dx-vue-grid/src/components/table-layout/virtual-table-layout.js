@@ -139,10 +139,10 @@ export const VirtualTableLayout = {
       }
 
       // NOTE: prevent iOS to flicker in bounces
-      if (node.scrollTop < 0 ||
-        node.scrollLeft < 0 ||
-        node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth) ||
-        node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
+      if (node.scrollTop < 0
+        || node.scrollLeft < 0
+        || node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth)
+        || node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
         return;
       }
 
@@ -219,8 +219,9 @@ export const VirtualTableLayout = {
       <DxSizer>
         {({ width }) => {
           const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
-          const getColSpan = (tableRow, tableColumn) =>
-            getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
+          const getColSpan = (
+            tableRow, tableColumn,
+          ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
           const collapsedHeaderGrid = getCollapsedGrid({
             rows: headerRows,
             columns,

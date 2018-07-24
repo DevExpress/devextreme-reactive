@@ -23,4 +23,3 @@ GroupPanelContainer.defaultProps = {
   children: null,
   className: undefined,
 };
-

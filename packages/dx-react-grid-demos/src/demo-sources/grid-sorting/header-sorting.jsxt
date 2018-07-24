@@ -25,6 +25,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 

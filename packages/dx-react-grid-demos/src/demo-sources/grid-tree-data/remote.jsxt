@@ -46,15 +46,19 @@ export default class Demo extends React.PureComponent {
 
     this.changeExpandedRowIds = this.changeExpandedRowIds.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeExpandedRowIds(expandedRowIds) {
     this.setState({ expandedRowIds });
   }
+
   loadData() {
     const { expandedRowIds, data, loading } = this.state;
 
@@ -66,12 +70,11 @@ export default class Demo extends React.PureComponent {
       .filter(rowId => data.findIndex(row => row.parentId === rowId) === -1);
 
     if (rowIdsWithNotLoadedChilds.length) {
-      if (this.state.loading) return;
+      if (loading) return;
       this.setState({ loading: true });
       Promise.all(rowIdsWithNotLoadedChilds
-        .map(rowId =>
-          fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
-            .then(response => response.json())))
+        .map(rowId => fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
+          .then(response => response.json())))
         .then((loadedData) => {
           this.setState({
             data: data.concat(...loadedData),
@@ -81,6 +84,7 @@ export default class Demo extends React.PureComponent {
         .catch(() => this.setState({ loading: false }));
     }
   }
+
   render() {
     const {
       data, columns, tableColumnExtensions, expandedRowIds, loading,

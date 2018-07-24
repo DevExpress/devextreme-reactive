@@ -24,7 +24,8 @@ jest.mock('@devexpress/dx-react-core', () => {
     RefHolder: class extends Component {
       render() {
         // eslint-disable-next-line react/prop-types
-        return this.props.children;
+        const { children: propsChildren } = this.props;
+        return propsChildren;
       }
     },
   };

@@ -21,28 +21,30 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-const visibleTableColumnsComputed = ({ tableColumns, hiddenColumnNames }) =>
-  visibleTableColumns(tableColumns, hiddenColumnNames);
+const visibleTableColumnsComputed = (
+  { tableColumns, hiddenColumnNames },
+) => visibleTableColumns(tableColumns, hiddenColumnNames);
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumnExtensionValueGetter(columnExtensions, 'togglingEnabled', defaultValue);
 
 export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const { onHiddenColumnNamesChange } = this.props;
     this.state = {
       hiddenColumnNames: props.hiddenColumnNames || props.defaultHiddenColumnNames,
     };
     const stateHelper = createStateHelper(
       this,
       {
-        hiddenColumnNames: () => this.props.onHiddenColumnNamesChange,
+        hiddenColumnNames: () => onHiddenColumnNamesChange,
       },
     );
 
     this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumnNames', toggleColumn);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       hiddenColumnNames,
@@ -51,6 +53,7 @@ export class TableColumnVisibility extends React.PureComponent {
       ...hiddenColumnNames !== undefined ? { hiddenColumnNames } : null,
     });
   }
+
   render() {
     const {
       emptyMessageComponent: EmptyMessage,
@@ -79,13 +82,14 @@ export class TableColumnVisibility extends React.PureComponent {
         <Template name="table">
           {params => (
             <TemplateConnector>
-              {({ tableColumns }) =>
-                (tableDataColumnsExist(tableColumns)
+              {({ tableColumns }) => (tableDataColumnsExist(tableColumns)
                 ? <TemplatePlaceholder />
-                : <EmptyMessage
-                  getMessage={getMessage}
-                  {...params}
-                />
+                : (
+                  <EmptyMessage
+                    getMessage={getMessage}
+                    {...params}
+                  />
+                )
               )}
             </TemplateConnector>
           )}

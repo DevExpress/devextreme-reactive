@@ -103,5 +103,5 @@ export const expandedGroupRows = (rows, grouping, expandedGroups) => {
   }, []);
 };
 
-export const groupCollapsedRowsGetter = getCollapsedRows =>
-  row => row[GRID_GROUP_COLLAPSED_ROWS] || (getCollapsedRows && getCollapsedRows(row));
+export const groupCollapsedRowsGetter = getCollapsedRows => row => row[GRID_GROUP_COLLAPSED_ROWS]
+|| (getCollapsedRows && getCollapsedRows(row));

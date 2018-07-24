@@ -8,7 +8,11 @@ const defaultProps = {
 
 describe('Root', () => {
   const shallow = createShallow({ dive: true });
-  const classes = getClasses(<Root {...defaultProps} >child</Root>);
+  const classes = getClasses(
+    <Root {...defaultProps}>
+      child
+    </Root>,
+  );
   it('should render root element', () => {
     const tree = shallow((
       <Root {...defaultProps}>
@@ -27,7 +31,7 @@ describe('Root', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} className="custom-class" >
+      <Root {...defaultProps} className="custom-class">
         <div />
       </Root>
     ));
@@ -37,7 +41,11 @@ describe('Root', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Root {...defaultProps} customProperty>child</Root>);
+    const tree = shallow(
+      <Root {...defaultProps} customProperty>
+        child
+      </Root>,
+    );
 
     const { customProperty } = tree.find('g').props();
 

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import {
   changeColumnSorting,
   getColumnExtensionValueGetter,
@@ -8,34 +10,36 @@ import {
   calculateKeepOther,
 } from '@devexpress/dx-grid-core';
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumnExtensionValueGetter(columnExtensions, 'sortingEnabled', defaultValue);
 
 export class SortingState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const sorting = props.sorting || props.defaultSorting;
+    const { onSortingChange } = props;
 
     this.state = {
-      sorting: props.sorting || props.defaultSorting,
+      sorting,
     };
 
-    const persistentSortedColumns =
-      getPersistentSortedColumns(this.state.sorting, props.columnExtensions);
+    const persistentSortedColumns = getPersistentSortedColumns(sorting, props.columnExtensions);
 
     const stateHelper = createStateHelper(
       this,
       {
-        sorting: () => this.props.onSortingChange,
+        sorting: () => onSortingChange,
       },
     );
 
     this.changeColumnSorting = stateHelper.applyReducer
       .bind(stateHelper, (prevState, payload) => {
-        const keepOther =
-          calculateKeepOther(prevState.sorting, payload.keepOther, persistentSortedColumns);
+        const keepOther = calculateKeepOther(
+          prevState.sorting, payload.keepOther, persistentSortedColumns,
+        );
         return changeColumnSorting(prevState, { ...payload, keepOther });
       });
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       sorting,
@@ -44,6 +48,7 @@ export class SortingState extends React.PureComponent {
       ...sorting !== undefined ? { sorting } : null,
     });
   }
+
   render() {
     const { sorting } = this.state;
     const { columnExtensions, columnSortingEnabled } = this.props;

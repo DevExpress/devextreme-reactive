@@ -30,28 +30,34 @@ export default class Demo extends React.PureComponent {
 
     this.changeSorting = this.changeSorting.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeSorting(sorting) {
     this.setState({
       loading: true,
       sorting,
     });
   }
+
   queryString() {
     let queryString = `${URL}?`;
+    const { sorting } = this.state;
 
-    const columnSorting = this.state.sorting[0];
+    const columnSorting = sorting[0];
     if (columnSorting) {
       const sortDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
       queryString = `${queryString}orderby=${columnSorting.columnName}${sortDirectionString}`;
     }
     return queryString;
   }
+
   loadData() {
     const queryString = this.queryString();
     if (queryString === this.lastQuery) {
@@ -68,6 +74,7 @@ export default class Demo extends React.PureComponent {
       .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
+
   render() {
     const {
       rows, columns, sorting, loading,

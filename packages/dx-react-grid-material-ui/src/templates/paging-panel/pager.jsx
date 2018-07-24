@@ -37,12 +37,14 @@ const PagerBase = ({
       pageSize={pageSize}
       getMessage={getMessage}
     />
-    {!!pageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && (
+    <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       pageSizes={pageSizes}
       getMessage={getMessage}
-    />}
+    />
+    )}
   </div>
 );
 

@@ -21,11 +21,23 @@ const defaultDeps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const TableComponent = ({ children }) => <div>{children}</div>;
+const TableComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 // eslint-disable-next-line react/prop-types
-const OverlayComponent = ({ children }) => <div>{children}</div>;
+const OverlayComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 // eslint-disable-next-line react/prop-types
-const RowComponent = ({ children }) => <div>{children}</div>;
+const RowComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 const ToggleButtonComponent = () => null;
 const CellComponent = () => null;
 

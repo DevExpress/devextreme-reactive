@@ -47,14 +47,13 @@ export const customTreeRowIdGetter = (getRowId, { rows, treeMeta }) => {
   return row => map.get(row);
 };
 
-export const customTreeRowLevelKeyGetter = (getRowLevelKey, { treeMeta }) =>
-  (row) => {
-    const rowMeta = treeMeta.get(row);
-    if (rowMeta !== undefined) {
-      return `${GRID_TREE_NODE_TYPE}_${rowMeta.level}`;
-    }
-    return getRowLevelKey && getRowLevelKey();
-  };
+export const customTreeRowLevelKeyGetter = (getRowLevelKey, { treeMeta }) => (row) => {
+  const rowMeta = treeMeta.get(row);
+  if (rowMeta !== undefined) {
+    return `${GRID_TREE_NODE_TYPE}_${rowMeta.level}`;
+  }
+  return getRowLevelKey && getRowLevelKey();
+};
 
 export const expandedTreeRows = ({ rows, treeMeta }, getRowId, expandedRowIds) => {
   const expandedRowIdsSet = new Set(expandedRowIds);
@@ -89,19 +88,18 @@ export const expandedTreeRows = ({ rows, treeMeta }, getRowId, expandedRowIds) =
   }, { rows: [], treeMeta, collapsedRowsMeta: new Map() });
 };
 
-export const collapsedTreeRowsGetter = (getCollapsedRows, { collapsedRowsMeta }) =>
-  row => collapsedRowsMeta.get(row) || (getCollapsedRows && getCollapsedRows(row));
+export const collapsedTreeRowsGetter = (
+  getCollapsedRows, { collapsedRowsMeta },
+) => row => collapsedRowsMeta.get(row) || (getCollapsedRows && getCollapsedRows(row));
 
-export const isTreeRowLeafGetter = ({ treeMeta }) =>
-  (row) => {
-    const rowMeta = treeMeta.get(row);
-    return rowMeta && rowMeta.leaf;
-  };
+export const isTreeRowLeafGetter = ({ treeMeta }) => (row) => {
+  const rowMeta = treeMeta.get(row);
+  return rowMeta && rowMeta.leaf;
+};
 
-export const getTreeRowLevelGetter = ({ treeMeta }) =>
-  (row) => {
-    const rowMeta = treeMeta.get(row);
-    return rowMeta && rowMeta.level;
-  };
+export const getTreeRowLevelGetter = ({ treeMeta }) => (row) => {
+  const rowMeta = treeMeta.get(row);
+  return rowMeta && rowMeta.level;
+};
 
 export const unwrappedCustomTreeRows = ({ rows }) => rows;

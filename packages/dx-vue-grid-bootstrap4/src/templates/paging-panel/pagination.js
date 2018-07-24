@@ -94,9 +94,9 @@ export const Pagination = {
           </li>
           &nbsp;
         <li class={{
-            'page-item': true,
-            disabled: currentPage === totalPages - 1 || totalCount === 0,
-          }}
+          'page-item': true,
+          disabled: currentPage === totalPages - 1 || totalCount === 0,
+        }}
           >
             <a
               class="page-link"

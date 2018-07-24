@@ -5,8 +5,9 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedDetailRowIds, row
   let result = tableRows;
   expandedDetailRowIds
     .forEach((expandedRowId) => {
-      const rowIndex = result.findIndex(tableRow =>
-        tableRow.type === TABLE_DATA_TYPE && tableRow.rowId === expandedRowId);
+      const rowIndex = result.findIndex(
+        tableRow => tableRow.type === TABLE_DATA_TYPE && tableRow.rowId === expandedRowId,
+      );
       if (rowIndex === -1) return;
       const insertIndex = rowIndex + 1;
       const { row, rowId } = result[rowIndex];

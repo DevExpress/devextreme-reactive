@@ -44,8 +44,9 @@ export const DxTableBandHeader = {
       columnBands,
     } = this;
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) =>
-      tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
+    const tableHeaderRowsComputed = (
+      { tableHeaderRows, tableColumns },
+    ) => tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
     return (
       <DxPlugin
@@ -68,8 +69,9 @@ export const DxTableBandHeader = {
               {({
                 getters: { tableColumns, tableHeaderRows },
               }) => {
-                const bandComponent =
-                  getBandComponent(attrs, tableHeaderRows, tableColumns, columnBands);
+                const bandComponent = getBandComponent(
+                  attrs, tableHeaderRows, tableColumns, columnBands,
+                );
 
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:
@@ -110,8 +112,9 @@ export const DxTableBandHeader = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isHeadingTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {({ attrs }) => <HeaderCell component={CellPlaceholder} {...{ attrs: { ...attrs } }} />}
         </DxTemplate>

@@ -21,6 +21,7 @@ export class DragDropProvider extends React.PureComponent {
 
     this.change = ({ payload, clientOffset }) => this.setState({ payload, clientOffset });
   }
+
   render() {
     const {
       containerComponent: Container,

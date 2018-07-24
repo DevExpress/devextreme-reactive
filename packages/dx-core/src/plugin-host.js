@@ -1,7 +1,6 @@
 import { insertPlugin } from './utils';
 
-const getDependencyError = (pluginName, dependencyName) =>
-  new Error(`The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`);
+const getDependencyError = (pluginName, dependencyName) => new Error(`The '${pluginName}' plugin requires '${dependencyName}' to be defined before it.`);
 
 export class PluginHost {
   constructor() {
@@ -9,6 +8,7 @@ export class PluginHost {
     this.subscriptions = new Set();
     this.gettersCache = {};
   }
+
   ensureDependencies() {
     const defined = new Set();
     const knownOptionals = new Map();
@@ -34,19 +34,23 @@ export class PluginHost {
         defined.add(plugin.name);
       });
   }
+
   registerPlugin(plugin) {
     this.plugins = insertPlugin(this.plugins, plugin);
     this.cleanPluginsCache();
   }
+
   unregisterPlugin(plugin) {
     this.plugins.splice(this.plugins.indexOf(plugin), 1);
     this.cleanPluginsCache();
   }
+
   cleanPluginsCache() {
     this.validationRequired = true;
     this.gettersCache = {};
     this.knownKeysCache = {};
   }
+
   knownKeys(postfix) {
     if (!this.knownKeysCache[postfix]) {
       this.knownKeysCache[postfix] = Array.from(this.plugins
@@ -58,6 +62,7 @@ export class PluginHost {
     }
     return this.knownKeysCache[postfix];
   }
+
   collect(key, upTo) {
     if (this.validationRequired) {
       this.ensureDependencies();
@@ -75,6 +80,7 @@ export class PluginHost {
       return pluginIndex < upToIndex;
     });
   }
+
   get(key, upTo) {
     const plugins = this.collect(key, upTo);
 
@@ -86,12 +92,15 @@ export class PluginHost {
     });
     return result;
   }
+
   registerSubscription(subscription) {
     this.subscriptions.add(subscription);
   }
+
   unregisterSubscription(subscription) {
     this.subscriptions.delete(subscription);
   }
+
   broadcast(event, message) {
     this.subscriptions.forEach(subscription => subscription[event] && subscription[event](message));
   }

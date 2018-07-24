@@ -1,12 +1,11 @@
 import { clamp } from './helpers';
 
-const PAGE_HEADERS_OVERFLOW_ERROR =
-  'Max row level exceeds the page size. Consider increasing the page size.';
+const PAGE_HEADERS_OVERFLOW_ERROR = 'Max row level exceeds the page size. Consider increasing the page size.';
 
 export const paginatedRows = (rows, pageSize, page) => (
-  pageSize ?
-    rows.slice(pageSize * page, pageSize * (page + 1)) :
-    rows
+  pageSize
+    ? rows.slice(pageSize * page, pageSize * (page + 1))
+    : rows
 );
 
 export const rowsWithPageHeaders = (rows, pageSize, getRowLevelKey) => {

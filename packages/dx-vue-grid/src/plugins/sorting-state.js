@@ -23,10 +23,12 @@ export const DxSortingState = {
   },
   methods: {
     changeColumnSorting(payload) {
-      const persistentSortedColumns =
-        getPersistentSortedColumns(this.sorting, this.columnExtensions);
-      const keepOther =
-        calculateKeepOther(this.sorting, payload.keepOther, persistentSortedColumns);
+      const persistentSortedColumns = getPersistentSortedColumns(
+        this.sorting, this.columnExtensions,
+      );
+      const keepOther = calculateKeepOther(
+        this.sorting, payload.keepOther, persistentSortedColumns,
+      );
       this.$emit(
         'update:sorting',
         changeColumnSorting({ sorting: this.sorting }, { ...payload, keepOther }).sorting,
@@ -36,8 +38,7 @@ export const DxSortingState = {
 
   render() {
     const { columnExtensions, columnSortingEnabled } = this;
-    const columnExtensionValueGetter = (extensions, defaultValue) =>
-      getColumnExtensionValueGetter(extensions, 'sortingEnabled', defaultValue);
+    const columnExtensionValueGetter = (extensions, defaultValue) => getColumnExtensionValueGetter(extensions, 'sortingEnabled', defaultValue);
 
     return (
       <DxPlugin

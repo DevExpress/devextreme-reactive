@@ -10,7 +10,9 @@ describe('Template', () => {
     const tree = mount((
       <PluginHost>
         <Template name="root">
-          <h1>Template content</h1>
+          <h1>
+            Template content
+          </h1>
         </Template>
       </PluginHost>
     ));
@@ -22,7 +24,9 @@ describe('Template', () => {
     const tree = mount((
       <PluginHost>
         <Template name="root" predicate={() => false}>
-          <h1>Template content</h1>
+          <h1>
+            Template content
+          </h1>
         </Template>
       </PluginHost>
     ));
@@ -34,7 +38,9 @@ describe('Template', () => {
     const Test = ({ text }) => (
       <PluginHost>
         <Template name="root">
-          <h1>{text}</h1>
+          <h1>
+            {text}
+          </h1>
         </Template>
       </PluginHost>
     );
@@ -52,11 +58,15 @@ describe('Template', () => {
     const Test = ({ showSecond }) => (
       <PluginHost>
         <Template name="root">
-          <h1>first</h1>
+          <h1>
+            first
+          </h1>
         </Template>
         {showSecond && (
           <Template name="root">
-            <h1>second</h1>
+            <h1>
+              second
+            </h1>
           </Template>
         )}
       </PluginHost>
@@ -75,11 +85,15 @@ describe('Template', () => {
     const Test = ({ showSecond }) => (
       <PluginHost>
         <Template name="root">
-          <h1>first</h1>
+          <h1>
+            first
+          </h1>
         </Template>
         {showSecond && (
           <Template name="root">
-            <h1>second</h1>
+            <h1>
+              second
+            </h1>
           </Template>
         )}
       </PluginHost>

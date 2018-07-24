@@ -1,5 +1,7 @@
 import { createScale } from '../../utils/scale';
-import { HORIZONTAL, TOP, LEFT, MIDDLE, END, START } from '../../constants';
+import {
+  HORIZONTAL, TOP, LEFT, MIDDLE, END, START,
+} from '../../constants';
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
 const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);

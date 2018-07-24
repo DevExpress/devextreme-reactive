@@ -14,6 +14,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const { tasks } = this.state;
 

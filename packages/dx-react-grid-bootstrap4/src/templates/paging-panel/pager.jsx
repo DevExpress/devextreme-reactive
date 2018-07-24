@@ -20,12 +20,14 @@ export const Pager = ({
     className={classNames('clearfix', 'card-footer', className)}
     {...restProps}
   >
-    {!!pageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && (
+    <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       pageSizes={pageSizes}
       getMessage={getMessage}
-    />}
+    />
+    )}
     <Pagination
       totalPages={totalPages}
       totalCount={totalCount}

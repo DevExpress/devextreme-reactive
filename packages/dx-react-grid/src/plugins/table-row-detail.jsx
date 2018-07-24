@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, Plugin, TemplateConnector,
+} from '@devexpress/dx-react-core';
 import {
   tableRowsWithExpandedDetail,
   tableDetailCellColSpanGetter,
@@ -11,8 +13,9 @@ import {
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableDetailCellColSpanGetter(getTableCellColSpan);
+const getCellColSpanComputed = (
+  { getTableCellColSpan },
+) => tableDetailCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
   { name: 'RowDetailState' },
@@ -30,10 +33,12 @@ export class TableRowDetail extends React.PureComponent {
       toggleColumnWidth,
     } = this.props;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithDetail(tableColumns, toggleColumnWidth);
-    const tableBodyRowsComputed = ({ tableBodyRows, expandedDetailRowIds }) =>
-      tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
+    const tableColumnsComputed = (
+      { tableColumns },
+    ) => tableColumnsWithDetail(tableColumns, toggleColumnWidth);
+    const tableBodyRowsComputed = (
+      { tableBodyRows, expandedDetailRowIds },
+    ) => tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
 
     return (
       <Plugin

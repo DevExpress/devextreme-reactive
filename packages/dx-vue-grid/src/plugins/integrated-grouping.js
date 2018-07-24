@@ -12,11 +12,13 @@ const pluginDependencies = [
   { name: 'DxGroupingState' },
 ];
 
-const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
-  groupCollapsedRowsGetter(getCollapsedRows);
+const getCollapsedRowsComputed = (
+  { getCollapsedRows },
+) => groupCollapsedRowsGetter(getCollapsedRows);
 
-const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
-  expandedGroupRows(rows, grouping, expandedGroups);
+const expandedGroupedRowsComputed = (
+  { rows, grouping, expandedGroups },
+) => expandedGroupRows(rows, grouping, expandedGroups);
 
 export const DxIntegratedGrouping = {
   name: 'DxIntegratedGrouping',
@@ -27,11 +29,13 @@ export const DxIntegratedGrouping = {
   },
   render() {
     const { columnExtensions } = this;
-    const getColumnCriteria = columnName =>
-      getColumnExtension(columnExtensions, columnName).criteria;
+    const getColumnCriteria = columnName => getColumnExtension(
+      columnExtensions, columnName,
+    ).criteria;
 
-    const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
-      groupedRows(rows, grouping, getCellValue, getColumnCriteria);
+    const groupedRowsComputed = (
+      { rows, grouping, getCellValue },
+    ) => groupedRows(rows, grouping, getCellValue, getColumnCriteria);
 
     return (
       <DxPlugin

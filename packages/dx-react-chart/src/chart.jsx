@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { TOP, BOTTOM, LEFT, RIGHT } from '@devexpress/dx-chart-core';
+import {
+  TOP, BOTTOM, LEFT, RIGHT,
+} from '@devexpress/dx-chart-core';
 
 import { ChartCore } from './plugins/chart-core';
 import { AxesLayout } from './plugins/axes-layout';
@@ -46,7 +48,7 @@ export class Chart extends React.PureComponent {
           `${TOP}-${RIGHT}-axis`,
           `${BOTTOM}-${LEFT}-axis`,
           `${BOTTOM}-${RIGHT}-axis`,
-          ]}
+        ]}
         />
       </PluginHost>
     ));
@@ -65,4 +67,3 @@ Chart.defaultProps = {
   width: undefined,
   children: null,
 };
-

@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  PluginHost, Plugin, Template, TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
+    const getStateTasks = () => {
+      const { tasks } = this.state;
+      return tasks;
+    };
 
     this.state = {
       tasks: [
@@ -15,7 +21,7 @@ export default class Demo extends React.PureComponent {
     };
 
     this.completeTask = (index) => {
-      const newTasks = this.state.tasks.slice();
+      const newTasks = getStateTasks.slice();
       newTasks[index] = {
         ...newTasks[index],
         done: true,
@@ -25,6 +31,7 @@ export default class Demo extends React.PureComponent {
       });
     };
   }
+
   render() {
     const { tasks } = this.state;
 
@@ -75,7 +82,14 @@ const TaskCompletion = ({ onComplete }) => (
         <TemplatePlaceholder />
       ) : (
         <li>
-          {title} <button onClick={() => onComplete(index)}>Complete</button>
+          {title}
+          {' '}
+          <button
+            type="button"
+            onClick={() => onComplete(index)}
+          >
+            Complete
+          </button>
         </li>
       ))}
     </Template>

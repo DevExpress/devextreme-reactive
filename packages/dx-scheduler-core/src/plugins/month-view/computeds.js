@@ -27,9 +27,10 @@ export const endViewBoundary = (cells) => {
 
 export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();
-  const currentMonths = [moment(currentDate).month()];
+  const targetDate = moment(currentDate);
+  const currentMonths = [targetDate.month()];
   for (; currentMonths.length < intervalCount;) {
-    currentMonths.push(moment(currentDate).add(1, 'months').month());
+    currentMonths.push(targetDate.add(1, 'months').month());
   }
   const currentDay = moment(currentDate).date();
   const firstMonthDate = moment(currentDate).date(1);
@@ -44,7 +45,7 @@ export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) =
     .startOf('day');
 
   const result = [];
-  while (result.length < (Math.trunc((MONTH_COUNT * intervalCount) / WEEK_COUNT) + 1)) {
+  while (result.length < (Math.trunc((MONTH_COUNT * intervalCount) / DAY_COUNT) + 2)) {
     const week = [];
     while (week.length < DAY_COUNT) {
       week.push({

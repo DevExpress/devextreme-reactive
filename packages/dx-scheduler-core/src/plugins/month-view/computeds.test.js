@@ -66,8 +66,8 @@ describe('Month view computeds', () => {
 
       expect(cells[0][0].value.toString())
         .toBe(new Date(2009, 11, 27).toString());
-      expect(cells[10][6].value.toString())
-        .toBe(new Date(2010, 2, 13).toString());
+      expect(cells[9][6].value.toString())
+        .toBe(new Date(2010, 2, 6).toString());
     });
 
     it('should mark other month with interval count', () => {

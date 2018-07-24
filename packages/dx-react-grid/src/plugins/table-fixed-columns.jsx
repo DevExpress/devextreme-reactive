@@ -43,7 +43,7 @@ export class TableFixedColumns extends React.PureComponent {
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => (tableColumn.column
-            && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
+              && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
         >
           {(params) => {
             const columnName = params.tableColumn.column.name;

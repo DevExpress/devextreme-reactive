@@ -23,3 +23,9 @@ The following example demonstrates the basic Grid with virtual scrolling:
 The Grid also supports column virtualization, which is demonstrated in the following demo:
 
 .embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })
+
+## Apearence Customization
+
+In cases where you need to stretch the Grid vith virtual table to the parent element it is possible to set the `height` property to `auto` and make the Grid to stretch by setting the following styles `height: 100%`.
+
+.embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })

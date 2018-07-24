@@ -19,7 +19,7 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
-    Sizer: ({ children }) => children({ width: 400, height: 100 }),
+    Sizer: ({ children }) => children({ width: 400, height: 120 }),
     // eslint-disable-next-line react/prefer-stateless-function
     RefHolder: class extends Component {
       render() {
@@ -132,6 +132,33 @@ describe('VirtualTableLayout', () => {
           top: 0,
           left: 0,
           height: defaultProps.height - defaultProps.estimatedRowHeight,
+          width: 400,
+        });
+    });
+
+    it('should pass correct viewport at startup when height is auto', () => {
+      const tree = shallow((
+        <VirtualTableLayout
+          {...defaultProps}
+          headerRows={defaultProps.bodyRows.slice(0, 1)}
+          height="auto"
+        />
+      ));
+
+      tree.find('Sizer').dive();
+
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+        .toMatchObject({
+          top: 0,
+          left: 0,
+          height: defaultProps.estimatedRowHeight,
+          width: 400,
+        });
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
+        .toMatchObject({
+          top: 0,
+          left: 0,
+          height: 120 - defaultProps.estimatedRowHeight,
           width: 400,
         });
     });

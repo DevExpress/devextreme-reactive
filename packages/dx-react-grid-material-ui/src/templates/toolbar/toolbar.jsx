@@ -8,6 +8,7 @@ import { getBorderColor } from '../utils';
 const styles = theme => ({
   toolbar: {
     borderBottom: getBorderColor(theme),
+    flex: 'none',
   },
 });
 

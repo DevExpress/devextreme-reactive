@@ -5,6 +5,8 @@ import { Sizer, RefHolder } from '@devexpress/dx-react-core';
 import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 
+const AUTO_HEIGHT = 'auto';
+
 export class VirtualTableLayout extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -163,7 +165,7 @@ export class VirtualTableLayout extends React.PureComponent {
       bodyRows,
       columns,
       minColumnWidth,
-      height,
+      height: propHeight,
       containerComponent: Container,
       headTableComponent: HeadTable,
       tableComponent: Table,
@@ -175,8 +177,14 @@ export class VirtualTableLayout extends React.PureComponent {
     const { viewportLeft, viewportTop } = this.state;
 
     return (
-      <Sizer>
-        {({ width }) => {
+      <Sizer
+        style={{
+          display: 'flex',
+          flex: 'auto',
+        }}
+      >
+        {({ width, height: intrisicHeight }) => {
+          const height = propHeight === AUTO_HEIGHT ? intrisicHeight : propHeight;
           const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
           const getColSpan = (
             tableRow, tableColumn,
@@ -206,7 +214,7 @@ export class VirtualTableLayout extends React.PureComponent {
 
           return (
             <Container
-              style={{ height: `${height}px` }}
+              style={{ ...(propHeight === AUTO_HEIGHT ? null : { height: `${height}px` }) }}
               onScroll={this.updateViewport}
             >
               {!!headerRows.length && this.renderRowsBlock(collapsedHeaderGrid, HeadTable, Head)}
@@ -222,7 +230,7 @@ export class VirtualTableLayout extends React.PureComponent {
 VirtualTableLayout.propTypes = {
   minWidth: PropTypes.number.isRequired,
   minColumnWidth: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
   headerRows: PropTypes.array,
   bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,

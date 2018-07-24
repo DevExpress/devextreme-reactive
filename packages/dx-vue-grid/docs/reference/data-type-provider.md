@@ -23,6 +23,7 @@ Name | Type | Default | Description
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
 formatterComponent? | [DxDataTypeProvider.DxValueFormatter](#dxdatatypeproviderdxvalueformatter) | | A component that renders the formatted value.
 editorComponent? | [DxDataTypeProvider.DxValueEditor](#dxdatatypeproviderdxvalueeditor) | | A component that renders a custom editor.
+availableFilterOperations? | Array&lt;[FilterOperation](filtering-state.md#filteroperation)&gt; | | The names of filter operations that are available for the associated columns.
 
 ## Component Types
 

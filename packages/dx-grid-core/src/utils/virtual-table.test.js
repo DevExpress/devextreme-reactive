@@ -45,13 +45,13 @@ describe('VirtualTableLayout utils', () => {
   describe('#getVisibleBoundaryWithFixed', () => {
     it('should support fixed columns', () => {
       const items = [
-        { column: { name: 'a' } },
-        { column: { name: 'b' } },
-        { column: { name: 'c' } },
-        { column: { name: 'd' } },
-        { column: { name: 'e' } },
-        { column: { name: 'f' } },
-        { column: { name: 'g' } },
+        { key: 'a' },
+        { key: 'b' },
+        { key: 'c' },
+        { key: 'd' },
+        { key: 'e' },
+        { key: 'f' },
+        { key: 'g' },
       ];
 
       expect(getVisibleBoundaryWithFixed([3, 5], items, ['a']))

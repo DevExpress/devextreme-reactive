@@ -35,7 +35,6 @@ export default class Demo extends React.PureComponent {
       ],
       beforeColumnNames: ['region', 'channel'],
       afterColumnNames: ['amount'],
-      fixedColumns: { region: 'before' }
     };
   }
   render() {

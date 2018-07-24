@@ -52,7 +52,7 @@ export const getColSpan = (
 export const getBandComponent = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
   tableHeaderRows, tableColumns,
-  columnBands, fixedColumns,
+  columnBands, fixedColumnKeys,
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
@@ -74,8 +74,8 @@ export const getBandComponent = (
     };
   }
 
-  const isColumnFixed = ({ column }) => (fixedColumns
-    ? fixedColumns.indexOf(column.name) !== -1
+  const isColumnFixed = tableColumn => (fixedColumnKeys
+    ? fixedColumnKeys.indexOf(tableColumn.key) !== -1
     : false);
   const isCurrentColumnFixed = isColumnFixed(currentTableColumn);
   const currentColumnIndex = tableColumns.findIndex(column =>

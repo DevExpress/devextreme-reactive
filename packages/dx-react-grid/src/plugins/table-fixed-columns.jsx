@@ -10,6 +10,7 @@ import {
   FIXED_COLUMN_BEFORE_SIDE,
   isFixedCell,
   getFixedSide,
+  fixedColumnKeys,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -30,13 +31,15 @@ export class TableFixedColumns extends React.PureComponent {
       cellComponent: Cell,
     } = this.props;
 
-    const fixedColumnNames = [...beforeColumnNames, ...afterColumnNames];
+    const fixedColumnKeysComputed = ({ tableColumns }) =>
+      fixedColumnKeys(tableColumns, beforeColumnNames, afterColumnNames);
+
     return (
       <Plugin
         name="TableFixedColumns"
         dependencies={pluginDependencies}
       >
-        <Getter name="fixedColumnNames" value={fixedColumnNames} />
+        <Getter name="fixedColumnKeys" computed={fixedColumnKeysComputed} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => (tableColumn.column

@@ -9,7 +9,7 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from '
 
 export class Getter extends React.PureComponent {
   componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
     const { name } = this.props;
 
     let lastComputed;
@@ -17,7 +17,7 @@ export class Getter extends React.PureComponent {
     let lastResult;
 
     this.plugin = {
-      position: () => this.context[POSITION_CONTEXT](),
+      position: () => positionContext(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
         if (value !== undefined) return value;
@@ -26,8 +26,8 @@ export class Getter extends React.PureComponent {
           ? original
           : pluginHost.get(`${getterName}Getter`, this.plugin));
 
-        if (computed === lastComputed &&
-          !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
+        if (computed === lastComputed
+          && !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
           return lastResult;
         }
 
@@ -43,16 +43,19 @@ export class Getter extends React.PureComponent {
 
     pluginHost.registerPlugin(this.plugin);
   }
+
   componentDidUpdate() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.broadcast(UPDATE_CONNECTION_EVENT);
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
+
   render() {
     return null;
   }

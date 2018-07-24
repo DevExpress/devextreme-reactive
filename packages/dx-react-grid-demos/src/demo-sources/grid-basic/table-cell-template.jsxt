@@ -28,7 +28,8 @@ const HighlightedCell = ({ value, style }) => (
 );
 
 const Cell = (props) => {
-  if (props.column.name === 'amount') {
+  const { column } = props;
+  if (column.name === 'amount') {
     return <HighlightedCell {...props} />;
   }
   return <Table.Cell {...props} />;
@@ -50,6 +51,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 

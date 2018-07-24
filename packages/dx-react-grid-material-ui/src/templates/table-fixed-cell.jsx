@@ -20,12 +20,14 @@ const styles = theme => ({
 
 class FixedCellBase extends React.PureComponent {
   componentDidMount() {
+    const { storeSize } = this.props;
     // eslint-disable-next-line react/no-find-dom-node
     const element = findDOMNode(this);
     if (element) {
-      this.props.storeSize(element.getBoundingClientRect().width);
+      storeSize(element.getBoundingClientRect().width);
     }
   }
+
   render() {
     const {
       component: CellPlaceholder,

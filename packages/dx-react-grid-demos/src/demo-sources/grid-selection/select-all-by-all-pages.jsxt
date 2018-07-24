@@ -32,12 +32,17 @@ export default class Demo extends React.PureComponent {
 
     this.changeSelection = selection => this.setState({ selection });
   }
+
   render() {
     const { rows, columns, selection } = this.state;
 
     return (
       <div>
-        <span>Total rows selected: {selection.length}</span>
+        <span>
+          Total rows selected:
+          {' '}
+          {selection.length}
+        </span>
         <<%&wrapperTag%>>
           <Grid
             rows={rows}

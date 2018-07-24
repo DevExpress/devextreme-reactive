@@ -21,8 +21,9 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-  tableHeaderRowsWithReordering(tableHeaderRows);
+const tableHeaderRowsComputed = (
+  { tableHeaderRows },
+) => tableHeaderRowsWithReordering(tableHeaderRows);
 
 export class TableColumnReordering extends React.PureComponent {
   constructor(props) {
@@ -38,32 +39,39 @@ export class TableColumnReordering extends React.PureComponent {
     this.onLeave = this.handleLeave.bind(this);
     this.onDrop = this.handleDrop.bind(this);
   }
+
   getState() {
+    const { order: orderState } = this.state;
     const {
-      order = this.state.order,
+      order = orderState,
     } = this.props;
     return {
       ...this.state,
       order,
     };
   }
+
   getDraftOrder() {
     const { order, sourceColumnIndex, targetColumnIndex } = this.getState();
     return draftOrderComputed(order, sourceColumnIndex, targetColumnIndex);
   }
+
   getAvailableColumns() {
     return this.getDraftOrder()
       .filter(columnName => !!this.cellDimensionGetters[columnName]);
   }
+
   cacheCellDimensions() {
     this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
       ? this.cellDimensions
       : this.getAvailableColumns()
         .map(columnName => this.cellDimensionGetters[columnName]());
   }
+
   resetCellDimensions() {
     this.cellDimensions = [];
   }
+
   ensureCellDimensionGetters(tableColumns) {
     Object.keys(this.cellDimensionGetters)
       .forEach((columnName) => {
@@ -74,12 +82,14 @@ export class TableColumnReordering extends React.PureComponent {
         }
       });
   }
+
   storeCellDimensionsGetter(tableColumn, getter, tableColumns) {
     if (tableColumn.type === TABLE_DATA_TYPE) {
       this.cellDimensionGetters[tableColumn.column.name] = getter;
     }
     this.ensureCellDimensionGetters(tableColumns);
   }
+
   handleOver({ payload, clientOffset: { x } }) {
     const sourceColumnName = payload[0].columnName;
     const availableColumns = this.getAvailableColumns();
@@ -121,6 +131,7 @@ export class TableColumnReordering extends React.PureComponent {
       targetColumnIndex,
     });
   }
+
   handleLeave() {
     this.setState({
       sourceColumnIndex: -1,
@@ -129,6 +140,7 @@ export class TableColumnReordering extends React.PureComponent {
 
     this.resetCellDimensions();
   }
+
   handleDrop() {
     const { sourceColumnIndex, targetColumnIndex, order } = this.getState();
     const { onOrderChange } = this.props;
@@ -149,6 +161,7 @@ export class TableColumnReordering extends React.PureComponent {
 
     this.resetCellDimensions();
   }
+
   render() {
     const {
       tableContainerComponent: Container,
@@ -156,8 +169,9 @@ export class TableColumnReordering extends React.PureComponent {
       cellComponent: Cell,
     } = this.props;
 
-    const columnsComputed = ({ tableColumns }) =>
-      orderedColumns(tableColumns, this.getDraftOrder());
+    const columnsComputed = (
+      { tableColumns },
+    ) => orderedColumns(tableColumns, this.getDraftOrder());
 
     this.cellDimensionGetters = {};
 
@@ -197,8 +211,9 @@ export class TableColumnReordering extends React.PureComponent {
               {({ tableColumns }) => (
                 <Cell
                   {...params}
-                  getCellDimensions={getter =>
-                    this.storeCellDimensionsGetter(params.tableColumn, getter, tableColumns)}
+                  getCellDimensions={getter => this.storeCellDimensionsGetter(
+                    params.tableColumn, getter, tableColumns,
+                  )}
                 />
               )}
             </TemplateConnector>

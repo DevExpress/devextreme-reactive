@@ -6,7 +6,9 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { axisCoordinates, HORIZONTAL, TOP, LEFT } from '@devexpress/dx-chart-core';
+import {
+  axisCoordinates, HORIZONTAL, TOP, LEFT,
+} from '@devexpress/dx-chart-core';
 
 export class Grid extends React.PureComponent {
   render() {
@@ -41,17 +43,17 @@ export class Grid extends React.PureComponent {
               return ((
                 <React.Fragment>
                   {coordinates.ticks.map(({
-                      x1, x2, y1, y2, text,
-                    }) => (
-                      <Line
-                        key={text}
-                        x1={orientation === 'horizontal' ? x1 : width}
-                        x2={x2}
-                        y1={orientation === 'horizontal' ? height : y1}
-                        y2={y2}
-                        {...restProps}
-                      />
-                    ))}
+                    x1, x2, y1, y2, text,
+                  }) => (
+                    <Line
+                      key={text}
+                      x1={orientation === 'horizontal' ? x1 : width}
+                      x2={x2}
+                      y1={orientation === 'horizontal' ? height : y1}
+                      y2={y2}
+                      {...restProps}
+                    />
+                  ))}
                 </React.Fragment>
               ));
             }}

@@ -47,4 +47,3 @@ PageSizeSelector.propTypes = {
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   getMessage: PropTypes.func.isRequired,
 };
-

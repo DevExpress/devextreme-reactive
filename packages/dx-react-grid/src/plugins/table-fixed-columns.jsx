@@ -24,6 +24,7 @@ export class TableFixedColumns extends React.PureComponent {
     super(props);
     this.state = { sizes: {} };
   }
+
   render() {
     const {
       beforeColumnNames,
@@ -31,8 +32,9 @@ export class TableFixedColumns extends React.PureComponent {
       cellComponent: Cell,
     } = this.props;
 
-    const fixedColumnKeysComputed = ({ tableColumns }) =>
-      fixedColumnKeys(tableColumns, beforeColumnNames, afterColumnNames);
+    const fixedColumnKeysComputed = ({ tableColumns }) => fixedColumnKeys(
+      tableColumns, beforeColumnNames, afterColumnNames,
+    );
 
     return (
       <Plugin
@@ -60,15 +62,17 @@ export class TableFixedColumns extends React.PureComponent {
                 component={CellPlaceholder}
                 showDivider={index === targetArray.length - 1}
                 storeSize={(width) => {
-                  if (this.state.sizes[columnName] !== width) {
+                  const { sizes } = this.state;
+                  if (sizes[columnName] !== width) {
                     this.setState((prevState => ({
                       sizes: { ...prevState.sizes, [columnName]: width },
                     })));
                   }
                 }}
                 getPosition={() => {
+                  const { sizes } = this.state;
                   const prevColumnName = targetArray[index - 1];
-                  const position = index === 0 ? 0 : this.state.sizes[prevColumnName];
+                  const position = index === 0 ? 0 : sizes[prevColumnName];
                   return position;
                 }}
               />

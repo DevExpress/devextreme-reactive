@@ -17,4 +17,3 @@ Grid.Root = Root;
 Grid.propTypes = {
   children: PropTypes.node.isRequired,
 };
-

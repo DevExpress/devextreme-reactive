@@ -12,12 +12,13 @@ const pluginDependencies = [
   { name: 'DxGroupingState' },
 ];
 
-const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
-  groupCollapsedRowsGetter(getCollapsedRows);
-const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
-  expandedGroupRows(rows, grouping, expandedGroups);
-const getRowIdComputed = ({ getRowId, rows }) =>
-  customGroupingRowIdGetter(getRowId, rows);
+const getCollapsedRowsComputed = (
+  { getCollapsedRows },
+) => groupCollapsedRowsGetter(getCollapsedRows);
+const expandedGroupedRowsComputed = (
+  { rows, grouping, expandedGroups },
+) => expandedGroupRows(rows, grouping, expandedGroups);
+const getRowIdComputed = ({ getRowId, rows }) => customGroupingRowIdGetter(getRowId, rows);
 
 export const DxCustomGrouping = {
   name: 'DxCustomGrouping',
@@ -39,12 +40,11 @@ export const DxCustomGrouping = {
       grouping: appliedGrouping,
       expandedGroups: appliedExpandedGroups,
     } = this;
-    const groupedRowsComputed = ({ rows, grouping }) =>
-      customGroupedRows(rows, grouping, getChildGroups);
-    const groupingComputed = ({ grouping }) =>
-      appliedGrouping || grouping;
-    const expandedGroupsComputed = ({ expandedGroups }) =>
-      appliedExpandedGroups || expandedGroups;
+    const groupedRowsComputed = (
+      { rows, grouping },
+    ) => customGroupedRows(rows, grouping, getChildGroups);
+    const groupingComputed = ({ grouping }) => appliedGrouping || grouping;
+    const expandedGroupsComputed = ({ expandedGroups }) => appliedExpandedGroups || expandedGroups;
 
     return (
       <DxPlugin

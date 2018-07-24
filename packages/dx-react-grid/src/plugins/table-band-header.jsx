@@ -1,6 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, Plugin,
+  TemplateConnector, TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 import {
   getBandComponent,
   isBandedTableRow, isBandedOrHeaderRow,
@@ -21,8 +24,9 @@ export class TableBandHeader extends React.PureComponent {
       columnBands,
     } = this.props;
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) =>
-      tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
+    const tableHeaderRowsComputed = ({ tableHeaderRows, tableColumns }) => tableRowsWithBands(
+      tableHeaderRows, columnBands, tableColumns,
+    );
 
     return (
       <Plugin

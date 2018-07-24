@@ -130,6 +130,7 @@ class TableHeaderCellBase extends React.PureComponent {
       });
     };
   }
+
   render() {
     const {
       style, column, tableColumn,

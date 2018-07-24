@@ -7,9 +7,11 @@ export const createRenderComponent = (Component, initialAdditionalProps) => {
     componentWillMount() {
       components.add(this);
     }
+
     componentWillUnmount() {
       components.delete(this);
     }
+
     render() {
       return <Component {...this.props} {...storedAdditionalProps} />;
     }

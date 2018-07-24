@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import { toggleRowExpanded } from '@devexpress/dx-grid-core';
 
 export class TreeDataState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { onExpandedRowIdsChange } = this.props;
 
     this.state = {
       expandedRowIds: props.expandedRowIds || props.defaultExpandedRowIds,
@@ -14,13 +17,14 @@ export class TreeDataState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        expandedRowIds: () => this.props.onExpandedRowIdsChange,
+        expandedRowIds: () => onExpandedRowIdsChange,
       },
     );
 
     this.toggleRowExpanded = stateHelper.applyFieldReducer
       .bind(stateHelper, 'expandedRowIds', toggleRowExpanded);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       expandedRowIds,
@@ -29,6 +33,7 @@ export class TreeDataState extends React.PureComponent {
       ...expandedRowIds !== undefined ? { expandedRowIds } : null,
     });
   }
+
   render() {
     const { expandedRowIds } = this.state;
 
@@ -36,7 +41,9 @@ export class TreeDataState extends React.PureComponent {
       <Plugin
         name="TreeDataState"
       >
-        <Getter name="expandedRowIds" value={expandedRowIds} /> {/* collision =( */}
+        <Getter name="expandedRowIds" value={expandedRowIds} />
+        {' '}
+        {/* collision =( */}
         <Action name="toggleRowExpanded" action={this.toggleRowExpanded} />
       </Plugin>
     );

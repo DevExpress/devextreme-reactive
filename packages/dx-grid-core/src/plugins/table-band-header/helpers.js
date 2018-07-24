@@ -1,10 +1,12 @@
-import { TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER } from './constants';
+import {
+  TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
+} from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
-export const isBandedOrHeaderRow = tableRow =>
-  isBandedTableRow(tableRow) || tableRow.type === TABLE_HEADING_TYPE;
+export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
+|| tableRow.type === TABLE_HEADING_TYPE;
 
 export const getColumnMeta = (
   columnName, bands, tableRowLevel,
@@ -78,8 +80,8 @@ export const getBandComponent = (
     ? fixedColumnKeys.indexOf(tableColumn.key) !== -1
     : false);
   const isCurrentColumnFixed = isColumnFixed(currentTableColumn);
-  const currentColumnIndex = tableColumns.findIndex(column =>
-    column.key === currentTableColumn.key);
+  const currentColumnIndex = tableColumns
+    .findIndex(column => column.key === currentTableColumn.key);
   const previousTableColumn = tableColumns[currentColumnIndex - 1];
   if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
     const isPrevColumnFixed = isColumnFixed(previousTableColumn);

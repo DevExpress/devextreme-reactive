@@ -13,8 +13,7 @@ import {
 const areColumnsChanged = (prevColumns, nextColumns) => {
   if (prevColumns.length !== nextColumns.length) return true;
   const prevKeys = prevColumns.map(column => column.key);
-  return nextColumns.find(column =>
-    prevKeys.indexOf(column.key) === -1) !== undefined;
+  return nextColumns.find(column => prevKeys.indexOf(column.key) === -1) !== undefined;
 };
 
 export class TableLayout extends React.PureComponent {
@@ -30,6 +29,7 @@ export class TableLayout extends React.PureComponent {
 
     this.setRef = (ref) => { if (ref) this.tableNode = ref; };
   }
+
   componentWillReceiveProps(nextProps) {
     const { columns: nextColumns } = nextProps;
     const { columns } = this.props;
@@ -41,6 +41,7 @@ export class TableLayout extends React.PureComponent {
     this.animations = getAnimations(columns, nextColumns, tableWidth, this.animations);
     this.processAnimationFrame();
   }
+
   getColumns() {
     const { columns } = this.props;
     const { animationState } = this.state;
@@ -62,11 +63,13 @@ export class TableLayout extends React.PureComponent {
 
     return result;
   }
+
   processAnimationFrame() {
+    const { animationState: animationComponentState } = this.state;
     this.animations = filterActiveAnimations(this.animations);
 
     if (!this.animations.size) {
-      if (this.state.animationState.size) {
+      if (animationComponentState.size) {
         this.setState({ animationState: new Map() });
       }
       return;
@@ -77,6 +80,7 @@ export class TableLayout extends React.PureComponent {
 
     requestAnimationFrame(this.processAnimationFrame.bind(this));
   }
+
   render() {
     const {
       layoutComponent: Layout,

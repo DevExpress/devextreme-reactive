@@ -7,7 +7,9 @@ export const EmptyMessage = ({ getMessage, className, ...restProps }) => (
     className={classNames('py-5 text-center', className)}
     {...restProps}
   >
-    <big className="text-muted">{getMessage('noColumns')}</big>
+    <big className="text-muted">
+      {getMessage('noColumns')}
+    </big>
   </div>
 );
 

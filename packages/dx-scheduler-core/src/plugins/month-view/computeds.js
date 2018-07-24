@@ -16,12 +16,11 @@ import {
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
-const MONTH_COUNT = 31;
+const MONTH_LENGTH = 31;
 
 export const endViewBoundary = (cells) => {
   const lastCellIndex = cells.length - 1;
   const lastDate = moment(cells[lastCellIndex][WEEK_COUNT].value);
-
   return lastDate.startOf('day').add(1, 'days').toDate();
 };
 
@@ -45,7 +44,7 @@ export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) =
     .startOf('day');
 
   const result = [];
-  while (result.length < (Math.trunc((MONTH_COUNT * intervalCount) / DAY_COUNT) + 2)) {
+  while (result.length < (Math.trunc((MONTH_LENGTH * intervalCount) / DAY_COUNT) + 2)) {
     const week = [];
     while (week.length < DAY_COUNT) {
       week.push({
@@ -57,7 +56,6 @@ export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) =
     }
     result.push(week);
   }
-
   return result;
 };
 

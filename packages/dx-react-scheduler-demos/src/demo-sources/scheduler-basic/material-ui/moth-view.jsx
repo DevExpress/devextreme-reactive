@@ -18,6 +18,7 @@ export default class Demo extends React.PureComponent {
       currentDate: new Date('2018-07-17'),
     };
   }
+
   render() {
     const { data, currentDate } = this.state;
 

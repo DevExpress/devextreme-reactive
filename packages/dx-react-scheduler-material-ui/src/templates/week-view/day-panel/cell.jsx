@@ -4,7 +4,7 @@ import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from './../../utils';
+import { getBorderColor } from '../../utils';
 
 const styles = theme => ({
   cell: {

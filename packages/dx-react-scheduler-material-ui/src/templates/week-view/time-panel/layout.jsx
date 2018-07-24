@@ -20,7 +20,7 @@ const LayoutBase = ({
   className,
   ...restProps
 }) => (
-  <Table {...restProps} className={classNames(classes.table, className)} >
+  <Table {...restProps} className={classNames(classes.table, className)}>
     <TableBody>
       {timeScale.map((time, index) => {
         const hour = moment(time.end).hour();

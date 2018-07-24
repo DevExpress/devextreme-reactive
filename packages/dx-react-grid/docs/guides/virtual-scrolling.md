@@ -24,7 +24,7 @@ The Grid also supports column virtualization, which is demonstrated in the follo
 
 .embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })
 
-## Apearence Customization
+## Stretching to Parent Element
 
 In cases where you need to stretch the Grid vith virtual table to the parent element it is possible to set the `height` property to `auto` and make the Grid to stretch by setting the following styles `height: 100%`.
 

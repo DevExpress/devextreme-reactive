@@ -3,12 +3,10 @@ import {
   sortAppointments,
   viewPredicate,
   toPercentage,
-} from '../../utils';
-import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
-} from '../week-view/helpers';
+} from '../../utils';
 import {
   sliceAppointmentByWeek,
   getRectByDates,

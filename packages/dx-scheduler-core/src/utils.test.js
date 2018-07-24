@@ -1,7 +1,34 @@
 import moment from 'moment';
-import { viewPredicate, sortAppointments } from './utils';
+import {
+  viewPredicate,
+  sortAppointments,
+  findOverlappedAppointments,
+  adjustAppointments,
+  unwrapGroups,
+} from './utils';
 
 describe('Utils', () => {
+  const appointmentsBase = [
+    { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
+    { start: moment('2018-07-02 10:30'), end: moment('2018-07-02 12:00') },
+    { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
+    { start: moment('2018-07-01 11:30'), end: moment('2018-07-01 12:00') },
+    { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 11:00') },
+    { start: moment('2018-07-02 10:40'), end: moment('2018-07-02 13:00') },
+    { start: moment('2018-07-03 11:00'), end: moment('2018-07-03 15:00') },
+    { start: moment('2018-07-02 12:00'), end: moment('2018-07-02 15:00') },
+    { start: moment('2018-07-02 12:00'), end: moment('2018-07-03 09:30') },
+    { start: moment('2018-07-01 12:00'), end: moment('2018-07-02 00:00') },
+  ];
+  const sortedAppointmentsBase = [
+    appointmentsBase[2], appointmentsBase[4], appointmentsBase[3],
+    appointmentsBase[0], appointmentsBase[1], appointmentsBase[5], appointmentsBase[6],
+  ];
+  const overlappedAppointments = [
+    [{ ...appointmentsBase[2] }, { ...appointmentsBase[4] }, { ...appointmentsBase[3] }],
+    [{ ...appointmentsBase[0] }, { ...appointmentsBase[1] }, { ...appointmentsBase[5] }],
+    [{ ...appointmentsBase[6] }],
+  ];
   describe('#viewPredicate', () => {
     it('should filter outside appointments', () => {
       const appointments = [
@@ -75,6 +102,157 @@ describe('Utils', () => {
       ];
       expect(sortAppointments(appointments, true))
         .toEqual(sortedAppointments);
+    });
+  });
+
+  describe('#findOverlappedAppointments', () => {
+    it('should detect overlapped appointments', () => {
+      expect(findOverlappedAppointments(sortedAppointmentsBase))
+        .toEqual(overlappedAppointments);
+    });
+
+    it('should detect overlapped appointments by day mode', () => {
+      const sortedAppointmentsForDay = [
+        appointmentsBase[0], appointmentsBase[7],
+      ];
+      const overlappedAppointmentsForDay = [
+        [{ ...appointmentsBase[0] }, { ...appointmentsBase[7] }],
+      ];
+      expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
+        .toEqual(overlappedAppointmentsForDay);
+    });
+
+    it('should detect if appointment end is 12:00 am in day mode', () => {
+      const sortedAppointmentsForDay = [
+        appointmentsBase[9], appointmentsBase[0],
+      ];
+      const overlappedAppointmentsForDay = [
+        [{ ...appointmentsBase[9] }],
+        [{ ...appointmentsBase[0] }],
+      ];
+      expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
+        .toEqual(overlappedAppointmentsForDay);
+    });
+  });
+
+  describe('#adjustAppointments', () => {
+    it('should calculate appointment offset and reduce coefficient', () => {
+      expect(adjustAppointments(overlappedAppointments))
+        .toEqual([
+          {
+            items: [
+              { ...appointmentsBase[2], offset: 0 },
+              { ...appointmentsBase[4], offset: 1 },
+              { ...appointmentsBase[3], offset: 1 },
+            ],
+            reduceValue: 2,
+          },
+          {
+            items: [
+              { ...appointmentsBase[0], offset: 0 },
+              { ...appointmentsBase[1], offset: 1 },
+              { ...appointmentsBase[5], offset: 2 },
+            ],
+            reduceValue: 3,
+          },
+          {
+            items: [
+              { ...appointmentsBase[6], offset: 0 },
+            ],
+            reduceValue: 1,
+          },
+        ]);
+    });
+
+    it('should consider if appointments start and end in a same time', () => {
+      const groups = [
+        [{ ...appointmentsBase[1] }, { ...appointmentsBase[7] }],
+      ];
+      expect(adjustAppointments(groups))
+        .toEqual([
+          {
+            items: [
+              { ...appointmentsBase[1], offset: 0 },
+              { ...appointmentsBase[7], offset: 0 },
+            ],
+            reduceValue: 1,
+          },
+        ]);
+    });
+
+    it('should calculate appointment offset by day mode', () => {
+      const groups = [
+        [{ ...appointmentsBase[8] }, { ...appointmentsBase[6] }],
+      ];
+      expect(adjustAppointments(groups, true))
+        .toEqual([
+          {
+            items: [
+              { ...appointmentsBase[8], offset: 0 },
+              { ...appointmentsBase[6], offset: 1 },
+            ],
+            reduceValue: 2,
+          },
+        ]);
+    });
+  });
+  describe('#unwrapGroups', () => {
+    it('should calculate appointment offset and reduce coefficient', () => {
+      const appointmentsGroups = [
+        {
+          reduceValue: 1,
+          items: [
+            {
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 08:30'),
+              dataItem: {},
+              offset: 1,
+            },
+            {
+              start: moment('2017-07-20 08:30'),
+              end: moment('2017-07-20 09:00'),
+              dataItem: {},
+              offset: 2,
+            },
+          ],
+        },
+        {
+          reduceValue: 2,
+          items: [
+            {
+              start: moment('2017-04-20 08:00'),
+              end: moment('2017-04-22 08:30'),
+              dataItem: {},
+              offset: 0,
+            },
+            {
+              start: moment('2017-05-25 08:00'),
+              end: moment('2017-05-25 09:15'),
+              dataItem: {},
+              offset: 1,
+            },
+          ],
+        },
+      ];
+      expect(unwrapGroups(appointmentsGroups))
+        .toEqual([
+          {
+            ...appointmentsGroups[0].items[0],
+            reduceValue: 1,
+          },
+          {
+            ...appointmentsGroups[0].items[1],
+            reduceValue: 1,
+          },
+          {
+            ...appointmentsGroups[1].items[0],
+            reduceValue: 2,
+          },
+          {
+            ...appointmentsGroups[1].items[1],
+            reduceValue: 2,
+          },
+        ]);
     });
   });
 });

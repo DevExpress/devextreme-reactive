@@ -1,19 +1,19 @@
 import moment from 'moment';
 import {
   calculateFirstDateOfWeek,
-  findOverlappedAppointments,
-  adjustAppointments,
   getRectByDates,
   sliceAppointmentByDay,
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
-  unwrapGroups,
 } from './helpers';
 
 import {
   sortAppointments,
   viewPredicate,
   toPercentage,
+  findOverlappedAppointments,
+  adjustAppointments,
+  unwrapGroups,
 } from '../../utils';
 
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();

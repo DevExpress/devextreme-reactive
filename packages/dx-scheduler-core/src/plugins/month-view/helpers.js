@@ -3,36 +3,6 @@ import moment from 'moment';
 const CELL_GAP = 0.32;
 const CELL_BOUND_OFFSET_PX = 2;
 
-export const sliceAppointmentsByWeek2 = (
-  appointments,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  const dayStep = 7;
-
-  appointments.forEach((appointment) => {
-    let from = appointment.start;
-    let i = 1;
-    let to = moment(monthCells[0][0].value);
-    while (to.isBefore(appointment.end)) {
-      const daysFromStart = dayStep * i;
-      to = moment(appointment.start).add(daysFromStart, 'days');
-      const currentBound = moment(monthCells[0][0].value).add(daysFromStart, 'days');
-      if (to.isAfter(currentBound)) to = moment(currentBound).add(-1, 'hours').endOf('day');
-      if (to.isAfter(appointment.end)) to = appointment.end;
-
-      nextAppointments.push({
-        ...appointment,
-        start: from,
-        end: to,
-      });
-      from = moment(to.add(1, 'hours').startOf('day'));
-      i += 1;
-    }
-  });
-  return nextAppointments;
-};
-
 export const sliceAppointmentByWeek = (
   appointment,
   monthCells,
@@ -74,52 +44,6 @@ export const sliceAppointmentByWeek = (
     leftBound.add(7, 'days');
     rightBound.add(7, 'days');
   }
-  return nextAppointments;
-};
-
-export const sliceAppointmentsByWeek = (
-  appointments,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  appointments.forEach((appointment) => {
-    const leftBound = moment(monthCells[0][0].value).startOf('day');
-    const rightBound = moment(leftBound).add(7, 'days');
-    const { start, end } = appointment;
-
-    while (leftBound.isBefore(end)) {
-      if (start.isBetween(leftBound, rightBound, null, '[)')
-        && !end.isBetween(leftBound, rightBound, null, '()')) {
-        nextAppointments.push({
-          ...appointment,
-          start,
-          end: moment(rightBound).add(-1, 'hours').endOf('day'),
-        });
-      }
-      if (!start.isBetween(leftBound, rightBound, null, '[)')
-        && end.isBetween(leftBound, rightBound, null, '(]')) {
-        nextAppointments.push({
-          ...appointment,
-          start: moment(leftBound),
-          end,
-        });
-      }
-
-      if (start.isBefore(leftBound) && end.isAfter(rightBound)) {
-        nextAppointments.push({
-          ...appointment,
-          start: moment(leftBound),
-          end: moment(rightBound).add(-1, 'hours').endOf('day'),
-        });
-      }
-      if (start.isBetween(leftBound, rightBound, null, '[)')
-        && end.isBetween(leftBound, rightBound, null, '()')) {
-        nextAppointments.push(appointment);
-      }
-      leftBound.add(7, 'days');
-      rightBound.add(7, 'days');
-    }
-  });
   return nextAppointments;
 };
 

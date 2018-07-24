@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  sliceAppointmentsByWeek,
+  sliceAppointmentByWeek,
   getRectByDates,
 } from './helpers';
 
@@ -61,64 +61,59 @@ describe('MonthView Helpers', () => {
       { value: moment('2018-08-08') },
     ],
   ];
-  describe('#sliceAppointmentsByWeek', () => {
+  describe('#sliceAppointmentByWeek', () => {
     it('should not slice appointments if they are short', () => {
-      const appointments = [
-        { start: moment('2018-07-05'), end: moment('2018-07-12'), dataItem: {} },
-        { start: moment('2018-07-05'), end: moment('2018-07-06'), dataItem: {} },
-      ];
+      const appointment1 = { start: moment('2018-07-05'), end: moment('2018-07-12'), dataItem: {} };
+      const appointment2 = { start: moment('2018-07-05'), end: moment('2018-07-06'), dataItem: {} };
 
-      const slicedAppointments = sliceAppointmentsByWeek(appointments, monthCells);
-      expect(slicedAppointments[0].start.format())
+      const slicedAppointment1 = sliceAppointmentByWeek(appointment1, monthCells);
+      expect(slicedAppointment1[0].start.format())
         .toEqual(moment('2018-07-05').format());
-      expect(slicedAppointments[0].end.format())
+      expect(slicedAppointment1[0].end.format())
         .toEqual(moment('2018-07-11 23:59:59.999').format());
 
-      expect(slicedAppointments[1].start.format())
+      const slicedAppointment2 = sliceAppointmentByWeek(appointment2, monthCells);
+      expect(slicedAppointment2[0].start.format())
         .toEqual(moment('2018-07-05').format());
-      expect(slicedAppointments[1].end.format())
+      expect(slicedAppointment2[0].end.format())
         .toEqual(moment('2018-07-06').format());
     });
 
     it('should slice appointment if it start on first week and end on second week', () => {
-      const appointments = [
-        { start: moment('2018-07-11 22:00'), end: moment('2018-07-12 09:00'), dataItem: { id: 1 } },
-      ];
+      const appointment = { start: moment('2018-07-11 22:00'), end: moment('2018-07-12 09:00'), dataItem: { id: 1 } };
 
-      const slicedAppointments = sliceAppointmentsByWeek(appointments, monthCells);
-      expect(slicedAppointments)
+      const slicedAppointment = sliceAppointmentByWeek(appointment, monthCells);
+      expect(slicedAppointment)
         .toHaveLength(2);
-      expect(slicedAppointments[0].start.format())
+      expect(slicedAppointment[0].start.format())
         .toEqual(moment('2018-07-11 22:00').format());
-      expect(slicedAppointments[0].end.format())
+      expect(slicedAppointment[0].end.format())
         .toEqual(moment('2018-07-11 23:59:59.999').format());
-      expect(slicedAppointments[1].start.format())
+      expect(slicedAppointment[1].start.format())
         .toEqual(moment('2018-07-12 00:00').format());
-      expect(slicedAppointments[1].end.format())
+      expect(slicedAppointment[1].end.format())
         .toEqual(moment('2018-07-12 09:00').format());
     });
 
     it('should slice appointment if it start on first week and end on third week', () => {
-      const appointments = [
-        { start: moment('2018-07-09 16:00'), end: moment('2018-07-23 05:00'), dataItem: { id: 1 } },
-      ];
+      const appointment = { start: moment('2018-07-09 16:00'), end: moment('2018-07-23 05:00'), dataItem: { id: 1 } };
 
-      const slicedAppointments = sliceAppointmentsByWeek(appointments, monthCells);
-      expect(slicedAppointments)
+      const slicedAppointment = sliceAppointmentByWeek(appointment, monthCells);
+      expect(slicedAppointment)
         .toHaveLength(3);
-      expect(slicedAppointments[0].start.format())
+      expect(slicedAppointment[0].start.format())
         .toEqual(moment('2018-07-09 16:00').format());
-      expect(slicedAppointments[0].end.format())
+      expect(slicedAppointment[0].end.format())
         .toEqual(moment('2018-07-11 23:59:59.999').format());
 
-      expect(slicedAppointments[1].start.format())
+      expect(slicedAppointment[1].start.format())
         .toEqual(moment('2018-07-12 00:00').format());
-      expect(slicedAppointments[1].end.format())
+      expect(slicedAppointment[1].end.format())
         .toEqual(moment('2018-07-18 23:59:59.999').format());
 
-      expect(slicedAppointments[2].start.format())
+      expect(slicedAppointment[2].start.format())
         .toEqual(moment('2018-07-19 00:00').format());
-      expect(slicedAppointments[2].end.format())
+      expect(slicedAppointment[2].end.format())
         .toEqual(moment('2018-07-23 05:00').format());
     });
     describe('#getRectByDates', () => {

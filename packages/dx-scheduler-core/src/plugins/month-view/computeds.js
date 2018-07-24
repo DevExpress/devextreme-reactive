@@ -28,7 +28,7 @@ export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) =
   const currentMonth = moment(currentDate).month();
   const targetDate = moment(currentDate);
   const currentMonths = [targetDate.month()];
-  for (; currentMonths.length < intervalCount;) {
+  while (currentMonths.length < intervalCount) {
     currentMonths.push(targetDate.add(1, 'months').month());
   }
   const currentDay = moment(currentDate).date();

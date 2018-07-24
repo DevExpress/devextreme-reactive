@@ -4,12 +4,12 @@ import {
   Column,
   FilteringState, GroupingState,
   IntegratedFiltering, IntegratedGrouping, IntegratedPaging, IntegratedSelection, IntegratedSorting,
-  PagingState, SelectionState, SortingState, Table as TableBase, DataTypeProvider, DataTypeProviderProps,
+  PagingState, SelectionState, SortingState, DataTypeProvider, DataTypeProviderProps,
 } from '@devexpress/dx-react-grid';
 import {
-  ColumnChooser, DragDropProvider,
+  DragDropProvider,
   Grid, GroupingPanel, PagingPanel,
-  Table, TableColumnReordering, TableColumnVisibility, TableFilterRow, TableGroupRow,
+  Table, TableColumnReordering, TableFilterRow, TableGroupRow,
   TableHeaderRow, TableSelection, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap4';
 
@@ -22,18 +22,15 @@ interface ISale {
   product: string,
   region: string,
   amount: string,
-  discount: string,
   saleDate: string,
   customer: string,
 }
 
 interface IGridState {
   columns: Column[],
-  tableColumnExtensions: TableBase.ColumnExtension[],
   rows: ISale[],
   pageSizes: number[],
   currencyColumns: string[],
-  percentColumns: string[],
 }
 
 const sales: ISale[] = generateRows({ columnValues: globalSalesValues, length: 1000 });
@@ -47,19 +44,17 @@ const availableFilterOperations : string[] = [
 const getInputValue = (value?: string) : string =>
   (value === undefined ? '' : value);
 
-const getPercentInputValue = (value) : string => (parseFloat(getInputValue(value)) * 100).toFixed(1);
-
 const getColor = (amount: number) : string => {
   if (amount < 3000) {
-    return '#fc7a76';
+    return '#e61d17';
   }
   if (amount < 5000) {
-    return '#ffb294';
+    return '#e05722';
   }
   if (amount < 8000) {
-    return '#ffd59f';
+    return '#dacc11';
   }
-  return '#c3e2b7';
+  return '#34a209';
 };
 
 const CurrenceEditor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
@@ -74,7 +69,7 @@ const CurrenceEditor = ({ onValueChange, value } : DataTypeProvider.ValueEditorP
     return (
       <input
         type="number"
-        className="form-control text-right"
+        className="form-control"
         placeholder="Filter..."
         value={getInputValue(value)}
         min={0}
@@ -84,7 +79,7 @@ const CurrenceEditor = ({ onValueChange, value } : DataTypeProvider.ValueEditorP
   }
 
 const CurrencyFormatter: React.ComponentType<DataTypeProvider.ValueFormatterProps> =
-  ({ value } : DataTypeProvider.ValueFormatterProps) => <span>${value}</span>;
+  ({ value } : DataTypeProvider.ValueFormatterProps) => <i style={{ color: getColor(value) }}>${value}</i>;
 
 const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
   (props: DataTypeProviderProps) => (
@@ -96,89 +91,6 @@ const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
     />
 );
 
-const HighlightedCell : React.ComponentType<TableBase.DataCellProps> =
-  ({ tableColumn, value, children } : TableBase.DataCellProps) => (
-    <td
-      style={{
-        backgroundColor: getColor(value),
-        textAlign: tableColumn.align,
-      }}
-    >
-      {children}
-    </td>
-  );
-
-const PercentEditor : React.ComponentType<DataTypeProvider.ValueEditorProps> =
-({ value, onValueChange } : DataTypeProvider.ValueEditorProps) => {
-  const handleChange = (event) => {
-    if (event.target.value === '') {
-      onValueChange(undefined);
-      return;
-    }
-    const targetValue : number = Number(event.target.value) / 100;
-    onValueChange(Math.min(Math.max(targetValue, 0), 1));
-  };
-  return (
-    <input
-      type="number"
-      className="form-control text-right"
-      placeholder="Filter..."
-      value={getPercentInputValue(value)}
-      step={0.1}
-      min={0}
-      max={100}
-      onChange={handleChange}
-    />
-  );
-};
-
-const PercentTypeProvider: React.ComponentType<DataTypeProviderProps> =
-  (props: DataTypeProviderProps) => (
-    <DataTypeProvider
-      editorComponent={PercentEditor}
-      availableFilterOperations={availableFilterOperations}
-      {...props}
-    />
-);
-
-const ProgressBarCell: React.ComponentType<TableBase.DataCellProps> =
-  ({ value } : TableBase.DataCellProps) => {
-    const percent : number = value * 100;
-    return (
-      <td style={{ position: 'relative', verticalAlign: 'inherit' }}>
-        <div
-          className="progress"
-          style={{
-            backgroundColor: 'transparent',
-            borderRadius: 0,
-            boxShadow: 'none',
-            margin: 0,
-          }}
-        >
-          <div
-            aria-valuenow={parseInt(percent.toFixed(), 10)}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            className="progress-bar"
-            role="progressbar"
-            style={{ width: `${percent}%` }}
-            title={`${percent.toFixed(1)}%`}
-          />
-        </div>
-      </td>
-    );
-};
-
-const Cell: React.ComponentType<TableBase.DataCellProps> = (props: TableBase.DataCellProps) => {
-  if (props.column.name === 'discount') {
-    return <ProgressBarCell {...props} />;
-  }
-  if (props.column.name === 'amount') {
-    return <HighlightedCell {...props} />;
-  }
-  return <Table.Cell {...props} />;
-};
-
 export default class Demo extends React.Component<object, IGridState> {
   constructor(props) {
     super(props);
@@ -188,23 +100,18 @@ export default class Demo extends React.Component<object, IGridState> {
         { name: 'product', title: 'Product' },
         { name: 'region', title: 'Region' },
         { name: 'amount', title: 'Sale Amount' },
-        { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
         { name: 'customer', title: 'Customer' },
       ],
       currencyColumns: ['amount'],
       pageSizes: [5, 10, 15],
-      percentColumns: ['discount'],
       rows: sales,
-      tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
-      ],
     };
   }
   public render(): React.ReactNode {
     const {
-      rows, columns, tableColumnExtensions, pageSizes,
-      currencyColumns, percentColumns,
+      rows, columns, pageSizes,
+      currencyColumns,
     } = this.state;
 
     return (
@@ -229,10 +136,7 @@ export default class Demo extends React.Component<object, IGridState> {
             defaultGrouping={[{ columnName: 'product' }]}
             defaultExpandedGroups={['EnviroCare Max']}
           />
-          <PagingState
-            defaultCurrentPage={0}
-            defaultPageSize={10}
-          />
+          <PagingState />
 
           <IntegratedGrouping />
           <IntegratedFiltering />
@@ -241,14 +145,10 @@ export default class Demo extends React.Component<object, IGridState> {
           <IntegratedSelection />
 
           <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
 
           <DragDropProvider />
 
-          <Table
-            columnExtensions={tableColumnExtensions}
-            cellComponent={Cell}
-          />
+          <Table />
           <TableSelection showSelectAll={true} />
 
           <TableColumnReordering defaultOrder={columns.map((column: Column) : string => column.name)} />
@@ -257,12 +157,8 @@ export default class Demo extends React.Component<object, IGridState> {
           <PagingPanel pageSizes={pageSizes} />
 
           <TableGroupRow />
-          <TableColumnVisibility
-            defaultHiddenColumnNames={['customer']}
-          />
           <Toolbar />
           <GroupingPanel showSortingControls={true} />
-          <ColumnChooser />
         </Grid>
       </Card>
     );

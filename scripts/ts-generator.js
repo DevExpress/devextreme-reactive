@@ -63,8 +63,10 @@ const parseFile = (source) => {
       if (name) {
         return [...acc, { name, description: '', properties: [] }];
       }
-      if (acc[lastItemIndex].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
-        if (line.indexOf('Extends ') === 0) {
+      if (!line.match(/.+\|.+\|.+/)) {
+        if (line.indexOf('Type: ') === 0) {
+          acc[lastItemIndex].type = cleanElement(line.match(/\`([.\w]+)\`/)[1]);
+        } else if (line.indexOf('Extends ') === 0) {
           acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {
           acc[lastItemIndex].description += cleanElement(line);
@@ -117,8 +119,11 @@ const getInterfaceExport = ({
 
 const generateTypeScript = (data, componentName) => {
   const interfaces = data.interfaces.reduce((acc, currentInterface) => {
-    const { name } = currentInterface;
-    if (name === 'GroupKey') return `${acc}export type ${name} = string;\n\n`;
+    const { name, type, description } = currentInterface;
+    if (type) {
+      return `${acc}/** ${description} */\n` +
+        `export type ${name} = ${type};\n\n`;
+    }
     if (name.indexOf('.') !== -1) {
       const [namespace, interfaceName] = name.split('.');
       return `${acc}export namespace ${namespace} {\n`

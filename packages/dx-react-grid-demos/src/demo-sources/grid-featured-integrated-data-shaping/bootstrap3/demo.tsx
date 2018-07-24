@@ -8,7 +8,7 @@ import {
 import {
   DragDropProvider,
   Grid, GroupingPanel, PagingPanel,
-  Table, TableColumnReordering, TableFilterRow, TableGroupRow,
+  Table, TableFilterRow, TableGroupRow,
   TableHeaderRow, TableSelection, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap3';
 
@@ -151,7 +151,6 @@ export default class Demo extends React.Component<object, IGridState> {
           <Table />
           <TableSelection showSelectAll={true} />
 
-          <TableColumnReordering defaultOrder={columns.map((column: Column) : string => column.name)} />
           <TableHeaderRow showSortingControls={true} />
           <TableFilterRow showFilterSelector={true} />
           <PagingPanel pageSizes={pageSizes} />

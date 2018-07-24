@@ -3,8 +3,6 @@
     items:
       - title: Integrated Data Shaping
         path: /react/grid/demos/featured/integrated-data-shaping
-      - title: Integrated Data Shaping(TypeScript)
-        path: /react/grid/demos/featured/integrated-data-shaping-typescript
       - title: Data Editing
         path: /react/grid/demos/featured/data-editing
       - title: Virtual Scrolling

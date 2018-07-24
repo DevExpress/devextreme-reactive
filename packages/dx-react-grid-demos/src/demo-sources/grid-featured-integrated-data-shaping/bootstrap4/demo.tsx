@@ -9,7 +9,7 @@ import {
 import {
   DragDropProvider,
   Grid, GroupingPanel, PagingPanel,
-  Table, TableColumnReordering, TableFilterRow, TableGroupRow,
+  Table, TableFilterRow, TableGroupRow,
   TableHeaderRow, TableSelection, Toolbar,
 } from '@devexpress/dx-react-grid-bootstrap4';
 
@@ -57,7 +57,8 @@ const getColor = (amount: number) : string => {
   return '#34a209';
 };
 
-const CurrenceEditor = ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
+const CurrenceEditor: React.ComponentType<DataTypeProvider.ValueEditorProps> =
+  ({ onValueChange, value } : DataTypeProvider.ValueEditorProps) => {
     const handleChange = (event) => {
       const { value: targetValue } = event.target;
       if (targetValue.trim() === '') {
@@ -76,7 +77,7 @@ const CurrenceEditor = ({ onValueChange, value } : DataTypeProvider.ValueEditorP
         onChange={handleChange}
       />
     );
-  }
+  };
 
 const CurrencyFormatter: React.ComponentType<DataTypeProvider.ValueFormatterProps> =
   ({ value } : DataTypeProvider.ValueFormatterProps) => <i style={{ color: getColor(value) }}>${value}</i>;
@@ -151,7 +152,6 @@ export default class Demo extends React.Component<object, IGridState> {
           <Table />
           <TableSelection showSelectAll={true} />
 
-          <TableColumnReordering defaultOrder={columns.map((column: Column) : string => column.name)} />
           <TableHeaderRow showSortingControls={true} />
           <TableFilterRow showFilterSelector={true} />
           <PagingPanel pageSizes={pageSizes} />

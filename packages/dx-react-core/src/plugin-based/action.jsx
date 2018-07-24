@@ -8,11 +8,11 @@ import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export class Action extends React.PureComponent {
   componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
     const { name } = this.props;
 
     this.plugin = {
-      position: () => this.context[POSITION_CONTEXT](),
+      position: () => positionContext(),
       [`${name}Action`]: (params) => {
         const { action } = this.props;
         const { getters } = getAvailableGetters(
@@ -36,11 +36,13 @@ export class Action extends React.PureComponent {
 
     pluginHost.registerPlugin(this.plugin);
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
     pluginHost.unregisterPlugin(this.plugin);
   }
+
   render() {
     return null;
   }

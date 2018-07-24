@@ -66,6 +66,7 @@ export default class Demo extends React.PureComponent {
     // eslint-disable-next-line no-alert
     this.commitChanges = () => alert('Datenänderungen sind in dieser Demo nicht implementiert');
   }
+
   render() {
     const { rows, columns } = this.state;
 

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, Plugin, TemplateConnector,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -39,8 +41,9 @@ export class TableEditColumn extends React.PureComponent {
 
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) =>
-            isHeadingEditCommandsTableCell(tableRow, tableColumn)}
+          predicate={(
+            { tableRow, tableColumn },
+          ) => isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>
@@ -60,8 +63,7 @@ export class TableEditColumn extends React.PureComponent {
         </Template>
         <Template
           name="tableCell"
-          predicate={({ tableRow, tableColumn }) =>
-            isEditCommandsTableCell(tableRow, tableColumn)}
+          predicate={({ tableRow, tableColumn }) => isEditCommandsTableCell(tableRow, tableColumn)}
         >
           {params => (
             <TemplateConnector>

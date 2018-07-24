@@ -68,8 +68,9 @@ const CellPlaceholder = {
 };
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }) =>
-  tableRowsWithDataRows(rows, getRowId);
+const tableBodyRowsComputed = (
+  { rows, getRowId },
+) => tableRowsWithDataRows(rows, getRowId);
 
 const pluginDependencies = [
   { name: 'DxDataTypeProvider', optional: true },
@@ -152,8 +153,9 @@ export const DxTable = {
     } = this;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = ({ columns }) =>
-      tableColumnsWithDataRows(columns, columnExtensions);
+    const tableColumnsComputed = (
+      { columns },
+    ) => tableColumnsWithDataRows(columns, columnExtensions);
 
     return (
       <DxPlugin
@@ -196,19 +198,21 @@ export const DxTable = {
         <DxTemplate name="tableCell">
           {({ attrs, listeners }) => (
             <DxTemplateConnector>
-              {({ getters: { tableHeaderRows: headerRows } }) =>
-                (isHeaderStubTableCell(attrs.tableRow, headerRows)
-                  ? <StubHeaderCell {...{ attrs: { ...attrs }, on: { ...listeners } }} />
-                  : <StubCell {...{ attrs: { ...attrs }, on: { ...listeners } }} />
-                )
+              {(
+                { getters: { tableHeaderRows: headerRows } },
+              ) => (isHeaderStubTableCell(attrs.tableRow, headerRows)
+                ? <StubHeaderCell {...{ attrs: { ...attrs }, on: { ...listeners } }} />
+                : <StubCell {...{ attrs: { ...attrs }, on: { ...listeners } }} />
+              )
               }
             </DxTemplateConnector>
           )}
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isDataTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isDataTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>

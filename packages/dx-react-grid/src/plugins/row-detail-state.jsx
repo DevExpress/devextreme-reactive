@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import { toggleDetailRowExpanded } from '@devexpress/dx-grid-core';
 
 export class RowDetailState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { onExpandedRowIdsChange } = this.props;
 
     this.state = {
       expandedRowIds: props.expandedRowIds || props.defaultExpandedRowIds,
@@ -14,13 +17,14 @@ export class RowDetailState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        expandedRowIds: () => this.props.onExpandedRowIdsChange,
+        expandedRowIds: () => onExpandedRowIdsChange,
       },
     );
 
     this.toggleDetailRowExpanded = stateHelper.applyFieldReducer
       .bind(stateHelper, 'expandedRowIds', toggleDetailRowExpanded);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       expandedRowIds,
@@ -29,6 +33,7 @@ export class RowDetailState extends React.PureComponent {
       ...expandedRowIds !== undefined ? { expandedRowIds } : null,
     });
   }
+
   render() {
     const { expandedRowIds } = this.state;
 

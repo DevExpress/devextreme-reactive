@@ -1,11 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { shallowEqual } from '@devexpress/dx-core';
-import { PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT, TEMPLATE_HOST_CONTEXT } from './constants';
+import {
+  PLUGIN_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT,
+  TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_SCOPE_EVENT,
+} from './constants';
 
 export class TemplatePlaceholder extends React.Component {
   constructor(props, context) {
     super(props, context);
+    const { name: propsName } = this.props;
 
     this.subscription = {
       [RERENDER_TEMPLATE_EVENT]: (id) => {
@@ -13,8 +17,14 @@ export class TemplatePlaceholder extends React.Component {
           this.forceUpdate();
         }
       },
+      [RERENDER_TEMPLATE_SCOPE_EVENT]: (name) => {
+        if (propsName === name) {
+          this.forceUpdate();
+        }
+      },
     };
   }
+
   getChildContext() {
     return {
       [TEMPLATE_HOST_CONTEXT]: {
@@ -23,18 +33,23 @@ export class TemplatePlaceholder extends React.Component {
       },
     };
   }
+
   componentWillMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }
+
   shouldComponentUpdate(nextProps) {
     const { params } = this.getRenderingData(nextProps);
-    return !shallowEqual(params, this.params) || this.props.children !== nextProps.children;
+    const { children } = this.props;
+    return !shallowEqual(params, this.params) || children !== nextProps.children;
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
+
   getRenderingData(props) {
     const { name, params } = props;
     if (name) {
@@ -52,6 +67,7 @@ export class TemplatePlaceholder extends React.Component {
       templates: templateHost.templates(),
     };
   }
+
   render() {
     const { params, templates } = this.getRenderingData(this.props);
 

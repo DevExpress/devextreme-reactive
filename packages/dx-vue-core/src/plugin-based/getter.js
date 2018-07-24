@@ -49,8 +49,8 @@ export const DxGetter = {
           ? original
           : pluginHost.get(`${getterName}Getter`, this.plugin));
 
-        if (computed === lastComputed &&
-          !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
+        if (computed === lastComputed
+          && !isTrackedDependenciesChanged(pluginHost, lastTrackedDependencies, getGetterValue)) {
           return { id: this.id, value: lastResult };
         }
 

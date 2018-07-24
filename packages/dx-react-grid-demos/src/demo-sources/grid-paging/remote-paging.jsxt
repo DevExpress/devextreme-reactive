@@ -36,23 +36,28 @@ export default class Demo extends React.PureComponent {
 
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeCurrentPage(currentPage) {
     this.setState({
       loading: true,
       currentPage,
     });
   }
+
   queryString() {
     const { pageSize, currentPage } = this.state;
 
     return `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
   }
+
   loadData() {
     const queryString = this.queryString();
     if (queryString === this.lastQuery) {
@@ -70,6 +75,7 @@ export default class Demo extends React.PureComponent {
       .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;
   }
+
   render() {
     const {
       rows, columns, pageSize, currentPage, totalCount, loading,

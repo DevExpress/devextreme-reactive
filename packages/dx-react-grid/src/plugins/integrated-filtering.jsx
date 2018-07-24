@@ -20,8 +20,9 @@ const unwrappedRowsComputed = ({ rows }) => unwrappedFilteredRows(rows);
 export class IntegratedFiltering extends React.PureComponent {
   render() {
     const { columnExtensions } = this.props;
-    const getColumnPredicate = columnName =>
-      getColumnExtension(columnExtensions, columnName).predicate;
+    const getColumnPredicate = columnName => getColumnExtension(
+      columnExtensions, columnName,
+    ).predicate;
 
     const rowsComputed = ({
       rows,
@@ -29,15 +30,14 @@ export class IntegratedFiltering extends React.PureComponent {
       getCellValue,
       getRowLevelKey,
       getCollapsedRows,
-    }) =>
-      filteredRows(
-        rows,
-        filterExpression,
-        getCellValue,
-        getColumnPredicate,
-        getRowLevelKey,
-        getCollapsedRows,
-      );
+    }) => filteredRows(
+      rows,
+      filterExpression,
+      getCellValue,
+      getColumnPredicate,
+      getRowLevelKey,
+      getCollapsedRows,
+    );
 
     return (
       <Plugin

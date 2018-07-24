@@ -3,7 +3,7 @@ export { Legend } from './plugins/legend';
 export { Title } from './plugins/title';
 
 export { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
-export { SeriesFamily } from './plugins/series-family';
+export { Stack } from './plugins/stack';
 
 export { BarSeries } from './plugins/bar-series';
 export { LineSeries } from './plugins/line-series';

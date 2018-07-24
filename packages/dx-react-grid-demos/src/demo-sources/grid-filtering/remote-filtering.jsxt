@@ -28,18 +28,22 @@ export default class Demo extends React.PureComponent {
 
     this.changeFilters = this.changeFilters.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeFilters(filters) {
     this.setState({
       loading: true,
       filters,
     });
   }
+
   queryString() {
     const { filters } = this.state;
 
@@ -54,6 +58,7 @@ export default class Demo extends React.PureComponent {
 
     return `${URL}?filter=${filter}`;
   }
+
   loadData() {
     const queryString = this.queryString();
     if (queryString === this.lastQuery) {
@@ -73,6 +78,7 @@ export default class Demo extends React.PureComponent {
 
     this.lastQuery = queryString;
   }
+
   render() {
     const { rows, columns, loading } = this.state;
 

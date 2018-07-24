@@ -47,9 +47,11 @@ export default class Demo extends React.PureComponent {
 
     this.changeExpandedRowIds = this.changeExpandedRowIds.bind(this);
   }
+
   changeExpandedRowIds(expandedRowIds) {
     this.setState({ expandedRowIds });
   }
+
   render() {
     const {
       data, columns, tableColumnExtensions, expandedRowIds,

@@ -45,9 +45,15 @@ describe('Grid', () => {
             </div>
           )}
         />
-        <Template name="header"><div className="header-content" /></Template>
-        <Template name="body"><div className="body-content" /></Template>
-        <Template name="footer"><div className="footer-content" /></Template>
+        <Template name="header">
+          <div className="header-content" />
+        </Template>
+        <Template name="body">
+          <div className="body-content" />
+        </Template>
+        <Template name="footer">
+          <div className="footer-content" />
+        </Template>
       </PluginHost>
     ));
 

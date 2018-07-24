@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Template, TemplatePlaceholder, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Template, TemplatePlaceholder, Plugin, TemplateConnector,
+} from '@devexpress/dx-react-core';
 import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -19,15 +21,20 @@ export class ColumnChooser extends React.PureComponent {
     this.handleHide = this.handleHide.bind(this);
     this.buttonRef = this.buttonRef.bind(this);
   }
+
   buttonRef(button) {
     this.button = button;
   }
+
   handleToggle() {
-    this.setState({ visible: !this.state.visible });
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
   }
+
   handleHide() {
     this.setState({ visible: false });
   }
+
   render() {
     const {
       overlayComponent: Overlay,
@@ -75,8 +82,8 @@ export class ColumnChooser extends React.PureComponent {
                             disabled={!togglingEnabled}
                             onToggle={() => toggleColumnVisibility(columnName)}
                           />
-                      );
-                    })}
+                        );
+                      })}
                   </Container>
                 </Overlay>
               </React.Fragment>

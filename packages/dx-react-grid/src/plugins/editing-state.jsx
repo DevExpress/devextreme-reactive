@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import {
   createRowChangeGetter,
   startEditRows,
@@ -18,27 +20,33 @@ import {
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
 export class EditingState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const rowChanges = props.rowChanges || props.defaultRowChanges;
+    const addedRows = props.addedRows || props.defaultAddedRows;
 
     this.state = {
       editingRowIds: props.editingRowIds || props.defaultEditingRowIds,
-      addedRows: props.addedRows || props.defaultAddedRows,
-      rowChanges: props.rowChanges || props.defaultRowChanges,
+      addedRows,
+      rowChanges,
       deletedRowIds: props.deletedRowIds || props.defaultDeletedRowIds,
     };
+
+    const {
+      onEditingRowIdsChange, onAddedRowsChange, onRowChangesChange,
+      onDeletedRowIdsChange, onCommitChanges,
+    } = this.props;
 
     const stateHelper = createStateHelper(
       this,
       {
-        editingRowIds: () => this.props.onEditingRowIdsChange,
-        addedRows: () => this.props.onAddedRowsChange,
-        rowChanges: () => this.props.onRowChangesChange,
-        deletedRowIds: () => this.props.onDeletedRowIdsChange,
+        editingRowIds: () => onEditingRowIdsChange,
+        addedRows: () => onAddedRowsChange,
+        rowChanges: () => onRowChangesChange,
+        deletedRowIds: () => onDeletedRowIdsChange,
       },
     );
 
@@ -52,8 +60,8 @@ export class EditingState extends React.PureComponent {
     this.cancelChangedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'rowChanges', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
-      this.props.onCommitChanges({
-        changed: changedRowsByIds(this.state.rowChanges, rowIds),
+      onCommitChanges({
+        changed: changedRowsByIds(rowChanges, rowIds),
       });
       this.cancelChangedRows({ rowIds });
     };
@@ -65,8 +73,8 @@ export class EditingState extends React.PureComponent {
     this.cancelAddedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
-      this.props.onCommitChanges({
-        added: addedRowsByIds(this.state.addedRows, rowIds),
+      onCommitChanges({
+        added: addedRowsByIds(addedRows, rowIds),
       });
       this.cancelAddedRows({ rowIds });
     };
@@ -76,10 +84,11 @@ export class EditingState extends React.PureComponent {
     this.cancelDeletedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'deletedRowIds', cancelDeletedRows);
     this.commitDeletedRows = ({ rowIds }) => {
-      this.props.onCommitChanges({ deleted: rowIds });
+      onCommitChanges({ deleted: rowIds });
       this.cancelDeletedRows({ rowIds });
     };
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       editingRowIds,
@@ -94,6 +103,7 @@ export class EditingState extends React.PureComponent {
       ...deletedRowIds !== undefined ? { deletedRowIds } : null,
     });
   }
+
   render() {
     const { createRowChange, columnExtensions, columnEditingEnabled } = this.props;
     const {

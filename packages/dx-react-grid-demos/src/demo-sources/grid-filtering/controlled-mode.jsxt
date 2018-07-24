@@ -29,6 +29,7 @@ export default class Demo extends React.PureComponent {
 
     this.changeFilters = filters => this.setState({ filters });
   }
+
   render() {
     const { rows, columns, filters } = this.state;
 

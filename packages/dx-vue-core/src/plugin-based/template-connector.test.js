@@ -89,7 +89,10 @@ describe('TemplateConnector', () => {
       }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost } });
 
       expect(connected)
-        .toBeCalledWith({ getters: {}, actions: {} });
+        .toBeCalledWith(expect.objectContaining({
+          getters: { a: 1, b: 2 },
+          actions: { a: expect.any(Function), b: expect.any(Function) },
+        }));
     });
 
     it('should render content when dependent getter value changed', () => {
@@ -141,4 +144,3 @@ describe('TemplateConnector', () => {
     });
   });
 });
-

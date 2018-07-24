@@ -10,13 +10,11 @@ const pluginDependencies = [
 export class IntegratedSorting extends React.PureComponent {
   render() {
     const { columnExtensions } = this.props;
-    const getColumnCompare = columnName =>
-      getColumnExtension(columnExtensions, columnName).compare;
+    const getColumnCompare = columnName => getColumnExtension(columnExtensions, columnName).compare;
 
     const rowsComputed = ({
       rows, sorting, getCellValue, isGroupRow, getRowLevelKey,
-    }) =>
-      sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
+    }) => sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
       <Plugin

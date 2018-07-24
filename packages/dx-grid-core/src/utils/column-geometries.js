@@ -1,7 +1,8 @@
 export const getTargetColumnGeometries = (columnGeometries, sourceIndex) => {
   const sourceWidth = columnGeometries[sourceIndex].right - columnGeometries[sourceIndex].left;
-  const getWidthDifference = index =>
-    columnGeometries[index].right - columnGeometries[index].left - sourceWidth;
+  const getWidthDifference = index => columnGeometries[index].right
+                                      - columnGeometries[index].left
+                                      - sourceWidth;
 
   return columnGeometries
     .map(({

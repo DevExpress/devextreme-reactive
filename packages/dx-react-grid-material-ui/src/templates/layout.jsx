@@ -1,16 +1,36 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Root = ({ children, ...restProps }) => (
-  <div {...restProps}>
+const styles = {
+  root: {
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+};
+
+const RootBase = ({
+  children, classes, className, ...restProps
+}) => (
+  <div
+    className={classNames(classes.root, className)}
+    {...restProps}
+  >
     {children}
   </div>
 );
 
-Root.propTypes = {
-  children: PropTypes.node,
+RootBase.propTypes = {
+  children: PropTypes.node.isRequired,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
-Root.defaultProps = {
-  children: undefined,
+RootBase.defaultProps = {
+  className: undefined,
 };
+
+export const Root = withStyles(styles)(RootBase);

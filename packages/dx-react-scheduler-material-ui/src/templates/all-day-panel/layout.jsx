@@ -13,6 +13,7 @@ const styles = {
 };
 
 const LayoutBase = ({
+  children,
   dayScale,
   // dateTableRef,
   classes, className,
@@ -21,21 +22,24 @@ const LayoutBase = ({
   ...restProps
 }) => (
   // <RootRef rootRef={dateTableRef}>
-  <Table
-    className={classNames(classes.table, className)}
-    {...restProps}
-  >
-    <TableHead>
-      <Row>
-        {dayScale.map(date => <Cell key={date} date={date} />)}
-      </Row>
-    </TableHead>
-  </Table>
-  // </RootRef>
+  <div style={{ position: 'relative' }}>
+    <Table
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableHead>
+        <Row>
+          {dayScale.map(date => <Cell key={date} date={date} />)}
+        </Row>
+      </TableHead>
+    </Table>
+    {children}
+  </div>
 );
 
 LayoutBase.propTypes = {
-  dateTableRef: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  // dateTableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   cellComponent: PropTypes.func,

@@ -22,7 +22,6 @@ const CellBase = ({
   classes,
   className,
   children,
-  time,
   date,
   ...restProps
 }) => (
@@ -37,7 +36,6 @@ const CellBase = ({
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  time: PropTypes.object.isRequired,
   date: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,

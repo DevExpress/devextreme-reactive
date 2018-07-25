@@ -21,13 +21,10 @@ const getOlympicData = (chartData, currentType, currentCredit) => ({
   amountUSSR: chartData[currentType].ussr[currentCredit],
 });
 const getData = (data, currentType, currentCredit) => data
-  .slice()
-  .reduce((acc, item) => {
-    if (item[currentType]) {
-      const year = getOlympicData(item, currentType, currentCredit);
-      acc.push(year);
-    } return acc;
-  }, []);
+  .filter(item => item[currentType])
+  .map((item) => {
+    return getOlympicData(item, currentType, currentCredit);
+  });
 const legendRootComponent = ({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />;
 
 export default class Demo extends React.PureComponent {

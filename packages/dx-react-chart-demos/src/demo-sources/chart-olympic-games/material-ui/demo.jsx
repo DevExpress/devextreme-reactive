@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import {
   Chart,
   BarSeries,
@@ -64,35 +63,33 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
         <Card>
-          <CardMedia>
-            <Chart data={data}>
-              <ArgumentAxis
-                type="band"
-                name="year"
-                tickComponent={() => null}
-              />
-              <ValueAxis
-                tickComponent={() => null}
-                lineComponent={() => null}
-              />
-              <Grid />
-              <BarSeries
-                valueField="summUSA"
-                argumentField="year"
-                name="USA"
-              />
-              <BarSeries
-                valueField="summUSSR"
-                argumentField="year"
-                name="USSR"
-              />
-              <Stack />
-              <Legend
-                position="bottom"
-                rootComponent={({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />}
-              />
-            </Chart>
-          </CardMedia>
+          <Chart data={data}>
+            <ArgumentAxis
+              type="band"
+              name="year"
+              tickComponent={() => null}
+            />
+            <ValueAxis
+              tickComponent={() => null}
+              lineComponent={() => null}
+            />
+            <Grid />
+            <BarSeries
+              valueField="summUSA"
+              argumentField="year"
+              name="USA"
+            />
+            <BarSeries
+              valueField="summUSSR"
+              argumentField="year"
+              name="USSR"
+            />
+            <Stack />
+            <Legend
+              position="bottom"
+              rootComponent={({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />}
+            />
+          </Chart>
 
           <CardContent float="left">
             <Typography gutterBottom variant="headline">

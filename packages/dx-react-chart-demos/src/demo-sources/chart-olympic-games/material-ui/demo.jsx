@@ -17,8 +17,8 @@ import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 const nullComponent = () => null;
 const getOlympicData = (chartData, currentType, currentCredit) => ({
   year: chartData.year,
-  summUSA: chartData[currentType].usa[currentCredit],
-  summUSSR: chartData[currentType].ussr[currentCredit],
+  amountUSA: chartData[currentType].usa[currentCredit],
+  amountUSSR: chartData[currentType].ussr[currentCredit],
 });
 const getData = (data, currentType, currentCredit) => data
   .slice()
@@ -28,16 +28,15 @@ const getData = (data, currentType, currentCredit) => data
       acc.push(year);
     } return acc;
   }, []);
-const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 const legendRootComponent = ({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      season: 'winter',
-      credit: 'summ',
-      data: getData(baseData, 'winter', 'summ'),
+      season: 'summer',
+      credit: 'amount',
+      data: getData(baseData, 'winter', 'amount'),
     };
   }
 
@@ -59,16 +58,16 @@ export default class Demo extends React.PureComponent {
 
   primaryButton(season) {
     return (
-      <Button style={{ marginRight: '5px' }} variant="contained" color="primary" onClick={() => this.chooseSeason(season)}>
-        {capitalizeFirstLetter(season)}
+      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => this.chooseSeason(season)}>
+        {season}
       </Button>
     );
   }
 
   secondaryButton(credit) {
     return (
-      <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit(credit)}>
-        {capitalizeFirstLetter(credit)}
+      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" onClick={() => this.chooseCredit(credit)}>
+        {credit}
       </Button>
     );
   }
@@ -89,12 +88,12 @@ export default class Demo extends React.PureComponent {
           />
           <Grid />
           <BarSeries
-            valueField="summUSA"
+            valueField="amountUSA"
             argumentField="year"
             name="USA"
           />
           <BarSeries
-            valueField="summUSSR"
+            valueField="amountUSSR"
             argumentField="year"
             name="USSR"
           />
@@ -106,8 +105,8 @@ export default class Demo extends React.PureComponent {
         </Chart>
 
         <CardContent>
-          <Typography gutterBottom variant="headline">
-            {`${capitalizeFirstLetter(season)} Olympic Games (${capitalizeFirstLetter(credit)})`}
+          <Typography gutterBottom variant="headline" style={{ textTransform: 'capitalize' }}>
+            {`${season} olympic games (${credit})`}
           </Typography>
           <Typography variant="subheading" style={{ marginBottom: '10px' }}>
             Choose the season of the Olympic Games and the type of medal
@@ -117,7 +116,7 @@ export default class Demo extends React.PureComponent {
             {this.primaryButton('winter')}
           </div>
           <div style={{ float: 'right', display: 'inline-block' }}>
-            {this.secondaryButton('summ')}
+            {this.secondaryButton('amount')}
             {this.secondaryButton('gold')}
             {this.secondaryButton('silver')}
             {this.secondaryButton('bronze')}

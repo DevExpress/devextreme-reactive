@@ -12,24 +12,11 @@ import {
 import { Stack } from '@devexpress/dx-react-chart';
 import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 
-
-const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
-
 const getOlympicData = (chartData, currentType, currentCredit) => ({
   year: chartData.year,
-  summUSA: chartData[currentType].usa[currentCredit],
-  summUSSR: chartData[currentType].ussr[currentCredit],
+  amountUSA: chartData[currentType].usa[currentCredit],
+  amountUSSR: chartData[currentType].ussr[currentCredit],
 });
-/* const getData = (data, currentType, currentCredit) => {
-  const newData = [];
-  data.forEach((item) => {
-    if (item[currentType]) {
-      const year = getOlympicData(item, currentType, currentCredit);
-      newData.push(year);
-    }
-  });
-  return newData;
-}; */
 const getData = (data, currentType, currentCredit) => data
   .slice()
   .reduce((acc, item) => {
@@ -43,19 +30,18 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       season: 'summer',
-      credit: 'summ',
-      data: getData(baseData, 'summer', 'summ'),
-
+      credit: 'amount',
+      data: getData(baseData, 'summer', 'amount'),
     };
+    this.chooseSeason = this.chooseSeason.bind(this);
+    this.chooseCredit = this.chooseCredit.bind(this);
   }
-
 
   chooseSeason(event) {
     const { credit } = this.state;
     this.setState({
       data: getData(baseData, event.target.value, credit),
       season: event.target.value,
-
     });
   }
 
@@ -64,22 +50,21 @@ export default class Demo extends React.PureComponent {
     this.setState({
       data: getData(baseData, season, event.target.value),
       credit: event.target.value,
-
     });
   }
 
   primaryButton(season) {
     return (
-      <Button style={{ marginRight: '5px' }} color="secondary" value={season} onClick={event => this.chooseSeason(event)}>
-        {capitalizeFirstLetter(season)}
+      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} color="secondary" value={season} onClick={this.chooseSeason}>
+        {season}
       </Button>
     );
   }
 
   secondaryButton(credit) {
     return (
-      <Button style={{ marginRight: '5px' }} color="secondary" value={credit} onClick={event => this.chooseCredit(event)}>
-        {capitalizeFirstLetter(credit)}
+      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} color="secondary" value={credit} onClick={this.chooseCredit}>
+        {credit}
       </Button>
     );
   }
@@ -90,7 +75,6 @@ export default class Demo extends React.PureComponent {
     } = this.state;
     return (
       <div>
-
         <Card>
           <Chart data={data}>
             <ArgumentAxis
@@ -104,22 +88,22 @@ export default class Demo extends React.PureComponent {
             />
             <Grid strokeDasharray="10 5" />
             <BarSeries
-              valueField="summUSA"
+              valueField="amountUSA"
               argumentField="year"
               name="USA"
             />
             <BarSeries
-              valueField="summUSSR"
+              valueField="amountUSSR"
               argumentField="year"
               name="USSR"
             />
             <Stack />
             <Legend />
             <Title
-              text={`${capitalizeFirstLetter(season)} Olympic Games (${capitalizeFirstLetter(credit)})`}
+              text={`${season} olympic games (${credit})`}
               position="top"
               textComponent={({ text }) => (
-                <h1 style={{ margin: '10px auto' }}>
+                <h1 style={{ margin: '10px auto', textTransform: 'capitalize' }}>
                   {text}
                 </h1>
               )}
@@ -139,7 +123,7 @@ export default class Demo extends React.PureComponent {
             <h3>
               Choose the type of medal credit
             </h3>
-            {this.secondaryButton('summ')}
+            {this.secondaryButton('amount')}
             {this.secondaryButton('gold')}
             {this.secondaryButton('silver')}
             {this.secondaryButton('bronze')}

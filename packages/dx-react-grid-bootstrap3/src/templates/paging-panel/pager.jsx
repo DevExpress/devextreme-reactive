@@ -14,10 +14,15 @@ export const Pager = ({
   totalCount,
   getMessage,
   className,
+  style,
   ...restProps
 }) => (
   <div
-    className={classNames('clearfix', 'panel-footer', className)}
+    className={classNames('clearfix panel-footer', className)}
+    style={{
+      flex: 'none',
+      ...style,
+    }}
     {...restProps}
   >
     {!!pageSizes.length && (
@@ -49,8 +54,10 @@ Pager.propTypes = {
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Pager.defaultProps = {
   className: undefined,
+  style: null,
 };

@@ -79,7 +79,7 @@ VirtualTable.Container = TableContainer;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
   headTableComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,

@@ -20,13 +20,16 @@ export class VirtualTableLayout extends React.PureComponent {
     this.getRowHeight = this.getRowHeight.bind(this);
     this.updateViewport = this.updateViewport.bind(this);
   }
+
   componentDidMount() {
     this.storeRowHeights();
   }
+
   componentWillReceiveProps(nextProps) {
+    const { headerRows, bodyRows } = this.props;
     if (
-      this.props.headerRows !== nextProps.headerRows ||
-      this.props.bodyRows !== nextProps.bodyRows
+      headerRows !== nextProps.headerRows
+      || bodyRows !== nextProps.bodyRows
     ) {
       const { rowHeights: prevRowHeight } = this.state;
       const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
@@ -42,15 +45,20 @@ export class VirtualTableLayout extends React.PureComponent {
       this.setState({ rowHeights });
     }
   }
+
   componentDidUpdate() {
     this.storeRowHeights();
   }
+
   getRowHeight(row) {
-    const storedHeight = this.state.rowHeights.get(row.key);
+    const { rowHeights } = this.state;
+    const { estimatedRowHeight } = this.props;
+    const storedHeight = rowHeights.get(row.key);
     if (storedHeight !== undefined) return storedHeight;
     if (row.height) return row.height;
-    return this.props.estimatedRowHeight;
+    return estimatedRowHeight;
   }
+
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
       // eslint-disable-next-line react/no-find-dom-node
@@ -69,6 +77,7 @@ export class VirtualTableLayout extends React.PureComponent {
       });
     }
   }
+
   registerRowRef(row, ref) {
     if (ref === null) {
       this.rowRefs.delete(row);
@@ -76,6 +85,7 @@ export class VirtualTableLayout extends React.PureComponent {
       this.rowRefs.set(row, ref);
     }
   }
+
   updateViewport(e) {
     const node = e.target;
 
@@ -85,10 +95,10 @@ export class VirtualTableLayout extends React.PureComponent {
     }
 
     // NOTE: prevent iOS to flicker in bounces
-    if (node.scrollTop < 0 ||
-      node.scrollLeft < 0 ||
-      node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth) ||
-      node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
+    if (node.scrollTop < 0
+      || node.scrollLeft < 0
+      || node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth)
+      || node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
       return;
     }
 
@@ -97,6 +107,7 @@ export class VirtualTableLayout extends React.PureComponent {
       viewportLeft: node.scrollLeft,
     });
   }
+
   renderRowsBlock(collapsedGrid, Table, Body) {
     const {
       minWidth,
@@ -145,6 +156,7 @@ export class VirtualTableLayout extends React.PureComponent {
       </Table>
     );
   }
+
   render() {
     const {
       headerRows,
@@ -160,17 +172,20 @@ export class VirtualTableLayout extends React.PureComponent {
       getCellColSpan,
     } = this.props;
 
+    const { viewportLeft, viewportTop } = this.state;
+
     return (
       <Sizer>
         {({ width }) => {
           const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
-          const getColSpan = (tableRow, tableColumn) =>
-            getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
+          const getColSpan = (
+            tableRow, tableColumn,
+          ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
           const collapsedHeaderGrid = getCollapsedGrid({
             rows: headerRows,
             columns,
             top: 0,
-            left: this.state.viewportLeft,
+            left: viewportLeft,
             width,
             height: headHeight,
             getColumnWidth: column => column.width || minColumnWidth,
@@ -180,8 +195,8 @@ export class VirtualTableLayout extends React.PureComponent {
           const collapsedBodyGrid = getCollapsedGrid({
             rows: bodyRows,
             columns,
-            top: this.state.viewportTop,
-            left: this.state.viewportLeft,
+            top: viewportTop,
+            left: viewportLeft,
             width,
             height: height - headHeight,
             getColumnWidth: column => column.width || minColumnWidth,

@@ -46,11 +46,11 @@ const data = [
 
 const Point = (type, styles) => (props) => {
   const {
-    x, y,
+    x, y, themeColor,
   } = props;
   return (
     <path
-      fill={props.themeColor}
+      fill={themeColor}
       transform={`translate(${x} ${y})`}
       d={symbol().size([10 ** 2]).type(type)()}
       style={styles}
@@ -81,6 +81,7 @@ export default class Demo extends React.PureComponent {
       data,
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

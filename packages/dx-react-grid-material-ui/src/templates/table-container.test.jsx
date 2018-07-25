@@ -10,7 +10,11 @@ describe('TableContainer', () => {
   beforeAll(() => {
     resetConsole = setupConsole();
     shallow = createShallow({ untilSelector: 'TableContainerBase' });
-    classes = getClasses(<TableContainer><span /></TableContainer>);
+    classes = getClasses(
+      <TableContainer>
+        <span />
+      </TableContainer>,
+    );
   });
   afterAll(() => {
     resetConsole();

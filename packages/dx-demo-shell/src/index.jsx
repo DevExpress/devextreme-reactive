@@ -19,6 +19,7 @@ class App extends React.Component {
 
     return { embeddedDemoOptions: restProps };
   }
+
   render() {
     const { router, path } = this.props;
     const Router = router === 'hash' ? HashRouter : MemoryRouter;

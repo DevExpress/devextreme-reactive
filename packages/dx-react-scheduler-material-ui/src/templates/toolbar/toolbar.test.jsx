@@ -7,7 +7,11 @@ describe('Toolbar', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Toolbar><div /></Toolbar>);
+    classes = getClasses(
+      <Toolbar>
+        <div />
+      </Toolbar>,
+    );
   });
   it('should pass custom class to the root element', () => {
     const tree = shallow((

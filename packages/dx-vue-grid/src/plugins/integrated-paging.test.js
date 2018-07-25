@@ -1,7 +1,9 @@
 import { mount } from '@vue/test-utils';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { setupConsole } from '@devexpress/dx-testing';
-import { paginatedRows, rowsWithPageHeaders, currentPage, rowCount } from '@devexpress/dx-grid-core';
+import {
+  paginatedRows, rowsWithPageHeaders, currentPage, rowCount,
+} from '@devexpress/dx-grid-core';
 import { PluginDepsToComponents, getComputedState } from './test-utils';
 import { DxIntegratedPaging } from './integrated-paging';
 

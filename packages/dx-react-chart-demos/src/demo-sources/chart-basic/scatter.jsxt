@@ -39,6 +39,7 @@ export default class Demo extends React.PureComponent {
       data: dataGenerator(100),
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

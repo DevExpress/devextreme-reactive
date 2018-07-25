@@ -24,8 +24,9 @@ export class TableSelection extends React.PureComponent {
       selectionColumnWidth,
     } = this.props;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+    const tableColumnsComputed = (
+      { tableColumns },
+    ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
     return (
       <Plugin

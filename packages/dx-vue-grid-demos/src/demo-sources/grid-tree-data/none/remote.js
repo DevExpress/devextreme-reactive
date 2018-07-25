@@ -63,9 +63,8 @@ export default {
         if (this.loading) return;
         this.loading = true;
         Promise.all(rowIdsWithNotLoadedChilds
-          .map(rowId =>
-            fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
-              .then(response => response.json())))
+          .map(rowId => fetch(`${URL}?parentIds=${rowId}`, { mode: 'cors' })
+            .then(response => response.json())))
           .then((loadedData) => {
             this.data = data.concat(...loadedData);
             this.loading = false;

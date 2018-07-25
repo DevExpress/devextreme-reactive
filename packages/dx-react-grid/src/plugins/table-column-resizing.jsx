@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { memoize } from '@devexpress/dx-core';
-import { Plugin, Getter, Action, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Plugin, Getter, Action, createStateHelper,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithWidths,
   tableColumnsWithDraftWidths,
@@ -22,34 +24,41 @@ export class TableColumnResizing extends React.PureComponent {
       columnWidths: props.columnWidths || props.defaultColumnWidths,
       draftColumnWidths: [],
     };
+    const { onColumnWidthsChange, minColumnWidth } = this.props;
 
     const stateHelper = createStateHelper(
       this,
       {
-        columnWidths: () => this.props.onColumnWidthsChange,
+        columnWidths: () => onColumnWidthsChange,
       },
     );
 
-    this.tableColumnsComputed = memoize(columnWidths =>
-      ({ tableColumns }) => tableColumnsWithWidths(tableColumns, columnWidths));
-    this.tableColumnsDraftComputed = memoize(draftColumnWidths =>
-      ({ tableColumns }) => tableColumnsWithDraftWidths(tableColumns, draftColumnWidths));
+    this.tableColumnsComputed = memoize(
+      columnWidths => ({ tableColumns }) => tableColumnsWithWidths(tableColumns, columnWidths),
+    );
+    this.tableColumnsDraftComputed = memoize(
+      draftColumnWidths => (
+        { tableColumns },
+      ) => tableColumnsWithDraftWidths(tableColumns, draftColumnWidths),
+    );
 
-    this.changeTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
-        changeTableColumnWidth(
-          prevState,
-          { ...payload, minColumnWidth: this.props.minColumnWidth },
-        ));
-    this.draftTableColumnWidth =
-      stateHelper.applyReducer.bind(stateHelper, (prevState, payload) =>
-        draftTableColumnWidth(
-          prevState,
-          { ...payload, minColumnWidth: this.props.minColumnWidth },
-        ));
-    this.cancelTableColumnWidthDraft =
-      stateHelper.applyReducer.bind(stateHelper, cancelTableColumnWidthDraft);
+    this.changeTableColumnWidth = stateHelper.applyReducer.bind(
+      stateHelper, (prevState, payload) => changeTableColumnWidth(
+        prevState,
+        { ...payload, minColumnWidth },
+      ),
+    );
+    this.draftTableColumnWidth = stateHelper.applyReducer.bind(
+      stateHelper, (prevState, payload) => draftTableColumnWidth(
+        prevState,
+        { ...payload, minColumnWidth },
+      ),
+    );
+    this.cancelTableColumnWidthDraft = stateHelper.applyReducer.bind(
+      stateHelper, cancelTableColumnWidthDraft,
+    );
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       columnWidths,
@@ -58,6 +67,7 @@ export class TableColumnResizing extends React.PureComponent {
       ...columnWidths !== undefined ? { columnWidths } : null,
     });
   }
+
   render() {
     const { columnWidths, draftColumnWidths } = this.state;
 

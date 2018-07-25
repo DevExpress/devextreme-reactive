@@ -15,7 +15,7 @@ export class Stack extends React.PureComponent {
     const { offset, order } = this.props;
     const computedStacks = ({ series = [] }) => stacks(series);
     return (
-      <Plugin name="Stack" >
+      <Plugin name="Stack">
         <Getter name="series" computed={computedSeries} />
         <Getter name="processingData" value={processData(offset, order)} />
         <Getter name="stacks" computed={computedStacks} />

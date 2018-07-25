@@ -49,7 +49,11 @@ const defaultDeps = {
 
 const defaultProps = {
   // eslint-disable-next-line react/prop-types
-  cellComponent: ({ children }) => <div>{children}</div>,
+  cellComponent: ({ children }) => (
+    <div>
+      {children}
+    </div>
+  ),
   rowComponent: () => null,
   editorComponent: () => null,
   filterSelectorComponent: () => null,

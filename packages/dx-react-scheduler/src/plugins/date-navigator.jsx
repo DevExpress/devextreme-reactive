@@ -13,8 +13,9 @@ const pluginDependencies = [
   { name: 'Toolbar' },
 ];
 
-const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
-  monthCellsCore(currentDate, firstDayOfWeek);
+const monthCellsComputed = (
+  { currentDate, firstDayOfWeek },
+) => monthCellsCore(currentDate, firstDayOfWeek);
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -28,15 +29,20 @@ export class DateNavigator extends React.PureComponent {
     this.handleHide = this.handleHide.bind(this);
     this.buttonRef = this.buttonRef.bind(this);
   }
+
   buttonRef(button) {
     this.button = button;
   }
+
   handleToggle() {
-    this.setState({ visible: !this.state.visible });
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
   }
+
   handleHide() {
     this.setState({ visible: false });
   }
+
   render() {
     const {
       overlayComponent: Overlay,

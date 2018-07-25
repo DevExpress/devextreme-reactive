@@ -1,4 +1,6 @@
-import { DxGetter, DxTemplate, DxPlugin, DxTemplateConnector } from '@devexpress/dx-vue-core';
+import {
+  DxGetter, DxTemplate, DxPlugin, DxTemplateConnector,
+} from '@devexpress/dx-vue-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
@@ -69,8 +71,9 @@ export const DxTableEditColumn = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isHeadingEditCommandsTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isHeadingEditCommandsTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>
@@ -93,8 +96,9 @@ export const DxTableEditColumn = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isEditCommandsTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isEditCommandsTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>

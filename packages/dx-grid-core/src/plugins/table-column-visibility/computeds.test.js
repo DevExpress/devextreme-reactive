@@ -1,5 +1,5 @@
 import { visibleTableColumns } from './computeds';
-import { TABLE_DATA_TYPE } from './../table/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 describe('TableColumnVisibility computeds', () => {
   describe('#visibleTableColumns', () => {

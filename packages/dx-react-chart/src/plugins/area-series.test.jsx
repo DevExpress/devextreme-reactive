@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { lineAttributes, pointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
+import {
+  lineAttributes, pointAttributes, findSeriesByName, xyScales, coordinates,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
 

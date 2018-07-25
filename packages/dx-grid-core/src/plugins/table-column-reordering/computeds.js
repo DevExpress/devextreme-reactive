@@ -2,14 +2,13 @@ import mergeSort from '../../utils/merge-sort';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_REORDERING_TYPE } from './constants';
 
-export const orderedColumns = (tableColumns, order) =>
-  mergeSort(tableColumns, (a, b) => {
-    if (a.type !== TABLE_DATA_TYPE || b.type !== TABLE_DATA_TYPE) return 0;
+export const orderedColumns = (tableColumns, order) => mergeSort(tableColumns, (a, b) => {
+  if (a.type !== TABLE_DATA_TYPE || b.type !== TABLE_DATA_TYPE) return 0;
 
-    const aPos = order.indexOf(a.column.name);
-    const bPos = order.indexOf(b.column.name);
-    return aPos - bPos;
-  });
+  const aPos = order.indexOf(a.column.name);
+  const bPos = order.indexOf(b.column.name);
+  return aPos - bPos;
+});
 
 export const tableHeaderRowsWithReordering = tableHeaderRows => [
   ...tableHeaderRows,

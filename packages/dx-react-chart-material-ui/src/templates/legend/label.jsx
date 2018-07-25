@@ -21,7 +21,8 @@ class LabelBase extends React.PureComponent {
       <ListItemText
         className={classNames(classes.root, className)}
         {...restProps}
-      >{text}
+      >
+        {text}
       </ListItemText>
     );
   }

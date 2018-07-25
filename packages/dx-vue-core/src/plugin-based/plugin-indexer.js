@@ -36,8 +36,7 @@ export const PluginIndexer = {
             if (!child.componentOptions) return child;
 
             const childPosition = () => {
-              const calculatedPosition =
-                (position && position()) || [];
+              const calculatedPosition = (position && position()) || [];
               return [...calculatedPosition, index];
             };
 

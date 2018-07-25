@@ -1,4 +1,6 @@
-import { DxTemplate, DxPlugin, DxTemplateConnector, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
+import {
+  DxTemplate, DxPlugin, DxTemplateConnector, DxTemplatePlaceholder,
+} from '@devexpress/dx-vue-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 
 export const DxTableTreeColumn = {
@@ -88,8 +90,9 @@ export const DxTableTreeColumn = {
         </DxTemplate>
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isTreeTableCell(tableRow, tableColumn, forColumnName)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isTreeTableCell(tableRow, tableColumn, forColumnName)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>

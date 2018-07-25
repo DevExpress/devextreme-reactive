@@ -22,9 +22,7 @@ const getOlympicData = (chartData, currentType, currentCredit) => ({
 });
 const getData = (data, currentType, currentCredit) => data
   .filter(item => item[currentType])
-  .map((item) => {
-    return getOlympicData(item, currentType, currentCredit);
-  });
+  .map(item => getOlympicData(item, currentType, currentCredit));
 const legendRootComponent = ({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />;
 
 export default class Demo extends React.PureComponent {

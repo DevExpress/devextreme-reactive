@@ -19,7 +19,7 @@ const MONTH_LENGTH = 31;
 export const endViewBoundary = (cells) => {
   const lastCellIndex = cells.length - 1;
   const lastDate = moment(cells[lastCellIndex][WEEK_COUNT].value);
-  return lastDate.startOf('day').add(1, 'days').toDate();
+  return lastDate.startOf('day').add(1, 'days').subtract(1, 'second').toDate();
 };
 
 export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) => {
@@ -60,12 +60,18 @@ export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) =
 const calculateDateIntervals = (
   appointments,
   leftBound, rightBound,
-  monthCells,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
   .filter(appointment => viewPredicate(appointment, leftBound, rightBound))
-  .reduce((acc, appointment) => ([...acc, ...sliceAppointmentByWeek(appointment, monthCells)]), [])
-  .filter(appointment => viewPredicate(appointment, leftBound, rightBound));
+  .reduce((acc, appointment) => (
+    [
+      ...acc,
+      ...sliceAppointmentByWeek(
+        { left: moment(leftBound), right: moment(rightBound) },
+        appointment,
+        7,
+      ),
+    ]), []);
 
 const calculateRectsByDateIntervals = (
   intervals,
@@ -109,7 +115,6 @@ export const monthAppointmentRect = (
     appointments,
     startViewDate,
     endViewDate,
-    monthCells,
   );
   return calculateRectsByDateIntervals(
     dateIntervals,

@@ -62,27 +62,29 @@ describe('MonthView Helpers', () => {
     ],
   ];
   describe('#sliceAppointmentByWeek', () => {
+    const bounds = { left: monthCells[0][0].value, right: monthCells[5][6].value };
+
     it('should not slice appointments if they are short', () => {
       const appointment1 = { start: moment('2018-07-05'), end: moment('2018-07-12'), dataItem: {} };
       const appointment2 = { start: moment('2018-07-05'), end: moment('2018-07-06'), dataItem: {} };
 
-      const slicedAppointment1 = sliceAppointmentByWeek(appointment1, monthCells);
+      const slicedAppointment1 = sliceAppointmentByWeek(bounds, appointment1, 7);
       expect(slicedAppointment1[0].start.format())
         .toEqual(moment('2018-07-05').format());
       expect(slicedAppointment1[0].end.format())
         .toEqual(moment('2018-07-11 23:59:59.999').format());
 
-      const slicedAppointment2 = sliceAppointmentByWeek(appointment2, monthCells);
+      const slicedAppointment2 = sliceAppointmentByWeek(bounds, appointment2, 7);
       expect(slicedAppointment2[0].start.format())
         .toEqual(moment('2018-07-05').format());
       expect(slicedAppointment2[0].end.format())
         .toEqual(moment('2018-07-06').format());
     });
 
-    it('should slice appointment if it start on first week and end on second week', () => {
+    it('should slice appointment if it starts on first week and ends on second', () => {
       const appointment = { start: moment('2018-07-11 22:00'), end: moment('2018-07-12 09:00'), dataItem: { id: 1 } };
 
-      const slicedAppointment = sliceAppointmentByWeek(appointment, monthCells);
+      const slicedAppointment = sliceAppointmentByWeek(bounds, appointment, 7);
       expect(slicedAppointment)
         .toHaveLength(2);
       expect(slicedAppointment[0].start.format())
@@ -95,10 +97,10 @@ describe('MonthView Helpers', () => {
         .toEqual(moment('2018-07-12 09:00').format());
     });
 
-    it('should slice appointment if it start on first week and end on third week', () => {
+    it('should slice appointment if it starts on first week and ends on third', () => {
       const appointment = { start: moment('2018-07-09 16:00'), end: moment('2018-07-23 05:00'), dataItem: { id: 1 } };
 
-      const slicedAppointment = sliceAppointmentByWeek(appointment, monthCells);
+      const slicedAppointment = sliceAppointmentByWeek(bounds, appointment, 7);
       expect(slicedAppointment)
         .toHaveLength(3);
       expect(slicedAppointment[0].start.format())
@@ -116,60 +118,107 @@ describe('MonthView Helpers', () => {
       expect(slicedAppointment[2].end.format())
         .toEqual(moment('2018-07-23 05:00').format());
     });
-    describe('#getRectByDates', () => {
-      const offsetParent = {
-        getBoundingClientRect: () => ({
-          top: 10, left: 10, width: 250,
-        }),
-      };
-      const cellElements = [{}, {}, {}, {}, {}, {}, {}, {
-        getBoundingClientRect: () => ({
-          top: 110, left: 20, width: 100, height: 100,
-        }),
-        offsetParent,
-      }, {}, {
-        getBoundingClientRect: () => ({
-          top: 110, left: 320, width: 100, height: 100,
-        }),
-        offsetParent,
-      }];
 
-      it('should calculate geometry by dates for one day long', () => {
-        const startDate = new Date('2018-07-05 10:20');
-        const endDate = new Date('2018-07-06 00:00');
-        const {
-          top, left, height, width, parentWidth,
-        } = getRectByDates(
-          startDate,
-          endDate,
-          monthCells,
-          cellElements,
-        );
+    it('should cut appointmen if it starts before start view date', () => {
+      const slicedAppointment = sliceAppointmentByWeek(
+        { left: moment('2018-07-23'), right: moment('2018-08-05') },
+        { start: moment('2018-07-21 00:00'), end: moment('2018-08-01 00:00') },
+        7,
+      );
+      expect(slicedAppointment)
+        .toHaveLength(2);
+      expect(slicedAppointment[0].start.format())
+        .toBe(moment('2018-07-23 00:00').format());
+      expect(slicedAppointment[0].end.format())
+        .toBe(moment('2018-07-29 23:59:59').format());
+      expect(slicedAppointment[1].start.format())
+        .toBe(moment('2018-07-30 00:00').format());
+      expect(slicedAppointment[1].end.format())
+        .toBe(moment('2018-08-01 00:00').format());
+    });
 
-        expect(top).toBe(132);
-        expect(left).toBe(12);
-        expect(height).toBe(68);
-        expect(width).toBe(98);
-        expect(parentWidth).toBe(250);
-      });
-      it('should calculate geometry by dates for many days long', () => {
-        const startDate = new Date('2018-07-05 00:00');
-        const endDate = new Date('2018-07-08 00:00');
-        const {
-          top, left, height, width, parentWidth,
-        } = getRectByDates(
-          startDate,
-          endDate,
-          monthCells,
-          cellElements,
-        );
+    it('should cut appointmen if it ends after end view date', () => {
+      const slicedAppointment = sliceAppointmentByWeek(
+        { left: moment('2018-07-23'), right: moment('2018-08-05') },
+        { start: moment('2018-07-27 00:00'), end: moment('2018-08-08 00:00') },
+        7,
+      );
+      expect(slicedAppointment)
+        .toHaveLength(2);
+      expect(slicedAppointment[0].start.format())
+        .toBe(moment('2018-07-27 00:00').format());
+      expect(slicedAppointment[0].end.format())
+        .toBe(moment('2018-07-29 23:59:59').format());
+      expect(slicedAppointment[1].start.format())
+        .toBe(moment('2018-07-30 00:00').format());
+      expect(slicedAppointment[1].end.format())
+        .toBe(moment('2018-08-05 00:00').format());
+    });
 
-        expect(top).toBe(132);
-        expect(left).toBe(12);
-        expect(height).toBe(68);
-        expect(width).toBe(398);
-        expect(parentWidth).toBe(250);
-      });
+    it('should not return "zero-duration" appointments', () => {
+      const slicedAppointment = sliceAppointmentByWeek(
+        { left: moment('2018-06-25'), right: moment('2018-08-05') },
+        { start: moment('2018-06-22'), end: moment('2018-07-02') },
+        7,
+      );
+      expect(slicedAppointment)
+        .toHaveLength(1);
+    });
+  });
+
+  describe('#getRectByDates', () => {
+    const offsetParent = {
+      getBoundingClientRect: () => ({
+        top: 10, left: 10, width: 250,
+      }),
+    };
+    const cellElements = [{}, {}, {}, {}, {}, {}, {}, {
+      getBoundingClientRect: () => ({
+        top: 110, left: 20, width: 100, height: 100,
+      }),
+      offsetParent,
+    }, {}, {
+      getBoundingClientRect: () => ({
+        top: 110, left: 320, width: 100, height: 100,
+      }),
+      offsetParent,
+    }];
+
+    it('should calculate geometry by dates for one day long', () => {
+      const startDate = new Date('2018-07-05 10:20');
+      const endDate = new Date('2018-07-06 00:00');
+      const {
+        top, left, height, width, parentWidth,
+      } = getRectByDates(
+        startDate,
+        endDate,
+        monthCells,
+        cellElements,
+      );
+
+      expect(top).toBe(132);
+      expect(left).toBe(12);
+      expect(height).toBe(68);
+      expect(width).toBe(98);
+      expect(parentWidth).toBe(250);
+    });
+    it('should calculate geometry by dates for many days long', () => {
+      const startDate = new Date('2018-07-05 00:00');
+      const endDate = new Date('2018-07-08 00:00');
+      const {
+        top, left, height, width, parentWidth,
+      } = getRectByDates(
+        startDate,
+        endDate,
+        monthCells,
+        cellElements,
+      );
+
+      expect(top).toBe(132);
+      expect(left).toBe(12);
+      expect(height).toBe(68);
+      expect(width).toBe(398);
+      expect(parentWidth).toBe(250);
     });
   });
 });

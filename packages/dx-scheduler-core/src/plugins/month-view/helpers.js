@@ -3,48 +3,35 @@ import moment from 'moment';
 const CELL_GAP = 0.32;
 const CELL_BOUND_OFFSET_PX = 2;
 
-export const sliceAppointmentByWeek = (
-  appointment,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  const leftBound = moment(monthCells[0][0].value).startOf('day');
-  const rightBound = moment(leftBound).add(7, 'days');
-  const { start, end } = appointment;
-
-  while (leftBound.isBefore(end)) {
-    if (start.isBetween(leftBound, rightBound, null, '[)')
-      && !end.isBetween(leftBound, rightBound, null, '()')) {
-      nextAppointments.push({
-        ...appointment,
-        start,
-        end: moment(rightBound).add(-1, 'hours').endOf('day'),
-      });
+export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
+  const { left, right } = timeBounds;
+  const pieces = [];
+  const { start, end, ...restFields } = appointment;
+  let apptStart = start;
+  let apptEnd = end;
+  if (apptStart.isBefore(left)) apptStart = left.clone();
+  if (apptEnd.isAfter(right)) apptEnd = right.clone();
+  let pieceFrom = apptStart.clone();
+  let pieceTo = apptStart.clone();
+  let i = 0;
+  while (pieceTo.isBefore(apptEnd)) {
+    const currentRigthBound = left.clone().add(step * i, 'days').subtract(1, 'second');
+    if (currentRigthBound.isAfter(apptStart)) {
+      pieceTo = apptStart.clone().add(step * i, 'days');
+      if (pieceTo.isAfter(currentRigthBound)) {
+        pieceTo = currentRigthBound.clone();
+      }
+      if (pieceTo.isAfter(apptEnd)) {
+        pieceTo = apptEnd.clone();
+      }
+      if (!pieceFrom.isSame(pieceTo)) {
+        pieces.push({ start: pieceFrom, end: pieceTo, ...restFields });
+        pieceFrom = pieceTo.clone().add(1, 'second');
+      }
     }
-    if (!start.isBetween(leftBound, rightBound, null, '[)')
-      && end.isBetween(leftBound, rightBound, null, '(]')) {
-      nextAppointments.push({
-        ...appointment,
-        start: moment(leftBound),
-        end,
-      });
-    }
-
-    if (start.isBefore(leftBound) && end.isAfter(rightBound)) {
-      nextAppointments.push({
-        ...appointment,
-        start: moment(leftBound),
-        end: moment(rightBound).add(-1, 'hours').endOf('day'),
-      });
-    }
-    if (start.isBetween(leftBound, rightBound, null, '[)')
-      && end.isBetween(leftBound, rightBound, null, '()')) {
-      nextAppointments.push(appointment);
-    }
-    leftBound.add(7, 'days');
-    rightBound.add(7, 'days');
+    i += 1;
   }
-  return nextAppointments;
+  return pieces;
 };
 
 const getCellRect = (date, monthCells, cellElements, takePrev) => {

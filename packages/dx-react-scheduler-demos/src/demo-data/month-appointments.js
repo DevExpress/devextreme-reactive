@@ -91,5 +91,13 @@ export const appointments = [
     title: 'Brochure Design Review',
     startDate: new Date(2018, 6, 20, 14, 10),
     endDate: new Date(2018, 6, 20, 15, 30),
+  }, {
+    title: 'Vacation',
+    startDate: new Date(2018, 5, 22),
+    endDate: new Date(2018, 6, 1),
+  }, {
+    title: 'Vacation',
+    startDate: new Date(2018, 6, 28),
+    endDate: new Date(2018, 7, 7),
   },
 ];

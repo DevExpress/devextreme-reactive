@@ -44,15 +44,18 @@ export default class Demo extends React.PureComponent {
 
 
   chooseSeason(event) {
+    const { credit } = this.state;
     this.setState({
-      data: getData(baseData, event.target.value, this.state.credit),
+      data: getData(baseData, event.target.value, credit),
       season: event.target.value,
       rSelected: event.target.value,
     });
   }
+
   chooseCredit(event) {
+    const { season } = this.state;
     this.setState({
-      data: getData(baseData, this.state.season, event.target.value),
+      data: getData(baseData, season, event.target.value),
       credit: event.target.value,
       dSelected: event.target.value,
     });
@@ -60,7 +63,9 @@ export default class Demo extends React.PureComponent {
 
 
   render() {
-    const { data } = this.state;
+    const {
+      data, season, credit, rSelected, dSelected,
+    } = this.state;
     return (
       <div>
 
@@ -89,9 +94,13 @@ export default class Demo extends React.PureComponent {
             <Stack />
             <Legend />
             <Title
-              text={`${capitalizeFirstLetter(this.state.season)} Olympic Games (${capitalizeFirstLetter(this.state.credit)})`}
+              text={`${capitalizeFirstLetter(season)} Olympic Games (${capitalizeFirstLetter(credit)})`}
               position="top"
-              textComponent={({ text }) => <h1 style={{ margin: '10px auto' }}>{text}</h1>}
+              textComponent={({ text }) => (
+                <h1 style={{ margin: '10px auto' }}>
+                  {text}
+                </h1>
+              )}
             />
             <Grid strokeDasharray="10 5" />
 
@@ -100,14 +109,36 @@ export default class Demo extends React.PureComponent {
         </Card>
         <div style={{ marginTop: '20px' }}>
           <Jumbotron style={{ padding: '1rem 2rem' }}>
-            <h3>Choose the season of the Olympic Games</h3>
-            <Button style={{ marginRight: '5px' }} color="secondary" value="summer" onClick={event => this.chooseSeason(event)} active={this.state.rSelected === 'summer'}>Summer</Button>{' '}
-            <Button color="secondary" value="winter" onClick={event => this.chooseSeason(event)} active={this.state.rSelected === 'winter'}>Winter</Button>{' '}
-            <h3>Choose the type of medal credit</h3>
-            <Button style={{ marginRight: '5px' }} color="secondary" value="summ" onClick={event => this.chooseCredit(event)} active={this.state.dSelected === 'summ'}>Summ</Button>{' '}
-            <Button style={{ marginRight: '5px' }} color="secondary" value="gold" onClick={event => this.chooseCredit(event)} active={this.state.dSelected === 'gold'}>Gold</Button>{' '}
-            <Button style={{ marginRight: '5px' }} color="secondary" value="silver" onClick={event => this.chooseCredit(event)} active={this.state.dSelected === 'silver'}>Silver</Button>{' '}
-            <Button color="secondary" value="bronze" onClick={event => this.chooseCredit(event)} active={this.state.dSelected === 'bronze'}>Bronze</Button>{' '}
+            <h3>
+              Choose the season of the Olympic Games
+            </h3>
+            <Button style={{ marginRight: '5px' }} color="secondary" value="summer" onClick={event => this.chooseSeason(event)} active={rSelected === 'summer'}>
+              Summer
+            </Button>
+            {' '}
+            <Button color="secondary" value="winter" onClick={event => this.chooseSeason(event)} active={rSelected === 'winter'}>
+              Winter
+            </Button>
+            {' '}
+            <h3>
+              Choose the type of medal credit
+            </h3>
+            <Button style={{ marginRight: '5px' }} color="secondary" value="summ" onClick={event => this.chooseCredit(event)} active={dSelected === 'summ'}>
+              Summ
+            </Button>
+            {' '}
+            <Button style={{ marginRight: '5px' }} color="secondary" value="gold" onClick={event => this.chooseCredit(event)} active={dSelected === 'gold'}>
+              Gold
+            </Button>
+            {' '}
+            <Button style={{ marginRight: '5px' }} color="secondary" value="silver" onClick={event => this.chooseCredit(event)} active={dSelected === 'silver'}>
+              Silver
+            </Button>
+            {' '}
+            <Button color="secondary" value="bronze" onClick={event => this.chooseCredit(event)} active={dSelected === 'bronze'}>
+              Bronze
+            </Button>
+            {' '}
           </Jumbotron>
         </div>
       </div>

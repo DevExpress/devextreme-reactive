@@ -43,21 +43,24 @@ export default class Demo extends React.PureComponent {
 
 
   chooseSeason(season) {
+    const { credit } = this.state;
     this.setState({
-      data: getData(baseData, season, this.state.credit),
+      data: getData(baseData, season, credit),
       season,
     });
   }
+
   chooseCredit(credit) {
+    const { season } = this.state;
     this.setState({
-      data: getData(baseData, this.state.season, credit),
+      data: getData(baseData, season, credit),
       credit,
     });
   }
 
 
   render() {
-    const { data } = this.state;
+    const { data, credit, season } = this.state;
     return (
       <div>
         <Card>
@@ -92,17 +95,33 @@ export default class Demo extends React.PureComponent {
           </CardMedia>
 
           <CardContent float="left">
-            <Typography gutterBottom variant="headline" >{`${capitalizeFirstLetter(this.state.season)} Olympic Games (${capitalizeFirstLetter(this.state.credit)})`}</Typography>
-            <Typography variant="subheading" style={{ marginBottom: '10px' }}>Choose the season of the Olympic Games and the type of medal</Typography>
+            <Typography gutterBottom variant="headline">
+              {`${capitalizeFirstLetter(season)} Olympic Games (${capitalizeFirstLetter(credit)})`}
+            </Typography>
+            <Typography variant="subheading" style={{ marginBottom: '10px' }}>
+              Choose the season of the Olympic Games and the type of medal
+            </Typography>
             <div style={{ align: 'left', display: 'inline-block' }}>
-              <Button style={{ marginRight: '5px' }} variant="contained" color="primary" onClick={() => this.chooseSeason('summer')}>Summer</Button>
-              <Button style={{ marginRight: '5px' }} variant="contained" color="primary" onClick={() => this.chooseSeason('winter')}>Winter</Button>
+              <Button style={{ marginRight: '5px' }} variant="contained" color="primary" onClick={() => this.chooseSeason('summer')}>
+                Summer
+              </Button>
+              <Button style={{ marginRight: '5px' }} variant="contained" color="primary" onClick={() => this.chooseSeason('winter')}>
+                Winter
+              </Button>
             </div>
             <div style={{ float: 'right', display: 'inline-block' }}>
-              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('summ')} >Summ</Button>
-              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('gold')} >Gold</Button>
-              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('silver')}>Silver</Button>
-              <Button variant="contained" onClick={() => this.chooseCredit('bronze')}>Bronze</Button>
+              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('summ')}>
+                Summ
+              </Button>
+              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('gold')}>
+                Gold
+              </Button>
+              <Button style={{ marginRight: '5px' }} variant="contained" onClick={() => this.chooseCredit('silver')}>
+                Silver
+              </Button>
+              <Button variant="contained" onClick={() => this.chooseCredit('bronze')}>
+                Bronze
+              </Button>
             </div>
           </CardContent>
         </Card>

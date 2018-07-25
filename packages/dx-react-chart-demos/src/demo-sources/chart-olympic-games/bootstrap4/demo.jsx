@@ -20,7 +20,7 @@ const getOlympicData = (chartData, currentType, currentCredit) => ({
   summUSA: chartData[currentType].usa[currentCredit],
   summUSSR: chartData[currentType].ussr[currentCredit],
 });
-const getData = (data, currentType, currentCredit) => {
+/* const getData = (data, currentType, currentCredit) => {
   const newData = [];
   data.forEach((item) => {
     if (item[currentType]) {
@@ -29,7 +29,15 @@ const getData = (data, currentType, currentCredit) => {
     }
   });
   return newData;
-};
+}; */
+const getData = (data, currentType, currentCredit) => data
+  .slice()
+  .reduce((acc, item) => {
+    if (item[currentType]) {
+      const year = getOlympicData(item, currentType, currentCredit);
+      acc.push(year);
+    } return acc;
+  }, []);
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,8 +45,7 @@ export default class Demo extends React.PureComponent {
       season: 'summer',
       credit: 'summ',
       data: getData(baseData, 'summer', 'summ'),
-      rSelected: 'summer',
-      dSelected: 'summ',
+
     };
   }
 
@@ -48,7 +55,7 @@ export default class Demo extends React.PureComponent {
     this.setState({
       data: getData(baseData, event.target.value, credit),
       season: event.target.value,
-      rSelected: event.target.value,
+
     });
   }
 
@@ -57,14 +64,29 @@ export default class Demo extends React.PureComponent {
     this.setState({
       data: getData(baseData, season, event.target.value),
       credit: event.target.value,
-      dSelected: event.target.value,
+
     });
   }
 
+  primaryButton(season) {
+    return (
+      <Button style={{ marginRight: '5px' }} color="secondary" value={season} onClick={event => this.chooseSeason(event)}>
+        {capitalizeFirstLetter(season)}
+      </Button>
+    );
+  }
+
+  secondaryButton(credit) {
+    return (
+      <Button style={{ marginRight: '5px' }} color="secondary" value={credit} onClick={event => this.chooseCredit(event)}>
+        {capitalizeFirstLetter(credit)}
+      </Button>
+    );
+  }
 
   render() {
     const {
-      data, season, credit, rSelected, dSelected,
+      data, season, credit,
     } = this.state;
     return (
       <div>
@@ -112,33 +134,15 @@ export default class Demo extends React.PureComponent {
             <h3>
               Choose the season of the Olympic Games
             </h3>
-            <Button style={{ marginRight: '5px' }} color="secondary" value="summer" onClick={event => this.chooseSeason(event)} active={rSelected === 'summer'}>
-              Summer
-            </Button>
-            {' '}
-            <Button color="secondary" value="winter" onClick={event => this.chooseSeason(event)} active={rSelected === 'winter'}>
-              Winter
-            </Button>
-            {' '}
+            {this.primaryButton('summer')}
+            {this.primaryButton('winter')}
             <h3>
               Choose the type of medal credit
             </h3>
-            <Button style={{ marginRight: '5px' }} color="secondary" value="summ" onClick={event => this.chooseCredit(event)} active={dSelected === 'summ'}>
-              Summ
-            </Button>
-            {' '}
-            <Button style={{ marginRight: '5px' }} color="secondary" value="gold" onClick={event => this.chooseCredit(event)} active={dSelected === 'gold'}>
-              Gold
-            </Button>
-            {' '}
-            <Button style={{ marginRight: '5px' }} color="secondary" value="silver" onClick={event => this.chooseCredit(event)} active={dSelected === 'silver'}>
-              Silver
-            </Button>
-            {' '}
-            <Button color="secondary" value="bronze" onClick={event => this.chooseCredit(event)} active={dSelected === 'bronze'}>
-              Bronze
-            </Button>
-            {' '}
+            {this.secondaryButton('summ')}
+            {this.secondaryButton('gold')}
+            {this.secondaryButton('silver')}
+            {this.secondaryButton('bronze')}
           </Jumbotron>
         </div>
       </div>

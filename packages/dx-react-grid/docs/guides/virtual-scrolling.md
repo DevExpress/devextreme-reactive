@@ -24,8 +24,8 @@ The Grid also supports column virtualization, which is demonstrated in the follo
 
 .embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })
 
-## Stretching to Parent Element
+## Stretching out to Parent Element Size
 
-In cases where you need to stretch the Grid vith virtual table to the parent element it is possible to set the `height` property to `auto` and make the Grid to stretch by setting the following styles `height: 100%`.
+If the Grid should have the same size as the container element, set the `VirtualTable` plugin's `height` property to "auto" and the Grid element's style setting to `height: 100%`.
 
 .embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })

@@ -91,7 +91,7 @@ describe('Utils', () => {
       expect(sortAppointments(appointments))
         .toEqual(sortedAppointments);
     });
-    it('should sort appointments consider of day', () => {
+    it('should sort appointments depend on day', () => {
       const appointments = [
         { start: moment('2018-07-01 09:00'), end: moment('2018-07-01 12:00') },
         { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
@@ -111,7 +111,7 @@ describe('Utils', () => {
         .toEqual(overlappedAppointments);
     });
 
-    it('should detect overlapped appointments by day mode', () => {
+    it('should detect overlapped appointments depend on', () => {
       const sortedAppointmentsForDay = [
         appointmentsBase[0], appointmentsBase[7],
       ];
@@ -122,16 +122,15 @@ describe('Utils', () => {
         .toEqual(overlappedAppointmentsForDay);
     });
 
-    it('should detect if appointment end is 12:00 am in day mode', () => {
+    it('should detect if appointment ends at 12:00 AM', () => {
       const sortedAppointmentsForDay = [
         appointmentsBase[9], appointmentsBase[0],
       ];
-      const overlappedAppointmentsForDay = [
-        [{ ...appointmentsBase[9] }],
-        [{ ...appointmentsBase[0] }],
-      ];
       expect(findOverlappedAppointments(sortedAppointmentsForDay, true))
-        .toEqual(overlappedAppointmentsForDay);
+        .toEqual([
+          [{ ...appointmentsBase[9] }],
+          [{ ...appointmentsBase[0] }],
+        ]);
     });
   });
 
@@ -164,7 +163,7 @@ describe('Utils', () => {
         ]);
     });
 
-    it('should consider if appointments start and end in a same time', () => {
+    it('should consider if appointments start and end at the same time', () => {
       const groups = [
         [{ ...appointmentsBase[1] }, { ...appointmentsBase[7] }],
       ];
@@ -180,7 +179,7 @@ describe('Utils', () => {
         ]);
     });
 
-    it('should calculate appointment offset by day mode', () => {
+    it('should calculate appointment offset depend on day', () => {
       const groups = [
         [{ ...appointmentsBase[8] }, { ...appointmentsBase[6] }],
       ];

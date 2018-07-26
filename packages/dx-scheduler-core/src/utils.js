@@ -22,6 +22,11 @@ const excludedIntervals = (excludedDays, start) => excludedDays
     return acc;
   }, []);
 
+const byDayPredicate = (boundary, date) => (
+  boundary.isSameOrAfter(date, 'day')
+  && !boundary.isSame(boundary.clone().startOf('day'))
+);
+
 export const viewPredicate = (
   appointment, left, right,
   excludedDays = [],
@@ -67,7 +72,7 @@ export const findOverlappedAppointments = (sortedAppointments, byDay = false) =>
     currentGroup.push(current);
     totalIndex += 1;
     while (next && (maxBoundary.isAfter(next.start)
-      || (byDay && (maxBoundary.isSameOrAfter(next.start, 'day') && moment(maxBoundary).format() !== moment(maxBoundary).startOf('day').format())))) {
+      || (byDay && byDayPredicate(maxBoundary, next.start)))) {
       currentGroup.push(next);
       if (maxBoundary.isBefore(next.end)) maxBoundary = next.end;
       totalIndex += 1;

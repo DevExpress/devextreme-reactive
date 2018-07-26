@@ -184,7 +184,7 @@ describe('MonthView Helpers', () => {
       offsetParent,
     }];
 
-    it('should calculate geometry by dates for one day long', () => {
+    it('should calculate geometry by dates for single day appointment', () => {
       const startDate = new Date('2018-07-05 10:20');
       const endDate = new Date('2018-07-06 00:00');
       const {
@@ -196,13 +196,13 @@ describe('MonthView Helpers', () => {
         cellElements,
       );
 
-      expect(top).toBe(132);
+      expect(top).toBe(130);
       expect(left).toBe(12);
-      expect(height).toBe(68);
+      expect(height).toBe(70);
       expect(width).toBe(98);
       expect(parentWidth).toBe(250);
     });
-    it('should calculate geometry by dates for many days long', () => {
+    it('should calculate geometry by dates for many days appointment', () => {
       const startDate = new Date('2018-07-05 00:00');
       const endDate = new Date('2018-07-08 00:00');
       const {
@@ -214,9 +214,9 @@ describe('MonthView Helpers', () => {
         cellElements,
       );
 
-      expect(top).toBe(132);
+      expect(top).toBe(130);
       expect(left).toBe(12);
-      expect(height).toBe(68);
+      expect(height).toBe(70);
       expect(width).toBe(398);
       expect(parentWidth).toBe(250);
     });

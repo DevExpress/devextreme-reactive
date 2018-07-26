@@ -13,8 +13,9 @@ import { bBoxes } from '@devexpress/dx-chart-core';
 export class LayoutManager extends React.Component {
   constructor(props) {
     super(props);
+    const { width, height } = this.props;
 
-    this.state = { bBoxes: { pane: { width: this.props.width, height: this.props.height } } };
+    this.state = { bBoxes: { pane: { width, height } } };
 
     const stateHelper = createStateHelper(this);
 
@@ -29,10 +30,11 @@ export class LayoutManager extends React.Component {
     const {
       width, height, rootComponent: Root, ...restProps
     } = this.props;
+    const { bBoxes: stateBBoxes } = this.state;
 
     return (
       <Plugin>
-        <Getter name="layouts" value={this.state.bBoxes} />
+        <Getter name="layouts" value={stateBBoxes} />
         <Action name="changeBBox" action={this.changeBBox} />
 
         <Template name="root">

@@ -18,4 +18,3 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.Row = TableRow;
 TableGroupRow.Cell = TableGroupCell;
-

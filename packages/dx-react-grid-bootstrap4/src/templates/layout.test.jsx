@@ -4,6 +4,14 @@ import { Root } from './layout';
 
 describe('Layout', () => {
   describe('Root', () => {
+    it('should pass className to the root element', () => {
+      const tree = shallow((
+        <Root className="custom-class" />
+      ));
+
+      expect(tree.is('.custom-class'))
+        .toBeTruthy();
+    });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Root data={{ a: 1 }} />

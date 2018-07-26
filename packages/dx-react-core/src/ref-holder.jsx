@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 
 export class RefHolder extends React.PureComponent {
   render() {
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 

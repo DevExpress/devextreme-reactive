@@ -81,10 +81,9 @@ export const DxGroupingPanel = {
                 changeColumnGrouping, changeColumnSorting,
               },
             }) => {
-              const sortingEnabled =
-                isColumnSortingEnabled && isColumnSortingEnabled(columnName);
-              const groupingEnabled =
-                isColumnGroupingEnabled && isColumnGroupingEnabled(columnName);
+              const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
+              const groupingEnabled = isColumnGroupingEnabled
+              && isColumnGroupingEnabled(columnName);
 
               return (
                 <Item
@@ -96,8 +95,9 @@ export const DxGroupingPanel = {
                     ? getColumnSortingDirection(sorting, columnName) : undefined}
                   showGroupingControls={showGroupingControls}
                   onGroup={() => changeColumnGrouping({ columnName })}
-                  onSort={({ direction, keepOther }) =>
-                    changeColumnSorting({ columnName, direction, keepOther })}
+                  onSort={(
+                    { direction, keepOther },
+                  ) => changeColumnSorting({ columnName, direction, keepOther })}
                 />
               );
             }}

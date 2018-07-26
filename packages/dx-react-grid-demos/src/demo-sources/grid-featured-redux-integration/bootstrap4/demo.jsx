@@ -67,7 +67,12 @@ export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 const GridDetailContainer = ({ row }) => (
   <div style={{ margin: 20 }}>
     <div>
-      <h5>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5>
+        {row.firstName}
+        {' '}
+        {row.lastName}
+&apos;s Tasks:
+      </h5>
     </div>
     <Card>
       <Grid

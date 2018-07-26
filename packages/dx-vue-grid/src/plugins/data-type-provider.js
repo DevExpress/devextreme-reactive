@@ -26,12 +26,13 @@ export const DxDataTypeProvider = {
       availableFilterOperations,
     } = this;
 
-    const getAvailableFilterOperationsComputed = ({ getAvailableFilterOperations }) =>
-      getAvailableFilterOperationsGetter(
-        getAvailableFilterOperations,
-        availableFilterOperations,
-        columnNames,
-      );
+    const getAvailableFilterOperationsComputed = (
+      { getAvailableFilterOperations },
+    ) => getAvailableFilterOperationsGetter(
+      getAvailableFilterOperations,
+      availableFilterOperations,
+      columnNames,
+    );
 
     return (
       <DxPlugin name="DxDataTypeProvider">

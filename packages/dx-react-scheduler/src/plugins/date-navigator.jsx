@@ -31,15 +31,20 @@ export class DateNavigator extends React.PureComponent {
     this.handleHide = this.handleHide.bind(this);
     this.targetRef = this.targetRef.bind(this);
   }
+
   targetRef(target) {
     this.target = target;
   }
+
   handleToggle() {
-    this.setState({ visible: !this.state.visible });
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
   }
+
   handleHide() {
     this.setState({ visible: false });
   }
+
   render() {
     const {
       rootComponent: Root,

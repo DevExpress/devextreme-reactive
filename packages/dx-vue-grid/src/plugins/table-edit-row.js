@@ -1,4 +1,6 @@
-import { DxGetter, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector, DxPlugin } from '@devexpress/dx-vue-core';
+import {
+  DxGetter, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector, DxPlugin,
+} from '@devexpress/dx-vue-core';
 import {
   getRowChange,
   tableRowsWithEditing,
@@ -35,8 +37,9 @@ export const DxTableEditRow = {
       rowHeight,
     } = this;
 
-    const tableBodyRowsComputed = ({ tableBodyRows, editingRowIds, addedRows }) =>
-      tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
+    const tableBodyRowsComputed = (
+      { tableBodyRows, editingRowIds, addedRows },
+    ) => tableRowsWithEditing(tableBodyRows, editingRowIds, addedRows, rowHeight);
 
     return (
       <DxPlugin
@@ -46,8 +49,9 @@ export const DxTableEditRow = {
         <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isEditTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isEditTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>
@@ -112,8 +116,9 @@ export const DxTableEditRow = {
         </DxTemplate>
         <DxTemplate
           name="tableRow"
-          predicate={({ attrs: { tableRow } }) =>
-            (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
+          predicate={(
+            { attrs: { tableRow } },
+          ) => (isEditTableRow(tableRow) || isAddedTableRow(tableRow))}
         >
           {({ attrs, listeners, slots }) => (
             <EditRow

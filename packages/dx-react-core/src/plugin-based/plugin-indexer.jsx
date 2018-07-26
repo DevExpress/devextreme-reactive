@@ -12,8 +12,7 @@ export const PluginIndexer = (
         if (!child || !child.type) return child;
 
         const childPosition = () => {
-          const calculatedPosition =
-            (position && position()) || [];
+          const calculatedPosition = (position && position()) || [];
           return [...calculatedPosition, index];
         };
 
@@ -41,12 +40,15 @@ PluginIndexer.contextTypes = {
 
 class PluginIndexerContext extends React.Component {
   getChildContext() {
+    const { position } = this.props;
     return {
-      [POSITION_CONTEXT]: this.props.position,
+      [POSITION_CONTEXT]: position,
     };
   }
+
   render() {
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 

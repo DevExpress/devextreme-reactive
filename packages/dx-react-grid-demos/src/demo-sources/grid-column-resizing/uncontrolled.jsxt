@@ -28,6 +28,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 6 }),
     };
   }
+
   render() {
     const { rows, columns, defaultColumnWidths } = this.state;
 

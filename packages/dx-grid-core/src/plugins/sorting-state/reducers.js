@@ -17,8 +17,8 @@ export const changeColumnSorting = (state, {
   const columnSorting = sorting[columnSortingIndex];
   const newColumnSorting = {
     columnName,
-    direction: direction ||
-      (!columnSorting || columnSorting.direction === 'desc' ? 'asc' : 'desc'),
+    direction: direction
+      || (!columnSorting || columnSorting.direction === 'desc' ? 'asc' : 'desc'),
   };
 
   if (columnSortingIndex > -1) {

@@ -97,12 +97,12 @@ export const DxColumnChooser = {
                                   disabled={!togglingEnabled}
                                   onToggle={() => toggleColumnVisibility(columnName)}
                                 />
-                            );
-                          })}
+                              );
+                            })}
                         </Container>
                       </Overlay>
                     </div>
-                  )}
+                )}
               </DxTemplateConnector>
             </div>
         </DxTemplate>

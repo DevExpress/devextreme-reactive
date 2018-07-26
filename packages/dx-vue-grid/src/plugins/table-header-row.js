@@ -52,8 +52,9 @@ export const DxTableHeaderRow = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isHeadingTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isHeadingTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>
@@ -73,8 +74,8 @@ export const DxTableHeaderRow = {
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
                 const sortingEnabled = isColumnSortingEnabled && isColumnSortingEnabled(columnName);
-                const groupingEnabled = isColumnGroupingEnabled &&
-                  isColumnGroupingEnabled(columnName) && atLeastOneDataColumn;
+                const groupingEnabled = isColumnGroupingEnabled
+                  && isColumnGroupingEnabled(columnName) && atLeastOneDataColumn;
 
                 return (
                   <HeaderCell
@@ -87,8 +88,9 @@ export const DxTableHeaderRow = {
                     sortingDirection={this.showSortingControls
                       ? getColumnSortingDirection(sorting, columnName)
                       : undefined}
-                    onSort={({ direction, keepOther }) =>
-                      changeColumnSorting({ columnName, direction, keepOther })}
+                    onSort={(
+                      { direction, keepOther },
+                    ) => changeColumnSorting({ columnName, direction, keepOther })}
                     onGroup={() => changeColumnGrouping({ columnName })}
                   >
                     <DxTemplatePlaceholder

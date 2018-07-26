@@ -1,10 +1,8 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
-const AND = predicates => row =>
-  predicates.reduce((acc, predicate) => acc && predicate(row), true);
+const AND = predicates => row => predicates.reduce((acc, predicate) => acc && predicate(row), true);
 
-const OR = predicates => row =>
-  predicates.reduce((acc, predicate) => acc || predicate(row), false);
+const OR = predicates => row => predicates.reduce((acc, predicate) => acc || predicate(row), false);
 
 const operators = { or: OR, and: AND };
 
@@ -28,34 +26,33 @@ export const defaultFilterPredicate = (value, filter) => {
   return operationPredicates[operation](value, filter);
 };
 
-const filterTree = (tree, predicate) =>
-  tree.reduce(
-    (acc, node) => {
-      if (node[NODE_CHECK]) {
-        const filteredChildren = filterTree(node.children, predicate);
-        if (filteredChildren.length > 0) {
-          acc.push({
-            ...node,
-            children: filteredChildren,
-          });
-          return acc;
-        }
-        if (predicate(node.root, true)) {
-          acc.push(node.root);
-          return acc;
-        }
+const filterTree = (tree, predicate) => tree.reduce(
+  (acc, node) => {
+    if (node[NODE_CHECK]) {
+      const filteredChildren = filterTree(node.children, predicate);
+      if (filteredChildren.length > 0) {
+        acc.push({
+          ...node,
+          children: filteredChildren,
+        });
         return acc;
       }
-
-      if (predicate(node)) {
-        acc.push(node);
+      if (predicate(node.root, true)) {
+        acc.push(node.root);
         return acc;
       }
-
       return acc;
-    },
-    [],
-  );
+    }
+
+    if (predicate(node)) {
+      acc.push(node);
+      return acc;
+    }
+
+    return acc;
+  },
+  [],
+);
 
 const filterHierarchicalRows = (rows, predicate, getRowLevelKey, getCollapsedRows) => {
   const tree = rowsToTree(rows, getRowLevelKey);
@@ -90,8 +87,7 @@ const buildPredicate = (
     const { columnName } = filterExpression;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
     const predicate = customPredicate || defaultFilterPredicate;
-    return row =>
-      predicate(getCellValue(row, columnName), filterExpression, row);
+    return row => predicate(getCellValue(row, columnName), filterExpression, row);
   };
 
   const getOperatorPredicate = (filterExpression) => {
@@ -100,9 +96,8 @@ const buildPredicate = (
     return build && build(filterExpression.filters.map(getPredicate));
   };
 
-  const getPredicate = filterExpression =>
-    getOperatorPredicate(filterExpression) ||
-    getSimplePredicate(filterExpression);
+  const getPredicate = filterExpression => getOperatorPredicate(filterExpression)
+    || getSimplePredicate(filterExpression);
 
   return getPredicate(initialFilterExpression);
 };
@@ -130,7 +125,8 @@ export const filteredRows = (
     : { rows: rows.filter(predicate) };
 };
 
-export const filteredCollapsedRowsGetter = ({ collapsedRowsMeta }) =>
-  row => collapsedRowsMeta && collapsedRowsMeta.get(row);
+export const filteredCollapsedRowsGetter = (
+  { collapsedRowsMeta },
+) => row => collapsedRowsMeta && collapsedRowsMeta.get(row);
 
 export const unwrappedFilteredRows = ({ rows }) => rows;

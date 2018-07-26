@@ -54,8 +54,9 @@ const defaultProps = {
   commandComponent: { name: 'Command', render() { return null; } },
 };
 
-const findCommandWithId = (tree, id) =>
-  tree.findAll(defaultProps.commandComponent).filter(wrapper => wrapper.vm.$attrs.id === id);
+const findCommandWithId = (
+  tree, id,
+) => tree.findAll(defaultProps.commandComponent).filter(wrapper => wrapper.vm.$attrs.id === id);
 
 describe('DxTableEditColumn', () => {
   let resetConsole;

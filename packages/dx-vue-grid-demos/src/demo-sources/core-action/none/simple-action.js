@@ -1,4 +1,7 @@
-import { DxPluginHost, DxPlugin, DxGetter, DxAction, DxTemplate, DxTemplatePlaceholder, DxTemplateConnector } from '@devexpress/dx-vue-core';
+import {
+  DxPluginHost, DxPlugin, DxGetter, DxAction,
+  DxTemplate, DxTemplatePlaceholder, DxTemplateConnector,
+} from '@devexpress/dx-vue-core';
 
 export default {
   data() {
@@ -87,8 +90,9 @@ const TasksFilter = {
       <DxPlugin>
         <DxGetter
           name="tasks"
-          computed={({ tasks }) =>
-            tasks.filter(task => this.done === null || task.done === this.done)}
+          computed={({
+            tasks,
+          }) => tasks.filter(task => this.done === null || task.done === this.done)}
         />
         <DxGetter name="filter" value={this.done} />
         <DxAction name="changeFilter" action={this.changeFilter} />

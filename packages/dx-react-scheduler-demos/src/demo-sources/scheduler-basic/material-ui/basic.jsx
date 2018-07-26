@@ -15,6 +15,7 @@ export default class Demo extends React.PureComponent {
       data: appointments,
     };
   }
+
   render() {
     const { data } = this.state;
 

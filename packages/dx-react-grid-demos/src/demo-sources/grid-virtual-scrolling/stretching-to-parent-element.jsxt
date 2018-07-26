@@ -1,15 +1,16 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SortingState,
-  IntegratedSorting,
-} from '@devexpress/dx-react-grid';
-import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import { generateRows } from '../../../demo-data/generator';
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -17,12 +18,16 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
+        { name: 'id', title: 'ID' },
         { name: 'name', title: 'Name' },
         { name: 'sex', title: 'Sex' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 100000,
+      }),
     };
   }
 
@@ -30,17 +35,17 @@ export default class Demo extends React.PureComponent {
     const { rows, columns } = this.state;
 
     return (
-      <<%&wrapperTag%>>
+      <<%&wrapperTag%> style={{ height: '600px' }}>
         <Grid
           rows={rows}
           columns={columns}
+          getRowId={getRowId}
+          style={{ height: '100%' }}
         >
-          <SortingState
-            defaultSorting={[{ columnName: 'city', direction: 'asc' }]}
+          <VirtualTable
+            height="auto"
           />
-          <IntegratedSorting />
-          <Table />
-          <TableHeaderRow showSortingControls />
+          <TableHeaderRow />
         </Grid>
       </<%&wrapperTag%>>
     );

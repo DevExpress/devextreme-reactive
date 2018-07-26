@@ -11,11 +11,13 @@ export class PluginHost extends React.PureComponent {
 
     this.host = new PluginHostCore();
   }
+
   getChildContext() {
     return {
       [PLUGIN_HOST_CONTEXT]: this.host,
     };
   }
+
   render() {
     const { children } = this.props;
 

@@ -29,4 +29,3 @@ describe('TableFilterCell', () => {
       .toBe('abc');
   });
 });
-

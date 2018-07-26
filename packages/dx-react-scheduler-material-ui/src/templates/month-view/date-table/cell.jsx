@@ -43,7 +43,6 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   className,
-  children,
   date,
   ...restProps
 }) => (
@@ -52,29 +51,25 @@ const CellBase = ({
     className={classNames(classes.cell, className)}
     {...restProps}
   >
-    {children || (
-      <div
-        className={classNames({
-          [classes.text]: !date.isCurrent,
-          [classes.current]: date.isCurrent,
-          [classes.otherMonth]: date.isOtherMonth,
-        })}
-      >
-        {moment(date.value).format('D')}
-      </div>
-    )}
+    <div
+      className={classNames({
+        [classes.text]: !date.isCurrent,
+        [classes.current]: date.isCurrent,
+        [classes.otherMonth]: date.isOtherMonth,
+      })}
+    >
+      {moment(date.value).format('D')}
+    </div>
   </TableCell>
 );
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   date: PropTypes.object,
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
-  children: null,
   date: undefined,
   className: undefined,
 };

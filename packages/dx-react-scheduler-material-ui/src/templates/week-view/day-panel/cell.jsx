@@ -23,7 +23,6 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   className,
-  children,
   date,
   ...restProps
 }) => {
@@ -33,16 +32,12 @@ const CellBase = ({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      {children || (
-        <React.Fragment>
-          <p className={classes.dayOfWeek}>
-            {currentDate.format('ddd')}
-          </p>
-          <span className={classes.dayOfMonth}>
-            {currentDate.format('D')}
-          </span>
-        </React.Fragment>
-      )}
+      <p className={classes.dayOfWeek}>
+        {currentDate.format('ddd')}
+      </p>
+      <span className={classes.dayOfMonth}>
+        {currentDate.format('D')}
+      </span>
     </TableCell>
   );
 };
@@ -51,12 +46,10 @@ CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
   className: undefined,
-  children: null,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

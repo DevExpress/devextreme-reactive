@@ -50,7 +50,7 @@ const styles = ({ palette, typography, spacing }) => ({
 
 const AppointmentBase = ({
   classes, className,
-  children, getTitle,
+  getTitle,
   getStartDate, getEndDate,
   appointment, top,
   left, width,
@@ -67,24 +67,22 @@ const AppointmentBase = ({
     }}
     {...restProps}
   >
-    {children || (
-      <div className={classes.main}>
-        <div className={classes.title}>
-          {getTitle(appointment)}
+    <div className={classes.main}>
+      <div className={classes.title}>
+        {getTitle(appointment)}
+      </div>
+      <div className={classes.textContainer}>
+        <div className={classes.time}>
+          {moment(getStartDate(appointment)).format('h:mm A')}
         </div>
-        <div className={classes.textContainer}>
-          <div className={classes.time}>
-            {moment(getStartDate(appointment)).format('h:mm A')}
-          </div>
-          <div className={classes.time}>
+        <div className={classes.time}>
 -
-          </div>
-          <div className={classes.time}>
-            {moment(getEndDate(appointment)).format('h:mm A')}
-          </div>
+        </div>
+        <div className={classes.time}>
+          {moment(getEndDate(appointment)).format('h:mm A')}
         </div>
       </div>
-    )}
+    </div>
   </div>
 );
 
@@ -99,12 +97,10 @@ AppointmentBase.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 AppointmentBase.defaultProps = {
   className: undefined,
-  children: null,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

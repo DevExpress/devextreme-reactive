@@ -21,7 +21,6 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   className,
-  children,
   time,
   ...restProps
 }) => {
@@ -32,11 +31,9 @@ const CellBase = ({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      {children || (
-        <span className={classes.text}>
-          {currentTime.format('h:mm A')}
-        </span>
-      )}
+      <span className={classes.text}>
+        {currentTime.format('h:mm A')}
+      </span>
     </TableCell>
   );
 };
@@ -44,12 +41,10 @@ const CellBase = ({
 CellBase.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
-  children: null,
   className: undefined,
 };
 

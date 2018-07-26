@@ -5,7 +5,7 @@ const getDependencyError = (pluginName, dependencyName) => new Error(`The '${plu
 export class PluginHost {
   constructor() {
     this.plugins = [];
-    this.subscriptions = [];
+    this.subscriptions = new Set();
     this.gettersCache = {};
   }
 
@@ -94,13 +94,11 @@ export class PluginHost {
   }
 
   registerSubscription(subscription) {
-    const index = this.subscriptions.indexOf(subscription);
-    if (index === -1) { this.subscriptions.push(subscription); }
+    this.subscriptions.add(subscription);
   }
 
   unregisterSubscription(subscription) {
-    const index = this.subscriptions.indexOf(subscription);
-    if (index !== -1) { this.subscriptions.splice(this.subscriptions.indexOf(subscription), 1); }
+    this.subscriptions.delete(subscription);
   }
 
   broadcast(event, message) {

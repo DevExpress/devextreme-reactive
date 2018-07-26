@@ -5,17 +5,37 @@ export const getAvailableGetters = (
   getGetterValue = getterName => pluginHost.get(`${getterName}Getter`),
 ) => {
   const trackedDependencies = {};
-  const getters = pluginHost.knownKeys('Getter')
-    .reduce((acc, getterName) => {
-      Object.defineProperty(acc, getterName, {
-        get: () => {
-          const boxedGetter = getGetterValue(getterName);
-          trackedDependencies[getterName] = boxedGetter && boxedGetter.id;
-          return boxedGetter && boxedGetter.value;
-        },
-      });
-      return acc;
-    }, {});
+
+  let getters;
+  if (Proxy) {
+    getters = new Proxy({}, {
+      get(target, prop) {
+        if (typeof prop !== 'string') return undefined;
+        const boxedGetter = getGetterValue(prop);
+        trackedDependencies[prop] = boxedGetter && boxedGetter.id;
+        return boxedGetter && boxedGetter.value;
+      },
+      getOwnPropertyDescriptor(target, prop) {
+        return { configurable: true, enumerable: true, value: this.get(target, prop) };
+      },
+      ownKeys() {
+        return pluginHost.knownKeys('Getter');
+      },
+    });
+  } else {
+    getters = pluginHost.knownKeys('Getter')
+      .reduce((acc, getterName) => {
+        Object.defineProperty(acc, getterName, {
+          get: () => {
+            const boxedGetter = getGetterValue(getterName);
+            trackedDependencies[getterName] = boxedGetter && boxedGetter.id;
+            return boxedGetter && boxedGetter.value;
+          },
+        });
+        return acc;
+      }, {});
+  }
+
   return { getters, trackedDependencies };
 };
 
@@ -37,10 +57,29 @@ export const isTrackedDependenciesChanged = (
 export const getAvailableActions = (
   pluginHost,
   getAction = actionName => pluginHost.collect(`${actionName}Action`).slice().reverse()[0],
-) => pluginHost.knownKeys('Action')
-  .reduce((acc, actionName) => {
-    Object.defineProperty(acc, actionName, {
-      get: () => getAction(actionName),
+) => {
+  let actions;
+  if (Proxy) {
+    actions = new Proxy({}, {
+      get(target, prop) {
+        if (typeof prop !== 'string') return undefined;
+        return getAction(prop);
+      },
+      getOwnPropertyDescriptor(target, prop) {
+        return { configurable: true, enumerable: true, value: this.get(target, prop) };
+      },
+      ownKeys() {
+        return pluginHost.knownKeys('Action');
+      },
     });
-    return acc;
-  }, {});
+  } else {
+    actions = pluginHost.knownKeys('Action')
+      .reduce((acc, actionName) => {
+        Object.defineProperty(acc, actionName, {
+          get: () => getAction(actionName),
+        });
+        return acc;
+      }, {});
+  }
+  return actions;
+};

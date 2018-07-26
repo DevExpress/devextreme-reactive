@@ -103,7 +103,7 @@ export class TableHeaderCell extends React.PureComponent {
           {showGroupingControls && (
             <div
               style={{
-                flex: '0 0 auto',
+                flex: 'none',
               }}
             >
               <GroupingControl

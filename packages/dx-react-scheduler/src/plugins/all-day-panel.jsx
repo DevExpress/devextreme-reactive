@@ -1,17 +1,50 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
+  Getter,
   Plugin,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
+import { allDayAppointmentsRects } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'WeekView' },
 ];
 
+const allDayAppointmentRectsComputed = ({
+  appointments,
+  startViewDate,
+  endViewDate,
+  excludedDays,
+  dayScale,
+  allDayPanelRef,
+}) => (allDayPanelRef ? allDayAppointmentsRects(
+  appointments,
+  startViewDate,
+  endViewDate,
+  excludedDays,
+  dayScale,
+  allDayPanelRef.querySelectorAll('th'),
+) : []);
+
 export class AllDayPanel extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableRef: null,
+    };
+    this.allDayPanelRef = this.allDayPanelRef.bind(this);
+  }
+
+  allDayPanelRef(ref) {
+    this.setState({
+      tableRef: ref,
+    });
+  }
+
   render() {
     const {
       appointmentComponent: Appointment,
@@ -26,19 +59,22 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
+        {this.state.tableRef && <Getter name="allDayPanelRef" value={this.state.tableRef} />}
+        <Getter name="allDayAppointmentRects" computed={allDayAppointmentRectsComputed} />
         <Template name="navbar">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ dayScale, currentView }) => {
+            {({ dayScale, currentView, allDayAppointmentRects }) => {
               if (currentView === 'month') return null; // currentView.type === month
               return (
                 <Layout
+                  allDayPanelRef={this.allDayPanelRef}
                   cellComponent={Cell}
                   rowComponent={Row}
                   dayScale={dayScale}
                 >
                   <AppointmentsContainer>
-                    {<div className="appointment" style={{ position: 'absolute', height: '30px', width: '110px', left: '14%', transform: 'translateY(20px)', backgroundColor: 'darkblue' }} />}
+                    {this.state.tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }) => <Appointment {...geometry} />) : null}
                   </AppointmentsContainer>
                 </Layout>
               );

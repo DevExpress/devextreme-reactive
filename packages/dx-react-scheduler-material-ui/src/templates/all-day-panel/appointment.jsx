@@ -70,17 +70,17 @@ const AppointmentBase = ({
     {children || (
       <div className={classes.main}>
         <div className={classes.title}>
-          {getTitle(appointment)}
+          {/* {getTitle(appointment)} */}
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {moment(getStartDate(appointment)).format('h:mm A')}
+            {/* {moment(getStartDate(appointment)).format('h:mm A')} */}
           </div>
           <div className={classes.time}>
 -
           </div>
           <div className={classes.time}>
-            {moment(getEndDate(appointment)).format('h:mm A')}
+            {/* {moment(getEndDate(appointment)).format('h:mm A')} */}
           </div>
         </div>
       </div>
@@ -90,10 +90,10 @@ const AppointmentBase = ({
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  getTitle: PropTypes.func.isRequired,
-  getStartDate: PropTypes.func.isRequired,
-  getEndDate: PropTypes.func.isRequired,
-  appointment: PropTypes.object.isRequired,
+  // getTitle: PropTypes.func.isRequired,
+  // getStartDate: PropTypes.func.isRequired,
+  // getEndDate: PropTypes.func.isRequired,
+  // appointment: PropTypes.object.isRequired,
   top: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,

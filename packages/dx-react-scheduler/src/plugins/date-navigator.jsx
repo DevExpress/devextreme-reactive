@@ -71,13 +71,13 @@ export class DateNavigator extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                currentDate,
-                startViewDate,
-                endViewDate,
-                firstDayOfWeek,
-              }, {
-                setCurrentDate,
-              }) => {
+              currentDate,
+              startViewDate,
+              endViewDate,
+              firstDayOfWeek,
+            }, {
+              setCurrentDate,
+            }) => {
               const navigateAction = navigate(setCurrentDate);
               const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
               return (

@@ -9,7 +9,11 @@ describe('DateTable', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Table {...defaultProps}><div /></Table>);
+    classes = getClasses(
+      <Table {...defaultProps}>
+        <div />
+      </Table>,
+    );
     shallow = createShallow({ dive: true });
   });
   describe('Table', () => {

@@ -6,18 +6,21 @@ import { Table } from './table';
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { currentDate, onNavigate } = this.props;
     this.state = {
-      currentDate: this.props.currentDate,
+      currentDate,
     };
     this.onNavigate = ({ back }) => {
-      const nextDate = moment(this.state.currentDate)[back ? 'subtract' : 'add'](1, 'month');
+      const { currentDate: currentDateState } = this.state;
+      const nextDate = moment(currentDateState)[back ? 'subtract' : 'add'](1, 'month');
       this.setState({ currentDate: nextDate.toDate() });
     };
     this.onCellClick = ({ nextDate }) => {
-      this.props.onNavigate({ nextDate });
+      onNavigate({ nextDate });
       this.setState({ currentDate: nextDate });
     };
   }
+
   render() {
     const {
       currentDate, firstDayOfWeek, getHeaderCells, getCells,
@@ -31,20 +34,20 @@ export class Root extends React.PureComponent {
       onNavigate,
       ...restProps
     } = this.props;
-
+    const { currentDate: currentDateState } = this.state;
     return (
       <div
         {...restProps}
       >
         <Navigator
-          currentDate={this.state.currentDate}
+          currentDate={currentDateState}
           titleComponent={Title}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
         />
         <Table
-          headerCells={getHeaderCells(this.state.currentDate, firstDayOfWeek)}
-          cells={getCells(this.state.currentDate, firstDayOfWeek)}
+          headerCells={getHeaderCells(currentDateState, firstDayOfWeek)}
+          cells={getCells(currentDateState, firstDayOfWeek)}
           rowComponent={Row}
           cellComponent={Cell}
           headerRowComponent={HeaderRow}

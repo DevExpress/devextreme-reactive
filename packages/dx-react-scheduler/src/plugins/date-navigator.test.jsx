@@ -26,7 +26,11 @@ const defaultDeps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const OverlayComponent = ({ children }) => <div>{children}</div>;
+const OverlayComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 const Root = () => null;
 const ToggleButtonComponent = () => null;
 const NavigationButton = () => null;

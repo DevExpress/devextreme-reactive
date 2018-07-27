@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { dArea, coordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils/series-helper';
+import { withSeriesPlugin } from '../utils';
 
 const Series = ({
   ...props

@@ -12,20 +12,28 @@ import {
 import { Stack } from '@devexpress/dx-react-chart';
 import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 
-const nullComponent = () => null;
-const createButton = (text, handler) => (
-  <Button className="mr-1 text-capitalize" variant="contained" color="primary" onClick={() => handler(text)}>
-    {text}
-  </Button>
-);
 const getOlympicData = (chartData, currentType, currentCredit) => ({
   year: chartData.year,
   amountUSA: chartData[currentType].usa[currentCredit],
   amountUSSR: chartData[currentType].ussr[currentCredit],
 });
+
 const getData = (data, currentType, currentCredit) => data
   .filter(item => item[currentType])
   .map(item => getOlympicData(item, currentType, currentCredit));
+
+const nullComponent = () => null;
+
+const createButton = (text, handler) => (
+  <Button className="mr-1 text-capitalize" variant="contained" color="primary" onClick={() => handler(text)}>
+    {text}
+  </Button>
+);
+
+const titleTextComponent = props => (
+  <Title.Text className="m-auto pb-3 text-capitalize" {...props} />
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,7 +45,6 @@ export default class Demo extends React.PureComponent {
     this.chooseSeason = this.chooseSeason.bind(this);
     this.chooseCredit = this.chooseCredit.bind(this);
   }
-
 
   chooseSeason(season) {
     const { credit } = this.state;
@@ -59,8 +66,9 @@ export default class Demo extends React.PureComponent {
     const {
       data, season, credit,
     } = this.state;
+
     return (
-      <div>
+      <React.Fragment>
         <Card>
           <Chart data={data}>
             <ArgumentAxis
@@ -72,7 +80,7 @@ export default class Demo extends React.PureComponent {
               tickComponent={nullComponent}
               lineComponent={nullComponent}
             />
-            <Grid strokeDasharray="10 5" />
+            <Grid strokeDasharray="10 10" />
             <BarSeries
               valueField="amountUSA"
               argumentField="year"
@@ -88,31 +96,26 @@ export default class Demo extends React.PureComponent {
             <Title
               text={`${season} olympic games (${credit})`}
               position="top"
-              textComponent={props => (
-                <Title.Text className="m-auto pb-3 text-capitalize" {...props} />
-              )}
+              textComponent={titleTextComponent}
             />
-
           </Chart>
-
         </Card>
-        <div className="mt-3">
-          <Jumbotron className="p-4">
-            <h3>
-              Choose the season of the Olympic Games
-            </h3>
-            {createButton('summer', this.chooseSeason)}
-            {createButton('winter', this.chooseSeason)}
-            <h3>
-              Choose the type of medal credit
-            </h3>
-            {createButton('amount', this.chooseCredit)}
-            {createButton('gold', this.chooseCredit)}
-            {createButton('silver', this.chooseCredit)}
-            {createButton('bronze', this.chooseCredit)}
-          </Jumbotron>
-        </div>
-      </div>
+
+        <Jumbotron className="p-4 mt-3">
+          <h3>
+            Choose the season of the Olympic Games
+          </h3>
+          {createButton('summer', this.chooseSeason)}
+          {createButton('winter', this.chooseSeason)}
+          <h3>
+            Choose the type of medal credit
+          </h3>
+          {createButton('amount', this.chooseCredit)}
+          {createButton('gold', this.chooseCredit)}
+          {createButton('silver', this.chooseCredit)}
+          {createButton('bronze', this.chooseCredit)}
+        </Jumbotron>
+      </React.Fragment>
     );
   }
 }

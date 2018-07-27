@@ -12,25 +12,69 @@ import {
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { Stack } from '@devexpress/dx-react-chart';
+import { withStyles } from '@material-ui/core/styles';
 import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 
 const nullComponent = () => null;
+
 const getOlympicData = (chartData, currentType, currentCredit) => ({
   year: chartData.year,
   amountUSA: chartData[currentType].usa[currentCredit],
   amountUSSR: chartData[currentType].ussr[currentCredit],
 });
+
 const getData = (data, currentType, currentCredit) => data
   .filter(item => item[currentType])
   .map(item => getOlympicData(item, currentType, currentCredit));
-const legendRootComponent = ({ ...props }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...props} />;
 
-const createButton = (text, handler) => (
-  <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => handler(text)}>
+const buttonComponent = (className, text, handler) => (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={() => handler(text)}
+    className={className}
+  >
     {text}
   </Button>
 );
-export default class Demo extends React.PureComponent {
+
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+
+const legendRootBase = ({
+  classes,
+  ...props
+}) => <Legend.Root className={classes.root} {...props} />;
+
+const legendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+
+const demoStyles = theme => ({
+  title: {
+    textTransform: 'capitalize',
+  },
+  text: {
+    marginBottom: theme.spacing.unit,
+  },
+  leftBlock: {
+    align: 'left',
+    display: 'inline-block',
+  },
+  rightBlock: {
+    float: 'right',
+    display: 'inline-block',
+  },
+  button: {
+    marginRight: theme.spacing.unit * 2 / 3,
+    textTransform: 'capitalize',
+  },
+});
+
+class DemoBase extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,6 +104,8 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data, credit, season } = this.state;
+    const { classes } = this.props;
+
     return (
       <Card>
         <Chart data={data}>
@@ -86,29 +132,31 @@ export default class Demo extends React.PureComponent {
           <Stack />
           <Legend
             position="bottom"
-            rootComponent={legendRootComponent}
+            rootComponent={legendRoot}
           />
         </Chart>
 
         <CardContent>
-          <Typography gutterBottom variant="headline" style={{ textTransform: 'capitalize' }}>
+          <Typography gutterBottom variant="headline" className={classes.title}>
             {`${season} olympic games (${credit})`}
           </Typography>
-          <Typography variant="subheading" style={{ marginBottom: '10px' }}>
+          <Typography variant="subheading" className={classes.text}>
             Choose the season of the Olympic Games and the type of medal
           </Typography>
-          <div style={{ align: 'left', display: 'inline-block' }}>
-            {createButton('summer', this.chooseSeason)}
-            {createButton('winter', this.chooseSeason)}
+          <div className={classes.leftBlock}>
+            {buttonComponent(classes.button, 'summer', this.chooseSeason)}
+            {buttonComponent(classes.button, 'winter', this.chooseSeason)}
           </div>
-          <div style={{ float: 'right', display: 'inline-block' }}>
-            {createButton('amount', this.chooseCredit)}
-            {createButton('gold', this.chooseCredit)}
-            {createButton('silver', this.chooseCredit)}
-            {createButton('bronze', this.chooseCredit)}
+          <div className={classes.rightBlock}>
+            {buttonComponent(classes.button, 'amount', this.chooseCredit)}
+            {buttonComponent(classes.button, 'gold', this.chooseCredit)}
+            {buttonComponent(classes.button, 'silver', this.chooseCredit)}
+            {buttonComponent(classes.button, 'bronze', this.chooseCredit)}
           </div>
         </CardContent>
       </Card>
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(DemoBase);

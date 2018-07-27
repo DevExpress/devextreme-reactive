@@ -51,9 +51,11 @@ export class Sizer extends React.PureComponent {
 
     this.setupListeners = this.setupListeners.bind(this);
   }
+
   componentDidMount() {
     this.setupListeners();
   }
+
   setupListeners() {
     const size = { height: this.root.offsetHeight, width: this.root.offsetWidth };
 
@@ -67,6 +69,7 @@ export class Sizer extends React.PureComponent {
 
     this.setState({ size });
   }
+
   render() {
     const { size } = this.state;
     const { children, style } = this.props;

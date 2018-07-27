@@ -20,10 +20,12 @@ const pluginDependencies = [
   { name: 'DxDataTypeProvider', optional: true },
 ];
 
-const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
-  tableRowsWithGrouping(tableBodyRows, isGroupRow);
-const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableGroupCellColSpanGetter(getTableCellColSpan);
+const tableBodyRowsComputed = (
+  { tableBodyRows, isGroupRow },
+) => tableRowsWithGrouping(tableBodyRows, isGroupRow);
+const getCellColSpanComputed = (
+  { getTableCellColSpan },
+) => tableGroupCellColSpanGetter(getTableCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
@@ -71,15 +73,14 @@ export const DxTableGroupRow = {
 
     const tableColumnsComputed = ({
       columns, tableColumns, grouping,
-    }) =>
-      tableColumnsWithGrouping(
-        columns,
-        tableColumns,
-        grouping,
-        grouping,
-        indentColumnWidth,
-        showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
-      );
+    }) => tableColumnsWithGrouping(
+      columns,
+      tableColumns,
+      grouping,
+      grouping,
+      indentColumnWidth,
+      showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
+    );
     return (
       <DxPlugin
         name="DxTableGroupRow"
@@ -117,8 +118,8 @@ export const DxTableGroupRow = {
                           row={attrs.tableRow.row}
                           column={attrs.tableColumn.column}
                           expanded={expandedGroups.indexOf(attrs.tableRow.row.compoundKey) !== -1}
-                          onToggle={() =>
-                            toggleGroupExpanded({ groupKey: attrs.tableRow.row.compoundKey })}
+                          onToggle={
+                            () => toggleGroupExpanded({ groupKey: attrs.tableRow.row.compoundKey })}
                         >
                           {content}
                         </GroupCell>

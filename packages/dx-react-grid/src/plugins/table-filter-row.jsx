@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
+} from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -25,6 +27,7 @@ export class TableFilterRow extends React.PureComponent {
       filterOperations: {},
     };
   }
+
   render() {
     const {
       rowHeight,
@@ -39,8 +42,9 @@ export class TableFilterRow extends React.PureComponent {
 
     const getMessage = getMessagesFormatter(messages);
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
+    const tableHeaderRowsComputed = (
+      { tableHeaderRows },
+    ) => tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
       <Plugin
@@ -58,17 +62,19 @@ export class TableFilterRow extends React.PureComponent {
                 { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
                 { changeColumnFilter },
               ) => {
+                const { filterOperations } = this.state;
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
-                const columnFilterOperations =
-                  getColumnFilterOperations(getAvailableFilterOperations, columnName);
-                const selectedFilterOperation = this.state.filterOperations[columnName]
+                const columnFilterOperations = getColumnFilterOperations(
+                  getAvailableFilterOperations, columnName,
+                );
+                const selectedFilterOperation = filterOperations[columnName]
                   || columnFilterOperations[0];
                 const handleFilterOperationChange = (value) => {
                   this.setState({
                     filterOperations: {
-                      ...this.state.filterOperations,
+                      ...filterOperations,
                       [columnName]: value,
                     },
                   });
@@ -76,10 +82,9 @@ export class TableFilterRow extends React.PureComponent {
                     onFilter({ value: filter.value, operation: value });
                   }
                 };
-                const handleFilterValueChange = value =>
-                  onFilter(!isFilterValueEmpty(value)
-                    ? { value, operation: selectedFilterOperation }
-                    : null);
+                const handleFilterValueChange = value => onFilter(!isFilterValueEmpty(value)
+                  ? { value, operation: selectedFilterOperation }
+                  : null);
                 const filteringEnabled = isColumnFilteringEnabled(columnName);
                 return (
                   <TemplatePlaceholder

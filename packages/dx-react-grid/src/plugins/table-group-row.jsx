@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector,
+} from '@devexpress/dx-react-core';
 import {
   tableColumnsWithGrouping,
   tableRowsWithGrouping,
@@ -16,10 +18,12 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
 
-const tableBodyRowsComputed = ({ tableBodyRows, isGroupRow }) =>
-  tableRowsWithGrouping(tableBodyRows, isGroupRow);
-const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableGroupCellColSpanGetter(getTableCellColSpan);
+const tableBodyRowsComputed = (
+  { tableBodyRows, isGroupRow },
+) => tableRowsWithGrouping(tableBodyRows, isGroupRow);
+const getCellColSpanComputed = (
+  { getTableCellColSpan },
+) => tableGroupCellColSpanGetter(getTableCellColSpan);
 
 const showColumnWhenGroupedGetter = (showColumnsWhenGrouped, columnExtensions = []) => {
   const map = columnExtensions.reduce((acc, columnExtension) => {
@@ -43,15 +47,14 @@ export class TableGroupRow extends React.PureComponent {
 
     const tableColumnsComputed = ({
       columns, tableColumns, grouping, draftGrouping,
-    }) =>
-      tableColumnsWithGrouping(
-        columns,
-        tableColumns,
-        grouping,
-        draftGrouping,
-        indentColumnWidth,
-        showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
-      );
+    }) => tableColumnsWithGrouping(
+      columns,
+      tableColumns,
+      grouping,
+      draftGrouping,
+      indentColumnWidth,
+      showColumnWhenGroupedGetter(showColumnsWhenGrouped, columnExtensions),
+    );
 
     return (
       <Plugin
@@ -84,8 +87,9 @@ export class TableGroupRow extends React.PureComponent {
                           row={params.tableRow.row}
                           column={params.tableColumn.column}
                           expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
-                          onToggle={() =>
-                            toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })}
+                          onToggle={
+                            () => toggleGroupExpanded({ groupKey: params.tableRow.row.compoundKey })
+                          }
                         >
                           {content}
                         </GroupCell>

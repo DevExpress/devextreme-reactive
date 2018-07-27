@@ -14,8 +14,7 @@ const labelOffset = 10;
 const owner = 'facebook';
 const repository = 'react';
 
-const getPath = (x, y, width, height) =>
-  `M ${x} ${height + y}
+const getPath = (x, y, width, height) => `M ${x} ${height + y}
    L ${width + x} ${height + y}
    L ${width + x} ${y + 30}
    L ${(width / 2) + x} ${y}
@@ -29,7 +28,8 @@ const BarWithLabel = (props) => {
 
   return (
     <React.Fragment>
-      <path d={getPath(x, y, width, height)} fill={themeColor} />;
+      <path d={getPath(x, y, width, height)} fill={themeColor} />
+;
       <ArgumentAxis.Label
         x={x + (width / 2)}
         y={y + (height / 2)}
@@ -50,14 +50,18 @@ export default class Demo extends React.PureComponent {
     };
     this.getLabelWithAvatarComponent = this.getLabelWithAvatarComponent.bind(this);
   }
+
   componentDidMount() {
     this.getData();
   }
+
   componentDidUpdate() {
     this.getData();
   }
+
   getData() {
-    if (!this.state.data) {
+    const { data: dataState } = this.state;
+    if (!dataState) {
       fetch(`https://api.github.com/repos/${owner}/${repository}/contributors`)
         .then(response => response.json())
         .then((data) => {
@@ -69,9 +73,11 @@ export default class Demo extends React.PureComponent {
         .catch(() => this.setState({ data: false }));
     }
   }
+
   getLabelWithAvatarComponent(props) {
     const { text, x, y } = props;
-    const contributor = this.state.data.find(({ login }) => login === text);
+    const { data } = this.state;
+    const contributor = data.find(({ login }) => login === text);
     return (
       <React.Fragment>
         <image
@@ -83,6 +89,7 @@ export default class Demo extends React.PureComponent {
         <ArgumentAxis.Label {...props} y={y + imageSize} />
       </React.Fragment>);
   }
+
   render() {
     const {
       data: chartData,
@@ -92,7 +99,7 @@ export default class Demo extends React.PureComponent {
       <<%&wrapperTag%>>
         {
           chartData ? (
-            <Chart data={chartData} >
+            <Chart data={chartData}>
               <ArgumentAxis
                 name="login"
                 type="band"
@@ -115,7 +122,9 @@ export default class Demo extends React.PureComponent {
               />
             </Chart>
           ) : (
-            <h1>No data</h1>
+            <h1>
+              No data
+            </h1>
           )
         }
       </<%&wrapperTag%>>

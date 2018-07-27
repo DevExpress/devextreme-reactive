@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Link, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  Link, Route, Switch, Redirect,
+} from 'react-router-dom';
 
 import { SectionViewer } from './section-viewer';
 
@@ -20,19 +22,31 @@ export const SectionsViewer = ({
           <div className="container">
             <div className="row">
               <div className="col-md-3 main-menu">
-                <h3>Demo Sections</h3>
+                <h3>
+                  Demo Sections
+                </h3>
                 <ul className="list-unstyled">
                   {sections.map(section => (
                     <li key={section}>
                       {section === sectionName
-                        ? <span>{section}</span>
-                        : <Link to={`${url}/${section}`}>{section}</Link>}
+                        ? (
+                          <span>
+                            {section}
+                          </span>
+                        )
+                        : (
+                          <Link to={`${url}/${section}`}>
+                            {section}
+                          </Link>
+                        )}
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="col-md-9 demo-content">
-                <h2>{sectionName}</h2>
+                <h2>
+                  {sectionName}
+                </h2>
                 <SectionViewer sectionName={sectionName} />
               </div>
             </div>

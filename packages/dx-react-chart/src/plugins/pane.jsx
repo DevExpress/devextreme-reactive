@@ -4,10 +4,12 @@ import { TemplatePlaceholder } from '@devexpress/dx-react-core';
 
 export class Pane extends React.PureComponent {
   componentWillReceiveProps({ width, height, changeBBox }) {
-    if (this.props.width !== width || this.props.height !== height) {
+    const { width: propsWidth, height: propsHeight } = this.props;
+    if (propsWidth !== width || propsHeight !== height) {
       changeBBox({ placeholder: 'pane', bBox: { width, height } });
     }
   }
+
   render() {
     const { width, height } = this.props;
 
@@ -32,4 +34,3 @@ Pane.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
 };
-

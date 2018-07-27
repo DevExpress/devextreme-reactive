@@ -12,17 +12,21 @@ export class Table extends React.Component {
       backgroundColor: 'white',
     };
   }
+
   componentDidMount() {
     this.checkStyles();
   }
+
   checkStyles() {
     const body = document.getElementsByTagName('body')[0];
-    const { backgroundColor } = window.getComputedStyle(body);
+    const { backgroundColor } = this.state;
+    const { bodyBackgroundColor } = window.getComputedStyle(body);
 
-    if (this.state.backgroundColor !== backgroundColor) {
-      this.setState({ backgroundColor });
+    if (backgroundColor !== bodyBackgroundColor) {
+      this.setState({ backgroundColor: bodyBackgroundColor });
     }
   }
+
   render() {
     const {
       children, use, style, className, ...restProps

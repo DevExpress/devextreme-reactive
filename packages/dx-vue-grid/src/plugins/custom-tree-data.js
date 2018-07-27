@@ -14,20 +14,21 @@ const pluginDependencies = [
   { name: 'DxTreeDataState' },
 ];
 
-const expandedTreeRowsComputed = ({ rows, getRowId, expandedRowIds }) =>
-  expandedTreeRows(rows, getRowId, expandedRowIds);
-const getRowIdComputed = ({ getRowId, rows }) =>
-  customTreeRowIdGetter(getRowId, rows);
-const getRowLevelKeyComputed = ({ getRowLevelKey, rows }) =>
-  customTreeRowLevelKeyGetter(getRowLevelKey, rows);
-const isTreeRowLeafComputed = ({ rows }) =>
-  isTreeRowLeafGetter(rows);
-const getTreeRowLevelComputed = ({ rows }) =>
-  getTreeRowLevelGetter(rows);
-const collapsedTreeRowsGetterComputed = ({ rows, getCollapsedRows }) =>
-  collapsedTreeRowsGetter(getCollapsedRows, rows);
-const unwrappedTreeRowsComputed = ({ rows }) =>
-  unwrappedCustomTreeRows(rows);
+const expandedTreeRowsComputed = (
+  { rows, getRowId, expandedRowIds },
+) => expandedTreeRows(rows, getRowId, expandedRowIds);
+const getRowIdComputed = (
+  { getRowId, rows },
+) => customTreeRowIdGetter(getRowId, rows);
+const getRowLevelKeyComputed = (
+  { getRowLevelKey, rows },
+) => customTreeRowLevelKeyGetter(getRowLevelKey, rows);
+const isTreeRowLeafComputed = ({ rows }) => isTreeRowLeafGetter(rows);
+const getTreeRowLevelComputed = ({ rows }) => getTreeRowLevelGetter(rows);
+const collapsedTreeRowsGetterComputed = (
+  { rows, getCollapsedRows },
+) => collapsedTreeRowsGetter(getCollapsedRows, rows);
+const unwrappedTreeRowsComputed = ({ rows }) => unwrappedCustomTreeRows(rows);
 
 export const DxCustomTreeData = {
   name: 'DxCustomTreeData',
@@ -39,8 +40,7 @@ export const DxCustomTreeData = {
   },
   render() {
     const { getChildRows } = this;
-    const treeRowsComputed = ({ rows }) =>
-      customTreeRowsWithMeta(rows, getChildRows);
+    const treeRowsComputed = ({ rows }) => customTreeRowsWithMeta(rows, getChildRows);
 
     return (
       <DxPlugin

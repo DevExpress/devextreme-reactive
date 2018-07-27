@@ -5,15 +5,16 @@ export const getColumnSortingDirection = (sorting, columnName) => {
   return columnSorting ? columnSorting.direction : null;
 };
 
-export const getPersistentSortedColumns = (sorting, columnExtensions = []) =>
-  columnExtensions.reduce((acc, { columnName, sortingEnabled }) => {
-    if (sortingEnabled === false) {
-      if (sorting.findIndex(sortItem => sortItem.columnName === columnName) > -1) {
-        acc.push(columnName);
-      }
+export const getPersistentSortedColumns = (
+  sorting, columnExtensions = [],
+) => columnExtensions.reduce((acc, { columnName, sortingEnabled }) => {
+  if (sortingEnabled === false) {
+    if (sorting.findIndex(sortItem => sortItem.columnName === columnName) > -1) {
+      acc.push(columnName);
     }
-    return acc;
-  }, []);
+  }
+  return acc;
+}, []);
 
 export const calculateKeepOther = (sorting, keepOther, persistentSortedColumns = []) => {
   if (!persistentSortedColumns.length) return keepOther;

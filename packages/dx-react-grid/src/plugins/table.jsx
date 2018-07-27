@@ -19,14 +19,11 @@ import {
   getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
-const RowPlaceholder = props =>
-  <TemplatePlaceholder name="tableRow" params={props} />;
-const CellPlaceholder = props =>
-  <TemplatePlaceholder name="tableCell" params={props} />;
+const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
+const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];
-const tableBodyRowsComputed = ({ rows, getRowId }) =>
-  tableRowsWithDataRows(rows, getRowId);
+const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableFooterRows = [];
 
 const pluginDependencies = [
@@ -54,8 +51,9 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = ({ columns }) =>
-      tableColumnsWithDataRows(columns, columnExtensions);
+    const tableColumnsComputed = (
+      { columns },
+    ) => tableColumnsWithDataRows(columns, columnExtensions);
 
     return (
       <Plugin
@@ -100,11 +98,12 @@ export class Table extends React.PureComponent {
         <Template name="tableCell">
           {params => (
             <TemplateConnector>
-              {({ tableHeaderRows: headerRows }) =>
-                (isHeaderStubTableCell(params.tableRow, headerRows)
-                  ? <StubHeaderCell {...params} />
-                  : <StubCell {...params} />
-                )
+              {(
+                { tableHeaderRows: headerRows },
+              ) => (isHeaderStubTableCell(params.tableRow, headerRows)
+                ? <StubHeaderCell {...params} />
+                : <StubCell {...params} />
+              )
               }
             </TemplateConnector>
           )}

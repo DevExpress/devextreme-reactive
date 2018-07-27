@@ -16,13 +16,13 @@ export const Layout = ({
       return (
         <Row key={time.start}>
           {index % 2
-          ? null
-          : (
-            <Cell
-              rowSpan="2"
-              time={moment().hour(hour).minute(minute).toDate()}
-            />
-          )}
+            ? null
+            : (
+              <Cell
+                rowSpan="2"
+                time={moment().hour(hour).minute(minute).toDate()}
+              />
+            )}
         </Row>
       );
     })}

@@ -31,14 +31,14 @@ export class VirtualTable extends React.PureComponent {
       headTableComponent,
       footerTableComponent,
     } = props;
-    this.layoutRenderComponent =
-      createRenderComponent(VirtualTableLayout, {
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      });
+    this.layoutRenderComponent = createRenderComponent(VirtualTableLayout, {
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footerTableComponent,
+    });
   }
+
   componentWillReceiveProps({
     height,
     estimatedRowHeight,
@@ -52,6 +52,7 @@ export class VirtualTable extends React.PureComponent {
       footerTableComponent,
     });
   }
+
   render() {
     const {
       height,
@@ -99,7 +100,7 @@ VirtualTable.StubRow = TableStubRow;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
   headTableComponent: PropTypes.func,
   footerTableComponent: PropTypes.func,
   messages: PropTypes.shape({

@@ -92,8 +92,7 @@ describe('GroupingPanel', () => {
         {pluginDepsToComponents(defaultDeps)}
         <GroupingPanel
           {...defaultProps}
-          layoutComponent={({ emptyMessageComponent: EmptyMessage }) =>
-            <EmptyMessage />}
+          layoutComponent={({ emptyMessageComponent: EmptyMessage }) => <EmptyMessage />}
           messages={{
             groupByColumn: 'Group By Column',
           }}
@@ -115,8 +114,7 @@ describe('GroupingPanel', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <GroupingPanel
           {...defaultProps}
-          layoutComponent={({ itemComponent: Item }) =>
-            <Item item={{ column: { name: 'a' } }} />}
+          layoutComponent={({ itemComponent: Item }) => <Item item={{ column: { name: 'a' } }} />}
           showSortingControls
           showGroupingControls
         />

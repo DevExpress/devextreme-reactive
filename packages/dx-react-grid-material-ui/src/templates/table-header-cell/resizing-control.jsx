@@ -67,6 +67,7 @@ export class ResizingControlBase extends React.PureComponent {
       this.setState({ resizing: false });
     };
   }
+
   render() {
     const { classes, resizeHandleOpacityClass } = this.props;
     const { resizing } = this.state;

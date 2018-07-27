@@ -14,7 +14,9 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          <h1>Test content</h1>
+          <h1>
+            Test content
+          </h1>
         </Template>
 
         <Template name="root">
@@ -30,12 +32,18 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          <span>Test content</span>
+          <span>
+            Test content
+          </span>
         </Template>
 
         <Template name="root">
           <TemplatePlaceholder name="test">
-            {content => <h1>{content}</h1>}
+            {content => (
+              <h1>
+                {content}
+              </h1>
+            )}
           </TemplatePlaceholder>
         </Template>
       </PluginHost>
@@ -53,7 +61,12 @@ describe('TemplatePlaceholder', () => {
 
         <Template name="root">
           <TemplatePlaceholder name="test">
-            {content => <h1>{text}{content}</h1>}
+            {content => (
+              <h1>
+                {text}
+                {content}
+              </h1>
+            )}
           </TemplatePlaceholder>
         </Template>
       </PluginHost>
@@ -73,7 +86,11 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          {({ text }) => <h1>{text}</h1>}
+          {({ text }) => (
+            <h1>
+              {text}
+            </h1>
+          )}
         </Template>
 
         <Template name="root">
@@ -93,7 +110,9 @@ describe('TemplatePlaceholder', () => {
           <Plugin>
             <Template name="test">
               {({ text }) => (
-                <h1>{text}</h1>
+                <h1>
+                  {text}
+                </h1>
               )}
             </Template>
           </Plugin>
@@ -124,12 +143,16 @@ describe('TemplatePlaceholder', () => {
     const tree = mount((
       <PluginHost>
         <Template name="test">
-          <h1>Test content</h1>
+          <h1>
+            Test content
+          </h1>
         </Template>
 
         <Template name="test">
           <TemplatePlaceholder />
-          <h2>Test content</h2>
+          <h2>
+            Test content
+          </h2>
         </Template>
 
         <Template name="root">
@@ -147,7 +170,9 @@ describe('TemplatePlaceholder', () => {
       <PluginHost>
         <Template name="test">
           {({ text }) => (
-            <h1>{text}</h1>
+            <h1>
+              {text}
+            </h1>
           )}
         </Template>
 
@@ -171,7 +196,9 @@ describe('TemplatePlaceholder', () => {
       <PluginHost>
         <Template name="test">
           {({ text }) => (
-            <h1>{text}</h1>
+            <h1>
+              {text}
+            </h1>
           )}
         </Template>
 
@@ -198,7 +225,9 @@ describe('TemplatePlaceholder', () => {
           <Plugin>
             <Template name="test">
               {({ text }) => (
-                <h1>{text}</h1>
+                <h1>
+                  {text}
+                </h1>
               )}
             </Template>
           </Plugin>
@@ -235,7 +264,9 @@ describe('TemplatePlaceholder', () => {
       <PluginHost>
         <Template name="testNested">
           {params => (
-            <h1>{params && params.text}</h1>
+            <h1>
+              {params && params.text}
+            </h1>
           )}
         </Template>
 
@@ -243,7 +274,9 @@ describe('TemplatePlaceholder', () => {
           {({ text }) => (
             <div>
               <TemplatePlaceholder name="testNested" />
-              <h2>{text}</h2>
+              <h2>
+                {text}
+              </h2>
             </div>
           )}
         </Template>
@@ -266,13 +299,21 @@ describe('TemplatePlaceholder', () => {
 
         <Template name="root">
           <TemplatePlaceholder name="test">
-            {content => (<div>{content}</div>)}
+            {content => (
+              <div>
+                {content}
+              </div>
+            )}
           </TemplatePlaceholder>
         </Template>
 
         <Template name="test">
           <TemplateConnector>
-            {({ testGetter }) => <div className="test" >{testGetter}</div>}
+            {({ testGetter }) => (
+              <div className="test">
+                {testGetter}
+              </div>
+            )}
           </TemplateConnector>
         </Template>
       </PluginHost>

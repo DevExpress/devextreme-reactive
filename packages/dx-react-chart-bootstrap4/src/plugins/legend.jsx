@@ -23,4 +23,3 @@ Legend.Root = Root;
 Legend.Marker = Marker;
 Legend.Label = Label;
 Legend.Label = Item;
-

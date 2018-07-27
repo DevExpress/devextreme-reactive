@@ -40,7 +40,7 @@ describe('Root', () => {
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} customProperty >
+      <Root {...defaultProps} customProperty>
         <div />
       </Root>));
 

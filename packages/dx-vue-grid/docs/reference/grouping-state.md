@@ -46,6 +46,8 @@ columnName | string | Specifies the name of the column by which the data is grou
 
 Describes a group that can be nested in another one.
 
+Type: `string`
+
 A string value that consists of values by which rows are grouped, separated by the `|` character. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
 
 ### DxGroupingState.ColumnExtension

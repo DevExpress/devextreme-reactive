@@ -14,8 +14,9 @@ import {
   isDetailTableCell,
 } from '@devexpress/dx-grid-core';
 
-const getCellColSpanComputed = ({ getTableCellColSpan }) =>
-  tableDetailCellColSpanGetter(getTableCellColSpan);
+const getCellColSpanComputed = (
+  { getTableCellColSpan },
+) => tableDetailCellColSpanGetter(getTableCellColSpan);
 
 const pluginDependencies = [
   { name: 'DxRowDetailState' },
@@ -58,10 +59,12 @@ export const DxTableRowDetail = {
       toggleColumnWidth,
     } = this;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithDetail(tableColumns, toggleColumnWidth);
-    const tableBodyRowsComputed = ({ tableBodyRows, expandedDetailRowIds }) =>
-      tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
+    const tableColumnsComputed = (
+      { tableColumns },
+    ) => tableColumnsWithDetail(tableColumns, toggleColumnWidth);
+    const tableBodyRowsComputed = (
+      { tableBodyRows, expandedDetailRowIds },
+    ) => tableRowsWithExpandedDetail(tableBodyRows, expandedDetailRowIds, rowHeight);
 
     return (
       <DxPlugin
@@ -74,8 +77,9 @@ export const DxTableRowDetail = {
 
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isDetailToggleTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isDetailToggleTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>

@@ -30,6 +30,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 
@@ -47,4 +48,3 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
-

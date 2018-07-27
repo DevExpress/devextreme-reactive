@@ -1,11 +1,18 @@
 import * as React from 'react';
-import { PluginHost, Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  PluginHost, Plugin, Template, TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 
 const ENTER_KEY = 13;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    const getStateTasks = () => {
+      const { tasks } = this.state;
+      return tasks;
+    };
 
     this.state = {
       tasks: [
@@ -18,10 +25,11 @@ export default class Demo extends React.PureComponent {
 
     this.createTask = (title) => {
       this.setState({
-        tasks: [...this.state.tasks, { title, done: false }],
+        tasks: [...getStateTasks(), { title, done: false }],
       });
     };
   }
+
   render() {
     const { tasks } = this.state;
 

@@ -6,7 +6,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   Plugin,
-} from './';
+} from '.';
 
 const computedEntries = object => Object.getOwnPropertyNames(object)
   .reduce((acc, key) => Object.assign(acc, { [key]: object[key] }), {});
@@ -15,6 +15,7 @@ let actionExecutor = () => {};
 // eslint-disable-next-line react/prop-types
 const ComputedStateContainer = ({ actions }) => (
   <button
+    type="button"
     className="actionExecutor"
     onClick={() => actionExecutor(actions)}
   />
@@ -26,7 +27,11 @@ export const pluginDepsToComponents = (
 ) => (
   <Plugin>
     {[...(deps.plugins || []), ...(depsOverrides.plugins || [])]
-      .map(plugin => <Plugin name={plugin} key={plugin}><div /></Plugin>)}
+      .map(plugin => (
+        <Plugin name={plugin} key={plugin}>
+          <div />
+        </Plugin>
+      ))}
     {Object.entries({ ...deps.getter, ...depsOverrides.getter })
       .map(([name, value]) => <Getter key={`getter_${name}`} name={name} value={value} />)}
     {Object.entries({ ...deps.action, ...depsOverrides.action })
@@ -60,5 +65,5 @@ export const executeComputedAction = (tree, executor) => {
   actionExecutor = executor;
   tree.find(ComputedStateContainer).find('.actionExecutor').simulate('click');
 };
-
+// eslint-disable-next-line import/no-cycle
 export { testStatePluginField } from './src/utils/state-helper.test-utils';

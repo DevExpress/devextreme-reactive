@@ -15,18 +15,20 @@ const styles = theme => ({
 
 const SearchPanelInputBase = ({
   onValueChange, value, getMessage, ...restProps
-}) => (<Input
-  onChange={e => onValueChange(e.target.value)}
-  value={value}
-  type="text"
-  placeholder={getMessage('searchPlaceholder')}
-  {...restProps}
-  startAdornment={
-    <InputAdornment position="start">
-      <Search />
-    </InputAdornment>
-  }
-/>);
+}) => (
+  <Input
+    onChange={e => onValueChange(e.target.value)}
+    value={value}
+    type="text"
+    placeholder={getMessage('searchPlaceholder')}
+    {...restProps}
+    startAdornment={(
+      <InputAdornment position="start">
+        <Search />
+      </InputAdornment>
+)}
+  />
+);
 
 SearchPanelInputBase.propTypes = {
   onValueChange: PropTypes.func.isRequired,

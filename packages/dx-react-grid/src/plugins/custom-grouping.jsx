@@ -14,12 +14,13 @@ const pluginDependencies = [
   { name: 'GroupingState' },
 ];
 
-const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
-  groupCollapsedRowsGetter(getCollapsedRows);
-const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
-  expandedGroupRows(rows, grouping, expandedGroups);
-const getRowIdComputed = ({ getRowId, rows }) =>
-  customGroupingRowIdGetter(getRowId, rows);
+const getCollapsedRowsComputed = (
+  { getCollapsedRows },
+) => groupCollapsedRowsGetter(getCollapsedRows);
+const expandedGroupedRowsComputed = (
+  { rows, grouping, expandedGroups },
+) => expandedGroupRows(rows, grouping, expandedGroups);
+const getRowIdComputed = ({ getRowId, rows }) => customGroupingRowIdGetter(getRowId, rows);
 
 export class CustomGrouping extends React.PureComponent {
   render() {
@@ -28,8 +29,9 @@ export class CustomGrouping extends React.PureComponent {
       grouping: appliedGrouping,
       expandedGroups: appliedExpandedGroups,
     } = this.props;
-    const groupedRowsComputed = ({ rows, grouping }) =>
-      customGroupedRows(rows, grouping, getChildGroups);
+    const groupedRowsComputed = (
+      { rows, grouping },
+    ) => customGroupedRows(rows, grouping, getChildGroups);
 
     return (
       <Plugin

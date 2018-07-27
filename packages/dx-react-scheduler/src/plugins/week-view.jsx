@@ -55,9 +55,11 @@ export class WeekView extends React.PureComponent {
 
     this.dateTableRef = this.dateTableRef.bind(this);
   }
+
   dateTableRef(dateTableRef) {
     this.setState({ dateTableRef });
   }
+
   render() {
     const {
       layoutComponent: ViewLayout,
@@ -79,20 +81,22 @@ export class WeekView extends React.PureComponent {
       excludedDays,
     } = this.props;
 
-    const timeScaleComputed = ({ currentDate }) =>
-      timeScaleCore(
-        currentDate,
-        firstDayOfWeek,
-        startDayHour,
-        endDayHour,
-        cellDuration,
-        excludedDays,
-      );
-    const dayScaleComputed = ({ currentDate }) =>
-      dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
-    const startViewDateComputed = ({ dayScale, timeScale }) =>
-      startViewDateCore(dayScale, timeScale, startDayHour);
+    const timeScaleComputed = ({ currentDate }) => timeScaleCore(
+      currentDate,
+      firstDayOfWeek,
+      startDayHour,
+      endDayHour,
+      cellDuration,
+      excludedDays,
+    );
+    const dayScaleComputed = (
+      { currentDate },
+    ) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
+    const startViewDateComputed = (
+      { dayScale, timeScale },
+    ) => startViewDateCore(dayScale, timeScale, startDayHour);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDateCore(dayScale, timeScale);
+    const { dateTableRef } = this.state;
 
     return (
       <Plugin
@@ -105,7 +109,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
-        {this.state.dateTableRef && <Getter name="dateTableRef" value={this.state.dateTableRef} />}
+        {dateTableRef && <Getter name="dateTableRef" value={dateTableRef} />}
         <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">

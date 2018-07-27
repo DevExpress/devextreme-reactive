@@ -1,4 +1,6 @@
-import { DxGetter, DxTemplate, DxTemplateConnector, DxTemplatePlaceholder, DxPlugin } from '@devexpress/dx-vue-core';
+import {
+  DxGetter, DxTemplate, DxTemplateConnector, DxTemplatePlaceholder, DxPlugin,
+} from '@devexpress/dx-vue-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
@@ -69,8 +71,9 @@ export const DxTableFilterRow = {
 
     const getMessage = getMessagesFormatter(messages);
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
+    const tableHeaderRowsComputed = (
+      { tableHeaderRows },
+    ) => tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
       <DxPlugin
@@ -80,8 +83,9 @@ export const DxTableFilterRow = {
         <DxGetter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <DxTemplate
           name="tableCell"
-          predicate={({ attrs: { tableRow, tableColumn } }) =>
-            isFilterTableCell(tableRow, tableColumn)}
+          predicate={(
+            { attrs: { tableRow, tableColumn } },
+          ) => isFilterTableCell(tableRow, tableColumn)}
         >
           {({ attrs, listeners }) => (
             <DxTemplateConnector>
@@ -92,8 +96,9 @@ export const DxTableFilterRow = {
                 const { name: columnName } = attrs.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
-                const columnFilterOperations =
-                  getColumnFilterOperations(getAvailableFilterOperations, columnName);
+                const columnFilterOperations = getColumnFilterOperations(
+                  getAvailableFilterOperations, columnName,
+                );
                 const selectedFilterOperation = filterOperations[columnName]
                   || columnFilterOperations[0];
                 const handleFilterOperationChange = (value) => {
@@ -159,8 +164,7 @@ export const DxTableFilterRow = {
           name="tableRow"
           predicate={({ attrs: { tableRow } }) => isFilterTableRow(tableRow)}
         >
-          {({ attrs, listeners, slots }) =>
-            <FilterRow
+          {({ attrs, listeners, slots }) => <FilterRow
               {...{ attrs: { ...attrs }, on: { ...listeners } }}
               row={attrs.tableRow.row}
             >

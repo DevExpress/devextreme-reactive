@@ -26,6 +26,7 @@ export class ResizingControl extends React.PureComponent {
       this.setState({ resizing: false });
     };
   }
+
   render() {
     const { resizing } = this.state;
 

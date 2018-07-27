@@ -78,7 +78,12 @@ export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 const GridDetailContainerBase = ({ row, classes }) => (
   <div className={classes.detailContainer}>
     <div>
-      <h5 className={classes.title}>{row.firstName} {row.lastName}&apos;s Tasks:</h5>
+      <h5 className={classes.title}>
+        {row.firstName}
+        {' '}
+        {row.lastName}
+&apos;s Tasks:
+      </h5>
     </div>
     <Paper>
       <Grid

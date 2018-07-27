@@ -27,6 +27,14 @@ export class EditingState extends React.PureComponent {
     super(props);
     const rowChanges = props.rowChanges || props.defaultRowChanges;
     const addedRows = props.addedRows || props.defaultAddedRows;
+    const getRowChanges = () => {
+      const { rowChanges: stateRowChanges } = this.state;
+      return stateRowChanges;
+    };
+    const getAddedRows = () => {
+      const { addedRows: stateAddedRows } = this.state;
+      return stateAddedRows;
+    };
 
     this.state = {
       editingRowIds: props.editingRowIds || props.defaultEditingRowIds,
@@ -61,7 +69,7 @@ export class EditingState extends React.PureComponent {
       .bind(stateHelper, 'rowChanges', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
       onCommitChanges({
-        changed: changedRowsByIds(rowChanges, rowIds),
+        changed: changedRowsByIds(getRowChanges(), rowIds),
       });
       this.cancelChangedRows({ rowIds });
     };
@@ -74,7 +82,7 @@ export class EditingState extends React.PureComponent {
       .bind(stateHelper, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
       onCommitChanges({
-        added: addedRowsByIds(addedRows, rowIds),
+        added: addedRowsByIds(getAddedRows(), rowIds),
       });
       this.cancelAddedRows({ rowIds });
     };

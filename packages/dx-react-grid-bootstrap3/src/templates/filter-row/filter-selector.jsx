@@ -6,22 +6,18 @@ import { Overlay } from '../parts/overlay';
 export class FilterSelector extends React.PureComponent {
   constructor(props) {
     super(props);
-    const getOpenedState = () => {
-      const { opened } = this.state;
-      return opened;
-    };
-    const { onChange } = this.props;
 
     this.state = { opened: false };
 
     this.handleButtonClick = () => {
-      this.setState({ opened: !getOpenedState() });
+      this.setState(prevState => ({ opened: !prevState.opened }));
     };
     this.handleOverlayHide = () => {
       this.setState({ opened: false });
     };
     this.handleMenuItemClick = (nextValue) => {
       this.setState({ opened: false });
+      const { onChange } = this.props;
       onChange(nextValue);
     };
   }

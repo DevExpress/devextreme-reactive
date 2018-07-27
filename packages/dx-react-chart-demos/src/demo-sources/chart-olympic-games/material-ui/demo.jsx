@@ -58,22 +58,6 @@ export default class Demo extends React.PureComponent {
     });
   }
 
-  primaryButton(season) {
-    return (
-      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => this.chooseSeason(season)}>
-        {season}
-      </Button>
-    );
-  }
-
-  secondaryButton(credit) {
-    return (
-      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" onClick={() => this.chooseCredit(credit)}>
-        {credit}
-      </Button>
-    );
-  }
-
   render() {
     const { data, credit, season } = this.state;
     return (

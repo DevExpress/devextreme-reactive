@@ -28,5 +28,15 @@ describe('Month View DayPanel', () => {
       expect(tree.find(`.${classes.table}`).props().data)
         .toMatchObject({ a: 1 });
     });
+    it('should render array of days', () => {
+      const cell = () => <td />;
+      const dayScale = [new Date('2018-07-26'), new Date('2018-07-26')];
+      const tree = shallow((
+        <Layout dayScale={dayScale} cellComponent={cell} />
+      ));
+
+      expect(tree.find(cell))
+        .toHaveLength(2);
+    });
   });
 });

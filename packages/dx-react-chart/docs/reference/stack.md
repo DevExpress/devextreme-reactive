@@ -1,6 +1,6 @@
 # Stack Plugin Reference
 
-The `Stack` plugin is used to display series points side-by-side or on top of each other.
+The `Stack` plugin is used to display series points side-by-side or one under another other.
 
 ## Importing
 
@@ -16,11 +16,11 @@ import { Stack } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-order? | (data: Array&lt;[SeriesData](#series)&gt;) => { [index: number]: number } | | A function that gets array of series data and returns a series order.
-offset? | (data: Array&lt;[SeriesData](#series)&gt;, order: { [index: number]: number }) => void | | A function that modify series data array with proper offsets using series order.
+order? | (data: Array&lt;[SeriesData](#series)&gt;) => { [index: number]: number } | | A function that gets an array of series data and returns the series order.
+offset? | (data: Array&lt;[SeriesData](#series)&gt;, order: { [index: number]: number }) => void | | A function that adds the appropriate offsets to series data array depending on the series order.
 
 ## Interfaces
 
 ### SeriesData
 
-SeriesData is the data for one series. It has array of points (one point per argument), and each point is the array of a lower and upper value defining the baseline and topline. For example, series with values 10, 20 and 30 and baseline equal to 0 has the following array: [[0, 10], [0, 20], [0, 30]].
+SeriesData contains data for a single series. It is array of points (one point per argument). Each point is an array that defines the baseline and a value. For example, following array specifies a series containing points with values 10, 20, and 30 and baseline located at 0: [[0, 10], [0, 20], [0, 30]].

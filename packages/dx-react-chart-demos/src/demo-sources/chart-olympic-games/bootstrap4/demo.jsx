@@ -14,7 +14,7 @@ import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 
 const nullComponent = () => null;
 const createButton = (text, handler) => (
-  <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => handler(text)}>
+  <Button className="mr-1 text-capitalize" variant="contained" color="primary" onClick={() => handler(text)}>
     {text}
   </Button>
 );
@@ -89,15 +89,15 @@ export default class Demo extends React.PureComponent {
               text={`${season} olympic games (${credit})`}
               position="top"
               textComponent={props => (
-                <Title.Text style={{ margin: '10px auto', textTransform: 'capitalize' }} {...props} />
+                <Title.Text className="m-auto pb-3 text-capitalize" {...props} />
               )}
             />
 
           </Chart>
 
         </Card>
-        <div style={{ marginTop: '20px' }}>
-          <Jumbotron style={{ padding: '1rem 2rem' }}>
+        <div className="mt-3">
+          <Jumbotron className="p-4">
             <h3>
               Choose the season of the Olympic Games
             </h3>

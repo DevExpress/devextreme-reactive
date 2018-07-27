@@ -23,7 +23,7 @@ const getOlympicData = (chartData, currentType, currentCredit) => ({
 const getData = (data, currentType, currentCredit) => data
   .filter(item => item[currentType])
   .map(item => getOlympicData(item, currentType, currentCredit));
-const legendRootComponent = ({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />;
+const legendRootComponent = ({ ...props }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...props} />;
 
 const createButton = (text, handler) => (
   <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => handler(text)}>

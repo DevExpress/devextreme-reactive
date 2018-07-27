@@ -20,4 +20,3 @@ Marker.defaultProps = {
   className: undefined,
   color: undefined,
 };
-

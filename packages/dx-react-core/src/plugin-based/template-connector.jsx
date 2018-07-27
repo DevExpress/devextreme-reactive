@@ -16,14 +16,17 @@ export class TemplateConnector extends React.Component {
       [UPDATE_CONNECTION_EVENT]: () => this.updateConnection(),
     };
   }
+
   componentWillMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }
+
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.unregisterSubscription(this.subscription);
   }
+
   updateConnection() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
 
@@ -31,14 +34,16 @@ export class TemplateConnector extends React.Component {
       this.forceUpdate();
     }
   }
+
   render() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
+    const { children } = this.props;
 
     const { getters, trackedDependencies } = getAvailableGetters(pluginHost);
     this.trackedDependencies = trackedDependencies;
     const actions = getAvailableActions(pluginHost);
 
-    return this.props.children(getters, actions);
+    return children(getters, actions);
   }
 }
 

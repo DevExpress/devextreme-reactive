@@ -19,8 +19,9 @@ export const DxSearchState = {
   },
   render() {
     const { value, changeValue } = this;
-    const filterExpressionComputed = ({ filterExpression, columns }) =>
-      searchFilterExpression(value, columns, filterExpression);
+    const filterExpressionComputed = (
+      { filterExpression, columns },
+    ) => searchFilterExpression(value, columns, filterExpression);
 
     return (
       <DxPlugin

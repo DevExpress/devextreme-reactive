@@ -18,6 +18,7 @@ export default class Demo extends React.PureComponent {
         .map((item, index) => ({ id: index })),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 
@@ -35,4 +36,3 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
-

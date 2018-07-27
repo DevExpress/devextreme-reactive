@@ -7,7 +7,9 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { findSeriesByName, xyScales, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
+import {
+  findSeriesByName, xyScales, seriesData, checkZeroStart,
+} from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
   Series,
@@ -29,19 +31,19 @@ export const withSeriesPlugin = (
       } = this.props;
 
       const symbolName = Symbol(name);
-      const getSeriesDataComputed = ({ series }) =>
-        seriesData(series, {
-          valueField,
-          argumentField,
-          name,
-          symbolName,
-          axisName,
-          stack: stackProp,
-          color,
-          uniqueName: name,
-        });
-      const startFromZeroByAxes = ({ startFromZero = {} }) =>
-        checkZeroStart(startFromZero, axisName, pathType);
+      const getSeriesDataComputed = ({ series }) => seriesData(series, {
+        valueField,
+        argumentField,
+        name,
+        symbolName,
+        axisName,
+        stack: stackProp,
+        color,
+        uniqueName: name,
+      });
+      const startFromZeroByAxes = (
+        { startFromZero = {} },
+      ) => checkZeroStart(startFromZero, axisName, pathType);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />

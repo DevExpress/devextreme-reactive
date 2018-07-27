@@ -24,8 +24,9 @@ export const DxIntegratedFiltering = {
   },
   render() {
     const { columnExtensions } = this;
-    const getColumnPredicate = columnName =>
-      getColumnExtension(columnExtensions, columnName).predicate;
+    const getColumnPredicate = columnName => getColumnExtension(
+      columnExtensions, columnName,
+    ).predicate;
 
     const rowsComputed = ({
       rows,

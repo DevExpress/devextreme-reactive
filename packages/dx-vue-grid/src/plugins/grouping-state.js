@@ -43,8 +43,7 @@ const callback = (
   });
 };
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumnExtensionValueGetter(columnExtensions, 'groupingEnabled', defaultValue);
 
 export const DxGroupingState = {
   name: 'DxGroupingState',

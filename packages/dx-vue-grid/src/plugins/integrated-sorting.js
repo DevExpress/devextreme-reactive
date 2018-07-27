@@ -14,13 +14,11 @@ export const DxIntegratedSorting = {
   },
   render() {
     const { columnExtensions } = this;
-    const getColumnCompare = columnName =>
-      getColumnExtension(columnExtensions, columnName).compare;
+    const getColumnCompare = columnName => getColumnExtension(columnExtensions, columnName).compare;
 
     const rowsComputed = ({
       rows, sorting, getCellValue, isGroupRow, getRowLevelKey,
-    }) =>
-      sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
+    }) => sortedRows(rows, sorting, getCellValue, getColumnCompare, isGroupRow, getRowLevelKey);
 
     return (
       <DxPlugin

@@ -27,7 +27,9 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big>{getMessage('noData')}</big>
+    <big>
+      {getMessage('noData')}
+    </big>
   </TableCell>
 );
 

@@ -24,6 +24,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const { data: chartData } = this.state;
 

@@ -1,4 +1,6 @@
-import { DxPluginHost, DxPlugin, DxTemplate, DxTemplatePlaceholder } from '@devexpress/dx-vue-core';
+import {
+  DxPluginHost, DxPlugin, DxTemplate, DxTemplatePlaceholder,
+} from '@devexpress/dx-vue-core';
 
 const ENTER_KEY = 13;
 

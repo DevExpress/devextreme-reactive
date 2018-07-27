@@ -16,8 +16,7 @@ import {
 
 export default {
   created() {
-    this.getChildRows = (row, rootRows) =>
-      (row ? row.items : rootRows);
+    this.getChildRows = (row, rootRows) => (row ? row.items : rootRows);
   },
   data() {
     return {

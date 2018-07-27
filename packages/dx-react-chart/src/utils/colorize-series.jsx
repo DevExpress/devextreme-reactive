@@ -19,4 +19,3 @@ export const withColor = (Series) => {
 
   return ColorizedSeries;
 };
-

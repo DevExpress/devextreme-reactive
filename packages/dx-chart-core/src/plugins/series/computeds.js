@@ -120,8 +120,9 @@ export const barCoordinates = (
   }));
 };
 
-export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.symbolName === name);
+export const findSeriesByName = (
+  name, series,
+) => series.find(seriesItem => seriesItem.symbolName === name);
 
 export const dBar = ({
   x, y, y1, width,
@@ -150,5 +151,4 @@ export const seriesData = (series = [], seriesProps) => {
   return [...series, seriesProps];
 };
 
-export const checkZeroStart = (fromZero, axisName, pathType) =>
-  ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
+export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

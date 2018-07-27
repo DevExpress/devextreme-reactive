@@ -9,8 +9,12 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { countries } from '../countries';
 
-const PercentFormatter = ({ value }) =>
-  <span>{value}%</span>;
+const PercentFormatter = ({ value }) => (
+  <span>
+    {value}
+    %
+  </span>
+);
 
 const PercentTypeProvider = props => (
   <DataTypeProvider
@@ -97,6 +101,7 @@ export default class Demo extends React.PureComponent {
       percentColumns: ['GDP_Industry', 'GDP_Services', 'GDP_Agriculture', 'Population_Urban'],
     };
   }
+
   render() {
     const {
       columns, tableColumnExtensions, columnBands, percentColumns,

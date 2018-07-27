@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pointAttributes, findSeriesByName, xyScales, coordinates } from '@devexpress/dx-chart-core';
+import {
+  pointAttributes, findSeriesByName, xyScales, coordinates,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
 

@@ -33,6 +33,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const { rows, columns, tableColumnExtensions } = this.state;
 

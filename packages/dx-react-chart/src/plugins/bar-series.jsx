@@ -12,12 +12,14 @@ const Series = ({
     path,
     ...restProps
   } = props;
-  return (coordinates.map(item => (<Point
-    key={item.id.toString()}
-    {...item}
-    {...dBar(item)}
-    {...restProps}
-  />)));
+  return (coordinates.map(item => (
+    <Point
+      key={item.id.toString()}
+      {...item}
+      {...dBar(item)}
+      {...restProps}
+    />
+  )));
 };
 
 export const BarSeries = withSeriesPlugin(

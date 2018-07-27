@@ -29,18 +29,22 @@ export default class Demo extends React.PureComponent {
 
     this.changeSearchValue = this.changeSearchValue.bind(this);
   }
+
   componentDidMount() {
     this.loadData();
   }
+
   componentDidUpdate() {
     this.loadData();
   }
+
   changeSearchValue(searchValue) {
     this.setState({
       loading: true,
       searchValue,
     });
   }
+
   queryString() {
     const { searchValue, columns } = this.state;
 
@@ -55,6 +59,7 @@ export default class Demo extends React.PureComponent {
 
     return `${URL}?filter=${filter}`;
   }
+
   loadData() {
     const queryString = this.queryString();
     if (queryString === this.lastQuery) {
@@ -74,6 +79,7 @@ export default class Demo extends React.PureComponent {
 
     this.lastQuery = queryString;
   }
+
   render() {
     const { rows, columns, loading } = this.state;
 

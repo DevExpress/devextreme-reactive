@@ -30,4 +30,3 @@ SearchPanel.propTypes = {
 SearchPanel.defaultProps = {
   messages: {},
 };
-

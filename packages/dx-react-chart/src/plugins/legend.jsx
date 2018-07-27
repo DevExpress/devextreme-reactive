@@ -27,20 +27,20 @@ export class Legend extends React.PureComponent {
               series,
               colorDomain,
             }) => (
-              <Root name={`legend-${placeholder}`} >
+              <Root name={`legend-${placeholder}`}>
                 {colorDomain.domain().map((domainName) => {
-                   const { name, color } = series.find(({
-                   uniqueName,
+                  const { name, color } = series.find(({
+                    uniqueName,
                   }) => uniqueName === domainName);
-                   return (
-                     <Item key={domainName} >
-                       <Marker name={name} color={color || colorDomain(domainName)} />
-                       <Label text={name} />
-                     </Item>
-                   );
+                  return (
+                    <Item key={domainName}>
+                      <Marker name={name} color={color || colorDomain(domainName)} />
+                      <Label text={name} />
+                    </Item>
+                  );
                 })}
               </Root>
-              )}
+            )}
           </TemplateConnector>
         </Template>
       </Plugin>

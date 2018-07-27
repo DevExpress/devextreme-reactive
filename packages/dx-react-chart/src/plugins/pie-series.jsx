@@ -13,12 +13,14 @@ const Series = ({
     uniqueName,
     ...restProps
   } = props;
-  return (coordinates.map(item => (<Point
-    key={item.id.toString()}
-    {...item}
-    {...restProps}
-    color={item.data.color}
-  />)));
+  return (coordinates.map(item => (
+    <Point
+      key={item.id.toString()}
+      {...item}
+      {...restProps}
+      color={item.data.color}
+    />
+  )));
 };
 
 export const PieSeries = withSeriesPlugin(

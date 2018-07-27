@@ -23,7 +23,11 @@ export const TableGroupCell = ({
         onToggle={onToggle}
         className="mr-2"
       />
-      <strong>{column.title || column.name}: </strong>
+      <strong>
+        {column.title || column.name}
+          :
+        {' '}
+      </strong>
       {children || row.value}
     </td>
   );

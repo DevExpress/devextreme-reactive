@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart } from '@devexpress/dx-chart-core';
+import {
+  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
@@ -66,7 +68,11 @@ describe('Base series', () => {
     axisName: 'axisName',
     stack: 'stack',
   };
-  const TestComponentPath = () => (<div>TestComponentPath</div>);
+  const TestComponentPath = () => (
+    <div>
+TestComponentPath
+    </div>
+  );
 
   const WrappedComponent = withSeriesPlugin(
     TestComponentPath,

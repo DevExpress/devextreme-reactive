@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { PluginHost, Plugin, Getter, Template, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  PluginHost, Plugin, Getter, Template, TemplateConnector,
+} from '@devexpress/dx-react-core';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -14,6 +16,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const { tasks } = this.state;
 

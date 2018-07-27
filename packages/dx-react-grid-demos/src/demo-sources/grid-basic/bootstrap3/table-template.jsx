@@ -33,6 +33,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 

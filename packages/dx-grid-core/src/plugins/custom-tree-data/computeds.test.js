@@ -19,8 +19,7 @@ describe('CustomTreeData Plugin computeds', () => {
         { a: 2, items: [{ a: 2, b: 1, items: [{ a: 2, b: 1, c: 1 }] }, { a: 2, b: 2 }] },
         { a: 3 },
       ];
-      const getHierarchicalChildRows = (row, rootRows) =>
-        (row ? row.items : rootRows);
+      const getHierarchicalChildRows = (row, rootRows) => (row ? row.items : rootRows);
       const linearizedRows = {
         /* eslint-disable indent */
         rows: [
@@ -53,9 +52,8 @@ describe('CustomTreeData Plugin computeds', () => {
       expect(customTreeRowsWithMeta(hierarchicalSource, getChildGroups))
         .toEqual(linearizedRows);
 
-      [null, ...linearizedRows.rows].forEach(row =>
-        expect(getChildGroups)
-          .toBeCalledWith(row, hierarchicalSource));
+      [null, ...linearizedRows.rows].forEach(row => expect(getChildGroups)
+        .toBeCalledWith(row, hierarchicalSource));
     });
 
     it('should process plain data', () => {
@@ -103,9 +101,8 @@ describe('CustomTreeData Plugin computeds', () => {
       expect(customTreeRowsWithMeta(plainSource, getChildGroups))
         .toEqual(linearizedRows);
 
-      [null, ...linearizedRows.rows].forEach(row =>
-        expect(getChildGroups)
-          .toBeCalledWith(row, plainSource));
+      [null, ...linearizedRows.rows].forEach(row => expect(getChildGroups)
+        .toBeCalledWith(row, plainSource));
     });
 
     it('should process remote data', () => {
@@ -150,9 +147,8 @@ describe('CustomTreeData Plugin computeds', () => {
       expect(customTreeRowsWithMeta(plainSource, getChildGroups))
         .toEqual(linearizedRows);
 
-      [null, ...linearizedRows.rows].forEach(row =>
-        expect(getChildGroups)
-          .toBeCalledWith(row, plainSource));
+      [null, ...linearizedRows.rows].forEach(row => expect(getChildGroups)
+        .toBeCalledWith(row, plainSource));
     });
   });
 

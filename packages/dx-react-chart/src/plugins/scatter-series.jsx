@@ -11,12 +11,14 @@ const Series = ({
     coordinates,
     ...restProps
   } = props;
-  return (coordinates.map(item => (<Point
-    key={item.id.toString()}
-    {...pointAttributes(null, {})(item)}
-    {...item}
-    {...restProps}
-  />)));
+  return (coordinates.map(item => (
+    <Point
+      key={item.id.toString()}
+      {...pointAttributes(null, {})(item)}
+      {...item}
+      {...restProps}
+    />
+  )));
 };
 
 export const ScatterSeries = withSeriesPlugin(

@@ -102,10 +102,10 @@ export default class Demo extends React.PureComponent {
             {createButton('winter', this.chooseSeason)}
           </div>
           <div style={{ float: 'right', display: 'inline-block' }}>
-            {this.secondaryButton('amount')}
-            {this.secondaryButton('gold')}
-            {this.secondaryButton('silver')}
-            {this.secondaryButton('bronze')}
+            {createButton('amount', this.chooseCredit)}
+            {createButton('gold', this.chooseCredit)}
+            {createButton('silver', this.chooseCredit)}
+            {createButton('bronze', this.chooseCredit)}
           </div>
         </CardContent>
       </Card>

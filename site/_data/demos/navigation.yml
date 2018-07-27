@@ -18,6 +18,8 @@
     items:
       - title: Component customization
         path: /react/chart/demos/featured/component-customization
+      - title: Grid Integration
+        path: /react/chart/demos/featured/grid-integration
 /vue/grid:
   - title: DEMOS
     items:

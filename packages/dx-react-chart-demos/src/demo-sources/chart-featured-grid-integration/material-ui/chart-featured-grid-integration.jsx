@@ -32,8 +32,7 @@ const AxisLabelComponent = ({
 
 const CurrencyFormatter = ({ value }) => (
   <div>
-$
-    {' '}
+    {'$ '}
     {value}
   </div>
 );
@@ -45,7 +44,7 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const styles = theme => ({
+const detailContainerStyles = theme => ({
   detailContainer: {
     marginBottom: '30px',
   },
@@ -55,22 +54,23 @@ const styles = theme => ({
   },
 });
 
-const LegendRoot = props => (
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+
+const LegendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root
-    {...props}
-    style={{ display: 'flex', margin: 'auto' }}
-  />
-);
-const LegendLabel = ({
-  text,
-  ...restProps
-}) => (
-  <Legend.Label
-    text={`${text}`}
     {...restProps}
-    style={{ 'word-wrap': 'normal' }}
+    className={classes.root}
   />
 );
+
+const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
+
 const BarSeriesForCity = (DataCitiesRegions) => {
   const bars = [];
   Object.keys(DataCitiesRegions[0]).forEach((item, index) => {
@@ -89,6 +89,7 @@ const BarSeriesForCity = (DataCitiesRegions) => {
   });
   return bars;
 };
+
 let DataCities = [];
 const GridDetailContainerBase = ({ row, classes }) => {
   const DataCitiesRegions = [];
@@ -107,8 +108,8 @@ const GridDetailContainerBase = ({ row, classes }) => {
     <div className={classes.detailContainer}>
       <div>
         <h5 className={classes.title}>
+          {'Economics of '}
           {row.region}
-&apos;s Economics:
         </h5>
       </div>
       <Paper>
@@ -132,7 +133,6 @@ const GridDetailContainerBase = ({ row, classes }) => {
           <Stack />
           <Legend
             rootComponent={LegendRoot}
-            labelComponent={LegendLabel}
             position="bottom"
           />
         </Chart>
@@ -141,7 +141,8 @@ const GridDetailContainerBase = ({ row, classes }) => {
   );
 };
 
-const GridDetailContainer = withStyles(styles, { name: 'ChartContainer' })(GridDetailContainerBase);
+const GridDetailContainer = withStyles(detailContainerStyles, { name: 'ChartContainer' })(GridDetailContainerBase);
+
 const returnAmount = (data, region, year) => data
   .filter(item => item.date.getFullYear() === year && item.region === region)
   .reduce((sum, current) => sum + current.amount, 0);
@@ -203,14 +204,12 @@ export default class Demo extends React.PureComponent {
         },
       ],
       currencyColumns: ['count2013', 'count2014', 'count2015'],
-      height: 200,
-
     };
   }
 
   render() {
     const {
-      columns, columnBands, height, currencyColumns,
+      columns, columnBands, currencyColumns,
     } = this.state;
     DataCities = getDataCityCount(dataBase);
     const formatedData = getDataRegionCount(dataBase);
@@ -229,7 +228,6 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableRowDetail
             contentComponent={GridDetailContainer}
-            rowHeight={height}
           />
           <TableBandHeader
             columnBands={columnBands}

@@ -22,7 +22,8 @@ import {
 import { sales as dataBase, citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
 
 const nullComponent = () => null;
-
+const START_YEAR = 2013;
+const END_YEAR = 2016;
 const AxisLabelComponent = ({
   text,
   ...restProps
@@ -30,8 +31,7 @@ const AxisLabelComponent = ({
 
 const CurrencyFormatter = ({ value }) => (
   <div>
-$
-    {' '}
+    {'$ '}
     {value}
   </div>
 );
@@ -43,23 +43,13 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-
 const LegendRoot = props => (
   <Legend.Root
     {...props}
-    style={{ display: 'flex', margin: 'auto' }}
+    className="m-auto flex-row"
   />
 );
-const LegendLabel = ({
-  text,
-  ...restProps
-}) => (
-  <Legend.Label
-    text={`${text}`}
-    {...restProps}
-    style={{ wordWrap: 'normal' }}
-  />
-);
+
 const BarSeriesForCity = (DataCitiesRegions) => {
   const bars = [];
   Object.keys(DataCitiesRegions[0]).forEach((item, index) => {
@@ -93,17 +83,17 @@ const GridDetailContainer = ({ row }) => {
   });
 
   return (
-    <div>
+    <div className="m-3">
       <div>
         <h5>
+          {'Economics of '}
           {row.region}
-&apos;s Economics:
         </h5>
       </div>
       <Card>
         <Chart
           data={DataCitiesRegions}
-          height="300"
+          height={300}
         >
           <ArgumentAxis
             name="year"
@@ -117,11 +107,9 @@ const GridDetailContainer = ({ row }) => {
           />
           <ChartGrid />
           {BarSeriesForCity(DataCitiesRegions)}
-
           <Stack />
           <Legend
             rootComponent={LegendRoot}
-            //labelComponent={LegendLabel}
             position="bottom"
           />
         </Chart>
@@ -139,17 +127,6 @@ const getDataRegionCount = data => dataforgrid.map(item => ({
   count2014: returnAmount(data, item.region, 2014),
   count2015: returnAmount(data, item.region, 2015),
 }));
-const AllCityData = [
-  {
-    year: 2013,
-  },
-  {
-    year: 2014,
-  },
-  {
-    year: 2015,
-  },
-];
 
 const returnCityCount = (data, cityName, year) => data
   .filter(item => item.date.getFullYear() === year && item.city === cityName)
@@ -166,10 +143,20 @@ const returnCities = (data, year) => cities
   .map(item => (
     returnCity(data, item.cityName, year)
   ));
-const getDataCityCount = data => AllCityData.map(item => ({
-  year: item.year,
-  city: returnCities(data, item.year),
-}));
+
+const getDataCityCount = (data) => {
+  let year = START_YEAR;
+  const nextData = [];
+  while (year < END_YEAR) {
+    nextData.push({
+      year,
+      city: returnCities(data, year),
+    });
+    year += 1;
+  }
+  return nextData;
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -192,14 +179,12 @@ export default class Demo extends React.PureComponent {
         },
       ],
       currencyColumns: ['count2013', 'count2014', 'count2015'],
-      height: 200,
-
     };
   }
 
   render() {
     const {
-      columns, columnBands, height, currencyColumns,
+      columns, columnBands, currencyColumns,
     } = this.state;
     DataCities = getDataCityCount(dataBase);
     const formatedData = getDataRegionCount(dataBase);
@@ -218,7 +203,6 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableRowDetail
             contentComponent={GridDetailContainer}
-            rowHeight={height}
           />
           <TableBandHeader
             columnBands={columnBands}

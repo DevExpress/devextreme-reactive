@@ -3,11 +3,13 @@ import * as PropTypes from 'prop-types';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
+import { HORIZONTAL_APPOINTMENT_TYPE } from '@devexpress/dx-scheduler-core';
 
 export class Appointments extends React.PureComponent {
   render() {
     const {
-      appointmentComponent: Appointment,
+      horizontalAppointmentComponent: HorizontalAppointment,
+      verticalAppointmentComponent: VerticalAppointment,
       containerComponent: Container,
     } = this.props;
 
@@ -23,17 +25,22 @@ export class Appointments extends React.PureComponent {
                 getAppointmentStartDate,
                 getAppointmentEndDate,
               }) => appointmentRects.map(({
-                dataItem, ...geometry
-              }, index) => (
-                <Appointment
-                  {...geometry}
-                  key={index.toString()}
-                  getTitle={getAppointmentTitle}
-                  getEndDate={getAppointmentEndDate}
-                  getStartDate={getAppointmentStartDate}
-                  appointment={dataItem}
-                />
-              ))}
+                dataItem, type, ...geometry
+              }, index) => {
+                const appointmentProps = {
+                  ...geometry,
+                  key: index.toString(),
+                  getTitle: getAppointmentTitle,
+                  getEndDate: getAppointmentEndDate,
+                  getStartDate: getAppointmentStartDate,
+                  appointment: dataItem,
+                };
+                return (
+                  type === HORIZONTAL_APPOINTMENT_TYPE
+                    ? <HorizontalAppointment {...appointmentProps} />
+                    : <VerticalAppointment {...appointmentProps} />
+                );
+              })}
             </TemplateConnector>
           </Container>
         </Template>
@@ -43,6 +50,7 @@ export class Appointments extends React.PureComponent {
 }
 
 Appointments.propTypes = {
-  appointmentComponent: PropTypes.func.isRequired,
+  horizontalAppointmentComponent: PropTypes.func.isRequired,
+  verticalAppointmentComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
 };

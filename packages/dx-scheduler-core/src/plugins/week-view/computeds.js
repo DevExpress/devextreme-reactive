@@ -6,7 +6,6 @@ import {
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
 } from './helpers';
-
 import {
   sortAppointments,
   viewPredicate,
@@ -15,6 +14,7 @@ import {
   adjustAppointments,
   unwrapGroups,
 } from '../../utils';
+import { VERTICAL_APPOINTMENT_TYPE } from '../../constants';
 
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
@@ -63,6 +63,7 @@ const calculateRectsByDateIntervals = (
         left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
         dataItem: appointment.dataItem,
+        type: VERTICAL_APPOINTMENT_TYPE,
       };
     });
 };

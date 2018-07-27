@@ -4,23 +4,21 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
-// eslint-disable-next-line react/prop-types
-const Container = ({ children }) => (
-  <div>
-    {children}
-  </div>
-);
-const Appointment = () => null;
+// eslint-disable-next-line
+const Container = ({ children }) => <div>{children}</div>;
+const VerticalAppointment = () => null;
+const HorizontalAppointment = () => null;
 
 const defaultProps = {
-  appointmentComponent: Appointment,
+  verticalAppointmentComponent: VerticalAppointment,
+  horizontalAppointmentComponent: HorizontalAppointment,
   containerComponent: Container,
 };
 
 const defaultDeps = {
   getter: {
     appointmentRects: [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+      x: 1, y: 2, width: 100, height: 150, dataItem: 'data', type: 'horizontal',
     }],
     getAppointmentTitle: () => 'a',
     getAppointmentEndDate: () => '2018-07-05',
@@ -54,7 +52,7 @@ describe('Appointments', () => {
           {...defaultProps}
         />
       </PluginHost>
-    )).find(Appointment);
+    )).find(HorizontalAppointment);
 
     const {
       appointment: appointmentData,
@@ -71,5 +69,28 @@ describe('Appointments', () => {
     expect(getTitle()).toBe('a');
     expect(getEndDate()).toBe('2018-07-05');
     expect(getStartDate()).toBe('2018-07-06');
+  });
+
+  it('should render appointment component depend of appointment type', () => {
+    const deps = {
+      ...defaultDeps,
+      getter: {
+        ...defaultDeps.getters,
+        appointmentRects: [{
+          x: 1, y: 2, width: 100, height: 150, dataItem: 'data', type: 'vertical',
+        }],
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(VerticalAppointment).exists())
+      .toBeTruthy();
   });
 });

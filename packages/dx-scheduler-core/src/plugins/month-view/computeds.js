@@ -11,6 +11,7 @@ import {
   sliceAppointmentByWeek,
   getRectByDates,
 } from './helpers';
+import { HORIZONTAL_APPOINTMENT_TYPE } from '../../constants';
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
@@ -100,6 +101,7 @@ const calculateRectsByDateIntervals = (
         left: toPercentage(left, parentWidth),
         width: toPercentage(width, parentWidth),
         dataItem: appts.dataItem,
+        type: HORIZONTAL_APPOINTMENT_TYPE,
       };
     });
 };

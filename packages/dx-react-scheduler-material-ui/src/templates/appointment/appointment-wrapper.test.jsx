@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Appointment } from './appointment';
+import { AppointmentWrapper } from './appointment-wrapper';
 
 describe('Appointment', () => {
   const defaultProps = {
@@ -12,28 +12,29 @@ describe('Appointment', () => {
     getStartDate: () => new Date(2018, 6, 7),
     getEndDate: () => new Date(2018, 6, 8),
     appointment: {},
+    appointmentComponent: () => null,
   };
 
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Appointment {...defaultProps} />);
+    classes = getClasses(<AppointmentWrapper {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Appointment', () => {
+  describe('AppointmentWrapper', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} className="custom-class" />
+        <AppointmentWrapper {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.appointment}`))
+      expect(tree.is(`.${classes.appointmentWrapper}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} data={{ a: 1 }} />
+        <AppointmentWrapper {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -41,7 +42,7 @@ describe('Appointment', () => {
     });
     it('should define position by props', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} />
+        <AppointmentWrapper {...defaultProps} />
       ));
 
       expect(tree.props().style)
@@ -50,6 +51,20 @@ describe('Appointment', () => {
           left: `${defaultProps.left}%`,
           width: `${defaultProps.width}%`,
           height: defaultProps.height,
+        });
+    });
+    it('should render appointmentComponent and pass to it necessary props', () => {
+      const appointment = props => <div {...props} />;
+      const tree = shallow((
+        <AppointmentWrapper {...defaultProps} appointmentComponent={appointment} />
+      ));
+
+      expect(tree.find(appointment).props())
+        .toMatchObject({
+          getStartDate: defaultProps.getStartDate,
+          getEndDate: defaultProps.getEndDate,
+          getTitle: defaultProps.getTitle,
+          appointment: defaultProps.appointment,
         });
     });
   });

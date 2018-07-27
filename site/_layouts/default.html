@@ -105,22 +105,5 @@
         trackingCookie.check();
     </script>
 
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

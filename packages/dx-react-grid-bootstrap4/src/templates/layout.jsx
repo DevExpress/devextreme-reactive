@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const Root = ({ children, ...restProps }) => (
+export const Root = ({ children, className, ...restProps }) => (
   <div
+    className={classNames('d-flex flex-column', className)}
     {...restProps}
   >
     {children}
@@ -10,6 +12,7 @@ export const Root = ({ children, ...restProps }) => (
 );
 
 Root.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
@@ -17,5 +20,6 @@ Root.propTypes = {
 };
 
 Root.defaultProps = {
+  className: undefined,
   children: undefined,
 };

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
@@ -34,16 +35,22 @@ describe('Grid', () => {
     jest.resetAllMocks();
   });
 
-  it('should render root template', () => {
+  it('should render root component', () => {
+    const Root = ({ children }) => (
+      <div className="root">
+        {children}
+      </div>
+    );
+    Root.propTypes = {
+      children: PropTypes.node.isRequired,
+    };
+
     const tree = mount((
       <PluginHost>
         <GridCore
           {...defaultProps}
-          rootComponent={({ children }) => (
-            <div className="root">
-              {children}
-            </div>
-          )}
+          rootComponent={Root}
+          style={{ a: 1 }}
         />
         <Template name="header">
           <div className="header-content" />
@@ -62,6 +69,7 @@ describe('Grid', () => {
     expect(root.children().at(0).find('.header-content').exists()).toBeTruthy();
     expect(root.children().at(1).find('.body-content').exists()).toBeTruthy();
     expect(root.children().at(2).find('.footer-content').exists()).toBeTruthy();
+    expect(tree.find(Root).props().style).toMatchObject({ a: 1 });
   });
 
   it('should provide rows', () => {

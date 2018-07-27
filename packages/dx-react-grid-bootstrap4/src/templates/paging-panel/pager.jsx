@@ -17,7 +17,7 @@ export const Pager = ({
   ...restProps
 }) => (
   <div
-    className={classNames('clearfix', 'card-footer', className)}
+    className={classNames('clearfix card-footer dx-g-bs4-paging-panel', className)}
     {...restProps}
   >
     {!!pageSizes.length && (

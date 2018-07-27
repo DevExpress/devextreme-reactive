@@ -84,6 +84,10 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-toolbar {
   align-items: center;
   min-height: 55px;
+  flex: none;
+}
+.dx-g-bs4-paging-panel {
+  flex: none;
 }
 .dx-g-bs4-toggle-button {
   cursor: pointer;

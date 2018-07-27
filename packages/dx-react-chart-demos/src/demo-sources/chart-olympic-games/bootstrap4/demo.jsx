@@ -12,6 +12,12 @@ import {
 import { Stack } from '@devexpress/dx-react-chart';
 import { olympicsData as baseData } from '../../../demo-data/data-olympics';
 
+const nullComponent = () => null;
+const createButton = (text, handler) => (
+  <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => handler(text)}>
+    {text}
+  </Button>
+);
 const getOlympicData = (chartData, currentType, currentCredit) => ({
   year: chartData.year,
   amountUSA: chartData[currentType].usa[currentCredit],
@@ -32,36 +38,21 @@ export default class Demo extends React.PureComponent {
     this.chooseCredit = this.chooseCredit.bind(this);
   }
 
-  chooseSeason(event) {
+
+  chooseSeason(season) {
     const { credit } = this.state;
     this.setState({
-      data: getData(baseData, event.target.value, credit),
-      season: event.target.value,
+      data: getData(baseData, season, credit),
+      season,
     });
   }
 
-  chooseCredit(event) {
+  chooseCredit(credit) {
     const { season } = this.state;
     this.setState({
-      data: getData(baseData, season, event.target.value),
-      credit: event.target.value,
+      data: getData(baseData, season, credit),
+      credit,
     });
-  }
-
-  primaryButton(season) {
-    return (
-      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} color="secondary" value={season} onClick={this.chooseSeason}>
-        {season}
-      </Button>
-    );
-  }
-
-  secondaryButton(credit) {
-    return (
-      <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} color="secondary" value={credit} onClick={this.chooseCredit}>
-        {credit}
-      </Button>
-    );
   }
 
   render() {
@@ -75,11 +66,11 @@ export default class Demo extends React.PureComponent {
             <ArgumentAxis
               type="band"
               name="year"
-              tickComponent={() => null}
+              tickComponent={nullComponent}
             />
             <ValueAxis
-              tickComponent={() => null}
-              lineComponent={() => null}
+              tickComponent={nullComponent}
+              lineComponent={nullComponent}
             />
             <Grid strokeDasharray="10 5" />
             <BarSeries
@@ -97,13 +88,10 @@ export default class Demo extends React.PureComponent {
             <Title
               text={`${season} olympic games (${credit})`}
               position="top"
-              textComponent={({ text }) => (
-                <h1 style={{ margin: '10px auto', textTransform: 'capitalize' }}>
-                  {text}
-                </h1>
+              textComponent={props => (
+                <Title.Text style={{ margin: '10px auto', textTransform: 'capitalize' }} {...props} />
               )}
             />
-            <Grid strokeDasharray="10 5" />
 
           </Chart>
 
@@ -113,15 +101,15 @@ export default class Demo extends React.PureComponent {
             <h3>
               Choose the season of the Olympic Games
             </h3>
-            {this.primaryButton('summer')}
-            {this.primaryButton('winter')}
+            {createButton('summer', this.chooseSeason)}
+            {createButton('winter', this.chooseSeason)}
             <h3>
               Choose the type of medal credit
             </h3>
-            {this.secondaryButton('amount')}
-            {this.secondaryButton('gold')}
-            {this.secondaryButton('silver')}
-            {this.secondaryButton('bronze')}
+            {createButton('amount', this.chooseCredit)}
+            {createButton('gold', this.chooseCredit)}
+            {createButton('silver', this.chooseCredit)}
+            {createButton('bronze', this.chooseCredit)}
           </Jumbotron>
         </div>
       </div>

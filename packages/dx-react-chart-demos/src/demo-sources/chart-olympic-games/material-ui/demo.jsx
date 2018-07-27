@@ -25,6 +25,11 @@ const getData = (data, currentType, currentCredit) => data
   .map(item => getOlympicData(item, currentType, currentCredit));
 const legendRootComponent = ({ ...restProps }) => <Legend.Root style={{ display: 'flex', margin: 'auto' }} {...restProps} />;
 
+const createButton = (text, handler) => (
+  <Button style={{ marginRight: '5px', textTransform: 'capitalize' }} variant="contained" color="primary" onClick={() => handler(text)}>
+    {text}
+  </Button>
+);
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -33,6 +38,8 @@ export default class Demo extends React.PureComponent {
       credit: 'amount',
       data: getData(baseData, 'winter', 'amount'),
     };
+    this.chooseSeason = this.chooseSeason.bind(this);
+    this.chooseCredit = this.chooseCredit.bind(this);
   }
 
   chooseSeason(season) {
@@ -107,8 +114,8 @@ export default class Demo extends React.PureComponent {
             Choose the season of the Olympic Games and the type of medal
           </Typography>
           <div style={{ align: 'left', display: 'inline-block' }}>
-            {this.primaryButton('summer')}
-            {this.primaryButton('winter')}
+            {createButton('summer', this.chooseSeason)}
+            {createButton('winter', this.chooseSeason)}
           </div>
           <div style={{ float: 'right', display: 'inline-block' }}>
             {this.secondaryButton('amount')}

@@ -1,62 +1,51 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
+import moment from 'moment';
 
 const styles = theme => ({
   cell: {
-    paddingBottom: 0,
-    borderLeft: getBorderColor(theme),
+    border: 0,
+    padding: theme.spacing.unit,
+    '&:last-child': {
+      padding: theme.spacing.unit,
+    },
   },
-  dayOfWeek: {
+  text: {
     ...theme.typography.caption,
-    margin: 0,
-  },
-  dayOfMonth: {
-    ...theme.typography.display1,
   },
 });
 
 const CellBase = ({
   classes,
   className,
-  children,
-  date,
+  time,
   ...restProps
 }) => {
-  const currentDate = moment(date);
+  const currentTime = moment(time);
   return (
     <TableCell
+      numeric
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      {children || (
-        <React.Fragment>
-          <p className={classes.dayOfWeek}>
-            {currentDate.format('ddd')}
-          </p>
-          <span className={classes.dayOfMonth}>
-            {currentDate.format('D')}
-          </span>
-        </React.Fragment>
-      )}
+      <span className={classes.text}>
+        {currentTime.format('h:mm A')}
+      </span>
     </TableCell>
   );
 };
 
 CellBase.propTypes = {
+  time: PropTypes.instanceOf(Date).isRequired,
   classes: PropTypes.object.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
   className: undefined,
-  children: null,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

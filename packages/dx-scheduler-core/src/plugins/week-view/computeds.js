@@ -1,22 +1,22 @@
 import moment from 'moment';
 import {
   calculateFirstDateOfWeek,
-  findOverlappedAppointments,
-  adjustAppointments,
   getRectByDates,
   sliceAppointmentByDay,
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
-  unwrapGroups,
 } from './helpers';
-
 import {
   sortAppointments,
   viewPredicate,
+  toPercentage,
+  findOverlappedAppointments,
+  adjustAppointments,
+  unwrapGroups,
 } from '../../utils';
+import { VERTICAL_APPOINTMENT_TYPE } from '../../constants';
 
-const toPercentage = (value, total) => (value * 100) / total;
-const substractSecond = date => moment(date).subtract(1, 'second').toDate();
+const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
 const calculateViewBound = (dateBound, timeBound) => {
   const time = moment(timeBound);
@@ -63,6 +63,7 @@ const calculateRectsByDateIntervals = (
         left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
         dataItem: appointment.dataItem,
+        type: VERTICAL_APPOINTMENT_TYPE,
       };
     });
 };
@@ -103,7 +104,7 @@ export const timeScale = (
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = substractSecond(result[result.length - 1].end);
+  result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
   return result;
 };
 
@@ -129,5 +130,5 @@ export const startViewDate = (days, times) => calculateViewBound(days[0], times[
 
 export const endViewDate = (days, times) => {
   const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
-  return substractSecond(bound);
+  return subtractSecond(bound);
 };

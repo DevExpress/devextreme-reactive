@@ -26,7 +26,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 findSeriesByName.mockImplementation(() => ({
   stack: 'stack',
-  color: 'red',
 }));
 
 coordinates.mockImplementation(() => coords);
@@ -66,7 +65,6 @@ describe('Line series', () => {
     } = tree.find(SeriesComponent).props();
 
     expect(seriesCoordinates).toBe(coords);
-    expect(color).toBe('red');
     expect(path).toBe(dLine);
     expect(restProps).toEqual({ customProperty: 'custom' });
   });

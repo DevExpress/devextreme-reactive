@@ -121,7 +121,7 @@ export const barCoordinates = (
 };
 
 export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.uniqueName === name);
+  series.find(seriesItem => seriesItem.symbolName === name);
 
 export const dBar = ({
   x, y, y1, width,
@@ -138,7 +138,17 @@ export const pointAttributes = () => {
   });
 };
 
-export const seriesData = (series = [], seriesProps) => [...series, seriesProps];
+const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
+
+export const seriesData = (series = [], seriesProps) => {
+  if (series.find((({ uniqueName }) => uniqueName === seriesProps.uniqueName))) {
+    return seriesData(
+      series,
+      { ...seriesProps, uniqueName: createNewUniqueName(seriesProps.uniqueName) },
+    );
+  }
+  return [...series, seriesProps];
+};
 
 export const checkZeroStart = (fromZero, axisName, pathType) =>
   ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

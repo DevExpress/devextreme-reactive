@@ -117,7 +117,7 @@ describe('Scales', () => {
 describe('Series attributes', () => {
   it('should return series by name', () => {
     const seriesSymbol = Symbol('Series2');
-    const series = [{ uniqueName: Symbol('Series2') }, { uniqueName: seriesSymbol }, { uniqueName: Symbol('Series3') }];
+    const series = [{ symbolName: Symbol('Series2') }, { symbolName: seriesSymbol }, { symbolName: Symbol('Series3') }];
     expect(findSeriesByName(seriesSymbol, series)).toEqual(series[1]);
   });
 
@@ -191,8 +191,13 @@ describe('seriesData', () => {
   });
 
   it('should push new series props', () => {
-    const seriesArray = seriesData([{ first: true }], { second: true });
-    expect(seriesArray).toEqual([{ first: true }, { second: true }]);
+    const seriesArray = seriesData([{ uniqueName: 'defaultName' }], { uniqueName: 'defaultName' });
+    expect(seriesArray).toEqual([{ uniqueName: 'defaultName' }, { uniqueName: 'defaultName0' }]);
+  });
+
+  it('should push new  props', () => {
+    const seriesArray = seriesData([{ uniqueName: 'defaultName0' }], { uniqueName: 'defaultName0' });
+    expect(seriesArray).toEqual([{ uniqueName: 'defaultName0' }, { uniqueName: 'defaultName1' }]);
   });
 });
 

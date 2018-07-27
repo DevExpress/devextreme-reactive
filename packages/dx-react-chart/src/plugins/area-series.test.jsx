@@ -26,7 +26,6 @@ const coords = [
 
 findSeriesByName.mockImplementation(() => ({
   stack: 'stack1',
-  color: 'red',
 }));
 
 coordinates.mockImplementation(() => coords);
@@ -66,7 +65,6 @@ describe('Area series', () => {
     } = tree.find(SeriesComponent).props();
 
     expect(seriesCoordinates).toBe(coords);
-    expect(color).toBe('red');
     expect(path).toBe(dArea);
     expect(restProps).toEqual({ customProperty: 'custom' });
   });

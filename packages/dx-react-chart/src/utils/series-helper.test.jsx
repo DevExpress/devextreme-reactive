@@ -89,7 +89,6 @@ describe('Base series', () => {
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
       styles: 'styles',
-      color: 'color',
     });
   });
 

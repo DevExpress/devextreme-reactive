@@ -36,5 +36,13 @@ describe('FilteringState reducers', () => {
       const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
     });
+
+    it('should not remove column filter if payload contains non existing column name', () => {
+      const filters = [{ columnName: 'column', value: 'value' }];
+      const payload = { columnName: 'column1', config: null };
+
+      const nextFilters = changeColumnFilter(filters, payload);
+      expect(nextFilters).toEqual([{ columnName: 'column', value: 'value' }]);
+    });
   });
 });

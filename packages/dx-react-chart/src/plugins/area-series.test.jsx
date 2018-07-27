@@ -34,6 +34,7 @@ describe('Area series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
+      colorDomain: jest.fn(),
       domains: {},
     },
     template: {
@@ -47,6 +48,7 @@ describe('Area series', () => {
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
+    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render path', () => {
@@ -67,5 +69,23 @@ describe('Area series', () => {
     expect(seriesCoordinates).toBe(coords);
     expect(path).toBe(dArea);
     expect(restProps).toEqual({ customProperty: 'custom' });
+  });
+
+  it('should render with color', () => {
+    const colorDomain = jest.fn().mockReturnValue('red');
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AreaSeries
+          {...defaultProps}
+          colorDomain={colorDomain}
+          customProperty="custom"
+        />
+      </PluginHost>
+    ));
+    const { color } = tree.find(SeriesComponent).props();
+
+    expect(color).toEqual('red');
+    expect(colorDomain).lastCalledWith('uniqueSeriesName');
   });
 });

@@ -35,6 +35,7 @@ describe('Bar series', () => {
     getter: {
       layouts: { pane: {} },
       domains: {},
+      colorDomain: jest.fn(),
     },
     template: {
       series: {},
@@ -50,6 +51,7 @@ describe('Bar series', () => {
     axisName: 'axisName',
     barWidth: 0.3,
     groupWidth: 0.6,
+    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render bars', () => {

@@ -6,6 +6,6 @@ const themeComputing = ({ series }) => palette(series);
 
 export const ThemeManager = () => (
   <Plugin name="ThemeManager">
-    <Getter name="series" computed={themeComputing} />
+    <Getter name="colorDomain" computed={themeComputing} />
   </Plugin>
 );

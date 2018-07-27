@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils';
+import { withSeriesPlugin, withColor } from '../utils';
 
 const Series = ({
   ...props
@@ -20,7 +20,7 @@ const Series = ({
 };
 
 export const ScatterSeries = withSeriesPlugin(
-  Series,
+  withColor(Series),
   'ScatterSeries',
   'scatter',
   computeCoordinates,

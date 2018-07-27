@@ -35,6 +35,7 @@ describe('Spline series', () => {
     getter: {
       layouts: { pane: {} },
       domains: {},
+      colorDomain: jest.fn(),
     },
     template: {
       series: {},
@@ -47,6 +48,7 @@ describe('Spline series', () => {
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
+    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render path', () => {

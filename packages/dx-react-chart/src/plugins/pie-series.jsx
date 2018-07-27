@@ -9,6 +9,8 @@ const Series = ({
   const {
     pointComponent: Point,
     coordinates,
+    colorDomain,
+    uniqueName,
     ...restProps
   } = props;
   return (coordinates.map(item => (<Point

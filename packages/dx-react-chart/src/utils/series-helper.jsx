@@ -56,6 +56,7 @@ export const withSeriesPlugin = (
                 data,
                 argumentAxisName,
                 layouts,
+                colorDomain,
               }) => {
                 const {
                   stack, uniqueName,
@@ -81,7 +82,9 @@ export const withSeriesPlugin = (
                 return (
                   <Series
                     uniqueName={uniqueName}
+                    colorDomain={colorDomain}
                     coordinates={calculatedCoordinates}
+                    color={color}
                     {...restProps}
                   />
                 );

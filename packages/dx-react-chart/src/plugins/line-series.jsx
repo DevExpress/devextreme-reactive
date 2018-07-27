@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { dLine, coordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils';
+import { withSeriesPlugin, withColor } from '../utils';
 
 const Series = ({
   ...props
@@ -16,7 +16,7 @@ const Series = ({
 };
 
 export const LineSeries = withSeriesPlugin(
-  Series,
+  withColor(Series),
   'LineSeries',
   'line',
   coordinates,

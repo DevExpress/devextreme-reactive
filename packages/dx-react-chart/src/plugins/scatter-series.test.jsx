@@ -45,6 +45,7 @@ describe('Scatter series', () => {
     getter: {
       layouts: { pane: {} },
       domains: {},
+      colorDomain: jest.fn(),
     },
     template: {
       series: {},
@@ -59,6 +60,7 @@ describe('Scatter series', () => {
     argumentField: 'argumentField',
     axisName: 'axisName',
     point: { size: 5 },
+    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render points', () => {

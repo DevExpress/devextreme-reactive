@@ -5,20 +5,18 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
 // eslint-disable-next-line
-const Container = ({ children }) => <div>{children}</div>;
-const VerticalAppointment = () => null;
-const HorizontalAppointment = () => null;
+const Container = ({ children }) => <div>{children}</div>
+const Appointment = () => null;
 
 const defaultProps = {
-  verticalAppointmentComponent: VerticalAppointment,
-  horizontalAppointmentComponent: HorizontalAppointment,
+  appointmentComponent: Appointment,
   containerComponent: Container,
 };
 
 const defaultDeps = {
   getter: {
     appointmentRects: [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data', type: 'horizontal',
+      top: 10, left: 20, width: 60, height: 150, dataItem: 'data', type: 'horizontal',
     }],
     getAppointmentTitle: () => 'a',
     getAppointmentEndDate: () => '2018-07-05',
@@ -52,45 +50,26 @@ describe('Appointments', () => {
           {...defaultProps}
         />
       </PluginHost>
-    )).find(HorizontalAppointment);
+    )).find(Appointment);
 
     const {
       appointment: appointmentData,
-      x, y, width, height,
+      style, type,
       getTitle, getEndDate, getStartDate,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
-    expect(x).toBe(1);
-    expect(y).toBe(2);
-    expect(width).toBe(100);
-    expect(height).toBe(150);
+    expect(type).toBe('horizontal');
+    expect(style).toEqual({
+      height: 150,
+      width: '60%',
+      transform: 'translateY(10px)',
+      left: '20%',
+      position: 'absolute',
+    });
     expect(appointmentData).toBe('data');
     expect(getTitle()).toBe('a');
     expect(getEndDate()).toBe('2018-07-05');
     expect(getStartDate()).toBe('2018-07-06');
-  });
-
-  it('should render appointment component depend of appointment type', () => {
-    const deps = {
-      ...defaultDeps,
-      getter: {
-        ...defaultDeps.getters,
-        appointmentRects: [{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data', type: 'vertical',
-        }],
-      },
-    };
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(deps)}
-        <Appointments
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(VerticalAppointment).exists())
-      .toBeTruthy();
   });
 });

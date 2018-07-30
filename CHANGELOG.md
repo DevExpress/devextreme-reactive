@@ -1,3 +1,37 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.4.0...v1.5.0) (2018-07-26)
+
+
+### Bug Fixes
+
+* **core:** fix incorrect template rendering on mount/unmount ([#1232](https://github.com/DevExpress/devextreme-reactive/issues/1232)) ([cd03c72](https://github.com/DevExpress/devextreme-reactive/commit/cd03c72))
+* **docs:** correct the 'EditingState' plugin docs ([#1226](https://github.com/DevExpress/devextreme-reactive/issues/1226)) ([b8735b6](https://github.com/DevExpress/devextreme-reactive/commit/b8735b6)), closes [#1223](https://github.com/DevExpress/devextreme-reactive/issues/1223)
+* **grid:** add missed operation field in Filter config ([#1233](https://github.com/DevExpress/devextreme-reactive/issues/1233)) ([dc6114b](https://github.com/DevExpress/devextreme-reactive/commit/dc6114b))
+* **grid:** allow use word wrap with the Sorting feature ([#1238](https://github.com/DevExpress/devextreme-reactive/issues/1238)) ([adc2d19](https://github.com/DevExpress/devextreme-reactive/commit/adc2d19)), closes [#1237](https://github.com/DevExpress/devextreme-reactive/issues/1237)
+* **grid:** fix VirtualTable with non-standard browser zooming ([#1243](https://github.com/DevExpress/devextreme-reactive/issues/1243)) ([412ba38](https://github.com/DevExpress/devextreme-reactive/commit/412ba38))
+* **grid-core:** fix incorrect filter updating ([#1267](https://github.com/DevExpress/devextreme-reactive/issues/1267)) ([16580ab](https://github.com/DevExpress/devextreme-reactive/commit/16580ab)), closes [#1262](https://github.com/DevExpress/devextreme-reactive/issues/1262)
+* **react-grid-material-ui:** get rid old palette syntax ([#1247](https://github.com/DevExpress/devextreme-reactive/issues/1247)) ([1a7218f](https://github.com/DevExpress/devextreme-reactive/commit/1a7218f)), closes [#1246](https://github.com/DevExpress/devextreme-reactive/issues/1246)
+* **react-grid-material-ui:** rotate grid pagination arrows for RTL layouts ([#1244](https://github.com/DevExpress/devextreme-reactive/issues/1244)) ([f96501a](https://github.com/DevExpress/devextreme-reactive/commit/f96501a))
+
+
+### Features
+
+* **react-chart:** add API to manage series in stacks ([#1227](https://github.com/DevExpress/devextreme-reactive/issues/1227)) ([4239e7f](https://github.com/DevExpress/devextreme-reactive/commit/4239e7f))
+* **react-grid:** support stretching virtual table to parent element ([#1261](https://github.com/DevExpress/devextreme-reactive/issues/1261)) ([ded7357](https://github.com/DevExpress/devextreme-reactive/commit/ded7357)), closes [#996](https://github.com/DevExpress/devextreme-reactive/issues/996)
+* **vue-grid:** support tree data structuries ([#1115](https://github.com/DevExpress/devextreme-reactive/issues/1115)) ([3ce296c](https://github.com/DevExpress/devextreme-reactive/commit/3ce296c))
+
+
+### Performance Improvements
+
+* **core:** optimize rendering ([#1250](https://github.com/DevExpress/devextreme-reactive/issues/1250)) ([0a05e1c](https://github.com/DevExpress/devextreme-reactive/commit/0a05e1c))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** The 'SeriesFamily' plugin has been renamed to 'Stack' to make it meaning more transparent.
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0...v1.4.0) (2018-06-22)
 

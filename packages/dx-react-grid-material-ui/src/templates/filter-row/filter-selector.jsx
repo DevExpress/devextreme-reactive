@@ -16,7 +16,6 @@ const styles = ({ spacing }) => ({
 class FilterSelectorBase extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onChange } = this.props;
 
     this.state = { anchorEl: null };
 
@@ -27,6 +26,7 @@ class FilterSelectorBase extends React.PureComponent {
       this.setState({ anchorEl: null });
     };
     this.handleMenuItemClick = (nextValue) => {
+      const { onChange } = this.props;
       this.setState({ anchorEl: null });
       onChange(nextValue);
     };

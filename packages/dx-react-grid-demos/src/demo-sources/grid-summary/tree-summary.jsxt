@@ -19,8 +19,7 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const CurrencyFormatter = ({ value }) =>
-  <span>${value}</span>;
+const CurrencyFormatter = ({ value }) => `$${value}`;
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -69,6 +68,7 @@ export default class Demo extends React.PureComponent {
       }),
     };
   }
+
   render() {
     const {
       data, columns, tableColumnExtensions, currencyColumns, totalSummaryItems, treeSummaryItems,

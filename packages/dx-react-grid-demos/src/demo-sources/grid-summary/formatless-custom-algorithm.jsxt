@@ -29,8 +29,7 @@ const messages = {
   overpriced: 'High price',
 };
 
-const CurrencyFormatter = ({ value }) =>
-  <span>${value}</span>;
+const CurrencyFormatter = ({ value }) => `$${value}`;
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -62,6 +61,7 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
     };
   }
+
   render() {
     const {
       rows, columns, tableColumnExtensions, currencyColumns, totalSummaryItems,

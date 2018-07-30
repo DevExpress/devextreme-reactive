@@ -20,8 +20,7 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const CurrencyFormatter = ({ value }) =>
-  <span>${value}</span>;
+const CurrencyFormatter = ({ value }) => `$${value}`;
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -60,14 +59,17 @@ export default class Demo extends React.PureComponent {
       this.setState({ selection });
     };
   }
+
   getTotalSummaryValues() {
-    const selectionSet = new Set(this.state.selection);
-    const selectedRows = this.state.rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
-    return this.state.totalSummaryItems.map((summary) => {
+    const { selection, rows, totalSummaryItems } = this.state;
+    const selectionSet = new Set(selection);
+    const selectedRows = rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
+    return totalSummaryItems.map((summary) => {
       const { columnName, type } = summary;
       return IntegratedSummary.defaultCalculator(type, selectedRows, row => row[columnName]);
     });
   }
+
   render() {
     const {
       rows, columns, tableColumnExtensions, currencyColumns, totalSummaryItems, selection,

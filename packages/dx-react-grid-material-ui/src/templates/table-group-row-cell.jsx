@@ -57,7 +57,11 @@ const TableGroupCellBase = ({
         }
       </IconButton>
       <span className={classes.columnTitle}>
-        <strong>{column.title || column.name}: </strong>
+        <strong>
+          {column.title || column.name}
+            :
+          {' '}
+        </strong>
         {children || row.value}
       </span>
     </TableCell>

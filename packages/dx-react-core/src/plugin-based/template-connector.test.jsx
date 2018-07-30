@@ -104,7 +104,11 @@ describe('TemplateConnector', () => {
     });
 
     it('should render content when dependent getter value changed', () => {
-      const connected = jest.fn().mockImplementation(({ a }) => <div>{a}</div>);
+      const connected = jest.fn().mockImplementation(({ a }) => (
+        <div>
+          {a}
+        </div>
+      ));
 
       shallow(
         (
@@ -126,7 +130,11 @@ describe('TemplateConnector', () => {
     });
 
     it('should not render content when not tracking getter value changed', () => {
-      const connected = jest.fn().mockImplementation(({ a }) => <div>{a}</div>);
+      const connected = jest.fn().mockImplementation(({ a }) => (
+        <div>
+          {a}
+        </div>
+      ));
 
       shallow(
         (

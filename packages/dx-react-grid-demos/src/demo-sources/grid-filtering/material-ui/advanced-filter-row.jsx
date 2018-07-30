@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
-import { Grid, Table, TableHeaderRow, TableFilterRow } from '@devexpress/dx-react-grid-material-ui';
+import {
+  Grid, Table, TableHeaderRow, TableFilterRow,
+} from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
@@ -90,6 +92,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const {
       rows, columns, dateColumns, dateFilterOperations, filteringColumnExtensions,

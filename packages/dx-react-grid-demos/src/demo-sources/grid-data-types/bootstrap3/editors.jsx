@@ -18,8 +18,11 @@ import {
 
 const getRowId = row => row.id;
 
-const BooleanFormatter = ({ value }) =>
-  <span className="label label-default">{value ? 'Yes' : 'No'}</span>;
+const BooleanFormatter = ({ value }) => (
+  <span className="label label-default">
+    {value ? 'Yes' : 'No'}
+  </span>
+);
 
 const BooleanEditor = ({ value, onValueChange }) => (
   <select
@@ -27,8 +30,12 @@ const BooleanEditor = ({ value, onValueChange }) => (
     value={value}
     onChange={e => onValueChange(e.target.value === 'true')}
   >
-    <option value={false}>No</option>
-    <option value>Yes</option>
+    <option value={false}>
+      No
+    </option>
+    <option value>
+      Yes
+    </option>
   </select>
 );
 
@@ -80,6 +87,7 @@ export default class Demo extends React.PureComponent {
       this.setState({ rows });
     };
   }
+
   render() {
     const { rows, columns, booleanColumns } = this.state;
 

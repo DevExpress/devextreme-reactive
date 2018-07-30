@@ -79,6 +79,7 @@ export default class Demo extends React.PureComponent {
       employeeColumns: ['Assigned_Employee_ID'],
     };
   }
+
   render() {
     const {
       rows, columns, pageSizes, defaultColumnWidths,

@@ -48,12 +48,11 @@ export const processData = (offset, order) => (series, data) => {
   }, singleData));
 };
 
-export const seriesWithStacks = series =>
-  series.reduce((prevResult, singleSeries, index) => {
-    const { stack: seriesStack = `stack${index}` } = singleSeries;
+export const seriesWithStacks = series => series.reduce((prevResult, singleSeries, index) => {
+  const { stack: seriesStack = `stack${index}` } = singleSeries;
 
-    return [...prevResult, { ...singleSeries, stack: seriesStack }];
-  }, []);
+  return [...prevResult, { ...singleSeries, stack: seriesStack }];
+}, []);
 
 export const stacks = series => [
   ...new Set(series

@@ -24,14 +24,15 @@ export class VirtualTable extends React.PureComponent {
     super(props);
 
     const { height, estimatedRowHeight, headTableComponent } = props;
-    this.layoutRenderComponent =
-      createRenderComponent(VirtualTableLayout, {
-        height, estimatedRowHeight, headTableComponent,
-      });
+    this.layoutRenderComponent = createRenderComponent(VirtualTableLayout, {
+      height, estimatedRowHeight, headTableComponent,
+    });
   }
+
   componentWillReceiveProps({ height, estimatedRowHeight, headTableComponent }) {
     this.layoutRenderComponent.update({ height, estimatedRowHeight, headTableComponent });
   }
+
   render() {
     const {
       height,
@@ -77,7 +78,7 @@ VirtualTable.StubRow = TableStubRow;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
   headTableComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,

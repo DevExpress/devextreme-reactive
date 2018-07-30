@@ -48,8 +48,7 @@ mockArea.y1 = jest.fn().mockReturnThis();
 mockArea.y0 = jest.fn(() => mockAreaResult);
 
 const mockPie = {
-  value: jest.fn(func => data =>
-    data.map(d => ({ startAngle: func(d), endAngle: func(d), value: 'value' }))),
+  value: jest.fn(func => data => data.map(d => ({ startAngle: func(d), endAngle: func(d), value: 'value' }))),
 };
 const mockArc = jest.fn().mockReturnThis();
 mockArc.innerRadius = jest.fn().mockReturnThis();

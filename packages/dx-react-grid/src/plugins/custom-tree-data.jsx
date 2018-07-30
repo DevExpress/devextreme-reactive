@@ -16,28 +16,28 @@ const pluginDependencies = [
   { name: 'TreeDataState' },
 ];
 
-const expandedTreeRowsComputed = ({ rows, getRowId, expandedRowIds }) =>
-  expandedTreeRows(rows, getRowId, expandedRowIds);
-const getRowIdComputed = ({ getRowId, rows }) =>
-  customTreeRowIdGetter(getRowId, rows);
-const getRowLevelKeyComputed = ({ getRowLevelKey, rows }) =>
-  customTreeRowLevelKeyGetter(getRowLevelKey, rows);
-const isTreeRowLeafComputed = ({ rows }) =>
-  isTreeRowLeafGetter(rows);
-const getTreeRowLevelComputed = ({ rows }) =>
-  getTreeRowLevelGetter(rows);
-const collapsedTreeRowsGetterComputed = ({ rows, getCollapsedRows }) =>
-  collapsedTreeRowsGetter(getCollapsedRows, rows);
-const unwrappedTreeRowsComputed = ({ rows }) =>
-  unwrappedCustomTreeRows(rows);
+const expandedTreeRowsComputed = (
+  { rows, getRowId, expandedRowIds },
+) => expandedTreeRows(rows, getRowId, expandedRowIds);
+const getRowIdComputed = (
+  { getRowId, rows },
+) => customTreeRowIdGetter(getRowId, rows);
+const getRowLevelKeyComputed = (
+  { getRowLevelKey, rows },
+) => customTreeRowLevelKeyGetter(getRowLevelKey, rows);
+const isTreeRowLeafComputed = ({ rows }) => isTreeRowLeafGetter(rows);
+const getTreeRowLevelComputed = ({ rows }) => getTreeRowLevelGetter(rows);
+const collapsedTreeRowsGetterComputed = (
+  { rows, getCollapsedRows },
+) => collapsedTreeRowsGetter(getCollapsedRows, rows);
+const unwrappedTreeRowsComputed = ({ rows }) => unwrappedCustomTreeRows(rows);
 
 export class CustomTreeData extends React.PureComponent {
   render() {
     const {
       getChildRows,
     } = this.props;
-    const treeRowsComputed = ({ rows }) =>
-      customTreeRowsWithMeta(rows, getChildRows);
+    const treeRowsComputed = ({ rows }) => customTreeRowsWithMeta(rows, getChildRows);
 
     return (
       <Plugin

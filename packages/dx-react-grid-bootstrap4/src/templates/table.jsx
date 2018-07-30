@@ -27,20 +27,24 @@ export class Table extends React.Component {
       backgroundColor: 'white',
     };
   }
+
   componentDidMount() {
     this.checkStyles();
   }
+
   checkStyles() {
+    const { backgroundColor: stateBackgroundColor, stickyProp } = this.state;
     globalStickyProp = testCSSProp('position', 'sticky');
 
     const body = document.getElementsByTagName('body')[0];
     const { backgroundColor } = window.getComputedStyle(body);
 
-    if (this.state.backgroundColor !== backgroundColor
-      || this.state.stickyProp !== globalStickyProp) {
+    if (stateBackgroundColor !== backgroundColor
+      || stickyProp !== globalStickyProp) {
       this.setState({ stickyProp: globalStickyProp, backgroundColor });
     }
   }
+
   render() {
     const {
       children, use, style, className, ...restProps

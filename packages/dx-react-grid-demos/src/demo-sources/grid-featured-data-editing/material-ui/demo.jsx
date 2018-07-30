@@ -119,14 +119,16 @@ const LookupEditCellBase = ({
     <Select
       value={value}
       onChange={event => onValueChange(event.target.value)}
-      input={
+      input={(
         <Input
           classes={{ root: classes.inputRoot }}
         />
-      }
+)}
     >
       {availableColumnValues.map(item => (
-        <MenuItem key={item} value={item}>{item}</MenuItem>
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
       ))}
     </Select>
   </TableCell>
@@ -134,17 +136,19 @@ const LookupEditCellBase = ({
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const Cell = (props) => {
-  if (props.column.name === 'discount') {
+  const { column } = props;
+  if (column.name === 'discount') {
     return <ProgressBarCell {...props} />;
   }
-  if (props.column.name === 'amount') {
+  if (column.name === 'amount') {
     return <HighlightedCell {...props} />;
   }
   return <Table.Cell {...props} />;
 };
 
 const EditCell = (props) => {
-  const availableColumnValues = availableValues[props.column.name];
+  const { column } = props;
+  const availableColumnValues = availableValues[column.name];
   if (availableColumnValues) {
     return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
   }
@@ -185,6 +189,14 @@ class DemoBase extends React.PureComponent {
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
     };
+    const getStateDeletingRows = () => {
+      const { deletingRows } = this.state;
+      return deletingRows;
+    };
+    const getStateRows = () => {
+      const { rows } = this.state;
+      return rows;
+    };
 
     this.changeSorting = sorting => this.setState({ sorting });
     this.changeEditingRowIds = editingRowIds => this.setState({ editingRowIds });
@@ -216,12 +228,12 @@ class DemoBase extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
+      this.setState({ rows, deletingRows: deleted || getStateDeletingRows() });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {
-      const rows = this.state.rows.slice();
-      this.state.deletingRows.forEach((rowId) => {
+      const rows = getStateRows().slice();
+      getStateDeletingRows().forEach((rowId) => {
         const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
           rows.splice(index, 1);
@@ -233,6 +245,7 @@ class DemoBase extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
   }
+
   render() {
     const {
       classes,
@@ -321,7 +334,9 @@ class DemoBase extends React.PureComponent {
           onClose={this.cancelDelete}
           classes={{ paper: classes.dialog }}
         >
-          <DialogTitle>Delete Row</DialogTitle>
+          <DialogTitle>
+Delete Row
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               Are you sure to delete the following row?
@@ -342,8 +357,12 @@ class DemoBase extends React.PureComponent {
             </Paper>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.cancelDelete} color="primary">Cancel</Button>
-            <Button onClick={this.deleteRows} color="secondary">Delete</Button>
+            <Button onClick={this.cancelDelete} color="primary">
+Cancel
+            </Button>
+            <Button onClick={this.deleteRows} color="secondary">
+Delete
+            </Button>
           </DialogActions>
         </Dialog>
       </Paper>

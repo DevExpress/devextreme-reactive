@@ -7,28 +7,27 @@ const defaultCompare = (a, b) => {
   return 0;
 };
 
-const createCompare = (sorting, getColumnCompare, getComparableValue) =>
-  sorting.slice()
-    .reverse()
-    .reduce(
-      (prevCompare, columnSorting) => {
-        const { columnName } = columnSorting;
-        const inverse = columnSorting.direction === 'desc';
-        const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
+const createCompare = (sorting, getColumnCompare, getComparableValue) => sorting.slice()
+  .reverse()
+  .reduce(
+    (prevCompare, columnSorting) => {
+      const { columnName } = columnSorting;
+      const inverse = columnSorting.direction === 'desc';
+      const columnCompare = (getColumnCompare && getColumnCompare(columnName)) || defaultCompare;
 
-        return (aRow, bRow) => {
-          const a = getComparableValue(aRow, columnName);
-          const b = getComparableValue(bRow, columnName);
-          const result = columnCompare(a, b);
+      return (aRow, bRow) => {
+        const a = getComparableValue(aRow, columnName);
+        const b = getComparableValue(bRow, columnName);
+        const result = columnCompare(a, b);
 
-          if (result !== 0) {
-            return inverse ? -result : result;
-          }
-          return prevCompare(aRow, bRow);
-        };
-      },
-      () => 0,
-    );
+        if (result !== 0) {
+          return inverse ? -result : result;
+        }
+        return prevCompare(aRow, bRow);
+      };
+    },
+    () => 0,
+  );
 
 const sortTree = (tree, compare) => {
   const sortedTree = tree.map((node) => {
@@ -41,8 +40,9 @@ const sortTree = (tree, compare) => {
     return node;
   });
 
-  return mergeSort(sortedTree, (a, b) =>
-    compare(a[NODE_CHECK] ? a.root : a, b[NODE_CHECK] ? b.root : b));
+  return mergeSort(
+    sortedTree, (a, b) => compare(a[NODE_CHECK] ? a.root : a, b[NODE_CHECK] ? b.root : b),
+  );
 };
 
 const sortHierarchicalRows = (rows, compare, getRowLevelKey) => {

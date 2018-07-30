@@ -37,6 +37,7 @@ export default class Demo extends React.PureComponent {
 
     this.changeGrouping = grouping => this.setState({ grouping });
   }
+
   render() {
     const {
       rows, columns, integratedGroupingColumnExtensions, tableGroupColumnExtension, grouping,

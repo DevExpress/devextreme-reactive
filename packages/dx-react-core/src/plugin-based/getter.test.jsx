@@ -16,7 +16,11 @@ describe('Getter', () => {
 
         <Template name="root">
           <TemplateConnector>
-            {({ test }) => <h1>{test}</h1>}
+            {({ test }) => (
+              <h1>
+                {test}
+              </h1>
+            )}
           </TemplateConnector>
         </Template>
       </PluginHost>
@@ -36,7 +40,11 @@ describe('Getter', () => {
 
         <Template name="root">
           <TemplateConnector>
-            {({ test }) => <h1>{test}</h1>}
+            {({ test }) => (
+              <h1>
+                {test}
+              </h1>
+            )}
           </TemplateConnector>
         </Template>
       </PluginHost>
@@ -58,7 +66,11 @@ describe('Getter', () => {
 
         <Template name="root">
           <TemplateConnector>
-            {({ test }) => <h1>{test}</h1>}
+            {({ test }) => (
+              <h1>
+                {test}
+              </h1>
+            )}
           </TemplateConnector>
         </Template>
       </PluginHost>
@@ -74,7 +86,11 @@ describe('Getter', () => {
 
         <Template name="root">
           <TemplateConnector>
-            {({ dep }) => <h1>{dep}</h1>}
+            {({ dep }) => (
+              <h1>
+                {dep}
+              </h1>
+            )}
           </TemplateConnector>
         </Template>
 
@@ -96,7 +112,11 @@ describe('Getter', () => {
 
         <Template name="root">
           <TemplateConnector>
-            {({ test }) => <h1>{test}</h1>}
+            {({ test }) => (
+              <h1>
+                {test}
+              </h1>
+            )}
           </TemplateConnector>
         </Template>
       </PluginHost>
@@ -113,7 +133,11 @@ describe('Getter', () => {
           <Plugin>
             <Template name="root">
               <TemplateConnector>
-                {({ test }) => <h1>{test}</h1>}
+                {({ test }) => (
+                  <h1>
+                    {test}
+                  </h1>
+                )}
               </TemplateConnector>
             </Template>
           </Plugin>

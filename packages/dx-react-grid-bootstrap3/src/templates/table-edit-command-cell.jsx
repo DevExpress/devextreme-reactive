@@ -9,6 +9,7 @@ export const CommandButton = ({
   ...restProps
 }) => (
   <button
+    type="button"
     className={classNames('btn', 'btn-link', className)}
     onClick={(e) => {
       e.stopPropagation();

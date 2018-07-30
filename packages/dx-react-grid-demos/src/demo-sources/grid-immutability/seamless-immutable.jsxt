@@ -80,8 +80,7 @@ const mapSortingDispatchToProps = dispatch => ({
   }),
 });
 
-const SortingStateContainer =
-  connect(mapSortingStateToProps, mapSortingDispatchToProps)(Sorting);
+const SortingStateContainer = connect(mapSortingStateToProps, mapSortingDispatchToProps)(Sorting);
 
 const Selection = ({
   selection,
@@ -104,8 +103,8 @@ const mapSelectionDispatchToProps = dispatch => ({
   }),
 });
 
-const SelectionStateContainer =
-  connect(mapSelectionStateToProps, mapSelectionDispatchToProps)(Selection);
+const SelectionStateContainer = connect(mapSelectionStateToProps,
+  mapSelectionDispatchToProps)(Selection);
 
 export default () => (
   <Provider store={store}>

@@ -4,6 +4,10 @@ import * as PropTypes from 'prop-types';
 import { TableSummaryRow as TableSummaryRowBase } from '@devexpress/dx-react-grid';
 import { TableSummaryItem } from '../templates/table-summary-item';
 import { TableCell } from '../templates/table-cell';
+import { TableRow } from '../templates/table-row';
+import { TableTreeIndent } from '../templates/table-tree-indent';
+import { TableTreeContent } from '../templates/table-tree-content';
+import { TableTreeCell } from '../templates/table-tree-cell';
 
 const defaultMessages = {
   sum: 'Sum',
@@ -21,8 +25,16 @@ export class TableSummaryRow extends React.PureComponent {
 
     return (
       <TableSummaryRowBase
-        cellComponent={TableCell}
+        totalRowComponent={TableRow}
+        groupRowComponent={TableRow}
+        treeRowConponent={TableRow}
+        totalCellComponent={TableCell}
+        groupCellComponent={TableCell}
+        treeCellConponent={TableCell}
         itemComponent={TableSummaryItem}
+        treeColumnCellComponent={TableTreeCell}
+        treeColumnContentComponent={TableTreeContent}
+        treeColumnIndentComponent={TableTreeIndent}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -44,5 +56,13 @@ TableSummaryRow.defaultProps = {
   messages: {},
 };
 
-TableSummaryRow.Cell = TableCell;
+TableSummaryRow.TotalRow = TableRow;
+TableSummaryRow.GroupRow = TableRow;
+TableSummaryRow.TreeRow = TableRow;
+TableSummaryRow.TotalCell = TableCell;
+TableSummaryRow.GroupCell = TableCell;
+TableSummaryRow.TreeCell = TableCell;
 TableSummaryRow.Item = TableSummaryItem;
+TableSummaryRow.TableTreeCell = TableTreeCell;
+TableSummaryRow.TableTreeIndent = TableTreeIndent;
+TableSummaryRow.TableTreeContent = TableTreeContent;

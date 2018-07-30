@@ -15,9 +15,12 @@ export class VirtualTableLayout extends React.PureComponent {
       rowHeights: new Map(),
       viewportTop: 0,
       viewportLeft: 0,
-      headerHeight: props.headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0),
-      footerHeight: props.footerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0),
     };
+    this.state.headerHeight = props.headerRows
+      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
+    this.state.bodyHeight = 0;
+    this.state.footerHeight = props.footerRows
+      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
 
     this.rowRefs = new Map();
     this.blockRefs = new Map();
@@ -91,6 +94,11 @@ export class VirtualTableLayout extends React.PureComponent {
       ? findDOMNode(this.blockRefs.get('header')).getBoundingClientRect().height
       : 0;
 
+    const bodyHeight = this.blockRefs.get('body')
+      // eslint-disable-next-line react/no-find-dom-node
+      ? findDOMNode(this.blockRefs.get('body')).getBoundingClientRect().height
+      : 0;
+
     const footerHeight = this.blockRefs.get('footer')
       // eslint-disable-next-line react/no-find-dom-node
       ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height
@@ -98,6 +106,7 @@ export class VirtualTableLayout extends React.PureComponent {
 
     this.setState({
       headerHeight,
+      bodyHeight,
       footerHeight,
     });
   }

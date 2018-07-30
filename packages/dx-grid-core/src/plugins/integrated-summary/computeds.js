@@ -1,12 +1,15 @@
 const defaultSummaryCalculators = {
   count: rows => rows.length,
   sum: (rows, getValue) => rows.reduce((acc, row) => acc + getValue(row), 0),
-  max: (rows, getValue) =>
-    (rows.length ? rows.reduce((acc, row) => Math.max(acc, getValue(row)), -Infinity) : null),
-  min: (rows, getValue) =>
-    (rows.length ? rows.reduce((acc, row) => Math.min(acc, getValue(row)), Infinity) : null),
-  avg: (rows, getValue) =>
-    (rows.length ? rows.reduce((acc, row) => acc + getValue(row), 0) / rows.length : null),
+  max: (rows, getValue) => (rows.length
+    ? rows.reduce((acc, row) => Math.max(acc, getValue(row)), -Infinity)
+    : null),
+  min: (rows, getValue) => (rows.length
+    ? rows.reduce((acc, row) => Math.min(acc, getValue(row)), Infinity)
+    : null),
+  avg: (rows, getValue) => (rows.length
+    ? rows.reduce((acc, row) => acc + getValue(row), 0) / rows.length
+    : null),
 };
 
 export const defaultSummaryCalculator = (type, rows, getValue) => {
@@ -17,8 +20,8 @@ export const defaultSummaryCalculator = (type, rows, getValue) => {
   return summaryCulculator(rows, getValue);
 };
 
-const rowsSummary = (rows, summaryItems, getCellValue, calculator) =>
-  summaryItems.reduce((acc, { type, columnName }) => {
+const rowsSummary = (rows, summaryItems, getCellValue, calculator) => summaryItems
+  .reduce((acc, { type, columnName }) => {
     const getValue = row => getCellValue(row, columnName);
     acc.push(calculator(type, rows, getValue));
     return acc;
@@ -65,8 +68,9 @@ export const groupSummaryValues = (
       const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
       if (levelIndex > -1) {
         levels.slice(levelIndex).forEach((level) => {
-          acc[level.row.compoundKey] =
-            rowsSummary(level.rows, summaryItems, getCellValue, calculator);
+          acc[level.row.compoundKey] = rowsSummary(
+            level.rows, summaryItems, getCellValue, calculator,
+          );
         });
         levels = levels.slice(0, levelIndex);
       }
@@ -85,8 +89,9 @@ export const groupSummaryValues = (
     return acc;
   }, {});
   levels.forEach((level) => {
-    summaries[level.row.compoundKey] =
-      rowsSummary(level.rows, summaryItems, getCellValue, calculator);
+    summaries[level.row.compoundKey] = rowsSummary(
+      level.rows, summaryItems, getCellValue, calculator,
+    );
   });
   return summaries;
 };
@@ -108,8 +113,9 @@ export const treeSummaryValues = (
       if (levelIndex > -1) {
         levels.slice(levelIndex).forEach((level) => {
           if (level.rows.length) {
-            acc[getRowId(level.row)] =
-              rowsSummary(level.rows, summaryItems, getCellValue, calculator);
+            acc[getRowId(level.row)] = rowsSummary(
+              level.rows, summaryItems, getCellValue, calculator,
+            );
           }
         });
         levels = levels.slice(0, levelIndex);
@@ -131,8 +137,9 @@ export const treeSummaryValues = (
   }, {});
   levels.forEach((level) => {
     if (level.rows.length) {
-      summaries[getRowId(level.row)] =
-        rowsSummary(level.rows, summaryItems, getCellValue, calculator);
+      summaries[getRowId(level.row)] = rowsSummary(
+        level.rows, summaryItems, getCellValue, calculator,
+      );
     }
   });
   return summaries;

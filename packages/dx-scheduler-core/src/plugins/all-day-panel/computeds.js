@@ -8,9 +8,6 @@ import {
   sortAppointments,
 } from '../../utils';
 import {
-  dayBoundaryPredicate,
-} from '../week-view/helpers';
-import {
   HORIZONTAL_APPOINTMENT_TYPE,
 } from '../../constants';
 
@@ -27,8 +24,7 @@ const calculateDateIntervals = (
   .reduce((acc, appointment) => ([
     ...acc,
     ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
-  ]), [])
-  .filter(appointment => dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays));
+  ]), []);
 
 const calculateRectsByDateIntervals = (
   intervals,
@@ -49,12 +45,12 @@ const calculateRectsByDateIntervals = (
         dayScale,
         cellElements,
       );
-      const widthInPx = width / appointment.reduceValue;
+
       return {
-        top,
-        height,
-        left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
-        width: toPercentage(widthInPx, parentWidth),
+        top: top + ((height / appointment.reduceValue) * appointment.offset),
+        height: height / appointment.reduceValue,
+        left: toPercentage(left, parentWidth),
+        width: toPercentage(width, parentWidth),
         dataItem: appointment.dataItem,
         type: HORIZONTAL_APPOINTMENT_TYPE,
       };

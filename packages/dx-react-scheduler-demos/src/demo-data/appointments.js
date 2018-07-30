@@ -120,10 +120,6 @@ export const appointments = [
     startDate: new Date(2018, 6, 7, 14, 10),
     endDate: new Date(2018, 6, 7, 15, 30),
   }, {
-    text: 'Create Icons for Website',
-    startDate: new Date(2018, 6, 7, 10, 0),
-    endDate: new Date(2018, 6, 8, 14, 30),
-  }, {
     text: 'Upgrade Server Hardware',
     startDate: new Date(2018, 6, 4, 9, 30),
     endDate: new Date(2018, 6, 4, 12, 25),
@@ -136,8 +132,24 @@ export const appointments = [
     startDate: new Date(2018, 6, 4, 12, 20),
     endDate: new Date(2018, 6, 4, 14, 10),
   }, {
-    text: 'Pers Day',
-    startDate: new Date(2018, 6, 4, 12, 20),
-    endDate: new Date(2018, 6, 5, 12, 25),
+    text: 'Book Flights to San Fran for Sales Trip',
+    startDate: new Date(2018, 5, 26, 0, 0),
+    endDate: new Date(2018, 5, 27, 0, 0),
+  }, {
+    text: 'Customer Workshop',
+    startDate: new Date(2018, 5, 29, 10, 0),
+    endDate: new Date(2018, 5, 30, 14, 30),
+  }, {
+    text: 'Google AdWords Strategy',
+    startDate: new Date(2018, 6, 4, 0, 0),
+    endDate: new Date(2018, 6, 5, 10, 30),
+  }, {
+    text: 'Rollout of New Website and Marketing Brochures',
+    startDate: new Date(2018, 6, 6, 10, 0),
+    endDate: new Date(2018, 6, 10, 14, 30),
+  }, {
+    text: 'Update NDA Agreement',
+    startDate: new Date(2018, 6, 1, 10, 0),
+    endDate: new Date(2018, 6, 4, 14, 30),
   },
 ];

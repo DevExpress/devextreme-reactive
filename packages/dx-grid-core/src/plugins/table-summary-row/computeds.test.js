@@ -28,12 +28,12 @@ describe('TableSummaryRow', () => {
         { row: { levelKey: 'a', compoundKey: 'a2', group: true } },
         { row: { a: 1 } },
         { row: { a: 2 } },
-        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a2`, type: TABLE_GROUP_SUMMARY_TYPE, compoundKey: 'a2' },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a2`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a2', group: true } },
         { row: { levelKey: 'a', compoundKey: 'a3', group: true } },
         { row: { levelKey: 'b', a: 3 } },
         { row: { a: 4 } },
-        { key: `${TABLE_TREE_SUMMARY_TYPE}_3`, type: TABLE_TREE_SUMMARY_TYPE, rowId: 3 },
-        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a3`, type: TABLE_GROUP_SUMMARY_TYPE, compoundKey: 'a3' },
+        { key: `${TABLE_TREE_SUMMARY_TYPE}_3`, type: TABLE_TREE_SUMMARY_TYPE, row: { levelKey: 'b', a: 3 } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a3`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a3', group: true } },
       ];
 
       expect(tableRowsWithSummaries(tableRows, getRowLevelKey, isGroupRow, getRowId))

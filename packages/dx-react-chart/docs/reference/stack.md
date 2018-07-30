@@ -23,4 +23,4 @@ offset? | (data: Array&lt;[SeriesData](#series)&gt;, order: { [index: number]: n
 
 ### SeriesData
 
-SeriesData contains data for a single series. It is array of points (one point per argument). Each point is an array that defines the baseline and a value. For example, following array specifies a series containing points with values 10, 20, and 30 and baseline located at 0: [[0, 10], [0, 20], [0, 30]].
+SeriesData contains data for a single series. It is array of points (one point per argument). Each point is an array that defines the baseline and a value. For example, following array specifies a series containing points with values 10, 20, and 30 and baseline at 0: [[0, 10], [0, 20], [0, 30]].

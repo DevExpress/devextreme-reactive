@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { allDayPredicate, getAllDayRects } from './helpers';
+import { allDayPredicate, getAllDayRects, sliceAppointmentsByBoundaries } from './helpers';
 import {
   findOverlappedAppointments,
   adjustAppointments,
@@ -24,7 +24,10 @@ const calculateDateIntervals = (
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
   .filter(appointment => viewPredicate(appointment, leftBound, rightBound, excludedDays, false))
   .filter(appointment => allDayPredicate(appointment))
-  // slice by boundaries
+  .reduce((acc, appointment) => ([
+    ...acc,
+    ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),
+  ]), [])
   .filter(appointment => dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays));
 
 const calculateRectsByDateIntervals = (

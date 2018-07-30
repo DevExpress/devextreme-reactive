@@ -23,13 +23,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
 
 const nullComponent = () => null;
+
+const CurrencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+
 const AxisLabelComponent = ({
   text,
   ...restProps
-}) => <ValueAxis.Label text={`$ ${text}`} {...restProps} />;
-
-const CurrencyFormatter = ({ value }) => `$${value}`;
-
+}) => <ValueAxis.Label text={CurrencyFormatter({ value: text })} {...restProps} />;
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider

@@ -27,13 +27,8 @@ const AxisLabelComponent = ({
   ...restProps
 }) => <ValueAxis.Label text={`$ ${text}`} {...restProps} />;
 
-const CurrencyFormatter = ({ value }) => (
-  <div>
-    {'$ '}
-    {value}
-  </div>
-);
 
+const CurrencyFormatter = ({ value }) => `$${value}`;
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
     formatterComponent={CurrencyFormatter}
@@ -66,18 +61,17 @@ const BarSeriesForCity = DataCitiesRegions => Object
     return acc;
   }, []);
 let DataCities = [];
-const GridDetailContainer = ({ row }) => {
-  const DataCitiesRegions = [];
-  DataCities.forEach((item) => {
-    const ChartItem = {};
-    ChartItem.year = item.year;
-    item.cities.forEach((itemCity) => {
+const gridDetailContainer = ({ row }) => {
+  const DataCitiesRegions = DataCities.reduce((acc, item) => {
+    const citiesforregion = item.cities.reduce((current, itemCity) => {
+      let currentObj = {};
       if (itemCity.region === row.region) {
-        ChartItem[itemCity.cityName] = itemCity.count;
+        currentObj = { [itemCity.cityName]: itemCity.count };
       }
-    });
-    DataCitiesRegions.push(ChartItem);
-  });
+      return { ...current, ...currentObj };
+    }, []);
+    return [...acc, { year: item.year, ...citiesforregion }];
+  }, []);
 
   return (
     <div className="m-3">
@@ -160,7 +154,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            contentComponent={GridDetailContainer}
+            contentComponent={gridDetailContainer}
           />
           <TableBandHeader
             columnBands={columnBands}

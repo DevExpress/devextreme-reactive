@@ -28,12 +28,7 @@ const AxisLabelComponent = ({
   ...restProps
 }) => <ValueAxis.Label text={`$ ${text}`} {...restProps} />;
 
-const CurrencyFormatter = ({ value }) => (
-  <div>
-    {'$ '}
-    {value}
-  </div>
-);
+const CurrencyFormatter = ({ value }) => `$${value}`;
 
 
 const CurrencyTypeProvider = props => (
@@ -89,18 +84,17 @@ const BarSeriesForCity = DataCitiesRegions => Object
   }, []);
 
 let DataCities = [];
-const GridDetailContainerBase = ({ row, classes }) => {
-  const DataCitiesRegions = [];
-  DataCities.forEach((item) => {
-    const ChartItem = {};
-    ChartItem.year = item.year;
-    item.cities.forEach((itemCity) => {
+const gridDetailContainerBase = ({ row, classes }) => {
+  const DataCitiesRegions = DataCities.reduce((acc, item) => {
+    const citiesforregion = item.cities.reduce((current, itemCity) => {
+      let currentObj = {};
       if (itemCity.region === row.region) {
-        ChartItem[itemCity.cityName] = itemCity.count;
+        currentObj = { [itemCity.cityName]: itemCity.count };
       }
-    });
-    DataCitiesRegions.push(ChartItem);
-  });
+      return { ...current, ...currentObj };
+    }, []);
+    return [...acc, { year: item.year, ...citiesforregion }];
+  }, []);
 
   return (
     <div className={classes.detailContainer}>
@@ -139,7 +133,7 @@ const GridDetailContainerBase = ({ row, classes }) => {
   );
 };
 
-const GridDetailContainer = withStyles(detailContainerStyles, { name: 'ChartContainer' })(GridDetailContainerBase);
+const gridDetailContainer = withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -186,7 +180,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            contentComponent={GridDetailContainer}
+            contentComponent={gridDetailContainer}
           />
           <TableBandHeader
             columnBands={columnBands}

@@ -19,11 +19,9 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-bootstrap4';
-import { sales as dataBase, citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
+import { citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
 
 const nullComponent = () => null;
-const START_YEAR = 2013;
-const END_YEAR = 2016;
 const AxisLabelComponent = ({
   text,
   ...restProps
@@ -50,11 +48,11 @@ const LegendRoot = props => (
   />
 );
 
-const BarSeriesForCity = (DataCitiesRegions) => {
-  const bars = [];
-  Object.keys(DataCitiesRegions[0]).forEach((item, index) => {
+const BarSeriesForCity = DataCitiesRegions => Object
+  .keys(DataCitiesRegions[0])
+  .reduce((acc, item, index) => {
     if (item !== 'year') {
-      bars.push(
+      acc.push(
         <BarSeries
           key={index.toString()}
           valueField={item}
@@ -65,16 +63,15 @@ const BarSeriesForCity = (DataCitiesRegions) => {
         />,
       );
     }
-  });
-  return bars;
-};
+    return acc;
+  }, []);
 let DataCities = [];
 const GridDetailContainer = ({ row }) => {
   const DataCitiesRegions = [];
   DataCities.forEach((item) => {
     const ChartItem = {};
     ChartItem.year = item.year;
-    item.city.forEach((itemCity) => {
+    item.cities.forEach((itemCity) => {
       if (itemCity.region === row.region) {
         ChartItem[itemCity.cityName] = itemCity.count;
       }
@@ -118,45 +115,6 @@ const GridDetailContainer = ({ row }) => {
   );
 };
 
-const returnAmount = (data, region, year) => data
-  .filter(item => item.date.getFullYear() === year && item.region === region)
-  .reduce((sum, current) => sum + current.amount, 0);
-const getDataRegionCount = data => dataforgrid.map(item => ({
-  region: item.region,
-  count2013: returnAmount(data, item.region, 2013),
-  count2014: returnAmount(data, item.region, 2014),
-  count2015: returnAmount(data, item.region, 2015),
-}));
-
-const returnCityCount = (data, cityName, year) => data
-  .filter(item => item.date.getFullYear() === year && item.city === cityName)
-  .reduce((sum, current) => sum + current.amount, 0);
-const returnRegion = cityName => cities
-  .filter(item => item.cityName === cityName)
-  .map(item => item.region);
-const returnCity = (data, cityName, year) => ({
-  cityName,
-  region: returnRegion(cityName)[0],
-  count: returnCityCount(data, cityName, year),
-});
-const returnCities = (data, year) => cities
-  .map(item => (
-    returnCity(data, item.cityName, year)
-  ));
-
-const getDataCityCount = (data) => {
-  let year = START_YEAR;
-  const nextData = [];
-  while (year < END_YEAR) {
-    nextData.push({
-      year,
-      city: returnCities(data, year),
-    });
-    year += 1;
-  }
-  return nextData;
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -186,8 +144,8 @@ export default class Demo extends React.PureComponent {
     const {
       columns, columnBands, currencyColumns,
     } = this.state;
-    DataCities = getDataCityCount(dataBase);
-    const formatedData = getDataRegionCount(dataBase);
+    DataCities = cities.slice();
+    const formatedData = dataforgrid.slice();
     return (
 
       <Card>

@@ -71,8 +71,6 @@ const BarSeriesForCity = DataCitiesRegions => Object
           valueField={item}
           argumentField="year"
           name={item}
-          barWidth={0.9}
-          groupWidth={0.5}
         />,
       );
     }

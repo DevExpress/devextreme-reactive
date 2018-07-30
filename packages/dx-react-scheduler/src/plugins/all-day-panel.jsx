@@ -10,7 +10,7 @@ import {
 import { allDayAppointmentsRects } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
-  { name: 'WeekView' },
+  { name: 'WeekView' }, // Or Day View
 ];
 
 const allDayAppointmentRectsComputed = ({
@@ -47,20 +47,20 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      appointmentComponent: Appointment,
-      appointmentComponent2: HorizontalAppointment,
+      appointmentComponent: HorizontalAppointment,
       appointmentsContainerComponent: AppointmentsContainer,
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
     } = this.props;
+    const { tableRef } = this.state;
 
     return (
       <Plugin
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
-        {this.state.tableRef && <Getter name="allDayPanelRef" value={this.state.tableRef} />}
+        {tableRef && <Getter name="allDayPanelRef" value={tableRef} />}
         <Getter name="allDayAppointmentRects" computed={allDayAppointmentRectsComputed} />
         <Template name="navbar">
           <TemplatePlaceholder />
@@ -82,7 +82,7 @@ export class AllDayPanel extends React.PureComponent {
                   dayScale={dayScale}
                 >
                   <AppointmentsContainer>
-                    {this.state.tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
+                    {tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
                       const appointmentProps = {
                         ...geometry,
                         key: index.toString(),

@@ -1,4 +1,4 @@
-export const dataforregions = [
+export const regionsCount = [
   {
     region: 'Africa',
     count2013: 43620,
@@ -38,7 +38,7 @@ export const dataforregions = [
 ];
 
 
-export const citiescount = [
+export const citiesCount = [
   {
     year: 2013,
     cities: [{

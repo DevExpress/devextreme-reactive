@@ -19,12 +19,10 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-bootstrap4';
-import { citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
+import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
 
 const nullComponent = () => null;
-
 const CurrencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-
 const AxisLabelComponent = ({
   text,
   ...restProps
@@ -32,8 +30,8 @@ const AxisLabelComponent = ({
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
-    formatterComponent={CurrencyFormatter}
     {...props}
+    formatterComponent={CurrencyFormatter}
   />
 );
 
@@ -61,8 +59,9 @@ const BarSeriesForCity = DataCitiesRegions => Object
     }
     return acc;
   }, []);
-let DataCities = [];
-const gridDetailContainer = ({ row }) => {
+
+const gridDetailContainer = data => ({ row }) => {
+  const DataCities = data.slice();
   const DataCitiesRegions = DataCities.reduce((acc, item) => {
     const citiesforregion = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
@@ -118,6 +117,7 @@ export default class Demo extends React.PureComponent {
         { name: 'count2014', title: '2014' },
         { name: 'count2015', title: '2015' },
       ],
+      rows: regionsCount,
       columnBands: [
         {
           title: 'Year',
@@ -134,25 +134,25 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      columns, columnBands, currencyColumns,
+      columns, columnBands, currencyColumns, rows,
     } = this.state;
-    DataCities = cities.slice();
-    const formatedData = dataforgrid.slice();
     return (
 
       <Card>
         <Grid
-          rows={formatedData}
+          rows={rows}
           columns={columns}
         >
           <CurrencyTypeProvider
             for={currencyColumns}
           />
-          <RowDetailState />
+          <RowDetailState
+            defaultExpandedRowIds={[3]}
+          />
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            contentComponent={gridDetailContainer}
+            contentComponent={gridDetailContainer(citiesCount)}
           />
           <TableBandHeader
             columnBands={columnBands}

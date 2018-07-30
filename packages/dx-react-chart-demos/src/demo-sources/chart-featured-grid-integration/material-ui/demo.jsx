@@ -20,23 +20,7 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { citiescount as cities, dataforregions as dataforgrid } from '../../../demo-data/data-for-grid';
-
-const nullComponent = () => null;
-
-const CurrencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-
-const AxisLabelComponent = ({
-  text,
-  ...restProps
-}) => <ValueAxis.Label text={CurrencyFormatter({ value: text })} {...restProps} />;
-
-const CurrencyTypeProvider = props => (
-  <DataTypeProvider
-    formatterComponent={CurrencyFormatter}
-    {...props}
-  />
-);
+import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
 
 const detailContainerStyles = theme => ({
   detailContainer: {
@@ -47,7 +31,6 @@ const detailContainerStyles = theme => ({
     fontSize: theme.typography.fontSize,
   },
 });
-
 const legendStyles = () => ({
   root: {
     display: 'flex',
@@ -56,13 +39,26 @@ const legendStyles = () => ({
   },
 });
 
+const nullComponent = () => null;
+const CurrencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+const AxisLabelComponent = ({
+  text,
+  ...restProps
+}) => <ValueAxis.Label text={CurrencyFormatter({ value: text })} {...restProps} />;
+
+const CurrencyTypeProvider = props => (
+  <DataTypeProvider
+    {...props}
+    formatterComponent={CurrencyFormatter}
+  />
+);
+
 const LegendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root
     {...restProps}
     className={classes.root}
   />
 );
-
 const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
 
 const BarSeriesForCity = DataCitiesRegions => Object
@@ -83,8 +79,8 @@ const BarSeriesForCity = DataCitiesRegions => Object
     return acc;
   }, []);
 
-let DataCities = [];
-const gridDetailContainerBase = ({ row, classes }) => {
+const gridDetailContainerBase = data => ({ row, classes }) => {
+  const DataCities = data.slice();
   const DataCitiesRegions = DataCities.reduce((acc, item) => {
     const citiesforregion = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
@@ -118,7 +114,6 @@ const gridDetailContainerBase = ({ row, classes }) => {
           />
           <ChartGrid />
           {BarSeriesForCity(DataCitiesRegions)}
-
           <Stack />
           <Legend
             rootComponent={LegendRoot}
@@ -129,8 +124,7 @@ const gridDetailContainerBase = ({ row, classes }) => {
     </div>
   );
 };
-
-const gridDetailContainer = withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase);
+const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -143,6 +137,7 @@ export default class Demo extends React.PureComponent {
         { name: 'count2014', title: '2014' },
         { name: 'count2015', title: '2015' },
       ],
+      rows: regionsCount,
       columnBands: [
         {
           title: 'Year',
@@ -159,25 +154,25 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      columns, columnBands, currencyColumns,
+      columns, columnBands, currencyColumns, rows,
     } = this.state;
-    DataCities = cities.slice();
-    const formatedData = dataforgrid.slice();
-    return (
 
+    return (
       <Paper>
         <Grid
-          rows={formatedData}
+          rows={rows}
           columns={columns}
         >
           <CurrencyTypeProvider
             for={currencyColumns}
           />
-          <RowDetailState />
+          <RowDetailState
+            defaultExpandedRowIds={[3]}
+          />
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            contentComponent={gridDetailContainer}
+            contentComponent={gridDetailContainer(citiesCount)}
           />
           <TableBandHeader
             columnBands={columnBands}

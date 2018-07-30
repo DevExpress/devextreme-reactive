@@ -7,7 +7,7 @@ jest.mock('./appointment', () => ({
   Appointment: jest.fn(),
 }));
 
-describe('Appointment', () => {
+describe('HorizontalAppointment', () => {
   const defaultProps = {
     appointment: {},
   };
@@ -31,6 +31,7 @@ describe('Appointment', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   describe('HorizontalAppointment', () => {
     it('should pass rest props to the root element', () => {
       mount((

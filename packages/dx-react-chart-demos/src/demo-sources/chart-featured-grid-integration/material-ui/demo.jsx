@@ -24,11 +24,14 @@ import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
 
 const detailContainerStyles = theme => ({
   detailContainer: {
-    marginBottom: '30px',
+    marginBottom: 3 * theme.spacing.unit,
   },
   title: {
     color: theme.palette.text.primary,
     fontSize: theme.typography.fontSize,
+  },
+  paper: {
+    paddingTop: 3.5 * theme.spacing.unit,
   },
 });
 const legendStyles = () => ({
@@ -80,14 +83,14 @@ const BarSeriesForCity = DataCitiesRegions => Object
 const gridDetailContainerBase = data => ({ row, classes }) => {
   const DataCities = data.slice();
   const DataCitiesRegions = DataCities.reduce((acc, item) => {
-    const citiesforregion = item.cities.reduce((current, itemCity) => {
+    const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
       if (itemCity.region === row.region) {
         currentObj = { [itemCity.cityName]: itemCity.count };
       }
       return { ...current, ...currentObj };
     }, []);
-    return [...acc, { year: item.year, ...citiesforregion }];
+    return [...acc, { year: item.year, ...currentCities }];
   }, []);
 
   return (
@@ -95,7 +98,7 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
       <h5 className={classes.title}>
         {`Economics of ${row.region}`}
       </h5>
-      <Paper>
+      <Paper className={classes.paper}>
         <Chart
           data={DataCitiesRegions}
           height={300}

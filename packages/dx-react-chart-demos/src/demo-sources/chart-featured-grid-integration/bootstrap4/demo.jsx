@@ -61,14 +61,14 @@ const BarSeriesForCity = DataCitiesRegions => Object
 const gridDetailContainer = data => ({ row }) => {
   const DataCities = data.slice();
   const DataCitiesRegions = DataCities.reduce((acc, item) => {
-    const citiesforregion = item.cities.reduce((current, itemCity) => {
+    const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
       if (itemCity.region === row.region) {
         currentObj = { [itemCity.cityName]: itemCity.count };
       }
       return { ...current, ...currentObj };
     }, []);
-    return [...acc, { year: item.year, ...citiesforregion }];
+    return [...acc, { year: item.year, ...currentCities }];
   }, []);
 
   return (
@@ -76,7 +76,7 @@ const gridDetailContainer = data => ({ row }) => {
       <h5>
         {`Economics of ${row.region}`}
       </h5>
-      <Card>
+      <Card className="pt-4">
         <Chart
           data={DataCitiesRegions}
           height={300}

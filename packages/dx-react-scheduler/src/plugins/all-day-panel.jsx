@@ -48,6 +48,7 @@ export class AllDayPanel extends React.PureComponent {
   render() {
     const {
       appointmentComponent: Appointment,
+      appointmentComponent2: HorizontalAppointment,
       appointmentsContainerComponent: AppointmentsContainer,
       layoutComponent: Layout,
       cellComponent: Cell,
@@ -64,7 +65,14 @@ export class AllDayPanel extends React.PureComponent {
         <Template name="navbar">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ dayScale, currentView, allDayAppointmentRects }) => {
+            {({
+              dayScale,
+              currentView,
+              allDayAppointmentRects,
+              getAppointmentTitle,
+              getAppointmentEndDate,
+              getAppointmentStartDate,
+            }) => {
               if (currentView === 'month') return null; // currentView.type === month
               return (
                 <Layout
@@ -74,7 +82,17 @@ export class AllDayPanel extends React.PureComponent {
                   dayScale={dayScale}
                 >
                   <AppointmentsContainer>
-                    {this.state.tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }) => <Appointment {...geometry} />) : null}
+                    {this.state.tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
+                      const appointmentProps = {
+                        ...geometry,
+                        key: index.toString(),
+                        getTitle: getAppointmentTitle,
+                        getEndDate: getAppointmentEndDate,
+                        getStartDate: getAppointmentStartDate,
+                        appointment: dataItem,
+                      };
+                      return <HorizontalAppointment {...geometry} {...appointmentProps} />;
+                    }) : null}
                   </AppointmentsContainer>
                 </Layout>
               );

@@ -4,11 +4,15 @@ import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
-} from '../week-view/helpers';
-import {
   viewPredicate,
   sortAppointments,
 } from '../../utils';
+import {
+  dayBoundaryPredicate,
+} from '../week-view/helpers';
+import {
+  HORIZONTAL_APPOINTMENT_TYPE,
+} from '../../constants';
 
 const toPercentage = (value, total) => (value * 100) / total;
 
@@ -19,8 +23,9 @@ const calculateDateIntervals = (
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
   .filter(appointment => viewPredicate(appointment, leftBound, rightBound, excludedDays, false))
-  .filter(appointment => allDayPredicate(appointment));
+  .filter(appointment => allDayPredicate(appointment))
   // slice by boundaries
+  .filter(appointment => dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays));
 
 const calculateRectsByDateIntervals = (
   intervals,
@@ -48,6 +53,7 @@ const calculateRectsByDateIntervals = (
         left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
         dataItem: appointment.dataItem,
+        type: HORIZONTAL_APPOINTMENT_TYPE,
       };
     });
 };
@@ -59,7 +65,6 @@ export const allDayAppointmentsRects = (
   dayScale,
   cellElements,
 ) => {
-  debugger
   const dateIntervals = calculateDateIntervals(
     appointments,
     leftBound, rightBound,

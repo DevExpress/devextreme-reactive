@@ -76,12 +76,9 @@ const gridDetailContainer = ({ row }) => {
 
   return (
     <div className="m-3">
-      <div>
-        <h5>
-          {'Economics of '}
-          {row.region}
-        </h5>
-      </div>
+      <h5>
+        {`Economics of ${row.region}`}
+      </h5>
       <Card>
         <Chart
           data={DataCitiesRegions}

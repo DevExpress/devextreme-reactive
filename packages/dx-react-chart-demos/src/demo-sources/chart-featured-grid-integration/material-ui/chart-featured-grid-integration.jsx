@@ -98,12 +98,9 @@ const gridDetailContainerBase = ({ row, classes }) => {
 
   return (
     <div className={classes.detailContainer}>
-      <div>
-        <h5 className={classes.title}>
-          {'Economics of '}
-          {row.region}
-        </h5>
-      </div>
+      <h5 className={classes.title}>
+        {`Economics of ${row.region}`}
+      </h5>
       <Paper>
         <Chart
           data={DataCitiesRegions}

@@ -10,13 +10,19 @@ describe('Appointment', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Appointment {...defaultProps} />);
+    classes = getClasses(
+      <Appointment {...defaultProps}>
+        <div />
+      </Appointment>,
+    );
     shallow = createShallow({ dive: true });
   });
   describe('AppointmentWrapper', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} className="custom-class" />
+        <Appointment {...defaultProps} className="custom-class">
+          <div />
+        </Appointment>
       ));
 
       expect(tree.is('.custom-class'))
@@ -27,7 +33,9 @@ describe('Appointment', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Appointment {...defaultProps} data={{ a: 1 }} />
+        <Appointment {...defaultProps} data={{ a: 1 }}>
+          <div />
+        </Appointment>
       ));
 
       expect(tree.props().data)
@@ -36,7 +44,9 @@ describe('Appointment', () => {
 
     it('should render content', () => {
       const content = shallow((
-        <Appointment {...defaultProps} />
+        <Appointment {...defaultProps}>
+          <div />
+        </Appointment>
       )).find(`.${classes.content}`);
 
       expect(content.exists())

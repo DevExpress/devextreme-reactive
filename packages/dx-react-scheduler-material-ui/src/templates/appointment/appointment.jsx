@@ -47,14 +47,13 @@ const AppointmentBase = ({
 
 AppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   style: PropTypes.object.isRequired,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 AppointmentBase.defaultProps = {
   className: undefined,
-  children: undefined,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Card } from 'reactstrap';
 import {
   SortingState,
   IntegratedSorting,
@@ -7,23 +8,21 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-bootstrap3';
+} from '@devexpress/dx-react-grid-bootstrap4';
 
 import { generateRows } from '../../../demo-data/generator';
 
 const SortingIcon = ({ direction }) => (
-  <i
-    className={`glyphicon glyphicon-arrow-${direction === 'desc' ? 'down' : 'up'}`}
-    style={{
-      top: '0',
-      fontSize: '9px',
-    }}
+  <span
+    className={`oi oi-arrow-thick-${direction === 'asc' ? 'top' : 'bottom'}`}
+    style={{ fontSize: '12px', paddingLeft: '5px' }}
   />
 );
 
 const SortLabel = ({ onSort, title, direction }) => (
   <button
-    className="btn btn-default"
+    type="button"
+    className="btn btn-light btn-sm"
     onClick={onSort}
   >
     {title}
@@ -45,11 +44,12 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 
     return (
-      <div>
+      <Card>
         <Grid
           rows={rows}
           columns={columns}
@@ -64,7 +64,7 @@ export default class Demo extends React.PureComponent {
             sortLabelComponent={SortLabel}
           />
         </Grid>
-      </div>
+      </Card>
     );
   }
 }

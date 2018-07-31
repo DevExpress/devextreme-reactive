@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { TableSortLabel } from 'material-ui/Table';
-import Tooltip from 'material-ui/Tooltip';
-import { withStyles } from 'material-ui/styles';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const ENTER_KEY_CODE = 13;
@@ -53,7 +53,7 @@ const SortLabelBase = ({
       placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
       enterDelay={300}
       classes={{
-        root: classes.tooltipRoot,
+        tooltip: classes.tooltipRoot,
       }}
     >
       <TableSortLabel

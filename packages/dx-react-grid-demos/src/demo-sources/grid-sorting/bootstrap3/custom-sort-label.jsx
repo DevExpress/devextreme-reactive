@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Paper from 'material-ui/Paper';
 import {
   SortingState,
   IntegratedSorting,
@@ -8,32 +7,29 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
-
-import Button from 'material-ui/Button';
-import ArrowDownward from 'material-ui-icons/ArrowDownward';
-import ArrowUpward from 'material-ui-icons/ArrowUpward';
+} from '@devexpress/dx-react-grid-bootstrap3';
 
 import { generateRows } from '../../../demo-data/generator';
 
 const SortingIcon = ({ direction }) => (
-  direction === 'asc'
-    ? <ArrowUpward style={{ fontSize: '18px' }} />
-    : <ArrowDownward style={{ fontSize: '18px' }} />
+  <i
+    className={`glyphicon glyphicon-arrow-${direction === 'desc' ? 'down' : 'up'}`}
+    style={{
+      top: '0',
+      fontSize: '9px',
+    }}
+  />
 );
 
 const SortLabel = ({ onSort, title, direction }) => (
-  <Button
-    size="small"
-    variant="raised"
+  <button
+    className="btn btn-default"
+    type="button"
     onClick={onSort}
-    style={{
-      margin: '3px',
-    }}
   >
     {title}
     {(direction && <SortingIcon direction={direction} />)}
-  </Button>
+  </button>
 );
 
 export default class Demo extends React.PureComponent {
@@ -50,11 +46,12 @@ export default class Demo extends React.PureComponent {
       rows: generateRows({ length: 8 }),
     };
   }
+
   render() {
     const { rows, columns } = this.state;
 
     return (
-      <Paper>
+      <div>
         <Grid
           rows={rows}
           columns={columns}
@@ -69,7 +66,7 @@ export default class Demo extends React.PureComponent {
             sortLabelComponent={SortLabel}
           />
         </Grid>
-      </Paper>
+      </div>
     );
   }
 }

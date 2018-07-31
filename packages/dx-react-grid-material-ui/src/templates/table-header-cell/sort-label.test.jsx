@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, createMount, getClasses } from 'material-ui/test-utils';
-import { TableSortLabel } from 'material-ui/Table';
-import Tooltip from 'material-ui/Tooltip';
+import { createShallow, createMount, getClasses } from '@material-ui/core/test-utils';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 import { SortLabel } from './sort-label';
 
 const defaultProps = {

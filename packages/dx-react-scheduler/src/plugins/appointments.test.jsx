@@ -4,7 +4,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
-// eslint-disable-next-line
+// eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
 const Container = ({ children }) => <div>{children}</div>;
 const Appointment = () => null;
 

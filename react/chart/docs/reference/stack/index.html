@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Grid Plugin Reference - DevExtreme Reactive Components</title>
+    <title>Stack Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,21 +60,15 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="grid-plugin-reference">Grid Plugin Reference</h1>
+        <h1 id="stack-plugin-reference">Stack Plugin Reference</h1>
 
-<p>The Grid plugin visualizes a grid for the specified axis.</p>
+<p>The <code class="highlighter-rouge">Stack</code> plugin is used to display series points side-by-side or one under another other.</p>
 
 <h2 id="importing">Importing</h2>
 
 <p>Use the following import statement:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
-<span class="c1">// import { Grid } from '@devexpress/dx-react-chart-bootstrap4';</span>
-</code></pre></div></div>
-
-<p>You can import the themeless plugin to use custom components:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Stack</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="user-reference">User Reference</h2>
@@ -92,76 +86,25 @@
   </thead>
   <tbody>
     <tr>
-      <td>name?</td>
-      <td>string</td>
+      <td>order?</td>
+      <td>(data: Array&lt;<a href="#series">SeriesData</a>&gt;) =&gt; { [index: number]: number }</td>
       <td> </td>
-      <td>An axis name.</td>
+      <td>A function that gets an array of series data and returns the series order.</td>
     </tr>
     <tr>
-      <td>lineComponent</td>
-      <td>ComponentType&lt;<a href="#gridlineprops">Grid.LineProps</a>&gt;</td>
+      <td>offset?</td>
+      <td>(data: Array&lt;<a href="#series">SeriesData</a>&gt;, order: { [index: number]: number }) =&gt; void</td>
       <td> </td>
-      <td>A component that renders a grid line.</td>
+      <td>A function that adds the appropriate offsets to series data array depending on the series order.</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="gridlineprops">Grid.LineProps</h3>
+<h3 id="seriesdata">SeriesData</h3>
 
-<p>Describes properties passed to a component that renders a grid line.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>x1</td>
-      <td>number</td>
-      <td>The line start’s x coordinate.</td>
-    </tr>
-    <tr>
-      <td>x2</td>
-      <td>number</td>
-      <td>The line end’s x coordinate.</td>
-    </tr>
-    <tr>
-      <td>y1</td>
-      <td>number</td>
-      <td>The line start’s y coordinate.</td>
-    </tr>
-    <tr>
-      <td>y2</td>
-      <td>number</td>
-      <td>The line end’s y coordinate.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-components">Plugin Components</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Properties</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Grid.Line</td>
-      <td><a href="#gridlineprops">Grid.LineProps</a></td>
-      <td>A component that renders a grid line.</td>
-    </tr>
-  </tbody>
-</table>
+<p>SeriesData contains data for a single series. It is array of points (one point per argument). Each point is an array that defines the baseline and a value. For example, following array specifies a series containing points with values 10, 20, and 30 and baseline at 0: [[0, 10], [0, 20], [0, 30]].</p>
 
     </div>
 
@@ -264,7 +207,7 @@
           
 
           
-          <li>Grid</li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/grid/">Grid</a></li>
           
 
         
@@ -312,7 +255,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/stack/">Stack</a></li>
+          <li>Stack</li>
           
 
         

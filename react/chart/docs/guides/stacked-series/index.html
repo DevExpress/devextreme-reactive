@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Grid Plugin Reference - DevExtreme Reactive Components</title>
+    <title>React Chart - Stacked Series - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,108 +60,37 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="grid-plugin-reference">Grid Plugin Reference</h1>
+        <h1 id="react-chart---stacked-series">React Chart - Stacked Series</h1>
 
-<p>The Grid plugin visualizes a grid for the specified axis.</p>
+<p>The Chart component can collect line, spline, area and bar series in stacks. Stacked series require the <code class="highlighter-rouge">Stack</code> plugin.</p>
 
-<h2 id="importing">Importing</h2>
+<h2 id="basic-setup">Basic Setup</h2>
 
-<p>Use the following import statement:</p>
+<p>Add the <code class="highlighter-rouge">Stack</code> plugin to the Grid to draw several series side-by-side. The following example demonstrates how to draw bar series:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
-<span class="c1">// import { Grid } from '@devexpress/dx-react-chart-bootstrap4';</span>
-</code></pre></div></div>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/band-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1533027837&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
 
-<p>You can import the themeless plugin to use custom components:</p>
+<p>To draw several series one under another, you should also specify the same <code class="highlighter-rouge">stack</code> property value for the required series. To exclude a series from all stacks, set its <code class="highlighter-rouge">stack</code> property to null.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Grid</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart'</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/bar-line&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1533027837&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
 
-<h2 id="user-reference">User Reference</h2>
+<h2 id="specify-series-order-and-offset">Specify Series’ Order and Offset</h2>
 
-<h3 id="properties">Properties</h3>
+<p>The <code class="highlighter-rouge">Stack</code> plugin allows you to customize the series order and offset. In the following example, a stacked area series is used to create a streamgraph. The <a href="https://github.com/d3/d3-shape/blob/master/README.md"><code class="highlighter-rouge">d3-shape</code></a> 3rd-party plugin calculates values that are then passed to the <code class="highlighter-rouge">Stack</code> plugin’s <code class="highlighter-rouge">order</code> and <code class="highlighter-rouge">offset</code> properties.</p>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>name?</td>
-      <td>string</td>
-      <td> </td>
-      <td>An axis name.</td>
-    </tr>
-    <tr>
-      <td>lineComponent</td>
-      <td>ComponentType&lt;<a href="#gridlineprops">Grid.LineProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a grid line.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="interfaces">Interfaces</h2>
-
-<h3 id="gridlineprops">Grid.LineProps</h3>
-
-<p>Describes properties passed to a component that renders a grid line.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>x1</td>
-      <td>number</td>
-      <td>The line start’s x coordinate.</td>
-    </tr>
-    <tr>
-      <td>x2</td>
-      <td>number</td>
-      <td>The line end’s x coordinate.</td>
-    </tr>
-    <tr>
-      <td>y1</td>
-      <td>number</td>
-      <td>The line start’s y coordinate.</td>
-    </tr>
-    <tr>
-      <td>y2</td>
-      <td>number</td>
-      <td>The line end’s y coordinate.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="plugin-components">Plugin Components</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Properties</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Grid.Line</td>
-      <td><a href="#gridlineprops">Grid.LineProps</a></td>
-      <td>A component that renders a grid line.</td>
-    </tr>
-  </tbody>
-</table>
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/streamgraph&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1533027837&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
 
     </div>
 
@@ -217,7 +146,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          <li>Stacked Series</li>
           
 
         
@@ -264,7 +193,7 @@
           
 
           
-          <li>Grid</li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/grid/">Grid</a></li>
           
 
         

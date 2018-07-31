@@ -6,21 +6,18 @@ import classNames from 'classnames';
 export class FilterSelector extends React.PureComponent {
   constructor(props) {
     super(props);
-    const getStateOpened = () => {
-      const { opened } = this.state;
-      return opened;
-    };
-    const { onChange } = this.props;
 
     this.state = { opened: false };
 
     this.handleButtonClick = () => {
-      this.setState({ opened: !getStateOpened() });
+      this.setState(prevState => ({ opened: !prevState.opened }));
     };
     this.handleOverlayToggle = () => {
-      if (getStateOpened()) this.setState({ opened: false });
+      const { opened } = this.state;
+      if (opened) this.setState({ opened: false });
     };
     this.handleMenuItemClick = (nextValue) => {
+      const { onChange } = this.props;
       this.setState({ opened: false });
       onChange(nextValue);
     };

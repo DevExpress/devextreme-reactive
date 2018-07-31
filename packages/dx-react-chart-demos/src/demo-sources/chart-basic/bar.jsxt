@@ -1,20 +1,25 @@
 import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
-  ArgumentAxis,
-  ValueAxis,
-  Grid,
   BarSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { contributors as data } from '../../../demo-data/data-vizualization';
+const data = [
+  { year: '1950', population: 2.525 },
+  { year: '1960', population: 3.018 },
+  { year: '1970', population: 3.682 },
+  { year: '1980', population: 4.440 },
+  { year: '1990', population: 5.310 },
+  { year: '2000', population: 6.127 },
+  { year: '2010', population: 6.930 },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: data.slice(0, 7),
+      data,
     };
   }
 
@@ -26,17 +31,10 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="login" type="band" />
-          <ValueAxis name="commits" />
-
-          <Grid name="login" />
-          <Grid name="commits" />
 
           <BarSeries
-            name="BarSeries"
-            valueField="contributions"
-            argumentField="login"
-            axisName="commits"
+            valueField="population"
+            argumentField="year"
           />
         </Chart>
       </<%&wrapperTag%>>

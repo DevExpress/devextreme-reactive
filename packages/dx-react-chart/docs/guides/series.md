@@ -26,21 +26,13 @@ The `ScatterSeries` plugin draws a collection of scattered points.
 
 The `BarSeries` plugin vizualizes data as a collection of bars.
 
-.embedded-demo({ "path": "chart-basic/group-bar", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/bar", "showThemeSelector": true })
 
 ## Pie Series
 
 The `PieSeries` plugin visualizes data as a circle divided into sectors that each represents a portion of the whole.
 
 .embedded-demo({ "path": "chart-basic/pie", "showThemeSelector": true })
-
-## Stacked Series
-
-Line, spline, area, and bar series can be collected in stacks. Assign the same value to the `stack` property of the series that should be in the same stack.
-
-The following example demonstrates this capability on the bar series:
-
-.embedded-demo({ "path": "chart-basic/stacked-bar", "showThemeSelector": true })
 
 ## Points' Appearance Customization
 

@@ -144,7 +144,7 @@ export default class Demo extends React.PureComponent {
             for={currencyColumns}
           />
           <RowDetailState
-            defaultExpandedRowIds={[4]}
+            defaultExpandedRowIds={[1]}
           />
           <Table />
           <TableHeaderRow />

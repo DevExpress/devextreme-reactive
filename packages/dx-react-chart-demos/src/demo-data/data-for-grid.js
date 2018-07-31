@@ -6,6 +6,12 @@ export const regionsCount = [
     count2015: 22020,
   },
   {
+    region: 'North America',
+    count2013: 229645,
+    count2014: 204205,
+    count2015: 72925,
+  },
+  {
     region: 'Australia',
     count2013: 101475,
     count2014: 76130,
@@ -22,12 +28,6 @@ export const regionsCount = [
     count2013: 189190,
     count2014: 200865,
     count2015: 111540,
-  },
-  {
-    region: 'North America',
-    count2013: 229645,
-    count2014: 204205,
-    count2015: 72925,
   },
   {
     region: 'Europe',

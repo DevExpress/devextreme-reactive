@@ -1,3 +1,13 @@
+<a name="1.5.1"></a>
+# [1.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.5.0...v1.5.1) (2018-07-31)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect filter operation updating ([#1270](https://github.com/DevExpress/devextreme-reactive/issues/1270)) ([ed9fa16](https://github.com/DevExpress/devextreme-reactive/commit/ed9fa16)), closes [#1269](https://github.com/DevExpress/devextreme-reactive/issues/1269)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.4.0...v1.5.0) (2018-07-26)
 

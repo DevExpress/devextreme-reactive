@@ -29,10 +29,10 @@ export class DateNavigator extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.targetRef = this.targetRef.bind(this);
+    this.setTargetRef = this.setTargetRef.bind(this);
   }
 
-  targetRef(target) {
+  setTargetRef(target) {
     this.target = target;
   }
 
@@ -86,7 +86,7 @@ export class DateNavigator extends React.PureComponent {
                     navigationButtonComponent={NavigationButton}
                     toggleButtonComponent={ToggleButton}
                     navigatorTitle={navigatorTitle}
-                    targetRef={this.targetRef}
+                    targetRef={this.setTargetRef}
                     onToggle={this.handleToggle}
                     onNavigate={navigateAction}
                   />

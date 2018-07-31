@@ -16,9 +16,9 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 pieAttributes.mockImplementation(() => [
-  { value: 'value1', data: { argumentField: 'argument1', color: 'color1' }, id: 'value1' },
-  { value: 'value2', data: { argumentField: 'argument2', color: 'color2' }, id: 'value2' },
-  { value: 'value3', data: { argumentField: 'argument3', color: 'color3' }, id: 'value3' },
+  { value: 'value1', data: { argumentField: 'argument1' }, id: 'value1' },
+  { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
+  { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
 ]);
 findSeriesByName.mockImplementation(() => ({}));
 
@@ -39,6 +39,7 @@ describe('Pie series', () => {
     name: 'val1',
     valueField: 'valueField',
     argumentField: 'argumentField',
+    colorDomain: jest.fn().mockReturnValue('color'),
   };
 
   it('should render points', () => {
@@ -55,12 +56,13 @@ describe('Pie series', () => {
     tree.find(PointComponent).forEach((point, index) => {
       const pointIndex = index + 1;
       expect(point.props()).toEqual({
-        data: { argumentField: `argument${pointIndex}`, color: `color${pointIndex}` },
+        data: { argumentField: `argument${pointIndex}` },
         value: `value${pointIndex}`,
-        color: `color${pointIndex}`,
+        color: 'color',
         style: { opacity: 0.4 },
         id: `value${pointIndex}`,
       });
+      expect(defaultProps.colorDomain).toHaveBeenNthCalledWith(index + 1, `value${pointIndex}`);
     });
   });
 });

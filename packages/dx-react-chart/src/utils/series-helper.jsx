@@ -59,6 +59,7 @@ export const withSeriesPlugin = (
                 argumentAxisName,
                 layouts,
                 colorDomain,
+                pieColorDomain,
               }) => {
                 const {
                   stack, uniqueName,
@@ -84,7 +85,7 @@ export const withSeriesPlugin = (
                 return (
                   <Series
                     uniqueName={uniqueName}
-                    colorDomain={colorDomain}
+                    colorDomain={pluginName === 'PieSeries' ? pieColorDomain : colorDomain}
                     coordinates={calculatedCoordinates}
                     color={color}
                     {...restProps}

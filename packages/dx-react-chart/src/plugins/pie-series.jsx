@@ -18,7 +18,7 @@ const Series = ({
       key={item.id.toString()}
       {...item}
       {...restProps}
-      color={item.data.color}
+      color={colorDomain(item.id)}
     />
   )));
 };

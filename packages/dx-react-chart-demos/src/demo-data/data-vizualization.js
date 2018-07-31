@@ -123,6 +123,22 @@ export const booksSale = [{
   year: 2017, mysteries: 4, scienceFiction: 20, romance: 3, fantasy: 12, thrillers: 5,
 }];
 
+export const oilProduction = [
+  {
+    year: '1970', saudiArabia: 241.142, usa: 482.150, iran: 230.174, mexico: 23.640, price: 17,
+  }, {
+    year: '1980', saudiArabia: 511.334, usa: 437.343, iran: 75.097, mexico: 108.249, price: 104,
+  }, {
+    year: '1990', saudiArabia: 324.359, usa: 374.867, iran: 165.284, mexico: 141.060, russia: 516.040, price: 23.7,
+  }, {
+    year: '2000', saudiArabia: 410.060, usa: 297.513, iran: 196.877, mexico: 159.630, russia: 312.821, price: 28.3,
+  }, {
+    year: '2010', saudiArabia: 413.505, usa: 279.225, iran: 200.318, mexico: 144.975, russia: 487.106, price: 79.6,
+  }, {
+    year: '2015', saudiArabia: 516.157, usa: 437.966, iran: 142.087, mexico: 121.587, russia: 512.777, price: 52.4,
+  },
+];
+
 export const ageStructure = [{
   state: 'Germany',
   young: 6.7,

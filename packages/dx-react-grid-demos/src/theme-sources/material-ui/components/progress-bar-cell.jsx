@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 });
 
-export const ProgressBarCellBase = ({ value, classes, style }) => {
+const ProgressBarCellBase = ({ value, classes, style }) => {
   const percent = value * 100;
   return (
     <TableCell

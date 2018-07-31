@@ -81,22 +81,6 @@ describe('Month View', () => {
         .toEqual([1, 2, 3]);
     });
 
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
-    });
-
     it('should provide the "startViewDate" getter', () => {
       const tree = mount((
         <PluginHost>

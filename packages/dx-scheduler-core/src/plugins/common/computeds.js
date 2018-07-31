@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { calculateFirstDateOfWeek } from '../../utils';
 
 export const dayScale = (
   currentDate = new Date(),
@@ -7,8 +8,7 @@ export const dayScale = (
   excluded = [],
 ) => {
   const result = [];
-  const date = moment(currentDate).startOf('hour');
-  date.day(firsDayOfWeek);
+  const date = moment(calculateFirstDateOfWeek(currentDate, firsDayOfWeek, excluded));
   for (let index = 0; index < dayCount; index += 1) {
     if (excluded.findIndex(item => item === date.day()) === -1) {
       result.push(date.toDate());

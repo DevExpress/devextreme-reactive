@@ -1,6 +1,5 @@
 import moment from 'moment';
 import {
-  calculateFirstDateOfWeek,
   findOverlappedAppointments,
   adjustAppointments,
   getRectByDates,
@@ -13,6 +12,7 @@ import {
 import {
   sortAppointments,
   viewPredicate,
+  calculateFirstDateOfWeek,
 } from '../../utils';
 
 const toPercentage = (value, total) => (value * 100) / total;

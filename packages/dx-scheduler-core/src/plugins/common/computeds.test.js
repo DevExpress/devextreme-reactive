@@ -8,15 +8,15 @@ describe('#dayScale', () => {
   });
 
   it('should return day units depend on first day of week', () => {
-    let units = dayScale(currentDate, 1);
+    let units = dayScale('2018-07-01', 1);
 
     expect(units[0]).toEqual(new Date(2018, 5, 25));
     expect(units[6]).toEqual(new Date(2018, 6, 1));
 
     units = dayScale(currentDate, 3);
 
-    expect(units[0]).toEqual(new Date(2018, 5, 27));
-    expect(units[6]).toEqual(new Date(2018, 6, 3));
+    expect(units[0]).toEqual(new Date(2018, 5, 20));
+    expect(units[6]).toEqual(new Date(2018, 5, 26));
   });
 
   it('should return day units depend on day count', () => {

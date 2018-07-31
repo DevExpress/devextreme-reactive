@@ -33,12 +33,12 @@ const TableBase = ({
     <TableHead>
       <HeaderRow>
         {headerCells.map((cell) => {
-          const value = moment(cell).format('ddd');
+          const key = moment(cell).format('ddd');
           return (
             <HeaderCell
-              key={`header_${value}`}
+              key={key}
             >
-              {value}
+              {key}
             </HeaderCell>
           );
         })}
@@ -47,11 +47,11 @@ const TableBase = ({
     <TableBody>
       {cells.map(row => (
         <Row
-          key={`calendar_row_${row[0].value.toString()}`}
+          key={row[0].value.toString()}
         >
           {row.map(({ value, isOtherMonth, isCurrent }) => (
             <Cell
-              key={`calendar_cell_${value.toString()}`}
+              key={value.toString()}
               otherMonth={isOtherMonth}
               current={isCurrent}
               onClick={() => {

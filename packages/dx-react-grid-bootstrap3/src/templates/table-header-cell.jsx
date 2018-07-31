@@ -65,17 +65,7 @@ export class TableHeaderCell extends React.PureComponent {
               } : null),
             }}
           >
-            {showSortingControls ? (
-              <SortingControl
-                align={align}
-                disabled={!sortingEnabled}
-                sortingDirection={sortingDirection}
-                columnTitle={columnTitle}
-                onClick={this.onClick}
-              />
-            ) : (
-              columnTitle
-            )}
+            {children}
           </div>
           {showGroupingControls && (
             <div
@@ -91,7 +81,6 @@ export class TableHeaderCell extends React.PureComponent {
             </div>
           )}
         </div>
-        {children}
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}

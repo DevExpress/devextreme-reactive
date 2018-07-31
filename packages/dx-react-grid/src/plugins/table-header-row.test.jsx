@@ -274,8 +274,16 @@ describe('TableHeaderRow', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableHeaderRow
             {...defaultProps}
-            cellComponent={({ children }) => <th>{children}</th>}
-            cellContentComponent={({ children }) => <div>{children}</div>}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            cellContentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
           />
         </PluginHost>
       ));
@@ -289,8 +297,16 @@ describe('TableHeaderRow', () => {
           <TableHeaderRow
             {...defaultProps}
             sortLabelComponent={() => <div className="sort-label" />}
-            cellComponent={({ children }) => <th>{children}</th>}
-            cellContentComponent={({ children }) => <div>{children}</div>}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            cellContentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
           />
         </PluginHost>
       ));
@@ -313,8 +329,16 @@ describe('TableHeaderRow', () => {
             sortLabelComponent={({ getMessage }) => (
               <div className="sort-label" title={getMessage('sortingHint')} />
             )}
-            cellComponent={({ children }) => <th>{children}</th>}
-            cellContentComponent={({ children }) => <div>{children}</div>}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            cellContentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
             messages={{
               sortingHint: 'test',
             }}

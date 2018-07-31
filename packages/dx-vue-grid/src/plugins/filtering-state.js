@@ -5,10 +5,12 @@ import {
   filterExpression,
 } from '@devexpress/dx-grid-core';
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
-const filterExpressionComputed = ({ filters, filterExpression: filterExpressionValue }) =>
-  filterExpression(filters, filterExpressionValue);
+const columnExtensionValueGetter = (
+  columnExtensions, defaultValue,
+) => getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
+const filterExpressionComputed = (
+  { filters, filterExpression: filterExpressionValue },
+) => filterExpression(filters, filterExpressionValue);
 
 export const DxFilteringState = {
   name: 'DxFilteringState',

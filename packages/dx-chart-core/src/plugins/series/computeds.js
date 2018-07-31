@@ -13,19 +13,24 @@ const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
-const computeLinePath = (data, scales, argumentField, valueField, name) =>
-  data.reduce((result, dataItem) => {
-    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
-      return [...result, {
-        x: scales.xScale(dataItem[argumentField]),
-        y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
-        y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
-        id: dataItem[argumentField],
-        value: dataItem[valueField],
-      }];
-    }
-    return result;
-  }, []);
+const computeLinePath = (
+  data,
+  scales,
+  argumentField,
+  valueField,
+  name,
+) => data.reduce((result, dataItem) => {
+  if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+    return [...result, {
+      x: scales.xScale(dataItem[argumentField]),
+      y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
+      y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
+      id: dataItem[argumentField],
+      value: dataItem[valueField],
+    }];
+  }
+  return result;
+}, []);
 
 const getGenerator = (type) => {
   switch (type) {
@@ -57,9 +62,9 @@ export const xyScales = (
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
   const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
-  const bandwidth = xScale.bandwidth ?
-    xScale.bandwidth() :
-    width / xScale.ticks().length;
+  const bandwidth = xScale.bandwidth
+    ? xScale.bandwidth()
+    : width / xScale.ticks().length;
 
   return {
     xScale,
@@ -100,8 +105,10 @@ export const coordinates = (
   name,
 ) => computeLinePath(data, scales, argumentField, valueField, name);
 
-export const findSeriesByName = (name, series) =>
-  series.find(seriesItem => seriesItem.uniqueName === name);
+export const findSeriesByName = (name, series) => series.find(
+  seriesItem => seriesItem.uniqueName === name,
+);
+
 
 export const lineAttributes = (
   type,
@@ -135,5 +142,4 @@ export const barPointAttributes = (scales, _, stack) => {
 
 export const seriesData = (series = [], seriesProps) => [...series, seriesProps];
 
-export const checkZeroStart = (fromZero, axisName, pathType) =>
-  ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
+export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

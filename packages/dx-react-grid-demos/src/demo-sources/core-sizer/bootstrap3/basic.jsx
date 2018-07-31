@@ -19,7 +19,12 @@ export default class Demo extends React.PureComponent {
                 height: '50vh',
               }}
             >
-              Width: {width}; Height: {height}
+              Width:
+              {' '}
+              {width}
+                ; Height:
+              {' '}
+              {height}
             </div>
           )}
         </Sizer>

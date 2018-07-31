@@ -118,8 +118,7 @@ export const dayBoundaryPredicate = (
     .hour(dayEnd.hour())
     .minutes(dayEnd.minutes());
 
-  if (excludedDays.findIndex(day =>
-    day === moment(appointment.start).day()) !== -1) return false;
+  if (excludedDays.findIndex(day => day === moment(appointment.start).day()) !== -1) return false;
 
   return (appointment.end.isAfter(startDayTime)
     && appointment.start.isBefore(endDayTime));
@@ -194,14 +193,13 @@ export const adjustAppointments = groups => groups.map((items) => {
   return { items: appointments, reduceValue };
 });
 
-export const unwrapGroups = groups =>
-  groups.reduce((acc, { items, reduceValue }) => {
-    acc.push(...items.map(appointment => ({
-      start: appointment.start,
-      end: appointment.end,
-      dataItem: appointment.dataItem,
-      offset: appointment.offset,
-      reduceValue,
-    })));
-    return acc;
-  }, []);
+export const unwrapGroups = groups => groups.reduce((acc, { items, reduceValue }) => {
+  acc.push(...items.map(appointment => ({
+    start: appointment.start,
+    end: appointment.end,
+    dataItem: appointment.dataItem,
+    offset: appointment.offset,
+    reduceValue,
+  })));
+  return acc;
+}, []);

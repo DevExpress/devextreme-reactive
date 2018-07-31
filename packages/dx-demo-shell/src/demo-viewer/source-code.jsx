@@ -6,7 +6,8 @@ import 'prismjs/components/prism-jsx';
 export class SourceCode extends React.PureComponent {
   render() {
     const { themeName, sectionName, demoName } = this.props;
-    const { demoSources } = this.context.embeddedDemoOptions;
+    const { embeddedDemoOptions } = this.context;
+    const { demoSources } = embeddedDemoOptions;
     return (
       <pre className="highlight language-jsx">
         <code

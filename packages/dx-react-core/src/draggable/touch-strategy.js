@@ -6,16 +6,20 @@ export class TouchStrategy {
     this.touchStartTimeout = null;
     this.dragging = false;
   }
+
   isDragging() {
     return this.dragging;
   }
+
   isWaiting() {
     return !!this.touchStartTimeout;
   }
+
   cancelWaiting() {
     clearTimeout(this.touchStartTimeout);
     this.touchStartTimeout = null;
   }
+
   start(e) {
     const { clientX: x, clientY: y } = e.touches[0];
     this.touchStartTimeout = setTimeout(() => {
@@ -23,6 +27,7 @@ export class TouchStrategy {
       this.dragging = true;
     }, TIMEOUT);
   }
+
   move(e) {
     this.cancelWaiting();
     if (this.dragging) {
@@ -31,6 +36,7 @@ export class TouchStrategy {
       this.delegate.onMove({ x: clientX, y: clientY });
     }
   }
+
   end(e) {
     this.cancelWaiting();
     if (this.dragging) {

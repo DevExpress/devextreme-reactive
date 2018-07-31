@@ -13,12 +13,13 @@ export class DataTypeProvider extends React.PureComponent {
       availableFilterOperations,
     } = this.props;
 
-    const getAvailableFilterOperationsComputed = ({ getAvailableFilterOperations }) =>
-      getAvailableFilterOperationsGetter(
-        getAvailableFilterOperations,
-        availableFilterOperations,
-        columnNames,
-      );
+    const getAvailableFilterOperationsComputed = (
+      { getAvailableFilterOperations },
+    ) => getAvailableFilterOperationsGetter(
+      getAvailableFilterOperations,
+      availableFilterOperations,
+      columnNames,
+    );
 
     return (
       <Plugin name="DataTypeProvider">

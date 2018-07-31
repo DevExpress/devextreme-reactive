@@ -8,6 +8,7 @@ export const ToggleButton = ({
   active, ...restProps
 }) => (
   <button
+    type="button"
     className={classNames('btn btn-link', className)}
     onClick={onToggle}
     ref={buttonRef}

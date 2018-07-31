@@ -38,13 +38,12 @@ export const viewPredicate = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
-export const sortAppointments = appointments =>
-  appointments.slice().sort((a, b) => {
-    if (a.start.isBefore(b.start)) return -1;
-    if (a.start.isAfter(b.start)) return 1;
-    if (a.start.isSame(b.start)) {
-      if (a.end.isBefore(b.end)) return 1;
-      if (a.end.isAfter(b.end)) return -1;
-    }
-    return 0;
-  });
+export const sortAppointments = appointments => appointments.slice().sort((a, b) => {
+  if (a.start.isBefore(b.start)) return -1;
+  if (a.start.isAfter(b.start)) return 1;
+  if (a.start.isSame(b.start)) {
+    if (a.end.isBefore(b.end)) return 1;
+    if (a.end.isAfter(b.end)) return -1;
+  }
+  return 0;
+});

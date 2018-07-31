@@ -15,4 +15,3 @@ describe('SelectionState Plugin reducers', () => {
     });
   });
 });
-

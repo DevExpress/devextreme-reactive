@@ -39,7 +39,9 @@ describe('Title', () => {
         {pluginDepsToComponents(defaultDeps)}
 
         <Template name="top">
-          <h1>other template</h1>
+          <h1>
+            other template
+          </h1>
         </Template>
         <Title
           {...defaultProps}

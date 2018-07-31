@@ -10,16 +10,19 @@ export class FilterSelector extends React.PureComponent {
     this.state = { opened: false };
 
     this.handleButtonClick = () => {
-      this.setState({ opened: !this.state.opened });
+      this.setState(prevState => ({ opened: !prevState.opened }));
     };
     this.handleOverlayToggle = () => {
-      if (this.state.opened) this.setState({ opened: false });
+      const { opened } = this.state;
+      if (opened) this.setState({ opened: false });
     };
     this.handleMenuItemClick = (nextValue) => {
+      const { onChange } = this.props;
       this.setState({ opened: false });
-      this.props.onChange(nextValue);
+      onChange(nextValue);
     };
   }
+
   render() {
     const {
       value, availableValues, disabled, getMessage, iconComponent: Icon,
@@ -28,6 +31,7 @@ export class FilterSelector extends React.PureComponent {
     return availableValues.length ? (
       <div className="input-group-prepend">
         <button
+          type="button"
           className="btn btn-outline-secondary"
           disabled={disabled || availableValues.length === 1}
           onClick={this.handleButtonClick}
@@ -47,6 +51,7 @@ export class FilterSelector extends React.PureComponent {
               <div className="py-2">
                 {availableValues.map(valueItem => (
                   <button
+                    type="button"
                     key={valueItem}
                     className={classNames({
                       'dropdown-item d-flex align-items-center': true,

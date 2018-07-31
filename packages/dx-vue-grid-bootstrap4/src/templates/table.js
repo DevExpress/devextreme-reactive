@@ -53,8 +53,8 @@ export const Table = {
           'dx-g-bs4-table-head': this.use === 'head',
         }}
         style={{
-            minWidth: this.minWidth,
-            ...this.use === 'head' ? {
+          minWidth: this.minWidth,
+          ...this.use === 'head' ? {
             position: this.stickyProp,
             backgroundColor: this.backgroundColor,
           } : null,

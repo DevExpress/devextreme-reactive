@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  Plugin, Getter, Template, TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
 
 export class SchedulerCore extends React.PureComponent {

@@ -44,16 +44,20 @@ export default class Demo extends React.PureComponent {
     this.changeRowChanges = this.changeRowChanges.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
   }
+
   changeAddedRows(addedRows) {
     const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
     this.setState({ addedRows: initialized });
   }
+
   changeEditingRowIds(editingRowIds) {
     this.setState({ editingRowIds });
   }
+
   changeRowChanges(rowChanges) {
     this.setState({ rowChanges });
   }
+
   commitChanges({ added, changed, deleted }) {
     let { rows } = this.state;
     if (added) {
@@ -75,6 +79,7 @@ export default class Demo extends React.PureComponent {
     }
     this.setState({ rows });
   }
+
   render() {
     const {
       rows, columns, tableColumnExtensions, editingRowIds, rowChanges, addedRows,

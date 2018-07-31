@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-scheduler",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Composable plugin-based scheduler component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -41,9 +41,9 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-core": "1.5.0",
-    "@devexpress/dx-react-core": "1.5.0",
-    "@devexpress/dx-testing": "1.5.0",
+    "@devexpress/dx-core": "1.5.1",
+    "@devexpress/dx-react-core": "1.5.1",
+    "@devexpress/dx-testing": "1.5.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -73,12 +73,12 @@
     "rollup-plugin-node-resolve": "^3.3.0"
   },
   "dependencies": {
-    "@devexpress/dx-scheduler-core": "1.5.0",
+    "@devexpress/dx-scheduler-core": "1.5.1",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.5.0",
-    "@devexpress/dx-react-core": "1.5.0",
+    "@devexpress/dx-core": "1.5.1",
+    "@devexpress/dx-react-core": "1.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

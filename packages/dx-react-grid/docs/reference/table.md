@@ -102,6 +102,7 @@ Field | Type | Description
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
+children? | ReactNode | A React node used to render the cell content.
 
 ### Table.NoDataCellProps
 

@@ -70,7 +70,7 @@ const calculateDateIntervals = (
       ...sliceAppointmentByWeek(
         { left: moment(leftBound), right: moment(rightBound) },
         appointment,
-        7,
+        DAY_COUNT,
       ),
     ]), []);
 

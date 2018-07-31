@@ -74,7 +74,7 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const legendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
-const BarSeriesForCity = regionCities => Object
+const barSeriesForCity = regionCities => Object
   .keys(regionCities[0])
   .reduce((acc, item, index) => {
     if (item !== 'year') {
@@ -123,7 +123,7 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
             lineComponent={nullComponent}
           />
           <ChartGrid />
-          {BarSeriesForCity(regionCities)}
+          {barSeriesForCity(regionCities)}
           <Stack />
           <Legend
             rootComponent={legendRoot}

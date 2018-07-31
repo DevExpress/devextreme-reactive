@@ -6,19 +6,24 @@ import { Table } from './table';
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { currentDate, onNavigate } = this.props;
+    const { currentDate } = this.props;
     this.state = {
       currentDate,
     };
-    this.onNavigate = ({ back }) => {
-      const { currentDate: currentDateState } = this.state;
-      const nextDate = moment(currentDateState)[back ? 'subtract' : 'add'](1, 'month');
-      this.setState({ currentDate: nextDate.toDate() });
-    };
-    this.onCellClick = ({ nextDate }) => {
-      onNavigate({ nextDate });
-      this.setState({ currentDate: nextDate });
-    };
+    this.onNavigate = this.onNavigate.bind(this);
+    this.onCellClick = this.onCellClick.bind(this);
+  }
+
+  onNavigate({ back }) {
+    const { currentDate: currentDateState } = this.state;
+    const nextDate = moment(currentDateState)[back ? 'subtract' : 'add'](1, 'month');
+    this.setState({ currentDate: nextDate.toDate() });
+  }
+
+  onCellClick({ nextDate }) {
+    const { onNavigate } = this.props;
+    onNavigate({ nextDate });
+    this.setState({ currentDate: nextDate });
   }
 
   render() {

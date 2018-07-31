@@ -149,6 +149,7 @@ export default class Demo extends React.PureComponent {
         { name: 'count2015', title: '2015' },
       ],
       rows: regionsCount,
+      data: citiesCount,
       columnBands: [
         {
           title: 'Year',
@@ -165,7 +166,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      columns, columnBands, currencyColumns, rows,
+      columns, columnBands, currencyColumns, rows, data,
     } = this.state;
 
     return (
@@ -183,7 +184,7 @@ export default class Demo extends React.PureComponent {
           <Table />
           <TableHeaderRow />
           <TableRowDetail
-            contentComponent={gridDetailContainer(citiesCount)}
+            contentComponent={gridDetailContainer(data)}
           />
           <TableBandHeader
             columnBands={columnBands}

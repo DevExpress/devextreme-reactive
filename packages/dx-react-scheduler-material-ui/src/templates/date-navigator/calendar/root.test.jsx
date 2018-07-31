@@ -16,6 +16,8 @@ describe('Calendar', () => {
     headerRowComponent: () => null,
     headerCellComponent: () => null,
     navigatorComponent: () => null,
+    currentDate: '2018-07-16',
+    firstDayOfWeek: 1,
     getHeaderCells: () => [],
     getCells: () => [],
   };
@@ -46,10 +48,7 @@ describe('Calendar', () => {
     });
     it('should render navigator', () => {
       const navigator = mount((
-        <Root
-          {...defaultProps}
-          currentDate="2018-07-16"
-        />
+        <Root {...defaultProps} />
       )).find(defaultProps.navigatorComponent);
 
       const {
@@ -65,10 +64,7 @@ describe('Calendar', () => {
     });
     it('should navigate to the prev and next month', () => {
       const tree = mount((
-        <Root
-          {...defaultProps}
-          currentDate="2018-07-16"
-        />
+        <Root {...defaultProps} />
       ));
       const { onNavigate } = tree.find(defaultProps.navigatorComponent).props();
 
@@ -111,7 +107,6 @@ describe('Calendar', () => {
       const tree = mount((
         <Root
           {...defaultProps}
-          currentDate="2018-07-16"
           onNavigate={onNavigateMock}
         />
       ));

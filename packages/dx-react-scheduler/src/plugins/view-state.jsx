@@ -6,7 +6,7 @@ import {
   Plugin,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { setCurrentDate } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate } from '@devexpress/dx-scheduler-core';
 
 export class ViewState extends React.PureComponent {
   constructor(props) {
@@ -23,8 +23,8 @@ export class ViewState extends React.PureComponent {
       },
     );
 
-    this.setCurrentDate = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'currentDate', setCurrentDate);
+    this.changeCurrentDate = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'currentDate', changeCurrentDate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,7 +44,7 @@ export class ViewState extends React.PureComponent {
         name="ViewState"
       >
         <Getter name="currentDate" value={currentDate} />
-        <Action name="setCurrentDate" action={this.setCurrentDate} />
+        <Action name="changeCurrentDate" action={this.changeCurrentDate} />
       </Plugin>
     );
   }

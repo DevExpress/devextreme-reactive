@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { testStatePluginField, pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { setCurrentDate } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate } from '@devexpress/dx-scheduler-core';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ViewState } from './view-state';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  setCurrentDate: jest.fn(),
+  changeCurrentDate: jest.fn(),
 }));
 
 const defaultDeps = {};
@@ -22,8 +22,8 @@ describe('ViewState', () => {
       '2018-07-15',
     ],
     actions: [{
-      actionName: 'setCurrentDate',
-      reducer: setCurrentDate,
+      actionName: 'changeCurrentDate',
+      reducer: changeCurrentDate,
     }],
   });
 

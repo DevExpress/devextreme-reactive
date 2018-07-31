@@ -17,7 +17,7 @@ const defaultDeps = {
     firstDayOfWeek: 1,
   },
   action: {
-    setCurrentDate: jest.fn(),
+    changeCurrentDate: jest.fn(),
   },
   template: {
     toolbarContent: {},
@@ -111,7 +111,7 @@ describe('DateNavigator', () => {
       .toBe(ToggleButtonComponent);
     expect(navigatorTitle)
       .toBe('July 2018');
-    expect(defaultDeps.action.setCurrentDate)
+    expect(defaultDeps.action.changeCurrentDate)
       .toBeCalled();
   });
 
@@ -149,7 +149,7 @@ describe('DateNavigator', () => {
     expect(headerRowComponent).toBe(CalendarHeaderRow);
     expect(headerCellComponent).toBe(CalendarHeaderCell);
     expect(navigatorComponent).toBe(CalendarNavigatorComponent);
-    expect(defaultDeps.action.setCurrentDate).toHaveBeenCalled();
+    expect(defaultDeps.action.changeCurrentDate).toHaveBeenCalled();
   });
 
   it('should calculate calendar cells via the "monthCells" and "dayScale" computeds', () => {

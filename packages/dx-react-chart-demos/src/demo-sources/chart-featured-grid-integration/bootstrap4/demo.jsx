@@ -22,28 +22,28 @@ import {
 import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
 
 const nullComponent = () => null;
-const CurrencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-const AxisLabelComponent = ({
+const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+const axisLabel = ({
   text,
   ...restProps
-}) => <ValueAxis.Label text={CurrencyFormatter({ value: text })} {...restProps} />;
+}) => <ValueAxis.Label text={currencyFormatter({ value: text })} {...restProps} />;
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
     {...props}
-    formatterComponent={CurrencyFormatter}
+    formatterComponent={currencyFormatter}
   />
 );
 
-const LegendRoot = props => (
+const legendRoot = props => (
   <Legend.Root
     {...props}
     className="m-auto flex-row"
   />
 );
 
-const BarSeriesForCity = DataCitiesRegions => Object
-  .keys(DataCitiesRegions[0])
+const barSeriesForCity = regionCities => Object
+  .keys(regionCities[0])
   .reduce((acc, item, index) => {
     if (item !== 'year') {
       acc.push(
@@ -59,8 +59,7 @@ const BarSeriesForCity = DataCitiesRegions => Object
   }, []);
 
 const gridDetailContainer = data => ({ row }) => {
-  const DataCities = data.slice();
-  const DataCitiesRegions = DataCities.reduce((acc, item) => {
+  const regionCities = data.reduce((acc, item) => {
     const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
       if (itemCity.region === row.region) {
@@ -78,7 +77,7 @@ const gridDetailContainer = data => ({ row }) => {
       </h5>
       <Card className="pt-4">
         <Chart
-          data={DataCitiesRegions}
+          data={regionCities}
           height={300}
         >
           <ArgumentAxis
@@ -87,15 +86,15 @@ const gridDetailContainer = data => ({ row }) => {
             tickComponent={nullComponent}
           />
           <ValueAxis
-            labelComponent={AxisLabelComponent}
+            labelComponent={axisLabel}
             tickComponent={nullComponent}
             lineComponent={nullComponent}
           />
           <ChartGrid />
-          {BarSeriesForCity(DataCitiesRegions)}
+          {barSeriesForCity(regionCities)}
           <Stack />
           <Legend
-            rootComponent={LegendRoot}
+            rootComponent={legendRoot}
             position="bottom"
           />
         </Chart>
@@ -145,7 +144,7 @@ export default class Demo extends React.PureComponent {
             for={currencyColumns}
           />
           <RowDetailState
-            defaultExpandedRowIds={[3]}
+            defaultExpandedRowIds={[4]}
           />
           <Table />
           <TableHeaderRow />

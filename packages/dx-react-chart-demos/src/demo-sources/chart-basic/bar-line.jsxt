@@ -1,0 +1,107 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  BarSeries,
+  LineSeries,
+  ArgumentAxis,
+  ValueAxis,
+  Grid,
+  Title,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+import { Stack } from '@devexpress/dx-react-chart';
+
+import { oilProduction } from '../../../demo-data/data-vizualization';
+
+const Label = symbol => (props) => {
+  const { text } = props;
+  return (
+    <ValueAxis.Label
+      {...props}
+      text={text + symbol}
+    />
+  );
+};
+
+const PriceLabel = Label(' $');
+const LabelWithThousand = Label(' k');
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      oilProduction,
+    };
+  }
+
+  render() {
+    const { oilProduction: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+
+          <ArgumentAxis name="argument" />
+          <ValueAxis name="oil" labelComponent={LabelWithThousand} />
+          <ValueAxis name="price" position="right" min={0} labelComponent={PriceLabel} />
+
+          <Grid name="oil" />
+
+          <Title
+            text="Oil production vs Oil price"
+            style={{ textAlign: 'center', width: '100%' }}
+          />
+
+          <BarSeries
+            name="USA"
+            valueField="usa"
+            argumentField="year"
+            axisName="oil"
+            stack="oil"
+          />
+          <BarSeries
+            name="Saudi Arabia"
+            valueField="saudiArabia"
+            argumentField="year"
+            axisName="oil"
+            stack="oil"
+          />
+          <BarSeries
+            name="Iran"
+            valueField="iran"
+            argumentField="year"
+            axisName="oil"
+            stack="oil"
+          />
+          <BarSeries
+            name="Mexico"
+            valueField="mexico"
+            argumentField="year"
+            axisName="oil"
+            stack="oil"
+          />
+          <BarSeries
+            name="Russia"
+            valueField="russia"
+            argumentField="year"
+            axisName="oil"
+            stack="oil"
+          />
+          <LineSeries
+            name="Oil Price"
+            valueField="price"
+            argumentField="year"
+            axisName="price"
+            stack={null}
+          />
+          <Legend />
+          <Stack />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

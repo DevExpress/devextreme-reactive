@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ChevronRight from 'material-ui-icons/ChevronRight';
-import ExpandMore from 'material-ui-icons/ExpandMore';
-import IconButton from 'material-ui/IconButton';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
@@ -57,7 +57,11 @@ const TableGroupCellBase = ({
         }
       </IconButton>
       <span className={classes.columnTitle}>
-        <strong>{column.title || column.name}: </strong>
+        <strong>
+          {column.title || column.name}
+            :
+          {' '}
+        </strong>
         {children || row.value}
       </span>
     </TableCell>
@@ -67,7 +71,7 @@ const TableGroupCellBase = ({
 TableGroupCellBase.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
-  row: PropTypes.object,
+  row: PropTypes.any,
   column: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,

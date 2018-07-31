@@ -1,0 +1,94 @@
+{
+  "private": true,
+  "name": "@devexpress/dx-react-scheduler-material-ui",
+  "version": "1.5.1",
+  "description": "Material UI templates for DevExtreme React Scheduler component",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  },
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "keywords": [
+    "react",
+    "scheduler",
+    "material",
+    "react-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/dx-react-scheduler-material-ui.cjs.js",
+  "module": "dist/dx-react-scheduler-material-ui.es.js",
+  "globalName": "DevExpress.DXReactSchedulerMaterialUI",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/dx-react-scheduler-material-ui.d.ts",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "lint": "eslint \"src/**\"",
+    "lint:fix": "yarn run lint -- --fix"
+  },
+  "devDependencies": {
+    "@devexpress/dx-react-core": "1.5.1",
+    "@devexpress/dx-react-scheduler": "1.5.1",
+    "@devexpress/dx-scheduler-core": "1.5.1",
+    "@devexpress/dx-testing": "1.5.1",
+    "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "core-js": "^2.5.7",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.18.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.4.1",
+    "jss": "^9.8.7",
+    "jss-preset-default": "^4.5.0",
+    "jss-theme-reactor": "^0.11.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-test-renderer": "^16.4.1",
+    "rollup": "0.50.0",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.3.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-react-core": "1.5.1",
+    "@devexpress/dx-react-scheduler": "1.5.1",
+    "@devexpress/dx-scheduler-core": "1.5.1",
+    "@material-ui/core": "^1.1.0",
+    "@material-ui/icons": "^1.1.0",
+    "react": "^16.2.0"
+  }
+}

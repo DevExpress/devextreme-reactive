@@ -1,20 +1,33 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
-const AND = predicates => row =>
-  predicates.reduce((acc, predicate) => acc && predicate(row), true);
+const AND = predicates => row => predicates.reduce((acc, predicate) => acc && predicate(row), true);
 
-const OR = predicates => row =>
-  predicates.reduce((acc, predicate) => acc || predicate(row), false);
+const OR = predicates => row => predicates.reduce((acc, predicate) => acc || predicate(row), false);
 
 const operators = { or: OR, and: AND };
 
 const toLowerCase = value => String(value).toLowerCase();
 
-const defaultPredicate = (value, filter) =>
-  toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1;
+const operationPredicates = {
+  contains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) > -1,
+  notContains: (value, filter) => toLowerCase(value).indexOf(toLowerCase(filter.value)) === -1,
+  startsWith: (value, filter) => toLowerCase(value).startsWith(toLowerCase(filter.value)),
+  endsWith: (value, filter) => toLowerCase(value).endsWith(toLowerCase(filter.value)),
+  equal: (value, filter) => value === filter.value,
+  notEqual: (value, filter) => value !== filter.value,
+  greaterThan: (value, filter) => value > filter.value,
+  greaterThanOrEqual: (value, filter) => value >= filter.value,
+  lessThan: (value, filter) => value < filter.value,
+  lessThanOrEqual: (value, filter) => value <= filter.value,
+};
 
-const filterTree = (tree, predicate) =>
-  tree.reduce((acc, node) => {
+export const defaultFilterPredicate = (value, filter) => {
+  const operation = filter.operation || 'contains';
+  return operationPredicates[operation](value, filter);
+};
+
+const filterTree = (tree, predicate) => tree.reduce(
+  (acc, node) => {
     if (node[NODE_CHECK]) {
       const filteredChildren = filterTree(node.children, predicate);
       if (filteredChildren.length > 0) {
@@ -23,10 +36,12 @@ const filterTree = (tree, predicate) =>
           children: filteredChildren,
         });
         return acc;
-      } else if (predicate(node.root)) {
+      }
+      if (predicate(node.root, true)) {
         acc.push(node.root);
         return acc;
       }
+      return acc;
     }
 
     if (predicate(node)) {
@@ -35,19 +50,32 @@ const filterTree = (tree, predicate) =>
     }
 
     return acc;
-  }, []);
+  },
+  [],
+);
 
-const filterHierarchicalRows = (rows, predicate, getRowLevelKey, isGroupRow) => {
+const filterHierarchicalRows = (rows, predicate, getRowLevelKey, getCollapsedRows) => {
   const tree = rowsToTree(rows, getRowLevelKey);
+  const collapsedRowsMeta = [];
 
-  const filteredTree = filterTree(
-    tree,
-    row => (isGroupRow(row)
-      ? row.collapsedRows && row.collapsedRows.findIndex(predicate) > -1
-      : predicate(row)),
-  );
+  const filteredTree = filterTree(tree, (row, isNode) => {
+    if (isNode) {
+      const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+      if (collapsedRows && collapsedRows.length) {
+        const filteredCollapsedRows = collapsedRows.filter(predicate);
+        collapsedRowsMeta.push([row, filteredCollapsedRows]);
+        return !!filteredCollapsedRows.length || predicate(row);
+      }
+      if (predicate(row)) {
+        collapsedRowsMeta.push([row, []]);
+        return true;
+      }
+      return false;
+    }
+    return predicate(row);
+  });
 
-  return treeToRows(filteredTree);
+  return { rows: treeToRows(filteredTree), collapsedRowsMeta: new Map(collapsedRowsMeta) };
 };
 
 const buildPredicate = (
@@ -58,9 +86,8 @@ const buildPredicate = (
   const getSimplePredicate = (filterExpression) => {
     const { columnName } = filterExpression;
     const customPredicate = getColumnPredicate && getColumnPredicate(columnName);
-    const predicate = customPredicate || defaultPredicate;
-    return row =>
-      predicate(getCellValue(row, columnName), filterExpression, row);
+    const predicate = customPredicate || defaultFilterPredicate;
+    return row => predicate(getCellValue(row, columnName), filterExpression, row);
   };
 
   const getOperatorPredicate = (filterExpression) => {
@@ -69,9 +96,8 @@ const buildPredicate = (
     return build && build(filterExpression.filters.map(getPredicate));
   };
 
-  const getPredicate = filterExpression =>
-    getOperatorPredicate(filterExpression) ||
-    getSimplePredicate(filterExpression);
+  const getPredicate = filterExpression => getOperatorPredicate(filterExpression)
+    || getSimplePredicate(filterExpression);
 
   return getPredicate(initialFilterExpression);
 };
@@ -81,17 +107,11 @@ export const filteredRows = (
   filterExpression,
   getCellValue,
   getColumnPredicate,
-  isGroupRow,
   getRowLevelKey,
+  getCollapsedRows,
 ) => {
-  if (
-    !(
-      filterExpression &&
-      Object.keys(filterExpression).length &&
-      rows.length
-    )
-  ) {
-    return rows;
+  if (!(filterExpression && Object.keys(filterExpression).length && rows.length)) {
+    return { rows };
   }
 
   const predicate = buildPredicate(
@@ -101,6 +121,12 @@ export const filteredRows = (
   );
 
   return getRowLevelKey
-    ? filterHierarchicalRows(rows, predicate, getRowLevelKey, isGroupRow)
-    : rows.filter(predicate);
+    ? filterHierarchicalRows(rows, predicate, getRowLevelKey, getCollapsedRows)
+    : { rows: rows.filter(predicate) };
 };
+
+export const filteredCollapsedRowsGetter = (
+  { collapsedRowsMeta },
+) => row => collapsedRowsMeta && collapsedRowsMeta.get(row);
+
+export const unwrappedFilteredRows = ({ rows }) => rows;

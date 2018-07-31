@@ -1,12 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin } from '@devexpress/dx-react-core';
+import {
+  Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
+} from '@devexpress/dx-react-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
+  getColumnFilterOperations,
   getMessagesFormatter,
+  isFilterValueEmpty,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -16,18 +20,31 @@ const pluginDependencies = [
 ];
 
 export class TableFilterRow extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filterOperations: {},
+    };
+  }
+
   render() {
     const {
       rowHeight,
+      showFilterSelector,
       cellComponent: FilterCell,
       rowComponent: FilterRow,
+      filterSelectorComponent: FilterSelector,
+      iconComponent,
+      editorComponent: EditorComponent,
       messages,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
 
-    const tableHeaderRowsComputed = ({ tableHeaderRows }) =>
-      tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
+    const tableHeaderRowsComputed = (
+      { tableHeaderRows },
+    ) => tableHeaderRowsWithFilter(tableHeaderRows, rowHeight);
 
     return (
       <Plugin
@@ -41,19 +58,41 @@ export class TableFilterRow extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ filters, isColumnFilteringEnabled }, { changeColumnFilter }) => {
+              {(
+                { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
+                { changeColumnFilter },
+              ) => {
+                const { filterOperations } = this.state;
                 const { name: columnName } = params.tableColumn.column;
                 const filter = getColumnFilterConfig(filters, columnName);
                 const onFilter = config => changeColumnFilter({ columnName, config });
+                const columnFilterOperations = getColumnFilterOperations(
+                  getAvailableFilterOperations, columnName,
+                );
+                const selectedFilterOperation = filterOperations[columnName]
+                  || columnFilterOperations[0];
+                const handleFilterOperationChange = (value) => {
+                  this.setState({
+                    filterOperations: {
+                      ...filterOperations,
+                      [columnName]: value,
+                    },
+                  });
+                  if (filter && !isFilterValueEmpty(filter.value)) {
+                    onFilter({ value: filter.value, operation: value });
+                  }
+                };
+                const handleFilterValueChange = value => onFilter(!isFilterValueEmpty(value)
+                  ? { value, operation: selectedFilterOperation }
+                  : null);
+                const filteringEnabled = isColumnFilteringEnabled(columnName);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
                     params={{
                       column: params.tableColumn.column,
                       value: filter ? filter.value : undefined,
-                      onValueChange: newValue => onFilter(newValue !== undefined
-                        ? { value: newValue }
-                        : null),
+                      onValueChange: handleFilterValueChange,
                     }}
                   >
                     {content => (
@@ -62,13 +101,31 @@ export class TableFilterRow extends React.PureComponent {
                         getMessage={getMessage}
                         column={params.tableColumn.column}
                         filter={filter}
-                        filteringEnabled={isColumnFilteringEnabled(columnName)}
+                        filteringEnabled={filteringEnabled}
                         onFilter={onFilter}
                       >
-                        {content}
+                        {showFilterSelector
+                          ? (
+                            <FilterSelector
+                              iconComponent={iconComponent}
+                              value={selectedFilterOperation}
+                              availableValues={columnFilterOperations}
+                              onChange={handleFilterOperationChange}
+                              disabled={!filteringEnabled}
+                              getMessage={getMessage}
+                            />
+                          ) : null
+                        }
+                        {content || (
+                          <EditorComponent
+                            value={filter ? filter.value : ''}
+                            disabled={!filteringEnabled}
+                            getMessage={getMessage}
+                            onChange={handleFilterValueChange}
+                          />
+                        )}
                       </FilterCell>
-                      )
-                    }
+                    )}
                   </TemplatePlaceholder>
                 );
               }}
@@ -88,12 +145,17 @@ export class TableFilterRow extends React.PureComponent {
 
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
+  showFilterSelector: PropTypes.bool,
   messages: PropTypes.object,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  filterSelectorComponent: PropTypes.func.isRequired,
+  iconComponent: PropTypes.func.isRequired,
+  editorComponent: PropTypes.func.isRequired,
 };
 
 TableFilterRow.defaultProps = {
   rowHeight: undefined,
+  showFilterSelector: false,
   messages: {},
 };

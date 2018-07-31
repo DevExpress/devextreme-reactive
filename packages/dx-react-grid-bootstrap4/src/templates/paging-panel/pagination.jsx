@@ -1,15 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Pagination as PaginationBS4, PaginationItem, PaginationLink } from 'reactstrap';
-import { firstRowOnPage, lastRowOnPage } from '@devexpress/dx-grid-core';
-
-const calculateStartPage = (currentPage, maxButtonCount, totalPageCount) => Math.max(
-  Math.min(
-    currentPage - Math.floor(maxButtonCount / 2, 10),
-    (totalPageCount - maxButtonCount) + 1,
-  ),
-  1,
-);
+import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
 const renderPageButtons = (
   currentPage,
@@ -107,7 +99,7 @@ export const Pagination = ({
   };
   return (
     <React.Fragment>
-      <PaginationBS4 className="float-right d-none d-sm-flex m-0">
+      <PaginationBS4 className="float-right d-none d-sm-flex" listClassName="m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous
@@ -125,7 +117,7 @@ export const Pagination = ({
         </PaginationItem>
       </PaginationBS4>
 
-      <PaginationBS4 className="float-right d-sm-none m-0">
+      <PaginationBS4 className="float-right d-sm-none" listClassName="m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
             previous

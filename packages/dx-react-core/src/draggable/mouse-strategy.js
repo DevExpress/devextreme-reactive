@@ -4,9 +4,10 @@ import { toggleGestureCover } from './gesture-cover';
 
 const BOUNDARY = 10;
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
-const isBoundExceeded = ({ x: initialX, y: initialY }, { x, y }) =>
-  clamp(x, initialX - BOUNDARY, initialX + BOUNDARY) !== x ||
-  clamp(y, initialY - BOUNDARY, initialY + BOUNDARY) !== y;
+const isBoundExceeded = (
+  { x: initialX, y: initialY }, { x, y },
+) => clamp(x, initialX - BOUNDARY, initialX + BOUNDARY) !== x
+  || clamp(y, initialY - BOUNDARY, initialY + BOUNDARY) !== y;
 
 export class MouseStrategy {
   constructor(delegate) {
@@ -14,14 +15,17 @@ export class MouseStrategy {
     this.mouseInitialOffset = null;
     this.dragging = false;
   }
+
   isDragging() {
     return this.dragging;
   }
+
   start(e) {
     const { clientX: x, clientY: y } = e;
     this.e = e;
     this.mouseInitialOffset = { x, y };
   }
+
   move(e) {
     const { clientX: x, clientY: y } = e;
     let dragStarted = false;
@@ -44,6 +48,7 @@ export class MouseStrategy {
       toggleGestureCover(true, cursor);
     }
   }
+
   end(e) {
     if (this.dragging) {
       const { clientX: x, clientY: y } = e;

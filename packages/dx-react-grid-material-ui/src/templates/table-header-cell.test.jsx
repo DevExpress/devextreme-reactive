@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { TableCell } from 'material-ui/Table';
-import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
+import TableCell from '@material-ui/core/TableCell';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
@@ -37,6 +38,43 @@ describe('TableHeaderCell', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  it('should use column name if title is not specified', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        {...defaultProps}
+      />
+    ));
+
+    expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
+  });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableHeaderCell {...defaultProps} />);
+    expect(tree.find('div').at(1).prop('className'))
+      .toContain(classes.contentNoWrap);
+
+    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('div').at(1).prop('className'))
+      .not.toContain(classes.contentNoWrap);
+  });
+
+  it('should cancel sorting by using the Ctrl key', () => {
+    const onSort = jest.fn();
+    const tree = mount((
+      <TableHeaderCell
+        {...defaultProps}
+        onSort={onSort}
+        showSortingControls
+        sortingEnabled
+      />
+    ));
+
+    tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
+
+    expect(onSort.mock.calls).toHaveLength(1);
+    expect(onSort.mock.calls[0][0].direction).toBe(null);
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -118,6 +156,35 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraft);
     expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
+  });
+
+  it('should pass correct text to SortingControl', () => {
+    const tree = mount((
+      <TableHeaderCell
+        {...defaultProps}
+        showSortingControls
+        tableColumn={{ align: 'right' }}
+      />
+    ));
+
+    const tooltip = tree.find('Tooltip');
+    expect(tooltip.exists())
+      .toBeTruthy();
+    expect(tooltip.prop('title'))
+      .toBe('sortingHint');
+  });
+
+  it('should add correct class if align is right', () => {
+    const tree = mount((
+      <TableHeaderCell
+        {...defaultProps}
+        showSortingControls
+        tableColumn={{ align: 'right' }}
+      />
+    ));
+
+    expect(tree.find(`.${classes.container} .${classes.contentRight}`).exists())
+      .toBeTruthy();
   });
 
   it('should pass the className prop to the root element', () => {

@@ -4,8 +4,8 @@ import {
 } from './helpers';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
-export const Action = {
-  name: 'Action',
+export const DxAction = {
+  name: 'DxAction',
   props: {
     name: {
       type: String,
@@ -27,7 +27,7 @@ export const Action = {
       position: () => this.position(),
       [`${name}Action`]: (params) => {
         const { action } = this;
-        const getters = getAvailableGetters(
+        const { getters } = getAvailableGetters(
           pluginHost,
           getterName => pluginHost.get(`${getterName}Getter`, this.plugin),
         );

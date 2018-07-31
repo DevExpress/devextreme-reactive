@@ -1,21 +1,6 @@
 import { easeOutCubic } from '@devexpress/dx-core';
 import { getTargetColumnGeometries } from './column-geometries';
 
-export const getTableRowColumnsWithColSpan = (tableColumns, colSpanStart) => {
-  if (colSpanStart === undefined) return tableColumns;
-
-  let span = false;
-  return tableColumns
-    .reduce((acc, tableColumn, columnIndex) => {
-      if (span) return acc;
-      if (columnIndex === colSpanStart || tableColumn.key === colSpanStart) {
-        span = true;
-        return [...acc, { ...tableColumn, colSpan: tableColumns.length - columnIndex }];
-      }
-      return [...acc, tableColumn];
-    }, []);
-};
-
 export const getTableColumnGeometries = (columns, tableWidth) => {
   const columnWidths = columns
     .map(column => column.width);
@@ -39,15 +24,16 @@ export const getTableColumnGeometries = (columns, tableWidth) => {
     });
 };
 
-export const getTableTargetColumnIndex = (columnGeometries, sourceIndex, offset) =>
-  getTargetColumnGeometries(columnGeometries, sourceIndex)
-    .findIndex(({ left, right }) => offset > left && offset < right);
+export const getTableTargetColumnIndex = (
+  columnGeometries, sourceIndex, offset,
+) => getTargetColumnGeometries(columnGeometries, sourceIndex)
+  .findIndex(({ left, right }) => offset > left && offset < right);
 
 
 const ANIMATION_DURATION = 200;
 
-const getAnimationProgress = animation =>
-  (new Date().getTime() - animation.startTime) / ANIMATION_DURATION;
+const getAnimationProgress = animation => (
+  new Date().getTime() - animation.startTime) / ANIMATION_DURATION;
 
 export const getAnimations = (
   prevColumns,

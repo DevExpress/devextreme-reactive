@@ -1,5 +1,5 @@
 import React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableContainer } from './table-container';
 
@@ -10,7 +10,11 @@ describe('TableContainer', () => {
   beforeAll(() => {
     resetConsole = setupConsole();
     shallow = createShallow({ untilSelector: 'TableContainerBase' });
-    classes = getClasses(<TableContainer><span /></TableContainer>);
+    classes = getClasses(
+      <TableContainer>
+        <span />
+      </TableContainer>,
+    );
   });
   afterAll(() => {
     resetConsole();

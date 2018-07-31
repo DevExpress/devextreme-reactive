@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Chip from 'material-ui/Chip';
-import { withStyles } from 'material-ui/styles';
+import Chip from '@material-ui/core/Chip';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   container: {
@@ -13,8 +13,6 @@ const styles = theme => ({
     display: 'inline-block',
   },
   column: {
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     float: 'right',

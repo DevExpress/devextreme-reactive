@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { Plugin } from './plugin';
+import { DxPlugin } from './plugin';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Plugin', () => {
@@ -26,7 +26,7 @@ describe('Plugin', () => {
     mount({
       render() {
         return (
-          <Plugin
+          <DxPlugin
             name="TestPlugin"
             dependencies={[{
               name: 'Dep1',
@@ -34,7 +34,7 @@ describe('Plugin', () => {
             }]}
           >
             <div />
-          </Plugin>
+          </DxPlugin>
         );
       },
     }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });
@@ -54,7 +54,7 @@ describe('Plugin', () => {
     const wrapper = mount({
       render() {
         return (
-          <Plugin
+          <DxPlugin
             name="TestPlugin"
             dependencies={[{
               name: 'Dep1',
@@ -62,7 +62,7 @@ describe('Plugin', () => {
             }]}
           >
             <div />
-          </Plugin>
+          </DxPlugin>
         );
       },
     }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });
@@ -89,12 +89,12 @@ describe('Plugin', () => {
       },
       render() {
         return (
-          <Plugin
+          <DxPlugin
             name="TestPlugin"
             dependencies={this.dependencies}
           >
             <div />
-          </Plugin>
+          </DxPlugin>
         );
       },
     }, { provide: { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => {} } });

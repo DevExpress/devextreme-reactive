@@ -13,11 +13,14 @@
 
 # Site
 /site/_site
-/site/demo
-/site/core
-/site/grid
-/site/react
-/site/vue
+/site/react/core/*
+!/site/react/core/overrides
+/site/react/grid/*
+!/site/react/grid/overrides
+/site/react/chart/*
+!/site/react/chart/overrides
+/site/vue/grid/*
+!/site/vue/grid/overrides
 
 # Demos
 /packages/*/src/demo-registry.js

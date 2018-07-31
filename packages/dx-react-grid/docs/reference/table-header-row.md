@@ -4,6 +4,22 @@ A plugin that renders the table's header row. The [Column](grid.md#column)'s `ti
 
 The plugin also allows you to manage a column's sorting and grouping state and initiate column dragging.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+// import { TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableHeaderRow } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -117,3 +133,4 @@ tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Tabl
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.
+tableHeaderCellBefore | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template used to prepend additional components to the header table cell.

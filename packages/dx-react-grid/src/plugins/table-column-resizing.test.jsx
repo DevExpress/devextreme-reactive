@@ -3,6 +3,9 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  pluginDepsToComponents, getComputedState, executeComputedAction, testStatePluginField,
+} from '@devexpress/dx-react-core/test-utils';
+import {
   tableColumnsWithWidths,
   tableColumnsWithDraftWidths,
   changeTableColumnWidth,
@@ -10,8 +13,6 @@ import {
   cancelTableColumnWidthDraft,
 } from '@devexpress/dx-grid-core';
 import { TableColumnResizing } from './table-column-resizing';
-import { pluginDepsToComponents, getComputedState, executeComputedAction } from './test-utils';
-import { testStatePluginField } from '../utils/state-helper.test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithWidths: jest.fn(),
@@ -55,8 +56,9 @@ describe('TableColumnResizing', () => {
   testStatePluginField({
     Plugin: TableColumnResizing,
     propertyName: 'columnWidths',
-    getGetterValue: () =>
-      tableColumnsWithWidths.mock.calls[tableColumnsWithWidths.mock.calls.length - 1][1],
+    getGetterValue: () => tableColumnsWithWidths
+      .mock
+      .calls[tableColumnsWithWidths.mock.calls.length - 1][1],
     defaultDeps,
     customPayload: defaultProps,
     defaultProps,

@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './plugin-host';
-import { Action } from './action';
-import { Getter } from './getter';
-import { Template } from './template';
-import { TemplateConnector } from './template-connector';
+import { DxPluginHost } from './plugin-host';
+import { DxAction } from './action';
+import { DxGetter } from './getter';
+import { DxTemplate } from './template';
+import { DxTemplateConnector } from './template-connector';
 
 describe('Action', () => {
   let resetConsole;
@@ -23,18 +23,18 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Action name="action" action={action} />
+          <DxPluginHost>
+            <DxAction name="action" action={action} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction = actions.action;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -55,19 +55,19 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Action name="action" action={action1} />
-            <Action name="action" action={action2} />
+          <DxPluginHost>
+            <DxAction name="action" action={action1} />
+            <DxAction name="action" action={action2} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction = actions.action;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -87,19 +87,19 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Action name="action" action={action1} />
-            <Action name="action" action={action2} />
+          <DxPluginHost>
+            <DxAction name="action" action={action1} />
+            <DxAction name="action" action={action2} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction = actions.action;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -118,19 +118,19 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Action name="action1" action={action1} />
-            <Action name="action2" action={action2} />
+          <DxPluginHost>
+            <DxAction name="action1" action={action1} />
+            <DxAction name="action2" action={action2} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction2 = actions.action2;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -149,19 +149,19 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Action name="action" action={action1} />
-            <Action name="action" action={action2} />
+          <DxPluginHost>
+            <DxAction name="action" action={action1} />
+            <DxAction name="action" action={action2} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction = actions.action;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -178,20 +178,20 @@ describe('Action', () => {
     mount({
       render() {
         return (
-          <PluginHost>
-            <Getter name="value" value={1} />
-            <Action name="action" action={action} />
-            <Getter name="value" value={2} />
+          <DxPluginHost>
+            <DxGetter name="value" value={1} />
+            <DxAction name="action" action={action} />
+            <DxGetter name="value" value={2} />
 
-            <Template name="root">
-              <TemplateConnector>
+            <DxTemplate name="root">
+              <DxTemplateConnector>
                 {({ actions }) => {
                   computedAction = actions.action;
                   return null;
                 }}
-              </TemplateConnector>
-            </Template>
-          </PluginHost>
+              </DxTemplateConnector>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });

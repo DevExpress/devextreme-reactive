@@ -2,6 +2,14 @@
 
 A plugin that manages the expanded state for table row details.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { RowDetailState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies

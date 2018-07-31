@@ -2,6 +2,22 @@
 
 A plugin that renders a row being edited.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableEditRow } from '@devexpress/dx-react-grid-material-ui';
+// import { TableEditRow } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableEditRow } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableEditRow } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -31,7 +47,7 @@ Field | Type | Description
 row | any | A row to be edited.
 column | [Column](grid.md#column) | A column.
 value | any | A value to be edited.
-editingEnabled | boolean | Specifies whether editing by a column is enabled.
+editingEnabled | boolean | Specifies whether editing a column is enabled.
 onValueChange | (newValue: any) => void | Handles value changes.
 
 ### TableEditRow.RowProps
@@ -65,11 +81,12 @@ addedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt
 isColumnEditingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean |  A function that returns a value that specifies if editing by a column is enabled.
 changeAddedRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 rowChanges | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
-changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: Object }) => void | Applies a change to an existing row.
-getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a column value for the specified row.
-createRowChange | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor value changes.
+changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: object }) => void | Applies a change to an existing row.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get the specified row's column value.
+createRowChange | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor's value changes.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueEditor | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueEditorProps](data-type-provider.md#datatypeprovidervalueeditorprops) | A template that renders the editor.
 
 ### Exports
 

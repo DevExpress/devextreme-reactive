@@ -43,8 +43,6 @@ You can prevent sorting by a specific column using the [SortingState](../referen
 
 The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
 
-Note that the `IntegratedGrouping` plugin should follow `IntegratedSorting` to provide correct group row sorting.
-
 .embedded-demo({ "path": "grid-sorting/group-sorting", "showThemeSelector": true })
 
 ## Custom Sorting Algorithm
@@ -61,7 +59,7 @@ You can use your own sort label component by overriding the `sortLabelComponent`
 
 ## Remote Sorting
 
-You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
+You can perform remote sorting by handling sorting state changes, generating a request, and sending it to the server.
 
 Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
 

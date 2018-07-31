@@ -4,15 +4,19 @@ import { Draggable } from '../draggable';
 
 export class DragSource extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.children !== this.props.children;
+    const { children } = this.props;
+    return nextProps.children !== children;
   }
+
   render() {
     const { dragDropProvider } = this.context;
-    const { onStart, onUpdate, onEnd } = this.props;
+    const {
+      onStart, onUpdate, onEnd, payload, children,
+    } = this.props;
     return (
       <Draggable
         onStart={({ x, y }) => {
-          dragDropProvider.start(this.props.payload, { x, y });
+          dragDropProvider.start(payload, { x, y });
           onStart({ clientOffset: { x, y } });
         }}
         onUpdate={({ x, y }) => {
@@ -24,7 +28,7 @@ export class DragSource extends React.Component {
           onEnd({ clientOffset: { x, y } });
         }}
       >
-        {this.props.children}
+        {children}
       </Draggable>
     );
   }

@@ -2,6 +2,22 @@
 
 A plugin that renders group rows and enables them to expand and collapse.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableGroupRow } from '@devexpress/dx-react-grid-material-ui';
+// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableGroupRow } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -43,7 +59,7 @@ Field | Type | Description
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
-onToggle | () => void | An event that initiates group row's expanding or collapsing.
+onToggle | () => void | An event that initiates group row expanding or collapsing.
 
 ### TableGroupRow.RowProps
 
@@ -64,7 +80,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
-column | [Column](#column-extension) | A column associated with the group.
+column | [Column](grid.md#column) | A column associated with the group.
 
 ### GroupRow
 
@@ -95,15 +111,16 @@ tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 grouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Current grouping options.
 draftGrouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | Grouping options used for the preview.
-expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Expanded groups.
+expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](grouping-state.md#groupkey)&gt; | Expanded groups.
 isGroupRow | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function used to identify a group row within ordinary rows.
-toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](grouping-state.md#group-key) }) => void | Toggles the group's expanded state.
+toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](grouping-state.md#groupkey) }) => void | Toggles the group's expanded state.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
+valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns, including the ones by which the table is grouped.
-tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablecolumn)&gt; | Table body rows with modified group rows.
+tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified group rows.

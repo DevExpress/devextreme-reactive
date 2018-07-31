@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Template, TemplatePlaceholder, Plugin, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Template, TemplatePlaceholder, Plugin, TemplateConnector,
+} from '@devexpress/dx-react-core';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
@@ -49,8 +51,9 @@ export class GroupingPanel extends React.PureComponent {
                   ? getColumnSortingDirection(sorting, columnName) : undefined}
                 showGroupingControls={showGroupingControls}
                 onGroup={() => changeColumnGrouping({ columnName })}
-                onSort={({ direction, keepOther }) =>
-                  changeColumnSorting({ columnName, direction, keepOther })}
+                onSort={(
+                  { direction, keepOther },
+                ) => changeColumnSorting({ columnName, direction, keepOther })}
               />
             );
           }}

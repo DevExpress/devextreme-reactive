@@ -2,6 +2,14 @@
 
 A plugin that performs built-in grouping and group expanding/collapsing.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { IntegratedGrouping } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -33,7 +41,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows to be grouped.
 grouping | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Grouping](grouping-state.md#grouping)&gt; | The current grouping state.
-expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](grouping-state.md#group-key)&gt; | Groups to be expanded.
+expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](grouping-state.md#groupkey)&gt; | Groups to be expanded.
 getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function that returns a cell value.
 
 ### Exports
@@ -43,3 +51,4 @@ Name | Plugin | Type | Description
 rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows with the applied grouping and expanded groups.
 isGroupRow | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => boolean | A function that returns a value defining if the row is a group row.
 getRowLevelKey | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => string? | A function that returns a group level key for the row.
+getCollapsedRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => Array&lt;any&gt;? | A function used to get collapsed rows associated with the given row.

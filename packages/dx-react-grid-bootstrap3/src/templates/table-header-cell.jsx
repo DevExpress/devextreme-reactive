@@ -14,9 +14,10 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
   }
+
   render() {
     const {
-      style, column, tableColumn,
+      style, column, tableColumn, before,
       showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
@@ -39,18 +40,57 @@ export class TableHeaderCell extends React.PureComponent {
           } : null),
           ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
-          padding: '5px',
           ...style,
         }}
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            disabled={!groupingEnabled}
-            onGroup={onGroup}
-          />
-        )}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          {before}
+          <div
+            style={{
+              width: '100%',
+              textAlign: align,
+              whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              ...(showSortingControls ? {
+                margin: '-5px',
+                padding: '5px',
+              } : null),
+            }}
+          >
+            {showSortingControls ? (
+              <SortingControl
+                align={align}
+                disabled={!sortingEnabled}
+                sortingDirection={sortingDirection}
+                columnTitle={columnTitle}
+                onClick={this.onClick}
+              />
+            ) : (
+              columnTitle
+            )}
+          </div>
+          {showGroupingControls && (
+            <div
+              style={{
+                flex: 'none',
+              }}
+            >
+              <GroupingControl
+                align={align}
+                disabled={!groupingEnabled}
+                onGroup={onGroup}
+              />
+            </div>
+          )}
+        </div>
         {children}
         {resizingEnabled && (
           <ResizingControl
@@ -97,6 +137,7 @@ TableHeaderCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  before: PropTypes.node,
 };
 
 TableHeaderCell.defaultProps = {
@@ -118,4 +159,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraftCancel: undefined,
   getMessage: undefined,
   children: undefined,
+  before: undefined,
 };

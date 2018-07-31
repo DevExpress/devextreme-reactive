@@ -4,8 +4,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './table.css';
-
 let globalStickyProp;
 const testCSSProp = (property, value, noPrefixes) => {
   const prop = `${property}:`;
@@ -29,20 +27,24 @@ export class Table extends React.Component {
       backgroundColor: 'white',
     };
   }
+
   componentDidMount() {
     this.checkStyles();
   }
+
   checkStyles() {
+    const { backgroundColor: stateBackgroundColor, stickyProp } = this.state;
     globalStickyProp = testCSSProp('position', 'sticky');
 
     const body = document.getElementsByTagName('body')[0];
     const { backgroundColor } = window.getComputedStyle(body);
 
-    if (this.state.backgroundColor !== backgroundColor
-      || this.state.stickyProp !== globalStickyProp) {
+    if (stateBackgroundColor !== backgroundColor
+      || stickyProp !== globalStickyProp) {
       this.setState({ stickyProp: globalStickyProp, backgroundColor });
     }
   }
+
   render() {
     const {
       children, use, style, className, ...restProps
@@ -52,8 +54,8 @@ export class Table extends React.Component {
       <table
         ref={(node) => { this.node = node; }}
         className={classNames({
-          'table mb-0 dx-rg-bs4-overflow-hidden dx-rg-bs4-table': true,
-          'dx-rg-bs4-table-head': use === 'head',
+          'table mb-0 dx-g-bs4-table': true,
+          'dx-g-bs4-table-head': use === 'head',
         }, className)}
         {...restProps}
         style={{

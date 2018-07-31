@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-edit-cell.css';
 
 export const EditCell = ({
   column, value, onValueChange, className, children,
   row, tableRow, tableColumn, editingEnabled, ...restProps
 }) => (
   <td
-    className={classNames('align-middle dx-rg-bs4-table-edit-cell', className)}
+    className={classNames('align-middle dx-g-bs4-table-edit-cell', className)}
     {...restProps}
   >
     {children || (
@@ -28,7 +27,7 @@ export const EditCell = ({
 );
 EditCell.propTypes = {
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   value: PropTypes.any,

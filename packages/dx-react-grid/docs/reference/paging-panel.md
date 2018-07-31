@@ -2,6 +2,22 @@
 
 A plugin that renders the paging panel used for navigation through data pages.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { PagingPanel } from '@devexpress/dx-react-grid-material-ui';
+// import { PagingPanel } from '@devexpress/dx-react-grid-bootstrap4';
+// import { PagingPanel } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { PagingPanel } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -12,7 +28,7 @@ A plugin that renders the paging panel used for navigation through data pages.
 
 Name | Type | Default | Description
 -----|------|---------|------------
-containerComponent | ComponentType&lt;[PagingPanel.ContainerProps](#containerprops)&gt; | | A component that renders the paging panel.
+containerComponent | ComponentType&lt;[PagingPanel.ContainerProps](#pagingpanelcontainerprops)&gt; | | A component that renders the paging panel.
 pageSizes? | Array&lt;number&gt; | [] | The page sizes that a user can select.
 messages? | [PagingPanel.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
 
@@ -44,7 +60,7 @@ info? | (parameters: { from: number, to: number, count: number }) => string &#12
 
 Name | Properties | Description
 -----|------------|------------
-PagingPanel.Container | [PagingPanel.ContainerProps](#containerprops) | A component that renders the paging panel.
+PagingPanel.Container | [PagingPanel.ContainerProps](#pagingpanelcontainerprops) | A component that renders the paging panel.
 
 Additional properties are added to the component's root element.
 
@@ -59,7 +75,7 @@ pageSize | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | 
 totalCount | [Getter](../../../dx-react-core/docs/reference/getter.md) | number | The total row count.
 setCurrentPage | [Action](../../../dx-react-core/docs/reference/action.md) | (page: number) => void | Changes the current page.
 setPageSize | [Action](../../../dx-react-core/docs/reference/action.md) | (size: number) => void | Changes the page size.
-footer | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the grid footer.
+footer | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the grid footer.
 
 ### Exports
 

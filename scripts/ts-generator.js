@@ -63,8 +63,10 @@ const parseFile = (source) => {
       if (name) {
         return [...acc, { name, description: '', properties: [] }];
       }
-      if (acc[lastItemIndex].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
-        if (line.indexOf('Extends ') === 0) {
+      if (!line.match(/.+\|.+\|.+/)) {
+        if (line.indexOf('Type: ') === 0) {
+          acc[lastItemIndex].type = cleanElement(line.match(/\`([.\w]+)\`/)[1]);
+        } else if (line.indexOf('Extends ') === 0) {
           acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {
           acc[lastItemIndex].description += cleanElement(line);
@@ -76,12 +78,16 @@ const parseFile = (source) => {
     }, []);
 
   let componentsBlock = source.slice(source.indexOf('## Plugin Components') + 1);
-  componentsBlock = componentsBlock.slice(0, componentsBlock.findIndex(el => el.indexOf('## ') === 0))
+  componentsBlock = componentsBlock.slice(0, getBlockEnd(componentsBlock))
+    .filter(line => line.match(/.+\|.+\|.+/));
+
+  let staticFieldsBlock = source.slice(source.indexOf('## Static Fields') + 1);
+  staticFieldsBlock = staticFieldsBlock.slice(0, getBlockEnd(staticFieldsBlock))
     .filter(line => line.match(/.+\|.+\|.+/));
 
   let messagesBlock = source.slice(source.indexOf('## Localization Messages') + 1);
   messagesBlock = messagesBlock
-    .slice(0, messagesBlock.findIndex(el => el.indexOf('## ') === 0))
+    .slice(0, getBlockEnd(messagesBlock))
     .filter(line => line.match(/.+\|.+\|.+/));
 
   return {
@@ -89,6 +95,7 @@ const parseFile = (source) => {
     properties: propertiesBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
+    staticFields: staticFieldsBlock,
     localizationMessages: messagesBlock,
   };
 };
@@ -112,8 +119,11 @@ const getInterfaceExport = ({
 
 const generateTypeScript = (data, componentName) => {
   const interfaces = data.interfaces.reduce((acc, currentInterface) => {
-    const { name } = currentInterface;
-    if (name === 'GroupKey') return `${acc}export type ${name} = string;\n\n`;
+    const { name, type, description } = currentInterface;
+    if (type) {
+      return `${acc}/** ${description} */\n` +
+        `export type ${name} = ${type};\n\n`;
+    }
     if (name.indexOf('.') !== -1) {
       const [namespace, interfaceName] = name.split('.');
       return `${acc}export namespace ${namespace} {\n`
@@ -137,22 +147,29 @@ const generateTypeScript = (data, componentName) => {
     + '}\n\n';
   }
 
+  const staticFields = data.staticFields
+    .reduce((acc, line) => acc
+      + getFormattedLine(line), '');
+
   result += `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
     + `/** ${data.description} */\n`
-    + `export declare const ${componentName}: React.ComponentType<${componentName}Props>;\n`;
+    + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
+    + `${staticFields.length ? ` & {\n${staticFields}}` : ''}`
+    + ';\n';
 
   return result;
 };
 
-const getThemesTypeScript = (data, componentName) => {
+const getThemesTypeScript = (data, componentName, packageName) => {
   const properties = data.properties
     .reduce((acc, line) => {
       let result = acc
         + getFormattedLine(line)
           .replace(`${componentName}.`, `${componentName}Base.`)
-          .replace('Table.', 'TableBase.');
+          .replace('Table.', 'TableBase.')
+          .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       if (componentName !== 'Grid') {
         result = result.replace(/(\s\s\w+):/g, '$1?:');
       } else {
@@ -166,11 +183,13 @@ const getThemesTypeScript = (data, componentName) => {
       + getFormattedLine(line)
         .replace(/\w+\.(\w+:\s)(.+);/, '$1React.ComponentType<$2>;')
         .replace(`${componentName}.`, `${componentName}Base.`)
-        .replace('Table.', 'TableBase.'), '');
+        .replace('Table.', 'TableBase.')
+        .replace('TableHeaderRow.', 'TableHeaderRowBase.'), '')
+        .replace(/(\w+: React\.ComponentType<.*)>/g, '$1 & { className?: string; style?: React.CSSProperties; [x: string]: any }>');
 
   return 'import {\n'
     + `  ${componentName} as ${componentName}Base,\n`
-    + '} from \'@devexpress/dx-react-grid\';\n'
+    + `} from \'@devexpress/${packageName}\';\n`
     + `\nexport interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
@@ -183,6 +202,11 @@ const ensureDirectory = (dir) => {
   if (!existsSync(dir)) {
     mkdirSync(dir);
   }
+};
+
+const isNotRootComponent = (packageName, file) => {
+  return (packageName.indexOf('grid') > 0 && file.indexOf('grid') === -1) ||
+        (packageName.indexOf('chart') > 0 && file.indexOf('chart') === -1);
 };
 
 const generateTypeScriptForPackage = (packageName) => {
@@ -209,14 +233,15 @@ const generateTypeScriptForPackage = (packageName) => {
 
     if (!themes.length) return;
 
-    const themeFile = join((file.indexOf('grid') === -1 ? PLUGINS_FOLDER : ''), targetFileName);
+    const themeFile = join((isNotRootComponent(packageName, file) ? PLUGINS_FOLDER : ''), targetFileName);
     const targetThemeFolder = join(ROOT_PATH, `${packageName}-${themes[0]}`, 'src');
     if (existsSync(join(targetThemeFolder, `${themeFile}.jsx`))) {
       fileData.properties
         .reduce((acc, line) => {
           const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
           if (matches !== null && matches[1] !== componentName
-            && matches[1] !== 'Table' && acc.indexOf(matches[1]) === -1) {
+            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow'
+            && acc.indexOf(matches[1]) === -1) {
             acc.push(matches[1]);
           }
           return acc;
@@ -228,7 +253,7 @@ const generateTypeScriptForPackage = (packageName) => {
         });
 
       themesIndexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
-      themesIndexContent += getThemesTypeScript(fileData, componentName);
+      themesIndexContent += getThemesTypeScript(fileData, componentName, packageName);
     }
   });
 
@@ -256,3 +281,4 @@ const generateTypeScriptForPackage = (packageName) => {
 
 generateTypeScriptForPackage('dx-react-core');
 generateTypeScriptForPackage('dx-react-grid');
+generateTypeScriptForPackage('dx-react-chart');

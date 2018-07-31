@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import {
   TABLE_DATA_TYPE,
   TABLE_REORDERING_TYPE,
@@ -16,7 +17,6 @@ import {
   TemplateConnector,
   DragDropProvider,
 } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from './test-utils';
 import { TableColumnReordering } from './table-column-reordering';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -32,10 +32,15 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 /* eslint-disable react/prop-types */
 const getBoundingClientRect = jest.fn(node => node.getBoundingClientRect());
 const defaultProps = {
-  tableContainerComponent: ({ children }) => <div>{children}</div>,
+  tableContainerComponent: ({ children }) => (
+    <div>
+      {children}
+    </div>
+  ),
   rowComponent: () => null,
-  cellComponent: ({ getCellDimensions }) =>
-    <div ref={node => getCellDimensions(() => getBoundingClientRect(node))} />,
+  cellComponent: (
+    { getCellDimensions },
+  ) => <div ref={node => getCellDimensions(() => getBoundingClientRect(node))} />,
 };
 /* eslint-enable react/prop-types */
 
@@ -129,7 +134,11 @@ describe('TableColumnReordering', () => {
 
   describe('drag\'n\'drop reordering', () => {
     // eslint-disable-next-line react/prop-types
-    const TableMock = ({ children }) => <div>{children}</div>;
+    const TableMock = ({ children }) => (
+      <div>
+        {children}
+      </div>
+    );
     const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
       <DragDropProvider>
         <PluginHost>

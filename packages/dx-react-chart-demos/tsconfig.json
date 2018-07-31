@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+      "sourceMap": true,
+      "module": "es6",
+      "target": "es5",
+      "lib": ["es6", "dom"],
+      "moduleResolution": "node",
+      "jsx": "react"
+  },
+  "include": [
+      "./src/**/*"
+  ],
+  "exclude": [
+      "**/*.g.test.tsx"
+  ]
+
+}

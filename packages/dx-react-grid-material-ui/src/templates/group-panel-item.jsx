@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableSortLabel } from 'material-ui/Table';
-import Chip from 'material-ui/Chip';
-import { withStyles } from 'material-ui/styles';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Chip from '@material-ui/core/Chip';
+import { withStyles } from '@material-ui/core/styles';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -47,7 +47,6 @@ const GroupPanelItemBase = ({
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
-    if (!showSortingControls || !sortingEnabled) return;
     const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
     const isMouseClick = e.keyCode === undefined;
     const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
@@ -66,9 +65,11 @@ const GroupPanelItemBase = ({
       label={label(showSortingControls, sortingEnabled, sortingDirection, column)}
       className={chipClassNames}
       {...showGroupingControls
-        ? { onDelete: groupingEnabled ? onGroup : () => {} }
+        ? { onDelete: groupingEnabled ? onGroup : null }
         : null}
-      onClick={onClick}
+      {...showSortingControls
+        ? { onClick: sortingEnabled ? onClick : null }
+        : null}
       {...restProps}
     />
   );

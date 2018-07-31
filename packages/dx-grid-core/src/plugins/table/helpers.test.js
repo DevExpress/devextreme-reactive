@@ -1,20 +1,13 @@
 import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import {
-  isNoDataTableRow,
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  isNoDataTableRow,
+  isNoDataTableCell,
 } from './helpers';
 
 describe('Table Plugin helpers', () => {
-  describe('#isNoDataTableRow', () => {
-    it('should work', () => {
-      expect(isNoDataTableRow({ type: TABLE_NODATA_TYPE }))
-        .toBeTruthy();
-      expect(isNoDataTableRow({ type: 'undefined' }))
-        .toBeFalsy();
-    });
-  });
   describe('#isDataTableCell', () => {
     it('should work', () => {
       expect(isDataTableCell({ type: TABLE_DATA_TYPE }, { type: TABLE_DATA_TYPE }))
@@ -41,6 +34,23 @@ describe('Table Plugin helpers', () => {
       expect(isDataTableRow({ type: 'data' }))
         .toBeTruthy();
       expect(isDataTableRow({ type: 'undefined' }))
+        .toBeFalsy();
+    });
+  });
+  describe('#isNoDataTableRow', () => {
+    it('should work', () => {
+      expect(isNoDataTableRow({ type: TABLE_NODATA_TYPE }))
+        .toBeTruthy();
+      expect(isNoDataTableRow({ type: 'undefined' }))
+        .toBeFalsy();
+    });
+  });
+  describe('#isNoDataTableCell', () => {
+    it('should work', () => {
+      const column = { type: 'undefined' };
+      expect(isNoDataTableCell(column, [column]))
+        .toBeTruthy();
+      expect(isNoDataTableCell(column, [{ type: 'undefined' }, column]))
         .toBeFalsy();
     });
   });

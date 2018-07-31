@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from './test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -30,9 +30,17 @@ const defaultDeps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const ContainerComponent = ({ children }) => <div>{children}</div>;
+const ContainerComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 // eslint-disable-next-line react/prop-types
-const OverlayComponent = ({ children }) => <div>{children}</div>;
+const OverlayComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 const ToggleButtonComponent = () => null;
 const ItemComponent = () => null;
 
@@ -116,7 +124,7 @@ describe('ColumnChooser', () => {
   });
 
   it('should render OverlayComponent', () => {
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
@@ -126,7 +134,7 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(OverlayComponent)
+    expect(tree.find(OverlayComponent).exists())
       .toBeTruthy();
   });
 

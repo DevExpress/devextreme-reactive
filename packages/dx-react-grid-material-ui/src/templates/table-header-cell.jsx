@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
@@ -14,7 +14,6 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    height: theme.spacing.unit * 3,
     lineHeight: `${theme.spacing.unit * 3}px`,
   },
   cell: {
@@ -66,6 +65,22 @@ const styles = theme => ({
   cellCenter: {
     textAlign: 'center',
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  content: {
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  contentRight: {
+    flexDirection: 'row-reverse',
+  },
+  contentNoWrap: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -76,6 +91,7 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
   }
+
   render() {
     const {
       style, column, tableColumn,
@@ -83,7 +99,7 @@ class TableHeaderCellBase extends React.PureComponent {
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
-      classes, getMessage, tableRow, className, onSort, children,
+      classes, getMessage, tableRow, className, onSort, children, before,
       ...restProps
     } = this.props;
 
@@ -98,6 +114,11 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
+    const contentClassed = classNames({
+      [classes.content]: true,
+      [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      [classes.contentRight]: align === 'right',
+    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -105,14 +126,20 @@ class TableHeaderCellBase extends React.PureComponent {
         numeric={align === 'right'}
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            disabled={!groupingEnabled}
-            onGroup={onGroup}
-          />
-        )}
-        {children}
+        <div className={classes.container}>
+          {before}
+          <div className={contentClassed}>
+            {children}
+          </div>
+          {showGroupingControls && (
+            <div className={classes.controls}>
+              <GroupingControl
+                disabled={!groupingEnabled}
+                onGroup={onGroup}
+              />
+            </div>
+          )}
+        </div>
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -161,6 +188,7 @@ TableHeaderCellBase.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  before: PropTypes.node,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -182,6 +210,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraftCancel: undefined,
   className: undefined,
   children: undefined,
+  before: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

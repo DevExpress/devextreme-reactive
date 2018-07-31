@@ -2,6 +2,14 @@
 
 A plugin that manages the grouping state. It lists columns used for grouping and stores information about expanded/collapsed groups.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { GroupingState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -15,11 +23,11 @@ Name | Type | Default | Description
 grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies columns to group by.
 defaultGrouping? | Array&lt;[Grouping](#grouping)&gt; | [] | Specifies initial grouping options in the uncontrolled mode.
 onGroupingChange? | (grouping: Array&lt;[Grouping](#grouping)&gt;) => void | | Handles grouping option changes.
-expandedGroups? | Array&lt;[GroupKey](#group-key)&gt; | | Specifies expanded groups.
-defaultExpandedGroups? | Array&lt;[GroupKey](#group-key)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
+expandedGroups? | Array&lt;[GroupKey](#groupkey)&gt; | | Specifies expanded groups.
+defaultExpandedGroups? | Array&lt;[GroupKey](#groupkey)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
 columnGroupingEnabled? | boolean | true | Specifies whether grouping is enabled for all columns.
 columnExtensions? | Array&lt;[GroupingState.ColumnExtension](#groupingstatecolumnextension)&gt; | | Additional column properties that the plugin can handle.
-onExpandedGroupsChange? | (expandedGroups: Array&lt;[GroupKey](#group-key)&gt;) => void | | Handles expanded group changes.
+onExpandedGroupsChange? | (expandedGroups: Array&lt;[GroupKey](#groupkey)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
 
@@ -32,6 +40,8 @@ Field | Type | Description
 columnName | string | Specifies the name of the column by which the data is grouped.
 
 ### GroupKey
+
+Type: `string`
 
 Describes a group that can be nested in another one.
 
@@ -66,5 +76,5 @@ isColumnGroupingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.
 changeColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Groups data by a specified column or cancels grouping. If `groupIndex` is omitted, the group is added to the last position.
 draftColumnGrouping | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, groupIndex?: number }) => void | Sets or clears grouping options used for the preview. If `groupIndex` is omitted, the group is added to the last position.
 cancelColumnGroupingDraft | [Action](../../../dx-react-core/docs/reference/action.md) | () => void | Cancels changes to the column grouping options used for the preview.
-expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](#group-key)&gt; | Expanded groups.
-toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](#group-key) }) => void | Toggles the expanded group state.
+expandedGroups | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupKey](#groupkey)&gt; | Expanded groups.
+toggleGroupExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ groupKey: [GroupKey](#groupkey) }) => void | Toggles the expanded group state.

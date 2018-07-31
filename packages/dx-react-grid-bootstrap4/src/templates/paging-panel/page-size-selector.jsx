@@ -22,7 +22,7 @@ export const PageSizeSelector = ({
           </option>
         ))}
       </select>
-      <Pagination className="d-none d-sm-flex m-0">
+      <Pagination className="d-none d-sm-flex" listClassName="m-0">
         {pageSizes.map(item => (
           <PaginationItem key={item} active={item === pageSize && true}>
             <PaginationLink
@@ -47,4 +47,3 @@ PageSizeSelector.propTypes = {
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   getMessage: PropTypes.func.isRequired,
 };
-

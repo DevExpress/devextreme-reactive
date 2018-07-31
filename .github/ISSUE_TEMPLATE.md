@@ -8,6 +8,14 @@
 -->
 - [ ] I have searched this repository's [issues](https://github.com/devexpress/devextreme-reactive/issues) and believe that this is not a duplicate.
 
+### I'm using ...
+<!--
+    Checked checkbox should look like this: [x]
+-->
+- [ ] React Grid
+- [ ] React Chart
+- [ ] Vue Grid
+
 ### Current Behaviour
 
 
@@ -18,19 +26,20 @@
 
 ### Steps to Reproduce (for Bugs)
 <!--
-    Provide detailed steps to reproduce the bug. If possible, create a demo illustrating the problem using a template from the following link: https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/#try-out-the-react-grid
+    Provide detailed steps to reproduce the bug. If possible, create a demo illustrating the problem.
 -->
 
 
 
-### Your Environment
+### Environment
 <!---
     Include as many relevant details about the environment with which you experienced the bug. Leave "none" if you don't have the package in your package.json file.
 -->
 
-devextreme-reactive: xxx
-react: xxx
-browser: xxx
-bootstrap: none
-react-bootstrap: none
-material-ui: none
+- devextreme-reactive: xxx
+- react: xxx
+- vue: xxx
+- browser: xxx
+- bootstrap: none
+- react-bootstrap: none
+- material-ui: none

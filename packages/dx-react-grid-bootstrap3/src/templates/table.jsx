@@ -27,11 +27,14 @@ export class Table extends React.Component {
       backgroundColor: 'white',
     };
   }
+
   componentDidMount() {
     this.checkStyles();
   }
+
   checkStyles() {
     globalStickyProp = testCSSProp('position', 'sticky');
+    const { backgroundColor: stateBackgroundColor, stickyProp } = this.state;
 
     let panel = this.node.parentElement;
     while (!panel.classList.contains('panel')) {
@@ -39,11 +42,12 @@ export class Table extends React.Component {
     }
     const { backgroundColor } = window.getComputedStyle(panel);
 
-    if (this.state.backgroundColor !== backgroundColor
-      || this.state.stickyProp !== globalStickyProp) {
+    if (stateBackgroundColor !== backgroundColor
+      || stickyProp !== globalStickyProp) {
       this.setState({ stickyProp: globalStickyProp, backgroundColor });
     }
   }
+
   render() {
     const {
       children, use, style, className, ...restProps
@@ -56,6 +60,7 @@ export class Table extends React.Component {
         style={{
           tableLayout: 'fixed',
           overflow: 'hidden',
+          marginBottom: 0,
           ...use === 'head' ? {
             position: stickyProp,
             top: 0,

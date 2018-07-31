@@ -77,7 +77,7 @@ var injectLiveDemos = function(content) {
         const options = {
           ...data,
           path: `/demo/${data.path}`,
-          scriptPath: `{{site.baseurl}}/react/grid/demos/dist/index.js?v=${new Date().getTime()}`,
+          scriptPath: `{{site.baseurl}}/{{page.demos_script_link}}/dist/index.js?v={{ site.time | date: '%s' }}`,
         };
         return `<div
           class="embedded-demo"
@@ -91,25 +91,29 @@ var injectLiveDemos = function(content) {
 };
 
 gulp.task('site:clean', function() {
-  return gulp.src(
-      ['react'].map(function(dir) { return distPath + dir; }),
-      { read: false }
-    )
+  return gulp.src([
+    'site/react/core/**/*.md',
+    'site/react/grid/**/*.md',
+    'site/react/chart/**/*.md',
+    'site/vue/grid/**/*.md',
+  ], { read: false })
     .pipe(clean());
 });
 
 gulp.task('site:docs', function() {
   return gulp.src([
-      'packages/**/*.md',
+      'packages/dx-react-core/docs/*/*.md',
+      'packages/dx-react-grid/demos/*/*.md',
+      'packages/dx-react-grid/docs/*/*.md',
+      'packages/dx-react-chart/demos/*/*.md',
+      'packages/dx-react-chart/docs/*/*.md',
+      'packages/dx-vue-grid/demos/*/*.md',
+      'packages/dx-vue-grid/docs/*/*.md',
       '!packages/**/LICENSE.md',
-      '!packages/dx-react-demos/**/*',
-      '!packages/dx-testing/**/*',
-      '!/**/node_modules/**/*'
-    ])
+      '!packages/**/README.md',
+    ], { base: 'packages' })
     .pipe(rename(function(path) {
       path.dirname = splitNameToPath('', path.dirname);
-      path.basename = path.basename
-        .replace(/readme/i, 'index');
     }))
     .pipe(intercept(function(file){
       if(file.contents) {
@@ -128,16 +132,28 @@ gulp.task('site:docs', function() {
     .pipe(gulp.dest(distPath));
 });
 
-gulp.task('site:demos', function() {
-  return gulp.src(['packages/dx-react-demos/dist/*'])
+gulp.task('site:demos:react:grid', function() {
+  return gulp.src(['packages/dx-react-grid-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'react/grid/demos/dist/'));
+});
+
+gulp.task('site:demos:react:chart', function() {
+  return gulp.src(['packages/dx-react-chart-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/chart/demos/dist/'));
+});
+
+gulp.task('site:demos:vue:grid', function() {
+  return gulp.src(['packages/dx-vue-grid-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
 });
 
 gulp.task('site', function(done) {
   runSequence(
     'site:clean',
     'site:docs',
-    'site:demos',
+    'site:demos:react:grid',
+    'site:demos:vue:grid',
+    'site:demos:react:chart',
     done
   );
 });

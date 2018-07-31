@@ -1,6 +1,14 @@
 # DataTypeProvider Plugin Reference
 
-A plugin that provides the capability to customize formatting options and editors depending on the data type.
+A plugin that allows you to customize formatting options and editors depending on the data type.
+
+## Importing
+
+Use the following import statement:
+
+```js
+import { DataTypeProvider } from '@devexpress/dx-react-grid';
+```
 
 ## User Reference
 
@@ -15,6 +23,7 @@ Name | Type | Default | Description
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
 formatterComponent? | ComponentType&lt;[DataTypeProvider.ValueFormatterProps](#datatypeprovidervalueformatterprops)&gt; | | A component that renders the formatted value.
 editorComponent? | ComponentType&lt;[DataTypeProvider.ValueEditorProps](#datatypeprovidervalueeditorprops)&gt; | | A component that renders a custom editor.
+availableFilterOperations? | Array&lt;[FilterOperation](filtering-state.md#filteroperation)&gt; | | The names of filter operations that are available for the associated columns.
 
 ## Interfaces
 
@@ -49,5 +58,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
+getAvailableFilterOperations | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => Array&lt;string&gt;? | A function that returns the names of filter operations available for a particular column.
 valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 valueEditor | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueEditorProps](#datatypeprovidervalueeditorprops) | A template that renders the editor.

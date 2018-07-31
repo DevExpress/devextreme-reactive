@@ -1,13 +1,11 @@
 import { PLUGIN_HOST_CONTEXT, TEMPLATE_HOST_CONTEXT, RERENDER_TEMPLATE_EVENT } from './constants';
 
-export const TemplatePlaceholder = {
-  name: 'TemplatePlaceholder',
+export const DxTemplatePlaceholder = {
+  name: 'DxTemplatePlaceholder',
+  inheritAttrs: false,
   props: {
     name: {
       type: String,
-    },
-    params: {
-      type: Object,
     },
   },
   provide() {
@@ -43,9 +41,15 @@ export const TemplatePlaceholder = {
   },
   computed: {
     computedParams() {
-      return this.params === undefined
+      const that = this;
+      return !Object.keys(this.$attrs).length && !Object.keys(this.$listeners).length
         ? this.templateHost.params
-        : this.params;
+        : {
+          get attrs() { return that.$attrs; },
+          get listeners() { return that.$listeners; },
+          get slots() { return that.$slots; },
+          get scopedSlots() { return that.$scopedSlots; },
+        };
     },
     computedTemplates() {
       return this.name
@@ -57,9 +61,8 @@ export const TemplatePlaceholder = {
   },
   render() {
     const template = this.computedTemplates[0];
-    if (!template) return null;
 
-    let content = template.children();
+    let content = template ? template.children() : null;
     if (content && typeof content === 'function') {
       content = content(this.computedParams);
     }

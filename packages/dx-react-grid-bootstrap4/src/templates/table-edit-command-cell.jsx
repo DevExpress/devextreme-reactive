@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './table-edit-command-cell.css';
 
 export const CommandButton = ({
   onExecute, text,
@@ -9,7 +8,8 @@ export const CommandButton = ({
   ...restProps
 }) => (
   <button
-    className={classNames('btn btn-link dx-rg-bs4-table-edit-command-cell', className)}
+    type="button"
+    className={classNames('btn btn-link dx-g-bs4-table-edit-command-cell', className)}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
@@ -61,8 +61,8 @@ EditCommandHeadingCell.defaultProps = {
 };
 
 export const EditCommandCell = ({
+  tableColumn, tableRow, row,
   children, className,
-  tableColumn, tableRow,
   ...restProps
 }) => (
   <td
@@ -80,6 +80,7 @@ EditCommandCell.propTypes = {
   ]),
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  row: PropTypes.any,
   className: PropTypes.string,
 };
 
@@ -87,5 +88,6 @@ EditCommandCell.defaultProps = {
   children: undefined,
   tableColumn: undefined,
   tableRow: undefined,
+  row: undefined,
   className: undefined,
 };

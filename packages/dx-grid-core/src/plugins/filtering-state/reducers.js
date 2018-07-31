@@ -9,20 +9,9 @@ export const changeColumnFilter = (filters, { columnName, config }) => {
     } else {
       nextState.push(filter);
     }
-  } else {
+  } else if (filterIndex > -1) {
     nextState.splice(filterIndex, 1);
   }
 
   return nextState;
-};
-
-export const pushFilterExpression = filters => ({ filterExpression }) => {
-  const selfFilterExpr = { operator: 'and', filters };
-  if (!filterExpression) {
-    return selfFilterExpr;
-  }
-  return {
-    operator: 'and',
-    filters: [filterExpression, selfFilterExpr],
-  };
 };

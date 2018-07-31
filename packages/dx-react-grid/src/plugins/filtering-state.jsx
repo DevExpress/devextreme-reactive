@@ -1,16 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin } from '@devexpress/dx-react-core';
-import { changeColumnFilter, getColumnExtensionValueGetter, pushFilterExpression } from '@devexpress/dx-grid-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
+import {
+  changeColumnFilter,
+  getColumnExtensionValueGetter,
+  filterExpression,
+} from '@devexpress/dx-grid-core';
 
-import { createStateHelper } from '../utils/state-helper';
-
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
+const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumnExtensionValueGetter(columnExtensions, 'filteringEnabled', defaultValue);
+const filterExpressionComputed = (
+  { filters, filterExpression: filterExpressionValue },
+) => filterExpression(filters, filterExpressionValue);
 
 export class FilteringState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { onFiltersChange } = this.props;
 
     this.state = {
       filters: props.filters || props.defaultFilters,
@@ -18,32 +25,31 @@ export class FilteringState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        filters: () => this.props.onFiltersChange,
+        filters: () => onFiltersChange,
       },
     );
 
     this.changeColumnFilter = stateHelper.applyFieldReducer
       .bind(stateHelper, 'filters', changeColumnFilter);
   }
+
   componentWillReceiveProps(nextProps) {
-    const {
-      filters,
-    } = nextProps;
+    const { filters } = nextProps;
     this.setState({
       ...filters !== undefined ? { filters } : null,
     });
   }
+
   render() {
     const { filters } = this.state;
     const { columnExtensions, columnFilteringEnabled } = this.props;
-
 
     return (
       <Plugin
         name="FilteringState"
       >
         <Getter name="filters" value={filters} />
-        <Getter name="filterExpression" computed={pushFilterExpression(filters)} />
+        <Getter name="filterExpression" computed={filterExpressionComputed} />
         <Getter
           name="isColumnFilteringEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnFilteringEnabled)}

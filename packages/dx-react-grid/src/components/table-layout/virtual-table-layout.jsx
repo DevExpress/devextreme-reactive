@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
+import { Sizer, RefHolder } from '@devexpress/dx-react-core';
+import { getCollapsedGrid } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
-import { RowLayout } from './row-layout';
-import {
-  getVisibleRows,
-  firstVisibleRowOffset,
-} from './virtual-table-utils';
+
+const AUTO_HEIGHT = 'auto';
 
 export class VirtualTableLayout extends React.PureComponent {
   constructor(props) {
@@ -15,58 +14,62 @@ export class VirtualTableLayout extends React.PureComponent {
     this.state = {
       rowHeights: new Map(),
       viewportTop: 0,
+      viewportLeft: 0,
     };
 
     this.rowRefs = new Map();
-    this.updateViewport = this.updateViewport.bind(this);
     this.registerRowRef = this.registerRowRef.bind(this);
     this.getRowHeight = this.getRowHeight.bind(this);
+    this.updateViewport = this.updateViewport.bind(this);
   }
+
   componentDidMount() {
     this.storeRowHeights();
   }
+
   componentWillReceiveProps(nextProps) {
+    const { headerRows, bodyRows } = this.props;
     if (
-      this.props.headerRows !== nextProps.headerRows ||
-      this.props.rows !== nextProps.rows
+      headerRows !== nextProps.headerRows
+      || bodyRows !== nextProps.bodyRows
     ) {
       const { rowHeights: prevRowHeight } = this.state;
-      this.setState({
-        rowHeights: [...nextProps.headerRows, ...nextProps.rows].reduce(
-          (acc, row) => {
-            const rowHeight = prevRowHeight.get(row.key);
-            if (rowHeight !== undefined) {
-              acc.set(row.key, rowHeight);
-            }
-            return acc;
-          },
-          new Map(),
-        ),
-      });
+      const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+        (acc, row) => {
+          const rowHeight = prevRowHeight.get(row.key);
+          if (rowHeight !== undefined) {
+            acc.set(row.key, rowHeight);
+          }
+          return acc;
+        },
+        new Map(),
+      );
+      this.setState({ rowHeights });
     }
   }
+
   componentDidUpdate() {
     this.storeRowHeights();
   }
+
   getRowHeight(row) {
-    const storedHeight = this.state.rowHeights.get(row.key);
+    const { rowHeights } = this.state;
+    const { estimatedRowHeight } = this.props;
+    const storedHeight = rowHeights.get(row.key);
     if (storedHeight !== undefined) return storedHeight;
     if (row.height) return row.height;
-    return this.props.estimatedRowHeight;
+    return estimatedRowHeight;
   }
-  getVisibleRows({ rows, headerRows, height } = this.props, top = this.state.viewportTop) {
-    const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
-    return getVisibleRows(rows, top, height - headHeight, this.getRowHeight);
-  }
+
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
       // eslint-disable-next-line react/no-find-dom-node
-      .map(([row, ref]) => [row, findDOMNode(ref).getBoundingClientRect().height])
+      .map(([row, ref]) => [row, findDOMNode(ref)])
+      .filter(([, node]) => !!node)
+      .map(([row, node]) => [row, node.getBoundingClientRect().height])
       .filter(([row, height]) => height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {
-      const prevVisibleBodyRows = this.getVisibleRows();
-
       const { rowHeights } = this.state;
       rowsWithChangedHeights
         .forEach(([row, height]) => rowHeights.set(row.key, height));
@@ -74,15 +77,9 @@ export class VirtualTableLayout extends React.PureComponent {
       this.setState({
         rowHeights,
       });
-
-      const visibleBodyRows = this.getVisibleRows();
-      const scrollOffset = firstVisibleRowOffset(prevVisibleBodyRows, visibleBodyRows);
-      if (scrollOffset !== 0) {
-        // eslint-disable-next-line react/no-find-dom-node
-        findDOMNode(this).scrollTop += scrollOffset;
-      }
     }
   }
+
   registerRowRef(row, ref) {
     if (ref === null) {
       this.rowRefs.delete(row);
@@ -90,99 +87,152 @@ export class VirtualTableLayout extends React.PureComponent {
       this.rowRefs.set(row, ref);
     }
   }
+
   updateViewport(e) {
     const node = e.target;
 
+    // NOTE: prevent nested scroll to update viewport
     if (node !== e.currentTarget) {
       return;
     }
 
     // NOTE: prevent iOS to flicker in bounces
-    if (node.scrollTop < 0 ||
-      node.scrollLeft < 0 ||
-      node.scrollLeft + node.clientWidth > node.scrollWidth ||
-      node.scrollTop + node.clientHeight > node.scrollHeight) {
+    if (node.scrollTop < 0
+      || node.scrollLeft < 0
+      || node.scrollLeft + node.clientWidth > Math.max(node.scrollWidth, node.clientWidth)
+      || node.scrollTop + node.clientHeight > Math.max(node.scrollHeight, node.clientHeight)) {
       return;
     }
 
-    if (this.viewportTop !== node.scrollTop) {
-      this.setState({
-        viewportTop: node.scrollTop,
-      });
-    }
+    this.setState({
+      viewportTop: node.scrollTop,
+      viewportLeft: node.scrollLeft,
+    });
   }
+
+  renderRowsBlock(collapsedGrid, Table, Body) {
+    const {
+      minWidth,
+      rowComponent: Row,
+      cellComponent: Cell,
+    } = this.props;
+
+    return (
+      <Table
+        style={{ minWidth: `${minWidth}px` }}
+      >
+        <ColumnGroup
+          columns={collapsedGrid.columns}
+        />
+        <Body>
+          {collapsedGrid.rows.map((visibleRow) => {
+            const { row, cells = [] } = visibleRow;
+            return (
+              <RefHolder
+                key={row.key}
+                ref={ref => this.registerRowRef(row, ref)}
+              >
+                <Row
+                  tableRow={row}
+                  style={row.height !== undefined
+                    ? { height: `${row.height}px` }
+                    : undefined}
+                >
+                  {cells.map((cell) => {
+                    const { column } = cell;
+                    return (
+                      <Cell
+                        key={column.key}
+                        tableRow={row}
+                        tableColumn={column}
+                        style={column.animationState}
+                        colSpan={cell.colSpan}
+                      />
+                    );
+                  })}
+                </Row>
+              </RefHolder>
+            );
+          })}
+        </Body>
+      </Table>
+    );
+  }
+
   render() {
     const {
-      headerRows, columns,
-      minWidth, height,
+      headerRows,
+      bodyRows,
+      columns,
+      minColumnWidth,
+      height: propHeight,
       containerComponent: Container,
       headTableComponent: HeadTable,
       tableComponent: Table,
       headComponent: Head,
       bodyComponent: Body,
-      rowComponent, cellComponent,
+      getCellColSpan,
     } = this.props;
-    const visibleBodyRows = this.getVisibleRows();
+
+    const { viewportLeft, viewportTop } = this.state;
 
     return (
-      <Container
-        style={{ height: `${height}px` }}
-        onScroll={this.updateViewport}
+      <Sizer
+        style={{
+          display: 'flex',
+          flex: 'auto',
+        }}
       >
-        {!!headerRows.length && (
-          <HeadTable
-            style={{ minWidth: `${minWidth}px` }}
-          >
-            <ColumnGroup columns={columns} />
-            <Head>
-              {headerRows.map(row => (
-                <RowLayout
-                  key={row.key}
-                  ref={ref => this.registerRowRef(row, ref)}
-                  row={row}
-                  columns={columns}
-                  rowComponent={rowComponent}
-                  cellComponent={cellComponent}
-                />
-              ))}
-            </Head>
-          </HeadTable>
-        )}
-        <Table
-          style={{ minWidth: `${minWidth}px` }}
-        >
-          <ColumnGroup columns={columns} />
-          <Body>
-            {visibleBodyRows.map((visibleRow) => {
-              if (visibleRow.type === 'stub') {
-                return (
-                  <tr key={visibleRow.key} style={{ height: `${visibleRow.height}px` }} />
-                );
-              }
-              const { row } = visibleRow;
-              return (
-                <RowLayout
-                  key={row.key}
-                  ref={ref => this.registerRowRef(row, ref)}
-                  row={row}
-                  columns={columns}
-                  rowComponent={rowComponent}
-                  cellComponent={cellComponent}
-                />
-              );
-            })}
-          </Body>
-        </Table>
-      </Container>
+        {({ width, height: intrisicHeight }) => {
+          const height = propHeight === AUTO_HEIGHT ? intrisicHeight : propHeight;
+          const headHeight = headerRows.reduce((acc, row) => acc + this.getRowHeight(row), 0);
+          const getColSpan = (
+            tableRow, tableColumn,
+          ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
+          const collapsedHeaderGrid = getCollapsedGrid({
+            rows: headerRows,
+            columns,
+            top: 0,
+            left: viewportLeft,
+            width,
+            height: headHeight,
+            getColumnWidth: column => column.width || minColumnWidth,
+            getRowHeight: this.getRowHeight,
+            getColSpan,
+          });
+          const collapsedBodyGrid = getCollapsedGrid({
+            rows: bodyRows,
+            columns,
+            top: viewportTop,
+            left: viewportLeft,
+            width,
+            height: height - headHeight,
+            getColumnWidth: column => column.width || minColumnWidth,
+            getRowHeight: this.getRowHeight,
+            getColSpan,
+          });
+
+          return (
+            <Container
+              style={{ ...(propHeight === AUTO_HEIGHT ? null : { height: `${height}px` }) }}
+              onScroll={this.updateViewport}
+            >
+              {!!headerRows.length && this.renderRowsBlock(collapsedHeaderGrid, HeadTable, Head)}
+              {this.renderRowsBlock(collapsedBodyGrid, Table, Body)}
+            </Container>
+          );
+        }}
+      </Sizer>
     );
   }
 }
 
 VirtualTableLayout.propTypes = {
   minWidth: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  minColumnWidth: PropTypes.number.isRequired,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
   headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
   columns: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
@@ -192,6 +242,7 @@ VirtualTableLayout.propTypes = {
   headTableComponent: PropTypes.func,
   containerComponent: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };
 
 VirtualTableLayout.defaultProps = {

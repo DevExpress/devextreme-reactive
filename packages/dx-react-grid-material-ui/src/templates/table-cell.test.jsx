@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { TableCell as TableCellMUI } from 'material-ui/Table';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import TableCellMUI from '@material-ui/core/TableCell';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {
@@ -26,6 +26,16 @@ describe('TableCell', () => {
 
     tree = shallow(<TableCell tableColumn={{ align: 'center' }} />);
     expect(tree.find(TableCellMUI).hasClass(classes.cellRightAlign)).toBeFalsy();
+  });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableCell />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellNoWrap))
+      .toBeTruthy();
+
+    tree = shallow(<TableCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find(TableCellMUI).hasClass(classes.cellNoWrap))
+      .toBeFalsy();
   });
 
   it('should have correct text', () => {

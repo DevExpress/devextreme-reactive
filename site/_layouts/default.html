@@ -36,21 +36,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{site.baseurl}}/react/grid/">
+          <a class="navbar-brand" href="{{site.baseurl}}{{page.product_link}}/">
             <div>
-              <img src="{{site.baseurl}}/img/data-grid-logo.svg" alt="{{ site.title }}">
+              <img src="{{site.baseurl}}/img/{{page.logo_file}}" alt="{{page.product_name}}">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
-                <h3 class="logo-product">React Grid</h3>
+                <h3 class="logo-product">{{page.product_name}}</h3>
               </div>
             </div>
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
-            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/guides/getting-started/">Docs</a></li>
-            <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            {% if site.data.demos.navigation[page.product_link].size > 0 %}
+            <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{site.data.demos.navigation[page.product_link].first.items.first.path}}/">Demos</a></li>
+            {% endif %}
+            <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides{{page.initial_guide}}/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
         </div>
@@ -64,9 +66,11 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-inline">
-                      <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
-                      <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}/react/grid/docs/">Docs</a></li>
-                      <li><a href="https://community.devexpress.com/blogs/oliver/archive/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      {% if site.data.demos.navigation[page.product_link].size > 0 %}
+                      <li{% if page.layout == 'demos' %} class="active"{% endif %}><a href="{{site.baseurl}}{{site.data.demos.navigation[page.product_link].first.items.first.path}}">Demos</a></li>
+                      {% endif %}
+                      <li{% if page.layout == 'docs' %} class="active"{% endif %}><a href="{{site.baseurl}}{{page.product_link}}/docs/guides{{page.initial_guide}}/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
@@ -97,26 +101,8 @@
 
     <script src="{{site.baseurl}}/js/tracking.js?v={{ site.time | date: '%s' }}"></script>
     <script>
-        trackingCookie.check();
+        trackingCookie.notice();
     </script>
 
-    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

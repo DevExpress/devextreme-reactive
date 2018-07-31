@@ -10,7 +10,6 @@ import {
 } from 'react-router-dom';
 import { DemoViewer } from './demo-viewer/demo-viewer';
 import { SectionsViewer } from './demo-viewer/sections-viewer';
-// import './index.css';
 
 class App extends React.Component {
   getChildContext() {
@@ -20,6 +19,7 @@ class App extends React.Component {
 
     return { embeddedDemoOptions: restProps };
   }
+
   render() {
     const { router, path } = this.props;
     const Router = router === 'hash' ? HashRouter : MemoryRouter;

@@ -2,9 +2,9 @@
 
 Virtual scrolling allows the Grid component to display thousands of records on a single page. You can use this feature as an alternative to paging.
 
-*Browser Support Note:* Since virtual scrolling requires the browser to support `position: sticky`, it does not work in Android Browser/WebView for Android < 5.0 and Internet Explorer.
+*Browser Support Note:* Virtual scrolling does not work in Android Browser/WebView for Android < 5.0 and Internet Explorer because it requires the browser to support `position: sticky`.
 
-## Plugin List
+## Related Plugins
 
 The [VirtualTable](../reference/virtual-table.md) plugin implements the virtual scrolling mode, and it should be used instead of the [Table](../reference/table.md) as they implement the same interfaces.
 
@@ -18,4 +18,14 @@ You can change the virtual table's height using the `height` property.
 
 The following example demonstrates the basic Grid with virtual scrolling:
 
-.embedded-demo({ "path": "grid-virtual-scrolling/basic", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-virtual-scrolling/row-virtualization", "showThemeSelector": true })
+
+The Grid also supports column virtualization, which is demonstrated in the following demo:
+
+.embedded-demo({ "path": "grid-virtual-scrolling/column-virtualization", "showThemeSelector": true })
+
+## Stretching out to Parent Element Size
+
+If the Grid should have the same size as the container element, set the `VirtualTable` plugin's `height` property to "auto" and the Grid element's style setting to `height: 100%`.
+
+.embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })

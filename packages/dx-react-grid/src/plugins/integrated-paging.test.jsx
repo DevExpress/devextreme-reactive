@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { paginatedRows, rowsWithPageHeaders, pageCount, rowCount } from '@devexpress/dx-grid-core';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import {
+  paginatedRows, rowsWithPageHeaders, currentPage, rowCount,
+} from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { IntegratedPaging } from './integrated-paging';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   paginatedRows: jest.fn(),
   rowsWithPageHeaders: jest.fn(),
-  pageCount: jest.fn(),
   rowCount: jest.fn(),
+  currentPage: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -37,8 +39,8 @@ describe('IntegratedPaging', () => {
 
   beforeEach(() => {
     paginatedRows.mockImplementation(() => [{ id: 2 }, { id: 3 }]);
-    pageCount.mockImplementation(() => 3);
     rowCount.mockImplementation(() => 6);
+    currentPage.mockImplementation(() => {});
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -66,25 +68,6 @@ describe('IntegratedPaging', () => {
 
     expect(getComputedState(tree).rows)
       .toEqual([{ id: 2 }, { id: 3 }]);
-  });
-
-  it('should change the "currentPage" if starting row index exceeds the rows count', () => {
-    jest.useFakeTimers();
-    const deps = {
-      getter: {
-        currentPage: 4,
-      },
-    };
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, deps)}
-        <IntegratedPaging />
-      </PluginHost>
-    ));
-    jest.runAllTimers();
-
-    expect(defaultDeps.action.setCurrentPage.mock.calls[0][0])
-      .toEqual(2);
   });
 
   it('should ensure page headers are present on each page', () => {

@@ -138,6 +138,40 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
+  it('should have correct styles when column align is left', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        column={{}}
+      />
+    ));
+    expect(tree.find('th > div > div').prop('style'))
+      .toMatchObject({
+        textAlign: 'left',
+      });
+  });
+
+  it('should have correct styles when column align is right', () => {
+    const tree = shallow((
+      <TableHeaderCell
+        tableColumn={{ align: 'right' }}
+      />
+    ));
+    expect(tree.find('th > div > div').prop('style'))
+      .toMatchObject({
+        textAlign: 'right',
+      });
+  });
+
+  it('should consider the `wordWrapEnabled` property', () => {
+    let tree = shallow(<TableHeaderCell />);
+    expect(tree.find('div').at(1).prop('style').whiteSpace)
+      .toBe('nowrap');
+
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.find('div').at(1).prop('style').whiteSpace)
+      .toBe('normal');
+  });
+
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableHeaderCell

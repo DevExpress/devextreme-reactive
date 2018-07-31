@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Checkbox from 'material-ui/Checkbox';
-import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
+import Checkbox from '@material-ui/core/Checkbox';
+import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
 
@@ -85,5 +85,15 @@ describe('TableSelectAllCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should apply correct align if rowSpan is defined', () => {
+    const rowSpan = 3;
+    const tree = shallow((
+      <TableSelectAllCell rowSpan={rowSpan} />
+    ));
+
+    expect(tree.is(`.${classes.alignWithRowSpan}.${classes.cell}`))
+      .toBeTruthy();
   });
 });

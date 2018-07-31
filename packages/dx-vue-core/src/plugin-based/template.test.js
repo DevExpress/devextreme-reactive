@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 
-import { PluginHost } from './plugin-host';
-import { Template } from './template';
+import { DxPluginHost } from './plugin-host';
+import { DxTemplate } from './template';
 
 describe('Template', () => {
   let resetConsole;
@@ -17,11 +17,11 @@ describe('Template', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="root">
+          <DxPluginHost>
+            <DxTemplate name="root">
               <h1>Template content</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -33,11 +33,11 @@ describe('Template', () => {
     const wrapper = mount({
       render() {
         return (
-          <PluginHost>
-            <Template name="root" predicate={() => false}>
+          <DxPluginHost>
+            <DxTemplate name="root" predicate={() => false}>
               <h1>Template content</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     });
@@ -48,15 +48,17 @@ describe('Template', () => {
   it('should be rerendered when content changes', () => {
     const Test = {
       props: {
-        text: {},
+        text: {
+          type: String,
+        },
       },
       render() {
         return (
-          <PluginHost>
-            <Template name="root">
+          <DxPluginHost>
+            <DxTemplate name="root">
               <h1>{this.text}</h1>
-            </Template>
-          </PluginHost>
+            </DxTemplate>
+          </DxPluginHost>
         );
       },
     };
@@ -75,5 +77,85 @@ describe('Template', () => {
     wrapper.setData({ text: 'new' });
     expect(wrapper.find('h1').text())
       .toEqual('new');
+  });
+
+  it('should be rerendered when added', () => {
+    const Test = {
+      props: {
+        showSecond: {
+          type: Boolean,
+        },
+      },
+      render() {
+        return (
+          <DxPluginHost>
+            <DxTemplate name="root">
+              <h1>first</h1>
+            </DxTemplate>
+            {this.showSecond && (
+              <DxTemplate name="root">
+                <h1>second</h1>
+              </DxTemplate>
+            )}
+          </DxPluginHost>
+        );
+      },
+    };
+
+    const wrapper = mount({
+      data() {
+        return {
+          showSecond: false,
+        };
+      },
+      render() {
+        return (
+          <Test showSecond={this.showSecond} />
+        );
+      },
+    });
+    wrapper.setData({ showSecond: true });
+    expect(wrapper.find('h1').text())
+      .toEqual('second');
+  });
+
+  it('should be rerendered when removed', () => {
+    const Test = {
+      props: {
+        showSecond: {
+          type: Boolean,
+        },
+      },
+      render() {
+        return (
+          <DxPluginHost>
+            <DxTemplate name="root">
+              <h1>first</h1>
+            </DxTemplate>
+            {this.showSecond && (
+              <DxTemplate name="root">
+                <h1>second</h1>
+              </DxTemplate>
+            )}
+          </DxPluginHost>
+        );
+      },
+    };
+
+    const wrapper = mount({
+      data() {
+        return {
+          showSecond: true,
+        };
+      },
+      render() {
+        return (
+          <Test showSecond={this.showSecond} />
+        );
+      },
+    });
+    wrapper.setData({ showSecond: false });
+    expect(wrapper.find('h1').text())
+      .toEqual('first');
   });
 });

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
@@ -8,7 +9,6 @@ import {
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingPanel } from './grouping-panel';
-import { pluginDepsToComponents } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),
@@ -92,8 +92,7 @@ describe('GroupingPanel', () => {
         {pluginDepsToComponents(defaultDeps)}
         <GroupingPanel
           {...defaultProps}
-          layoutComponent={({ emptyMessageComponent: EmptyMessage }) =>
-            <EmptyMessage />}
+          layoutComponent={({ emptyMessageComponent: EmptyMessage }) => <EmptyMessage />}
           messages={{
             groupByColumn: 'Group By Column',
           }}
@@ -115,8 +114,7 @@ describe('GroupingPanel', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <GroupingPanel
           {...defaultProps}
-          layoutComponent={({ itemComponent: Item }) =>
-            <Item item={{ column: { name: 'a' } }} />}
+          layoutComponent={({ itemComponent: Item }) => <Item item={{ column: { name: 'a' } }} />}
           showSortingControls
           showGroupingControls
         />

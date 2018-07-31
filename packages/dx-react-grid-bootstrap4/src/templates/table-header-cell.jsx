@@ -15,9 +15,10 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
   }
+
   render() {
     const {
-      className, column, tableColumn,
+      className, column, tableColumn, before,
       showSortingControls, sortingDirection, sortingEnabled,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
@@ -32,22 +33,37 @@ export class TableHeaderCell extends React.PureComponent {
     const cellLayout = (
       <th
         className={classNames({
-          'position-relative': true,
-          'dx-rg-bs4-user-select-none': isCellInteractive,
-          'dx-rg-bs4-cursor-pointer': draggingEnabled,
-          'dx-rg-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
+          'position-relative dx-g-bs4-header-cell': true,
+          'dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-cursor-pointer': draggingEnabled,
+          'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
         }, className)}
         scope="col"
         {...restProps}
       >
-        {showGroupingControls && (
-          <GroupingControl
-            align={align}
-            onGroup={onGroup}
-            disabled={!groupingEnabled}
-          />
-        )}
-        {children}
+        <div
+          className="d-flex flex-direction-row align-items-center"
+        >
+          {before}
+          <div
+            className={classNames({
+              'dx-g-bs4-table-header-cell-wrapper': true,
+              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
+              [`text-${align}`]: align !== 'left',
+            })}
+          >
+            {children}
+          </div>
+          {showGroupingControls && (
+            <div>
+              <GroupingControl
+                align={align}
+                disabled={!groupingEnabled}
+                onGroup={onGroup}
+              />
+            </div>
+          )}
+        </div>
         {resizingEnabled && (
           <ResizingControl
             onWidthChange={onWidthChange}
@@ -72,6 +88,7 @@ export class TableHeaderCell extends React.PureComponent {
 }
 
 TableHeaderCell.propTypes = {
+  before: PropTypes.node,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
@@ -96,6 +113,7 @@ TableHeaderCell.propTypes = {
 };
 
 TableHeaderCell.defaultProps = {
+  before: undefined,
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,

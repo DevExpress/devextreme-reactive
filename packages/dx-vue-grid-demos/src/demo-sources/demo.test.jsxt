@@ -1,0 +1,12 @@
+import { mount } from '@vue/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
+import Demo from './<%&demoName%>';
+
+setupConsole();
+
+window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));
+
+it('should not fail', () => {
+  expect(() => { mount({ render() { return (<Demo />); } }); })
+    .not.toThrow();
+});

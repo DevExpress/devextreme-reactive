@@ -1,3 +1,215 @@
+<a name="1.5.1"></a>
+# [1.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.5.0...v1.5.1) (2018-07-31)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect filter operation updating ([#1270](https://github.com/DevExpress/devextreme-reactive/issues/1270)) ([ed9fa16](https://github.com/DevExpress/devextreme-reactive/commit/ed9fa16)), closes [#1269](https://github.com/DevExpress/devextreme-reactive/issues/1269)
+
+
+
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.4.0...v1.5.0) (2018-07-26)
+
+
+### Bug Fixes
+
+* **core:** fix incorrect template rendering on mount/unmount ([#1232](https://github.com/DevExpress/devextreme-reactive/issues/1232)) ([cd03c72](https://github.com/DevExpress/devextreme-reactive/commit/cd03c72))
+* **docs:** correct the 'EditingState' plugin docs ([#1226](https://github.com/DevExpress/devextreme-reactive/issues/1226)) ([b8735b6](https://github.com/DevExpress/devextreme-reactive/commit/b8735b6)), closes [#1223](https://github.com/DevExpress/devextreme-reactive/issues/1223)
+* **grid:** add missed operation field in Filter config ([#1233](https://github.com/DevExpress/devextreme-reactive/issues/1233)) ([dc6114b](https://github.com/DevExpress/devextreme-reactive/commit/dc6114b))
+* **grid:** allow use word wrap with the Sorting feature ([#1238](https://github.com/DevExpress/devextreme-reactive/issues/1238)) ([adc2d19](https://github.com/DevExpress/devextreme-reactive/commit/adc2d19)), closes [#1237](https://github.com/DevExpress/devextreme-reactive/issues/1237)
+* **grid:** fix VirtualTable with non-standard browser zooming ([#1243](https://github.com/DevExpress/devextreme-reactive/issues/1243)) ([412ba38](https://github.com/DevExpress/devextreme-reactive/commit/412ba38))
+* **grid-core:** fix incorrect filter updating ([#1267](https://github.com/DevExpress/devextreme-reactive/issues/1267)) ([16580ab](https://github.com/DevExpress/devextreme-reactive/commit/16580ab)), closes [#1262](https://github.com/DevExpress/devextreme-reactive/issues/1262)
+* **react-grid-material-ui:** get rid old palette syntax ([#1247](https://github.com/DevExpress/devextreme-reactive/issues/1247)) ([1a7218f](https://github.com/DevExpress/devextreme-reactive/commit/1a7218f)), closes [#1246](https://github.com/DevExpress/devextreme-reactive/issues/1246)
+* **react-grid-material-ui:** rotate grid pagination arrows for RTL layouts ([#1244](https://github.com/DevExpress/devextreme-reactive/issues/1244)) ([f96501a](https://github.com/DevExpress/devextreme-reactive/commit/f96501a))
+
+
+### Features
+
+* **react-chart:** add API to manage series in stacks ([#1227](https://github.com/DevExpress/devextreme-reactive/issues/1227)) ([4239e7f](https://github.com/DevExpress/devextreme-reactive/commit/4239e7f))
+* **react-grid:** support stretching virtual table to parent element ([#1261](https://github.com/DevExpress/devextreme-reactive/issues/1261)) ([ded7357](https://github.com/DevExpress/devextreme-reactive/commit/ded7357)), closes [#996](https://github.com/DevExpress/devextreme-reactive/issues/996)
+* **vue-grid:** support tree data structuries ([#1115](https://github.com/DevExpress/devextreme-reactive/issues/1115)) ([3ce296c](https://github.com/DevExpress/devextreme-reactive/commit/3ce296c))
+
+
+### Performance Improvements
+
+* **core:** optimize rendering ([#1250](https://github.com/DevExpress/devextreme-reactive/issues/1250)) ([0a05e1c](https://github.com/DevExpress/devextreme-reactive/commit/0a05e1c))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** The 'SeriesFamily' plugin has been renamed to 'Stack' to make it meaning more transparent.
+
+
+
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0...v1.4.0) (2018-06-22)
+
+
+### Bug Fixes
+
+* **vue-grid:** fix spread messages property ([#1205](https://github.com/DevExpress/devextreme-reactive/issues/1205)) ([c19907f](https://github.com/DevExpress/devextreme-reactive/commit/c19907f))
+* **vue-grid:** get rid excess attrs ([#1204](https://github.com/DevExpress/devextreme-reactive/issues/1204)) ([87a87cc](https://github.com/DevExpress/devextreme-reactive/commit/87a87cc))
+
+
+### Features
+
+* **react-chart:** add a capability to stretch the Chart component ([#1166](https://github.com/DevExpress/devextreme-reactive/issues/1166)) ([c038e7c](https://github.com/DevExpress/devextreme-reactive/commit/c038e7c))
+* **vue-grid:** add column chooser ([#1150](https://github.com/DevExpress/devextreme-reactive/issues/1150)) ([ae6fdd0](https://github.com/DevExpress/devextreme-reactive/commit/ae6fdd0))
+* **vue-grid:** add the Advanced filtering feature ([#1186](https://github.com/DevExpress/devextreme-reactive/issues/1186)) ([b5a468c](https://github.com/DevExpress/devextreme-reactive/commit/b5a468c))
+* **vue-grid:** add the banded columns support ([#1131](https://github.com/DevExpress/devextreme-reactive/issues/1131)) ([71bd847](https://github.com/DevExpress/devextreme-reactive/commit/71bd847))
+* **vue-grid:** add the Virtual Scrolling feature ([#1047](https://github.com/DevExpress/devextreme-reactive/issues/1047)) ([d0ba194](https://github.com/DevExpress/devextreme-reactive/commit/d0ba194))
+
+
+### Performance Improvements
+
+* **vue-grid:** optimize cell rendering ([#1172](https://github.com/DevExpress/devextreme-reactive/issues/1172)) ([5fa970e](https://github.com/DevExpress/devextreme-reactive/commit/5fa970e))
+
+
+
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.2...v1.3.0) (2018-06-04)
+
+
+### Bug Fixes
+
+* **grid-core:** remove excess property from TableRow component ([#1128](https://github.com/DevExpress/devextreme-reactive/issues/1128)) ([2c6ed12](https://github.com/DevExpress/devextreme-reactive/commit/2c6ed12))
+* **react-grid:** fix double event call in strict mode ([#1157](https://github.com/DevExpress/devextreme-reactive/issues/1157)) ([e280eac](https://github.com/DevExpress/devextreme-reactive/commit/e280eac))
+* **vue-grid-bootstrap4:** change grouping indent ([#1127](https://github.com/DevExpress/devextreme-reactive/issues/1127)) ([a450470](https://github.com/DevExpress/devextreme-reactive/commit/a450470))
+
+
+### Features
+
+* **react-grid:** support filtering operations ([#976](https://github.com/DevExpress/devextreme-reactive/issues/976)) ([5151d78](https://github.com/DevExpress/devextreme-reactive/commit/5151d78))
+
+
+
+<a name="1.3.0-beta.2"></a>
+# [1.3.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.3.0-beta.1...v1.3.0-beta.2) (2018-05-24)
+
+
+### Bug Fixes
+
+* **react:** update material-ui to 1.0.0 ([#1108](https://github.com/DevExpress/devextreme-reactive/issues/1108)) ([0fb5ba7](https://github.com/DevExpress/devextreme-reactive/commit/0fb5ba7))
+
+
+
+<a name="1.3.0-beta.1"></a>
+# [1.3.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0...v1.3.0-beta.1) (2018-05-16)
+
+
+### Bug Fixes
+
+* **react-grid:** always pass the whole Filter object to the filter table cells ([#1011](https://github.com/DevExpress/devextreme-reactive/issues/1011)) ([8fa802d](https://github.com/DevExpress/devextreme-reactive/commit/8fa802d))
+* **react-grid:** change default prop type ([#1056](https://github.com/DevExpress/devextreme-reactive/issues/1056)) ([34c44e8](https://github.com/DevExpress/devextreme-reactive/commit/34c44e8))
+* **react-grid:** correct filtering predicate type ([#1062](https://github.com/DevExpress/devextreme-reactive/issues/1062)) ([b8367ee](https://github.com/DevExpress/devextreme-reactive/commit/b8367ee))
+* **react-grid-material-ui:** reverse detail toggle icons ([#1044](https://github.com/DevExpress/devextreme-reactive/issues/1044)) ([06e7dcd](https://github.com/DevExpress/devextreme-reactive/commit/06e7dcd))
+
+
+
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.3...v1.2.0) (2018-05-04)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#903](https://github.com/DevExpress/devextreme-reactive/issues/903)) ([e3c8de2](https://github.com/DevExpress/devextreme-reactive/commit/e3c8de2))
+* **react-grid:** correct TableFilterRow.CellProps types ([#926](https://github.com/DevExpress/devextreme-reactive/issues/926)) ([639f35f](https://github.com/DevExpress/devextreme-reactive/commit/639f35f))
+* **react-grid:** correct types for components ([#910](https://github.com/DevExpress/devextreme-reactive/issues/910)) ([f5546b8](https://github.com/DevExpress/devextreme-reactive/commit/f5546b8))
+* **react-grid:** do not pass the `row` property to the table edit command cell ([#890](https://github.com/DevExpress/devextreme-reactive/issues/890)) ([610343c](https://github.com/DevExpress/devextreme-reactive/commit/610343c))
+* **react-grid-material-ui:** rename column chooser button component ([#871](https://github.com/DevExpress/devextreme-reactive/issues/871)) ([42ef0ab](https://github.com/DevExpress/devextreme-reactive/commit/42ef0ab))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#901](https://github.com/DevExpress/devextreme-reactive/issues/901)) ([2447c4c](https://github.com/DevExpress/devextreme-reactive/commit/2447c4c))
+* **react-grid:** fix incorrect prop types for CustomGrouping ([#946](https://github.com/DevExpress/devextreme-reactive/issues/946)) ([fdf492f](https://github.com/DevExpress/devextreme-reactive/commit/fdf492f)), closes [#941](https://github.com/DevExpress/devextreme-reactive/issues/941)
+* **react-grid:** fix ts for TableColumnResizing ([#955](https://github.com/DevExpress/devextreme-reactive/issues/955)) ([d2cfcd6](https://github.com/DevExpress/devextreme-reactive/commit/d2cfcd6)), closes [#951](https://github.com/DevExpress/devextreme-reactive/issues/951)
+* **react-grid-material-ui:** change detail toggle icon ([#957](https://github.com/DevExpress/devextreme-reactive/issues/957)) ([ce9b453](https://github.com/DevExpress/devextreme-reactive/commit/ce9b453))
+* **react-grid-material-ui:** prevent click on disabled grouping control ([#935](https://github.com/DevExpress/devextreme-reactive/issues/935)) ([95fc44a](https://github.com/DevExpress/devextreme-reactive/commit/95fc44a))
+* **react-grid:** fix the 'selectByRowClick' prop processing ([#1000](https://github.com/DevExpress/devextreme-reactive/issues/1000)) ([8dc1337](https://github.com/DevExpress/devextreme-reactive/commit/8dc1337)), closes [#998](https://github.com/DevExpress/devextreme-reactive/issues/998)
+* **react-grid:** improve className and style types ([#930](https://github.com/DevExpress/devextreme-reactive/issues/930)) ([0132e12](https://github.com/DevExpress/devextreme-reactive/commit/0132e12))
+
+
+### Features
+
+* **react-grid:** allow word wrapping in table cells ([#875](https://github.com/DevExpress/devextreme-reactive/issues/875)) ([5febc85](https://github.com/DevExpress/devextreme-reactive/commit/5febc85))
+* **react-grid:** support the Band Columns feature ([#826](https://github.com/DevExpress/devextreme-reactive/issues/826)) ([6f935a8](https://github.com/DevExpress/devextreme-reactive/commit/6f935a8))
+* **react-grid:** support tree data structures ([#730](https://github.com/DevExpress/devextreme-reactive/issues/730)) ([d069c71](https://github.com/DevExpress/devextreme-reactive/commit/d069c71))
+* **react-grid:** support column virtualization ([#892](https://github.com/DevExpress/devextreme-reactive/issues/892)) ([67dc486](https://github.com/DevExpress/devextreme-reactive/commit/67dc486))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize column resizing ([#878](https://github.com/DevExpress/devextreme-reactive/issues/878)) ([b3f264b](https://github.com/DevExpress/devextreme-reactive/commit/b3f264b))
+
+
+
+<a name="1.2.0-beta.3"></a>
+# [1.2.0-beta.3](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.2...v1.2.0-beta.3) (2018-04-28)
+
+
+### Bug Fixes
+
+* **react-grid:** fix the 'selectByRowClick' prop processing ([#1000](https://github.com/DevExpress/devextreme-reactive/issues/1000)) ([8dc1337](https://github.com/DevExpress/devextreme-reactive/commit/8dc1337)), closes [#998](https://github.com/DevExpress/devextreme-reactive/issues/998)
+* **react-grid:** improve className and style types ([#930](https://github.com/DevExpress/devextreme-reactive/issues/930)) ([0132e12](https://github.com/DevExpress/devextreme-reactive/commit/0132e12))
+
+
+
+<a name="1.2.0-beta.2"></a>
+# [1.2.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.2.0-beta.1...v1.2.0-beta.2) (2018-04-19)
+
+
+### Bug Fixes
+
+* **react-grid:** fix incorrect prop types for CustomGrouping ([#946](https://github.com/DevExpress/devextreme-reactive/issues/946)) ([fdf492f](https://github.com/DevExpress/devextreme-reactive/commit/fdf492f)), closes [#941](https://github.com/DevExpress/devextreme-reactive/issues/941)
+* **react-grid:** fix ts for TableColumnResizing ([#955](https://github.com/DevExpress/devextreme-reactive/issues/955)) ([d2cfcd6](https://github.com/DevExpress/devextreme-reactive/commit/d2cfcd6)), closes [#951](https://github.com/DevExpress/devextreme-reactive/issues/951)
+* **react-grid-material-ui:** change detail toggle icon ([#957](https://github.com/DevExpress/devextreme-reactive/issues/957)) ([ce9b453](https://github.com/DevExpress/devextreme-reactive/commit/ce9b453))
+* **react-grid-material-ui:** prevent click on disabled grouping control ([#935](https://github.com/DevExpress/devextreme-reactive/issues/935)) ([95fc44a](https://github.com/DevExpress/devextreme-reactive/commit/95fc44a))
+
+
+### Features
+
+* **react-grid:** support column virtualization ([#892](https://github.com/DevExpress/devextreme-reactive/issues/892)) ([67dc486](https://github.com/DevExpress/devextreme-reactive/commit/67dc486))
+
+
+
+<a name="1.2.0-beta.1"></a>
+# [1.2.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.1...v1.2.0-beta.1) (2018-04-12)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#903](https://github.com/DevExpress/devextreme-reactive/issues/903)) ([e3c8de2](https://github.com/DevExpress/devextreme-reactive/commit/e3c8de2))
+* **react-grid:** correct TableFilterRow.CellProps types ([#926](https://github.com/DevExpress/devextreme-reactive/issues/926)) ([639f35f](https://github.com/DevExpress/devextreme-reactive/commit/639f35f))
+* **react-grid:** correct types for components ([#910](https://github.com/DevExpress/devextreme-reactive/issues/910)) ([f5546b8](https://github.com/DevExpress/devextreme-reactive/commit/f5546b8))
+* **react-grid:** do not pass the `row` property to the table edit command cell ([#890](https://github.com/DevExpress/devextreme-reactive/issues/890)) ([610343c](https://github.com/DevExpress/devextreme-reactive/commit/610343c))
+* **react-grid-material-ui:** rename column chooser button component ([#871](https://github.com/DevExpress/devextreme-reactive/issues/871)) ([42ef0ab](https://github.com/DevExpress/devextreme-reactive/commit/42ef0ab))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#901](https://github.com/DevExpress/devextreme-reactive/issues/901)) ([2447c4c](https://github.com/DevExpress/devextreme-reactive/commit/2447c4c))
+
+
+### Features
+
+* **react-grid:** allow word wrapping in table cells ([#875](https://github.com/DevExpress/devextreme-reactive/issues/875)) ([5febc85](https://github.com/DevExpress/devextreme-reactive/commit/5febc85))
+* **react-grid:** support the Band Columns feature ([#826](https://github.com/DevExpress/devextreme-reactive/issues/826)) ([6f935a8](https://github.com/DevExpress/devextreme-reactive/commit/6f935a8))
+* **react-grid:** support tree data structures ([#730](https://github.com/DevExpress/devextreme-reactive/issues/730)) ([d069c71](https://github.com/DevExpress/devextreme-reactive/commit/d069c71))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize column resizing ([#878](https://github.com/DevExpress/devextreme-reactive/issues/878)) ([b3f264b](https://github.com/DevExpress/devextreme-reactive/commit/b3f264b))
+
+
+
+<a name="1.1.2"></a>
+# [1.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.2) (2018-04-11)
+
+
+### Bug Fixes
+
+* **react-grid:** correct Table.NoDataCell reference ([#899](https://github.com/DevExpress/devextreme-reactive/issues/899)) ([aaa2c4c](https://github.com/DevExpress/devextreme-reactive/commit/aaa2c4c))
+* **react-grid:** correct types for components ([#902](https://github.com/DevExpress/devextreme-reactive/issues/902)) ([3666b7e](https://github.com/DevExpress/devextreme-reactive/commit/3666b7e))
+* **react-grid-material-ui:** rename column chooser button component ([#872](https://github.com/DevExpress/devextreme-reactive/issues/872)) ([65b3a34](https://github.com/DevExpress/devextreme-reactive/commit/65b3a34))
+* **react-grid-material-ui:** update material-ui to 1.0.0-beta.41 ([#900](https://github.com/DevExpress/devextreme-reactive/issues/900)) ([1715803](https://github.com/DevExpress/devextreme-reactive/commit/1715803))
+
+
+
 <a name="1.1.1"></a>
 # [1.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.1.0...v1.1.1) (2018-03-20)
 

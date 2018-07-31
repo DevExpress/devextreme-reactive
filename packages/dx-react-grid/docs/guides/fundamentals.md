@@ -4,11 +4,8 @@ The Grid component displays data specified via the `rows` property. You should a
 
 The Grid requires the following plugins for basic data visualization:
 
-- [Table](../reference/table.md)
-  Renders a data table.
-
-- [TableHeaderRow](../reference/table-header-row.md)
-  Renders the table's header row.
+- [Table](../reference/table.md) - renders a data table
+- [TableHeaderRow](../reference/table-header-row.md) - renders the table's header row
 
 The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
 
@@ -47,6 +44,12 @@ The `Table` plugin's `columnExtensions` allows you to specify the column alignme
 Static widths for specific columns can be defined via the `Table` plugin's `columnExtensions` property as shown in the demo below:
 
 .embedded-demo({ "path": "grid-basic/static-column-width", "showThemeSelector": true })
+
+### Multiline cells
+
+The Grid cuts off values that do not fit in a cell. Assign true to the Table plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
+
+.embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 
 ### Other plugins
 

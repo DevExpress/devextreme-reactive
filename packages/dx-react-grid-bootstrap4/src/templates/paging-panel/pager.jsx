@@ -17,15 +17,17 @@ export const Pager = ({
   ...restProps
 }) => (
   <div
-    className={classNames('clearfix', 'card-footer', className)}
+    className={classNames('clearfix card-footer dx-g-bs4-paging-panel', className)}
     {...restProps}
   >
-    {!!pageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && (
+    <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       pageSizes={pageSizes}
       getMessage={getMessage}
-    />}
+    />
+    )}
     <Pagination
       totalPages={totalPages}
       totalCount={totalCount}

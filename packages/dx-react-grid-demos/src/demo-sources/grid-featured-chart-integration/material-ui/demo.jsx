@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card } from 'reactstrap';
+import Paper from '@material-ui/core/Paper';
 import {
   RowDetailState,
   DataTypeProvider,
@@ -14,12 +14,38 @@ import {
   ValueAxis,
   Legend,
   Grid as ChartGrid,
-} from '@devexpress/dx-react-chart-bootstrap4';
+} from '@devexpress/dx-react-chart-material-ui';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
-} from '@devexpress/dx-react-grid-bootstrap4';
-import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
+} from '@devexpress/dx-react-grid-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
+
+const detailContainerStyles = theme => ({
+  detailContainer: {
+    marginBottom: 3 * theme.spacing.unit,
+  },
+  title: {
+    color: theme.palette.text.primary,
+    fontSize: theme.typography.fontSize,
+  },
+  paper: {
+    paddingTop: 3.5 * theme.spacing.unit,
+  },
+});
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
 
 const nullComponent = () => null;
 const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
@@ -35,14 +61,20 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const legendRoot = props => (
+const legendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root
-    {...props}
-    className="m-auto flex-row"
+    {...restProps}
+    className={classes.root}
   />
 );
+const legendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 
-const barSeriesForCity = regionCities => Object
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
+);
+const legendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+
+const BarSeriesForCity = regionCities => Object
   .keys(regionCities[0])
   .reduce((acc, item, index) => {
     if (item !== 'year') {
@@ -58,7 +90,7 @@ const barSeriesForCity = regionCities => Object
     return acc;
   }, []);
 
-const gridDetailContainer = data => ({ row }) => {
+const gridDetailContainerBase = data => ({ row, classes }) => {
   const regionCities = data.reduce((acc, item) => {
     const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
@@ -71,11 +103,11 @@ const gridDetailContainer = data => ({ row }) => {
   }, []);
 
   return (
-    <div className="m-3">
-      <h5>
+    <div className={classes.detailContainer}>
+      <h5 className={classes.title}>
         {`Economics of ${row.region}`}
       </h5>
-      <Card className="pt-4">
+      <Paper className={classes.paper}>
         <Chart
           data={regionCities}
           height={300}
@@ -91,17 +123,19 @@ const gridDetailContainer = data => ({ row }) => {
             lineComponent={nullComponent}
           />
           <ChartGrid />
-          {barSeriesForCity(regionCities)}
+          {BarSeriesForCity(regionCities)}
           <Stack />
           <Legend
             rootComponent={legendRoot}
+            labelComponent={legendLabel}
             position="bottom"
           />
         </Chart>
-      </Card>
+      </Paper>
     </div>
   );
 };
+const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -133,9 +167,9 @@ export default class Demo extends React.PureComponent {
     const {
       columns, columnBands, currencyColumns, rows,
     } = this.state;
-    return (
 
-      <Card>
+    return (
+      <Paper>
         <Grid
           rows={rows}
           columns={columns}
@@ -155,7 +189,7 @@ export default class Demo extends React.PureComponent {
             columnBands={columnBands}
           />
         </Grid>
-      </Card>
+      </Paper>
     );
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import { Card } from 'reactstrap';
 import {
   RowDetailState,
   DataTypeProvider,
@@ -14,38 +14,12 @@ import {
   ValueAxis,
   Legend,
   Grid as ChartGrid,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-bootstrap4';
 import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
-} from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
-import { citiesCount, regionsCount } from '../../../demo-data/data-for-grid';
-
-const detailContainerStyles = theme => ({
-  detailContainer: {
-    marginBottom: 3 * theme.spacing.unit,
-  },
-  title: {
-    color: theme.palette.text.primary,
-    fontSize: theme.typography.fontSize,
-  },
-  paper: {
-    paddingTop: 3.5 * theme.spacing.unit,
-  },
-});
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendLabelStyles = () => ({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-});
+} from '@devexpress/dx-react-grid-bootstrap4';
+import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
 const nullComponent = () => null;
 const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
@@ -61,20 +35,14 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const legendRootBase = ({ classes, ...restProps }) => (
+const legendRoot = props => (
   <Legend.Root
-    {...restProps}
-    className={classes.root}
+    {...props}
+    className="m-auto flex-row"
   />
 );
-const legendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
-);
-const legendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-
-const BarSeriesForCity = regionCities => Object
+const barSeriesForCity = regionCities => Object
   .keys(regionCities[0])
   .reduce((acc, item, index) => {
     if (item !== 'year') {
@@ -90,7 +58,7 @@ const BarSeriesForCity = regionCities => Object
     return acc;
   }, []);
 
-const gridDetailContainerBase = data => ({ row, classes }) => {
+const gridDetailContainer = data => ({ row }) => {
   const regionCities = data.reduce((acc, item) => {
     const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
@@ -103,11 +71,11 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
   }, []);
 
   return (
-    <div className={classes.detailContainer}>
-      <h5 className={classes.title}>
+    <div className="m-3">
+      <h5>
         {`Economics of ${row.region}`}
       </h5>
-      <Paper className={classes.paper}>
+      <Card className="pt-4">
         <Chart
           data={regionCities}
           height={300}
@@ -123,19 +91,17 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
             lineComponent={nullComponent}
           />
           <ChartGrid />
-          {BarSeriesForCity(regionCities)}
+          {barSeriesForCity(regionCities)}
           <Stack />
           <Legend
             rootComponent={legendRoot}
-            labelComponent={legendLabel}
             position="bottom"
           />
         </Chart>
-      </Paper>
+      </Card>
     </div>
   );
 };
-const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -167,9 +133,9 @@ export default class Demo extends React.PureComponent {
     const {
       columns, columnBands, currencyColumns, rows,
     } = this.state;
-
     return (
-      <Paper>
+
+      <Card>
         <Grid
           rows={rows}
           columns={columns}
@@ -189,7 +155,7 @@ export default class Demo extends React.PureComponent {
             columnBands={columnBands}
           />
         </Grid>
-      </Paper>
+      </Card>
     );
   }
 }

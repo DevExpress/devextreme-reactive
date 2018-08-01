@@ -114,7 +114,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
     }, className);
-    const contentClassed = classNames({
+    const contentClasses = classNames({
       [classes.content]: true,
       [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       [classes.contentRight]: align === 'right',
@@ -128,7 +128,7 @@ class TableHeaderCellBase extends React.PureComponent {
       >
         <div className={classes.container}>
           {before}
-          <div className={contentClassed}>
+          <div className={contentClasses}>
             {children}
           </div>
           {showGroupingControls && (

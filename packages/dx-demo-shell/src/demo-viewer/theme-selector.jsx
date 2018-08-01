@@ -64,32 +64,31 @@ export const ThemeSelector = (
           const available = availableThemes.indexOf(themeName) > -1;
           const activeTheme = themeName === selectedThemeName;
 
-          if (available) {
-            if (!showThemeVariants) {
-              acc.push(
-                <MenuItem
-                  key={themeName}
-                  eventKey={`${themeName}|${variants[0].name}`}
-                  active={activeTheme}
-                >
-                  {themeTitle}
-                </MenuItem>,
-              );
-            } else {
-              acc.push(variants.map(({ name: variantName, title: variantTitle }) => {
-                const activeVariant = variantName === selectedVariantName;
+          if (!available) return acc;
+          if (!showThemeVariants) {
+            acc.push(
+              <MenuItem
+                key={themeName}
+                eventKey={`${themeName}|${variants[0].name}`}
+                active={activeTheme}
+              >
+                {themeTitle}
+              </MenuItem>,
+            );
+          } else {
+            acc.push(variants.map(({ name: variantName, title: variantTitle }) => {
+              const activeVariant = variantName === selectedVariantName;
 
-                return (
-                  <MenuItem
-                    key={`${themeName}|${variantName}`}
-                    eventKey={`${themeName}|${variantName}`}
-                    active={activeTheme && activeVariant}
-                  >
-                    {variantTitle}
-                  </MenuItem>
-                );
-              }));
-            }
+              return (
+                <MenuItem
+                  key={`${themeName}|${variantName}`}
+                  eventKey={`${themeName}|${variantName}`}
+                  active={activeTheme && activeVariant}
+                >
+                  {variantTitle}
+                </MenuItem>
+              );
+            }));
           }
           return acc;
         }, [])}

@@ -1,0 +1,342 @@
+import * as React from 'react';
+import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { PluginHost } from '@devexpress/dx-react-core';
+import {
+  getMessagesFormatter,
+  tableRowsWithSummaries,
+  tableRowsWithTotalSummaries,
+  isTotalSummaryTableCell,
+  isGroupSummaryTableCell,
+  isTreeSummaryTableCell,
+  isTotalSummaryTableRow,
+  isGroupSummaryTableRow,
+  isTreeSummaryTableRow,
+  getColumnSummaries,
+} from '@devexpress/dx-grid-core';
+import { TableSummaryRow } from './table-summary-row';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  getMessagesFormatter: jest.fn(),
+  tableRowsWithSummaries: jest.fn(),
+  tableRowsWithTotalSummaries: jest.fn(),
+  isTotalSummaryTableCell: jest.fn(),
+  isGroupSummaryTableCell: jest.fn(),
+  isTreeSummaryTableCell: jest.fn(),
+  isTotalSummaryTableRow: jest.fn(),
+  isGroupSummaryTableRow: jest.fn(),
+  isTreeSummaryTableRow: jest.fn(),
+  getColumnSummaries: jest.fn(),
+}));
+
+const defaultDeps = {
+  getter: {
+    totalSummaryItems: [{ columnName: 'a', type: 'count' }],
+    groupSummaryItems: [{ columnName: 'a', type: 'sum' }],
+    treeSummaryItems: [{ columnName: 'a', type: 'max' }],
+    totalSummaryValues: [10],
+    groupSummaryValues: { g: [20] },
+    treeSummaryValues: { 1: [30] },
+    tableBodyRows: [{ a: 1 }],
+    tableFooterRows: [{ a: 2 }],
+    getRowLevelKey: () => '1',
+    isGroupRow: () => false,
+    getRowId: () => 1,
+    getTreeRowLevel: () => 3,
+  },
+  action: {
+    toggleRowExpanded: jest.fn(),
+  },
+  template: {
+    tableCell: {
+      tableRow: { type: 'undefined', rowId: 1, row: { value: 'value', compoundKey: 'g' } },
+      tableColumn: { type: 'undefined', rowId: 1, column: { name: 'a' } },
+      style: {},
+    },
+    tableRow: {
+      tableRow: { type: 'undefined', rowId: 1, row: 'row' },
+      style: {},
+    },
+  },
+  plugins: ['SummaryState', 'Table'],
+};
+
+const defaultProps = {
+  totalRowComponent: () => null,
+  groupRowComponent: () => null,
+  treeRowComponent: () => null,
+  totalCellComponent: ({ children }) => children,
+  groupCellComponent: ({ children }) => children,
+  treeCellComponent: ({ children }) => children,
+  treeColumnCellComponent: ({ children }) => children,
+  treeColumnContentComponent: ({ children }) => children,
+  treeColumnIndentComponent: () => null,
+  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+  itemComponent: ({ children }) => <div>{children}</div>,
+};
+
+describe('TableSummaryRow', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+  afterAll(() => {
+    resetConsole();
+    jest.resetAllMocks();
+  });
+
+  beforeEach(() => {
+    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
+    tableRowsWithSummaries.mockImplementation(() => 'tableRowsWithSummaries');
+    tableRowsWithTotalSummaries.mockImplementation(() => 'tableRowsWithTotalSummaries');
+    isTotalSummaryTableCell.mockImplementation(() => false);
+    isGroupSummaryTableCell.mockImplementation(() => false);
+    isTreeSummaryTableCell.mockImplementation(() => false);
+    isTotalSummaryTableRow.mockImplementation(() => false);
+    isGroupSummaryTableRow.mockImplementation(() => false);
+    isTreeSummaryTableRow.mockImplementation(() => false);
+    getColumnSummaries.mockImplementation(() => []);
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+  describe('table layout getters', () => {
+    it('should extend tableBodyRows', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableSummaryRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).tableBodyRows)
+        .toBe('tableRowsWithSummaries');
+      expect(tableRowsWithSummaries)
+        .toBeCalledWith(
+          defaultDeps.getter.tableBodyRows,
+          defaultDeps.getter.getRowLevelKey,
+          defaultDeps.getter.isGroupRow,
+          defaultDeps.getter.getRowId,
+        );
+    });
+
+    it('should extend tableFooterRows', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableSummaryRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).tableFooterRows)
+        .toBe('tableRowsWithTotalSummaries');
+      expect(tableRowsWithTotalSummaries)
+        .toBeCalledWith(
+          defaultDeps.getter.tableFooterRows,
+        );
+    });
+  });
+
+  it('should render total summary row', () => {
+    isTotalSummaryTableRow.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isTotalSummaryTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.totalRowComponent).props())
+      .toMatchObject(defaultDeps.template.tableRow);
+  });
+
+  it('should render group summary row', () => {
+    isGroupSummaryTableRow.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isGroupSummaryTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.groupRowComponent).props())
+      .toMatchObject(defaultDeps.template.tableRow);
+  });
+
+  it('should render tree summary row', () => {
+    isTreeSummaryTableRow.mockImplementation(() => true);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isTreeSummaryTableRow)
+      .toBeCalledWith(defaultDeps.template.tableRow.tableRow);
+    expect(tree.find(defaultProps.treeRowComponent).props())
+      .toMatchObject(defaultDeps.template.tableRow);
+  });
+
+  it('should render total summary cell on user-defined column and total summary row intersection', () => {
+    isTotalSummaryTableCell.mockImplementation(() => true);
+    getColumnSummaries.mockImplementation(() => [{ type: 'count', value: 10 }]);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isTotalSummaryTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
+      );
+    expect(tree.find(defaultProps.totalCellComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
+      });
+    expect(getColumnSummaries)
+      .toBeCalledWith(
+        defaultDeps.getter.totalSummaryItems,
+        defaultDeps.template.tableCell.tableColumn.column.name,
+        defaultDeps.getter.totalSummaryValues,
+      );
+    expect(tree.find(defaultProps.itemComponent).text())
+      .toBe('count:\xa0\xa010');
+  });
+
+  it('should render group summary cell on user-defined column and group summary row intersection', () => {
+    isGroupSummaryTableCell.mockImplementation(() => true);
+    getColumnSummaries.mockImplementation(() => [{ type: 'sum', value: 20 }]);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isGroupSummaryTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
+      );
+    expect(tree.find(defaultProps.groupCellComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
+      });
+    expect(getColumnSummaries)
+      .toBeCalledWith(
+        defaultDeps.getter.groupSummaryItems,
+        defaultDeps.template.tableCell.tableColumn.column.name,
+        defaultDeps.getter.groupSummaryValues.g,
+      );
+    expect(tree.find(defaultProps.itemComponent).text())
+      .toBe('sum:\xa0\xa020');
+  });
+
+  it('should render tree summary cell on user-defined column and tree summary row intersection', () => {
+    isTreeSummaryTableCell.mockImplementation(() => true);
+    getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isTreeSummaryTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
+      );
+    expect(tree.find(defaultProps.treeCellComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
+      });
+    expect(getColumnSummaries)
+      .toBeCalledWith(
+        defaultDeps.getter.treeSummaryItems,
+        defaultDeps.template.tableCell.tableColumn.column.name,
+        defaultDeps.getter.treeSummaryValues[1],
+      );
+    expect(tree.find(defaultProps.itemComponent).text())
+      .toBe('max:\xa0\xa030');
+  });
+
+  it('should render tree summary cell on tree column and tree summary row intersection', () => {
+    isTreeSummaryTableCell.mockImplementation(() => true);
+    getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
+
+    const deps = {
+      getter: {
+        tableTreeColumnName: 'a',
+      },
+    };
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <TableSummaryRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(isTreeSummaryTableCell)
+      .toBeCalledWith(
+        defaultDeps.template.tableCell.tableRow,
+        defaultDeps.template.tableCell.tableColumn,
+      );
+    expect(tree.find(defaultProps.treeColumnCellComponent).props())
+      .toMatchObject({
+        ...defaultDeps.template.tableCell,
+        column: defaultDeps.template.tableCell.tableColumn.column,
+      });
+    expect(tree.find(defaultProps.treeColumnIndentComponent).props())
+      .toMatchObject({
+        level: 3,
+      });
+    expect(tree.find(defaultProps.treeColumnContentComponent).exists())
+      .toBeTruthy();
+    expect(getColumnSummaries)
+      .toBeCalledWith(
+        defaultDeps.getter.treeSummaryItems,
+        defaultDeps.template.tableCell.tableColumn.column.name,
+        defaultDeps.getter.treeSummaryValues[1],
+      );
+    expect(tree.find(defaultProps.itemComponent).text())
+      .toBe('max:\xa0\xa030');
+  });
+});

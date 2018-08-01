@@ -94,10 +94,10 @@ export class TableSummaryRow extends React.PureComponent {
     const {
       totalRowComponent: TotalRow,
       groupRowComponent: GroupRow,
-      treeRowConponent: TreeRow,
+      treeRowComponent: TreeRow,
       totalCellComponent: TotalCell,
       groupCellComponent: GroupCell,
-      treeCellConponent: TreeCell,
+      treeCellComponent: TreeCell,
       treeColumnCellComponent: TreeColumnCell,
       treeColumnContentComponent: TreeColumnContent,
       treeColumnIndentComponent: TreeColumnIndent,
@@ -192,7 +192,10 @@ export class TableSummaryRow extends React.PureComponent {
                   );
                 }
                 return (
-                  <TreeCell {...params}>
+                  <TreeCell
+                    {...params}
+                    column={params.tableColumn.column}
+                  >
                     {this.renderCellContent(params.tableColumn.column, columnSummaries)}
                   </TreeCell>
                 );
@@ -240,11 +243,11 @@ TableSummaryRow.propTypes = {
 
   totalRowComponent: PropTypes.func.isRequired,
   groupRowComponent: PropTypes.func.isRequired,
-  treeRowConponent: PropTypes.func.isRequired,
+  treeRowComponent: PropTypes.func.isRequired,
 
   totalCellComponent: PropTypes.func.isRequired,
   groupCellComponent: PropTypes.func.isRequired,
-  treeCellConponent: PropTypes.func.isRequired,
+  treeCellComponent: PropTypes.func.isRequired,
 
   treeColumnCellComponent: PropTypes.func.isRequired,
   treeColumnContentComponent: PropTypes.func.isRequired,

@@ -36,10 +36,10 @@ Name | Type | Default | Description
 formatlessSummaryTypes | Array&lt;string&gt; | | Array of summary types that should not be formatted by the DataTypeProvider plugin.
 totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with total summaries.
 groupRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with group summaries.
-treeRowConponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with tree summaries.
+treeRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with tree summaries.
 totalCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with total summaries.
 groupCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with group summaries.
-treeCellConponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with tree summaries.
+treeCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with tree summaries.
 treeColumnCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a tree cell within a tree summary row.
 treeColumnContentComponent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | | A component that renders a tree cell's content.
 treeColumnIndentComponent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | | A component that renders an indent used to identify a tree row level.

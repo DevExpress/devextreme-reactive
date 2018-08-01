@@ -27,10 +27,10 @@ export class TableSummaryRow extends React.PureComponent {
       <TableSummaryRowBase
         totalRowComponent={TableRow}
         groupRowComponent={TableRow}
-        treeRowConponent={TableRow}
+        treeRowComponent={TableRow}
         totalCellComponent={TableCell}
         groupCellComponent={TableCell}
-        treeCellConponent={TableCell}
+        treeCellComponent={TableCell}
         itemComponent={TableSummaryItem}
         treeColumnCellComponent={TableTreeCell}
         treeColumnContentComponent={TableTreeContent}

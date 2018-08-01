@@ -60,39 +60,39 @@ export const ThemeSelector = (
           : selectedTheme.title}
       </Toggle>
       <Dropdown.Menu>
-        {themeSources.map(({ name: themeName, title: themeTitle, variants }) => {
+        {themeSources.reduce((acc, { name: themeName, title: themeTitle, variants }) => {
           const available = availableThemes.indexOf(themeName) > -1;
           const activeTheme = themeName === selectedThemeName;
 
-          if (!showThemeVariants) {
-            return (
-              <MenuItem
-                key={themeName}
-                eventKey={`${themeName}|${variants[0].name}`}
-                disabled={!available}
-                active={activeTheme}
-              >
-                {themeTitle}
-                {!available && ' (coming soon)'}
-              </MenuItem>
-            );
-          }
-          return variants.map(({ name: variantName, title: variantTitle }) => {
-            const activeVariant = variantName === selectedVariantName;
+          if (available) {
+            if (!showThemeVariants) {
+              acc.push(
+                <MenuItem
+                  key={themeName}
+                  eventKey={`${themeName}|${variants[0].name}`}
+                  active={activeTheme}
+                >
+                  {themeTitle}
+                </MenuItem>,
+              );
+            } else {
+              acc.push(variants.map(({ name: variantName, title: variantTitle }) => {
+                const activeVariant = variantName === selectedVariantName;
 
-            return (
-              <MenuItem
-                key={`${themeName}|${variantName}`}
-                eventKey={`${themeName}|${variantName}`}
-                disabled={!available}
-                active={activeTheme && activeVariant}
-              >
-                {variantTitle}
-                {!available && ' (coming soon)'}
-              </MenuItem>
-            );
-          });
-        })}
+                return (
+                  <MenuItem
+                    key={`${themeName}|${variantName}`}
+                    eventKey={`${themeName}|${variantName}`}
+                    active={activeTheme && activeVariant}
+                  >
+                    {variantTitle}
+                  </MenuItem>
+                );
+              }));
+            }
+          }
+          return acc;
+        }, [])}
       </Dropdown.Menu>
     </Dropdown>
   );

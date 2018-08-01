@@ -1,6 +1,6 @@
 # React Grid Integrated Data Shaping
 
-This demo shows how to use TypeScript to create a Grid with sorting, grouping, filtering, and paging.
+This demo shows how to use TypeScript to create a Grid with sorting, grouping, filtering, and paging in the [Uncontrolled State mode](../../docs/guides/controlled-and-uncontrolled-modes.md). That is, the Grid manages its state internally. Use this mode if you do not need to share the Grid's state among other parts of your application.
 
 If you use selection with integrated data shaping, the way the Select All checkbox works depends on the plugin order. In this demo, the `IntegratedSelection` plugin is linked after all the data shaping plugins. In this case, Select All affects only displayed rows.
 

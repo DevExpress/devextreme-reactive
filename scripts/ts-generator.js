@@ -109,8 +109,7 @@ const getInterfaceExport = ({
   const indent = ' '.repeat(2 * level);
   const extensionText = extension ? ` extends ${extension}` : '';
   const propertiesText = properties
-    .reduce((acc, propLine) => acc + getFormattedLine(propLine, level + 1), '')
-    .replace(': { [key: number | string]: any };', ': { [key: string]: any };');
+    .reduce((acc, propLine) => acc + getFormattedLine(propLine, level + 1), '');
   return `${indent}/** ${description} */\n`
     + `${indent}export interface ${name}${extensionText} {\n`
     + `${propertiesText}`

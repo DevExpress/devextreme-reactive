@@ -20,6 +20,15 @@ import {
   getColumnSummaries,
 } from '@devexpress/dx-grid-core';
 
+const dependencies = [
+  { name: 'DataTypeProvider', optional: true },
+  { name: 'SummaryState' },
+  { name: 'CustomSummary', optional: true },
+  { name: 'IntegratedSummary', optional: true },
+  { name: 'Table' },
+  { name: 'TableTreeColumn', optional: true },
+];
+
 const tableBodyRowsComputed = ({
   tableBodyRows,
   getRowLevelKey,
@@ -97,10 +106,7 @@ export class TableSummaryRow extends React.PureComponent {
     return (
       <Plugin
         name="TableSummaryRow"
-        dependencies={[
-          { name: 'Table' },
-          { name: 'SummaryState' },
-        ]}
+        dependencies={dependencies}
       >
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableFooterRows" computed={tableFooterRowsComputed} />
@@ -117,7 +123,10 @@ export class TableSummaryRow extends React.PureComponent {
                   totalSummaryValues,
                 );
                 return (
-                  <TotalCell {...params}>
+                  <TotalCell
+                    {...params}
+                    column={params.tableColumn.column}
+                  >
                     {this.renderCellContent(params.tableColumn.column, columnSummaries)}
                   </TotalCell>
                 );
@@ -138,7 +147,10 @@ export class TableSummaryRow extends React.PureComponent {
                   groupSummaryValues[params.tableRow.row.compoundKey],
                 );
                 return (
-                  <GroupCell {...params}>
+                  <GroupCell
+                    {...params}
+                    column={params.tableColumn.column}
+                  >
                     {this.renderCellContent(params.tableColumn.column, columnSummaries)}
                   </GroupCell>
                 );
@@ -166,7 +178,10 @@ export class TableSummaryRow extends React.PureComponent {
                 );
                 if (tableTreeColumnName === params.tableColumn.column.name) {
                   return (
-                    <TreeColumnCell {...params}>
+                    <TreeColumnCell
+                      {...params}
+                      column={params.tableColumn.column}
+                    >
                       <TreeColumnIndent
                         level={getTreeRowLevel(params.tableRow.row)}
                       />
@@ -192,7 +207,6 @@ export class TableSummaryRow extends React.PureComponent {
           {params => (
             <TotalRow
               {...params}
-              row={params.tableRow.row}
             />
           )}
         </Template>
@@ -203,7 +217,6 @@ export class TableSummaryRow extends React.PureComponent {
           {params => (
             <GroupRow
               {...params}
-              row={params.tableRow.row}
             />
           )}
         </Template>
@@ -214,7 +227,6 @@ export class TableSummaryRow extends React.PureComponent {
           {params => (
             <TreeRow
               {...params}
-              row={params.tableRow.row}
             />
           )}
         </Template>

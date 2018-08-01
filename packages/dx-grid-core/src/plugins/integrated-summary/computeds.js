@@ -13,11 +13,11 @@ const defaultSummaryCalculators = {
 };
 
 export const defaultSummaryCalculator = (type, rows, getValue) => {
-  const summaryCulculator = defaultSummaryCalculators[type];
-  if (!summaryCulculator) {
+  const summaryCalculator = defaultSummaryCalculators[type];
+  if (!summaryCalculator) {
     throw new Error(`The summary type '${type}' is not defined`);
   }
-  return summaryCulculator(rows, getValue);
+  return summaryCalculator(rows, getValue);
 };
 
 const rowsSummary = (rows, summaryItems, getCellValue, calculator) => summaryItems

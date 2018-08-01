@@ -13,7 +13,7 @@ import {
   area,
 } from 'd3-shape';
 
-import { Stack } from '@devexpress/dx-react-chart';
+import { Stack, Scale } from '@devexpress/dx-react-chart';
 
 import { booksSale } from '../../../demo-data/data-vizualization';
 
@@ -105,6 +105,11 @@ export default class Demo extends React.PureComponent {
           <Stack
             offset={stackOffsetWiggle}
             order={stackOrderInsideOut}
+          />
+          <Scale
+            axisExtension={[
+              { format: () => tick => tick },
+            ]}
           />
         </Chart>
       </<%&wrapperTag%>>

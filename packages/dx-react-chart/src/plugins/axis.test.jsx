@@ -22,7 +22,7 @@ describe('Axis', () => {
   const LineComponent = () => null;
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal' } },
+      domains: { name: { orientation: 'horizontal', type: 'someType' } },
       setBBox: jest.fn(),
       argumentAxisName: 'argumentAxis',
       layouts: {
@@ -37,7 +37,6 @@ describe('Axis', () => {
     },
   };
   const defaultProps = {
-    type: 'band',
     min: 0,
     position: 'bottom',
     name: 'name',
@@ -127,7 +126,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100, 5, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, undefined);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -150,7 +149,24 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 6, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 6, 10, undefined);
+  });
+
+  it('should pass axisCoordinates method correct parameters, with user axisExtension', () => {
+    const deps = { getter: { axisExtension: [{ type: 'type' }, { type: 'someType' }] } };
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          ...{ getter: { ...defaultDeps.getter, ...deps.getter } },
+        })}
+        <Axis
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, { type: 'someType' });
   });
 
   it('should render tick component', () => {

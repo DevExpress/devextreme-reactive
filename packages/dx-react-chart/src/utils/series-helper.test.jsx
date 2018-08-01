@@ -150,6 +150,7 @@ describe('Base series', () => {
       { width: 60, height: 50 },
       ['one', 'two'],
       'extraOptions',
+      undefined,
     );
 
     expect(coordinates).toHaveBeenLastCalledWith(

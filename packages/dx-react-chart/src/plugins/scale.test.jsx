@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { domains } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { IntegratedScaleProcessing } from './integrated-scale-processing';
+import { Scale } from './scale';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   domains: jest.fn(),
@@ -11,15 +11,15 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 domains.mockImplementation(() => 'domains');
 
-describe('Integrates scale processing', () => {
-  it('should provide domains', () => {
+describe('Scale', () => {
+  it('should provide options', () => {
     const tree = mount((
       <PluginHost>
-        <IntegratedScaleProcessing />
+        <Scale />
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
 
-    expect(getComputedState(tree)).toEqual({ domains: 'domains' });
+    expect(getComputedState(tree)).toEqual({ computedDomain: domains, axisExtension: [] });
   });
 });

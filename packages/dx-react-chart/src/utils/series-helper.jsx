@@ -52,6 +52,7 @@ export const withSeriesPlugin = (
                 data,
                 argumentAxisName,
                 layouts,
+                axisExtension,
               }) => {
                 const {
                   stack, themeColor,
@@ -64,6 +65,7 @@ export const withSeriesPlugin = (
                   layouts.pane,
                   stacks,
                   options,
+                  axisExtension,
                 );
                 const coord = coordinates(
                   data,

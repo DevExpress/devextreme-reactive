@@ -56,8 +56,15 @@ describe('Create scale', () => {
   });
 
   it('should be set paddings to d3 scale band', () => {
-    createScale({ ...domainOptions, type: 'band' }, width, height, 0.3);
+    createScale({ ...domainOptions, type: 'band' }, width, height, undefined, 0.3);
     expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
     expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
+  });
+
+  it('should be create user scale', () => {
+    const userScale = jest.fn();
+    userScale.mockImplementation(() => linearMockScale);
+    createScale(domainOptions, width, height, { scale: userScale });
+    expect(userScale).toBeCalled();
   });
 });

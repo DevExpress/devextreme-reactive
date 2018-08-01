@@ -42,6 +42,7 @@ class FilterSelectorBase extends React.PureComponent {
         <IconButton
           onClick={this.handleButtonClick}
           disabled={disabled || availableValues.length === 1}
+          className={classes.iconButton}
         >
           <Icon type={value} />
         </IconButton>

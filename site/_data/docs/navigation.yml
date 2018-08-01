@@ -183,6 +183,8 @@
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+      - title: Stacked Series
+        path: /react/chart/docs/guides/stacked-series
   - title: API Reference
     items:
       - title: AreaSeries
@@ -205,6 +207,8 @@
         path: /react/chart/docs/reference/scatter-series
       - title: SplineSeries
         path: /react/chart/docs/reference/spline-series
+      - title: Stack
+        path: /react/chart/docs/reference/stack
       - title: Title
         path: /react/chart/docs/reference/title
       - title: ValueAxis

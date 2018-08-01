@@ -37,7 +37,7 @@ Toggle.defaultProps = {
 
 export const ThemeSelector = (
   {
-    selectedThemeName, selectedVariantName, avaliableThemes, onChange,
+    selectedThemeName, selectedVariantName, availableThemes, onChange,
   },
   { embeddedDemoOptions: { showThemeVariants, themeSources } },
 ) => {
@@ -61,7 +61,7 @@ export const ThemeSelector = (
       </Toggle>
       <Dropdown.Menu>
         {themeSources.map(({ name: themeName, title: themeTitle, variants }) => {
-          const avaliable = avaliableThemes.indexOf(themeName) > -1;
+          const available = availableThemes.indexOf(themeName) > -1;
           const activeTheme = themeName === selectedThemeName;
 
           if (!showThemeVariants) {
@@ -69,11 +69,11 @@ export const ThemeSelector = (
               <MenuItem
                 key={themeName}
                 eventKey={`${themeName}|${variants[0].name}`}
-                disabled={!avaliable}
+                disabled={!available}
                 active={activeTheme}
               >
                 {themeTitle}
-                {!avaliable && ' (coming soon)'}
+                {!available && ' (coming soon)'}
               </MenuItem>
             );
           }
@@ -84,11 +84,11 @@ export const ThemeSelector = (
               <MenuItem
                 key={`${themeName}|${variantName}`}
                 eventKey={`${themeName}|${variantName}`}
-                disabled={!avaliable}
+                disabled={!available}
                 active={activeTheme && activeVariant}
               >
                 {variantTitle}
-                {!avaliable && ' (coming soon)'}
+                {!available && ' (coming soon)'}
               </MenuItem>
             );
           });
@@ -101,7 +101,7 @@ export const ThemeSelector = (
 ThemeSelector.propTypes = {
   selectedThemeName: PropTypes.string.isRequired,
   selectedVariantName: PropTypes.string.isRequired,
-  avaliableThemes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableThemes: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

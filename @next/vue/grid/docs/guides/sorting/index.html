@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1527171888">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1527171888">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,7 +36,7 @@
           </button>
           <a class="navbar-brand" href="/devextreme-reactive/@next/vue/grid/">
             <div>
-              <img src="/devextreme-reactive/@next/img/data-grid-logo.svg" alt="Vue Grid">
+              <img src="/devextreme-reactive/@next/img/grid-logo.svg" alt="Vue Grid">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">Vue Grid</h3>
@@ -87,7 +87,7 @@
 
 <p>Specify the sorting conditions in the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">sorting</code> property and subscribe to the <code class="highlighter-rouge">update:sorting</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -97,7 +97,7 @@
 
 <p>You can prevent sorting by a specific column using the <a href="/devextreme-reactive/@next/vue/grid/docs/reference/sorting-state/">DxSortingState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/disable-column-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/disable-column-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -107,7 +107,7 @@
 
 <p>The Grid’s grouping features allow you to sort groups as well as data rows. For this, set the <code class="highlighter-rouge">DxGroupingPanel</code> plugin’s <code class="highlighter-rouge">showSortingControls</code> property to true, which enables the sorting UI for the Group Panel’s column headers.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/group-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/group-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -117,37 +117,34 @@
 
 <p>The <a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property allows you to implement a custom sorting algorithm for a specific column.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/custom-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/custom-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<!-- ## Remote Sorting
+<h2 id="remote-sorting">Remote Sorting</h2>
 
-You can perform remote grouping by handling sorting state changes, generating a request, and sending it to the server.
+<p>You can perform remote sorting by handling sorting state changes, generating a request, and sending it to the server.</p>
 
-Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `DxSortingState` plugin's `update:sorting` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `DxGrid` component's `rows` property.
+<p>Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the <code class="highlighter-rouge">DxSortingState</code> plugin’s <code class="highlighter-rouge">update:sorting</code> event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the <code class="highlighter-rouge">DxGrid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
-Note that you do not need to use the `DxIntegratedSorting` plugin for remote sorting.
+<p>Note that you do not need to use the <code class="highlighter-rouge">DxIntegratedSorting</code> plugin for remote sorting.</p>
 
-<div
-          class="embedded-demo"
-          data-options='{"path":"/demo/grid-sorting/remote-sorting","showThemeSelector":true,"scriptPath":"/devextreme-reactive/@next//vue/demos/dist/index.js?v=1527171888"}'
-        >
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-sorting/remote-sorting&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
-        </div> -->
+        </div>
 
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0-beta.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
             Version
-            <span>1.3.0-beta.2</span>
+            <span>1.5.1</span>
           </a>
         </li>
       </ul>
@@ -254,12 +251,52 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
           
 
         
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
         </ul>
       
         <h3>API Reference</h3>
 
         <ul class="list-unstyled">
         
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/column-chooser/">DxColumnChooser</a></li>
+          
+
         
           
           
@@ -274,6 +311,14 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
 
           
           <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/custom-tree-data/">DxCustomTreeData</a></li>
           
 
         
@@ -433,6 +478,22 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
           
 
           
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-band-header/">DxTableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-column-visibility/">DxTableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
           
 
@@ -489,7 +550,31 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
           
 
           
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-tree-column/">DxTableTreeColumn</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/tree-data-state/">DxTreeDataState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/virtual-table/">DxVirtualTable</a></li>
           
 
         
@@ -499,7 +584,7 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/vue/demos/dist/index.js?v=1527171888"></script>
+<script src="/devextreme-reactive/@next/vue/grid/demos/dist/index.js?v=1533130201"></script>
 
 
     <footer>
@@ -540,28 +625,10 @@ Note that you do not need to use the `DxIntegratedSorting` plugin for remote sor
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1527171888"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
     <script>
-        trackingCookie.check();
+        trackingCookie.notice();
     </script>
 
-    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

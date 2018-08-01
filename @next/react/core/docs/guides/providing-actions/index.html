@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1527171888">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1527171888">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,7 +36,7 @@
           </button>
           <a class="navbar-brand" href="/devextreme-reactive/@next/react/core/">
             <div>
-              <img src="/devextreme-reactive/@next/img/data-grid-logo.svg" alt="React Core">
+              <img src="/devextreme-reactive/@next/img/core-logo.svg" alt="React Core">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">React Core</h3>
@@ -47,7 +47,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li class="active"><a href="/devextreme-reactive/@next/react/core/docs/guides/getting-started/">Docs</a></li>
+            <li class="active"><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
             <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
           </ul>
@@ -64,7 +64,7 @@
 
 <p>Usually, an action is used to execute a function associated with it from a UI event handler defined in another plugin’s markup via the <a href="/devextreme-reactive/@next/react/core/docs/reference/template-connector/">TemplateConnector</a> primitive.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-action/simple-action&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-action/simple-action&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -74,7 +74,7 @@
 
 <p>An Action accepts a payload that is passed to the underlying function.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-action/parameterized-action&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/core-action/parameterized-action&quot;,&quot;defaultTab&quot;:&quot;source&quot;,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -85,9 +85,9 @@
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0-beta.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
             Version
-            <span>1.3.0-beta.2</span>
+            <span>1.5.1</span>
           </a>
         </li>
       </ul>
@@ -214,7 +214,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/demos/dist/index.js?v=1527171888"></script>
+<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1533130201"></script>
 
 
     <footer>
@@ -223,7 +223,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li class="active"><a href="/devextreme-reactive/@next/react/core/docs/guides/getting-started/">Docs</a></li>
+                      <li class="active"><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
                       <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
                     </ul>
@@ -253,28 +253,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1527171888"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
     <script>
-        trackingCookie.check();
+        trackingCookie.notice();
     </script>
 
-    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

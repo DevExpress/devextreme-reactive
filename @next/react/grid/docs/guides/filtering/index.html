@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1527171888">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1527171888">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,7 +36,7 @@
           </button>
           <a class="navbar-brand" href="/devextreme-reactive/@next/react/grid/">
             <div>
-              <img src="/devextreme-reactive/@next/img/data-grid-logo.svg" alt="React Grid">
+              <img src="/devextreme-reactive/@next/img/grid-logo.svg" alt="React Grid">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">React Grid</h3>
@@ -47,7 +47,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -84,7 +84,7 @@
 
 <p>In the <a href="/devextreme-reactive/@next/react/grid/docs/guides/controlled-and-uncontrolled-modes/">uncontrolled mode</a>, specify the initial filtering conditions in the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">defaultFilters</code> property.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -94,7 +94,7 @@
 
 <p>In the <a href="/devextreme-reactive/@next/react/grid/docs/guides/controlled-and-uncontrolled-modes/">controlled mode</a>, pass the filtering options to the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">filters</code> property and handle the <code class="highlighter-rouge">onFiltersChange</code> event to control the filtering state externally.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -104,7 +104,7 @@
 
 <p>You can also specify a filtering predicate using the <code class="highlighter-rouge">IntegratedFiltering</code> plugin’s <code class="highlighter-rouge">columnExtenstions</code> property to implement custom filtering logic for specific columns.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filtering-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filtering-algorithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -114,7 +114,17 @@
 
 <p>You can prevent filtering by a specific column using the <a href="/devextreme-reactive/@next/react/grid/docs/reference/filtering-state/">FilteringState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/disable-column-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/disable-column-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="custom-filter-operations">Custom Filter Operations</h2>
+
+<p>Specify the <a href="/devextreme-reactive/@next/react/grid/docs/reference/table-filter-row/">TableFilterRow</a> plugin’s <code class="highlighter-rouge">showFilterSelector</code> property to allow filter operation selection for an end user. Define which filter operations are available for particular columns using the <a href="/devextreme-reactive/@next/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> <code class="highlighter-rouge">availableFilterOperations</code> property. You can also define a custom operation by passing a filtering predicate to the <a href="/devextreme-reactive/@next/react/grid/docs/reference/integrated-filtering/">IntegratedFiltering</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/advanced-filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -122,9 +132,9 @@
 
 <h2 id="customizing-filter-row-appearance">Customizing Filter Row Appearance</h2>
 
-<p>Pass a function that returns a custom component to the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property to substitute the built-in filter row editors. In this case, delegate the component’s state management to the <code class="highlighter-rouge">TableFilterRow</code> plugin by assigning the function’s <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">onFilter</code> arguments to the appropriate component’s properties.</p>
+<p>Pass a function that returns a custom component to the <code class="highlighter-rouge">TableFilterRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property to substitute the built-in filter row editors. In this case, delegate the component’s state management to the <code class="highlighter-rouge">TableFilterRow</code> plugin by assigning the function’s <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">onFilter</code> arguments to the corresponding component properties.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/custom-filter-row&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -134,28 +144,28 @@
 
 <p>It is possible to perform filtering remotely by handling filtering state changes, generating a request, and sending it to the server.</p>
 
-<p>Filtering options are updated once an end user modifies the text in a Filter Row editor or other filtering control. Handle filtering option changes using the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">onFiltersChange</code> event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
+<p>Filtering options are updated once an end user modifies the text in the Filter Row editor or in another filtering control. Handle the filtering option changes using the <code class="highlighter-rouge">FilteringState</code> plugin’s <code class="highlighter-rouge">onFiltersChange</code> event and request data from the server using the applied filtering options. Once the filtered data is received from the server, pass it to the <code class="highlighter-rouge">Grid</code> component’s <code class="highlighter-rouge">rows</code> property.</p>
 
 <p>Note that you do not need to use the <code class="highlighter-rouge">IntegratedFiltering</code> plugin for remote filtering.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/remote-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/demos/dist/index.js?v=1527171888&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-filtering/remote-filtering&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//react/grid/demos/dist/index.js?v=1533130201&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<h2 id="using-filtering-with-other-data-processing-plugins">Using Filtering with Other Data Processing Plugins</h2>
+<h2 id="the-use-of-filtering-with-other-data-processing-plugins">The Use of Filtering with Other Data Processing Plugins</h2>
 
-<p>The order in which the plugins appear in the Grid’s container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the first case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> one. Otherwise, inverse the plugins’ order.</p>
+<p>The order in which the plugins appear in the Grid’s container is important when you use filtering features with paging or grouping. You need to choose whether to paginate filtered rows or filter the current page. In the former case, put the <code class="highlighter-rouge">IntegratedFiltering</code> plugin before the <code class="highlighter-rouge">IntegratedPaging</code> plugin. Otherwise, inverse the plugins’ order.</p>
 
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0-beta.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
             Version
-            <span>1.3.0-beta.2</span>
+            <span>1.5.1</span>
           </a>
         </li>
       </ul>
@@ -690,7 +700,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/demos/dist/index.js?v=1527171888"></script>
+<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1533130201"></script>
 
 
     <footer>
@@ -699,7 +709,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -731,28 +741,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1527171888"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
     <script>
-        trackingCookie.check();
+        trackingCookie.notice();
     </script>
 
-    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

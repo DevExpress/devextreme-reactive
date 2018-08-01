@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1527171888">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1527171888">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,7 +36,7 @@
           </button>
           <a class="navbar-brand" href="/devextreme-reactive/@next/react/grid/">
             <div>
-              <img src="/devextreme-reactive/@next/img/data-grid-logo.svg" alt="React Grid">
+              <img src="/devextreme-reactive/@next/img/grid-logo.svg" alt="React Grid">
               <div class="logo-container">
                 <h3 class="logo-team">DevExtreme</h3>
                 <h3 class="logo-product">React Grid</h3>
@@ -47,7 +47,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode/">Demos</a></li>
+            <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -113,6 +113,30 @@
       <td>A component that renders a filter row.</td>
     </tr>
     <tr>
+      <td>filterSelectorComponent</td>
+      <td>ComponentType&lt;<a href="#tablefilterrowfilterselectorprops">TableFilterRow.FilterSelectorProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a filter selector.</td>
+    </tr>
+    <tr>
+      <td>iconComponent</td>
+      <td>ComponentType&lt;<a href="#tablefilterrowiconprops">TableFilterRow.IconProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>editorComponent</td>
+      <td>ComponentType&lt;<a href="#tablefilterroweditorprops">TableFilterRow.EditorProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a filter editor.</td>
+    </tr>
+    <tr>
+      <td>showFilterSelector?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether the FilterSelector should be displayed.</td>
+    </tr>
+    <tr>
       <td>rowHeight?</td>
       <td>number</td>
       <td> </td>
@@ -162,12 +186,115 @@
     <tr>
       <td>filteringEnabled</td>
       <td>boolean</td>
-      <td>Specifies whether filtering by a column is enabled.</td>
+      <td>Specifies whether filtering by column is enabled.</td>
     </tr>
     <tr>
       <td>getMessage</td>
       <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
       <td>Returns the filter editor placeholder text. Available in the “@devexpress/dx-react-grid-material-ui” package.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablefilterrowfilterselectorprops">TableFilterRow.FilterSelectorProps</h3>
+
+<p>Describes properties passed to a component that renders a filter selector.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>iconComponent</td>
+      <td>ComponentType&lt;<a href="#tablefilterrowiconprops">TableFilterRow.IconProps</a>&gt;</td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>string</td>
+      <td>The currently selected filter operation.</td>
+    </tr>
+    <tr>
+      <td>availableValues</td>
+      <td>Array&lt;string&gt;</td>
+      <td>The list of available filter operations.</td>
+    </tr>
+    <tr>
+      <td>onChange</td>
+      <td>(value: string) =&gt; void</td>
+      <td>Handles filter operation changes.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the FilterSelector is disabled.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>Returns the specified localization message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablefilterrowiconprops">TableFilterRow.IconProps</h3>
+
+<p>Describes properties passed to a component that renders a filter selector icon.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>string</td>
+      <td>Specifies the icon type.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablefilterroweditorprops">TableFilterRow.EditorProps</h3>
+
+<p>Describes properties passed to a component that renders a filter editor.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>The current editor value.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the editor is disabled.</td>
+    </tr>
+    <tr>
+      <td>onChange</td>
+      <td>(value: string) =&gt; void</td>
+      <td>Handles filter value changes.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>Returns the specified localization message.</td>
     </tr>
   </tbody>
 </table>
@@ -188,7 +315,67 @@
       <td>filterPlaceholder?</td>
       <td>string</td>
       <td>‘Filter…’</td>
-      <td>The filter editor placeholder text. Available in the “@devexpress/dx-react-grid-material-ui” package.</td>
+      <td>The filter editor placeholder text.</td>
+    </tr>
+    <tr>
+      <td>contains?</td>
+      <td>string</td>
+      <td>‘Contains’</td>
+      <td>The ‘contains’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>notContains?</td>
+      <td>string</td>
+      <td>‘Does not contain’</td>
+      <td>The ‘notContains’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>startsWith?</td>
+      <td>string</td>
+      <td>‘Starts with’</td>
+      <td>The ‘startsWith’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>endsWith?</td>
+      <td>string</td>
+      <td>‘Ends with’</td>
+      <td>The ‘endsWith’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>equal?</td>
+      <td>string</td>
+      <td>‘Equals’</td>
+      <td>The ‘equal’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>notEqual?</td>
+      <td>string</td>
+      <td>‘Does not equal’</td>
+      <td>The ‘notEqual’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>greaterThan?</td>
+      <td>string</td>
+      <td>‘Greater than’</td>
+      <td>The ‘greaterThan’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>greaterThanOrEqual?</td>
+      <td>string</td>
+      <td>‘Greater than or equal to’</td>
+      <td>The ‘greaterThanOrEqual’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>lessThan?</td>
+      <td>string</td>
+      <td>‘Less than’</td>
+      <td>The ‘lessThan’ filter operation name.</td>
+    </tr>
+    <tr>
+      <td>lessThanOrEqual?</td>
+      <td>string</td>
+      <td>‘Less than or equal to’</td>
+      <td>The ‘lessThanOrEqual’ filter operation name.</td>
     </tr>
   </tbody>
 </table>
@@ -213,6 +400,21 @@
       <td>TableFilterRow.Row</td>
       <td><a href="/devextreme-reactive/@next/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></td>
       <td>A component that renders a filter row.</td>
+    </tr>
+    <tr>
+      <td>TableFilterRow.FilterSelector</td>
+      <td><a href="#tablefilterrowselectorprops">TableFilterRow.FilterSelectorProps</a></td>
+      <td>A component that renders a filter selector.</td>
+    </tr>
+    <tr>
+      <td>TableFilterRow.Icon</td>
+      <td><a href="#tablefilterrowiconprops">TableFilterRow.IconProps</a></td>
+      <td>A component that renders filter selector icons.</td>
+    </tr>
+    <tr>
+      <td>TableFilterRow.Editor</td>
+      <td><a href="#tablefilterroweditorprops">TableFilterRow.EditorProps</a></td>
+      <td>A component that renders a filter editor.</td>
     </tr>
   </tbody>
 </table>
@@ -243,13 +445,13 @@
       <td>filters</td>
       <td><a href="/devextreme-reactive/@next/react/core/docs/reference/getter/">Getter</a></td>
       <td>Array&lt;<a href="/devextreme-reactive/@next/react/grid/docs/reference/filtering-state/#filter">Filter</a>&gt;</td>
-      <td>The filtering options.</td>
+      <td>Filtering options.</td>
     </tr>
     <tr>
       <td>isColumnFilteringEnabled</td>
       <td><a href="/devextreme-reactive/@next/react/core/docs/reference/getter/">Getter</a></td>
       <td>(columnName: string) =&gt; boolean</td>
-      <td>A function used to define if filtering by a column is enabled.</td>
+      <td>A function used to define if filtering by column is enabled.</td>
     </tr>
     <tr>
       <td>changeColumnFilter</td>
@@ -274,6 +476,12 @@
       <td><a href="/devextreme-reactive/@next/react/core/docs/reference/template/">Template</a></td>
       <td><a href="/devextreme-reactive/@next/react/grid/docs/reference/data-type-provider/#datatypeprovidervalueeditorprops">DataTypeProvider.ValueEditorProps</a></td>
       <td>A template that renders the editor.</td>
+    </tr>
+    <tr>
+      <td>getAvailableFilterOperations</td>
+      <td><a href="/devextreme-reactive/@next/react/core/docs/reference/getter/">Getter</a></td>
+      <td>(columnName: string) =&gt; Array&lt;string&gt;?</td>
+      <td>A function that returns the names of filter operations that are available for a particular column.</td>
     </tr>
   </tbody>
 </table>
@@ -304,9 +512,9 @@
     <div class="col-sm-3 col-sm-pull-9 main-menu">
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.3.0-beta.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
             Version
-            <span>1.3.0-beta.2</span>
+            <span>1.5.1</span>
           </a>
         </li>
       </ul>
@@ -841,7 +1049,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/demos/dist/index.js?v=1527171888"></script>
+<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1533130201"></script>
 
 
     <footer>
@@ -850,7 +1058,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/uncontrolled-mode">Demos</a></li>
+                      <li><a href="/devextreme-reactive/@next/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -882,28 +1090,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1527171888"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
     <script>
-        trackingCookie.check();
+        trackingCookie.notice();
     </script>
 
-    <script src="https://d1pdqivtki74if.cloudfront.net/dx-analytics.js?wsCache=2_0_1_24810" async></script>
-    <script>
-        trackDXPageview = function() {
-            if (!window.dxa) {
-                setTimeout(function() {
-                    trackDXPageview();
-                }, 300);
-                return;
-            }
-
-            if(!window.analytics)
-                window.analytics = new window.dxa.Analytic("https://pjl6i2ero9.execute-api.us-east-1.amazonaws.com/prod/putg");
-            window.analytics.addCookieToSave("DXVisitor");
-            window.analytics.pageVisited();
-        };
-
-        trackDXPageview();
-    </script>
   </body>
 </html>

@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DxTableTreeColumn Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/@next/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-1384678-22', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/@next/vue/grid/">
+            <div>
+              <img src="/devextreme-reactive/@next/img/grid-logo.svg" alt="Vue Grid">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">Vue Grid</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/@next/vue/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="dxtabletreecolumn-plugin-reference">DxTableTreeColumn Plugin Reference</h1>
+
+<p>A plugin that renders a table column with a toggle button and sort indicators.</p>
+
+<h2 id="importing">Importing</h2>
+
+<p>Use the following statement to import a plugin with embedded theme components:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">DxTableTreeColumn</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-vue-grid-bootstrap4'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>If you want to use custom components, you can import the themeless plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">DxTableTreeColumn</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-vue-grid'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<ul>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/tree-data-state/">DxTreeDataState</a></li>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/">DxTable</a></li>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/selection-state/">DxSelectionState</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a> [Optional]</li>
+</ul>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>for</td>
+      <td>string</td>
+      <td> </td>
+      <td>The name of a column that should be represented as a tree.</td>
+    </tr>
+    <tr>
+      <td>cellComponent</td>
+      <td><a href="#dxtabletreecolumndxcell">DxTableTreeColumn.DxCell</a></td>
+      <td> </td>
+      <td>A component that renders a cell within a data row.</td>
+    </tr>
+    <tr>
+      <td>contentComponent</td>
+      <td><a href="#dxtabletreecolumndxcontent">DxTableTreeColumn.DxContent</a></td>
+      <td> </td>
+      <td>A component that renders a cell’s content.</td>
+    </tr>
+    <tr>
+      <td>indentComponent</td>
+      <td><a href="#dxtabletreecolumndxindent">DxTableTreeColumn.DxIndent</a></td>
+      <td> </td>
+      <td>A component that renders an indent used to identify a row’s level.</td>
+    </tr>
+    <tr>
+      <td>expandButtonComponent</td>
+      <td><a href="#dxtabletreecolumndxexpandbutton">DxTableTreeColumn.DxExpandButton</a></td>
+      <td> </td>
+      <td>A component that renders a button that controls the row’s expanded state.</td>
+    </tr>
+    <tr>
+      <td>checkboxComponent</td>
+      <td><a href="#dxtabletreecolumndxcheckbox">DxTableTreeColumn.DxCheckbox</a></td>
+      <td> </td>
+      <td>A component that renders a checkbox used to control selection.</td>
+    </tr>
+    <tr>
+      <td>showSelectionControls?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render selection controls. Requires <a href="/devextreme-reactive/@next/vue/grid/docs/reference/selection-state/">SelectionState</a>.</td>
+    </tr>
+    <tr>
+      <td>showSelectAll?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Specifies whether to render Select All checkbox. Requires <a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-selection/">IntegratedSelection</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="component-types">Component Types</h2>
+
+<h3 id="dxtabletreecolumndxcell">DxTableTreeColumn.DxCell</h3>
+
+<h4 id="props">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableRow</td>
+      <td><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/#tablerow">TableRow</a></td>
+      <td>A table row.</td>
+    </tr>
+    <tr>
+      <td>tableColumn</td>
+      <td><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/#tablecolumn">TableColumn</a></td>
+      <td>A table column.</td>
+    </tr>
+    <tr>
+      <td>colSpan?</td>
+      <td>number</td>
+      <td>The number of columns that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>rowSpan?</td>
+      <td>number</td>
+      <td>The number of rows that the root cell element spans.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>A value to be rendered within the cell.</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td>any</td>
+      <td>The cell’s row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/@next/vue/grid/docs/reference/grid/#column">Column</a></td>
+      <td>Specifies the cell’s column.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="slots">Slots</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>default</td>
+      <td>The default Vue slot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtabletreecolumndxcontent">DxTableTreeColumn.DxContent</h3>
+
+<h4 id="slots-1">Slots</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>default</td>
+      <td>The default Vue slot.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtabletreecolumndxindent">DxTableTreeColumn.DxIndent</h3>
+
+<h4 id="props-1">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>level</td>
+      <td>number</td>
+      <td>The row’s level.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtabletreecolumndxexpandbutton">DxTableTreeColumn.DxExpandButton</h3>
+
+<h4 id="props-2">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>visible</td>
+      <td>boolean</td>
+      <td>Specifies whether to show the button.</td>
+    </tr>
+    <tr>
+      <td>expanded</td>
+      <td>boolean</td>
+      <td>Specifies whether a row is expanded.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="events">Events</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>toggle</td>
+      <td>() =&gt; void</td>
+      <td>An event that initiates row expanding or collapsing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dxtabletreecolumndxcheckbox">DxTableTreeColumn.DxCheckbox</h3>
+
+<h4 id="props-3">Props</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether a row is unavailable for selection.</td>
+    </tr>
+    <tr>
+      <td>checked</td>
+      <td>boolean</td>
+      <td>Specifies whether a row is selected.</td>
+    </tr>
+    <tr>
+      <td>indeterminate</td>
+      <td>boolean</td>
+      <td>Specifies whether row’s children are partially selected.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="events-1">Events</h4>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>change</td>
+      <td>() =&gt; void</td>
+      <td>An event that initiates row selecting or deselecting.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-components">Plugin Components</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Properties</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DxTableTreeColumn.components.DxCell</td>
+      <td><a href="#dxtabletreecolumndxcell">DxTableTreeColumn.DxCell</a></td>
+      <td>A component that renders a cell within a data row.</td>
+    </tr>
+    <tr>
+      <td>DxTableTreeColumn.components.DxContent</td>
+      <td><a href="#dxtabletreecolumndxcontent">DxTableTreeColumn.DxContent</a></td>
+      <td>A component that renders a cell’s content.</td>
+    </tr>
+    <tr>
+      <td>DxTableTreeColumn.components.DxIndent</td>
+      <td><a href="#dxtabletreecolumndxindent">DxTableTreeColumn.DxIndent</a></td>
+      <td>A component that renders an indent used to identify a row’s level.</td>
+    </tr>
+    <tr>
+      <td>DxTableTreeColumn.components.DxExpandButton</td>
+      <td><a href="#dxtabletreecolumndxexpandbutton">DxTableTreeColumn.DxExpandButton</a></td>
+      <td>A component that renders a button used to controls a row’s expanded state.</td>
+    </tr>
+    <tr>
+      <td>DxTableTreeColumn.components.DxCheckbox</td>
+      <td><a href="#dxtabletreecolumndxcheckbox">DxTableTreeColumn.DxCheckbox</a></td>
+      <td>A component that renders a checkbox used to control selection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
+
+<h3 id="imports">Imports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows.</td>
+    </tr>
+    <tr>
+      <td>getRowLevelKey</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; string?</td>
+      <td>A function used to get a group row level key.</td>
+    </tr>
+    <tr>
+      <td>getCellValue</td>
+      <td>Getter</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get a given row’s column value.</td>
+    </tr>
+    <tr>
+      <td>getCollapsedRows</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; Array&lt;any&gt;?</td>
+      <td>A function used to get collapsed a row’s child rows.</td>
+    </tr>
+    <tr>
+      <td>isTreeRowLeaf</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; boolean</td>
+      <td>A function used to identify a leaf node in tree data structure.</td>
+    </tr>
+    <tr>
+      <td>getTreeRowLevel</td>
+      <td>Getter</td>
+      <td>(row: any) =&gt; number</td>
+      <td>A function used to identify a node level in tree data structure.</td>
+    </tr>
+    <tr>
+      <td>expandedRowIds</td>
+      <td>Getter</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>Currently expanded rows.</td>
+    </tr>
+    <tr>
+      <td>toggleRowExpanded</td>
+      <td>Action</td>
+      <td>({ rowId }) =&gt; void</td>
+      <td>Expands/collapses the specified row.</td>
+    </tr>
+    <tr>
+      <td>selection</td>
+      <td>Getter</td>
+      <td>Array&lt;number | string&gt;</td>
+      <td>The selected row’s IDs.</td>
+    </tr>
+    <tr>
+      <td>toggleSelection</td>
+      <td>Action</td>
+      <td>({ rowIds: Array&lt;number | string&gt;, state?: boolean }) =&gt; void</td>
+      <td>A function that selects/deselects rows. The <code class="highlighter-rouge">state</code> argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects unselected rows and deselects selected ones. To select/deselect a single row, pass an array with a single item to the <code class="highlighter-rouge">rowIds</code> argument.</td>
+    </tr>
+    <tr>
+      <td>toggleSelectAll</td>
+      <td>Action</td>
+      <td>(state?: boolean) =&gt; void</td>
+      <td>A function that selects/deselects all rows. The <code class="highlighter-rouge">state</code> argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined). In the last case, the function selects all rows or deselects all selected ones.</td>
+    </tr>
+    <tr>
+      <td>selectAllAvailable</td>
+      <td>Getter</td>
+      <td>boolean</td>
+      <td>Indicates whether there are rows that are available for selection.</td>
+    </tr>
+    <tr>
+      <td>allSelected</td>
+      <td>Getter</td>
+      <td>boolean</td>
+      <td>Indicates whether all the rows available for selection are selected.</td>
+    </tr>
+    <tr>
+      <td>someSelected</td>
+      <td>Getter</td>
+      <td>boolean</td>
+      <td>Indicates whether some rows are selected. False if all/none rows are selected.</td>
+    </tr>
+    <tr>
+      <td>tableCell</td>
+      <td>Template</td>
+      <td>object?</td>
+      <td>A template that renders a table cell.</td>
+    </tr>
+    <tr>
+      <td>tableHeaderCellBefore</td>
+      <td>Template</td>
+      <td>object?</td>
+      <td>A template used to prepend additional components to a header cell.</td>
+    </tr>
+    <tr>
+      <td>valueFormatter</td>
+      <td>Template</td>
+      <td><a href="/devextreme-reactive/@next/vue/grid/docs/reference/data-type-provider/#dxdatatypeproviderdxvalueformatter">DxDataTypeProvider.DxValueFormatter</a></td>
+      <td>A template that renders the formatted value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="exports">Exports</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Plugin</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tableBodyRows</td>
+      <td>Getter</td>
+      <td>Array&lt;<a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Table body rows with modified tree rows.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+            Version
+            <span>1.5.1</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/plugin-overview/">Plugin Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/data-accessors/">Data Accessors</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/sorting/">Sorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/paging/">Paging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/filtering/">Filtering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/searching/">Searching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/selection/">Selection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/detail-row/">Detail Row</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/column-visibility/">Column Visibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/column-chooser/">DxColumnChooser</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/custom-grouping/">DxCustomGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/custom-paging/">DxCustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/custom-tree-data/">DxCustomTreeData</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/data-type-provider/">DxDataTypeProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/editing-state/">DxEditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/filtering-state/">DxFilteringState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/grid/">DxGrid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/grouping-panel/">DxGroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/grouping-state/">DxGroupingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-filtering/">DxIntegratedFiltering</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-grouping/">DxIntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-paging/">DxIntegratedPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-selection/">DxIntegratedSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/integrated-sorting/">DxIntegratedSorting</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/paging-panel/">DxPagingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/paging-state/">DxPagingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/row-detail-state/">DxRowDetailState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/search-panel/">DxSearchPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/search-state/">DxSearchState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/selection-state/">DxSelectionState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/sorting-state/">DxSortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table/">DxTable</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-band-header/">DxTableBandHeader</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-column-visibility/">DxTableColumnVisibility</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-edit-column/">DxTableEditColumn</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-edit-row/">DxTableEditRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-filter-row/">DxTableFilterRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-group-row/">DxTableGroupRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-header-row/">DxTableHeaderRow</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-row-detail/">DxTableRowDetail</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/table-selection/">DxTableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>DxTableTreeColumn</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/toolbar/">DxToolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/tree-data-state/">DxTreeDataState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/reference/virtual-table/">DxVirtualTable</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/@next/vue/grid/demos/dist/index.js?v=1533130201"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/@next/vue/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

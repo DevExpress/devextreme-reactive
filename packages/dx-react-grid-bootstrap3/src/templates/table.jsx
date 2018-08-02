@@ -34,15 +34,15 @@ export class Table extends React.Component {
 
   checkStyles() {
     globalStickyProp = testCSSProp('position', 'sticky');
-    const { backgroundColor: stateBackgroundColor, stickyProp } = this.state;
+    const { backgroundColor, stickyProp } = this.state;
 
     let panel = this.node.parentElement;
     while (!panel.classList.contains('panel')) {
       panel = panel.parentElement;
     }
-    const { backgroundColor } = window.getComputedStyle(panel);
+    const { backgroundColor: bodyBackgroundColor } = window.getComputedStyle(panel);
 
-    if (stateBackgroundColor !== backgroundColor
+    if (bodyBackgroundColor !== backgroundColor
       || stickyProp !== globalStickyProp) {
       this.setState({ stickyProp: globalStickyProp, backgroundColor });
     }
@@ -70,7 +70,7 @@ export class Table extends React.Component {
             top: 0,
           } : null,
           ...use === 'foot' ? {
-            top: 0,
+            bottom: 0,
           } : null,
           ...style,
         }}

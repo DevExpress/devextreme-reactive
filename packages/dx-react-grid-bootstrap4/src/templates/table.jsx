@@ -20,7 +20,7 @@ export class Table extends React.Component {
   checkStyles() {
     const body = document.getElementsByTagName('body')[0];
     const { backgroundColor } = this.state;
-    const { bodyBackgroundColor } = window.getComputedStyle(body);
+    const { backgroundColor: bodyBackgroundColor } = window.getComputedStyle(body);
 
     if (backgroundColor !== bodyBackgroundColor) {
       this.setState({ backgroundColor: bodyBackgroundColor });

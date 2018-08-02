@@ -19,7 +19,12 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
-    Sizer: ({ children }) => children({ width: 400, height: 120 }),
+    // eslint-disable-next-line react/prop-types
+    Sizer: ({ containerComponent: Container, children, ...restProps }) => (
+      <Container {...restProps}>
+        {children({ width: 400, height: 120 })}
+      </Container>
+    ),
     // eslint-disable-next-line react/prefer-stateless-function
     RefHolder: class extends Component {
       render() {
@@ -114,13 +119,16 @@ describe('VirtualTableLayout', () => {
 
   describe('viewport', () => {
     it('should pass correct viewport at startup', () => {
-      mount((
+      const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
           footerRows={defaultProps.bodyRows.slice(0, 1)}
         />
       ));
+
+      expect(tree.find(defaultProps.containerComponent).props().style)
+        .toMatchObject({ height: `${defaultProps.height}px` });
 
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
@@ -133,7 +141,7 @@ describe('VirtualTableLayout', () => {
         .toMatchObject({
           top: 0,
           left: 0,
-          height: defaultProps.height - (defaultProps.estimatedRowHeight * 2),
+          height: 120 - (defaultProps.estimatedRowHeight * 2),
           width: 400,
         });
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
@@ -145,9 +153,8 @@ describe('VirtualTableLayout', () => {
         });
     });
 
-
     it('should pass correct viewport at startup when height is auto', () => {
-      mount((
+      const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
@@ -155,27 +162,8 @@ describe('VirtualTableLayout', () => {
         />
       ));
 
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: defaultProps.estimatedRowHeight,
-          width: 400,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: 120 - defaultProps.estimatedRowHeight,
-          width: 400,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: 0,
-          width: 400,
-        });
+      expect(tree.find(defaultProps.containerComponent).props().style)
+        .not.toMatchObject({ height: `${defaultProps.height}px` });
     });
 
     it('should pass correct viewport at on viewport change', () => {

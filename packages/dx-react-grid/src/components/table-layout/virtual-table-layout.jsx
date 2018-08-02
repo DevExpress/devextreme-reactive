@@ -230,13 +230,13 @@ export class VirtualTableLayout extends React.PureComponent {
 
     return (
       <Sizer
+        containerComponent={Container}
         style={{
-          display: 'flex',
-          flex: 'auto',
+          ...(propHeight === AUTO_HEIGHT ? null : { height: `${propHeight}px` }),
         }}
+        onScroll={this.updateViewport}
       >
-        {({ width, height: intrisicHeight }) => {
-          const height = propHeight === AUTO_HEIGHT ? intrisicHeight : propHeight;
+        {({ width, height }) => {
           const getColSpan = (
             tableRow, tableColumn,
           ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
@@ -275,14 +275,11 @@ export class VirtualTableLayout extends React.PureComponent {
           });
 
           return (
-            <Container
-              style={{ ...(propHeight === AUTO_HEIGHT ? null : { height: `${height}px` }) }}
-              onScroll={this.updateViewport}
-            >
+            <React.Fragment>
               {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
               {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
               {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
-            </Container>
+            </React.Fragment>
           );
         }}
       </Sizer>

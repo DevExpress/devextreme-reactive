@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('TimePanel', () => {
+describe('Week View TimePanel', () => {
   const defaultProps = {
     time: new Date(2018, 6, 7, 16, 20),
   };

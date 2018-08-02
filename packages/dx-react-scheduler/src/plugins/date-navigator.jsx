@@ -17,7 +17,9 @@ const pluginDependencies = [
   { name: 'ViewState' },
 ];
 
-const navigate = action => payload => action({ ...payload, step: 7 });
+const navigate = (action, currentView, intervalCount) => payload => action({
+  ...payload, amount: intervalCount, step: currentView,
+});
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -75,10 +77,12 @@ export class DateNavigator extends React.PureComponent {
               startViewDate,
               endViewDate,
               firstDayOfWeek,
+              currentView,
+              intervalCount,
             }, {
               changeCurrentDate,
             }) => {
-              const navigateAction = navigate(changeCurrentDate);
+              const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
               const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
               return (
                 <React.Fragment>

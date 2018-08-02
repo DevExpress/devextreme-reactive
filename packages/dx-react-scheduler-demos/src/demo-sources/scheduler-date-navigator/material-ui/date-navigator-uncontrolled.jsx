@@ -34,7 +34,9 @@ export default class Demo extends React.PureComponent {
             defaultCurrentDate="2018-07-27"
           />
           <Toolbar />
-          <MonthView />
+          <MonthView
+            firstDayOfWeek={1}
+          />
           <DateNavigator />
           <Appointments />
         </Scheduler>

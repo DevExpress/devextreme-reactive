@@ -122,6 +122,22 @@ describe('Month View', () => {
           x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
         }]);
     });
+
+    it('should provide the "firstDayOfWeek" getter', () => {
+      const firstDayOfWeek = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            firstDayOfWeek={firstDayOfWeek}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).firstDayOfWeek)
+        .toBe(firstDayOfWeek);
+    });
   });
 
   describe('Templates', () => {

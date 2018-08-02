@@ -79,6 +79,7 @@ export class MonthView extends React.PureComponent {
       <Plugin
         name="MonthView"
       >
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="monthCells" computed={monthCellsComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />

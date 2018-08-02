@@ -1,15 +1,17 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 
+import { ViewState } from '@devexpress/dx-react-scheduler';
+
 import {
   Scheduler,
-  MonthView,
+  WeekView,
+  Toolbar,
+  DateNavigator,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { ViewState } from '@devexpress/dx-react-scheduler';
-
-import { appointments } from '../../../demo-data/month-appointments';
+import { appointments } from '../../../demo-data/appointments';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -17,8 +19,9 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentDate: '2018-07-17',
+      currentDate: '2018-06-27',
     };
+    this.currentDateChange = (currentDate) => { this.setState({ currentDate }); };
   }
 
   render() {
@@ -31,8 +34,15 @@ export default class Demo extends React.PureComponent {
         >
           <ViewState
             currentDate={currentDate}
+            onCurrentDateChange={this.currentDateChange}
           />
-          <MonthView />
+          <Toolbar />
+          <WeekView
+            startDayHour={9}
+            endDayHour={19}
+            firstDayOfWeek={1}
+          />
+          <DateNavigator />
           <Appointments />
         </Scheduler>
       </Paper>

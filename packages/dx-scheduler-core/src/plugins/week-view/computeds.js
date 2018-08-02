@@ -1,6 +1,5 @@
 import moment from 'moment';
 import {
-  calculateFirstDateOfWeek,
   getRectByDates,
   sliceAppointmentByDay,
   dayBoundaryPredicate,
@@ -13,6 +12,7 @@ import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
+  calculateFirstDateOfWeek,
 } from '../../utils';
 import { VERTICAL_APPOINTMENT_TYPE } from '../../constants';
 

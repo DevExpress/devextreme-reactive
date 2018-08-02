@@ -254,8 +254,6 @@ describe('Utils', () => {
           },
         ]);
     });
-<<<<<<< HEAD
-=======
   });
   describe('#calculateFirstDateOfWeek', () => {
     it('should calculate first daye of week', () => {
@@ -269,6 +267,5 @@ describe('Utils', () => {
       expect(firstDateOfWeek.toString())
         .toBe(new Date(2018, 6, 5).toString());
     });
->>>>>>> master
   });
 });

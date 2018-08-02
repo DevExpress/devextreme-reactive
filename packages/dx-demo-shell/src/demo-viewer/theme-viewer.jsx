@@ -16,25 +16,25 @@ try {
 
 const ThemeViewerBase = (
   {
-    avaliableThemes, match: { url }, history, children,
+    availableThemes, match: { url }, history, children,
   },
   { embeddedDemoOptions: { themeSources, showThemeVariants, showThemeSelector } },
 ) => {
-  const normalizedAvaliableThemes = avaliableThemes || themeSources.map(theme => theme.name);
+  const normalizedAvailableThemes = availableThemes || themeSources.map(theme => theme.name);
 
   const preferredThemeName = storage.getItem(THEME_STORAGE_KEY) || themeSources[0].name;
-  const preferredThemeAvaliable = normalizedAvaliableThemes.indexOf(preferredThemeName) > -1;
-  const fallbackThemeName = preferredThemeAvaliable
-    ? preferredThemeName : normalizedAvaliableThemes[0];
+  const preferredThemeAvailable = normalizedAvailableThemes.indexOf(preferredThemeName) > -1;
+  const fallbackThemeName = preferredThemeAvailable
+    ? preferredThemeName : normalizedAvailableThemes[0];
 
   const fallbackTheme = themeSources.find(({ name }) => name === fallbackThemeName);
 
   const preferredVariantName = showThemeVariants
     ? storage.getItem(VARIANT_STORAGE_KEY)
     : fallbackTheme.variants[0].name;
-  const preferredVariantAvaliable = fallbackTheme.variants
+  const preferredVariantAvailable = fallbackTheme.variants
     .some(({ name }) => name === preferredVariantName);
-  const fallbackVariantName = preferredVariantAvaliable
+  const fallbackVariantName = preferredVariantAvailable
     ? preferredVariantName
     : fallbackTheme.variants[0].name;
 
@@ -53,7 +53,7 @@ const ThemeViewerBase = (
             {(showThemeSelector && (
             <ThemeSelector
               selectedThemeName={themeName}
-              avaliableThemes={normalizedAvaliableThemes}
+              availableThemes={normalizedAvailableThemes}
               selectedVariantName={variantName}
               onChange={changeTheme}
             />
@@ -70,7 +70,7 @@ const ThemeViewerBase = (
 };
 
 ThemeViewerBase.propTypes = {
-  avaliableThemes: PropTypes.arrayOf(PropTypes.string),
+  availableThemes: PropTypes.arrayOf(PropTypes.string),
   match: PropTypes.shape({
     url: PropTypes.string.isRequired,
   }).isRequired,
@@ -79,7 +79,7 @@ ThemeViewerBase.propTypes = {
 };
 
 ThemeViewerBase.defaultProps = {
-  avaliableThemes: undefined,
+  availableThemes: undefined,
 };
 
 ThemeViewerBase.contextTypes = {

@@ -37,7 +37,7 @@ Toggle.defaultProps = {
 
 export const ThemeSelector = (
   {
-    selectedThemeName, selectedVariantName, avaliableThemes, onChange,
+    selectedThemeName, selectedVariantName, availableThemes, onChange,
   },
   { embeddedDemoOptions: { showThemeVariants, themeSources } },
 ) => {
@@ -60,39 +60,38 @@ export const ThemeSelector = (
           : selectedTheme.title}
       </Toggle>
       <Dropdown.Menu>
-        {themeSources.map(({ name: themeName, title: themeTitle, variants }) => {
-          const avaliable = avaliableThemes.indexOf(themeName) > -1;
+        {themeSources.reduce((acc, { name: themeName, title: themeTitle, variants }) => {
+          const available = availableThemes.indexOf(themeName) > -1;
           const activeTheme = themeName === selectedThemeName;
 
+          if (!available) return acc;
           if (!showThemeVariants) {
-            return (
+            acc.push(
               <MenuItem
                 key={themeName}
                 eventKey={`${themeName}|${variants[0].name}`}
-                disabled={!avaliable}
                 active={activeTheme}
               >
                 {themeTitle}
-                {!avaliable && ' (coming soon)'}
-              </MenuItem>
+              </MenuItem>,
             );
-          }
-          return variants.map(({ name: variantName, title: variantTitle }) => {
-            const activeVariant = variantName === selectedVariantName;
+          } else {
+            acc.push(variants.map(({ name: variantName, title: variantTitle }) => {
+              const activeVariant = variantName === selectedVariantName;
 
-            return (
-              <MenuItem
-                key={`${themeName}|${variantName}`}
-                eventKey={`${themeName}|${variantName}`}
-                disabled={!avaliable}
-                active={activeTheme && activeVariant}
-              >
-                {variantTitle}
-                {!avaliable && ' (coming soon)'}
-              </MenuItem>
-            );
-          });
-        })}
+              return (
+                <MenuItem
+                  key={`${themeName}|${variantName}`}
+                  eventKey={`${themeName}|${variantName}`}
+                  active={activeTheme && activeVariant}
+                >
+                  {variantTitle}
+                </MenuItem>
+              );
+            }));
+          }
+          return acc;
+        }, [])}
       </Dropdown.Menu>
     </Dropdown>
   );
@@ -101,7 +100,7 @@ export const ThemeSelector = (
 ThemeSelector.propTypes = {
   selectedThemeName: PropTypes.string.isRequired,
   selectedVariantName: PropTypes.string.isRequired,
-  avaliableThemes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableThemes: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

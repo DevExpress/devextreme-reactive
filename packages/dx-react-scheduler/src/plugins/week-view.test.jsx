@@ -37,14 +37,11 @@ const defaultDeps = {
 const defaultProps = {
   layoutComponent: () => null,
   timePanelLayoutComponent: () => null,
-  timePanelTableComponent: () => null,
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
-  dayPanelTableComponent: () => null,
   dayPanelCellComponent: () => null,
   dateTableLayoutComponent: () => null,
-  dateTableTableComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
 };

@@ -14,10 +14,7 @@ export const isTotalSummaryTableRow = tableRow => tableRow.type === TABLE_TOTAL_
 export const isGroupSummaryTableRow = tableRow => tableRow.type === TABLE_GROUP_SUMMARY_TYPE;
 export const isTreeSummaryTableRow = tableRow => tableRow.type === TABLE_TREE_SUMMARY_TYPE;
 
-export const getColumnSummaries = (summaryItems, columnName, summaryValues) => {
-  const columnSummaryItems = summaryItems
-    .map((item, index) => [item, index])
-    .filter(([item]) => item.columnName === columnName);
-  return columnSummaryItems
-    .map(([item, index]) => ({ type: item.type, value: summaryValues[index] }));
-};
+export const getColumnSummaries = (summaryItems, columnName, summaryValues) => summaryItems
+  .map((item, index) => [item, index])
+  .filter(([item]) => item.columnName === columnName)
+  .map(([item, index]) => ({ type: item.type, value: summaryValues[index] }));

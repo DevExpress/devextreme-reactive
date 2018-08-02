@@ -7,6 +7,7 @@ import {
   isGroupSummaryTableRow,
   isTotalSummaryTableRow,
   isTreeSummaryTableRow,
+  getColumnSummaries,
 } from './helpers';
 
 describe('TableSummaryRow Plugin helpers', () => {
@@ -62,6 +63,15 @@ describe('TableSummaryRow Plugin helpers', () => {
         .toBeTruthy();
       expect(isTreeSummaryTableRow({ type: 'undefined' }))
         .toBeFalsy();
+    });
+  });
+  describe('#getColumnSummaries', () => {
+    it('should work', () => {
+      expect(getColumnSummaries(
+        [{ columnName: 'a', type: 'count' }, { columnName: 'b', type: 'max' }, { columnName: 'a', type: 'min' }],
+        'a',
+        [1, 2, 1],
+      )).toEqual([{ type: 'count', value: 1 }, { type: 'min', value: 1 }]);
     });
   });
 });

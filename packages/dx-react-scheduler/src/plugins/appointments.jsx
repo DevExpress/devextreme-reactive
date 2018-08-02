@@ -51,6 +51,10 @@ export class Appointments extends React.PureComponent {
             </TemplateConnector>
           </Container>
         </Template>
+
+        <Template name="appointment">
+          {params => <Appointment {...params} />}
+        </Template>
       </Plugin>
     );
   }

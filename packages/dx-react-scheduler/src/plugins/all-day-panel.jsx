@@ -9,6 +9,19 @@ import {
 } from '@devexpress/dx-react-core';
 import { allDayAppointmentsRects, getMessagesFormatter } from '@devexpress/dx-scheduler-core';
 
+const getAppointmentStyle = ({
+  top,
+  left,
+  width,
+  height,
+}) => ({
+  height,
+  width: `${width}%`,
+  transform: `translateY(${top}px)`,
+  left: `${left}%`,
+  position: 'absolute',
+});
+
 const pluginDependencies = [
   { name: 'WeekView' }, // Or Day View
 ];
@@ -90,7 +103,7 @@ export class AllDayPanel extends React.PureComponent {
                   <AppointmentsContainer>
                     {tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
                       const appointmentProps = {
-                        ...geometry,
+                        style: getAppointmentStyle(geometry),
                         type: 'horizontal',
                         key: index.toString(),
                         getTitle: getAppointmentTitle,

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { monthCells } from '@devexpress/dx-scheduler-core';
+import { monthCellsCore } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  monthCells: jest.fn(),
+  monthCellsCore: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -51,7 +51,7 @@ const defaultProps = {
 
 describe('DateNavigator', () => {
   beforeEach(() => {
-    monthCells.mockImplementation(() => [[{ value: '2018-04-07' }]]);
+    monthCellsCore.mockImplementation(() => [[{ value: '2018-04-07' }]]);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -123,9 +123,9 @@ describe('DateNavigator', () => {
       </PluginHost>
     ));
 
-    expect(monthCells)
+    expect(monthCellsCore)
       .toHaveBeenCalledTimes(1);
-    expect(monthCells)
+    expect(monthCellsCore)
       .toHaveBeenCalledWith(defaultDeps.getter.currentDate, defaultDeps.getter.firstDayOfWeek);
   });
 });

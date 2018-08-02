@@ -1,10 +1,35 @@
 import moment from 'moment';
+import {
+  sortAppointments,
+  viewPredicate,
+  toPercentage,
+  findOverlappedAppointments,
+  adjustAppointments,
+  unwrapGroups,
+} from '../../utils';
+import {
+  sliceAppointmentByWeek,
+  getRectByDates,
+} from './helpers';
+import { HORIZONTAL_APPOINTMENT_TYPE } from '../../constants';
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
+const MONTH_LENGTH = 31;
 
-export const monthCells = (currentDate, firstDayOfWeek) => {
+export const endViewBoundary = (cells) => {
+  const lastCellIndex = cells.length - 1;
+  const lastDate = moment(cells[lastCellIndex][WEEK_COUNT].value);
+  return lastDate.startOf('day').add(1, 'days').subtract(1, 'second').toDate();
+};
+
+export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();
+  const targetDate = moment(currentDate);
+  const currentMonths = [targetDate.month()];
+  while (currentMonths.length < intervalCount) {
+    currentMonths.push(targetDate.add(1, 'months').month());
+  }
   const currentDay = moment(currentDate).date();
   const firstMonthDate = moment(currentDate).date(1);
   const firstMonthDay = firstMonthDate.day() - firstDayOfWeek;
@@ -15,21 +40,87 @@ export const monthCells = (currentDate, firstDayOfWeek) => {
     .year(prevMonth.year())
     .month(prevMonth.month())
     .date(prevMonthStartDay)
-    .startOf('date');
+    .startOf('day');
 
   const result = [];
-  while (result.length < WEEK_COUNT) {
+  while (result.length < (Math.trunc((MONTH_LENGTH * intervalCount) / DAY_COUNT) + 2)) {
     const week = [];
     while (week.length < DAY_COUNT) {
       week.push({
         value: from.toDate(),
-        isOtherMonth: from.month() !== currentMonth,
+        isOtherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
         isCurrent: currentDay === from.date() && from.month() === currentMonth,
       });
       from.add(1, 'day');
     }
     result.push(week);
   }
-
   return result;
+};
+
+const calculateDateIntervals = (
+  appointments,
+  leftBound, rightBound,
+) => appointments
+  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment => viewPredicate(appointment, leftBound, rightBound))
+  .reduce((acc, appointment) => (
+    [
+      ...acc,
+      ...sliceAppointmentByWeek(
+        { left: moment(leftBound), right: moment(rightBound) },
+        appointment,
+        DAY_COUNT,
+      ),
+    ]), []);
+
+const calculateRectsByDateIntervals = (
+  intervals,
+  monthCells,
+  cellElements,
+) => {
+  const sorted = sortAppointments(intervals, true);
+  const grouped = findOverlappedAppointments(sorted, true);
+
+  return unwrapGroups(adjustAppointments(grouped, true))
+    .map((appts) => {
+      const {
+        top, left,
+        width, height,
+        parentWidth,
+      } = getRectByDates(
+        appts.start,
+        appts.end,
+        monthCells,
+        cellElements,
+      );
+
+      return {
+        top: top + ((height / appts.reduceValue) * appts.offset),
+        height: height / appts.reduceValue,
+        left: toPercentage(left, parentWidth),
+        width: toPercentage(width, parentWidth),
+        dataItem: appts.dataItem,
+        type: HORIZONTAL_APPOINTMENT_TYPE,
+      };
+    });
+};
+
+export const monthAppointmentRect = (
+  appointments,
+  startViewDate,
+  endViewDate,
+  monthCells,
+  cellElements,
+) => {
+  const dateIntervals = calculateDateIntervals(
+    appointments,
+    startViewDate,
+    endViewDate,
+  );
+  return calculateRectsByDateIntervals(
+    dateIntervals,
+    monthCells,
+    cellElements,
+  );
 };

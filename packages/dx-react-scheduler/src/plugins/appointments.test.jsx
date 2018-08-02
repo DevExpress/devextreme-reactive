@@ -4,12 +4,8 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
-// eslint-disable-next-line react/prop-types
-const Container = ({ children }) => (
-  <div>
-    {children}
-  </div>
-);
+// eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+const Container = ({ children }) => <div>{children}</div>;
 const Appointment = () => null;
 
 const defaultProps = {
@@ -20,7 +16,7 @@ const defaultProps = {
 const defaultDeps = {
   getter: {
     appointmentRects: [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+      top: 10, left: 20, width: 60, height: 150, dataItem: 'data', type: 'horizontal',
     }],
     getAppointmentTitle: () => 'a',
     getAppointmentEndDate: () => '2018-07-05',
@@ -58,15 +54,19 @@ describe('Appointments', () => {
 
     const {
       appointment: appointmentData,
-      x, y, width, height,
+      style, type,
       getTitle, getEndDate, getStartDate,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
-    expect(x).toBe(1);
-    expect(y).toBe(2);
-    expect(width).toBe(100);
-    expect(height).toBe(150);
+    expect(type).toBe('horizontal');
+    expect(style).toEqual({
+      height: 150,
+      width: '60%',
+      transform: 'translateY(10px)',
+      left: '20%',
+      position: 'absolute',
+    });
     expect(appointmentData).toBe('data');
     expect(getTitle()).toBe('a');
     expect(getEndDate()).toBe('2018-07-05');

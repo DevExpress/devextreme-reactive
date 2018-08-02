@@ -11,10 +11,12 @@ const styles = {
   },
 };
 
-const TableBase = ({
-  children,
-  classes,
+const LayoutBase = ({
+  cellComponent: Cell,
+  rowComponent: Row,
   className,
+  dayScale,
+  classes,
   ...restProps
 }) => (
   <TableMUI
@@ -22,19 +24,30 @@ const TableBase = ({
     {...restProps}
   >
     <TableBody>
-      {children}
+      <Row>
+        {dayScale.map((date, index) => (
+          <Cell
+            key={index.toString()}
+            date={date}
+          />
+        ))}
+      </Row>
     </TableBody>
   </TableMUI>
 );
 
-TableBase.propTypes = {
-  children: PropTypes.node.isRequired,
+LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  cellComponent: PropTypes.func,
+  rowComponent: PropTypes.func,
   className: PropTypes.string,
 };
-
-TableBase.defaultProps = {
+LayoutBase.defaultProps = {
+  cellComponent: () => null,
+  rowComponent: () => null,
   className: undefined,
+  dayScale: [],
 };
 
-export const Table = withStyles(styles, { name: 'Table' })(TableBase);
+export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

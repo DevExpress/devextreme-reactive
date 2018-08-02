@@ -27,7 +27,7 @@ describe('Appointment', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.appointmentWrapper}`))
+      expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
     });
 
@@ -62,20 +62,6 @@ describe('Appointment', () => {
 
       expect(child.exists())
         .toBeTruthy();
-    });
-    it('should render appointmentComponent and pass to it necessary props', () => {
-      const appointment = props => <div {...props} />;
-      const tree = shallow((
-        <AppointmentWrapper {...defaultProps} appointmentComponent={appointment} />
-      ));
-
-      expect(tree.find(appointment).props())
-        .toMatchObject({
-          getStartDate: defaultProps.getStartDate,
-          getEndDate: defaultProps.getEndDate,
-          getTitle: defaultProps.getTitle,
-          appointment: defaultProps.appointment,
-        });
     });
   });
 });

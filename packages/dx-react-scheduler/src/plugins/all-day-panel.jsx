@@ -29,6 +29,10 @@ const allDayAppointmentRectsComputed = ({
   allDayPanelRef.querySelectorAll('th'),
 ) : []);
 
+const AppointmentPlaceholder = props => (
+  <TemplatePlaceholder name="appointment" params={props} />
+);
+
 export class AllDayPanel extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,7 +51,6 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      appointmentComponent: HorizontalAppointment,
       appointmentsContainerComponent: AppointmentsContainer,
       layoutComponent: Layout,
       cellComponent: Cell,
@@ -88,13 +91,14 @@ export class AllDayPanel extends React.PureComponent {
                     {tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
                       const appointmentProps = {
                         ...geometry,
+                        type: 'horizontal',
                         key: index.toString(),
                         getTitle: getAppointmentTitle,
                         getEndDate: getAppointmentEndDate,
                         getStartDate: getAppointmentStartDate,
                         appointment: dataItem,
                       };
-                      return <HorizontalAppointment {...geometry} {...appointmentProps} />;
+                      return <AppointmentPlaceholder {...appointmentProps} />;
                     }) : null}
                   </AppointmentsContainer>
                 </Layout>
@@ -112,7 +116,6 @@ export class AllDayPanel extends React.PureComponent {
 }
 
 AllDayPanel.propTypes = {
-  appointmentComponent: PropTypes.func.isRequired,
   appointmentsContainerComponent: PropTypes.func.isRequired,
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,

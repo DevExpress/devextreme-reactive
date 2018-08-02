@@ -1,12 +1,12 @@
 import {
-  monthCellsCore,
+  monthCells,
   endViewBoundary,
 } from './computeds';
 
 describe('Month view computeds', () => {
-  describe('#monthCellsCore', () => {
+  describe('#monthCells', () => {
     it('should work', () => {
-      const cells = monthCellsCore(new Date(2018, 5, 25), 1);
+      const cells = monthCells(new Date(2018, 5, 25), 1);
 
       cells.forEach(row => expect(row).toHaveLength(7));
       expect(cells)
@@ -19,7 +19,7 @@ describe('Month view computeds', () => {
     });
 
     it('should mark cells from other months', () => {
-      const cells = monthCellsCore(new Date(2018, 5, 25), 1);
+      const cells = monthCells(new Date(2018, 5, 25), 1);
       const firstCell = cells[0][0];
       const lastCell = cells[5][6];
       const cell = cells[2][5];
@@ -33,7 +33,7 @@ describe('Month view computeds', () => {
     });
 
     it('should mark current day', () => {
-      const cells = monthCellsCore(new Date(2018, 5, 25), 1);
+      const cells = monthCells(new Date(2018, 5, 25), 1);
       const currentCell = cells[4][0];
       const cell = cells[2][5];
 
@@ -44,7 +44,7 @@ describe('Month view computeds', () => {
     });
 
     it('should add a full week from previous month', () => {
-      const cells = monthCellsCore(new Date(2010, 1, 1), 1);
+      const cells = monthCells(new Date(2010, 1, 1), 1);
 
       expect(cells[0][0].value.toString())
         .toBe(new Date(2010, 0, 25).toString());
@@ -53,7 +53,7 @@ describe('Month view computeds', () => {
     });
 
     it('should work with a custom first day of week', () => {
-      const cells = monthCellsCore(new Date(2010, 1, 1), 3);
+      const cells = monthCells(new Date(2010, 1, 1), 3);
 
       expect(cells[0][0].value.toString())
         .toBe(new Date(2010, 0, 27).toString());
@@ -62,7 +62,7 @@ describe('Month view computeds', () => {
     });
 
     it('should work with interval count', () => {
-      const cells = monthCellsCore(new Date(2010, 0, 1), 0, 2);
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
 
       expect(cells[0][0].value.toString())
         .toBe(new Date(2009, 11, 27).toString());
@@ -71,7 +71,7 @@ describe('Month view computeds', () => {
     });
 
     it('should mark other month with interval count', () => {
-      const cells = monthCellsCore(new Date(2010, 0, 1), 0, 2);
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
 
       expect(cells[0][4].isOtherMonth)
         .toBeTruthy();

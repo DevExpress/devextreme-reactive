@@ -44,6 +44,9 @@ const DayScalePlaceholder = props => (
 const DateTablePlaceholder = props => (
   <TemplatePlaceholder name="main" params={props} />
 );
+const NavbarEmptyPlaceholder = props => (
+  <TemplatePlaceholder name="navbarEmpty" params={props} />
+);
 
 export class WeekView extends React.PureComponent {
   constructor(props) {
@@ -113,6 +116,7 @@ export class WeekView extends React.PureComponent {
         <Template name="body">
           <ViewLayout
             navbarComponent={DayScalePlaceholder}
+            navbarEmptyComponent={NavbarEmptyPlaceholder}
             mainComponent={DateTablePlaceholder}
             sidebarComponent={SidebarPlaceholder}
           />

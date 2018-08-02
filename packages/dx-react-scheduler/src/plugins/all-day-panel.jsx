@@ -7,7 +7,7 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { allDayAppointmentsRects } from '@devexpress/dx-scheduler-core';
+import { allDayAppointmentsRects, getMessagesFormatter } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'WeekView' }, // Or Day View
@@ -52,8 +52,11 @@ export class AllDayPanel extends React.PureComponent {
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
+      textComponent: Text,
+      messages,
     } = this.props;
     const { tableRef } = this.state;
+    const getMessage = getMessagesFormatter(messages);
 
     return (
       <Plugin
@@ -99,6 +102,10 @@ export class AllDayPanel extends React.PureComponent {
             }}
           </TemplateConnector>
         </Template>
+        <Template name="navbarEmpty">
+          <TemplatePlaceholder />
+          <Text getMessage={getMessage} />
+        </Template>
       </Plugin>
     );
   }
@@ -110,4 +117,6 @@ AllDayPanel.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.func.isRequired,
+  messages: PropTypes.object.isRequired,
 };

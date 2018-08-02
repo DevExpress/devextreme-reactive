@@ -151,5 +151,10 @@ export const appointments = [
     text: 'Update NDA Agreement',
     startDate: new Date(2018, 6, 1, 10, 0),
     endDate: new Date(2018, 6, 4, 14, 30),
+  }, {
+    text: 'Customer Workshop',
+    startDate: new Date(2018, 6, 1),
+    endDate: new Date(2018, 6, 2),
+    allDay: true,
   },
 ];

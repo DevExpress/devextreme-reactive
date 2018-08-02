@@ -3,7 +3,10 @@ import moment from 'moment';
 const CELL_GAP = 0.32;
 const CELL_BOUND_OFFSET_PX = 2;
 
-export const allDayPredicate = appointment => appointment.end.diff(appointment.start, 'hours') > 23;
+export const allDayPredicate = appointment => (
+  appointment.end.diff(appointment.start, 'hours') > 23
+  || !!appointment.allDay
+);
 
 const getCellRect = (date, dayScale, cellElements, takePrev) => {
   const currentDate = moment(date);

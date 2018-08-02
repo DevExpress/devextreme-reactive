@@ -1,4 +1,4 @@
-# React Grid - Sorting
+# React Grid - Summary Row
 
 The Grid component supports culculating data summaries. Use the corresponding plugins to manage the data summaries state and calculate data summaries programmatically.
 

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AllDayPanel as AllDayPanelBase } from '@devexpress/dx-react-scheduler';
-import { HorizontalAppointment } from '../templates/appointment/appointments';
 import { Container } from '../templates/appointment/container';
 import { Layout } from '../templates/all-day-panel/layout';
 import { Cell } from '../templates/all-day-panel/cell';
@@ -17,7 +16,6 @@ export class AllDayPanel extends React.PureComponent {
     const { messages, ...restProps } = this.props;
     return (
       <AllDayPanelBase
-        appointmentComponent={HorizontalAppointment}
         appointmentsContainerComponent={Container}
         layoutComponent={Layout}
         cellComponent={Cell}

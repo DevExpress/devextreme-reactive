@@ -44,7 +44,6 @@ const CalendarRow = () => null;
 const CalendarHeaderRow = () => null;
 const CalendarHeaderCell = () => null;
 
-
 const defaultProps = {
   rootComponent: Root,
   overlayComponent: OverlayComponent,

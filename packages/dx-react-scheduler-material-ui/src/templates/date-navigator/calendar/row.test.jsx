@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Row } from './row';
 
-describe('DateNavigator', () => {
+describe('Calendar', () => {
   describe('Row', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((

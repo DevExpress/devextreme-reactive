@@ -1,5 +1,5 @@
 import {
-  monthCellsCore,
+  monthCells,
   endViewBoundary,
 } from './computeds';
 
@@ -62,7 +62,7 @@ describe('Month view computeds', () => {
     });
 
     it('should work with interval count', () => {
-      const cells = monthCellsCore(new Date(2010, 0, 1), 0, 2);
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
 
       expect(cells[0][0].value.toString())
         .toBe(new Date(2009, 11, 27).toString());
@@ -71,7 +71,7 @@ describe('Month view computeds', () => {
     });
 
     it('should mark other month with interval count', () => {
-      const cells = monthCellsCore(new Date(2010, 0, 1), 0, 2);
+      const cells = monthCells(new Date(2010, 0, 1), 0, 2);
 
       expect(cells[0][4].isOtherMonth)
         .toBeTruthy();

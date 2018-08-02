@@ -2,20 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Plugin,
-  Getter,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { monthCellsCore } from '@devexpress/dx-scheduler-core';
+import {
+  monthCells,
+  viewBoundTitle,
+  dayScale,
+} from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Toolbar' },
+  { name: 'ViewState' },
 ];
 
-const monthCellsComputed = (
-  { currentDate, firstDayOfWeek },
-) => monthCellsCore(currentDate, firstDayOfWeek);
+const navigate = action => payload => action({ ...payload, step: 7 });
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -27,11 +29,11 @@ export class DateNavigator extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.buttonRef = this.buttonRef.bind(this);
+    this.setTargetRef = this.setTargetRef.bind(this);
   }
 
-  buttonRef(button) {
-    this.button = button;
+  setTargetRef(target) {
+    this.target = target;
   }
 
   handleToggle() {
@@ -45,11 +47,18 @@ export class DateNavigator extends React.PureComponent {
 
   render() {
     const {
+      rootComponent: Root,
       overlayComponent: Overlay,
-      tableComponent: Table,
-      cellComponent: Cell,
-      rowComponent: Row,
       toggleButtonComponent: ToggleButton,
+      navigationButtonComponent: NavigationButton,
+      calendarComponent: Calendar,
+      calendarRowComponent: CalendarRow,
+      calendarCellComponent: CalendarCell,
+      calendarHeaderRowComponent: CalendarHeaderRow,
+      calendarHeaderCellComponent: CalendarHeaderCell,
+      calendarTitleComponent: CalendarTitle,
+      calendarNavigationButtonComponent: CalendarNavigationButton,
+      calendarNavigatorComponent: CalendarNavigator,
     } = this.props;
 
     const { visible } = this.state;
@@ -58,30 +67,52 @@ export class DateNavigator extends React.PureComponent {
         name="DateNavigator"
         dependencies={pluginDependencies}
       >
-        <Getter name="monthCells" computed={monthCellsComputed} />
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ monthCells }) => (
-              <React.Fragment>
-                <ToggleButton
-                  buttonRef={this.buttonRef}
-                  onToggle={this.handleToggle}
-                  active={visible}
-                />
-                <Overlay
-                  visible={visible}
-                  target={this.button}
-                  onHide={this.handleHide}
-                >
-                  <Table
-                    cells={monthCells}
-                    rowComponent={Row}
-                    cellComponent={Cell}
+            {({
+              currentDate,
+              startViewDate,
+              endViewDate,
+              firstDayOfWeek,
+            }, {
+              changeCurrentDate,
+            }) => {
+              const navigateAction = navigate(changeCurrentDate);
+              const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
+              return (
+                <React.Fragment>
+                  <Root
+                    navigationButtonComponent={NavigationButton}
+                    toggleButtonComponent={ToggleButton}
+                    navigatorTitle={navigatorTitle}
+                    targetRef={this.setTargetRef}
+                    onToggle={this.handleToggle}
+                    onNavigate={navigateAction}
                   />
-                </Overlay>
-              </React.Fragment>
-            )}
+                  <Overlay
+                    visible={visible}
+                    target={this.target}
+                    onHide={this.handleHide}
+                  >
+                    <Calendar
+                      currentDate={currentDate}
+                      firstDayOfWeek={firstDayOfWeek}
+                      getCells={monthCells}
+                      getHeaderCells={dayScale}
+                      titleComponent={CalendarTitle}
+                      navigationButtonComponent={CalendarNavigationButton}
+                      rowComponent={CalendarRow}
+                      cellComponent={CalendarCell}
+                      headerRowComponent={CalendarHeaderRow}
+                      headerCellComponent={CalendarHeaderCell}
+                      navigatorComponent={CalendarNavigator}
+                      onNavigate={navigateAction}
+                    />
+                  </Overlay>
+                </React.Fragment>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
@@ -90,9 +121,16 @@ export class DateNavigator extends React.PureComponent {
 }
 
 DateNavigator.propTypes = {
+  rootComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
-  tableComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
   toggleButtonComponent: PropTypes.func.isRequired,
+  navigationButtonComponent: PropTypes.func.isRequired,
+  calendarComponent: PropTypes.func.isRequired,
+  calendarRowComponent: PropTypes.func.isRequired,
+  calendarCellComponent: PropTypes.func.isRequired,
+  calendarHeaderRowComponent: PropTypes.func.isRequired,
+  calendarHeaderCellComponent: PropTypes.func.isRequired,
+  calendarTitleComponent: PropTypes.func.isRequired,
+  calendarNavigationButtonComponent: PropTypes.func.isRequired,
+  calendarNavigatorComponent: PropTypes.func.isRequired,
 };

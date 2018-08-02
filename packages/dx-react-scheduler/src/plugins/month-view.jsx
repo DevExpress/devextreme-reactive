@@ -10,7 +10,7 @@ import {
 import {
   monthAppointmentRect,
   endViewBoundary,
-  monthCellsCore,
+  monthCells as monthCellsCore,
   dayScale as dayScaleCore,
 } from '@devexpress/dx-scheduler-core';
 

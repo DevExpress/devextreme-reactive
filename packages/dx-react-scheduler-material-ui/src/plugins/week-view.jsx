@@ -22,11 +22,9 @@ export class WeekView extends React.PureComponent {
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}
         timePanelRowComponent={Row}
-
         dayPanelLayoutComponent={DayPanelLayout}
         dayPanelCellComponent={DayPanelCell}
         dayPanelRowComponent={Row}
-
         dateTableLayoutComponent={DateTableLayout}
         dateTableCellComponent={DateTableCell}
         dateTableRowComponent={Row}

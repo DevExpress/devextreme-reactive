@@ -1,55 +1,79 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { VerticalAppointment } from './vertical-appointment';
+import { Appointment } from './appointment';
 
-describe('Appointment', () => {
+jest.mock('./appointment', () => ({
+  Appointment: jest.fn(),
+}));
+
+describe('VerticalAppointment', () => {
   const defaultProps = {
-    getTitle: () => 'title',
-    getStartDate: () => new Date('2018-07-27 13:10'),
-    getEndDate: () => new Date('2018-07-27 17:10'),
     appointment: {},
   };
 
   let classes;
-  let shallow;
+  let mount;
   beforeAll(() => {
     classes = getClasses(<VerticalAppointment {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    mount = createMount({ dive: true });
+  });
+  beforeEach(() => {
+    Appointment.mockImplementation(({ children }) => (
+      <div className="appointment">
+        {children}
+      </div>
+    ));
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   describe('VerticalAppointment', () => {
-    it('should pass classes to the component', () => {
-      const tree = shallow((
-        <VerticalAppointment {...defaultProps} />
+    it('should pass rest props to the root element', () => {
+      mount((
+        <VerticalAppointment {...defaultProps} customProp="custom prop" />
       ));
+      const { customProp } = Appointment.mock.calls[0][0];
 
-      expect(tree.find(`.${classes.main}`))
-        .toHaveLength(1);
-      expect(tree.find(`.${classes.title}`))
-        .toHaveLength(1);
-      expect(tree.find(`.${classes.textContainer}`))
-        .toHaveLength(1);
-      expect(tree.find(`.${classes.time}`))
-        .toHaveLength(3);
+      expect(customProp)
+        .toBe('custom prop');
     });
-    it('should write title', () => {
-      const tree = shallow((
-        <VerticalAppointment {...defaultProps} />
+
+    it('should render title', () => {
+      const tree = mount((
+        <VerticalAppointment {...defaultProps} getTitle={() => 'title'} />
       ));
 
-      expect(tree.find(`.${classes.title}`).props().children)
+      expect(tree.find(`.${classes.title}`).text())
         .toBe('title');
     });
-    it('should write appointment information', () => {
-      const tree = shallow((
-        <VerticalAppointment {...defaultProps} />
+
+    it('should render appointment times', () => {
+      const tree = mount((
+        <VerticalAppointment
+          {...defaultProps}
+          getStartDate={() => new Date('2018-07-27 13:10')}
+          getEndDate={() => new Date('2018-07-27 17:10')}
+        />
       ));
 
-      expect(tree.find(`.${classes.time}`).at(0).props().children)
+      expect(tree.find(`.${classes.time}`).at(0).text())
         .toBe('1:10 PM');
-      expect(tree.find(`.${classes.time}`).at(1).props().children)
+      expect(tree.find(`.${classes.time}`).at(1).text())
         .toBe(' - ');
-      expect(tree.find(`.${classes.time}`).at(2).props().children)
+      expect(tree.find(`.${classes.time}`).at(2).text())
         .toBe('5:10 PM');
+    });
+
+    it('should render children', () => {
+      const child = mount((
+        <VerticalAppointment {...defaultProps}>
+          <div className="child" />
+        </VerticalAppointment>
+      ));
+
+      expect(child.exists())
+        .toBeTruthy();
     });
   });
 });

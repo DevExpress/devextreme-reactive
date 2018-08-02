@@ -1,37 +1,70 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { Appointment } from './appointment';
 import { HorizontalAppointment } from './horizontal-appointment';
 
-describe('Appointment', () => {
+jest.mock('./appointment', () => ({
+  Appointment: jest.fn(),
+}));
+
+describe('HorizontalAppointment', () => {
   const defaultProps = {
-    getTitle: () => 'title',
     appointment: {},
   };
 
   let classes;
-  let shallow;
+  let mount;
   beforeAll(() => {
     classes = getClasses(<HorizontalAppointment {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    mount = createMount();
   });
+  afterAll(() => {
+    mount.cleanUp();
+  });
+  beforeEach(() => {
+    Appointment.mockImplementation(({ children }) => (
+      <div className="appointment">
+        {children}
+      </div>
+    ));
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('HorizontalAppointment', () => {
-    it('should pass classes to the component', () => {
-      const tree = shallow((
-        <HorizontalAppointment {...defaultProps} />
+    it('should pass rest props to the root element', () => {
+      mount((
+        <HorizontalAppointment {...defaultProps} customProp="custom prop" />
       ));
 
-      expect(tree.find(`.${classes.main}`).props())
-        .toBeDefined();
-      expect(tree.find(`.${classes.title}`).props())
-        .toBeDefined();
+      const { customProp } = Appointment.mock.calls[0][0];
+
+      expect(customProp)
+        .toBe('custom prop');
     });
-    it('should write title', () => {
-      const tree = shallow((
-        <HorizontalAppointment {...defaultProps} />
+
+    it('should render title', () => {
+      const tree = mount((
+        <HorizontalAppointment
+          {...defaultProps}
+          getTitle={() => 'title'}
+        />
       ));
 
-      expect(tree.find(`.${classes.title}`).props().children)
+      expect(tree.find(`.${classes.title}`).text())
         .toBe('title');
+    });
+
+    it('should render children', () => {
+      const child = mount((
+        <HorizontalAppointment {...defaultProps}>
+          <div className="child" />
+        </HorizontalAppointment>
+      ));
+
+      expect(child.exists())
+        .toBeTruthy();
     });
   });
 });

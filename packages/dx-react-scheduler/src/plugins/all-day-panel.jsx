@@ -7,7 +7,11 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { allDayAppointmentsRects, getMessagesFormatter } from '@devexpress/dx-scheduler-core';
+import {
+  allDayAppointmentsRects,
+  getMessagesFormatter,
+  HORIZONTAL_APPOINTMENT_TYPE,
+} from '@devexpress/dx-scheduler-core';
 
 const getAppointmentStyle = ({
   top,
@@ -104,7 +108,7 @@ export class AllDayPanel extends React.PureComponent {
                     {tableRef ? allDayAppointmentRects.map(({ dataItem, ...geometry }, index) => {
                       const appointmentProps = {
                         style: getAppointmentStyle(geometry),
-                        type: 'horizontal',
+                        type: HORIZONTAL_APPOINTMENT_TYPE,
                         key: index.toString(),
                         getTitle: getAppointmentTitle,
                         getEndDate: getAppointmentEndDate,

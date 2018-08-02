@@ -18,7 +18,6 @@ export class WeekView extends React.PureComponent {
     return (
       <WeekViewBase
         layoutComponent={WeekLayout}
-
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}
         timePanelRowComponent={Row}

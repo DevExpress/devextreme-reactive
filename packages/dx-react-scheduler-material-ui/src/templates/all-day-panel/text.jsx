@@ -3,19 +3,26 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorderColor } from '../utils';
 
 const styles = theme => ({
-  content: {
+  container: {
     height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
     position: 'relative',
   },
+  content: {
+    borderTop: getBorderColor(theme),
+    height: theme.spacing.unit * 7,
+    textAlign: 'right',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   text: {
-    position: 'absolute',
-    textAlign: 'center',
-    bottom: 0,
-    right: 0,
     padding: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit * 2.5,
     ...theme.typography.caption,
   },
 });
@@ -23,10 +30,12 @@ const styles = theme => ({
 export const TextBase = ({
   classes, getMessage, className, ...restProps
 }) => (
-  <div className={classNames(classes.content, className)} {...restProps}>
-    <Typography className={classes.text} variant="body2">
-      {getMessage('allDay')}
-    </Typography>
+  <div className={classNames(classes.container, className)} {...restProps}>
+    <div className={classes.content}>
+      <Typography className={classes.text} variant="body2">
+        {getMessage('allDay')}
+      </Typography>
+    </div>
   </div>
 );
 

@@ -100,12 +100,9 @@ export class MonthView extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              monthCells,
-              appointments,
-              startViewDate,
-              endViewDate,
+              monthCells, appointments, startViewDate, endViewDate,
             }) => {
-              const appointmentRects1 = dateTableRef ? monthAppointmentRect(
+              const rects = dateTableRef ? monthAppointmentRect(
                 appointments,
                 startViewDate,
                 endViewDate,
@@ -122,7 +119,7 @@ export class MonthView extends React.PureComponent {
                     dateTableRef={this.dateTableRef}
                   />
                   <Container>
-                    {appointmentRects1.map(({
+                    {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
@@ -131,8 +128,7 @@ export class MonthView extends React.PureComponent {
                         appointment={dataItem}
                         style={getAppointmentStyle(geometry)}
                       />
-                    ))
-                    }
+                    ))}
                   </Container>
                 </React.Fragment>
               );

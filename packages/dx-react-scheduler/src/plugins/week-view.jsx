@@ -59,12 +59,9 @@ export class WeekView extends React.PureComponent {
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
       containerComponent: Container,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      intervalCount,
-      firstDayOfWeek,
-      excludedDays,
+      startDayHour, endDayHour,
+      cellDuration, intervalCount,
+      firstDayOfWeek, excludedDays,
     } = this.props;
 
     const timeScaleComputed = ({ currentDate }) => timeScaleCore(
@@ -134,13 +131,9 @@ export class WeekView extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              timeScale,
-              dayScale,
-              appointments,
-              startViewDate,
-              endViewDate,
+              timeScale, dayScale, appointments, startViewDate, endViewDate,
             }) => {
-              const appointmentRects1 = dateTableRef ? appointmentRects(
+              const rects = dateTableRef ? appointmentRects(
                 appointments,
                 startViewDate,
                 endViewDate,
@@ -161,7 +154,7 @@ export class WeekView extends React.PureComponent {
                     dateTableRef={this.dateTableRef}
                   />
                   <Container>
-                    {appointmentRects1.map(({
+                    {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder

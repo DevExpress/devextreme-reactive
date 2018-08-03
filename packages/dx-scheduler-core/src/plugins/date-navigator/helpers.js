@@ -9,7 +9,7 @@ const calculateTitleByDays = (startViewDate, endViewDate) => {
   }
   if (momentStartViewDate.isSame(momentEndViewDate, 'year')) {
     if (momentStartViewDate.isSame(momentEndViewDate, 'month')) {
-      return `${momentStartViewDate.date()}-${momentEndViewDate.format('D MMMM YYYY')}`;
+      return `${momentStartViewDate.format('D')}-${momentEndViewDate.format('D MMMM YYYY')}`;
     }
     return `${momentStartViewDate.format('D MMM')} - ${momentEndViewDate.format('D MMM YYYY')}`;
   }

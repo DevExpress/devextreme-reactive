@@ -13,6 +13,8 @@ import { Cell as DayPanelCell } from '../templates/week-view/day-panel/cell';
 import { Layout as DateTableLayout } from '../templates/week-view/date-table/layout';
 import { Cell as DateTableCell } from '../templates/week-view/date-table/cell';
 
+import { Container } from '../templates/appointment/container';
+
 export class WeekView extends React.PureComponent {
   render() {
     return (
@@ -27,6 +29,7 @@ export class WeekView extends React.PureComponent {
         dateTableLayoutComponent={DateTableLayout}
         dateTableCellComponent={DateTableCell}
         dateTableRowComponent={Row}
+        containerComponent={Container}
         {...this.props}
       />
     );

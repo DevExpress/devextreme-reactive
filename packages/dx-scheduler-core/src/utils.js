@@ -137,3 +137,16 @@ export const unwrapGroups = groups => groups.reduce((acc, { items, reduceValue }
   })));
   return acc;
 }, []);
+
+export const getAppointmentStyle = ({
+  top,
+  left,
+  width,
+  height,
+}) => ({
+  height,
+  width: `${width}%`,
+  transform: `translateY(${top}px)`,
+  left: `${left}%`,
+  position: 'absolute',
+});

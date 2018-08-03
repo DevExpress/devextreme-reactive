@@ -28,7 +28,6 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          getTitle={appointment => appointment.text}
         >
           <ViewState
             currentDate={currentDate}

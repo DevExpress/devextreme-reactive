@@ -8,32 +8,13 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  getAppointmentStyle,
   appointmentRects,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
 } from '@devexpress/dx-scheduler-core';
-
-const appointmentRectsComputed = ({
-  appointments,
-  startViewDate,
-  endViewDate,
-  excludedDays,
-  dayScale,
-  timeScale,
-  cellDuration,
-  dateTableRef,
-}) => (dateTableRef ? appointmentRects(
-  appointments,
-  startViewDate,
-  endViewDate,
-  excludedDays,
-  dayScale,
-  timeScale,
-  cellDuration,
-  dateTableRef.querySelectorAll('td'),
-) : []);
 
 const SidebarPlaceholder = props => (
   <TemplatePlaceholder name="sidebar" params={props} />
@@ -46,6 +27,9 @@ const DateTablePlaceholder = props => (
 );
 const NavbarEmptyPlaceholder = props => (
   <TemplatePlaceholder name="navbarEmpty" params={props} />
+);
+const AppointmentPlaceholder = props => (
+  <TemplatePlaceholder name="appointment" params={props} />
 );
 
 export class WeekView extends React.PureComponent {
@@ -74,6 +58,7 @@ export class WeekView extends React.PureComponent {
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
+      containerComponent: Container,
       startDayHour,
       endDayHour,
       cellDuration,
@@ -103,15 +88,12 @@ export class WeekView extends React.PureComponent {
       <Plugin
         name="WeekView"
       >
-        <Getter name="cellDuration" value={cellDuration} />
         <Getter name="excludedDays" value={excludedDays} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="timeScale" computed={timeScaleComputed} />
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
-        {dateTableRef && <Getter name="dateTableRef" value={dateTableRef} />}
-        <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">
           <ViewLayout
@@ -151,15 +133,48 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ timeScale, dayScale }) => (
-              <DateTable
-                rowComponent={DateTableRow}
-                cellComponent={DateTableCell}
-                timeScale={timeScale}
-                dayScale={dayScale}
-                dateTableRef={this.dateTableRef}
-              />
-            )}
+            {({
+              timeScale,
+              dayScale,
+              appointments,
+              startViewDate,
+              endViewDate,
+            }) => {
+              const appointmentRects1 = dateTableRef ? appointmentRects(
+                appointments,
+                startViewDate,
+                endViewDate,
+                excludedDays,
+                dayScale,
+                timeScale,
+                cellDuration,
+                dateTableRef.querySelectorAll('td'),
+              ) : [];
+
+              return (
+                <React.Fragment>
+                  <DateTable
+                    rowComponent={DateTableRow}
+                    cellComponent={DateTableCell}
+                    timeScale={timeScale}
+                    dayScale={dayScale}
+                    dateTableRef={this.dateTableRef}
+                  />
+                  <Container>
+                    {appointmentRects1.map(({
+                      dataItem, type, ...geometry
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        type={type}
+                        key={index.toString()}
+                        appointment={dataItem}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
+                  </Container>
+                </React.Fragment>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
@@ -177,6 +192,7 @@ WeekView.propTypes = {
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,

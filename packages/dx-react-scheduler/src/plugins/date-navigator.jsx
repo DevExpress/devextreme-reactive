@@ -83,7 +83,13 @@ export class DateNavigator extends React.PureComponent {
               changeCurrentDate,
             }) => {
               const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
-              const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
+              const navigatorTitle = viewBoundTitle(
+                startViewDate,
+                endViewDate,
+                currentView,
+                currentDate,
+                intervalCount,
+              );
               return (
                 <React.Fragment>
                   <Root

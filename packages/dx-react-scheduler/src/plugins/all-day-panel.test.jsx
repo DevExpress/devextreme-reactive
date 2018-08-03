@@ -4,7 +4,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   allDayAppointmentsRects,
-  // getMessagesFormatter,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
@@ -37,7 +36,7 @@ const defaultProps = {
   messages: {},
   cellComponent: () => null,
   rowComponent: () => null,
-  textComponent: () => null,
+  textComponent: () => <div className="text" />,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div className="container">{children}</div>,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
@@ -83,7 +82,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should appointment container', () => {
+    it('should render appointment container', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -93,9 +92,21 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      tree.setState({ tableRef: true });
-
       expect(tree.find('.container').exists())
+        .toBeTruthy();
+    });
+
+    it('should render text component', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.text').exists())
         .toBeTruthy();
     });
   });

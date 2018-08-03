@@ -6,6 +6,7 @@ import {
   findOverlappedAppointments,
   adjustAppointments,
   unwrapGroups,
+  getAppointmentStyle,
 } from './utils';
 
 describe('Utils', () => {
@@ -266,6 +267,21 @@ describe('Utils', () => {
       const firstDateOfWeek = calculateFirstDateOfWeek('2018-07-06', 2, [3, 2, 1]);
       expect(firstDateOfWeek.toString())
         .toBe(new Date(2018, 6, 5).toString());
+    });
+  });
+  describe('#getAppointmentStyle', () => {
+    it('should work', () => {
+      const geometry = {
+        top: 10, left: 20, height: 30, width: 40,
+      };
+      expect(getAppointmentStyle(geometry))
+        .toEqual({
+          height: 30,
+          width: '40%',
+          transform: 'translateY(10px)',
+          left: '20%',
+          position: 'absolute',
+        });
     });
   });
 });

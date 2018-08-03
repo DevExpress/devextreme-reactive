@@ -4,6 +4,7 @@ import {
   Scheduler,
   WeekView,
   Appointments,
+  AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -13,7 +14,21 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
+      tooltipData: {},
+      tooltipTarget: {},
+      tooltipVisible: false,
     };
+  }
+
+  tooltip() {
+    const { tooltipData, tooltipTarget, tooltipVisible } = this.state;
+    return (
+      <AppointmentTooltip.Tooltip
+        visible={tooltipVisible}
+        data={tooltipData}
+        target={tooltipTarget}
+      />
+    );
   }
 
   render() {
@@ -21,6 +36,19 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
+        <button
+          type="button"
+          onClick={() => {
+            const appointmentData = data[0];
+            this.setState({
+              tooltipVisible: true,
+              tooltipData: appointmentData,
+              tooltipTarget: document.getElementsByClassName('appointment')[0],
+            });
+          }}
+        >
+          Show Tooltip
+        </button>
         <Scheduler
           data={data}
         >
@@ -28,7 +56,16 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
+
           <Appointments />
+
+          <AppointmentTooltip
+            // uncontrolled: there isn't any props
+            // controlled
+            visible
+            appointmentData
+            target
+          />
         </Scheduler>
       </Paper>
     );

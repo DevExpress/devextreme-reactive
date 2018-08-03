@@ -16,7 +16,7 @@ export class AllDayPanel extends React.PureComponent {
     const { messages, ...restProps } = this.props;
     return (
       <AllDayPanelBase
-        appointmentsContainerComponent={Container}
+        containerComponent={Container}
         layoutComponent={Layout}
         cellComponent={Cell}
         rowComponent={Row}

@@ -10,11 +10,10 @@ import {
   getAppointmentStyle,
   allDayAppointmentsRects,
   getMessagesFormatter,
-  HORIZONTAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
-  { name: 'WeekView' }, // Or Day View
+  { name: 'WeekView', optional: true },
 ];
 
 const AppointmentPlaceholder = props => (
@@ -39,7 +38,7 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      appointmentsContainerComponent: AppointmentsContainer,
+      containerComponent: Container,
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
@@ -54,60 +53,52 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="navbar">
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({
-              dayScale,
-              currentView,
-              appointments,
-              startViewDate,
-              endViewDate,
-              excludedDays,
-            }) => {
-              if (currentView === 'month') return null; // currentView.type === month
-              const appointmentRects = tableRef ? allDayAppointmentsRects(
-                appointments,
-                startViewDate,
-                endViewDate,
-                excludedDays,
-                dayScale,
-                tableRef.querySelectorAll('th'),
-              ) : [];
-              return (
-                <Layout
-                  allDayPanelRef={this.allDayPanelRef}
-                  cellComponent={Cell}
-                  rowComponent={Row}
-                  dayScale={dayScale}
-                >
-                  <AppointmentsContainer>
-                    {tableRef ? appointmentRects.map(({ dataItem, ...geometry }, index) => {
-                      const appointmentProps = {
-                        style: getAppointmentStyle(geometry),
-                        type: HORIZONTAL_APPOINTMENT_TYPE,
-                        key: index.toString(),
-                        appointment: dataItem,
-                      };
-                      return <AppointmentPlaceholder {...appointmentProps} />;
-                    }) : null}
-                  </AppointmentsContainer>
-                </Layout>
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-        <Template name="navbarEmpty">
-          <TemplatePlaceholder />
-          <Text getMessage={getMessage} />
-        </Template>
+        <TemplateConnector>
+          {({
+            dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
+          }) => {
+            if (currentView === 'month') return null;
+            const rects = tableRef ? allDayAppointmentsRects(
+              appointments, startViewDate, endViewDate, excludedDays, dayScale, tableRef.querySelectorAll('th'),
+            ) : [];
+            return (
+              <React.Fragment>
+                <Template name="navbar">
+                  <TemplatePlaceholder />
+                  <Layout
+                    allDayPanelRef={this.allDayPanelRef}
+                    cellComponent={Cell}
+                    rowComponent={Row}
+                    dayScale={dayScale}
+                  >
+                    <Container>
+                      {rects.map(({ dataItem, type, ...geometry }, index) => (
+                        <AppointmentPlaceholder
+                          style={getAppointmentStyle(geometry)}
+                          type={type}
+                          key={index.toString()}
+                          appointment={dataItem}
+                        />
+                      ))}
+                    </Container>
+                  </Layout>
+                </Template>
+
+                <Template name="navbarEmpty">
+                  <TemplatePlaceholder />
+                  <Text getMessage={getMessage} />
+                </Template>
+              </React.Fragment>
+            );
+          }}
+        </TemplateConnector>
       </Plugin>
     );
   }
 }
 
 AllDayPanel.propTypes = {
-  appointmentsContainerComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

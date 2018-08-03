@@ -124,6 +124,51 @@ describe('Month View', () => {
       expect(getComputedState(tree).endViewDate)
         .toEqual(new Date('2018-08-06'));
     });
+
+    it('should provide the "firstDayOfWeek" getter', () => {
+      const firstDayOfWeek = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            firstDayOfWeek={firstDayOfWeek}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).firstDayOfWeek)
+        .toBe(firstDayOfWeek);
+    });
+
+    it('should provide the "intervalCount" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            intervalCount={2}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).intervalCount)
+        .toBe(2);
+    });
+
+    it('should provide the "currentView" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toBe('month');
+    });
   });
 
   describe('Templates', () => {

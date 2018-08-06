@@ -1,6 +1,6 @@
 # React Grid - Summary Row
 
-The Grid component supports culculating data summaries. Use the corresponding plugins to manage the data summaries state and calculate data summaries programmatically.
+The Grid component supports calculating data summaries. Use the corresponding plugins to manage the data summaries state and calculate data summaries programmatically.
 
 ## Related Plugins
 
@@ -33,7 +33,7 @@ In the following example, tree summary rows is shown. Pass summary items array t
 
 .embedded-demo({ "path": "grid-summary/tree-summary", "showThemeSelector": true })
 
-### Custom Data Summaries Calculateion
+### Custom Data Summaries Calculation
 
 The `CustomSummary` plugin allows providing data summary values calculated externally. It may be received from the server or computed locally.
 

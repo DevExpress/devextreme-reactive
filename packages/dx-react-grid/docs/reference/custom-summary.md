@@ -20,9 +20,9 @@ import { CustomSummary } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalValues | Array&lt;any&gt; | Summary values related to all rows.
-groupValues | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | Summary values related to group rows.
-treeValues | { [key: number &#124; string]: Array&lt;any&gt; } | Summary values related to rows that contains children rows.
+totalValues | Array&lt;any&gt; | | Summary values related to all rows.
+groupValues | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | | Summary values related to group rows.
+treeValues | { [key: number &#124; string]: Array&lt;any&gt; } | | Summary values related to rows that contains children rows.
 
 ## Plugin Developer Reference
 

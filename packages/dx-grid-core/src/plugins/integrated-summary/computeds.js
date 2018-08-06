@@ -62,31 +62,30 @@ export const groupSummaryValues = (
   calculator = defaultSummaryCalculator,
 ) => {
   let levels = [];
-  const summaries = rows.reduce((acc, row) => {
+  const summaries = {};
+  rows.forEach((row) => {
     const levelKey = getRowLevelKey(row);
-    if (levelKey) {
-      const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
-      if (levelIndex > -1) {
-        levels.slice(levelIndex).forEach((level) => {
-          acc[level.row.compoundKey] = rowsSummary(
-            level.rows, summaryItems, getCellValue, calculator,
-          );
-        });
-        levels = levels.slice(0, levelIndex);
-      }
-      if (isGroupRow(row)) {
-        levels.push({
-          levelKey,
-          row,
-          rows: [],
-        });
-      }
-    } else {
+    if (!levelKey) {
       levels.forEach((level) => {
         level.rows.push(row);
       });
     }
-    return acc;
+    const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
+    if (levelIndex > -1) {
+      levels.slice(levelIndex).forEach((level) => {
+        summaries[level.row.compoundKey] = rowsSummary(
+          level.rows, summaryItems, getCellValue, calculator,
+        );
+      });
+      levels = levels.slice(0, levelIndex);
+    }
+    if (isGroupRow(row)) {
+      levels.push({
+        levelKey,
+        row,
+        rows: [],
+      });
+    }
   }, {});
   levels.forEach((level) => {
     summaries[level.row.compoundKey] = rowsSummary(
@@ -106,34 +105,34 @@ export const treeSummaryValues = (
   calculator = defaultSummaryCalculator,
 ) => {
   let levels = [];
-  const summaries = rows.reduce((acc, row) => {
+  const summaries = {};
+  rows.forEach((row) => {
     const levelKey = getRowLevelKey(row);
-    if (levelKey) {
-      const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
-      if (levelIndex > -1) {
-        levels.slice(levelIndex).forEach((level) => {
-          if (level.rows.length) {
-            acc[getRowId(level.row)] = rowsSummary(
-              level.rows, summaryItems, getCellValue, calculator,
-            );
-          }
-        });
-        levels = levels.slice(0, levelIndex);
-      }
-      if (!isGroupRow || !isGroupRow(row)) {
-        if (levels.length) {
-          levels[levels.length - 1].rows.push(row);
-        }
-        levels.push({
-          levelKey,
-          row,
-          rows: [],
-        });
-      }
-    } else {
+    if (!levelKey) {
       levels[levels.length - 1].rows.push(row);
+      return;
     }
-    return acc;
+    const levelIndex = levels.findIndex(level => level.levelKey === levelKey);
+    if (levelIndex > -1) {
+      levels.slice(levelIndex).forEach((level) => {
+        if (level.rows.length) {
+          summaries[getRowId(level.row)] = rowsSummary(
+            level.rows, summaryItems, getCellValue, calculator,
+          );
+        }
+      });
+      levels = levels.slice(0, levelIndex);
+    }
+    if (!isGroupRow || !isGroupRow(row)) {
+      if (levels.length) {
+        levels[levels.length - 1].rows.push(row);
+      }
+      levels.push({
+        levelKey,
+        row,
+        rows: [],
+      });
+    }
   }, {});
   levels.forEach((level) => {
     if (level.rows.length) {

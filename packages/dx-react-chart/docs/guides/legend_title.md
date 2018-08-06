@@ -1,13 +1,9 @@
 # React Chart - Legend and Title
 
 The legend and title provide additional information about a chart.
-
-## Legend
-
-The Legend feature displays series on the current chart. Legend contains items. Items contain marker and label. Marker display series color. Label text equal series name.
-
-## Title 
-
+The Legend feature displays series on the current chart. 
+Legend contains items. Items contain marker and label. 
+Marker display series color. Label text equal series name.
 Title display helpful text. You must provide text to the title.
 
 ## Related Plugins
@@ -16,12 +12,13 @@ Title display helpful text. You must provide text to the title.
 - `Title` - renders a title
 
 ## Basic Setup
+
 Import the plugins listed above to set up a Chart with the legend and title.
 
-.embedded-demo({ "path": "chart-basic/basic-legend.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/basic-legend", "showThemeSelector": true })
 
-## Use custom legend markers
+## Appearance Customization
 
-You can customize legend marker for your task.
+You can customize legend marker and title for your task.
 
-.embedded-demo({ "path": "chart-basic/legend-customization.wb3", "showThemeSelector": true })
+.embedded-demo({ "path": "chart-basic/legend-customization", "showThemeSelector": true })

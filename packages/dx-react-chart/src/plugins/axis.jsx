@@ -20,6 +20,7 @@ export class Axis extends React.Component {
     };
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
+
   createRefsHandler(placeholder, changeBBox, orientation) {
     return (el) => {
       if (!el) {
@@ -28,8 +29,9 @@ export class Axis extends React.Component {
       const {
         width, height, x, y,
       } = el.getBBox();
+      const { width: stateWidth, height: stateHeight } = this.state;
 
-      if (width === this.state.width && height === this.state.height) return;
+      if (width === stateWidth && height === stateHeight) return;
       changeBBox({
         placeholder,
         bBox: {
@@ -45,6 +47,7 @@ export class Axis extends React.Component {
       });
     };
   }
+
   calculateLayout(width, height, defaultWidth, defaultHeight) {
     const calculatedWidth = width || defaultWidth;
     const calculatedHeight = height || defaultHeight;
@@ -58,6 +61,7 @@ export class Axis extends React.Component {
       height: containerHeight || calculatedHeight,
     };
   }
+
   render() {
     const {
       tickSize,
@@ -74,7 +78,7 @@ export class Axis extends React.Component {
     return (
       <Plugin name="Axis">
         <Getter name="axes" computed={getAxesDataComputed} />
-        {isArgumentAxis ? <Getter name="argumentAxisName" value={this.props.name || 'argumentAxis'} /> : null}
+        {isArgumentAxis ? <Getter name="argumentAxisName" value={name || 'argumentAxis'} /> : null}
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>
@@ -82,12 +86,12 @@ export class Axis extends React.Component {
               domains,
               argumentAxisName,
               layouts,
-             }, { changeBBox }) => {
+            }, { changeBBox }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation } = domain;
-              const { width: widthCalculated, height: heightCalculated } = layouts[placeholder] ||
-                    { width: 0, height: 0 };
+              const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]
+                    || { width: 0, height: 0 };
 
               const {
                 width: widthPostCalculated,
@@ -107,6 +111,10 @@ export class Axis extends React.Component {
                 tickSize,
                 indentFromAxis,
               );
+              const {
+                xCorrection,
+                yCorrection,
+              } = this.state;
 
               return (
                 <div
@@ -131,19 +139,21 @@ export class Axis extends React.Component {
                         changeBBox,
                         orientation,
                       )}
-                      x={-this.state.xCorrection}
-                      y={-this.state.yCorrection}
+                      x={-xCorrection}
+                      y={-yCorrection}
                     >
                       {
                       coordinates.ticks.map(({
                         x1, x2, y1, y2, text,
-                      }) => (<Tick
-                        key={text}
-                        x1={x1}
-                        x2={x2}
-                        y1={y1}
-                        y2={y2}
-                      />))
+                      }) => (
+                        <Tick
+                          key={text}
+                          x1={x1}
+                          x2={x2}
+                          y1={y1}
+                          y2={y2}
+                        />
+                      ))
                     }
                       <Line
                         width={widthPostCalculated}
@@ -151,22 +161,22 @@ export class Axis extends React.Component {
                         orientation={orientation}
                       />
                       {coordinates.ticks.map(({
-                      text,
-                      xText,
-                      yText,
-                      dominantBaseline,
-                      textAnchor,
-                    }) => (
-                      <React.Fragment key={text}>
-                        <Label
-                          text={text}
-                          x={xText}
-                          y={yText}
-                          dominantBaseline={dominantBaseline}
-                          textAnchor={textAnchor}
-                        />
-                      </React.Fragment>
-                    ))}
+                        text,
+                        xText,
+                        yText,
+                        dominantBaseline,
+                        textAnchor,
+                      }) => (
+                        <React.Fragment key={text}>
+                          <Label
+                            text={text}
+                            x={xText}
+                            y={yText}
+                            dominantBaseline={dominantBaseline}
+                            textAnchor={textAnchor}
+                          />
+                        </React.Fragment>
+                      ))}
                     </Root>
                   </svg>
                 </div>

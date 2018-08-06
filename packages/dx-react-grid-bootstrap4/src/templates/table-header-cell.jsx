@@ -37,6 +37,7 @@ export class TableHeaderCell extends React.PureComponent {
       });
     };
   }
+
   render() {
     const {
       className, column, tableColumn, before,

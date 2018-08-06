@@ -1,10 +1,12 @@
-import { TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER } from './constants';
+import {
+  TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
+} from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
-export const isBandedOrHeaderRow = tableRow =>
-  isBandedTableRow(tableRow) || tableRow.type === TABLE_HEADING_TYPE;
+export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
+|| tableRow.type === TABLE_HEADING_TYPE;
 
 export const getColumnMeta = (
   columnName, bands, tableRowLevel,
@@ -28,19 +30,20 @@ export const getColumnMeta = (
   return acc;
 }, result || { level, title });
 
-export const getColSpan =
-  (currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle) => {
-    let isOneChain = true;
-    return tableColumns.reduce((acc, tableColumn, index) => {
-      if (tableColumn.type !== TABLE_DATA_TYPE || index <= currentColumnIndex) return acc;
-      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (isOneChain && columnMeta.title === currentColumnTitle) {
-        return acc + 1;
-      }
-      isOneChain = false;
-      return acc;
-    }, 1);
-  };
+export const getColSpan = (
+  currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle,
+) => {
+  let isOneChain = true;
+  return tableColumns.reduce((acc, tableColumn, index) => {
+    if (tableColumn.type !== TABLE_DATA_TYPE || index <= currentColumnIndex) return acc;
+    const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
+    if (isOneChain && columnMeta.title === currentColumnTitle) {
+      return acc + 1;
+    }
+    isOneChain = false;
+    return acc;
+  }, 1);
+};
 
 export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBands) => {
   if (params.rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
@@ -63,8 +66,9 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
     };
   }
 
-  const currentColumnIndex = tableColumns.findIndex(tableColumn =>
-    tableColumn.key === params.tableColumn.key);
+  const currentColumnIndex = tableColumns.findIndex(
+    tableColumn => tableColumn.key === params.tableColumn.key,
+  );
   if (currentColumnIndex > 0 && tableColumns[currentColumnIndex - 1].type === TABLE_DATA_TYPE) {
     const prevColumnMeta = getColumnMeta(
       tableColumns[currentColumnIndex - 1].column.name,

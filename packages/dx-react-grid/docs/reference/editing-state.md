@@ -32,10 +32,7 @@ onAddedRowsChange? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or
 rowChanges? | { [key: string]: any } | | Not committed row changes.
 defaultRowChanges? | { [key: string]: any } | {} | Row changes initially added to the `rowChanges` array in uncontrolled mode.
 onRowChangesChange? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-deletedRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows prepared for deletion.
-defaultDeletedRowIds? | Array&lt;number &#124; string&gt; | [] | Rows initially added to the `deletedRowIds` array in uncontrolled mode.
-onDeletedRowIdsChange? | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
-onCommitChanges | (changes: Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
+onCommitChanges | (changes: Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
 
 ## Interfaces
 

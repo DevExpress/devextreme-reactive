@@ -31,6 +31,7 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
     display: 'inline-block',
     verticalAlign: 'middle',
+    transform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
   },
   prev: {
     marginRight: 0,

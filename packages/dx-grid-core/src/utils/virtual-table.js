@@ -11,9 +11,9 @@ export const getVisibleBoundary = (items, viewportStart, viewportSize, getItemSi
   while (end === null && index < items.length) {
     const item = items[index];
     const afterPosition = beforePosition + getItemSize(item);
-    const isVisible = (beforePosition >= viewportStart && beforePosition < viewportEnd) ||
-      (afterPosition > viewportStart && afterPosition <= viewportEnd) ||
-      (beforePosition < viewportStart && afterPosition > viewportEnd);
+    const isVisible = (beforePosition >= viewportStart && beforePosition < viewportEnd)
+      || (afterPosition > viewportStart && afterPosition <= viewportEnd)
+      || (beforePosition < viewportStart && afterPosition > viewportEnd);
     if (isVisible && start === null) {
       start = index;
     }
@@ -154,8 +154,11 @@ export const getCollapsedCells = (columns, spanBoundary, boundaries, getColSpan)
       const column = columns[boundary[0]];
       const realColSpan = getColSpan(column);
       const realColSpanEnd = (realColSpan + boundary[0]) - 1;
-      const colSpanEnd = boundaries.findIndex(colSpanBoundary =>
-        colSpanBoundary[0] <= realColSpanEnd && realColSpanEnd <= colSpanBoundary[1]);
+      const colSpanEnd = boundaries.findIndex(
+        colSpanBoundary => colSpanBoundary[0]
+        <= realColSpanEnd && realColSpanEnd
+        <= colSpanBoundary[1],
+      );
       collapsedColumns.push({
         column,
         colSpan: (colSpanEnd - index) + 1,

@@ -13,4 +13,3 @@ export const VirtualTableLayout = props => (
     {...props}
   />
 );
-

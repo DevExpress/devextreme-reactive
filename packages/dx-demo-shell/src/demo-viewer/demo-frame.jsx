@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
-import { FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
+import {
+  FormGroup, ControlLabel, FormControl, InputGroup, Button,
+} from 'react-bootstrap';
 import { DemoRenderer } from './demo-renderer';
 
 class DemoFrameRenderer extends React.PureComponent {
@@ -46,22 +48,28 @@ class DemoFrameRenderer extends React.PureComponent {
       frameHeight: 600,
     };
   }
+
   componentDidMount() {
     this.updateFrameHeight();
   }
+
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.editableLink !== prevState.editableLink) {
+    const { editableLink } = this.state;
+    if (editableLink !== prevState.editableLink) {
       if (this.node) this.node.ownerDocument.location.reload();
     }
   }
+
   updateFrameHeight() {
+    const { frameHeight } = this.state;
     setTimeout(this.updateFrameHeight.bind(this));
     if (!this.node) return;
     const height = this.node.ownerDocument.documentElement.offsetHeight;
-    if (height !== this.state.frameHeight) {
+    if (height !== frameHeight) {
       this.setState({ frameHeight: height });
     }
   }
+
   render() {
     const {
       sectionName,
@@ -79,7 +87,9 @@ class DemoFrameRenderer extends React.PureComponent {
             style={{ marginBottom: '20px' }}
           >
             <FormGroup controlId="customThemeLink">
-              <ControlLabel>Custom theme link</ControlLabel>
+              <ControlLabel>
+Custom theme link
+              </ControlLabel>
               <InputGroup>
                 <FormControl
                   type="text"

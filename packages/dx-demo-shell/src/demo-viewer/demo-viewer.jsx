@@ -30,7 +30,7 @@ export const DemoViewer = (
       render={() => (
         <div style={{ paddingTop: '8px' }}>
           <ThemeViewer
-            avaliableThemes={Object.keys(demoSources[sectionName][demoName])}
+            availableThemes={Object.keys(demoSources[sectionName][demoName])}
           >
             {({ themeName, variantName }) => (
               <Tab.Container
@@ -39,8 +39,12 @@ export const DemoViewer = (
               >
                 <div style={{ marginTop: showThemeSelector ? '-38px' : 0 }}>
                   <Nav bsStyle="tabs">
-                    <NavItem eventKey="preview">Preview</NavItem>
-                    <NavItem eventKey="source">Source</NavItem>
+                    <NavItem eventKey="preview">
+                      Preview
+                    </NavItem>
+                    <NavItem eventKey="source">
+                      Source
+                    </NavItem>
                   </Nav>
                   <Tab.Content
                     animation

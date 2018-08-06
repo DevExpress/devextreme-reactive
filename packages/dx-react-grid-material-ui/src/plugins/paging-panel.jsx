@@ -6,8 +6,7 @@ import { Pager } from '../templates/paging-panel/pager';
 const defaultMessages = {
   showAll: 'All',
   rowsPerPage: 'Rows per page:',
-  info: ({ from, to, count }) =>
-    `${from}${from < to ? `-${to}` : ''} of ${count}`,
+  info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`,
 };
 
 export class PagingPanel extends React.PureComponent {

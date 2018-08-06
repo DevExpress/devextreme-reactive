@@ -22,10 +22,9 @@ export class PieSeries extends React.PureComponent {
       argumentField,
       ...restProps
     } = this.props;
-    const getSeriesDataComputed = ({ series }) =>
-      seriesData(series, {
-        valueField, argumentField, name,
-      });
+    const getSeriesDataComputed = ({ series }) => seriesData(series, {
+      valueField, argumentField, name,
+    });
     return (
       <Plugin name="PieSeries">
         <Getter name="series" computed={getSeriesDataComputed} />
@@ -33,12 +32,12 @@ export class PieSeries extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                data,
-                layouts,
-              }) => {
-                const {
-                  width: widthPane, height: heightPane,
-                } = layouts.pane;
+              data,
+              layouts,
+            }) => {
+              const {
+                width: widthPane, height: heightPane,
+              } = layouts.pane;
 
               const arcs = pieAttributes(
                 valueField,
@@ -49,21 +48,20 @@ export class PieSeries extends React.PureComponent {
                 outerRadius,
               );
               const colors = palette(Array.from(arcs));
-                return (
-                      arcs.map((item, index) =>
-                        (
-                          <Point
-                            fill={colors[index].themeColor}
-                            key={item.value}
-                            x={cx || widthPane / 2}
-                            y={cy || heightPane / 2}
-                            value={item.value}
-                            d={item.d}
-                            {...restProps}
-                          />
-                        ))
-                );
-              }}
+              return (
+                arcs.map((item, index) => (
+                  <Point
+                    fill={colors[index].themeColor}
+                    key={item.value}
+                    x={cx || widthPane / 2}
+                    y={cy || heightPane / 2}
+                    value={item.value}
+                    d={item.d}
+                    {...restProps}
+                  />
+                ))
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>

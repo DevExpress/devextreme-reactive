@@ -26,10 +26,12 @@ class FilterSelectorBase extends React.PureComponent {
       this.setState({ anchorEl: null });
     };
     this.handleMenuItemClick = (nextValue) => {
+      const { onChange } = this.props;
       this.setState({ anchorEl: null });
-      this.props.onChange(nextValue);
+      onChange(nextValue);
     };
   }
+
   render() {
     const {
       value, availableValues, disabled, getMessage, iconComponent: Icon, classes,

@@ -6,7 +6,9 @@ describe('Layout', () => {
   describe('Root', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Root className="custom-class" />
+        <Root className="custom-class">
+          <div />
+        </Root>
       ));
 
       expect(tree.is('.custom-class'))
@@ -14,7 +16,9 @@ describe('Layout', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Root data={{ a: 1 }} />
+        <Root data={{ a: 1 }}>
+          <div />
+        </Root>
       ));
 
       expect(tree.props().data)

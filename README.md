@@ -25,6 +25,8 @@ DevExtreme Reactive is a set of business components for React and Vue that deepl
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
+*Note: there is an [alternative project](https://github.com/DevExpress/devextreme-react) providing 65+ React components. Take a look at the comparison [blog post](https://community.devexpress.com/blogs/oliver/archive/2018/04/20/devextreme-new-react-wrappers-vs-native-react-components.aspx) to learn if it meets your business needs better.*
+
 ## [Vue Components](https://devexpress.github.io/devextreme-reactive/vue/)
 
 ### Common Features

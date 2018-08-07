@@ -10,10 +10,10 @@ const styles = theme => ({
     position: 'sticky',
     zIndex: 500,
   },
-  dividerLeft: {
+  dividerRight: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
-  dividerRight: {
+  dividerLeft: {
     borderLeft: `1px solid ${theme.palette.divider}`,
   },
 });
@@ -32,7 +32,8 @@ class FixedCellBase extends React.PureComponent {
     const {
       component: CellPlaceholder,
       side,
-      showDivider,
+      showLeftDivider,
+      showRightDivider,
       className,
       classes,
       style,
@@ -40,13 +41,13 @@ class FixedCellBase extends React.PureComponent {
       storeSize,
       ...restProps
     } = this.props;
-    const dividerSideClassName = `divider${side.charAt(0).toUpperCase()}${side.slice(1)}`;
 
     return (
       <CellPlaceholder
         className={classNames({
           [classes.fixedCell]: true,
-          [classes[dividerSideClassName]]: showDivider,
+          [classes.dividerLeft]: showLeftDivider,
+          [classes.dividerRight]: showRightDivider,
         }, className)}
         style={{
           ...style,
@@ -66,13 +67,15 @@ FixedCellBase.propTypes = {
   side: PropTypes.string.isRequired,
   storeSize: PropTypes.func.isRequired,
   getPosition: PropTypes.func.isRequired,
-  showDivider: PropTypes.bool,
+  showLeftDivider: PropTypes.bool,
+  showRightDivider: PropTypes.bool,
 };
 
 FixedCellBase.defaultProps = {
   className: undefined,
   style: {},
-  showDivider: false,
+  showLeftDivider: false,
+  showRightDivider: false,
 };
 
 export const FixedCell = withStyles(styles)(FixedCellBase);

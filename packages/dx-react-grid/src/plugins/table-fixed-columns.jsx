@@ -5,9 +5,11 @@ import {
   Template,
   Plugin,
   TemplatePlaceholder,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
   FIXED_COLUMN_BEFORE_SIDE,
+  FIXED_COLUMN_AFTER_SIDE,
   isFixedCell,
   getFixedSide,
   fixedColumnKeys,
@@ -45,39 +47,62 @@ export class TableFixedColumns extends React.PureComponent {
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => (tableColumn.column
-              && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
+            && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
         >
-          {(params) => {
-            const columnName = params.tableColumn.column.name;
-            const side = getFixedSide(columnName, beforeColumnNames, afterColumnNames);
-            const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
-              ? beforeColumnNames
-              : afterColumnNames;
-            const index = targetArray.indexOf(columnName);
+          {params => (
+            <TemplateConnector>
+              {({ tableColumns }) => {
+                const columnName = params.tableColumn.column.name;
+                const side = getFixedSide(columnName, beforeColumnNames, afterColumnNames);
+                const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
+                  ? beforeColumnNames
+                  : afterColumnNames;
+                const fixedIndex = targetArray.indexOf(columnName);
+                const index = tableColumns.findIndex(({ column }) => column.name === columnName);
 
-            return (
-              <Cell
-                {...params}
-                side={side === FIXED_COLUMN_BEFORE_SIDE ? 'left' : 'right'}
-                component={CellPlaceholder}
-                showDivider={index === targetArray.length - 1}
-                storeSize={(width) => {
-                  const { sizes } = this.state;
-                  if (sizes[columnName] !== width) {
-                    this.setState((prevState => ({
-                      sizes: { ...prevState.sizes, [columnName]: width },
-                    })));
+                const isBoundary = fixedSide => (fixedIndex === targetArray.length - 1
+                  && fixedSide === side);
+                const isStandAlone = (shift) => {
+                  const neighborTableColumn = tableColumns[index + shift];
+                  const neighborColummnName = neighborTableColumn.column
+                    && neighborTableColumn.column.name;
+                  if (neighborColummnName && targetArray.indexOf(neighborColummnName) === -1) {
+                    return true;
                   }
-                }}
-                getPosition={() => {
-                  const { sizes } = this.state;
-                  const prevColumnName = targetArray[index - 1];
-                  const position = index === 0 ? 0 : sizes[prevColumnName];
-                  return position;
-                }}
-              />
-            );
-          }}
+                  return false;
+                };
+
+                const showRightDivider = isBoundary(FIXED_COLUMN_BEFORE_SIDE)
+                  || (index !== tableColumns.length - 1 && isStandAlone(1));
+                const showLeftDivider = isBoundary(FIXED_COLUMN_AFTER_SIDE)
+                  || (index !== 0 && isStandAlone(-1));
+
+                return (
+                  <Cell
+                    {...params}
+                    side={side}
+                    component={CellPlaceholder}
+                    showLeftDivider={showLeftDivider}
+                    showRightDivider={showRightDivider}
+                    storeSize={(width) => {
+                      const { sizes } = this.state;
+                      if (sizes[columnName] !== width) {
+                        this.setState((prevState => ({
+                          sizes: { ...prevState.sizes, [columnName]: width },
+                        })));
+                      }
+                    }}
+                    getPosition={() => {
+                      const { sizes } = this.state;
+                      const prevColumnName = targetArray[fixedIndex - 1];
+                      const position = fixedIndex === 0 ? 0 : sizes[prevColumnName];
+                      return position;
+                    }}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

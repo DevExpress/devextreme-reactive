@@ -4,12 +4,11 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
   tooltipRoot: {
     display: 'block',
   },
   sortLabelRoot: {
-    height: theme.spacing.unit * 3,
     maxWidth: '100%',
   },
   sortLabelActive: {

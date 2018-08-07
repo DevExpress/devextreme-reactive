@@ -16,6 +16,7 @@ export const Toolbar = ({
       position: 'relative',
       minHeight: '55px',
       padding: '0px 15px',
+      flex: 'none',
       ...style,
     }}
     {...restProps}

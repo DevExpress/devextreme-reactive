@@ -5,5 +5,12 @@
   "plugins": [
     "transform-vue-jsx",
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        ["env", {"modules": "commonjs"}]
+      ]
+    }
+  }
 }

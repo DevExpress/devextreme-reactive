@@ -25,7 +25,6 @@ export default class Demo extends React.PureComponent {
       columns: [
         { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
-        { name: 'channel', title: 'Channel' },
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },

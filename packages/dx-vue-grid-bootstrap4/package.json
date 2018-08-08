@@ -75,6 +75,6 @@
   "peerDependencies": {
     "@devexpress/dx-vue-core": "1.5.1",
     "@devexpress/dx-vue-grid": "1.5.1",
-    "vue": "^2.5.16"
+    "vue": ">=2.5.16"
   }
 }

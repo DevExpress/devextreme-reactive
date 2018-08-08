@@ -1,6 +1,5 @@
 import moment from 'moment';
 import {
-  calculateFirstDateOfWeek,
   getRectByDates,
   sliceAppointmentByDay,
   dayBoundaryPredicate,
@@ -9,6 +8,7 @@ import {
 import {
   sortAppointments,
   viewPredicate,
+  calculateFirstDateOfWeek,
   toPercentage,
   findOverlappedAppointments,
   adjustAppointments,
@@ -105,24 +105,6 @@ export const timeScale = (
     result.push({ start: startDate, end: left.toDate() });
   }
   result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
-  return result;
-};
-
-export const dayScale = (
-  currentDate = new Date(),
-  firsDayOfWeek = 0,
-  dayCount = 7,
-  excluded = [],
-) => {
-  const result = [];
-  const date = moment(currentDate).startOf('hour');
-  date.day(firsDayOfWeek);
-  for (let index = 0; index < dayCount; index += 1) {
-    if (excluded.findIndex(item => item === date.day()) === -1) {
-      result.push(date.toDate());
-    }
-    date.add(1, 'days');
-  }
   return result;
 };
 

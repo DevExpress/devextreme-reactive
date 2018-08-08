@@ -11,6 +11,9 @@ const styles = ({ palette, spacing }) => ({
     padding: 0,
     textAlign: 'center',
     verticalAlign: 'middle',
+    '&:last-child': {
+      padding: 0,
+    },
   },
   otherMonth: {
     color: palette.text.disabled,
@@ -26,7 +29,7 @@ const styles = ({ palette, spacing }) => ({
   },
 });
 
-export const CellBase = ({
+const CellBase = ({
   otherMonth,
   current,
   classes,

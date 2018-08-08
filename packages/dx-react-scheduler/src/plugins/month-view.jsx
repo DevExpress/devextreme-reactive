@@ -10,7 +10,7 @@ import {
 import {
   monthAppointmentRect,
   endViewBoundary,
-  monthCellsCore,
+  monthCells as monthCellsCore,
   dayScale as dayScaleCore,
 } from '@devexpress/dx-scheduler-core';
 
@@ -79,6 +79,9 @@ export class MonthView extends React.PureComponent {
       <Plugin
         name="MonthView"
       >
+        <Getter name="currentView" value="month" />
+        <Getter name="intervalCount" value={intervalCount} />
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="monthCells" computed={monthCellsComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />

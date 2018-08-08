@@ -23,7 +23,7 @@ export const endViewBoundary = (cells) => {
   return lastDate.startOf('day').add(1, 'days').subtract(1, 'second').toDate();
 };
 
-export const monthCellsCore = (currentDate, firstDayOfWeek, intervalCount = 1) => {
+export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();
   const targetDate = moment(currentDate);
   const currentMonths = [targetDate.month()];
@@ -76,7 +76,7 @@ const calculateDateIntervals = (
 
 const calculateRectsByDateIntervals = (
   intervals,
-  monthCells,
+  cells,
   cellElements,
 ) => {
   const sorted = sortAppointments(intervals, true);
@@ -91,7 +91,7 @@ const calculateRectsByDateIntervals = (
       } = getRectByDates(
         appts.start,
         appts.end,
-        monthCells,
+        cells,
         cellElements,
       );
 
@@ -110,7 +110,7 @@ export const monthAppointmentRect = (
   appointments,
   startViewDate,
   endViewDate,
-  monthCells,
+  cells,
   cellElements,
 ) => {
   const dateIntervals = calculateDateIntervals(
@@ -120,7 +120,7 @@ export const monthAppointmentRect = (
   );
   return calculateRectsByDateIntervals(
     dateIntervals,
-    monthCells,
+    cells,
     cellElements,
   );
 };

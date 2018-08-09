@@ -1,28 +1,39 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import DateRange from '@material-ui/icons/DateRange';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-export const ToggleButton = ({
-  onToggle,
-  buttonRef, active,
-  ...restProps
+const styles = {
+  button: {
+    textTransform: 'none',
+  },
+};
+
+const ToggleButtonBase = ({
+  title, classes, onToggle, className, ...restProps
 }) => (
-  <IconButton
+  <Button
     onClick={onToggle}
-    buttonRef={buttonRef}
+    className={classNames({
+      [classes.button]: true,
+    }, className)}
     {...restProps}
   >
-    <DateRange />
-  </IconButton>
+    {title}
+  </Button>
 );
 
-ToggleButton.propTypes = {
+ToggleButtonBase.propTypes = {
   onToggle: PropTypes.func.isRequired,
-  buttonRef: PropTypes.func.isRequired,
-  active: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
+  title: PropTypes.string,
+  className: PropTypes.string,
 };
 
-ToggleButton.defaultProps = {
-  active: false,
+ToggleButtonBase.defaultProps = {
+  title: '',
+  className: undefined,
 };
+
+export const ToggleButton = withStyles(styles, { name: 'ToggleButton' })(ToggleButtonBase);

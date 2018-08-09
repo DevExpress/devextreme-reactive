@@ -49,7 +49,7 @@ export default class Demo extends React.PureComponent {
     const { searchValue, columns } = this.state;
 
     let filter = columns.reduce((acc, { name }) => {
-      acc.push(`["${name}", "contains", "${searchValue}"]`);
+      acc.push(`["${name}", "contains", "${encodeURIComponent(searchValue)}"]`);
       return acc;
     }, []).join(',"or",');
 

@@ -4,6 +4,19 @@ import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector,
 } from '@devexpress/dx-react-core';
 
+const getAppointmentStyle = ({
+  top,
+  left,
+  width,
+  height,
+}) => ({
+  height,
+  width: `${width}%`,
+  transform: `translateY(${top}px)`,
+  left: `${left}%`,
+  position: 'absolute',
+});
+
 export class Appointments extends React.PureComponent {
   render() {
     const {
@@ -23,15 +36,16 @@ export class Appointments extends React.PureComponent {
                 getAppointmentStartDate,
                 getAppointmentEndDate,
               }) => appointmentRects.map(({
-                dataItem, ...geometry
+                dataItem, type, ...geometry
               }, index) => (
                 <Appointment
-                  {...geometry}
+                  type={type}
                   key={index.toString()}
+                  appointment={dataItem}
                   getTitle={getAppointmentTitle}
                   getEndDate={getAppointmentEndDate}
                   getStartDate={getAppointmentStartDate}
-                  appointment={dataItem}
+                  style={getAppointmentStyle(geometry)}
                 />
               ))}
             </TemplateConnector>

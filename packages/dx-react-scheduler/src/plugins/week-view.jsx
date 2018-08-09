@@ -64,11 +64,9 @@ export class WeekView extends React.PureComponent {
     const {
       layoutComponent: ViewLayout,
       timePanelLayoutComponent: TimePanel,
-      timePanelTableComponent: TimePanelTable,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelTableComponent: DayScaleTable,
       dayPanelCellComponent: DayScaleCell,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
@@ -102,6 +100,8 @@ export class WeekView extends React.PureComponent {
       <Plugin
         name="WeekView"
       >
+        <Getter name="currentView" value="week" />
+        <Getter name="intervalCount" value={intervalCount} />
         <Getter name="cellDuration" value={cellDuration} />
         <Getter name="excludedDays" value={excludedDays} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
@@ -127,7 +127,6 @@ export class WeekView extends React.PureComponent {
               <DayPanel
                 rowComponent={TimePanelRow}
                 cellComponent={DayScaleCell}
-                tableComponent={DayScaleTable}
                 dayScale={dayScale}
               />
             )}
@@ -141,7 +140,6 @@ export class WeekView extends React.PureComponent {
               <TimePanel
                 rowComponent={TimePanelRow}
                 cellComponent={TimePanelCell}
-                tableComponent={TimePanelTable}
                 timeScale={timeScale}
               />
             )}
@@ -170,11 +168,9 @@ export class WeekView extends React.PureComponent {
 WeekView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
-  timePanelTableComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelTableComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,

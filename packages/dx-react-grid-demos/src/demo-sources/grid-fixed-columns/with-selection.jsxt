@@ -43,10 +43,11 @@ export default class Demo extends React.PureComponent {
       afterColumnNames: ['amount'],
     };
   }
+
   render() {
     const {
       rows, columns, tableColumnExtensions,
-      beforeColumnTypes, afterColumnTypes,
+      beforeColumnTypes,
       beforeColumnNames, afterColumnNames,
     } = this.state;
 

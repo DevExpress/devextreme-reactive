@@ -45,6 +45,8 @@ span.dx-g-bs4-group-panel-item-icon {
 }
 .dx-g-bs4-table {
   table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 .dx-g-bs4-table-head {
   top: 0;
@@ -154,14 +156,11 @@ button.dx-g-bs4-table-edit-command-cell {
   height: calc(100% - 4px);
   top: 2px;
 }
-.dx-g-bs4-banded-header-cell:first-child {
-  border-left: 0!important;
-}
 .dx-g-bs4-banded-header-cell:last-child {
   border-right: 0!important;
 }
-.dx-g-bs4-banded-cell:first-child {
-  border-left: 0!important;
+.dx-g-bs4-banded-cell {
+  border-bottom: none!important;
 }
 .dx-g-bs4-banded-cell:last-child {
   border-right: 0!important;
@@ -179,4 +178,7 @@ button.dx-g-bs4-table-edit-command-cell {
   width: 16px;
   height: 16px;
   fill: currentColor;
+}
+.dx-g-bs4-fixed-cell {
+  z-index: 500;
 }

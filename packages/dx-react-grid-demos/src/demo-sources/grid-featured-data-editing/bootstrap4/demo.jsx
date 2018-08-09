@@ -131,7 +131,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
         { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
@@ -153,7 +152,7 @@ export default class Demo extends React.PureComponent {
       deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
-      columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
     };

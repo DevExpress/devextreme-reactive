@@ -177,7 +177,6 @@ export default {
     return {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
         { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },

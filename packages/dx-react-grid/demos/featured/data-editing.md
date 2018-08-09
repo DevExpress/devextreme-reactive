@@ -1,7 +1,7 @@
 # React Grid Data Editing
 
-This demo shows the Grid's editing and customization capabilities in the [Controlled mode](../../docs/guides/controlled-and-uncontrolled-modes.md). Use this mode when you need to share the Grid's state between other application parts. It also allows you to persist the Grid's state and restore it when required.
+This demo shows how to edit and customize the Grid's data in the  [Controlled mode](../../docs/guides/controlled-and-uncontrolled-modes.md). You can use this mode to persist, and restore the Grid's state and share it in other parts of the application.
 
-In this demo, custom data types are displayed using the `DataTypeProvider` plugin. See [Data Formatting](../../docs/guides/data-formatting.md)
+This demo uses the `DataTypeProvider` plugin to display custom data types. See [Data Formatting](../../docs/guides/data-formatting.md)
 
 .embedded-demo({ "path": "grid-featured-data-editing/demo", "showThemeSelector": true, "showThemeVariants": true })

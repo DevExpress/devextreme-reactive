@@ -12,7 +12,7 @@ import {
   FIXED_COLUMN_AFTER_SIDE,
   isFixedCell,
   getFixedSide,
-  fixedColumnKeys,
+  getFixedColumnKeys,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -31,12 +31,18 @@ export class TableFixedColumns extends React.PureComponent {
     const {
       beforeColumnNames,
       afterColumnNames,
+      beforeColumnTypes,
+      afterColumnTypes,
       cellComponent: Cell,
     } = this.props;
 
-    const fixedColumnKeysComputed = ({ tableColumns }) => fixedColumnKeys(
-      tableColumns, beforeColumnNames, afterColumnNames,
-    );
+    const fixedColumnNames = [...beforeColumnNames, ...afterColumnNames];
+    const fixedColumnTypes = [...beforeColumnTypes, ...afterColumnTypes];
+
+    const fixedColumnKeysComputed = ({ tableColumns }) => [
+      ...getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes),
+      ...getFixedColumnKeys(tableColumns, afterColumnNames, afterColumnTypes),
+    ];
 
     return (
       <Plugin
@@ -46,27 +52,33 @@ export class TableFixedColumns extends React.PureComponent {
         <Getter name="fixedColumnKeys" computed={fixedColumnKeysComputed} />
         <Template
           name="tableCell"
-          predicate={({ tableColumn }) => (tableColumn.column
-            && isFixedCell(tableColumn.column.name, beforeColumnNames, afterColumnNames))}
+          predicate={({ tableColumn }) => isFixedCell(
+            tableColumn, fixedColumnNames, fixedColumnTypes,
+          )}
         >
           {params => (
             <TemplateConnector>
               {({ tableColumns }) => {
-                const columnName = params.tableColumn.column.name;
-                const side = getFixedSide(columnName, beforeColumnNames, afterColumnNames);
+                const { tableColumn } = params;
+                const side = getFixedSide(
+                  tableColumn,
+                  beforeColumnNames, afterColumnNames,
+                  beforeColumnTypes, afterColumnTypes,
+                );
+
                 const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
-                  ? beforeColumnNames
-                  : afterColumnNames;
-                const fixedIndex = targetArray.indexOf(columnName);
-                const index = tableColumns.findIndex(({ column }) => column.name === columnName);
+                  ? getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes)
+                  : getFixedColumnKeys(tableColumns, afterColumnNames, afterColumnTypes);
+
+                const fixedIndex = targetArray.indexOf(tableColumn.key);
+                const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
 
                 const isBoundary = fixedSide => (fixedIndex === targetArray.length - 1
                   && fixedSide === side);
                 const isStandAlone = (shift) => {
                   const neighborTableColumn = tableColumns[index + shift];
-                  const neighborColummnName = neighborTableColumn.column
-                    && neighborTableColumn.column.name;
-                  if (neighborColummnName && targetArray.indexOf(neighborColummnName) === -1) {
+                  if (!neighborTableColumn) return false;
+                  if (targetArray.indexOf(neighborTableColumn.key) === -1) {
                     return true;
                   }
                   return false;
@@ -86,17 +98,16 @@ export class TableFixedColumns extends React.PureComponent {
                     showRightDivider={showRightDivider}
                     storeSize={(width) => {
                       const { sizes } = this.state;
-                      if (sizes[columnName] !== width) {
+                      if (sizes[tableColumn.key] !== width) {
                         this.setState((prevState => ({
-                          sizes: { ...prevState.sizes, [columnName]: width },
+                          sizes: { ...prevState.sizes, [tableColumn.key]: width },
                         })));
                       }
                     }}
                     getPosition={() => {
                       const { sizes } = this.state;
-                      const prevColumnName = targetArray[fixedIndex - 1];
-                      const position = fixedIndex === 0 ? 0 : sizes[prevColumnName];
-                      return position;
+                      if (fixedIndex === 0) return 0;
+                      return sizes[targetArray[fixedIndex - 1]];
                     }}
                   />
                 );
@@ -112,10 +123,14 @@ export class TableFixedColumns extends React.PureComponent {
 TableFixedColumns.propTypes = {
   beforeColumnNames: PropTypes.arrayOf(PropTypes.string),
   afterColumnNames: PropTypes.arrayOf(PropTypes.string),
+  beforeColumnTypes: PropTypes.arrayOf(PropTypes.string),
+  afterColumnTypes: PropTypes.arrayOf(PropTypes.string),
   cellComponent: PropTypes.func.isRequired,
 };
 
 TableFixedColumns.defaultProps = {
   beforeColumnNames: [],
   afterColumnNames: [],
+  beforeColumnTypes: [],
+  afterColumnTypes: [],
 };

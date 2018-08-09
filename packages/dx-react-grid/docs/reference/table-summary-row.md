@@ -79,11 +79,11 @@ level | number | Specifies the row level.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-count? | string | 'Count' | Specifies the 'count' summary text.
-sum? | string | 'Sum' | Specifies the 'sum' summary text.
-min? | string | 'Min' | Specifies the 'min' summary text.
-max? | string | 'Max' | Specifies the 'max' summary text.
-avg? | string | 'Avg' | Specifies the 'avg' summary text.
+count? | string | 'Count' | Specifies the text for the count type.
+sum? | string | 'Sum' | Specifies the text for the summary type.
+min? | string | 'Min' | Specifies the text for the minimum type.
+max? | string | 'Max' | Specifies the text for the maximum type.
+avg? | string | 'Avg' | Specifies the text for the average type.
 
 ## Plugin Components
 
@@ -96,9 +96,9 @@ TableSummaryRow.TreeRow | ComponentType&lt;[Table.RowProps](table.md#tablerowpro
 TableSummaryRow.TotalCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with total summaries.
 TableSummaryRow.GroupCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with group summaries.
 TableSummaryRow.TreeCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with tree summaries.
-TableSummaryRow.TreeColumnCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a tree cell within a tree summary row.
-TableSummaryRow.TreeColumnContent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | A component that renders a tree cell's content.
-TableSummaryRow.TreeColumnIndent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | A component that renders an indent used to identify a tree row level.
+TableSummaryRow.TreeColumnCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a summary cell within a tree column.
+TableSummaryRow.TreeColumnContent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | A component that renders a summary cell's content within a tree column.
+TableSummaryRow.TreeColumnIndent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | A component that renders an indent used to identify a tree row level within a tree column.
 TableSummaryRow.Item | ComponentType&lt;object&gt; | A component that renders a summary item.
 
 The additional properties are added to the component's root element.

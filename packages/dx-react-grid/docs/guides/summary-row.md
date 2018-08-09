@@ -43,12 +43,14 @@ In the following example, customly calculated total summary row is shown. Pass s
 
 The same is possible with grouped and tree data. Pass the `groupValues` and `treeValues` data object to the `CustomSummary` plugin.
 
-## Custom Algorithm
+## Custom Algorithms
 
 The `IntegratedSummary` plugin allows extending built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom ones. In the followith example, a custom `median` summary type is shown.
 
 .embedded-demo({ "path": "grid-summary/custom-algorithm", "showThemeSelector": true })
 
-Not all summary types needs to be formatted by the `DataTypeProvider` plugin. The `count` summary type is not formatted, for example. In the followith example, a custom formatless `overprice` summary type is shown.
+## Avoiding Summary Formatting
+
+Formatter component specified by the `DataTypeProvider` plugin that is assigned to a column will be used within a summary row. But not all summary types needs to be formatted. The `count` summary type is not formatted, for example. In the followith example, a custom formatless `overprice` summary type is shown.
 
 .embedded-demo({ "path": "grid-summary/formatless-custom-algorithm", "showThemeSelector": true })

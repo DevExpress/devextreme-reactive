@@ -4,9 +4,8 @@ import * as PropTypes from 'prop-types';
 export const BandedHeaderCell = ({ component: HeaderCellComponent, style, ...restProps }) => (
   <HeaderCellComponent
     style={{
-      borderLeft: '1px solid #ddd',
       borderRight: '1px solid #ddd',
-      borderTop: 0,
+      borderTop: 'none',
       ...style,
     }}
     {...restProps}

@@ -11,8 +11,8 @@ export const Cell = ({
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      borderTop: 'none',
       borderBottom: '1px solid #ddd',
-      borderLeft: '1px solid #ddd',
       borderRight: '1px solid #ddd',
       ...style,
     }}

@@ -59,7 +59,7 @@ export class Table extends React.Component {
         className={classNames('table', className)}
         style={{
           tableLayout: 'fixed',
-          overflow: 'hidden',
+          borderCollapse: 'separate',
           marginBottom: 0,
           ...use === 'head' ? {
             position: stickyProp,

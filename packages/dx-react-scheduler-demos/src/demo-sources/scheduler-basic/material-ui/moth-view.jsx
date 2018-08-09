@@ -7,6 +7,8 @@ import {
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
+import { ViewState } from '@devexpress/dx-react-scheduler';
+
 import { appointments } from '../../../demo-data/month-appointments';
 
 export default class Demo extends React.PureComponent {
@@ -15,7 +17,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentDate: new Date('2018-07-17'),
+      currentDate: '2018-07-17',
     };
   }
 
@@ -26,8 +28,10 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          currentDate={currentDate}
         >
+          <ViewState
+            currentDate={currentDate}
+          />
           <MonthView />
           <Appointments />
         </Scheduler>

@@ -4,6 +4,7 @@ import moment from 'moment';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
@@ -13,28 +14,49 @@ const styles = {
   },
 };
 
-export const TableBase = ({
+const TableBase = ({
   rowComponent: Row,
   cellComponent: Cell,
+  headerRowComponent: HeaderRow,
+  headerCellComponent: HeaderCell,
   classes,
   className,
   cells,
+  headerCells,
+  onCellClick,
   ...restProps
 }) => (
   <TableMUI
     className={classNames(classes.table, className)}
     {...restProps}
   >
+    <TableHead>
+      <HeaderRow>
+        {headerCells.map((cell) => {
+          const key = moment(cell).format('ddd');
+          return (
+            <HeaderCell
+              key={key}
+            >
+              {key}
+            </HeaderCell>
+          );
+        })}
+      </HeaderRow>
+    </TableHead>
     <TableBody>
       {cells.map(row => (
         <Row
-          key={`date_navigator_row_${row[0].value.toString()}`}
+          key={row[0].value.toString()}
         >
           {row.map(({ value, isOtherMonth, isCurrent }) => (
             <Cell
-              key={`date_navigator_cell_${value.toString()}`}
+              key={value.toString()}
               otherMonth={isOtherMonth}
               current={isCurrent}
+              onClick={() => {
+                onCellClick({ nextDate: value });
+              }}
             >
               {moment(value).format('D')}
             </Cell>
@@ -48,13 +70,19 @@ export const TableBase = ({
 TableBase.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  headerRowComponent: PropTypes.func.isRequired,
+  headerCellComponent: PropTypes.func.isRequired,
   cells: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
+  headerCells: PropTypes.array,
   className: PropTypes.string,
+  onCellClick: PropTypes.func,
 };
 
 TableBase.defaultProps = {
   className: undefined,
+  headerCells: [],
+  onCellClick: () => {},
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

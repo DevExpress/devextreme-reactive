@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('DateNavigator', () => {
+describe('Calendar', () => {
   let classes;
   let shallow;
   beforeAll(() => {
@@ -18,6 +18,22 @@ describe('DateNavigator', () => {
       expect(tree.is('.custom-class'))
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
+        .toBeTruthy();
+    });
+    it('should render the current cell', () => {
+      const span = shallow((
+        <Cell current />
+      )).find('span');
+
+      expect(span.is(`.${classes.current}`))
+        .toBeTruthy();
+    });
+    it('should render a cell from other month', () => {
+      const cell = shallow((
+        <Cell otherMonth />
+      ));
+
+      expect(cell.is(`.${classes.otherMonth}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {

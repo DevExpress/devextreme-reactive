@@ -100,6 +100,8 @@ export class WeekView extends React.PureComponent {
       <Plugin
         name="WeekView"
       >
+        <Getter name="currentView" value="week" />
+        <Getter name="intervalCount" value={intervalCount} />
         <Getter name="cellDuration" value={cellDuration} />
         <Getter name="excludedDays" value={excludedDays} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />

@@ -1,6 +1,6 @@
 # Scale Plugin Reference
 
-The `Scale` plugin is used to calculate domains.
+The `Scale` plugin is used to processing data for further correct drawing axes and series.
 
 ## Importing
 
@@ -16,4 +16,14 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-axisExtension? | Array&lt;any&gt; | | A array with extra options.
+axisExtension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | | A array of scales with options.
+
+## Interfaces
+
+### scaleOptions
+
+Field | Type | Description
+------|------|------------
+type? | string | Type of scale.
+scale? | () => object | A function that constructs a custom scale.
+format? | (scale: object) => (tick: string) => string | A function that return function for formatting ticks.

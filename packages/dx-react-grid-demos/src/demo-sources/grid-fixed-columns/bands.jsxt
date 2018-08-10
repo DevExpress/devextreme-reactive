@@ -44,7 +44,7 @@ const columnBands = [
   },
 ];
 const beforeColumnNames = ['prefix', 'firstName'];
-const rows= generateRows({
+const rows = generateRows({
   columnValues: employeeValues,
   length: 8,
 });
@@ -54,26 +54,22 @@ const tableColumnExtensions = [
   { columnName: 'lastName', width: 220 },
 ];
 
-export default class Demo extends React.PureComponent {
-  render() {
-    return (
-      <<%&wrapperTag%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableBandHeader
-            columnBands={columnBands}
-          />
-          <TableFixedColumns
-            beforeColumnNames={beforeColumnNames}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+export default () => (
+  <<%&wrapperTag%>>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <Table
+        columnExtensions={tableColumnExtensions}
+      />
+      <TableHeaderRow />
+      <TableBandHeader
+        columnBands={columnBands}
+      />
+      <TableFixedColumns
+        beforeColumnNames={beforeColumnNames}
+      />
+    </Grid>
+  </<%&wrapperTag%>>
+);

@@ -60,7 +60,7 @@ export class ColumnChooser extends React.PureComponent {
             ) => (
               <React.Fragment>
                 <ToggleButton
-                  setButtonRef={this.setButtonRef}
+                  buttonRef={this.setButtonRef}
                   onToggle={this.handleToggle}
                   getMessage={getMessage}
                   active={visible}

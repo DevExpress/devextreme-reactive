@@ -72,7 +72,7 @@ default | The default Vue slot
 
 Field | Type | Description
 ------|------|------------
-buttonRef | (ref: HTMLElement) => void | A function that accepts the button's root HTML element.
+setButtonRef | (ref: HTMLElement) => void | A function that accepts the button's root HTML element.
 
 #### Events
 

@@ -4,12 +4,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
+let borderColor;
+
 export class FixedCell extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       backgroundColor: 'white',
-      borderColor: '#ddd',
+      borderColor,
     };
   }
 
@@ -21,11 +23,18 @@ export class FixedCell extends React.PureComponent {
       storeSize(element.getBoundingClientRect().width);
     }
 
-    const { backgroundColor: stateBackgroundColor } = this.state;
+    const {
+      backgroundColor: stateBackgroundColor,
+      borderColor: stateBorderColor,
+    } = this.state;
     const body = document.getElementsByTagName('body')[0];
     const { backgroundColor } = window.getComputedStyle(body);
-    if (stateBackgroundColor !== backgroundColor) {
-      this.setState({ backgroundColor });
+    if (!borderColor) {
+      // eslint-disable-next-line react/no-find-dom-node
+      borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
+    }
+    if (stateBackgroundColor !== backgroundColor || !stateBorderColor) {
+      this.setState({ backgroundColor, borderColor });
     }
   }
 
@@ -40,7 +49,7 @@ export class FixedCell extends React.PureComponent {
       storeSize,
       ...restProps
     } = this.props;
-    const { backgroundColor, borderColor } = this.state;
+    const { backgroundColor } = this.state;
 
     return (
       <CellPlaceholder
@@ -50,8 +59,10 @@ export class FixedCell extends React.PureComponent {
           zIndex: 500,
           backgroundColor,
           [side]: getPosition(),
-          ...showLeftDivider ? { borderLeft: `1px solid ${borderColor}` } : null,
-          ...showRightDivider ? { borderRight: `1px solid ${borderColor}` } : null,
+          ...borderColor ? {
+            ...showLeftDivider ? { borderLeft: `1px solid ${borderColor}` } : null,
+            ...showRightDivider ? { borderRight: `1px solid ${borderColor}` } : null,
+          } : null,
         }}
         {...restProps}
       />

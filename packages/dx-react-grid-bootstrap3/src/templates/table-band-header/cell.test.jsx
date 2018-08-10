@@ -1,8 +1,22 @@
+/* globals window:true */
+
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Cell } from './cell';
 
+jest.mock('react-dom', () => ({
+  findDOMNode: jest.fn(() => null),
+}));
+
 describe('TableCell', () => {
+  const { getComputedStyle } = window;
+  beforeEach(() => {
+    window.getComputedStyle = jest.fn().mockImplementation(() => ({}));
+  });
+  afterEach(() => {
+    window.getComputedStyle = getComputedStyle;
+  });
+
   it('should render children if passed', () => {
     const tree = shallow((
       <Cell>
@@ -28,7 +42,9 @@ describe('TableCell', () => {
       <Cell style={{ color: 'red' }} />
     ));
 
-    expect(tree.find('th').prop('style').color).toBe('red');
-    expect(tree.find('th').prop('style').borderRight).toBe('1px solid #ddd');
+    expect(tree.find('th').prop('style').color)
+      .toBe('red');
+    expect(tree.find('th').prop('style').borderTop)
+      .toBe('none');
   });
 });

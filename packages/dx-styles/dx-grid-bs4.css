@@ -163,7 +163,7 @@ button.dx-g-bs4-table-edit-command-cell {
   border-bottom: none!important;
 }
 .dx-g-bs4-banded-cell:last-child {
-  border-right: 0!important;
+  border-right: none!important;
 }
 .dx-g-bs4-filter-selector-item {
   font-size: initial;

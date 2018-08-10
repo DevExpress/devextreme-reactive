@@ -86,7 +86,7 @@
     "@devexpress/dx-chart-core": "1.5.1",
     "@devexpress/dx-react-chart": "1.5.1",
     "@devexpress/dx-react-core": "1.5.1",
-    "react": "^16.2.0",
-    "reactstrap": "^6.3.0"
+    "react": ">=16.2.0",
+    "reactstrap": ">=6.3.0"
   }
 }

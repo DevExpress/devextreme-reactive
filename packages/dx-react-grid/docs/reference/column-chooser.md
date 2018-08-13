@@ -56,7 +56,7 @@ Field | Type | Description
 ------|------|------------
 onToggle | () => void | An event that initiates overlay showing or hiding.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message. Available in the "@devexpress/dx-react-grid-material-ui" package.
-setButtonRef | (ref: ReactInstance) => void | A function that accepts the button's root React element.
+buttonRef | (ref: ReactInstance) => void | A function that accepts the button's root React element.
 
 ### ColumnChooser.ContainerProps
 

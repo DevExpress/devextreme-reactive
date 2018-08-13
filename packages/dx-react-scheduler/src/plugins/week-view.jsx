@@ -82,7 +82,9 @@ export class WeekView extends React.PureComponent {
       }
       return currentView;
     };
-    const availableViewsComputed = ({ availableViews }) => availableViewsCore(availableViews, viewName);
+    const availableViewsComputed = ({ availableViews }) => availableViewsCore(
+      availableViews, viewName,
+    );
     const timeScaleComputed = ({ currentDate }) => timeScaleCore(
       currentDate,
       firstDayOfWeek,
@@ -104,7 +106,6 @@ export class WeekView extends React.PureComponent {
       } return dateTableRef;
     };
 
-
     return (
       <Plugin
         name="WeekView"
@@ -119,6 +120,7 @@ export class WeekView extends React.PureComponent {
               <React.Fragment>
                 <Getter name="cellDuration" value={cellDuration} />
                 <Getter name="excludedDays" value={excludedDays} />
+                <Getter name="intervalCount" value={intervalCount} />
                 <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
                 <Getter name="timeScale" computed={timeScaleComputed} />
                 <Getter name="dayScale" computed={dayScaleComputed} />

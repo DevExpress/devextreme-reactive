@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { setupConsole } from '@devexpress/dx-testing';
 import { testStatePluginField, pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { setCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ViewState } from './view-state';

@@ -54,15 +54,19 @@ describe('Appointments', () => {
 
     const {
       appointment: appointmentData,
-      x, y, width, height,
+      style, type,
       getTitle, getEndDate, getStartDate,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
-    expect(x).toBe(1);
-    expect(y).toBe(2);
-    expect(width).toBe(100);
-    expect(height).toBe(150);
+    expect(type).toBe('horizontal');
+    expect(style).toEqual({
+      height: 150,
+      width: '60%',
+      transform: 'translateY(10px)',
+      left: '20%',
+      position: 'absolute',
+    });
     expect(appointmentData).toBe('data');
     expect(getTitle()).toBe('a');
     expect(getEndDate()).toBe('2018-07-05');

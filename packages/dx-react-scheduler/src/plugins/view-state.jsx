@@ -27,7 +27,7 @@ export class ViewState extends React.PureComponent {
       },
     );
 
-    this.setCurrentDate = stateHelper.applyFieldReducer
+    this.changeCurrentDate = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentDate', changeCurrentDate);
     this.setCurrentView = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentView', setCurrentView);
@@ -59,7 +59,7 @@ export class ViewState extends React.PureComponent {
       >
         <Getter name="currentDate" value={currentDate} />
         <Getter name="currentView" computed={currentViewComputed} />
-        <Action name="setCurrentDate" action={this.setCurrentDate} />
+        <Action name="changeCurrentDate" action={this.changeCurrentDate} />
         <Action name="setCurrentView" action={this.setCurrentView} />
       </Plugin>
     );

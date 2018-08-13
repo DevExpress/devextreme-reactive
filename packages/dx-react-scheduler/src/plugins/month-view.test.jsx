@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   dayScale,
   monthCells,
+  endViewBoundary,
   monthAppointmentRect,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
@@ -12,6 +13,8 @@ import { MonthView } from './month-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
   monthCells: jest.fn(),
+  availableViews: jest.fn(),
+  endViewBoundary: jest.fn(),
   monthAppointmentRect: jest.fn(),
 }));
 
@@ -33,14 +36,12 @@ const defaultDeps = {
 const defaultProps = {
   layoutComponent: () => null,
   timePanelLayoutComponent: () => null,
-  timePanelTableComponent: () => null,
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
-  dayPanelTableComponent: () => null,
   dayPanelCellComponent: () => null,
+  dayPanelRowComponent: () => null,
   dateTableLayoutComponent: () => null,
-  dateTableTableComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
 };
@@ -48,6 +49,7 @@ const defaultProps = {
 describe('Month View', () => {
   beforeEach(() => {
     dayScale.mockImplementation(() => [1, 2, 3]);
+    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     monthCells.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}],
       [{}, { value: new Date('2018-08-05') }],
@@ -136,9 +138,7 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).appointmentRects)
-        .toEqual([{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-        }]);
+        .toEqual([]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {
@@ -183,7 +183,7 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('month');
+        .toBe('Month');
     });
   });
 

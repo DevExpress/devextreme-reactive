@@ -17,6 +17,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   appointmentRects: jest.fn(),
+  availableViews: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -25,6 +26,8 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
+    availableViews: [],
+    currentView: 'Week',
   },
   template: {
     body: {},
@@ -37,14 +40,11 @@ const defaultDeps = {
 const defaultProps = {
   layoutComponent: () => null,
   timePanelLayoutComponent: () => null,
-  timePanelTableComponent: () => null,
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
-  dayPanelTableComponent: () => null,
   dayPanelCellComponent: () => null,
   dateTableLayoutComponent: () => null,
-  dateTableTableComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
 };
@@ -196,9 +196,7 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).appointmentRects)
-        .toEqual([{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-        }]);
+        .toEqual([]);
     });
 
     it('should provide the "intervalCount" getter', () => {
@@ -227,7 +225,7 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('week');
+        .toBe('Week');
     });
   });
 

@@ -17,6 +17,7 @@ export class ViewSwitcher extends React.PureComponent {
     const {
       switcherComponent: Switcher,
     } = this.props;
+
     return (
       <Plugin
         name="ViewSwitcher"
@@ -26,17 +27,17 @@ export class ViewSwitcher extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                currentView,
-                availableViews,
-              }, {
-                setCurrentView,
-              }) => (
-                <Switcher
-                  currentView={currentView}
-                  availableViews={availableViews}
-                  onItemClick={setCurrentView}
-                />
-              )}
+              currentView,
+              availableViews,
+            }, {
+              setCurrentView,
+            }) => (
+              <Switcher
+                currentView={currentView}
+                availableViews={availableViews}
+                onItemClick={setCurrentView}
+              />
+            )}
           </TemplateConnector>
         </Template>
       </Plugin>

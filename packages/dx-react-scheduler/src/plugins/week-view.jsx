@@ -62,7 +62,8 @@ export class WeekView extends React.PureComponent {
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelCellComponent: DayScaleCell,
+      dayPanelCellComponent: DayPanelCell,
+      dayPanelRowComponent: DayPanelRow,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
@@ -137,12 +138,11 @@ export class WeekView extends React.PureComponent {
                 </Template>
 
                 <Template name="navbar">
-                  <TemplatePlaceholder />
                   <TemplateConnector>
                     {({ dayScale }) => (
                       <DayPanel
-                        rowComponent={TimePanelRow}
-                        cellComponent={DayScaleCell}
+                        cellComponent={DayPanelCell}
+                        rowComponent={DayPanelRow}
                         dayScale={dayScale}
                       />
                     )}
@@ -150,7 +150,6 @@ export class WeekView extends React.PureComponent {
                 </Template>
 
                 <Template name="sidebar">
-                  <TemplatePlaceholder />
                   <TemplateConnector>
                     {({ timeScale }) => (
                       <TimePanel
@@ -163,7 +162,6 @@ export class WeekView extends React.PureComponent {
                 </Template>
 
                 <Template name="main">
-                  <TemplatePlaceholder />
                   <TemplateConnector>
                     {({ timeScale, dayScale }) => (
                       <DateTable
@@ -192,6 +190,7 @@ WeekView.propTypes = {
   timePanelCellComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
+  dayPanelRowComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,

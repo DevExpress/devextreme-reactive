@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -18,7 +18,7 @@ const styles = theme => ({
     background: theme.palette.background.paper,
   },
   emptySpace: {
-    borderBottom: getBorderColor(theme),
+    borderBottom: getBorder(theme),
   },
   main: {
     position: 'relative',

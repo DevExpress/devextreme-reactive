@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   cell: {
@@ -21,9 +21,9 @@ const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    borderBottom: getBorderColor(theme),
-    borderLeft: getBorderColor(theme),
-    borderRight: getBorderColor(theme),
+    borderBottom: getBorder(theme),
+    borderLeft: getBorder(theme),
+    borderRight: getBorder(theme),
   },
 });
 

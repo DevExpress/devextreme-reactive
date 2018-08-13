@@ -9,13 +9,13 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit,
   },
   progressBar: {
-    backgroundColor: theme.palette.primary[300],
+    backgroundColor: theme.palette.primary.light,
     float: 'left',
     height: theme.spacing.unit,
   },
 });
 
-export const ProgressBarCellBase = ({ value, classes, style }) => {
+const ProgressBarCellBase = ({ value, classes, style }) => {
   const percent = value * 100;
   return (
     <TableCell

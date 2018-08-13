@@ -42,9 +42,9 @@ export const DxPagingPanel = {
             <DxTemplatePlaceholder />
             <DxTemplateConnector>
               {({
-                  getters: { currentPage, pageSize, totalCount },
-                  actions: { setCurrentPage, setPageSize },
-                }) => (
+                getters: { currentPage, pageSize, totalCount },
+                actions: { setCurrentPage, setPageSize },
+              }) => (
                   <Pager
                     currentPage={currentPage}
                     pageSize={pageSize}
@@ -55,7 +55,7 @@ export const DxPagingPanel = {
                     onCurrentPageChange={setCurrentPage}
                     onPageSizeChange={setPageSize}
                   />
-                )
+              )
               }
             </DxTemplateConnector>
           </div>

@@ -1,126 +1,37 @@
 import moment from 'moment';
 
-const CELL_GAP = 0.32;
+const TOP_CELL_OFFSET = 0.3;
 const CELL_BOUND_OFFSET_PX = 2;
 
-export const sliceAppointmentsByWeek2 = (
-  appointments,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  const dayStep = 7;
-
-  appointments.forEach((appointment) => {
-    let from = appointment.start;
-    let i = 1;
-    let to = moment(monthCells[0][0].value);
-    while (to.isBefore(appointment.end)) {
-      const daysFromStart = dayStep * i;
-      to = moment(appointment.start).add(daysFromStart, 'days');
-      const currentBound = moment(monthCells[0][0].value).add(daysFromStart, 'days');
-      if (to.isAfter(currentBound)) to = moment(currentBound).add(-1, 'hours').endOf('day');
-      if (to.isAfter(appointment.end)) to = appointment.end;
-
-      nextAppointments.push({
-        ...appointment,
-        start: from,
-        end: to,
-      });
-      from = moment(to.add(1, 'hours').startOf('day'));
-      i += 1;
+export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
+  const { left, right } = timeBounds;
+  const pieces = [];
+  const { start, end, ...restFields } = appointment;
+  let apptStart = start;
+  let apptEnd = end;
+  if (apptStart.isBefore(left)) apptStart = left.clone();
+  if (apptEnd.isAfter(right)) apptEnd = right.clone();
+  let pieceFrom = apptStart.clone();
+  let pieceTo = apptStart.clone();
+  let i = 0;
+  while (pieceTo.isBefore(apptEnd)) {
+    const currentRigthBound = left.clone().add(step * i, 'days').subtract(1, 'second');
+    if (currentRigthBound.isAfter(apptStart)) {
+      pieceTo = apptStart.clone().add(step * i, 'days');
+      if (pieceTo.isAfter(currentRigthBound)) {
+        pieceTo = currentRigthBound.clone();
+      }
+      if (pieceTo.isAfter(apptEnd)) {
+        pieceTo = apptEnd.clone();
+      }
+      if (!pieceFrom.isSame(pieceTo)) {
+        pieces.push({ start: pieceFrom, end: pieceTo, ...restFields });
+        pieceFrom = pieceTo.clone().add(1, 'second');
+      }
     }
-  });
-  return nextAppointments;
-};
-
-export const sliceAppointmentByWeek = (
-  appointment,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  const leftBound = moment(monthCells[0][0].value).startOf('day');
-  const rightBound = moment(leftBound).add(7, 'days');
-  const { start, end } = appointment;
-
-  while (leftBound.isBefore(end)) {
-    if (start.isBetween(leftBound, rightBound, null, '[)')
-      && !end.isBetween(leftBound, rightBound, null, '()')) {
-      nextAppointments.push({
-        ...appointment,
-        start,
-        end: moment(rightBound).add(-1, 'hours').endOf('day'),
-      });
-    }
-    if (!start.isBetween(leftBound, rightBound, null, '[)')
-      && end.isBetween(leftBound, rightBound, null, '(]')) {
-      nextAppointments.push({
-        ...appointment,
-        start: moment(leftBound),
-        end,
-      });
-    }
-
-    if (start.isBefore(leftBound) && end.isAfter(rightBound)) {
-      nextAppointments.push({
-        ...appointment,
-        start: moment(leftBound),
-        end: moment(rightBound).add(-1, 'hours').endOf('day'),
-      });
-    }
-    if (start.isBetween(leftBound, rightBound, null, '[)')
-      && end.isBetween(leftBound, rightBound, null, '()')) {
-      nextAppointments.push(appointment);
-    }
-    leftBound.add(7, 'days');
-    rightBound.add(7, 'days');
+    i += 1;
   }
-  return nextAppointments;
-};
-
-export const sliceAppointmentsByWeek = (
-  appointments,
-  monthCells,
-) => {
-  const nextAppointments = [];
-  appointments.forEach((appointment) => {
-    const leftBound = moment(monthCells[0][0].value).startOf('day');
-    const rightBound = moment(leftBound).add(7, 'days');
-    const { start, end } = appointment;
-
-    while (leftBound.isBefore(end)) {
-      if (start.isBetween(leftBound, rightBound, null, '[)')
-        && !end.isBetween(leftBound, rightBound, null, '()')) {
-        nextAppointments.push({
-          ...appointment,
-          start,
-          end: moment(rightBound).add(-1, 'hours').endOf('day'),
-        });
-      }
-      if (!start.isBetween(leftBound, rightBound, null, '[)')
-        && end.isBetween(leftBound, rightBound, null, '(]')) {
-        nextAppointments.push({
-          ...appointment,
-          start: moment(leftBound),
-          end,
-        });
-      }
-
-      if (start.isBefore(leftBound) && end.isAfter(rightBound)) {
-        nextAppointments.push({
-          ...appointment,
-          start: moment(leftBound),
-          end: moment(rightBound).add(-1, 'hours').endOf('day'),
-        });
-      }
-      if (start.isBetween(leftBound, rightBound, null, '[)')
-        && end.isBetween(leftBound, rightBound, null, '()')) {
-        nextAppointments.push(appointment);
-      }
-      leftBound.add(7, 'days');
-      rightBound.add(7, 'days');
-    }
-  });
-  return nextAppointments;
+  return pieces;
 };
 
 const getCellRect = (date, monthCells, cellElements, takePrev) => {
@@ -160,8 +71,8 @@ export const getRectByDates = (
   const firstCellRect = getCellRect(startDate, monthCells, cellElements, false);
   const lastCellRect = getCellRect(endDate, monthCells, cellElements, true);
 
-  const top = firstCellRect.top + (firstCellRect.height * CELL_GAP);
-  const height = firstCellRect.height - (firstCellRect.height * CELL_GAP);
+  const top = firstCellRect.top + (firstCellRect.height * TOP_CELL_OFFSET);
+  const height = firstCellRect.height - (firstCellRect.height * TOP_CELL_OFFSET);
 
   return {
     top: top - firstCellRect.parentRect.top,

@@ -9,6 +9,7 @@ const styles = theme => ({
   pager: {
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
+    flex: 'none',
   },
 });
 
@@ -37,12 +38,14 @@ const PagerBase = ({
       pageSize={pageSize}
       getMessage={getMessage}
     />
-    {!!pageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && (
+    <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       pageSizes={pageSizes}
       getMessage={getMessage}
-    />}
+    />
+    )}
   </div>
 );
 

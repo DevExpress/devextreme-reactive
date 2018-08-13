@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
-import { setCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
+import {
+  Getter,
+  Action,
+  Plugin,
+  createStateHelper,
+} from '@devexpress/dx-react-core';
+import { changeCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
 
 export class ViewState extends React.PureComponent {
   constructor(props) {
@@ -12,19 +17,22 @@ export class ViewState extends React.PureComponent {
       currentView: props.currentView || props.defaultCurrentView,
     };
 
+    const { onCurrentDateChange, onCurrentViewChange } = this.props;
+
     const stateHelper = createStateHelper(
       this,
       {
-        currentDate: () => this.props.onCurrentDateChange,
-        currentView: () => this.props.onCurrentViewChange,
+        currentDate: () => onCurrentDateChange,
+        currentView: () => onCurrentViewChange,
       },
     );
 
     this.setCurrentDate = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'currentDate', setCurrentDate);
+      .bind(stateHelper, 'currentDate', changeCurrentDate);
     this.setCurrentView = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentView', setCurrentView);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       currentDate,
@@ -35,13 +43,14 @@ export class ViewState extends React.PureComponent {
       ...currentView !== undefined ? { currentView } : null,
     });
   }
+
   render() {
-    const { currentDate } = this.state;
+    const { currentDate, currentView: stateCurrentView } = this.state;
 
     const currentViewComputed = ({ currentView }) => {
-      if (currentView !== this.state.currentView) {
-        if (!currentView) return this.state.currentView;
-        if (!this.state.currentView) return currentView;
+      if (currentView !== stateCurrentView) {
+        if (!currentView) return stateCurrentView;
+        if (!stateCurrentView) return currentView;
       } return currentView;
     };
     return (

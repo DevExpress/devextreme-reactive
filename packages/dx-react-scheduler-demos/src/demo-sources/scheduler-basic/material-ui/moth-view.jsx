@@ -7,30 +7,9 @@ import {
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { appointments } from '../../../demo-data/month-appointments';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 
-const Navigation = ({ currentDate, goNext }) => (
-  <div>
-    <button
-      onClick={() => {
-        const next = new Date(new Date(currentDate)
-          .setDate(currentDate.getDate() - 7));
-        goNext(next);
-      }}
-    >
-      {'<-'}
-    </button>
-    <button
-      onClick={() => {
-        const next = new Date(new Date(currentDate)
-          .setDate(currentDate.getDate() + 7));
-        goNext(next);
-      }}
-    >
-      {'->'}
-    </button>
-  </div>
-);
+import { appointments } from '../../../demo-data/month-appointments';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -38,31 +17,25 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentDate: new Date('2018-07-17'),
+      currentDate: '2018-07-17',
     };
   }
+
   render() {
     const { data, currentDate } = this.state;
 
     return (
-      <div>
-        <Navigation
-          currentDate={currentDate}
-          goNext={(next) => { this.setState({ currentDate: next }); }}
-        />
-        <Paper>
-          <Scheduler
-            data={data}
+      <Paper>
+        <Scheduler
+          data={data}
+        >
+          <ViewState
             currentDate={currentDate}
-            getTitle={appointment => appointment.text}
-          >
-            <MonthView
-              firstDayOfWeek={1}
-            />
-            <Appointments />
-          </Scheduler>
-        </Paper>
-      </div>
+          />
+          <MonthView />
+          <Appointments />
+        </Scheduler>
+      </Paper>
     );
   }
 }

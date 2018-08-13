@@ -4,7 +4,7 @@ import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from './../../utils';
+import { getBorderColor } from '../../utils';
 
 const styles = theme => ({
   cell: {
@@ -24,7 +24,6 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   className,
-  children,
   date,
   ...restProps
 }) => {
@@ -34,11 +33,9 @@ const CellBase = ({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      {children || (
-        <div className={classes.dayOfWeek}>
-          {currentDate.format('ddd')}
-        </div>
-      )}
+      <div className={classes.dayOfWeek}>
+        {currentDate.format('ddd')}
+      </div>
     </TableCell>
   );
 };
@@ -47,12 +44,10 @@ CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 CellBase.defaultProps = {
   className: undefined,
-  children: null,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

@@ -20,4 +20,3 @@ Grid.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
-

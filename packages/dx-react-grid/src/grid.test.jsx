@@ -8,6 +8,14 @@ jest.mock('./plugins/grid-core', () => ({
   GridCore: () => null,
 }));
 
+const defaultProps = {
+  rows: [],
+  columns: [],
+  getRowId: () => {},
+  getCellValue: () => {},
+  rootComponent: () => {},
+};
+
 describe('Grid', () => {
   let resetConsole;
   beforeAll(() => {
@@ -18,19 +26,11 @@ describe('Grid', () => {
   });
 
   it('should render root template', () => {
-    const props = {
-      rows: [],
-      columns: [],
-      getRowId: () => {},
-      getCellValue: () => {},
-      rootComponent: () => {},
-    };
-
     const TestChildren = () => null;
 
     const tree = mount((
       <Grid
-        {...props}
+        {...defaultProps}
       >
         <TestChildren />
         <TestChildren />
@@ -42,5 +42,19 @@ describe('Grid', () => {
       .toBeTruthy();
     expect(tree.find(TestChildren))
       .toHaveLength(3);
+  });
+
+  it('should pass rest props to GridCore', () => {
+    const tree = mount((
+      <Grid
+        {...defaultProps}
+        style={{ a: 1 }}
+      />
+    ));
+
+    expect(tree.find(GridCore).props())
+      .toMatchObject({
+        style: { a: 1 },
+      });
   });
 });

@@ -12,7 +12,9 @@ export const TableNoDataCell = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big className="text-muted">{getMessage('noData')}</big>
+    <big className="text-muted">
+      {getMessage('noData')}
+    </big>
   </td>
 );
 

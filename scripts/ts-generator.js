@@ -63,8 +63,10 @@ const parseFile = (source) => {
       if (name) {
         return [...acc, { name, description: '', properties: [] }];
       }
-      if (acc[lastItemIndex].name === 'GroupKey' || !line.match(/.+\|.+\|.+/)) {
-        if (line.indexOf('Extends ') === 0) {
+      if (!line.match(/.+\|.+\|.+/)) {
+        if (line.indexOf('Type: ') === 0) {
+          acc[lastItemIndex].type = cleanElement(line.match(/\`([.\w]+)\`/)[1]);
+        } else if (line.indexOf('Extends ') === 0) {
           acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {
           acc[lastItemIndex].description += cleanElement(line);
@@ -117,8 +119,11 @@ const getInterfaceExport = ({
 
 const generateTypeScript = (data, componentName) => {
   const interfaces = data.interfaces.reduce((acc, currentInterface) => {
-    const { name } = currentInterface;
-    if (name === 'GroupKey') return `${acc}export type ${name} = string;\n\n`;
+    const { name, type, description } = currentInterface;
+    if (type) {
+      return `${acc}/** ${description} */\n` +
+        `export type ${name} = ${type};\n\n`;
+    }
     if (name.indexOf('.') !== -1) {
       const [namespace, interfaceName] = name.split('.');
       return `${acc}export namespace ${namespace} {\n`
@@ -158,6 +163,22 @@ const generateTypeScript = (data, componentName) => {
 };
 
 const getThemesTypeScript = (data, componentName, packageName) => {
+  const interfaces = data.interfaces.reduce((acc, currentInterface) => {
+    const { name, description } = currentInterface;
+    if (name.indexOf('.') !== -1) {
+      const [namespace, interfaceName] = name.split('.');
+      const baseName = name
+        .replace(`${componentName}.`, `${componentName}Base.`)
+        .replace('Table.', 'TableBase.')
+        .replace('TableHeaderRow.', 'TableHeaderRowBase.');
+      return `${acc}export namespace ${namespace} {\n`
+        + `  /** ${description} */\n`
+        + `  export type ${interfaceName} = ${baseName};\n`
+        + '}\n\n';
+    }
+    return acc;
+  }, '');
+
   const properties = data.properties
     .reduce((acc, line) => {
       let result = acc
@@ -173,6 +194,10 @@ const getThemesTypeScript = (data, componentName, packageName) => {
       return result;
     }, '');
 
+  const staticFields = data.staticFields
+    .reduce((acc, line) => acc
+      + getFormattedLine(line), '');
+
   const pluginComponents = data.pluginComponents
     .reduce((acc, line) => acc
       + getFormattedLine(line)
@@ -184,12 +209,14 @@ const getThemesTypeScript = (data, componentName, packageName) => {
 
   return 'import {\n'
     + `  ${componentName} as ${componentName}Base,\n`
-    + `} from \'@devexpress/${packageName}\';\n`
-    + `\nexport interface ${componentName}Props {\n`
+    + `} from \'@devexpress/${packageName}\';\n\n`
+    + `${interfaces.length ? `\n${interfaces}` : ''}`
+    + `export interface ${componentName}Props {\n`
     + `${properties}`
     + '}\n\n'
     + `/** ${data.description} */\n`
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
+    + `${staticFields.length ? ` & {\n${staticFields}}` : ''}`
     + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
 };
 
@@ -209,7 +236,7 @@ const generateTypeScriptForPackage = (packageName) => {
   let themesIndexContent = '';
   const themesImports = [];
   const themes = readdirSync(ROOT_PATH)
-    .filter(folder => folder.indexOf(`${packageName}-`) !== -1)
+    .filter(folder => folder.indexOf(`${packageName}-`) !== -1 && folder.indexOf(`demos`) === -1)
     .map((folder) => {
       const matches = new RegExp(`${packageName}-([\\w-]+)`).exec(folder);
       return matches[1];

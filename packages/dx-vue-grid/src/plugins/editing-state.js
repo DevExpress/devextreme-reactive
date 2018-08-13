@@ -15,8 +15,9 @@ import {
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 
-const columnExtensionValueGetter = (columnExtensions, defaultValue) =>
-  getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
+const columnExtensionValueGetter = (
+  columnExtensions, defaultValue,
+) => getColumnExtensionValueGetter(columnExtensions, 'editingEnabled', defaultValue);
 
 export const DxEditingState = {
   name: 'DxEditingState',

@@ -5,4 +5,3 @@ export const DxRefHolder = {
     return this.$slots.default[0];
   },
 };
-

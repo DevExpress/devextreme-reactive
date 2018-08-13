@@ -1,6 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  Plugin, Template, TemplatePlaceholder, TemplateConnector,
+} from '@devexpress/dx-react-core';
+
+const getAppointmentStyle = ({
+  top,
+  left,
+  width,
+  height,
+}) => ({
+  height,
+  width: `${width}%`,
+  transform: `translateY(${top}px)`,
+  left: `${left}%`,
+  position: 'absolute',
+});
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -20,17 +35,17 @@ export class Appointments extends React.PureComponent {
                 getAppointmentTitle,
                 getAppointmentStartDate,
                 getAppointmentEndDate,
-              }) =>
-                appointmentRects.map(({
-                dataItem, ...geometry
+              }) => appointmentRects.map(({
+                dataItem, type, ...geometry
               }, index) => (
                 <Appointment
-                  {...geometry}
+                  type={type}
                   key={index.toString()}
+                  appointment={dataItem}
                   getTitle={getAppointmentTitle}
                   getEndDate={getAppointmentEndDate}
                   getStartDate={getAppointmentStartDate}
-                  appointment={dataItem}
+                  style={getAppointmentStyle(geometry)}
                 />
               ))}
             </TemplateConnector>

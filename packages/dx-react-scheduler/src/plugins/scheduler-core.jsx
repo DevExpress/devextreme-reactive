@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Plugin, Getter, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import {
+  Plugin, Getter, Template, TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
 
 export class SchedulerCore extends React.PureComponent {
@@ -21,7 +23,6 @@ export class SchedulerCore extends React.PureComponent {
       getAppointmentStartDate,
       getAppointmentEndDate,
     );
-
     return (
       <Plugin
         name="SchedulerCore"
@@ -43,8 +44,8 @@ export class SchedulerCore extends React.PureComponent {
 }
 
 SchedulerCore.propTypes = {
-  rootComponent: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
+  rootComponent: PropTypes.func.isRequired,
   getTitle: PropTypes.func.isRequired,
   getStartDate: PropTypes.func.isRequired,
   getEndDate: PropTypes.func.isRequired,

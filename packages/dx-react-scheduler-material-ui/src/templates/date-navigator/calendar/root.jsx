@@ -6,18 +6,26 @@ import { Table } from './table';
 export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { currentDate } = this.props;
     this.state = {
-      currentDate: this.props.currentDate,
+      currentDate,
     };
-    this.onNavigate = ({ back }) => {
-      const nextDate = moment(this.state.currentDate)[back ? 'subtract' : 'add'](1, 'month');
-      this.setState({ currentDate: nextDate.toDate() });
-    };
-    this.onCellClick = ({ nextDate }) => {
-      this.props.onNavigate({ nextDate });
-      this.setState({ currentDate: nextDate });
-    };
+    this.onNavigate = this.onNavigate.bind(this);
+    this.onCellClick = this.onCellClick.bind(this);
   }
+
+  onNavigate({ back }) {
+    const { currentDate: currentDateState } = this.state;
+    const nextDate = moment(currentDateState)[back ? 'subtract' : 'add'](1, 'month');
+    this.setState({ currentDate: nextDate.toDate() });
+  }
+
+  onCellClick({ nextDate }) {
+    const { onNavigate } = this.props;
+    onNavigate({ nextDate });
+    this.setState({ currentDate: nextDate });
+  }
+
   render() {
     const {
       currentDate, firstDayOfWeek, getHeaderCells, getCells,
@@ -31,20 +39,20 @@ export class Root extends React.PureComponent {
       onNavigate,
       ...restProps
     } = this.props;
-
+    const { currentDate: currentDateState } = this.state;
     return (
       <div
         {...restProps}
       >
         <Navigator
-          currentDate={this.state.currentDate}
+          currentDate={currentDateState}
           titleComponent={Title}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
         />
         <Table
-          headerCells={getHeaderCells(this.state.currentDate, firstDayOfWeek)}
-          cells={getCells(this.state.currentDate, firstDayOfWeek)}
+          headerCells={getHeaderCells(currentDateState, firstDayOfWeek)}
+          cells={getCells(currentDateState, firstDayOfWeek)}
           rowComponent={Row}
           cellComponent={Cell}
           headerRowComponent={HeaderRow}
@@ -66,13 +74,14 @@ Root.propTypes = {
   headerRowComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
-  currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-  firstDayOfWeek: PropTypes.number,
+  currentDate: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
   onNavigate: PropTypes.func,
 };
 
 Root.defaultProps = {
-  currentDate: new Date(),
-  firstDayOfWeek: 1,
   onNavigate: () => {},
 };

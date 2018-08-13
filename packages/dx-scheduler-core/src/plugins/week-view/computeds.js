@@ -1,21 +1,21 @@
 import moment from 'moment';
 import {
-  calculateFirstDateOfWeek,
-  findOverlappedAppointments,
-  adjustAppointments,
   getRectByDates,
   sliceAppointmentByDay,
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
-  unwrapGroups,
 } from './helpers';
-
 import {
   sortAppointments,
   viewPredicate,
+  calculateFirstDateOfWeek,
+  toPercentage,
+  findOverlappedAppointments,
+  adjustAppointments,
+  unwrapGroups,
 } from '../../utils';
+import { VERTICAL_APPOINTMENT_TYPE } from '../../constants';
 
-const toPercentage = (value, total) => (value * 100) / total;
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
 const calculateViewBound = (dateBound, timeBound) => {
@@ -31,16 +31,11 @@ const calculateDateIntervals = (
   leftBound, rightBound,
   excludedDays,
 ) => appointments
-  .map(({ start, end, ...restArgs }) =>
-    ({ start: moment(start), end: moment(end), ...restArgs }))
-  .filter(appointment =>
-    viewPredicate(appointment, leftBound, rightBound, excludedDays, true))
-  .reduce((acc, appointment) =>
-    ([...acc, ...sliceAppointmentByDay(appointment)]), [])
-  .filter(appointment =>
-    dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays))
-  .map(appointment =>
-    reduceAppointmentByDayBounds(appointment, leftBound, rightBound));
+  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+  .filter(appointment => viewPredicate(appointment, leftBound, rightBound, excludedDays, true))
+  .reduce((acc, appointment) => ([...acc, ...sliceAppointmentByDay(appointment)]), [])
+  .filter(appointment => dayBoundaryPredicate(appointment, leftBound, rightBound, excludedDays))
+  .map(appointment => reduceAppointmentByDayBounds(appointment, leftBound, rightBound));
 
 const calculateRectsByDateIntervals = (
   intervals,
@@ -68,6 +63,7 @@ const calculateRectsByDateIntervals = (
         left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
         width: toPercentage(widthInPx, parentWidth),
         dataItem: appointment.dataItem,
+        type: VERTICAL_APPOINTMENT_TYPE,
       };
     });
 };
@@ -112,8 +108,7 @@ export const timeScale = (
   return result;
 };
 
-export const startViewDate = (days, times) =>
-  calculateViewBound(days[0], times[0].start);
+export const startViewDate = (days, times) => calculateViewBound(days[0], times[0].start);
 
 export const endViewDate = (days, times) => {
   const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);

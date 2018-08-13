@@ -3,7 +3,9 @@ import {
   SortingState, EditingState, PagingState,
   IntegratedPaging, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card } from 'reactstrap';
+import {
+  Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,
+} from 'reactstrap';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
@@ -20,6 +22,7 @@ const CommandButton = ({
   onExecute, icon, text, hint, color,
 }) => (
   <button
+    type="button"
     className="btn btn-link"
     style={{ padding: 11 }}
     onClick={(e) => {
@@ -90,23 +93,29 @@ const LookupEditCell = ({
       value={value}
       onChange={e => onValueChange(e.target.value)}
     >
-      {availableColumnValues.map(val => <option key={val} value={val}>{val}</option>)}
+      {availableColumnValues.map(val => (
+        <option key={val} value={val}>
+          {val}
+        </option>
+      ))}
     </select>
   </td>
 );
 
 const Cell = (props) => {
-  if (props.column.name === 'discount') {
+  const { column } = props;
+  if (column.name === 'discount') {
     return <ProgressBarCell {...props} />;
   }
-  if (props.column.name === 'amount') {
+  if (column.name === 'amount') {
     return <HighlightedCell {...props} />;
   }
   return <Table.Cell {...props} />;
 };
 
 const EditCell = (props) => {
-  const availableColumnValues = availableValues[props.column.name];
+  const { column } = props;
+  const availableColumnValues = availableValues[column.name];
   if (availableColumnValues) {
     return <LookupEditCell {...props} availableColumnValues={availableColumnValues} />;
   }
@@ -122,7 +131,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
         { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
@@ -144,9 +152,18 @@ export default class Demo extends React.PureComponent {
       deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
-      columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+    };
+    const getStateDeletingRows = () => {
+      const { deletingRows } = this.state;
+      return deletingRows;
+    };
+
+    const getStateRows = () => {
+      const { rows } = this.state;
+      return rows;
     };
 
     this.changeSorting = sorting => this.setState({ sorting });
@@ -179,12 +196,12 @@ export default class Demo extends React.PureComponent {
       if (changed) {
         rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
       }
-      this.setState({ rows, deletingRows: deleted || this.state.deletingRows });
+      this.setState({ rows, deletingRows: deleted || getStateDeletingRows() });
     };
     this.cancelDelete = () => this.setState({ deletingRows: [] });
     this.deleteRows = () => {
-      const rows = this.state.rows.slice();
-      this.state.deletingRows.forEach((rowId) => {
+      const rows = getStateRows().slice();
+      getStateDeletingRows().forEach((rowId) => {
         const index = rows.findIndex(row => row.id === rowId);
         if (index > -1) {
           rows.splice(index, 1);
@@ -196,6 +213,7 @@ export default class Demo extends React.PureComponent {
       this.setState({ columnOrder: order });
     };
   }
+
   render() {
     const {
       rows,
@@ -285,7 +303,9 @@ export default class Demo extends React.PureComponent {
             Delete Row
           </ModalHeader>
           <ModalBody>
-            <p>Are you sure to delete the following row?</p>
+            <p>
+Are you sure to delete the following row?
+            </p>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
               columns={columns}
@@ -300,8 +320,12 @@ export default class Demo extends React.PureComponent {
             </Grid>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={this.cancelDelete}>Cancel</Button>
-            <Button className="btn-danger" onClick={this.deleteRows}>Delete</Button>
+            <Button onClick={this.cancelDelete}>
+Cancel
+            </Button>
+            <Button className="btn-danger" onClick={this.deleteRows}>
+Delete
+            </Button>
           </ModalFooter>
         </Modal>
       </Card>

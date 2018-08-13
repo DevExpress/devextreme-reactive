@@ -17,7 +17,9 @@ const pluginDependencies = [
   { name: 'ViewState' },
 ];
 
-const navigate = action => payload => action({ ...payload, step: 7 });
+const navigate = (action, currentView, intervalCount) => payload => action({
+  ...payload, amount: intervalCount, step: currentView,
+});
 
 export class DateNavigator extends React.PureComponent {
   constructor(props) {
@@ -29,17 +31,22 @@ export class DateNavigator extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.targetRef = this.targetRef.bind(this);
+    this.setTargetRef = this.setTargetRef.bind(this);
   }
-  targetRef(button) {
-    this.button = button;
+
+  setTargetRef(target) {
+    this.target = target;
   }
+
   handleToggle() {
-    this.setState({ visible: !this.state.visible });
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
   }
+
   handleHide() {
     this.setState({ visible: false });
   }
+
   render() {
     const {
       rootComponent: Root,
@@ -63,30 +70,39 @@ export class DateNavigator extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="toolbarContent">
+          <TemplatePlaceholder />
           <TemplateConnector>
             {({
-                currentDate,
+              currentDate,
+              startViewDate,
+              endViewDate,
+              firstDayOfWeek,
+              currentView,
+              intervalCount,
+            }, {
+              changeCurrentDate,
+            }) => {
+              const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
+              const navigatorTitle = viewBoundTitle(
                 startViewDate,
                 endViewDate,
-                firstDayOfWeek,
-              }, {
-                setCurrentDate,
-              }) => {
-              const navigateAction = navigate(setCurrentDate);
-              const navigatorTitle = viewBoundTitle(startViewDate, endViewDate, 'week');
+                currentView,
+                currentDate,
+                intervalCount,
+              );
               return (
                 <React.Fragment>
                   <Root
                     navigationButtonComponent={NavigationButton}
                     toggleButtonComponent={ToggleButton}
                     navigatorTitle={navigatorTitle}
-                    targetRef={this.targetRef}
+                    targetRef={this.setTargetRef}
                     onToggle={this.handleToggle}
                     onNavigate={navigateAction}
                   />
                   <Overlay
                     visible={visible}
-                    target={this.button}
+                    target={this.target}
                     onHide={this.handleHide}
                   >
                     <Calendar
@@ -108,7 +124,6 @@ export class DateNavigator extends React.PureComponent {
               );
             }}
           </TemplateConnector>
-          <TemplatePlaceholder />
         </Template>
       </Plugin>
     );

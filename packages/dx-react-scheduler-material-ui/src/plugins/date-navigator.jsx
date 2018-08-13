@@ -4,7 +4,6 @@ import { Root } from '../templates/date-navigator/root';
 import { Overlay } from '../templates/date-navigator/overlay';
 import { ToggleButton } from '../templates/date-navigator/toggle-button';
 import { NavigationButton } from '../templates/date-navigator/navigation-button';
-
 import { Root as Calendar } from '../templates/date-navigator/calendar/root';
 import { Cell as CalendarCell } from '../templates/date-navigator/calendar/cell';
 import { HeaderCell as CalendarHeaderCell } from '../templates/date-navigator/calendar/header-cell';

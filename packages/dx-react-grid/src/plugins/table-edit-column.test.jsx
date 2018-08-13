@@ -55,8 +55,7 @@ const defaultProps = {
   commandComponent: () => null,
 };
 
-const findCommandWithId = (tree, id) =>
-  tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === id);
+const findCommandWithId = (tree, id) => tree.find(defaultProps.commandComponent).filterWhere(wrapper => wrapper.prop('id') === id);
 
 describe('TableEditColumn', () => {
   let resetConsole;

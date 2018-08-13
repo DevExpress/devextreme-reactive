@@ -5,10 +5,14 @@ import { Root } from './root';
 
 describe('Root', () => {
   const shallow = createShallow({ dive: true });
-  const classes = getClasses(<Root><div /></Root>);
+  const classes = getClasses(
+    <Root>
+      <div />
+    </Root>,
+  );
   it('should render List', () => {
     const tree = shallow((
-      <Root >
+      <Root>
         <div />
       </Root>
     ));
@@ -18,7 +22,7 @@ describe('Root', () => {
 
   it('should render children item', () => {
     const tree = shallow((
-      <Root >
+      <Root>
         <div />
       </Root>
     ));
@@ -31,14 +35,23 @@ describe('Root', () => {
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((<Root className="custom-class"> <div /> </Root>));
+    const tree = shallow((
+      <Root className="custom-class">
+        {' '}
+        <div />
+        {' '}
+      </Root>));
 
     expect(tree.is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Root customProperty>child</Root>);
+    const tree = shallow(
+      <Root customProperty>
+        child
+      </Root>,
+    );
 
     const { customProperty } = tree.find(List).props();
 

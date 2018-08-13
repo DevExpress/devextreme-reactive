@@ -7,7 +7,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { ViewState } from './view-state';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  setCurrentDate: jest.fn(),
+  changeCurrentDate: jest.fn(),
   setCurrentView: jest.fn(),
 }));
 
@@ -35,8 +35,8 @@ describe('ViewState', () => {
       '2018-07-15',
     ],
     actions: [{
-      actionName: 'setCurrentDate',
-      reducer: setCurrentDate,
+      actionName: 'changeCurrentDate',
+      reducer: changeCurrentDate,
     }],
   });
 

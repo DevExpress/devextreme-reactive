@@ -26,15 +26,15 @@ export class Legend extends React.PureComponent {
             {({
               series,
             }) => (
-              <Root name={`legend-${placeholder}`} >
+              <Root name={`legend-${placeholder}`}>
                 {series.map(({ name, themeColor }) => (
-                  <Item key={name + themeColor} >
+                  <Item key={name + themeColor}>
                     <Marker name={name} themeColor={themeColor} />
                     <Label text={name} />
                   </Item>
-                  ))}
+                ))}
               </Root>
-              )}
+            )}
           </TemplateConnector>
         </Template>
       </Plugin>

@@ -14,19 +14,23 @@ const pluginDependencies = [
   { name: 'GroupingState' },
 ];
 
-const getCollapsedRowsComputed = ({ getCollapsedRows }) =>
-  groupCollapsedRowsGetter(getCollapsedRows);
-const expandedGroupedRowsComputed = ({ rows, grouping, expandedGroups }) =>
-  expandedGroupRows(rows, grouping, expandedGroups);
+const getCollapsedRowsComputed = (
+  { getCollapsedRows },
+) => groupCollapsedRowsGetter(getCollapsedRows);
+const expandedGroupedRowsComputed = (
+  { rows, grouping, expandedGroups },
+) => expandedGroupRows(rows, grouping, expandedGroups);
 
 export class IntegratedGrouping extends React.PureComponent {
   render() {
     const { columnExtensions } = this.props;
-    const getColumnCriteria = columnName =>
-      getColumnExtension(columnExtensions, columnName).criteria;
+    const getColumnCriteria = columnName => getColumnExtension(
+      columnExtensions, columnName,
+    ).criteria;
 
-    const groupedRowsComputed = ({ rows, grouping, getCellValue }) =>
-      groupedRows(rows, grouping, getCellValue, getColumnCriteria);
+    const groupedRowsComputed = (
+      { rows, grouping, getCellValue },
+    ) => groupedRows(rows, grouping, getCellValue, getColumnCriteria);
 
     return (
       <Plugin

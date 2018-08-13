@@ -6,7 +6,11 @@ describe('Appointment', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Container><div /></Container>);
+    classes = getClasses(
+      <Container>
+        <div />
+      </Container>,
+    );
     shallow = createShallow({ dive: true });
   });
 

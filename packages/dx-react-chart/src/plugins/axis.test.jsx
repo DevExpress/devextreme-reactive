@@ -12,7 +12,11 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 
 describe('Axis', () => {
   // eslint-disable-next-line react/prop-types
-  const RootComponent = ({ children }) => <div>{children}</div>;
+  const RootComponent = ({ children }) => (
+    <div>
+      {children}
+    </div>
+  );
   const TickComponent = () => null;
   const LabelComponent = () => null;
   const LineComponent = () => null;

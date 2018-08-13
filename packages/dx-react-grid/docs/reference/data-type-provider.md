@@ -1,6 +1,6 @@
 # DataTypeProvider Plugin Reference
 
-A plugin that provides the capability to customize formatting options and editors depending on the data type.
+A plugin that allows you to customize formatting options and editors depending on the data type.
 
 ## Importing
 
@@ -23,7 +23,7 @@ Name | Type | Default | Description
 for | Array&lt;string&gt; | | The names of columns associated with the specified formatter and editor.
 formatterComponent? | ComponentType&lt;[DataTypeProvider.ValueFormatterProps](#datatypeprovidervalueformatterprops)&gt; | | A component that renders the formatted value.
 editorComponent? | ComponentType&lt;[DataTypeProvider.ValueEditorProps](#datatypeprovidervalueeditorprops)&gt; | | A component that renders a custom editor.
-availableFilterOperations? | Array&lt;string&gt; | | The names of filter operations available for associated columns.
+availableFilterOperations? | Array&lt;[FilterOperation](filtering-state.md#filteroperation)&gt; | | The names of filter operations that are available for the associated columns.
 
 ## Interfaces
 

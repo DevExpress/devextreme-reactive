@@ -28,8 +28,9 @@ const appointmentRectsComputed = ({
   dateTableRef.querySelectorAll('td'),
 ) : []);
 
-const monthCellsComputed = ({ currentDate, firstDayOfWeek }) =>
-  monthCellsCore(currentDate, firstDayOfWeek);
+const monthCellsComputed = ({ currentDate, firstDayOfWeek }) = monthCellsCore(
+  currentDate, firstDayOfWeek,
+);
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -40,22 +41,21 @@ export class MonthView extends React.PureComponent {
     };
 
     this.dateTableRef = this.dateTableRef.bind(this);
-    this.dayScalePlaceholder = params =>
-      <TemplatePlaceholder name="navbar" params={params} />;
-    this.dateTablePlaceholder = params =>
-      <TemplatePlaceholder name="main" params={params} />;
+    this.dayScalePlaceholder = params => <TemplatePlaceholder name="navbar" params={params} />;
+    this.dateTablePlaceholder = params => <TemplatePlaceholder name="main" params={params} />;
   }
+
   dateTableRef(dateTableRef) {
     this.setState({ dateTableRef });
   }
+
   render() {
     const {
       layoutComponent: ViewLayout,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelTableComponent: DayScaleTable,
-      dayPanelCellComponent: DayScaleCell,
+      dayPanelCellComponent: DayPanelCell,
+      dayPanelRowComponent: DayPanelRow,
       dateTableLayoutComponent: DateTable,
-      dateTableTableComponent: DateTableTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
       intervalCount,
@@ -69,19 +69,15 @@ export class MonthView extends React.PureComponent {
       }
       return currentView;
     };
-    const dayScaleComputed = ({ currentDate }) =>
-      dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
-    const startViewDateComputed = ({ monthCells }) =>
-      new Date(monthCells[0][0].value);
-    const endViewDateComputed = ({ monthCells }) =>
-      new Date(new Date(monthCells[5][6].value).setDate(monthCells[5][6].value.getDate() + 1));
+    const dayScaleComputed = ({ currentDate }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, []);
+    const startViewDateComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
+    const endViewDateComputed = ({ monthCells }) => new Date(new Date(monthCells[5][6].value).setDate(monthCells[5][6].value.getDate() + 1));
     const dateTableRefComputed = ({ currentView, dateTableRef }) => {
       if (currentView === viewName) {
         return this.state.dateTableRef;
       } return dateTableRef;
     };
-    const availableViewsComputed = ({ availableViews }) =>
-      availableViewsCore(availableViews, viewName);
+    const availableViewsComputed = ({ availableViews }) => availableViewsCore(availableViews, viewName);
 
     return (
       <Plugin
@@ -93,7 +89,7 @@ export class MonthView extends React.PureComponent {
         <TemplateConnector>
           {({ currentView }) => {
             if (currentView !== viewName) return null;
-              return (
+            return (
                 <React.Fragment>
                   <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
                   <Getter name="dayScale" computed={dayScaleComputed} />
@@ -136,7 +132,7 @@ export class MonthView extends React.PureComponent {
                     </TemplateConnector>
                   </Template>
                 </React.Fragment>
-              );
+            );
           }}
         </TemplateConnector>
       </Plugin>

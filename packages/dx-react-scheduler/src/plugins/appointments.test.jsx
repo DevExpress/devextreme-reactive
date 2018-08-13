@@ -4,7 +4,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { Appointments } from './appointments';
 
-// eslint-disable-next-line react/prop-types
+// eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
 const Container = ({ children }) => <div>{children}</div>;
 const Appointment = () => null;
 
@@ -16,7 +16,7 @@ const defaultProps = {
 const defaultDeps = {
   getter: {
     appointmentRects: [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
+      top: 10, left: 20, width: 60, height: 150, dataItem: 'data', type: 'horizontal',
     }],
     getAppointmentTitle: () => 'a',
     getAppointmentEndDate: () => '2018-07-05',

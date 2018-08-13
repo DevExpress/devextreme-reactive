@@ -31,9 +31,10 @@ export class MonthLayoutBase extends React.PureComponent {
 
     return (
       <Grid
+        className={classes.container}
         container
         direction="column"
-        className={classes.container}
+        wrap="nowrap"
       >
         <Grid
           item

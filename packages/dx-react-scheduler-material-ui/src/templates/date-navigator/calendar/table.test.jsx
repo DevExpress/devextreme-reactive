@@ -5,9 +5,17 @@ import { Table } from './table';
 describe('Calendar', () => {
   const defaultProps = {
     // eslint-disable-next-line react/prop-types
-    rowComponent: ({ children }) => <tr className="table-row">{children}</tr>,
+    rowComponent: ({ children }) => (
+      <tr className="table-row">
+        {children}
+      </tr>
+    ),
     // eslint-disable-next-line react/prop-types
-    headerRowComponent: ({ children }) => <tr className="header-row">{children}</tr>,
+    headerRowComponent: ({ children }) => (
+      <tr className="header-row">
+        {children}
+      </tr>
+    ),
     cellComponent: () => <td />,
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],

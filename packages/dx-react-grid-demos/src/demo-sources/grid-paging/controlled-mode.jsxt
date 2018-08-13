@@ -32,6 +32,7 @@ export default class Demo extends React.PureComponent {
     this.changeCurrentPage = currentPage => this.setState({ currentPage });
     this.changePageSize = pageSize => this.setState({ pageSize });
   }
+
   render() {
     const {
       rows, columns, pageSize, pageSizes, currentPage,

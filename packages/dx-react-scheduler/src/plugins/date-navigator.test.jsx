@@ -15,9 +15,11 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-05',
     firstDayOfWeek: 1,
+    currentView: 'month',
+    intervalCount: 3,
   },
   action: {
-    setCurrentDate: jest.fn(),
+    changeCurrentDate: jest.fn(),
   },
   template: {
     toolbarContent: {},
@@ -26,7 +28,11 @@ const defaultDeps = {
 };
 
 // eslint-disable-next-line react/prop-types
-const OverlayComponent = ({ children }) => <div>{children}</div>;
+const OverlayComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 const Root = () => null;
 const ToggleButtonComponent = () => null;
 const NavigationButton = () => null;
@@ -39,7 +45,6 @@ const CalendarCell = () => null;
 const CalendarRow = () => null;
 const CalendarHeaderRow = () => null;
 const CalendarHeaderCell = () => null;
-
 
 const defaultProps = {
   rootComponent: Root,
@@ -107,8 +112,8 @@ describe('DateNavigator', () => {
       .toBe(ToggleButtonComponent);
     expect(navigatorTitle)
       .toBe('July 2018');
-    expect(defaultDeps.action.setCurrentDate)
-      .toBeCalled();
+    expect(defaultDeps.action.changeCurrentDate)
+      .toBeCalledWith({ amount: 3, step: 'month' }, expect.any(Object), expect.any(Object));
   });
 
   it('should render calendar', () => {
@@ -145,7 +150,7 @@ describe('DateNavigator', () => {
     expect(headerRowComponent).toBe(CalendarHeaderRow);
     expect(headerCellComponent).toBe(CalendarHeaderCell);
     expect(navigatorComponent).toBe(CalendarNavigatorComponent);
-    expect(defaultDeps.action.setCurrentDate).toHaveBeenCalled();
+    expect(defaultDeps.action.changeCurrentDate).toHaveBeenCalled();
   });
 
   it('should calculate calendar cells via the "monthCells" and "dayScale" computeds', () => {

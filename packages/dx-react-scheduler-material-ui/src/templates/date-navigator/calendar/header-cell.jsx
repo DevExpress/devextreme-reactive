@@ -10,6 +10,9 @@ const styles = {
     padding: 0,
     textAlign: 'center',
     verticalAlign: 'middle',
+    '&:last-child': {
+      padding: 0,
+    },
   },
 };
 

@@ -9,7 +9,7 @@ export const changeColumnFilter = (filters, { columnName, config }) => {
     } else {
       nextState.push(filter);
     }
-  } else {
+  } else if (filterIndex > -1) {
     nextState.splice(filterIndex, 1);
   }
 

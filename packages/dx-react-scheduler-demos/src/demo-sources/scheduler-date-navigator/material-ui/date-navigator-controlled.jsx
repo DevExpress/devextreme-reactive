@@ -23,6 +23,7 @@ export default class Demo extends React.PureComponent {
     };
     this.currentDateChange = (currentDate) => { this.setState({ currentDate }); };
   }
+
   render() {
     const { data, currentDate } = this.state;
 

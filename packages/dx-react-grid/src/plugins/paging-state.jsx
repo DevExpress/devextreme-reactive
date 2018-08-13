@@ -1,11 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Getter, Action, Plugin, createStateHelper } from '@devexpress/dx-react-core';
+import {
+  Getter, Action, Plugin, createStateHelper,
+} from '@devexpress/dx-react-core';
 import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 
 export class PagingState extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { onCurrentPageChange, onPageSizeChange } = this.props;
 
     this.state = {
       currentPage: props.currentPage || props.defaultCurrentPage,
@@ -15,8 +18,8 @@ export class PagingState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        currentPage: () => this.props.onCurrentPageChange,
-        pageSize: () => this.props.onPageSizeChange,
+        currentPage: () => onCurrentPageChange,
+        pageSize: () => onPageSizeChange,
       },
     );
 
@@ -25,6 +28,7 @@ export class PagingState extends React.PureComponent {
     this.setPageSize = stateHelper.applyFieldReducer
       .bind(stateHelper, 'pageSize', setPageSize);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       currentPage,
@@ -35,6 +39,7 @@ export class PagingState extends React.PureComponent {
       ...pageSize !== undefined ? { pageSize } : null,
     });
   }
+
   render() {
     const { pageSize, currentPage } = this.state;
 

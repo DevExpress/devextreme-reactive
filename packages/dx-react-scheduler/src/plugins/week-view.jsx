@@ -46,25 +46,22 @@ export class WeekView extends React.PureComponent {
 
     this.dateTableRef = this.dateTableRef.bind(this);
 
-    this.sidebarPlaceholder = params =>
-      <TemplatePlaceholder name="sidebar" params={params} />;
-    this.dayScalePlaceholder = params =>
-      <TemplatePlaceholder name="navbar" params={params} />;
-    this.dateTablePlaceholder = params =>
-      <TemplatePlaceholder name="main" params={params} />;
+    this.sidebarPlaceholder = params => <TemplatePlaceholder name="sidebar" params={params} />;
+    this.dayScalePlaceholder = params => <TemplatePlaceholder name="navbar" params={params} />;
+    this.dateTablePlaceholder = params => <TemplatePlaceholder name="main" params={params} />;
   }
+
   dateTableRef(dateTableRef) {
     this.setState({ dateTableRef });
   }
+
   render() {
     const {
       layoutComponent: ViewLayout,
       timePanelLayoutComponent: TimePanel,
-      timePanelTableComponent: TimePanelTable,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
       dayPanelLayoutComponent: DayPanel,
-      dayPanelTableComponent: DayScaleTable,
       dayPanelCellComponent: DayScaleCell,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
@@ -77,6 +74,7 @@ export class WeekView extends React.PureComponent {
       excludedDays,
       viewName,
     } = this.props;
+    const { dateTableRef: stateDateTableRef } = this.state;
 
     const currentViewComputed = ({ currentView }) => {
       if (!currentView || viewName === currentView) {
@@ -84,27 +82,28 @@ export class WeekView extends React.PureComponent {
       }
       return currentView;
     };
-    const timeScaleComputed = ({ currentDate }) =>
-      timeScaleCore(
-        currentDate,
-        firstDayOfWeek,
-        startDayHour,
-        endDayHour,
-        cellDuration,
-        excludedDays,
-      );
-    const dayScaleComputed = ({ currentDate }) =>
-      dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
-    const startViewDateComputed = ({ dayScale, timeScale }) =>
-      startViewDateCore(dayScale, timeScale, startDayHour);
+    const availableViewsComputed = ({ availableViews }) => availableViewsCore(availableViews, viewName);
+    const timeScaleComputed = ({ currentDate }) => timeScaleCore(
+      currentDate,
+      firstDayOfWeek,
+      startDayHour,
+      endDayHour,
+      cellDuration,
+      excludedDays,
+    );
+    const dayScaleComputed = (
+      { currentDate },
+    ) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * 7, excludedDays);
+    const startViewDateComputed = (
+      { dayScale, timeScale },
+    ) => startViewDateCore(dayScale, timeScale, startDayHour);
     const endViewDateComputed = ({ dayScale, timeScale }) => endViewDateCore(dayScale, timeScale);
     const dateTableRefComputed = ({ currentView, dateTableRef }) => {
       if (currentView === viewName) {
-        return this.state.dateTableRef;
+        return stateDateTableRef;
       } return dateTableRef;
     };
-    const availableViewsComputed = ({ availableViews }) =>
-      availableViewsCore(availableViews, viewName);
+
 
     return (
       <Plugin
@@ -116,67 +115,68 @@ export class WeekView extends React.PureComponent {
         <TemplateConnector>
           {({ currentView }) => {
             if (currentView !== viewName) return null;
-              return (
-                <React.Fragment>
-                  <Getter name="cellDuration" value={cellDuration} />
-                  <Getter name="excludedDays" value={excludedDays} />
-                  <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
-                  <Getter name="timeScale" computed={timeScaleComputed} />
-                  <Getter name="dayScale" computed={dayScaleComputed} />
-                  <Getter name="startViewDate" computed={startViewDateComputed} />
-                  <Getter name="endViewDate" computed={endViewDateComputed} />
-                  <Getter name="appointmentRects" computed={appointmentRectsComputed} />
+            return (
+              <React.Fragment>
+                <Getter name="cellDuration" value={cellDuration} />
+                <Getter name="excludedDays" value={excludedDays} />
+                <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
+                <Getter name="timeScale" computed={timeScaleComputed} />
+                <Getter name="dayScale" computed={dayScaleComputed} />
+                <Getter name="startViewDate" computed={startViewDateComputed} />
+                <Getter name="endViewDate" computed={endViewDateComputed} />
+                <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
-                  <Template name="body">
-                    <ViewLayout
-                      navbarComponent={this.dayScalePlaceholder}
-                      mainComponent={this.dateTablePlaceholder}
-                      sidebarComponent={this.sidebarPlaceholder}
-                    />
-                  </Template>
+                <Template name="body">
+                  <ViewLayout
+                    navbarComponent={this.dayScalePlaceholder}
+                    mainComponent={this.dateTablePlaceholder}
+                    sidebarComponent={this.sidebarPlaceholder}
+                  />
+                </Template>
 
-                  <Template name="navbar">
-                    <TemplateConnector>
-                      {({ dayScale }) => (
-                        <DayPanel
-                          rowComponent={TimePanelRow}
-                          cellComponent={DayScaleCell}
-                          tableComponent={DayScaleTable}
-                          dayScale={dayScale}
-                        />
-                      )}
-                    </TemplateConnector>
-                  </Template>
+                <Template name="navbar">
+                  <TemplatePlaceholder />
+                  <TemplateConnector>
+                    {({ dayScale }) => (
+                      <DayPanel
+                        rowComponent={TimePanelRow}
+                        cellComponent={DayScaleCell}
+                        dayScale={dayScale}
+                      />
+                    )}
+                  </TemplateConnector>
+                </Template>
 
-                  <Template name="sidebar">
-                    <TemplateConnector>
-                      {({ timeScale }) => (
-                        <TimePanel
-                          rowComponent={TimePanelRow}
-                          cellComponent={TimePanelCell}
-                          tableComponent={TimePanelTable}
-                          timeScale={timeScale}
-                        />
-                      )}
-                    </TemplateConnector>
-                  </Template>
+                <Template name="sidebar">
+                  <TemplatePlaceholder />
+                  <TemplateConnector>
+                    {({ timeScale }) => (
+                      <TimePanel
+                        rowComponent={TimePanelRow}
+                        cellComponent={TimePanelCell}
+                        timeScale={timeScale}
+                      />
+                    )}
+                  </TemplateConnector>
+                </Template>
 
-                  <Template name="main">
-                    <TemplateConnector>
-                      {({ dayScale, timeScale }) => (
-                        <DateTable
-                          rowComponent={DateTableRow}
-                          cellComponent={DateTableCell}
-                          timeScale={timeScale}
-                          dayScale={dayScale}
-                          dateTableRef={this.dateTableRef}
-                        />
-                      )}
-                    </TemplateConnector>
-                  </Template>
-                </React.Fragment>
-              );
-            }}
+                <Template name="main">
+                  <TemplatePlaceholder />
+                  <TemplateConnector>
+                    {({ timeScale, dayScale }) => (
+                      <DateTable
+                        rowComponent={DateTableRow}
+                        cellComponent={DateTableCell}
+                        timeScale={timeScale}
+                        dayScale={dayScale}
+                        dateTableRef={this.dateTableRef}
+                      />
+                    )}
+                  </TemplateConnector>
+                </Template>
+              </React.Fragment>
+            );
+          }}
         </TemplateConnector>
       </Plugin>
     );
@@ -186,11 +186,9 @@ export class WeekView extends React.PureComponent {
 WeekView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
-  timePanelTableComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelTableComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,

@@ -7,7 +7,11 @@ describe('Table', () => {
   let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Table><tbody /></Table>);
+    classes = getClasses(
+      <Table>
+        <tbody />
+      </Table>,
+    );
   });
 
   it('should pass the className prop to the root element', () => {

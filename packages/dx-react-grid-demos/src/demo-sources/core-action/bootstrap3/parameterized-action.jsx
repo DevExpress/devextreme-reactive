@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
+import {
+  PluginHost, Plugin, Getter, Action, Template, TemplatePlaceholder, TemplateConnector,
+} from '@devexpress/dx-react-core';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -14,6 +16,7 @@ export default class Demo extends React.PureComponent {
       ],
     };
   }
+
   render() {
     const { tasks } = this.state;
 
@@ -58,15 +61,20 @@ const TasksListCore = ({ tasks }) => (
 class TasksFilter extends React.PureComponent {
   constructor(props) {
     super(props);
+    const getStateDone = () => {
+      const { done } = this.state;
+      return done;
+    };
 
     this.state = {
       done: props.defaultDone,
     };
 
     this.changeFilter = done => this.setState({
-      done: done === undefined ? !this.state.done : done,
+      done: done === undefined ? !getStateDone() : done,
     });
   }
+
   render() {
     const { done } = this.state;
     return (
@@ -88,11 +96,23 @@ const FilterPanel = () => (
       <TemplateConnector>
         {({ filter }, { changeFilter }) => (
           <div>
-            Filter: ({JSON.stringify(filter)})
+            Filter: (
+            {JSON.stringify(filter)}
+)
             {' '}
-            <button onClick={() => changeFilter()}>Change</button>
+            <button
+              type="button"
+              onClick={() => changeFilter()}
+            >
+              Change
+            </button>
             {' '}
-            <button onClick={() => changeFilter(null)}>Clear</button>
+            <button
+              type="button"
+              onClick={() => changeFilter(null)}
+            >
+              Clear
+            </button>
           </div>
         )}
       </TemplateConnector>

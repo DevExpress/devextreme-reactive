@@ -7,7 +7,6 @@ import {
   Scheduler,
   WeekView,
   Toolbar,
-  DateNavigator,
   Appointments,
   MonthView,
   ViewSwitcher,
@@ -24,6 +23,7 @@ export default class Demo extends React.PureComponent {
       currentView: 'Work Week',
     };
   }
+
   render() {
     const { data, currentView } = this.state;
 
@@ -36,7 +36,6 @@ export default class Demo extends React.PureComponent {
             defaultCurrentView={currentView}
             defaultCurrentDate="2018-07-25"
           />
-          <Toolbar />
 
           <WeekView
             viewName="Week"
@@ -51,8 +50,8 @@ export default class Demo extends React.PureComponent {
           />
           <MonthView />
 
+          <Toolbar />
           <ViewSwitcher />
-          <DateNavigator />
           <Appointments />
         </Scheduler>
       </Paper>

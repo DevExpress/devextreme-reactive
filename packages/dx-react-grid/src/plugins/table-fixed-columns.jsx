@@ -10,9 +10,8 @@ import {
 import {
   FIXED_COLUMN_BEFORE_SIDE,
   FIXED_COLUMN_AFTER_SIDE,
-  isFixedCell,
-  getFixedSide,
   getFixedColumnKeys,
+  tableColumnsWithFixed,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -30,41 +29,35 @@ export class TableFixedColumns extends React.PureComponent {
   render() {
     const {
       beforeColumnNames,
-      afterColumnNames,
       beforeColumnTypes,
+      afterColumnNames,
       afterColumnTypes,
       cellComponent: Cell,
     } = this.props;
 
-    const fixedColumnNames = [...beforeColumnNames, ...afterColumnNames];
-    const fixedColumnTypes = [...beforeColumnTypes, ...afterColumnTypes];
-
-    const fixedColumnKeysComputed = ({ tableColumns }) => [
-      ...getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes),
-      ...getFixedColumnKeys(tableColumns, afterColumnNames, afterColumnTypes),
-    ];
+    const tableColumnsWithFixedComputed = ({ tableColumns }) => tableColumnsWithFixed(
+      tableColumns,
+      beforeColumnNames,
+      beforeColumnTypes,
+      afterColumnNames,
+      afterColumnTypes,
+    );
 
     return (
       <Plugin
         name="TableFixedColumns"
         dependencies={pluginDependencies}
       >
-        <Getter name="fixedColumnKeys" computed={fixedColumnKeysComputed} />
+        <Getter name="tableColumns" computed={tableColumnsWithFixedComputed} />
         <Template
           name="tableCell"
-          predicate={({ tableColumn }) => isFixedCell(
-            tableColumn, fixedColumnNames, fixedColumnTypes,
-          )}
+          predicate={({ tableColumn }) => !!tableColumn.fixed}
         >
           {params => (
             <TemplateConnector>
               {({ tableColumns }) => {
                 const { tableColumn } = params;
-                const side = getFixedSide(
-                  tableColumn,
-                  beforeColumnNames, afterColumnNames,
-                  beforeColumnTypes, afterColumnTypes,
-                );
+                const { fixed: side } = tableColumn;
 
                 const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
                   ? getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes)

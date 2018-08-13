@@ -6,28 +6,17 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   FIXED_COLUMN_BEFORE_SIDE,
   getFixedColumnKeys,
-  isFixedCell,
-  getFixedSide,
+  tableColumnsWithFixed,
 } from '@devexpress/dx-grid-core';
 import { TableFixedColumns } from './table-fixed-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   FIXED_COLUMN_BEFORE_SIDE: 'BEFORE',
   getFixedColumnKeys: jest.fn(),
-  isFixedCell: jest.fn(),
-  getFixedSide: jest.fn(),
+  tableColumnsWithFixed: jest.fn(),
 }));
 
 const defaultDeps = {
-  getter: {
-    tableColumns: [{ key: 'a', column: { name: 'a' } }],
-  },
-  template: {
-    tableCell: {
-      tableRow: { rowId: 1, row: 'row' },
-      tableColumn: { column: { name: 'column' } },
-    },
-  },
   plugins: ['Table'],
 };
 
@@ -45,15 +34,14 @@ describe('TableFixedColumns', () => {
   });
 
   beforeEach(() => {
-    getFixedColumnKeys.mockImplementation(() => ['x']);
-    isFixedCell.mockImplementation(() => true);
-    getFixedSide.mockImplementation(() => 'BEFORE');
+    getFixedColumnKeys.mockImplementation(() => []);
+    tableColumnsWithFixed.mockImplementation(() => 'tableColumnsWithFixed');
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  it('should define the "fixedColumnKeys" getter', () => {
+  it('should define the "tableColumns" getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -63,34 +51,37 @@ describe('TableFixedColumns', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).fixedColumnKeys)
-      .toEqual(['x', 'x']);
+    expect(getComputedState(tree).tableColumns)
+      .toEqual('tableColumnsWithFixed');
   });
 
   it('can render fixed cells', () => {
+    tableColumnsWithFixed.mockImplementation(() => [
+      { column: { name: 'a' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
+    ]);
     const beforeColumnNames = ['a'];
-    const afterColumnNames = ['b'];
+    const deps = {
+      template: {
+        tableCell: {
+          tableRow: { rowId: 1, row: 'row' },
+          tableColumn: { column: { name: 'column' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
+        },
+      },
+    };
 
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
+        {pluginDepsToComponents(defaultDeps, deps)}
         <TableFixedColumns
           {...defaultProps}
           beforeColumnNames={beforeColumnNames}
-          afterColumnNames={afterColumnNames}
         />
       </PluginHost>
     ));
 
-    expect(isFixedCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableCell.tableColumn,
-        [...beforeColumnNames, ...afterColumnNames],
-        [],
-      );
     expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
-        ...defaultDeps.template.tableCell,
+        ...deps.template.tableCell,
         side: FIXED_COLUMN_BEFORE_SIDE,
         showLeftDivider: false,
         showRightDivider: true,

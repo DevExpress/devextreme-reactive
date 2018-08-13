@@ -1,11 +1,10 @@
 export const STUB_TYPE = 'stub';
 export const VISIBLE_TYPE = 'visible';
 
-export const getVisibleBoundaryWithFixed = (visibleBoundary, items, fixedColumnKeys) => {
+export const getVisibleBoundaryWithFixed = (visibleBoundary, items) => {
   const result = [visibleBoundary];
-  fixedColumnKeys.forEach((columnKey) => {
-    const index = items.findIndex(tableColumn => tableColumn.key === columnKey);
-    if (index !== -1 && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
+  items.forEach((item, index) => {
+    if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
       result.push([index, index]);
     }
   });
@@ -218,7 +217,6 @@ export const getCollapsedGrid = ({
   getColumnWidth = column => column.width,
   getRowHeight = row => row.height,
   getColSpan = () => 1,
-  fixedColumnKeys = [],
 }) => {
   if (!rows.length || !columns.length) {
     return {
@@ -229,7 +227,7 @@ export const getCollapsedGrid = ({
   const rowsVisibleBoundary = getVisibleBoundary(rows, top, height, getRowHeight, 3);
   const columnsVisibleBoundary = getVisibleBoundaryWithFixed(
     getVisibleBoundary(columns, left, width, getColumnWidth, 1),
-    columns, fixedColumnKeys,
+    columns,
   );
 
   const rowSpanBoundaries = rows

@@ -32,15 +32,14 @@ export const getColumnMeta = (
 
 export const getColSpan = (
   currentColumnIndex, tableColumns, columnBands,
-  currentRowLevel, currentColumnTitle,
-  isCurrentColumnFixed, isColumnFixed,
+  currentRowLevel, currentColumnTitle, isCurrentColumnFixed,
 ) => {
   let isOneChain = true;
   return tableColumns.slice(currentColumnIndex + 1)
     .reduce((acc, tableColumn) => {
       if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
       const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-      if (isCurrentColumnFixed && !isColumnFixed(tableColumn)) {
+      if (isCurrentColumnFixed && !tableColumn.fixed) {
         isOneChain = false;
       }
       if (isOneChain && columnMeta.title === currentColumnTitle) {
@@ -53,8 +52,7 @@ export const getColSpan = (
 
 export const getBandComponent = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
-  tableHeaderRows, tableColumns,
-  columnBands, fixedColumnKeys,
+  tableHeaderRows, tableColumns, columnBands,
 ) => {
   if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
@@ -76,15 +74,12 @@ export const getBandComponent = (
     };
   }
 
-  const isColumnFixed = tableColumn => (fixedColumnKeys
-    ? fixedColumnKeys.indexOf(tableColumn.key) !== -1
-    : false);
-  const isCurrentColumnFixed = isColumnFixed(currentTableColumn);
+  const isCurrentColumnFixed = !!currentTableColumn.fixed;
   const currentColumnIndex = tableColumns
     .findIndex(column => column.key === currentTableColumn.key);
   const previousTableColumn = tableColumns[currentColumnIndex - 1];
   if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
-    const isPrevColumnFixed = isColumnFixed(previousTableColumn);
+    const isPrevColumnFixed = !!previousTableColumn.fixed;
     const prevColumnMeta = getColumnMeta(
       previousTableColumn.column.name,
       columnBands,
@@ -106,7 +101,6 @@ export const getBandComponent = (
         currentRowLevel,
         currentColumnMeta.title,
         isCurrentColumnFixed,
-        isColumnFixed,
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,

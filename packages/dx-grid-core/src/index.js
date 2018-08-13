@@ -89,6 +89,7 @@ export * from './plugins/data-type-provider/computeds';
 
 export * from './plugins/table-fixed-columns/constants';
 export * from './plugins/table-fixed-columns/helpers';
+export * from './plugins/table-fixed-columns/computeds';
 
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 

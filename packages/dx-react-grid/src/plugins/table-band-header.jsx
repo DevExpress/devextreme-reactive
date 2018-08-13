@@ -49,12 +49,11 @@ export class TableBandHeader extends React.PureComponent {
               {({
                 tableColumns,
                 tableHeaderRows,
-                fixedColumnKeys,
               }) => {
                 const bandComponent = getBandComponent(
                   params,
                   tableHeaderRows, tableColumns,
-                  columnBands, fixedColumnKeys,
+                  columnBands,
                 );
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:

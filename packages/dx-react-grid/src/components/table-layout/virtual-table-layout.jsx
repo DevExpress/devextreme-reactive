@@ -172,7 +172,6 @@ export class VirtualTableLayout extends React.PureComponent {
       headComponent: Head,
       bodyComponent: Body,
       getCellColSpan,
-      fixedColumnKeys,
     } = this.props;
     const { viewportLeft, viewportTop } = this.state;
 
@@ -203,7 +202,6 @@ export class VirtualTableLayout extends React.PureComponent {
             getColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
-            fixedColumnKeys,
           });
           const collapsedBodyGrid = getCollapsedGrid({
             rows: bodyRows,
@@ -215,7 +213,6 @@ export class VirtualTableLayout extends React.PureComponent {
             getColumnWidth,
             getRowHeight: this.getRowHeight,
             getColSpan,
-            fixedColumnKeys,
           });
 
           return (
@@ -249,12 +246,10 @@ VirtualTableLayout.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   estimatedRowHeight: PropTypes.number.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
-  fixedColumnKeys: PropTypes.array,
 };
 
 VirtualTableLayout.defaultProps = {
   headerRows: [],
-  fixedColumnKeys: [],
   headComponent: () => null,
   headTableComponent: () => null,
 };

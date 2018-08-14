@@ -1,6 +1,6 @@
 # TableSummaryRow Plugin Reference
 
-A plugin that renders a table column with toggle button and sorting indicators.
+A plugin that renders table rows that display total, group, and tree summary.
 
 ## Importing
 

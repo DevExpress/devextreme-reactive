@@ -10,6 +10,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
+  TableFixedColumns,
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { ProgressBarCell } from '../../../theme-sources/bootstrap4/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/bootstrap4/components/highlighted-cell';
@@ -137,8 +138,12 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right', width: 150 },
-        { columnName: 'discount', width: 110 },
+        { columnName: 'product', width: 200 },
+        { columnName: 'region', width: 180 },
+        { columnName: 'amount', width: 180, align: 'right' },
+        { columnName: 'discount', width: 180 },
+        { columnName: 'saleDate', width: 180 },
+        { columnName: 'customer', width: 200 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -155,6 +160,7 @@ export default class Demo extends React.PureComponent {
       columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
     };
     const getStateDeletingRows = () => {
       const { deletingRows } = this.state;
@@ -230,6 +236,7 @@ export default class Demo extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      fixedColumnTypes,
     } = this.state;
 
     return (
@@ -283,11 +290,14 @@ export default class Demo extends React.PureComponent {
             cellComponent={EditCell}
           />
           <TableEditColumn
-            width={100}
+            width={120}
             showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
+          />
+          <TableFixedColumns
+            beforeColumnTypes={fixedColumnTypes}
           />
           <PagingPanel
             pageSizes={pageSizes}

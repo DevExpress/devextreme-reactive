@@ -7,6 +7,7 @@ import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
+  TableFixedColumns,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
@@ -171,7 +172,12 @@ class DemoBase extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
+        { columnName: 'product', width: 180 },
+        { columnName: 'region', width: 180 },
+        { columnName: 'amount', width: 120, align: 'right' },
+        { columnName: 'discount', width: 180 },
+        { columnName: 'saleDate', width: 180 },
+        { columnName: 'customer', width: 180 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -188,6 +194,7 @@ class DemoBase extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
     };
     const getStateDeletingRows = () => {
       const { deletingRows } = this.state;
@@ -265,6 +272,7 @@ class DemoBase extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      fixedColumnTypes,
     } = this.state;
 
     return (
@@ -318,11 +326,14 @@ class DemoBase extends React.PureComponent {
             cellComponent={EditCell}
           />
           <TableEditColumn
-            width={120}
+            width={170}
             showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
+          />
+          <TableFixedColumns
+            beforeColumnTypes={fixedColumnTypes}
           />
           <PagingPanel
             pageSizes={pageSizes}

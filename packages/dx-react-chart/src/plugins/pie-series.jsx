@@ -13,11 +13,12 @@ const Series = ({
     uniqueName,
     ...restProps
   } = props;
+  const { innerRadius, outerRadius, ...pointOptions } = restProps;
   return (coordinates.map(item => (
     <Point
       key={item.id.toString()}
       {...item}
-      {...restProps}
+      {...pointOptions}
       color={colorDomain(item.id)}
     />
   )));

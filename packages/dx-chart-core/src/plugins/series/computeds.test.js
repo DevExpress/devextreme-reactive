@@ -164,7 +164,7 @@ describe('Series attributes', () => {
 describe('Pie attributes', () => {
   it('should return array of arcs', () => {
     const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
-    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1');
+    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1', null, null, null, { innerRadius: 0.3, outerRadius: 0.5 });
 
     expect(pieAttr).toHaveLength(data.length);
     pieAttr.forEach((attr, index) => {
@@ -176,8 +176,8 @@ describe('Pie attributes', () => {
       expect(attr.y).toEqual(5);
     });
     data.forEach((d) => {
-      expect(arc.mock.results[0].value.innerRadius).toHaveBeenCalledWith(0);
-      expect(arc.mock.results[0].value.outerRadius).toHaveBeenCalledWith(5);
+      expect(arc.mock.results[0].value.innerRadius).toHaveBeenCalledWith(1.5);
+      expect(arc.mock.results[0].value.outerRadius).toHaveBeenCalledWith(2.5);
       expect(arc.mock.results[0].value.startAngle).toHaveBeenCalledWith(d.val1);
       expect(arc.mock.results[0].value.endAngle).toHaveBeenCalledWith(d.val1);
     });

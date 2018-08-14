@@ -44,6 +44,10 @@ export const pieAttributes = (
   { xScale, yScale },
   argumentField,
   valueField,
+  name,
+  stack,
+  stacks,
+  { innerRadius = 0, outerRadius = 1 },
 ) => {
   const width = Math.max.apply(null, xScale.range());
   const height = Math.max.apply(null, yScale.range());
@@ -54,8 +58,8 @@ export const pieAttributes = (
     startAngle, endAngle, value, data: itemData,
   }) => ({
     d: arc()
-      .innerRadius(0)
-      .outerRadius(radius)
+      .innerRadius(innerRadius * radius)
+      .outerRadius(outerRadius * radius)
       .startAngle(startAngle)
       .endAngle(endAngle)(),
     value,

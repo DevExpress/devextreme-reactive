@@ -1,13 +1,13 @@
 # React Grid - Summary Row
 
-The Grid component can calculate summary for all rows (total summary), row groups (group summary), and tree nodes that contain child nodes (tree summary). Use the corresponding plugins to calculate summary and manage summary state.
+The Grid component can calculate a summary for all rows (total summary), row groups (group summary), and tree nodes that contain child nodes (tree summary). Use the corresponding plugins to calculate the summary and manage its state.
 
 ## Related Plugins
 
 The following plugins implement summary features:
 
 - [SummaryState](../reference/summary-state.md) - manages the data summary state
-- [IntegratedSummary](../reference/integrated-summary.md) - performs built-in data summary calculation
+- [IntegratedSummary](../reference/integrated-summary.md) - performs the built-in data summary calculation
 - [CustomSummary](../reference/custom-summary.md) - provides a capability to calculate a custom data summary
 - [TableSummaryRow](../reference/table-summary-row.md) - renders table summary rows
 
@@ -51,6 +51,6 @@ The `IntegratedSummary` plugin allows you to extend built-in summary types (`cou
 
 ## Avoiding Summary Formatting
 
-If a `DataTypeProvider` plugin is assigned to a column, its value formatting component is applied to a summary row. Use the `formattlessSummaryTypes` property to specify summary types that should not be formatted. The following example shows the custom `overprice` summary type that is not formatted.
+If a `DataTypeProvider` plugin is assigned to a column, its value formatting component is applied to a summary row. Use the `formattlessSummaryTypes` property to specify summary types that should not be formatted. The following example shows the custom `overprice` summary type that is not formatted:
 
 .embedded-demo({ "path": "grid-summary/formatless-custom-algorithm", "showThemeSelector": true })

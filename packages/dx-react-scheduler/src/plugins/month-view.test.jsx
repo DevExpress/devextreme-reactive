@@ -217,7 +217,7 @@ describe('Month View', () => {
         .toBeTruthy();
     });
 
-    it('should appointment container', () => {
+    it('should render appointment container', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

@@ -8,8 +8,8 @@ Title display helpful text. You must provide text to the title.
 
 ## Related Plugins
 
-- `Legend` - renders a legend
-- `Title` - renders a title
+- [Legend](../reference/legend.md) - renders a legend
+- [Title](../reference/title.md) - renders a title
 
 ## Basic Setup
 

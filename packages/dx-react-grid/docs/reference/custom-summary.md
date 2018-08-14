@@ -1,6 +1,6 @@
 # CustomSummary Plugin Reference
 
-A plugin that provides customly calculated summary values.
+A plugin that provides a capability to calculate custom summary.
 
 ## Importing
 
@@ -20,9 +20,9 @@ import { CustomSummary } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalValues | Array&lt;any&gt; | | Summary values related to all rows.
-groupValues | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | | Summary values related to group rows.
-treeValues | { [key: number &#124; string]: Array&lt;any&gt; } | | Summary values related to rows that contains children rows.
+totalValues | Array&lt;any&gt; | | Total summary values.
+groupValues | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | | Group summary values.
+treeValues | { [key: number &#124; string]: Array&lt;any&gt; } | | Tree summary values.
 
 ## Plugin Developer Reference
 
@@ -34,6 +34,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-totalSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Summary values related to all rows.
-groupSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | Summary values related to group rows.
-treeSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: number &#124; string]: Array&lt;any&gt; } | Summary values related to rows that contains children rows.
+totalSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Total summary values.
+groupSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: [GroupKey](grouping-state.md#groupkey)]: Array&lt;any&gt; } | Group summary values.
+treeSummaryValues | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: number &#124; string]: Array&lt;any&gt; } | Tree summary values.

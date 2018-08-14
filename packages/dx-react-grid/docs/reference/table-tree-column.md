@@ -135,4 +135,4 @@ valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) |
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified tree rows.
-tableTreeColumnName | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The name of a column that represented as a tree.
+tableTreeColumnName | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The name of a column displayed as a tree.

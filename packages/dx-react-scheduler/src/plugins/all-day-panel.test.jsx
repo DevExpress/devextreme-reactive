@@ -9,7 +9,6 @@ import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   allDayAppointmentsRects: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {

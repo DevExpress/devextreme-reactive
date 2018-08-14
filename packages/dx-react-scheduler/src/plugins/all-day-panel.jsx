@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
   Template,
@@ -9,7 +10,6 @@ import {
 import {
   getAppointmentStyle,
   allDayAppointmentsRects,
-  getMessagesFormatter,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [

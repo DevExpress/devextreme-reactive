@@ -33,13 +33,13 @@ import { TableSummaryRow } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-formatlessSummaryTypes | Array&lt;string&gt; | | Array of summary types that should not be formatted by the DataTypeProvider plugin.
-totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with total summaries.
-groupRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with group summaries.
-treeRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a row with tree summaries.
-totalCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with total summaries.
-groupCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with group summaries.
-treeCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a cell with tree summaries.
+formatlessSummaryTypes | Array&lt;string&gt; | | An array of summary types that the DataTypeProvider plugin should not format.
+totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders the total summary row.
+groupRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a group summary row.
+treeRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a tree summary row.
+totalCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a total summary cell.
+groupCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a group summary cell.
+treeCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a tree summary cell.
 treeColumnCellComponent | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | | A component that renders a summary cell within a tree column.
 treeColumnContentComponent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | | A component that renders a summary cell's content within a tree column.
 treeColumnIndentComponent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | | A component that renders an indent used to identify a tree row level within a tree column.
@@ -50,7 +50,7 @@ messages? | [TableSummaryRow.LocalizationMessages](#localization-messages) | | A
 
 ### TableSummaryRow.CellProps
 
-Describes properties passed to a component that renders a cell within a row.
+Describes properties passed to a component that renders a cell within a summary row.
 
 Extends [Table.CellProps](table.md#tablecellprops)
 
@@ -90,12 +90,12 @@ avg? | string | 'Avg' | Specifies the text for the average type.
 Name | Properties | Description
 -----|------------|------------
 TableSummaryRow.Cell | [TableSummaryRow.CellProps](#tablesummaryrowcellprops) | A component that renders a cell within a data row.
-totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a row with total summaries.
-TableSummaryRow.GroupRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a row with group summaries.
-TableSummaryRow.TreeRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a row with tree summaries.
-TableSummaryRow.TotalCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with total summaries.
-TableSummaryRow.GroupCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with group summaries.
-TableSummaryRow.TreeCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a cell with tree summaries.
+totalRowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the total summary row.
+TableSummaryRow.GroupRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a group summary row.
+TableSummaryRow.TreeRow | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a tree summary row.
+TableSummaryRow.TotalCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a total summary cell.
+TableSummaryRow.GroupCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a group summary cell.
+TableSummaryRow.TreeCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a tree summary cell.
 TableSummaryRow.TreeColumnCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a summary cell within a tree column.
 TableSummaryRow.TreeColumnContent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | A component that renders a summary cell's content within a tree column.
 TableSummaryRow.TreeColumnIndent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | A component that renders an indent used to identify a tree row level within a tree column.
@@ -111,7 +111,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows.
 tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table footer rows.
-tableTreeColumnName | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The name of a column that represented as a tree.
+tableTreeColumnName | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The name of a column that is displayed as a tree.
 getTreeRowLevel | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number | A function used to identify a node level in tree data structure.
 getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
@@ -122,4 +122,4 @@ tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Tabl
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with group and tree summaries.
-tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table footer rows with total summary.
+tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table footer rows with the total summary.

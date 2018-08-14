@@ -68,6 +68,8 @@
         path: /react/grid/docs/guides/column-visibility
       - title: Banded Columns
         path: /react/grid/docs/guides/banded-columns
+      - title: Fixed Columns
+        path: /react/grid/docs/guides/fixed-columns
       - title: Virtual Scrolling
         path: /react/grid/docs/guides/virtual-scrolling
       - title: Tree Data
@@ -158,6 +160,8 @@
         path: /react/grid/docs/reference/custom-tree-data
       - title: TableTreeColumn
         path: /react/grid/docs/reference/table-tree-column
+      - title: TableFixedColumns
+        path: /react/grid/docs/reference/table-fixed-columns
   - title: Related Docs
     items:
       - title: Core

@@ -24,12 +24,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <AreaSeries
-            color="yellow"
             valueField="ru"
             argumentField="year"
           />
           <AreaSeries
-            color="black"
             valueField="ch"
             argumentField="year"
           />

@@ -21,12 +21,26 @@ const Series = ({
   )));
 };
 
+const BaseSeries = ({ Path, path, ...props }) => <Path {...props} />;
+
+BaseSeries.propTypes = {
+  Path: PropTypes.func,
+  path: PropTypes.func,
+};
+
+BaseSeries.defaultProps = {
+  Path: Series,
+  path: null,
+};
+
 export const ScatterSeries = withSeriesPlugin(
-  withColor(Series),
+  withColor(BaseSeries),
   'ScatterSeries',
   'scatter',
   computeCoordinates,
 );
+
+ScatterSeries.Path = Series;
 
 Series.propTypes = {
   pointComponent: PropTypes.func.isRequired,

@@ -2,7 +2,10 @@
 import {
   symbol,
   symbolCircle,
+  curveCatmullRom,
   arc,
+  area,
+  line,
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
 import {
@@ -89,6 +92,82 @@ const computedLine = data.map(item => ({
 }));
 
 const groupWidth = 0.7;
+
+describe('dArea', () => {
+  it('init function', () => {
+    expect(area).toHaveBeenCalledTimes(1);
+  });
+
+  it('x getter', () => {
+    const fluentArea = area.mock.results[0].value;
+    const getX = fluentArea.x.mock.calls[0][0];
+
+    expect(fluentArea.x).toHaveBeenCalledTimes(1);
+    expect(getX({ x: 10, width: 20 })).toEqual(20);
+  });
+
+  it('y1 getter', () => {
+    const fluentArea = area.mock.results[0].value;
+    const getY = fluentArea.y1.mock.calls[0][0];
+
+    expect(fluentArea.y1).toHaveBeenCalledTimes(1);
+    expect(getY({ y: 10 })).toEqual(10);
+  });
+
+  it('y0 getter', () => {
+    const fluentArea = area.mock.results[0].value;
+    const getY = fluentArea.y0.mock.calls[0][0];
+
+    expect(fluentArea.y0).toHaveBeenCalledTimes(1);
+    expect(getY({ y1: 5 })).toEqual(5);
+  });
+});
+
+describe('line & spline', () => {
+  it('init function', () => {
+    expect(line).toHaveBeenCalledTimes(2);
+  });
+
+  it('x & y  getters', () => {
+    const fluentLine = line.mock.results[0].value;
+    expect(fluentLine.x).toHaveBeenCalledTimes(2);
+    expect(fluentLine.y).toHaveBeenCalledTimes(2);
+  });
+
+  describe('dLine', () => {
+    it('x getter', () => {
+      const getX = line.mock.results[0].value.x.mock.calls[0][0];
+
+      expect(getX({ x: 10, width: 20 })).toEqual(20);
+    });
+
+    it('y1 getter', () => {
+      const getY = line.mock.results[0].value.y.mock.calls[0][0];
+
+      expect(getY({ y: 10 })).toEqual(10);
+    });
+  });
+
+  describe('dSpline', () => {
+    it('x getter', () => {
+      const getX = line.mock.results[0].value.x.mock.calls[1][0];
+
+      expect(getX({ x: 10, width: 20 })).toEqual(20);
+    });
+
+    it('y1 getter', () => {
+      const getY = line.mock.results[0].value.y.mock.calls[1][0];
+
+      expect(getY({ y: 10 })).toEqual(10);
+    });
+
+    it('curve', () => {
+      const curve = line.mock.results[0].value.curve.mock.calls[0][0];
+
+      expect(curve).toEqual(curveCatmullRom);
+    });
+  });
+});
 
 describe('Scales', () => {
   const defaultOptions = [

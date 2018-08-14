@@ -15,7 +15,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-Use the `SummaryState`, `IntegratedSummary` (or `CustomSummary`) and `TableSummaryRow` plugins to set up a Grid that displays data summary.
+Use the `SummaryState`, `IntegratedSummary` (or `CustomSummary`) and `TableSummaryRow` plugins to set up a Grid that displays a data summary.
 
 ### Built-in Data Summaries Calculation
 

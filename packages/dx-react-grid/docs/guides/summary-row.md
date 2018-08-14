@@ -1,56 +1,56 @@
 # React Grid - Summary Row
 
-The Grid component supports calculating data summaries. Use the corresponding plugins to manage the data summaries state and calculate data summaries programmatically.
+The Grid component can calculate summary for all rows (total summary), row groups (group summary), and tree nodes that contain child nodes (tree summary). Use the corresponding plugins to calculate summary and manage summary state.
 
 ## Related Plugins
 
-The following plugins implement sorting features:
+The following plugins implement summary features:
 
-- [SummaryState](../reference/summary-state.md) - controls the data summaries state
-- [IntegratedSummary](../reference/integrated-summary.md) - performs built-in data summaries calculating
-- [CustomSummary](../reference/custom-summary.md) - provides custom data summaries
+- [SummaryState](../reference/summary-state.md) - manages the data summary state
+- [IntegratedSummary](../reference/integrated-summary.md) - performs built-in data summary calculation
+- [CustomSummary](../reference/custom-summary.md) - provides a capability to calculate a custom data summary
 - [TableSummaryRow](../reference/table-summary-row.md) - renders table summary rows
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-Use the `SummaryState`, `IntegratedSummary` (or `CustomSummary`) and `TableSummaryRow` plugins to set up a Grid with simple data summaries.
+Use the `SummaryState`, `IntegratedSummary` (or `CustomSummary`) and `TableSummaryRow` plugins to set up a Grid that displays data summary.
 
 ### Built-in Data Summaries Calculation
 
-Built-in data summaries calculation is performed by the `IntegratedSummary` plugin.
+The `IntegratedSummary` plugin performs the built-in summary calculation.
 
-In the following example, the total summary row is shown with the data calculated internally. Pass summary items array to the `totalItems` property of the `SummaryState` plugin.
+The following example displays the total summary calculated internally. Pass summary items array to the `SummaryState` plugin's `totalItems` property.
 
 .embedded-demo({ "path": "grid-summary/total-summary", "showThemeSelector": true })
 
-In the following example, group summary rows is shown. Pass summary items array to the `groupItems` property of the `SummaryState` plugin.
+The following example demonstrates group summary rows. Pass summary items array to the `SummaryState` plugin's `groupItems` property.
 
 .embedded-demo({ "path": "grid-summary/group-summary", "showThemeSelector": true })
 
-In the following example, tree summary rows is shown. Pass summary items array to the `treeItems` property of the `SummaryState` plugin.
+The following example shows tree summary rows. Pass summary items array to the `SummaryState` plugin's `treeItems` property.
 
 .embedded-demo({ "path": "grid-summary/tree-summary", "showThemeSelector": true })
 
 ### Custom Data Summaries Calculation
 
-The `CustomSummary` plugin allows providing data summary values calculated externally. It may be received from the server or computed locally.
+The `CustomSummary` plugin allows you to calculate data summary externally - on a remote server or a local machine.
 
-In the following example, customly calculated total summary row is shown. Pass summary items array to the `totalItems` property of the `SummaryState` plugin and summary values to the `totalValues` property of the `CustomSummary` plugin.
+The following example demonstrates customly calculated total summary. Pass summary items array to the `SummaryState` plugin's `totalItems` property and summary values to the `totalValues` property.
 
 .embedded-demo({ "path": "grid-summary/custom-summary", "showThemeSelector": true })
 
-The same is possible with grouped and tree data. Pass the `groupValues` and `treeValues` data object to the `CustomSummary` plugin.
+Calculate custom group and tree summary in the same maner. Pass the `groupValues` and `treeValues` data objects to the `CustomSummary` plugin.
 
 ## Custom Algorithms
 
-The `IntegratedSummary` plugin allows extending built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom ones. In the followith example, a custom `median` summary type is shown.
+The `IntegratedSummary` plugin allows you to extend built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom types. In the followith example, a custom `median` summary type is defined.
 
 .embedded-demo({ "path": "grid-summary/custom-algorithm", "showThemeSelector": true })
 
 ## Avoiding Summary Formatting
 
-Formatter component specified by the `DataTypeProvider` plugin that is assigned to a column will be used within a summary row. But not all summary types needs to be formatted. The `count` summary type is not formatted, for example. In the followith example, a custom formatless `overprice` summary type is shown.
+If a `DataTypeProvider` plugin is assigned to a column, its value formatting component is applied to a summary row. Use the `formattlessSummaryTypes` property to specify summary types that should not be formatted. The following example shows the custom `overprice` summary type that is not formatted.
 
 .embedded-demo({ "path": "grid-summary/formatless-custom-algorithm", "showThemeSelector": true })

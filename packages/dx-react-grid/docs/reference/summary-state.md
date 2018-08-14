@@ -1,6 +1,6 @@
 # SummaryState Plugin Reference
 
-A plugin that manages the summary state. It controls the list of items for total, group and tree summaries.
+A plugin that provides items for total, group, and tree summaries.
 
 ## Importing
 
@@ -20,9 +20,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | Specifies the applied total summaries.
-groupItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | Specifies the applied group summaries.
-treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | Specifies the applied tree summaries.
+totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The total summary items.
+groupItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The group summary items.
+treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items.
 
 ## Interfaces
 
@@ -32,8 +32,8 @@ Describes the sorting applied to a column
 
 Field | Type | Description
 ------|------|------------
-columnName | string | Specifies a column's name to which the summary is applied.
-type | [SummaryType](#summarytype) | Specifies the summary type.
+columnName | string | The name of a column associated with the current summary item.
+type | [SummaryType](#summarytype) | A summary type.
 
 ### SummaryType
 
@@ -53,6 +53,6 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to all rows.
-groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to group rows.
-treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to rows that contains children rows.
+totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Total summary items.
+groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Group summary items.
+treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to rows that contain child rows.

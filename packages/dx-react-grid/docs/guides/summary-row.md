@@ -1,6 +1,6 @@
 # React Grid - Summary Row
 
-The Grid component can calculate a summary for all rows (total summary), row groups (group summary), and tree nodes that contain child nodes (tree summary). Use the corresponding plugins to calculate the summary and manage its state.
+The Grid component can calculate a summary for all rows (total summary), row groups (group summary), and tree nodes that contain child nodes (tree summary). You can use the corresponding plugins to calculate the summary and manage its state.
 
 ## Related Plugins
 

@@ -1,12 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 export const OpenButton = ({
   ...restProps
 }) => (
-  <button>
-    Open
-  </button>
+  <IconButton mini variant="fab" aria-label="Edit">
+    {/* <IconButton aria-label="Delete"> */}
+    <EditIcon />
+    {/* </IconButton> */}
+  </IconButton>
 );
 
 // OpenButton.propTypes = {

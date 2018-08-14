@@ -41,7 +41,7 @@ The following example demonstrates customly calculated total summary. Pass summa
 
 .embedded-demo({ "path": "grid-summary/custom-summary", "showThemeSelector": true })
 
-Calculate custom group and tree summary in the same maner. Pass the `groupValues` and `treeValues` data objects to the `CustomSummary` plugin.
+Calculate custom group and tree summary in the same manner. Pass the `groupValues` and `treeValues` data objects to the `CustomSummary` plugin.
 
 ## Custom Algorithms
 

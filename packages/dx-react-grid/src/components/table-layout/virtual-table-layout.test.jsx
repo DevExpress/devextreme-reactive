@@ -256,7 +256,7 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          bodyRows={rows}
+          bodyRows={rows.slice(0, 2)}
         />
       ));
       tree.setProps({ bodyRows: [rows[0]] });
@@ -281,7 +281,8 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={rows}
+          headerRows={rows.slice(0, 2)}
+          bodyRows={rows.slice(2, 1)}
         />
       ));
       tree.setProps({ headerRows: [rows[0]] });

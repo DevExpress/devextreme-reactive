@@ -29,7 +29,7 @@ export class VirtualTable extends React.PureComponent {
     });
   }
 
-  componentWillReceiveProps({ height, estimatedRowHeight, headTableComponent }) {
+  componentDidUpdate({ height, estimatedRowHeight, headTableComponent }) {
     this.layoutRenderComponent.update({ height, estimatedRowHeight, headTableComponent });
   }
 

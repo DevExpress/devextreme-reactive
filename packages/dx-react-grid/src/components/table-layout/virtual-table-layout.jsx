@@ -27,29 +27,23 @@ export class VirtualTableLayout extends React.PureComponent {
     this.storeRowHeights();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { headerRows, bodyRows } = this.props;
-    if (
-      headerRows !== nextProps.headerRows
-      || bodyRows !== nextProps.bodyRows
-    ) {
-      const { rowHeights: prevRowHeight } = this.state;
-      const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
-        (acc, row) => {
-          const rowHeight = prevRowHeight.get(row.key);
-          if (rowHeight !== undefined) {
-            acc.set(row.key, rowHeight);
-          }
-          return acc;
-        },
-        new Map(),
-      );
-      this.setState({ rowHeights });
-    }
-  }
-
   componentDidUpdate() {
     this.storeRowHeights();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { rowHeights: prevRowHeight } = prevState;
+    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+      (acc, row) => {
+        const rowHeight = prevRowHeight.get(row.key);
+        if (rowHeight !== undefined) {
+          acc.set(row.key, rowHeight);
+        }
+        return acc;
+      },
+      new Map(),
+    );
+    return { rowHeights };
   }
 
   getRowHeight(row) {
@@ -67,6 +61,7 @@ export class VirtualTableLayout extends React.PureComponent {
       .map(([row, ref]) => [row, findDOMNode(ref)])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
+      .filter(([row]) => row.type !== 'stub')
       .filter(([row, height]) => height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {

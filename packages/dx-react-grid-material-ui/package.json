@@ -71,9 +71,9 @@
     "jss": "^9.8.7",
     "jss-preset-default": "^4.5.0",
     "jss-theme-reactor": "^0.11.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-test-renderer": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-test-renderer": "^16.4.2",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-license": "^0.6.0",
@@ -89,6 +89,6 @@
     "@devexpress/dx-react-grid": "1.5.1",
     "@material-ui/core": ">=1.1.0",
     "@material-ui/icons": ">=1.1.0",
-    "react": ">=16.2.0"
+    "react": ">=16.3.0"
   }
 }

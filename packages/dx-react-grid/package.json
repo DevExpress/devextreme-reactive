@@ -65,9 +65,9 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "jest": "^23.4.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-test-renderer": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-test-renderer": "^16.4.2",
     "rollup": "0.50.0",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-license": "^0.6.0",
@@ -80,7 +80,7 @@
   "peerDependencies": {
     "@devexpress/dx-core": "1.5.1",
     "@devexpress/dx-react-core": "1.5.1",
-    "react": ">=16.2.0",
-    "react-dom": ">=16.2.0"
+    "react": ">=16.3.0",
+    "react-dom": ">=16.3.0"
   }
 }

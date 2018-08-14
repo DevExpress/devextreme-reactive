@@ -14,7 +14,7 @@ export class DropTarget extends React.Component {
     this.handleDrag = this.handleDrag.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dragDropProvider: { dragEmitter } } = this.context;
     dragEmitter.subscribe(this.handleDrag);
   }

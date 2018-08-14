@@ -8,9 +8,11 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 
 export class Getter extends React.PureComponent {
-  componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
-    const { name } = this.props;
+  constructor(props, context) {
+    super(props, context);
+
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { name } = props;
 
     let lastComputed;
     let lastTrackedDependencies = {};

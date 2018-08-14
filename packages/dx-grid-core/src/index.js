@@ -99,6 +99,4 @@ export {
 
 export { getGroupCellTargetIndex } from './utils/group-panel';
 
-export { getMessagesFormatter } from './utils/messages-formatter';
-
 export { getCollapsedGrid } from './utils/virtual-table';

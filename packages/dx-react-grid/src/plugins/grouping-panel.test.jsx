@@ -5,7 +5,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingPanel } from './grouping-panel';
@@ -13,8 +12,8 @@ import { GroupingPanel } from './grouping-panel';
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),
   getColumnSortingDirection: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
+
 
 const defaultDeps = {
   getter: {
@@ -53,7 +52,6 @@ describe('GroupingPanel', () => {
   });
 
   beforeEach(() => {
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     groupingPanelItems.mockImplementation(() => []);
     getColumnSortingDirection.mockImplementation(() => 'direction');
   });

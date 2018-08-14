@@ -2,13 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { pageCount, getMessagesFormatter } from '@devexpress/dx-grid-core';
+import { pageCount } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { PagingPanel } from './paging-panel';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   pageCount: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -40,7 +39,6 @@ describe('PagingPanel', () => {
 
   beforeEach(() => {
     pageCount.mockImplementation(() => 11);
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
   });
   afterEach(() => {
     jest.resetAllMocks();

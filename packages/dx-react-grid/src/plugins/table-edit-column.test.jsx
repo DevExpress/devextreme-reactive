@@ -10,9 +10,11 @@ import {
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import { TableEditColumn } from './table-edit-column';
+
+// jest.mock('@devexpress/dx-core');
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
@@ -21,6 +23,10 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isEditCommandsTableCell: jest.fn(),
   isAddedTableRow: jest.fn(),
   isEditTableRow: jest.fn(),
+}));
+
+jest.mock('@devexpress/dx-core', () => ({
+  ...require.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn(),
 }));
 

@@ -7,6 +7,7 @@ import {
   TemplateConnector,
   Plugin,
 } from '@devexpress/dx-react-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -16,7 +17,6 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;

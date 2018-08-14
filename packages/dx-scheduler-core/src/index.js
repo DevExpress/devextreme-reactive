@@ -5,6 +5,5 @@ export * from './plugins/week-view/computeds';
 export * from './plugins/view-state/reducers';
 export * from './plugins/date-navigator/helpers';
 export * from './plugins/all-day-panel/computeds';
-export * from './messages-formatter';
 export * from './utils';
 export * from './constants';

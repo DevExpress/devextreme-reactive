@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Action,
   Getter,
@@ -10,7 +11,6 @@ import {
   createStateHelper,
 } from '@devexpress/dx-react-core';
 import {
-  getMessagesFormatter,
   toggleColumn,
   visibleTableColumns,
   tableDataColumnsExist,

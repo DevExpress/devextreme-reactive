@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Template, TemplatePlaceholder, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { getMessagesFormatter, columnChooserItems } from '@devexpress/dx-grid-core';
+import { columnChooserItems } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
   { name: 'TableColumnVisibility' },

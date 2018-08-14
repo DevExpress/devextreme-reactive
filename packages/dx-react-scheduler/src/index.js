@@ -5,3 +5,4 @@ export * from './plugins/toolbar';
 export * from './plugins/date-navigator';
 export * from './plugins/appointments';
 export * from './plugins/view-state';
+export * from './plugins/appointment-tooltip';

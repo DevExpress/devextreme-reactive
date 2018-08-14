@@ -32,10 +32,14 @@ const AppointmentBase = ({
   classes, className,
   style,
   children,
+  currentAppointment,
+  tooltipRef,
+  appointment,
   ...restProps
 }) => (
   <div
     className={classNames(classes.appointment, className)}
+    onClick={(e) => { console.log('123'); tooltipRef(e.target); currentAppointment(appointment); }}
     style={style}
     {...restProps}
   >

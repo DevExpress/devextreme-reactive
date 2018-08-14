@@ -25,17 +25,17 @@ The following example displays the total summary calculated internally. Pass sum
 
 .embedded-demo({ "path": "grid-summary/total-summary", "showThemeSelector": true })
 
-The following example demonstrates group summary rows. Pass summary items array to the `SummaryState` plugin's `groupItems` property.
+The following example demonstrates group summary rows. Pass the summary items' array to the `SummaryState` plugin's `groupItems` property.
 
 .embedded-demo({ "path": "grid-summary/group-summary", "showThemeSelector": true })
 
-The following example shows tree summary rows. Pass summary items array to the `SummaryState` plugin's `treeItems` property.
+The following example shows tree summary rows. Pass the summary items' array to the `SummaryState` plugin's `treeItems` property.
 
 .embedded-demo({ "path": "grid-summary/tree-summary", "showThemeSelector": true })
 
 ### Custom Data Summaries Calculation
 
-The `CustomSummary` plugin allows you to calculate data summary externally - on a remote server or a local machine.
+The `CustomSummary` plugin allows you to calculate a data summary on a remote server or local machine.
 
 The following example demonstrates customly calculated total summary. Pass summary items array to the `SummaryState` plugin's `totalItems` property and summary values to the `totalValues` property.
 
@@ -45,7 +45,7 @@ Calculate custom group and tree summary in the same manner. Pass the `groupValue
 
 ## Custom Algorithms
 
-The `IntegratedSummary` plugin allows you to extend built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom types. In the followith example, a custom `median` summary type is defined.
+The `IntegratedSummary` plugin allows you to extend the built-in summary types (`count`, `sum`, `max`, `min`, `avg`) with custom types. In the followith example, a custom `median` summary type is defined:
 
 .embedded-demo({ "path": "grid-summary/custom-algorithm", "showThemeSelector": true })
 

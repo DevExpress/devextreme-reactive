@@ -74,6 +74,12 @@ TableSelection.Cell | [TableSelection.CellProps](#tableselectioncellprops) | A c
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | string | The name of the selection column type.
+
 ## Plugin Developer Reference
 
 ### Imports

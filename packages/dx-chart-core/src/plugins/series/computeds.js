@@ -134,8 +134,8 @@ export const dBar = ({
   x, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
 });
 
-export const pointAttributes = () => {
-  const dPoint = symbol().size([DEFAULT_POINT_SIZE ** 2]).type(symbolCircle)();
+export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
+  const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
   return item => ({
     d: dPoint,
     x: item.x,

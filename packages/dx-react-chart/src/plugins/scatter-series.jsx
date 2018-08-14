@@ -9,12 +9,14 @@ const Series = ({
   const {
     pointComponent: Point,
     coordinates,
+    point = {},
     ...restProps
   } = props;
+  const getAttributes = pointAttributes(point);
   return (coordinates.map(item => (
     <Point
       key={item.id.toString()}
-      {...pointAttributes(null, {})(item)}
+      {...getAttributes(item)}
       {...item}
       {...restProps}
     />

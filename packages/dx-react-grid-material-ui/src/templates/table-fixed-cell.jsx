@@ -78,4 +78,4 @@ FixedCellBase.defaultProps = {
   showRightDivider: false,
 };
 
-export const FixedCell = withStyles(styles)(FixedCellBase);
+export const FixedCell = withStyles(styles, { name: 'TableFixedCell' })(FixedCellBase);

@@ -22,7 +22,6 @@ export default {
         { name: 'OrderNumber', title: 'Order #' },
         { name: 'OrderDate', title: 'Order Date' },
         { name: 'StoreCity', title: 'Store City' },
-        { name: 'StoreState', title: 'Store State' },
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],

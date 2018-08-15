@@ -19,10 +19,10 @@ export class ColumnChooser extends React.PureComponent {
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.buttonRef = this.buttonRef.bind(this);
+    this.setButtonRef = this.setButtonRef.bind(this);
   }
 
-  buttonRef(button) {
+  setButtonRef(button) {
     this.button = button;
   }
 
@@ -60,7 +60,7 @@ export class ColumnChooser extends React.PureComponent {
             ) => (
               <React.Fragment>
                 <ToggleButton
-                  buttonRef={this.buttonRef}
+                  buttonRef={this.setButtonRef}
                   onToggle={this.handleToggle}
                   getMessage={getMessage}
                   active={visible}

@@ -24,10 +24,7 @@ export const external = (packageDirectory, additional) => {
 
 export const babelrc = (packageDirectory) => {
   const config = JSON.parse(readFileSync(join(packageDirectory, '.babelrc')));
-  const { presets, plugins } = config;
-
-  const index = presets.findIndex(preset => preset === 'es2015');
-  presets[index] = ['es2015', { modules: false }];
+  const { plugins } = config;
 
   plugins.push('external-helpers');
 

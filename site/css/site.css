@@ -535,3 +535,11 @@ footer ul > li.active > a {
         right: -20px;
     }
 }
+
+.algolia-autocomplete {
+  width: 100%;
+}
+
+#docsearch {
+  margin-bottom: 10px;
+}

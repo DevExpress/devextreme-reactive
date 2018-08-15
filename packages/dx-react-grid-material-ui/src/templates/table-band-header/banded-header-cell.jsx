@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   headerCellBorder: {
-    borderLeft: getBorderColor(theme),
-    borderRight: getBorderColor(theme),
+    borderLeft: getBorder(theme),
+    borderRight: getBorder(theme),
     borderTop: 'none',
     '&:first-child': {
       borderLeft: 0,

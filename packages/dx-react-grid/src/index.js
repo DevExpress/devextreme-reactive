@@ -37,6 +37,10 @@ export * from './plugins/custom-tree-data';
 export * from './plugins/table-tree-column';
 export * from './plugins/search-state';
 export * from './plugins/search-panel';
+export * from './plugins/summary-state';
+export * from './plugins/integrated-summary';
+export * from './plugins/custom-summary';
+export * from './plugins/table-summary-row';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';

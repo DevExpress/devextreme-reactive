@@ -75,24 +75,6 @@ export const getRectByDates = (
   };
 };
 
-export const calculateFirstDateOfWeek = (currentDate, firstDayOfWeek, excludedDays = []) => {
-  const currentLocale = moment.locale();
-  moment.updateLocale('tmp-locale', {
-    week: { dow: firstDayOfWeek },
-  });
-  const firstDateOfWeek = moment(currentDate).startOf('week');
-  if (excludedDays.indexOf(firstDayOfWeek) !== -1) {
-    excludedDays.slice().sort().forEach((day) => {
-      if (day === firstDateOfWeek.day()) {
-        firstDateOfWeek.add(1, 'days');
-      }
-    });
-  }
-  moment.locale(currentLocale);
-
-  return firstDateOfWeek.toDate();
-};
-
 export const sliceAppointmentByDay = (appointment) => {
   const { start, end, dataItem } = appointment;
   if (start.isSame(end, 'day')) {
@@ -142,64 +124,3 @@ export const reduceAppointmentByDayBounds = (appointment, leftBound, rightBound)
     ...(appointment.end.isSameOrAfter(endDayTime) ? { end: endDayTime } : null),
   };
 };
-
-export const findOverlappedAppointments = (sortedAppointments) => {
-  const appointments = sortedAppointments.slice();
-  const groups = [];
-  let totalIndex = 0;
-
-  while (totalIndex < appointments.length) {
-    groups.push([]);
-    const current = appointments[totalIndex];
-    const currentGroup = groups[groups.length - 1];
-    let next = appointments[totalIndex + 1];
-    let maxBoundary = current.end;
-
-    currentGroup.push(current);
-    totalIndex += 1;
-    while (next && maxBoundary.isAfter(next.start)) {
-      currentGroup.push(next);
-      if (maxBoundary.isBefore(next.end)) maxBoundary = next.end;
-      totalIndex += 1;
-      next = appointments[totalIndex];
-    }
-  }
-  return groups;
-};
-
-export const adjustAppointments = groups => groups.map((items) => {
-  let offset = 0;
-  let reduceValue = 1;
-  const appointments = items.slice();
-  const groupLength = appointments.length;
-  for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
-    const appointment = appointments[startIndex];
-    if (appointment.offset === undefined) {
-      let maxBoundary = appointment.end;
-      appointment.offset = offset;
-      for (let index = startIndex + 1; index < groupLength; index += 1) {
-        if (appointments[index].offset === undefined) {
-          if (maxBoundary.isSameOrBefore(appointments[index].start)) {
-            maxBoundary = appointments[index].end;
-            appointments[index].offset = offset;
-          }
-        }
-      }
-
-      offset += 1;
-      if (reduceValue < offset) reduceValue = offset;
-    }
-  }
-  return { items: appointments, reduceValue };
-});
-
-export const unwrapGroups = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(appointment => ({
-    start: appointment.start,
-    end: appointment.end,
-    dataItem: appointment.dataItem,
-    offset: appointment.offset,
-    reduceValue,
-  })));
-  return acc;
-}, []);

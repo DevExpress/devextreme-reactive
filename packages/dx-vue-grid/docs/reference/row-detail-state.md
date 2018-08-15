@@ -38,5 +38,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toggleDetailRowExpanded | Action | ({ rowId }) => void | Expands/collapses the specified row.
+toggleDetailRowExpanded | Action | ({ rowId: number &#124; string, state?: boolean }) => void | Expands/collapses the specified row. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).
 expandedDetailRowIds | Getter | Array&lt;number &#124; string&gt; | Currently expanded rows.

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableMUI from '@material-ui/core/Table';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from './utils';
+import { getBorder } from './utils';
 
 const styles = theme => ({
   table: {
@@ -23,7 +23,7 @@ const styles = theme => ({
     top: 0,
   },
   footTable: {
-    borderTop: getBorderColor(theme),
+    borderTop: getBorder(theme),
     bottom: 0,
   },
 });

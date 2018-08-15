@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from './utils';
+import { getBorder } from './utils';
 
 const styles = theme => ({
   cell: {
@@ -16,7 +16,7 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   footer: {
-    borderBottom: getBorderColor(theme),
+    borderBottom: getBorder(theme),
   },
   cellRightAlign: {
     textAlign: 'right',

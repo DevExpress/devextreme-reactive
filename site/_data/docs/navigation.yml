@@ -30,9 +30,9 @@
       - title: React Grid
         path: /react/grid/docs/guides/getting-started
       - title: React Chart
-        path: /react/chart
+        path: /react/chart/docs/guides/getting-started
       - title: Vue Grid
-        path: /vue/grid
+        path: /vue/grid/docs/guides/getting-started
 /react/grid:
   - title: Guides
     items:
@@ -164,12 +164,12 @@
         path: /react/grid/docs/reference/table-tree-column
   - title: Related Docs
     items:
-      - title: Core
+      - title: React Core
         path: /react/core/docs/guides/fundamentals
       - title: React Chart
-        path: /react/chart
+        path: /react/chart/docs/guides/getting-started
       - title: Vue Grid
-        path: /vue/grid
+        path: /vue/grid/docs/guides/getting-started
 /react/chart:
   - title: Guides
     items:
@@ -213,12 +213,12 @@
         path: /react/chart/docs/reference/value-axis
   - title: Related Docs
     items:
-      - title: Core
+      - title: React Core
         path: /react/core/docs/guides/fundamentals
       - title: React Grid
         path: /react/grid/docs/guides/getting-started
       - title: Vue Grid
-        path: /vue/grid
+        path: /vue/grid/docs/guides/getting-started
 /vue/grid:
   - title: Guides
     items:
@@ -333,6 +333,6 @@
       - title: React Grid
         path: /react/grid/docs/guides/getting-started
       - title: React Chart
-        path: /react/chart
+        path: /react/chart/docs/guides/getting-started/
       - title: React Core
         path: /react/core/docs/guides/fundamentals

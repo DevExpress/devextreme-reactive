@@ -9,6 +9,7 @@ const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
 const TEST_FILE = 'demo.test.jsxt';
 const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
 const GENERATED_SUFFIX = '.g';
+const TEST_SUFFIX = '.test';
 const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
 
 const themeNames = [];
@@ -54,13 +55,20 @@ const loadDemosToGenerate = () => {
               filesToRemove.push(path.join(DEMOS_FOLDER, sectionName, file, nestedFile));
               return;
             }
+            if (nestedFile.indexOf(TEST_SUFFIX) > -1) {
+              return;
+            }
             const demoExtension = getDemoExtension(nestedFile);
             const demoName = nestedFile.replace(`.${demoExtension}`, '');
+            const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
+              ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
+              : TEST_FILE;
             demos.push({
               sectionName,
               demoName,
               themeName: file,
-              generateTest: true,
+              testFile,
+              generateTest: !fs.existsSync(path.join(DEMOS_FOLDER, sectionName, file, `${demoName}${TEST_SUFFIX}.jsxt`)),
               generateSsrTest,
               demoExtension,
             });
@@ -68,7 +76,13 @@ const loadDemosToGenerate = () => {
         }
         const demoExtension = getDemoExtension(file);
         if (demoExtension && file.endsWith(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`)) {
+          if (file.indexOf(TEST_SUFFIX) > -1) {
+            return;
+          }
           const demoName = file.replace(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`, '');
+          const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
+            ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
+            : TEST_FILE;
           themeNames.forEach((themeName) => {
             if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.${demoExtension}`))) {
               return;
@@ -78,6 +92,7 @@ const loadDemosToGenerate = () => {
               demoName,
               themeName,
               generateDemo: true,
+              testFile,
               generateTest: true,
               generateSsrTest,
               demoExtension,
@@ -99,14 +114,21 @@ const overrideFileIfChanged = (filename, data) => {
 };
 const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
-  mustache.parse(source, ['<%', '%>']);
+  mustache.tags = ['<%', '%>'];
   const output = mustache.render(source, data);
   overrideFileIfChanged(outputFilename, output);
   cancelFileRemoving(outputFilename);
 };
 const generateDemos = () => {
   demos.forEach(({
-    sectionName, demoName, demoExtension, themeName, generateDemo, generateTest, generateSsrTest,
+    sectionName,
+    demoName,
+    demoExtension,
+    themeName,
+    generateDemo,
+    testFile,
+    generateTest,
+    generateSsrTest,
   }) => {
     const demoSourceData = {
       themeName,
@@ -129,8 +151,8 @@ const generateDemos = () => {
 
     if (generateTest) {
       createFromTemplate(
-        path.join(DEMOS_FOLDER, TEST_FILE),
-        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}.test.${demoExtension}`),
+        path.join(DEMOS_FOLDER, testFile),
+        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}${GENERATED_SUFFIX}${TEST_SUFFIX}.${demoExtension}`),
         demoSourceData,
       );
     }
@@ -138,7 +160,7 @@ const generateDemos = () => {
     if (generateSsrTest) {
       createFromTemplate(
         path.join(DEMOS_FOLDER, SSR_TEST_FILE),
-        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.ssr${GENERATED_SUFFIX}.test.${demoExtension}`),
+        path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.ssr${GENERATED_SUFFIX}${TEST_SUFFIX}.${demoExtension}`),
         demoSourceData,
       );
     }
@@ -158,8 +180,10 @@ const indent = (string, count) => string.split('\n').map(substring => `${' '.rep
 const generateDemoRegistry = () => {
   const structuredDemos = groupBy(demos, element => element.sectionName);
   Object.keys(structuredDemos).forEach((sectionName) => {
-    structuredDemos[sectionName] =
-      groupBy(structuredDemos[sectionName], element => element.demoName);
+    structuredDemos[sectionName] = groupBy(
+      structuredDemos[sectionName],
+      element => element.demoName,
+    );
   });
 
   const sectionsString = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
@@ -168,10 +192,10 @@ const generateDemoRegistry = () => {
         .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
           const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
           const demoSource = JSON.stringify(String(fs.readFileSync(fileName, 'utf-8')));
-          return `${themesAcc}\n${indent(`'${themeName}': {\n` +
-          `  demo: require('.${fileName}').default,\n` +
-          `  source: ${demoSource},\n` +
-          '},', 2)}`;
+          return `${themesAcc}\n${indent(`'${themeName}': {\n`
+            + `  demo: require('.${fileName}').default,\n`
+            + `  source: ${demoSource},\n`
+            + '},', 2)}`;
         }, '');
 
       return `${demosAcc}\n${indent(`'${demoName}': {${themesString}\n},`, 2)}`;
@@ -182,10 +206,10 @@ const generateDemoRegistry = () => {
 
   overrideFileIfChanged(
     DEMOS_REGISTRY_FILE,
-    '/* eslint-disable quote-props */\n' +
-    '/* eslint-disable global-require */\n' +
-    '/* eslint-disable no-template-curly-in-string */\n\n' +
-    `module.exports.demos = {${sectionsString}\n};\n`,
+    '/* eslint-disable quote-props */\n'
+    + '/* eslint-disable global-require */\n'
+    + '/* eslint-disable no-template-curly-in-string */\n\n'
+    + `module.exports.demos = {${sectionsString}\n};\n`,
   );
 };
 

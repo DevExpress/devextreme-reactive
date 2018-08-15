@@ -20,6 +20,8 @@
     items:
       - title: Component customization
         path: /react/chart/demos/featured/component-customization
+      - title: Olympic Games
+        path: /react/chart/demos/featured/olympic-games
 /vue/grid:
   - title: DEMOS
     items:

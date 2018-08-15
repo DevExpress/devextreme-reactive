@@ -12,7 +12,7 @@ import { TableSummaryRow } from '@devexpress/dx-react-grid-material-ui';
 // import { TableSummaryRow } from '@devexpress/dx-react-grid-bootstrap3';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { TableSummaryRow } from '@devexpress/dx-react-grid';
@@ -50,7 +50,7 @@ messages? | [TableSummaryRow.LocalizationMessages](#localization-messages) | | A
 
 ### TableSummaryRow.CellProps
 
-Describes properties passed to a component that renders a cell within a summary row.
+Describes properties passed to a component that renders a cell in a summary row.
 
 Extends [Table.CellProps](table.md#tablecellprops)
 
@@ -69,21 +69,21 @@ children? | ReactNode | A React node to be rendered within the cell's content.
 
 ### TableSummaryRow.IndentProps
 
-Describes properties passed to a component that renders an indent used to identify a row level.
+Describes properties passed to a component that renders an indent used to identify a row's level.
 
 Field | Type | Description
 ------|------|------------
-level | number | Specifies the row level.
+level | number | Specifies the row's level.
 
 ## Localization Messages
 
 Field | Type | Default | Description
 ------|------|---------|------------
-count? | string | 'Count' | Specifies the text for the count type.
-sum? | string | 'Sum' | Specifies the text for the summary type.
-min? | string | 'Min' | Specifies the text for the minimum type.
-max? | string | 'Max' | Specifies the text for the maximum type.
-avg? | string | 'Avg' | Specifies the text for the average type.
+count? | string | 'Count' | Specifies the count type's text.
+sum? | string | 'Sum' | Specifies the summary type's text.
+min? | string | 'Min' | Specifies the minimum type's text.
+max? | string | 'Max' | Specifies the maximum type's text.
+avg? | string | 'Avg' | Specifies the average type text.
 
 ## Plugin Components
 
@@ -98,10 +98,10 @@ TableSummaryRow.GroupCell | ComponentType&lt;[TableSummaryRow.CellProps](#tables
 TableSummaryRow.TreeCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a tree summary cell.
 TableSummaryRow.TreeColumnCell | ComponentType&lt;[TableSummaryRow.CellProps](#tablesummaryrowcellprops)&gt; | A component that renders a summary cell within a tree column.
 TableSummaryRow.TreeColumnContent | ComponentType&lt;[TableSummaryRow.ContentProps](#tablesummaryrowcontentprops)&gt; | A component that renders a summary cell's content within a tree column.
-TableSummaryRow.TreeColumnIndent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | A component that renders an indent used to identify a tree row level within a tree column.
+TableSummaryRow.TreeColumnIndent | ComponentType&lt;[TableSummaryRow.IndentProps](#tablesummaryrowindentprops)&gt; | A component that renders an indent used to identify a tree row's level in a tree column.
 TableSummaryRow.Item | ComponentType&lt;object&gt; | A component that renders a summary item.
 
-The additional properties are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

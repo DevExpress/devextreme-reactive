@@ -28,7 +28,7 @@ treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items
 
 ### SummaryItem
 
-Describes the sorting applied to a column
+Describes the sorting applied to a column.
 
 Field | Type | Description
 ------|------|------------
@@ -37,7 +37,7 @@ type | [SummaryType](#summarytype) | A summary type.
 
 ### SummaryType
 
-Describes a filter operation. Accepts one of the built-in operations or a custom string.
+Describes a filter operation. Accepts a built-in operation or custom string.
 
 Type: `string`
 

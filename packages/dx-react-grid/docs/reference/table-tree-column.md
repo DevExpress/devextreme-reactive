@@ -39,8 +39,8 @@ contentComponent | ComponentType&lt;[TableTreeColumn.ContentProps](#tabletreecol
 indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify a row level.
 expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls the row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
-showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
-showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
+showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) plugin.
+showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) plugin.
 
 ## Interfaces
 

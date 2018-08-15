@@ -4,6 +4,8 @@ import { DataTypeProvider } from '@devexpress/dx-react-grid';
 
 const getInputValue = value => (value === undefined ? '' : (value * 100).toFixed(1));
 
+const Formatter = ({ value }) => `${getInputValue(value)}%`;
+
 const Editor = ({ value, onValueChange }) => {
   const handleChange = (event) => {
     const { value: targetValue } = event.target;
@@ -44,6 +46,7 @@ const availableFilterOperations = [
 
 export const PercentTypeProvider = props => (
   <DataTypeProvider
+    formatterComponent={Formatter}
     editorComponent={Editor}
     availableFilterOperations={availableFilterOperations}
     {...props}

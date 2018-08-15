@@ -6,7 +6,7 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   moduleNameMapper: {
-    '\\.css$': path.join(__dirname, './css-stub.js'),
+    '\\.(css|svg)$': path.join(__dirname, './stub-module.js'),
   },
   moduleFileExtensions: [
     'js',

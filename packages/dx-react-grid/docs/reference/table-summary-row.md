@@ -1,6 +1,6 @@
 # TableSummaryRow Plugin Reference
 
-A plugin that renders table rows that display total, group, and tree summary.
+A plugin that renders table rows that display a total, group, and tree summary.
 
 ## Importing
 

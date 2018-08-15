@@ -1,6 +1,6 @@
 # TableTreeColumn Plugin Reference
 
-A plugin that renders a table column with toggle button and sorting indicators.
+A plugin that renders a table column with a toggle button and sorting indicators.
 
 ## Importing
 
@@ -12,7 +12,7 @@ import { TableTreeColumn } from '@devexpress/dx-react-grid-material-ui';
 // import { TableTreeColumn } from '@devexpress/dx-react-grid-bootstrap3';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { TableTreeColumn } from '@devexpress/dx-react-grid';
@@ -104,7 +104,7 @@ TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentpro
 TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button used to controls a row's expanded state.
 TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.
 
-The additional properties are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 

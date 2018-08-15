@@ -14,7 +14,7 @@ export const OpenButtonBase = ({
   classes,
   ...restProps
 }) => (
-  <IconButton mini variant="fab" aria-label="Edit" className={classes.text} {...restProps}>
+  <IconButton variant="fab" aria-label="Edit" className={classes.text} {...restProps}>
     <EditIcon />
   </IconButton>
 );

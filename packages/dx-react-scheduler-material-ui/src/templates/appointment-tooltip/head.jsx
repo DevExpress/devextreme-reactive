@@ -42,11 +42,11 @@ const HeadBase = ({
   <div className={classes.head} {...restProps}>
     <div>
       <div className={classes.buttonsLeft}>
-        {showOpenButton && <OpenButton showOpenButton={showOpenButton} />}
+        {showOpenButton && <OpenButton />}
       </div>
       <div className={classes.buttonsRight}>
-        {showDeleteButton && <DeleteButton showDeleteButton={showDeleteButton} />}
-        {showCloseButton && <CloseButton showCloseButton={showCloseButton} onHide={onHide} />}
+        {showDeleteButton && <DeleteButton />}
+        {showCloseButton && <CloseButton onHide={onHide} />}
       </div>
     </div>
     <div className={classes.text}>
@@ -63,7 +63,7 @@ HeadBase.propTypes = {
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
-  getAppointmentTitle: PropTypes.bool.isRequired,
+  getAppointmentTitle: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

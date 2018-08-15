@@ -64,7 +64,10 @@ Layout.propTypes = {
   getAppointmentTitle: PropTypes.func.isRequired,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
-  target: PropTypes.node,
+  target: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
 };
 Layout.defaultProps = {
   onHide: () => undefined,

@@ -1,7 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplatePlaceholder, TemplateConnector, Action,
+  Plugin,
+  Template,
+  TemplatePlaceholder,
+  TemplateConnector,
+  Action,
+  createStateHelper,
 } from '@devexpress/dx-react-core';
 
 const pluginDependencies = [
@@ -12,31 +17,41 @@ export class AppointmentTooltip extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const {
+      target, appointment, visible,
+      onAppointmentChange,
+      onTargetChange,
+      onVisibleChange,
+    } = this.props;
+
     this.state = {
-      target: null,
-      appointment: {},
-      visible: false,
+      appointment,
+      target,
+      visible,
     };
 
-    this.targetRef = this.targetRef.bind(this);
-    this.toggleVisible = this.toggleVisible.bind(this);
-    this.currentAppointment = this.currentAppointment.bind(this);
-  }
+    const stateHelper = createStateHelper(
+      this,
+      {
+        appointment: () => onAppointmentChange,
+        visible: () => onVisibleChange,
+        target: () => onTargetChange,
+      },
+    );
 
-  targetRef(target) {
-    this.setState({ target });
-  }
+    const setAppointment = (currApp, { appointment: app }) => app;
+    const toggleVisible = () => {
+      const { visible: vis } = this.state;
+      return !vis;
+    };
 
-  currentAppointment(appointment) {
-    const { visible } = this.state;
-    this.setState({ appointment, visible: !visible });
+    this.setTarget = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'target', (_, { target: value }) => value);
+    this.toggleVisible = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'visible', toggleVisible);
+    this.setCurrentAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointment', setAppointment);
   }
-
-  toggleVisible() {
-    const { visible } = this.state;
-    this.setState({ visible: !visible });
-  }
-
 
   render() {
     const {
@@ -57,8 +72,9 @@ export class AppointmentTooltip extends React.PureComponent {
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="tooltipRef" action={this.targetRef} />
-        <Action name="currentAppointment" action={this.currentAppointment} />
+        <Action name="setTooltipTarget" action={this.setTarget} />
+        <Action name="setTooltipAppointment" action={this.setCurrentAppointment} />
+        <Action name="toggleTooltipVisible" action={this.toggleVisible} />
         <Template name="main">
           <TemplateConnector>
             {({
@@ -105,9 +121,24 @@ AppointmentTooltip.propTypes = {
   showOpenButton: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
   showCloseButton: PropTypes.bool,
+  appointment: PropTypes.object,
+  visible: PropTypes.bool,
+  target: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
+  onVisibleChange: PropTypes.func,
+  onTargetChange: PropTypes.func,
+  onAppointmentChange: PropTypes.func,
 };
 
 AppointmentTooltip.defaultProps = {
+  onAppointmentChange: undefined,
+  onTargetChange: undefined,
+  onVisibleChange: undefined,
+  appointment: {},
+  visible: false,
+  target: null,
   showOpenButton: false,
   showDeleteButton: false,
   showCloseButton: false,

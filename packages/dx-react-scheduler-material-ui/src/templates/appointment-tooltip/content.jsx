@@ -33,7 +33,7 @@ export const ContentBase = ({
 );
 
 ContentBase.propTypes = {
-  appointment: PropTypes.func.isRequired,
+  appointment: PropTypes.object.isRequired,
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentEndDate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,

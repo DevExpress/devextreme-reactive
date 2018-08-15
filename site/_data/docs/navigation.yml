@@ -72,6 +72,8 @@
         path: /react/grid/docs/guides/virtual-scrolling
       - title: Tree Data
         path: /react/grid/docs/guides/tree-data
+      - title: Summary Row
+        path: /react/grid/docs/guides/summary-row
       - title: Localization
         path: /react/grid/docs/guides/localization
       - title: Immutable Data
@@ -158,6 +160,14 @@
         path: /react/grid/docs/reference/custom-tree-data
       - title: TableTreeColumn
         path: /react/grid/docs/reference/table-tree-column
+      - title: SummaryState
+        path: /react/grid/docs/reference/summary-state
+      - title: IntegratedSummary
+        path: /react/grid/docs/reference/integrated-summary
+      - title: CustomSummary
+        path: /react/grid/docs/reference/custom-summary
+      - title: TableSummaryRow
+        path: /react/grid/docs/reference/table-summary-row
   - title: Related Docs
     items:
       - title: Core

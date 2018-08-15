@@ -13,6 +13,7 @@ import { TableStubRow } from '../templates/table-stub-row';
 
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
+const TableFooter = props => <tfoot {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -30,6 +31,7 @@ export class Table extends React.PureComponent {
         tableComponent={TableComponent}
         headComponent={TableHead}
         bodyComponent={TableBody}
+        footerComponent={TableFooter}
         containerComponent={TableContainer}
         layoutComponent={TableLayout}
         rowComponent={TableRow}
@@ -56,6 +58,7 @@ Table.StubHeaderCell = TableStubCell;
 Table.Table = TableComponent;
 Table.TableHead = TableHead;
 Table.TableBody = TableBody;
+Table.TableFooter = TableFooter;
 Table.Container = TableContainer;
 
 Table.propTypes = {

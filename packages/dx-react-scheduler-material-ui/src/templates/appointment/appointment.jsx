@@ -39,7 +39,7 @@ const AppointmentBase = ({
 }) => (
   <div
     className={classNames(classes.appointment, className)}
-    onClick={(e) => { console.log('123'); tooltipRef(e.target); currentAppointment(appointment); }}
+    onClick={(e) => { tooltipRef(e.target); currentAppointment(appointment); }}
     style={style}
     {...restProps}
   >
@@ -54,10 +54,16 @@ AppointmentBase.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object.isRequired,
   className: PropTypes.string,
+  currentAppointment: PropTypes.func,
+  tooltipRef: PropTypes.func,
+  appointment: PropTypes.object,
 };
 
 AppointmentBase.defaultProps = {
+  currentAppointment: () => undefined,
+  tooltipRef: () => undefined,
   className: undefined,
+  appointment: {},
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

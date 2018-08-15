@@ -12,15 +12,21 @@ const styles = theme => ({
 
 export const CloseButtonBase = ({
   classes,
+  onHide,
   ...restProps
 }) => (
-  <IconButton aria-label="Close" className={classes.text} {...restProps}>
+  <IconButton aria-label="Close" className={classes.text} onClick={onHide} {...restProps}>
     <CloseIcon />
   </IconButton>
 );
 
 CloseButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  onHide: PropTypes.func,
+};
+
+CloseButtonBase.defaultProps = {
+  onHide: () => undefined,
 };
 
 export const CloseButton = withStyles(styles, { name: 'CloseButton' })(CloseButtonBase);

@@ -108,7 +108,7 @@ AppointmentTooltip.propTypes = {
 };
 
 AppointmentTooltip.defaultProps = {
-  showOpenButton: true,
-  showDeleteButton: true,
-  showCloseButton: true,
+  showOpenButton: false,
+  showDeleteButton: false,
+  showCloseButton: false,
 };

@@ -33,6 +33,9 @@ export default class Demo extends React.PureComponent {
           <Appointments />
 
           <AppointmentTooltip
+            // showCloseButton
+            // showDeleteButton
+            showOpenButton
             visible
             appointmentData
             target

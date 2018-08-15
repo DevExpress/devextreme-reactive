@@ -4,15 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   head: {
-    // padding: theme.spacing.unit,
     backgroundColor: theme.palette.primary.main,
     width: '300px',
+    display: 'flex',
+    flexDirection: 'column',
   },
   text: {
     ...theme.typography.title,
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit * 1.75,
     color: theme.palette.background.default,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   buttonsLeft: {
     display: 'inline-block',
@@ -36,14 +39,14 @@ const HeadBase = ({
   classes,
   ...restProps
 }) => (
-  <div className={classes.head}>
+  <div className={classes.head} {...restProps}>
     <div>
       <div className={classes.buttonsLeft}>
-        <OpenButton showOpenButton={showOpenButton} />
+        {showOpenButton && <OpenButton showOpenButton={showOpenButton} />}
       </div>
       <div className={classes.buttonsRight}>
-        <DeleteButton showDeleteButton={showDeleteButton} />
-        <CloseButton showCloseButton={showCloseButton} onHide={onHide} />
+        {showDeleteButton && <DeleteButton showDeleteButton={showDeleteButton} />}
+        {showCloseButton && <CloseButton showCloseButton={showCloseButton} onHide={onHide} />}
       </div>
     </div>
     <div className={classes.text}>
@@ -52,27 +55,17 @@ const HeadBase = ({
   </div>
 );
 
-export const Head = withStyles(styles, { name: 'Head' })(HeadBase);
+HeadBase.propTypes = {
+  openButtonComponent: PropTypes.func.isRequired,
+  closeButtonComponent: PropTypes.func.isRequired,
+  deleteButtonComponent: PropTypes.func.isRequired,
+  appointment: PropTypes.object.isRequired,
+  showOpenButton: PropTypes.bool.isRequired,
+  showCloseButton: PropTypes.bool.isRequired,
+  showDeleteButton: PropTypes.bool.isRequired,
+  getAppointmentTitle: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+};
 
-// Layout.propTypes = {
-//   headComponent: PropTypes.func.isRequired,
-//   contentComponent: PropTypes.func.isRequired,
-//   openButtonComponent: PropTypes.func.isRequired,
-//   closeButtonComponent: PropTypes.func.isRequired,
-//   deleteButtonComponent: PropTypes.func.isRequired,
-//   appointment: PropTypes.object.isRequired,
-//   showOpenButton: PropTypes.bool.isRequired,
-//   showCloseButton: PropTypes.bool.isRequired,
-//   showDeleteButton: PropTypes.bool.isRequired,
-//   getAppointmentEndDate: PropTypes.func.isRequired,
-//   getAppointmentStartDate: PropTypes.func.isRequired,
-//   getAppointmentTitle: PropTypes.func.isRequired,
-//   visible: PropTypes.bool,
-//   onHide: PropTypes.func,
-//   target: PropTypes.node,
-// };
-// Layout.defaultProps = {
-//   onHide: () => undefined,
-//   visible: false,
-//   target: null,
-// };
+export const Head = withStyles(styles, { name: 'Head' })(HeadBase);

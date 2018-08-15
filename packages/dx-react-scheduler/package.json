@@ -79,7 +79,7 @@
   "peerDependencies": {
     "@devexpress/dx-core": "1.5.1",
     "@devexpress/dx-react-core": "1.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": ">=16.2.0",
+    "react-dom": ">=16.2.0"
   }
 }

@@ -52,7 +52,7 @@ export default class Demo extends React.PureComponent {
         <Paper>
           <div style={{ height: '200px' }} ref={this.setRef}>
             <Button onClick={this.toggleVisible}>
-              Toggle Visible
+              Open Appointment
             </Button>
             <Button onClick={() => this.onAppointmentChange({})}>
               Reset Appointment

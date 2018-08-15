@@ -14,6 +14,8 @@ Install the dx-react-chart package and its dependencies using the following comm
 npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-chart.npm-tag()
 ```
 
+*Note: [react](https://www.npmjs.com/package/react) >= 16.2.0 and [react-dom](https://www.npmjs.com/package/react) >= 16.2.0 are peer dependencies.*
+
 This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:
 
 - Material-UI
@@ -22,6 +24,8 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-material-ui.npm-tag()
   ```
 
+  *Note: [@material-ui/core](https://www.npmjs.com/package/@material-ui/core) >= 1.1.0 and [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) >= 1.1.0 are peer dependencies.*
+
   Make sure that the [Material-UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material-UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
 
 - Bootstrap 4
@@ -29,6 +33,8 @@ This package does not contain visual components. In the examples below, visual c
   ```
   npm i --save @devexpress/dx-react-chart-bootstrap4.npm-tag()
   ```
+
+  *Note: [reactstrap](https://www.npmjs.com/package/reactstrap) >= 6.3.0 is a peer dependency.*
 
   Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You also need the [OpenIconic](https://useiconic.com/open) icons in your project.
 

@@ -1,0 +1,78 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+  Legend,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
+import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
+
+const nullComponent = () => null;
+const SpecialMarkerComponent = ({ name, themeColor }) => {
+  const Icon = name === 'Noisy signal' ? NoisySignalIcon : OriginalSignalIcon;
+  return (
+    <svg width={18} height={18} viewBox={Icon.viewBox}>
+      <use fill={themeColor} href={`#${Icon.id}`} />
+    </svg>
+  );
+};
+
+const generateData = (start, end, step) => {
+  const data = [];
+  for (let i = start; i < end; i += step) {
+    const originalValue = Math.sin(i) / i;
+    data.push({ value: originalValue + ((0.5 - Math.random()) / 10), originalValue, argument: i });
+  }
+  return data;
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: generateData(2.5, 12, 0.1),
+    };
+  }
+
+  render() {
+    const {
+      data: chartData,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <LineSeries
+            name="Noisy signal"
+            valueField="value"
+            argumentField="argument"
+            pointComponent={nullComponent}
+          />
+
+          <LineSeries
+            name="Original signal"
+            valueField="originalValue"
+            argumentField="argument"
+            pointComponent={nullComponent}
+          />
+
+          <Title text="Noisy and Original signals" style={{ margin: 'auto' }} />
+          <Legend
+            markerComponent={SpecialMarkerComponent}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

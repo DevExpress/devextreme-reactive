@@ -27,8 +27,12 @@
         path: /react/core/docs/reference/template-connector
   - title: Related Docs
     items:
-      - title: Grid
+      - title: React Grid
         path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /react/grid:
   - title: Guides
     items:
@@ -170,8 +174,12 @@
         path: /react/grid/docs/reference/table-summary-row
   - title: Related Docs
     items:
-      - title: Core
+      - title: React Core
         path: /react/core/docs/guides/fundamentals
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /react/chart:
   - title: Guides
     items:
@@ -215,6 +223,14 @@
         path: /react/chart/docs/reference/title
       - title: ValueAxis
         path: /react/chart/docs/reference/value-axis
+  - title: Related Docs
+    items:
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /vue/grid:
   - title: Guides
     items:
@@ -324,3 +340,11 @@
         path: /vue/grid/docs/reference/table-column-visibility
       - title: DxVirtualTable
         path: /vue/grid/docs/reference/virtual-table
+  - title: Related Docs
+    items:
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started/
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals

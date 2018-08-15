@@ -1,6 +1,6 @@
 # VirtualTable Plugin Reference
 
-A plugin that renders a scrollable table instead of a static table. Contains the [VirtualTable.Row](#plugin-components) and [VirtualTable.Cell](#plugin-components) components that provide ways to customize virtual table rows and columns and can be extended by other plugins.
+A plugin that renders a scrollable table instead of a static table. Contains the [VirtualTable.Row](#plugin-components) and [VirtualTable.Cell](#plugin-components) components that provide ways to customize virtual table rows and columns. This plugin can be extended by other plugins.
 
 ## Importing
 

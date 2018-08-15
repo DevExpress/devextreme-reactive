@@ -2,10 +2,10 @@
 
 The Grid allows to render some of the columns fixed to its sides.
 
-**Browser Support Note:**
+*Browser Support Note:*
 
-- **This feature does not work in Android Browser/WebView for Android earlier than 5.0 and Internet Explorer because these browsers do not support `position: sticky`.**
-- **It also does not work correctly in Microsoft Edge because of the following [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/).Your vote for it is highly appreciated.**
+- This feature does not work in Android Browser/WebView for Android earlier than 5.0 and Internet Explorer because these browsers do not support `position: sticky`.
+- It also does not work correctly in Microsoft Edge because of the following [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/).Your vote for it is highly appreciated.
 
 ## Related Plugins
 

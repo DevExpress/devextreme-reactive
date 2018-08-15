@@ -70,6 +70,6 @@
     "@devexpress/dx-core": "1.5.1"
   },
   "peerDependencies": {
-    "vue": "^2.5.16"
+    "vue": ">=2.5.16"
   }
 }

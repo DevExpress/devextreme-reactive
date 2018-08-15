@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ToolbarMUI from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../utils';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   toolbar: {
-    borderBottom: getBorderColor(theme),
+    borderBottom: getBorder(theme),
     flex: 'none',
   },
 });

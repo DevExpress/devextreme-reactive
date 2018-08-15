@@ -91,6 +91,10 @@ export * from './plugins/table-fixed-columns/constants';
 export * from './plugins/table-fixed-columns/helpers';
 export * from './plugins/table-fixed-columns/computeds';
 
+export * from './plugins/integrated-summary/computeds';
+export * from './plugins/table-summary-row/computeds';
+export * from './plugins/table-summary-row/helpers';
+
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {

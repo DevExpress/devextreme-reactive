@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
+import { RefHolder } from './ref-holder';
 
 const styles = {
   root: {
@@ -57,7 +59,9 @@ export class Sizer extends React.PureComponent {
   }
 
   setupListeners() {
-    const size = { height: this.root.offsetHeight, width: this.root.offsetWidth };
+    // eslint-disable-next-line react/no-find-dom-node
+    const rootNode = findDOMNode(this.root);
+    const size = { height: rootNode.clientHeight, width: rootNode.clientWidth };
 
     this.contract.scrollTop = size.height;
     this.contract.scrollLeft = size.width;
@@ -72,44 +76,55 @@ export class Sizer extends React.PureComponent {
 
   render() {
     const { size } = this.state;
-    const { children, style } = this.props;
+    const {
+      containerComponent: Container,
+      children,
+      style,
+      ...restProps
+    } = this.props;
 
     return (
-      <div
-        ref={(node) => { this.root = node; }}
-        style={{ ...styles.root, ...style }}
+      <RefHolder
+        ref={(ref) => { this.root = ref; }}
       >
-        {children(size)}
-        <div style={styles.triggers}>
-          <div
-            ref={(node) => { this.expand = node; }}
-            style={styles.expand}
-            onScroll={this.setupListeners}
-          >
+        <Container
+          style={{ ...styles.root, ...style }}
+          {...restProps}
+        >
+          {children(size)}
+          <div style={styles.triggers}>
             <div
-              ref={(node) => { this.expandTrigger = node; }}
-            />
-          </div>
-          <div
-            ref={(node) => { this.contract = node; }}
-            style={styles.contract}
-            onScroll={this.setupListeners}
-          >
+              ref={(node) => { this.expand = node; }}
+              style={styles.expand}
+              onScroll={this.setupListeners}
+            >
+              <div
+                ref={(node) => { this.expandTrigger = node; }}
+              />
+            </div>
             <div
-              style={styles.contractTrigger}
-            />
+              ref={(node) => { this.contract = node; }}
+              style={styles.contract}
+              onScroll={this.setupListeners}
+            >
+              <div
+                style={styles.contractTrigger}
+              />
+            </div>
           </div>
-        </div>
-      </div>
+        </Container>
+      </RefHolder>
     );
   }
 }
 
 Sizer.propTypes = {
+  containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.func.isRequired,
   style: PropTypes.object,
 };
 
 Sizer.defaultProps = {
+  containerComponent: 'div',
   style: null,
 };

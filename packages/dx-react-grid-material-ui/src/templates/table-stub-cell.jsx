@@ -3,12 +3,16 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from './utils';
 
-const styles = {
+const styles = theme => ({
   cell: {
     padding: 0,
   },
-};
+  footer: {
+    borderBottom: getBorder(theme),
+  },
+});
 
 const TableStubCellBase = ({
   style,
@@ -21,6 +25,7 @@ const TableStubCellBase = ({
   <TableCell
     style={style}
     className={classNames(classes.cell, className)}
+    classes={{ footer: classes.footer }}
     {...restProps}
   />
 );

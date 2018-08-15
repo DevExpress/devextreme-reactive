@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
+import TableFooter from '@material-ui/core/TableFooter';
 import { Table as TableComponent } from '../templates/table';
 import { TableRow } from '../templates/table-row';
 import { TableLayout } from '../templates/table-layout';
@@ -28,6 +29,7 @@ export class Table extends React.PureComponent {
         tableComponent={TableComponent}
         headComponent={TableHead}
         bodyComponent={TableBody}
+        footerComponent={TableFooter}
         containerComponent={TableContainer}
         layoutComponent={TableLayout}
         rowComponent={TableRow}
@@ -54,6 +56,7 @@ Table.StubHeaderCell = TableStubCell;
 Table.Table = TableComponent;
 Table.TableHead = TableHead;
 Table.TableBody = TableBody;
+Table.TableFooter = TableFooter;
 Table.Container = TableContainer;
 
 Table.propTypes = {

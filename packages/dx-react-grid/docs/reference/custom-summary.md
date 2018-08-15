@@ -1,6 +1,6 @@
 # CustomSummary Plugin Reference
 
-A plugin that provides a capability to calculate custom summary.
+A plugin that allows you to calculate a custom summary.
 
 ## Importing
 

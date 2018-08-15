@@ -60,11 +60,15 @@ const loadDemosToGenerate = () => {
             }
             const demoExtension = getDemoExtension(nestedFile);
             const demoName = nestedFile.replace(`.${demoExtension}`, '');
+            const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
+              ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
+              : TEST_FILE;
             demos.push({
               sectionName,
               demoName,
               themeName: file,
-              generateTest: fs.existsSync(path.join(DEMOS_FOLDER, sectionName, file, `${demoName}${TEST_SUFFIX}.jsxt`)),
+              testFile,
+              generateTest: !fs.existsSync(path.join(DEMOS_FOLDER, sectionName, file, `${demoName}${TEST_SUFFIX}.jsxt`)),
               generateSsrTest,
               demoExtension,
             });

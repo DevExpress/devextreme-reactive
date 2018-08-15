@@ -8,7 +8,6 @@ export class AreaSeries extends React.PureComponent {
     return (
       <AreaSeriesBase
         seriesComponent={Area}
-        pointComponent={() => null}
         {...this.props}
       />
     );

@@ -14,8 +14,6 @@ class PathBase extends React.PureComponent {
     const {
       classes,
       className,
-      pointComponent,
-      pointStyle,
       coordinates,
       path,
       color,
@@ -38,15 +36,11 @@ PathBase.propTypes = {
   path: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  pointComponent: PropTypes.any,
-  pointStyle: PropTypes.any,
   color: PropTypes.string,
 };
 
 PathBase.defaultProps = {
   className: undefined,
-  pointComponent: undefined,
-  pointStyle: undefined,
   color: undefined,
 };
 

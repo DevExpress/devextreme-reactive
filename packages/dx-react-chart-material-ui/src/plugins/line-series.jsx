@@ -8,7 +8,6 @@ export class LineSeries extends React.PureComponent {
     return (
       <LineSeriesBase
         seriesComponent={Path}
-        pointComponent={Point}
         {...this.props}
       />
     );

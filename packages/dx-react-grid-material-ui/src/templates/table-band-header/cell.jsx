@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   cell: {
@@ -19,8 +20,8 @@ const styles = theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    borderRight: `1px solid ${theme.palette.divider}`,
+    borderBottom: getBorder(theme),
+    borderRight: getBorder(theme),
   },
 });
 

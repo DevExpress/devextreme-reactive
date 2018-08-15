@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from '../utils';
 
 const styles = theme => ({
   headerCellBorder: {
-    borderRight: `1px solid ${theme.palette.divider}`,
+    borderRight: getBorder(theme),
     borderTop: 'none',
     '&:last-child': {
       borderRight: 0,

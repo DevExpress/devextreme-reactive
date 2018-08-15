@@ -36,7 +36,7 @@ export const DxColumnChooser = {
     };
   },
   methods: {
-    buttonRef(button) {
+    setButtonRef(button) {
       this.button = button;
     },
     handleToggle() {
@@ -76,7 +76,7 @@ export const DxColumnChooser = {
                 }) => (
                     <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
                       <ToggleButton
-                        buttonRef={this.buttonRef}
+                        buttonRef={this.setButtonRef}
                         onToggle={this.handleToggle}
                         active={visible}
                       />

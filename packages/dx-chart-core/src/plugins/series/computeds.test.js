@@ -16,6 +16,7 @@ import {
   findSeriesByName,
   seriesData,
   checkZeroStart,
+  barCoordinates,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -166,6 +167,43 @@ describe('line & spline', () => {
 
       expect(curve).toEqual(curveCatmullRom);
     });
+  });
+});
+
+describe('barCoordinates', () => {
+  beforeAll(() => {
+    const translateValue = value => value;
+    translateValue.bandwidth = jest.fn().mockReturnValue(10);
+    createScale.mockImplementation(() => translateValue);
+  });
+
+  afterAll(() => {
+    createScale.mockRestore();
+  });
+
+  it('should return array object with x, width properties', () => {
+    const result = barCoordinates(
+      data,
+      { xScale: createScale(), yScale: createScale() },
+      'arg',
+      'val1',
+      'Series3',
+      null,
+      null,
+      {},
+    );
+
+    expect(result).toEqual([{
+      id: 1, value: 3, width: 10, x: 1, y: 3, y1: 2,
+    }, {
+      id: 2, value: 5, width: 10, x: 2, y: 5, y1: 4,
+    }, {
+      id: 3, value: 7, width: 10, x: 3, y: 7, y1: 6,
+    }, {
+      id: 4, value: 10, width: 10, x: 4, y: 10, y1: 9,
+    }, {
+      id: 5, value: 15, width: 10, x: 5, y: 15, y1: 14,
+    }]);
   });
 });
 

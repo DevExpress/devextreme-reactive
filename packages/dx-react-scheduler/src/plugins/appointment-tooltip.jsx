@@ -53,6 +53,19 @@ export class AppointmentTooltip extends React.PureComponent {
       .bind(stateHelper, 'appointment', setAppointment);
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      appointment = prevState.appointment,
+      target = prevState.target,
+      visible = prevState.visible,
+    } = nextProps;
+    return {
+      appointment,
+      target,
+      visible,
+    };
+  }
+
   render() {
     const {
       showOpenButton,

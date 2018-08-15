@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { TABLE_EDIT_COMMAND_TYPE } from '@devexpress/dx-grid-core';
 import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-react-grid';
 import {
   EditCommandHeadingCell,
@@ -38,7 +37,7 @@ export class TableEditColumn extends React.PureComponent {
 TableEditColumn.Command = CommandButton;
 TableEditColumn.Cell = EditCommandCell;
 TableEditColumn.HeaderCell = EditCommandHeadingCell;
-TableEditColumn.COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
+TableEditColumn.COLUMN_TYPE = TableEditColumnBase.COLUMN_TYPE;
 
 TableEditColumn.propTypes = {
   messages: PropTypes.shape({

@@ -44,7 +44,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-side | string | Specifies the side of the table to which the cell should be fixed.
+side | 'left' &#124; 'right' | Specifies the side of the table to which the cell should be fixed.
 component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A table cell component that should be rendered as a fixed cell.
 showLeftDivider | boolean | Specifies whether the left divider should be rendered.
 showRightDivider | boolean | Specifies whether the right divider should be rendered.

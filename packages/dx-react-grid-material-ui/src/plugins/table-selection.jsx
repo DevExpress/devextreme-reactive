@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { TABLE_SELECT_TYPE } from '@devexpress/dx-grid-core';
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-grid';
 import { TableSelectAllCell } from '../templates/table-select-all-cell';
 import { TableSelectCell } from '../templates/table-select-cell';
@@ -21,4 +20,4 @@ export class TableSelection extends React.PureComponent {
 
 TableSelection.Cell = TableSelectCell;
 TableSelection.HeaderCell = TableSelectAllCell;
-TableSelection.COLUMN_TYPE = TABLE_SELECT_TYPE;
+TableSelection.COLUMN_TYPE = TableSelectionBase.COLUMN_TYPE;

@@ -90,6 +90,6 @@
     "@material-ui/core": ">=1.1.0",
     "@material-ui/icons": ">=1.1.0",
     "react": ">=16.2.0",
-    "react-dom": ">=16.4.0"
+    "react-dom": ">=16.2.0"
   }
 }

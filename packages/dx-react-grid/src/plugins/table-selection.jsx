@@ -5,6 +5,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
+  TABLE_SELECT_TYPE,
   tableColumnsWithSelection,
   isSelectTableCell,
   isSelectAllTableCell,
@@ -103,6 +104,8 @@ export class TableSelection extends React.PureComponent {
     );
   }
 }
+
+TableSelection.COLUMN_TYPE = TABLE_SELECT_TYPE;
 
 TableSelection.propTypes = {
   headerCellComponent: PropTypes.func.isRequired,

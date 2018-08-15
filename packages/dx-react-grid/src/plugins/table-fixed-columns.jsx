@@ -26,6 +26,11 @@ export class TableFixedColumns extends React.PureComponent {
     this.state = { sizes: {} };
   }
 
+  getSize(key) {
+    const { sizes } = this.state;
+    return sizes[key];
+  }
+
   render() {
     const {
       beforeColumnNames,
@@ -97,11 +102,11 @@ export class TableFixedColumns extends React.PureComponent {
                         })));
                       }
                     }}
-                    getPosition={() => {
-                      const { sizes } = this.state;
-                      if (fixedIndex === 0) return 0;
-                      return sizes[targetArray[fixedIndex - 1]];
-                    }}
+                    position={
+                      fixedIndex === 0
+                        ? 0
+                        : this.getSize(targetArray[fixedIndex - 1])
+                    }
                   />
                 );
               }}

@@ -37,7 +37,7 @@ class FixedCellBase extends React.PureComponent {
       className,
       classes,
       style,
-      getPosition,
+      position,
       storeSize,
       ...restProps
     } = this.props;
@@ -51,7 +51,7 @@ class FixedCellBase extends React.PureComponent {
         }, className)}
         style={{
           ...style,
-          [side]: getPosition(),
+          [side]: position,
         }}
         {...restProps}
       />
@@ -66,7 +66,7 @@ FixedCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   side: PropTypes.string.isRequired,
   storeSize: PropTypes.func.isRequired,
-  getPosition: PropTypes.func.isRequired,
+  position: PropTypes.number,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,
 };
@@ -76,6 +76,7 @@ FixedCellBase.defaultProps = {
   style: {},
   showLeftDivider: false,
   showRightDivider: false,
+  position: undefined,
 };
 
 export const FixedCell = withStyles(styles, { name: 'TableFixedCell' })(FixedCellBase);

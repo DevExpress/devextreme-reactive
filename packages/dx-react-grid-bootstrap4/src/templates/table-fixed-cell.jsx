@@ -35,7 +35,7 @@ export class FixedCell extends React.PureComponent {
       showRightDivider,
       className,
       style,
-      getPosition,
+      position,
       storeSize,
       ...restProps
     } = this.props;
@@ -52,7 +52,7 @@ export class FixedCell extends React.PureComponent {
         style={{
           ...style,
           backgroundColor,
-          [side]: getPosition(),
+          [side]: position,
         }}
         {...restProps}
       />
@@ -66,7 +66,7 @@ FixedCell.propTypes = {
   component: PropTypes.func.isRequired,
   side: PropTypes.string.isRequired,
   storeSize: PropTypes.func.isRequired,
-  getPosition: PropTypes.func.isRequired,
+  position: PropTypes.number,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,
 };
@@ -76,4 +76,5 @@ FixedCell.defaultProps = {
   style: {},
   showLeftDivider: false,
   showRightDivider: false,
+  position: undefined,
 };

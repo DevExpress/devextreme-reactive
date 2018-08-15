@@ -49,7 +49,7 @@ component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A 
 showLeftDivider | boolean | Specifies whether the left divider should be rendered.
 showRightDivider | boolean | Specifies whether the right divider should be rendered.
 storeSize | (width: number) => void | A function that stores the rendered cell width.
-getPosition | () => Array&lt;number&gt; | A function that returns the proposed position for the fixed cell.
+position | number | Specifies the position of the fixed cell.
 
 ## Plugin Components
 

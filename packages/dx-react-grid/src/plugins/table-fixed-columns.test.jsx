@@ -87,7 +87,7 @@ describe('TableFixedColumns', () => {
         showRightDivider: true,
         component: expect.any(Function),
         storeSize: expect.any(Function),
-        getPosition: expect.any(Function),
+        position: undefined,
       });
   });
 });

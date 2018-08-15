@@ -1,6 +1,6 @@
 # IntegratedSummary Plugin Reference
 
-A plugin that performs built-in data summary calculation.
+A plugin that performs a built-in data summary calculation.
 
 ## Importing
 

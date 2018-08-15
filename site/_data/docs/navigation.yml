@@ -183,6 +183,8 @@
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+      - title: Legend and Title
+        path: /react/chart/docs/guides/legend_title
       - title: Stacked Series
         path: /react/chart/docs/guides/stacked-series
   - title: API Reference

@@ -37,14 +37,11 @@ const defaultDeps = {
 const defaultProps = {
   layoutComponent: () => null,
   timePanelLayoutComponent: () => null,
-  timePanelTableComponent: () => null,
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
-  dayPanelTableComponent: () => null,
   dayPanelCellComponent: () => null,
   dateTableLayoutComponent: () => null,
-  dateTableTableComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
 };
@@ -199,6 +196,35 @@ describe('Week View', () => {
         .toEqual([{
           x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
         }]);
+    });
+
+    it('should provide the "intervalCount" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            intervalCount={2}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).intervalCount)
+        .toBe(2);
+    });
+
+    it('should provide the "currentView" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toBe('week');
     });
   });
 

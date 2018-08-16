@@ -1,10 +1,9 @@
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
-const AND = predicates => row => predicates.reduce((acc, predicate) => acc && predicate(row), true);
-
-const OR = predicates => row => predicates.reduce((acc, predicate) => acc || predicate(row), false);
-
-const operators = { or: OR, and: AND };
+const operators = {
+  or: predicates => row => predicates.reduce((acc, predicate) => acc || predicate(row), false),
+  and: predicates => row => predicates.reduce((acc, predicate) => acc && predicate(row), true),
+};
 
 const toLowerCase = value => String(value).toLowerCase();
 

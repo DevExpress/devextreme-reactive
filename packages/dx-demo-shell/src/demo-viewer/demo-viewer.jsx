@@ -30,7 +30,7 @@ export const DemoViewer = (
       render={() => (
         <div style={{ paddingTop: '8px' }}>
           <ThemeViewer
-            avaliableThemes={Object.keys(demoSources[sectionName][demoName])}
+            availableThemes={Object.keys(demoSources[sectionName][demoName])}
           >
             {({ themeName, variantName }) => (
               <Tab.Container

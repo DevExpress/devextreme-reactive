@@ -1,6 +1,6 @@
 # VirtualTable Plugin Reference
 
-A plugin that renders a scrollable table instead of a static one. It contains the [VirtualTable.Row](#plugin-components) and [VirtualTable.Cell](#plugin-components) components that provide ways to customize virtual table rows and columns and can be extended by other plugins.
+A plugin that renders a scrollable table instead of a static table. Contains the [VirtualTable.Row](#plugin-components) and [VirtualTable.Cell](#plugin-components) components that provide ways to customize virtual table rows and columns. These components can be extended by other plugins.
 
 ## Importing
 
@@ -29,6 +29,7 @@ columnExtensions? | Array&lt;[Table.ColumnExtension](table.md#tablecolumnextensi
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+footerComponent | ComponentType&lt;object&gt; | | A component that renders a table footer.
 containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](table.md#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](table.md#tabledatarowprops)&gt; | | A component that renders a table row.
@@ -74,6 +75,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Header rows to be rendered.
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
+tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Footer rows to be rendered.
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Columns to be rendered.
 table | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the virtual table.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a virtual table cell.

@@ -46,7 +46,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 Field | Type | Description
 ------|------|------------
-valueChange | (value:string) => void | Handles the search value changes.
+valueChange | (value: string) => void | Handles the search value changes.
 
 ## Localization Messages
 

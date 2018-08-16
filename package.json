@@ -21,7 +21,7 @@
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
     "inquirer": "^6.1.0",
-    "lerna": "^3.0.5",
+    "lerna": "^3.0.6",
     "run-sequence": "^2.2.1",
     "semver": "^5.5.0"
   },

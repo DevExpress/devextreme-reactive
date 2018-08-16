@@ -22,16 +22,13 @@ const SortingIcon = ({ direction }) => (
     : <ArrowDownward style={{ fontSize: '18px' }} />
 );
 
-const SortLabel = ({ onSort, title, direction }) => (
+const SortLabel = ({ onSort, children, direction }) => (
   <Button
     size="small"
     variant="raised"
     onClick={onSort}
-    style={{
-      margin: '3px',
-    }}
   >
-    {title}
+    {children}
     {(direction && <SortingIcon direction={direction} />)}
   </Button>
 );

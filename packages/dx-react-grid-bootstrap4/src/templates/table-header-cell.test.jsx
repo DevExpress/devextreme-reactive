@@ -37,19 +37,6 @@ describe('TableHeaderCell', () => {
       .toBeFalsy();
   });
 
-  it('should have correct classes when sorting is allowed', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{ name: 'a' }}
-        sortingEnabled
-        showSortingControls
-      />
-    ));
-
-    expect(tree.find('th').is('.dx-g-bs4-user-select-none.position-relative'))
-      .toBeTruthy();
-  });
-
   it('should have correct classes when dragging is allowed', () => {
     const tree = shallow((
       <DragDropProvider>
@@ -115,44 +102,6 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct classes when column is aligned by left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-        showGroupingControls={false}
-      />
-    ));
-
-    expect(tree.find('div').at(1).is('.text-nowrap.dx-g-bs4-table-header-cell-wrapper'))
-      .toBeTruthy();
-    expect(tree.find('div').at(1).is('.text-right'))
-      .toBeFalsy();
-  });
-
-
-  it('should have correct classes when column is aligned by right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-        showGroupingControls={false}
-      />
-    ));
-
-    expect(tree.find('div').at(1).is('.text-nowrap.text-right'))
-      .toBeTruthy();
-  });
-
-  it('should have correct classes when column is aligned by center', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'center' }}
-      />
-    ));
-
-    expect(tree.find('div').at(1).is('.text-nowrap.text-center'))
-      .toBeTruthy();
-  });
-
   it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
@@ -175,11 +124,11 @@ describe('TableHeaderCell', () => {
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.find('div').at(1).is('.text-nowrap'))
+    expect(tree.is('.text-nowrap'))
       .toBeTruthy();
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('div').at(1).is('.text-nowrap'))
+    expect(tree.is('.text-nowrap'))
       .toBeFalsy();
   });
 });

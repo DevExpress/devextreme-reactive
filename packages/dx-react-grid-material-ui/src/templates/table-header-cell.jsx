@@ -70,15 +70,7 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  content: {
-    width: '100%',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  contentRight: {
-    flexDirection: 'row-reverse',
-  },
-  contentNoWrap: {
+  cellNoWrap: {
     whiteSpace: 'nowrap',
   },
 });
@@ -95,11 +87,12 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
-      classes, getMessage, tableRow, className, onSort, children, before,
+      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      classes, getMessage, tableRow, className, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
 
@@ -110,15 +103,11 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
       [classes.cellCenter]: align === 'center',
-      [classes.cellNoUserSelect]: draggingEnabled || showSortingControls,
+      [classes.cellNoUserSelect]: draggingEnabled,
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className);
-    const contentClasses = classNames({
-      [classes.content]: true,
-      [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
-      [classes.contentRight]: align === 'right',
-    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -127,10 +116,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {...restProps}
       >
         <div className={classes.container}>
-          {before}
-          <div className={contentClasses}>
-            {children}
-          </div>
+          {children}
           {showGroupingControls && (
             <div className={classes.controls}>
               <GroupingControl
@@ -184,10 +170,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.node,
   before: PropTypes.node,
 };
 

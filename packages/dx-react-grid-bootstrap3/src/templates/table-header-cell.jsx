@@ -17,23 +17,23 @@ export class TableHeaderCell extends React.PureComponent {
 
   render() {
     const {
-      style, column, tableColumn, before,
-      showSortingControls, sortingDirection, sortingEnabled,
+      style, column, tableColumn,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel,
-      tableRow, getMessage, onSort, children,
+      tableRow, getMessage, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         style={{
           position: 'relative',
-          ...(isCellInteractive ? {
+          ...(draggingEnabled ? {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
@@ -51,22 +51,7 @@ export class TableHeaderCell extends React.PureComponent {
             alignItems: 'center',
           }}
         >
-          {before}
-          <div
-            style={{
-              width: '100%',
-              textAlign: align,
-              whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              ...(showSortingControls ? {
-                margin: '-5px',
-                padding: '5px',
-              } : null),
-            }}
-          >
-            {children}
-          </div>
+          {children}
           {showGroupingControls && (
             <div
               style={{

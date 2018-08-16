@@ -13,9 +13,9 @@ describe('Content', () => {
         {...defaultProps}
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
+    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
+    expect(tree.is('.text-right'))
       .toBeFalsy();
   });
 
@@ -26,9 +26,9 @@ describe('Content', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.dx-rg-bs4-table-header-cell-wrapper'))
+    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
-    expect(tree.find('div').is('.text-right'))
+    expect(tree.is('.text-right'))
       .toBeFalsy();
   });
 
@@ -39,7 +39,7 @@ describe('Content', () => {
         align="right"
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right'))
+    expect(tree.is('.text-right'))
       .toBeTruthy();
   });
 
@@ -51,7 +51,7 @@ describe('Content', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').is('.text-nowrap.text-right'))
+    expect(tree.is('.text-right'))
       .toBeTruthy();
   });
 
@@ -63,7 +63,7 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.find('div').is('.text-nowrap.text-center'))
+    expect(tree.is('.text-center'))
       .toBeTruthy();
   });
   it('should apply custom class', () => {
@@ -73,9 +73,9 @@ describe('Content', () => {
         className="customClass"
       />
     ));
-    expect(tree.find('div').is('.customClass'))
+    expect(tree.is('.customClass'))
       .toBeTruthy();
-    expect(tree.find('div').is('.dx-rg-bs4-table-header-cell-wrapper'))
+    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
       .toBeTruthy();
   });
   it('should spread rest props to the root element', () => {
@@ -85,7 +85,7 @@ describe('Content', () => {
         data={{ a: 1 }}
       />
     ));
-    expect(tree.find('div').prop('data'))
+    expect(tree.prop('data'))
       .toMatchObject({
         a: 1,
       });

@@ -8,9 +8,11 @@ import classNames from 'classnames';
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    flexDirection: 'inherit',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
   },
   tooltipRoot: {
     display: 'block',
@@ -19,7 +21,10 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
   },
   sortLabelRoot: {
-    height: theme.spacing.unit * 3,
+    maxWidth: '100%',
+  },
+  sortLabelRight: {
+    flexDirection: 'row-reverse',
   },
   sortLabelActive: {
     color: 'inherit',
@@ -41,7 +46,7 @@ const onClick = (e, onSort) => {
 };
 
 const SortLabelBase = ({
-  align, direction, title, onSort,
+  column, align, direction, children, onSort,
   classes, getMessage, disabled, className, ...restProps
 }) => (
   <div
@@ -62,20 +67,24 @@ const SortLabelBase = ({
         onClick={e => onClick(e, onSort)}
         disabled={disabled}
         classes={{
-          root: classes.sortLabelRoot,
+          root: classNames({
+            [classes.sortLabelRoot]: true,
+            [classes.sortLabelRight]: align === 'right',
+          }),
           active: classes.sortLabelActive,
         }}
       >
-        {title}
+        {children}
       </TableSortLabel>
     </Tooltip>
   </div>
 );
 
 SortLabelBase.propTypes = {
+  column: PropTypes.object,
   align: PropTypes.string,
   direction: PropTypes.oneOf(['asc', 'desc', null]),
-  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   onSort: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -84,10 +93,12 @@ SortLabelBase.propTypes = {
 };
 
 SortLabelBase.defaultProps = {
+  column: undefined,
   direction: undefined,
   disabled: false,
   align: 'left',
   className: null,
+  children: undefined,
 };
 
 export const SortLabel = withStyles(styles, { name: 'SortLabel' })(SortLabelBase);

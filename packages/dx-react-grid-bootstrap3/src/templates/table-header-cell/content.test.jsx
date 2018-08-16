@@ -14,10 +14,9 @@ describe('Content', () => {
         {...defaultProps}
       />
     ));
-    expect(tree.find('div').prop('style'))
+    expect(tree.prop('style'))
       .toMatchObject({
         textAlign: 'left',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       });
@@ -29,10 +28,9 @@ describe('Content', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').prop('style'))
+    expect(tree.prop('style'))
       .toMatchObject({
         textAlign: 'left',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       });
@@ -44,10 +42,9 @@ describe('Content', () => {
         align="right"
       />
     ));
-    expect(tree.find('div').prop('style'))
+    expect(tree.prop('style'))
       .toMatchObject({
         textAlign: 'right',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       });
@@ -61,10 +58,9 @@ describe('Content', () => {
         showGroupingControls
       />
     ));
-    expect(tree.find('div').prop('style'))
+    expect(tree.prop('style'))
       .toMatchObject({
         textAlign: 'right',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       });
@@ -76,10 +72,9 @@ describe('Content', () => {
         style={{ color: 'red' }}
       />
     ));
-    expect(tree.find('div').prop('style'))
+    expect(tree.prop('style'))
       .toMatchObject({
         textAlign: 'left',
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         color: 'red',
@@ -92,7 +87,7 @@ describe('Content', () => {
         data={{ a: 1 }}
       />
     ));
-    expect(tree.find('div').prop('data'))
+    expect(tree.prop('data'))
       .toMatchObject({
         a: 1,
       });

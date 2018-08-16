@@ -41,11 +41,11 @@ describe('TableHeaderCell', () => {
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell {...defaultProps} />);
-    expect(tree.find('div').at(1).prop('className'))
-      .toContain(classes.contentNoWrap);
+    expect(tree.prop('className'))
+      .toContain(classes.cellNoWrap);
 
     tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('div').at(1).prop('className'))
+    expect(tree.prop('className'))
       .not.toContain(classes.contentNoWrap);
   });
 
@@ -58,17 +58,6 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
-  });
-
-  it('should have correct styles when sorting is allowed', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        {...defaultProps}
-        showSortingControls
-      />
-    ));
-
-    expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -128,19 +117,6 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraft);
     expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
-  });
-
-  it('should add correct class if align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        showSortingControls
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-
-    expect(tree.find(`.${classes.container} .${classes.contentRight}`).exists())
-      .toBeTruthy();
   });
 
   it('should pass the className prop to the root element', () => {

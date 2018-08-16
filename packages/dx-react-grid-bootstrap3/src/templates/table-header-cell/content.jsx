@@ -2,24 +2,24 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const Content = ({
-  children, align, style, ...restProps
+  column, children, align, style, ...restProps
 }) => (
-  <div
+  <span
     style={{
       textAlign: align,
-      whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      padding: '3px',
+      width: '100%',
       ...style,
     }}
     {...restProps}
   >
     {children}
-  </div>
+  </span>
 );
 
 Content.propTypes = {
+  column: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -29,6 +29,7 @@ Content.propTypes = {
 };
 
 Content.defaultProps = {
+  column: undefined,
   align: 'left',
   style: null,
   children: undefined,

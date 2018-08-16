@@ -24,63 +24,59 @@ const onClick = (e, onSort) => {
   onSort({ direction, keepOther });
 };
 
-const getProps = ({
-  direction, disabled, onSort, style, ...restProps
-}) => ({
-  className: direction ? 'text-primary' : '',
-  tabIndex: disabled ? -1 : 0,
-  onMouseDown: handleMouseDown,
-  onBlur: handleBlur,
-  onKeyDown: e => onClick(e, onSort),
-  onClick: e => onClick(e, onSort),
-  style: { ...style, cursor: 'pointer' },
-  ...restProps,
-});
-
 export const SortLabel = ({
-  align, direction, title, disabled, onSort, style, getMessage, ...restProps
-}) => {
-  const props = getProps({
-    direction, disabled, onSort, style, ...restProps,
-  });
-  const sortingIndicatorStyle = {
-    visibility: direction ? 'visible' : 'hidden',
-  };
-  return (align === 'right' ? (
-    <span {...props}>
-      <SortingIndicator
-        direction={direction}
-        style={sortingIndicatorStyle}
-      />
-      &nbsp;
-      {title}
-    </span>
-  ) : (
-    <span {...props}>
-      {title}
-      &nbsp;
-      <SortingIndicator
-        direction={direction}
-        style={sortingIndicatorStyle}
-      />
-    </span>
-  ));
-};
+  align, direction, disabled, children, onSort, getMessage, className, column, style, ...restProps
+}) => (
+  <span
+    className={direction ? 'text-primary' : ''}
+    tabIndex={disabled ? -1 : 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+    onMouseDown={handleMouseDown}
+    onBlur={handleBlur}
+    onKeyDown={e => onClick(e, onSort)}
+    onClick={e => onClick(e, onSort)}
+    style={{
+      display: 'inline-flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      maxWidth: '100%',
+      ...!disabled ? { cursor: 'pointer' } : null,
+      ...(align === 'right' ? { flexDirection: 'row-reverse' } : null),
+      ...style,
+    }}
+    {...restProps}
+  >
+    {children}
+    <SortingIndicator
+      key="indicator"
+      direction={direction}
+      style={{
+        opacity: direction ? '1' : '0',
+        margin: '0 5px',
+        display: 'inline-block',
+      }}
+    />
+  </span>
+);
 
 SortLabel.propTypes = {
+  column: PropTypes.object,
   align: PropTypes.string,
   direction: PropTypes.oneOf(['asc', 'desc']),
-  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
   onSort: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  style: PropTypes.object,
+  className: PropTypes.string,
   getMessage: PropTypes.func,
+  style: PropTypes.object,
 };
 
 SortLabel.defaultProps = {
+  column: undefined,
   direction: null,
   disabled: false,
-  style: null,
+  children: undefined,
+  className: undefined,
   align: 'left',
   getMessage: () => {},
+  style: null,
 };

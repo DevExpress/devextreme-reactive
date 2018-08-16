@@ -26,11 +26,12 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.find('div').is(`.${classes.cellContent}`))
+    expect(tree.find('div').is(`.${classes.content}`))
       .toBeTruthy();
     expect(tree.find('div').is('.customClass'))
       .toBeTruthy();
   });
+
   it('should spread rest props to the root element', () => {
     const tree = shallow((
       <Content
@@ -43,5 +44,29 @@ describe('Content', () => {
       .toMatchObject({
         a: 1,
       });
+  });
+
+  it('should add correct class if align is right', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+        align="right"
+      />
+    ));
+
+    expect(tree.is(`.${classes.alignRight}`))
+      .toBeTruthy();
+  });
+
+  it('should add correct class if align is center', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+        align="center"
+      />
+    ));
+
+    expect(tree.is(`.${classes.alignCenter}`))
+      .toBeTruthy();
   });
 });

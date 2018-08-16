@@ -149,5 +149,17 @@ describe('SortLabel', () => {
       expect(onSort.mock.calls).toHaveLength(1);
       expect(onSort.mock.calls[0][0].direction).toBe(null);
     });
+
+    it('should add correct class if align is right', () => {
+      const tree = shallow((
+        <SortLabel
+          {...defaultProps}
+          align="right"
+        />
+      ));
+
+      expect(tree.find(TableSortLabel).prop('classes').root)
+        .toContain(classes.sortLabelRight);
+    });
   });
 });

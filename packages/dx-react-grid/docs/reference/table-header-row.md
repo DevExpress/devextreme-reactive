@@ -53,10 +53,6 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with a header cell.
-showSortingControls | boolean | Specifies whether to render controls that toggle the column's sorting state.
-sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
-sortingDirection? | 'asc' &#124; 'desc' | Specifies the associated column's sorting direction.
-onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
@@ -67,15 +63,10 @@ onWidthDraftCancel | () => void | An event that cancels changes of column width 
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sort label within the header cell.
 children | ReactNode | Header cell children.
-
-### TableHeaderRow.ContentProps
-
-Describes properties used to render a cell content.
-
-Field | Type | Description
-------|------|------------
-align? | string | Specifies a cell content alignment.
-children? | ReactNode | Cell content children.
+showSortingControls | boolean | **@deprecated** <br/> Specifies whether to render controls that toggle the column's sorting state.
+sortingEnabled | boolean | **@deprecated** <br/> Specifies whether sorting by a column is enabled.
+sortingDirection? | 'asc' &#124; 'desc' | **@deprecated** <br/> Specifies the associated column's sorting direction.
+onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | **@deprecated** <br/> An event that initiates changing the column sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 
 ### TableHeaderRow.SortLabelProps
 
@@ -83,12 +74,23 @@ Describes properties used to render a sort label.
 
 Field | Type | Description
 ------|------|------------
+column | [Column](grid.md#column) | A column object associated with a header cell.
 align? | string | Specifies a sort label alignment.
 direction? | 'asc' &#124; 'desc' | Specifies a sorting direction.
-title | string | Specifies a sort label title.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the sorting direction. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 disabled? | boolean | Specifies whether a sort label is disabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sort label within the header cell.
+children? | ReactNode | Sort label children.
+
+### TableHeaderRow.ContentProps
+
+Describes properties used to render a cell content.
+
+Field | Type | Description
+------|------|------------
+column | [Column](grid.md#column) | A column object associated with a header cell.
+align? | string | Specifies a content alignment.
+children? | ReactNode | Content children.
 
 ## Localization Messages
 

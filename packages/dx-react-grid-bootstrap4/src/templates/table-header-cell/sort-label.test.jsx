@@ -28,8 +28,6 @@ describe('SortLabel', () => {
       />
     ));
 
-    expect(tree.find('span.dx-rg-bs4-sort-label.dx-rg-bs4-cursor-pointer').exists())
-      .toBeTruthy();
     expect(tree.find('span.custom').exists())
       .toBeTruthy();
   });
@@ -46,7 +44,7 @@ describe('Keyboard navigation', () => {
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.prop('tabIndex'))
       .toBe(0);
   });
 
@@ -58,7 +56,7 @@ describe('Keyboard navigation', () => {
       />
     ));
 
-    expect(tree.find('span').prop('tabIndex'))
+    expect(tree.prop('tabIndex'))
       .toBe(-1);
   });
 
@@ -71,18 +69,17 @@ describe('Keyboard navigation', () => {
       />
     ));
 
-    const targetElement = tree.find('span');
-    targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
+    tree.simulate('click', { keyCode: ENTER_KEY_CODE, preventDefault: jest.fn() });
     expect(onSort)
       .toHaveBeenCalled();
 
     onSort.mockClear();
-    targetElement.simulate('click', { keyCode: SPACE_KEY_CODE, preventDefault: jest.fn() });
+    tree.simulate('click', { keyCode: SPACE_KEY_CODE, preventDefault: jest.fn() });
     expect(onSort)
       .toHaveBeenCalled();
 
     onSort.mockClear();
-    targetElement.simulate('click', { keyCode: 51 });
+    tree.simulate('click', { keyCode: 51 });
     expect(onSort)
       .not.toHaveBeenCalled();
   });
@@ -96,8 +93,7 @@ describe('Keyboard navigation', () => {
       />
     ));
 
-    const targetElement = tree.find('span');
-    targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
+    tree.simulate('click', { keyCode: ENTER_KEY_CODE, shiftKey: true, preventDefault: jest.fn() });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
   });
@@ -111,8 +107,7 @@ describe('Keyboard navigation', () => {
       />
     ));
 
-    const targetElement = tree.find('span');
-    targetElement.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
+    tree.simulate('click', { keyCode: ENTER_KEY_CODE, ctrlKey: true, preventDefault: jest.fn() });
     expect(onSort)
       .toHaveBeenCalledWith({ keepOther: true, direction: null });
   });

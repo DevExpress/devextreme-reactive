@@ -19,13 +19,13 @@ const SortingIcon = ({ direction }) => (
   />
 );
 
-const SortLabel = ({ onSort, title, direction }) => (
+const SortLabel = ({ onSort, children, direction }) => (
   <button
     type="button"
     className="btn btn-light btn-sm"
     onClick={onSort}
   >
-    {title}
+    {children}
     {(direction && <SortingIcon direction={direction} />)}
   </button>
 );

@@ -18,25 +18,26 @@ export class TableHeaderCell extends React.PureComponent {
 
   render() {
     const {
-      className, column, tableColumn, before,
-      showSortingControls, sortingDirection, sortingEnabled,
+      className, column, tableColumn,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
-      tableRow, getMessage, onSort, children,
+      tableRow, getMessage, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         className={classNames({
           'position-relative dx-g-bs4-header-cell': true,
-          'dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-user-select-none': draggingEnabled,
           'dx-g-bs4-cursor-pointer': draggingEnabled,
           'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
+          'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         }, className)}
         scope="col"
         {...restProps}
@@ -44,16 +45,7 @@ export class TableHeaderCell extends React.PureComponent {
         <div
           className="d-flex flex-direction-row align-items-center"
         >
-          {before}
-          <div
-            className={classNames({
-              'dx-g-bs4-table-header-cell-wrapper': true,
-              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
-              [`text-${align}`]: align !== 'left',
-            })}
-          >
-            {children}
-          </div>
+          {children}
           {showGroupingControls && (
             <div>
               <GroupingControl

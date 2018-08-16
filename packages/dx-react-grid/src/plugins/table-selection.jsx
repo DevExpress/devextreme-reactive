@@ -24,8 +24,9 @@ export class TableSelection extends React.PureComponent {
       selectionColumnWidth,
     } = this.props;
 
-    const tableColumnsComputed = ({ tableColumns }) =>
-      tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+    const tableColumnsComputed = (
+      { tableColumns },
+    ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
 
     return (
       <Plugin
@@ -89,7 +90,7 @@ export class TableSelection extends React.PureComponent {
                 {({ selection }, { toggleSelection }) => (
                   <Row
                     {...params}
-                    selectByRowClick
+                    selectByRowClick={selectByRowClick}
                     selected={highlightRow && selection.indexOf(params.tableRow.rowId) !== -1}
                     onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />

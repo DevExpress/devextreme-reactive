@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Draggable } from '@devexpress/dx-react-core';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   resizeHandle: {
@@ -19,22 +19,27 @@ const styles = theme => ({
   },
   resizeHandleLine: {
     position: 'absolute',
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.primary.light,
     height: '50%',
     width: '1px',
     top: '25%',
     transition: 'all linear 100ms',
   },
   resizeHandleFirstLine: {
-    left: `${theme.spacing.unit - 3}px`,
+    left: `${theme.spacing.unit - 1}px`,
   },
   resizeHandleSecondLine: {
-    left: `${theme.spacing.unit - 1}px`,
+    left: `${theme.spacing.unit + 1}px`,
+  },
+  resizeHandleLineActive: {
+    left: `${theme.spacing.unit}px`,
   },
   resizeHandleActive: {
     '& $resizeHandleLine': {
       opacity: '1',
-      backgroundColor: theme.palette.primary[300],
+      backgroundColor: theme.palette.primary.light,
+      height: 'calc(100% - 4px)',
+      top: '2px',
     },
   },
 });
@@ -62,6 +67,7 @@ export class ResizingControlBase extends React.PureComponent {
       this.setState({ resizing: false });
     };
   }
+
   render() {
     const { classes, resizeHandleOpacityClass } = this.props;
     const { resizing } = this.state;
@@ -83,6 +89,7 @@ export class ResizingControlBase extends React.PureComponent {
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleFirstLine]: true,
+              [classes.resizeHandleLineActive]: resizing,
             })}
           />
           <div
@@ -90,6 +97,7 @@ export class ResizingControlBase extends React.PureComponent {
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
               [classes.resizeHandleSecondLine]: true,
+              [classes.resizeHandleLineActive]: resizing,
             })}
           />
         </div>

@@ -7,15 +7,18 @@ export class StaticTableLayout extends React.PureComponent {
   render() {
     const {
       headerRows,
-      rows,
+      bodyRows,
+      footerRows,
       columns,
       minWidth,
       containerComponent: Container,
       tableComponent: Table,
       headComponent,
       bodyComponent,
+      footerComponent,
       rowComponent,
       cellComponent,
+      getCellColSpan,
     } = this.props;
 
     return (
@@ -31,15 +34,27 @@ export class StaticTableLayout extends React.PureComponent {
               blockComponent={headComponent}
               rowComponent={rowComponent}
               cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
             />
           )}
           <RowsBlockLayout
-            rows={rows}
+            rows={bodyRows}
             columns={columns}
             blockComponent={bodyComponent}
             rowComponent={rowComponent}
             cellComponent={cellComponent}
+            getCellColSpan={getCellColSpan}
           />
+          {!!footerRows.length && (
+            <RowsBlockLayout
+              rows={footerRows}
+              columns={columns}
+              blockComponent={footerComponent}
+              rowComponent={rowComponent}
+              cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
+            />
+          )}
         </Table>
       </Container>
     );
@@ -48,18 +63,23 @@ export class StaticTableLayout extends React.PureComponent {
 
 StaticTableLayout.propTypes = {
   headerRows: PropTypes.array,
-  rows: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired,
+  footerRows: PropTypes.array,
   columns: PropTypes.array.isRequired,
   minWidth: PropTypes.number.isRequired,
   containerComponent: PropTypes.func.isRequired,
   tableComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func,
   bodyComponent: PropTypes.func.isRequired,
+  footerComponent: PropTypes.func,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };
 
 StaticTableLayout.defaultProps = {
   headerRows: [],
+  footerRows: [],
   headComponent: () => null,
+  footerComponent: () => null,
 };

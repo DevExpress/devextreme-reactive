@@ -5,9 +5,11 @@ export class DemoRenderer extends React.Component {
   componentDidMount() {
     this.renderDemo();
   }
+
   componentDidUpdate() {
     this.renderDemo();
   }
+
   renderDemo() {
     const {
       sectionName,
@@ -51,11 +53,10 @@ export class DemoRenderer extends React.Component {
       element: this.root,
       demo: demoSource,
       demoContainer: demoContainerSource,
-      embeddedDemoOptions,
-      frameUrl: `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`,
     });
     this.demoRenderSkipped = false;
   }
+
   render() {
     return (
       <div

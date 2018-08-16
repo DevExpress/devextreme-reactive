@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Nav, NavItem, Tab } from 'react-bootstrap';
 
 import { ThemeViewer } from './theme-viewer';
-import { DemoRenderer } from './demo-renderer';
+import { DemoFrame } from './demo-frame';
 import { SourceCode } from './source-code';
 
 export const DemoViewer = (
@@ -16,7 +16,7 @@ export const DemoViewer = (
       path={`${url}/:themeName/:variantName/clean`}
       render={({ match: { params: { themeName, variantName } } }) => (
         <div>
-          <DemoRenderer
+          <DemoFrame
             themeName={themeName}
             variantName={variantName}
             sectionName={sectionName}
@@ -30,7 +30,7 @@ export const DemoViewer = (
       render={() => (
         <div style={{ paddingTop: '8px' }}>
           <ThemeViewer
-            avaliableThemes={Object.keys(demoSources[sectionName][demoName])}
+            availableThemes={Object.keys(demoSources[sectionName][demoName])}
           >
             {({ themeName, variantName }) => (
               <Tab.Container
@@ -39,8 +39,12 @@ export const DemoViewer = (
               >
                 <div style={{ marginTop: showThemeSelector ? '-38px' : 0 }}>
                   <Nav bsStyle="tabs">
-                    <NavItem eventKey="preview">Preview</NavItem>
-                    <NavItem eventKey="source">Source</NavItem>
+                    <NavItem eventKey="preview">
+                      Preview
+                    </NavItem>
+                    <NavItem eventKey="source">
+                      Source
+                    </NavItem>
                   </Nav>
                   <Tab.Content
                     animation
@@ -48,7 +52,7 @@ export const DemoViewer = (
                     style={{ marginTop: '20px' }}
                   >
                     <Tab.Pane eventKey="preview">
-                      <DemoRenderer
+                      <DemoFrame
                         themeName={themeName}
                         variantName={variantName}
                         sectionName={sectionName}

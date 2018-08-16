@@ -2,6 +2,22 @@
 
 A plugin that renders detail rows.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableRowDetail } from '@devexpress/dx-react-grid-material-ui';
+// import { TableRowDetail } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableRowDetail } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableRowDetail } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -82,7 +98,7 @@ Name | Plugin | Type | Description
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns.
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Body rows to be rendered.
 expandedDetailRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Expanded rows IDs.
-toggleDetailRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId }) => void | Expands/collapses the specified row.
+toggleDetailRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, state?: boolean }) => void | Expands/collapses the specified row. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](table.md#tablerowprops) | A template that renders a table row.
 

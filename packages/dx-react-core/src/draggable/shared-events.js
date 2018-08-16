@@ -8,8 +8,9 @@ export const getSharedEventEmitter = () => {
     eventEmitter = new EventEmitter();
 
     ['mousemove', 'mouseup', 'touchmove', 'touchend', 'touchcancel']
-      .forEach(name =>
-        window.addEventListener(name, e => eventEmitter.emit([name, e]), { passive: false }));
+      .forEach(name => window.addEventListener(
+        name, e => eventEmitter.emit([name, e]), { passive: false },
+      ));
   }
   return eventEmitter;
 };

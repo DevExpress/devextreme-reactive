@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SortingIndicator } from './parts/sorting-indicator';
-import './group-panel-item.css';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -44,14 +43,14 @@ export const GroupPanelItem = ({
     <div
       className={classNames({
         'btn-group mb-1 mr-1': true,
-        'dx-rg-bs4-inactive': draft,
+        'dx-g-bs4-inactive': draft,
       }, className)}
       {...restProps}
     >
       <span
         className={classNames({
           'btn btn-outline-secondary': true,
-          disabled: !sortingEnabled && showSortingControls,
+          disabled: !sortingEnabled && (showSortingControls || !groupingEnabled),
         })}
         onClick={handleSortingChange}
         onKeyDown={handleSortingChange}
@@ -78,7 +77,7 @@ export const GroupPanelItem = ({
         >
           &nbsp;
           <span
-            className="oi oi-x dx-rg-bs4-group-panel-item-icon"
+            className="oi oi-x dx-g-bs4-group-panel-item-icon"
           />
         </span>)}
     </div>

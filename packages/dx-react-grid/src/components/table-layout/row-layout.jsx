@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getTableRowColumnsWithColSpan } from '@devexpress/dx-grid-core';
 
 const getColumnStyle = ({ column }) => column.animationState;
 
@@ -15,7 +14,11 @@ export class RowLayout extends React.PureComponent {
       columns,
       rowComponent: Row,
       cellComponent: Cell,
+      getCellColSpan,
     } = this.props;
+    const getColSpan = (
+      tableRow, tableColumn,
+    ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
 
     return (
       <Row
@@ -23,14 +26,14 @@ export class RowLayout extends React.PureComponent {
         style={getRowStyle({ row })}
       >
         {
-          getTableRowColumnsWithColSpan(columns, row.colSpanStart)
+          columns
             .map(column => (
               <Cell
                 key={column.key}
                 tableRow={row}
                 tableColumn={column}
                 style={getColumnStyle({ column })}
-                colSpan={column.colSpan}
+                colSpan={getColSpan(row, column)}
               />
             ))
         }
@@ -40,8 +43,9 @@ export class RowLayout extends React.PureComponent {
 }
 
 RowLayout.propTypes = {
-  row: PropTypes.object.isRequired,
+  row: PropTypes.any.isRequired,
   columns: PropTypes.array.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
+  getCellColSpan: PropTypes.func.isRequired,
 };

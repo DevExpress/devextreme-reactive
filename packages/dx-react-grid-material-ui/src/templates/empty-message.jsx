@@ -1,12 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Toolbar from 'material-ui/Toolbar';
-import { withStyles } from 'material-ui/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   emptyMessage: {
     margin: '0 auto',
     padding: `${theme.spacing.unit * 5}px 0`,
+    fontFamily: theme.typography.fontFamily,
+    color: theme.typography.subheading.color,
+    fontSize: theme.typography.subheading.fontSize,
   },
 });
 

@@ -21,7 +21,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   evalAnimations: jest.fn(),
 }));
 
-const Layout = jest.fn(() => null);
+const defaultProps = {
+  layoutComponent: () => null,
+};
 
 describe('TableLayout', () => {
   let resetConsole;
@@ -43,13 +45,13 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          layoutComponent={Layout}
+          {...defaultProps}
           columns={columns}
           minColumnWidth={100}
         />
       ));
 
-      expect(tree.find(Layout).props())
+      expect(tree.find(defaultProps.layoutComponent).props())
         .toMatchObject({
           minWidth: 200,
           columns: [
@@ -83,7 +85,7 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          layoutComponent={Layout}
+          {...defaultProps}
           columns={columns}
           minColumnWidth={100}
         />
@@ -111,7 +113,7 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          layoutComponent={Layout}
+          {...defaultProps}
           columns={columns}
           minColumnWidth={100}
         />
@@ -137,7 +139,7 @@ describe('TableLayout', () => {
 
       const tree = shallow((
         <TableLayout
-          layoutComponent={Layout}
+          {...defaultProps}
           columns={columns}
           minColumnWidth={100}
         />

@@ -6,16 +6,19 @@ export * from './plugins/integrated-sorting/computeds';
 
 export * from './plugins/filtering-state/reducers';
 export * from './plugins/filtering-state/helpers';
+export * from './plugins/filtering-state/computeds';
 export * from './plugins/integrated-filtering/computeds';
 
 export * from './plugins/grouping-state/constants';
 export * from './plugins/grouping-state/reducers';
+export * from './plugins/grouping-state/helpers';
 export * from './plugins/integrated-grouping/computeds';
 export * from './plugins/custom-grouping/computeds';
 export * from './plugins/grouping-panel/helpers';
 
 export * from './plugins/paging-state/reducers';
 export * from './plugins/integrated-paging/computeds';
+export * from './plugins/integrated-paging/helpers';
 export * from './plugins/paging-panel/helpers';
 
 export * from './plugins/selection-state/reducers';
@@ -52,9 +55,13 @@ export * from './plugins/table-header-row/constants';
 export * from './plugins/table-header-row/helpers';
 export * from './plugins/table-header-row/computeds';
 
+export * from './plugins/table-band-header/constants';
+export * from './plugins/table-band-header/helpers';
+export * from './plugins/table-band-header/computeds';
+
+export * from './plugins/row-detail-state/reducers';
 export * from './plugins/table-row-detail/constants';
 export * from './plugins/table-row-detail/helpers';
-export * from './plugins/table-row-detail/reducers';
 export * from './plugins/table-row-detail/computeds';
 
 export * from './plugins/table-selection/constants';
@@ -71,12 +78,22 @@ export * from './plugins/table-column-visibility/helpers';
 export * from './plugins/column-chooser/computeds';
 export * from './plugins/column-chooser/reducers';
 
+export * from './plugins/tree-data-state/reducers';
+export * from './plugins/custom-tree-data/computeds';
+export * from './plugins/table-tree-column/helpers';
+
 export * from './plugins/search-state/reducers';
+export * from './plugins/search-state/computeds';
+
+export * from './plugins/data-type-provider/computeds';
+
+export * from './plugins/integrated-summary/computeds';
+export * from './plugins/table-summary-row/computeds';
+export * from './plugins/table-summary-row/helpers';
 
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 export {
-  getTableRowColumnsWithColSpan,
   getTableColumnGeometries,
   getTableTargetColumnIndex,
   getAnimations,
@@ -87,3 +104,5 @@ export {
 export { getGroupCellTargetIndex } from './utils/group-panel';
 
 export { getMessagesFormatter } from './utils/messages-formatter';
+
+export { getCollapsedGrid } from './utils/virtual-table';

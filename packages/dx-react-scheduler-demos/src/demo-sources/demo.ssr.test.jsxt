@@ -1,0 +1,12 @@
+/**
+ * @jest-environment node
+ */
+
+import * as React from 'react';
+import { renderToString } from 'react-dom/server';
+import Demo from './<%&demoName%>';
+
+it('should not fail', () => {
+  expect(() => { renderToString(<Demo />); })
+    .not.toThrow();
+});

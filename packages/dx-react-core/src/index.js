@@ -12,4 +12,9 @@ export { DragDropProvider } from './drag-drop/provider';
 export { DragSource } from './drag-drop/source';
 export { DropTarget } from './drag-drop/target';
 
+export { Sizer } from './sizer';
+export { RefHolder } from './ref-holder';
+
 export { createRenderComponent } from './render-component';
+
+export { createStateHelper } from './utils/state-helper';

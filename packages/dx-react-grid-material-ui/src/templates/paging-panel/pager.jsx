@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
@@ -9,6 +9,7 @@ const styles = theme => ({
   pager: {
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
+    flex: 'none',
   },
 });
 
@@ -37,12 +38,14 @@ const PagerBase = ({
       pageSize={pageSize}
       getMessage={getMessage}
     />
-    {!!pageSizes.length && <PageSizeSelector
+    {!!pageSizes.length && (
+    <PageSizeSelector
       pageSize={pageSize}
       onPageSizeChange={onPageSizeChange}
       pageSizes={pageSizes}
       getMessage={getMessage}
-    />}
+    />
+    )}
   </div>
 );
 

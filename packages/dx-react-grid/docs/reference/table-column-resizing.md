@@ -2,6 +2,22 @@
 
 A plugin that manages table column widths.
 
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { TableColumnResizing } from '@devexpress/dx-react-grid-material-ui';
+// import { TableColumnResizing } from '@devexpress/dx-react-grid-bootstrap4';
+// import { TableColumnResizing } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { TableColumnResizing } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -15,7 +31,7 @@ Name | Type | Default | Description
 columnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | | Specifies column widths.
 minColumnWidth? | number | `45` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `55` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4); `40` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui); | Specifies a column's minimum width.
 defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
-onColumnWidthsChange? | (nextColumnWidths: { [columnName: string]: number }) => void | | Handles column width changes.
+onColumnWidthsChange? | (nextColumnWidths: Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt;) => void | | Handles column width changes.
 
 ## Interfaces
 

@@ -10,10 +10,13 @@ import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableStubCell } from '../templates/table-stub-cell';
 import { TableStubHeaderCell } from '../templates/table-stub-header-cell';
 import { TableContainer } from '../templates/table-container';
+import { TableStubRow } from '../templates/table-stub-row';
 
 const FixedHeader = props => <TableComponent use="head" {...props} />;
+const FixedFooter = props => <TableComponent use="foot" {...props} />;
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
+const TableFooter = props => <tfoot {...props} />;
 
 const defaultMessages = {
   noData: 'No data',
@@ -23,17 +26,39 @@ export class VirtualTable extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { height, estimatedRowHeight } = props;
-    this.layoutRenderComponent =
-      createRenderComponent(VirtualTableLayout, { height, estimatedRowHeight });
+    const {
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footerTableComponent,
+    } = props;
+    this.layoutRenderComponent = createRenderComponent(VirtualTableLayout, {
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footerTableComponent,
+    });
   }
-  componentWillReceiveProps({ height, estimatedRowHeight }) {
-    this.layoutRenderComponent.update({ height, estimatedRowHeight });
+
+  componentWillReceiveProps({
+    height,
+    estimatedRowHeight,
+    headTableComponent,
+    footerTableComponent,
+  }) {
+    this.layoutRenderComponent.update({
+      height,
+      estimatedRowHeight,
+      headTableComponent,
+      footerTableComponent,
+    });
   }
+
   render() {
     const {
       height,
       estimatedRowHeight,
+      headTableComponent,
       messages,
       ...restProps
     } = this.props;
@@ -44,12 +69,13 @@ export class VirtualTable extends React.PureComponent {
         tableComponent={TableComponent}
         headComponent={TableHead}
         bodyComponent={TableBody}
+        footerComponent={TableFooter}
         containerComponent={TableContainer}
-        fixedHeaderComponent={FixedHeader}
         rowComponent={TableRow}
         cellComponent={TableCell}
         noDataRowComponent={TableRow}
         noDataCellComponent={TableNoDataCell}
+        stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubHeaderCell}
         messages={{ ...defaultMessages, ...messages }}
@@ -63,17 +89,21 @@ VirtualTable.Cell = TableCell;
 VirtualTable.Row = TableRow;
 VirtualTable.NoDataCell = TableNoDataCell;
 VirtualTable.NoDataRow = TableRow;
+VirtualTable.StubRow = TableStubRow;
 VirtualTable.StubCell = TableStubCell;
 VirtualTable.StubHeaderCell = TableStubCell;
 VirtualTable.Table = TableComponent;
 VirtualTable.TableHead = TableHead;
 VirtualTable.TableBody = TableBody;
+VirtualTable.TableFooter = TableFooter;
 VirtualTable.FixedHeader = FixedHeader;
 VirtualTable.Container = TableContainer;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
+  headTableComponent: PropTypes.func,
+  footerTableComponent: PropTypes.func,
   messages: PropTypes.shape({
     noData: PropTypes.string,
   }),
@@ -82,5 +112,7 @@ VirtualTable.propTypes = {
 VirtualTable.defaultProps = {
   estimatedRowHeight: 49,
   height: 530,
+  headTableComponent: FixedHeader,
+  footerTableComponent: FixedFooter,
   messages: {},
 };

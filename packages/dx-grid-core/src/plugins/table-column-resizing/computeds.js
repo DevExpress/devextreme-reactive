@@ -24,10 +24,12 @@ const specifyWidths = (tableColumns, widths, onAbsence) => {
     }, []);
 };
 
-export const tableColumnsWithWidths = (tableColumns, columnWidths) =>
-  specifyWidths(tableColumns, columnWidths, (columnName) => {
-    throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
-  });
+export const tableColumnsWithWidths = (
+  tableColumns, columnWidths,
+) => specifyWidths(tableColumns, columnWidths, (columnName) => {
+  throw new Error(UNSET_COLUMN_WIDTH_ERROR.replace('$1', columnName));
+});
 
-export const tableColumnsWithDraftWidths = (tableColumns, draftColumnWidths) =>
-  specifyWidths(tableColumns, draftColumnWidths, () => {});
+export const tableColumnsWithDraftWidths = (
+  tableColumns, draftColumnWidths,
+) => specifyWidths(tableColumns, draftColumnWidths, () => {});

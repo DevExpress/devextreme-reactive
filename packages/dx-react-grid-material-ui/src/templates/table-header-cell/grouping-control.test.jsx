@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { GroupingControl } from './grouping-control';
 
 const defaultProps = {
@@ -14,7 +14,7 @@ describe('GroupingControl', () => {
     classes = getClasses(<GroupingControl {...defaultProps} />);
   });
 
-  it('should have correct css class if disable is true', () => {
+  it('should have correct css class if disabled is true', () => {
     const tree = shallow(<GroupingControl {...defaultProps} disabled />);
     expect(tree.hasClass(classes.disabledGroupingControl))
       .toBeTruthy();
@@ -29,5 +29,13 @@ describe('GroupingControl', () => {
     ));
     expect(tree.props().data)
       .toEqual({ a: 1 });
+  });
+
+  it('should not call the onGroup function if disabled is true', () => {
+    const tree = shallow(<GroupingControl {...defaultProps} disabled />);
+    tree.simulate('click', { stopPropagation: () => {} });
+
+    expect(defaultProps.onGroup)
+      .not.toBeCalled();
   });
 });

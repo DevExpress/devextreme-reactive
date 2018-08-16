@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from 'material-ui/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import {
   CommandButton,
   EditCommandHeadingCell,
@@ -35,6 +35,16 @@ describe('TableCommandColumn', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
+    });
+
+    it('should apply correct align if rowSpan is defined', () => {
+      const rowSpan = 3;
+      const tree = shallow((
+        <EditCommandHeadingCell rowSpan={rowSpan} />
+      ));
+
+      expect(tree.is(`.${classes.alignWithRowSpan}.${classes.headingCell}`))
+        .toBeTruthy();
     });
   });
 

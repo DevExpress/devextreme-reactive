@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import {
   groupRowChecker,
   groupRowLevelKeyGetter,
+  groupCollapsedRowsGetter,
   customGroupingRowIdGetter,
   customGroupedRows,
   expandedGroupRows,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { CustomGrouping } from './custom-grouping';
-import { pluginDepsToComponents, getComputedState } from './test-utils';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupRowChecker: jest.fn(),
   groupRowLevelKeyGetter: jest.fn(),
+  groupCollapsedRowsGetter: jest.fn(),
   customGroupingRowIdGetter: jest.fn(),
   customGroupedRows: jest.fn(),
   expandedGroupRows: jest.fn(),
@@ -25,13 +27,13 @@ const defaultDeps = {
     rows: [{ id: 0 }, { id: 1 }],
     grouping: [{ columnName: 'a' }],
     expandedGroups: ['A', 'B'],
-    getRowId: () => {},
+    getRowId: () => { },
   },
   plugins: ['GroupingState'],
 };
 
 const defaultProps = {
-  getChildGroups: () => {},
+  getChildGroups: () => { },
 };
 
 describe('CustomGrouping', () => {
@@ -46,6 +48,7 @@ describe('CustomGrouping', () => {
   beforeEach(() => {
     groupRowChecker.mockImplementation(() => 'groupRowChecker');
     groupRowLevelKeyGetter.mockImplementation(() => 'groupRowLevelKeyGetter');
+    groupCollapsedRowsGetter.mockImplementation(() => 'groupCollapsedRowsGetter');
     customGroupingRowIdGetter.mockImplementation(() => 'customGroupingRowIdGetter');
     customGroupedRows.mockImplementation(() => 'customGroupedRows');
     expandedGroupRows.mockImplementation(() => 'expandedGroupRows');
@@ -128,6 +131,28 @@ describe('CustomGrouping', () => {
 
     expect(getComputedState(tree).getRowId)
       .toBe(customGroupingRowIdGetter());
+  });
+
+  it('should provide getCollapsedRows getter', () => {
+    const deps = {
+      getter: {
+        getCollapsedRows: () => { },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <CustomGrouping
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getCollapsedRows)
+      .toBe(groupCollapsedRowsGetter());
+
+    expect(groupCollapsedRowsGetter)
+      .toBeCalledWith(deps.getter.getCollapsedRows);
   });
 
   describe('temporary grouping', () => {

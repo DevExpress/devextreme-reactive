@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Chip from 'material-ui/Chip';
-import { TableSortLabel } from 'material-ui/Table';
-import { createMount, createShallow, getClasses } from 'material-ui/test-utils';
+import Chip from '@material-ui/core/Chip';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
@@ -69,12 +69,25 @@ describe('GroupPanelItem', () => {
       .toHaveProperty('onDelete');
   });
 
+  it('should not render the ungroup button if grouping is disabled', () => {
+    const tree = mount((
+      <GroupPanelItem
+        item={{ column: { name: 'test' } }}
+        groupingEnabled={false}
+        showGroupingControls
+      />
+    ));
+    expect(tree.find(Chip).prop('onDelete'))
+      .toBeNull();
+  });
+
   it('should not change sorting if sorting is not allowed', () => {
     const onSort = jest.fn();
     const tree = mount((
       <GroupPanelItem
         onSort={onSort}
         item={{ column: { name: 'test' } }}
+        showSortingControls
       />
     ));
     const сhipElem = tree.find(Chip);
@@ -82,6 +95,8 @@ describe('GroupPanelItem', () => {
     сhipElem.simulate('keydown', { keyCode: ENTER_KEY_CODE });
     expect(onSort)
       .not.toHaveBeenCalled();
+    expect(tree.find(Chip).prop('onClick'))
+      .toBeNull();
   });
 
   it('should handle the "Enter" and "Space" keys down and "Mouse click" for sorting change', () => {

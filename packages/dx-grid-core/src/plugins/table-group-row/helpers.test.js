@@ -35,21 +35,31 @@ describe('TableRowDetail Plugin helpers', () => {
       expect(isGroupIndentTableCell(
         { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         { type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
       ))
         .toBeTruthy();
       expect(isGroupIndentTableCell(
         { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         { type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
+      ))
+        .toBeFalsy();
+      expect(isGroupIndentTableCell(
+        { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        { type: TABLE_GROUP_TYPE, column: { name: 'b' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
       ))
         .toBeFalsy();
       expect(isGroupIndentTableCell(
         { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         { type: 'undefined', column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
       ))
         .toBeFalsy();
       expect(isGroupIndentTableCell(
         { type: 'undefined', row: { groupedBy: 'b' } },
         { type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+        [{ columnName: 'a' }, { columnName: 'b' }],
       ))
         .toBeFalsy();
     });

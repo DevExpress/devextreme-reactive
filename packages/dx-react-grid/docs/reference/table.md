@@ -1,6 +1,22 @@
 # Table Plugin Reference
 
-A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
+A plugin that renders Grid data as a table. This plugin enables you to customize table rows and columns, and contains the Table Row and Table Cell components that can be extended by other plugins
+
+## Importing
+
+Use the following statement to import a plugin with embedded theme components:
+
+```js
+import { Table } from '@devexpress/dx-react-grid-material-ui';
+// import { Table } from '@devexpress/dx-react-grid-bootstrap4';
+// import { Table } from '@devexpress/dx-react-grid-bootstrap3';
+```
+
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Table } from '@devexpress/dx-react-grid';
+```
 
 ## User Reference
 
@@ -17,11 +33,13 @@ columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; 
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+footerComponent | ComponentType&lt;object&gt; | | A component that renders a table footer.
 containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
 noDataCellComponent | ComponentType&lt;[Table.NoDataCellProps](#tablenodatacellprops)&gt; | | A component that renders a table cell when the table is empty.
 noDataRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a table row when the table is empty.
+stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A component that renders a stub table row if the row type is not recognized.
 stubCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](#localization-messages) | | An object that specifies the localization messages.
@@ -37,6 +55,7 @@ Field | Type | Description
 columnName | string | The name of the column to extend.
 width? | number | The table column width in pixels.
 align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
+wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
 
 ### TableRow
 
@@ -70,8 +89,8 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | Specifies a table row.
 tableColumn | [TableColumn](#tablecolumn) | Specifies a table column.
-style? | Object | Styles that should be applied to the root cell element.
 colSpan? | number | The count of columns that the root cell element spans.
+rowSpan? | number | The count of rows that the root cell element spans.
 
 ### Table.DataCellProps
 
@@ -84,10 +103,13 @@ Field | Type | Description
 value | any | Specifies a value to be rendered within the cell.
 row | any | Specifies the cell's row.
 column | [Column](grid.md#column) | Specifies the cell's column.
+children? | ReactNode | A React node used to render the cell content.
 
 ### Table.NoDataCellProps
 
 Describes properties passed to a component that renders a table cell when the table is empty.
+
+Extends [Table.CellProps](#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
@@ -101,7 +123,6 @@ Field | Type | Description
 ------|------|------------
 tableRow | [TableRow](#tablerow) | A table row.
 children | ReactNode | A React node used to render a table row.
-style? | Object | Styles that should be applied to the root row element.
 
 ### Table.DataRowProps
 
@@ -129,8 +150,9 @@ Table.TableBody | object | A component that renders a table body.
 Table.Container | object | A component that renders a table's container.
 Table.Cell | [Table.DataCellProps](#tabledatacellprops) | A component that renders a table data cell.
 Table.Row | [Table.DataRowProps](#tabledatarowprops) | A component that renders a table data row.
-Table.NoDataCell | [Table.CellProps](#tablecellprops) | A component that renders a table cell when the table is empty.
+Table.NoDataCell | [Table.NoDataCellProps](#tablenodatacellprops) | A component that renders a table cell when the table is empty.
 Table.NoDataRow | [Table.RowProps](#tablerowprops) | A component that renders a table row when the table is empty.
+Table.StubRow | [Table.RowProps](#tablerowprops) | A component that renders a stub table row.
 Table.StubCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table cell.
 Table.StubHeaderCell | [Table.CellProps](#tablecellprops) | A component that renders a stub table header cell.
 
@@ -146,6 +168,7 @@ rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&
 columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Columns to be rendered by the table view.
 getRowId | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any) => number &#124; string | A function used to get a unique row identifier.
 getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get a cell’s value.
+valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) | [DataTypeProvider.ValueFormatterProps](data-type-provider.md#datatypeprovidervalueformatterprops) | A template that renders the formatted value.
 
 ### Exports
 
@@ -153,7 +176,8 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Footer rows to be rendered.
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
-table | [Template](../../../dx-react-core/docs/reference/template.md) | Object? | A template that renders the table.
+table | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the table.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](#tablecellprops) | A template that renders a table cell.
 tableRow | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.RowProps](#tablerowprops) | A template that renders a table row.

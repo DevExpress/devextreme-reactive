@@ -1,21 +1,22 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { TableSortLabel } from 'material-ui/Table';
-import Tooltip from 'material-ui/Tooltip';
-import { withStyles } from 'material-ui/styles';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
   tooltipRoot: {
     display: 'block',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   sortLabelRoot: {
-    height: theme.spacing.unit * 3,
+    maxWidth: '100%',
   },
   sortLabelActive: {
     color: 'inherit',
+  },
+  sortLabelText: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 });
 
@@ -27,7 +28,7 @@ const SortingControlBase = ({
     placement={align === 'right' ? 'bottom-end' : 'bottom-start'}
     enterDelay={300}
     classes={{
-      root: classes.tooltipRoot,
+      tooltip: classes.tooltipRoot,
     }}
   >
     <TableSortLabel
@@ -40,7 +41,9 @@ const SortingControlBase = ({
         active: classes.sortLabelActive,
       }}
     >
-      {columnTitle}
+      <span className={classes.sortLabelText}>
+        {columnTitle}
+      </span>
     </TableSortLabel>
   </Tooltip>
 );

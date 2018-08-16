@@ -14,12 +14,12 @@ html {
 }
 
 h2,
-h3 {
+h3,
+h4 {
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
 }
 
 h1,
-h4,
 h5,
 h6 {
     font-family: "Segoe UI","Helvetica Neue",Helvetica,Verdana,"san-serif";
@@ -42,9 +42,8 @@ h3 {
 }
 
 h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #5b7f98;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 h5 {
@@ -175,8 +174,16 @@ section {
     padding-bottom: 50px;
     text-align: center;
     color: #f0f2f4;
-    background: #173952 url({{site.baseurl}}/img/banner-bg.jpg) no-repeat bottom center;
-    background-size: contain;
+}
+
+.intro-header.react-grid {
+  background: #173952 url({{site.baseurl}}/img/banner-react-grid-bg.jpg) no-repeat bottom center;
+  background-size: contain;
+}
+
+.intro-header.vue-grid {
+  background: #04241b url({{site.baseurl}}/img/banner-vue-grid-bg.jpg) no-repeat bottom center;
+  background-size: contain;
 }
 
 .intro-message {
@@ -184,11 +191,16 @@ section {
     margin-top: -20%;
     padding-top: 20%;
     padding-bottom: 20%;
-    font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
+}
+
+.intro-message,
+.cookie-policy .cookie-policy-button,
+.cookie-policy .title,
+.intro-message > h1 {
+  font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
 }
 
 .intro-message > h1 {
-    font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     color: #f05b41;
     margin: 0;
     font-size: 4.5em;
@@ -216,7 +228,8 @@ section {
 }
 
 ul.intro-action-buttons .btn,
-ul.banner-action-buttons .btn {
+ul.banner-action-buttons .btn,
+div.cookie-policy-button.btn {
     color: #f05b41;
     width: 210px;
     background-color: #fff;
@@ -235,40 +248,47 @@ ul.banner-action-buttons .btn.demos {
 ul.intro-action-buttons .btn:hover,
 ul.banner-action-buttons .btn:hover,
 ul.intro-action-buttons .btn.demos:hover,
-ul.banner-action-buttons .btn.demos:hover {
+ul.banner-action-buttons .btn.demos:hover,
+div.cookie-policy-button.btn:hover {
     color: #fff;
     background-color: transparent;
 }
 
+.cookie-policy {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background-color: #f05b41;
+  color: #fff;
+  padding: 20px 0;
+}
 
-@media(max-width: 767px) {
-    .intro-message {
-        padding-bottom: 0;
-    }
+.cookie-policy .container {
+  position: relative;
+}
 
-    .intro-message > h1 {
-        font-size: 3em;
-    }
+.cookie-policy .title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
-    .intro-message > h1 > sup {
-        right: -25px;
-    }
+.cookie-policy .text {
+  padding-right: 250px;
+}
 
-    .intro-message > h3 {
-        font-size: 2em;
-    }
+.cookie-policy a,
+.cookie-policy a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
 
-    ul.intro-action-buttons > li {
-        margin-bottom: 20px;
-    }
-
-    ul.intro-action-buttons > li:last-child {
-        margin-bottom: 0;
-    }
-
-    .intro-divider {
-        width: 100%;
-    }
+.cookie-policy-button {
+  position: absolute;
+  top: 50%;
+  margin-top: -24px;
+  right: 15px;
 }
 
 .action-button {
@@ -341,10 +361,18 @@ ul.banner-action-buttons .btn.demos:hover {
 .banner {
     padding: 100px 0;
     color: #f0f2f4;
-    background: #173952 url({{site.baseurl}}/img/bottom-bg.jpg) no-repeat center center;
-    background-size: cover;
     font-family: 'OpenSansCondensedBold','HelveticaNeue-CondensedBold',Helvetica,'Arial Narrow',Calibri,Arial,'Lucida Grande',sans-serif;
     margin-bottom: -40px;
+}
+
+.banner.react {
+  background: #173952 url({{site.baseurl}}/img/bottom-react-bg.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+.banner.vue {
+  background: #04241b url({{site.baseurl}}/img/bottom-vue-bg.jpg) no-repeat center center;
+  background-size: cover;
 }
 
 .banner h2 {
@@ -410,6 +438,33 @@ footer ul > li.active > a {
 }
 
 @media(max-width: 767px) {
+    .intro-message {
+      padding-bottom: 0;
+    }
+
+    .intro-message > h1 {
+        font-size: 3em;
+    }
+
+    .intro-message > h1 > sup {
+        right: -25px;
+    }
+
+    .intro-message > h3 {
+        font-size: 2em;
+    }
+
+    ul.intro-action-buttons > li {
+        margin-bottom: 20px;
+    }
+
+    ul.intro-action-buttons > li:last-child {
+        margin-bottom: 0;
+    }
+
+    .intro-divider {
+        width: 100%;
+    }
     .banner {
         text-align: center;
         padding: 60px 0;
@@ -448,12 +503,27 @@ footer ul > li.active > a {
         margin: 30px auto;
     }
 
-    .intro-header {
-        background: #173952 url({{site.baseurl}}/img/banner-bg-mobile.jpg) no-repeat center center;
+    .intro-header.react {
+        background: #173952 url({{site.baseurl}}/img/banner-react-bg-mobile.jpg) no-repeat center center;
+    }
+    .intro-header.vue {
+        background: #04241b url({{site.baseurl}}/img/banner-vue-bg-mobile.jpg)  no-repeat center center;
     }
 
     footer {
         padding: 30px 0;
+    }
+
+    .cookie-policy .text{
+      padding-right: 0;
+      margin-bottom: 10px;
+    }
+
+    .cookie-policy-button {
+      position: relative;
+      margin-top: 0;
+      top: auto;
+      right: auto;
     }
 }
 
@@ -464,4 +534,12 @@ footer ul > li.active > a {
     .intro-message > h1 > sup {
         right: -20px;
     }
+}
+
+.algolia-autocomplete {
+  width: 100%;
+}
+
+#docsearch {
+  margin-bottom: 10px;
 }

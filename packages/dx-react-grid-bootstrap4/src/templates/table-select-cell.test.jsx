@@ -8,15 +8,7 @@ describe('TableSelectCell', () => {
       <TableSelectCell className="custom-class" />
     ));
 
-    expect(tree.is('.align-middle.dx-rg-bs4-cursor-pointer.custom-class'))
+    expect(tree.is('.custom-class'))
       .toBeTruthy();
-  });
-
-  it('should pass rest props to the root element', () => {
-    const tree = shallow((
-      <TableSelectCell data={{ a: 1 }} />
-    ));
-    expect(tree.find('td').prop('data'))
-      .toEqual({ a: 1 });
   });
 });

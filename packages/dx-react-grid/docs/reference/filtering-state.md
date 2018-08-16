@@ -2,6 +2,14 @@
 
 A plugin that manages the filtering state.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { FilteringState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -27,7 +35,16 @@ Describes a filter.
 Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of a column whose value is used for filtering.
+operation? | [FilterOperation](#filteroperation) | Specifies the operation name. The value is 'contains' if the operation name is not set.
 value? | string | Specifies the filter value.
+
+### FilterOperation
+
+Describes a filter operation. Accepts one of the built-in operations or a custom string.
+
+Type: `string`
+
+Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual`
 
 ### FilteringState.ColumnExtension
 
@@ -53,4 +70,4 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 filterExpression | [Getter](../../../dx-react-core/docs/reference/getter.md)  | [FilterExpression](integrated-filtering.md#filterexpression) &#124; [Filter](#filter) | The applied filter expressions.
 isColumnFilteringEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function used to define if filtering by a column is enabled.
-changeColumnFilter | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, config: Object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the specified column's filter.
+changeColumnFilter | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string, config: object }) => void | Adds, changes or removes a filter. Pass `null` to the `config` argument to remove the specified column's filter.

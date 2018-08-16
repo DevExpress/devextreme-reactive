@@ -3,7 +3,7 @@ baseurl: "/devextreme-reactive"
 version: "X.X.X"
 
 markdown: kramdown
-gems:
+plugins:
   - jekyll-feed
   - jekyll-relative-links
   - jekyll-redirect-from
@@ -19,6 +19,34 @@ defaults:
       type: pages
     values:
       layout: default
+  # React
+  - scope:
+      path: react
+    values:
+      demos_link: /react
+  # React Core
+  - scope:
+      path: react/core
+    values:
+      product_name: React Core
+      product_link: /react/core
+      demos_script_link: /react/grid/demos
+      logo_file: core-logo.svg
+      initial_guide: /fundamentals
+  - scope:
+      path: react/core/docs
+      type: pages
+    values:
+      layout: docs
+  # React Grid
+  - scope:
+      path: react/grid
+    values:
+      product_name: React Grid
+      product_link: /react/grid
+      demos_script_link: /react/grid/demos
+      logo_file: grid-logo.svg
+      initial_guide: /getting-started
   - scope:
       path: react/grid/demos
       type: pages
@@ -29,8 +57,46 @@ defaults:
       type: pages
     values:
       layout: docs
+  # React Chart
   - scope:
-      path: react/core/docs
+      path: react/chart
+    values:
+      product_name: React Chart
+      product_link: /react/chart
+      demos_script_link: /react/chart/demos
+      logo_file: chart-logo.svg
+      initial_guide: /getting-started
+  - scope:
+      path: react/chart/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
+      path: react/chart/docs
+      type: pages
+    values:
+      layout: docs
+  # Vue
+  - scope:
+      path: vue
+    values:
+      demos_link: /vue
+  # Vue Grid
+  - scope:
+      path: vue/grid
+    values:
+      product_name: Vue Grid
+      product_link: /vue/grid
+      demos_script_link: /vue/grid/demos
+      logo_file: grid-logo.svg
+      initial_guide: /getting-started
+  - scope:
+      path: vue/grid/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
+      path: vue/grid/docs
       type: pages
     values:
       layout: docs

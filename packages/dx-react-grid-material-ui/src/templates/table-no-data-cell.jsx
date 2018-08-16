@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
@@ -27,7 +27,9 @@ export const TableNoDataCellBase = ({
     colSpan={colSpan}
     {...restProps}
   >
-    <big>{getMessage('noData')}</big>
+    <big>
+      {getMessage('noData')}
+    </big>
   </TableCell>
 );
 

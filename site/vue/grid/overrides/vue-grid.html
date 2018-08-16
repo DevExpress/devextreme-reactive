@@ -1,0 +1,141 @@
+---
+title: DevExtreme Vue Grid
+permalink: /vue/grid/
+redirect_from:
+  - /vue/
+redirect_to:
+  - /vue/grid/docs/guides/getting-started/
+---
+
+<section id="home">
+	<div class="intro-header vue vue-grid">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-message">
+						<h1>DevExtreme<span class="break"> </span>Vue&nbsp;Grid<sup>CTP</sup></h1>
+						<h3>for Bootstrap</h3>
+						<ul class="list-inline intro-action-buttons">
+							<li>
+								<a href="demos/featured/integrated-data-shaping/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
+							</li>
+							<li>
+								<a href="docs/" class="btn btn-default btn-lg"><span class="action-button">Getting Started</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+
+<section id="blocks">
+{% for post in site.posts reversed %}
+  {% if post.category == 'LandingGrid' or post.category == 'LandingGridVue' %}
+    {% capture thecycle %}{% cycle 'odd', 'even' %}{% endcapture %}
+      {% if thecycle == 'odd' %}
+      <div class="content-section-a">
+
+          <div class="container">
+
+              <div class="row block-item {{ post.cssClass }}">
+                  <div class="col-lg-5 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">{{ post.title }}</h2>
+                      <div class="lead">{{ post.content }}</div>
+                  </div>
+                  <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                        src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      {% else %}
+
+      <div class="content-section-b">
+
+          <div class="container">
+
+              <div class="row block-item {{ post.cssClass }}">
+                  <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
+                      <div class="clearfix"></div>
+                      <h2 class="section-heading">{{ post.title }}</h2>
+                      <div class="lead">{{ post.content }}</div>
+                  </div>
+                  <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+                      <img
+                        class="img-responsive block-image"
+                        data-static-src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        data-animated-src="{{site.baseurl}}/img/blocks/{{ post.imgAnimated }}"
+                        src="{{site.baseurl}}/img/blocks/{{ post.img }}"
+                        alt=""
+                      />
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+      {% endif %}
+    {% endif %}
+{% endfor %}
+</section>
+
+<section id="contact">
+	<div class="banner vue">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-7">
+					<h2>Ready to learn more?</h2>
+				</div>
+				<div class="col-lg-5">
+					<ul class="list-inline banner-action-buttons">
+						<li>
+							<a href="demos/featured/integrated-data-shaping/" class="btn btn-default btn-lg demos"><span class="action-button">Demos</span></a>
+						</li>
+						<li>
+							<a href="docs/" class="btn btn-default btn-lg"><span class="action-button">Getting Started</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+<script>
+  window.addEventListener('scroll', function() {
+    var images = document.getElementsByClassName('block-image');
+    for (var i = 0; i < images.length; i++) {
+        var img = images[i];
+        var animatedSrc = img.getAttribute('data-animated-src');
+        if (animatedSrc) {
+          var staticSrc = img.getAttribute('data-static-src');
+          var rect = img.getBoundingClientRect();
+          var onScreen = window.innerHeight - rect.bottom >= 0 && rect.top >= 0;
+          var src = onScreen ? animatedSrc : staticSrc;
+          if (img.src.indexOf(src) === -1) {
+            img.src = src;
+          }
+        }
+    }
+  });
+</script>

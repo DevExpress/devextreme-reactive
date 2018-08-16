@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import List from 'material-ui-icons/List';
-import { withStyles } from 'material-ui/styles';
+import List from '@material-ui/icons/List';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   groupingControl: {
@@ -14,55 +14,31 @@ const styles = theme => ({
     cursor: 'default',
     opacity: 0.3,
   },
-  floatLeft: {
-    float: 'left',
-    textAlign: 'left',
-  },
-  floatRight: {
-    float: 'right',
-    textAlign: 'right',
-  },
 });
 
-const GroupingControlBase = ({
-  align,
-  onGroup,
-  disabled,
-  classes,
-  ...restProps
-}) => {
-  const invertedAlign = align === 'left' ? 'right' : 'left';
-  const groupingControlClasses = classNames({
-    [classes.groupingControl]: true,
-    [classes.disabledGroupingControl]: disabled,
-    [classes.floatLeft]: invertedAlign === 'left',
-    [classes.floatRight]: invertedAlign === 'right',
-  });
-
-  return (
-    <div
-      onClick={(e) => {
-        if (disabled) return;
-        e.stopPropagation();
-        onGroup(e);
-      }}
-      className={groupingControlClasses}
-      {...restProps}
-    >
-      <List />
-    </div>
-  );
-};
+const GroupingControlBase = ({ disabled, onGroup, classes }) => (
+  <div
+    onClick={(e) => {
+      if (disabled) return;
+      e.stopPropagation();
+      onGroup(e);
+    }}
+    className={classNames({
+      [classes.groupingControl]: true,
+      [classes.disabledGroupingControl]: disabled,
+    })}
+  >
+    <List />
+  </div>
+);
 
 GroupingControlBase.propTypes = {
-  align: PropTypes.string,
   onGroup: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
 };
 
 GroupingControlBase.defaultProps = {
-  align: 'left',
   disabled: false,
 };
 

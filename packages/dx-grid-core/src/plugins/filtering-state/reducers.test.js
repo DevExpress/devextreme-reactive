@@ -1,7 +1,4 @@
-import {
-  changeColumnFilter,
-  pushFilterExpression,
-} from './reducers';
+import { changeColumnFilter } from './reducers';
 
 describe('FilteringState reducers', () => {
   describe('#changeColumnFilter', () => {
@@ -39,41 +36,13 @@ describe('FilteringState reducers', () => {
       const nextFilters = changeColumnFilter(filters, payload);
       expect(nextFilters).toEqual([]);
     });
-  });
-});
 
-describe('pushFilterExpression reducer', () => {
-  it('should return filters', () => {
-    expect(pushFilterExpression([
-      { columnName: 'first', value: 'value' },
-      { columnName: 'second', value: 'value' },
-    ])({})).toEqual({
-      filters: [
-        { columnName: 'first', value: 'value' },
-        { columnName: 'second', value: 'value' },
-      ],
-      operator: 'and',
-    });
-  });
+    it('should not remove column filter if payload contains non existing column name', () => {
+      const filters = [{ columnName: 'column', value: 'value' }];
+      const payload = { columnName: 'column1', config: null };
 
-  it('should return old and new filters', () => {
-    expect(pushFilterExpression([
-      { columnName: 'first', value: 'value' },
-      { columnName: 'second', value: 'value' },
-    ])({
-      filterExpression: ['filters'],
-    })).toEqual({
-      filters: [
-        ['filters'],
-        {
-          filters: [
-            { columnName: 'first', value: 'value' },
-            { columnName: 'second', value: 'value' },
-          ],
-          operator: 'and',
-        },
-      ],
-      operator: 'and',
+      const nextFilters = changeColumnFilter(filters, payload);
+      expect(nextFilters).toEqual([{ columnName: 'column', value: 'value' }]);
     });
   });
 });

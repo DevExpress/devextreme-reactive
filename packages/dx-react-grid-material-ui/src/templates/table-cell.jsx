@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TableCell as TableCellMUI } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCellMUI from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from './utils';
 
 const styles = theme => ({
   cell: {
@@ -13,13 +14,18 @@ const styles = theme => ({
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+  },
+  footer: {
+    borderBottom: getBorder(theme),
   },
   cellRightAlign: {
     textAlign: 'right',
   },
   cellCenterAlign: {
     textAlign: 'center',
+  },
+  cellNoWrap: {
+    whiteSpace: 'nowrap',
   },
 });
 
@@ -34,7 +40,9 @@ const TableCellBase = ({
       [classes.cell]: true,
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className)}
+    classes={{ footer: classes.footer }}
     {...restProps}
   >
     {children || value}
@@ -44,7 +52,7 @@ const TableCellBase = ({
 TableCellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
-  row: PropTypes.object,
+  row: PropTypes.any,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   tableRow: PropTypes.object,

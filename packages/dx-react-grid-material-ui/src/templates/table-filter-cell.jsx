@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from 'material-ui/Input';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   cell: {
@@ -13,36 +12,30 @@ const styles = ({ spacing }) => ({
       paddingLeft: spacing.unit * 3,
     },
   },
-  input: {
+  flexContainer: {
     width: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
 const TableFilterCellBase = ({
-  style, filter, getMessage, onFilter,
+  filter, getMessage, onFilter,
   classes, children, className,
   tableRow, tableColumn, column, filteringEnabled,
   ...restProps
 }) => (
   <TableCell
     className={classNames(classes.cell, className)}
-    style={style}
     {...restProps}
   >
-    {children || (
-      <Input
-        className={classes.input}
-        value={filter ? filter.value : ''}
-        placeholder={getMessage('filterPlaceholder')}
-        disabled={!filteringEnabled}
-        onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
-      />
-    )}
+    <div className={classes.flexContainer}>
+      {children}
+    </div>
   </TableCell>
 );
 
 TableFilterCellBase.propTypes = {
-  style: PropTypes.object,
   filter: PropTypes.object,
   onFilter: PropTypes.func,
   classes: PropTypes.object.isRequired,
@@ -56,7 +49,6 @@ TableFilterCellBase.propTypes = {
 };
 
 TableFilterCellBase.defaultProps = {
-  style: null,
   filter: null,
   onFilter: () => {},
   children: undefined,

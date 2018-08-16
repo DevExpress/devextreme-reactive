@@ -1,5 +1,4 @@
-export const startEditRows = (prevEditingRowIds, { rowIds }) =>
-  [...prevEditingRowIds, ...rowIds];
+export const startEditRows = (prevEditingRowIds, { rowIds }) => [...prevEditingRowIds, ...rowIds];
 
 export const stopEditRows = (prevEditingRowIds, { rowIds }) => {
   const rowIdSet = new Set(rowIds);

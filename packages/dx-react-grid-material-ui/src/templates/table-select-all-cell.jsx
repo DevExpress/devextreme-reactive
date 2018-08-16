@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Checkbox from 'material-ui/Checkbox';
-import { TableCell } from 'material-ui/Table';
-import { withStyles } from 'material-ui/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
@@ -12,26 +12,31 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
   },
+  alignWithRowSpan: {
+    verticalAlign: 'bottom',
+    paddingBottom: theme.spacing.unit / 2,
+  },
   pointer: {
     cursor: 'pointer',
   },
 });
 
 const TableSelectAllCellBase = ({
-  style, allSelected, someSelected, disabled, onToggle, classes,
-  className, tableRow, tableColumn,
+  allSelected, someSelected, disabled, onToggle, classes,
+  className, tableRow, tableColumn, rowSpan,
   ...restProps
 }) => {
   const cellClasses = classNames({
     [classes.cell]: true,
     [classes.pointer]: !disabled,
+    [classes.alignWithRowSpan]: rowSpan > 1,
   }, className);
 
   return (
     <TableCell
       padding="checkbox"
-      style={style}
       className={cellClasses}
+      rowSpan={rowSpan}
       {...restProps}
     >
       <Checkbox
@@ -50,7 +55,6 @@ const TableSelectAllCellBase = ({
 };
 
 TableSelectAllCellBase.propTypes = {
-  style: PropTypes.object,
   allSelected: PropTypes.bool,
   someSelected: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -59,10 +63,10 @@ TableSelectAllCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  rowSpan: PropTypes.number,
 };
 
 TableSelectAllCellBase.defaultProps = {
-  style: null,
   allSelected: false,
   someSelected: false,
   disabled: false,
@@ -70,6 +74,7 @@ TableSelectAllCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  rowSpan: undefined,
 };
 
 export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

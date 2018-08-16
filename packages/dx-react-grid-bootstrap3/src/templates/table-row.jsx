@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const TableRow = ({
-  children, row, tableRow, tableColumn,
+  children, row, tableRow,
   ...restProps
 }) => (
   <tr
@@ -14,14 +14,12 @@ export const TableRow = ({
 
 TableRow.propTypes = {
   children: PropTypes.node,
-  row: PropTypes.object,
-  tableColumn: PropTypes.object,
+  row: PropTypes.any,
   tableRow: PropTypes.object,
 };
 
 TableRow.defaultProps = {
   children: undefined,
   row: undefined,
-  tableColumn: undefined,
   tableRow: undefined,
 };

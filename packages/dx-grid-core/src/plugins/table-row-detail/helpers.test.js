@@ -4,6 +4,7 @@ import {
   isDetailRowExpanded,
   isDetailToggleTableCell,
   isDetailTableRow,
+  isDetailTableCell,
 } from './helpers';
 
 describe('TableRowDetail Plugin helpers', () => {
@@ -32,6 +33,16 @@ describe('TableRowDetail Plugin helpers', () => {
       expect(isDetailTableRow({ type: TABLE_DETAIL_TYPE }))
         .toBeTruthy();
       expect(isDetailTableRow({ type: 'undefined' }))
+        .toBeFalsy();
+    });
+  });
+
+  describe('#isDetailTableCell', () => {
+    it('should work', () => {
+      const column = { type: 'undefined' };
+      expect(isDetailTableCell(column, [column]))
+        .toBeTruthy();
+      expect(isDetailTableCell(column, [{ type: 'undefined' }, column]))
         .toBeFalsy();
     });
   });

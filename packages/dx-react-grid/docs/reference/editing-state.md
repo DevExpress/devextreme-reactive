@@ -2,6 +2,14 @@
 
 A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
+## Importing
+
+Use the following import statement:
+
+```js
+import { EditingState } from '@devexpress/dx-react-grid';
+```
+
 ## User Reference
 
 ### Dependencies
@@ -24,10 +32,7 @@ onAddedRowsChange? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or
 rowChanges? | { [key: string]: any } | | Not committed row changes.
 defaultRowChanges? | { [key: string]: any } | {} | Row changes initially added to the `rowChanges` array in uncontrolled mode.
 onRowChangesChange? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-deletedRowIds? | Array&lt;number &#124; string&gt; | | IDs of the rows prepared for deletion.
-defaultDeletedRowIds? | Array&lt;number &#124; string&gt; | [] | Rows initially added to the `deletedRowIds` array in uncontrolled mode.
-onDeletedRowIdsChange? | (deletedRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding a row to or removing from the `deletedRowIds` array.
-onCommitChanges | (changes: Array&lt;[ChangeSet](#change-set)&gt;) => void | | Handles row changes committing.
+onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles row changes committing.
 
 ## Interfaces
 
@@ -48,7 +53,7 @@ Describes uncommitted changes made to the grid data.
 Field | Type | Description
 ------|------|------------
 added? | Array&lt;any&gt; | An array of rows to be created.
-changed? | { [key: number &#124; string]: any } | An associated array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
+changed? | { [key: number &#124; string]: any } | An associative array that stores changes made to existing data. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 deleted? | Array&lt;number &#124; string&gt; | An array of IDs representing rows to be deleted.
 
 ## Plugin Developer Reference
@@ -69,7 +74,7 @@ addRow | [Action](../../../dx-react-core/docs/reference/action.md) | () => void 
 changeAddedRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number, change: any }) => void | Applies a change to a created but uncommitted row. Note: `rowId` is a row index within the `addedRows` array.
 cancelAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Removes the specified rows from the `addedRows` array.
 commitAddedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `addedRows` array.
-rowChanges | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associated array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
+rowChanges | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
 changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: any }) => void | Adds an item representing changes made to an exsiting row to the `rowChanges` array.
 cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Removes specified rows' data from the `rowChanges` array.
 commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](#changeset) and removes specified rows from the `rowChanges` array.

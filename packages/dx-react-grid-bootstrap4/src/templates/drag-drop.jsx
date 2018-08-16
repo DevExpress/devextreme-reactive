@@ -7,7 +7,7 @@ export const Container = ({
   ...restProps
 }) => (
   <ul
-    className={classNames('list-group d-inline-block position-fixed dx-rg-bs4-drag-drop', className)}
+    className={classNames('list-group d-inline-block position-fixed dx-g-bs4-drag-drop', className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
       zIndex: 1000,

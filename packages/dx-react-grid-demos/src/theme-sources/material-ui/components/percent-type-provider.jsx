@@ -13,6 +13,8 @@ const styles = {
 
 const getInputValue = value => (value === undefined ? '' : (value * 100).toFixed(1));
 
+const Formatter = ({ value }) => `${getInputValue(value)}%`;
+
 const EditorBase = ({ value, onValueChange, classes }) => {
   const handleChange = (event) => {
     const { value: targetValue } = event.target;
@@ -61,6 +63,7 @@ const availableFilterOperations = [
 
 export const PercentTypeProvider = props => (
   <DataTypeProvider
+    formatterComponent={Formatter}
     editorComponent={Editor}
     availableFilterOperations={availableFilterOperations}
     {...props}

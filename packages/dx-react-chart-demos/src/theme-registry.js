@@ -7,10 +7,12 @@ export const themes = [{
     name: 'light',
     title: 'Material UI Light',
     DemoContainer: require('./theme-sources/material-ui/demo-container').default,
+    links: ['https://fonts.googleapis.com/css?family=Roboto'],
   }, {
     name: 'dark',
     title: 'Material UI Dark',
     DemoContainer: require('./theme-sources/material-ui/demo-container').Dark,
+    links: ['https://fonts.googleapis.com/css?family=Roboto'],
   }],
 }, {
   name: 'bootstrap4',

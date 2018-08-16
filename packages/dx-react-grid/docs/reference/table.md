@@ -1,6 +1,6 @@
 # Table Plugin Reference
 
-A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
+A plugin that renders Grid data as a table. This plugin enables you to customize table rows and columns, and contains the Table Row and Table Cell components that can be extended by other plugins
 
 ## Importing
 
@@ -33,6 +33,7 @@ columnExtensions? | Array&lt;[Table.ColumnExtension](#tablecolumnextension)&gt; 
 tableComponent | ComponentType&lt;object&gt; | | A component that renders a table.
 headComponent | ComponentType&lt;object&gt; | | A component that renders a table head.
 bodyComponent | ComponentType&lt;object&gt; | | A component that renders a table body.
+footerComponent | ComponentType&lt;object&gt; | | A component that renders a table footer.
 containerComponent | ComponentType&lt;object&gt; | | A component that renders a table's container.
 cellComponent | ComponentType&lt;[Table.DataCellProps](#tabledatacellprops)&gt; | | A component that renders a table cell.
 rowComponent | ComponentType&lt;[Table.DataRowProps](#tabledatarowprops)&gt; | | A component that renders a table row.
@@ -175,6 +176,7 @@ Name | Plugin | Type | Description
 -----|--------|------|------------
 tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Header rows to be rendered.
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Body rows to be rendered.
+tableFooterRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](#tablerow)&gt; | Footer rows to be rendered.
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](#tablecolumn)&gt; | Columns to be rendered.
 table | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders the table.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](#tablecellprops) | A template that renders a table cell.

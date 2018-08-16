@@ -8,12 +8,14 @@ export class StaticTableLayout extends React.PureComponent {
     const {
       headerRows,
       bodyRows,
+      footerRows,
       columns,
       minWidth,
       containerComponent: Container,
       tableComponent: Table,
       headComponent,
       bodyComponent,
+      footerComponent,
       rowComponent,
       cellComponent,
       getCellColSpan,
@@ -43,6 +45,16 @@ export class StaticTableLayout extends React.PureComponent {
             cellComponent={cellComponent}
             getCellColSpan={getCellColSpan}
           />
+          {!!footerRows.length && (
+            <RowsBlockLayout
+              rows={footerRows}
+              columns={columns}
+              blockComponent={footerComponent}
+              rowComponent={rowComponent}
+              cellComponent={cellComponent}
+              getCellColSpan={getCellColSpan}
+            />
+          )}
         </Table>
       </Container>
     );
@@ -52,12 +64,14 @@ export class StaticTableLayout extends React.PureComponent {
 StaticTableLayout.propTypes = {
   headerRows: PropTypes.array,
   bodyRows: PropTypes.array.isRequired,
+  footerRows: PropTypes.array,
   columns: PropTypes.array.isRequired,
   minWidth: PropTypes.number.isRequired,
   containerComponent: PropTypes.func.isRequired,
   tableComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func,
   bodyComponent: PropTypes.func.isRequired,
+  footerComponent: PropTypes.func,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
@@ -65,5 +79,7 @@ StaticTableLayout.propTypes = {
 
 StaticTableLayout.defaultProps = {
   headerRows: [],
+  footerRows: [],
   headComponent: () => null,
+  footerComponent: () => null,
 };

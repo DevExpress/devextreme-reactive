@@ -27,8 +27,12 @@
         path: /react/core/docs/reference/template-connector
   - title: Related Docs
     items:
-      - title: Grid
+      - title: React Grid
         path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /react/grid:
   - title: Guides
     items:
@@ -72,6 +76,8 @@
         path: /react/grid/docs/guides/virtual-scrolling
       - title: Tree Data
         path: /react/grid/docs/guides/tree-data
+      - title: Summary Row
+        path: /react/grid/docs/guides/summary-row
       - title: Localization
         path: /react/grid/docs/guides/localization
       - title: Immutable Data
@@ -158,10 +164,22 @@
         path: /react/grid/docs/reference/custom-tree-data
       - title: TableTreeColumn
         path: /react/grid/docs/reference/table-tree-column
+      - title: SummaryState
+        path: /react/grid/docs/reference/summary-state
+      - title: IntegratedSummary
+        path: /react/grid/docs/reference/integrated-summary
+      - title: CustomSummary
+        path: /react/grid/docs/reference/custom-summary
+      - title: TableSummaryRow
+        path: /react/grid/docs/reference/table-summary-row
   - title: Related Docs
     items:
-      - title: Core
+      - title: React Core
         path: /react/core/docs/guides/fundamentals
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /react/chart:
   - title: Guides
     items:
@@ -173,6 +191,8 @@
         path: /react/chart/docs/guides/series
       - title: Axes
         path: /react/chart/docs/guides/axes
+      - title: Legend and Title
+        path: /react/chart/docs/guides/legend_title
       - title: Stacked Series
         path: /react/chart/docs/guides/stacked-series
   - title: API Reference
@@ -205,6 +225,14 @@
         path: /react/chart/docs/reference/title
       - title: ValueAxis
         path: /react/chart/docs/reference/value-axis
+  - title: Related Docs
+    items:
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: Vue Grid
+        path: /vue/grid/docs/guides/getting-started
 /vue/grid:
   - title: Guides
     items:
@@ -314,3 +342,11 @@
         path: /vue/grid/docs/reference/table-column-visibility
       - title: DxVirtualTable
         path: /vue/grid/docs/reference/virtual-table
+  - title: Related Docs
+    items:
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started/
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals

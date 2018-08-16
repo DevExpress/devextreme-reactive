@@ -14,6 +14,8 @@ Install the dx-vue-grid package and its dependencies using the following command
 npm i --save @devexpress/dx-vue-core.npm-tag() @devexpress/dx-vue-grid.npm-tag()
 ```
 
+*Note: [vue](https://www.npmjs.com/package/vue) >= 2.5.16 is a peer dependency.*
+
 This package does not contain visual components. You can use Bootstrap 4 package to render visual components.
 
 ```

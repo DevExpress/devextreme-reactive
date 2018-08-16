@@ -3,19 +3,22 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const TableContainer = ({
-  children, style, className,
+  children,
+  style,
+  className,
   ...restProps
 }) => (
   <div
     className={classNames('table-responsive', className)}
-    {...restProps}
     style={{
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
       border: 0,
       margin: 0,
+      flexDirection: 'column',
       ...style,
     }}
+    {...restProps}
   >
     {children}
   </div>

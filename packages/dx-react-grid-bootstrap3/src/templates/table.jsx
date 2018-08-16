@@ -63,7 +63,7 @@ export class Table extends React.Component {
           marginBottom: 0,
           ...use ? {
             position: stickyProp,
-            zIndex: 1,
+            zIndex: 500,
             background: backgroundColor,
           } : null,
           ...use === 'head' ? {

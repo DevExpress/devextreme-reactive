@@ -8,7 +8,7 @@ const styles = theme => ({
   fixedCell: {
     backgroundColor: theme.palette.background.paper,
     position: 'sticky',
-    zIndex: 500,
+    zIndex: 300,
   },
   dividerRight: {
     borderRight: `1px solid ${theme.palette.divider}`,

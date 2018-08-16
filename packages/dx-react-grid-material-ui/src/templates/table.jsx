@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   stickyTable: {
     position: 'sticky',
-    zIndex: 1,
+    zIndex: 500,
     overflow: 'visible',
     background: theme.palette.background.paper,
     fallbacks: {

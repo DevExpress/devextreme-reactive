@@ -75,7 +75,7 @@ const styles = theme => ({
       background: 'white',
       opacity: 0.7,
       pointerEvents: 'none',
-      zIndex: 700,
+      zIndex: 400,
     },
   },
   cellRight: {

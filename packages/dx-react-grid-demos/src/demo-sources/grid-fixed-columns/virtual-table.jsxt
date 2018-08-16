@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },
       ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
+      rows: generateRows({ columnValues: globalSalesValues, length: 1000 }),
       tableColumnExtensions: [
         { columnName: 'region', width: 220 },
         { columnName: 'sector', width: 200 },
@@ -52,7 +52,6 @@ export default class Demo extends React.PureComponent {
         >
           <VirtualTable
             columnExtensions={tableColumnExtensions}
-            height="auto"
           />
           <TableHeaderRow />
           <TableFixedColumns

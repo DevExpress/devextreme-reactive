@@ -56,7 +56,7 @@ export class FixedCell extends React.PureComponent {
         style={{
           ...style,
           position: 'sticky',
-          zIndex: 500,
+          zIndex: 300,
           backgroundColor,
           [side]: position,
           ...borderColor ? {

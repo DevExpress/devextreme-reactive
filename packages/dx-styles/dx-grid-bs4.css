@@ -6,8 +6,17 @@
   -moz-user-select: none;
   -webkit-user-select: 'none';
 }
-.dx-g-bs4-inactive {
-  opacity: 0.3;
+.dx-g-bs4-inactive:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: white;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 400;
 }
 .dx-g-bs4-overflow-hidden {
   overflow: hidden;
@@ -52,7 +61,7 @@ span.dx-g-bs4-group-panel-item-icon {
 .dx-g-bs4-table-sticky {
   position: -webkit-sticky;
   position: sticky;
-  z-index: 1;
+  z-index: 500;
 }
 .dx-g-bs4-table-head {
   top: 0;
@@ -188,7 +197,7 @@ button.dx-g-bs4-table-edit-command-cell {
   fill: currentColor;
 }
 .dx-g-bs4-fixed-cell {
-  z-index: 500;
+  z-index: 300;
 }
 .dx-g-bs4-table-summary-item {
   font-weight: bold;

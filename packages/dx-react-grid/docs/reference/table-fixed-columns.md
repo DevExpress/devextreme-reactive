@@ -48,7 +48,6 @@ side | 'left' &#124; 'right' | Specifies the side of the table to which the cell
 component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A table cell component that should be rendered as a fixed cell.
 showLeftDivider | boolean | Specifies whether the left divider should be rendered.
 showRightDivider | boolean | Specifies whether the right divider should be rendered.
-storeSize | (width: number) => void | A function that stores the rendered cell width.
 position | number | Specifies the position of the fixed cell.
 
 ## Plugin Components

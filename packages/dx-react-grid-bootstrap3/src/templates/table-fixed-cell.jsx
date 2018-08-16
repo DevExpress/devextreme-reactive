@@ -16,13 +16,6 @@ export class FixedCell extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { storeSize } = this.props;
-    // eslint-disable-next-line react/no-find-dom-node
-    const element = findDOMNode(this);
-    if (element) {
-      storeSize(element.getBoundingClientRect().width);
-    }
-
     const {
       backgroundColor: stateBackgroundColor,
       borderColor: stateBorderColor,
@@ -46,7 +39,6 @@ export class FixedCell extends React.PureComponent {
       showRightDivider,
       style,
       position,
-      storeSize,
       ...restProps
     } = this.props;
     const { backgroundColor } = this.state;
@@ -74,7 +66,6 @@ FixedCell.propTypes = {
   style: PropTypes.object,
   component: PropTypes.func.isRequired,
   side: PropTypes.string.isRequired,
-  storeSize: PropTypes.func.isRequired,
   position: PropTypes.number,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,

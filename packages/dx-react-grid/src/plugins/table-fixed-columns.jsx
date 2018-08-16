@@ -20,16 +20,15 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-export class TableFixedColumns extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { sizes: {} };
-  }
+const getColumnWidth = dimensions => (dimensions
+  ? dimensions.width
+  : undefined);
 
-  getSize(key) {
-    const { sizes } = this.state;
-    return sizes[key];
-  }
+export class TableFixedColumns extends React.PureComponent {
+  // getSize(key) {
+  //   const { sizes } = this.state;
+  //   return sizes[key];
+  // }
 
   render() {
     const {
@@ -60,10 +59,9 @@ export class TableFixedColumns extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns }) => {
+              {({ tableColumns, tableColumnsDimensions }) => {
                 const { tableColumn } = params;
                 const { fixed: side } = tableColumn;
-
                 const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
                   ? getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes)
                   : getFixedColumnKeys(tableColumns, afterColumnNames, afterColumnTypes);
@@ -94,18 +92,10 @@ export class TableFixedColumns extends React.PureComponent {
                     component={CellPlaceholder}
                     showLeftDivider={showLeftDivider}
                     showRightDivider={showRightDivider}
-                    storeSize={(width) => {
-                      const { sizes } = this.state;
-                      if (sizes[tableColumn.key] !== width) {
-                        this.setState((prevState => ({
-                          sizes: { ...prevState.sizes, [tableColumn.key]: width },
-                        })));
-                      }
-                    }}
                     position={
                       fixedIndex === 0
                         ? 0
-                        : this.getSize(targetArray[fixedIndex - 1])
+                        : getColumnWidth(tableColumnsDimensions[targetArray[fixedIndex - 1]])
                     }
                   />
                 );

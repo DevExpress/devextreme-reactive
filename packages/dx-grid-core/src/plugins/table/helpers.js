@@ -1,4 +1,4 @@
-import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
+import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE, TABLE_SERVICE_TYPE } from './constants';
 
 export const isDataTableCell = (
   tableRow, tableColumn,
@@ -9,3 +9,4 @@ export const isNoDataTableRow = tableRow => tableRow.type === TABLE_NODATA_TYPE;
 export const isNoDataTableCell = (
   tableColumn, tableColumns,
 ) => tableColumns.indexOf(tableColumn) === 0;
+export const isServiceTableCell = tableRow => tableRow.type === TABLE_SERVICE_TYPE;

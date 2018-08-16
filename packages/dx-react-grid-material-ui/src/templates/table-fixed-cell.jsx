@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { findDOMNode } from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -19,15 +18,6 @@ const styles = theme => ({
 });
 
 class FixedCellBase extends React.PureComponent {
-  componentDidMount() {
-    const { storeSize } = this.props;
-    // eslint-disable-next-line react/no-find-dom-node
-    const element = findDOMNode(this);
-    if (element) {
-      storeSize(element.getBoundingClientRect().width);
-    }
-  }
-
   render() {
     const {
       component: CellPlaceholder,
@@ -38,7 +28,6 @@ class FixedCellBase extends React.PureComponent {
       classes,
       style,
       position,
-      storeSize,
       ...restProps
     } = this.props;
 
@@ -65,7 +54,6 @@ FixedCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   side: PropTypes.string.isRequired,
-  storeSize: PropTypes.func.isRequired,
   position: PropTypes.number,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,

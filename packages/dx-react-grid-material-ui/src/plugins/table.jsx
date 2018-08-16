@@ -12,6 +12,7 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
+import { TableServiceCell } from '../templates/table-service-cell';
 
 const defaultMessages = {
   noData: 'No data',
@@ -39,6 +40,7 @@ export class Table extends React.PureComponent {
         stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubCell}
+        serviceCellComponent={TableServiceCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

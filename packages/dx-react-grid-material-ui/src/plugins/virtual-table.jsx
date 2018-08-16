@@ -13,6 +13,7 @@ import { TableStubCell } from '../templates/table-stub-cell';
 import { TableNoDataCell } from '../templates/table-no-data-cell';
 import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
+import { TableServiceCell } from '../templates/table-service-cell';
 
 const FixedHeader = props => <Table use="head" {...props} />;
 const FixedFooter = props => <Table use="foot" {...props} />;
@@ -77,6 +78,7 @@ export class VirtualTable extends React.PureComponent {
         stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubCell}
+        serviceCellComponent={TableServiceCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

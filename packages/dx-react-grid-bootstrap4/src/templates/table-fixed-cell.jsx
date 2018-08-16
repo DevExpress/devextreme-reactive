@@ -3,7 +3,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { findDOMNode } from 'react-dom';
 
 export class FixedCell extends React.PureComponent {
   constructor(props) {
@@ -12,13 +11,6 @@ export class FixedCell extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { storeSize } = this.props;
-    // eslint-disable-next-line react/no-find-dom-node
-    const element = findDOMNode(this);
-    if (element) {
-      storeSize(element.getBoundingClientRect().width);
-    }
-
     const { backgroundColor: stateBackgroundColor } = this.state;
     const body = document.getElementsByTagName('body')[0];
     const { backgroundColor } = window.getComputedStyle(body);
@@ -36,7 +28,6 @@ export class FixedCell extends React.PureComponent {
       className,
       style,
       position,
-      storeSize,
       ...restProps
     } = this.props;
     const { backgroundColor } = this.state;
@@ -65,7 +56,6 @@ FixedCell.propTypes = {
   style: PropTypes.object,
   component: PropTypes.func.isRequired,
   side: PropTypes.string.isRequired,
-  storeSize: PropTypes.func.isRequired,
   position: PropTypes.number,
   showLeftDivider: PropTypes.bool,
   showRightDivider: PropTypes.bool,

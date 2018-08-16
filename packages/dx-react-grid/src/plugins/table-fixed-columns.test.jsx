@@ -18,6 +18,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 
 const defaultDeps = {
   plugins: ['Table'],
+  getter: {
+    tableColumnsDimensions: [{ a: {} }],
+  },
 };
 
 const defaultProps = {
@@ -86,7 +89,6 @@ describe('TableFixedColumns', () => {
         showLeftDivider: false,
         showRightDivider: true,
         component: expect.any(Function),
-        storeSize: expect.any(Function),
         position: undefined,
       });
   });

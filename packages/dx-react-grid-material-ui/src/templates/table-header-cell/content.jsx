@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-const CellContentBase = ({
+const ContentBase = ({
   children, classes, className, ...restProps
 }) => (
   <div
@@ -22,9 +22,9 @@ const CellContentBase = ({
   </div>
 );
 
-export const CellContent = withStyles(styles, { name: 'CellContent' })(CellContentBase);
+export const Content = withStyles(styles, { name: 'Content' })(ContentBase);
 
-CellContentBase.propTypes = {
+ContentBase.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -33,7 +33,7 @@ CellContentBase.propTypes = {
   className: PropTypes.string,
 };
 
-CellContentBase.defaultProps = {
+ContentBase.defaultProps = {
   className: null,
   children: undefined,
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const CellContent = ({
+export const Content = ({
   children, align, style, ...restProps
 }) => (
   <div
@@ -19,7 +19,7 @@ export const CellContent = ({
   </div>
 );
 
-CellContent.propTypes = {
+Content.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -28,7 +28,7 @@ CellContent.propTypes = {
   style: PropTypes.object,
 };
 
-CellContent.defaultProps = {
+Content.defaultProps = {
   align: 'left',
   style: null,
   children: undefined,

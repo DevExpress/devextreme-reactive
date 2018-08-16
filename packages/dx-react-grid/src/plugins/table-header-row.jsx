@@ -22,7 +22,7 @@ export class TableHeaderRow extends React.PureComponent {
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       sortLabelComponent: SortLabel,
-      cellContentComponent: CellContent,
+      cellContentComponent: Content,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -92,7 +92,7 @@ export class TableHeaderRow extends React.PureComponent {
                       />
                     )}
                   >
-                    <CellContent
+                    <Content
                       align={params.tableColumn.align}
                     >
                       {showSortingControls ? (
@@ -111,7 +111,7 @@ export class TableHeaderRow extends React.PureComponent {
                       ) : (
                         columnTitle || columnName
                       )}
-                    </CellContent>
+                    </Content>
                   </HeaderCell>
                 );
               }}

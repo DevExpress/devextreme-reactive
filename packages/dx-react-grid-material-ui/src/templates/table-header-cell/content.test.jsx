@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { CellContent } from './cell-content';
+import { Content } from './content';
 
 const defaultProps = {
   classes: {},
   children: <span />,
 };
 
-describe('CellContent', () => {
+describe('Content', () => {
   let shallow;
   let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'CellContentBase' });
-    classes = getClasses(<CellContent {...defaultProps} />);
+    shallow = createShallow({ untilSelector: 'ContentBase' });
+    classes = getClasses(<Content {...defaultProps} />);
   });
   afterAll(() => {
     shallow.cleanUp();
@@ -20,7 +20,7 @@ describe('CellContent', () => {
 
   it('should apply custom class', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         className="customClass"
       />
@@ -33,7 +33,7 @@ describe('CellContent', () => {
   });
   it('should spread rest props to the root element', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         data={{ a: 1 }}
       />

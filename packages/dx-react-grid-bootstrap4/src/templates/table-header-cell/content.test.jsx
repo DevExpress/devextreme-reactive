@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { CellContent } from './cell-content';
+import { Content } from './content';
 
 const defaultProps = {
   children: <span />,
 };
 
-describe('CellContent', () => {
+describe('Content', () => {
   it('should have correct classes when grouping by click is not allowed and column align is left', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
       />
     ));
@@ -21,7 +21,7 @@ describe('CellContent', () => {
 
   it('should have correct classes when grouping by click is allowed and column align is left', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         showGroupingControls
       />
@@ -34,7 +34,7 @@ describe('CellContent', () => {
 
   it('should have correct classes when grouping by click is not allowed and column align is right', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         align="right"
       />
@@ -45,7 +45,7 @@ describe('CellContent', () => {
 
   it('should have correct classes when grouping by click is allowed and column align is right', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         align="right"
         showGroupingControls
@@ -57,7 +57,7 @@ describe('CellContent', () => {
 
   it('should have correct classes when column is aligned by center', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         align="center"
       />
@@ -68,7 +68,7 @@ describe('CellContent', () => {
   });
   it('should apply custom class', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         className="customClass"
       />
@@ -80,7 +80,7 @@ describe('CellContent', () => {
   });
   it('should spread rest props to the root element', () => {
     const tree = shallow((
-      <CellContent
+      <Content
         {...defaultProps}
         data={{ a: 1 }}
       />

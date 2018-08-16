@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './cell-content.css';
 
-export const CellContent = ({
+export const Content = ({
   children, align, className, ...restProps
 }) => (
   <div
@@ -17,7 +16,7 @@ export const CellContent = ({
   </div>
 );
 
-CellContent.propTypes = {
+Content.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -26,7 +25,7 @@ CellContent.propTypes = {
   className: PropTypes.string,
 };
 
-CellContent.defaultProps = {
+Content.defaultProps = {
   align: 'left',
   className: null,
   children: undefined,

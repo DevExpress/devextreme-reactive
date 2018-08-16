@@ -191,3 +191,7 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-table-summary-item {
   font-weight: bold;
 }
+.dx-rg-bs4-table-header-cell-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

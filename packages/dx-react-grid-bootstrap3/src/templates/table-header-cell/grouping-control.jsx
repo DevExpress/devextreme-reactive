@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const GroupingControl = ({ align, disabled, onGroup }) => {
+export const GroupingControl = ({
+  align, disabled, onGroup, style, ...restProps
+}) => {
   const invertedAlign = align === 'left' ? 'right' : 'left';
 
   return (
@@ -15,7 +17,9 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
         float: invertedAlign,
         textAlign: invertedAlign,
         width: '14px',
+        ...style,
       }}
+      {...restProps}
     >
       <i
         className="glyphicon glyphicon-th-list"
@@ -32,11 +36,14 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
 };
 
 GroupingControl.propTypes = {
-  align: PropTypes.string.isRequired,
   onGroup: PropTypes.func.isRequired,
+  align: PropTypes.string,
   disabled: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 GroupingControl.defaultProps = {
+  align: 'left',
   disabled: false,
+  style: null,
 };

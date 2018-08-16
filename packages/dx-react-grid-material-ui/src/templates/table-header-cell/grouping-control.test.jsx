@@ -3,8 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { GroupingControl } from './grouping-control';
 
 const defaultProps = {
-  onGroup: jest.fn(),
-  align: 'left',
+  onGroup: () => {},
 };
 
 describe('GroupingControl', () => {
@@ -19,6 +18,17 @@ describe('GroupingControl', () => {
     const tree = shallow(<GroupingControl {...defaultProps} disabled />);
     expect(tree.hasClass(classes.disabledGroupingControl))
       .toBeTruthy();
+  });
+
+  it('should spread rest props to the root element', () => {
+    const tree = shallow((
+      <GroupingControl
+        {...defaultProps}
+        data={{ a: 1 }}
+      />
+    ));
+    expect(tree.props().data)
+      .toEqual({ a: 1 });
   });
 
   it('should not call the onGroup function if disabled is true', () => {

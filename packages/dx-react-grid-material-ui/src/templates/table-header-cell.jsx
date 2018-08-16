@@ -7,7 +7,6 @@ import { DragSource } from '@devexpress/dx-react-core';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
-import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
@@ -119,7 +118,7 @@ class TableHeaderCellBase extends React.PureComponent {
     const {
       style, column, tableColumn,
       showSortingControls, sortingDirection,
-      showGroupingControls, onGroup, groupingEnabled,
+      showGroupingControls, onGroup, groupingEnabled, groupingComponent: GroupingControl,
       draggingEnabled,
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
       classes, getMessage, tableRow, className, onSort, before,
@@ -221,6 +220,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  groupingComponent: PropTypes.func,
   before: PropTypes.node,
 };
 
@@ -242,6 +242,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
+  groupingComponent: () => {},
   before: undefined,
 };
 

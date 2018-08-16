@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const GroupingControl = ({ align, disabled, onGroup }) => {
+export const GroupingControl = ({
+  align, disabled, onGroup, ...restProps
+}) => {
   const invertedAlign = align === 'left';
 
   return (
@@ -17,6 +19,7 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
         e.stopPropagation();
         onGroup();
       }}
+      {...restProps}
     >
       <span
         className={classNames({
@@ -30,11 +33,12 @@ export const GroupingControl = ({ align, disabled, onGroup }) => {
 };
 
 GroupingControl.propTypes = {
-  align: PropTypes.string.isRequired,
   onGroup: PropTypes.func.isRequired,
+  align: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
 GroupingControl.defaultProps = {
   disabled: false,
+  align: 'left',
 };

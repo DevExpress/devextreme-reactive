@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { GroupingControl } from './table-header-cell/grouping-control';
 import { SortingControl } from './table-header-cell/sorting-control';
 
 const ENTER_KEY_CODE = 13;
@@ -42,7 +41,7 @@ export class TableHeaderCell extends React.PureComponent {
     const {
       className, column, tableColumn, before,
       showSortingControls, sortingDirection, sortingEnabled,
-      showGroupingControls, onGroup, groupingEnabled,
+      showGroupingControls, onGroup, groupingEnabled, groupingComponent: GroupingControl,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
       tableRow, getMessage, onSort,
@@ -139,6 +138,7 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
+  groupingComponent: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
@@ -160,4 +160,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
+  groupingComponent: () => {},
 };

@@ -64,6 +64,12 @@ You can disable grouping/ungrouping for a specific column using the [GroupingSta
 
 .embedded-demo({ "path": "grid-grouping/disable-column-grouping", "showThemeSelector": true })
 
+## Custom Grouping Control
+
+You can use your own grouping control by overriding the `groupingComponent` property of the [TableHeaderRow](../reference/table-header-row.md) plugin.
+
+.embedded-demo({ "path": "grid-grouping/custom-grouping-control", "showThemeSelector": true })
+
 ## Built-in Grouping with Custom Values
 
 Pass a grouping criterion function to the `IntegratedGrouping` plugin’s [columnExtensions](../reference/integrated-grouping.md#properties) property to group data by a custom key based on the specified column's value. Set the columns configuration's `showWhenGrouped` field to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the "city" column's values while still displaying the column.

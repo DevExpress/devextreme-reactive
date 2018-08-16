@@ -36,6 +36,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[TableHeaderRow.CellProps](#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
+groupingComponent | ComponentType&lt;[TableHeaderRow.GroupingControlProps](#tableheaderrowgroupingcontrolprops)&gt; | | A component that renders a grouping control.
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -58,12 +59,23 @@ onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?:
 showGroupingControls | boolean | Specifies whether to display a button that groups data by column.
 groupingEnabled | boolean | Specifies whether grouping by a column is enabled.
 onGroup | () => void | An event that invokes grouping by the associated column.
+groupingComponent | ComponentType&lt;[TableHeaderRow.GroupingControlProps](#tableheaderrowgroupingcontrolprops)&gt; | | A component that renders a grouping control.
 resizingEnabled | boolean | Specifies whether table column resizing is enabled.
 onWidthChange | (parameters: { shift: number }) => void | An event that initiates column width changing. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 onWidthDraft | (parameters: { shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 onWidthDraftCancel | () => void | An event that cancels changes of column width used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in a sorting control within the header cell.
+
+### TableHeaderRow.GroupingControlProps
+
+Describes properties used to render a grouping control.
+
+Field | Type | Description
+------|------|------------
+align? | string | Specifies a grouping control alignment.
+onGroup | () => void | An event that initiates changing the column grouping.
+disabled? | boolean | Specifies whether a grouping control is disabled.
 
 ## Localization Messages
 
@@ -77,6 +89,7 @@ Name | Properties | Description
 -----|------------|------------
 TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
+TableHeaderRow.GroupingControl | [TableHeaderRow.GroupingControlProps](#tableheaderrowgroupingcontrolprops) | A component that renders a grouping control.
 
 Additional properties are added to the component's root element.
 

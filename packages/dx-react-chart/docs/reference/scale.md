@@ -16,7 +16,7 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-axisExtension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | | A array of scales with options.
+extension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | | A array of scales with options.
 
 ## Interfaces
 
@@ -25,5 +25,4 @@ axisExtension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | | A array of scale
 Field | Type | Description
 ------|------|------------
 type? | string | Type of scale.
-scale? | () => object | A function that constructs a custom scale.
-format? | (scale: object) => (tick: string) => string | A function that return function for formatting ticks.
+constructor? | () => object | A function that constructs a custom scale.

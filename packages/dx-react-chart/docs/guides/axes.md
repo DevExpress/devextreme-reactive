@@ -27,6 +27,6 @@ The band axis type is used to display string values. To apply it, set the axis' 
 
 ## Custom Axis Types
 
-There is possibility to set custom types to the axes. Set the `Scale` plugin's `axisExtension` property to array, each element of it is the particular scale with options. The following example illustrates the logarithmic scale using d3 plugins:
+There is possibility to set custom types to the axes. Set the `Scale` plugin's `scaleExtension` property to array, each element of it is the particular scale with options. The following example illustrates the logarithmic scale using d3 plugins:
 
 .embedded-demo({ "path": "chart-basic/logarithm", "showThemeSelector": true })

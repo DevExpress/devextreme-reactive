@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
             stack="a"
           />
           <Stack />
-          <Scale axisExtension={[{ type: 'band', scale: () => scalePoint() }]} />
+          <Scale extension={[{ type: 'band', constructor: () => scalePoint() }]} />
         </Chart>
       </<%&wrapperTag%>>
     );

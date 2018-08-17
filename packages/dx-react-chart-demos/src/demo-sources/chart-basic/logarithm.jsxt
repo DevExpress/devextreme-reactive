@@ -58,7 +58,10 @@ export default class Demo extends React.PureComponent {
         >
 
           <ArgumentAxis name="argumentAxis" />
-          <ValueAxis type="log" />
+          <ValueAxis
+            type="log"
+            tickFormat={format}
+          />
 
           <Grid name="argumentAxis" />
           <Grid />
@@ -70,8 +73,8 @@ export default class Demo extends React.PureComponent {
           />
 
           <Scale
-            axisExtension={[
-              { type: 'log', scale: () => scaleLog().base(2), format },
+            extension={[
+              { type: 'log', constructor: () => scaleLog().base(2) },
             ]}
           />
           <Title

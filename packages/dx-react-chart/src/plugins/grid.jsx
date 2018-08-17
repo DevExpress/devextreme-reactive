@@ -25,11 +25,11 @@ export class Grid extends React.PureComponent {
             {({
               domains,
               layouts,
-              axisExtension = [],
+              scaleExtension,
             }) => {
               const domain = domains[name];
               const { orientation, type } = domain;
-              const axisOption = axisExtension.find(item => item.type === type);
+              const { constructor } = scaleExtension.find(item => item.type === type);
               const {
                 width, height,
               } = layouts.pane;
@@ -41,7 +41,7 @@ export class Grid extends React.PureComponent {
                 height,
                 0,
                 undefined,
-                axisOption,
+                constructor,
               );
 
               return ((

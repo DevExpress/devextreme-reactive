@@ -37,12 +37,13 @@ describe('Grid', () => {
 
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal' } },
+      domains: { name: { orientation: 'horizontal', type: 'type' } },
       layouts: {
         pane: {
           x: 1, y: 2, width: 200, height: 300,
         },
       },
+      scaleExtension: [{ type: 'type', constructor: 'constructor' }],
     },
     template: {
       series: {},
@@ -94,7 +95,7 @@ describe('Grid', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
-          getter: { domains: { name: { orientation: 'vertical' } } },
+          getter: { domains: { name: { orientation: 'vertical', type: 'type' } } },
         })}
         <Grid
           {...defaultProps}

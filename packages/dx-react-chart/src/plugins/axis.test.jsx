@@ -31,6 +31,7 @@ describe('Axis', () => {
         },
       },
       axes: [{}],
+      scaleExtension: [{ type: 'someType', constructor: 'constructor' }],
     },
     template: {
       'bottom-axis': {},
@@ -126,7 +127,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, undefined);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, 'constructor');
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -134,7 +135,7 @@ describe('Axis', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            domains: { name: { orientation: 'vertical' } },
+            domains: { name: { orientation: 'vertical', type: 'someType' } },
             layouts: {
               'bottom-axis': {
                 x: 3, y: 4, width: 250, height: 150,
@@ -149,24 +150,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 6, 10, undefined);
-  });
-
-  it('should pass axisCoordinates method correct parameters, with user axisExtension', () => {
-    const deps = { getter: { axisExtension: [{ type: 'type' }, { type: 'someType' }] } };
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents({
-          ...defaultDeps,
-          ...{ getter: { ...defaultDeps.getter, ...deps.getter } },
-        })}
-        <Axis
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, { type: 'someType' });
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical', type: 'someType' }, 'bottom', 250, 150, 6, 10, 'constructor');
   });
 
   it('should render tick component', () => {

@@ -113,7 +113,7 @@ describe('Scales', () => {
   const getScales = ({
     axisType = 'axisType', stacks,
   }) => xyScales(
-    { argumentAxisName: { type: axisType, orientation: 'orientation' }, axisName: 'axisName' },
+    { argumentAxisName: { type: axisType, orientation: 'orientation' }, axisName: { type: 'valueType' } },
     'argumentAxisName',
     'axisName',
     { width: 20, height: 10 },
@@ -122,6 +122,11 @@ describe('Scales', () => {
       groupWidth,
       barWidth,
     },
+    [
+      { type: axisType, constructor: 'argumentConstructor' },
+      { type: 'valueType', constructor: 'valueConstructor' },
+      { type: 'band', constructor: 'bandConstructor' },
+    ],
   );
   beforeAll(() => {
     const translateValue = value => value;
@@ -136,32 +141,9 @@ describe('Scales', () => {
     const { xScale, yScale, x0Scale } = getScales({});
 
     expect(createScale).toHaveBeenCalledTimes(3);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, undefined, 1 - groupWidth]);
-    expect(createScale.mock.calls[1]).toEqual(['axisName', 20, 10, undefined]);
-    expect(createScale.mock.calls[2]).toEqual([{ domain: [], orientation: 'orientation', type: 'band' }, 20, 20, undefined, 1 - barWidth]);
-    expect(xScale).toBeTruthy();
-    expect(yScale).toBeTruthy();
-    expect(x0Scale).toBeTruthy();
-  });
-
-  it('should create user scale', () => {
-    const { xScale, yScale, x0Scale } = xyScales(
-      { argumentAxisName: { type: 'xUserType', orientation: 'orientation' }, axisName: { type: 'yUserType' } },
-      'argumentAxisName',
-      'axisName',
-      { width: 20, height: 10 },
-      [],
-      {
-        groupWidth,
-        barWidth,
-      },
-      [{ type: 'extraType' }, { type: 'xUserType', scale: 'xScale' }, { type: 'yUserType', scale: 'yScale' }],
-    );
-
-    expect(createScale).toHaveBeenCalledTimes(3);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'xUserType', orientation: 'orientation' }, 20, 10, { type: 'xUserType', scale: 'xScale' }, 1 - groupWidth]);
-    expect(createScale.mock.calls[1]).toEqual([{ type: 'yUserType' }, 20, 10, { type: 'yUserType', scale: 'yScale' }]);
-    expect(createScale.mock.calls[2]).toEqual([{ domain: [], orientation: 'orientation', type: 'band' }, 20, 20, undefined, 1 - barWidth]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 'argumentConstructor', 1 - groupWidth]);
+    expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
+    expect(createScale.mock.calls[2]).toEqual([{ domain: [], orientation: 'orientation' }, 20, 20, 'bandConstructor', 1 - barWidth]);
     expect(xScale).toBeTruthy();
     expect(yScale).toBeTruthy();
     expect(x0Scale).toBeTruthy();
@@ -174,13 +156,12 @@ describe('Scales', () => {
     const { xScale, yScale, x0Scale } = getScales({ axisType: 'band', stacks: ['stack1', 'stack2'] });
 
     expect(createScale).toHaveBeenCalledTimes(3);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'band', orientation: 'orientation' }, 20, 10, undefined, 1 - groupWidth]);
-    expect(createScale.mock.calls[1]).toEqual(['axisName', 20, 10, undefined]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'band', orientation: 'orientation' }, 20, 10, 'argumentConstructor', 1 - groupWidth]);
+    expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
     expect(createScale.mock.calls[2]).toEqual([{
       domain: ['stack1', 'stack2'],
       orientation: 'orientation',
-      type: 'band',
-    }, 55, 55, undefined, 1 - barWidth]);
+    }, 55, 55, 'argumentConstructor', 1 - barWidth]);
     expect(xScale).toBeTruthy();
     expect(yScale).toBeTruthy();
     expect(x0Scale).toBeTruthy();

@@ -1,15 +1,17 @@
 import { extent } from 'd3-array';
+import { scaleLinear, scaleBand } from 'd3-scale';
 import { HORIZONTAL, VERTICAL, BAND } from '../../constants';
 
 const isDefined = item => item !== undefined;
 
-const collectAxesTypes = axes => axes.reduce(
+const collectAxesOptions = axes => axes.reduce(
   (domains, {
-    name, type,
+    name, type, tickFormat,
   }) => ({
     ...domains,
     [name]: {
       type,
+      tickFormat,
     },
   }),
   {},
@@ -37,12 +39,12 @@ const getCorrectAxisType = (type, data, field) => {
   if (!type && typeof data.find(item => isDefined(item[field]))[field] === 'string') {
     return 'band';
   }
-  return type;
+  return type || 'linear';
 };
 
 const getFieldStack = (index, object) => (object && object[index] ? object[index] : undefined);
 
-const calculateDomain = (series, data, axesTypes, argumentAxisName) => series.reduce(
+const calculateDomain = (series, data, axesOptions, argumentAxisName) => series.reduce(
   (domains, {
     valueField, argumentField, axisName, name,
   }) => {
@@ -68,6 +70,7 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) => series.re
         ),
         orientation: VERTICAL,
         type: valueType,
+        tickFormat: domains[axisName] && domains[axisName].tickFormat,
       },
       [argumentAxisName]: {
         domain: calculateDomainField(
@@ -79,10 +82,11 @@ const calculateDomain = (series, data, axesTypes, argumentAxisName) => series.re
         ),
         orientation: HORIZONTAL,
         type: argumentType,
+        tickFormat: domains[argumentAxisName] && domains[argumentAxisName].tickFormat,
       },
     };
   },
-  axesTypes,
+  axesOptions,
 );
 
 const adjustRangeToZero = range => [Math.min(range[0], 0), Math.max(0, range[1])];
@@ -91,6 +95,7 @@ const recalculateDomain = (range, currentDomain) => ({
   domain: currentDomain.type !== BAND ? range : currentDomain.domain,
   type: currentDomain.type,
   orientation: currentDomain.orientation,
+  tickFormat: currentDomain.tickFormat,
 });
 
 const adjustDomains = (axes, calculatedDomains, startFromZero) => {
@@ -121,8 +126,16 @@ const adjustDomains = (axes, calculatedDomains, startFromZero) => {
   );
 };
 
+export const computedExtension = (extension) => {
+  const defaultExtension = [
+    { type: 'linear', constructor: scaleLinear },
+    { type: 'band', constructor: scaleBand },
+  ];
+  return extension.concat(defaultExtension);
+};
+
 export const domains = (axes = [], series, data, argumentAxisName, startFromZero) => {
-  const axesTypes = collectAxesTypes(axes);
-  const calculatedDomains = calculateDomain(series, data, axesTypes, argumentAxisName);
+  const axesOptions = collectAxesOptions(axes);
+  const calculatedDomains = calculateDomain(series, data, axesOptions, argumentAxisName);
   return adjustDomains(axes, calculatedDomains, startFromZero);
 };

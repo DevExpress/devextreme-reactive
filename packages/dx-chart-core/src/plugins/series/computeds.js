@@ -58,25 +58,31 @@ export const xyScales = (
   layout,
   stacks = [],
   { groupWidth = 1, barWidth = 1 },
-  axisExtension = [],
+  scaleExtension,
 ) => {
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
-  const xAxisOption = axisExtension.find(item => item.type === argumentDomainOptions.type);
-  const yAxisOption = axisExtension.find(item => item.type === domainsOptions[domainName].type);
-  const xScale = createScale(argumentDomainOptions, width, height, xAxisOption, 1 - groupWidth);
+  const xConstructor = scaleExtension.find(
+    item => item.type === argumentDomainOptions.type,
+  ).constructor;
+  const yConstructor = scaleExtension.find(
+    item => item.type === domainsOptions[domainName].type,
+  ).constructor;
+  const xScale = createScale(argumentDomainOptions, width, height, xConstructor, 1 - groupWidth);
   const bandwidth = xScale.bandwidth
     ? xScale.bandwidth()
     : width / xScale.ticks().length;
 
   return {
     xScale,
-    yScale: createScale(domainsOptions[domainName], width, height, yAxisOption),
+    yScale: createScale(domainsOptions[domainName], width, height, yConstructor),
     x0Scale: createScale({
       orientation: argumentDomainOptions.orientation,
-      type: 'band',
       domain: stacks,
-    }, bandwidth, bandwidth, undefined, 1 - barWidth),
+    }, bandwidth, bandwidth,
+    scaleExtension.find(
+      item => item.type === 'band',
+    ).constructor, 1 - barWidth),
   };
 };
 

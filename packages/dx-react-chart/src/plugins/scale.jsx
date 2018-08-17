@@ -1,25 +1,29 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { domains } from '@devexpress/dx-chart-core';
+import { domains, computedExtension } from '@devexpress/dx-chart-core';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export class Scale extends React.PureComponent {
   render() {
-    const { axisExtension } = this.props;
+    const { extension } = this.props;
+    const getExtension = () => computedExtension(extension);
     return (
       <Plugin name="Scale">
         <Getter name="computedDomain" value={domains} />
-        <Getter name="axisExtension" value={axisExtension} />
+        <Getter name="scaleExtension" computed={getExtension} />
       </Plugin>
     );
   }
 }
 
 Scale.propTypes = {
-  axisExtension: PropTypes.array,
+  extension: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
+    constructor: PropTypes.func,
+  })),
 };
 
 Scale.defaultProps = {
-  axisExtension: [],
+  extension: [],
 };

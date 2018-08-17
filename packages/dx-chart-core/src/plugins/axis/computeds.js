@@ -18,9 +18,9 @@ const getTextAnchor = (orientation, position) => {
   return position === LEFT ? END : START;
 };
 
-const getFormat = (scale, axisOption = {}) => {
+const getFormat = (scale, tickFormat) => {
   if (scale.tickFormat) {
-    return axisOption.format ? axisOption.format(scale) : scale.tickFormat();
+    return tickFormat ? tickFormat(scale) : scale.tickFormat();
   }
   return tick => tick;
 };
@@ -31,7 +31,7 @@ const calculateAxisCoordinates = (
   position,
   tickSize,
   indentFromAxis,
-  axisOption,
+  tickFormat,
 ) => {
   const ticks = getTicks(scale);
   const offset = getOffset(scale);
@@ -48,7 +48,7 @@ const calculateAxisCoordinates = (
         x2: coordinates,
         y1: position === TOP ? -tickSize : 0,
         y2: position === TOP ? 0 : tickSize,
-        text: getFormat(scale, axisOption)(tick),
+        text: getFormat(scale, tickFormat)(tick),
         xText: coordinates,
         yText: position === TOP ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       };
@@ -60,7 +60,7 @@ const calculateAxisCoordinates = (
       y2: coordinates,
       x1: position === LEFT ? -tickSize : 0,
       x2: position === LEFT ? 0 : tickSize,
-      text: getFormat(scale, axisOption)(tick),
+      text: getFormat(scale, tickFormat)(tick),
       xText: position === LEFT ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       yText: coordinates,
     };
@@ -77,9 +77,9 @@ export const axisCoordinates = (
   height,
   tickSize,
   indentFromAxis,
-  axisOption,
+  constructor,
 ) => {
-  const scale = createScale(domainOptions, width, height, axisOption);
+  const scale = createScale(domainOptions, width, height, constructor);
 
   return calculateAxisCoordinates(
     scale,
@@ -87,7 +87,7 @@ export const axisCoordinates = (
     position,
     tickSize,
     indentFromAxis,
-    axisOption,
+    domainOptions.tickFormat,
   );
 };
 

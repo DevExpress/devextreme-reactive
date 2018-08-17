@@ -19,7 +19,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 const defaultDeps = {
   plugins: ['Table'],
   getter: {
-    tableColumnsDimensions: [{ a: {} }],
+    tableColumnDimensions: [{ a: {} }],
   },
 };
 

@@ -6,6 +6,7 @@ import {
   getAnimations,
   filterActiveAnimations,
   evalAnimations,
+  // getTableColumnGeometries,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from './table-layout';
@@ -20,10 +21,12 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getAnimations: jest.fn(),
   filterActiveAnimations: jest.fn(),
   evalAnimations: jest.fn(),
+  getTableColumnGeometries: jest.fn(() => []),
 }));
 
 const defaultProps = {
   layoutComponent: () => null,
+  onReady: () => {},
 };
 
 describe('TableLayout', () => {

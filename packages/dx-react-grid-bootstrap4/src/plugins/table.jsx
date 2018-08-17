@@ -10,7 +10,6 @@ import { TableRow } from '../templates/table-row';
 import { Table as TableComponent } from '../templates/table';
 import { TableContainer } from '../templates/table-container';
 import { TableStubRow } from '../templates/table-stub-row';
-import { TableServiceCell } from '../templates/table-service-cell';
 
 const TableHead = props => <thead {...props} />;
 const TableBody = props => <tbody {...props} />;
@@ -42,7 +41,6 @@ export class Table extends React.PureComponent {
         stubRowComponent={TableStubRow}
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableStubHeaderCell}
-        serviceCellComponent={TableServiceCell}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />

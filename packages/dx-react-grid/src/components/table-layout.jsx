@@ -8,6 +8,7 @@ import {
   filterActiveAnimations,
   evalAnimations,
   TABLE_FLEX_TYPE,
+  getTableColumnGeometries,
 } from '@devexpress/dx-grid-core';
 
 const areColumnsChanged = (prevColumns, nextColumns) => {
@@ -28,6 +29,17 @@ export class TableLayout extends React.PureComponent {
     this.tableNode = null;
 
     this.setRef = (ref) => { if (ref) this.tableNode = ref; };
+  }
+
+  componentDidMount() {
+    const { columns, onReady } = this.props;
+    // eslint-disable-next-line react/no-find-dom-node
+    const tableWidth = findDOMNode(this).scrollWidth;
+    onReady(getTableColumnGeometries(columns, tableWidth)
+      .reduce((acc, value, index) => {
+        acc[columns[index].key] = value;
+        return acc;
+      }, {}));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,4 +119,5 @@ TableLayout.propTypes = {
   columns: PropTypes.array.isRequired,
   minColumnWidth: PropTypes.number.isRequired,
   layoutComponent: PropTypes.func.isRequired,
+  onReady: PropTypes.func.isRequired,
 };

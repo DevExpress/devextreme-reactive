@@ -13,8 +13,6 @@ import {
   isHeaderStubTableCell,
   isDataTableRow,
   getMessagesFormatter,
-  initialTableHeaderRows,
-  isServiceTableCell,
 } from '@devexpress/dx-grid-core';
 import { Table } from './table';
 
@@ -28,8 +26,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isHeaderStubTableCell: jest.fn(),
   isDataTableRow: jest.fn(),
   getMessagesFormatter: jest.fn(),
-  initialTableHeaderRows: jest.fn(),
-  isServiceTableCell: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -58,7 +54,6 @@ const defaultProps = {
   stubHeaderCellComponent: () => null,
   noDataCellComponent: () => null,
   noDataRowComponent: () => null,
-  serviceCellComponent: () => null,
 };
 
 describe('Table', () => {
@@ -80,8 +75,6 @@ describe('Table', () => {
     isHeaderStubTableCell.mockImplementation(() => false);
     isDataTableRow.mockImplementation(() => false);
     getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
-    initialTableHeaderRows.mockImplementation(() => []);
-    isServiceTableCell.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();

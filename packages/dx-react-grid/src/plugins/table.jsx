@@ -17,14 +17,12 @@ import {
   isHeaderStubTableCell,
   isDataTableRow,
   getMessagesFormatter,
-  initialTableHeaderRows,
-  isServiceTableCell,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
-const tableHeaderRows = initialTableHeaderRows();
+const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableFooterRows = [];
 
@@ -35,12 +33,9 @@ const pluginDependencies = [
 export class Table extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { tableColumnsDimensions: {} };
-
-    this.storeCellDimensions = (key, getter) => {
-      this.setState(({ tableColumnsDimensions }) => ({
-        tableColumnsDimensions: { ...tableColumnsDimensions, [key]: getter() },
-      }));
+    this.state = { columnDimensions: {} };
+    this.handleLayoutReady = (columnDimensions) => {
+      this.setState({ columnDimensions });
     };
   }
 
@@ -54,7 +49,6 @@ export class Table extends React.PureComponent {
       stubRowComponent: StubRow,
       stubCellComponent: StubCell,
       stubHeaderCellComponent: StubHeaderCell,
-      serviceCellComponent: ServiceCell,
       columnExtensions,
       messages,
       containerComponent,
@@ -63,7 +57,7 @@ export class Table extends React.PureComponent {
       bodyComponent,
       footerComponent,
     } = this.props;
-    const { tableColumnsDimensions } = this.state;
+    const { columnDimensions } = this.state;
 
     const getMessage = getMessagesFormatter(messages);
     const tableColumnsComputed = (
@@ -80,7 +74,7 @@ export class Table extends React.PureComponent {
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
-        <Getter name="tableColumnsDimensions" value={tableColumnsDimensions} />
+        <Getter name="tableColumnDimensions" value={columnDimensions} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
@@ -107,6 +101,7 @@ export class Table extends React.PureComponent {
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
                 getCellColSpan={getTableCellColSpan}
+                onReady={this.handleLayoutReady}
               />
             )}
           </TemplateConnector>
@@ -199,27 +194,6 @@ export class Table extends React.PureComponent {
         >
           {params => <NoDataRow {...params} />}
         </Template>
-        <Template
-          name="tableRow"
-          predicate={({ tableRow }) => isServiceTableCell(tableRow)}
-        >
-          {params => (
-            <StubRow {...params} />
-          )}
-        </Template>
-        <Template
-          name="tableCell"
-          predicate={({ tableRow }) => isServiceTableCell(tableRow)}
-        >
-          {params => (
-            <ServiceCell
-              {...params}
-              onMounted={getter => this.storeCellDimensions(
-                params.tableColumn.key, getter,
-              )}
-            />
-          )}
-        </Template>
       </Plugin>
     );
   }
@@ -239,7 +213,6 @@ Table.propTypes = {
   stubRowComponent: PropTypes.func.isRequired,
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
-  serviceCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
   messages: PropTypes.object,
 };

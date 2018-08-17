@@ -1,4 +1,4 @@
-import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE, TABLE_SERVICE_TYPE } from './constants';
+import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from './constants';
 import { getColumnExtension } from '../../utils/column-extension';
 
 export const tableColumnsWithDataRows = (columns, columnExtensions) => columns.map((column) => {
@@ -34,9 +34,3 @@ export const tableCellColSpanGetter = (params) => {
   }
   return 1;
 };
-
-export const initialTableHeaderRows = () => [{
-  key: TABLE_SERVICE_TYPE,
-  type: TABLE_SERVICE_TYPE,
-  height: 0,
-}];

@@ -20,16 +20,11 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-const getColumnWidth = dimensions => (dimensions
-  ? dimensions.width
+const getColumnPosition = dimensions => (dimensions
+  ? dimensions.right
   : undefined);
 
 export class TableFixedColumns extends React.PureComponent {
-  // getSize(key) {
-  //   const { sizes } = this.state;
-  //   return sizes[key];
-  // }
-
   render() {
     const {
       beforeColumnNames,
@@ -59,7 +54,7 @@ export class TableFixedColumns extends React.PureComponent {
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns, tableColumnsDimensions }) => {
+              {({ tableColumns, tableColumnDimensions }) => {
                 const { tableColumn } = params;
                 const { fixed: side } = tableColumn;
                 const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
@@ -95,7 +90,7 @@ export class TableFixedColumns extends React.PureComponent {
                     position={
                       fixedIndex === 0
                         ? 0
-                        : getColumnWidth(tableColumnsDimensions[targetArray[fixedIndex - 1]])
+                        : getColumnPosition(tableColumnDimensions[targetArray[fixedIndex - 1]])
                     }
                   />
                 );

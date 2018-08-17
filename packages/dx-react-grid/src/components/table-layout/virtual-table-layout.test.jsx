@@ -263,7 +263,7 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          bodyRows={rows}
+          bodyRows={rows.slice(0, 2)}
         />
       ));
       tree.setProps({ bodyRows: [rows[0]] });
@@ -288,10 +288,37 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={rows}
+          headerRows={rows.slice(0, 2)}
+          bodyRows={rows.slice(2, 1)}
         />
       ));
       tree.setProps({ headerRows: [rows[0]] });
+
+      const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+
+    it('should clear row height when footerRows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows.slice(2, 1)}
+          footerRows={rows.slice(0, 2)}
+        />
+      ));
+      tree.setProps({ footerRows: [rows[0]] });
 
       const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
       expect(getRowHeight(rows[1]))

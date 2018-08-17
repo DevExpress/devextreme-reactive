@@ -34,14 +34,15 @@ export class VirtualTableLayout extends React.PureComponent {
     this.storeBloksHeights();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { headerRows, bodyRows } = this.props;
-    if (
-      headerRows !== nextProps.headerRows
-      || bodyRows !== nextProps.bodyRows
-    ) {
-      const { rowHeights: prevRowHeight } = this.state;
-      const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
+  componentDidUpdate() {
+    this.storeRowHeights();
+    this.storeBloksHeights();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { rowHeights: prevRowHeight } = prevState;
+    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows, ...nextProps.footerRows]
+      .reduce(
         (acc, row) => {
           const rowHeight = prevRowHeight.get(row.key);
           if (rowHeight !== undefined) {
@@ -51,13 +52,7 @@ export class VirtualTableLayout extends React.PureComponent {
         },
         new Map(),
       );
-      this.setState({ rowHeights });
-    }
-  }
-
-  componentDidUpdate() {
-    this.storeRowHeights();
-    this.storeBloksHeights();
+    return { rowHeights };
   }
 
   getRowHeight(row) {
@@ -75,6 +70,7 @@ export class VirtualTableLayout extends React.PureComponent {
       .map(([row, ref]) => [row, findDOMNode(ref)])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
+      .filter(([row]) => row.type !== 'stub')
       .filter(([row, height]) => height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {
@@ -104,11 +100,21 @@ export class VirtualTableLayout extends React.PureComponent {
       ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height
       : 0;
 
-    this.setState({
-      headerHeight,
-      bodyHeight,
-      footerHeight,
-    });
+    const {
+      headerHeight: prevHeaderHeight,
+      bodyHeight: prevBodyHeight,
+      footerHeight: prevFooterHeight,
+    } = this.state;
+
+    if (prevHeaderHeight !== headerHeight
+      && prevBodyHeight !== bodyHeight
+      && prevFooterHeight !== footerHeight) {
+      this.setState({
+        headerHeight,
+        bodyHeight,
+        footerHeight,
+      });
+    }
   }
 
   registerRowRef(row, ref) {

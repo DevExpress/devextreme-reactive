@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1533132304">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1533132304">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1534508238">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1534508238">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -92,7 +93,7 @@
 
 <p>In the following example, the data is specified as plain rows. In this case, the data should be grouped using the <code class="highlighter-rouge">DxIntegratedGrouping</code> plugin.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -104,7 +105,7 @@
 
 <p>In the following example, the data is specified as an array of groups. Specify the <code class="highlighter-rouge">DxCustomGrouping</code> plugin’s <code class="highlighter-rouge">getChildGroups</code> property to parse a custom group structure.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-grouping-static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-grouping-static&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -123,7 +124,7 @@
 
 <p>Specify the grouping options in the <code class="highlighter-rouge">DxGroupingState</code> plugin’s <code class="highlighter-rouge">grouping</code> property and subscribe to the <code class="highlighter-rouge">update:grouping</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier for two-way binding.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/grouping-with-ui&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/grouping-with-ui&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -133,7 +134,7 @@
 
 <p>You can disable grouping/ungrouping for a specific column using the <a href="/devextreme-reactive/vue/grid/docs/reference/grouping-state/">DxGroupingState</a> plugin’s <code class="highlighter-rouge">columnExtensions</code> property.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/disable-column-grouping&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/disable-column-grouping&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -143,7 +144,7 @@
 
 <p>Pass a grouping criterion function to the <code class="highlighter-rouge">DxIntegratedGrouping</code> plugin’s <a href="/devextreme-reactive/vue/grid/docs/reference/integrated-grouping/#properties">columnExtensions</a> property to group data by a custom key based on the specified column’s value. Set the columns configuration’s <code class="highlighter-rouge">showWhenGrouped</code> field to true to avoid hiding the column when data is grouped by this column. In the following example, data is grouped by the first letter of the “city” column’s values while still displaying the column.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -153,7 +154,7 @@
 
 <p>Note that if the grouping criterion function returns a non-primitive value, you should also specify a custom group cell template using the <code class="highlighter-rouge">DxTableGroupRow</code> plugin’s <code class="highlighter-rouge">cellComponent</code> property as demonstrated in the following example:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-advanced&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/custom-advanced&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -171,7 +172,7 @@
 
 <p>The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/remote-grouping-with-local-expanding&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1533132304&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-grouping/remote-grouping-with-local-expanding&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//vue/grid/demos/dist/index.js?v=1534508238&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -180,11 +181,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.6.0">
             Version
-            <span>1.5.1</span>
+            <span>1.6.0</span>
           </a>
         </li>
       </ul>
@@ -620,11 +626,53 @@
         
         </ul>
       
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/getting-started//">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+        </ul>
+      
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/vue/grid/demos/dist/index.js?v=1533132304"></script>
+<script src="/devextreme-reactive/vue/grid/demos/dist/index.js?v=1534508238"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:vue", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -642,7 +690,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -665,7 +713,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1533132304"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1534508238"></script>
     <script>
         trackingCookie.notice();
     </script>

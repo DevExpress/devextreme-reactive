@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1533132304">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1533132304">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1534508238">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1534508238">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,7 +63,7 @@
     <div class="col-sm-9 col-sm-push-3 docs-content">
         <h1 id="virtualtable-plugin-reference">VirtualTable Plugin Reference</h1>
 
-<p>A plugin that renders a scrollable table instead of a static one. It contains the <a href="#plugin-components">VirtualTable.Row</a> and <a href="#plugin-components">VirtualTable.Cell</a> components that provide ways to customize virtual table rows and columns and can be extended by other plugins.</p>
+<p>A plugin that renders a scrollable table instead of a static table. Contains the <a href="#plugin-components">VirtualTable.Row</a> and <a href="#plugin-components">VirtualTable.Cell</a> components that provide ways to customize virtual table rows and columns. These components can be extended by other plugins.</p>
 
 <h2 id="importing">Importing</h2>
 
@@ -129,6 +130,12 @@
       <td>ComponentType&lt;object&gt;</td>
       <td> </td>
       <td>A component that renders a table body.</td>
+    </tr>
+    <tr>
+      <td>footerComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a table footer.</td>
     </tr>
     <tr>
       <td>containerComponent</td>
@@ -324,6 +331,12 @@
       <td>Body rows to be rendered.</td>
     </tr>
     <tr>
+      <td>tableFooterRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
+      <td>Footer rows to be rendered.</td>
+    </tr>
+    <tr>
       <td>tableColumns</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
       <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
@@ -353,11 +366,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.6.0">
             Version
-            <span>1.5.1</span>
+            <span>1.6.0</span>
           </a>
         </li>
       </ul>
@@ -532,6 +550,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/summary-row/">Summary Row</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
           
 
@@ -580,6 +606,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
           
 
         
@@ -691,6 +725,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
@@ -740,6 +782,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/summary-state/">SummaryState</a></li>
           
 
         
@@ -843,6 +893,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-tree-column/">TableTreeColumn</a></li>
           
 
@@ -882,7 +940,23 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">Core</a></li>
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
           
 
         
@@ -892,7 +966,18 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1533132304"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1534508238"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -910,7 +995,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -933,7 +1018,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1533132304"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1534508238"></script>
     <script>
         trackingCookie.notice();
     </script>

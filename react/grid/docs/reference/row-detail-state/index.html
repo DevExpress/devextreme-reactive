@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1533132304">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1533132304">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1534508238">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1534508238">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -131,8 +132,8 @@
     <tr>
       <td>toggleDetailRowExpanded</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
-      <td>({ rowId }) =&gt; void</td>
-      <td>Expands/collapses the specified row.</td>
+      <td>({ rowId: number | string, state?: boolean }) =&gt; void</td>
+      <td>Expands/collapses the specified row. The <code class="highlighter-rouge">state</code> argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).</td>
     </tr>
     <tr>
       <td>expandedDetailRowIds</td>
@@ -146,11 +147,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.6.0">
             Version
-            <span>1.5.1</span>
+            <span>1.6.0</span>
           </a>
         </li>
       </ul>
@@ -325,6 +331,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/summary-row/">Summary Row</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/guides/localization/">Localization</a></li>
           
 
@@ -373,6 +387,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
           
 
         
@@ -484,6 +506,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
@@ -533,6 +563,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/summary-state/">SummaryState</a></li>
           
 
         
@@ -636,6 +674,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-tree-column/">TableTreeColumn</a></li>
           
 
@@ -675,7 +721,23 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">Core</a></li>
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
           
 
         
@@ -685,7 +747,18 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1533132304"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1534508238"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -703,7 +776,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -726,7 +799,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1533132304"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1534508238"></script>
     <script>
         trackingCookie.notice();
     </script>

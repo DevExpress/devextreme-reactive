@@ -97,19 +97,20 @@ export class EditingState extends React.PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
+      editingRowIds = prevState.editingRowIds,
+      rowChanges = prevState.rowChanges,
+      addedRows = prevState.addedRows,
+      deletedRowIds = prevState.deletedRowIds,
+    } = nextProps;
+
+    return {
       editingRowIds,
       rowChanges,
       addedRows,
       deletedRowIds,
-    } = nextProps;
-    this.setState({
-      ...editingRowIds !== undefined ? { editingRowIds } : null,
-      ...rowChanges !== undefined ? { rowChanges } : null,
-      ...addedRows !== undefined ? { addedRows } : null,
-      ...deletedRowIds !== undefined ? { deletedRowIds } : null,
-    });
+    };
   }
 
   render() {

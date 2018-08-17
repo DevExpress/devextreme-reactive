@@ -40,13 +40,11 @@ describe('table utils', () => {
   });
 
   describe('#getAnimations', () => {
-    it('should not return animations if columns are the same', () => {
-      expect(getAnimations(
-        [{ key: 'a', width: 100 }, { key: 'b' }],
-        [{ key: 'a', width: 200 }, { key: 'b' }],
-        1000,
-        new Map(),
-      )).toEqual(new Map());
+    it('should not fail with different set of columns', () => {
+      expect(() => {
+        getAnimations([{ key: 'a' }], [{ key: 'b' }], 400, new Map());
+      })
+        .not.toThrow();
     });
   });
 });

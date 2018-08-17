@@ -41,10 +41,6 @@ export const getAnimations = (
   tableWidth,
   prevAnimations,
 ) => {
-  if (prevColumns.map(c => c.key).join('') === nextColumns.map(c => c.key).join('')) {
-    return new Map();
-  }
-
   const prevColumnGeometries = new Map(getTableColumnGeometries(prevColumns, tableWidth)
     .map((geometry, index) => [prevColumns[index].key, geometry])
     .map(([key, geometry]) => {
@@ -67,7 +63,7 @@ export const getAnimations = (
       const next = nextColumnGeometries.get(key);
 
       const result = { startTime: new Date().getTime(), style: {} };
-      if (Math.abs(prev.left - next.left) > 1) {
+      if (Math.abs((prev ? prev.left : next.left) - next.left) > 1) {
         result.left = { from: prev.left, to: next.left };
       }
       return [key, result];

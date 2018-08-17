@@ -33,11 +33,14 @@ export class FilteringState extends React.PureComponent {
       .bind(stateHelper, 'filters', changeColumnFilter);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { filters } = nextProps;
-    this.setState({
-      ...filters !== undefined ? { filters } : null,
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      filters = prevState.filters,
+    } = nextProps;
+
+    return {
+      filters,
+    };
   }
 
   render() {

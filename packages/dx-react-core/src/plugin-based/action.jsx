@@ -7,9 +7,11 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export class Action extends React.PureComponent {
-  componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
-    const { name } = this.props;
+  constructor(props, context) {
+    super(props, context);
+
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { name } = props;
 
     this.plugin = {
       position: () => positionContext(),

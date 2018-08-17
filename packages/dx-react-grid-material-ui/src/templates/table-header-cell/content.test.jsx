@@ -26,9 +26,9 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.find('div').is(`.${classes.content}`))
+    expect(tree.is(`.${classes.content}`))
       .toBeTruthy();
-    expect(tree.find('div').is('.customClass'))
+    expect(tree.is('.customClass'))
       .toBeTruthy();
   });
 
@@ -40,7 +40,7 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.find('div').prop('data'))
+    expect(tree.prop('data'))
       .toMatchObject({
         a: 1,
       });

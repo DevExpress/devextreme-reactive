@@ -45,10 +45,18 @@ span.dx-g-bs4-group-panel-item-icon {
 }
 .dx-g-bs4-table {
   table-layout: fixed;
+  margin: 0;
+}
+.dx-g-bs4-table-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
 }
 .dx-g-bs4-table-head {
   top: 0;
-  z-index: 1;
+}
+.dx-g-bs4-table-foot {
+  bottom: 0;
 }
 .dx-g-bs4-table-container {
   overflow: auto;
@@ -179,4 +187,7 @@ button.dx-g-bs4-table-edit-command-cell {
   width: 16px;
   height: 16px;
   fill: currentColor;
+}
+.dx-g-bs4-table-summary-item {
+  font-weight: bold;
 }

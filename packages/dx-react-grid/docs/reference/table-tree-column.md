@@ -1,6 +1,6 @@
 # TableTreeColumn Plugin Reference
 
-A plugin that renders a table column with toggle button and sorting indicators.
+A plugin that renders a table column with a toggle button and sorting indicators.
 
 ## Importing
 
@@ -12,7 +12,7 @@ import { TableTreeColumn } from '@devexpress/dx-react-grid-material-ui';
 // import { TableTreeColumn } from '@devexpress/dx-react-grid-bootstrap3';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { TableTreeColumn } from '@devexpress/dx-react-grid';
@@ -39,8 +39,8 @@ contentComponent | ComponentType&lt;[TableTreeColumn.ContentProps](#tabletreecol
 indentComponent | ComponentType&lt;[TableTreeColumn.IndentProps](#tabletreecolumnindentprops)&gt; | | A component that renders an indent used to identify a row level.
 expandButtonComponent | ComponentType&lt;[TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops)&gt; | | A component that renders a button that controls the row's expanded state.
 checkboxComponent | ComponentType&lt;[TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops)&gt; | | A component that renders a checkbox used to control selection.
-showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) dependency.
-showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) dependency.
+showSelectionControls? | boolean | false | Specifies whether to render selection controls. Requires the [SelectionState](selection-state.md) plugin.
+showSelectAll? | boolean | false | Specifies whether to render Select All checkbox. Requires the [IntegratedSelection](integrated-selection.md) plugin.
 
 ## Interfaces
 
@@ -104,7 +104,7 @@ TableTreeColumn.Indent | [TableTreeColumn.IndentProps](#tabletreecolumnindentpro
 TableTreeColumn.ExpandButton | [TableTreeColumn.ExpandButtonProps](#tabletreecolumnexpandbuttonprops) | A component that renders a button used to controls a row's expanded state.
 TableTreeColumn.Checkbox | [TableTreeColumn.CheckboxProps](#tabletreecolumncheckboxprops) | A component that renders a checkbox used to control selection.
 
-The additional properties are added to the component's root element.
+Additional properties are added to the component's root element.
 
 ## Plugin Developer Reference
 
@@ -135,3 +135,4 @@ valueFormatter | [Template](../../../dx-react-core/docs/reference/template.md) |
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableBodyRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table body rows with modified tree rows.
+tableTreeColumnName | [Getter](../../../dx-react-core/docs/reference/getter.md) | string | The name of a column displayed as a tree.

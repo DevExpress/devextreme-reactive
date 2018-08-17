@@ -41,16 +41,17 @@ export class VirtualTableLayout extends React.PureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { rowHeights: prevRowHeight } = prevState;
-    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows].reduce(
-      (acc, row) => {
-        const rowHeight = prevRowHeight.get(row.key);
-        if (rowHeight !== undefined) {
-          acc.set(row.key, rowHeight);
-        }
-        return acc;
-      },
-      new Map(),
-    );
+    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows, ...nextProps.footerRows]
+      .reduce(
+        (acc, row) => {
+          const rowHeight = prevRowHeight.get(row.key);
+          if (rowHeight !== undefined) {
+            acc.set(row.key, rowHeight);
+          }
+          return acc;
+        },
+        new Map(),
+      );
     return { rowHeights };
   }
 
@@ -99,11 +100,21 @@ export class VirtualTableLayout extends React.PureComponent {
       ? findDOMNode(this.blockRefs.get('footer')).getBoundingClientRect().height
       : 0;
 
-    this.setState({
-      headerHeight,
-      bodyHeight,
-      footerHeight,
-    });
+    const {
+      headerHeight: prevHeaderHeight,
+      bodyHeight: prevBodyHeight,
+      footerHeight: prevFooterHeight,
+    } = this.state;
+
+    if (prevHeaderHeight !== headerHeight
+      && prevBodyHeight !== bodyHeight
+      && prevFooterHeight !== footerHeight) {
+      this.setState({
+        headerHeight,
+        bodyHeight,
+        footerHeight,
+      });
+    }
   }
 
   registerRowRef(row, ref) {

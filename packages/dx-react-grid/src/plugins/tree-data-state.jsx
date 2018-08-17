@@ -25,13 +25,14 @@ export class TreeDataState extends React.PureComponent {
       .bind(stateHelper, 'expandedRowIds', toggleRowExpanded);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      expandedRowIds,
+      expandedRowIds = prevState.expandedRowIds,
     } = nextProps;
-    this.setState({
-      ...expandedRowIds !== undefined ? { expandedRowIds } : null,
-    });
+
+    return {
+      expandedRowIds,
+    };
   }
 
   render() {

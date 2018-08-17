@@ -1,7 +1,6 @@
 import {
   getTableColumnGeometries,
   getTableTargetColumnIndex,
-  getAnimations,
 } from './table';
 
 describe('table utils', () => {
@@ -36,17 +35,6 @@ describe('table utils', () => {
       expect(getTableTargetColumnIndex(columnGeometries, 1, 40)).toEqual(0);
       expect(getTableTargetColumnIndex(columnGeometries, 1, 240)).toEqual(2);
       expect(getTableTargetColumnIndex(columnGeometries, 1, 260)).toEqual(3);
-    });
-  });
-
-  describe('#getAnimations', () => {
-    it('should not return animations if columns are the same', () => {
-      expect(getAnimations(
-        [{ key: 'a', width: 100 }, { key: 'b' }],
-        [{ key: 'a', width: 200 }, { key: 'b' }],
-        1000,
-        new Map(),
-      )).toEqual(new Map());
     });
   });
 });

@@ -34,7 +34,7 @@ export class TemplatePlaceholder extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.registerSubscription(this.subscription);
   }

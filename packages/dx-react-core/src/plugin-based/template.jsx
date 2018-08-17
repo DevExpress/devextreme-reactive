@@ -11,19 +11,19 @@ export class Template extends React.PureComponent {
 
     globalTemplateId += 1;
     this.id = globalTemplateId;
-  }
 
-  componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
-    const { name, predicate } = this.props;
-    const getChildren = () => { const { children } = this.props; return children; };
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { name, predicate } = props;
 
     this.plugin = {
       position: () => positionContext(),
       [`${name}Template`]: {
         id: this.id,
         predicate: params => (predicate ? predicate(params) : true),
-        children: () => getChildren(),
+        children: () => {
+          const { children } = this.props;
+          return children;
+        },
       },
     };
     pluginHost.registerPlugin(this.plugin);

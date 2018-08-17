@@ -29,15 +29,16 @@ export class PagingState extends React.PureComponent {
       .bind(stateHelper, 'pageSize', setPageSize);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
+      currentPage = prevState.currentPage,
+      pageSize = prevState.pageSize,
+    } = nextProps;
+
+    return {
       currentPage,
       pageSize,
-    } = nextProps;
-    this.setState({
-      ...currentPage !== undefined ? { currentPage } : null,
-      ...pageSize !== undefined ? { pageSize } : null,
-    });
+    };
   }
 
   render() {

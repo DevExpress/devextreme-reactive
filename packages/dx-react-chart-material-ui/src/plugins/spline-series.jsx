@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { SplineSeries as SplineSeriesBase } from '@devexpress/dx-react-chart';
 import { Path } from '../templates/series/path';
-import { Point } from '../templates/series/point';
 
 export class SplineSeries extends React.PureComponent {
   render() {
@@ -15,4 +14,3 @@ export class SplineSeries extends React.PureComponent {
 }
 
 SplineSeries.Path = Path;
-SplineSeries.Point = Point;

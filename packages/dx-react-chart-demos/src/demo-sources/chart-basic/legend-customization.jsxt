@@ -11,7 +11,6 @@ import {
 import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
 import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
 
-const nullComponent = () => null;
 const SpecialMarkerComponent = ({ name, color }) => {
   const Icon = name === 'Noisy signal' ? NoisySignalIcon : OriginalSignalIcon;
   return (

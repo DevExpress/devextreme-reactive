@@ -92,7 +92,7 @@ const LineWithStarPoint = (props) => {
   const { coordinates } = props;
   return (
     <React.Fragment>
-      <LineSeries.Path {...props} coordinates={coordinates.slice(0)} />
+      <LineSeries.Path {...props} coordinates={coordinates} />
       <ScatterSeries.Path {...props} pointComponent={StarPoint} />
     </React.Fragment>
   );

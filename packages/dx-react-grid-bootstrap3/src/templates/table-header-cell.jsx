@@ -40,6 +40,7 @@ export class TableHeaderCell extends React.PureComponent {
           } : null),
           ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
+          ...(!(tableColumn && tableColumn.wordWrapEnabled) ? { whiteSpace: 'nowrap' } : null),
           ...style,
         }}
         {...restProps}

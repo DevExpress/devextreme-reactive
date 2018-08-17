@@ -45,23 +45,6 @@ describe('TableHeaderCell', () => {
       .toBeUndefined();
   });
 
-  it('should have correct styles when sorting is allowed', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{ name: 'a' }}
-        sortingEnabled
-        showSortingControls
-      />
-    ));
-
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-      });
-  });
-
   it('should have correct styles when dragging is allowed', () => {
     const tree = shallow((
       <DragDropProvider>
@@ -138,38 +121,14 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct styles when column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-      />
-    ));
-    expect(tree.find('th > div > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-      });
-  });
-
-  it('should have correct styles when column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-    expect(tree.find('th > div > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-      });
-  });
-
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.find('div').at(1).prop('style').whiteSpace)
+    expect(tree.prop('style').whiteSpace)
       .toBe('nowrap');
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('div').at(1).prop('style').whiteSpace)
-      .toBe('normal');
+    expect(tree.prop('style').whiteSpace)
+      .toBe(undefined);
   });
 
   it('should pass rest props to the root element', () => {

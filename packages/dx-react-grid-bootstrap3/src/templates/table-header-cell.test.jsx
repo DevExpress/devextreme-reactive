@@ -128,7 +128,7 @@ describe('TableHeaderCell', () => {
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.prop('style').whiteSpace)
-      .toBe(undefined);
+      .toBe('normal');
   });
 
   it('should pass rest props to the root element', () => {

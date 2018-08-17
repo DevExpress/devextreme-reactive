@@ -38,9 +38,9 @@ export class TableHeaderCell extends React.PureComponent {
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
           } : null),
+          whiteSpace: !(tableColumn && tableColumn.wordWrapEnabled) ? 'nowrap' : 'normal',
           ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
-          ...(!(tableColumn && tableColumn.wordWrapEnabled) ? { whiteSpace: 'nowrap' } : null),
           ...style,
         }}
         {...restProps}

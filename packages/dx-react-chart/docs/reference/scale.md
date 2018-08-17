@@ -16,7 +16,7 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-extension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | | A array of scales with options.
+extension? | Array&lt;[scaleOptions](#scaleoptions)&gt; | [{type: 'linear', constructor: () => object}, {type: 'band', constructor: () => object}] | A array of scales with options.
 
 ## Interfaces
 

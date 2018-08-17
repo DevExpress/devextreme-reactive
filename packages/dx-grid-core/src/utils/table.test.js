@@ -41,7 +41,9 @@ describe('table utils', () => {
 
   describe('#getAnimations', () => {
     it('should not fail with different set of columns', () => {
-      expect(() => { getAnimations([{ key: 'a' }], [{ key: 'b' }], 400, new Map()) })
+      expect(() => {
+        getAnimations([{ key: 'a' }], [{ key: 'b' }], 400, new Map());
+      })
         .not.toThrow();
     });
   });

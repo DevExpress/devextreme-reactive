@@ -60,6 +60,7 @@ export default class Demo extends React.PureComponent {
           <ArgumentAxis name="argumentAxis" />
           <ValueAxis
             type="log"
+            max={5000e24}
             tickFormat={format}
           />
 

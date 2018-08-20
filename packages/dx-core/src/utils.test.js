@@ -20,6 +20,8 @@ describe('utils', () => {
         .toEqual(['1', '5,3', '5,3,1']);
       expect(mapPlugins(insertPlugin(plugins, { position: () => [7] })))
         .toEqual(['1', '5,3', '7']);
+      expect(mapPlugins(insertPlugin(plugins, { position: () => [1] })))
+        .toEqual(['1', '5,3']);
     });
   });
 });

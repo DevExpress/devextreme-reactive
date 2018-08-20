@@ -25,7 +25,7 @@ describe('Create scale', () => {
     jest.clearAllMocks();
   });
 
-  it('should creat scale', () => {
+  it('should create scale', () => {
     const scale = createScale(domainOptions, width, height, scaleLinear);
     expect(scale).toBe(linearMockScale);
   });

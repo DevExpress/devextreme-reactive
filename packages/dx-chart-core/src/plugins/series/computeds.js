@@ -51,6 +51,10 @@ const getGenerator = (type) => {
   }
 };
 
+const getConstructor = (scaleExtension, type) => scaleExtension.find(
+  item => item.type === type,
+).constructor;
+
 export const xyScales = (
   domainsOptions,
   argumentAxisName,
@@ -62,12 +66,8 @@ export const xyScales = (
 ) => {
   const { width, height } = layout;
   const argumentDomainOptions = domainsOptions[argumentAxisName];
-  const xConstructor = scaleExtension.find(
-    item => item.type === argumentDomainOptions.type,
-  ).constructor;
-  const yConstructor = scaleExtension.find(
-    item => item.type === domainsOptions[domainName].type,
-  ).constructor;
+  const xConstructor = getConstructor(scaleExtension, argumentDomainOptions.type);
+  const yConstructor = getConstructor(scaleExtension, domainsOptions[domainName].type);
   const xScale = createScale(argumentDomainOptions, width, height, xConstructor, 1 - groupWidth);
   const bandwidth = xScale.bandwidth
     ? xScale.bandwidth()
@@ -80,9 +80,7 @@ export const xyScales = (
       orientation: argumentDomainOptions.orientation,
       domain: stacks,
     }, bandwidth, bandwidth,
-    scaleExtension.find(
-      item => item.type === 'band',
-    ).constructor, 1 - barWidth),
+    getConstructor(scaleExtension, 'band'), 1 - barWidth),
   };
 };
 

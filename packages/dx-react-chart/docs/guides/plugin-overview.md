@@ -29,6 +29,7 @@ The plugins below render extra elements like a grid, legend, axes, etc.
 ## Data Processing Plugins
 
 - `Scale` - process data for futher rendering axes and series.
+- `Stack` - process data to display series points side-by-side or one under another other.
 
 ## Plugin Order
 

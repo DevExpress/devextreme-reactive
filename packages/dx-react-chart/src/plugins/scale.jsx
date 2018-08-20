@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import { domains, computedExtension } from '@devexpress/dx-chart-core';
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class Scale extends React.PureComponent {
   render() {
     const { extension } = this.props;

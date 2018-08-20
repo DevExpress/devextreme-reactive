@@ -1,3 +1,21 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.5.1...v1.6.0) (2018-08-17)
+
+
+### Bug Fixes
+
+* **grid:** add missed action argument ([#1292](https://github.com/DevExpress/devextreme-reactive/issues/1292)) ([f60e162](https://github.com/DevExpress/devextreme-reactive/commit/f60e162))
+* **grid:** correct types for the commit changes event ([#1291](https://github.com/DevExpress/devextreme-reactive/issues/1291)) ([2f02936](https://github.com/DevExpress/devextreme-reactive/commit/2f02936))
+* **react-grid:** fix word wrap behavior with the SortingControl ([#1280](https://github.com/DevExpress/devextreme-reactive/issues/1280)) ([45d5729](https://github.com/DevExpress/devextreme-reactive/commit/45d5729)), closes [#1278](https://github.com/DevExpress/devextreme-reactive/issues/1278)
+
+
+### Features
+
+* **react-grid:** allow showing row summaries ([#1216](https://github.com/DevExpress/devextreme-reactive/issues/1216)) ([e2397d1](https://github.com/DevExpress/devextreme-reactive/commit/e2397d1)), closes [#1024](https://github.com/DevExpress/devextreme-reactive/issues/1024)
+* **react-grid:** export nested component interfaces in theme packages ([#1299](https://github.com/DevExpress/devextreme-reactive/issues/1299)) ([788bac9](https://github.com/DevExpress/devextreme-reactive/commit/788bac9))
+
+
+
 <a name="1.5.1"></a>
 # [1.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.5.0...v1.5.1) (2018-07-31)
 

@@ -107,8 +107,8 @@ export class VirtualTableLayout extends React.PureComponent {
     } = this.state;
 
     if (prevHeaderHeight !== headerHeight
-      && prevBodyHeight !== bodyHeight
-      && prevFooterHeight !== footerHeight) {
+      || prevBodyHeight !== bodyHeight
+      || prevFooterHeight !== footerHeight) {
       this.setState({
         headerHeight,
         bodyHeight,

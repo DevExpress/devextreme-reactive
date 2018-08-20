@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Planetary mass (kg)"
-            style={{ textAlign: 'center', width: '100%' }}
+            style={{ textAlign: 'center', width: '100%', "padding-bottom": '20px' }}
           />
         </Chart>
       </<%&wrapperTag%>>

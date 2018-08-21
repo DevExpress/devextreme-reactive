@@ -21,13 +21,14 @@ export class SearchState extends React.PureComponent {
       .bind(stateHelper, 'value', changeSearchValue);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      value,
+      value = prevState.value,
     } = nextProps;
-    this.setState({
-      ...value !== undefined ? { value } : null,
-    });
+
+    return {
+      value,
+    };
   }
 
   render() {

@@ -4,7 +4,7 @@ export const createRenderComponent = (Component, initialAdditionalProps) => {
   let storedAdditionalProps = initialAdditionalProps;
   const components = new Set();
   class RenderComponent extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
       components.add(this);
     }
 

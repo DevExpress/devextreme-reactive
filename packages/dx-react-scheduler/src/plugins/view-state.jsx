@@ -27,13 +27,14 @@ export class ViewState extends React.PureComponent {
       .bind(stateHelper, 'currentDate', changeCurrentDate);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      currentDate,
+      currentDate = prevState.currentDate,
     } = nextProps;
-    this.setState({
-      ...currentDate !== undefined ? { currentDate } : null,
-    });
+
+    return {
+      currentDate,
+    };
   }
 
   render() {

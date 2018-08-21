@@ -17,9 +17,11 @@ initialize({
     const DemoContainer = demoContainer || 'div';
     ReactDOM.render(
       (
-        <DemoContainer>
-          <Demo />
-        </DemoContainer>
+        <React.StrictMode>
+          <DemoContainer>
+            <Demo />
+          </DemoContainer>
+        </React.StrictMode>
       ),
       element,
     );

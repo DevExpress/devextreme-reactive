@@ -279,6 +279,29 @@ describe('calculateDomain', () => {
       },
     });
   });
+
+  it('should be computed from data and series option, tickFormat is specify', () => {
+    const calculatedDomains = domains(
+      [{ ...argumentAxis, tickFormat: 'argumentTickFormat' }, { ...valueAxis, tickFormat: 'valueTickFormat' }],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
+      }],
+      'argumentAxis',
+      {},
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: 'argumentTickFormat',
+      },
+      valueAxis: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'valueTickFormat',
+      },
+    });
+  });
 });
 
 describe('computedExtension', () => {

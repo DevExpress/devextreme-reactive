@@ -14,3 +14,4 @@ export class ScatterSeries extends React.PureComponent {
 }
 
 ScatterSeries.Point = Point;
+ScatterSeries.Path = ScatterSeriesBase.Path;

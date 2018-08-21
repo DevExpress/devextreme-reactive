@@ -9,22 +9,80 @@ import {
 } from 'd3-shape';
 import { createScale } from '../../utils/scale';
 
-const getX = ({ x }) => x;
+const getX = ({ x, width }) => x + (width / 2);
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
-const computeLinePath = (
+const DEFAULT_POINT_SIZE = 7;
+
+export const dArea = area()
+  .x(getX)
+  .y1(getY)
+  .y0(getY1);
+
+export const dLine = line()
+  .x(getX)
+  .y(getY);
+
+export const dSpline = line()
+  .x(getX)
+  .y(getY)
+  .curve(curveCatmullRom);
+
+export const xyScales = (
+  argumentDomainOptions,
+  valueDomainOptions,
+  { width, height },
+  groupWidth,
+) => ({
+  xScale: createScale(argumentDomainOptions, width, height, 1 - groupWidth),
+  yScale: createScale(valueDomainOptions, width, height),
+});
+
+export const pieAttributes = (
   data,
-  scales,
+  { xScale, yScale },
+  argumentField,
+  valueField,
+  name,
+  stack,
+  stacks,
+  { innerRadius = 0, outerRadius = 1 },
+) => {
+  const width = Math.max.apply(null, xScale.range());
+  const height = Math.max.apply(null, yScale.range());
+  const radius = Math.min(width, height) / 2;
+  const pieData = pie().value(d => d[valueField])(data);
+
+  return pieData.map(({
+    startAngle, endAngle, value, data: itemData,
+  }) => ({
+    d: arc()
+      .innerRadius(innerRadius * radius)
+      .outerRadius(outerRadius * radius)
+      .startAngle(startAngle)
+      .endAngle(endAngle)(),
+    value,
+    data: itemData,
+    id: itemData[argumentField],
+    x: width / 2,
+    y: height / 2,
+  }));
+};
+
+export const coordinates = (
+  data,
+  { xScale, yScale },
   argumentField,
   valueField,
   name,
 ) => data.reduce((result, dataItem, index) => {
   if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
     return [...result, {
-      x: scales.xScale(dataItem[argumentField]),
-      y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
-      y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
+      x: xScale(dataItem[argumentField]),
+      y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
+      y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
+      width: xScale.bandwidth ? xScale.bandwidth() : 0,
       id: index,
       value: dataItem[valueField],
     }];
@@ -32,114 +90,69 @@ const computeLinePath = (
   return result;
 }, []);
 
-const getGenerator = (type) => {
-  switch (type) {
-    case 'spline':
-      return line()
-        .x(getX)
-        .y(getY)
-        .curve(curveCatmullRom);
-    case 'area':
-      return area()
-        .x(getX)
-        .y1(getY)
-        .y0(getY1);
-    default:
-      return line()
-        .x(getX)
-        .y(getY);
-  }
-};
-
-export const xyScales = (
-  domainsOptions,
-  argumentAxisName,
-  domainName,
-  layout,
-  stacks = [],
-  { groupWidth = 1, barWidth = 1 },
-) => {
-  const { width, height } = layout;
-  const argumentDomainOptions = domainsOptions[argumentAxisName];
-  const xScale = createScale(argumentDomainOptions, width, height, 1 - groupWidth);
-  const bandwidth = xScale.bandwidth
-    ? xScale.bandwidth()
-    : width / xScale.ticks().length;
-
-  return {
-    xScale,
-    yScale: createScale(domainsOptions[domainName], width, height),
-    x0Scale: createScale({
-      orientation: argumentDomainOptions.orientation,
-      type: 'band',
-      domain: stacks,
-    }, bandwidth, bandwidth, 1 - barWidth),
-  };
-};
-
-export const pieAttributes = (
-  valueField,
+export const barCoordinates = (
   data,
-  width,
-  height,
-  innerRadius,
-  outerRadius,
-) => {
-  const radius = Math.min(width, height) / 2;
-  const pieData = pie().value(d => d[valueField])(data);
-
-  return pieData.map(d => ({
-    d: arc().innerRadius(radius * innerRadius)
-      .outerRadius(radius * outerRadius || radius)
-      .startAngle(d.startAngle)
-      .endAngle(d.endAngle)(),
-    value: d.value,
-  }));
-};
-
-export const coordinates = (
-  data,
-  scales,
+  { xScale, yScale },
   argumentField,
   valueField,
   name,
-) => computeLinePath(data, scales, argumentField, valueField, name);
+  stack,
+  stacks = [undefined],
+  { barWidth = 0.9 },
+) => {
+  const rawCoordinates = coordinates(
+    data,
+    { xScale, yScale },
+    argumentField,
+    valueField,
+    name,
+  );
+  const bandwidth = xScale.bandwidth ? xScale.bandwidth() : 0;
+  const x0Scale = createScale(
+    {
+      type: 'band',
+      domain: stacks,
+    },
+    bandwidth,
+    bandwidth,
+    1 - barWidth,
+  );
+  return rawCoordinates.map(item => ({
+    ...item,
+    width: x0Scale.bandwidth(),
+    x: item.x + x0Scale(stack),
+  }));
+};
 
-export const findSeriesByName = (name, series) => series.find(
-  seriesItem => seriesItem.uniqueName === name,
-);
+export const findSeriesByName = (
+  name, series,
+) => series.find(seriesItem => seriesItem.symbolName === name);
 
-
-export const lineAttributes = (
-  type,
-  scales,
-) => ({
-  path: getGenerator(type),
-  x: scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0,
-  y: 0,
+export const dBar = ({
+  x, y, y1, width,
+}) => ({
+  x, y: Math.min(y, y1), width: width || 2, height: Math.abs(y1 - y),
 });
 
-export const pointAttributes = (scales, { size = 7 }) => {
+export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
-  const offSet = scales.xScale.bandwidth ? scales.xScale.bandwidth() / 2 : 0;
   return item => ({
     d: dPoint,
-    x: item.x + offSet,
+    x: item.x,
     y: item.y,
   });
 };
 
-export const barPointAttributes = (scales, _, stack) => {
-  const bandwidth = scales.x0Scale.bandwidth();
-  const offset = scales.x0Scale(stack) || 0;
-  return item => ({
-    x: item.x + offset,
-    y: Math.min(item.y, item.y1),
-    width: bandwidth,
-    height: Math.abs(item.y1 - item.y),
-  });
-};
+const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
-export const seriesData = (series = [], seriesProps) => [...series, seriesProps];
+export const seriesData = (series = [], seriesProps) => {
+  if (series.find((({ uniqueName }) => uniqueName === seriesProps.uniqueName))) {
+    return seriesData(
+      series,
+      { ...seriesProps, uniqueName: createNewUniqueName(seriesProps.uniqueName) },
+    );
+  }
+  return [...series, seriesProps];
+};
 
 export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });

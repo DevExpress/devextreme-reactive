@@ -11,12 +11,11 @@ import {
 import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
 import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
 
-const nullComponent = () => null;
-const SpecialMarkerComponent = ({ name, themeColor }) => {
+const SpecialMarkerComponent = ({ name, color }) => {
   const Icon = name === 'Noisy signal' ? NoisySignalIcon : OriginalSignalIcon;
   return (
     <svg width={18} height={18} viewBox={Icon.viewBox}>
-      <use fill={themeColor} href={`#${Icon.id}`} />
+      <use fill={color} href={`#${Icon.id}`} />
     </svg>
   );
 };
@@ -57,14 +56,12 @@ export default class Demo extends React.PureComponent {
             name="Noisy signal"
             valueField="value"
             argumentField="argument"
-            pointComponent={nullComponent}
           />
 
           <LineSeries
             name="Original signal"
             valueField="originalValue"
             argumentField="argument"
-            pointComponent={nullComponent}
           />
 
           <Title text="Noisy and Original signals" style={{ margin: 'auto' }} />

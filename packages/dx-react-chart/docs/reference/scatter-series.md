@@ -43,8 +43,19 @@ y | number | The point's y coordinate.
 d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
 value | number | The point's value.
 
+### ScatterSeries.SeriesProps
+
+Describes properties passed to a component that renders the series.
+ 
+Field | Type | Description
+------|------|------------
+pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders a series point.
+coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
+point? | { size : number } | point: { size: 7 } | Point options.
+
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
+ScatterSeries.Path | [ScatterSeries.SeriesProps](#scatterseriesseriesprops) | A component that renders the series of points.
 ScatterSeries.Point | [ScatterSeries.PointProps](#scatterseriespointprops) | A component that renders a series point.

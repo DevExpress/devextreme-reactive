@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { lineAttributes, pointAttributes } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils/series-helper';
+import { dArea, coordinates } from '@devexpress/dx-chart-core';
+import { withSeriesPlugin, withColor } from '../utils';
 
 const Series = ({
   ...props
@@ -11,50 +11,20 @@ const Series = ({
     ...restProps
   } = props;
   return (
-    <Path {...restProps} />
-  );
-};
-
-const Dot = ({
-  ...props
-}) => {
-  const {
-    pointStyle,
-    pointComponent: Point,
-    ...restProps
-  } = props;
-  return (
-    <Point
+    <Path
+      path={dArea}
       {...restProps}
-      style={pointStyle}
     />
   );
 };
 
-const options = ({ ...props }) => {
-  const { point = {} } = props;
-  return { size: point.size };
-};
-
 export const AreaSeries = withSeriesPlugin(
-  Series,
-  Dot,
+  withColor(Series),
   'AreaSeries',
   'area',
-  lineAttributes,
-  pointAttributes,
-  options,
+  coordinates,
 );
 
 Series.propTypes = {
   seriesComponent: PropTypes.func.isRequired,
-};
-
-Dot.propTypes = {
-  pointStyle: PropTypes.object,
-  pointComponent: PropTypes.func.isRequired,
-};
-
-Dot.defaultProps = {
-  pointStyle: {},
 };

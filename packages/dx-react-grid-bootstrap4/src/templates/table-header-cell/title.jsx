@@ -5,12 +5,12 @@ import classNames from 'classnames';
 export const Title = ({
   children, className, ...restProps
 }) => (
-  <div
+  <span
     className={classNames('dx-rg-bs4-table-header-titlt', className)}
     {...restProps}
   >
     {children}
-  </div>
+  </span>
 );
 
 Title.propTypes = {

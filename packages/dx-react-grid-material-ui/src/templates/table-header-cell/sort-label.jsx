@@ -11,6 +11,9 @@ const SPACE_KEY_CODE = 32;
 const styles = () => ({
   root: {
     width: '100%',
+    userSelect: 'none',
+    MozUserSelect: 'none',
+    WebkitUserSelect: 'none',
   },
   tooltipRoot: {
     display: 'block',

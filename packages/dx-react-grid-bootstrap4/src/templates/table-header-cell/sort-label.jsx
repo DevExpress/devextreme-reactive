@@ -30,7 +30,7 @@ export const SortLabel = ({
 }) => (
   <span
     className={classNames({
-      'd-inline-flex flex-direction-row align-items-center mw-100': true,
+      'd-inline-flex flex-direction-row align-items-center mw-100 dx-g-bs4-user-select-none': true,
       'dx-g-bs4-cursor-pointer': !disabled,
       'flex-row-reverse': align === 'right',
       'text-primary': direction,

@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export const Title = ({
   children, style, ...restProps
 }) => (
-  <div
+  <span
     style={{
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -13,7 +13,7 @@ export const Title = ({
     {...restProps}
   >
     {children}
-  </div>
+  </span>
 );
 
 Title.propTypes = {

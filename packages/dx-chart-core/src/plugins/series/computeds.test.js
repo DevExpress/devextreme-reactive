@@ -88,8 +88,8 @@ const dataWithUndefined = [
   },
 ];
 
-const computedLine = data.map(item => ({
-  id: item.arg, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1, width: 0,
+const computedLine = data.map((item, index) => ({
+  id: index, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1, width: 0,
 }));
 
 const groupWidth = 0.7;
@@ -194,15 +194,15 @@ describe('barCoordinates', () => {
     );
 
     expect(result).toEqual([{
-      id: 1, value: 3, width: 10, x: 1, y: 3, y1: 2,
+      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 2,
     }, {
-      id: 2, value: 5, width: 10, x: 2, y: 5, y1: 4,
+      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 4,
     }, {
-      id: 3, value: 7, width: 10, x: 3, y: 7, y1: 6,
+      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 6,
     }, {
-      id: 4, value: 10, width: 10, x: 4, y: 10, y1: 9,
+      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 9,
     }, {
-      id: 5, value: 15, width: 10, x: 5, y: 15, y1: 14,
+      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 14,
     }]);
   });
 });
@@ -266,13 +266,13 @@ describe('Series attributes', () => {
       'Series3',
     )).toEqual([
       {
-        id: 1, x: 1, y: 3, y1: 3, value: 3, width: 0,
+        id: 0, x: 1, y: 3, y1: 3, value: 3, width: 0,
       },
       {
-        id: 3, x: 3, y: 7, y1: 7, value: 7, width: 0,
+        id: 2, x: 3, y: 7, y1: 7, value: 7, width: 0,
       },
       {
-        id: 5, x: 5, y: 15, y1: 15, value: 15, width: 0,
+        id: 4, x: 5, y: 15, y1: 15, value: 15, width: 0,
       },
     ]);
   });

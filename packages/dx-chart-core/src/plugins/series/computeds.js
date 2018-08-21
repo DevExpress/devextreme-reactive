@@ -76,14 +76,14 @@ export const coordinates = (
   argumentField,
   valueField,
   name,
-) => data.reduce((result, dataItem) => {
+) => data.reduce((result, dataItem, index) => {
   if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
     return [...result, {
       x: xScale(dataItem[argumentField]),
       y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
       y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
       width: xScale.bandwidth ? xScale.bandwidth() : 0,
-      id: dataItem[argumentField],
+      id: index,
       value: dataItem[valueField],
     }];
   }

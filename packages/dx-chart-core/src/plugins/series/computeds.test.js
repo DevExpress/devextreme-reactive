@@ -90,8 +90,8 @@ const dataWithUndefined = [
   },
 ];
 
-const computedLine = data.map(item => ({
-  id: item.arg, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
+const computedLine = data.map((item, index) => ({
+  id: index, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
 }));
 
 const series2 = Symbol('Series2');
@@ -220,13 +220,13 @@ describe('Series attributes', () => {
       'Series3',
     )).toEqual([
       {
-        id: 1, x: 1, y: 3, y1: 3, value: 3,
+        id: 0, x: 1, y: 3, y1: 3, value: 3,
       },
       {
-        id: 3, x: 3, y: 7, y1: 7, value: 7,
+        id: 2, x: 3, y: 7, y1: 7, value: 7,
       },
       {
-        id: 5, x: 5, y: 15, y1: 15, value: 15,
+        id: 4, x: 5, y: 15, y1: 15, value: 15,
       },
     ]);
   });

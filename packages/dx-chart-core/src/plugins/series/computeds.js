@@ -19,13 +19,13 @@ const computeLinePath = (
   argumentField,
   valueField,
   name,
-) => data.reduce((result, dataItem) => {
+) => data.reduce((result, dataItem, index) => {
   if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
     return [...result, {
       x: scales.xScale(dataItem[argumentField]),
       y: scales.yScale(dataItem[`${valueField}-${name}-stack`][1]),
       y1: scales.yScale(dataItem[`${valueField}-${name}-stack`][0]),
-      id: dataItem[argumentField],
+      id: index,
       value: dataItem[valueField],
     }];
   }

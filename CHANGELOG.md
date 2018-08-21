@@ -1,3 +1,14 @@
+<a name="1.6.1"></a>
+# [1.6.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.6.0...v1.6.1) (2018-08-21)
+
+
+### Bug Fixes
+
+* **react-grid:** remove resizing animation ([#1333](https://github.com/DevExpress/devextreme-reactive/issues/1333)) ([5c0e748](https://github.com/DevExpress/devextreme-reactive/commit/5c0e748))
+* **react:** fix adding existing plugins ([#1328](https://github.com/DevExpress/devextreme-reactive/issues/1333)) ([e773303](https://github.com/DevExpress/devextreme-reactive/commit/e773303))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.5.1...v1.6.0) (2018-08-17)
 

@@ -10,8 +10,6 @@ const SPACE_KEY_CODE = 32;
 
 const styles = () => ({
   root: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     width: '100%',
   },
   tooltipRoot: {

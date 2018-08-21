@@ -2,8 +2,9 @@ import * as React from 'react';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { TableRow } from '../templates/table-row';
-import { Content } from '../templates/table-header-cell/content';
 import { SortLabel } from '../templates/table-header-cell/sort-label';
+import { Title } from '../templates/table-header-cell/title';
+import { Content } from '../templates/table-header-cell/content';
 
 export class TableHeaderRow extends React.PureComponent {
   render() {
@@ -11,8 +12,9 @@ export class TableHeaderRow extends React.PureComponent {
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
+        contentComponent={Content}
         sortLabelComponent={SortLabel}
-        cellContentComponent={Content}
+        titleComponent={Title}
         {...this.props}
       />
     );
@@ -21,5 +23,6 @@ export class TableHeaderRow extends React.PureComponent {
 
 TableHeaderRow.Cell = TableHeaderCell;
 TableHeaderRow.Row = TableRow;
-TableHeaderRow.SortLabel = SortLabel;
 TableHeaderRow.Content = Content;
+TableHeaderRow.SortLabel = SortLabel;
+TableHeaderRow.Title = Title;

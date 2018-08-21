@@ -7,54 +7,6 @@ const defaultProps = {
 };
 
 describe('Content', () => {
-  it('should have correct classes when grouping by click is not allowed and column align is left', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
-      />
-    ));
-    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
-      .toBeTruthy();
-    expect(tree.is('.text-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is allowed and column align is left', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
-        showGroupingControls
-      />
-    ));
-    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
-      .toBeTruthy();
-    expect(tree.is('.text-right'))
-      .toBeFalsy();
-  });
-
-  it('should have correct classes when grouping by click is not allowed and column align is right', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
-        align="right"
-      />
-    ));
-    expect(tree.is('.text-right'))
-      .toBeTruthy();
-  });
-
-  it('should have correct classes when grouping by click is allowed and column align is right', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
-        align="right"
-        showGroupingControls
-      />
-    ));
-    expect(tree.is('.text-right'))
-      .toBeTruthy();
-  });
-
   it('should have correct classes when column is aligned by center', () => {
     const tree = shallow((
       <Content
@@ -63,9 +15,22 @@ describe('Content', () => {
       />
     ));
 
-    expect(tree.is('.text-center'))
+    expect(tree.is('.justify-content-center'))
       .toBeTruthy();
   });
+
+  it('should have correct classes when column is aligned by center', () => {
+    const tree = shallow((
+      <Content
+        {...defaultProps}
+        align="right"
+      />
+    ));
+
+    expect(tree.is('.justify-content-end'))
+      .toBeTruthy();
+  });
+
   it('should apply custom class', () => {
     const tree = shallow((
       <Content
@@ -75,9 +40,8 @@ describe('Content', () => {
     ));
     expect(tree.is('.customClass'))
       .toBeTruthy();
-    expect(tree.is('.dx-rg-bs4-table-header-cell-wrapper'))
-      .toBeTruthy();
   });
+
   it('should spread rest props to the root element', () => {
     const tree = shallow((
       <Content

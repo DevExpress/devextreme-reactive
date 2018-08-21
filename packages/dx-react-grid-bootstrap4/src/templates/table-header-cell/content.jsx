@@ -5,15 +5,16 @@ import classNames from 'classnames';
 export const Content = ({
   column, children, align, className, ...restProps
 }) => (
-  <span
+  <div
     className={classNames({
-      'w-100 dx-rg-bs4-table-header-cell-wrapper': true,
-      [`text-${align}`]: align !== 'left',
+      'w-100 d-flex flex-row align-items-end': true,
+      'justify-content-center': align === 'center',
+      'justify-content-end': align === 'right',
     }, className)}
     {...restProps}
   >
     {children}
-  </span>
+  </div>
 );
 
 Content.propTypes = {

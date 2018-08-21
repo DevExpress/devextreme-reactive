@@ -4,6 +4,7 @@ import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid'
 import { TableHeaderCell } from '../templates/table-header-cell';
 import { Content } from '../templates/table-header-cell/content';
 import { SortLabel } from '../templates/table-header-cell/sort-label';
+import { Title } from '../templates/table-header-cell/title';
 import { TableRow } from '../templates/table-row';
 
 const defaultMessages = {
@@ -20,9 +21,10 @@ export class TableHeaderRow extends React.PureComponent {
     return (
       <TableHeaderRowBase
         cellComponent={TableHeaderCell}
-        cellContentComponent={Content}
+        contentComponent={Content}
         rowComponent={TableRow}
         sortLabelComponent={SortLabel}
+        titleComponent={Title}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -34,6 +36,7 @@ TableHeaderRow.Cell = TableHeaderCell;
 TableHeaderRow.Content = Content;
 TableHeaderRow.Row = TableRow;
 TableHeaderRow.SortLabel = SortLabel;
+TableHeaderRow.Title = Title;
 
 TableHeaderRow.propTypes = {
   messages: PropTypes.shape({

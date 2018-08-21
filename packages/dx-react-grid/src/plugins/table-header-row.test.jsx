@@ -43,7 +43,9 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
-  cellContentComponent: () => null,
+  contentComponent: () => null,
+  titleComponent: () => null,
+  sortLabelComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -260,7 +262,7 @@ describe('TableHeaderRow', () => {
   });
 
   describe('Header cell', () => {
-    it('should use column name if title is not specified ', () => {
+    it('should use column name if title is not specified', () => {
       isHeadingTableCell.mockImplementation(() => true);
       const deps = {
         template: {
@@ -279,17 +281,23 @@ describe('TableHeaderRow', () => {
                 {children}
               </th>
             )}
-            cellContentComponent={({ children }) => (
+            contentComponent={({ children }) => (
               <div>
                 {children}
               </div>
+            )}
+            titleComponent={({ children }) => (
+              <span>
+                {children}
+              </span>
             )}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('th div').text()).toBe('Test');
+      expect(tree.find('th span').text()).toBe('Test');
     });
+
     it('should not render sort label by default', () => {
       const tree = mount((
         <PluginHost>
@@ -302,7 +310,7 @@ describe('TableHeaderRow', () => {
                 {children}
               </th>
             )}
-            cellContentComponent={({ children }) => (
+            contentComponent={({ children }) => (
               <div>
                 {children}
               </div>
@@ -334,7 +342,7 @@ describe('TableHeaderRow', () => {
                 {children}
               </th>
             )}
-            cellContentComponent={({ children }) => (
+            contentComponent={({ children }) => (
               <div>
                 {children}
               </div>

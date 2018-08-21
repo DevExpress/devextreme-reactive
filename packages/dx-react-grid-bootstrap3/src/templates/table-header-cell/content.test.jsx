@@ -8,63 +8,34 @@ const defaultProps = {
 };
 
 describe('Content', () => {
-  it('should have correct styles when grouping by click is not allowed and column align is left', () => {
+  it('should have correct styles align is right', () => {
     const tree = shallow((
       <Content
         {...defaultProps}
-      />
-    ));
-    expect(tree.prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
-  });
-  it('should have correct styles when grouping by click is allowed and column align is left', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
+        align="right"
         showGroupingControls
       />
     ));
     expect(tree.prop('style'))
       .toMatchObject({
-        textAlign: 'left',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-      });
-  });
-  it('should have correct styles when grouping by click is not allowed and column align is right', () => {
-    const tree = shallow((
-      <Content
-        {...defaultProps}
-        align="right"
-      />
-    ));
-    expect(tree.prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
+        justifyContent: 'flex-end',
       });
   });
 
-  it('should have correct styles when grouping by click is allowed and column align is right', () => {
+  it('should have correct styles align is center', () => {
     const tree = shallow((
       <Content
         {...defaultProps}
-        align="right"
+        align="center"
         showGroupingControls
       />
     ));
     expect(tree.prop('style'))
       .toMatchObject({
-        textAlign: 'right',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
+        justifyContent: 'center',
       });
   });
+
   it('should apply custom styles', () => {
     const tree = shallow((
       <Content
@@ -74,12 +45,10 @@ describe('Content', () => {
     ));
     expect(tree.prop('style'))
       .toMatchObject({
-        textAlign: 'left',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: 'red',
+        justifyContent: 'flex-start',
       });
   });
+
   it('should spread rest props to the root element', () => {
     const tree = shallow((
       <Content

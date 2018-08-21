@@ -51,6 +51,12 @@ The Grid cuts off values that do not fit in a cell. Assign true to the Table plu
 
 .embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 
+### Custon content in header cells
+
+You may add additional elements to the Grid header by extending the `contnentComponent` property of the TableHeaderRow plugin.
+
+.embedded-demo({ "path": "grid-basic/table-header-content-template", "showThemeSelector": true })
+
 ### Other plugins
 
 Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.

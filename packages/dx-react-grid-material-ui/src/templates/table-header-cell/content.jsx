@@ -5,22 +5,24 @@ import classNames from 'classnames';
 
 const styles = {
   content: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   alignCenter: {
-    align: 'center',
+    justifyContent: 'center',
   },
   alignRight: {
-    align: 'right',
+    justifyContent: 'flex-end',
   },
 };
 
 const ContentBase = ({
   column, align, children, classes, className, ...restProps
 }) => (
-  <span
+  <div
     className={classNames({
       [classes.content]: true,
       [classes.alignCenter]: align === 'center',
@@ -29,10 +31,8 @@ const ContentBase = ({
     {...restProps}
   >
     {children}
-  </span>
+  </div>
 );
-
-export const Content = withStyles(styles, { name: 'Content' })(ContentBase);
 
 ContentBase.propTypes = {
   column: PropTypes.object,
@@ -51,3 +51,5 @@ ContentBase.defaultProps = {
   className: null,
   children: undefined,
 };
+
+export const Content = withStyles(styles, { name: 'Content' })(ContentBase);

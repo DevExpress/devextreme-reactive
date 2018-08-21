@@ -4,18 +4,20 @@ import * as PropTypes from 'prop-types';
 export const Content = ({
   column, children, align, style, ...restProps
 }) => (
-  <span
+  <div
     style={{
-      textAlign: align,
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
       width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      // eslint-disable-next-line no-nested-ternary
+      justifyContent: align === 'center' ? 'center' : (align === 'right' ? 'flex-end' : 'flex-start'),
       ...style,
     }}
     {...restProps}
   >
     {children}
-  </span>
+  </div>
 );
 
 Content.propTypes = {

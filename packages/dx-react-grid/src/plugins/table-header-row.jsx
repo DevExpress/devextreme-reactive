@@ -21,8 +21,9 @@ export class TableHeaderRow extends React.PureComponent {
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
+      contentComponent: Content,
       sortLabelComponent: SortLabel,
-      cellContentComponent: Content,
+      titleComponent: Title,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -106,32 +107,31 @@ export class TableHeaderRow extends React.PureComponent {
                         column: params.tableColumn.column,
                       }}
                     />
-                    {showSortingControls ? (
-                      <SortLabel
-                        column={params.tableColumn.column}
-                        align={params.tableColumn.align}
-                        direction={getColumnSortingDirection(sorting, columnName)}
-                        disabled={!sortingEnabled}
-                        onSort={({ direction, keepOther }) => {
-                          changeColumnSorting({ columnName, direction, keepOther });
-                        }}
-                        getMessage={getMessage}
-                      >
-                        <Content
+                    <Content
+                      column={params.tableColumn.column}
+                      align={params.tableColumn.align}
+                    >
+                      {showSortingControls ? (
+                        <SortLabel
                           column={params.tableColumn.column}
                           align={params.tableColumn.align}
+                          direction={getColumnSortingDirection(sorting, columnName)}
+                          disabled={!sortingEnabled}
+                          onSort={({ direction, keepOther }) => {
+                            changeColumnSorting({ columnName, direction, keepOther });
+                          }}
+                          getMessage={getMessage}
                         >
+                          <Title>
+                            {columnTitle || columnName}
+                          </Title>
+                        </SortLabel>
+                      ) : (
+                        <Title>
                           {columnTitle || columnName}
-                        </Content>
-                      </SortLabel>
-                    ) : (
-                      <Content
-                        column={params.tableColumn.column}
-                        align={params.tableColumn.align}
-                      >
-                        {columnTitle || columnName}
-                      </Content>
-                    )}
+                        </Title>
+                      )}
+                    </Content>
                   </HeaderCell>
                 );
               }}
@@ -153,9 +153,10 @@ TableHeaderRow.propTypes = {
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
-  cellContentComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  sortLabelComponent: PropTypes.func,
+  titleComponent: PropTypes.func.isRequired,
+  sortLabelComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 
@@ -163,5 +164,4 @@ TableHeaderRow.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
   messages: null,
-  sortLabelComponent: () => {},
 };

@@ -36,8 +36,9 @@ Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[TableHeaderRow.CellProps](#tableheaderrowcellprops)&gt; | | A component that renders a header cell.
 rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | | A component that renders a header row.
+contentComponent | ComponentType&lt;[TableHeaderRow.ContentProps](#tableheaderrowcontentprops)&gt; | | A component that renders a cell content.
 sortLabelComponent | ComponentType&lt;[TableHeaderRow.SortLabelProps](#tableheaderrowsortlabelprops)&gt; | | A component that renders a sort label.
-cellContentComponent | ComponentType&lt;[TableHeaderRow.ContentProps](#tableheaderrowcontentprops)&gt; | | A component that renders a cell content.
+titleComponent | ComponentType&lt;object&gt; | | A component that renders a title.
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -104,8 +105,9 @@ Name | Properties | Description
 -----|------------|------------
 TableHeaderRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a header row.
 TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A component that renders a header cell.
-TableHeaderRow.SortLabel | [TableHeaderRow.SortLabelProps](#tableheaderrowsortlabelprops) | A component that renders a sort label.
 TableHeaderRow.Content | [TableHeaderRow.ContentProps](#tableheaderrowcontentprops) | A component that renders a cell content.
+TableHeaderRow.SortLabel | [TableHeaderRow.SortLabelProps](#tableheaderrowsortlabelprops) | A component that renders a sort label.
+TableHeaderRow.Title | object | A component that renders a title.
 
 Additional properties are added to the component's root element.
 

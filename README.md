@@ -23,7 +23,7 @@ DevExtreme Reactive is a set of business components for React and Vue that deepl
 
 ### React Chart (CTP)
 
-[Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
+[Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
 *Note: You can also use the [alternative project](https://github.com/DevExpress/devextreme-react) with 65+ React components. Refer to the comparison [blog post](https://community.devexpress.com/blogs/oliver/archive/2018/04/20/devextreme-new-react-wrappers-vs-native-react-components.aspx) for more information.*
 

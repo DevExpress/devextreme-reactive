@@ -74,7 +74,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <Scale
-            extension={[
+            extensions={[
               { type: 'log', constructor: () => scaleLog().base(2) },
             ]}
           />

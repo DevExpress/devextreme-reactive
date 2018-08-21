@@ -5,8 +5,8 @@ import { domains, computedExtension } from '@devexpress/dx-chart-core';
 
 export class Scale extends React.PureComponent {
   render() {
-    const { extension } = this.props;
-    const getExtension = () => computedExtension(extension);
+    const { extensions } = this.props;
+    const getExtension = () => computedExtension(extensions);
     return (
       <Plugin name="Scale">
         <Getter name="computedDomain" value={domains} />
@@ -17,12 +17,12 @@ export class Scale extends React.PureComponent {
 }
 
 Scale.propTypes = {
-  extension: PropTypes.arrayOf(PropTypes.shape({
+  extensions: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string,
     constructor: PropTypes.func,
   })),
 };
 
 Scale.defaultProps = {
-  extension: [],
+  extensions: [],
 };

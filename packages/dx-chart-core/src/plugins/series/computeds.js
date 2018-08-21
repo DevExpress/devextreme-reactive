@@ -2,7 +2,7 @@ import {
   symbol,
   symbolCircle,
   line,
-  curveCatmullRom,
+  curveMonotoneX,
   area,
   arc,
   pie,
@@ -38,7 +38,7 @@ const getGenerator = (type) => {
       return line()
         .x(getX)
         .y(getY)
-        .curve(curveCatmullRom);
+        .curve(curveMonotoneX);
     case 'area':
       return area()
         .x(getX)

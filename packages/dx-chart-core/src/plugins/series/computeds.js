@@ -2,7 +2,7 @@ import {
   symbol,
   symbolCircle,
   line,
-  curveCatmullRom,
+  curveMonotoneX,
   area,
   arc,
   pie,
@@ -27,7 +27,7 @@ export const dLine = line()
 export const dSpline = line()
   .x(getX)
   .y(getY)
-  .curve(curveCatmullRom);
+  .curve(curveMonotoneX);
 
 export const xyScales = (
   argumentDomainOptions,

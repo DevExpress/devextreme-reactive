@@ -19,7 +19,8 @@ const TableHeaderContent = ({ column, children, ...restProps }) => (
     {column.name === 'sector' ? (
       <button
         type="button"
-        className="btn btn-outline-secondary border-0 mx-1"
+        className="btn btn-outline-secondary"
+        style={{ margin: '-7px 5px' }}
         // eslint-disable-next-line no-alert
         onClick={() => alert('Custom action')}
       >

@@ -18,11 +18,11 @@ const TableHeaderContent = ({ column, children, ...restProps }) => (
     {column.name === 'sector' ? (
       <button
         type="button"
-        className="btn btn-link"
+        className="btn btn-default"
         // eslint-disable-next-line no-alert
         onClick={() => alert('Custom action')}
         style={{
-          margin: '0 5px',
+          margin: '-7px 5px',
         }}
       >
         <i className="glyphicon glyphicon-eye-close" />

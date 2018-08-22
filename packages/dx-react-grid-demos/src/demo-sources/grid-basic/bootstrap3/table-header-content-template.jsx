@@ -15,7 +15,7 @@ const TableHeaderContent = ({ column, children, ...restProps }) => (
     {...restProps}
   >
     {children}
-    {column.name === 'sector' ? (
+    {column.name === 'region' ? (
       <button
         type="button"
         className="btn btn-default"

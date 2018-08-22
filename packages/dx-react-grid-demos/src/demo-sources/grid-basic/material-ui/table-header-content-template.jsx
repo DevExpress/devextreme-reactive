@@ -27,7 +27,7 @@ const TableHeaderContentBase = ({
     {...restProps}
   >
     {children}
-    {column.name === 'sector' ? (
+    {column.name === 'region' ? (
       <IconButton
         className={classes.button}
         // eslint-disable-next-line no-alert

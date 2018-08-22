@@ -8,17 +8,14 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, coordinates, xyScales, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, seriesData, checkZeroStart,
 } from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
-  Path,
-  Point,
+  Series,
   pluginName,
   pathType,
-  processLine,
-  processPoint,
-  extraOptions,
+  calculateCoordinates,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -28,12 +25,21 @@ export const withSeriesPlugin = (
         argumentField,
         axisName,
         stack: stackProp,
+        color,
+        groupWidth,
         ...restProps
       } = this.props;
 
-      const uniqueName = Symbol(name);
+      const symbolName = Symbol(name);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
-        valueField, argumentField, name, uniqueName, axisName, stack: stackProp,
+        valueField,
+        argumentField,
+        name,
+        symbolName,
+        axisName,
+        stack: stackProp,
+        color,
+        uniqueName: name,
       });
       const startFromZeroByAxes = (
         { startFromZero = {} },
@@ -52,47 +58,38 @@ export const withSeriesPlugin = (
                 data,
                 argumentAxisName,
                 layouts,
+                colorDomain,
+                pieColorDomain,
               }) => {
                 const {
-                  stack, themeColor,
-                } = findSeriesByName(uniqueName, series);
-                const options = extraOptions({ ...restProps });
+                  stack, uniqueName,
+                } = findSeriesByName(symbolName, series);
+
                 const scales = xyScales(
-                  domains,
-                  argumentAxisName,
-                  axisName,
+                  domains[argumentAxisName],
+                  domains[axisName],
                   layouts.pane,
-                  stacks,
-                  options,
+                  groupWidth,
                 );
-                const coord = coordinates(
+                const calculatedCoordinates = calculateCoordinates(
                   data,
                   scales,
                   argumentField,
                   valueField,
                   name,
+                  stack,
+                  stacks,
+                  restProps,
                 );
-                const pointParameters = processPoint(scales, options, stack);
+
                 return (
-                  <React.Fragment>
-                    <Path
-                      themeColor={themeColor}
-                      coordinates={coord}
-                      {...processLine(pathType, scales)}
-                      {...restProps}
-                    />
-                    {
-                      coord.map(item => (
-                        <Point
-                          themeColor={themeColor}
-                          key={item.id.toString()}
-                          value={item.value}
-                          {...pointParameters(item)}
-                          {...restProps}
-                        />
-                      ))
-                    }
-                  </React.Fragment>
+                  <Series
+                    uniqueName={uniqueName}
+                    colorDomain={pluginName === 'PieSeries' ? pieColorDomain : colorDomain}
+                    coordinates={calculatedCoordinates}
+                    color={color}
+                    {...restProps}
+                  />
                 );
               }}
             </TemplateConnector>
@@ -107,11 +104,15 @@ export const withSeriesPlugin = (
     argumentField: PropTypes.string.isRequired,
     axisName: PropTypes.string,
     stack: PropTypes.string,
+    color: PropTypes.string,
+    groupWidth: PropTypes.number,
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
+    color: undefined,
     axisName: undefined,
     stack: undefined,
+    groupWidth: 0.7,
   };
   return Component;
 };

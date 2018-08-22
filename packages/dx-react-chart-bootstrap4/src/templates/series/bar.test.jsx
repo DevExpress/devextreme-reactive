@@ -50,8 +50,8 @@ describe('Bar', () => {
     expect(customProperty).toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
-    const tree = shallow(<Bar {...defaultProps} themeColor="color" />);
+  it('should apply color', () => {
+    const tree = shallow(<Bar {...defaultProps} color="color" />);
 
     expect(tree.find('rect').props().fill)
       .toBe('color');

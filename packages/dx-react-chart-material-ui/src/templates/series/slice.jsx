@@ -12,10 +12,11 @@ const styles = () => ({
 class SliceBase extends React.PureComponent {
   render() {
     const {
-      x, y, classes, className, value, ...restProps
+      x, y, classes, className, value, color, ...restProps
     } = this.props;
     return (
       <path
+        fill={color}
         transform={`translate(${x} ${y})`}
         className={classNames(classes.root, className)}
         {...restProps}
@@ -30,10 +31,12 @@ SliceBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   value: PropTypes.number.isRequired,
+  color: PropTypes.string,
 };
 
 SliceBase.defaultProps = {
   className: undefined,
+  color: undefined,
 };
 
 export const Slice = withStyles(styles)(SliceBase);

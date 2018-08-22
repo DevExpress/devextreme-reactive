@@ -28,9 +28,7 @@ valueField | string | | The name of a data field that provides series point valu
 argumentField | string | | The name of a data field that provides series point argument values.
 axisName? | string | | The associated axis.
 stack? | string | | The associated stack.
-point? | { size : number } | point: { size: 7 } | Point options.
 seriesComponent | ComponentType&lt;[LineSeries.SeriesProps](#lineseriesseriesprops)&gt; | | A component that renders the series.
-pointComponent | ComponentType&lt;[LineSeries.PointProps](#lineseriespointprops)&gt; | | A component that renders a point.
 
 ## Interfaces
 
@@ -45,20 +43,8 @@ y | number | The y coordinate of the top left corner of the series' rendering ar
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
 path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
 
-### LineSeries.PointProps
-
-Describes properties passed to a component that renders a point.
-
-Field | Type | Description
-------|------|------------
-x | number | The point's x coordinate.
-y | number | The point's y coordinate.
-d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
-value | number | The point's value.
-
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
 LineSeries.Path | [LineSeries.SeriesProps](#lineseriesseriesprops) | A component that renders the series.
-LineSeries.Point | [LineSeries.PointProps](#lineseriespointprops) | A component that renders a series point.

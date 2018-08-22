@@ -48,7 +48,6 @@ export default class Demo extends React.PureComponent {
             valueField="sale"
             argumentField="month"
             axisName="sale"
-            stack="a"
           />
 
           <LineSeries
@@ -56,7 +55,6 @@ export default class Demo extends React.PureComponent {
             valueField="total"
             argumentField="month"
             axisName="total"
-            stack="a"
           />
 
           <Legend />

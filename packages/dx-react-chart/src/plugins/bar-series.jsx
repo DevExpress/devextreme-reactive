@@ -1,39 +1,34 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { barPointAttributes } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils/series-helper';
+import { dBar, barCoordinates as computeCoordinates } from '@devexpress/dx-chart-core';
+import { withSeriesPlugin, withColor } from '../utils';
 
-const EmptyFunction = () => null;
-
-const Dot = ({
+const Series = ({
   ...props
 }) => {
   const {
     pointComponent: Point,
+    coordinates,
+    path,
     ...restProps
   } = props;
-  return (
+  return (coordinates.map(item => (
     <Point
+      key={item.id.toString()}
+      {...item}
+      {...dBar(item)}
       {...restProps}
     />
-  );
-};
-
-const options = ({ ...props }) => {
-  const { barWidth = 0.9, groupWidth = 0.7 } = props;
-  return { barWidth, groupWidth };
+  )));
 };
 
 export const BarSeries = withSeriesPlugin(
-  EmptyFunction,
-  Dot,
+  withColor(Series),
   'BarSeries',
   'bar',
-  EmptyFunction,
-  barPointAttributes,
-  options,
+  computeCoordinates,
 );
 
-Dot.propTypes = {
+Series.propTypes = {
   pointComponent: PropTypes.func.isRequired,
 };

@@ -3,8 +3,6 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Area } from './area';
 
 const defaultProps = {
-  x: 1,
-  y: 2,
   path: jest.fn(value => value),
   coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
 };
@@ -18,10 +16,8 @@ describe('Area', () => {
         {...defaultProps}
       />
     ));
-    const { d, transform } = tree.find('path').props();
+    const { d } = tree.find('path').props();
 
-    expect(transform)
-      .toBe('translate(1 2)');
     expect(d)
       .toEqual([{ x: 1, y: 2 }, { x: 2, y: 4 }]);
   });
@@ -35,7 +31,7 @@ describe('Area', () => {
       <Area
         {...defaultProps}
         style={customStyle}
-        themeColor="color"
+        color="color"
       />
     ));
     const { style, fill } = tree.find('path').props();

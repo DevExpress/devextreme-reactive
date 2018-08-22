@@ -46,5 +46,15 @@ describe('table utils', () => {
       })
         .not.toThrow();
     });
+
+    it('should return correct animations', () => {
+      expect(getAnimations([{ key: 'b' }], [{ key: 'a' }, { key: 'b' }], 400, new Map()).get('b'))
+        .toMatchObject({ left: { from: 0, to: 200 } });
+    });
+
+    it('should not start animation for resizing', () => {
+      expect(getAnimations([{ key: 'a', width: 100 }, { key: 'b' }], [{ key: 'a', width: 120 }, { key: 'b' }], 400, new Map()))
+        .toEqual(new Map());
+    });
   });
 });

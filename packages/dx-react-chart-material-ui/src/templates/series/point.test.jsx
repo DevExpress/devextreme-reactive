@@ -69,10 +69,10 @@ describe('Point', () => {
       .toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
+  it('should apply color', () => {
     const tree = shallow((
       <Point
-        themeColor="color"
+        color="color"
         {...defaultProps}
       />
     ));

@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 
 export class Bar extends React.PureComponent {
   render() {
-    const { themeColor, value, ...restProps } = this.props;
+    const { color, value, ...restProps } = this.props;
     return (
-      <rect fill={themeColor} {...restProps} />
+      <rect fill={color} {...restProps} />
     );
   }
 }
@@ -16,9 +16,9 @@ Bar.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-  themeColor: PropTypes.string,
+  color: PropTypes.string,
 };
 
 Bar.defaultProps = {
-  themeColor: undefined,
+  color: undefined,
 };

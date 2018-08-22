@@ -191,6 +191,9 @@ describe('barCoordinates', () => {
       null,
       null,
       {},
+      [
+        { type: 'band', constructor: 'bandConstructor' },
+      ],
     );
 
     expect(result).toEqual([{

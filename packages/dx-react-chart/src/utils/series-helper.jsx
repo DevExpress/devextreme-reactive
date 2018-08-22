@@ -70,7 +70,6 @@ export const withSeriesPlugin = (
                   domains[argumentAxisName],
                   domains[axisName],
                   layouts.pane,
-                  stacks,
                   groupWidth,
                   scaleExtension,
                 );

@@ -20,12 +20,9 @@ const script = async () => {
   console.log('Building...');
   execSync('yarn run build', { stdio: 'ignore' });
 
-  const currentTag = execSync('git describe --tags --abbrev=0', { stdio: 'pipe' })
-    .toString()
-    .trim();
-
+  const version = require('../lerna.json').version;
   const { publishNpm } = await prompt({
-    message: `Ready to publish ${currentTag}. Is it ok?`,
+    message: `Ready to publish version ${version}. Is it ok?`,
     name: 'publishNpm',
     type: 'confirm',
     default: false,
@@ -54,7 +51,7 @@ const script = async () => {
   execSync('npm login', { stdio: 'inherit' });
 
   console.log('Publishing npm...');
-  execSync(`"./node_modules/.bin/lerna" publish from-git --npm-tag ${npmTag}`, { stdio: 'ignore' });
+  execSync(`"./node_modules/.bin/lerna" publish --npm-tag ${npmTag} --yes`, { stdio: 'ignore' });
 
   console.log('Logout from npm...');
   execSync('npm logout', { stdio: 'ignore' });

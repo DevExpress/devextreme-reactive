@@ -14,8 +14,6 @@ import {
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import { TableEditColumn } from './table-edit-column';
 
-// jest.mock('@devexpress/dx-core');
-
 jest.mock('@devexpress/dx-grid-core', () => ({
   tableColumnsWithEditing: jest.fn(),
   isHeadingEditCommandsTableCell: jest.fn(),

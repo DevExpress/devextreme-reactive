@@ -12,7 +12,7 @@ describe('Appointment', () => {
 
   describe('Container', () => {
     it('should pass className to the root element', () => {
-      const tree = shallow((<Container className="custom-class" />));
+      const tree = shallow(<Container className="custom-class" />);
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
@@ -20,7 +20,7 @@ describe('Appointment', () => {
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
-      const tree = shallow((<Container data={{ a: 1 }} />));
+      const tree = shallow(<Container data={{ a: 1 }} />);
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });

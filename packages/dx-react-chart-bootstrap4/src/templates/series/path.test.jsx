@@ -4,8 +4,6 @@ import { Path } from './path';
 
 describe('Path', () => {
   const defaultProps = {
-    x: 1,
-    y: 2,
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
   };
@@ -15,10 +13,8 @@ describe('Path', () => {
         {...defaultProps}
       />
     ));
-    const { d, transform } = tree.find('path').props();
+    const { d } = tree.find('path').props();
 
-    expect(transform)
-      .toBe('translate(1 2)');
     expect(d)
       .toEqual([{ x: 1, y: 2 }, { x: 2, y: 4 }]);
   });
@@ -53,8 +49,8 @@ describe('Path', () => {
       .toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
-    const tree = shallow(<Path {...defaultProps} themeColor="color" />);
+  it('should apply color', () => {
+    const tree = shallow(<Path {...defaultProps} color="color" />);
 
     expect(tree.find('path').props().stroke)
       .toBe('color');

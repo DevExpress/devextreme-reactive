@@ -20,7 +20,7 @@ import { IntegratedSummary } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-calculator | (type: [SummaryType](summary-state.md#summarytype), rows: Array&lt;any&gt;, getValue: (row: any) => any) => any | | A summary calculator.
+calculator? | (type: [SummaryType](summary-state.md#summarytype), rows: Array&lt;any&gt;, getValue: (row: any) => any) => any | | A summary calculator.
 
 ## Static Fields
 

@@ -5,7 +5,7 @@ import { Marker } from './marker';
 describe('Marker', () => {
   it('should render svg icon', () => {
     const tree = shallow((
-      <Marker themeColor="color" />
+      <Marker color="color" />
     ));
 
     expect(tree.find('svg'))

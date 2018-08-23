@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-grid-demos",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -24,15 +24,15 @@
     "lint:fix": "yarn run escheck -- --fix && yarn run tscheck -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "1.6.1",
-    "@devexpress/dx-react-chart": "1.6.1",
-    "@devexpress/dx-react-chart-bootstrap4": "1.6.1",
-    "@devexpress/dx-react-chart-material-ui": "1.6.1",
-    "@devexpress/dx-react-core": "1.6.1",
-    "@devexpress/dx-react-grid": "1.6.1",
-    "@devexpress/dx-react-grid-bootstrap3": "1.6.1",
-    "@devexpress/dx-react-grid-bootstrap4": "1.6.1",
-    "@devexpress/dx-react-grid-material-ui": "1.6.1",
+    "@devexpress/dx-demo-shell": "1.7.0",
+    "@devexpress/dx-react-chart": "1.7.0",
+    "@devexpress/dx-react-chart-bootstrap4": "1.7.0",
+    "@devexpress/dx-react-chart-material-ui": "1.7.0",
+    "@devexpress/dx-react-core": "1.7.0",
+    "@devexpress/dx-react-grid": "1.7.0",
+    "@devexpress/dx-react-grid-bootstrap3": "1.7.0",
+    "@devexpress/dx-react-grid-bootstrap4": "1.7.0",
+    "@devexpress/dx-react-grid-material-ui": "1.7.0",
     "@material-ui/core": "^1.5.0",
     "@material-ui/icons": "^2.0.2",
     "@types/react": "^16.4.11",
@@ -56,7 +56,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.6.1",
+    "@devexpress/dx-testing": "1.7.0",
     "@types/jest": "^23.3.1",
     "awesome-typescript-loader": "^5.2.0",
     "babel-core": "^6.26.3",

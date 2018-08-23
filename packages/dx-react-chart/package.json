@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-chart",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Composable plugin-based chart component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -41,7 +41,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.6.1",
+    "@devexpress/dx-testing": "1.7.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -71,7 +71,7 @@
     "rollup-plugin-node-resolve": "^3.3.0"
   },
   "dependencies": {
-    "@devexpress/dx-chart-core": "1.6.1",
+    "@devexpress/dx-chart-core": "1.7.0",
     "d3-scale": "^2.1.0",
     "d3-shape": "^1.2.0",
     "prop-types": "^15.6.2"

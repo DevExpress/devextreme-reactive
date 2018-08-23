@@ -18,7 +18,7 @@ export const DxTableColumnVisibility = {
       <DxTableColumnVisibilityBase
         emptyMessageComponent={EmptyMessage}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

@@ -11,7 +11,6 @@ const GENERATED_SITE_DIRECTORY = join(process.cwd(), 'site/_site');
 const GENERATED_CONFIG = '_config.g.yml';
 const GENERATED_CONFIG_PATH = join(SITE_DIRECTORY, GENERATED_CONFIG);
 const SITE_PUBLISHING_DIRECTORY = join(process.cwd(), 'tmp');
-const REPO = 'devexpress/devextreme-reactive';
 const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
 
@@ -70,6 +69,7 @@ const script = async () => {
   console.log();
   console.log('--------------------');
   console.log('Done!');
+  console.log();
   console.log(`You have to check that everything is good at https://devexpress.github.io/devextreme-reactive${tagPath}/`);
   console.log('--------------------');
   console.log();

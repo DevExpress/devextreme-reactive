@@ -9,7 +9,7 @@ export const DxGrid = {
     return (
       <DxGridBase
         rootComponent={GridRoot}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       >
         {context.children}
       </DxGridBase>

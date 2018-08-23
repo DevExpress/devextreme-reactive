@@ -18,7 +18,7 @@ export const DxSearchPanel = {
       <DxSearchPanelBase
         inputComponent={SearchPanelInput}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

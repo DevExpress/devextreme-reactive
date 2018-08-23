@@ -53,7 +53,7 @@ The Grid cuts off values that do not fit in a cell. Assign true to the Table plu
 
 ### Custom content in header cells
 
-You may add additional elements to the Grid header by extending the `contentComponent` property of the TableHeaderRow plugin.
+You can pass a custom component to the TableHeaderRow plugin's `contentComponent` property to display additional elements in the Grid's header.
 
 .embedded-demo({ "path": "grid-basic/table-header-content-template", "showThemeSelector": true })
 

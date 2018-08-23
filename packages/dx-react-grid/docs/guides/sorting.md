@@ -53,7 +53,7 @@ The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExte
 
 ## Custom Sort Label
 
-You can override the [TableHeaderRow](../reference/table-header-row.md) plugin's `sortLabelComponent` property to render the Sort label using a custom component.
+You can override the [TableHeaderRow](../reference/table-header-row.md) plugin's `sortLabelComponent` property to render sort labels using a custom component.
 
 .embedded-demo({ "path": "grid-sorting/custom-sort-label", "showThemeSelector": true })
 

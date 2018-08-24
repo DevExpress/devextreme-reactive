@@ -31,7 +31,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            currentDate={currentDate}
+            defaultCurrentDate={currentDate}
           />
           <WeekView
             startDayHour={9}

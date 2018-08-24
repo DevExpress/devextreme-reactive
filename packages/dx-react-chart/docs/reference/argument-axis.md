@@ -2,9 +2,9 @@
 
 The ArgumentAxis plugin visualizes the argument axis.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following import statement to import the plugin:
 
 ```js
 import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
@@ -28,7 +28,7 @@ position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
 name? | string | | The axis name.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
-tickForamt? | (scale: object) => (tick: string) => string  | | A function that return a format function suitable for displaying a tick.
+tickForamt? | (scale: object) => (tick: string) => string  | | A function that returns a tick formatter function.
 rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | |  A component that renders the axis root layout.
 tickComponent | ComponentType&lt;[ArgumentAxis.TickProps](#argumentaxistickprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the axis label.

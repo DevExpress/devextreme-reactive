@@ -35,4 +35,3 @@ TableListenerCell.propTypes = {
   listen: PropTypes.bool.isRequired,
   onSizeChange: PropTypes.func.isRequired,
 };
-

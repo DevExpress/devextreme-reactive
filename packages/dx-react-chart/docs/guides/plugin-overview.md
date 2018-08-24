@@ -1,11 +1,14 @@
 # React Chart - Plugin Overview
 
-The Chart component visualizes data specified via the `data` property using plugins. These components implement particular features and should be defined within the Chart component.
+The Chart component visualizes data specified via the `data` property using plugin components. These components implement particular features and should be defined within the Chart component.
 
-The React Chart includes:
+The React Chart supports the following plugin types:
 
-- UI plugins that render specific UI elements using the provided data.
-- Data processing plugins transform data passed to the Chart component.
+- **UI plugins**  
+ Render UI elements using the provided data.
+ 
+- **Data processing plugins**  
+ Transform data passed to the Chart component.
 
 ## UI Plugins
 
@@ -28,16 +31,16 @@ The plugins below render extra elements like a grid, legend, axes, etc.
 
 ## Data Processing Plugins
 
-- `Scale` - process data for futher rendering axes and series.
-- `Stack` - process data to display series points side-by-side or one under another other.
+- `Scale` - extends user data with service information that is required to render axes and series
+- `Stack` - transforms user data to display display series points side-by-side or one under another other
 
 ## Plugin Order
 
-The plugin order is important. UI plugins are rendered in the same order they are defined in the Chart component. For example, if the `BarSeries` plugin precedes the `LineSeries`, the line series overlays the bar series.
+The plugin order is important. UI plugins are rendered in the same order as they are defined in the Chart component. For example, if the `BarSeries` plugin precedes the `LineSeries`, the line series overlays the bar series.
 
 .embedded-demo({ "path": "chart-basic/combination-series", "showThemeSelector": true })
 
-Also the data processing plugin `Scale` should be after series and axes plugins because it is use their options for correct processing data.
+Note that data processing plugin `Scale` should be defined after series and axes plugins, because it requires options defined in these plugins for correct work.
 
 The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined one:
 

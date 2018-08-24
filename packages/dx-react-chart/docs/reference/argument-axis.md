@@ -4,7 +4,7 @@ The ArgumentAxis plugin visualizes the argument axis.
 
 ## Import
 
-Use the following import statement to import the plugin:
+Use the following statement to import the plugin:
 
 ```js
 import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';

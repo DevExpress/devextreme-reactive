@@ -1,10 +1,10 @@
 # Scale Plugin Reference
 
-The `Scale` plugin is used to processing data for further correct drawing axes and series.
+The `Scale` plugin extends user data with service information that is required to render axes and series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { Scale } from '@devexpress/dx-react-chart';
@@ -16,7 +16,7 @@ import { Scale } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-extensions? | Array&lt;[scaleOptions](#scaleoptions)&gt; | [{type: 'linear', constructor: () => object}, {type: 'band', constructor: () => object}] | A array of scales with constructors.
+extensions? | Array&lt;[scaleOptions](#scaleoptions)&gt; | [{type: 'linear', constructor: () => object}, {type: 'band', constructor: () => object}] | An array of scales with constructors.
 
 ## Interfaces
 
@@ -24,5 +24,5 @@ extensions? | Array&lt;[scaleOptions](#scaleoptions)&gt; | [{type: 'linear', con
 
 Field | Type | Description
 ------|------|------------
-type? | string | Type of scale.
+type? | string | A scale type.
 constructor? | () => object | A function that constructs a custom scale.

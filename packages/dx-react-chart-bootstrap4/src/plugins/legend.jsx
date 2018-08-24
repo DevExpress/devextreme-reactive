@@ -22,4 +22,4 @@ export class Legend extends React.PureComponent {
 Legend.Root = Root;
 Legend.Marker = Marker;
 Legend.Label = Label;
-Legend.Label = Item;
+Legend.Item = Item;

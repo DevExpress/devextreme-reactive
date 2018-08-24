@@ -1,0 +1,72 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ScatterSeries,
+  ArgumentAxis,
+  ValueAxis,
+  Grid,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale } from '@devexpress/dx-react-chart';
+
+const getRandom = () => {
+  const randomValue = Math.random();
+  if (randomValue === 0) {
+    return getRandom();
+  }
+  return randomValue;
+};
+
+function normalDistribution() {
+  const u = getRandom();
+  const v = getRandom();
+  return Math.sqrt(-4.0 * Math.log(u)) * Math.cos(1.0 * Math.PI * v);
+}
+
+const dataGenerator = (pointCount) => {
+  const data = [];
+  for (let i = 0; i < pointCount; i += 1) {
+    data.push({
+      argument0x0y: normalDistribution(),
+      value0x0y: normalDistribution(),
+      argument3x3y: normalDistribution() + 3,
+      value3x3y: normalDistribution() + 3,
+    });
+  }
+  return data;
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: dataGenerator(100),
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis name="argumentAxis" />
+          <ValueAxis />
+          <Grid name="argumentAxis" />
+          <Grid />
+          <ScatterSeries
+            valueField="value0x0y"
+            argumentField="argument0x0y"
+          />
+          <ScatterSeries
+            valueField="value3x3y"
+            argumentField="argument3x3y"
+          />
+          <Scale />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

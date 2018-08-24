@@ -1,5 +1,5 @@
-import { FIXED_COLUMN_BEFORE_SIDE, FIXED_COLUMN_AFTER_SIDE } from './constants';
-import { tableColumnsWithFixed } from './computeds';
+import { FIXED_COLUMN_BEFORE_SIDE, FIXED_COLUMN_AFTER_SIDE, TABLE_FIXED_TYPE } from './constants';
+import { tableColumnsWithFixed, tableHeaderRowsWithFixed } from './computeds';
 
 describe('TableFixedColumns computeds', () => {
   describe('#tableColumnsWithFixed', () => {
@@ -22,6 +22,15 @@ describe('TableFixedColumns computeds', () => {
           { type: 'type2' },
           { type: 'type3', fixed: FIXED_COLUMN_AFTER_SIDE },
           { column: { name: 'd' }, fixed: FIXED_COLUMN_AFTER_SIDE },
+        ]);
+    });
+  });
+  describe('#tableHeaderRowsWithFixed', () => {
+    it('should work', () => {
+      expect(tableHeaderRowsWithFixed([{}]))
+        .toEqual([
+          {},
+          { type: TABLE_FIXED_TYPE, key: TABLE_FIXED_TYPE, height: 0 },
         ]);
     });
   });

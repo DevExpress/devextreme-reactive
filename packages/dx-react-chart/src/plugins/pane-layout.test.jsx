@@ -24,8 +24,6 @@ describe('PaneLayout', () => {
       .toEqual(expect.any(Number));
     expect(tree.find('Pane').props().height)
       .toEqual(expect.any(Number));
-    expect(tree.find('Pane').props().changeBBox)
-      .toEqual(expect.any(Function));
   });
 
   it('should render Sizer with correct styles', () => {

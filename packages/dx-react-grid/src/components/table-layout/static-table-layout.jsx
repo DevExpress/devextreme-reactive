@@ -75,6 +75,7 @@ StaticTableLayout.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   getCellColSpan: PropTypes.func.isRequired,
+  onTableDimensionsChange: PropTypes.func,
 };
 
 StaticTableLayout.defaultProps = {
@@ -82,4 +83,5 @@ StaticTableLayout.defaultProps = {
   footerRows: [],
   headComponent: () => null,
   footerComponent: () => null,
+  onTableDimensionsChange: () => {},
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { TableColumnReordering as TableColumnReorderingBase } from '@devexpress/dx-react-grid';
-import { TableRow } from '../templates/table-row';
+import { TableInvisibleRow } from '../templates/table-invisible-row';
 import { TableReorderingCell } from '../templates/table-reordering-cell';
 
 const TableContainer = ({
@@ -16,21 +16,10 @@ const TableContainer = ({
   </DropTarget>
 );
 
-// eslint-disable-next-line react/prop-types
-const ReorderingRow = ({ style, ...restParams }) => (
-  <TableRow
-    style={{
-      ...style,
-      visibility: 'hidden',
-    }}
-    {...restParams}
-  />
-);
-
 export const TableColumnReordering = props => (
   <TableColumnReorderingBase
     tableContainerComponent={TableContainer}
-    rowComponent={ReorderingRow}
+    rowComponent={TableInvisibleRow}
     cellComponent={TableReorderingCell}
     {...props}
   />

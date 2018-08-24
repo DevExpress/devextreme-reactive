@@ -1,4 +1,5 @@
-import { getFixedColumnKeys } from './helpers';
+import { TABLE_FIXED_TYPE } from './constants';
+import { getFixedColumnKeys, isFixedTableRow } from './helpers';
 
 describe('TableFixedColumns Plugin helpers', () => {
   describe('#getFixedColumnKeys', () => {
@@ -15,6 +16,13 @@ describe('TableFixedColumns Plugin helpers', () => {
 
       expect(getFixedColumnKeys(tableColumns, fixedNames, fixedTypes))
         .toEqual(['key_a', 'key_type1', 'key_d']);
+    });
+  });
+
+  describe('#isFixedTableRow', () => {
+    it('should work', () => {
+      expect(isFixedTableRow({ type: TABLE_FIXED_TYPE })).toBeTruthy();
+      expect(isFixedTableRow({ type: 'undefined' })).toBeFalsy();
     });
   });
 });

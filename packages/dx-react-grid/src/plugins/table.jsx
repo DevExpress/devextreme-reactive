@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { memoize } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -33,10 +34,12 @@ const pluginDependencies = [
 export class Table extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { columnDimensions: {} };
-    this.handleLayoutReady = (columnDimensions) => {
-      this.setState({ columnDimensions });
-    };
+
+    this.tableColumnsComputed = memoize(
+      columnExtensions => ({
+        columns,
+      }) => tableColumnsWithDataRows(columns, columnExtensions),
+    );
   }
 
   render() {
@@ -57,12 +60,9 @@ export class Table extends React.PureComponent {
       bodyComponent,
       footerComponent,
     } = this.props;
-    const { columnDimensions } = this.state;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = (
-      { columns },
-    ) => tableColumnsWithDataRows(columns, columnExtensions);
+    const tableColumnsComputed = this.tableColumnsComputed(columnExtensions);
 
     return (
       <Plugin
@@ -74,7 +74,6 @@ export class Table extends React.PureComponent {
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
-        <Getter name="tableColumnDimensions" value={columnDimensions} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />
@@ -101,7 +100,6 @@ export class Table extends React.PureComponent {
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
                 getCellColSpan={getTableCellColSpan}
-                onReady={this.handleLayoutReady}
               />
             )}
           </TemplateConnector>

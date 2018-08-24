@@ -1,4 +1,4 @@
-import { FIXED_COLUMN_BEFORE_SIDE, FIXED_COLUMN_AFTER_SIDE } from './constants';
+import { FIXED_COLUMN_BEFORE_SIDE, FIXED_COLUMN_AFTER_SIDE, TABLE_FIXED_TYPE } from './constants';
 
 export const tableColumnsWithFixed = (
   tableColumns,
@@ -20,3 +20,8 @@ export const tableColumnsWithFixed = (
     }
     return fixed ? { ...tableColumn, fixed } : tableColumn;
   });
+
+export const tableHeaderRowsWithFixed = tableHeaderRows => [
+  ...tableHeaderRows,
+  { type: TABLE_FIXED_TYPE, key: TABLE_FIXED_TYPE, height: 0 },
+];

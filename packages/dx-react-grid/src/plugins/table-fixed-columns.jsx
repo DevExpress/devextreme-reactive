@@ -10,9 +10,13 @@ import {
 import {
   FIXED_COLUMN_BEFORE_SIDE,
   FIXED_COLUMN_AFTER_SIDE,
+  isFixedTableRow,
   getFixedColumnKeys,
   tableColumnsWithFixed,
+  tableHeaderRowsWithFixed,
 } from '@devexpress/dx-grid-core';
+
+const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableHeaderRowsWithFixed(tableHeaderRows);
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
 
@@ -20,11 +24,32 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
-const getColumnPosition = dimensions => (dimensions
-  ? dimensions.right
-  : undefined);
-
 export class TableFixedColumns extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableColumnDimensions: {},
+    };
+  }
+
+  handleListenerSizeChange(key, width) {
+    this.setState(state => ({
+      tableColumnDimensions: {
+        ...state.tableColumnDimensions,
+        [key]: width,
+      },
+    }));
+  }
+
+  calculatePosition(array, index) {
+    return index === 0
+      ? 0
+      : array
+        .slice(0, index)
+        .reduce((acc, target) => acc + this.tableColumnDimensions[target] || 0, 0);
+  }
+
   render() {
     const {
       beforeColumnNames,
@@ -32,9 +57,14 @@ export class TableFixedColumns extends React.PureComponent {
       afterColumnNames,
       afterColumnTypes,
       cellComponent: Cell,
+      listenerRowComponent: ListenerRow,
+      listenerCellComponent: ListenerCell,
     } = this.props;
+    const {
+      tableColumnDimensions,
+    } = this.state;
 
-    const tableColumnsWithFixedComputed = ({ tableColumns }) => tableColumnsWithFixed(
+    const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithFixed(
       tableColumns,
       beforeColumnNames,
       beforeColumnTypes,
@@ -47,14 +77,15 @@ export class TableFixedColumns extends React.PureComponent {
         name="TableFixedColumns"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsWithFixedComputed} />
+        <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Template
           name="tableCell"
           predicate={({ tableColumn }) => !!tableColumn.fixed}
         >
           {params => (
             <TemplateConnector>
-              {({ tableColumns, tableColumnDimensions }) => {
+              {({ tableColumns }) => {
                 const { tableColumn } = params;
                 const { fixed: side } = tableColumn;
                 const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
@@ -80,6 +111,12 @@ export class TableFixedColumns extends React.PureComponent {
                 const showLeftDivider = isBoundary(FIXED_COLUMN_AFTER_SIDE)
                   || (index !== 0 && isStandAlone(-1));
 
+                const position = fixedIndex === 0
+                  ? 0
+                  : targetArray
+                    .slice(0, fixedIndex)
+                    .reduce((acc, target) => acc + tableColumnDimensions[target] || 0, 0);
+
                 return (
                   <Cell
                     {...params}
@@ -87,15 +124,33 @@ export class TableFixedColumns extends React.PureComponent {
                     component={CellPlaceholder}
                     showLeftDivider={showLeftDivider}
                     showRightDivider={showRightDivider}
-                    position={
-                      fixedIndex === 0
-                        ? 0
-                        : getColumnPosition(tableColumnDimensions[targetArray[fixedIndex - 1]])
-                    }
+                    position={position}
                   />
                 );
               }}
             </TemplateConnector>
+          )}
+        </Template>
+        <Template
+          name="tableRow"
+          predicate={({ tableRow }) => isFixedTableRow(tableRow)}
+        >
+          {params => (
+            <ListenerRow {...params} />
+          )}
+        </Template>
+        <Template
+          name="tableCell"
+          predicate={({ tableRow }) => isFixedTableRow(tableRow)}
+        >
+          {params => (
+            <ListenerCell
+              {...params}
+              listen={!!params.tableColumn.fixed}
+              onSizeChange={({
+                width,
+              }) => this.handleListenerSizeChange(params.tableColumn.key, width)}
+            />
           )}
         </Template>
       </Plugin>
@@ -109,6 +164,8 @@ TableFixedColumns.propTypes = {
   beforeColumnTypes: PropTypes.arrayOf(PropTypes.string),
   afterColumnTypes: PropTypes.arrayOf(PropTypes.string),
   cellComponent: PropTypes.func.isRequired,
+  listenerRowComponent: PropTypes.func.isRequired,
+  listenerCellComponent: PropTypes.func.isRequired,
 };
 
 TableFixedColumns.defaultProps = {

@@ -45,13 +45,14 @@ export class TableColumnVisibility extends React.PureComponent {
     this.toggleColumnVisibility = stateHelper.applyFieldReducer.bind(stateHelper, 'hiddenColumnNames', toggleColumn);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      hiddenColumnNames,
+      hiddenColumnNames = prevState.hiddenColumnNames,
     } = nextProps;
-    this.setState({
-      ...hiddenColumnNames !== undefined ? { hiddenColumnNames } : null,
-    });
+
+    return {
+      hiddenColumnNames,
+    };
   }
 
   render() {

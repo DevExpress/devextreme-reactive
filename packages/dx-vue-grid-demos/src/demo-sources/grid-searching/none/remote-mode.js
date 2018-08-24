@@ -39,7 +39,7 @@ export default {
       const { searchValue, columns } = this;
 
       let filter = columns.reduce((acc, { name }) => {
-        acc.push(`["${name}", "contains", "${searchValue}"]`);
+        acc.push(`["${name}", "contains", "${encodeURIComponent(searchValue)}"]`);
         return acc;
       }, []).join(',"or",');
 

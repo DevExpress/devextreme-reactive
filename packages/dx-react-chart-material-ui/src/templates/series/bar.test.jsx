@@ -34,10 +34,10 @@ describe('Bar', () => {
     expect(customProperty).toBeTruthy();
   });
 
-  it('should apply themeColor', () => {
+  it('should apply color', () => {
     const tree = shallow((
       <Bar
-        themeColor="color"
+        color="color"
         {...defaultProps}
       />
     ));

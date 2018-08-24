@@ -7,7 +7,7 @@ export const getAvailableGetters = (
   const trackedDependencies = {};
 
   let getters;
-  if (Proxy) {
+  if (typeof Proxy !== 'undefined') {
     getters = new Proxy({}, {
       get(target, prop) {
         if (typeof prop !== 'string') return undefined;
@@ -59,7 +59,7 @@ export const getAvailableActions = (
   getAction = actionName => pluginHost.collect(`${actionName}Action`).slice().reverse()[0],
 ) => {
   let actions;
-  if (Proxy) {
+  if (typeof Proxy !== 'undefined') {
     actions = new Proxy({}, {
       get(target, prop) {
         if (typeof prop !== 'string') return undefined;

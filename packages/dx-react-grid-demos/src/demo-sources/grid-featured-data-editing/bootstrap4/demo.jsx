@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {
-  SortingState, EditingState, PagingState,
-  IntegratedPaging, IntegratedSorting,
+  SortingState, EditingState, PagingState, SummaryState,
+  IntegratedPaging, IntegratedSorting, IntegratedSummary,
 } from '@devexpress/dx-react-grid';
-import {
-  Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,
-} from 'reactstrap';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropProvider, TableColumnReordering,
+  PagingPanel, DragDropProvider, TableColumnReordering, TableSummaryRow,
 } from '@devexpress/dx-react-grid-bootstrap4';
+import {
+  Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,
+} from 'reactstrap';
 import { ProgressBarCell } from '../../../theme-sources/bootstrap4/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/bootstrap4/components/highlighted-cell';
 import { CurrencyTypeProvider } from '../../../theme-sources/bootstrap4/components/currency-type-provider';
@@ -131,7 +131,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       columns: [
         { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
         { name: 'amount', title: 'Sale Amount' },
         { name: 'discount', title: 'Discount' },
         { name: 'saleDate', title: 'Sale Date' },
@@ -153,9 +152,13 @@ export default class Demo extends React.PureComponent {
       deletingRows: [],
       pageSize: 0,
       pageSizes: [5, 10, 0],
-      columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
+      columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      totalSummaryItems: [
+        { columnName: 'discount', type: 'avg' },
+        { columnName: 'amount', type: 'sum' },
+      ],
     };
     const getStateDeletingRows = () => {
       const { deletingRows } = this.state;
@@ -231,6 +234,7 @@ export default class Demo extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      totalSummaryItems,
     } = this.state;
 
     return (
@@ -250,13 +254,6 @@ export default class Demo extends React.PureComponent {
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
           />
-
-          <IntegratedSorting />
-          <IntegratedPaging />
-
-          <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
-
           <EditingState
             editingRowIds={editingRowIds}
             onEditingRowIdsChange={this.changeEditingRowIds}
@@ -266,6 +263,16 @@ export default class Demo extends React.PureComponent {
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}
           />
+          <SummaryState
+            totalItems={totalSummaryItems}
+          />
+
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSummary />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <DragDropProvider />
 
@@ -273,23 +280,22 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
-
           <TableColumnReordering
             order={columnOrder}
             onOrderChange={this.changeColumnOrder}
           />
-
           <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
           <TableEditColumn
-            width={100}
+            width={120}
             showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
           />

@@ -34,15 +34,15 @@ export class Table extends React.Component {
 
   checkStyles() {
     globalStickyProp = testCSSProp('position', 'sticky');
-    const { backgroundColor: stateBackgroundColor, stickyProp } = this.state;
+    const { backgroundColor, stickyProp } = this.state;
 
     let panel = this.node.parentElement;
     while (!panel.classList.contains('panel')) {
       panel = panel.parentElement;
     }
-    const { backgroundColor } = window.getComputedStyle(panel);
+    const { backgroundColor: bodyBackgroundColor } = window.getComputedStyle(panel);
 
-    if (stateBackgroundColor !== backgroundColor
+    if (bodyBackgroundColor !== backgroundColor
       || stickyProp !== globalStickyProp) {
       this.setState({ stickyProp: globalStickyProp, backgroundColor });
     }
@@ -61,11 +61,16 @@ export class Table extends React.Component {
           tableLayout: 'fixed',
           overflow: 'hidden',
           marginBottom: 0,
-          ...use === 'head' ? {
+          ...use ? {
             position: stickyProp,
-            top: 0,
             zIndex: 1,
             background: backgroundColor,
+          } : null,
+          ...use === 'head' ? {
+            top: 0,
+          } : null,
+          ...use === 'foot' ? {
+            bottom: 0,
           } : null,
           ...style,
         }}
@@ -78,7 +83,7 @@ export class Table extends React.Component {
 }
 
 Table.propTypes = {
-  use: PropTypes.oneOf(['head']),
+  use: PropTypes.oneOf(['head', 'foot']),
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,

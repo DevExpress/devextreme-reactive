@@ -11,22 +11,22 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   seriesData: jest.fn(),
-  palette: jest.fn().mockReturnValue([{ themeColor: 'color' }, { themeColor: 'color' }, { themeColor: 'color' }]),
+  checkZeroStart: jest.fn(),
+  xyScales: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => [
-  { d: 'M11 11', value: 'value1' },
-  { d: 'M22 22', value: 'value2' },
-  { d: 'M33 33', value: 'value3' },
+  { value: 'value1', data: { argumentField: 'argument1' }, id: 'value1' },
+  { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
+  { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
 ]);
-findSeriesByName.mockImplementation(() => ({
-  stack: 'stack',
-}));
+findSeriesByName.mockImplementation(() => ({}));
 
 describe('Pie series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },
+      domains: {},
     },
     template: {
       series: {},
@@ -35,10 +35,11 @@ describe('Pie series', () => {
 
   const defaultProps = {
     pointComponent: PointComponent,
+    style: { opacity: 0.4 },
     name: 'val1',
-    styles: 'styles',
     valueField: 'valueField',
     argumentField: 'argumentField',
+    colorDomain: jest.fn().mockReturnValue('color'),
   };
 
   it('should render points', () => {
@@ -52,29 +53,16 @@ describe('Pie series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(PointComponent).get(0).props).toEqual({
-      d: 'M11 11',
-      x: 100,
-      y: 50,
-      value: 'value1',
-      styles: 'styles',
-      fill: 'color',
-    });
-    expect(tree.find(PointComponent).get(1).props).toEqual({
-      d: 'M22 22',
-      x: 100,
-      y: 50,
-      value: 'value2',
-      styles: 'styles',
-      fill: 'color',
-    });
-    expect(tree.find(PointComponent).get(2).props).toEqual({
-      d: 'M33 33',
-      x: 100,
-      y: 50,
-      value: 'value3',
-      styles: 'styles',
-      fill: 'color',
+    tree.find(PointComponent).forEach((point, index) => {
+      const pointIndex = index + 1;
+      expect(point.props()).toEqual({
+        data: { argumentField: `argument${pointIndex}` },
+        value: `value${pointIndex}`,
+        color: 'color',
+        style: { opacity: 0.4 },
+        id: `value${pointIndex}`,
+      });
+      expect(defaultProps.colorDomain).toHaveBeenNthCalledWith(index + 1, `value${pointIndex}`);
     });
   });
 });

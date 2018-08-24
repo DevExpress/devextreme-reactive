@@ -24,6 +24,7 @@ const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={p
 
 const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
+const tableFooterRows = [];
 
 const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
@@ -46,6 +47,7 @@ export class Table extends React.PureComponent {
       tableComponent,
       headComponent,
       bodyComponent,
+      footerComponent,
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
@@ -60,6 +62,7 @@ export class Table extends React.PureComponent {
       >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
+        <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
@@ -71,6 +74,7 @@ export class Table extends React.PureComponent {
             {({
               tableHeaderRows: headerRows,
               tableBodyRows: bodyRows,
+              tableFooterRows: footerRows,
               tableColumns: columns,
               getTableCellColSpan,
             }) => (
@@ -78,9 +82,11 @@ export class Table extends React.PureComponent {
                 tableComponent={tableComponent}
                 headComponent={headComponent}
                 bodyComponent={bodyComponent}
+                footerComponent={footerComponent}
                 containerComponent={containerComponent}
                 headerRows={headerRows}
                 bodyRows={bodyRows}
+                footerRows={footerRows}
                 columns={columns}
                 rowComponent={RowPlaceholder}
                 cellComponent={CellPlaceholder}
@@ -188,6 +194,7 @@ Table.propTypes = {
   tableComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   bodyComponent: PropTypes.func.isRequired,
+  footerComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

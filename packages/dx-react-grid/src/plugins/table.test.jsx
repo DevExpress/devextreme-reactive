@@ -42,6 +42,7 @@ const defaultProps = {
   tableComponent: () => null,
   headComponent: () => null,
   bodyComponent: () => null,
+  footerComponent: () => null,
   containerComponent: () => null,
   layoutComponent: () => null,
   cellComponent: () => null,

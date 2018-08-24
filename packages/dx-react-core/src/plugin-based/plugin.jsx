@@ -4,7 +4,7 @@ import { PluginIndexer } from './plugin-indexer';
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 export class Plugin extends React.PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: position } = this.context;
     const { name, dependencies } = this.props;
     this.plugin = {
@@ -16,7 +16,7 @@ export class Plugin extends React.PureComponent {
     pluginHost.registerPlugin(this.plugin);
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.context;
     pluginHost.ensureDependencies();
   }

@@ -41,6 +41,7 @@
     "lint": "lerna run lint",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test",
+    "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js"
   },

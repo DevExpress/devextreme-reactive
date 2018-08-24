@@ -1,17 +1,3 @@
-let globalStickyProp;
-const testCSSProp = (property, value, noPrefixes) => {
-  const prop = `${property}:`;
-  const el = document.createElement('test');
-  const mStyle = el.style;
-
-  if (!noPrefixes) {
-    mStyle.cssText = `${prop + ['-webkit-', '-moz-', '-ms-', '-o-', ''].join(`${value};${prop}`) + value};`;
-  } else {
-    mStyle.cssText = prop + value;
-  }
-  return mStyle[property];
-};
-
 export const Table = {
   name: 'Table',
   props: {
@@ -25,7 +11,6 @@ export const Table = {
   data() {
     return ({
       backgroundColor: 'white',
-      stickyProp: globalStickyProp,
     });
   },
   mounted() {
@@ -33,14 +18,10 @@ export const Table = {
   },
   methods: {
     checkStyles() {
-      globalStickyProp = testCSSProp('position', 'sticky');
-
       const body = document.getElementsByTagName('body')[0];
       const { backgroundColor } = window.getComputedStyle(body);
 
-      if (this.backgroundColor !== backgroundColor
-        || this.stickyProp !== globalStickyProp) {
-        this.stickyProp = globalStickyProp;
+      if (this.backgroundColor !== backgroundColor) {
         this.backgroundColor = backgroundColor;
       }
     },
@@ -51,11 +32,11 @@ export const Table = {
         class={{
           'table mb-0 dx-g-bs4-overflow-hidden dx-g-bs4-table': true,
           'dx-g-bs4-table-head': this.use === 'head',
+          'dx-g-bs4-table-sticky': !!this.use,
         }}
         style={{
           minWidth: this.minWidth,
           ...this.use === 'head' ? {
-            position: this.stickyProp,
             backgroundColor: this.backgroundColor,
           } : null,
         }}

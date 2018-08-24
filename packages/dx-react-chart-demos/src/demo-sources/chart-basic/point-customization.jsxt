@@ -2,6 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   LineSeries,
+  ScatterSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
 import {
@@ -46,11 +47,11 @@ const data = [
 
 const Point = (type, styles) => (props) => {
   const {
-    x, y, themeColor,
+    x, y, color,
   } = props;
   return (
     <path
-      fill={themeColor}
+      fill={color}
       transform={`translate(${x} ${y})`}
       d={symbol().size([10 ** 2]).type(type)()}
       style={styles}
@@ -73,6 +74,30 @@ const StarPoint = Point(symbolStar, {
   strokeWidth: '1px',
 });
 
+const LineWithDiamondPoint = props => (
+  <React.Fragment>
+    <LineSeries.Path {...props} />
+    <ScatterSeries.Path {...props} pointComponent={DiamondPoint} />
+  </React.Fragment>
+);
+
+const LineWithCrossPoint = props => (
+  <React.Fragment>
+    <LineSeries.Path {...props} />
+    <ScatterSeries.Path {...props} pointComponent={CrossPoint} />
+  </React.Fragment>
+);
+
+const LineWithStarPoint = (props) => {
+  const { coordinates } = props;
+  return (
+    <React.Fragment>
+      <LineSeries.Path {...props} coordinates={coordinates} />
+      <ScatterSeries.Path {...props} pointComponent={StarPoint} />
+    </React.Fragment>
+  );
+};
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -93,17 +118,17 @@ export default class Demo extends React.PureComponent {
           <LineSeries
             valueField="constantValue"
             argumentField="argument"
-            pointComponent={DiamondPoint}
+            seriesComponent={LineWithDiamondPoint}
           />
           <LineSeries
             valueField="linearValue"
             argumentField="argument"
-            pointComponent={CrossPoint}
+            seriesComponent={LineWithCrossPoint}
           />
           <LineSeries
             valueField="powValue"
             argumentField="argument"
-            pointComponent={StarPoint}
+            seriesComponent={LineWithStarPoint}
           />
         </Chart>
       </<%&wrapperTag%>>

@@ -13,7 +13,7 @@ export const DxTableSelection = {
         cellComponent={TableSelectCell}
         headerCellComponent={TableSelectAllCell}
         selectionColumnWidth={40}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

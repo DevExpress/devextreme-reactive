@@ -1,39 +1,49 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { pointAttributes } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils/series-helper';
+import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
+import { withSeriesPlugin, withColor } from '../utils';
 
-const EmptyFunction = () => null;
-
-const Dot = ({
+const Series = ({
   ...props
 }) => {
   const {
     pointComponent: Point,
+    coordinates,
+    point = {},
     ...restProps
   } = props;
-  return (
+  const getAttributes = pointAttributes(point);
+  return (coordinates.map(item => (
     <Point
+      key={item.id.toString()}
+      {...getAttributes(item)}
+      {...item}
       {...restProps}
     />
-  );
+  )));
 };
 
-const options = ({ ...props }) => {
-  const { point = {} } = props;
-  return { size: point.size };
+const BaseSeries = ({ Path, path, ...props }) => <Path {...props} />;
+
+BaseSeries.propTypes = {
+  Path: PropTypes.func,
+  path: PropTypes.func,
+};
+
+BaseSeries.defaultProps = {
+  Path: Series,
+  path: null,
 };
 
 export const ScatterSeries = withSeriesPlugin(
-  EmptyFunction,
-  Dot,
+  withColor(BaseSeries),
   'ScatterSeries',
   'scatter',
-  EmptyFunction,
-  pointAttributes,
-  options,
+  computeCoordinates,
 );
 
-Dot.propTypes = {
+ScatterSeries.Path = Series;
+
+Series.propTypes = {
   pointComponent: PropTypes.func.isRequired,
 };

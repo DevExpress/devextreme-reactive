@@ -10,10 +10,10 @@ import { ScatterSeries } from './scatter-series';
 const PointComponent = () => null;
 
 const coords = [
-  { x: 1, y: 3, id: 1 },
-  { x: 2, y: 5, id: 2 },
-  { x: 3, y: 7, id: 3 },
-  { x: 4, y: 10, id: 4 },
+  { x: 1, y: 11, id: 1 },
+  { x: 2, y: 12, id: 2 },
+  { x: 3, y: 13, id: 3 },
+  { x: 4, y: 14, id: 4 },
   { x: 5, y: 15, id: 5 },
 ];
 
@@ -46,6 +46,8 @@ describe('Scatter series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
+      domains: {},
+      colorDomain: jest.fn(),
     },
     template: {
       series: {},
@@ -60,6 +62,7 @@ describe('Scatter series', () => {
     argumentField: 'argumentField',
     axisName: 'axisName',
     point: { size: 5 },
+    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render points', () => {
@@ -79,10 +82,9 @@ describe('Scatter series', () => {
         d, x, y, styles,
       } = tree.find(PointComponent).get(index).props;
       expect(d).toBe('M12 12');
-      expect(x).toBe(4);
-      expect(y).toBe(3);
+      expect(x).toBe(index + 1);
+      expect(y).toBe(index + 11);
       expect(styles).toBe('styles');
     });
-    expect(pointAttributes).toBeCalledWith(undefined, { size: 5 }, 'stack');
   });
 });

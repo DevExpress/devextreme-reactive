@@ -53,6 +53,10 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
+        <Template name="navbarEmpty">
+          <TemplatePlaceholder />
+          <Text getMessage={getMessage} />
+        </Template>
         <TemplateConnector>
           {({
             dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
@@ -62,33 +66,26 @@ export class AllDayPanel extends React.PureComponent {
               appointments, startViewDate, endViewDate, excludedDays, dayScale, tableRef.querySelectorAll('th'),
             ) : [];
             return (
-              <React.Fragment>
-                <Template name="navbar">
-                  <TemplatePlaceholder />
-                  <Layout
-                    allDayPanelRef={this.allDayPanelRef}
-                    cellComponent={Cell}
-                    rowComponent={Row}
-                    dayScale={dayScale}
-                  >
-                    <Container>
-                      {rects.map(({ dataItem, type, ...geometry }, index) => (
-                        <AppointmentPlaceholder
-                          style={getAppointmentStyle(geometry)}
-                          type={type}
-                          key={index.toString()}
-                          appointment={dataItem}
-                        />
-                      ))}
-                    </Container>
-                  </Layout>
-                </Template>
-
-                <Template name="navbarEmpty">
-                  <TemplatePlaceholder />
-                  <Text getMessage={getMessage} />
-                </Template>
-              </React.Fragment>
+              <Template name="navbar">
+                <TemplatePlaceholder />
+                <Layout
+                  allDayPanelRef={this.allDayPanelRef}
+                  cellComponent={Cell}
+                  rowComponent={Row}
+                  dayScale={dayScale}
+                >
+                  <Container>
+                    {rects.map(({ dataItem, type, ...geometry }, index) => (
+                      <AppointmentPlaceholder
+                        style={getAppointmentStyle(geometry)}
+                        type={type}
+                        key={index.toString()}
+                        appointment={dataItem}
+                      />
+                    ))}
+                  </Container>
+                </Layout>
+              </Template>
             );
           }}
         </TemplateConnector>

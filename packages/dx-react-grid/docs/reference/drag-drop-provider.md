@@ -2,7 +2,7 @@
 
 A plugin that implements the drag-and-drop functionality and visualizes columns that are being dragged.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

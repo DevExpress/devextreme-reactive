@@ -2,9 +2,9 @@
 
 A plugin that manages the selection state.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxSelectionState } from '@devexpress/dx-vue-grid';

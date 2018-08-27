@@ -2,7 +2,7 @@
 
 A plugin that manages Grid columns' visibility.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

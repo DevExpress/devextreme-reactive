@@ -2,7 +2,7 @@
 
 A plugin that enables column fixing at the start or at the end of the Grid table.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

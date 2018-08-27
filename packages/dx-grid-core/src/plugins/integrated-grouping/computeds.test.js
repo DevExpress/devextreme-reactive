@@ -28,6 +28,9 @@ describe('IntegratedGrouping computeds', () => {
       expect(groupRowLevelKeyGetter({}))
         .toBeFalsy();
 
+      expect(groupRowLevelKeyGetter())
+        .toBeFalsy();
+
       expect(groupRowLevelKeyGetter({ [GRID_GROUP_LEVEL_KEY]: 'a' }))
         .toBe('a');
     });

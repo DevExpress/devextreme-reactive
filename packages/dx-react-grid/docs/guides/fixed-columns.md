@@ -9,7 +9,7 @@ The Grid allows to render some of the columns fixed to its sides.
 
 ## Related Plugins
 
-The following plugins implement the Banded Columns feature:
+The following plugins implement the Fixed Columns feature:
 
 - [TableFixedColumns](../reference/table-fixed-columns.md) - enables fixed columns rendering
 

@@ -72,3 +72,4 @@ tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Tab
 Name | Plugin | Type | Description
 -----|--------|------|------------
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Table columns with fixed column flags applied.
+tableHeaderRows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableRow](table.md#tablerow)&gt; | Table header rows.

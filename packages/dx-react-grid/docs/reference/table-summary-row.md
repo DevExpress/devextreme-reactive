@@ -2,7 +2,7 @@
 
 A plugin that renders table rows that display a total, group, and tree summary.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

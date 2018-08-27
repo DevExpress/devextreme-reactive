@@ -2,9 +2,9 @@
 
 A plugin that provides items for total, group, and tree summaries.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { SummaryState } from '@devexpress/dx-react-grid';

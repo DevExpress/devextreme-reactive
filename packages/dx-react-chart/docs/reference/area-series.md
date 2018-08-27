@@ -2,9 +2,9 @@
 
 The AreaSeries plugin visualizes the area series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { AreaSeries } from '@devexpress/dx-react-chart-material-ui';

@@ -2,9 +2,9 @@
 
 The SplineSeries plugin visualizes the spline series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { SplineSeries } from '@devexpress/dx-react-chart-material-ui';

@@ -35,9 +35,9 @@ defaultCalculator | (type: [SummaryType](summary-state.md#summarytype), rows: Ar
 Name | Plugin | Type | Description
 -----|--------|------|------------
 rows | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;any&gt; | Rows for which to calculate summary.
-totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Total summary items.
-groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Group summary items.
-treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to rows that contain child rows.
+totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](summary-state.md#summaryitem)&gt; | Total summary items.
+groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](summary-state.md#summaryitem)&gt; | Group summary items.
+treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](summary-state.md#summaryitem)&gt; | Summary items applied to rows that contain child rows.
 
 ### Exports
 

@@ -2,9 +2,9 @@
 
 The ScatterSeries plugin visualizes the scatter series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { ScatterSeries } from '@devexpress/dx-react-chart-material-ui';

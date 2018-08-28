@@ -24,7 +24,7 @@ describe('AllDayPanel helpers', () => {
         .toBe(false);
     });
 
-    it('should work with allDay point', () => {
+    it('should work with the "allDay" appointment field', () => {
       const appointment = { start: moment('2018-12-31 10:20'), end: moment('2019-01-01 10:00'), allDay: true };
 
       expect(allDayPredicate(appointment))

@@ -10,6 +10,7 @@ const Series = ({
     pointComponent: Point,
     coordinates,
     path,
+    barWidth,
     ...restProps
   } = props;
   return (coordinates.map(item => (

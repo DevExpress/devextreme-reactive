@@ -2,7 +2,7 @@
 
 The Chart is a root container component designed to process and display data specified via the `data` property. The Chart's functionality (data visualization and data processing) is implemented in several plugins specified as child components.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

@@ -4,7 +4,7 @@ A plugin that renders the table's header row. The [Column](grid.md#column)'s `ti
 
 The plugin also allows you to manage a column's sorting and grouping state.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

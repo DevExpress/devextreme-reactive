@@ -36,7 +36,7 @@ export const DxTableFilterRow = {
         iconComponent={Icon}
         editorComponent={Editor}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

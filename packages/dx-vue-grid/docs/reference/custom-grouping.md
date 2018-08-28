@@ -2,9 +2,9 @@
 
 A plugin that converts custom formatted grouped data to a supported format and performs local group expanding/collapsing.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxCustomGrouping } from '@devexpress/dx-vue-grid';

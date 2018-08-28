@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Material UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -43,10 +43,10 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.6.1",
-    "@devexpress/dx-react-core": "1.6.1",
-    "@devexpress/dx-react-grid": "1.6.1",
-    "@devexpress/dx-testing": "1.6.1",
+    "@devexpress/dx-grid-core": "1.7.0",
+    "@devexpress/dx-react-core": "1.7.0",
+    "@devexpress/dx-react-grid": "1.7.0",
+    "@devexpress/dx-testing": "1.7.0",
     "@material-ui/core": "^1.5.0",
     "@material-ui/icons": "^2.0.2",
     "babel-core": "^6.26.3",

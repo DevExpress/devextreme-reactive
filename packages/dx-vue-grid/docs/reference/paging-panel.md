@@ -2,7 +2,7 @@
 
 A plugin that renders the paging panel used for navigation through data pages.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

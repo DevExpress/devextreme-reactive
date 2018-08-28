@@ -1,15 +1,14 @@
 export const STUB_TYPE = 'stub';
 export const VISIBLE_TYPE = 'visible';
 
-export const getVisibleBoundaryWithFixed = (visibleBoundary, items) => {
-  const result = [visibleBoundary];
-  items.forEach((item, index) => {
-    if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
-      result.push([index, index]);
-    }
-  });
-  return result;
-};
+export const getVisibleBoundaryWithFixed = (
+  visibleBoundary, items,
+) => items.reduce((acc, item, index) => {
+  if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
+    acc.push([index, index]);
+  }
+  return acc;
+}, [visibleBoundary]);
 
 export const getVisibleBoundary = (items, viewportStart, viewportSize, getItemSize, overscan) => {
   let start = null;

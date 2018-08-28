@@ -57,17 +57,18 @@ export class AllDayPanel extends React.PureComponent {
           <TemplatePlaceholder />
           <Text getMessage={getMessage} />
         </Template>
-        <TemplateConnector>
-          {({
-            dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
-          }) => {
-            if (currentView === 'month') return null;
-            const rects = tableRef ? allDayAppointmentsRects(
-              appointments, startViewDate, endViewDate, excludedDays, dayScale, tableRef.querySelectorAll('th'),
-            ) : [];
-            return (
-              <Template name="navbar">
-                <TemplatePlaceholder />
+
+        <Template name="navbar">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {({
+              dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
+            }) => {
+              if (currentView === 'month') return null;
+              const rects = tableRef ? allDayAppointmentsRects(
+                appointments, startViewDate, endViewDate, excludedDays, dayScale, tableRef.querySelectorAll('th'),
+              ) : [];
+              return (
                 <Layout
                   allDayPanelRef={this.allDayPanelRef}
                   cellComponent={Cell}
@@ -85,10 +86,10 @@ export class AllDayPanel extends React.PureComponent {
                     ))}
                   </Container>
                 </Layout>
-              </Template>
-            );
-          }}
-        </TemplateConnector>
+              );
+            }}
+          </TemplateConnector>
+        </Template>
       </Plugin>
     );
   }

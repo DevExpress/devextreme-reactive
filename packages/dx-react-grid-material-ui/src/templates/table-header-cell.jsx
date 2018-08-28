@@ -72,7 +72,7 @@ const styles = theme => ({
       right: 0,
       bottom: 0,
       left: 0,
-      background: 'white',
+      backgroundColor: theme.palette.background.paper,
       opacity: 0.7,
       pointerEvents: 'none',
       zIndex: 400,

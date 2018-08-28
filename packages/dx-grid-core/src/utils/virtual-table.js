@@ -50,8 +50,7 @@ export const getVisibleBoundary = (items, viewportStart, viewportSize, getItemSi
 
 export const getSpanBoundary = (items, visibleBoundaries, getItemSpan) => visibleBoundaries
   .map((visibleBoundary) => {
-    let start = visibleBoundary[0];
-    let end = visibleBoundary[1];
+    let [start, end] = visibleBoundary;
 
     for (let index = 0; index <= visibleBoundary[1]; index += 1) {
       const span = getItemSpan(items[index]);

@@ -18,7 +18,6 @@ const TableBorderlessStubCellBase = ({
 }) => (
   <TableStubCell
     className={classNames(classes.cell, className)}
-    classes={{ footer: classes.footer }}
     {...restProps}
   />
 );

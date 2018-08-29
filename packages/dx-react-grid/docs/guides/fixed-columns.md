@@ -1,33 +1,37 @@
 # React Grid - Fixed Columns
 
-The Grid allows to render some of the columns fixed to its sides.
+The Grid allows you to fix one or more first and last columns. Fixed columns are always on their initial places regardless of the current scrolling position.
 
-*Browser Support Note:*
+**Browser Support Notes:**
 
-- This feature does not work in Android Browser/WebView for Android earlier than 5.0 and Internet Explorer because these browsers do not support `position: sticky`.
-- It also does not work correctly in Microsoft Edge because of the following [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/). Your vote for it is highly appreciated.
+- The following browsers do not support fixed columns because they do not suppoort `position: sticky`:  
+ - Android Browser before 5.0  
+ - WebView for Android before 5.0  
+ - Internet Explorer  
+ 
+- Currently, Microsoft Edge does not correctly support column fixing. See this [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/) for more information.
 
 ## Related Plugins
 
-The following plugins implement the Fixed Columns feature:
+The following plugins implement the column fixing:
 
-- [TableFixedColumns](../reference/table-fixed-columns.md) - enables fixed columns rendering
+- [TableFixedColumns](../reference/table-fixed-columns.md) - renders fixed columns
 
 ## Basic Setup
 
-Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the column which should be rendered fixed to one of Grid's sides. Use the `beforeColumnNames` property to specify columns fixed at the start of the Grid table and the `afterColumnNames` property for the columns fixed at the end.
+Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the columns that should be rendered as fixed. The `beforeColumnNames` property specifies columns fixed at the grid's left side, the `afterColumnNames` property - at the right side.
 
 .embedded-demo({ "path": "grid-fixed-columns/basic", "showThemeSelector": true })
 
 ## Fixing Service Columns
 
-It is also possible to fix service columns (e.g. Selection Column, Editing Column). Use the `beforeColumnTypes` and `afterColumnTypes` properties for this purpose.
+You can also fix service columns, such as Selection Column or Editing Column, using the `beforeColumnTypes` and `afterColumnTypes` properties.
 
 .embedded-demo({ "path": "grid-fixed-columns/with-selection", "showThemeSelector": true })
 
 ## With Other Plugins
 
-No special setup is required to use the [TableFixedColumns](../reference/table-fixed-columns.md) plugin with other ones.
+You can use the [TableFixedColumns](../reference/table-fixed-columns.md) plugin with other plugins.
 
 .embedded-demo({ "path": "grid-fixed-columns/bands", "showThemeSelector": true })
 

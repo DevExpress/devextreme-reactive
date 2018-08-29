@@ -72,7 +72,7 @@ FixedCell.propTypes = {
 };
 
 FixedCell.defaultProps = {
-  style: {},
+  style: null,
   showLeftDivider: false,
   showRightDivider: false,
   position: undefined,

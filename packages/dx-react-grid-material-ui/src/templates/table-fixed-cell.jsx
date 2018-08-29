@@ -61,7 +61,7 @@ FixedCellBase.propTypes = {
 
 FixedCellBase.defaultProps = {
   className: undefined,
-  style: {},
+  style: null,
   showLeftDivider: false,
   showRightDivider: false,
   position: undefined,

@@ -6,12 +6,11 @@ import {
   unwrapGroups,
   viewPredicate,
   sortAppointments,
+  toPercentage,
 } from '../../utils';
 import {
   HORIZONTAL_APPOINTMENT_TYPE,
 } from '../../constants';
-
-const toPercentage = (value, total) => (value * 100) / total;
 
 const calculateDateIntervals = (
   appointments,
@@ -19,8 +18,10 @@ const calculateDateIntervals = (
   excludedDays,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
-  .filter(appointment => viewPredicate(appointment, leftBound, rightBound, excludedDays, false))
-  .filter(appointment => allDayPredicate(appointment))
+  .filter(appointment => (
+    viewPredicate(appointment, leftBound, rightBound, excludedDays, false)
+    && allDayPredicate(appointment)
+  ))
   .reduce((acc, appointment) => ([
     ...acc,
     ...sliceAppointmentsByBoundaries(appointment, leftBound, rightBound, excludedDays),

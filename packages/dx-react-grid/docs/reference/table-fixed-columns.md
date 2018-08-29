@@ -1,6 +1,6 @@
 # TableFixedColumns Plugin Reference
 
-A plugin that enables column fixing at the start or at the end of the Grid table.
+A plugin that enables you to fix columns at the left and right sides of the grid.
 
 ## Import
 
@@ -28,27 +28,27 @@ import { TableFixedColumns } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-beforeColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed at the start boundary.
-afterColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed at the end boundary.
-beforeColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed at the start boundary.
-afterColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed at the end boundary.
-cellComponent | ComponentType&lt;[TableFixedColumns.CellProps](#tablefixedcolumnscellprops)&gt; | | A component that renders a cell related to a fixed column.
+beforeColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed at the left grid's side.
+afterColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed at the right grid's side.
+beforeColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed at the left grid's side.
+afterColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed at the right grid's side.
+cellComponent | ComponentType&lt;[TableFixedColumns.CellProps](#tablefixedcolumnscellprops)&gt; | | A component that renders a fixed column's cell.
 
 ## Interfaces
 
 ### TableFixedColumns.CellProps
 
-Describes properties passed to a component that renders a cell related to a fixed column.
+Describes properties passed to a component that renders a fixed column's cell.
 
 Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
 side | 'left' &#124; 'right' | Specifies the side of the table to which the cell should be fixed.
-component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A table cell component that should be rendered as a fixed cell.
-showLeftDivider | boolean | Specifies whether the left divider should be rendered.
-showRightDivider | boolean | Specifies whether the right divider should be rendered.
-position | number | Specifies the position of the fixed cell.
+component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A component that should be rendered as a fixed cell.
+showLeftDivider | boolean | Specifies whether to render the left divider.
+showRightDivider | boolean | Specifies whether to render the right divider.
+position | number | Specifies the fixed cell's position.
 
 ## Plugin Components
 

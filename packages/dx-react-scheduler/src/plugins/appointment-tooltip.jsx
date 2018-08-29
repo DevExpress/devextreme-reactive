@@ -18,16 +18,15 @@ export class AppointmentTooltip extends React.PureComponent {
     super(props);
 
     const {
-      target, appointment, visible,
       onAppointmentChange,
       onTargetChange,
       onVisibleChange,
     } = this.props;
 
     this.state = {
-      appointment,
-      target,
-      visible,
+      appointment: props.appointment,
+      target: props.target,
+      visible: props.visible,
     };
 
     const stateHelper = createStateHelper(
@@ -149,9 +148,9 @@ AppointmentTooltip.defaultProps = {
   onAppointmentChange: undefined,
   onTargetChange: undefined,
   onVisibleChange: undefined,
-  appointment: {},
-  visible: false,
-  target: null,
+  appointment: undefined,
+  visible: undefined,
+  target: undefined,
   showOpenButton: false,
   showDeleteButton: false,
   showCloseButton: false,

@@ -55,13 +55,13 @@ Layout.propTypes = {
   openButtonComponent: PropTypes.func.isRequired,
   closeButtonComponent: PropTypes.func.isRequired,
   deleteButtonComponent: PropTypes.func.isRequired,
-  appointment: PropTypes.object.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
   getAppointmentEndDate: PropTypes.func.isRequired,
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentTitle: PropTypes.func.isRequired,
+  appointment: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
   target: PropTypes.oneOfType([
@@ -70,6 +70,7 @@ Layout.propTypes = {
   ]),
 };
 Layout.defaultProps = {
+  appointment: undefined,
   onHide: () => undefined,
   visible: false,
   target: null,

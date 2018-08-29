@@ -2,7 +2,7 @@
 
 A plugin that renders a table column with a toggle button and sort indicators.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

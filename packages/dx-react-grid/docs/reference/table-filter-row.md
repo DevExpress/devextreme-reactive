@@ -2,7 +2,7 @@
 
 A plugin that renders a filter row.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

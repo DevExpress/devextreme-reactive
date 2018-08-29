@@ -2,7 +2,7 @@
 
 A plugin that renders the Grid toolbar.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

@@ -2,9 +2,9 @@
 
 A plugin that converts custom formatted tree data to a supported format and expands/collapses local rows.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxCustomTreeData } from '@devexpress/dx-vue-grid';

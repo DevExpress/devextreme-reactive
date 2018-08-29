@@ -2,9 +2,9 @@
 
 The Legend plugin visualizes the legend.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { Legend } from '@devexpress/dx-react-chart-material-ui';

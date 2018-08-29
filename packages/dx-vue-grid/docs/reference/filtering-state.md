@@ -2,9 +2,9 @@
 
 A plugin that manages the filtering state.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxFilteringState } from '@devexpress/dx-vue-grid';

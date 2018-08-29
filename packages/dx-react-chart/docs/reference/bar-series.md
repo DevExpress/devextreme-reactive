@@ -2,9 +2,9 @@
 
 The BarSeries plugin visualizes the bar series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { BarSeries } from '@devexpress/dx-react-chart-material-ui';

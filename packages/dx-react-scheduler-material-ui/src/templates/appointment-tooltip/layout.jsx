@@ -9,19 +9,19 @@ export const Layout = ({
   openButtonComponent: OpenButton,
   closeButtonComponent: CloseButton,
   deleteButtonComponent: DeleteButton,
-  appointment,
+  appointmentMeta,
   showOpenButton,
   showCloseButton,
   showDeleteButton,
   getAppointmentEndDate,
   getAppointmentStartDate,
   getAppointmentTitle,
-  visible, target, onHide,
+  visible, onHide,
   ...restProps
 }) => (
   <Popover
     open={visible}
-    anchorEl={target}
+    anchorEl={appointmentMeta.target}
     onClose={onHide}
     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -32,7 +32,7 @@ export const Layout = ({
         openButtonComponent={OpenButton}
         closeButtonComponent={CloseButton}
         deleteButtonComponent={DeleteButton}
-        appointment={appointment}
+        appointment={appointmentMeta.appointment}
         showOpenButton={showOpenButton}
         showCloseButton={showCloseButton}
         showDeleteButton={showDeleteButton}
@@ -41,7 +41,7 @@ export const Layout = ({
         getAppointmentTitle={getAppointmentTitle}
       />
       <Content
-        appointment={appointment}
+        appointment={appointmentMeta.appointment}
         getAppointmentStartDate={getAppointmentStartDate}
         getAppointmentEndDate={getAppointmentEndDate}
       />
@@ -61,17 +61,12 @@ Layout.propTypes = {
   getAppointmentEndDate: PropTypes.func.isRequired,
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentTitle: PropTypes.func.isRequired,
-  appointment: PropTypes.object,
+  appointmentMeta: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
-  target: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func,
-  ]),
 };
 Layout.defaultProps = {
-  appointment: undefined,
   onHide: () => undefined,
+  appointmentMeta: {},
   visible: false,
-  target: null,
 };

@@ -2,12 +2,11 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
-import { setAppointment, setTarget } from '@devexpress/dx-scheduler-core';
+import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
 import { AppointmentTooltip } from './appointment-tooltip';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  setAppointment: jest.fn(),
-  setTarget: jest.fn(),
+  setAppointmentMeta: jest.fn(),
 }));
 
 describe('AppointmentTooltip', () => {
@@ -32,8 +31,7 @@ describe('AppointmentTooltip', () => {
   };
 
   beforeEach(() => {
-    setAppointment.mockImplementation(() => ({ data: 'a' }));
-    setTarget.mockImplementation(() => 'target');
+    setAppointmentMeta.mockImplementation(() => undefined);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -53,7 +51,7 @@ describe('AppointmentTooltip', () => {
       .toBeTruthy();
   });
 
-  it('should provide setTooltipTarget action', () => {
+  it('should provide setTooltipAppointmentMeta action', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -63,23 +61,8 @@ describe('AppointmentTooltip', () => {
       </PluginHost>
     ));
 
-    executeComputedAction(tree, actions => actions.setTooltipTarget());
-    expect(setTarget)
-      .toBeCalled();
-  });
-
-  it('should provide setTooltipAppointment action', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentTooltip
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    executeComputedAction(tree, actions => actions.setTooltipAppointment());
-    expect(setAppointment)
+    executeComputedAction(tree, actions => actions.setTooltipAppointmentMeta());
+    expect(setAppointmentMeta)
       .toBeCalled();
   });
 

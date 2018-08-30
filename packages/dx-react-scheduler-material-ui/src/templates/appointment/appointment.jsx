@@ -33,16 +33,14 @@ const AppointmentBase = ({
   style,
   children,
   toggleTooltipVisible,
-  setTooltipAppointment,
-  setTooltipTarget,
+  setTooltipAppointmentMeta,
   appointment,
   ...restProps
 }) => (
   <div
     className={classNames(classes.appointment, className)}
     onClick={(e) => {
-      setTooltipTarget({ target: e.target });
-      setTooltipAppointment({ appointment });
+      setTooltipAppointmentMeta({ target: e.target, appointment });
       toggleTooltipVisible();
     }}
     style={style}
@@ -61,14 +59,12 @@ AppointmentBase.propTypes = {
   className: PropTypes.string,
   appointment: PropTypes.object,
   toggleTooltipVisible: PropTypes.func,
-  setTooltipAppointment: PropTypes.func,
-  setTooltipTarget: PropTypes.func,
+  setTooltipAppointmentMeta: PropTypes.func,
 };
 
 AppointmentBase.defaultProps = {
+  setTooltipAppointmentMeta: () => undefined,
   toggleTooltipVisible: () => undefined,
-  setTooltipAppointment: () => undefined,
-  setTooltipTarget: () => undefined,
   className: undefined,
   appointment: {},
 };

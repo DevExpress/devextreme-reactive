@@ -1,2 +1,1 @@
-export const setAppointment = (_, { appointment: app }) => app;
-export const setTarget = (_, { target: value }) => value;
+export const setAppointmentMeta = (_, { target, appointment }) => ({ target, appointment });

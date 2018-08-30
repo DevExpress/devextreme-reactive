@@ -7,7 +7,6 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
-
 import appointments from '../../../demo-data/today-appointments';
 
 export default class Demo extends React.PureComponent {
@@ -16,8 +15,10 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       visible: false,
-      target: null,
-      appointment: {},
+      appointmentMeta: {
+        target: null,
+        appointment: {},
+      },
     };
 
     this.toggleVisible = () => {
@@ -26,11 +27,13 @@ export default class Demo extends React.PureComponent {
     };
 
     this.setRef = (ref) => {
-      this.setState({ target: ref });
+      const { appointmentMeta } = this.state;
+      this.setState({ appointmentMeta: { ...appointmentMeta, target: ref } });
     };
 
-    this.onAppointmentChange = (appointment) => {
-      this.setState({ appointment });
+    this.onAppointmentMetaChange = ({ appointment }) => {
+      const { target } = this.state;
+      this.setState({ appointmentMeta: { appointment, target } });
     };
 
     this.onVisibleChange = (visible) => {
@@ -42,9 +45,8 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       data,
-      appointment,
+      appointmentMeta,
       visible,
-      target,
     } = this.state;
 
     return (
@@ -54,10 +56,10 @@ export default class Demo extends React.PureComponent {
             <Button onClick={this.toggleVisible}>
               Open Appointment
             </Button>
-            <Button onClick={() => this.onAppointmentChange({})}>
+            <Button onClick={() => this.onAppointmentMetaChange({ target: null, appointment: {} })}>
               Reset Appointment
             </Button>
-            <div style={{ color: appointment.startDate ? 'green' : 'red' }}>
+            <div style={{ color: appointmentMeta.appointment.startDate ? 'green' : 'red' }}>
               Appointment Ready
             </div>
           </div>
@@ -75,11 +77,9 @@ export default class Demo extends React.PureComponent {
 
             <AppointmentTooltip
               visible={visible}
-              target={target}
-              appointment={appointment}
+              appointmentMeta={appointmentMeta}
 
-              onAppointmentChange={this.onAppointmentChange}
-              onTargetChange={this.onTargetChange}
+              onAppointmentMetaChange={this.onAppointmentMetaChange}
               onVisibleChange={this.onVisibleChange}
 
               showCloseButton

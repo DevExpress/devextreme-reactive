@@ -8,7 +8,7 @@ import {
   Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { setAppointment, setTarget } from '@devexpress/dx-scheduler-core';
+import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Appointment' },
@@ -19,17 +19,15 @@ export class AppointmentTooltip extends React.PureComponent {
     super(props);
 
     this.state = {
-      appointment: props.appointment,
-      target: props.target,
       visible: props.visible,
+      appointmentMeta: props.appointmentMeta,
     };
 
     const stateHelper = createStateHelper(
       this,
       {
-        appointment: () => props.onAppointmentChange,
         visible: () => props.onVisibleChange,
-        target: () => props.onTargetChange,
+        appointmentMeta: () => props.onAppointmentMetaChange,
       },
     );
 
@@ -37,23 +35,19 @@ export class AppointmentTooltip extends React.PureComponent {
       const { visible: isOpen } = this.state;
       return !isOpen;
     };
-    this.setTarget = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'target', setTarget);
     this.toggleVisible = stateHelper.applyFieldReducer
       .bind(stateHelper, 'visible', toggleVisible);
-    this.setCurrentAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'appointment', setAppointment);
+    this.setAppointmentMeta = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointmentMeta', setAppointmentMeta);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      appointment = prevState.appointment,
-      target = prevState.target,
       visible = prevState.visible,
+      appointmentMeta = prevState.appointmentMeta,
     } = nextProps;
     return {
-      appointment,
-      target,
+      appointmentMeta,
       visible,
     };
   }
@@ -70,16 +64,15 @@ export class AppointmentTooltip extends React.PureComponent {
       deleteButtonComponent: DeleteButton,
       closeButtonComponent: CloseButton,
     } = this.props;
-    const { appointment, target, visible } = this.state;
+    const { visible, appointmentMeta } = this.state;
 
     return (
       <Plugin
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="setTooltipTarget" action={this.setTarget} />
-        <Action name="setTooltipAppointment" action={this.setCurrentAppointment} />
         <Action name="toggleTooltipVisible" action={this.toggleVisible} />
+        <Action name="setTooltipAppointmentMeta" action={this.setAppointmentMeta} />
         <Template name="main">
           <TemplateConnector>
             {({
@@ -98,8 +91,7 @@ export class AppointmentTooltip extends React.PureComponent {
                   closeButtonComponent={CloseButton}
                   headComponent={Head}
                   contentComponent={Content}
-                  appointment={appointment}
-                  target={target}
+                  appointmentMeta={appointmentMeta}
                   visible={visible}
                   onHide={this.toggleVisible}
 
@@ -126,24 +118,17 @@ AppointmentTooltip.propTypes = {
   showOpenButton: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
   showCloseButton: PropTypes.bool,
-  appointment: PropTypes.object,
   visible: PropTypes.bool,
-  target: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func,
-  ]),
+  appointmentMeta: PropTypes.object,
   onVisibleChange: PropTypes.func,
-  onTargetChange: PropTypes.func,
-  onAppointmentChange: PropTypes.func,
+  onAppointmentMetaChange: PropTypes.func,
 };
 
 AppointmentTooltip.defaultProps = {
-  onAppointmentChange: undefined,
-  onTargetChange: undefined,
+  onAppointmentMetaChange: undefined,
   onVisibleChange: undefined,
-  appointment: undefined,
+  appointmentMeta: undefined,
   visible: undefined,
-  target: undefined,
   showOpenButton: false,
   showDeleteButton: false,
   showCloseButton: false,

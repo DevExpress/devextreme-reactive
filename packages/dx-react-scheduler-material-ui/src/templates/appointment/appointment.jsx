@@ -40,7 +40,11 @@ const AppointmentBase = ({
 }) => (
   <div
     className={classNames(classes.appointment, className)}
-    onClick={(e) => { setTooltipTarget({ target: e.target }); setTooltipAppointment({ appointment }); toggleTooltipVisible(); }}
+    onClick={(e) => {
+      setTooltipTarget({ target: e.target });
+      setTooltipAppointment({ appointment });
+      toggleTooltipVisible();
+    }}
     style={style}
     {...restProps}
   >

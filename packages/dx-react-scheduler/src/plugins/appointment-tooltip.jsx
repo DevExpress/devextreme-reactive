@@ -8,6 +8,7 @@ import {
   Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
+import { setAppointment, setTarget } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Appointment' },
@@ -16,12 +17,6 @@ const pluginDependencies = [
 export class AppointmentTooltip extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    const {
-      onAppointmentChange,
-      onTargetChange,
-      onVisibleChange,
-    } = this.props;
 
     this.state = {
       appointment: props.appointment,
@@ -32,20 +27,18 @@ export class AppointmentTooltip extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        appointment: () => onAppointmentChange,
-        visible: () => onVisibleChange,
-        target: () => onTargetChange,
+        appointment: () => props.onAppointmentChange,
+        visible: () => props.onVisibleChange,
+        target: () => props.onTargetChange,
       },
     );
 
-    const setAppointment = (currApp, { appointment: app }) => app;
     const toggleVisible = () => {
-      const { visible: vis } = this.state;
-      return !vis;
+      const { visible: isOpen } = this.state;
+      return !isOpen;
     };
-
     this.setTarget = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'target', (_, { target: value }) => value);
+      .bind(stateHelper, 'target', setTarget);
     this.toggleVisible = stateHelper.applyFieldReducer
       .bind(stateHelper, 'visible', toggleVisible);
     this.setCurrentAppointment = stateHelper.applyFieldReducer

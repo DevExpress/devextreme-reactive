@@ -2,7 +2,7 @@
 
 A plugin that renders a command column. This column contains controls used for row editing, creating, or deleting and committing/canceling changes.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

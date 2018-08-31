@@ -1,3 +1,13 @@
+<a name="1.7.2"></a>
+# [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)
+
+
+### Bug Fixes
+
+* **react:** fix bundling ([#1376](https://github.com/DevExpress/devextreme-reactive/issues/1376)) ([00f0216](https://github.com/DevExpress/devextreme-reactive/commit/00f0216))
+
+
+
 <a name="1.7.1"></a>
 # [1.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.0...v1.7.1) (2018-08-31)
 

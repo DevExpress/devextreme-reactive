@@ -1,3 +1,14 @@
+<a name="1.7.1"></a>
+# [1.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.0...v1.7.1) (2018-08-31)
+
+
+### Bug Fixes
+
+* **grid:** fix group row level key calculation ([#1359](https://github.com/DevExpress/devextreme-reactive/issues/1359)) ([dfec46e](https://github.com/DevExpress/devextreme-reactive/commit/dfec46e)), closes [#1355](https://github.com/DevExpress/devextreme-reactive/issues/1355)
+* **react:** prevent the 'process.env' value usage in umd bundles ([#1363](https://github.com/DevExpress/devextreme-reactive/issues/1363)) ([29468da](https://github.com/DevExpress/devextreme-reactive/commit/29468da))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.6.1...v1.7.0) (2018-08-23)
 

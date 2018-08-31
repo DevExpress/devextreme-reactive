@@ -22,20 +22,14 @@ export interface AreaSeriesProps {
   axisName?: string;
   /** The associated stack. */
   stack?: string;
-  /** Point options. */
-  point?: { size : number };
   /** A component that renders the series. */
   seriesComponent?: React.ComponentType<AreaSeriesBase.SeriesProps>;
-  /** A component that renders a series point. */
-  pointComponent?: React.ComponentType<AreaSeriesBase.PointProps>;
 }
 
 /** The AreaSeries plugin visualizes the area series. */
 export declare const AreaSeries: React.ComponentType<AreaSeriesProps> & {
   /** A component that renders the series. */
   Path: React.ComponentType<AreaSeriesBase.SeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  /** A component that renders a series point. */
-  Point: React.ComponentType<AreaSeriesBase.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // -------------------------------------------------------------------------------------------------
@@ -207,20 +201,14 @@ export interface LineSeriesProps {
   axisName?: string;
   /** The associated stack. */
   stack?: string;
-  /** Point options. */
-  point?: { size : number };
   /** A component that renders the series. */
   seriesComponent?: React.ComponentType<LineSeriesBase.SeriesProps>;
-  /** A component that renders a point. */
-  pointComponent?: React.ComponentType<LineSeriesBase.PointProps>;
 }
 
 /** The LineSeries plugin visualizes the line series. */
 export declare const LineSeries: React.ComponentType<LineSeriesProps> & {
   /** A component that renders the series. */
   Path: React.ComponentType<LineSeriesBase.SeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  /** A component that renders a series point. */
-  Point: React.ComponentType<LineSeriesBase.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // -------------------------------------------------------------------------------------------------
@@ -277,6 +265,8 @@ export interface ScatterSeriesProps {
 
 /** The ScatterSeries plugin visualizes the scatter series. */
 export declare const ScatterSeries: React.ComponentType<ScatterSeriesProps> & {
+  /** A component that renders the series of points. */
+  Path: React.ComponentType<ScatterSeriesBase.SeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   /** A component that renders a series point. */
   Point: React.ComponentType<ScatterSeriesBase.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
@@ -300,20 +290,14 @@ export interface SplineSeriesProps {
   axisName?: string;
   /** The associated stack. */
   stack?: string;
-  /** Point options. */
-  point?: { size : number };
   /** A component that renders the series. */
   seriesComponent?: React.ComponentType<SplineSeriesBase.SeriesProps>;
-  /** A component that renders a series point. */
-  pointComponent?: React.ComponentType<SplineSeriesBase.PointProps>;
 }
 
 /** The SplineSeries plugin visualizes the spline series. */
 export declare const SplineSeries: React.ComponentType<SplineSeriesProps> & {
   /** A component that renders the series. */
   Path: React.ComponentType<SplineSeriesBase.SeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  /** A component that renders a series point. */
-  Point: React.ComponentType<SplineSeriesBase.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // -------------------------------------------------------------------------------------------------

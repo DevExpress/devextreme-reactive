@@ -43,10 +43,10 @@ export class Grid extends React.PureComponent {
               return ((
                 <React.Fragment>
                   {coordinates.ticks.map(({
-                    x1, x2, y1, y2, text,
+                    x1, x2, y1, y2, id,
                   }) => (
                     <Line
-                      key={text}
+                      key={id}
                       x1={orientation === 'horizontal' ? x1 : width}
                       x2={x2}
                       y1={orientation === 'horizontal' ? height : y1}

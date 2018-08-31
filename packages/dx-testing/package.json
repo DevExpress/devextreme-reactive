@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-testing",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "DevExtreme Reactive Components Testing Utilities",
   "author": {
     "name": "Developer Express Inc.",

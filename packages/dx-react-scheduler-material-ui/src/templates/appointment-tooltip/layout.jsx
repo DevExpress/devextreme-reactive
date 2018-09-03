@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
-import Paper from '@material-ui/core/Paper';
 
 export const Layout = ({
   headComponent: Head,
@@ -25,7 +24,7 @@ export const Layout = ({
     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     {...restProps}
   >
-    <Paper>
+    <React.Fragment>
       <Head
         commandButtonComponent={commandButtonComponent}
         appointment={appointmentMeta.appointment}
@@ -41,7 +40,7 @@ export const Layout = ({
         getAppointmentStartDate={getAppointmentStartDate}
         getAppointmentEndDate={getAppointmentEndDate}
       />
-    </Paper>
+    </React.Fragment>
   </Popover>
 );
 

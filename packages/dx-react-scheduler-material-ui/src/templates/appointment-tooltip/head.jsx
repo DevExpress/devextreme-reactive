@@ -27,9 +27,7 @@ const styles = theme => ({
 });
 
 const HeadBase = ({
-  openButtonComponent: OpenButton,
-  closeButtonComponent: CloseButton,
-  deleteButtonComponent: DeleteButton,
+  commandButtonComponent: CommandButton,
   appointment,
   showOpenButton,
   showCloseButton,
@@ -42,11 +40,11 @@ const HeadBase = ({
   <div className={classes.head} {...restProps}>
     <div>
       <div className={classes.buttonsLeft}>
-        {showOpenButton && <OpenButton />}
+        {showOpenButton && <CommandButton id="open" />}
       </div>
       <div className={classes.buttonsRight}>
-        {showDeleteButton && <DeleteButton />}
-        {showCloseButton && <CloseButton onHide={onHide} />}
+        {showDeleteButton && <CommandButton id="delete" />}
+        {showCloseButton && <CommandButton id="close" handler={onHide} />}
       </div>
     </div>
     <div className={classes.text}>
@@ -56,9 +54,7 @@ const HeadBase = ({
 );
 
 HeadBase.propTypes = {
-  openButtonComponent: PropTypes.func.isRequired,
-  closeButtonComponent: PropTypes.func.isRequired,
-  deleteButtonComponent: PropTypes.func.isRequired,
+  commandButtonComponent: PropTypes.func.isRequired,
   appointment: PropTypes.object.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,

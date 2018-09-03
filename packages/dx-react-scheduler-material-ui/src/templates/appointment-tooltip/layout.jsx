@@ -6,9 +6,7 @@ import Paper from '@material-ui/core/Paper';
 export const Layout = ({
   headComponent: Head,
   contentComponent: Content,
-  openButtonComponent: OpenButton,
-  closeButtonComponent: CloseButton,
-  deleteButtonComponent: DeleteButton,
+  commandButtonComponent,
   appointmentMeta,
   showOpenButton,
   showCloseButton,
@@ -29,9 +27,7 @@ export const Layout = ({
   >
     <Paper>
       <Head
-        openButtonComponent={OpenButton}
-        closeButtonComponent={CloseButton}
-        deleteButtonComponent={DeleteButton}
+        commandButtonComponent={commandButtonComponent}
         appointment={appointmentMeta.appointment}
         showOpenButton={showOpenButton}
         showCloseButton={showCloseButton}
@@ -50,11 +46,8 @@ export const Layout = ({
 );
 
 Layout.propTypes = {
+  commandButtonComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
-  openButtonComponent: PropTypes.func.isRequired,
-  closeButtonComponent: PropTypes.func.isRequired,
-  deleteButtonComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,

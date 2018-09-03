@@ -60,9 +60,7 @@ export class AppointmentTooltip extends React.PureComponent {
       tooltipComponent: Tooltip,
       headComponent: Head,
       contentComponent: Content,
-      openButtonComponent: OpenButton,
-      deleteButtonComponent: DeleteButton,
-      closeButtonComponent: CloseButton,
+      commandButtonComponent,
     } = this.props;
     const { visible, appointmentMeta } = this.state;
 
@@ -83,12 +81,10 @@ export class AppointmentTooltip extends React.PureComponent {
               <React.Fragment>
                 <TemplatePlaceholder />
                 <Tooltip
+                  commandButtonComponent={commandButtonComponent}
                   showOpenButton={showOpenButton}
                   showDeleteButton={showDeleteButton}
                   showCloseButton={showCloseButton}
-                  openButtonComponent={OpenButton}
-                  deleteButtonComponent={DeleteButton}
-                  closeButtonComponent={CloseButton}
                   headComponent={Head}
                   contentComponent={Content}
                   appointmentMeta={appointmentMeta}
@@ -112,9 +108,7 @@ AppointmentTooltip.propTypes = {
   tooltipComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
-  openButtonComponent: PropTypes.func.isRequired,
-  deleteButtonComponent: PropTypes.func.isRequired,
-  closeButtonComponent: PropTypes.func.isRequired,
+  commandButtonComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
   showCloseButton: PropTypes.bool,

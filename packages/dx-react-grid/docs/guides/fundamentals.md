@@ -7,7 +7,7 @@ The Grid requires the following plugins for basic data visualization:
 - [Table](../reference/table.md) - renders a data table
 - [TableHeaderRow](../reference/table-header-row.md) - renders the table's header row
 
-The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
+The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more information.
 
 .embedded-demo({ "path": "grid-basic/basic", "showThemeSelector": true })
 
@@ -31,7 +31,7 @@ The `Table` plugin's `rowComponent` property enables you to handle row events li
 
 .embedded-demo({ "path": "grid-basic/table-row-template", "showThemeSelector": true })
 
-You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
+You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for more information.
 
 ### Column alignment
 

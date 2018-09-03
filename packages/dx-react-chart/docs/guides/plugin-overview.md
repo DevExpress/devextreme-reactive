@@ -12,7 +12,7 @@ The React Chart supports the following plugin types:
 
 ## UI Plugins
 
-The following plugins render a corresponding series:
+The following plugins render series:
 
 - `LineSeries`
 - `ScatterSeries`
@@ -32,7 +32,7 @@ The following plugins render additional elements:
 ## Data Processing Plugins
 
 - `Scale` - extends user data with service information that is required to render axes and series
-- `Stack` - transforms user data to display display series points side-by-side or one under another other
+- `Stack` - transforms user data to display series points side-by-side or one under another other
 
 ## Plugin Order
 
@@ -42,7 +42,7 @@ The plugin order is important. UI plugins are rendered in the same order as they
 
 Note that the data processing plugin `Scale` should be defined after series and axes plugins because it requires options defined in these plugins for correct work.
 
-The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined one:
+The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined suite:
 
 - [DevExtreme React Chart for Material UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui) - renders the Chart's UI elements based on [Material UI](http://www.material-ui.com) components.
 - [DevExtreme React Chart for Bootstrap 4](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-bootstrap4) - renders the Chart's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.

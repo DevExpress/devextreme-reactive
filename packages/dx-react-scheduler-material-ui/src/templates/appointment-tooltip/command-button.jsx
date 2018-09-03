@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  text: {
+  button: {
     color: theme.palette.background.default,
   },
 });
@@ -32,7 +32,7 @@ export const CommandButtonBase = ({
   ...restProps
 }) => (
   <IconButton
-    className={classNames(classes.text, className)}
+    className={classNames(classes.button, className)}
     onClick={() => { handler(); onClick(); }}
     {...restProps}
   >
@@ -42,7 +42,7 @@ export const CommandButtonBase = ({
 
 CommandButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   className: PropTypes.string,
   handler: PropTypes.func,
   onClick: PropTypes.func,
@@ -50,6 +50,7 @@ CommandButtonBase.propTypes = {
 
 CommandButtonBase.defaultProps = {
   className: undefined,
+  id: '',
   handler: () => undefined,
   onClick: () => undefined,
 };

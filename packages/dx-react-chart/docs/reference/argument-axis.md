@@ -4,7 +4,7 @@ The ArgumentAxis plugin visualizes the argument axis.
 
 ## Import
 
-Use the following statement to import the plugin:
+Use the following statement to import a plugin:
 
 ```js
 import { ArgumentAxis } from '@devexpress/dx-react-chart-material-ui';
@@ -29,20 +29,20 @@ name? | string | | The axis name.
 indentFromAxis? | number | 10 | The indent from the axis.
 type? | 'band' &#124; 'linear' | 'linear' | Axis type.
 tickForamt? | (scale: object) => (tick: string) => string  | | A function that returns a tick formatter function.
-rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | |  A component that renders the axis root layout.
+rootComponent | ComponentType&lt;[ArgumentAxis.RootProps](#argumentaxisrootprops)&gt; | |  A component that renders the axis's root layout.
 tickComponent | ComponentType&lt;[ArgumentAxis.TickProps](#argumentaxistickprops)&gt; | | A component that renders a tick.
-labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the axis label.
-lineComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the axis line.
+labelComponent | ComponentType&lt;[ArgumentAxis.LabelProps](#argumentaxislabelprops)&gt; | | A component that renders the axis's label.
+lineComponent | ComponentType&lt;[ArgumentAxis.LineProps](#argumentaxislineprops)&gt; | | A component that renders the axis's line.
 
 ## Interfaces
 
 ### ArgumentAxis.RootProps
 
-Describes properties passed to a component that renders the axis root layout.
+Describes properties passed to a component that renders the axis's root layout.
 
 Field | Type | Description
 ------|------|------------
-x | number | The x coordinate of the top left corner of the axis' rendering area.
+x | number | The x coordinate of the top left corner of the axis's rendering area.
 y | number | The y coordinate of the top left corner of the series' rendering area.
 children | ReactNode | A React node used to render the axis.
 
@@ -59,7 +59,7 @@ y2 | number | The y coordinate of the line's end.
 
 ### ArgumentAxis.LabelProps
 
-Describes properties passed to a component that renders the axis label.
+Describes properties passed to a component that renders the axis's label.
 
 Field | Type | Description
 ------|------|------------
@@ -71,7 +71,7 @@ textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
 
 ### ArgumentAxis.LineProps
 
-Describes properties passed to a component that renders the axis line.
+Describes properties passed to a component that renders the axis's line.
 
 Field | Type | Description
 ------|------|------------
@@ -83,7 +83,7 @@ orientation | 'horizontal' &#124; 'vertical' | The axis orientation.
 
 Name | Properties | Description
 -----|------------|------------
-ArgumentAxis.Root | [ArgumentAxis.RootProps](#argumentaxisrootprops) | A component that renders the axis root layout.
+ArgumentAxis.Root | [ArgumentAxis.RootProps](#argumentaxisrootprops) | A component that renders the axis's root layout.
 ArgumentAxis.Tick | [ArgumentAxis.TickProps](#argumentaxistickprops) | A component that renders the tick.
-ArgumentAxis.Label | [ArgumentAxis.LabelProps](#argumentaxislabelprops) | A component that renders the axis label.
-ArgumentAxis.Line | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the axis line.
+ArgumentAxis.Label | [ArgumentAxis.LabelProps](#argumentaxislabelprops) | A component that renders the axis's label.
+ArgumentAxis.Line | [ArgumentAxis.LineProps](#argumentaxislineprops) | A component that renders the axis's line.

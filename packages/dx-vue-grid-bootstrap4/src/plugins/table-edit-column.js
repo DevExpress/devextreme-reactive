@@ -28,7 +28,7 @@ export const DxTableEditColumn = {
         headerCellComponent={EditCommandHeadingCell}
         commandComponent={CommandButton}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

@@ -2,8 +2,8 @@ import mergeSort from '../../utils/merge-sort';
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
 const defaultCompare = (a, b) => {
-  if (a < b) return -1;
-  if (a > b) return 1;
+  if (a < b || (a !== undefined && b === undefined)) return -1;
+  if (a > b || (a === undefined && b !== undefined)) return 1;
   return 0;
 };
 

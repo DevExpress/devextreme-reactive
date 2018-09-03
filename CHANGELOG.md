@@ -1,3 +1,50 @@
+<a name="1.7.2"></a>
+# [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)
+
+
+### Bug Fixes
+
+* **react:** fix bundling ([#1376](https://github.com/DevExpress/devextreme-reactive/issues/1376)) ([00f0216](https://github.com/DevExpress/devextreme-reactive/commit/00f0216))
+
+
+
+<a name="1.7.1"></a>
+# [1.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.0...v1.7.1) (2018-08-31)
+
+
+### Bug Fixes
+
+* **grid:** fix group row level key calculation ([#1359](https://github.com/DevExpress/devextreme-reactive/issues/1359)) ([dfec46e](https://github.com/DevExpress/devextreme-reactive/commit/dfec46e)), closes [#1355](https://github.com/DevExpress/devextreme-reactive/issues/1355)
+* **react:** prevent the 'process.env' value usage in umd bundles ([#1363](https://github.com/DevExpress/devextreme-reactive/issues/1363)) ([29468da](https://github.com/DevExpress/devextreme-reactive/commit/29468da))
+
+
+
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.6.1...v1.7.0) (2018-08-23)
+
+
+### Bug Fixes
+
+* **grid:** fix sorting with undefined values ([#1348](https://github.com/DevExpress/devextreme-reactive/issues/1348)) ([8342724](https://github.com/DevExpress/devextreme-reactive/commit/8342724)), closes [#1344](https://github.com/DevExpress/devextreme-reactive/issues/1344)
+* **react:** remove prop types in production mode ([#1331](https://github.com/DevExpress/devextreme-reactive/issues/1331)) ([f0020c8](https://github.com/DevExpress/devextreme-reactive/commit/f0020c8))
+* **react-chart:** fix console warning about equal keys ([#1340](https://github.com/DevExpress/devextreme-reactive/issues/1340)) ([fd58312](https://github.com/DevExpress/devextreme-reactive/commit/fd58312))
+* **react-chart:** fix drawing spline ([#1341](https://github.com/DevExpress/devextreme-reactive/issues/1341)) ([e6f5d72](https://github.com/DevExpress/devextreme-reactive/commit/e6f5d72))
+* **react-chart:** fix errors for BarSeries plugin ([#1349](https://github.com/DevExpress/devextreme-reactive/issues/1349)) ([5784cda](https://github.com/DevExpress/devextreme-reactive/commit/5784cda))
+* **react-grid:** add missed optionals to docs ([#1347](https://github.com/DevExpress/devextreme-reactive/issues/1347)) ([1902196](https://github.com/DevExpress/devextreme-reactive/commit/1902196)), closes [#1343](https://github.com/DevExpress/devextreme-reactive/issues/1343)
+* **vue-grid:** fix functional components ([#1350](https://github.com/DevExpress/devextreme-reactive/issues/1350)) ([5aa21a2](https://github.com/DevExpress/devextreme-reactive/commit/5aa21a2)), closes [#1345](https://github.com/DevExpress/devextreme-reactive/issues/1345)
+
+
+### Chores
+
+* **react-chart:** refactor series ([#1279](https://github.com/DevExpress/devextreme-reactive/issues/1279)) ([9634390](https://github.com/DevExpress/devextreme-reactive/commit/9634390)), closes [#1271](https://github.com/DevExpress/devextreme-reactive/issues/1271)
+
+
+### BREAKING CHANGES
+
+* **react-chart:** Previously, we had the pointComponent property for drawing and customizing LineSeries, SplineSeries, and AreaSeries plugin points. But since we have a scatter series, this property has become unnecessary. Use the ScatterSeries plugin or customize the pathComponent of the corresponding plugin.
+
+
+
 <a name="1.6.1"></a>
 # [1.6.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.6.0...v1.6.1) (2018-08-21)
 

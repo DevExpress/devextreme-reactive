@@ -8,27 +8,21 @@ import {
   Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-const data = [
-  { splineValue: 0.32, lineValue: -0.19, argument: 2.3 },
-  { splineValue: 0, lineValue: -0.18, argument: 3.2 },
-  { splineValue: -0.19, lineValue: -0.16, argument: 4 },
-  { splineValue: -0.2, lineValue: -0.14, argument: 4.9 },
-  { splineValue: -0.1, lineValue: -0.1, argument: 5.7 },
-  { splineValue: 0.04, lineValue: -0.06, argument: 6.5 },
-  { splineValue: 0.12, lineValue: -0.01, argument: 7.4 },
-  { splineValue: 0.11, lineValue: 0.04, argument: 8.2 },
-  { splineValue: 0.04, lineValue: 0.11, argument: 9.1 },
-  { splineValue: -0.05, lineValue: 0.19, argument: 9.9 },
-  { splineValue: -0.09, lineValue: 0.28, argument: 10.8 },
-  { splineValue: -0.07, lineValue: 0.38, argument: 11.6 },
-];
+const generateData = (start, end, step) => {
+  const data = [];
+  for (let i = start; i < end; i += step) {
+    data.push({ splineValue: Math.sin(i) / i, lineValue: ((i / 15) ** 2.718) - 0.2, argument: i });
+  }
+
+  return data;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data,
+      data: generateData(2.5, 12, 0.5),
     };
   }
 

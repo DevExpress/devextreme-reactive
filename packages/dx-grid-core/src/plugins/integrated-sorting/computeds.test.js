@@ -100,6 +100,25 @@ describe('IntegratedSorting computeds', () => {
           { a: 1, b: 2 },
         ]);
       });
+
+      it('should correctly sort column with \'undefined\' values', () => {
+        const spacedRows = [
+          { a: 1 },
+          { a: 2, b: 1 },
+          { a: 3, b: 2 },
+          { a: 4 },
+        ];
+        const getColumnCompare = () => undefined;
+        const sorting = [{ columnName: 'b', direction: 'asc' }];
+        const sorted = sortedRows(spacedRows, sorting, getCellValue, getColumnCompare);
+
+        expect(sorted).toEqual([
+          { a: 2, b: 1 },
+          { a: 3, b: 2 },
+          { a: 1 },
+          { a: 4 },
+        ]);
+      });
     });
 
     describe('grouped rows', () => {

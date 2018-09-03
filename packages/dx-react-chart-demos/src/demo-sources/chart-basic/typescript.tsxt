@@ -43,7 +43,6 @@ export default class Demo extends React.Component<object, object> {
             valueField="sale"
             argumentField="month"
             axisName="sale"
-            stack="a"
           />
 
           <LineSeries
@@ -51,7 +50,6 @@ export default class Demo extends React.Component<object, object> {
             valueField="total"
             argumentField="month"
             axisName="total"
-            stack="a"
           />
         </Chart>
       </<%&wrapperTag%>>

@@ -8,8 +8,6 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  lineAttributes: jest.fn(),
-  pointAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
@@ -35,22 +33,15 @@ const coords = [
   },
 ];
 
-const lineMethod = jest.fn();
-const pointMethod = jest.fn();
-const extraOptions = jest.fn();
 
 describe('Base series', () => {
   beforeEach(() => {
     findSeriesByName.mockReturnValue({
       stack: 'stack1',
-      themeColor: 'color',
+      color: 'color',
     });
-
     coordinates.mockReturnValue(coords);
-    pointMethod.mockReturnValue(jest.fn());
     seriesData.mockReturnValue('series');
-    checkZeroStart.mockReturnValue('zeroAxes');
-    extraOptions.mockReturnValue('extraOptions');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -60,7 +51,7 @@ describe('Base series', () => {
       layouts: { pane: { height: 50, width: 60 } },
       data: 'data',
       series: 'series',
-      domains: 'domains',
+      domains: { argumentAxisName: 'argumentDomain', axisName: 'valueDomain' },
       stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
     },
@@ -79,23 +70,15 @@ describe('Base series', () => {
   };
   const TestComponentPath = () => (
     <div>
-      TestComponentPath
-    </div>
-  );
-  const TestComponentPoint = () => (
-    <div>
-      TestComponentPoint
+TestComponentPath
     </div>
   );
 
   const WrappedComponent = withSeriesPlugin(
     TestComponentPath,
-    TestComponentPoint,
     'TestComponent',
     'pathType',
-    lineMethod,
-    pointMethod,
-    extraOptions,
+    coordinates,
   );
 
   it('should render test component', () => {
@@ -108,19 +91,11 @@ describe('Base series', () => {
         />
       </PluginHost>
     ));
-    const points = tree.children().find(TestComponentPoint);
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
       styles: 'styles',
-      themeColor: 'color',
     });
-    for (let i = 0; i < coords.length; i += 1) {
-      expect(points.get(i).props.value).toBe(coords[i].value);
-    }
-
-    expect(lineMethod).toBeCalledWith('pathType', undefined);
-    expect(pointMethod).toBeCalledWith(undefined, 'extraOptions', 'stack1');
   });
 
   it('should call function to get attributes for series', () => {
@@ -144,12 +119,10 @@ describe('Base series', () => {
     );
 
     expect(xyScales).toHaveBeenLastCalledWith(
-      'domains',
-      'argumentAxisName',
-      'axisName',
+      'argumentDomain',
+      'valueDomain',
       { width: 60, height: 50 },
-      ['one', 'two'],
-      'extraOptions',
+      0.7,
     );
 
     expect(coordinates).toHaveBeenLastCalledWith(
@@ -158,6 +131,9 @@ describe('Base series', () => {
       'argumentField',
       'valueField',
       'name',
+      'stack1',
+      ['one', 'two'],
+      { styles: 'styles' },
     );
   });
 

@@ -8,6 +8,7 @@ describe('Slice', () => {
     y: 2,
     d: 'M11 11',
     value: 15,
+    color: 'color',
   };
   const shallow = createShallow({ dive: true });
   const classes = getClasses(<Slice {...defaultProps} />);
@@ -24,12 +25,15 @@ describe('Slice', () => {
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
-    const { transform, d, value } = tree.find('path').props();
+    const {
+      transform, d, value, fill,
+    } = tree.find('path').props();
 
     expect(transform)
       .toBe('translate(1 2)');
     expect(d)
       .toBe('M11 11');
+    expect(fill).toBe('color');
     expect(value).toBeUndefined();
   });
 

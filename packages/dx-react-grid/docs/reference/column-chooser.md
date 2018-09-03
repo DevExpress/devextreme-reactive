@@ -2,7 +2,7 @@
 
 The ColumnChooser plugin allows a user to toggle grid columns' visibility at runtime. The column chooser lists columns with checkboxes that control a corresponding column's visibility.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

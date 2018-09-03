@@ -19,7 +19,7 @@ export const DxPagingPanel = {
       <DxPagingPanelBase
         containerComponent={Pager}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

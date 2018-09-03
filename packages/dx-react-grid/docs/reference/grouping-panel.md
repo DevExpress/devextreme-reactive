@@ -4,7 +4,7 @@ A plugin that renders the Grouping Panel in the Grid's header. This panel displa
 
 Optionally, the plugin allows an end-user to change grouped columns' sorting order and render sorting indicators.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

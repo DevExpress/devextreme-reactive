@@ -2,9 +2,9 @@
 
 The PieSeries plugin visualizes pie series.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { PieSeries } from '@devexpress/dx-react-chart-material-ui';

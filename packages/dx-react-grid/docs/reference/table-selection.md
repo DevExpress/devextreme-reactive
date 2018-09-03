@@ -2,7 +2,7 @@
 
 A plugin that visualizes table rows' selection state by rendering selection checkboxes and highlighting the selected rows.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

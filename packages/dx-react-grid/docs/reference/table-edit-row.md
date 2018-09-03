@@ -2,7 +2,7 @@
 
 A plugin that renders a row being edited.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

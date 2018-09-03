@@ -37,7 +37,9 @@ The following example demonstrates tree summary rows. In this example, the summa
 
 The `CustomSummary` plugin allows you to calculate a data summary on a remote server or local machine.
 
-The following example demonstrates a custom total summary calculation. In this example, the summary items array is passed to the `SummaryState` plugin's `totalItems` property and the calculated summary values to the `totalValues` property.
+The following example demonstrates custom total summary calculation. In this example, the summary items array is passed to the `SummaryState` plugin's `totalItems` property and the calculated summary values to the `totalValues` property.
+
+Select several rows to calculate a summary for them.
 
 .embedded-demo({ "path": "grid-summary/custom-summary", "showThemeSelector": true })
 

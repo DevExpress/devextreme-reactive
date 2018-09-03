@@ -10,7 +10,7 @@ export const DxTableEditRow = {
       <DxTableEditRowBase
         cellComponent={EditCell}
         rowComponent={TableRow}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

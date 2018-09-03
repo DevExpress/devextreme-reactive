@@ -19,6 +19,8 @@ The `Table` plugin allows you to customize the appearance of the table, table he
 
 .embedded-demo({ "path": "grid-basic/table-template", "showThemeSelector": true })
 
+*Note: Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) use the same API to customize UI elements' appearance.*
+
 ### Cells
 
 The `Table` plugin also allows you to customize table cell appearance using the `cellComponent` property. For instance, you can implement conditional cell formatting as demonstrated in the following example:
@@ -57,6 +59,6 @@ You can pass a custom component to the TableHeaderRow plugin's `contentComponent
 
 .embedded-demo({ "path": "grid-basic/table-header-content-template", "showThemeSelector": true })
 
-### Other plugins
 
-Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.
+
+

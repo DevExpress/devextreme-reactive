@@ -36,8 +36,6 @@ export class Appointments extends React.PureComponent {
                 getAppointmentStartDate,
                 getAppointmentEndDate,
               }, {
-                setTooltipTarget,
-                setTooltipAppointment,
                 toggleTooltipVisible,
                 setTooltipAppointmentMeta,
               }) => appointmentRects.map(({
@@ -50,9 +48,7 @@ export class Appointments extends React.PureComponent {
                   getTitle={getAppointmentTitle}
                   getEndDate={getAppointmentEndDate}
                   getStartDate={getAppointmentStartDate}
-                  setTooltipTarget={setTooltipTarget}
                   toggleTooltipVisible={toggleTooltipVisible}
-                  setTooltipAppointment={setTooltipAppointment}
                   setTooltipAppointmentMeta={setTooltipAppointmentMeta}
                   style={getAppointmentStyle(geometry)}
                 />

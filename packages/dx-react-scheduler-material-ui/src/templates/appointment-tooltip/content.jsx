@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -19,9 +20,10 @@ export const ContentBase = ({
   getAppointmentStartDate,
   getAppointmentEndDate,
   classes,
+  className,
   ...restProps
 }) => (
-  <div className={classes.content} {...restProps}>
+  <div className={classNames(classes.content, className)} {...restProps}>
     <div className={classes.text}>
       {moment(getAppointmentStartDate(appointment)).format('h:mm A')}
     </div>
@@ -37,6 +39,11 @@ ContentBase.propTypes = {
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentEndDate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+ContentBase.defaultProps = {
+  className: undefined,
 };
 
 export const Content = withStyles(styles, { name: 'Content' })(ContentBase);

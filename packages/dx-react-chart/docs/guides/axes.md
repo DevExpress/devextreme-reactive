@@ -17,7 +17,7 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 ## Axis Types
 
-The default axis type is linear. It is sutable for numeric data. The following example shows the Grid with linear axis:
+The default axis type is linear. It is sutable for numeric data. The following example shows a Grid with a linear axis:
 
 .embedded-demo({ "path": "chart-basic/default-axis", "showThemeSelector": true })
 

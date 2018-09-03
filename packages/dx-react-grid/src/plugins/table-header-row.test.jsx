@@ -43,6 +43,9 @@ const defaultDeps = {
 
 const defaultProps = {
   cellComponent: () => null,
+  contentComponent: () => null,
+  titleComponent: () => null,
+  sortLabelComponent: () => null,
   rowComponent: () => null,
 };
 
@@ -255,6 +258,107 @@ describe('TableHeaderRow', () => {
       onWidthDraftCancel();
       expect(deps.action.cancelTableColumnWidthDraft.mock.calls[0][0])
         .toEqual();
+    });
+  });
+
+  describe('Header cell', () => {
+    it('should use column name if title is not specified', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const deps = {
+        template: {
+          tableCell: {
+            tableColumn: { type: 'undefined', column: { name: 'Test' } },
+          },
+        },
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            contentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
+            titleComponent={({ children }) => (
+              <span>
+                {children}
+              </span>
+            )}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('th span').text()).toBe('Test');
+    });
+
+    it('should not render sort label by default', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableHeaderRow
+            {...defaultProps}
+            sortLabelComponent={() => <div className="sort-label" />}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            contentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.sort-label').exists())
+        .not.toBeTruthy();
+    });
+
+    it('should render sort label if showSortingControls is true', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const deps = {
+        plugins: ['SortingState'],
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            showSortingControls
+            sortLabelComponent={({ getMessage }) => (
+              <div className="sort-label" title={getMessage('sortingHint')} />
+            )}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            contentComponent={({ children }) => (
+              <div>
+                {children}
+              </div>
+            )}
+            messages={{
+              sortingHint: 'test',
+            }}
+          />
+        </PluginHost>
+      ));
+      const sortLabel = tree.find('.sort-label');
+
+      expect(sortLabel.exists())
+        .toBeTruthy();
+      expect(sortLabel.props().title)
+        .toBe('test');
     });
   });
 });

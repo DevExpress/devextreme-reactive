@@ -9,10 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { SortingControl } from './table-header-cell/sorting-control';
-
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
   plainTitle: {
@@ -74,15 +70,7 @@ const styles = theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  content: {
-    width: '100%',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  contentRight: {
-    flexDirection: 'row-reverse',
-  },
-  contentNoWrap: {
+  cellNoWrap: {
     whiteSpace: 'nowrap',
   },
 });
@@ -94,55 +82,32 @@ class TableHeaderCellBase extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-
-    this.onClick = (e) => {
-      const { onSort, sortingEnabled } = this.props;
-      if (!sortingEnabled) return;
-
-      const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
-      const isMouseClick = e.keyCode === undefined;
-
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
-        ? null
-        : undefined;
-
-      e.preventDefault();
-      onSort({
-        direction,
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-      });
-    };
   }
 
   render() {
     const {
       style, column, tableColumn,
-      showSortingControls, sortingDirection,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel, sortingEnabled,
-      classes, getMessage, tableRow, className, onSort, before,
+      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      classes, getMessage, tableRow, className, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
 
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
 
     const tableCellClasses = classNames({
       [classes.cell]: true,
       [classes.cellRight]: align === 'right',
       [classes.cellCenter]: align === 'center',
-      [classes.cellNoUserSelect]: draggingEnabled || showSortingControls,
+      [classes.cellNoUserSelect]: draggingEnabled,
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className);
-    const contentClassed = classNames({
-      [classes.content]: true,
-      [classes.contentNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
-      [classes.contentRight]: align === 'right',
-    });
     const cellLayout = (
       <TableCell
         style={style}
@@ -151,23 +116,7 @@ class TableHeaderCellBase extends React.PureComponent {
         {...restProps}
       >
         <div className={classes.container}>
-          {before}
-          <div className={contentClassed}>
-            {showSortingControls ? (
-              <SortingControl
-                align={align}
-                disabled={!sortingEnabled}
-                sortingDirection={sortingDirection}
-                columnTitle={columnTitle}
-                onClick={this.onClick}
-                getMessage={getMessage}
-              />
-            ) : (
-              <span className={classes.plainTitle}>
-                {columnTitle}
-              </span>
-            )}
-          </div>
+          {children}
           {showGroupingControls && (
             <div className={classes.controls}>
               <GroupingControl
@@ -221,6 +170,7 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node,
   before: PropTypes.node,
 };
 
@@ -242,6 +192,7 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   className: undefined,
+  children: undefined,
   before: undefined,
 };
 

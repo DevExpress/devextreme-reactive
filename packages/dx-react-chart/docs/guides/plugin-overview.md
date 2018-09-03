@@ -21,7 +21,7 @@ The following plugins render a corresponding series:
 - `BarSeries`
 - `PieSeries`
 
-The plugins below render extra elements like a grid, legend, axes, etc.
+The following plugins render additional elements:
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
@@ -40,7 +40,7 @@ The plugin order is important. UI plugins are rendered in the same order as they
 
 .embedded-demo({ "path": "chart-basic/combination-series", "showThemeSelector": true })
 
-Note that data processing plugin `Scale` should be defined after series and axes plugins, because it requires options defined in these plugins for correct work.
+Note that the data processing plugin `Scale` should be defined after series and axes plugins because it requires options defined in these plugins for correct work.
 
 The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined one:
 

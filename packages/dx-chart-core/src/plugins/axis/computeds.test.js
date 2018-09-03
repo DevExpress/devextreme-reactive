@@ -71,6 +71,31 @@ describe('AxisCoordinates', () => {
       expect(scale).toHaveBeenCalledTimes(1);
       expect(scale).toHaveBeenCalledWith(1);
     });
+
+    it('should format ticks', () => {
+      scale.tickFormat = jest.fn(() => tick => `format ${tick}`);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize, indentFromAxis);
+      expect(coordinates).toEqual({
+        ticks: [{
+          xText: 10, yText: -15, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10,
+        }],
+      });
+
+      scale.tickFormat = null;
+    });
+
+    it('should format ticks, user set format', () => {
+      scale.tickFormat = jest.fn(() => tick => `format ${tick}`);
+      const userFormat = jest.fn(() => tick => `user format ${tick}`);
+      const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal', tickFormat: userFormat }, 'top', 100, 50, tickSize, indentFromAxis);
+      expect(coordinates).toEqual({
+        ticks: [{
+          xText: 10, yText: -15, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10,
+        }],
+      });
+
+      scale.tickFormat = null;
+    });
   });
 
   describe('band', () => {

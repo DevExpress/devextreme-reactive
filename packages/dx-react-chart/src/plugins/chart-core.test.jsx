@@ -9,23 +9,33 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   prepareData: jest.fn(data => data),
 }));
 
+const computedDomain = jest.fn(() => 'computedDomain');
+
 const defaultProps = {
   data: [{ arg: 1, val: 2 }],
+};
+
+const defaultDeps = {
+  getter: {
+    computedDomain,
+  },
 };
 
 describe('Chart Core', () => {
   it('should provide options', () => {
     const tree = mount((
       <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
         <ChartCore
           {...defaultProps}
         />
-        {pluginDepsToComponents({})}
       </PluginHost>
     ));
     expect(getComputedState(tree)).toEqual({
       data: defaultProps.data,
       argumentAxisName: 'argumentName',
+      domains: 'computedDomain',
+      computedDomain,
     });
   });
 });

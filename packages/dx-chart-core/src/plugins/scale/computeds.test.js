@@ -1,4 +1,5 @@
-import { domains } from './computeds';
+import { scaleLinear, scaleBand } from 'd3-scale';
+import { domains, computedExtension } from './computeds';
 
 describe('calculateDomain', () => {
   const argumentAxis = { name: 'argumentAxis' };
@@ -31,8 +32,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 1], orientation: 'horizontal', type: undefined },
-      valueAxis: { domain: [9, 9], orientation: 'vertical', type: undefined },
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -52,8 +57,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 2], orientation: 'horizontal', type: undefined },
-      valueAxis: { domain: [-10, 9], orientation: 'vertical', type: undefined },
+      argumentAxis: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [-10, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -71,8 +80,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 1], orientation: 'horizontal', type: undefined },
-      valueAxis: { domain: [0, 9], orientation: 'vertical', type: undefined },
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [0, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -90,8 +103,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 1], orientation: 'horizontal', type: undefined },
-      valueAxis: { domain: [0, 9], orientation: 'vertical', type: undefined },
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [0, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -107,8 +124,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 1], orientation: 'horizontal' },
-      valueAxis: { domain: [9, 9], orientation: 'vertical' },
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -127,10 +148,13 @@ describe('calculateDomain', () => {
         domain: ['a', 'b', 'c'],
         orientation: 'horizontal',
         type: 'band',
+        tickFormat: undefined,
       },
       valueAxis: {
         domain: [1, 2],
         orientation: 'vertical',
+        type: 'linear',
+        tickFormat: undefined,
       },
     });
   });
@@ -150,10 +174,13 @@ describe('calculateDomain', () => {
         domain: ['a', 'b'],
         orientation: 'horizontal',
         type: 'band',
+        tickFormat: undefined,
       },
       valueAxis: {
         domain: [1, 2],
         orientation: 'vertical',
+        type: 'linear',
+        tickFormat: undefined,
       },
     });
   });
@@ -173,10 +200,13 @@ describe('calculateDomain', () => {
         domain: ['c', 'a', 'b'],
         orientation: 'horizontal',
         type: 'band',
+        tickFormat: undefined,
       },
       valueAxis: {
         domain: [1, 2],
         orientation: 'vertical',
+        type: 'linear',
+        tickFormat: undefined,
       },
     });
   });
@@ -193,8 +223,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 4], orientation: 'horizontal' },
-      valueAxis: { domain: [3, 7], orientation: 'vertical' },
+      argumentAxis: {
+        domain: [1, 4], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [3, 7], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -210,8 +244,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 4], orientation: 'horizontal' },
-      valueAxis: { domain: [1, 7], orientation: 'vertical' },
+      argumentAxis: {
+        domain: [1, 4], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [1, 7], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 
@@ -233,8 +271,55 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: ['one', 'two', 'three'], orientation: 'horizontal', type: 'band' },
-      valueAxis: { domain: [1, 9], orientation: 'vertical' },
+      argumentAxis: {
+        domain: ['one', 'two', 'three'], orientation: 'horizontal', type: 'band', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [1, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
+  });
+
+  it('should be computed from data and series option, tickFormat is specify', () => {
+    const calculatedDomains = domains(
+      [{ ...argumentAxis, tickFormat: 'argumentTickFormat' }, { ...valueAxis, tickFormat: 'valueTickFormat' }],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{
+        arg: 1, val: 9, 'val-name-stack': [0, 9],
+      }],
+      'argumentAxis',
+      {},
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: 'argumentTickFormat',
+      },
+      valueAxis: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'valueTickFormat',
+      },
+    });
+  });
+});
+
+describe('computedExtension', () => {
+  it('should return default extension', () => {
+    expect(computedExtension([]))
+      .toEqual([
+        { type: 'linear', constructor: scaleLinear },
+        { type: 'band', constructor: scaleBand },
+      ]);
+  });
+
+  it('should return mix of user and default extension', () => {
+    expect(computedExtension([{ type: 'extraType', constructor: 'extraConstructor' }, { type: 'band', constructor: 'bandConstructor' }]))
+      .toEqual([
+        { type: 'extraType', constructor: 'extraConstructor' },
+        { type: 'band', constructor: 'bandConstructor' },
+        { type: 'linear', constructor: scaleLinear },
+        { type: 'band', constructor: scaleBand },
+      ]);
   });
 });

@@ -2,7 +2,7 @@ export { Chart } from './chart';
 export { Legend } from './plugins/legend';
 export { Title } from './plugins/title';
 
-export { IntegratedScaleProcessing } from './plugins/integrated-scale-processing';
+export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 
 export { BarSeries } from './plugins/bar-series';

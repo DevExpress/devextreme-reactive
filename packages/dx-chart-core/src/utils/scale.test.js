@@ -1,4 +1,3 @@
-import { scaleLinear, scaleBand } from 'd3-scale';
 import { createScale } from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
@@ -15,11 +14,8 @@ bandMockScale.paddingOuter = jest.fn().mockReturnThis();
 bandMockScale.range = jest.fn().mockReturnThis();
 bandMockScale.domain = jest.fn().mockReturnThis();
 
-jest.mock('d3-scale', () => ({
-  scaleLinear: jest.fn(),
-  scaleBand: jest.fn(),
-}));
-
+const scaleLinear = jest.fn();
+const scaleBand = jest.fn();
 describe('Create scale', () => {
   beforeAll(() => {
     scaleLinear.mockImplementation(() => linearMockScale);
@@ -29,34 +25,28 @@ describe('Create scale', () => {
     jest.clearAllMocks();
   });
 
-  it('should be created from d3 scale linear', () => {
-    const scale = createScale(domainOptions, width, height);
+  it('should create scale', () => {
+    const scale = createScale(domainOptions, width, height, scaleLinear);
     expect(scale).toBe(linearMockScale);
   });
 
   it('should set domain from option', () => {
-    createScale(domainOptions, width, height);
+    createScale(domainOptions, width, height, scaleLinear);
     expect(linearMockScale.domain).toBeCalledWith([0, 100]);
   });
 
   it('should set range from width option. Horizontal', () => {
-    createScale(domainOptions, width, height);
+    createScale(domainOptions, width, height, scaleLinear);
     expect(linearMockScale.range).toBeCalledWith([0, 500]);
   });
 
   it('should set range from height option. Vertical', () => {
-    createScale({ ...domainOptions, orientation: 'vertical' }, width, height);
+    createScale({ ...domainOptions, orientation: 'vertical' }, width, height, scaleLinear);
     expect(linearMockScale.range).toBeCalledWith([400, 0]);
   });
 
-  it('should be create from d3 scale band', () => {
-    const scale = createScale({ ...domainOptions, type: 'band' }, width, height);
-    expect(scale).toBe(bandMockScale);
-    expect(bandMockScale.paddingInner).toBeCalledWith(0);
-  });
-
-  it('should be set paddings to d3 scale band', () => {
-    createScale({ ...domainOptions, type: 'band' }, width, height, 0.3);
+  it('should be set paddings to scale if it is "band"', () => {
+    createScale(domainOptions, width, height, scaleBand, 0.3);
     expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
     expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
   });

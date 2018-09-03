@@ -191,6 +191,9 @@ describe('barCoordinates', () => {
       null,
       null,
       {},
+      [
+        { type: 'band', constructor: 'bandConstructor' },
+      ],
     );
 
     expect(result).toEqual([{
@@ -209,10 +212,15 @@ describe('barCoordinates', () => {
 
 describe('Scales', () => {
   const defaultOptions = [
-    { type: 'axisType', orientation: 'orientation' },
-    { axisName: 'axisName' },
+    { type: 'argumentType', orientation: 'orientation' },
+    { type: 'valueType' },
     { width: 20, height: 10 },
     0.7,
+    [
+      { type: 'argumentType', constructor: 'argumentConstructor' },
+      { type: 'valueType', constructor: 'valueConstructor' },
+      { type: 'band', constructor: 'bandConstructor' },
+    ],
   ];
 
   beforeAll(() => {
@@ -224,8 +232,8 @@ describe('Scales', () => {
     const { xScale, yScale } = xyScales(...defaultOptions);
 
     expect(createScale).toHaveBeenCalledTimes(2);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'axisType', orientation: 'orientation' }, 20, 10, 1 - groupWidth]);
-    expect(createScale.mock.calls[1]).toEqual([{ axisName: 'axisName' }, 20, 10]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'argumentType', orientation: 'orientation' }, 20, 10, 'argumentConstructor', 1 - groupWidth]);
+    expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
     expect(xScale).toBeTruthy();
     expect(yScale).toBeTruthy();
   });

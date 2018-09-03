@@ -1,10 +1,18 @@
 # React Chart - Plugin Overview
 
-The Chart component visualizes data specified via the `data` property using plugins. These components implement particular features and should be defined within the Chart component.
+The Chart component visualizes data specified via the `data` property using plugin components. These components implement particular features and should be defined within the Chart component.
 
-The React Chart includes only the UI plugins that render specific UI elements using the provided data.
+The React Chart supports the following plugin types:
 
-The following plugins render a corresponding series:
+- **UI plugins**  
+ Render UI elements using the provided data.
+ 
+- **Data processing plugins**  
+ Transform data passed to the Chart component.
+
+## UI Plugins
+
+The following plugins render series:
 
 - `LineSeries`
 - `ScatterSeries`
@@ -13,7 +21,7 @@ The following plugins render a corresponding series:
 - `BarSeries`
 - `PieSeries`
 
-The plugins below render extra elements like a grid, legend, axes, etc.
+The following plugins render additional elements:
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
@@ -21,12 +29,20 @@ The plugins below render extra elements like a grid, legend, axes, etc.
 - `Legend` - renders a legend
 - `Title` - renders a title
 
+## Data Processing Plugins
 
-The plugin order is important because plugins are rendered in the same order they are defined in the Chart component. For example, if the `BarSeries` plugin precedes the `LineSeries`, the line series overlays the bar series.
+- `Scale` - extends user data with service information that is required to render axes and series
+- `Stack` - transforms user data to display series points side-by-side or one under another other
+
+## Plugin Order
+
+The plugin order is important. UI plugins are rendered in the same order as they are defined in the Chart component. For example, if the `BarSeries` plugin precedes the `LineSeries`, the line series overlays the bar series.
 
 .embedded-demo({ "path": "chart-basic/combination-series", "showThemeSelector": true })
 
-The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined one:
+Note that the data processing plugin `Scale` should be defined after series and axes plugins because it requires options defined in these plugins for correct work.
+
+The Chart's plugins use special components to render the UI. You can implement your component suite or use a predefined suite:
 
 - [DevExtreme React Chart for Material UI](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui) - renders the Chart's UI elements based on [Material UI](http://www.material-ui.com) components.
 - [DevExtreme React Chart for Bootstrap 4](https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-bootstrap4) - renders the Chart's UI elements based on [Bootstrap 4](http://getbootstrap.com/) components.

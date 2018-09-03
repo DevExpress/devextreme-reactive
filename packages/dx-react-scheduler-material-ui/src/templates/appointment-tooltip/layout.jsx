@@ -32,7 +32,6 @@ export const Layout = ({
         showCloseButton={showCloseButton}
         showDeleteButton={showDeleteButton}
         onHide={onHide}
-
         getAppointmentTitle={getAppointmentTitle}
       />
       <Content
@@ -47,6 +46,7 @@ export const Layout = ({
 Layout.propTypes = {
   commandButtonComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,

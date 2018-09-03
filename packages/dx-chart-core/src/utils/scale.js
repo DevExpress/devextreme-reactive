@@ -14,3 +14,5 @@ export const createScale = (
     .domain(domain)
     .range(orientation === HORIZONTAL ? [0, width] : [height, 0]);
 };
+
+export const getWidth = scale => (scale.bandwidth ? scale.bandwidth() : 0);

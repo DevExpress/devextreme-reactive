@@ -1,10 +1,11 @@
-import { createScale } from '../../utils/scale';
+import { createScale, getWidth } from '../../utils/scale';
 import { axisCoordinates, axesData } from './computeds';
 
 const scale = jest.fn().mockReturnValue(10);
 
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
+  getWidth: jest.fn(),
 }));
 
 const tickSize = 5;
@@ -13,6 +14,7 @@ const indentFromAxis = 10;
 describe('AxisCoordinates', () => {
   beforeAll(() => {
     createScale.mockImplementation(() => scale);
+    getWidth.mockImplementation(() => 30);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -29,7 +31,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: -15, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10,
+          xText: 25, yText: -15, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25,
         }],
       });
     });
@@ -38,7 +40,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: 15, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 10, x2: 10,
+          xText: 25, yText: 15, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25,
         }],
       });
     });
@@ -52,7 +54,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: -15, yText: 10, x1: -5, x2: 0, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'end',
+          text: 1, xText: -15, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end',
         }],
       });
     });
@@ -61,7 +63,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: 15, yText: 10, x1: 0, x2: 5, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'start',
+          text: 1, xText: 15, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start',
         }],
       });
     });
@@ -77,7 +79,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: -15, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10,
+          xText: 25, yText: -15, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25,
         }],
       });
 
@@ -90,7 +92,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal', tickFormat: userFormat }, 'top', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: -15, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10,
+          xText: 25, yText: -15, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25,
         }],
       });
 
@@ -101,11 +103,10 @@ describe('AxisCoordinates', () => {
   describe('band', () => {
     beforeEach(() => {
       scale.domain = jest.fn().mockReturnValue(['a']);
-      scale.bandwidth = jest.fn().mockReturnValue(30);
+      getWidth.mockImplementation(() => 30);
     });
     afterEach(() => {
       scale.domain = null;
-      scale.bandwidth = null;
     });
     it('should pass correct domain to scale', () => {
       axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize);

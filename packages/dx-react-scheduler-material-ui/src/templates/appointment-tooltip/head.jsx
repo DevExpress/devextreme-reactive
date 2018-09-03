@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -35,9 +36,10 @@ const HeadBase = ({
   getAppointmentTitle,
   onHide,
   classes,
+  className,
   ...restProps
 }) => (
-  <div className={classes.head} {...restProps}>
+  <div className={classNames(classes.head, className)} {...restProps}>
     <div>
       <div className={classes.buttonsLeft}>
         {showOpenButton && <CommandButton id="open" />}
@@ -62,6 +64,11 @@ HeadBase.propTypes = {
   getAppointmentTitle: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+HeadBase.defaultProps = {
+  className: undefined,
 };
 
 export const Head = withStyles(styles, { name: 'Head' })(HeadBase);

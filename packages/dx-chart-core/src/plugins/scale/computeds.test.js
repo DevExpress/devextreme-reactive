@@ -82,8 +82,12 @@ describe('calculateDomain', () => {
     );
 
     expect(calculatedDomains).toEqual({
-      argumentAxis: { domain: [1, 2], orientation: 'horizontal', type: undefined },
-      valueAxis: { domain: [0, 10], orientation: 'vertical', type: undefined },
+      argumentAxis: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [0, 10], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
     });
   });
 

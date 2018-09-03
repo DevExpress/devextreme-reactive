@@ -2,9 +2,9 @@
 
 A plugin that manages the expanded state for table row details.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { RowDetailState } from '@devexpress/dx-react-grid';
@@ -34,5 +34,5 @@ none
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-toggleDetailRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId }) => void | Expands/collapses the specified row.
+toggleDetailRowExpanded | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, state?: boolean }) => void | Expands/collapses the specified row. The `state` argument specifies whether the rows should be selected (true), deselected (false), or their selection status should be set to the opposite value (undefined).
 expandedDetailRowIds | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;number &#124; string&gt; | Currently expanded rows.

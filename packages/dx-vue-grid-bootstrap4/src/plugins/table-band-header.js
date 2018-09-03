@@ -14,7 +14,7 @@ export const DxTableBandHeader = {
         rowComponent={TableRow}
         bandedHeaderCellComponent={BandedHeaderCell}
         invisibleCellComponent={InvisibleCell}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

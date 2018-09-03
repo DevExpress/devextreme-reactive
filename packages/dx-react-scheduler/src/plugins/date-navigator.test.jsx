@@ -15,6 +15,8 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-05',
     firstDayOfWeek: 1,
+    currentView: 'month',
+    intervalCount: 3,
   },
   action: {
     changeCurrentDate: jest.fn(),
@@ -111,7 +113,7 @@ describe('DateNavigator', () => {
     expect(navigatorTitle)
       .toBe('July 2018');
     expect(defaultDeps.action.changeCurrentDate)
-      .toBeCalled();
+      .toBeCalledWith({ amount: 3, step: 'month' }, expect.any(Object), expect.any(Object));
   });
 
   it('should render calendar', () => {

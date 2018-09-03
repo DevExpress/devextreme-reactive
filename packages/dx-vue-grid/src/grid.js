@@ -8,7 +8,7 @@ export const DxGrid = {
     return (
       <DxPluginHost>
         <GridCore
-          {...{ attrs: context.props, on: context.listeners }}
+          {...context.data}
         />
         {context.children}
       </DxPluginHost>

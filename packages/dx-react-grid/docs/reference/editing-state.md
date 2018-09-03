@@ -2,9 +2,9 @@
 
 A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { EditingState } from '@devexpress/dx-react-grid';
@@ -32,7 +32,7 @@ onAddedRowsChange? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or
 rowChanges? | { [key: string]: any } | | Not committed row changes.
 defaultRowChanges? | { [key: string]: any } | {} | Row changes initially added to the `rowChanges` array in uncontrolled mode.
 onRowChangesChange? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-onCommitChanges | (changes: Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
+onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles row changes committing.
 
 ## Interfaces
 

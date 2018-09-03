@@ -5,13 +5,13 @@ import { ViewState } from '@devexpress/dx-react-scheduler';
 
 import {
   Scheduler,
-  WeekView,
+  MonthView,
   Toolbar,
   DateNavigator,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { appointments } from '../../../demo-data/appointments';
+import { appointments } from '../../../demo-data/month-appointments';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -31,12 +31,10 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            defaultCurrentDate="2018-06-27"
+            defaultCurrentDate="2018-07-27"
           />
           <Toolbar />
-          <WeekView
-            startDayHour={9}
-            endDayHour={19}
+          <MonthView
             firstDayOfWeek={1}
           />
           <DateNavigator />

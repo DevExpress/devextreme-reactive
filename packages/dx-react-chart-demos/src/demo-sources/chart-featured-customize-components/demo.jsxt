@@ -23,13 +23,12 @@ const getPath = (x, y, width, height) => `M ${x} ${height + y}
 
 const BarWithLabel = (props) => {
   const {
-    x, y, width, height, themeColor, value,
+    x, y, width, height, color, value,
   } = props;
 
   return (
     <React.Fragment>
-      <path d={getPath(x, y, width, height)} fill={themeColor} />
-;
+      <path d={getPath(x, y, width, height)} fill={color} />
       <ArgumentAxis.Label
         x={x + (width / 2)}
         y={y + (height / 2)}

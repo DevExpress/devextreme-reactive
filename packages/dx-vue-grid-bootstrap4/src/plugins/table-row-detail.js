@@ -13,7 +13,7 @@ export const DxTableRowDetail = {
         cellComponent={TableDetailCell}
         rowComponent={TableRow}
         toggleColumnWidth={48}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

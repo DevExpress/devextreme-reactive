@@ -2,9 +2,9 @@
 
 A plugin that converts custom formatted tree data to a supported format and performs local row expanding/collapsing.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { CustomTreeData } from '@devexpress/dx-react-grid';

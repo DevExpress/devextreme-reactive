@@ -14,7 +14,7 @@ export const DxColumnChooser = {
         containerComponent={Container}
         itemComponent={Item}
         toggleButtonComponent={ToggleButton}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

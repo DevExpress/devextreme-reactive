@@ -40,7 +40,7 @@ export const DxTable = {
         stubCellComponent={TableStubCell}
         stubHeaderCellComponent={TableHeaderStubCell}
         messages={{ ...defaultMessages, ...context.props.messages }}
-        {...{ attrs: context.data.attrs, on: context.listeners }}
+        {...context.data}
       />
     );
   },

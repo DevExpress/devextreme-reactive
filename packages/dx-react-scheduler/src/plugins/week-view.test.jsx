@@ -197,6 +197,35 @@ describe('Week View', () => {
           x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
         }]);
     });
+
+    it('should provide the "intervalCount" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            intervalCount={2}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).intervalCount)
+        .toBe(2);
+    });
+
+    it('should provide the "currentView" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toBe('week');
+    });
   });
 
   describe('Templates', () => {

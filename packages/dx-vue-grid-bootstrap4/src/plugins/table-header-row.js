@@ -10,7 +10,7 @@ export const DxTableHeaderRow = {
       <DxTableHeaderRowBase
         cellComponent={TableHeaderCell}
         rowComponent={TableRow}
-        {...{ attrs: context.props, on: context.listeners }}
+        {...context.data}
       />
     );
   },

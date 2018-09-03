@@ -8,9 +8,11 @@ import {
 import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT, UPDATE_CONNECTION_EVENT } from './constants';
 
 export class Getter extends React.PureComponent {
-  componentWillMount() {
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = this.context;
-    const { name } = this.props;
+  constructor(props, context) {
+    super(props, context);
+
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = context;
+    const { name } = props;
 
     let lastComputed;
     let lastTrackedDependencies = {};
@@ -20,7 +22,7 @@ export class Getter extends React.PureComponent {
       position: () => positionContext(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this.props;
-        if (value !== undefined) return value;
+        if (computed === undefined) return value;
 
         const getGetterValue = getterName => ((getterName === name)
           ? original
@@ -69,7 +71,7 @@ Getter.propTypes = {
 
 Getter.defaultProps = {
   value: undefined,
-  computed: null,
+  computed: undefined,
 };
 
 Getter.contextTypes = {

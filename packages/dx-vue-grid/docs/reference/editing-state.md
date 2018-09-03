@@ -2,9 +2,9 @@
 
 A plugin that manages grid rows' editing state. It arranges grid rows by different lists depending on a row's state.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxEditingState } from '@devexpress/dx-vue-grid';
@@ -34,7 +34,7 @@ Name | Type | Default | Description
 update:addedRows? | (addedRows: Array&lt;any&gt;) => void | | Handles adding or removing a row to/from the `addedRows` array.
 update:editingRowIds? | (editingRowIds: Array&lt;number &#124; string&gt;) => void | | Handles adding or removing a row to/from the `editingRowIds` array.
 update:rowChanges? | (rowChanges: { [key: string]: any }) => void | | Handles adding or removing a row changes to/from the `rowChanges` array.
-commitChanges | (changes: Array&lt;[ChangeSet](#changeset)&gt;) => void | | Handles row changes committing.
+commitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles row changes committing.
 
 ## Interfaces
 

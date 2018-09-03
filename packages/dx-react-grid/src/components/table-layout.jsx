@@ -1,4 +1,4 @@
-/* globals requestAnimationFrame */
+/* globals requestAnimationFrame cancelAnimationFrame */
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
@@ -10,12 +10,6 @@ import {
 } from '@devexpress/dx-grid-core';
 
 const TABLE_FLEX_TYPE = 'flex';
-
-const areColumnsChanged = (prevColumns, nextColumns) => {
-  if (prevColumns.length !== nextColumns.length) return true;
-  const prevKeys = prevColumns.map(column => column.key);
-  return nextColumns.find(column => prevKeys.indexOf(column.key) === -1) !== undefined;
-};
 
 export class TableLayout extends React.PureComponent {
   constructor(props) {
@@ -31,16 +25,15 @@ export class TableLayout extends React.PureComponent {
     this.setRef = (ref) => { if (ref) this.tableNode = ref; };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { columns: nextColumns } = nextProps;
+  componentDidUpdate(prevProps) {
     const { columns } = this.props;
-
-    if (areColumnsChanged(columns, nextColumns)) return;
+    const { columns: prevColumns } = prevProps;
 
     // eslint-disable-next-line react/no-find-dom-node
     const tableWidth = findDOMNode(this).scrollWidth;
-    this.animations = getAnimations(columns, nextColumns, tableWidth, this.animations);
-    this.processAnimationFrame();
+    this.animations = getAnimations(prevColumns, columns, tableWidth, this.animations);
+    cancelAnimationFrame(this.raf);
+    this.raf = requestAnimationFrame(this.processAnimationFrame.bind(this));
   }
 
   getColumns() {
@@ -78,8 +71,6 @@ export class TableLayout extends React.PureComponent {
 
     const animationState = evalAnimations(this.animations);
     this.setState({ animationState });
-
-    requestAnimationFrame(this.processAnimationFrame.bind(this));
   }
 
   render() {

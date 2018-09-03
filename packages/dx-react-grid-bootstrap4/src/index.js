@@ -21,3 +21,4 @@ export * from './plugins/table-column-resizing';
 export * from './plugins/toolbar';
 export * from './plugins/table-tree-column';
 export * from './plugins/search-panel';
+export * from './plugins/table-summary-row';

@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from './utils';
 
 const styles = theme => ({
   cell: {
@@ -13,6 +14,9 @@ const styles = theme => ({
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  footer: {
+    borderBottom: getBorder(theme),
   },
   cellRightAlign: {
     textAlign: 'right',
@@ -38,6 +42,7 @@ const TableCellBase = ({
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className)}
+    classes={{ footer: classes.footer }}
     {...restProps}
   >
     {children || value}

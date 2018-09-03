@@ -2,7 +2,7 @@
 
 A plugin that renders the Search Panel.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 
@@ -42,7 +42,7 @@ Describes properties passed to a component that renders the Search Panel root el
 Field | Type | Description
 ------|------|------------
 value | string | Specifies the search value.
-onValueChange | (value:string) => void | Handles the search value changes.
+onValueChange | (value: string) => void | Handles the search value changes.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
 
 ## Localization Messages

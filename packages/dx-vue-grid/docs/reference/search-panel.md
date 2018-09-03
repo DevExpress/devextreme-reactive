@@ -2,7 +2,7 @@
 
 A plugin that renders the Search Panel.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 
@@ -46,7 +46,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 Field | Type | Description
 ------|------|------------
-valueChange | (value:string) => void | Handles the search value changes.
+valueChange | (value: string) => void | Handles the search value changes.
 
 ## Localization Messages
 

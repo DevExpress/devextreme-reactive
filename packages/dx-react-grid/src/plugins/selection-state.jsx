@@ -25,13 +25,14 @@ export class SelectionState extends React.PureComponent {
       .bind(stateHelper, 'selection', toggleSelection);
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      selection,
+      selection = prevState.selection,
     } = nextProps;
-    this.setState({
-      ...selection !== undefined ? { selection } : null,
-    });
+
+    return {
+      selection,
+    };
   }
 
   render() {

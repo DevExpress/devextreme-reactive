@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../../utils';
+import { getBorder } from '../../utils';
 
 const styles = theme => ({
   cell: {
-    borderLeft: getBorderColor(theme),
+    borderLeft: getBorder(theme),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },

@@ -1,0 +1,41 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  AreaSeries,
+  Legend,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+
+import { born as data } from '../../../demo-data/data-vizualization';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+      height: 300,
+    };
+  }
+
+  render() {
+    const {
+      data: chartData, height,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart data={chartData} height={height}>
+          <AreaSeries
+            name="Series name"
+            valueField="ch"
+            argumentField="year"
+          />
+
+          <Legend />
+          <Title text="Title" />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

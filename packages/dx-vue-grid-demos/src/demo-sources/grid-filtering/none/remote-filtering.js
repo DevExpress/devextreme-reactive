@@ -39,7 +39,7 @@ export default {
       const { filters } = this;
 
       let filter = filters.reduce((acc, { columnName, value }) => {
-        acc.push(`["${columnName}", "contains", "${value}"]`);
+        acc.push(`["${columnName}", "contains", "${encodeURIComponent(value)}"]`);
         return acc;
       }, []).join(',"and",');
 

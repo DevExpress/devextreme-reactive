@@ -23,6 +23,10 @@ export default class Demo extends React.PureComponent {
         { name: 'Employee', title: 'Employee' },
         { name: 'SaleAmount', title: 'Sale Amount' },
       ],
+      tableColumnExtensions: [
+        { columnName: 'OrderNumber', align: 'right' },
+        { columnName: 'SaleAmount', align: 'right' },
+      ],
       rows: [],
       sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
       loading: true,
@@ -77,7 +81,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      rows, columns, sorting, loading,
+      rows, columns, tableColumnExtensions, sorting, loading,
     } = this.state;
 
     return (
@@ -90,7 +94,9 @@ export default class Demo extends React.PureComponent {
             sorting={sorting}
             onSortingChange={this.changeSorting}
           />
-          <VirtualTable />
+          <VirtualTable
+            columnExtensions={tableColumnExtensions}
+          />
           <TableHeaderRow showSortingControls />
         </Grid>
         {loading && <Loading />}

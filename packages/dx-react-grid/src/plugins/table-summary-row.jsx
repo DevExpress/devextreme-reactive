@@ -42,7 +42,7 @@ const tableFooterRowsComputed = ({
 const defaultTypelessSummaries = ['count'];
 
 export class TableSummaryRow extends React.PureComponent {
-  renderCellContent(column, columnSummaries) {
+  renderContent(column, columnSummaries) {
     const {
       formatlessSummaryTypes,
       itemComponent: Item,
@@ -127,7 +127,7 @@ export class TableSummaryRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                   >
-                    {this.renderCellContent(params.tableColumn.column, columnSummaries)}
+                    {this.renderContent(params.tableColumn.column, columnSummaries)}
                   </TotalCell>
                 );
               }}
@@ -151,7 +151,7 @@ export class TableSummaryRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                   >
-                    {this.renderCellContent(params.tableColumn.column, columnSummaries)}
+                    {this.renderContent(params.tableColumn.column, columnSummaries)}
                   </GroupCell>
                 );
               }}
@@ -186,7 +186,7 @@ export class TableSummaryRow extends React.PureComponent {
                         level={getTreeRowLevel(params.tableRow.row)}
                       />
                       <TreeColumnContent>
-                        {this.renderCellContent(params.tableColumn.column, columnSummaries)}
+                        {this.renderContent(params.tableColumn.column, columnSummaries)}
                       </TreeColumnContent>
                     </TreeColumnCell>
                   );
@@ -196,7 +196,7 @@ export class TableSummaryRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                   >
-                    {this.renderCellContent(params.tableColumn.column, columnSummaries)}
+                    {this.renderContent(params.tableColumn.column, columnSummaries)}
                   </TreeCell>
                 );
               }}

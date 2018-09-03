@@ -12,18 +12,18 @@
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "check-node-version": "^3.2.0",
-    "concurrently": "^3.6.1",
-    "conventional-changelog-cli": "^2.0.1",
-    "conventional-recommended-bump": "^4.0.0",
+    "concurrently": "^4.0.1",
+    "conventional-changelog-cli": "^2.0.5",
+    "conventional-recommended-bump": "^4.0.1",
     "fs-extra": "^7.0.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
-    "inquirer": "^6.1.0",
-    "lerna": "^3.0.6",
+    "inquirer": "^6.2.0",
+    "lerna": "^3.2.1",
     "run-sequence": "^2.2.1",
-    "semver": "^5.5.0"
+    "semver": "^5.5.1"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",

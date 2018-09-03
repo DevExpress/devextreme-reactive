@@ -32,7 +32,6 @@ const script = async () => {
     return;
   }
 
-  const version = require('../lerna.json').version;
   const suggestedNpmTag = prerelease(version) !== null ? 'next' : 'latest';
   const { npmTag } = await prompt({
     name: 'npmTag',

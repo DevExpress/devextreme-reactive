@@ -1,11 +1,9 @@
 import * as React from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
-import { SortingControl } from './table-header-cell/sorting-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
 
@@ -41,41 +39,14 @@ describe('TableHeaderCell', () => {
     jest.resetAllMocks();
   });
 
-  it('should use column name if title is not specified', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        {...defaultProps}
-      />
-    ));
-
-    expect(tree.find(`.${classes.plainTitle}`).text()).toBe('Test');
-  });
-
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell {...defaultProps} />);
-    expect(tree.find('div').at(1).prop('className'))
-      .toContain(classes.contentNoWrap);
+    expect(tree.prop('className'))
+      .toContain(classes.cellNoWrap);
 
     tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('div').at(1).prop('className'))
+    expect(tree.prop('className'))
       .not.toContain(classes.contentNoWrap);
-  });
-
-  it('should cancel sorting by using the Ctrl key', () => {
-    const onSort = jest.fn();
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        onSort={onSort}
-        showSortingControls
-        sortingEnabled
-      />
-    ));
-
-    tree.find(TableSortLabel).simulate('click', { ctrlKey: true });
-
-    expect(onSort.mock.calls).toHaveLength(1);
-    expect(onSort.mock.calls[0][0].direction).toBe(null);
   });
 
   it('should have correct styles when user interaction disallowed', () => {
@@ -87,17 +58,6 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
     expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
-  });
-
-  it('should have correct styles when sorting is allowed', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        {...defaultProps}
-        showSortingControls
-      />
-    ));
-
-    expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeTruthy();
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -159,35 +119,6 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should pass correct text to SortingControl', () => {
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        showSortingControls
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-
-    const tooltip = tree.find('Tooltip');
-    expect(tooltip.exists())
-      .toBeTruthy();
-    expect(tooltip.prop('title'))
-      .toBe('sortingHint');
-  });
-
-  it('should add correct class if align is right', () => {
-    const tree = mount((
-      <TableHeaderCell
-        {...defaultProps}
-        showSortingControls
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-
-    expect(tree.find(`.${classes.container} .${classes.contentRight}`).exists())
-      .toBeTruthy();
-  });
-
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
@@ -212,92 +143,5 @@ describe('TableHeaderCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  describe('with keyboard navigation', () => {
-    const ENTER_KEY_CODE = 13;
-    const SPACE_KEY_CODE = 32;
-
-    it('can not get focus if sorting is not allowed', () => {
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-        />
-      ));
-
-      expect(tree.find(SortingControl).exists())
-        .not.toBeTruthy();
-    });
-
-    it('can get focus if sorting is allowed', () => {
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          showSortingControls
-        />
-      ));
-
-      expect(tree.find(SortingControl).exists())
-        .toBeTruthy();
-    });
-
-    it('should handle the "Enter" and "Space" keys down', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-      const SortLabel = tree.find(TableSortLabel);
-
-      SortLabel.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      SortLabel.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      SortLabel.simulate('keydown', { keyCode: 51 });
-      expect(onSort)
-        .not.toHaveBeenCalled();
-    });
-
-    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, cancel: undefined });
-    });
-
-    it('should handle the "Ctrl" key with sorting', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          {...defaultProps}
-          onSort={onSort}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      tree.find(TableSortLabel).simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: null });
-    });
   });
 });

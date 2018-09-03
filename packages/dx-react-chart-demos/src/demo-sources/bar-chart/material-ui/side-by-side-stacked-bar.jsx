@@ -17,7 +17,10 @@ const Root = props => (
   <Legend.Root
     {...props}
     style={{
-      display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', width: '100%',
+      display: 'grid',
+      gridTemplateColumns: 'auto auto auto',
+      justifyContent: 'center',
+      width: '100%',
     }}
   />
 );

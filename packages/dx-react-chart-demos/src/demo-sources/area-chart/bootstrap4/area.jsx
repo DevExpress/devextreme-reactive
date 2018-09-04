@@ -22,21 +22,19 @@ const data = [
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
 const Item = props => (
   <Legend.Item
     {...props}
-    style={{ flexDirection: 'column' }}
+    className="flex-column"
   />
 );
 const Label = props => (
   <Legend.Label
     {...props}
-    style={{ marginTop: '8px' }}
+    className="pt-2"
   />
 );
 

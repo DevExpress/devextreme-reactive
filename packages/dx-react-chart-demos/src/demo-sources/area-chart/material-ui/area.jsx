@@ -9,6 +9,7 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import { Scale } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
@@ -19,26 +20,36 @@ const data = [
   { year: '2015', android: 539318, ios: 189924 },
 ];
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendLabelStyles = () => ({
+  label: {
+    paddingTop: '8px',
+  },
+});
+const legendItemStyles = () => ({
+  item: {
+    flexDirection: 'column',
+  },
+});
+
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto', flexDirection: 'column' }}
-  />
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
-const Label = props => (
-  <Legend.Label
-    {...props}
-    style={{ marginTop: '8px' }}
-  />
+const legendItemBase = ({ classes, ...restProps }) => (
+  <Legend.Item className={classes.item} {...restProps} />
 );
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

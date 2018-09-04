@@ -14,10 +14,9 @@ import { line, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
 
-const Line = color => props => (
+const Line = props => (
   <LineSeries.Path
     {...props}
-    color={color}
     path={line()
       .x(({ x }) => x)
       .y(({ y }) => y)
@@ -25,31 +24,10 @@ const Line = color => props => (
   />
 );
 
-const colors = {
-  'Bronze Medals': '#cd7f32',
-  'Silver Medals': '#c0c0c0',
-  'Gold Medals': '#ffd700',
-};
-
-const BronzeLine = Line(colors['Bronze Medals']);
-const SilverLine = Line(colors['Silver Medals']);
-const GoldLine = Line(colors['Gold Medals']);
-
-const Marker = (props) => {
-  const { name } = props;
-  return (
-    <Legend.Marker
-      {...props}
-      color={colors[name]}
-    />
-  );
-};
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
 
@@ -80,21 +58,24 @@ export default class Demo extends React.PureComponent {
             name="Bronze Medals"
             valueField="bronze"
             argumentField="year"
-            seriesComponent={BronzeLine}
+            color="#cd7f32"
+            seriesComponent={Line}
           />
           <LineSeries
             name="Silver Medals"
             valueField="silver"
             argumentField="year"
-            seriesComponent={SilverLine}
+            color="#c0c0c0"
+            seriesComponent={Line}
           />
           <LineSeries
             name="Gold Medals"
             valueField="gold"
             argumentField="year"
-            seriesComponent={GoldLine}
+            color="#ffd700"
+            seriesComponent={Line}
           />
-          <Legend position="bottom" markerComponent={Marker} rootComponent={Root} />
+          <Legend position="bottom" rootComponent={Root} />
           <Title
             text="Australian Medal Count"
             style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}

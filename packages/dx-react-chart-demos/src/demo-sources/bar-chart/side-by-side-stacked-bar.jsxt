@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   ArgumentAxis,
@@ -8,7 +7,7 @@ import {
   Title,
   Legend,
   Grid,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 
 import { population as data } from '../../../demo-data/data-vizualization';
@@ -19,16 +18,8 @@ const Root = props => (
     style={{
       display: 'grid',
       gridTemplateColumns: 'auto auto auto',
-      justifyContent: 'center',
-      width: '100%',
+      margin: 'auto',
     }}
-  />
-);
-
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto' }}
   />
 );
 
@@ -45,7 +36,7 @@ export default class Demo extends React.PureComponent {
     const { data: chartData } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
         >
@@ -89,12 +80,12 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
             stack="female"
           />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
+          <Legend position="bottom" rootComponent={Root} />
           <Title text="Population: Age Structure" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Stack />
           <Scale />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

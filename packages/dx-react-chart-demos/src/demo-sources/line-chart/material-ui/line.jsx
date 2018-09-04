@@ -9,32 +9,44 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import { Scale } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
 const format = () => tick => tick;
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendLabelStyles = () => ({
+  label: {
+    paddingTop: '8px',
+    whiteSpace: 'nowrap',
+  },
+});
+const legendItemStyles = () => ({
+  item: {
+    flexDirection: 'column',
+  },
+});
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ flexDirection: 'column', width: 'auto' }}
-  />
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
-const Label = props => (
-  <Legend.Label
-    {...props}
-    style={{ marginTop: '8px' }}
-  />
+const legendItemBase = ({ classes, ...restProps }) => (
+  <Legend.Item className={classes.item} {...restProps} />
 );
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
+
 const ValueLabel = (props) => {
   const { text } = props;
   return (

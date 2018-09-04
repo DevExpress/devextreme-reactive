@@ -9,25 +9,31 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto' }}
-  />
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -80,7 +86,7 @@ export default class Demo extends React.PureComponent {
             argumentField="country"
             stack="a"
           />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Stack />
           <Scale />

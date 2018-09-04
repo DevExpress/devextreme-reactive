@@ -17,9 +17,7 @@ import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
 

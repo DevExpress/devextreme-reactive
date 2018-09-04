@@ -39,25 +39,22 @@ const Text = (props) => {
     </div>
   );
 };
-
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
 const Item = props => (
   <Legend.Item
     {...props}
-    style={{ flexDirection: 'column-reverse' }}
+    className="flex-column-reverse"
   />
 );
 const Label = props => (
   <Legend.Label
     {...props}
-    style={{ marginBottom: '8px' }}
+    className="pb-2"
   />
 );
 

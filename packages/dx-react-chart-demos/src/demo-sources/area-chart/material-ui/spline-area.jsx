@@ -9,6 +9,7 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import { Scale } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
@@ -30,22 +31,26 @@ const data = [
   { month: 'Nov', appStore: 120, googlePlay: 35 },
   { month: 'Dec', appStore: 160, googlePlay: 45 },
 ];
-
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto' }}
-  />
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 const Area = props => (
   <AreaSeries.Path
@@ -94,7 +99,7 @@ export default class Demo extends React.PureComponent {
             seriesComponent={Area}
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="iOS App Store vs Google Play Revenue in 2012" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
         </Chart>
       </Paper>

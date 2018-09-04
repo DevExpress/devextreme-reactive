@@ -9,31 +9,36 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import { Scale } from '@devexpress/dx-react-chart';
 import { area, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto' }}
-  />
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
-const Area = color => props => (
+const Area = props => (
   <AreaSeries.Path
     {...props}
-    color={color}
     path={area()
       .x(({ x }) => x)
       .y1(({ y }) => y)
@@ -41,10 +46,6 @@ const Area = color => props => (
       .curve(curveStep)}
   />
 );
-
-const BronzeArea = Area('#cd7f32');
-const SilverArea = Area('#c0c0c0');
-const GoldArea = Area('#ffd700');
 
 const format = () => tick => tick;
 
@@ -91,21 +92,24 @@ export default class Demo extends React.PureComponent {
             name="Bronze Medals"
             valueField="bronze"
             argumentField="year"
-            seriesComponent={BronzeArea}
+            color="#cd7f32"
+            seriesComponent={Area}
           />
           <AreaSeries
             name="Silver Medals"
             valueField="silver"
             argumentField="year"
-            seriesComponent={SilverArea}
+            color="#c0c0c0"
+            seriesComponent={Area}
           />
           <AreaSeries
             name="Gold Medals"
             valueField="gold"
             argumentField="year"
-            seriesComponent={GoldArea}
+            color="#ffd700"
+            seriesComponent={Area}
           />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} markerComponent={Marker} />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
           <Title text="Australian Medal Count" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Scale />
         </Chart>

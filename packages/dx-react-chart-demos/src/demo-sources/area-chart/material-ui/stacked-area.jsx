@@ -9,6 +9,7 @@ import {
   Legend,
   Grid,
 } from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,21 +17,26 @@ import { Stack, Scale } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
-const Root = props => (
-  <Legend.Root
-    {...props}
-    style={{
-      display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
-  />
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
 );
-
-const Item = props => (
-  <Legend.Item
-    {...props}
-    style={{ width: 'auto' }}
-  />
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
 );
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
@@ -100,7 +106,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             stack="a"
           />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Carbon Emission Estimates" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Scale />
           <Stack offset={offset} />

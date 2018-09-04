@@ -20,9 +20,9 @@ import {
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
 
-const Point = color => (props) => {
+const Point = (props) => {
   const {
-    x, y, value,
+    x, y, value, color,
   } = props;
   if (value) {
     return (
@@ -36,47 +36,24 @@ const Point = color => (props) => {
   return null;
 };
 
-const LineWithPoint = color => props => (
+const LineWithPoint = props => (
   <React.Fragment>
     <LineSeries.Path
       {...props}
-      color={color}
       path={line()
         .defined(d => d.value)
         .x(({ x }) => x)
         .y(({ y }) => y)
         .curve(curveStep)}
     />
-    <ScatterSeries.Path {...props} pointComponent={Point(color)} />
+    <ScatterSeries.Path {...props} pointComponent={Point} />
   </React.Fragment>
 );
-
-const colors = {
-  'Bronze Medals': '#cd7f32',
-  'Silver Medals': '#c0c0c0',
-  'Gold Medals': '#ffd700',
-};
-
-const BronzeLine = LineWithPoint(colors['Bronze Medals']);
-const SilverLine = LineWithPoint(colors['Silver Medals']);
-const GoldLine = LineWithPoint(colors['Gold Medals']);
-
-const Marker = (props) => {
-  const { name } = props;
-  return (
-    <Legend.Marker
-      {...props}
-      color={colors[name]}
-    />
-  );
-};
 
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
 
@@ -107,21 +84,24 @@ export default class Demo extends React.PureComponent {
             name="Bronze Medals"
             valueField="bronze"
             argumentField="year"
-            seriesComponent={BronzeLine}
+            color="#cd7f32"
+            seriesComponent={LineWithPoint}
           />
           <LineSeries
             name="Silver Medals"
             valueField="silver"
             argumentField="year"
-            seriesComponent={SilverLine}
+            color="#c0c0c0"
+            seriesComponent={LineWithPoint}
           />
           <LineSeries
             name="Gold Medals"
             valueField="gold"
             argumentField="year"
-            seriesComponent={GoldLine}
+            color="#ffd700"
+            seriesComponent={LineWithPoint}
           />
-          <Legend position="bottom" markerComponent={Marker} rootComponent={Root} />
+          <Legend position="bottom" rootComponent={Root} />
           <Title text="Australian Medal Count" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Scale />
         </Chart>

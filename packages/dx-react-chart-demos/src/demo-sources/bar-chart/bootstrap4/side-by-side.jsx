@@ -16,37 +16,9 @@ import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 const Root = props => (
   <Legend.Root
     {...props}
-    style={{
-      flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', width: '100%',
-    }}
+    className="m-auto flex-row"
   />
 );
-
-const Bar = color => props => (
-  <BarSeries.Point
-    {...props}
-    color={color}
-  />
-);
-const colors = {
-  'Bronze Medals': '#cd7f32',
-  'Silver Medals': '#c0c0c0',
-  'Gold Medals': '#ffd700',
-};
-
-const BronzeBar = Bar('#cd7f32');
-const SilverBar = Bar('#c0c0c0');
-const GoldBar = Bar('#ffd700');
-
-const Marker = (props) => {
-  const { name } = props;
-  return (
-    <Legend.Marker
-      {...props}
-      color={colors[name]}
-    />
-  );
-};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -73,21 +45,21 @@ export default class Demo extends React.PureComponent {
             name="Gold Medals"
             valueField="gold"
             argumentField="country"
-            pointComponent={GoldBar}
+            color="#ffd700"
           />
           <BarSeries
             name="Silver Medals"
             valueField="silver"
             argumentField="country"
-            pointComponent={SilverBar}
+            color="#c0c0c0"
           />
           <BarSeries
             name="Bronze Medals"
             valueField="bronze"
             argumentField="country"
-            pointComponent={BronzeBar}
+            color="#cd7f32"
           />
-          <Legend position="bottom" rootComponent={Root} markerComponent={Marker} />
+          <Legend position="bottom" rootComponent={Root} />
           <Title text="Olimpic Medals in 2008" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Stack />
           <Scale />

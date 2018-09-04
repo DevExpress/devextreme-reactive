@@ -23,6 +23,8 @@ const Root = props => (
   />
 );
 
+const Line = () => null;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -41,7 +43,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis />
+          <ValueAxis lineComponent={Line} />
           <Grid />
 
           <BarSeries

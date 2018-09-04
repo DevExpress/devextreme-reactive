@@ -31,6 +31,15 @@ const Root = props => (
   />
 );
 
+const Marker = (props) => {
+  const { className, color, ...restProps } = props;
+  return (
+    <svg className={className} fill={color} width="10" height="10" {...restProps}>
+      <rect x={0} y={0} width={10} height={10} {...restProps} />
+    </svg>
+  );
+};
+
 const format = () => tick => tick;
 
 export default class Demo extends React.PureComponent {
@@ -75,7 +84,7 @@ export default class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={Line}
           />
-          <Legend position="bottom" rootComponent={Root} />
+          <Legend position="bottom" rootComponent={Root} markerComponent={Marker} />
           <Title
             text="Australian Medal Count"
             style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}

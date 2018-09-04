@@ -13,7 +13,7 @@ const getRandom = () => {
   return randomValue;
 };
 
-function normalDistribution() {
+const normalDistribution = () => {
   const u = getRandom();
   const v = getRandom();
   return Math.sqrt(-4.0 * Math.log(u)) * Math.cos(1.0 * Math.PI * v);
@@ -23,10 +23,10 @@ const dataGenerator = (pointCount) => {
   const data = [];
   for (let i = 0; i < pointCount; i += 1) {
     data.push({
-      argument0x0y: normalDistribution(),
-      value0x0y: normalDistribution(),
-      argument3x3y: normalDistribution() + 3,
-      value3x3y: normalDistribution() + 3,
+      arg1: normalDistribution(),
+      val1: normalDistribution(),
+      arg2: normalDistribution() + 3,
+      val2: normalDistribution() + 3,
     });
   }
   return data;
@@ -50,12 +50,12 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ScatterSeries
-            valueField="value0x0y"
-            argumentField="argument0x0y"
+            valueField="val1"
+            argumentField="arg1"
           />
           <ScatterSeries
-            valueField="value3x3y"
-            argumentField="argument3x3y"
+            valueField="val2"
+            argumentField="arg2"
           />
           <Scale />
         </Chart>

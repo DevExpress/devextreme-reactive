@@ -1,12 +1,7 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import {
-  Scheduler,
-  WeekView,
-  Appointments,
-  AppointmentTooltip,
-} from '@devexpress/dx-react-scheduler-material-ui';
+import { Appointments, AppointmentTooltip, Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import * as React from 'react';
 import appointments from '../../../demo-data/today-appointments';
 
 export default class Demo extends React.PureComponent {
@@ -22,8 +17,8 @@ export default class Demo extends React.PureComponent {
     };
 
     this.toggleVisible = () => {
-      const { visible: vis } = this.state;
-      this.setState({ visible: !vis });
+      const { visible: tooltipVisible } = this.state;
+      this.setState({ visible: !tooltipVisible });
     };
 
     this.setRef = (ref) => {
@@ -39,7 +34,6 @@ export default class Demo extends React.PureComponent {
     this.onVisibleChange = (visible) => {
       this.setState({ visible });
     };
-    this.onTargetChange = () => { };
   }
 
   render() {

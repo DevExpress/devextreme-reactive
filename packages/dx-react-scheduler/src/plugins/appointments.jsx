@@ -25,7 +25,7 @@ export class Appointments extends React.PureComponent {
     } = this.props;
 
     return (
-      <Plugin name="Appointment">
+      <Plugin name="Appointments">
         <Template name="main">
           <TemplatePlaceholder />
           <Container>

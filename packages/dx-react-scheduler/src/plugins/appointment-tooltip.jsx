@@ -11,7 +11,7 @@ import {
 import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
-  { name: 'Appointment' },
+  { name: 'Appointments' },
 ];
 
 export class AppointmentTooltip extends React.PureComponent {

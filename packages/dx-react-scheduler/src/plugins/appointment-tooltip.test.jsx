@@ -19,7 +19,7 @@ describe('AppointmentTooltip', () => {
     template: {
       main: {},
     },
-    plugins: ['Appointment'],
+    plugins: ['Appointments'],
   };
   const defaultProps = {
     tooltipComponent: () => <div />,

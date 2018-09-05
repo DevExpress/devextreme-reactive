@@ -1,4 +1,4 @@
-import { createScale } from './scale';
+import { createScale, getWidth } from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
 const width = 500;
@@ -49,5 +49,15 @@ describe('Create scale', () => {
     createScale(domainOptions, width, height, scaleBand, 0.3);
     expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
     expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
+  });
+});
+
+describe('Get offset', () => {
+  it('should return offset 0, scale is not band', () => {
+    expect(getWidth({})).toBe(0);
+  });
+
+  it('should return offset not zero, scale is band', () => {
+    expect(getWidth({ bandwidth: () => 4 })).toBe(4);
   });
 });

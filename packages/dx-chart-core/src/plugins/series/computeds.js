@@ -7,9 +7,9 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { createScale } from '../../utils/scale';
+import { createScale, getWidth } from '../../utils/scale';
 
-const getX = ({ x, width }) => x + (width / 2);
+const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
@@ -88,10 +88,9 @@ export const coordinates = (
 ) => data.reduce((result, dataItem, index) => {
   if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
     return [...result, {
-      x: xScale(dataItem[argumentField]),
+      x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
       y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
       y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
-      width: xScale.bandwidth ? xScale.bandwidth() : 0,
       id: index,
       value: dataItem[valueField],
     }];
@@ -117,20 +116,20 @@ export const barCoordinates = (
     valueField,
     name,
   );
-  const bandwidth = xScale.bandwidth ? xScale.bandwidth() : 0;
+  const width = getWidth(xScale);
   const x0Scale = createScale(
     {
       domain: stacks,
     },
-    bandwidth,
-    bandwidth,
+    width,
+    width,
     getConstructor(scaleExtension, 'band'),
     1 - barWidth,
   );
   return rawCoordinates.map(item => ({
     ...item,
-    width: x0Scale.bandwidth(),
-    x: item.x + x0Scale(stack),
+    width: getWidth(x0Scale),
+    x: item.x - width / 2 + x0Scale(stack),
   }));
 };
 

@@ -1,4 +1,9 @@
-import { Appointments, AppointmentTooltip, Scheduler, WeekView } from '@devexpress/dx-react-scheduler-material-ui';
+import {
+  Appointments,
+  AppointmentTooltip,
+  Scheduler,
+  WeekView,
+} from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import * as React from 'react';

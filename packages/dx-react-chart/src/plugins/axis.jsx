@@ -144,10 +144,10 @@ export class Axis extends React.Component {
                     >
                       {
                       coordinates.ticks.map(({
-                        x1, x2, y1, y2, id,
+                        x1, x2, y1, y2, key,
                       }) => (
                         <Tick
-                          key={id}
+                          key={key}
                           x1={x1}
                           x2={x2}
                           y1={y1}
@@ -166,9 +166,9 @@ export class Axis extends React.Component {
                         yText,
                         dominantBaseline,
                         textAnchor,
-                        id,
+                        key,
                       }) => (
-                        <React.Fragment key={id}>
+                        <React.Fragment key={key}>
                           <Label
                             text={text}
                             x={xText}

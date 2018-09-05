@@ -29,7 +29,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: -15, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10, id: 0,
+          xText: 10, yText: -15, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 10, x2: 10, key: 0,
         }],
       });
     });
@@ -38,7 +38,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 10, yText: 15, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 10, x2: 10, id: 0,
+          xText: 10, yText: 15, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 10, x2: 10, key: 0,
         }],
       });
     });
@@ -52,7 +52,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: -15, yText: 10, x1: -5, x2: 0, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'end', id: 0,
+          text: 1, xText: -15, yText: 10, x1: -5, x2: 0, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
         }],
       });
     });
@@ -61,7 +61,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: 15, yText: 10, x1: 0, x2: 5, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'start', id: 0,
+          text: 1, xText: 15, yText: 10, x1: 0, x2: 5, y1: 10, y2: 10, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
         }],
       });
     });
@@ -92,7 +92,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'bottom', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: 15, text: 'a', dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, id: 0,
+          xText: 25, yText: 15, text: 'a', dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -101,7 +101,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'horizontal' }, 'top', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: -15, text: 'a', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, id: 0,
+          xText: 25, yText: -15, text: 'a', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -110,7 +110,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'left', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 'a', xText: -15, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', id: 0,
+          text: 'a', xText: -15, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
         }],
       });
     });
@@ -119,7 +119,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ domain: [0, 10], orientation: 'vertical' }, 'right', 100, 50, tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 'a', xText: 15, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', id: 0,
+          text: 'a', xText: 15, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
         }],
       });
     });

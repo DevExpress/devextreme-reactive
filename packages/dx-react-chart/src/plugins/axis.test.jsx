@@ -59,7 +59,7 @@ describe('Axis', () => {
         yText: 'yText1',
         dominantBaseline: 'dominantBaseline1',
         textAnchor: 'textAnchor1',
-        id: '1',
+        key: '1',
       },
       {
         text: 'text2',
@@ -71,7 +71,7 @@ describe('Axis', () => {
         yText: 'yText2',
         dominantBaseline: 'dominantBaseline2',
         textAnchor: 'textAnchor2',
-        id: '2',
+        key: '2',
       }],
     }));
   });

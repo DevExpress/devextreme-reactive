@@ -20,8 +20,8 @@ export const Layout = ({
     open={visible}
     anchorEl={appointmentMeta.target}
     onClose={onHide}
-    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
     {...restProps}
   >
     <React.Fragment>

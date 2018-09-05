@@ -50,7 +50,7 @@ describe('calculateDomain', () => {
       [{
         arg: 1, val: 9, 'val-name-stack': [0, 9],
       }, {
-        arg: 2, val: -10, 'val-name-stack': [-10, 0],
+        arg: 2, val: -10, 'val-name-stack': [0, -10],
       }],
       'argumentAxis',
       {},
@@ -62,6 +62,31 @@ describe('calculateDomain', () => {
       },
       valueAxis: {
         domain: [-10, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      },
+    });
+  });
+
+  it('should be computed from data with zero values', () => {
+    const calculatedDomains = domains(
+      [argumentAxis, valueAxis],
+      [{
+        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+      }],
+      [{
+        arg: 1, val: 0, 'val-name-stack': [0, 0],
+      }, {
+        arg: 2, val: 10, 'val-name-stack': [0, 10],
+      }],
+      'argumentAxis',
+      {},
+    );
+
+    expect(calculatedDomains).toEqual({
+      argumentAxis: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+      },
+      valueAxis: {
+        domain: [0, 10], orientation: 'vertical', type: 'linear', tickFormat: undefined,
       },
     });
   });

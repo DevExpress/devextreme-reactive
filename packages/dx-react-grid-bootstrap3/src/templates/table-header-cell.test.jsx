@@ -27,18 +27,6 @@ describe('TableHeaderCell', () => {
     jest.resetAllMocks();
   });
 
-  it('should use column name if title is not specified', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{
-          name: 'Test',
-        }}
-      />
-    ));
-
-    expect(tree.find('th > div').text()).toBe('Test');
-  });
-
   it('should have correct styles when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
@@ -55,23 +43,6 @@ describe('TableHeaderCell', () => {
 
     expect(tree.find('th').prop('style').cursor)
       .toBeUndefined();
-  });
-
-  it('should have correct styles when sorting is allowed', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{ name: 'a' }}
-        sortingEnabled
-        showSortingControls
-      />
-    ));
-
-    expect(tree.find('th').prop('style'))
-      .toMatchObject({
-        userSelect: 'none',
-        MozUserSelect: 'none',
-        WebkitUserSelect: 'none',
-      });
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -150,37 +121,13 @@ describe('TableHeaderCell', () => {
       .toBe(onWidthDraftCancel);
   });
 
-  it('should have correct styles when column align is left', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        column={{}}
-      />
-    ));
-    expect(tree.find('th > div > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'left',
-      });
-  });
-
-  it('should have correct styles when column align is right', () => {
-    const tree = shallow((
-      <TableHeaderCell
-        tableColumn={{ align: 'right' }}
-      />
-    ));
-    expect(tree.find('th > div > div').prop('style'))
-      .toMatchObject({
-        textAlign: 'right',
-      });
-  });
-
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.find('div').at(1).prop('style').whiteSpace)
+    expect(tree.prop('style').whiteSpace)
       .toBe('nowrap');
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.find('div').at(1).prop('style').whiteSpace)
+    expect(tree.prop('style').whiteSpace)
       .toBe('normal');
   });
 
@@ -194,74 +141,5 @@ describe('TableHeaderCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-  });
-
-  describe('with keyboard navigation', () => {
-    const ENTER_KEY_CODE = 13;
-    const SPACE_KEY_CODE = 32;
-
-    it('should handle the "Enter" and "Space" keys down', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: SPACE_KEY_CODE });
-      expect(onSort)
-        .toHaveBeenCalled();
-
-      onSort.mockClear();
-      targetElement.simulate('keydown', { keyCode: 51 });
-      expect(onSort)
-        .not.toHaveBeenCalled();
-    });
-
-    it('should keep other sorting parameters on sorting change when the "Shift" key is pressed', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, shiftKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: undefined });
-    });
-
-    it('should handle the "Ctrl" key with sorting', () => {
-      const onSort = jest.fn();
-      const tree = mount((
-        <TableHeaderCell
-          onSort={onSort}
-          column={{ title: 'test' }}
-          tableColumn={{ align: 'right' }}
-          sortingEnabled
-          showSortingControls
-        />
-      ));
-
-      const targetElement = tree.find('SortingControl');
-      targetElement.simulate('keydown', { keyCode: ENTER_KEY_CODE, ctrlKey: true });
-      expect(onSort)
-        .toHaveBeenCalledWith({ keepOther: true, direction: null });
-    });
   });
 });

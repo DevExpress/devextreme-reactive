@@ -25,9 +25,11 @@ export class Grid extends React.PureComponent {
             {({
               domains,
               layouts,
+              scaleExtension,
             }) => {
               const domain = domains[name];
-              const { orientation } = domain;
+              const { orientation, type } = domain;
+              const { constructor } = scaleExtension.find(item => item.type === type);
               const {
                 width, height,
               } = layouts.pane;
@@ -38,6 +40,8 @@ export class Grid extends React.PureComponent {
                 width,
                 height,
                 0,
+                undefined,
+                constructor,
               );
 
               return ((

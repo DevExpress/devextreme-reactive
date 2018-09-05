@@ -5,10 +5,6 @@ import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
-import { SortingControl } from './table-header-cell/sorting-control';
-
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -17,50 +13,32 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.onClick = (e) => {
-      const { sortingEnabled, showSortingControls, onSort } = this.props;
-      const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
-      const isMouseClick = e.keyCode === undefined;
-
-      if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
-
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
-        ? null
-        : undefined;
-
-      e.preventDefault();
-      onSort({
-        direction,
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-      });
-    };
   }
 
   render() {
     const {
-      style, column, tableColumn, before,
-      showSortingControls, sortingDirection, sortingEnabled,
+      style, column, tableColumn,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel,
-      tableRow, getMessage, onSort,
+      tableRow, getMessage, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
-    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         style={{
           position: 'relative',
-          ...(isCellInteractive ? {
+          ...(draggingEnabled ? {
             userSelect: 'none',
             MozUserSelect: 'none',
             WebkitUserSelect: 'none',
           } : null),
+          whiteSpace: !(tableColumn && tableColumn.wordWrapEnabled) ? 'nowrap' : 'normal',
           ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
@@ -74,32 +52,7 @@ export class TableHeaderCell extends React.PureComponent {
             alignItems: 'center',
           }}
         >
-          {before}
-          <div
-            style={{
-              width: '100%',
-              textAlign: align,
-              whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              ...(showSortingControls ? {
-                margin: '-5px',
-                padding: '5px',
-              } : null),
-            }}
-          >
-            {showSortingControls ? (
-              <SortingControl
-                align={align}
-                disabled={!sortingEnabled}
-                sortingDirection={sortingDirection}
-                columnTitle={columnTitle}
-                onClick={this.onClick}
-              />
-            ) : (
-              columnTitle
-            )}
-          </div>
+          {children}
           {showGroupingControls && (
             <div
               style={{
@@ -155,6 +108,10 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   before: PropTypes.node,
 };
 
@@ -176,5 +133,6 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
+  children: undefined,
   before: undefined,
 };

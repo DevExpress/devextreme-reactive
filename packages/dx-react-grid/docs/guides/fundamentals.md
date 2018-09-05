@@ -7,7 +7,7 @@ The Grid requires the following plugins for basic data visualization:
 - [Table](../reference/table.md) - renders a data table
 - [TableHeaderRow](../reference/table-header-row.md) - renders the table's header row
 
-The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more details.
+The `TableHeaderRow` plugin should follow the `Table` plugin. See the [Plugin Order](plugin-overview.md#plugin-order) article for more information.
 
 .embedded-demo({ "path": "grid-basic/basic", "showThemeSelector": true })
 
@@ -18,6 +18,8 @@ The Grid's visualization plugins provide a rich API to customize grid elements' 
 The `Table` plugin allows you to customize the appearance of the table, table head and table body using the plugin's `tableComponent`, `headComponent`, `bodyComponent` and `containerComponent` [properties](../reference/table.md/#properties). The following example demonstrated how to use the `tableComponent` and create a 'striped' table:
 
 .embedded-demo({ "path": "grid-basic/table-template", "showThemeSelector": true })
+
+*Note: Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) use the same API to customize UI elements' appearance.*
 
 ### Cells
 
@@ -31,7 +33,7 @@ The `Table` plugin's `rowComponent` property enables you to handle row events li
 
 .embedded-demo({ "path": "grid-basic/table-row-template", "showThemeSelector": true })
 
-You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for details.
+You can create a custom appearance from scratch or modify the default appearance settings the grid's `Table.Row` component provides. Read [Plugin Components](../reference/table.md#plugin-components) for more information.
 
 ### Column alignment
 
@@ -47,10 +49,16 @@ Static widths for specific columns can be defined via the `Table` plugin's `colu
 
 ### Multiline cells
 
-The Grid cuts off values that do not fit in a cell. Assign true to the Table plugin's `columnExtensions.wordWrapEnabled` property for the required column to enable word wrap.
+The Grid cuts off values that do not fit in a cell. Set the [column extension](../reference/table.md/#tablecolumnextension)s' `wordWrapEnabled` property to true to enable word wrap for these columns.
 
 .embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 
-### Other plugins
+### Custom content in header cells
 
-Other plugins ([TableHeaderRow](../reference/table-header-row.md), [TableEditRow](../reference/table-edit-row.md), [TableFilterRow](../reference/table-filter-row.md), [TableGroupRow](../reference/table-group-row.md) and [TableRowDetail](../reference/table-row-detail.md)) have a similar APIs for appearance customization.
+You can pass a custom component to the TableHeaderRow plugin's `contentComponent` property to display additional elements in the Grid's header.
+
+.embedded-demo({ "path": "grid-basic/table-header-content-template", "showThemeSelector": true })
+
+
+
+

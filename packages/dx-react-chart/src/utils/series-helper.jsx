@@ -58,6 +58,7 @@ export const withSeriesPlugin = (
                 data,
                 argumentAxisName,
                 layouts,
+                scaleExtension,
                 colorDomain,
                 pieColorDomain,
               }) => {
@@ -70,6 +71,7 @@ export const withSeriesPlugin = (
                   domains[axisName],
                   layouts.pane,
                   groupWidth,
+                  scaleExtension,
                 );
                 const calculatedCoordinates = calculateCoordinates(
                   data,
@@ -80,6 +82,7 @@ export const withSeriesPlugin = (
                   stack,
                   stacks,
                   restProps,
+                  scaleExtension,
                 );
 
                 return (

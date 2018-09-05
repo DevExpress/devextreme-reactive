@@ -1,1 +1,4 @@
-export const setAppointmentMeta = (_, { target, appointment }) => ({ target, appointment });
+export const setAppointmentMeta = (
+  prevAppointmentMeta,
+  { target, appointment },
+) => ({ target, appointment });

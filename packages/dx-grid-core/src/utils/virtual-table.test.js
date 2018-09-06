@@ -1,5 +1,6 @@
 import {
   getVisibleBoundary,
+  getVisibleBoundaryWithFixed,
   getSpanBoundary,
   collapseBoundaries,
   getCollapsedColumns,
@@ -41,60 +42,155 @@ describe('VirtualTableLayout utils', () => {
     });
   });
 
-  describe('#getSpanBoundary', () => {
-    it('should work with span before visible area', () => {
+  describe('#getVisibleBoundaryWithFixed', () => {
+    it('should support fixed columns', () => {
       const items = [
-        { colSpan: 1 },
-        { colSpan: 2 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
+        { key: 'a', fixed: 'before' },
+        { key: 'b' },
+        { key: 'c' },
+        { key: 'd', fixed: 'before' },
+        { key: 'e' },
+        { key: 'f' },
+        { key: 'g', fixed: 'after' },
       ];
 
-      expect(getSpanBoundary(items, [2, 4], item => item.colSpan))
-        .toEqual([1, 4]);
+      expect(getVisibleBoundaryWithFixed([3, 5], items))
+        .toEqual([[3, 5], [0, 0], [6, 6]]);
+      expect(getVisibleBoundaryWithFixed([1, 5], items))
+        .toEqual([[1, 5], [0, 0], [6, 6]]);
+    });
+  });
+
+  describe('#getSpanBoundary', () => { // visibleBoundaryWithSpans
+    it('should work in a simple case', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+        { colSpan: 1 }, // 3
+        { colSpan: 1 }, // 4
+        { colSpan: 1 }, // 5
+        { colSpan: 1 }, // 6
+      ];
+
+      expect(getSpanBoundary(items, [[2, 4]], item => item.colSpan))
+        .toEqual([[2, 4]]);
+    });
+
+    it('should work with span before visible area', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 2 }, // 1, 2
+        { colSpan: 1 }, // 3
+        { colSpan: 1 }, // 4
+        { colSpan: 1 }, // 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
+      ];
+
+      expect(getSpanBoundary(items, [[2, 4]], item => item.colSpan))
+        .toEqual([[1, 4]]);
     });
 
     it('should work with span after visible area', () => {
       const items = [
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 2 },
-        { colSpan: 1 },
-        { colSpan: 1 },
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+        { colSpan: 1 }, // 3
+        { colSpan: 2 }, // 4, 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
       ];
 
-      expect(getSpanBoundary(items, [2, 4], item => item.colSpan))
-        .toEqual([2, 5]);
+      expect(getSpanBoundary(items, [[2, 4]], item => item.colSpan))
+        .toEqual([[2, 5]]);
     });
 
     it('should work with span greater than visible area', () => {
       const items = [
-        { colSpan: 1 },
-        { colSpan: 5 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
-        { colSpan: 1 },
+        { colSpan: 1 }, // 0
+        { colSpan: 5 }, // 1, 2, 3, 4, 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
+        { colSpan: 1 }, // 8
+        { colSpan: 1 }, // 9
+        { colSpan: 1 }, // 10
       ];
 
-      expect(getSpanBoundary(items, [2, 4], item => item.colSpan))
-        .toEqual([1, 5]);
+      expect(getSpanBoundary(items, [[2, 4]], item => item.colSpan))
+        .toEqual([[1, 5]]);
+    });
+
+    it('should work with multiple visible boundaries in a simple case', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+        { colSpan: 1 }, // 3
+        { colSpan: 1 }, // 4
+        { colSpan: 1 }, // 5
+        { colSpan: 1 }, // 6
+      ];
+
+      expect(getSpanBoundary(items, [[0, 0], [3, 4], [6, 6]], item => item.colSpan))
+        .toEqual([[0, 0], [3, 4], [6, 6]]);
+    });
+
+    it('should work with multiple visible boundaries and a span in fixed columns before the visible area', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 2 }, // 1, 2
+        { colSpan: 1 }, // 3
+        { colSpan: 1 }, // 4
+        { colSpan: 1 }, // 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
+      ];
+
+      expect(getSpanBoundary(items, [[1, 1], [4, 5], [6, 6]], item => item.colSpan))
+        .toEqual([[1, 2], [4, 5], [6, 6]]);
+    });
+
+    it('should work with multiple visible boundaries and a span in fixed columns after the visible area', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+        { colSpan: 1 }, // 3
+        { colSpan: 2 }, // 4, 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
+      ];
+
+      expect(getSpanBoundary(items, [[2, 3], [5, 5]], item => item.colSpan))
+        .toEqual([[2, 3], [4, 5]]);
     });
   });
 
   describe('#collapseBoundaries', () => {
+    it('should work in a simple case', () => {
+      const itemsCount = 9;
+      const visibleBoundary = [[3, 4]];
+      const spanBoundaries = [
+        [[3, 4]], // row 0
+      ];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 2], // stub
+          [3, 3], // visible
+          [4, 4], // visible
+          [5, 8], // stub
+        ]);
+    });
+
     it('should work with spans before visible area', () => {
       const itemsCount = 9;
-      const visibleBoundary = [3, 5];
+      const visibleBoundary = [[3, 5]];
       const spanBoundaries = [
-        [1, 5],
-        [2, 5],
+        [[1, 5]], // row 0
+        [[2, 5]], // row 1
       ];
 
       expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
@@ -111,10 +207,10 @@ describe('VirtualTableLayout utils', () => {
 
     it('should work with spans after visible area', () => {
       const itemsCount = 9;
-      const visibleBoundary = [3, 5];
+      const visibleBoundary = [[3, 5]];
       const spanBoundaries = [
-        [3, 7],
-        [3, 6],
+        [[3, 7]], // row 0
+        [[3, 6]], // row 1
       ];
 
       expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
@@ -131,10 +227,10 @@ describe('VirtualTableLayout utils', () => {
 
     it('should work with spans greater than visible area', () => {
       const itemsCount = 9;
-      const visibleBoundary = [3, 5];
+      const visibleBoundary = [[3, 5]];
       const spanBoundaries = [
-        [1, 6],
-        [2, 7],
+        [[1, 6]], // row 0
+        [[2, 7]], // row 1
       ];
 
       expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
@@ -148,6 +244,28 @@ describe('VirtualTableLayout utils', () => {
           [6, 6], // stub
           [7, 7], // stub
           [8, 8], // stub
+        ]);
+    });
+
+    it('should work with multiple visible areas', () => {
+      const itemsCount = 10;
+      const visibleBoundary = [[0, 0], [4, 6], [9, 9]];
+      const spanBoundaries = [
+        [[0, 0], [4, 6], [9, 9]], // row 0
+        [[0, 1], [4, 6], [9, 9]], // row 1
+        [[0, 0], [4, 8], [9, 9]], // row 2
+      ];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 0], // visible
+          [1, 1], // stub (for colspan [0, 1])
+          [2, 3], // stub
+          [4, 4], // visible
+          [5, 5], // visible
+          [6, 6], // visible
+          [7, 8], // stub (for colspan [4, 8])
+          [9, 9], // visible
         ]);
     });
   });
@@ -164,7 +282,7 @@ describe('VirtualTableLayout utils', () => {
         { key: 6, width: 40 },
         { key: 7, width: 40 },
       ];
-      const visibleBoundary = [3, 4];
+      const visibleBoundary = [[3, 4]];
       const boundaries = [[0, 0], [1, 2], [3, 3], [4, 4], [5, 6], [7, 7]];
       const getColumnWidth = column => column.width;
 
@@ -175,6 +293,36 @@ describe('VirtualTableLayout utils', () => {
         { ...columns[4] },
         { type: 'stub', key: 'stub_5_6', width: 80 },
         { type: 'stub', key: 'stub_7_7', width: 40 },
+      ];
+
+      expect(getCollapsedColumns(columns, visibleBoundary, boundaries, getColumnWidth))
+        .toEqual(result);
+    });
+
+    it('should work with multiple visible boundaries', () => {
+      const columns = [
+        { key: 0, width: 40 },
+        { key: 1, width: 40 },
+        { key: 2, width: 40 },
+        { key: 3, width: 40 },
+        { key: 4, width: 40 },
+        { key: 5, width: 40 },
+        { key: 6, width: 40 },
+        { key: 7, width: 40 },
+        { key: 8, width: 40 },
+      ];
+      const visibleBoundary = [[0, 0], [1, 1], [4, 5], [8, 8]];
+      const boundaries = [[0, 0], [1, 1], [2, 3], [4, 4], [5, 5], [6, 7], [8, 8]];
+      const getColumnWidth = column => column.width;
+
+      const result = [
+        { ...columns[0] },
+        { ...columns[1] },
+        { type: 'stub', key: 'stub_2_3', width: 80 },
+        { ...columns[4] },
+        { ...columns[5] },
+        { type: 'stub', key: 'stub_6_7', width: 80 },
+        { ...columns[8] },
       ];
 
       expect(getCollapsedColumns(columns, visibleBoundary, boundaries, getColumnWidth))
@@ -194,7 +342,7 @@ describe('VirtualTableLayout utils', () => {
         { key: 6, colSpan: 1 },
         { key: 7, colSpan: 1 },
       ];
-      const spanBoundary = [1, 6];
+      const spanBoundary = [[1, 6]];
       const boundaries = [[0, 0], [1, 2], [3, 3], [4, 4], [5, 6], [7, 7]];
       const getColSpan = column => column.colSpan;
 
@@ -210,10 +358,51 @@ describe('VirtualTableLayout utils', () => {
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
         .toEqual(result);
     });
+
+    it('should work with multiple span boundaries', () => {
+      const columns = [
+        { key: 0, colSpan: 1 },
+        { key: 1, colSpan: 1 },
+        { key: 2, colSpan: 1 },
+        { key: 3, colSpan: 1 },
+        { key: 4, colSpan: 3 },
+        { key: 5, colSpan: 1 },
+        { key: 6, colSpan: 1 },
+        { key: 7, colSpan: 1 },
+        { key: 8, colSpan: 1 },
+        { key: 9, colSpan: 1 },
+      ];
+      const spanBoundary = [[0, 1], [4, 6], [9, 9]];
+      const boundaries = [
+        [0, 0], // visible
+        [1, 1], // stub (for colspan [0, 1])
+        [2, 3], // stub
+        [4, 4], // visible
+        [5, 5], // visible
+        [6, 6], // visible
+        [7, 8], // stub (for colspan [4, 8])
+        [9, 9], // visible
+      ];
+      const getColSpan = column => column.colSpan;
+
+      const result = [
+        { column: columns[0], colSpan: 1 },
+        { column: columns[1], colSpan: 1 },
+        { column: { type: 'stub', key: 'stub_2_3' }, colSpan: 1 },
+        { column: columns[4], colSpan: 3 },
+        { column: columns[5], colSpan: 1 },
+        { column: columns[6], colSpan: 1 },
+        { column: { type: 'stub', key: 'stub_7_8' }, colSpan: 1 },
+        { column: columns[9], colSpan: 1 },
+      ];
+
+      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+        .toEqual(result);
+    });
   });
 
   describe('#getCollapsedGrid', () => {
-    it('should work in simple case', () => {
+    it('should work in a simple case', () => {
       const args = {
         rows: [
           { key: 0, height: 40 },
@@ -249,7 +438,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
 
-    it('should return empty resule when there are no columns', () => {
+    it('should return empty result when there are no columns', () => {
       const args = {
         rows: [],
         columns: [
@@ -268,7 +457,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual(result);
     });
 
-    it('should return empty resule when there are no rows', () => {
+    it('should return empty result when there are no rows', () => {
       const args = {
         rows: [
           { key: 0, height: 40 },
@@ -287,7 +476,7 @@ describe('VirtualTableLayout utils', () => {
         .toEqual(result);
     });
 
-    it('should work with collspan', () => {
+    it('should work with colspan', () => {
       const args = {
         rows: [
           { key: 0, height: 40 }, // visible

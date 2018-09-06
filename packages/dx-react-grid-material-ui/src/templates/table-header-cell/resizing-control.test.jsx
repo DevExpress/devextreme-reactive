@@ -8,7 +8,8 @@ const defaultProps = {
   onWidthChange: () => {},
   onWidthDraft: () => {},
   onWidthDraftCancel: () => {},
-  resizeHandleOpacityClass: 'test',
+  resizeLastHandleClass: 'last-handle',
+  resizeHandleOpacityClass: 'opacity',
 };
 
 describe('ResizingControl', () => {

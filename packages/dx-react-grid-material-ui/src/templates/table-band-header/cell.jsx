@@ -11,7 +11,6 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     '&:first-child': {
       paddingLeft: theme.spacing.unit * 3,
-      borderLeft: 0,
     },
     '&:last-child': {
       paddingRight: theme.spacing.unit * 3,
@@ -22,7 +21,6 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     borderBottom: getBorder(theme),
-    borderLeft: getBorder(theme),
     borderRight: getBorder(theme),
   },
 });

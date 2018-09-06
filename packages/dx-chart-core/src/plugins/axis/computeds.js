@@ -1,10 +1,9 @@
-import { createScale } from '../../utils/scale';
+import { createScale, getWidth } from '../../utils/scale';
 import {
   HORIZONTAL, TOP, LEFT, MIDDLE, END, START,
 } from '../../constants';
 
 const getTicks = scale => (scale.ticks ? scale.ticks() : scale.domain());
-const getOffset = scale => (scale.bandwidth ? scale.bandwidth() / 2 : 0);
 const getDominantBaseline = (orientation, position) => {
   if (orientation === HORIZONTAL) {
     return position === TOP ? 'baseline' : 'hanging';
@@ -34,11 +33,10 @@ const calculateAxisCoordinates = (
   tickFormat,
 ) => {
   const ticks = getTicks(scale);
-  const offset = getOffset(scale);
+  const offset = getWidth(scale) / 2;
   const dominantBaseline = getDominantBaseline(orientation, position);
   const textAnchor = getTextAnchor(orientation, position);
-
-  const getTickCoordinates = (tick) => {
+  const getTickCoordinates = (tick, index) => {
     const coordinates = scale(tick) + offset;
     if (orientation === HORIZONTAL) {
       return {
@@ -51,6 +49,7 @@ const calculateAxisCoordinates = (
         text: getFormat(scale, tickFormat)(tick),
         xText: coordinates,
         yText: position === TOP ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+        key: index,
       };
     }
     return {
@@ -63,6 +62,7 @@ const calculateAxisCoordinates = (
       text: getFormat(scale, tickFormat)(tick),
       xText: position === LEFT ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       yText: coordinates,
+      key: index,
     };
   };
   return {

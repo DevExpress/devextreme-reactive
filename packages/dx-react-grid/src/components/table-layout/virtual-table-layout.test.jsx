@@ -19,13 +19,22 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
-    // eslint-disable-next-line react/prop-types
-    Sizer: ({ containerComponent: Container, children, ...restProps }) => (
-      <Container {...restProps}>
-        {children({ width: 400, height: 120 })}
-      </Container>
-    ),
     // eslint-disable-next-line react/prefer-stateless-function
+    Sizer: class extends Component {
+      componentDidMount() {
+        const { onSizeChange } = this.props;
+        onSizeChange({ width: 400, height: 120 });
+      }
+
+      render() {
+        // eslint-disable-next-line react/prop-types
+        const { containerComponent: Container, onSizeChange, ...restProps } = this.props;
+        return (
+          <Container {...restProps} />
+        );
+      }
+    },
+    // eslint-disable-next-line react/no-multi-comp
     RefHolder: class extends Component {
       render() {
         // eslint-disable-next-line react/prop-types

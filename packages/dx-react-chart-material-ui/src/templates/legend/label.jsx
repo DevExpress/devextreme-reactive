@@ -15,7 +15,7 @@ const styles = () => ({
 class LabelBase extends React.PureComponent {
   render() {
     const {
-      text, style, classes, className, ...restProps
+      text, classes, className, ...restProps
     } = this.props;
     return (
       <ListItemText
@@ -33,14 +33,12 @@ LabelBase.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 LabelBase.defaultProps = {
   className: undefined,
-  style: null,
 };
 
 export const Label = withStyles(styles, { name: 'LegendLabel' })(LabelBase);

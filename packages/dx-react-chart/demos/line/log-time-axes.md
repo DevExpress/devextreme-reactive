@@ -1,5 +1,5 @@
-# React Chart Logarithmic and Datetime Axes
+# React Chart Type of Axes
 
-The demo shows cusomization of the [Scale](../../docs/reference/line-series.md).
+The demo illustrates cusomization of the [Scale plugin](../../docs/reference/line-series.md). It helps you to create different type of axes.
 
 .embedded-demo({ "path": "line-chart/axes-types", "showThemeSelector": true, "showThemeVariants": true })

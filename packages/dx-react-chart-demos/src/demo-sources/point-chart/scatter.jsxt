@@ -20,7 +20,7 @@ const normalDistribution = () => {
   const u = getRandom();
   const v = getRandom();
   return Math.sqrt(-4.0 * Math.log(u)) * Math.cos(1.0 * Math.PI * v);
-}
+};
 
 const dataGenerator = (pointCount) => {
   const data = [];

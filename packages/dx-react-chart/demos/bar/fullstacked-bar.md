@@ -1,5 +1,5 @@
 # React Chart Fullstacked Bar
 
-The demo demonstrates how to make Fullstacked Bar using [Stack plugin](../../docs/reference/stack.md)
+The demo demonstrates how to create Fullstacked Bar using [Stack plugin](../../docs/reference/stack.md).
 
 .embedded-demo({ "path": "bar-chart/fullstacked-bar", "showThemeSelector": true, "showThemeVariants": true })

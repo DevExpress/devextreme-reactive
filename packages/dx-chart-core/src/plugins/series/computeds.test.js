@@ -7,7 +7,7 @@ import {
   area,
   line,
 } from 'd3-shape';
-import { createScale } from '../../utils/scale';
+import { createScale, getWidth } from '../../utils/scale';
 import {
   pieAttributes,
   xyScales,
@@ -21,6 +21,7 @@ import {
 
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
+  getWidth: jest.fn(),
 }));
 
 jest.mock('d3-shape', () => {
@@ -89,7 +90,7 @@ const dataWithUndefined = [
 ];
 
 const computedLine = data.map((item, index) => ({
-  id: index, x: item.arg, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1, width: 0,
+  id: index, x: item.arg + 5, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
 }));
 
 const groupWidth = 0.7;
@@ -104,7 +105,7 @@ describe('dArea', () => {
     const getX = fluentArea.x.mock.calls[0][0];
 
     expect(fluentArea.x).toHaveBeenCalledTimes(1);
-    expect(getX({ x: 10, width: 20 })).toEqual(20);
+    expect(getX({ x: 10 })).toEqual(10);
   });
 
   it('y1 getter', () => {
@@ -139,7 +140,7 @@ describe('line & spline', () => {
     it('x getter', () => {
       const getX = line.mock.results[0].value.x.mock.calls[0][0];
 
-      expect(getX({ x: 10, width: 20 })).toEqual(20);
+      expect(getX({ x: 10 })).toEqual(10);
     });
 
     it('y1 getter', () => {
@@ -153,7 +154,7 @@ describe('line & spline', () => {
     it('x getter', () => {
       const getX = line.mock.results[0].value.x.mock.calls[1][0];
 
-      expect(getX({ x: 10, width: 20 })).toEqual(20);
+      expect(getX({ x: 10 })).toEqual(10);
     });
 
     it('y1 getter', () => {
@@ -173,12 +174,12 @@ describe('line & spline', () => {
 describe('barCoordinates', () => {
   beforeAll(() => {
     const translateValue = value => value;
-    translateValue.bandwidth = jest.fn().mockReturnValue(10);
     createScale.mockImplementation(() => translateValue);
+    getWidth.mockImplementation(() => 10);
   });
 
   afterAll(() => {
-    createScale.mockRestore();
+    jest.clearAllMocks();
   });
 
   it('should return array object with x, width properties', () => {
@@ -274,13 +275,13 @@ describe('Series attributes', () => {
       'Series3',
     )).toEqual([
       {
-        id: 0, x: 1, y: 3, y1: 3, value: 3, width: 0,
+        id: 0, x: 6, y: 3, y1: 3, value: 3,
       },
       {
-        id: 2, x: 3, y: 7, y1: 7, value: 7, width: 0,
+        id: 2, x: 8, y: 7, y1: 7, value: 7,
       },
       {
-        id: 4, x: 5, y: 15, y1: 15, value: 15, width: 0,
+        id: 4, x: 10, y: 15, y1: 15, value: 15,
       },
     ]);
   });

@@ -42,54 +42,55 @@ const getCorrectAxisType = (type, data, field) => {
   return type || 'linear';
 };
 
-const getFieldStack = (index, object) => (object && object[index] ? object[index] : undefined);
-
-const calculateDomain = (series, data, axesOptions, argumentAxisName) => series.reduce(
-  (domains, {
-    valueField, argumentField, axisName, name,
-  }) => {
-    const valueType = getCorrectAxisType(
-      domains[axisName] && domains[axisName].type,
-      data,
-      valueField,
-    );
-    const argumentType = getCorrectAxisType(
-      domains[argumentAxisName] && domains[argumentAxisName].type,
-      data,
-      argumentField,
-    );
-    return {
-      ...domains,
-      [axisName]: {
-        domain: calculateDomainField(
-          object => getFieldStack(1, object[`${valueField}-${name}-stack`]),
-          object => getFieldStack(0, object[`${valueField}-${name}-stack`]),
-          data,
-          domains[axisName] && domains[axisName].domain,
-          valueType,
-        ),
-        orientation: VERTICAL,
-        type: valueType,
-        tickFormat: domains[axisName] && domains[axisName].tickFormat,
-      },
-      [argumentAxisName]: {
-        domain: calculateDomainField(
-          object => object[argumentField],
-          null,
-          data,
-          domains[argumentAxisName] && domains[argumentAxisName].domain,
-          argumentType,
-        ),
-        orientation: HORIZONTAL,
-        type: argumentType,
-        tickFormat: domains[argumentAxisName] && domains[argumentAxisName].tickFormat,
-      },
-    };
-  },
-  axesOptions,
+const getFieldStack = (index, object) => (
+  object && isDefined(object[index]) ? object[index] : undefined
 );
 
-const adjustRangeToZero = range => [Math.min(range[0], 0), Math.max(0, range[1])];
+const calculateDomain = (series, data, axesOptions, argumentAxisName, startFromZero) => series
+  .reduce(
+    (domains, {
+      valueField, argumentField, axisName, name,
+    }) => {
+      const valueType = getCorrectAxisType(
+        domains[axisName] && domains[axisName].type,
+        data,
+        valueField,
+      );
+      const argumentType = getCorrectAxisType(
+        domains[argumentAxisName] && domains[argumentAxisName].type,
+        data,
+        argumentField,
+      );
+      return {
+        ...domains,
+        [axisName]: {
+          domain: calculateDomainField(
+            object => getFieldStack(1, object[`${valueField}-${name}-stack`]),
+            startFromZero[axisName] ? object => getFieldStack(0, object[`${valueField}-${name}-stack`]) : undefined,
+            data,
+            domains[axisName] && domains[axisName].domain,
+            valueType,
+          ),
+          orientation: VERTICAL,
+          type: valueType,
+          tickFormat: domains[axisName] && domains[axisName].tickFormat,
+        },
+        [argumentAxisName]: {
+          domain: calculateDomainField(
+            object => object[argumentField],
+            null,
+            data,
+            domains[argumentAxisName] && domains[argumentAxisName].domain,
+            argumentType,
+          ),
+          orientation: HORIZONTAL,
+          type: argumentType,
+          tickFormat: domains[argumentAxisName] && domains[argumentAxisName].tickFormat,
+        },
+      };
+    },
+    axesOptions,
+  );
 
 const recalculateDomain = (range, currentDomain) => ({
   domain: currentDomain.type !== BAND ? range : currentDomain.domain,
@@ -98,33 +99,21 @@ const recalculateDomain = (range, currentDomain) => ({
   tickFormat: currentDomain.tickFormat,
 });
 
-const adjustDomains = (axes, calculatedDomains, startFromZero) => {
-  const adjustedDomainsBySeries = Object.keys(calculatedDomains).reduce((domains, name) => {
+const adjustDomains = (axes, calculatedDomains) => axes.reduce(
+  (domains, {
+    name, min, max,
+  }) => {
     const currentDomain = domains[name];
-    const range = startFromZero[name]
-      ? adjustRangeToZero(currentDomain.domain) : currentDomain.domain;
     return {
       ...domains,
-      [name]: recalculateDomain(range, currentDomain),
+      [name]: recalculateDomain([
+        isDefined(min) ? min : currentDomain.domain[0],
+        isDefined(max) ? max : currentDomain.domain[1],
+      ], currentDomain),
     };
-  }, calculatedDomains);
-
-  return axes.reduce(
-    (domains, {
-      name, min, max,
-    }) => {
-      const currentDomain = domains[name];
-      return {
-        ...domains,
-        [name]: recalculateDomain([
-          isDefined(min) ? min : currentDomain.domain[0],
-          isDefined(max) ? max : currentDomain.domain[1],
-        ], currentDomain),
-      };
-    },
-    adjustedDomainsBySeries,
-  );
-};
+  },
+  calculatedDomains,
+);
 
 export const computedExtension = (extension) => {
   const defaultExtension = [
@@ -136,6 +125,7 @@ export const computedExtension = (extension) => {
 
 export const domains = (axes = [], series, data, argumentAxisName, startFromZero) => {
   const axesOptions = collectAxesOptions(axes);
-  const calculatedDomains = calculateDomain(series, data, axesOptions, argumentAxisName);
-  return adjustDomains(axes, calculatedDomains, startFromZero);
+  const calculatedDomains = calculateDomain(series, data, axesOptions,
+    argumentAxisName, startFromZero);
+  return adjustDomains(axes, calculatedDomains);
 };

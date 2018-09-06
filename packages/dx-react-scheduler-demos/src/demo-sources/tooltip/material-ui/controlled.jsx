@@ -1,13 +1,58 @@
+import * as React from 'react';
 import {
   Appointments,
   AppointmentTooltip,
   Scheduler,
   WeekView,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import * as React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import { withStyles } from '@material-ui/core/styles';
 import appointments from '../../../demo-data/today-appointments';
+
+const styles = theme => ({
+  button: {
+    color: theme.palette.background.default,
+    width: '20px',
+    height: '20px',
+  },
+  text: {
+    paddingTop: theme.spacing.unit,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
+
+const AppointmentComponentBase = ({
+  appointment,
+  onClick,
+  classes,
+  toggleVisible,
+  onAppointmentMetaChange,
+  ...restProps
+}) => (
+  <Appointments.Appointment
+    {...restProps}
+    appointment={appointment}
+  >
+    <IconButton
+      className={classes.button}
+      onClick={({ target }) => {
+        toggleVisible();
+        onAppointmentMetaChange({ target: target.parentElement.parentElement, appointment });
+      }}
+    >
+      <InfoIcon />
+    </IconButton>
+    <div className={classes.text}>
+      {appointment.title}
+    </div>
+  </Appointments.Appointment>
+);
+
+const AppointmentComponent = withStyles(styles, { name: 'AppointmentComponent' })(AppointmentComponentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -25,20 +70,20 @@ export default class Demo extends React.PureComponent {
       const { visible: tooltipVisible } = this.state;
       this.setState({ visible: !tooltipVisible });
     };
-
-    this.setRef = (ref) => {
-      const { appointmentMeta } = this.state;
-      this.setState({ appointmentMeta: { ...appointmentMeta, target: ref } });
-    };
-
-    this.onAppointmentMetaChange = ({ appointment }) => {
-      const { target } = this.state;
+    this.onAppointmentMetaChange = ({ appointment, target }) => {
       this.setState({ appointmentMeta: { appointment, target } });
     };
+    this.myAppointment = this.myAppointment.bind(this);
+  }
 
-    this.onVisibleChange = (visible) => {
-      this.setState({ visible });
-    };
+  myAppointment(props) {
+    return (
+      <AppointmentComponent
+        {...props}
+        toggleVisible={this.toggleVisible}
+        onAppointmentMetaChange={this.onAppointmentMetaChange}
+      />
+    );
   }
 
   render() {
@@ -49,45 +94,32 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <React.Fragment>
-        <Paper>
-          <div style={{ height: '200px' }} ref={this.setRef}>
-            <Button onClick={this.toggleVisible}>
-              Open Appointment
-            </Button>
-            <Button onClick={() => this.onAppointmentMetaChange({ target: null, appointment: {} })}>
-              Reset Appointment
-            </Button>
-            <div style={{ color: appointmentMeta.appointment.startDate ? 'green' : 'red' }}>
-              Appointment Ready
-            </div>
-          </div>
-        </Paper>
-        <Paper>
-          <Scheduler
-            data={data}
-          >
-            <WeekView
-              startDayHour={9}
-              endDayHour={19}
-            />
+      <Paper>
+        <Scheduler
+          data={data}
+        >
+          <WeekView
+            startDayHour={9}
+            endDayHour={19}
+          />
 
-            <Appointments />
+          <Appointments
+            appointmentComponent={this.myAppointment}
+          />
 
-            <AppointmentTooltip
-              visible={visible}
-              appointmentMeta={appointmentMeta}
+          <AppointmentTooltip
+            visible={visible}
+            appointmentMeta={appointmentMeta}
 
-              onAppointmentMetaChange={this.onAppointmentMetaChange}
-              onVisibleChange={this.onVisibleChange}
+            onAppointmentMetaChange={this.onAppointmentMetaChange}
+            onVisibleChange={this.toggleVisible}
 
-              showCloseButton
-              showDeleteButton
-              showOpenButton
-            />
-          </Scheduler>
-        </Paper>
-      </React.Fragment>
+            showCloseButton
+            showDeleteButton
+            showOpenButton
+          />
+        </Scheduler>
+      </Paper>
     );
   }
 }

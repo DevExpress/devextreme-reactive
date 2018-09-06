@@ -36,8 +36,7 @@ const calculateAxisCoordinates = (
   const offset = getWidth(scale) / 2;
   const dominantBaseline = getDominantBaseline(orientation, position);
   const textAnchor = getTextAnchor(orientation, position);
-
-  const getTickCoordinates = (tick) => {
+  const getTickCoordinates = (tick, index) => {
     const coordinates = scale(tick) + offset;
     if (orientation === HORIZONTAL) {
       return {
@@ -50,6 +49,7 @@ const calculateAxisCoordinates = (
         text: getFormat(scale, tickFormat)(tick),
         xText: coordinates,
         yText: position === TOP ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+        key: index,
       };
     }
     return {
@@ -62,6 +62,7 @@ const calculateAxisCoordinates = (
       text: getFormat(scale, tickFormat)(tick),
       xText: position === LEFT ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
       yText: coordinates,
+      key: index,
     };
   };
   return {

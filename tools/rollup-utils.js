@@ -52,4 +52,4 @@ export const globals = () => {
     }
 };
 
-export const stubProcess = 'if (process === undefined) { process = { env: {} }; }';
+export const stubProcess = 'if (typeof process === "undefined") { var process = { env: {} }; }';

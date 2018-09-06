@@ -7,9 +7,9 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { createScale } from '../../utils/scale';
+import { createScale, getWidth } from '../../utils/scale';
 
-const getX = ({ x, width }) => x + (width / 2);
+const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
@@ -29,15 +29,24 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
+const getConstructor = (scaleExtension, type) => scaleExtension.find(
+  item => item.type === type,
+).constructor;
+
 export const xyScales = (
   argumentDomainOptions,
   valueDomainOptions,
   { width, height },
   groupWidth,
-) => ({
-  xScale: createScale(argumentDomainOptions, width, height, 1 - groupWidth),
-  yScale: createScale(valueDomainOptions, width, height),
-});
+  scaleExtension,
+) => {
+  const xConstructor = getConstructor(scaleExtension, argumentDomainOptions.type);
+  const yConstructor = getConstructor(scaleExtension, valueDomainOptions.type);
+  return {
+    xScale: createScale(argumentDomainOptions, width, height, xConstructor, 1 - groupWidth),
+    yScale: createScale(valueDomainOptions, width, height, yConstructor),
+  };
+};
 
 export const pieAttributes = (
   data,
@@ -79,10 +88,9 @@ export const coordinates = (
 ) => data.reduce((result, dataItem, index) => {
   if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
     return [...result, {
-      x: xScale(dataItem[argumentField]),
+      x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
       y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
       y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
-      width: xScale.bandwidth ? xScale.bandwidth() : 0,
       id: index,
       value: dataItem[valueField],
     }];
@@ -99,6 +107,7 @@ export const barCoordinates = (
   stack,
   stacks = [undefined],
   { barWidth = 0.9 },
+  scaleExtension,
 ) => {
   const rawCoordinates = coordinates(
     data,
@@ -107,20 +116,20 @@ export const barCoordinates = (
     valueField,
     name,
   );
-  const bandwidth = xScale.bandwidth ? xScale.bandwidth() : 0;
+  const width = getWidth(xScale);
   const x0Scale = createScale(
     {
-      type: 'band',
       domain: stacks,
     },
-    bandwidth,
-    bandwidth,
+    width,
+    width,
+    getConstructor(scaleExtension, 'band'),
     1 - barWidth,
   );
   return rawCoordinates.map(item => ({
     ...item,
-    width: x0Scale.bandwidth(),
-    x: item.x + x0Scale(stack),
+    width: getWidth(x0Scale),
+    x: item.x - width / 2 + x0Scale(stack),
   }));
 };
 

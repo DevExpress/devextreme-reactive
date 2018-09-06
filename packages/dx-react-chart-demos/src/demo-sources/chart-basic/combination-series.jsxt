@@ -8,6 +8,7 @@ import {
   LineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale } from '@devexpress/dx-react-chart';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -57,6 +58,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <Legend />
+          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

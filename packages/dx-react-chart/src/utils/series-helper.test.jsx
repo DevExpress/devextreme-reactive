@@ -54,6 +54,7 @@ describe('Base series', () => {
       domains: { argumentAxisName: 'argumentDomain', axisName: 'valueDomain' },
       stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
+      scaleExtension: 'scaleExtension',
     },
     template: {
       series: {},
@@ -70,7 +71,7 @@ describe('Base series', () => {
   };
   const TestComponentPath = () => (
     <div>
-TestComponentPath
+      TestComponentPath
     </div>
   );
 
@@ -123,6 +124,7 @@ TestComponentPath
       'valueDomain',
       { width: 60, height: 50 },
       0.7,
+      'scaleExtension',
     );
 
     expect(coordinates).toHaveBeenLastCalledWith(
@@ -134,6 +136,7 @@ TestComponentPath
       'stack1',
       ['one', 'two'],
       { styles: 'styles' },
+      'scaleExtension',
     );
   });
 

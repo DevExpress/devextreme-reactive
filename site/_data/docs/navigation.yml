@@ -213,6 +213,8 @@
         path: /react/chart/docs/reference/line-series
       - title: PieSeries
         path: /react/chart/docs/reference/pie-series
+      - title: Scale
+        path: /react/chart/docs/reference/scale
       - title: ScatterSeries
         path: /react/chart/docs/reference/scatter-series
       - title: SplineSeries

@@ -201,10 +201,10 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-table-summary-item {
   font-weight: bold;
 }
-.g-bs4-table-invisible-row {
+.dx-g-bs4-table-invisible-row {
   visibility: hidden;
 }
-.dx-rg-bs4-table-header-titlt {
+.dx-rg-bs4-table-header-title {
   overflow: hidden;
   text-overflow: ellipsis;
 }

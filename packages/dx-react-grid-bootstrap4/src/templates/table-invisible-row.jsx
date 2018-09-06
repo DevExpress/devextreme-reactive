@@ -5,7 +5,7 @@ import { TableRow } from './table-row';
 
 export const TableInvisibleRow = ({ className, ...restParams }) => (
   <TableRow
-    className={classNames('g-bs4-table-invisible-row', className)}
+    className={classNames('dx-g-bs4-table-invisible-row', className)}
     {...restParams}
   />
 );

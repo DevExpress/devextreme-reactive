@@ -38,21 +38,26 @@ export class Appointments extends React.PureComponent {
               }, {
                 toggleTooltipVisible,
                 setTooltipAppointmentMeta,
-              }) => appointmentRects.map(({
-                dataItem, type, ...geometry
-              }, index) => (
-                <Appointment
-                  type={type}
-                  key={index.toString()}
-                  appointment={dataItem}
-                  getTitle={getAppointmentTitle}
-                  getEndDate={getAppointmentEndDate}
-                  getStartDate={getAppointmentStartDate}
-                  toggleTooltipVisible={toggleTooltipVisible}
-                  setTooltipAppointmentMeta={setTooltipAppointmentMeta}
-                  style={getAppointmentStyle(geometry)}
-                />
-              ))}
+              }) => {
+                const onClick = ({ target, appointment }) => {
+                  toggleTooltipVisible();
+                  setTooltipAppointmentMeta({ target, appointment });
+                };
+                return appointmentRects.map(({
+                  dataItem, type, ...geometry
+                }, index) => (
+                  <Appointment
+                    type={type}
+                    key={index.toString()}
+                    appointment={dataItem}
+                    getTitle={getAppointmentTitle}
+                    getEndDate={getAppointmentEndDate}
+                    getStartDate={getAppointmentStartDate}
+                    onClick={onClick}
+                    style={getAppointmentStyle(geometry)}
+                  />
+                ));
+              }}
             </TemplateConnector>
           </Container>
         </Template>

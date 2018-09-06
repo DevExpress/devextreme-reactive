@@ -123,7 +123,6 @@ button.dx-g-bs4-table-edit-command-cell {
   cursor: default;
 }
 .dx-g-bs4-sorting-control-text {
-  word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -204,4 +203,11 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .g-bs4-table-invisible-row {
   visibility: hidden;
+}
+.dx-rg-bs4-table-header-titlt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dx-g-bs4-sort-indicator-invisible {
+  opacity: 0;
 }

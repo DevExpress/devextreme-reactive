@@ -86,10 +86,12 @@ export class Axis extends React.Component {
               domains,
               argumentAxisName,
               layouts,
+              scaleExtension,
             }, { changeBBox }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
-              const { orientation } = domain;
+              const { orientation, type } = domain;
+              const { constructor } = scaleExtension.find(item => item.type === type);
               const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]
                     || { width: 0, height: 0 };
 
@@ -110,6 +112,7 @@ export class Axis extends React.Component {
                 heightPostCalculated,
                 tickSize,
                 indentFromAxis,
+                constructor,
               );
               const {
                 xCorrection,
@@ -144,10 +147,10 @@ export class Axis extends React.Component {
                     >
                       {
                       coordinates.ticks.map(({
-                        x1, x2, y1, y2, text,
+                        x1, x2, y1, y2, key,
                       }) => (
                         <Tick
-                          key={text}
+                          key={key}
                           x1={x1}
                           x2={x2}
                           y1={y1}
@@ -166,8 +169,9 @@ export class Axis extends React.Component {
                         yText,
                         dominantBaseline,
                         textAnchor,
+                        key,
                       }) => (
-                        <React.Fragment key={text}>
+                        <React.Fragment key={key}>
                           <Label
                             text={text}
                             x={xText}

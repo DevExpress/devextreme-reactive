@@ -58,7 +58,7 @@ React Chart uses the latest web platform standards and does not support older br
 
 ## Using the Chart Component
 
-The Chart component renders nothing by default; plugins implement all its functionality. To create a simple chart, add one of the [`*Series` plugins](series.md) (for example, `LineSeries`) to draw a series and the `ArgumentAxis` and `ValueAxis` plugins to add the axes:
+The Chart component's functionality is implemented in plugins. You need a [series](series.md) plugin and the `ArgumentAxis`, `ValuesAxis`, and `Scale` plugins to draw a simple chart. The following code shows how to configure a simple line chart:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";
@@ -75,6 +75,7 @@ const App = () => (
       <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />
+      <Scale />
     </Chart>
 );
 

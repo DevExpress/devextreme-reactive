@@ -8,7 +8,7 @@ import {
 
 export const groupRowChecker = row => row[GRID_GROUP_CHECK];
 
-export const groupRowLevelKeyGetter = row => row[GRID_GROUP_LEVEL_KEY];
+export const groupRowLevelKeyGetter = row => (row ? row[GRID_GROUP_LEVEL_KEY] : undefined);
 
 const defaultColumnCriteria = value => ({
   key: String(value),

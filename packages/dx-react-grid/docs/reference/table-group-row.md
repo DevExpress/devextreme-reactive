@@ -2,7 +2,7 @@
 
 A plugin that renders group rows and enables them to expand and collapse.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

@@ -2,9 +2,9 @@
 
 A plugin that provides the capability to customize formatting options and editors depending on the data type.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { DxDataTypeProvider } from '@devexpress/dx-vue-grid';

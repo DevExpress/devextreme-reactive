@@ -15,7 +15,6 @@ const styles = theme => ({
 });
 
 const TableStubCellBase = ({
-  style,
   classes,
   className,
   tableRow,
@@ -23,7 +22,6 @@ const TableStubCellBase = ({
   ...restProps
 }) => (
   <TableCell
-    style={style}
     className={classNames(classes.cell, className)}
     classes={{ footer: classes.footer }}
     {...restProps}
@@ -31,7 +29,6 @@ const TableStubCellBase = ({
 );
 
 TableStubCellBase.propTypes = {
-  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
@@ -39,7 +36,6 @@ TableStubCellBase.propTypes = {
 };
 
 TableStubCellBase.defaultProps = {
-  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,

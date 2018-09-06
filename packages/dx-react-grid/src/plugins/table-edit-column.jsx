@@ -4,6 +4,7 @@ import {
   Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
+  TABLE_EDIT_COMMAND_TYPE,
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
   isEditCommandsTableCell,
@@ -132,6 +133,9 @@ export class TableEditColumn extends React.PureComponent {
     );
   }
 }
+
+TableEditColumn.COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
+
 TableEditColumn.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
@@ -142,6 +146,7 @@ TableEditColumn.propTypes = {
   width: PropTypes.number,
   messages: PropTypes.object,
 };
+
 TableEditColumn.defaultProps = {
   showAddCommand: false,
   showEditCommand: false,

@@ -28,7 +28,12 @@ const styles = theme => ({
     '&:hover $resizeHandleLine': {
       opacity: 1,
     },
+    '&:nth-last-child(2) $resizeHandle': {
+      width: `${theme.spacing.unit}px`,
+      right: '1px',
+    },
   },
+  resizeHandle: {},
   resizeHandleLine: {
     opacity: 0,
   },
@@ -56,7 +61,18 @@ const styles = theme => ({
     cursor: 'pointer',
   },
   cellDimmed: {
-    opacity: 0.3,
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      backgroundColor: theme.palette.background.paper,
+      opacity: 0.7,
+      pointerEvents: 'none',
+      zIndex: 400,
+    },
   },
   cellRight: {
     paddingLeft: theme.spacing.unit,
@@ -131,6 +147,7 @@ class TableHeaderCellBase extends React.PureComponent {
             onWidthChange={onWidthChange}
             onWidthDraft={onWidthDraft}
             onWidthDraftCancel={onWidthDraftCancel}
+            resizeLastHandleClass={classes.resizeHandle}
             resizeHandleOpacityClass={classes.resizeHandleLine}
           />
         )}

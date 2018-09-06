@@ -68,7 +68,7 @@ const loadDemosToGenerate = () => {
               demoName,
               themeName: file,
               testFile,
-              generateTest: !fs.existsSync(path.join(DEMOS_FOLDER, sectionName, file, `${demoName}${TEST_SUFFIX}.jsxt`)),
+              generateTest: !fs.existsSync(path.join(DEMOS_FOLDER, sectionName, file, `${demoName}${TEST_SUFFIX}.jsx`)),
               generateSsrTest,
               demoExtension,
             });

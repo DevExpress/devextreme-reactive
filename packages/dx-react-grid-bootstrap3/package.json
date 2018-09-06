@@ -85,6 +85,7 @@
     "@devexpress/dx-react-core": "1.7.2",
     "@devexpress/dx-react-grid": "1.7.2",
     "react": ">=16.3.0",
-    "react-bootstrap": ">=0.32.1"
+    "react-bootstrap": ">=0.32.1",
+    "react-dom": ">=16.3.0"
   }
 }

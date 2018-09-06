@@ -2,7 +2,10 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { Sizer, RefHolder } from '@devexpress/dx-react-core';
-import { getCollapsedGrid } from '@devexpress/dx-grid-core';
+import {
+  getCollapsedGrid,
+  TABLE_FLEX_TYPE,
+} from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 
 const AUTO_HEIGHT = 'auto';
@@ -15,6 +18,8 @@ export class VirtualTableLayout extends React.PureComponent {
       rowHeights: new Map(),
       viewportTop: 0,
       viewportLeft: 0,
+      width: 800,
+      height: 600,
     };
     this.state.headerHeight = props.headerRows
       .reduce((acc, row) => acc + this.getRowHeight(row), 0);
@@ -27,6 +32,7 @@ export class VirtualTableLayout extends React.PureComponent {
     this.registerRowRef = this.registerRowRef.bind(this);
     this.getRowHeight = this.getRowHeight.bind(this);
     this.updateViewport = this.updateViewport.bind(this);
+    this.handleContainerSizeChange = this.handleContainerSizeChange.bind(this);
   }
 
   componentDidMount() {
@@ -155,6 +161,10 @@ export class VirtualTableLayout extends React.PureComponent {
     });
   }
 
+  handleContainerSizeChange({ width, height }) {
+    this.setState({ width, height });
+  }
+
   renderRowsBlock(name, collapsedGrid, Table, Body, marginBottom) {
     const {
       minWidth,
@@ -232,62 +242,62 @@ export class VirtualTableLayout extends React.PureComponent {
       headerHeight,
       bodyHeight,
       footerHeight,
+      width,
+      height,
     } = this.state;
+
+    const getColumnWidth = column => (column.type === TABLE_FLEX_TYPE
+      ? 0
+      : column.width || minColumnWidth);
+    const getColSpan = (
+      tableRow, tableColumn,
+    ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
+    const collapsedHeaderGrid = getCollapsedGrid({
+      rows: headerRows,
+      columns,
+      top: 0,
+      left: viewportLeft,
+      width,
+      height: headerHeight,
+      getColumnWidth,
+      getRowHeight: this.getRowHeight,
+      getColSpan,
+    });
+    const collapsedBodyGrid = getCollapsedGrid({
+      rows: bodyRows,
+      columns,
+      top: viewportTop,
+      left: viewportLeft,
+      width,
+      height: height - headerHeight - footerHeight,
+      getColumnWidth,
+      getRowHeight: this.getRowHeight,
+      getColSpan,
+    });
+    const collapsedFooterGrid = getCollapsedGrid({
+      rows: footerRows,
+      columns,
+      top: 0,
+      left: viewportLeft,
+      width,
+      height: footerHeight,
+      getColumnWidth,
+      getRowHeight: this.getRowHeight,
+      getColSpan,
+    });
 
     return (
       <Sizer
+        onSizeChange={this.handleContainerSizeChange}
         containerComponent={Container}
         style={{
           ...(propHeight === AUTO_HEIGHT ? null : { height: `${propHeight}px` }),
         }}
         onScroll={this.updateViewport}
       >
-        {({ width, height }) => {
-          const getColSpan = (
-            tableRow, tableColumn,
-          ) => getCellColSpan({ tableRow, tableColumn, tableColumns: columns });
-          const collapsedHeaderGrid = getCollapsedGrid({
-            rows: headerRows,
-            columns,
-            top: 0,
-            left: viewportLeft,
-            width,
-            height: headerHeight,
-            getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight: this.getRowHeight,
-            getColSpan,
-          });
-          const collapsedBodyGrid = getCollapsedGrid({
-            rows: bodyRows,
-            columns,
-            top: viewportTop,
-            left: viewportLeft,
-            width,
-            height: height - headerHeight - footerHeight,
-            getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight: this.getRowHeight,
-            getColSpan,
-          });
-          const collapsedFooterGrid = getCollapsedGrid({
-            rows: footerRows,
-            columns,
-            top: 0,
-            left: viewportLeft,
-            width,
-            height: footerHeight,
-            getColumnWidth: column => column.width || minColumnWidth,
-            getRowHeight: this.getRowHeight,
-            getColSpan,
-          });
-
-          return (
-            <React.Fragment>
-              {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
-              {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
-              {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
-            </React.Fragment>
-          );
-        }}
+        {!!headerRows.length && this.renderRowsBlock('header', collapsedHeaderGrid, HeadTable, Head)}
+        {this.renderRowsBlock('body', collapsedBodyGrid, Table, Body, Math.max(0, height - headerHeight - bodyHeight - footerHeight))}
+        {!!footerRows.length && this.renderRowsBlock('footer', collapsedFooterGrid, FootTable, Footer)}
       </Sizer>
     );
   }

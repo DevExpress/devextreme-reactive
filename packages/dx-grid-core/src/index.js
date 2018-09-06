@@ -87,6 +87,10 @@ export * from './plugins/search-state/computeds';
 
 export * from './plugins/data-type-provider/computeds';
 
+export * from './plugins/table-fixed-columns/constants';
+export * from './plugins/table-fixed-columns/helpers';
+export * from './plugins/table-fixed-columns/computeds';
+
 export * from './plugins/integrated-summary/computeds';
 export * from './plugins/table-summary-row/computeds';
 export * from './plugins/table-summary-row/helpers';

@@ -16,9 +16,11 @@ jest.mock('react-dom', () => ({
   })),
 }));
 jest.mock('@devexpress/dx-grid-core', () => ({
+  TABLE_FLEX_TYPE: 'flex',
   getAnimations: jest.fn(),
   filterActiveAnimations: jest.fn(),
   evalAnimations: jest.fn(),
+  getTableColumnGeometries: jest.fn(() => []),
 }));
 
 const defaultProps = {

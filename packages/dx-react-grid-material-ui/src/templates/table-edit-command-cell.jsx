@@ -62,7 +62,6 @@ export const CommandButton = withEditColumnStyles(CommandButtonBase);
 
 const EditCommandHeadingCellBase = ({
   children,
-  style,
   classes,
   className,
   tableRow, tableColumn,
@@ -83,7 +82,6 @@ const EditCommandHeadingCellBase = ({
 
 EditCommandHeadingCellBase.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
@@ -93,7 +91,6 @@ EditCommandHeadingCellBase.propTypes = {
 
 EditCommandHeadingCellBase.defaultProps = {
   children: undefined,
-  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
@@ -104,12 +101,11 @@ export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCel
 
 const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
-  style, classes, className,
+  classes, className,
   ...restProps
 }) => (
   <TableCell
     className={classNames(classes.cell, className)}
-    style={style}
     {...restProps}
   >
     {children}
@@ -118,7 +114,6 @@ const EditCommandCellBase = ({
 
 EditCommandCellBase.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
@@ -128,7 +123,6 @@ EditCommandCellBase.propTypes = {
 
 EditCommandCellBase.defaultProps = {
   children: undefined,
-  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,

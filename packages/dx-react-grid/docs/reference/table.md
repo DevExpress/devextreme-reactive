@@ -80,6 +80,7 @@ type | string | Specifies the table column type. The specified value defines whi
 column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.
+fixed? | 'left' &#124; 'right' | Specifies the fixed table's column alignment.
 
 ### Table.CellProps
 

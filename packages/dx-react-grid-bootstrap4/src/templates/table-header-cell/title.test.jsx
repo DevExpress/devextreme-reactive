@@ -16,7 +16,7 @@ describe('Title', () => {
     ));
     expect(tree.is('.customClass'))
       .toBeTruthy();
-    expect(tree.is('.dx-rg-bs4-table-header-titlt'))
+    expect(tree.is('.dx-rg-bs4-table-header-title'))
       .toBeTruthy();
   });
 

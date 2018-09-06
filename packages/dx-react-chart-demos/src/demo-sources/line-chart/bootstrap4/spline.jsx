@@ -22,7 +22,7 @@ const Line = props => (
   <LineSeries.Path
     {...props}
     path={line()
-      .x(({ x, width }) => x + width / 2)
+      .x(({ x }) => x)
       .y(({ y }) => y)
       .curve(curveCatmullRom)}
   />

@@ -56,7 +56,7 @@ const Area = props => (
   <AreaSeries.Path
     {...props}
     path={area()
-      .x(({ x, width }) => x + width / 2)
+      .x(({ x }) => x)
       .y1(({ y }) => y)
       .y0(({ y1 }) => y1)
       .curve(curveCatmullRom)}

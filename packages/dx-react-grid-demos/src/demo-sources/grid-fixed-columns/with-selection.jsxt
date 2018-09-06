@@ -1,0 +1,76 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  SelectionState,
+  IntegratedSelection,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableFixedColumns,
+  TableSelection,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import {
+  generateRows,
+  globalSalesValues,
+} from '../../../demo-data/generator';
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      columns: [
+        { name: 'region', title: 'Region' },
+        { name: 'sector', title: 'Sector' },
+        { name: 'channel', title: 'Channel' },
+        { name: 'customer', title: 'Customer' },
+        { name: 'product', title: 'Product' },
+        { name: 'amount', title: 'Sale Amount' },
+      ],
+      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
+      tableColumnExtensions: [
+        { columnName: 'region', width: 220 },
+        { columnName: 'sector', width: 200 },
+        { columnName: 'channel', width: 200 },
+        { columnName: 'customer', width: 200 },
+        { columnName: 'product', width: 170 },
+        { columnName: 'amount', align: 'right', width: 200 },
+      ],
+      beforeColumnTypes: [TableSelection.COLUMN_TYPE],
+      beforeColumnNames: ['region'],
+      afterColumnNames: ['amount'],
+    };
+  }
+
+  render() {
+    const {
+      rows, columns, tableColumnExtensions,
+      beforeColumnTypes,
+      beforeColumnNames, afterColumnNames,
+    } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Grid
+          rows={rows}
+          columns={columns}
+        >
+          <SelectionState />
+          <IntegratedSelection />
+          <Table
+            columnExtensions={tableColumnExtensions}
+          />
+          <TableHeaderRow />
+          <TableSelection />
+          <TableFixedColumns
+            beforeColumnTypes={beforeColumnTypes}
+            beforeColumnNames={beforeColumnNames}
+            afterColumnNames={afterColumnNames}
+          />
+        </Grid>
+      </<%&wrapperTag%>>
+    );
+  }
+}

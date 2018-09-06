@@ -8,11 +8,11 @@ import { getBorder } from './utils';
 const styles = theme => ({
   table: {
     tableLayout: 'fixed',
-    overflow: 'hidden',
+    borderCollapse: 'separate',
   },
   stickyTable: {
     position: 'sticky',
-    zIndex: 1,
+    zIndex: 500,
     overflow: 'visible',
     background: theme.palette.background.paper,
     fallbacks: {

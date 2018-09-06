@@ -91,6 +91,12 @@ TableEditColumn.HeaderCell | [TableEditColumn.HeaderCellProps](#tableeditcolumnh
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | string | The name of the edit column type.
+
 ## Plugin Developer Reference
 
 ### Imports

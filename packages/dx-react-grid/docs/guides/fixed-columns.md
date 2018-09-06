@@ -9,17 +9,17 @@ The Grid allows you to fix one or more first and last columns. Fixed columns rem
  - WebView for Android before 5.0  
  - Internet Explorer  
  
-- Currently, Microsoft Edge does not correctly support column fixing. See this [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/) for more information.
+- Currently, there is an issue with column fixing in Microsoft Edge. See this [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/) for more information.
 
 ## Related Plugins
 
-The following plugins implement column fixing:
+The following plugins implement the capability to fix columns to the grid:
 
 - [TableFixedColumns](../reference/table-fixed-columns.md) - renders fixed columns
 
 ## Basic Setup
 
-Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the columns that should be rendered as fixed. The `beforeColumnNames` property specifies columns fixed at the grid's left side, the `afterColumnNames` property - at the right side.
+Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the columns that should be fixed. The `beforeColumnNames` property specifies columns fixed at the grid's left side, the `afterColumnNames` property - at the right side.
 
 .embedded-demo({ "path": "grid-fixed-columns/basic", "showThemeSelector": true })
 
@@ -29,7 +29,7 @@ You can also use the `beforeColumnTypes` and `afterColumnTypes` properties to fi
 
 .embedded-demo({ "path": "grid-fixed-columns/with-selection", "showThemeSelector": true })
 
-## With Other Plugins
+## Compatibility With Other Plugins
 
 You can use the [TableFixedColumns](../reference/table-fixed-columns.md) plugin with other plugins.
 

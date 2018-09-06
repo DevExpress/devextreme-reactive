@@ -3,6 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 import { CommandButton } from './command-button';
 
 describe('Appointment Tooltip', () => {
@@ -33,25 +34,22 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should combine onClick event with handler', () => {
-      const clickEvent = jest.fn();
+    it('should call onClick', () => {
       const handlerEvent = jest.fn();
 
       const tree = shallow((
-        <CommandButton onClick={clickEvent} handler={handlerEvent} />
+        <CommandButton onClick={handlerEvent} />
       ));
 
       tree.simulate('click');
 
-      expect(clickEvent)
-        .toBeCalled();
       expect(handlerEvent)
         .toBeCalled();
     });
 
     it('should render `open` button', () => {
       const editIcon = shallow((
-        <CommandButton id="open" />
+        <CommandButton id={OPEN_COMMAND_BUTTON} />
       )).find(EditIcon);
 
       expect(editIcon.exists())
@@ -60,7 +58,7 @@ describe('Appointment Tooltip', () => {
 
     it('should render `close` button', () => {
       const closeIcon = shallow((
-        <CommandButton id="close" />
+        <CommandButton id={CLOSE_COMMAND_BUTTON} />
       )).find(CloseIcon);
 
       expect(closeIcon.exists())
@@ -69,7 +67,7 @@ describe('Appointment Tooltip', () => {
 
     it('should render `delete` button', () => {
       const deleteIcon = shallow((
-        <CommandButton id="delete" />
+        <CommandButton id={DELETE_COMMAND_BUTTON} />
       )).find(DeleteIcon);
 
       expect(deleteIcon.exists())

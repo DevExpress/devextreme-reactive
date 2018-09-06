@@ -68,7 +68,7 @@ export class AppointmentTooltip extends React.PureComponent {
       showOpenButton,
       showDeleteButton,
       showCloseButton,
-      tooltipComponent: Tooltip,
+      layoutComponent: Layout,
       headComponent: Head,
       contentComponent: Content,
       commandButtonComponent,
@@ -91,7 +91,7 @@ export class AppointmentTooltip extends React.PureComponent {
             }) => (
               <React.Fragment>
                 <TemplatePlaceholder />
-                <Tooltip
+                <Layout
                   commandButtonComponent={commandButtonComponent}
                   showOpenButton={showOpenButton}
                   showDeleteButton={showDeleteButton}
@@ -117,7 +117,7 @@ export class AppointmentTooltip extends React.PureComponent {
 }
 
 AppointmentTooltip.propTypes = {
-  tooltipComponent: PropTypes.func.isRequired,
+  layoutComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   commandButtonComponent: PropTypes.func.isRequired,

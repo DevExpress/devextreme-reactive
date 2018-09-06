@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
+import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   button: {
@@ -14,11 +15,11 @@ const styles = theme => ({
 });
 
 const getIcon = (id) => {
-  if (id === 'open') {
+  if (id === OPEN_COMMAND_BUTTON) {
     return <EditIcon />;
-  } if (id === 'close') {
+  } if (id === CLOSE_COMMAND_BUTTON) {
     return <CloseIcon />;
-  } if (id === 'delete') {
+  } if (id === DELETE_COMMAND_BUTTON) {
     return <DeleteIcon />;
   } return null;
 };
@@ -28,12 +29,10 @@ export const CommandButtonBase = ({
   className,
   id,
   handler,
-  onClick,
   ...restProps
 }) => (
   <IconButton
     className={classNames(classes.button, className)}
-    onClick={() => { handler(); onClick(); }}
     {...restProps}
   >
     {getIcon(id)}

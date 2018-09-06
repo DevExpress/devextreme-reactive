@@ -9,7 +9,7 @@ export class AppointmentTooltip extends React.PureComponent {
   render() {
     return (
       <AppointmentTooltipBase
-        tooltipComponent={Layout}
+        layoutComponent={Layout}
         headComponent={Head}
         contentComponent={Content}
         commandButtonComponent={CommandButton}
@@ -18,3 +18,8 @@ export class AppointmentTooltip extends React.PureComponent {
     );
   }
 }
+
+AppointmentTooltip.Layout = Layout;
+AppointmentTooltip.Head = Head;
+AppointmentTooltip.Content = Content;
+AppointmentTooltip.CommandButton = CommandButton;

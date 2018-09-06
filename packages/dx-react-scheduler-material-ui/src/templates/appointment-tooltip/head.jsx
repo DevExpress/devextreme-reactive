@@ -47,7 +47,7 @@ const HeadBase = ({
       </div>
       <div className={classes.buttonsRight}>
         {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
-        {showCloseButton && <CommandButton id={commandButtonIds.close} handler={onHide} />}
+        {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
       </div>
     </div>
     <div className={classes.text}>

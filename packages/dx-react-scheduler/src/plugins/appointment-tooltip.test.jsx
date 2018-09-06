@@ -22,7 +22,7 @@ describe('AppointmentTooltip', () => {
     plugins: ['Appointments'],
   };
   const defaultProps = {
-    tooltipComponent: () => <div />,
+    layoutComponent: () => <div />,
     headComponent: () => null,
     contentComponent: () => null,
     commandButtonComponent: () => null,
@@ -45,7 +45,7 @@ describe('AppointmentTooltip', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.tooltipComponent).exists())
+    expect(tree.find(defaultProps.layoutComponent).exists())
       .toBeTruthy();
   });
 

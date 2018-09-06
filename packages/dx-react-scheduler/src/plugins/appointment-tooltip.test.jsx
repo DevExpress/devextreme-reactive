@@ -25,9 +25,7 @@ describe('AppointmentTooltip', () => {
     tooltipComponent: () => <div />,
     headComponent: () => null,
     contentComponent: () => null,
-    openButtonComponent: () => null,
-    deleteButtonComponent: () => null,
-    closeButtonComponent: () => null,
+    commandButtonComponent: () => null,
   };
 
   beforeEach(() => {

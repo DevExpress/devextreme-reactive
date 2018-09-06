@@ -14,6 +14,7 @@ export const Layout = ({
   getAppointmentStartDate,
   getAppointmentTitle,
   visible, onHide,
+  commandButtonIds,
   ...restProps
 }) => (
   <Popover
@@ -33,6 +34,7 @@ export const Layout = ({
         showDeleteButton={showDeleteButton}
         onHide={onHide}
         getAppointmentTitle={getAppointmentTitle}
+        commandButtonIds={commandButtonIds}
       />
       <Content
         appointment={appointmentMeta.appointment}
@@ -53,6 +55,7 @@ Layout.propTypes = {
   getAppointmentEndDate: PropTypes.func.isRequired,
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentTitle: PropTypes.func.isRequired,
+  commandButtonIds: PropTypes.object.isRequired,
   appointmentMeta: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,

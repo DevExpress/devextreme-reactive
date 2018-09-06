@@ -8,11 +8,22 @@ import {
   Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
+import {
+  OPEN_COMMAND_BUTTON,
+  CLOSE_COMMAND_BUTTON,
+  DELETE_COMMAND_BUTTON,
+  setAppointmentMeta,
+} from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'Appointments' },
 ];
+
+const commandButtonIds = {
+  open: OPEN_COMMAND_BUTTON,
+  close: CLOSE_COMMAND_BUTTON,
+  delete: DELETE_COMMAND_BUTTON,
+};
 
 export class AppointmentTooltip extends React.PureComponent {
   constructor(props) {
@@ -90,6 +101,7 @@ export class AppointmentTooltip extends React.PureComponent {
                   appointmentMeta={appointmentMeta}
                   visible={visible}
                   onHide={this.toggleVisible}
+                  commandButtonIds={commandButtonIds}
 
                   getAppointmentTitle={getAppointmentTitle}
                   getAppointmentStartDate={getAppointmentStartDate}

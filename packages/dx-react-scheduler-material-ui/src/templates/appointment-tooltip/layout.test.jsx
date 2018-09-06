@@ -14,6 +14,7 @@ describe('Appointment Tooltip', () => {
     getAppointmentEndDate: jest.fn(),
     getAppointmentStartDate: jest.fn(),
     getAppointmentTitle: jest.fn(),
+    commandButtonIds: {},
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });

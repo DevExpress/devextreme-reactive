@@ -7,6 +7,11 @@ describe('Appointment Tooltip', () => {
   let shallow;
   const defaultProps = {
     appointment: {},
+    commandButtonIds: {
+      open: 'open',
+      close: 'close',
+      delete: 'delete',
+    },
     commandButtonComponent: () => null,
     showOpenButton: false,
     showCloseButton: false,

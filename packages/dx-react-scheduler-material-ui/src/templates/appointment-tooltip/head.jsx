@@ -34,6 +34,7 @@ const HeadBase = ({
   showCloseButton,
   showDeleteButton,
   getAppointmentTitle,
+  commandButtonIds,
   onHide,
   classes,
   className,
@@ -42,11 +43,11 @@ const HeadBase = ({
   <div className={classNames(classes.head, className)} {...restProps}>
     <div>
       <div className={classes.buttonsLeft}>
-        {showOpenButton && <CommandButton id="open" />}
+        {showOpenButton && <CommandButton id={commandButtonIds.open} />}
       </div>
       <div className={classes.buttonsRight}>
-        {showDeleteButton && <CommandButton id="delete" />}
-        {showCloseButton && <CommandButton id="close" handler={onHide} />}
+        {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
+        {showCloseButton && <CommandButton id={commandButtonIds.close} handler={onHide} />}
       </div>
     </div>
     <div className={classes.text}>

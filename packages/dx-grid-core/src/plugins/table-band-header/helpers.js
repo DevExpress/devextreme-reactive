@@ -31,28 +31,36 @@ export const getColumnMeta = (
 }, result || { level, title });
 
 export const getColSpan = (
-  currentColumnIndex, tableColumns, columnBands, currentRowLevel, currentColumnTitle,
+  currentColumnIndex, tableColumns, columnBands,
+  currentRowLevel, currentColumnTitle, isCurrentColumnFixed,
 ) => {
   let isOneChain = true;
-  return tableColumns.reduce((acc, tableColumn, index) => {
-    if (tableColumn.type !== TABLE_DATA_TYPE || index <= currentColumnIndex) return acc;
-    const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
-    if (isOneChain && columnMeta.title === currentColumnTitle) {
-      return acc + 1;
-    }
-    isOneChain = false;
-    return acc;
-  }, 1);
+  return tableColumns.slice(currentColumnIndex + 1)
+    .reduce((acc, tableColumn) => {
+      if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
+      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
+      if (isCurrentColumnFixed && !tableColumn.fixed) {
+        isOneChain = false;
+      }
+      if (isOneChain && columnMeta.title === currentColumnTitle) {
+        return acc + 1;
+      }
+      isOneChain = false;
+      return acc;
+    }, 1);
 };
 
-export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBands) => {
-  if (params.rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
+export const getBandComponent = (
+  { tableColumn: currentTableColumn, tableRow, rowSpan },
+  tableHeaderRows, tableColumns, columnBands,
+) => {
+  if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
 
   const maxLevel = tableHeaderRows.filter(column => column.type === TABLE_BAND_TYPE).length + 1;
-  const currentRowLevel = params.tableRow.level === undefined
-    ? maxLevel - 1 : params.tableRow.level;
-  const currentColumnMeta = params.tableColumn.type === TABLE_DATA_TYPE
-    ? getColumnMeta(params.tableColumn.column.name, columnBands, currentRowLevel)
+  const currentRowLevel = tableRow.level === undefined
+    ? maxLevel - 1 : tableRow.level;
+  const currentColumnMeta = currentTableColumn.type === TABLE_DATA_TYPE
+    ? getColumnMeta(currentTableColumn.column.name, columnBands, currentRowLevel)
     : { level: 0, title: '' };
 
   if (currentColumnMeta.level < currentRowLevel) return { type: BAND_EMPTY_CELL, payload: null };
@@ -66,16 +74,21 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
     };
   }
 
-  const currentColumnIndex = tableColumns.findIndex(
-    tableColumn => tableColumn.key === params.tableColumn.key,
-  );
-  if (currentColumnIndex > 0 && tableColumns[currentColumnIndex - 1].type === TABLE_DATA_TYPE) {
+  const isCurrentColumnFixed = !!currentTableColumn.fixed;
+  const currentColumnIndex = tableColumns
+    .findIndex(column => column.key === currentTableColumn.key);
+  const previousTableColumn = tableColumns[currentColumnIndex - 1];
+  if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
+    const isPrevColumnFixed = !!previousTableColumn.fixed;
     const prevColumnMeta = getColumnMeta(
-      tableColumns[currentColumnIndex - 1].column.name,
+      previousTableColumn.column.name,
       columnBands,
       currentRowLevel,
     );
-    if (prevColumnMeta.title === currentColumnMeta.title) return { type: null, payload: null };
+    if (prevColumnMeta.title === currentColumnMeta.title
+      && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed))) {
+      return { type: null, payload: null };
+    }
   }
 
   return {
@@ -87,6 +100,7 @@ export const getBandComponent = (params, tableHeaderRows, tableColumns, columnBa
         columnBands,
         currentRowLevel,
         currentColumnMeta.title,
+        isCurrentColumnFixed,
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,

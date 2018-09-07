@@ -25,9 +25,11 @@ export class Grid extends React.PureComponent {
             {({
               domains,
               layouts,
+              scaleExtension,
             }) => {
               const domain = domains[name];
-              const { orientation } = domain;
+              const { orientation, type } = domain;
+              const { constructor } = scaleExtension.find(item => item.type === type);
               const {
                 width, height,
               } = layouts.pane;
@@ -38,15 +40,17 @@ export class Grid extends React.PureComponent {
                 width,
                 height,
                 0,
+                undefined,
+                constructor,
               );
 
               return ((
                 <React.Fragment>
                   {coordinates.ticks.map(({
-                    x1, x2, y1, y2, text,
+                    x1, x2, y1, y2, key,
                   }) => (
                     <Line
-                      key={text}
+                      key={key}
                       x1={orientation === 'horizontal' ? x1 : width}
                       x2={x2}
                       y1={orientation === 'horizontal' ? height : y1}

@@ -6,12 +6,8 @@ import { getBorder } from '../utils';
 
 const styles = theme => ({
   headerCellBorder: {
-    borderLeft: getBorder(theme),
     borderRight: getBorder(theme),
     borderTop: 'none',
-    '&:first-child': {
-      borderLeft: 0,
-    },
     '&:last-child': {
       borderRight: 0,
     },

@@ -1,0 +1,89 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  ArgumentAxis,
+  ValueAxis,
+  Chart,
+  ScatterSeries,
+  Grid,
+  Title,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { scaleLog } from 'd3-scale';
+import { symbolCircle, symbol } from 'd3-shape';
+import { formatPrefix } from 'd3-format';
+
+import { Scale } from '@devexpress/dx-react-chart';
+
+const data = [
+  { planet: 'Moon', mass: 0.073e24 },
+  { planet: 'Mercury', mass: 0.330e24 },
+  { planet: 'Mars', mass: 0.642e24 },
+  { planet: 'Venus', mass: 4.87e24 },
+  { planet: 'Earth', mass: 5.97e24 },
+  { planet: 'Uranus', mass: 86.8e24 },
+  { planet: 'Saturn', mass: 568e24 },
+  { planet: 'Jupiter', mass: 1898e24 },
+];
+
+const Point = (props) => {
+  const {
+    x, y, color,
+  } = props;
+  return (
+    <path
+      fill={color}
+      transform={`translate(${x} ${y})`}
+      d={symbol().size([20 ** 2]).type(symbolCircle)()}
+    />
+  );
+};
+
+const format = scale => scale.tickFormat(null, formatPrefix('.1', 1e24));
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+
+          <ArgumentAxis name="argumentAxis" />
+          <ValueAxis
+            type="log"
+            max={5000e24}
+            tickFormat={format}
+          />
+
+          <Grid name="argumentAxis" />
+          <Grid />
+
+          <ScatterSeries
+            valueField="mass"
+            argumentField="planet"
+            pointComponent={Point}
+          />
+
+          <Scale
+            extensions={[
+              { type: 'log', constructor: () => scaleLog().base(2) },
+            ]}
+          />
+          <Title
+            text="Planetary mass (kg)"
+            style={{ textAlign: 'center', width: '100%', paddingBottom: '20px' }}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

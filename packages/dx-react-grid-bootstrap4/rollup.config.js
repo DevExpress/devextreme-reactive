@@ -2,33 +2,57 @@ import babel from 'rollup-plugin-babel';
 import license from 'rollup-plugin-license';
 import resolve from 'rollup-plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
-import replace from 'rollup-plugin-replace';
-import { banner, external, babelrc, globals } from '../../tools/rollup-utils';
+import { banner, external, babelrc, globals, stubProcess } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
-export default {
-  input: 'src/index.js',
-  sourcemap: true,
-  output: [
-    { file: pkg.main, format: 'umd', name: pkg.globalName },
-    { file: pkg.module, format: 'es' },
-  ],
-  globals: globals(),
-  external: external(__dirname),
-  plugins: [
-    css({ output: pkg.styles, include: ['../**/*.css'] }),
-    resolve({
-      main: false,
-      extensions: ['.js', '.jsx'],
-    }),
-    babel(Object.assign({
-      babelrc: false,
-      runtimeHelpers: true,
-      exclude: 'node_modules/**',
-    }, babelrc(__dirname))),
-    replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-    license({
-      banner,
-    }),
-  ],
-};
+export default [
+  {
+    input: 'src/index.js',
+    sourcemap: true,
+    output: [
+      { file: pkg.main, format: 'umd', name: pkg.globalName },
+    ],
+    globals: globals(),
+    external: external(__dirname),
+    intro: stubProcess,
+    plugins: [
+      css({ output: pkg.styles, include: ['../**/*.css'] }),
+      resolve({
+        main: false,
+        extensions: ['.js', '.jsx'],
+      }),
+      babel(Object.assign({
+        babelrc: false,
+        runtimeHelpers: true,
+        exclude: 'node_modules/**',
+      }, babelrc(__dirname))),
+      license({
+        banner,
+      }),
+    ],
+  },
+  {
+    input: 'src/index.js',
+    sourcemap: true,
+    output: [
+      { file: pkg.module, format: 'es' },
+    ],
+    globals: globals(),
+    external: external(__dirname),
+    plugins: [
+      css({ output: pkg.styles, include: ['../**/*.css'] }),
+      resolve({
+        main: false,
+        extensions: ['.js', '.jsx'],
+      }),
+      babel(Object.assign({
+        babelrc: false,
+        runtimeHelpers: true,
+        exclude: 'node_modules/**',
+      }, babelrc(__dirname))),
+      license({
+        banner,
+      }),
+    ],
+  },
+];

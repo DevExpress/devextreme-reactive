@@ -8,7 +8,8 @@ The following plugins implement the axes and grid:
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
-- `Grid` - renders vertical or horizontal grid lines
+- `Grid` - renders vertical and horizontal grid lines
+- `Scale` - processes data
 
 ## Basic Setup
 
@@ -16,10 +17,16 @@ Import the plugins listed above to set up a Chart with two axes and a grid.
 
 ## Axis Types
 
-The default axis type is linear which is sutable for numeric data. The following example illustrates this axis type:
+The default axis type is linear. It is sutable for numeric data. The following example shows a Grid with a linear axis:
 
 .embedded-demo({ "path": "chart-basic/default-axis", "showThemeSelector": true })
 
-The band axis type is used to display string values. To apply it, set the axis' `type` property to `"band"` as demonstrated in the following example:
+The band axis type is used to display string values. Set the axis' `type` property to `"band"` as demonstrated in the following example to use a band axis:
 
 .embedded-demo({ "path": "chart-basic/band-axis", "showThemeSelector": true })
+
+## Custom Axis Types
+
+You can also use custom axis types. For this, assign an array of scale configuration objects to the `Scale` plugin's `extensions` property. The following example demonstrates how to use a logarithmic scale with d3 plugins:
+
+.embedded-demo({ "path": "chart-basic/logarithm", "showThemeSelector": true })

@@ -3,6 +3,7 @@ import {
   Chart,
   BarSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -36,6 +37,7 @@ export default class Demo extends React.PureComponent {
             valueField="population"
             argumentField="year"
           />
+          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

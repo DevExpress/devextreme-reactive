@@ -2,6 +2,10 @@ import { shallow } from '@vue/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from './table-layout';
 
+jest.mock('@devexpress/dx-grid-core', () => ({
+  TABLE_FLEX_TYPE: 'flex',
+}));
+
 const defaultProps = {
   layoutComponent: { name: 'Layout', render() { return null; } },
 };

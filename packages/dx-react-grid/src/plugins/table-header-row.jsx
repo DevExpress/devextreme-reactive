@@ -21,6 +21,9 @@ export class TableHeaderRow extends React.PureComponent {
       showGroupingControls,
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
+      contentComponent: Content,
+      sortLabelComponent: SortLabel,
+      titleComponent: Title,
       messages,
     } = this.props;
     const getMessage = getMessagesFormatter(messages);
@@ -51,7 +54,7 @@ export class TableHeaderRow extends React.PureComponent {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
               }) => {
-                const { name: columnName } = params.tableColumn.column;
+                const { name: columnName, title: columnTitle } = params.tableColumn.column;
                 const atLeastOneDataColumn = tableColumns
                   .filter(({ type }) => type === TABLE_DATA_TYPE).length > 1;
                 const sortingEnabled = isColumnSortingEnabled
@@ -65,21 +68,30 @@ export class TableHeaderRow extends React.PureComponent {
                     {...params}
                     column={params.tableColumn.column}
                     getMessage={getMessage}
-                    sortingEnabled={sortingEnabled}
-                    groupingEnabled={groupingEnabled}
-                    showSortingControls={showSortingControls}
-                    showGroupingControls={showGroupingControls}
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={tableColumnResizingEnabled}
-                    sortingDirection={showSortingControls && sorting !== undefined
-                      ? getColumnSortingDirection(sorting, columnName) : undefined}
-                    onSort={(
-                      { direction, keepOther },
-                    ) => changeColumnSorting({ columnName, direction, keepOther })}
-                    onGroup={() => changeColumnGrouping({ columnName })}
                     onWidthChange={({ shift }) => changeTableColumnWidth({ columnName, shift })}
                     onWidthDraft={({ shift }) => draftTableColumnWidth({ columnName, shift })}
                     onWidthDraftCancel={() => cancelTableColumnWidthDraft()}
+                    // @deprecated
+                    sortingEnabled={sortingEnabled}
+                    // @deprecated
+                    groupingEnabled={groupingEnabled}
+                    // @deprecated
+                    showSortingControls={showSortingControls}
+                    // @deprecated
+                    showGroupingControls={showGroupingControls}
+                    // @deprecated
+                    sortingDirection={showSortingControls && sorting !== undefined
+                      ? getColumnSortingDirection(sorting, columnName) : undefined}
+                    // @deprecated
+                    onSort={
+                      ({ direction, keepOther }) => changeColumnSorting({
+                        columnName, direction, keepOther,
+                      })}
+                    // @deprecated
+                    onGroup={() => changeColumnGrouping({ columnName })}
+                    // @deprecated
                     before={(
                       <TemplatePlaceholder
                         name="tableHeaderCellBefore"
@@ -88,7 +100,39 @@ export class TableHeaderRow extends React.PureComponent {
                         }}
                       />
                     )}
-                  />
+                  >
+                    <TemplatePlaceholder
+                      name="tableHeaderCellBefore"
+                      params={{
+                        column: params.tableColumn.column,
+                      }}
+                    />
+                    <Content
+                      column={params.tableColumn.column}
+                      align={params.tableColumn.align}
+                    >
+                      {showSortingControls ? (
+                        <SortLabel
+                          column={params.tableColumn.column}
+                          align={params.tableColumn.align}
+                          direction={getColumnSortingDirection(sorting, columnName)}
+                          disabled={!sortingEnabled}
+                          onSort={({ direction, keepOther }) => {
+                            changeColumnSorting({ columnName, direction, keepOther });
+                          }}
+                          getMessage={getMessage}
+                        >
+                          <Title>
+                            {columnTitle || columnName}
+                          </Title>
+                        </SortLabel>
+                      ) : (
+                        <Title>
+                          {columnTitle || columnName}
+                        </Title>
+                      )}
+                    </Content>
+                  </HeaderCell>
                 );
               }}
             </TemplateConnector>
@@ -109,7 +153,10 @@ TableHeaderRow.propTypes = {
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   cellComponent: PropTypes.func.isRequired,
+  contentComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
+  titleComponent: PropTypes.func.isRequired,
+  sortLabelComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

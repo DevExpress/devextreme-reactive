@@ -14,6 +14,6 @@ To draw several series one under another, you should also specify the same `stac
 
 ## Specify Series' Order and Offset
 
-The `Stack` plugin allows you to customize the series order and offset. In the following example, a stacked area series is used to create a streamgraph. The [`d3-shape`](https://github.com/d3/d3-shape/blob/master/README.md) 3rd-party plugin calculates values that are then passed to the `Stack` plugin's `order` and `offset` properties.
+The `Stack` plugin allows you to customize the series order and offset. In the following example, a stacked area series is used to create a streamgraph. Order and offset values are calculated by calling the [`d3-shape`](https://github.com/d3/d3-shape/blob/master/README.md) library. Then, these values are passed to the `Stack` plugin's `order` and `offset` properties.
 
 .embedded-demo({ "path": "chart-basic/streamgraph", "showThemeSelector": true })

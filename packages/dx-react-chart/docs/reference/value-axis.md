@@ -27,7 +27,8 @@ tickSize? | number | 5 | The tick size.
 position? | 'left' &#124; 'right' | 'left' | The axis position.
 name | string | | The axis name.
 indentFromAxis? | number | 10 | The indent from the axis.
-type? | 'band' &#124; 'linear' | | Axis type.
+type? | 'band' &#124; 'linear' | 'linear' | Axis type.
+tickForamt? | (scale: object) => (tick: string) => string  | | A function that returns a tick formatter function.
 rootComponent | ComponentType&lt;[ValueAxis.RootProps](#valueaxisrootprops)&gt; | | A component that renders the axis root layout.
 tickComponent | ComponentType&lt;[ValueAxis.TickProps](#valueaxistickprops)&gt; | | A component that renders a tick.
 labelComponent | ComponentType&lt;[ValueAxis.LabelProps](#valueaxislabelprops)&gt; | | A component that renders the axis label.

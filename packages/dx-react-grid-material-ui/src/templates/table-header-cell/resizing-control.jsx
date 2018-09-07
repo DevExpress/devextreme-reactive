@@ -69,7 +69,7 @@ export class ResizingControlBase extends React.PureComponent {
   }
 
   render() {
-    const { classes, resizeHandleOpacityClass } = this.props;
+    const { classes, resizeHandleOpacityClass, resizeLastHandleClass } = this.props;
     const { resizing } = this.state;
 
     return (
@@ -81,6 +81,7 @@ export class ResizingControlBase extends React.PureComponent {
         <div
           className={classNames({
             [classes.resizeHandle]: true,
+            [resizeLastHandleClass]: true,
             [classes.resizeHandleActive]: resizing,
           })}
         >
@@ -111,6 +112,7 @@ ResizingControlBase.propTypes = {
   onWidthDraft: PropTypes.func.isRequired,
   onWidthDraftCancel: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  resizeLastHandleClass: PropTypes.string.isRequired,
   resizeHandleOpacityClass: PropTypes.string.isRequired,
 };
 

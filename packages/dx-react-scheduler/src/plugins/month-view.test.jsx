@@ -6,7 +6,7 @@ import {
   dayScale,
   monthCells,
   endViewBoundary,
-  monthAppointmentRect,
+  getMonthRectByDates,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
@@ -14,7 +14,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
   monthCells: jest.fn(),
   endViewBoundary: jest.fn(),
-  monthAppointmentRect: jest.fn(),
+  getMonthRectByDates: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -52,7 +52,7 @@ describe('Month View', () => {
       [{ value: new Date('2018-06-25') }, {}],
       [{}, { value: new Date('2018-08-05') }],
     ]));
-    monthAppointmentRect.mockImplementation(() => [{
+    getMonthRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
   });

@@ -62,11 +62,13 @@ const getCellRect = (date, monthCells, cellElements, takePrev) => {
   };
 };
 
-export const getRectByDates = (
+export const getMonthRectByDates = (
   startDate,
   endDate,
-  monthCells,
-  cellElements,
+  {
+    monthCells,
+    cellElements,
+  },
 ) => {
   const firstCellRect = getCellRect(startDate, monthCells, cellElements, false);
   const lastCellRect = getCellRect(endDate, monthCells, cellElements, true);

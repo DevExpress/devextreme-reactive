@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
 
 export const toPercentage = (value, total) => (value * 100) / total;
 
@@ -150,3 +151,103 @@ export const getAppointmentStyle = ({
   left: `${left}%`,
   position: 'absolute',
 });
+
+const rectCalculatorBase = (
+  appointment,
+  getRectByDates,
+  options,
+) => getRectByDates(appointment.start, appointment.end, options);
+
+const horizontalRectCalculator = (
+  appointment,
+  {
+    rectByDates,
+    rectByDatesMeta: {
+      dayScale,
+      cellElements,
+      cells,
+      monthCells,
+    },
+  },
+) => {
+  const {
+    top,
+    left,
+    width,
+    height,
+    parentWidth,
+  } = rectCalculatorBase(
+    appointment,
+    rectByDates,
+    {
+      dayScale,
+      cellElements,
+      cells,
+      monthCells,
+    },
+  );
+
+  return {
+    top: top + ((height / appointment.reduceValue) * appointment.offset),
+    height: height / appointment.reduceValue,
+    left: toPercentage(left, parentWidth),
+    width: toPercentage(width, parentWidth),
+    dataItem: appointment.dataItem,
+    type: HORIZONTAL_APPOINTMENT_TYPE,
+  };
+};
+
+const verticalRectCalculator = (
+  appointment,
+  {
+    rectByDates,
+    rectByDatesMeta: {
+      dayScale,
+      timeScale,
+      cellDuration,
+      cellElements,
+    },
+  },
+) => {
+  const {
+    top,
+    left,
+    width,
+    height,
+    parentWidth,
+  } = rectCalculatorBase(
+    appointment,
+    rectByDates,
+    {
+      dayScale,
+      timeScale,
+      cellDuration,
+      cellElements,
+    },
+  );
+
+  const widthInPx = width / appointment.reduceValue;
+
+  return {
+    top,
+    height,
+    left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
+    width: toPercentage(widthInPx, parentWidth),
+    dataItem: appointment.dataItem,
+    type: VERTICAL_APPOINTMENT_TYPE,
+  };
+};
+
+export const calculateRectByDateIntervalsNew = (type, rectByDates, rectByDatesMeta) => {
+  const { growDirection, multiline, intervals } = type;
+
+  const sorted = sortAppointments(intervals, multiline);
+  const grouped = findOverlappedAppointments(sorted, multiline);
+
+  const rectCalculator = growDirection === HORIZONTAL_APPOINTMENT_TYPE
+    ? horizontalRectCalculator
+    : verticalRectCalculator;
+
+  return unwrapGroups(adjustAppointments(grouped, multiline))
+    .map(appointment => rectCalculator(appointment, { rectByDates, rectByDatesMeta }));
+};

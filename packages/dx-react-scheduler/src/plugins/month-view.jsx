@@ -9,10 +9,12 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   getAppointmentStyle,
-  monthAppointmentRect,
+  calculateMonthDateIntervals,
+  getMonthRectByDates,
   endViewBoundary,
   monthCells as monthCellsCore,
   dayScale as dayScaleCore,
+  calculateRectByDateIntervalsNew,
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
@@ -104,12 +106,19 @@ export class MonthView extends React.PureComponent {
             {({
               monthCells, appointments, startViewDate, endViewDate,
             }) => {
-              const rects = dateTableRef ? monthAppointmentRect(
-                appointments,
-                startViewDate,
-                endViewDate,
-                monthCells,
-                dateTableRef.querySelectorAll('td'),
+              const rects = dateTableRef ? calculateRectByDateIntervalsNew(
+                {
+                  growDirection: 'horizontal',
+                  multiline: true,
+                  intervals: calculateMonthDateIntervals(appointments, startViewDate, endViewDate),
+                },
+                getMonthRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  monthCells,
+                  cellElements: dateTableRef.querySelectorAll('td'),
+                },
               ) : [];
 
               return (

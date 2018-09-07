@@ -8,13 +8,13 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  getAppointmentStyle,
+  calculateRectByDateIntervalsNew,
   calculateMonthDateIntervals,
+  getAppointmentStyle,
   getMonthRectByDates,
   endViewBoundary,
   monthCells as monthCellsCore,
   dayScale as dayScaleCore,
-  calculateRectByDateIntervalsNew,
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;

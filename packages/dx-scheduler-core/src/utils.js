@@ -206,6 +206,7 @@ const verticalRectCalculator = (
       timeScale,
       cellDuration,
       cellElements,
+      excludedDays,
     },
   },
 ) => {
@@ -222,6 +223,7 @@ const verticalRectCalculator = (
       dayScale,
       timeScale,
       cellDuration,
+      excludedDays,
       cellElements,
     },
   );

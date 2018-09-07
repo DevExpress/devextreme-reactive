@@ -8,8 +8,10 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  calculateRectByDateIntervalsNew,
+  calculateWeekDateIntervals,
   getAppointmentStyle,
-  appointmentRects,
+  getWeekRectByDates,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
@@ -135,15 +137,23 @@ export class WeekView extends React.PureComponent {
             {({
               timeScale, dayScale, appointments, startViewDate, endViewDate,
             }) => {
-              const rects = dateTableRef ? appointmentRects(
-                appointments,
-                startViewDate,
-                endViewDate,
-                excludedDays,
-                dayScale,
-                timeScale,
-                cellDuration,
-                dateTableRef.querySelectorAll('td'),
+              const rects = dateTableRef ? calculateRectByDateIntervalsNew(
+                {
+                  growDirection: 'vertical',
+                  multiline: false,
+                  intervals: calculateWeekDateIntervals(
+                    appointments, startViewDate, endViewDate, excludedDays,
+                  ),
+                },
+                getWeekRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  dayScale,
+                  timeScale,
+                  cellDuration,
+                  cellElements: dateTableRef.querySelectorAll('td'),
+                },
               ) : [];
 
               return (

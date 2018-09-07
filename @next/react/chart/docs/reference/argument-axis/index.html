@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -64,9 +65,9 @@
 
 <p>The ArgumentAxis plugin visualizes the argument axis.</p>
 
-<h2 id="importing">Importing</h2>
+<h2 id="import">Import</h2>
 
-<p>Use the following import statement:</p>
+<p>Use the following statement to import a plugin:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentAxis</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
 <span class="c1">// import { ArgumentAxis } from '@devexpress/dx-react-chart-bootstrap4';</span>
@@ -118,14 +119,20 @@
     <tr>
       <td>type?</td>
       <td>‘band’ | ‘linear’</td>
-      <td> </td>
+      <td>‘linear’</td>
       <td>Axis type.</td>
+    </tr>
+    <tr>
+      <td>tickForamt?</td>
+      <td>(scale: object) =&gt; (tick: string) =&gt; string</td>
+      <td> </td>
+      <td>A function that returns a tick formatter function.</td>
     </tr>
     <tr>
       <td>rootComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxisrootprops">ArgumentAxis.RootProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis root layout.</td>
+      <td>A component that renders the axis’s root layout.</td>
     </tr>
     <tr>
       <td>tickComponent</td>
@@ -137,13 +144,13 @@
       <td>labelComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxislabelprops">ArgumentAxis.LabelProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis label.</td>
+      <td>A component that renders the axis’s label.</td>
     </tr>
     <tr>
       <td>lineComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxislineprops">ArgumentAxis.LineProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis line.</td>
+      <td>A component that renders the axis’s line.</td>
     </tr>
   </tbody>
 </table>
@@ -152,7 +159,7 @@
 
 <h3 id="argumentaxisrootprops">ArgumentAxis.RootProps</h3>
 
-<p>Describes properties passed to a component that renders the axis root layout.</p>
+<p>Describes properties passed to a component that renders the axis’s root layout.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -166,7 +173,7 @@
     <tr>
       <td>x</td>
       <td>number</td>
-      <td>The x coordinate of the top left corner of the axis’ rendering area.</td>
+      <td>The x coordinate of the top left corner of the axis’s rendering area.</td>
     </tr>
     <tr>
       <td>y</td>
@@ -219,7 +226,7 @@
 
 <h3 id="argumentaxislabelprops">ArgumentAxis.LabelProps</h3>
 
-<p>Describes properties passed to a component that renders the axis label.</p>
+<p>Describes properties passed to a component that renders the axis’s label.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -260,7 +267,7 @@
 
 <h3 id="argumentaxislineprops">ArgumentAxis.LineProps</h3>
 
-<p>Describes properties passed to a component that renders the axis line.</p>
+<p>Describes properties passed to a component that renders the axis’s line.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -303,7 +310,7 @@
     <tr>
       <td>ArgumentAxis.Root</td>
       <td><a href="#argumentaxisrootprops">ArgumentAxis.RootProps</a></td>
-      <td>A component that renders the axis root layout.</td>
+      <td>A component that renders the axis’s root layout.</td>
     </tr>
     <tr>
       <td>ArgumentAxis.Tick</td>
@@ -313,12 +320,12 @@
     <tr>
       <td>ArgumentAxis.Label</td>
       <td><a href="#argumentaxislabelprops">ArgumentAxis.LabelProps</a></td>
-      <td>A component that renders the axis label.</td>
+      <td>A component that renders the axis’s label.</td>
     </tr>
     <tr>
       <td>ArgumentAxis.Line</td>
       <td><a href="#argumentaxislineprops">ArgumentAxis.LineProps</a></td>
-      <td>A component that renders the axis line.</td>
+      <td>A component that renders the axis’s line.</td>
     </tr>
   </tbody>
 </table>
@@ -326,11 +333,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
             Version
-            <span>1.5.1</span>
+            <span>1.8.0-beta.1</span>
           </a>
         </li>
       </ul>
@@ -370,6 +382,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/axes/">Axes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/legend_title/">Legend and Title</a></li>
           
 
         
@@ -456,6 +476,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scale/">Scale</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
@@ -494,11 +522,53 @@
         
         </ul>
       
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          
+
+        
+        </ul>
+      
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1533130201"></script>
+<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1536308110"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -516,7 +586,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -539,7 +609,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
     <script>
         trackingCookie.notice();
     </script>

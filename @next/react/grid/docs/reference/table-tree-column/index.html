@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -62,9 +63,9 @@
     <div class="col-sm-9 col-sm-push-3 docs-content">
         <h1 id="tabletreecolumn-plugin-reference">TableTreeColumn Plugin Reference</h1>
 
-<p>A plugin that renders a table column with toggle button and sorting indicators.</p>
+<p>A plugin that renders a table column with a toggle button and sorting indicators.</p>
 
-<h2 id="importing">Importing</h2>
+<h2 id="import">Import</h2>
 
 <p>Use the following statement to import a plugin with embedded theme components:</p>
 
@@ -73,7 +74,7 @@
 <span class="c1">// import { TableTreeColumn } from '@devexpress/dx-react-grid-bootstrap3';</span>
 </code></pre></div></div>
 
-<p>If you want to use custom components, you can import the themeless plugin:</p>
+<p>You can import the themeless plugin to use custom components:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableTreeColumn</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
 </code></pre></div></div>
@@ -143,13 +144,13 @@
       <td>showSelectionControls?</td>
       <td>boolean</td>
       <td>false</td>
-      <td>Specifies whether to render selection controls. Requires the <a href="/devextreme-reactive/@next/react/grid/docs/reference/selection-state/">SelectionState</a> dependency.</td>
+      <td>Specifies whether to render selection controls. Requires the <a href="/devextreme-reactive/@next/react/grid/docs/reference/selection-state/">SelectionState</a> plugin.</td>
     </tr>
     <tr>
       <td>showSelectAll?</td>
       <td>boolean</td>
       <td>false</td>
-      <td>Specifies whether to render Select All checkbox. Requires the <a href="/devextreme-reactive/@next/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a> dependency.</td>
+      <td>Specifies whether to render Select All checkbox. Requires the <a href="/devextreme-reactive/@next/react/grid/docs/reference/integrated-selection/">IntegratedSelection</a> plugin.</td>
     </tr>
   </tbody>
 </table>
@@ -342,7 +343,7 @@
   </tbody>
 </table>
 
-<p>The additional properties are added to the component’s root element.</p>
+<p>Additional properties are added to the component’s root element.</p>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -481,17 +482,28 @@
       <td>Array&lt;<a href="/devextreme-reactive/@next/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
       <td>Table body rows with modified tree rows.</td>
     </tr>
+    <tr>
+      <td>tableTreeColumnName</td>
+      <td><a href="/devextreme-reactive/@next/react/core/docs/reference/getter/">Getter</a></td>
+      <td>string</td>
+      <td>The name of a column displayed as a tree.</td>
+    </tr>
   </tbody>
 </table>
 
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
             Version
-            <span>1.5.1</span>
+            <span>1.8.0-beta.1</span>
           </a>
         </li>
       </ul>
@@ -650,6 +662,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
           
 
@@ -659,6 +679,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/summary-row/">Summary Row</a></li>
           
 
         
@@ -714,6 +742,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
           
 
         
@@ -825,6 +861,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
@@ -874,6 +918,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/summary-state/">SummaryState</a></li>
           
 
         
@@ -945,6 +997,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
@@ -970,6 +1030,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
           
 
         
@@ -1016,7 +1084,23 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">Core</a></li>
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
           
 
         
@@ -1026,7 +1110,18 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1533130201"></script>
+<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -1044,7 +1139,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -1067,7 +1162,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
     <script>
         trackingCookie.notice();
     </script>

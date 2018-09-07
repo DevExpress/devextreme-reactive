@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -75,6 +76,8 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core@next @devexpress/dx-react-chart@next
 </code></pre></div></div>
 
+<p><em>Note: <a href="https://www.npmjs.com/package/react">react</a> &gt;=16.3.0 and <a href="https://www.npmjs.com/package/react">react-dom</a> &gt;=16.3.0 are peer dependencies.</em></p>
+
 <p>This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:</p>
 
 <ul>
@@ -84,6 +87,8 @@
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-chart-material-ui@next
 </code></pre></div>    </div>
 
+    <p><em>Note: <a href="https://www.npmjs.com/package/@material-ui/core">@material-ui/core</a> &gt;=1.1.0 and <a href="https://www.npmjs.com/package/@material-ui/icons">@material-ui/icons</a> &gt;=1.1.0 are peer dependencies.</em></p>
+
     <p>Make sure that the <a href="https://material-ui.com/">Material-UI</a> dependencies are installed and properly configured. Check the Material-UI’s <a href="https://material-ui.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
   </li>
   <li>
@@ -91,6 +96,8 @@
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-chart-bootstrap4@next
 </code></pre></div>    </div>
+
+    <p><em>Note: <a href="https://www.npmjs.com/package/reactstrap">reactstrap</a> &gt;=6.3.0 is a peer dependency.</em></p>
 
     <p>Make sure that <a href="https://reactstrap.github.io/">reactstrap</a> dependencies are installed and properly configured. Check the reactstrap’s <a href="https://reactstrap.github.io/">Getting Started</a> article for configuration details. You also need the <a href="https://useiconic.com/open">OpenIconic</a> icons in your project.</p>
 
@@ -115,7 +122,7 @@
 
 <h2 id="using-the-chart-component">Using the Chart Component</h2>
 
-<p>The Chart component renders nothing by default; plugins implement all its functionality. To create a simple chart, add one of the <a href="/devextreme-reactive/@next/react/chart/docs/guides/series/"><code class="highlighter-rouge">*Series</code> plugins</a> (for example, <code class="highlighter-rouge">LineSeries</code>) to draw a series and the <code class="highlighter-rouge">ArgumentAxis</code> and <code class="highlighter-rouge">ValueAxis</code> plugins to add the axes:</p>
+<p>The Chart component’s functionality is implemented in plugins. You need a <a href="/devextreme-reactive/@next/react/chart/docs/guides/series/">series</a> plugin and the <code class="highlighter-rouge">ArgumentAxis</code>, <code class="highlighter-rouge">ValuesAxis</code>, and <code class="highlighter-rouge">Scale</code> plugins to draw a simple chart. The following code shows how to configure a simple line chart:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Chart</span><span class="p">,</span> <span class="nx">ArgumentAxis</span><span class="p">,</span> <span class="nx">ValueAxis</span><span class="p">,</span> <span class="nx">LineSeries</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@devexpress/dx-react-chart-material-ui"</span><span class="p">;</span>
 <span class="c1">// import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-bootstrap4";</span>
@@ -131,6 +138,7 @@
       <span class="p">&lt;</span><span class="nc">ArgumentAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">ValueAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">LineSeries</span> <span class="na">valueField=</span><span class="s2">"value"</span> <span class="na">argumentField=</span><span class="s2">"argument"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Scale</span> <span class="p">/&gt;</span>
     <span class="p">&lt;/</span><span class="nc">Chart</span><span class="p">&gt;</span>
 <span class="p">);</span>
 
@@ -152,11 +160,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
             Version
-            <span>1.5.1</span>
+            <span>1.8.0-beta.1</span>
           </a>
         </li>
       </ul>
@@ -196,6 +209,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/axes/">Axes</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/legend_title/">Legend and Title</a></li>
           
 
         
@@ -282,6 +303,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scale/">Scale</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/chart/docs/reference/scatter-series/">ScatterSeries</a></li>
           
 
@@ -320,11 +349,53 @@
         
         </ul>
       
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          
+
+        
+        </ul>
+      
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1533130201"></script>
+<script src="/devextreme-reactive/@next/react/chart/demos/dist/index.js?v=1536308110"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:chart"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -342,7 +413,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -365,7 +436,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -85,7 +86,7 @@
 
 <p>In the following example, the page size is specified using the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property. However, the <code class="highlighter-rouge">update:pageSize</code> event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1536308110&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -97,7 +98,7 @@
 
 <p>Specify the page size in the <code class="highlighter-rouge">DxPagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property and subscribe to the <code class="highlighter-rouge">update:pageSize</code> event. Use the <code class="highlighter-rouge">.sync</code> modifier two-way binding.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1536308110&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -111,7 +112,7 @@
 
 <p>For remote paging, use the <code class="highlighter-rouge">DxCustomPaging</code> plugin instead of the <code class="highlighter-rouge">DxIntegratedPaging</code> plugin.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1533130201&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive/@next//vue/grid/demos/dist/index.js?v=1536308110&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -124,11 +125,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
             Version
-            <span>1.5.1</span>
+            <span>1.8.0-beta.1</span>
           </a>
         </li>
       </ul>
@@ -564,11 +570,53 @@
         
         </ul>
       
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started//">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+        </ul>
+      
     </div>
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/vue/grid/demos/dist/index.js?v=1533130201"></script>
+<script src="/devextreme-reactive/@next/vue/grid/demos/dist/index.js?v=1536308110"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:vue", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -586,7 +634,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -609,7 +657,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
     <script>
         trackingCookie.notice();
     </script>

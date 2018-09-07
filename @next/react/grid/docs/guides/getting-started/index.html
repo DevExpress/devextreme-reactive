@@ -11,8 +11,9 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/@next/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/@next/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1533130201">
-    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1533130201">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/site.css?v=1536308110">
+    <link rel="stylesheet" href="/devextreme-reactive/@next/css/embedded-demos.css?v=1536308110">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -73,6 +74,8 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core@next @devexpress/dx-react-grid@next
 </code></pre></div></div>
 
+<p><em>Note: <a href="https://www.npmjs.com/package/react">react</a> &gt;=16.3.0 and <a href="https://www.npmjs.com/package/react">react-dom</a> &gt;=16.3.0 are peer dependencies.</em></p>
+
 <p>This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:</p>
 
 <ul>
@@ -82,6 +85,8 @@
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-material-ui@next
 </code></pre></div>    </div>
 
+    <p><em>Note: <a href="https://www.npmjs.com/package/@material-ui/core">@material-ui/core</a> &gt;=1.1.0 and <a href="https://www.npmjs.com/package/@material-ui/icons">@material-ui/icons</a> &gt;=1.1.0 are peer dependencies.</em></p>
+
     <p>Make sure that the <a href="https://material-ui.com/">Material UI</a> dependencies are installed and properly configured. Check the Material UI’s <a href="https://material-ui.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
   </li>
   <li>
@@ -89,6 +94,8 @@
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-bootstrap4@next
 </code></pre></div>    </div>
+
+    <p><em>Note: <a href="https://www.npmjs.com/package/reactstrap">reactstrap</a> &gt;=6.3.0 is a peer dependency.</em></p>
 
     <p>Make sure that <a href="https://reactstrap.github.io/">reactstrap</a> dependencies are installed and properly configured. Check the reactstrap’s <a href="https://reactstrap.github.io/">Getting Started</a> article for configuration details. Also you need add to your project the <a href="https://useiconic.com/open">OpenIconic</a> icons.</p>
 
@@ -104,6 +111,8 @@
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-bootstrap3@next
 </code></pre></div>    </div>
+
+    <p><em>Note: <a href="https://www.npmjs.com/package/react-bootstrap">react-bootstrap</a> &gt;=0.32.1 is a peer dependency.</em></p>
 
     <p>Make sure that the <a href="https://react-bootstrap.github.io">React-Bootstrap</a> dependencies are installed and properly configured. Check the React-Bootstrap’s <a href="https://react-bootstrap.github.io/getting-started/introduction">Getting Started</a> article for configuration details.</p>
 
@@ -165,11 +174,16 @@
     </div>
 
     <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.5.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0-beta.1">
             Version
-            <span>1.5.1</span>
+            <span>1.8.0-beta.1</span>
           </a>
         </li>
       </ul>
@@ -328,6 +342,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/virtual-scrolling/">Virtual Scrolling</a></li>
           
 
@@ -337,6 +359,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/tree-data/">Tree Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/guides/summary-row/">Summary Row</a></li>
           
 
         
@@ -392,6 +422,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/custom-paging/">CustomPaging</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/custom-summary/">CustomSummary</a></li>
           
 
         
@@ -503,6 +541,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/paging-panel/">PagingPanel</a></li>
           
 
@@ -552,6 +598,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/sorting-state/">SortingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/summary-state/">SummaryState</a></li>
           
 
         
@@ -623,6 +677,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
@@ -648,6 +710,14 @@
 
           
           <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-selection/">TableSelection</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/grid/docs/reference/table-summary-row/">TableSummaryRow</a></li>
           
 
         
@@ -694,7 +764,23 @@
           
 
           
-          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">Core</a></li>
+          <li><a href="/devextreme-reactive/@next/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/@next/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
           
 
         
@@ -704,7 +790,18 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1533130201"></script>
+<script src="/devextreme-reactive/@next/react/grid/demos/dist/index.js?v=1536308110"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+
+<script type="text/javascript">
+  docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ["techno:react", "tool:grid"] },
+    debug: false
+  });
+</script>
 
 
     <footer>
@@ -722,7 +819,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2018 Developer Express Inc.</br>
+                    Copyright © 2011-2018 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -745,7 +842,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/@next/js/tracking.js?v=1533130201"></script>
+    <script src="/devextreme-reactive/@next/js/tracking.js?v=1536308110"></script>
     <script>
         trackingCookie.notice();
     </script>

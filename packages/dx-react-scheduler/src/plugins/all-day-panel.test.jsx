@@ -3,12 +3,12 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  allDayAppointmentsRects,
+  calculateRectByDateIntervalsNew,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  allDayAppointmentsRects: jest.fn(),
+  calculateRectByDateIntervalsNew: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -44,7 +44,7 @@ const defaultProps = {
 
 describe('AllDayPanel', () => {
   beforeEach(() => {
-    allDayAppointmentsRects.mockImplementation(() => [{
+    calculateRectByDateIntervalsNew.mockImplementation(() => [{
       dataItem: {}, type: 'h', top: 0, left: 0,
     }]);
   });

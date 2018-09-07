@@ -167,6 +167,7 @@ const horizontalRectCalculator = (
       cellElements,
       cells,
       monthCells,
+      excludedDays,
     },
   },
 ) => {
@@ -184,6 +185,7 @@ const horizontalRectCalculator = (
       cellElements,
       cells,
       monthCells,
+      excludedDays,
     },
   );
 

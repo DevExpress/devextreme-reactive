@@ -35,11 +35,13 @@ const getCellRect = (date, dayScale, cellElements, takePrev) => {
   };
 };
 
-export const getAllDayRects = (
+export const getAllDayRectByDates = (
   startDate,
   endDate,
-  dayScale,
-  cellElements,
+  {
+    dayScale,
+    cellElements,
+  },
 ) => {
   const firstCellRect = getCellRect(startDate, dayScale, cellElements, false);
   const lastCellRect = getCellRect(endDate, dayScale, cellElements, true);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { memoize } from '@devexpress/dx-core';
+import { memoize, getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -8,7 +8,6 @@ import {
   TemplateConnector,
   Plugin,
 } from '@devexpress/dx-react-core';
-import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,

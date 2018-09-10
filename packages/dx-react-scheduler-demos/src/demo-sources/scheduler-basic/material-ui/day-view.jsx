@@ -4,26 +4,27 @@ import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
+  Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-// import appointments from '../../../demo-data/today-appointments';
+import { appointments } from '../../../demo-data/appointments';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      // data: appointments,
-      currentDate: new Date(),
+      data: appointments,
+      currentDate: '2018-06-28',
     };
   }
 
   render() {
-    const { currentDate } = this.state;
+    const { currentDate, data } = this.state;
 
     return (
       <Paper>
         <Scheduler
-          // data={data}
+          data={data}
         >
           <ViewState
             currentDate={currentDate}
@@ -32,6 +33,7 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
+          <Appointments />
         </Scheduler>
       </Paper>
     );

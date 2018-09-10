@@ -22,7 +22,7 @@ export const sliceAppointmentByBoundaries = (appointment, leftBoundary, rightBou
   }];
 };
 
-export const getCellByDate = (days, times, date, takePrev = false) => {
+export const getCellByDate = (currentDate, times, date, takePrev = false) => {
   const rowIndex = times.findIndex((timeCell) => {
     const startTime = moment(timeCell.start);
     const endTime = moment(timeCell.end);
@@ -31,24 +31,23 @@ export const getCellByDate = (days, times, date, takePrev = false) => {
     return moment(date).isBetween(cellStart, cellEnd, null, takePrev ? '(]' : '[)');
   });
 
-  const cellIndex = days.findIndex(day => moment(date).isSame(day, 'date'));
+  // const cellIndex = days.findIndex(day => moment(date).isSame(day, 'date'));
   const cellStartTime = moment(times[rowIndex].start);
-  const cellStartDate = moment(days[cellIndex])
+  const cellStartDate = moment(currentDate)
     .hour(cellStartTime.hours())
     .minutes(cellStartTime.minutes())
     .toDate();
-  const totalCellIndex = (rowIndex * days.length) + cellIndex;
   return {
-    index: totalCellIndex,
+    index: rowIndex,
     startDate: cellStartDate,
   };
 };
 
-const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) => {
+const getCellRect = (date, currentDate, times, cellDuration, cellElements, takePrev) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getCellByDate(days, times, date, takePrev);
+  } = getCellByDate(currentDate, times, date, takePrev);
 
   const cellElement = cellElements[cellIndex];
   const {

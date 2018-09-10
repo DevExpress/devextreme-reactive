@@ -8,10 +8,29 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  dayAppointmentRects,
   timeScale as timeScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
 } from '@devexpress/dx-scheduler-core';
+
+const appointmentRectsComputed = ({
+  appointments,
+  startViewDate,
+  endViewDate,
+  timeScale,
+  currentDate,
+  cellDuration,
+  dateTableRef,
+}) => (dateTableRef ? dayAppointmentRects(
+  appointments,
+  startViewDate,
+  endViewDate,
+  timeScale,
+  currentDate,
+  cellDuration,
+  dateTableRef.querySelectorAll('td'),
+) : []);
 
 const SidebarPlaceholder = props => (
   <TemplatePlaceholder name="sidebar" params={props} />
@@ -52,6 +71,7 @@ export class DayView extends React.PureComponent {
       cellDuration,
       intervalCount,
     } = this.props;
+    const { dateTableRef } = this.state;
 
     const timeScaleComputed = ({ currentDate }) => timeScaleCore(
       currentDate,
@@ -61,10 +81,12 @@ export class DayView extends React.PureComponent {
       cellDuration,
       [],
     );
-    // const startViewDateComputed = (
-    //   { dayScale, timeScale },
-    // ) => startViewDateCore(dayScale, timeScale, startDayHour);
-    // const endViewDateComputed = ({ dayScale, timeScale }) => endViewDateCore(dayScale, timeScale);
+    const startViewDateComputed = (
+      { currentDate, timeScale },
+    ) => startViewDateCore([currentDate], timeScale);
+    const endViewDateComputed = (
+      { currentDate, timeScale },
+    ) => endViewDateCore([currentDate], timeScale);
 
     return (
       <Plugin
@@ -74,6 +96,10 @@ export class DayView extends React.PureComponent {
         <Getter name="intervalCount" value={intervalCount} />
         <Getter name="cellDuration" value={cellDuration} />
         <Getter name="timeScale" computed={timeScaleComputed} />
+        <Getter name="startViewDate" computed={startViewDateComputed} />
+        <Getter name="endViewDate" computed={endViewDateComputed} />
+        {dateTableRef && <Getter name="dateTableRef" value={dateTableRef} />}
+        <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">
           <ViewLayout

@@ -5,7 +5,7 @@ import { Container } from '../templates/appointment/container';
 import { Layout } from '../templates/all-day-panel/layout';
 import { Cell } from '../templates/all-day-panel/cell';
 import { Row } from '../templates/all-day-panel/row';
-import { Text } from '../templates/all-day-panel/text';
+import { Title } from '../templates/all-day-panel/title';
 
 const defaultMessages = {
   allDay: 'All Day',
@@ -20,7 +20,7 @@ export class AllDayPanel extends React.PureComponent {
         layoutComponent={Layout}
         cellComponent={Cell}
         rowComponent={Row}
-        textComponent={Text}
+        textComponent={Title}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -37,3 +37,9 @@ AllDayPanel.propTypes = {
 AllDayPanel.defaultProps = {
   messages: {},
 };
+
+AllDayPanel.Container = Container;
+AllDayPanel.Layout = Layout;
+AllDayPanel.Cell = Cell;
+AllDayPanel.Row = Row;
+AllDayPanel.Text = Title;

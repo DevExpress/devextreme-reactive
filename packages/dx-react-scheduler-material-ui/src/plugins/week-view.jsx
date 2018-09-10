@@ -36,6 +36,8 @@ export class WeekView extends React.PureComponent {
   }
 }
 
+WeekView.Container = Container;
+
 WeekView.TimePanelLayout = TimePanelLayout;
 WeekView.TimePanelCell = TimePanelCell;
 WeekView.TimePanelRow = Row;

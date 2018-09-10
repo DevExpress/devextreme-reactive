@@ -32,6 +32,8 @@ export class MonthView extends React.PureComponent {
   }
 }
 
+MonthView.Container = Container;
+
 MonthView.DayPanelLayout = DayPanelLayout;
 MonthView.DayPanelCell = DayPanelCell;
 MonthView.DayPanelRow = Row;

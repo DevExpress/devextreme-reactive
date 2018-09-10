@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 
-import { Text } from './text';
+import { Title } from './title';
 
 describe('AllDayPanel', () => {
   let classes;
@@ -10,13 +10,13 @@ describe('AllDayPanel', () => {
     getMessage: key => key,
   };
   beforeAll(() => {
-    classes = getClasses(<Text {...defaultProps} />);
+    classes = getClasses(<Title {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Text', () => {
+  describe('Title', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Text className="custom-class" {...defaultProps} />
+        <Title className="custom-class" {...defaultProps} />
       ));
 
       expect(tree.is('.custom-class'))
@@ -26,16 +26,16 @@ describe('AllDayPanel', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Text data={{ a: 1 }} {...defaultProps} />
+        <Title data={{ a: 1 }} {...defaultProps} />
       ));
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should use "All Day" text', () => {
+    it('should use "All Day" Title', () => {
       const getMessage = jest.fn();
       shallow((
-        <Text getMessage={getMessage} />
+        <Title getMessage={getMessage} />
       ));
 
       expect(getMessage)

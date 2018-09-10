@@ -27,7 +27,7 @@ const styles = theme => ({
   },
 });
 
-export const TextBase = ({
+export const TitleBase = ({
   classes, getMessage, className, ...restProps
 }) => (
   <div className={classNames(classes.container, className)} {...restProps}>
@@ -39,14 +39,14 @@ export const TextBase = ({
   </div>
 );
 
-TextBase.propTypes = {
+TitleBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 
-TextBase.defaultProps = {
+TitleBase.defaultProps = {
   className: undefined,
 };
 
-export const Text = withStyles(styles, { name: 'Text' })(TextBase);
+export const Title = withStyles(styles, { name: 'Title' })(TitleBase);

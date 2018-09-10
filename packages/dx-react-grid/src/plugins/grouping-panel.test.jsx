@@ -14,7 +14,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   getColumnSortingDirection: jest.fn(),
 }));
 
-
 const defaultDeps = {
   getter: {
     columns: [],

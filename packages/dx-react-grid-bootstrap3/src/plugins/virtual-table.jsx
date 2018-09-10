@@ -100,6 +100,9 @@ VirtualTable.TableBody = TableBody;
 VirtualTable.TableFooter = TableFooter;
 VirtualTable.FixedHeader = FixedHeader;
 VirtualTable.Container = TableContainer;
+VirtualTable.COLUMN_TYPE = TableBase.COLUMN_TYPE;
+VirtualTable.ROW_TYPE = TableBase.ROW_TYPE;
+VirtualTable.NODATA_ROW_TYPE = TableBase.NODATA_ROW_TYPE;
 
 VirtualTable.propTypes = {
   estimatedRowHeight: PropTypes.number,

@@ -194,7 +194,7 @@ class DemoBase extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
-      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
+      leftFixedColumns: [TableEditColumn.COLUMN_TYPE],
       totalSummaryItems: [
         { columnName: 'discount', type: 'avg' },
         { columnName: 'amount', type: 'sum' },
@@ -276,7 +276,7 @@ class DemoBase extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
-      fixedColumnTypes,
+      leftFixedColumns,
       totalSummaryItems,
     } = this.state;
 
@@ -339,7 +339,7 @@ class DemoBase extends React.PureComponent {
             commandComponent={Command}
           />
           <TableFixedColumns
-            leftColumnTypes={fixedColumnTypes}
+            leftColumns={leftFixedColumns}
           />
           <TableSummaryRow />
           <PagingPanel

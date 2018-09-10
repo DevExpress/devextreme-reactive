@@ -40,7 +40,7 @@ export const tableColumnsWithGrouping = (
   ...grouping.map((columnGrouping) => {
     const groupedColumn = columns.find(column => column.name === columnGrouping.columnName);
     return {
-      key: `${TABLE_GROUP_TYPE}_${groupedColumn.name}`,
+      key: `${TABLE_GROUP_TYPE.toString()}_${groupedColumn.name}`,
       type: TABLE_GROUP_TYPE,
       column: groupedColumn,
       width: indentColumnWidth,
@@ -55,7 +55,7 @@ export const tableRowsWithGrouping = (tableRows, isGroupRow) => tableRows.map((t
   }
   return {
     ...tableRow,
-    key: `${TABLE_GROUP_TYPE}_${tableRow.row.compoundKey}`,
+    key: `${TABLE_GROUP_TYPE.toString()}_${tableRow.row.compoundKey}`,
     type: TABLE_GROUP_TYPE,
   };
 });

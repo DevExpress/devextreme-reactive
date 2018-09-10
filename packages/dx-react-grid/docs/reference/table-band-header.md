@@ -66,6 +66,12 @@ TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ROW_TYPE | symbol | The identificator of the band row type.
+
 ## Plugin Developer Reference
 
 ### Imports

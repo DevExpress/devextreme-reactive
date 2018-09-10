@@ -37,6 +37,7 @@ TableHeaderRow.Content = Content;
 TableHeaderRow.Row = TableRow;
 TableHeaderRow.SortLabel = SortLabel;
 TableHeaderRow.Title = Title;
+TableHeaderRow.ROW_TYPE = TableHeaderRowBase.ROW_TYPE;
 
 TableHeaderRow.propTypes = {
   messages: PropTypes.shape({

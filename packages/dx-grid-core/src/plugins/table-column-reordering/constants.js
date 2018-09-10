@@ -1,1 +1,1 @@
-export const TABLE_REORDERING_TYPE = 'reordering';
+export const TABLE_REORDERING_TYPE = Symbol('reordering');

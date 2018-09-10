@@ -17,3 +17,5 @@ export class TableEditRow extends React.PureComponent {
 
 TableEditRow.Cell = EditCell;
 TableEditRow.Row = TableRow;
+TableEditRow.ADDED_ROW_TYPE = TableEditRowBase.ADDED_ROW_TYPE;
+TableEditRow.EDIT_ROW_TYPE = TableEditRowBase.EDIT_ROW_TYPE;

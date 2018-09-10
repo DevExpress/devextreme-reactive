@@ -26,3 +26,4 @@ TableHeaderRow.Row = TableRow;
 TableHeaderRow.Content = Content;
 TableHeaderRow.SortLabel = SortLabel;
 TableHeaderRow.Title = Title;
+TableHeaderRow.ROW_TYPE = TableHeaderRowBase.ROW_TYPE;

@@ -18,3 +18,5 @@ export class TableGroupRow extends React.PureComponent {
 
 TableGroupRow.Row = TableRow;
 TableGroupRow.Cell = TableGroupCell;
+TableGroupRow.COLUMN_TYPE = TableGroupRowBase.COLUMN_TYPE;
+TableGroupRow.ROW_TYPE = TableGroupRowBase.ROW_TYPE;

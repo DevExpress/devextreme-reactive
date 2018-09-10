@@ -21,3 +21,5 @@ export class TableRowDetail extends React.PureComponent {
 TableRowDetail.Cell = TableDetailCell;
 TableRowDetail.ToggleCell = TableDetailToggleCell;
 TableRowDetail.Row = TableRow;
+TableRowDetail.COLUMN_TYPE = TableRowDetailBase.COLUMN_TYPE;
+TableRowDetail.ROW_TYPE = TableRowDetailBase.ROW_TYPE;

@@ -111,6 +111,12 @@ TableHeaderRow.Title | object | A component that renders a title.
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ROW_TYPE | symbol | The identificator of the header row type.
+
 ## Plugin Developer Reference
 
 ### Imports

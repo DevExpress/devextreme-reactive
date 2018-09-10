@@ -1,1 +1,1 @@
-export const TABLE_GROUP_TYPE = 'group';
+export const TABLE_GROUP_TYPE = Symbol('group');

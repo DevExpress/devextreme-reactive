@@ -42,6 +42,20 @@ export class TableSummaryRow extends React.PureComponent {
   }
 }
 
+TableSummaryRow.TotalRow = TableRow;
+TableSummaryRow.GroupRow = TableRow;
+TableSummaryRow.TreeRow = TableRow;
+TableSummaryRow.TotalCell = TableCell;
+TableSummaryRow.GroupCell = TableCell;
+TableSummaryRow.TreeCell = TableCell;
+TableSummaryRow.Item = TableSummaryItem;
+TableSummaryRow.TableTreeCell = TableTreeCell;
+TableSummaryRow.TableTreeIndent = TableTreeIndent;
+TableSummaryRow.TableTreeContent = TableTreeContent;
+TableSummaryRow.TREE_ROW_TYPE = TableSummaryRowBase.TREE_ROW_TYPE;
+TableSummaryRow.GROUP_ROW_TYPE = TableSummaryRowBase.GROUP_ROW_TYPE;
+TableSummaryRow.TOTAL_ROW_TYPE = TableSummaryRowBase.TOTAL_ROW_TYPE;
+
 TableSummaryRow.propTypes = {
   messages: PropTypes.shape({
     sum: PropTypes.string,
@@ -55,14 +69,3 @@ TableSummaryRow.propTypes = {
 TableSummaryRow.defaultProps = {
   messages: {},
 };
-
-TableSummaryRow.TotalRow = TableRow;
-TableSummaryRow.GroupRow = TableRow;
-TableSummaryRow.TreeRow = TableRow;
-TableSummaryRow.TotalCell = TableCell;
-TableSummaryRow.GroupCell = TableCell;
-TableSummaryRow.TreeCell = TableCell;
-TableSummaryRow.Item = TableSummaryItem;
-TableSummaryRow.TableTreeCell = TableTreeCell;
-TableSummaryRow.TableTreeIndent = TableTreeIndent;
-TableSummaryRow.TableTreeContent = TableTreeContent;

@@ -10,6 +10,7 @@ import {
   isGroupTableCell,
   isGroupIndentTableCell,
   isGroupTableRow,
+  TABLE_GROUP_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -129,6 +130,9 @@ export class TableGroupRow extends React.PureComponent {
     );
   }
 }
+
+TableGroupRow.ROW_TYPE = TABLE_GROUP_TYPE;
+TableGroupRow.COLUMN_TYPE = TABLE_GROUP_TYPE;
 
 TableGroupRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,

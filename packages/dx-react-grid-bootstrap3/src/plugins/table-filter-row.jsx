@@ -46,6 +46,7 @@ TableFilterRow.Row = TableRow;
 TableFilterRow.Editor = Editor;
 TableFilterRow.FilterSelector = FilterSelector;
 TableFilterRow.Icon = Icon;
+TableFilterRow.ROW_TYPE = TableFilterRowBase.ROW_TYPE;
 
 TableFilterRow.propTypes = {
   messages: PropTypes.shape({

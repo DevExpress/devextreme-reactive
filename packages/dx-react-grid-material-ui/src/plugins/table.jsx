@@ -58,6 +58,9 @@ Table.TableHead = TableHead;
 Table.TableBody = TableBody;
 Table.TableFooter = TableFooter;
 Table.Container = TableContainer;
+Table.COLUMN_TYPE = TableBase.COLUMN_TYPE;
+Table.ROW_TYPE = TableBase.ROW_TYPE;
+Table.NODATA_ROW_TYPE = TableBase.NODATA_ROW_TYPE;
 
 Table.propTypes = {
   messages: PropTypes.shape({

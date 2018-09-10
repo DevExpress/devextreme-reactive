@@ -58,6 +58,14 @@ VirtualTable.StubHeaderCell | [Table.CellProps](table.md#tablecellprops) | Rende
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | symbol | The identificator of the data column type.
+ROW_TYPE | symbol | The identificator of the data row type.
+NODATA_ROW_TYPE | symbol | The identificator of the nodata row type.
+
 ## Plugin Developer Reference
 
 ### Imports

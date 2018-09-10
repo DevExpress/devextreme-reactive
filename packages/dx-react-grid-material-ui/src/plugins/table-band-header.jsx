@@ -22,3 +22,4 @@ export class TableBandHeader extends React.PureComponent {
 TableBandHeader.Cell = Cell;
 TableBandHeader.Row = Row;
 TableBandHeader.BandedHeaderCell = BandedHeaderCell;
+TableBandHeader.ROW_TYPE = TableBandHeaderBase.ROW_TYPE;

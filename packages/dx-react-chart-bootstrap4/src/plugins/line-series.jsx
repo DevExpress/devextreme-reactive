@@ -1,16 +1,4 @@
-import * as React from 'react';
-import { LineSeries as LineSeriesBase } from '@devexpress/dx-react-chart';
-import { Path } from '../templates/series/path';
+import { LineSeries as LineSeriesBase, bindSeriesComponents } from '@devexpress/dx-react-chart';
+import * as seriesComponents from '../templates/series';
 
-export class LineSeries extends React.PureComponent {
-  render() {
-    return (
-      <LineSeriesBase
-        seriesComponent={Path}
-        {...this.props}
-      />
-    );
-  }
-}
-
-LineSeries.Path = Path;
+export const LineSeries = bindSeriesComponents(LineSeriesBase, seriesComponents);

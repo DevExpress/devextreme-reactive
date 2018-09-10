@@ -1,5 +1,4 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { Path as PathBase, patchProps } from '@devexpress/dx-react-chart';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -10,38 +9,9 @@ const styles = () => ({
   },
 });
 
-class PathBase extends React.PureComponent {
-  render() {
-    const {
-      classes,
-      className,
-      coordinates,
-      path,
-      color,
-      ...restProps
-    } = this.props;
-    return (
-      <path
-        stroke={color}
-        className={classNames(classes.root, className)}
-        d={path(coordinates)}
-        {...restProps}
-      />
-    );
-  }
-}
+const setClassName = ({ className, classes, ...restProps }) => ({
+  ...restProps,
+  className: classNames(classes.root, className),
+});
 
-PathBase.propTypes = {
-  coordinates: PropTypes.array.isRequired,
-  path: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  color: PropTypes.string,
-};
-
-PathBase.defaultProps = {
-  className: undefined,
-  color: undefined,
-};
-
-export const Path = withStyles(styles)(PathBase);
+export const Path = withStyles(styles)(patchProps(PathBase, setClassName));

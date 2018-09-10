@@ -35,7 +35,7 @@ describe('AppointmentTooltip', () => {
     jest.resetAllMocks();
   });
 
-  it('should render tooltip', () => {
+  it('should render Layout component', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

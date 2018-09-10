@@ -69,8 +69,8 @@ export class AppointmentTooltip extends React.PureComponent {
       showDeleteButton,
       showCloseButton,
       layoutComponent: Layout,
-      headComponent: Head,
-      contentComponent: Content,
+      headComponent,
+      contentComponent,
       commandButtonComponent,
     } = this.props;
     const { visible, appointmentMeta } = this.state;
@@ -96,8 +96,8 @@ export class AppointmentTooltip extends React.PureComponent {
                   showOpenButton={showOpenButton}
                   showDeleteButton={showDeleteButton}
                   showCloseButton={showCloseButton}
-                  headComponent={Head}
-                  contentComponent={Content}
+                  headComponent={headComponent}
+                  contentComponent={contentComponent}
                   appointmentMeta={appointmentMeta}
                   visible={visible}
                   onHide={this.toggleVisible}

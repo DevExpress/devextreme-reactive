@@ -41,6 +41,9 @@ const SidebarPlaceholder = props => (
 const DayScalePlaceholder = props => (
   <TemplatePlaceholder name="navbar" params={props} />
 );
+const EmptySpacePlaceholder = props => (
+  <TemplatePlaceholder name="emptySpace" params={props} />
+);
 const DateTablePlaceholder = props => (
   <TemplatePlaceholder name="main" params={props} />
 );
@@ -63,6 +66,7 @@ export class WeekView extends React.PureComponent {
   render() {
     const {
       layoutComponent: ViewLayout,
+      emptySpaceComponent: EmptySpace,
       timePanelLayoutComponent: TimePanel,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
@@ -117,6 +121,7 @@ export class WeekView extends React.PureComponent {
             navbarComponent={DayScalePlaceholder}
             mainComponent={DateTablePlaceholder}
             sidebarComponent={SidebarPlaceholder}
+            emptySpaceComponent={EmptySpacePlaceholder}
           />
         </Template>
 
@@ -131,6 +136,10 @@ export class WeekView extends React.PureComponent {
               />
             )}
           </TemplateConnector>
+        </Template>
+
+        <Template name="emptySpace">
+          <EmptySpace />
         </Template>
 
         <Template name="sidebar">
@@ -167,6 +176,7 @@ export class WeekView extends React.PureComponent {
 
 WeekView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
+  emptySpaceComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,

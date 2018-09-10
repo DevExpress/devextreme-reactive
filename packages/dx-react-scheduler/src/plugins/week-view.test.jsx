@@ -44,6 +44,7 @@ const defaultProps = {
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
+  emptySpaceComponent: () => null,
 };
 
 describe('Week View', () => {

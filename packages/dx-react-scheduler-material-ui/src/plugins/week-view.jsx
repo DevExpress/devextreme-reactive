@@ -3,6 +3,7 @@ import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
 
 import { Row } from '../templates/week-view/row';
+import { EmptySpace } from '../templates/week-view/empty-space';
 
 import { Layout as TimePanelLayout } from '../templates/week-view/time-panel/layout';
 import { Cell as TimePanelCell } from '../templates/week-view/time-panel/cell';
@@ -18,6 +19,7 @@ export class WeekView extends React.PureComponent {
     return (
       <WeekViewBase
         layoutComponent={WeekLayout}
+        emptySpaceComponent={EmptySpace}
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}
         timePanelRowComponent={Row}
@@ -32,6 +34,8 @@ export class WeekView extends React.PureComponent {
     );
   }
 }
+
+WeekView.EmptySpace = EmptySpace;
 
 WeekView.TimePanelLayout = TimePanelLayout;
 WeekView.TimePanelCell = TimePanelCell;

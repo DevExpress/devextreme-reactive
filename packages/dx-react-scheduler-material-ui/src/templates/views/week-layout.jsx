@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -17,9 +16,6 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  emptySpace: {
-    borderBottom: getBorder(theme),
-  },
   main: {
     position: 'relative',
   },
@@ -31,6 +27,7 @@ export class WeekLayoutBase extends React.PureComponent {
       sidebarComponent: Sidebar,
       navbarComponent: Navbar,
       mainComponent: Main,
+      emptySpaceComponent: EmptySpace,
       classes,
     } = this.props;
 
@@ -44,7 +41,9 @@ export class WeekLayoutBase extends React.PureComponent {
           direction="row"
           className={classes.stickyHeader}
         >
-          <Grid item xs={1} className={classes.emptySpace} />
+          <Grid item xs={1}>
+            <EmptySpace />
+          </Grid>
 
           <Grid item xs={11}>
             <Navbar />
@@ -67,6 +66,7 @@ export class WeekLayoutBase extends React.PureComponent {
 }
 
 WeekLayoutBase.propTypes = {
+  emptySpaceComponent: PropTypes.func.isRequired,
   sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,

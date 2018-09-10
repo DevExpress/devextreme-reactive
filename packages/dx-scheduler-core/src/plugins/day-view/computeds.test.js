@@ -1,5 +1,6 @@
 import {
   calculateDayViewDateIntervals,
+  calculateViewBoundary,
 } from './computeds';
 
 describe('DayView computeds', () => {
@@ -50,6 +51,15 @@ describe('DayView computeds', () => {
         .toEqual(new Date('10-09-2018 10:00'));
       expect(intervals[0].end.toDate())
         .toEqual(new Date('10-09-2018 17:00'));
+    });
+  });
+  describe('#calculateViewBoundary', () => {
+    it('should work', () => {
+      const currentDate = new Date('2018-09-10 10:30');
+      const boundaryDayHour = 20;
+
+      expect(calculateViewBoundary(currentDate, boundaryDayHour))
+        .toEqual(new Date('2018-09-10 20:00'));
     });
   });
 });

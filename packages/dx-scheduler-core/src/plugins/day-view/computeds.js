@@ -13,3 +13,11 @@ export const calculateDayViewDateIntervals = (
   .reduce((acc, appointment) => ([
     ...acc, ...sliceAppointmentByBoundaries(appointment, leftBound, rightBound),
   ]), []);
+
+export const calculateViewBoundary = (currentDate, boundaryDayHour) => {
+  const viewBoundary = moment(currentDate).startOf('day');
+
+  viewBoundary.hour(boundaryDayHour);
+
+  return viewBoundary.toDate();
+};

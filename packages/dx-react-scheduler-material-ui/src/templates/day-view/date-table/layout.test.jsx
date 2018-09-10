@@ -31,24 +31,22 @@ describe('Week View DateTable', () => {
       expect(tree.find(`.${classes.table}`).props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render array of days', () => {
+    it('should render array of times', () => {
       const cell = () => <td />;
       /* eslint-disable-next-line */
       const row = ({ children }) => <tr>{children}</tr>;
       const timeScale = [{}, {}];
-      const dayScale = [new Date('2018-07-26'), new Date('2018-07-26')];
       const tree = shallow((
         <Layout
           {...defaultProps}
           timeScale={timeScale}
-          dayScale={dayScale}
           cellComponent={cell}
           rowComponent={row}
         />
       ));
 
       expect(tree.find(cell))
-        .toHaveLength(4);
+        .toHaveLength(2);
       expect(tree.find(row))
         .toHaveLength(2);
     });

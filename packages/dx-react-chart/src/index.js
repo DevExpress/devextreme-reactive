@@ -12,5 +12,9 @@ export { ScatterSeries } from './plugins/scatter-series';
 export { AreaSeries } from './plugins/area-series';
 export { PieSeries } from './plugins/pie-series';
 
+export * from './templates/series';
+
 export { Axis } from './plugins/axis';
 export { Grid } from './plugins/grid';
+
+export { bindSeriesComponents, patchProps } from './utils';

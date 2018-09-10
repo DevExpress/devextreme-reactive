@@ -1,3 +1,22 @@
+<a name="1.8.0-beta.1"></a>
+# [1.8.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.2...v1.8.0-beta.1) (2018-09-07)
+
+
+### Bug Fixes
+
+* **react-chart:** fix console errors about equal keys in axis ([#1375](https://github.com/DevExpress/devextreme-reactive/issues/1375)) ([cc9d9f9](https://github.com/DevExpress/devextreme-reactive/commit/cc9d9f9))
+* **react-chart:** fix domain calculation with zero values ([#1383](https://github.com/DevExpress/devextreme-reactive/issues/1383)) ([1b514db](https://github.com/DevExpress/devextreme-reactive/commit/1b514db))
+* **react-chart:** fix style applying in legend label in material-ui ([#1374](https://github.com/DevExpress/devextreme-reactive/issues/1374)) ([38e3ed4](https://github.com/DevExpress/devextreme-reactive/commit/38e3ed4))
+* **react-chart:** fix wrong position of scatter points ([#1384](https://github.com/DevExpress/devextreme-reactive/issues/1384)) ([8f8ae54](https://github.com/DevExpress/devextreme-reactive/commit/8f8ae54))
+
+
+### Features
+
+* **react-grid:** extract sorting control ([#881](https://github.com/DevExpress/devextreme-reactive/issues/881)) ([2a6dd1a](https://github.com/DevExpress/devextreme-reactive/commit/2a6dd1a))
+* **react-grid:** support columns fixing ([#1305](https://github.com/DevExpress/devextreme-reactive/issues/1305)) ([81c13a4](https://github.com/DevExpress/devextreme-reactive/commit/81c13a4))
+
+
+
 <a name="1.7.2"></a>
 # [1.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.1...v1.7.2) (2018-08-31)
 

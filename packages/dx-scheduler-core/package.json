@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-scheduler-core",
-  "version": "1.7.2",
+  "version": "1.8.0-beta.1",
   "description": "Core library for the DevExtreme Reactive Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -39,7 +39,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-core": "1.7.2",
+    "@devexpress/dx-core": "1.8.0-beta.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -58,7 +58,7 @@
     "rollup-plugin-license": "^0.6.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "1.7.2"
+    "@devexpress/dx-core": "1.8.0-beta.1"
   },
   "dependencies": {
     "moment": "^2.22.2"

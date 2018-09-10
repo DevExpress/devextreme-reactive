@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart, getItemsCallback,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
@@ -13,6 +13,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   checkZeroStart: jest.fn(),
+  getItemsCallback: jest.fn(),
 }));
 
 const coords = [
@@ -55,6 +56,7 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
       scaleExtension: 'scaleExtension',
+      colorDomain: 'colorDomain',
     },
     template: {
       series: {},
@@ -68,6 +70,7 @@ describe('Base series', () => {
     argumentField: 'argumentField',
     axisName: 'axisName',
     stack: 'stack',
+    color: 'color',
   };
   const TestComponentPath = () => (
     <div>
@@ -95,6 +98,8 @@ describe('Base series', () => {
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
+      color: 'color',
+      colorDomain: 'colorDomain',
       styles: 'styles',
     });
   });
@@ -174,5 +179,19 @@ describe('Base series', () => {
     ));
     expect(checkZeroStart)
       .toHaveBeenCalledWith({}, 'axisName', 'pathType');
+  });
+
+  it('should pass plugin name to the getItemsCallback', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <WrappedComponent
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(getItemsCallback)
+      .toHaveBeenCalledWith('TestComponent');
   });
 });

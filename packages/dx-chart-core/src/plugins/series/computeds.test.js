@@ -17,6 +17,7 @@ import {
   seriesData,
   checkZeroStart,
   barCoordinates,
+  getItemsCallback,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -341,5 +342,15 @@ describe('checkZeroStart', () => {
   it('should return false for axis with another series type', () => {
     const fromZero = checkZeroStart({}, 'axis1', 'line');
     expect(fromZero).toEqual({ axis1: false });
+  });
+});
+
+describe('getItemsCallback', () => {
+  it('should return function returns series', () => {
+    expect(getItemsCallback('plugin')([{}])).toEqual([{}]);
+  });
+
+  it('should return function returns items of series', () => {
+    expect(getItemsCallback('PieSeries')(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
   });
 });

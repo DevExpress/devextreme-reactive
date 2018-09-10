@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, seriesData, checkZeroStart, getItemsCallback,
 } from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
@@ -48,6 +48,7 @@ export const withSeriesPlugin = (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
           <Getter name="startFromZero" computed={startFromZeroByAxes} />
+          <Getter name="items" value={getItemsCallback(pluginName)} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
@@ -60,7 +61,6 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                pieColorDomain,
               }) => {
                 const {
                   stack, uniqueName,
@@ -88,7 +88,7 @@ export const withSeriesPlugin = (
                 return (
                   <Series
                     uniqueName={uniqueName}
-                    colorDomain={pluginName === 'PieSeries' ? pieColorDomain : colorDomain}
+                    colorDomain={colorDomain}
                     coordinates={calculatedCoordinates}
                     color={color}
                     {...restProps}

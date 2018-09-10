@@ -165,3 +165,10 @@ export const seriesData = (series = [], seriesProps) => {
 };
 
 export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
+
+export const getItemsCallback = (pluginName) => {
+  if (pluginName === 'PieSeries') {
+    return (series, domain) => domain.map(uniqueName => ({ uniqueName }));
+  }
+  return series => series;
+};

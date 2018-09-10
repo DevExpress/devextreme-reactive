@@ -1,27 +1,35 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { dSpline, coordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin, withColor } from '../utils';
+import * as seriesComponents from '../templates/series';
+import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    seriesComponent: Path,
-    ...restProps
-  } = props;
-  return (
-    <Path {...restProps} path={dSpline} />
-  );
+class Series extends React.PureComponent {
+  render() {
+    const {
+      seriesComponent: Path,
+      ...restProps
+    } = this.props;
+    return <Path path={dSpline} {...restProps} />;
+  }
+}
+
+Series.propTypes = {
+  seriesComponent: PropTypes.func.isRequired,
 };
 
-export const SplineSeries = withSeriesPlugin(
+const SeriesWithSeries = withSeriesPlugin(
   withColor(Series),
   'SplineSeries',
   'spline',
   coordinates,
 );
 
-Series.propTypes = {
-  seriesComponent: PropTypes.func.isRequired,
+SeriesWithSeries.components = {
+  seriesComponent: {
+    name: 'Path',
+    exposedName: 'Path',
+  },
 };
+
+export const SplineSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);

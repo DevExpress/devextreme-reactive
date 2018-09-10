@@ -1,16 +1,4 @@
-import * as React from 'react';
-import { SplineSeries as SplineSeriesBase } from '@devexpress/dx-react-chart';
-import { Path } from '../templates/series/path';
+import { SplineSeries as SplineSeriesBase, bindSeriesComponents } from '@devexpress/dx-react-chart';
+import * as seriesComponents from '../templates/series';
 
-export class SplineSeries extends React.PureComponent {
-  render() {
-    return (
-      <SplineSeriesBase
-        seriesComponent={Path}
-        {...this.props}
-      />
-    );
-  }
-}
-
-SplineSeries.Path = Path;
+export const SplineSeries = bindSeriesComponents(SplineSeriesBase, seriesComponents);

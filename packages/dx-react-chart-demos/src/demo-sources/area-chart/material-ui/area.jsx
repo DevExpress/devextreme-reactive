@@ -51,6 +51,8 @@ const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
 
+const EmptyComponent = () => null;
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -70,7 +72,7 @@ export default class Demo extends React.PureComponent {
           style={{ paddingRight: '20px' }}
         >
           <ArgumentAxis />
-          <ValueAxis />
+          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
           <Grid />
 
           <AreaSeries

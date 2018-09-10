@@ -18,6 +18,7 @@ const data = [
   { year: '2000', population: 6.127 },
   { year: '2010', population: 6.930 },
 ];
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis max={7} />
+          <ValueAxis max={7} lineComponent={EmptyComponent} tickSize={0} />
           <Grid />
 
           <BarSeries

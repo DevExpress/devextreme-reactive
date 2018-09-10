@@ -16,7 +16,6 @@
       - title: Chart Integration
         path: /react/grid/demos/featured/chart-integration
 /react/chart:
-  - title: DEMOS
   - title: Area Chart
     items:
       - title: Simple Area

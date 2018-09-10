@@ -58,6 +58,7 @@ const Root = props => (
 );
 
 const format = () => tick => tick;
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -77,7 +78,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis />
+          <ValueAxis
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
           <Grid />
 
           <LineSeries

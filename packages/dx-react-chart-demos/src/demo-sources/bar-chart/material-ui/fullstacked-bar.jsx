@@ -37,6 +37,7 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 const format = scale => scale.tickFormat(null, '%');
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -56,7 +57,11 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis tickFormat={format} />
+          <ValueAxis
+            tickFormat={format}
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
           <Grid />
 
           <BarSeries

@@ -34,6 +34,7 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -53,7 +54,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis />
+          <ValueAxis
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
           <Grid />
 
           <BarSeries

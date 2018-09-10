@@ -50,7 +50,7 @@ const Marker = (props) => {
     <span role="img" aria-label="Gold Medal">🏅</span>
   );
 };
-
+const EmptyComponent = () => null;
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -69,7 +69,10 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis />
+          <ValueAxis
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
 
           <Grid />
 

@@ -40,6 +40,7 @@ const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabel
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -74,7 +75,7 @@ export default class Demo extends React.PureComponent {
           style={{ paddingRight: '20px' }}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis tickFormat={valueFormat} />
+          <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickSize={0} />
           <Grid />
           <AreaSeries
             name="Liquids"

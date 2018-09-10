@@ -46,6 +46,7 @@ const legendItemBase = ({ classes, ...restProps }) => (
 const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
+const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -76,7 +77,12 @@ export default class Demo extends React.PureComponent {
           style={{ paddingRight: '20px' }}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
-          <ValueAxis max={50} labelComponent={ValueLabel} />
+          <ValueAxis
+            max={50}
+            labelComponent={ValueLabel}
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
           <Grid />
 
           <LineSeries

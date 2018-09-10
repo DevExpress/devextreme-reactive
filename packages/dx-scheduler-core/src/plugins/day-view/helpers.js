@@ -78,8 +78,9 @@ export const getRectByDates = (
   cellDuration,
   cellElements,
 ) => {
-  debugger
-  const firstCellRect = getCellRect(startDate, currentDate, times, cellDuration, cellElements, false);
+  const firstCellRect = getCellRect(
+    startDate, currentDate, times, cellDuration, cellElements, false,
+  );
   const lastCellRect = getCellRect(endDate, currentDate, times, cellDuration, cellElements, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;

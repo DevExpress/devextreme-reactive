@@ -30,6 +30,7 @@ const defaultDeps = {
     body: {},
     navbar: {},
     sidebar: {},
+    emptySpace: {},
     main: {},
   },
 };
@@ -287,6 +288,21 @@ describe('Week View', () => {
       ));
 
       expect(tree.find('.date-table').exists())
+        .toBeTruthy();
+    });
+
+    it('should render empty space', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            emptySpaceComponent={() => <div className="empty-space" />}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.empty-space').exists())
         .toBeTruthy();
     });
   });

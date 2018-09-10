@@ -38,6 +38,9 @@ const SidebarPlaceholder = props => (
 const DayScalePlaceholder = props => (
   <TemplatePlaceholder name="navbar" params={props} />
 );
+const EmptySpacePlaceholder = props => (
+  <TemplatePlaceholder name="emptySpace" params={props} />
+);
 const DateTablePlaceholder = props => (
   <TemplatePlaceholder name="main" params={props} />
 );
@@ -60,6 +63,7 @@ export class DayView extends React.PureComponent {
   render() {
     const {
       layoutComponent: ViewLayout,
+      emptySpaceComponent: EmptySpace,
       timePanelLayoutComponent: TimePanel,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
@@ -105,6 +109,7 @@ export class DayView extends React.PureComponent {
           <ViewLayout
             navbarComponent={DayScalePlaceholder}
             mainComponent={DateTablePlaceholder}
+            emptySpaceComponent={EmptySpacePlaceholder}
             sidebarComponent={SidebarPlaceholder}
           />
         </Template>
@@ -112,6 +117,10 @@ export class DayView extends React.PureComponent {
         <Template name="navbar">
           <TemplatePlaceholder />
         </Template>
+        <Template name="emptySpace">
+          <EmptySpace />
+        </Template>
+
 
         <Template name="sidebar">
           <TemplatePlaceholder />
@@ -146,6 +155,7 @@ export class DayView extends React.PureComponent {
 
 DayView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
+  emptySpaceComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,

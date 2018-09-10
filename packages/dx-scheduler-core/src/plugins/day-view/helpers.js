@@ -31,7 +31,6 @@ export const getCellByDate = (currentDate, times, date, takePrev = false) => {
     return moment(date).isBetween(cellStart, cellEnd, null, takePrev ? '(]' : '[)');
   });
 
-  // const cellIndex = days.findIndex(day => moment(date).isSame(day, 'date'));
   const cellStartTime = moment(times[rowIndex].start);
   const cellStartDate = moment(currentDate)
     .hour(cellStartTime.hours())
@@ -74,13 +73,14 @@ const getCellRect = (date, currentDate, times, cellDuration, cellElements, takeP
 export const getRectByDates = (
   startDate,
   endDate,
-  days,
+  currentDate,
   times,
   cellDuration,
   cellElements,
 ) => {
-  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
-  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
+  debugger
+  const firstCellRect = getCellRect(startDate, currentDate, times, cellDuration, cellElements, false);
+  const lastCellRect = getCellRect(endDate, currentDate, times, cellDuration, cellElements, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

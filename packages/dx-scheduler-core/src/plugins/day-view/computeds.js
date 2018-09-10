@@ -20,14 +20,6 @@ export const calculateDayViewDateIntervals = (
     ...acc, ...sliceAppointmentByBoundaries(appointment, leftBound, rightBound),
   ]), []);
 
-export const calculateViewBoundary = (currentDate, boundaryDayHour) => {
-  const viewBoundary = moment(currentDate).startOf('day');
-
-  viewBoundary.hour(boundaryDayHour);
-
-  return viewBoundary.toDate();
-};
-
 const calculateRectsByDateIntervals = (
   intervals,
   timeScale, currentDate,

@@ -1,6 +1,15 @@
 export const STUB_TYPE = 'stub';
 export const VISIBLE_TYPE = 'visible';
 
+export const getVisibleBoundaryWithFixed = (
+  visibleBoundary, items,
+) => items.reduce((acc, item, index) => {
+  if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
+    acc.push([index, index]);
+  }
+  return acc;
+}, [visibleBoundary]);
+
 export const getVisibleBoundary = (items, viewportStart, viewportSize, getItemSize, overscan) => {
   let start = null;
   let end = null;
@@ -39,56 +48,70 @@ export const getVisibleBoundary = (items, viewportStart, viewportSize, getItemSi
   return [start, end];
 };
 
-export const getSpanBoundary = (items, visibleBoundary, getItemSpan) => {
-  let start = visibleBoundary[0];
-  let end = visibleBoundary[1];
+export const getSpanBoundary = (items, visibleBoundaries, getItemSpan) => visibleBoundaries
+  .map((visibleBoundary) => {
+    let [start, end] = visibleBoundary;
 
-  for (let index = 0; index <= visibleBoundary[1]; index += 1) {
-    const span = getItemSpan(items[index]);
-    if (index < visibleBoundary[0] && index + span > visibleBoundary[0]) {
-      start = index;
+    for (let index = 0; index <= visibleBoundary[1]; index += 1) {
+      const span = getItemSpan(items[index]);
+      if (index < visibleBoundary[0] && index + span > visibleBoundary[0]) {
+        start = index;
+      }
+      if (index + (span - 1) > visibleBoundary[1]) {
+        end = index + (span - 1);
+      }
     }
-    if (index + (span - 1) > visibleBoundary[1]) {
-      end = index + (span - 1);
-    }
-  }
-
-  return [start, end];
-};
-
-export const collapseBoundaries = (itemsCount, visibleBoundary, spanBoundaries) => {
-  const beforePoints = new Set([0, visibleBoundary[0]]);
-  const afterPoints = new Set([visibleBoundary[1], itemsCount - 1]);
-  spanBoundaries.forEach((boundary) => {
-    beforePoints.add(boundary[0]);
-    afterPoints.add(boundary[1]);
+    return [start, end];
   });
 
+export const collapseBoundaries = (itemsCount, visibleBoundaries, spanBoundaries) => {
   const boundaries = [];
 
-  let lastBeforePoint = null;
-  Array.from(beforePoints).sort((a, b) => a - b).forEach((point) => {
-    if (lastBeforePoint === null) {
-      lastBeforePoint = point;
-      return;
+  const visiblePoints = visibleBoundaries.reduce((acc, boundary) => {
+    for (let point = boundary[0]; point <= boundary[1]; point += 1) {
+      acc.push(point);
     }
-    boundaries.push([lastBeforePoint, point - 1]);
-    lastBeforePoint = point;
-  });
+    return acc;
+  }, []);
 
-  for (let index = visibleBoundary[0]; index <= visibleBoundary[1]; index += 1) {
-    boundaries.push([index, index]);
+  const spanStartPoints = new Set();
+  const spanEndPoints = new Set();
+  spanBoundaries.forEach(rowBoundaries => rowBoundaries
+    .forEach((boundary) => {
+      spanStartPoints.add(boundary[0]);
+      spanEndPoints.add(boundary[1]);
+    }));
+
+  let lastPoint;
+  for (let index = 0; index < itemsCount; index += 1) {
+    if (visiblePoints.indexOf(index) !== -1) {
+      if (lastPoint !== undefined) {
+        boundaries.push([lastPoint, index - 1]);
+        lastPoint = undefined;
+      }
+      boundaries.push([index, index]);
+    } else if (spanStartPoints.has(index)) {
+      if (index > 0) {
+        boundaries.push([
+          lastPoint !== undefined ? lastPoint : index,
+          index - 1,
+        ]);
+      }
+      lastPoint = index;
+    } else if (spanEndPoints.has(index)) {
+      boundaries.push([
+        lastPoint !== undefined ? lastPoint : index,
+        index,
+      ]);
+      lastPoint = undefined;
+    } else if (lastPoint === undefined) {
+      lastPoint = index;
+    }
   }
 
-  let lastAfterPoint = null;
-  Array.from(afterPoints).sort((a, b) => a - b).forEach((point) => {
-    if (lastAfterPoint === null) {
-      lastAfterPoint = point;
-      return;
-    }
-    boundaries.push([lastAfterPoint + 1, point]);
-    lastAfterPoint = point;
-  });
+  if (lastPoint !== undefined) {
+    boundaries.push([lastPoint, itemsCount - 1]);
+  }
 
   return boundaries;
 };
@@ -103,10 +126,13 @@ const getColumnsSize = (columns, startIndex, endIndex, getColumnSize) => {
   return size;
 };
 
-export const getCollapsedColumns = (columns, visibleBoundary, boundaries, getColumnWidth) => {
+export const getCollapsedColumns = (columns, visibleBoundaries, boundaries, getColumnWidth) => {
   const collapsedColumns = [];
   boundaries.forEach((boundary) => {
-    const isVisible = visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1];
+    const isVisible = visibleBoundaries.reduce((acc, visibleBoundary) => (
+      acc || (visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1])
+    ), false);
+
     if (isVisible) {
       const column = columns[boundary[0]];
       collapsedColumns.push(column);
@@ -144,12 +170,13 @@ export const getCollapsedRows = (rows, visibleBoundary, boundaries, getRowHeight
   return collapsedColumns;
 };
 
-export const getCollapsedCells = (columns, spanBoundary, boundaries, getColSpan) => {
+export const getCollapsedCells = (columns, spanBoundaries, boundaries, getColSpan) => {
   const collapsedColumns = [];
   let index = 0;
   while (index < boundaries.length) {
     const boundary = boundaries[index];
-    const isSpan = spanBoundary[0] <= boundary[0] && boundary[1] <= spanBoundary[1];
+    const isSpan = spanBoundaries.reduce((acc, spanBoundary) => (
+      acc || (spanBoundary[0] <= boundary[0] && boundary[1] <= spanBoundary[1])), false);
     if (isSpan) {
       const column = columns[boundary[0]];
       const realColSpan = getColSpan(column);
@@ -196,7 +223,10 @@ export const getCollapsedGrid = ({
     };
   }
   const rowsVisibleBoundary = getVisibleBoundary(rows, top, height, getRowHeight, 3);
-  const columnsVisibleBoundary = getVisibleBoundary(columns, left, width, getColumnWidth, 1);
+  const columnsVisibleBoundary = getVisibleBoundaryWithFixed(
+    getVisibleBoundary(columns, left, width, getColumnWidth, 1),
+    columns,
+  );
 
   const rowSpanBoundaries = rows
     .slice(rowsVisibleBoundary[0], rowsVisibleBoundary[1])
@@ -211,7 +241,7 @@ export const getCollapsedGrid = ({
     rowSpanBoundaries,
   );
 
-  const rowBoundaries = collapseBoundaries(rows.length, rowsVisibleBoundary, []);
+  const rowBoundaries = collapseBoundaries(rows.length, [rowsVisibleBoundary], []);
 
   return {
     columns: getCollapsedColumns(

@@ -6,10 +6,6 @@ import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 import { GroupingControl } from './table-header-cell/grouping-control';
-import { SortingControl } from './table-header-cell/sorting-control';
-
-const ENTER_KEY_CODE = 13;
-const SPACE_KEY_CODE = 32;
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -18,48 +14,30 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
-    this.onClick = (e) => {
-      const { sortingEnabled, showSortingControls, onSort } = this.props;
-      const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
-      const isMouseClick = e.keyCode === undefined;
-
-      if ((!showSortingControls || !sortingEnabled) || !(isActionKeyDown || isMouseClick)) return;
-
-      const cancelSortingRelatedKey = e.metaKey || e.ctrlKey;
-      const direction = (isMouseClick || isActionKeyDown) && cancelSortingRelatedKey
-        ? null
-        : undefined;
-
-      e.preventDefault();
-      onSort({
-        direction,
-        keepOther: e.shiftKey || cancelSortingRelatedKey,
-      });
-    };
   }
 
   render() {
     const {
-      className, column, tableColumn, before,
-      showSortingControls, sortingDirection, sortingEnabled,
+      className, column, tableColumn,
       showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft,
-      tableRow, getMessage, onSort,
+      tableRow, getMessage, children,
+      // @deprecated
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
     const align = (tableColumn && tableColumn.align) || 'left';
-    const columnTitle = column && (column.title || column.name);
-    const isCellInteractive = (showSortingControls && sortingEnabled) || draggingEnabled;
 
     const cellLayout = (
       <th
         className={classNames({
           'position-relative dx-g-bs4-header-cell': true,
-          'dx-g-bs4-user-select-none': isCellInteractive,
+          'dx-g-bs4-user-select-none': draggingEnabled,
           'dx-g-bs4-cursor-pointer': draggingEnabled,
           'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
+          'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         }, className)}
         scope="col"
         {...restProps}
@@ -67,26 +45,7 @@ export class TableHeaderCell extends React.PureComponent {
         <div
           className="d-flex flex-direction-row align-items-center"
         >
-          {before}
-          <div
-            className={classNames({
-              'dx-g-bs4-table-header-cell-wrapper': true,
-              'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
-              [`text-${align}`]: align !== 'left',
-            })}
-          >
-            {showSortingControls ? (
-              <SortingControl
-                align={align}
-                disabled={!sortingEnabled}
-                sortingDirection={sortingDirection}
-                columnTitle={columnTitle}
-                onClick={this.onClick}
-              />
-            ) : (
-              columnTitle
-            )}
-          </div>
+          {children}
           {showGroupingControls && (
             <div>
               <GroupingControl
@@ -139,6 +98,10 @@ TableHeaderCell.propTypes = {
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
   getMessage: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 TableHeaderCell.defaultProps = {
@@ -160,4 +123,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   getMessage: undefined,
+  children: undefined,
 };

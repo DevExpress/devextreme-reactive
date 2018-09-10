@@ -1,26 +1,51 @@
+/* globals window:true */
+
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
 
-export const Cell = ({
-  style, column, value, children,
-  tableRow, tableColumn, row,
-  ...restProps
-}) => (
-  <th
-    style={{
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      borderBottom: '1px solid #ddd',
-      borderLeft: '1px solid #ddd',
-      borderRight: '1px solid #ddd',
-      ...style,
-    }}
-    {...restProps}
-  >
-    {children}
-  </th>
-);
+let borderColor;
+
+export class Cell extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { borderColor };
+  }
+
+  componentDidMount() {
+    const { borderColor: stateBorderColor } = this.state;
+    if (!stateBorderColor) {
+      // eslint-disable-next-line react/no-find-dom-node
+      borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
+      this.setState({ borderColor });
+    }
+  }
+
+  render() {
+    const {
+      style, column, value, children,
+      tableRow, tableColumn, row,
+      ...restProps
+    } = this.props;
+
+    return (
+      <th
+        style={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          borderTop: 'none',
+          borderBottom: `1px solid ${borderColor}`,
+          borderRight: `1px solid ${borderColor}`,
+          ...style,
+        }}
+        {...restProps}
+      >
+        {children}
+      </th>
+    );
+  }
+}
 
 Cell.propTypes = {
   style: PropTypes.object,

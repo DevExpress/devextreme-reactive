@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { memoize } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -31,6 +32,16 @@ const pluginDependencies = [
 ];
 
 export class Table extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.tableColumnsComputed = memoize(
+      columnExtensions => ({
+        columns,
+      }) => tableColumnsWithDataRows(columns, columnExtensions),
+    );
+  }
+
   render() {
     const {
       layoutComponent: Layout,
@@ -51,9 +62,7 @@ export class Table extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter(messages);
-    const tableColumnsComputed = (
-      { columns },
-    ) => tableColumnsWithDataRows(columns, columnExtensions);
+    const tableColumnsComputed = this.tableColumnsComputed(columnExtensions);
 
     return (
       <Plugin
@@ -103,8 +112,7 @@ export class Table extends React.PureComponent {
               ) => (isHeaderStubTableCell(params.tableRow, headerRows)
                 ? <StubHeaderCell {...params} />
                 : <StubCell {...params} />
-              )
-              }
+              )}
             </TemplateConnector>
           )}
         </Template>

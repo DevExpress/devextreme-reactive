@@ -1,4 +1,4 @@
-const TABLE_FLEX_TYPE = 'flex';
+import { TABLE_FLEX_TYPE } from '@devexpress/dx-grid-core';
 
 export const TableLayout = {
   props: {

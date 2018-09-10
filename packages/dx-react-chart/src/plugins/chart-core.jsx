@@ -10,10 +10,14 @@ export class ChartCore extends React.PureComponent {
     } = this.props;
     const getArgumentAxisName = ({ argumentAxisName }) => axisName(argumentAxisName);
     const processedData = ({ series, processingData }) => prepareData(data, series, processingData);
+    const calculatedDomains = ({
+      axes, series, data: chartData, argumentAxisName, startFromZero, computedDomain,
+    }) => computedDomain(axes, series, chartData, argumentAxisName, startFromZero);
     return (
       <Plugin>
         <Getter name="data" computed={processedData} />
         <Getter name="argumentAxisName" computed={getArgumentAxisName} />
+        <Getter name="domains" computed={calculatedDomains} />
       </Plugin>
     );
   }

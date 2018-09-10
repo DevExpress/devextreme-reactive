@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-vue-grid-bootstrap4",
-  "version": "1.7.2",
+  "version": "1.8.0-beta.1",
   "description": "Bootstrap 4 templates for DevExtreme Vue Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -40,7 +40,7 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "1.7.2",
+    "@devexpress/dx-testing": "1.8.0-beta.1",
     "@vue/test-utils": "1.0.0-beta.12",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -69,12 +69,12 @@
     "vue-template-compiler": "^2.5.17"
   },
   "dependencies": {
-    "@devexpress/dx-core": "1.7.2",
-    "@devexpress/dx-grid-core": "1.7.2"
+    "@devexpress/dx-core": "1.8.0-beta.1",
+    "@devexpress/dx-grid-core": "1.8.0-beta.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-vue-core": "1.7.2",
-    "@devexpress/dx-vue-grid": "1.7.2",
+    "@devexpress/dx-vue-core": "1.8.0-beta.1",
+    "@devexpress/dx-vue-grid": "1.8.0-beta.1",
     "vue": ">=2.5.16"
   }
 }

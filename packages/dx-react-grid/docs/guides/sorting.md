@@ -41,7 +41,7 @@ You can prevent sorting by a specific column using the [SortingState](../referen
 
 ## Using Sorting with Grouping
 
-The Grid's grouping features allow you to sort groups as well as data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true, which enables the sorting UI for the Group Panel's column headers.
+The Grid's grouping features allow you to sort groups and data rows. For this, set the `GroupingPanel` plugin's `showSortingControls` property to true to enable the sorting UI for the Group Panel's column headers.
 
 .embedded-demo({ "path": "grid-sorting/group-sorting", "showThemeSelector": true })
 
@@ -51,11 +51,17 @@ The [IntegratedSorting](../reference/integrated-sorting.md) plugin's `columnExte
 
 .embedded-demo({ "path": "grid-sorting/custom-sorting", "showThemeSelector": true })
 
+## Custom Sort Label
+
+You can override the [TableHeaderRow](../reference/table-header-row.md) plugin's `sortLabelComponent` property to render sort labels using a custom component.
+
+.embedded-demo({ "path": "grid-sorting/custom-sort-label", "showThemeSelector": true })
+
 ## Remote Sorting
 
-You can perform remote sorting by handling sorting state changes, generating a request, and sending it to the server.
+You can sort remotely by handling sorting state changes, generating a request, and sending it to the server.
 
-Sorting options are updated once an end-user interacts with a column header in the header row or Group Panel. Handle sorting option changes using the `SortingState` plugin's `onSortingChange` event and request data from the server using the applied sorting options. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
+Sorting options are updated when an end-user interacts with a column header in the header row or Group Panel. Use the `SortingState` plugin's `onSortingChange` event to handle sorting option changes and use these options to request data from the server. Once the sorted data is received from the server, pass it to the `Grid` component's `rows` property.
 
 Note that you do not need to use the `IntegratedSorting` plugin for remote sorting.
 

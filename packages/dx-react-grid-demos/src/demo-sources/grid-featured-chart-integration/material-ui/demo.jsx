@@ -6,6 +6,7 @@ import {
 } from '@devexpress/dx-react-grid';
 import {
   Stack,
+  Scale,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -125,6 +126,7 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
           <ChartGrid />
           {barSeriesForCity(regionCities)}
           <Stack />
+          <Scale />
           <Legend
             rootComponent={legendRoot}
             labelComponent={legendLabel}

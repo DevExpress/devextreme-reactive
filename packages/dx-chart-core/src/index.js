@@ -1,4 +1,4 @@
-export * from './plugins/integrated-scale-processing/computeds';
+export * from './plugins/scale/computeds';
 export * from './plugins/layout-manager/computeds';
 export * from './plugins/axis/computeds';
 export * from './plugins/series/computeds';

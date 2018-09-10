@@ -8,7 +8,7 @@ export const Cell = ({
   className, ...restProps
 }) => (
   <th
-    className={classNames('dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-left border-right border-bottom', className)}
+    className={classNames('dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right', className)}
     {...restProps}
   >
     {children}

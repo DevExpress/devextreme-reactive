@@ -6,7 +6,8 @@ import {
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
-  PagingPanel, DragDropProvider, TableColumnReordering, TableSummaryRow,
+  PagingPanel, DragDropProvider, TableColumnReordering,
+  TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-bootstrap4';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter, Card,
@@ -137,8 +138,12 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right', width: 150 },
-        { columnName: 'discount', width: 110 },
+        { columnName: 'product', width: 200 },
+        { columnName: 'region', width: 180 },
+        { columnName: 'amount', width: 180, align: 'right' },
+        { columnName: 'discount', width: 180 },
+        { columnName: 'saleDate', width: 180 },
+        { columnName: 'customer', width: 200 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -155,6 +160,7 @@ export default class Demo extends React.PureComponent {
       columnOrder: ['product', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
       totalSummaryItems: [
         { columnName: 'discount', type: 'avg' },
         { columnName: 'amount', type: 'sum' },
@@ -234,6 +240,7 @@ export default class Demo extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      fixedColumnTypes,
       totalSummaryItems,
     } = this.state;
 
@@ -295,6 +302,9 @@ export default class Demo extends React.PureComponent {
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableFixedColumns
+            beforeColumnTypes={fixedColumnTypes}
+          />
           <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
@@ -311,7 +321,7 @@ export default class Demo extends React.PureComponent {
           </ModalHeader>
           <ModalBody>
             <p>
-Are you sure to delete the following row?
+              Are you sure to delete the following row?
             </p>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
@@ -328,10 +338,10 @@ Are you sure to delete the following row?
           </ModalBody>
           <ModalFooter>
             <Button onClick={this.cancelDelete}>
-Cancel
+              Cancel
             </Button>
             <Button className="btn-danger" onClick={this.deleteRows}>
-Delete
+              Delete
             </Button>
           </ModalFooter>
         </Modal>

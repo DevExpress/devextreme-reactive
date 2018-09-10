@@ -8,8 +8,8 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  FIXED_COLUMN_BEFORE_SIDE,
-  FIXED_COLUMN_AFTER_SIDE,
+  FIXED_COLUMN_LEFT_SIDE,
+  FIXED_COLUMN_RIGHT_SIDE,
   isFixedTableRow,
   getFixedColumnKeys,
   tableColumnsWithFixed,
@@ -52,10 +52,10 @@ export class TableFixedColumns extends React.PureComponent {
 
   render() {
     const {
-      beforeColumnNames,
-      beforeColumnTypes,
-      afterColumnNames,
-      afterColumnTypes,
+      leftColumnNames,
+      leftColumnTypes,
+      rightColumnNames,
+      rightColumnTypes,
       cellComponent: Cell,
       listenerRowComponent: ListenerRow,
       listenerCellComponent: ListenerCell,
@@ -66,10 +66,10 @@ export class TableFixedColumns extends React.PureComponent {
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithFixed(
       tableColumns,
-      beforeColumnNames,
-      beforeColumnTypes,
-      afterColumnNames,
-      afterColumnTypes,
+      leftColumnNames,
+      leftColumnTypes,
+      rightColumnNames,
+      rightColumnTypes,
     );
 
     return (
@@ -88,9 +88,9 @@ export class TableFixedColumns extends React.PureComponent {
               {({ tableColumns }) => {
                 const { tableColumn } = params;
                 const { fixed: side } = tableColumn;
-                const targetArray = side === FIXED_COLUMN_BEFORE_SIDE
-                  ? getFixedColumnKeys(tableColumns, beforeColumnNames, beforeColumnTypes)
-                  : getFixedColumnKeys(tableColumns, afterColumnNames, afterColumnTypes);
+                const targetArray = side === FIXED_COLUMN_LEFT_SIDE
+                  ? getFixedColumnKeys(tableColumns, leftColumnNames, leftColumnTypes)
+                  : getFixedColumnKeys(tableColumns, rightColumnNames, rightColumnTypes);
 
                 const fixedIndex = targetArray.indexOf(tableColumn.key);
                 const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
@@ -106,9 +106,9 @@ export class TableFixedColumns extends React.PureComponent {
                   return false;
                 };
 
-                const showRightDivider = isBoundary(FIXED_COLUMN_BEFORE_SIDE)
+                const showRightDivider = isBoundary(FIXED_COLUMN_LEFT_SIDE)
                   || (index !== tableColumns.length - 1 && isStandAlone(1));
-                const showLeftDivider = isBoundary(FIXED_COLUMN_AFTER_SIDE)
+                const showLeftDivider = isBoundary(FIXED_COLUMN_RIGHT_SIDE)
                   || (index !== 0 && isStandAlone(-1));
 
                 const position = fixedIndex === 0
@@ -159,18 +159,18 @@ export class TableFixedColumns extends React.PureComponent {
 }
 
 TableFixedColumns.propTypes = {
-  beforeColumnNames: PropTypes.arrayOf(PropTypes.string),
-  afterColumnNames: PropTypes.arrayOf(PropTypes.string),
-  beforeColumnTypes: PropTypes.arrayOf(PropTypes.string),
-  afterColumnTypes: PropTypes.arrayOf(PropTypes.string),
+  leftColumnNames: PropTypes.arrayOf(PropTypes.string),
+  rightColumnNames: PropTypes.arrayOf(PropTypes.string),
+  leftColumnTypes: PropTypes.arrayOf(PropTypes.string),
+  rightColumnTypes: PropTypes.arrayOf(PropTypes.string),
   cellComponent: PropTypes.func.isRequired,
   listenerRowComponent: PropTypes.func.isRequired,
   listenerCellComponent: PropTypes.func.isRequired,
 };
 
 TableFixedColumns.defaultProps = {
-  beforeColumnNames: [],
-  afterColumnNames: [],
-  beforeColumnTypes: [],
-  afterColumnTypes: [],
+  leftColumnNames: [],
+  rightColumnNames: [],
+  leftColumnTypes: [],
+  rightColumnTypes: [],
 };

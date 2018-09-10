@@ -1,42 +1,52 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { pieAttributes } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin } from '../utils';
+import * as seriesComponents from '../templates/series';
+import { withSeriesPlugin, bindSeriesComponents } from '../utils';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    pointComponent: Point,
-    coordinates,
-    colorDomain,
-    uniqueName,
-    ...restProps
-  } = props;
-  const { innerRadius, outerRadius, ...pointOptions } = restProps;
-  return (coordinates.map(item => (
-    <Point
-      key={item.id.toString()}
-      {...item}
-      {...pointOptions}
-      color={colorDomain(item.id)}
-    />
-  )));
+// TODO: Use `seriesComponent` here.
+class Series extends React.PureComponent {
+  render() {
+    const {
+      pointComponent: Point,
+      coordinates,
+      colorDomain,
+      uniqueName,
+      ...restProps
+    } = this.props;
+    const { innerRadius, outerRadius, ...pointOptions } = restProps;
+    return (coordinates.map(item => (
+      <Point
+        key={item.id.toString()}
+        {...item}
+        {...pointOptions}
+        color={colorDomain(item.id)}
+      />
+    )));
+  }
+}
+
+Series.propTypes = {
+  pointComponent: PropTypes.func.isRequired,
+  style: PropTypes.object,
 };
 
-export const PieSeries = withSeriesPlugin(
+Series.defaultProps = {
+  style: {},
+};
+
+const SeriesWithSeries = withSeriesPlugin(
   Series,
   'PieSeries',
   'arc',
   pieAttributes,
 );
 
-
-Series.propTypes = {
-  style: PropTypes.object,
-  pointComponent: PropTypes.func.isRequired,
+SeriesWithSeries.components = {
+  pointComponent: {
+    name: 'Slice',
+    exposedName: 'Point',
+  },
 };
 
-Series.defaultProps = {
-  style: {},
-};
+export const PieSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);

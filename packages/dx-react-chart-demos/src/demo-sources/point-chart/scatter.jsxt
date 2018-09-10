@@ -34,7 +34,7 @@ const dataGenerator = (pointCount) => {
   }
   return data;
 };
-const EmptyComponent =() => null;
+const EmptyComponent = () => null;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

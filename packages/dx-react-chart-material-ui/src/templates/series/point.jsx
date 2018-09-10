@@ -1,5 +1,4 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { Point as PointBase, patchProps } from '@devexpress/dx-react-chart';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -8,37 +7,10 @@ const styles = () => ({
     stroke: 'none',
   },
 });
-class PointBase extends React.PureComponent {
-  render() {
-    const {
-      x, y, classes, className, seriesComponent, value, color, ...restProps
-    } = this.props;
-    return (
-      <path
-        fill={color}
-        transform={`translate(${x} ${y})`}
-        className={classNames(classes.root, className)}
-        {...restProps}
-      />
-    );
-  }
-}
 
-PointBase.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  d: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  seriesComponent: PropTypes.any,
-  color: PropTypes.string,
-};
+const setClassName = ({ className, classes, ...restProps }) => ({
+  ...restProps,
+  className: classNames(classes.root, className),
+});
 
-PointBase.defaultProps = {
-  className: undefined,
-  seriesComponent: undefined,
-  color: undefined,
-};
-
-export const Point = withStyles(styles)(PointBase);
+export const Point = withStyles(styles)(patchProps(PointBase, setClassName));

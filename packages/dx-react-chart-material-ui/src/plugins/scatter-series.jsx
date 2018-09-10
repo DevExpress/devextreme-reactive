@@ -1,17 +1,4 @@
-import * as React from 'react';
-import { ScatterSeries as ScatterSeriesBase } from '@devexpress/dx-react-chart';
-import { Point } from '../templates/series/point';
+import { ScatterSeries as ScatterSeriesBase, bindSeriesComponents } from '@devexpress/dx-react-chart';
+import * as seriesComponents from '../templates/series';
 
-export class ScatterSeries extends React.PureComponent {
-  render() {
-    return (
-      <ScatterSeriesBase
-        pointComponent={Point}
-        {...this.props}
-      />
-    );
-  }
-}
-
-ScatterSeries.Point = Point;
-ScatterSeries.Path = ScatterSeriesBase.Path;
+export const ScatterSeries = bindSeriesComponents(ScatterSeriesBase, seriesComponents);

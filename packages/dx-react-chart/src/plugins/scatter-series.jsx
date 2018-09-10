@@ -1,49 +1,63 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin, withColor } from '../utils';
+import * as seriesComponents from '../templates/series';
+import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    pointComponent: Point,
-    coordinates,
-    point = {},
-    ...restProps
-  } = props;
-  const getAttributes = pointAttributes(point);
-  return (coordinates.map(item => (
-    <Point
-      key={item.id.toString()}
-      {...getAttributes(item)}
-      {...item}
-      {...restProps}
-    />
-  )));
+class SeriesComponent extends React.PureComponent {
+  render() {
+    const {
+      pointComponent: Point,
+      coordinates,
+      point = {},
+      ...restProps
+    } = this.props;
+    const getAttributes = pointAttributes(point);
+    return (coordinates.map(item => (
+      <Point
+        key={item.id.toString()}
+        {...getAttributes(item)}
+        {...item}
+        {...restProps}
+      />
+    )));
+  }
+}
+
+// eslint-disable-next-line react/no-multi-comp
+class Series extends React.PureComponent {
+  render() {
+    const {
+      seriesComponent: Path,
+      ...restProps
+    } = this.props;
+    return <Path {...restProps} />;
+  }
+}
+
+Series.propTypes = {
+  seriesComponent: PropTypes.func,
+  pointComponent: PropTypes.func.isRequired,
 };
 
-const BaseSeries = ({ Path, path, ...props }) => <Path {...props} />;
-
-BaseSeries.propTypes = {
-  Path: PropTypes.func,
-  path: PropTypes.func,
+Series.defaultProps = {
+  seriesComponent: SeriesComponent,
 };
 
-BaseSeries.defaultProps = {
-  Path: Series,
-  path: null,
-};
-
-export const ScatterSeries = withSeriesPlugin(
-  withColor(BaseSeries),
+const SeriesWithSeries = withSeriesPlugin(
+  withColor(Series),
   'ScatterSeries',
   'scatter',
   computeCoordinates,
 );
 
-ScatterSeries.Path = Series;
-
-Series.propTypes = {
-  pointComponent: PropTypes.func.isRequired,
+SeriesWithSeries.components = {
+  pointComponent: {
+    name: 'Point',
+    exposedName: 'Point',
+  },
 };
+
+export const ScatterSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+
+ScatterSeries.Path = SeriesComponent;

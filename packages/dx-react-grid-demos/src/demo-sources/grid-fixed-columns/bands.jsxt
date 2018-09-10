@@ -43,7 +43,7 @@ const columnBands = [
     ],
   },
 ];
-const beforeColumnNames = ['prefix', 'firstName'];
+const leftColumnNames = ['prefix', 'firstName'];
 const rows = generateRows({
   columnValues: employeeValues,
   length: 8,
@@ -68,7 +68,7 @@ export default () => (
         columnBands={columnBands}
       />
       <TableFixedColumns
-        beforeColumnNames={beforeColumnNames}
+        leftColumnNames={leftColumnNames}
       />
     </Grid>
   </<%&wrapperTag%>>

@@ -1,35 +1,45 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { dBar, barCoordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin, withColor } from '../utils';
+import * as seriesComponents from '../templates/series';
+import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    pointComponent: Point,
-    coordinates,
-    path,
-    barWidth,
-    ...restProps
-  } = props;
-  return (coordinates.map(item => (
-    <Point
-      key={item.id.toString()}
-      {...item}
-      {...dBar(item)}
-      {...restProps}
-    />
-  )));
+// TODO: Use `seriesComponent` here.
+class Series extends React.PureComponent {
+  render() {
+    const {
+      pointComponent: Point,
+      path,
+      coordinates,
+      ...restProps
+    } = this.props;
+    return (coordinates.map(item => (
+      <Point
+        key={item.id.toString()}
+        {...item}
+        {...dBar(item)}
+        {...restProps}
+      />
+    )));
+  }
+}
+
+Series.propTypes = {
+  pointComponent: PropTypes.func.isRequired,
 };
 
-export const BarSeries = withSeriesPlugin(
+const SeriesWithSeries = withSeriesPlugin(
   withColor(Series),
   'BarSeries',
   'bar',
   computeCoordinates,
 );
 
-Series.propTypes = {
-  pointComponent: PropTypes.func.isRequired,
+SeriesWithSeries.components = {
+  pointComponent: {
+    name: 'Bar',
+    exposedName: 'Point',
+  },
 };
+
+export const BarSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);

@@ -27,6 +27,6 @@ Slice.propTypes = {
 };
 
 Slice.defaultProps = {
-  style: null,
+  style: {},
   color: undefined,
 };

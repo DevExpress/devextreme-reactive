@@ -1,26 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
-import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
-
-class Series extends React.PureComponent {
-  render() {
-    const {
-      seriesComponent: Path,
-      ...restProps
-    } = this.props;
-    // TODO: `path` property should be passed.
-    return <Path {...restProps} />;
-  }
-}
-
-Series.propTypes = {
-  seriesComponent: PropTypes.func.isRequired,
-};
+import {
+  makeSeries, withSeriesPlugin, withColor, bindSeriesComponents,
+} from '../utils';
 
 const SeriesWithSeries = withSeriesPlugin(
-  withColor(Series),
+  withColor(makeSeries()), // TODO: d3Func is not used.
   'ScatterSeries',
   'scatter',
   computeCoordinates,

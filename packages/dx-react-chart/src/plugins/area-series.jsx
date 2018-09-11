@@ -1,25 +1,11 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { dArea, coordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
-import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
-
-class Series extends React.PureComponent {
-  render() {
-    const {
-      seriesComponent: Path,
-      ...restProps
-    } = this.props;
-    return <Path path={dArea} {...restProps} />;
-  }
-}
-
-Series.propTypes = {
-  seriesComponent: PropTypes.func.isRequired,
-};
+import {
+  makeSeries, withSeriesPlugin, withColor, bindSeriesComponents,
+} from '../utils';
 
 const SeriesWithSeries = withSeriesPlugin(
-  withColor(Series),
+  withColor(makeSeries(dArea)),
   'AreaSeries',
   'area',
   coordinates,

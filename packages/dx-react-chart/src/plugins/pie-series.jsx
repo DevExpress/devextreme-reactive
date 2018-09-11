@@ -10,7 +10,7 @@ class Series extends React.PureComponent {
       seriesComponent: Path,
       ...restProps
     } = this.props;
-    // TODO: Pass `path` property.
+    // TODO: `path` property should be passed.
     return <Path {...restProps} />;
   }
 }

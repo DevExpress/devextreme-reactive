@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
+import { coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
 import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
 
@@ -10,7 +10,8 @@ class Series extends React.PureComponent {
       seriesComponent: Path,
       ...restProps
     } = this.props;
-    return <Path path={pointAttributes} {...restProps} />;
+    // TODO: `path` property should be passed.
+    return <Path {...restProps} />;
   }
 }
 

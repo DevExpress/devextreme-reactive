@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// TODO: Is it fine to have it hard coded or should there be `path` property?
 export class SliceCollection extends React.PureComponent {
   render() {
     const {

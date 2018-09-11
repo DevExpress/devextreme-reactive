@@ -20,7 +20,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentView: 'Work Week',
+      currentView: 'Week',
     };
   }
 

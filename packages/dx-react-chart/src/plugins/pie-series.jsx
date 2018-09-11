@@ -4,30 +4,19 @@ import { pieAttributes } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
 import { withSeriesPlugin, bindSeriesComponents } from '../utils';
 
-// TODO: Use `seriesComponent` here.
 class Series extends React.PureComponent {
   render() {
     const {
-      pointComponent: Point,
-      coordinates,
-      colorDomain,
-      uniqueName,
+      seriesComponent: Path,
       ...restProps
     } = this.props;
-    const { innerRadius, outerRadius, ...pointOptions } = restProps;
-    return (coordinates.map(item => (
-      <Point
-        key={item.id.toString()}
-        {...item}
-        {...pointOptions}
-        color={colorDomain(item.id)}
-      />
-    )));
+    // TODO: Pass `path` property.
+    return <Path {...restProps} />;
   }
 }
 
 Series.propTypes = {
-  pointComponent: PropTypes.func.isRequired,
+  seriesComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
 };
 
@@ -43,6 +32,10 @@ const SeriesWithSeries = withSeriesPlugin(
 );
 
 SeriesWithSeries.components = {
+  seriesComponent: {
+    name: 'SliceCollection',
+    exposedName: 'Path',
+  },
   pointComponent: {
     name: 'Slice',
     exposedName: 'Point',

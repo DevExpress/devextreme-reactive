@@ -7,6 +7,7 @@ export class Path extends React.PureComponent {
       path,
       coordinates,
       color,
+      value,
       ...restProps
     } = this.props;
     return (

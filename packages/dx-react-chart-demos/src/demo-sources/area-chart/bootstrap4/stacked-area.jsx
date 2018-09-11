@@ -34,6 +34,8 @@ export default class Demo extends React.PureComponent {
       offset: null,
       valueFormat: null,
     };
+
+    this.changeSeriesType = this.changeSeriesType.bind(this);
   }
 
   changeSeriesType(e) {
@@ -98,7 +100,7 @@ export default class Demo extends React.PureComponent {
         </Chart>
         <div style={{ width: '200px', marginLeft: '50px', paddingBottom: '30px' }}>
           <h5>Series Type</h5>
-          <select className="custom-select" onChange={this.changeSeriesType.bind(this)}>
+          <select className="custom-select" onChange={this.changeSeriesType}>
             <option defaultValue value="1">Stacked Area</option>
             <option value="2">Fullstacked Area</option>
           </select>

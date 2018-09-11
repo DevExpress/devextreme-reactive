@@ -56,7 +56,7 @@ export default class Demo extends React.PureComponent {
             stack="one"
           />
           <BarSeries
-            name="Usa"
+            name="USA"
             valueField="usa"
             argumentField="year"
             stack="one"

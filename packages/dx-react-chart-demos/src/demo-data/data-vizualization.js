@@ -27,19 +27,19 @@ export const born = [
 
 export const australianMedals = [
   {
-    year: 1896, gold: 2, silver: null, bronze: null,
+    year: 1896, gold: 2, silver: 0, bronze: 0,
   }, {
-    year: 1900, gold: 2, silver: null, bronze: 3,
+    year: 1900, gold: 2, silver: 0, bronze: 3,
   }, {
-    year: 1904, gold: null, silver: null, bronze: null,
+    year: 1904, gold: 0, silver: 0, bronze: 0,
   }, {
     year: 1908, gold: 1, silver: 2, bronze: 2,
   }, {
     year: 1912, gold: 2, silver: 2, bronze: 3,
   }, {
-    year: 1916, gold: null, silver: null, bronze: null,
+    year: 1916, gold: 0, silver: 0, bronze: 0,
   }, {
-    year: 1920, gold: null, silver: 2, bronze: 1,
+    year: 1920, gold: 0, silver: 2, bronze: 1,
   }, {
     year: 1924, gold: 3, silver: 1, bronze: 2,
   }, {
@@ -47,11 +47,11 @@ export const australianMedals = [
   }, {
     year: 1932, gold: 3, silver: 1, bronze: 1,
   }, {
-    year: 1936, gold: null, silver: null, bronze: 1,
+    year: 1936, gold: 0, silver: 0, bronze: 1,
   }, {
-    year: 1940, gold: null, silver: null, bronze: null,
+    year: 1940, gold: 0, silver: 0, bronze: 0,
   }, {
-    year: 1944, gold: null, silver: null, bronze: null,
+    year: 1944, gold: 0, silver: 0, bronze: 0,
   }, {
     year: 1948, gold: 2, silver: 6, bronze: 5,
   }, {
@@ -88,36 +88,36 @@ export const australianMedals = [
 ];
 
 export const bitcoin = [
-  { date: new Date(2015, 11, 15), price: 346 },
-  { date: new Date(2015, 12, 17), price: 441 },
-  { date: new Date(2016, 1, 16), price: 435 },
-  { date: new Date(2016, 2, 21), price: 415 },
-  { date: new Date(2016, 4, 25), price: 445 },
-  { date: new Date(2016, 5, 29), price: 460 },
-  { date: new Date(2016, 6, 20), price: 730 },
-  { date: new Date(2016, 8, 5), price: 600 },
-  { date: new Date(2016, 9, 14), price: 617 },
-  { date: new Date(2016, 10, 30), price: 674 },
-  { date: new Date(2016, 12, 21), price: 785 },
-  { date: new Date(2017, 1, 8), price: 991 },
-  { date: new Date(2017, 2, 9), price: 1028 },
-  { date: new Date(2017, 3, 9), price: 1251 },
-  { date: new Date(2017, 4, 6), price: 1103 },
-  { date: new Date(2017, 5, 4), price: 1392 },
-  { date: new Date(2017, 6, 11), price: 2747 },
-  { date: new Date(2017, 7, 19), price: 2203 },
-  { date: new Date(2017, 8, 18), price: 4114 },
-  { date: new Date(2017, 9, 19), price: 3840 },
-  { date: new Date(2017, 10, 19), price: 5591 },
-  { date: new Date(2017, 11, 14), price: 6716 },
-  { date: new Date(2017, 12, 22), price: 17905 },
-  { date: new Date(2018, 1, 23), price: 11438 },
-  { date: new Date(2018, 2, 10), price: 8125 },
-  { date: new Date(2018, 3, 6), price: 11079 },
-  { date: new Date(2018, 4, 7), price: 6913 },
-  { date: new Date(2018, 5, 9), price: 9511 },
-  { date: new Date(2018, 6, 6), price: 7553 },
-  { date: new Date(2018, 7, 18), price: 6400 },
+  { date: new Date(2015, 10, 15), price: 346 },
+  { date: new Date(2015, 11, 17), price: 441 },
+  { date: new Date(2016, 0, 16), price: 435 },
+  { date: new Date(2016, 1, 21), price: 415 },
+  { date: new Date(2016, 3, 25), price: 445 },
+  { date: new Date(2016, 4, 29), price: 460 },
+  { date: new Date(2016, 5, 20), price: 730 },
+  { date: new Date(2016, 7, 5), price: 600 },
+  { date: new Date(2016, 8, 14), price: 617 },
+  { date: new Date(2016, 9, 30), price: 674 },
+  { date: new Date(2016, 11, 21), price: 785 },
+  { date: new Date(2017, 0, 8), price: 991 },
+  { date: new Date(2017, 1, 9), price: 1028 },
+  { date: new Date(2017, 2, 9), price: 1251 },
+  { date: new Date(2017, 3, 6), price: 1103 },
+  { date: new Date(2017, 4, 4), price: 1392 },
+  { date: new Date(2017, 5, 11), price: 2747 },
+  { date: new Date(2017, 6, 19), price: 2203 },
+  { date: new Date(2017, 7, 18), price: 4114 },
+  { date: new Date(2017, 8, 19), price: 3840 },
+  { date: new Date(2017, 9, 19), price: 5591 },
+  { date: new Date(2017, 10, 14), price: 6716 },
+  { date: new Date(2017, 11, 22), price: 17905 },
+  { date: new Date(2018, 0, 23), price: 11438 },
+  { date: new Date(2018, 1, 10), price: 8125 },
+  { date: new Date(2018, 2, 6), price: 11079 },
+  { date: new Date(2018, 3, 7), price: 6913 },
+  { date: new Date(2018, 4, 9), price: 9511 },
+  { date: new Date(2018, 5, 6), price: 7553 },
+  { date: new Date(2018, 6, 18), price: 6400 },
 ];
 
 export const population = [{

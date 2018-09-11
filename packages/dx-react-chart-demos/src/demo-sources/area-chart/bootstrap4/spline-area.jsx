@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
       <Card>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className="pr-3"
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" className="w-100 text-center mb-2" />
         </Chart>
       </Card>
     );

@@ -64,7 +64,7 @@ export default class Demo extends React.PureComponent {
             color="#cd7f32"
           />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Olimpic Medals in 2008" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Olimpic Medals in 2008" className="w-100 text-center mb-2" />
           <Stack />
           <Scale />
         </Chart>

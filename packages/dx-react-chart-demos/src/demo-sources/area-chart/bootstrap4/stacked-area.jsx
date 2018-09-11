@@ -53,7 +53,7 @@ export default class Demo extends React.PureComponent {
       <Card>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className="pr-3"
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
           <ValueAxis
@@ -94,11 +94,11 @@ export default class Demo extends React.PureComponent {
             stack="one"
           />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Carbon Emission Estimates" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Carbon Emission Estimates" className="w-100 text-center mb-2" />
           <Scale />
           <Stack offset={offset} />
         </Chart>
-        <div style={{ width: '200px', marginLeft: '50px', paddingBottom: '30px' }}>
+        <div className="pb-5 pl-5 w-200" style={{ width: '200px' }}>
           <h5>Series Type</h5>
           <select className="custom-select" onChange={this.changeSeriesType}>
             <option defaultValue value="1">Stacked Area</option>

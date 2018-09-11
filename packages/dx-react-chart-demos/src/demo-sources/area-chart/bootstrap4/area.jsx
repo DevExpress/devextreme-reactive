@@ -54,7 +54,7 @@ export default class Demo extends React.PureComponent {
       <Card>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className="pr-3"
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
@@ -79,7 +79,7 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Worldwide Sales to End Users by OS"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+            className="w-100 text-center mb-2"
           />
         </Chart>
       </Card>

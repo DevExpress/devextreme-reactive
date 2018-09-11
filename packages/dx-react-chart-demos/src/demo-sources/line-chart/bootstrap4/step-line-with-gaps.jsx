@@ -106,7 +106,7 @@ export default class Demo extends React.PureComponent {
             seriesComponent={LineWithPoint}
           />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Australian Medal Count" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Australian Medal Count" className="w-100 text-center mb-2" />
           <Scale />
         </Chart>
       </Card>

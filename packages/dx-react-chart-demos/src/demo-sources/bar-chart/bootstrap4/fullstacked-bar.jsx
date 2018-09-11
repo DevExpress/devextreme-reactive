@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
             stack="one"
           />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Oil Production" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Oil Production" className="w-100 text-center mb-2" />
           <Stack offset={stackOffsetExpand} />
           <Scale />
         </Chart>

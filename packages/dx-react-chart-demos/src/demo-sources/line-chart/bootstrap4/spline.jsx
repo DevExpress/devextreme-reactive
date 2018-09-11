@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
       <Card>
         <Chart
           data={chartData}
-          style={{ paddingRight: '30px' }}
+          className="pr-4"
         >
           <ArgumentAxis />
           <ValueAxis
@@ -119,7 +119,7 @@ export default class Demo extends React.PureComponent {
             text="Energy Consumption in 2004"
             subtext="(Millions of Tons, Oil Equivalent)"
             textComponent={Text}
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+            className="w-100 text-center mb-2"
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>

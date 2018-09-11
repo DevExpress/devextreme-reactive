@@ -60,7 +60,7 @@ export default class Demo extends React.PureComponent {
       <Card>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className="pr-3"
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
           <ValueAxis
@@ -89,9 +89,7 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
-            style={{
-              textAlign: 'center', width: '100%', marginBottom: '10px', whiteSpace: 'pre',
-            }}
+            className="w-100 text-center mb-2"
           />
           <Scale />
         </Chart>

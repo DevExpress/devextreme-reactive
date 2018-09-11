@@ -77,7 +77,7 @@ export default class Demo extends React.PureComponent {
             stack="one"
           />
           <Legend position="bottom" rootComponent={Root} />
-          <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className="w-100 text-center mb-2" />
           <Stack />
           <Scale />
         </Chart>

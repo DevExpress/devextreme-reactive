@@ -1,6 +1,5 @@
-import { Point as PointBase, patchProps } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Point as PointBase } from '@devexpress/dx-react-chart';
+import { addStyleClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -8,9 +7,4 @@ const styles = () => ({
   },
 });
 
-const setClassName = ({ className, classes, ...restProps }) => ({
-  ...restProps,
-  className: classNames(classes.root, className),
-});
-
-export const Point = withStyles(styles)(patchProps(PointBase, setClassName));
+export const Point = addStyleClassName(styles)(PointBase);

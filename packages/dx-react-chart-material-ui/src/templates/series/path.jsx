@@ -1,6 +1,5 @@
-import { Path as PathBase, patchProps } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Path as PathBase } from '@devexpress/dx-react-chart';
+import { addStyleClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -9,9 +8,4 @@ const styles = () => ({
   },
 });
 
-const setClassName = ({ className, classes, ...restProps }) => ({
-  ...restProps,
-  className: classNames(classes.root, className),
-});
-
-export const Path = withStyles(styles)(patchProps(PathBase, setClassName));
+export const Path = addStyleClassName(styles)(PathBase);

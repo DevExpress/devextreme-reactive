@@ -1,6 +1,5 @@
-import { Area as AreaBase, patchProps } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Area as AreaBase } from '@devexpress/dx-react-chart';
+import { addStyleClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -8,9 +7,4 @@ const styles = () => ({
   },
 });
 
-const setClassName = ({ className, classes, ...restProps }) => ({
-  ...restProps,
-  className: classNames(classes.root, className),
-});
-
-export const Area = withStyles(styles)(patchProps(AreaBase, setClassName));
+export const Area = addStyleClassName(styles)(AreaBase);

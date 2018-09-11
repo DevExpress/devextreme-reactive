@@ -1,6 +1,5 @@
-import { Slice as SliceBase, patchProps } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Slice as SliceBase } from '@devexpress/dx-react-chart';
+import { addStyleClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -8,9 +7,4 @@ const styles = () => ({
   },
 });
 
-const setClassName = ({ className, classes, ...restProps }) => ({
-  ...restProps,
-  className: classNames(classes.root, className),
-});
-
-export const Slice = withStyles(styles)(patchProps(SliceBase, setClassName));
+export const Slice = addStyleClassName(styles)(SliceBase);

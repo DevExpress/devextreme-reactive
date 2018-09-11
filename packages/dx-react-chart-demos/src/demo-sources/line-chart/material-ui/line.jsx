@@ -22,9 +22,9 @@ const legendStyles = () => ({
     flexDirection: 'row',
   },
 });
-const legendLabelStyles = () => ({
+const legendLabelStyles = theme => ({
   label: {
-    paddingTop: '8px',
+    paddingTop: theme.spacing.unit,
     whiteSpace: 'nowrap',
   },
 });

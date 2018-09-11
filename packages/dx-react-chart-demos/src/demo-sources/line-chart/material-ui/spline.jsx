@@ -48,9 +48,9 @@ const legendStyles = () => ({
     flexDirection: 'row',
   },
 });
-const legendLabelStyles = () => ({
+const legendLabelStyles = theme => ({
   label: {
-    marginBottom: '8px',
+    marginBottom: theme.spacing.unit,
     whiteSpace: 'nowrap',
   },
 });

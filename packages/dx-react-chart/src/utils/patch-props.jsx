@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const patchProps = (Target, patch) => {
+export const patchProps = patch => (Target) => {
   class Component extends React.PureComponent {
     render() {
       const props = patch(this.props);

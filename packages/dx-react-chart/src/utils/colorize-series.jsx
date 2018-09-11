@@ -9,7 +9,7 @@ const setColor = ({
 });
 
 export const withColor = (Target) => {
-  const ColoredTarget = patchProps(Target, setColor);
+  const ColoredTarget = patchProps(setColor)(Target);
   ColoredTarget.propTypes = {
     color: PropTypes.string,
     colorDomain: PropTypes.func.isRequired,

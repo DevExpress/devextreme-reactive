@@ -22,4 +22,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const BarSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const BarSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

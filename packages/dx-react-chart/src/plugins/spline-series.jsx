@@ -18,4 +18,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const SplineSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const SplineSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

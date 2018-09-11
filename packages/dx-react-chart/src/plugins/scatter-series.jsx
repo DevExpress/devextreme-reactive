@@ -22,4 +22,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const ScatterSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const ScatterSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

@@ -18,4 +18,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const AreaSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const AreaSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

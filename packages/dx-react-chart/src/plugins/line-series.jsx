@@ -18,4 +18,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const LineSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const LineSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

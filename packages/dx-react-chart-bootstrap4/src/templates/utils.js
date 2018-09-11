@@ -6,5 +6,5 @@ export const addClassName = (value) => {
     ...restProps,
     className: classNames(value, className),
   });
-  return Target => patchProps(Target, setClassName);
+  return patchProps(setClassName);
 };

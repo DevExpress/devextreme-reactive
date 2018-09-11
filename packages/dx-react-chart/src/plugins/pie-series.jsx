@@ -20,4 +20,4 @@ SeriesWithSeries.components = {
   },
 };
 
-export const PieSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
+export const PieSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);

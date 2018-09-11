@@ -14,5 +14,5 @@ export const addStyleClassName = (styles) => {
     ...restProps,
     className: classNames(classes.root, className),
   });
-  return Target => withStyles(styles)(patchProps(Target, setClassName));
+  return withStyles(styles)(patchProps(setClassName));
 };

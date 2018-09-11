@@ -47,6 +47,7 @@ const defaultProps = {
   titleComponent: () => null,
   sortLabelComponent: () => null,
   rowComponent: () => null,
+  groupButtonComponent: () => null,
 };
 
 describe('TableHeaderRow', () => {
@@ -359,6 +360,37 @@ describe('TableHeaderRow', () => {
         .toBeTruthy();
       expect(sortLabel.props().title)
         .toBe('test');
+    });
+
+    it('should render group button if showGroupingControls is true', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+      const deps = {
+        plugins: ['GroupingState'],
+      };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <TableHeaderRow
+            {...defaultProps}
+            showGroupingControls
+            groupButtonComponent={() => (
+              <div className="group-button" />
+            )}
+            cellComponent={({ children }) => (
+              <th>
+                {children}
+              </th>
+            )}
+            messages={{
+              sortingHint: 'test',
+            }}
+          />
+        </PluginHost>
+      ));
+      const sortLabel = tree.find('.group-button');
+
+      expect(sortLabel.exists())
+        .toBeTruthy();
     });
   });
 });

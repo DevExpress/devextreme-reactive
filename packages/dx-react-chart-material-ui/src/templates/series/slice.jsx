@@ -1,5 +1,4 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { Slice as SliceBase, patchProps } from '@devexpress/dx-react-chart';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -9,34 +8,9 @@ const styles = () => ({
   },
 });
 
-class SliceBase extends React.PureComponent {
-  render() {
-    const {
-      x, y, classes, className, value, color, ...restProps
-    } = this.props;
-    return (
-      <path
-        fill={color}
-        transform={`translate(${x} ${y})`}
-        className={classNames(classes.root, className)}
-        {...restProps}
-      />
-    );
-  }
-}
+const setClassName = ({ className, classes, ...restProps }) => ({
+  ...restProps,
+  className: classNames(classes.root, className),
+});
 
-SliceBase.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  value: PropTypes.number.isRequired,
-  color: PropTypes.string,
-};
-
-SliceBase.defaultProps = {
-  className: undefined,
-  color: undefined,
-};
-
-export const Slice = withStyles(styles)(SliceBase);
+export const Slice = withStyles(styles)(patchProps(SliceBase, setClassName));

@@ -1,3 +1,5 @@
+import * as series from './plugins/series';
+
 export { Chart } from './chart';
 export { Legend } from './plugins/legend';
 export { Title } from './plugins/title';
@@ -5,16 +7,12 @@ export { Title } from './plugins/title';
 export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 
-export { BarSeries } from './plugins/bar-series';
-export { LineSeries } from './plugins/line-series';
-export { SplineSeries } from './plugins/spline-series';
-export { ScatterSeries } from './plugins/scatter-series';
-export { AreaSeries } from './plugins/area-series';
-export { PieSeries } from './plugins/pie-series';
-
+// For convenience purpose - so later all series can be patched
+export { series };
+export * from './plugins/series';
 export * from './templates/series';
 
 export { Axis } from './plugins/axis';
 export { Grid } from './plugins/grid';
 
-export { bindSeriesComponents, patchProps } from './utils';
+export { batchBindSeriesComponents, patchProps  } from './utils';

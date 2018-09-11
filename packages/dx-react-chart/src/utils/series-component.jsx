@@ -18,8 +18,8 @@ export const bindSeriesComponents = (Target, seriesComponents) => {
     const component = seriesComponents[value.name];
     if (component) {
       components[name] = component;
-      exposed[value.exposedName] = component;
     }
+    exposed[value.exposedName] = component || Target[value.exposedName];
   });
   return Object.keys(components).length > 0
     ? makeBoundComponent(Target, components, exposed) : Target;

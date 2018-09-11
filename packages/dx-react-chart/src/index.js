@@ -7,7 +7,8 @@ export { Title } from './plugins/title';
 export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 
-// For convenience purpose - so later all series can be patched
+// For convenience purpose - so that all series can be obtained without explicit named enumeration.
+// Used in "bootstrap4" and "material-ui" packages where series components are replaced.
 export { series };
 export * from './plugins/series';
 export * from './templates/series';
@@ -15,4 +16,4 @@ export * from './templates/series';
 export { Axis } from './plugins/axis';
 export { Grid } from './plugins/grid';
 
-export { batchBindSeriesComponents, patchProps  } from './utils';
+export { batchBindSeriesComponents, patchProps } from './utils';

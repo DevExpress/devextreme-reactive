@@ -4,44 +4,18 @@ import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/
 import * as seriesComponents from '../templates/series';
 import { withSeriesPlugin, withColor, bindSeriesComponents } from '../utils';
 
-class SeriesComponent extends React.PureComponent {
-  render() {
-    const {
-      pointComponent: Point,
-      coordinates,
-      point = {},
-      ...restProps
-    } = this.props;
-    const getAttributes = pointAttributes(point);
-    return (coordinates.map(item => (
-      <Point
-        key={item.id.toString()}
-        {...getAttributes(item)}
-        {...item}
-        {...restProps}
-      />
-    )));
-  }
-}
-
-// eslint-disable-next-line react/no-multi-comp
 class Series extends React.PureComponent {
   render() {
     const {
       seriesComponent: Path,
       ...restProps
     } = this.props;
-    return <Path {...restProps} />;
+    return <Path path={pointAttributes} {...restProps} />;
   }
 }
 
 Series.propTypes = {
-  seriesComponent: PropTypes.func,
-  pointComponent: PropTypes.func.isRequired,
-};
-
-Series.defaultProps = {
-  seriesComponent: SeriesComponent,
+  seriesComponent: PropTypes.func.isRequired,
 };
 
 const SeriesWithSeries = withSeriesPlugin(
@@ -52,6 +26,10 @@ const SeriesWithSeries = withSeriesPlugin(
 );
 
 SeriesWithSeries.components = {
+  seriesComponent: {
+    name: 'PointCollection',
+    exposedName: 'Path',
+  },
   pointComponent: {
     name: 'Point',
     exposedName: 'Point',
@@ -59,5 +37,3 @@ SeriesWithSeries.components = {
 };
 
 export const ScatterSeries = bindSeriesComponents(SeriesWithSeries, seriesComponents);
-
-ScatterSeries.Path = SeriesComponent;

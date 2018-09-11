@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart, getItemsCallback,
+  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
@@ -13,7 +13,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   checkZeroStart: jest.fn(),
-  getItemsCallback: jest.fn(),
 }));
 
 const coords = [
@@ -179,19 +178,5 @@ describe('Base series', () => {
     ));
     expect(checkZeroStart)
       .toHaveBeenCalledWith({}, 'axisName', 'pathType');
-  });
-
-  it('should pass plugin name to the getItemsCallback', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponent
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(getItemsCallback)
-      .toHaveBeenCalledWith('TestComponent');
   });
 });

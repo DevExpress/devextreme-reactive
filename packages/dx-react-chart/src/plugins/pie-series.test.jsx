@@ -13,7 +13,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   seriesData: jest.fn(),
   checkZeroStart: jest.fn(),
   xyScales: jest.fn(),
-  getItemsCallback: jest.fn,
 }));
 
 pieAttributes.mockImplementation(() => [

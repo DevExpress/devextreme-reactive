@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, checkZeroStart, getItemsCallback,
+  findSeriesByName, xyScales, seriesData, checkZeroStart,
 } from '@devexpress/dx-chart-core';
 
 export const withSeriesPlugin = (
@@ -16,6 +16,7 @@ export const withSeriesPlugin = (
   pluginName,
   pathType,
   calculateCoordinates,
+  getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -48,7 +49,7 @@ export const withSeriesPlugin = (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
           <Getter name="startFromZero" computed={startFromZeroByAxes} />
-          <Getter name="items" value={getItemsCallback(pluginName)} />
+          <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>

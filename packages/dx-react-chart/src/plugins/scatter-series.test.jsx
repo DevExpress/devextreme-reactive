@@ -24,7 +24,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   checkZeroStart: jest.fn(),
-  getItemsCallback: jest.fn,
 }));
 
 pointAttributes.mockImplementation(() => () => ({

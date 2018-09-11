@@ -1,25 +1,21 @@
 import { coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
-import {
-  makeSeries, withSeriesPlugin, withColor, bindSeriesComponents,
-} from '../utils';
+import { makeSeries, withColor } from '../utils';
 
-const SeriesWithSeries = withSeriesPlugin(
-  withColor(makeSeries()), // TODO: d3Func is not used.
+export const ScatterSeries = withColor(makeSeries(
   'ScatterSeries',
   'scatter',
+  null, // TODO: d3Func is not used.
   computeCoordinates,
-);
-
-SeriesWithSeries.components = {
-  seriesComponent: {
-    name: 'PointCollection',
-    exposedName: 'Path',
+  {
+    seriesComponent: {
+      name: 'PointCollection',
+      exposedName: 'Path',
+    },
+    pointComponent: {
+      name: 'Point',
+      exposedName: 'Point',
+    },
   },
-  pointComponent: {
-    name: 'Point',
-    exposedName: 'Point',
-  },
-};
-
-export const ScatterSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);
+  seriesComponents,
+));

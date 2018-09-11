@@ -1,25 +1,21 @@
 import { barCoordinates as computeCoordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
-import {
-  makeSeries, withSeriesPlugin, withColor, bindSeriesComponents,
-} from '../utils';
+import { makeSeries, withColor } from '../utils';
 
-const SeriesWithSeries = withSeriesPlugin(
-  withColor(makeSeries()), // TODO: d3Func is not used.
+export const BarSeries = withColor(makeSeries(
   'BarSeries',
   'bar',
+  null, // TODO: d3Func is not used.
   computeCoordinates,
-);
-
-SeriesWithSeries.components = {
-  seriesComponent: {
-    name: 'BarCollection',
-    exposedName: 'Path',
+  {
+    seriesComponent: {
+      name: 'BarCollection',
+      exposedName: 'Path',
+    },
+    pointComponent: {
+      name: 'Bar',
+      exposedName: 'Point',
+    },
   },
-  pointComponent: {
-    name: 'Bar',
-    exposedName: 'Point',
-  },
-};
-
-export const BarSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);
+  seriesComponents,
+));

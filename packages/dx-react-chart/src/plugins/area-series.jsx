@@ -1,21 +1,17 @@
 import { dArea, coordinates } from '@devexpress/dx-chart-core';
 import * as seriesComponents from '../templates/series';
-import {
-  makeSeries, withSeriesPlugin, withColor, bindSeriesComponents,
-} from '../utils';
+import { makeSeries, withColor } from '../utils';
 
-const SeriesWithSeries = withSeriesPlugin(
-  withColor(makeSeries(dArea)),
+export const AreaSeries = withColor(makeSeries(
   'AreaSeries',
   'area',
+  dArea,
   coordinates,
-);
-
-SeriesWithSeries.components = {
-  seriesComponent: {
-    name: 'Area',
-    exposedName: 'Path',
+  {
+    seriesComponent: {
+      name: 'Area',
+      exposedName: 'Path',
+    },
   },
-};
-
-export const AreaSeries = bindSeriesComponents(seriesComponents)(SeriesWithSeries);
+  seriesComponents,
+));

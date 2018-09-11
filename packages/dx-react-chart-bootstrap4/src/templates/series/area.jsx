@@ -1,9 +1,4 @@
-import { Area as AreaBase, patchProps } from '@devexpress/dx-react-chart';
-import classNames from 'classnames';
+import { Area as AreaBase } from '@devexpress/dx-react-chart';
+import { addClassName } from '../utils';
 
-const setClassName = ({ className, ...restProps }) => ({
-  ...restProps,
-  className: classNames('dx-c-bs4-series-opacity', className),
-});
-
-export const Area = patchProps(AreaBase, setClassName);
+export const Area = addClassName('dx-c-bs4-series-opacity')(AreaBase);

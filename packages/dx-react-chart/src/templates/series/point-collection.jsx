@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 // TODO: Is it fine to have it hard coded or should there be `path` property?
 import { pointAttributes } from '@devexpress/dx-chart-core';
 

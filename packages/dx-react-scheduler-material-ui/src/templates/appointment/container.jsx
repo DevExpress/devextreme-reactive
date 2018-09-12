@@ -28,12 +28,13 @@ export const ContainerBase = ({
 
 ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 ContainerBase.defaultProps = {
   className: undefined,
+  children: null,
 };
 
 export const Container = withStyles(styles, { name: 'Container' })(ContainerBase);

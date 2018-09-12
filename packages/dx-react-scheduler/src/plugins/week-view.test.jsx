@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   timeScale,
   dayScale,
   startViewDate,
@@ -13,6 +14,7 @@ import {
 import { WeekView } from './week-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   timeScale: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
@@ -56,6 +58,9 @@ const defaultProps = {
 
 describe('Week View', () => {
   beforeEach(() => {
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
     startViewDate.mockImplementation(() => '2018-07-04');

@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   dayScale,
   monthCells,
   endViewBoundary,
@@ -12,6 +13,7 @@ import {
 import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   dayScale: jest.fn(),
   monthCells: jest.fn(),
   availableViews: jest.fn(),
@@ -52,6 +54,9 @@ const defaultProps = {
 
 describe('Month View', () => {
   beforeEach(() => {
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     dayScale.mockImplementation(() => [1, 2, 3]);
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     monthCells.mockImplementation(() => ([
@@ -90,21 +95,6 @@ describe('Month View', () => {
 
     it('should provide the "firstDayOfWeek" getter', () => {
       const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
-    });
-
-    it('should provide the "startViewDate" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

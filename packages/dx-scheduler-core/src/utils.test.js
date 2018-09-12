@@ -7,6 +7,7 @@ import {
   adjustAppointments,
   unwrapGroups,
   getAppointmentStyle,
+  calculateRectByDateIntervals,
 } from './utils';
 
 describe('Utils', () => {
@@ -281,6 +282,47 @@ describe('Utils', () => {
           transform: 'translateY(10px)',
           left: '20%',
           position: 'absolute',
+        });
+    });
+  });
+  describe('#calculateRectByDateIntervals', () => {
+    it('should work', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'horizontal' };
+      const rectByDatesMeta = {};
+      const intervals = [
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
+      ];
+
+      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+
+      expect(rects)
+        .toHaveLength(2);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'a',
+          type: 'horizontal',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 35,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'b',
+          type: 'horizontal',
         });
     });
   });

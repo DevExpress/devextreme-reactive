@@ -140,10 +140,8 @@ export const unwrapGroups = groups => groups.reduce((acc, { items, reduceValue }
 }, []);
 
 export const getAppointmentStyle = ({
-  top,
-  left,
-  width,
-  height,
+  top, left,
+  width, height,
 }) => ({
   height,
   width: `${width}%`,
@@ -172,11 +170,8 @@ const horizontalRectCalculator = (
   },
 ) => {
   const {
-    top,
-    left,
-    width,
-    height,
-    parentWidth,
+    top, left,
+    width, height, parentWidth,
   } = rectCalculatorBase(
     appointment,
     rectByDates,
@@ -213,11 +208,8 @@ const verticalRectCalculator = (
   },
 ) => {
   const {
-    top,
-    left,
-    width,
-    height,
-    parentWidth,
+    top, left,
+    width, height, parentWidth,
   } = rectCalculatorBase(
     appointment,
     rectByDates,
@@ -244,7 +236,6 @@ const verticalRectCalculator = (
 
 export const calculateRectByDateIntervals = (type, intervals, rectByDates, rectByDatesMeta) => {
   const { growDirection, multiline } = type;
-
   const sorted = sortAppointments(intervals, multiline);
   const grouped = findOverlappedAppointments(sorted, multiline);
 

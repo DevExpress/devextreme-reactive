@@ -2,6 +2,10 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Line } from './line';
 
+jest.mock('@devexpress/dx-react-chart', () => ({
+  patchProps: x => x,
+}));
+
 describe('Line', () => {
   const defaultProps = {
     x1: 1, x2: 3, y1: 2, y2: 4,

@@ -6,21 +6,13 @@ describe('Appointment', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(
-      <Container>
-        <div />
-      </Container>,
-    );
+    classes = getClasses(<Container />);
     shallow = createShallow({ dive: true });
   });
 
   describe('Container', () => {
     it('should pass className to the root element', () => {
-      const tree = shallow((
-        <Container className="custom-class">
-          <div />
-        </Container>
-      ));
+      const tree = shallow(<Container className="custom-class" />);
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
@@ -28,11 +20,7 @@ describe('Appointment', () => {
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
-        <Container data={{ a: 1 }}>
-          <div />
-        </Container>
-      ));
+      const tree = shallow(<Container data={{ a: 1 }} />);
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });

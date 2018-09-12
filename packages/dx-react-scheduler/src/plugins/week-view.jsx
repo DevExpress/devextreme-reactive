@@ -8,41 +8,31 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  appointmentRects,
+  calculateRectByDateIntervals,
+  calculateWeekDateIntervals,
+  getAppointmentStyle,
+  getWeekRectByDates,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
+  VERTICAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
-
-const appointmentRectsComputed = ({
-  appointments,
-  startViewDate,
-  endViewDate,
-  excludedDays,
-  dayScale,
-  timeScale,
-  cellDuration,
-  dateTableRef,
-}) => (dateTableRef ? appointmentRects(
-  appointments,
-  startViewDate,
-  endViewDate,
-  excludedDays,
-  dayScale,
-  timeScale,
-  cellDuration,
-  dateTableRef.querySelectorAll('td'),
-) : []);
 
 const SidebarPlaceholder = props => (
   <TemplatePlaceholder name="sidebar" params={props} />
 );
-const DayScalePlaceholder = props => (
+const NavbarPlaceholder = props => (
   <TemplatePlaceholder name="navbar" params={props} />
 );
 const DateTablePlaceholder = props => (
   <TemplatePlaceholder name="main" params={props} />
+);
+const NavbarEmptyPlaceholder = props => (
+  <TemplatePlaceholder name="navbarEmpty" params={props} />
+);
+const AppointmentPlaceholder = props => (
+  <TemplatePlaceholder name="appointment" params={props} />
 );
 
 export class WeekView extends React.PureComponent {
@@ -71,12 +61,10 @@ export class WeekView extends React.PureComponent {
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      intervalCount,
-      firstDayOfWeek,
-      excludedDays,
+      containerComponent: Container,
+      startDayHour, endDayHour,
+      cellDuration, intervalCount,
+      firstDayOfWeek, excludedDays,
     } = this.props;
 
     const timeScaleComputed = ({ currentDate }) => timeScaleCore(
@@ -102,19 +90,17 @@ export class WeekView extends React.PureComponent {
       >
         <Getter name="currentView" value="week" />
         <Getter name="intervalCount" value={intervalCount} />
-        <Getter name="cellDuration" value={cellDuration} />
         <Getter name="excludedDays" value={excludedDays} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="timeScale" computed={timeScaleComputed} />
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
-        {dateTableRef && <Getter name="dateTableRef" value={dateTableRef} />}
-        <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">
           <ViewLayout
-            navbarComponent={DayScalePlaceholder}
+            navbarComponent={NavbarPlaceholder}
+            navbarEmptyComponent={NavbarEmptyPlaceholder}
             mainComponent={DateTablePlaceholder}
             sidebarComponent={SidebarPlaceholder}
           />
@@ -149,15 +135,53 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ timeScale, dayScale }) => (
-              <DateTable
-                rowComponent={DateTableRow}
-                cellComponent={DateTableCell}
-                timeScale={timeScale}
-                dayScale={dayScale}
-                dateTableRef={this.dateTableRef}
-              />
-            )}
+            {({
+              timeScale, dayScale, appointments, startViewDate, endViewDate,
+            }) => {
+              const intervals = calculateWeekDateIntervals(
+                appointments, startViewDate, endViewDate, excludedDays,
+              );
+              const rects = dateTableRef ? calculateRectByDateIntervals(
+                {
+                  growDirection: VERTICAL_APPOINTMENT_TYPE,
+                  multiline: false,
+                },
+                intervals,
+                getWeekRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  dayScale,
+                  timeScale,
+                  cellDuration,
+                  cellElements: dateTableRef.querySelectorAll('td'),
+                },
+              ) : [];
+
+              return (
+                <React.Fragment>
+                  <DateTable
+                    rowComponent={DateTableRow}
+                    cellComponent={DateTableCell}
+                    timeScale={timeScale}
+                    dayScale={dayScale}
+                    dateTableRef={this.dateTableRef}
+                  />
+                  <Container>
+                    {rects.map(({
+                      dataItem, type, ...geometry
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        type={type}
+                        key={index.toString()}
+                        appointment={dataItem}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
+                  </Container>
+                </React.Fragment>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
@@ -175,6 +199,7 @@ WeekView.propTypes = {
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,

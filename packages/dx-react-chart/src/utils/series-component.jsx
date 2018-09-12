@@ -11,7 +11,7 @@ const makeBoundComponent = (Target, components, exposed) => {
   return Component;
 };
 
-export const bindSeriesComponents = seriesComponents => (Target) => {
+const bindSeriesComponents = seriesComponents => (Target) => {
   const components = {};
   const exposed = {};
   Object.entries(Target.components).forEach(([name, value]) => {

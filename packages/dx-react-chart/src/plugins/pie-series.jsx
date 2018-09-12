@@ -1,5 +1,4 @@
 import { pieAttributes } from '@devexpress/dx-chart-core';
-import * as seriesComponents from '../templates/series';
 import { makeSeries } from '../utils';
 
 export const PieSeries = makeSeries(
@@ -17,5 +16,4 @@ export const PieSeries = makeSeries(
       exposedName: 'Point',
     },
   },
-  seriesComponents,
 );

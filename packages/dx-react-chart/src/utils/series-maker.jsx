@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withSeriesPlugin } from './series-helper';
-import { bindSeriesComponents } from './series-component';
 
 const makeRawSeries = (d3Func) => {
   class Series extends React.PureComponent {
@@ -27,10 +26,10 @@ export const makeSeries = (
   d3Func,
   calculateCoordinates,
   componentsDefinition,
-  seriesComponents,
+  enhance = x => x,
 ) => {
-  const RawSeries = makeRawSeries(d3Func);
+  const RawSeries = enhance(makeRawSeries(d3Func));
   const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates);
   Series.components = componentsDefinition;
-  return bindSeriesComponents(seriesComponents)(Series);
+  return Series;
 };

@@ -1,8 +1,7 @@
 import { coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import * as seriesComponents from '../templates/series';
 import { makeSeries, withColor } from '../utils';
 
-export const ScatterSeries = withColor(makeSeries(
+export const ScatterSeries = makeSeries(
   'ScatterSeries',
   'scatter',
   null, // TODO: d3Func is not used.
@@ -17,5 +16,5 @@ export const ScatterSeries = withColor(makeSeries(
       exposedName: 'Point',
     },
   },
-  seriesComponents,
-));
+  withColor,
+);

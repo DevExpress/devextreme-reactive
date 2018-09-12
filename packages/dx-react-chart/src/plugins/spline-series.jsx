@@ -1,8 +1,7 @@
 import { dSpline, coordinates } from '@devexpress/dx-chart-core';
-import * as seriesComponents from '../templates/series';
 import { makeSeries, withColor } from '../utils';
 
-export const SplineSeries = withColor(makeSeries(
+export const SplineSeries = makeSeries(
   'SplineSeries',
   'spline',
   dSpline,
@@ -13,5 +12,5 @@ export const SplineSeries = withColor(makeSeries(
       exposedName: 'Path',
     },
   },
-  seriesComponents,
-));
+  withColor,
+);

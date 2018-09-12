@@ -1,8 +1,7 @@
 import { dLine, coordinates } from '@devexpress/dx-chart-core';
-import * as seriesComponents from '../templates/series';
 import { makeSeries, withColor } from '../utils';
 
-export const LineSeries = withColor(makeSeries(
+export const LineSeries = makeSeries(
   'LineSeries',
   'line',
   dLine,
@@ -13,5 +12,5 @@ export const LineSeries = withColor(makeSeries(
       exposedName: 'Path',
     },
   },
-  seriesComponents,
-));
+  withColor,
+);

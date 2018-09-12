@@ -5,3 +5,4 @@ export * from './plugins/week-view/computeds';
 export * from './plugins/view-state/reducers';
 export * from './plugins/date-navigator/helpers';
 export * from './constants';
+export * from './utils';

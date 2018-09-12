@@ -8,6 +8,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  computed,
   endViewBoundary,
   monthAppointmentRect,
   dayScale as dayScaleCore,
@@ -16,6 +17,22 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
+
+const dayScaleBaseComputed = ({ currentDate, firstDayOfWeek }) => dayScaleCore(
+  currentDate, firstDayOfWeek, WEEK_COUNT, [],
+);
+const monthCellsBaseComputed = ({ currentDate, firstDayOfWeek, intervalCount }) => monthCellsCore(
+  currentDate, firstDayOfWeek, intervalCount,
+);
+const startViewDateBaseComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
+const endViewDateBaseComputed = ({ monthCells }) => endViewBoundary(monthCells);
+const appointmentRectsBaseComputed = ({ appointments, startViewDate, endViewDate, monthCells, stateDateTableRef }) => (stateDateTableRef ? monthAppointmentRect(
+  appointments,
+  startViewDate,
+  endViewDate,
+  monthCells,
+  stateDateTableRef.querySelectorAll('td'),
+) : []);
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -26,8 +43,8 @@ export class MonthView extends React.PureComponent {
     };
 
     this.dateTableRef = this.dateTableRef.bind(this);
-    this.dayScalePlaceholder = params => <TemplatePlaceholder name="navbar" params={params} />;
-    this.dateTablePlaceholder = params => <TemplatePlaceholder name="main" params={params} />;
+    this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
+    this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
   }
 
   dateTableRef(dateTableRef) {
@@ -49,47 +66,22 @@ export class MonthView extends React.PureComponent {
     } = this.props;
     const { dateTableRef: stateDateTableRef } = this.state;
 
-    const dayScaleComputed = ({ currentDate }) => dayScaleCore(
-      currentDate, firstDayOfWeek, WEEK_COUNT, [],
-    );
-    const monthCellsComputed = ({ currentDate }) => monthCellsCore(
-      currentDate, firstDayOfWeek, intervalCount,
-    );
-    const endViewDateComputed = ({ monthCells }) => endViewBoundary(monthCells);
-    const startViewDateComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
-
     const currentViewComputed = ({ currentView }) => {
       if (!currentView || viewName === currentView) {
         return viewName;
       }
       return currentView;
     };
-    const dateTableRefComputed = ({ currentView, dateTableRef }) => {
-      if (currentView === viewName) {
-        return stateDateTableRef;
-      } return dateTableRef;
-    };
     const availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,
     );
-    const appointmentRectsComputed = ({
-      appointments,
-      startViewDate,
-      endViewDate,
-      monthCells,
-      dateTableRef,
-      appointmentRects,
-      currentView,
-    }) => {
-      if (currentView !== viewName) return appointmentRects;
-      return (dateTableRef ? monthAppointmentRect(
-        appointments,
-        startViewDate,
-        endViewDate,
-        monthCells,
-        dateTableRef.querySelectorAll('td'),
-      ) : []);
-    };
+    const intervalCountComputed = getters => computed(getters, viewName, () => intervalCount, getters.excludedDaysComputed);
+    const firstDayOfWeekComputed = getters => computed(getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek);
+    const dayScaleComputed = getters => computed({ ...getters, firstDayOfWeek }, viewName, dayScaleBaseComputed, getters.dayScale);
+    const monthCellsComputed = getters => computed({ ...getters, firstDayOfWeek, intervalCount }, viewName, monthCellsBaseComputed, getters.monthCells);
+    const startViewDateComputed = getters => computed(getters, viewName, startViewDateBaseComputed, getters.startViewDate);
+    const endViewDateComputed = getters => computed(getters, viewName, endViewDateBaseComputed, getters.endViewDate);
+    const appointmentRectsComputed = getters => computed({ ...getters, stateDateTableRef }, viewName, appointmentRectsBaseComputed, getters.appointmentRects);
 
     return (
       <Plugin
@@ -97,9 +89,8 @@ export class MonthView extends React.PureComponent {
       >
         <Getter name="availableViews" computed={availableViewsComputed} />
         <Getter name="currentView" computed={currentViewComputed} />
-        <Getter name="dateTableRef" computed={dateTableRefComputed} />
-        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
-        <Getter name="intervalCount" value={intervalCount} />
+        <Getter name="firstDayOfWeek" computed={firstDayOfWeekComputed} />
+        <Getter name="intervalCount" computed={intervalCountComputed} />
         <Getter name="dayScale" computed={dayScaleComputed} />
         <Getter name="monthCells" computed={monthCellsComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />

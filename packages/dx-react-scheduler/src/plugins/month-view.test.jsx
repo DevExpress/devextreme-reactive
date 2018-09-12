@@ -66,14 +66,12 @@ describe('Month View', () => {
     it('should provide the "dayScale" getter', () => {
       const firstDayOfWeek = 2;
       const intervalCount = 2;
-      const excludedDays = [1, 2];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             firstDayOfWeek={firstDayOfWeek}
             intervalCount={intervalCount}
-            excludedDays={excludedDays}
             {...defaultProps}
           />
         </PluginHost>

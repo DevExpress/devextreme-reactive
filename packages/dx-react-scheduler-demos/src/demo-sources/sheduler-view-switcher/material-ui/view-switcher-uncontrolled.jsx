@@ -39,7 +39,7 @@ export default class Demo extends React.PureComponent {
 
           <WeekView
             viewName="Week"
-            startDayHour={9}
+            startDayHour={10}
             endDayHour={19}
           />
           <WeekView

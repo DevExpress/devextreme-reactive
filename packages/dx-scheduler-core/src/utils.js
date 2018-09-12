@@ -1,5 +1,12 @@
 import moment from 'moment';
 
+export const computed = (getters, viewName, baseComputed, defaultValue) => {
+  if (getters.currentView !== viewName && typeof defaultValue !== 'undefined') {
+    return defaultValue;
+  }
+  return baseComputed(getters, viewName);
+};
+
 export const toPercentage = (value, total) => (value * 100) / total;
 
 const createExcludedInterval = (day, start) => {

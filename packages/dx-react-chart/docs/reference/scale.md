@@ -25,4 +25,16 @@ extensions? | Array&lt;[scaleOptions](#scaleoptions)&gt; | [{type: 'linear', con
 Field | Type | Description
 ------|------|------------
 type? | string | A scale type.
-constructor? | () => object | A function that constructs a custom scale.
+constructor? | () => [scaleObject](#scaleobject) | A function that constructs a custom scale.
+
+### scaleObject
+
+Field | Type | Description
+------|------|------------
+domain | () => Array&lt;any&gt; &#124; (Array&lt;any&gt;) => [scaleObject](#scaleobject) | A function that accepts a domain as array of any values or returns current domain.
+range | () => Array&lt;any&gt; &#124; (Array&lt;any&gt;) => [scaleObject](#scaleobject) | A function that accepts scale’s range as array of any values or returns current range.
+tickFormat? | (count: number, specifier: string) => (tick: any) => string | A function that returns a tick formatter function.
+ticks? | (count: number) => Array&lt;any&gt; | A function that returns array of ticks.
+paddingInner? | (padding: number) => [scaleObject](#scaleobject) | A function that set scale's inner padding and returns current scale.
+paddingOuter? | (padding: number) => [scaleObject](#scaleobject) | A function that set scale's outer padding and returns current scale.
+bandWidth? | () => number | A function that returns the width of each band.

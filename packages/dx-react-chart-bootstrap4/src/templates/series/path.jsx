@@ -1,4 +1,4 @@
 import { Path as PathBase } from '@devexpress/dx-react-chart';
-import { addClassName } from '../utils';
+import { withClassName } from '../utils';
 
-export const Path = addClassName('dx-c-bs4-fill-none dx-c-bs4-series-path')(PathBase);
+export const Path = withClassName('dx-c-bs4-fill-none dx-c-bs4-series-path')(PathBase);

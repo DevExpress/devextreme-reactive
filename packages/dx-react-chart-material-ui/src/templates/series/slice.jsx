@@ -1,5 +1,5 @@
 import { Slice as SliceBase } from '@devexpress/dx-react-chart';
-import { addStyleClassName } from '../utils';
+import { withClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -7,4 +7,4 @@ const styles = () => ({
   },
 });
 
-export const Slice = addStyleClassName(styles)(SliceBase);
+export const Slice = withClassName(styles)(SliceBase);

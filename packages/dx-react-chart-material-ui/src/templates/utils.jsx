@@ -9,7 +9,7 @@ export const getBorderColor = theme => (
     : darken(fade(theme.palette.divider, 1), 0.8)
 );
 
-export const addStyleClassName = (styles) => {
+export const withClassName = (styles) => {
   const setClassName = ({ className, classes, ...restProps }) => ({
     ...restProps,
     className: classNames(classes.root, className),

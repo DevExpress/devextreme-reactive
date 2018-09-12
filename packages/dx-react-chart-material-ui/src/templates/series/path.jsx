@@ -1,5 +1,5 @@
 import { Path as PathBase } from '@devexpress/dx-react-chart';
-import { addStyleClassName } from '../utils';
+import { withClassName } from '../utils';
 
 const styles = () => ({
   root: {
@@ -8,4 +8,4 @@ const styles = () => ({
   },
 });
 
-export const Path = addStyleClassName(styles)(PathBase);
+export const Path = withClassName(styles)(PathBase);

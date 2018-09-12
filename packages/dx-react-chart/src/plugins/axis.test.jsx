@@ -22,7 +22,7 @@ describe('Axis', () => {
   const LineComponent = () => null;
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal' } },
+      domains: { name: { orientation: 'horizontal', type: 'someType' } },
       setBBox: jest.fn(),
       argumentAxisName: 'argumentAxis',
       layouts: {
@@ -31,13 +31,13 @@ describe('Axis', () => {
         },
       },
       axes: [{}],
+      scaleExtension: [{ type: 'someType', constructor: 'constructor' }],
     },
     template: {
       'bottom-axis': {},
     },
   };
   const defaultProps = {
-    type: 'band',
     min: 0,
     position: 'bottom',
     name: 'name',
@@ -59,6 +59,7 @@ describe('Axis', () => {
         yText: 'yText1',
         dominantBaseline: 'dominantBaseline1',
         textAnchor: 'textAnchor1',
+        key: '1',
       },
       {
         text: 'text2',
@@ -70,6 +71,7 @@ describe('Axis', () => {
         yText: 'yText2',
         dominantBaseline: 'dominantBaseline2',
         textAnchor: 'textAnchor2',
+        key: '2',
       }],
     }));
   });
@@ -127,7 +129,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal' }, 'bottom', 200, 100, 5, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, 'constructor');
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -135,7 +137,7 @@ describe('Axis', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            domains: { name: { orientation: 'vertical' } },
+            domains: { name: { orientation: 'vertical', type: 'someType' } },
             layouts: {
               'bottom-axis': {
                 x: 3, y: 4, width: 250, height: 150,
@@ -150,7 +152,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical' }, 'bottom', 250, 150, 6, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical', type: 'someType' }, 'bottom', 250, 150, 6, 10, 'constructor');
   });
 
   it('should render tick component', () => {

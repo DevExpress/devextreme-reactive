@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  SortingState, EditingState, PagingState,
-  IntegratedPaging, IntegratedSorting,
+  SortingState, EditingState, PagingState, SummaryState,
+  IntegratedPaging, IntegratedSorting, IntegratedSummary,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
+  TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
@@ -171,7 +172,12 @@ class DemoBase extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
+        { columnName: 'product', width: 180 },
+        { columnName: 'region', width: 180 },
+        { columnName: 'amount', width: 120, align: 'right' },
+        { columnName: 'discount', width: 180 },
+        { columnName: 'saleDate', width: 180 },
+        { columnName: 'customer', width: 180 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -188,6 +194,11 @@ class DemoBase extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
+      totalSummaryItems: [
+        { columnName: 'discount', type: 'avg' },
+        { columnName: 'amount', type: 'sum' },
+      ],
     };
     const getStateDeletingRows = () => {
       const { deletingRows } = this.state;
@@ -265,6 +276,8 @@ class DemoBase extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      fixedColumnTypes,
+      totalSummaryItems,
     } = this.state;
 
     return (
@@ -284,13 +297,6 @@ class DemoBase extends React.PureComponent {
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
           />
-
-          <IntegratedSorting />
-          <IntegratedPaging />
-
-          <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
-
           <EditingState
             editingRowIds={editingRowIds}
             onEditingRowIdsChange={this.changeEditingRowIds}
@@ -300,6 +306,16 @@ class DemoBase extends React.PureComponent {
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}
           />
+          <SummaryState
+            totalItems={totalSummaryItems}
+          />
+
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSummary />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <DragDropProvider />
 
@@ -307,23 +323,25 @@ class DemoBase extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
-
           <TableColumnReordering
             order={columnOrder}
             onOrderChange={this.changeColumnOrder}
           />
-
           <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
           <TableEditColumn
-            width={120}
+            width={170}
             showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableFixedColumns
+            leftColumnTypes={fixedColumnTypes}
+          />
+          <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
           />
@@ -335,7 +353,7 @@ class DemoBase extends React.PureComponent {
           classes={{ paper: classes.dialog }}
         >
           <DialogTitle>
-Delete Row
+            Delete Row
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -358,10 +376,10 @@ Delete Row
           </DialogContent>
           <DialogActions>
             <Button onClick={this.cancelDelete} color="primary">
-Cancel
+              Cancel
             </Button>
             <Button onClick={this.deleteRows} color="secondary">
-Delete
+              Delete
             </Button>
           </DialogActions>
         </Dialog>

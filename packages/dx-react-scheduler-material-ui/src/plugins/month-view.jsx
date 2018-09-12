@@ -10,11 +10,14 @@ import { Cell as DayPanelCell } from '../templates/month-view/day-panel/cell';
 import { Layout as DateTableLayout } from '../templates/month-view/date-table/layout';
 import { Cell as DateTableCell } from '../templates/month-view/date-table/cell';
 
+import { Container } from '../templates/appointment/container';
+
 export class MonthView extends React.PureComponent {
   render() {
     return (
       <MonthViewBase
         layoutComponent={MonthLayout}
+        containerComponent={Container}
 
         dayPanelLayoutComponent={DayPanelLayout}
         dayPanelCellComponent={DayPanelCell}
@@ -28,6 +31,8 @@ export class MonthView extends React.PureComponent {
     );
   }
 }
+
+MonthView.Container = Container;
 
 MonthView.DayPanelLayout = DayPanelLayout;
 MonthView.DayPanelCell = DayPanelCell;

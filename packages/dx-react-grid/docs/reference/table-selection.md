@@ -2,7 +2,7 @@
 
 A plugin that visualizes table rows' selection state by rendering selection checkboxes and highlighting the selected rows.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 
@@ -73,6 +73,12 @@ TableSelection.HeaderCell | [TableSelection.HeaderCellProps](#tableselectionhead
 TableSelection.Cell | [TableSelection.CellProps](#tableselectioncellprops) | A component that renders a cell with selection control.
 
 Additional properties are added to the component's root element.
+
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | string | The name of the selection column type.
 
 ## Plugin Developer Reference
 

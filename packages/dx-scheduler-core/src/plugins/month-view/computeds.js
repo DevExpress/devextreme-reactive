@@ -1,17 +1,10 @@
 import moment from 'moment';
 import {
-  sortAppointments,
   viewPredicate,
-  toPercentage,
-  findOverlappedAppointments,
-  adjustAppointments,
-  unwrapGroups,
 } from '../../utils';
 import {
   sliceAppointmentByWeek,
-  getRectByDates,
 } from './helpers';
-import { HORIZONTAL_APPOINTMENT_TYPE } from '../../constants';
 
 const DAY_COUNT = 7;
 const WEEK_COUNT = 6;
@@ -58,7 +51,7 @@ export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   return result;
 };
 
-const calculateDateIntervals = (
+export const calculateMonthDateIntervals = (
   appointments,
   leftBound, rightBound,
 ) => appointments
@@ -73,54 +66,3 @@ const calculateDateIntervals = (
         DAY_COUNT,
       ),
     ]), []);
-
-const calculateRectsByDateIntervals = (
-  intervals,
-  cells,
-  cellElements,
-) => {
-  const sorted = sortAppointments(intervals, true);
-  const grouped = findOverlappedAppointments(sorted, true);
-
-  return unwrapGroups(adjustAppointments(grouped, true))
-    .map((appts) => {
-      const {
-        top, left,
-        width, height,
-        parentWidth,
-      } = getRectByDates(
-        appts.start,
-        appts.end,
-        cells,
-        cellElements,
-      );
-
-      return {
-        top: top + ((height / appts.reduceValue) * appts.offset),
-        height: height / appts.reduceValue,
-        left: toPercentage(left, parentWidth),
-        width: toPercentage(width, parentWidth),
-        dataItem: appts.dataItem,
-        type: HORIZONTAL_APPOINTMENT_TYPE,
-      };
-    });
-};
-
-export const monthAppointmentRect = (
-  appointments,
-  startViewDate,
-  endViewDate,
-  cells,
-  cellElements,
-) => {
-  const dateIntervals = calculateDateIntervals(
-    appointments,
-    startViewDate,
-    endViewDate,
-  );
-  return calculateRectsByDateIntervals(
-    dateIntervals,
-    cells,
-    cellElements,
-  );
-};

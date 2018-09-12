@@ -2,7 +2,7 @@
 
 A plugin that renders Grid data as a table. It contains the Table Row and Table Cell components that can be extended by other plugins and provides ways to customize table rows and columns.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

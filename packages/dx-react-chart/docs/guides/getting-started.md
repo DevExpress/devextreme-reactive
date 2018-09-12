@@ -14,7 +14,7 @@ Install the dx-react-chart package and its dependencies using the following comm
 npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-chart.npm-tag()
 ```
 
-*Note: [react](https://www.npmjs.com/package/react) >= 16.2.0 and [react-dom](https://www.npmjs.com/package/react) >= 16.2.0 are peer dependencies.*
+*Note: [react](https://www.npmjs.com/package/react) >=16.3.0 and [react-dom](https://www.npmjs.com/package/react) >=16.3.0 are peer dependencies.*
 
 This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:
 
@@ -24,7 +24,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-material-ui.npm-tag()
   ```
 
-  *Note: [@material-ui/core](https://www.npmjs.com/package/@material-ui/core) >= 1.1.0 and [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) >= 1.1.0 are peer dependencies.*
+  *Note: [@material-ui/core](https://www.npmjs.com/package/@material-ui/core) >=1.1.0 and [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) >=1.1.0 are peer dependencies.*
 
   Make sure that the [Material-UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material-UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
 
@@ -34,7 +34,7 @@ This package does not contain visual components. In the examples below, visual c
   npm i --save @devexpress/dx-react-chart-bootstrap4.npm-tag()
   ```
 
-  *Note: [reactstrap](https://www.npmjs.com/package/reactstrap) >= 6.3.0 is a peer dependency.*
+  *Note: [reactstrap](https://www.npmjs.com/package/reactstrap) >=6.3.0 is a peer dependency.*
 
   Make sure that [reactstrap](https://reactstrap.github.io/) dependencies are installed and properly configured. Check the reactstrap's [Getting Started](https://reactstrap.github.io/) article for configuration details. You also need the [OpenIconic](https://useiconic.com/open) icons in your project.
 
@@ -58,7 +58,7 @@ React Chart uses the latest web platform standards and does not support older br
 
 ## Using the Chart Component
 
-The Chart component renders nothing by default; plugins implement all its functionality. To create a simple chart, add one of the [`*Series` plugins](series.md) (for example, `LineSeries`) to draw a series and the `ArgumentAxis` and `ValueAxis` plugins to add the axes:
+The Chart component's functionality is implemented in plugins. You need a [series](series.md) plugin and the `ArgumentAxis`, `ValuesAxis`, and `Scale` plugins to draw a simple chart. The following code shows how to configure a simple line chart:
 
 ```jsx
 import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";
@@ -75,6 +75,7 @@ const App = () => (
       <ArgumentAxis />
       <ValueAxis />
       <LineSeries valueField="value" argumentField="argument" />
+      <Scale />
     </Chart>
 );
 

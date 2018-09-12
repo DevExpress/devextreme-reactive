@@ -2,9 +2,9 @@
 
 The `Stack` plugin is used to display series points side-by-side or one under another other.
 
-## Importing
+## Import
 
-Use the following import statement:
+Use the following statement to import the plugin:
 
 ```js
 import { Stack } from '@devexpress/dx-react-chart';

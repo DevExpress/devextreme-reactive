@@ -40,13 +40,14 @@ export class SortingState extends React.PureComponent {
       });
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      sorting,
+      sorting = prevState.sorting,
     } = nextProps;
-    this.setState({
-      ...sorting !== undefined ? { sorting } : null,
-    });
+
+    return {
+      sorting,
+    };
   }
 
   render() {

@@ -16,9 +16,11 @@ jest.mock('react-dom', () => ({
   })),
 }));
 jest.mock('@devexpress/dx-grid-core', () => ({
+  TABLE_FLEX_TYPE: 'flex',
   getAnimations: jest.fn(),
   filterActiveAnimations: jest.fn(),
   evalAnimations: jest.fn(),
+  getTableColumnGeometries: jest.fn(() => []),
 }));
 
 const defaultProps = {
@@ -64,10 +66,11 @@ describe('TableLayout', () => {
 
   describe('animation', () => {
     let originalRaf;
+    let rafCallback = () => {};
 
     beforeEach(() => {
       originalRaf = window.requestAnimationFrame;
-      window.requestAnimationFrame = jest.fn();
+      window.requestAnimationFrame = jest.fn((callback) => { rafCallback = callback; });
     });
     afterEach(() => {
       window.requestAnimationFrame = originalRaf;
@@ -91,6 +94,7 @@ describe('TableLayout', () => {
         />
       ));
       tree.setProps({ columns: nextColumns });
+      rafCallback();
 
       expect(getAnimations)
         .toHaveBeenCalledTimes(1);
@@ -119,6 +123,7 @@ describe('TableLayout', () => {
         />
       ));
       tree.setProps({ columns: nextColumns });
+      rafCallback();
 
       expect(filterActiveAnimations)
         .toHaveBeenCalledTimes(1);
@@ -126,28 +131,6 @@ describe('TableLayout', () => {
         .toHaveBeenCalledTimes(1);
       expect(evalAnimations)
         .toHaveBeenCalledWith(animations);
-    });
-
-    it('should not start if the "columns" property length is changed', () => {
-      filterActiveAnimations.mockImplementation(() => new Map());
-
-      const columns = [
-        { key: 'a', column: { name: 'a' }, width: 100 },
-        { key: 'b', column: { name: 'b' } },
-      ];
-      const nextColumns = [columns[1]];
-
-      const tree = shallow((
-        <TableLayout
-          {...defaultProps}
-          columns={columns}
-          minColumnWidth={100}
-        />
-      ));
-      tree.setProps({ columns: nextColumns });
-
-      expect(getAnimations)
-        .not.toHaveBeenCalled();
     });
   });
 });

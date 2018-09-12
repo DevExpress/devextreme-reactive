@@ -1,18 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  lineAttributes, pointAttributes, findSeriesByName, xyScales, coordinates,
-} from '@devexpress/dx-chart-core';
+import { dArea, findSeriesByName, coordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
 
-const PointComponent = () => null;
 const SeriesComponent = () => null;
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  lineAttributes: jest.fn(),
-  pointAttributes: jest.fn(),
+  dArea: jest.fn(),
   findSeriesByName: jest.fn(),
   xyScales: jest.fn(),
   coordinates: jest.fn(),
@@ -28,29 +24,18 @@ const coords = [
   { x: 5, y: 15, id: 5 },
 ];
 
-lineAttributes.mockImplementation(() => ({
-  x: 2,
-  y: 1,
-  d: 'M11 11',
-}));
-
-pointAttributes.mockImplementation(() => () => ({
-  x: 4,
-  y: 3,
-  d: 'M12 12',
-}));
-
 findSeriesByName.mockImplementation(() => ({
   stack: 'stack1',
 }));
 
-xyScales.mockImplementation();
 coordinates.mockImplementation(() => coords);
 
 describe('Area series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
+      colorDomain: jest.fn(),
+      domains: {},
     },
     template: {
       series: {},
@@ -58,41 +43,13 @@ describe('Area series', () => {
   };
 
   const defaultProps = {
-    pointComponent: PointComponent,
     seriesComponent: SeriesComponent,
     name: 'val1',
-    styles: 'styles',
-    pointStyle: { fill: 'point fill' },
     valueField: 'valueField',
     argumentField: 'argumentField',
     axisName: 'axisName',
-    point: { size: 5 },
+    uniqueName: 'uniqueSeriesName',
   };
-
-  it('should render points', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <AreaSeries
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(PointComponent)).toHaveLength(coords.length);
-
-    coords.forEach((coord, index) => {
-      const {
-        d, x, y, style,
-      } = tree.find(PointComponent).get(index).props;
-      expect(d).toBe('M12 12');
-      expect(x).toBe(4);
-      expect(y).toBe(3);
-      expect(style).toEqual({ fill: 'point fill' });
-    });
-    expect(pointAttributes).toBeCalledWith(undefined, { size: 5 }, 'stack1');
-  });
 
   it('should render path', () => {
     const tree = mount((
@@ -101,15 +58,34 @@ describe('Area series', () => {
 
         <AreaSeries
           {...defaultProps}
+          customProperty="custom"
         />
       </PluginHost>
     ));
     const {
-      d, styles, x, y,
+      coordinates: seriesCoordinates, path, color, ...restProps
     } = tree.find(SeriesComponent).props();
-    expect(d).toBe('M11 11');
-    expect(styles).toBe('styles');
-    expect(x).toBe(2);
-    expect(y).toBe(1);
+
+    expect(seriesCoordinates).toBe(coords);
+    expect(path).toBe(dArea);
+    expect(restProps).toEqual({ customProperty: 'custom' });
+  });
+
+  it('should render with color', () => {
+    const colorDomain = jest.fn().mockReturnValue('red');
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AreaSeries
+          {...defaultProps}
+          colorDomain={colorDomain}
+          customProperty="custom"
+        />
+      </PluginHost>
+    ));
+    const { color } = tree.find(SeriesComponent).props();
+
+    expect(color).toEqual('red');
+    expect(colorDomain).lastCalledWith('uniqueSeriesName');
   });
 });

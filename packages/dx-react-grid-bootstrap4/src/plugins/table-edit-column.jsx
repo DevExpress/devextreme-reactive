@@ -37,6 +37,7 @@ export class TableEditColumn extends React.PureComponent {
 TableEditColumn.Command = CommandButton;
 TableEditColumn.Cell = EditCommandCell;
 TableEditColumn.HeaderCell = EditCommandHeadingCell;
+TableEditColumn.COLUMN_TYPE = TableEditColumnBase.COLUMN_TYPE;
 
 TableEditColumn.propTypes = {
   messages: PropTypes.shape({

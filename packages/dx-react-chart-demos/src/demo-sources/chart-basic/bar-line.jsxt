@@ -10,7 +10,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack } from '@devexpress/dx-react-chart';
+import { Stack, Scale } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 
@@ -100,6 +100,7 @@ export default class Demo extends React.PureComponent {
           />
           <Legend />
           <Stack />
+          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

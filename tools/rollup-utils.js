@@ -51,3 +51,5 @@ export const globals = () => {
       return modulePkg.globalName;
     }
 };
+
+export const stubProcess = 'if (typeof process === "undefined") { var process = { env: {} }; }';

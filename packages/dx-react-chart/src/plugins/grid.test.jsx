@@ -19,6 +19,7 @@ describe('Grid', () => {
         x2: 1,
         y1: 0,
         y2: 100,
+        key: '1',
       },
       {
         text: 'text2',
@@ -26,6 +27,7 @@ describe('Grid', () => {
         x2: 11,
         y1: 33,
         y2: 44,
+        key: '2',
       }],
     }));
   });
@@ -37,12 +39,13 @@ describe('Grid', () => {
 
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal' } },
+      domains: { name: { orientation: 'horizontal', type: 'type' } },
       layouts: {
         pane: {
           x: 1, y: 2, width: 200, height: 300,
         },
       },
+      scaleExtension: [{ type: 'type', constructor: 'constructor' }],
     },
     template: {
       series: {},
@@ -94,7 +97,7 @@ describe('Grid', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
-          getter: { domains: { name: { orientation: 'vertical' } } },
+          getter: { domains: { name: { orientation: 'vertical', type: 'type' } } },
         })}
         <Grid
           {...defaultProps}

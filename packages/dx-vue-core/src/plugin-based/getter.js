@@ -18,7 +18,7 @@ export const DxGetter = {
     value: null,
     computed: {
       type: Function,
-      default: null,
+      default: undefined,
     },
   },
   inject: {
@@ -43,7 +43,7 @@ export const DxGetter = {
       position: () => this.position(),
       [`${name}Getter`]: (original) => {
         const { value, computed } = this;
-        if (computed === null) return { id: this.id, value };
+        if (computed === undefined) return { id: this.id, value };
 
         const getGetterValue = getterName => ((getterName === name)
           ? original

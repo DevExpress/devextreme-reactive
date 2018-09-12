@@ -15,11 +15,11 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   let pieceTo = apptStart.clone();
   let i = 0;
   while (pieceTo.isBefore(apptEnd)) {
-    const currentRigthBound = left.clone().add(step * i, 'days').subtract(1, 'second');
-    if (currentRigthBound.isAfter(apptStart)) {
+    const currentRightBound = left.clone().add(step * i, 'days').subtract(1, 'second');
+    if (currentRightBound.isAfter(apptStart)) {
       pieceTo = apptStart.clone().add(step * i, 'days');
-      if (pieceTo.isAfter(currentRigthBound)) {
-        pieceTo = currentRigthBound.clone();
+      if (pieceTo.isAfter(currentRightBound)) {
+        pieceTo = currentRightBound.clone();
       }
       if (pieceTo.isAfter(apptEnd)) {
         pieceTo = apptEnd.clone();
@@ -62,11 +62,13 @@ const getCellRect = (date, monthCells, cellElements, takePrev) => {
   };
 };
 
-export const getRectByDates = (
+export const getMonthRectByDates = (
   startDate,
   endDate,
-  monthCells,
-  cellElements,
+  {
+    monthCells,
+    cellElements,
+  },
 ) => {
   const firstCellRect = getCellRect(startDate, monthCells, cellElements, false);
   const lastCellRect = getCellRect(endDate, monthCells, cellElements, true);

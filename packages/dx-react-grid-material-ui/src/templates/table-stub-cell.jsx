@@ -3,15 +3,18 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { getBorder } from './utils';
 
-const styles = {
+const styles = theme => ({
   cell: {
     padding: 0,
   },
-};
+  footer: {
+    borderBottom: getBorder(theme),
+  },
+});
 
 const TableStubCellBase = ({
-  style,
   classes,
   className,
   tableRow,
@@ -19,14 +22,13 @@ const TableStubCellBase = ({
   ...restProps
 }) => (
   <TableCell
-    style={style}
     className={classNames(classes.cell, className)}
+    classes={{ footer: classes.footer }}
     {...restProps}
   />
 );
 
 TableStubCellBase.propTypes = {
-  style: PropTypes.object,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
@@ -34,7 +36,6 @@ TableStubCellBase.propTypes = {
 };
 
 TableStubCellBase.defaultProps = {
-  style: null,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,

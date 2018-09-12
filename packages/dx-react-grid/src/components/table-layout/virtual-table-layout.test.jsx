@@ -19,8 +19,22 @@ jest.mock('./column-group', () => ({
 jest.mock('@devexpress/dx-react-core', () => {
   const { Component } = require.requireActual('react');
   return {
-    Sizer: ({ children }) => children({ width: 400, height: 120 }),
     // eslint-disable-next-line react/prefer-stateless-function
+    Sizer: class extends Component {
+      componentDidMount() {
+        const { onSizeChange } = this.props;
+        onSizeChange({ width: 400, height: 120 });
+      }
+
+      render() {
+        // eslint-disable-next-line react/prop-types
+        const { containerComponent: Container, onSizeChange, ...restProps } = this.props;
+        return (
+          <Container {...restProps} />
+        );
+      }
+    },
+    // eslint-disable-next-line react/no-multi-comp
     RefHolder: class extends Component {
       render() {
         // eslint-disable-next-line react/prop-types
@@ -50,6 +64,9 @@ const defaultProps = {
     { key: 4 },
     { key: 5 },
     { key: 6 },
+    { key: 7 },
+    { key: 8 },
+    { key: 9 },
   ],
   containerComponent: props => <div {...props} />,
   headTableComponent: props => <table {...props} />,
@@ -91,7 +108,6 @@ describe('VirtualTableLayout', () => {
 
     tree
       .find('Sizer')
-      .dive()
       .find(defaultProps.containerComponent)
       .prop('onScroll')(eventData);
     tree.update();
@@ -102,6 +118,7 @@ describe('VirtualTableLayout', () => {
       <VirtualTableLayout
         {...defaultProps}
         headerRows={defaultProps.bodyRows.slice(0, 1)}
+        footerRows={defaultProps.bodyRows.slice(0, 1)}
       />
     ));
 
@@ -111,33 +128,42 @@ describe('VirtualTableLayout', () => {
 
   describe('viewport', () => {
     it('should pass correct viewport at startup', () => {
-      const tree = shallow((
+      const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
+          footerRows={defaultProps.bodyRows.slice(0, 1)}
         />
       ));
 
-      tree.find('Sizer').dive();
+      expect(tree.find(defaultProps.containerComponent).props().style)
+        .toMatchObject({ height: `${defaultProps.height}px` });
 
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
           top: 0,
           left: 0,
           height: defaultProps.estimatedRowHeight,
           width: 400,
         });
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+        .toMatchObject({
+          top: 0,
+          left: 0,
+          height: 120 - (defaultProps.estimatedRowHeight * 2),
+          width: 400,
+        });
       expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
         .toMatchObject({
           top: 0,
           left: 0,
-          height: defaultProps.height - defaultProps.estimatedRowHeight,
+          height: defaultProps.estimatedRowHeight,
           width: 400,
         });
     });
 
     it('should pass correct viewport at startup when height is auto', () => {
-      const tree = shallow((
+      const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
@@ -145,26 +171,12 @@ describe('VirtualTableLayout', () => {
         />
       ));
 
-      tree.find('Sizer').dive();
-
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: defaultProps.estimatedRowHeight,
-          width: 400,
-        });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
-        .toMatchObject({
-          top: 0,
-          left: 0,
-          height: 120 - defaultProps.estimatedRowHeight,
-          width: 400,
-        });
+      expect(tree.find(defaultProps.containerComponent).props().style)
+        .not.toMatchObject({ height: `${defaultProps.height}px` });
     });
 
     it('should pass correct viewport at on viewport change', () => {
-      const tree = shallow((
+      const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
           headerRows={defaultProps.bodyRows.slice(0, 1)}
@@ -173,15 +185,19 @@ describe('VirtualTableLayout', () => {
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
 
-      tree.find('Sizer').dive();
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 3][0])
         .toMatchObject({
           top: 0,
           left: 50,
         });
-      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 2][0])
         .toMatchObject({
           top: 100,
+          left: 50,
+        });
+      expect(getCollapsedGrid.mock.calls[getCollapsedGrid.mock.calls.length - 1][0])
+        .toMatchObject({
+          top: 0,
           left: 50,
         });
     });
@@ -256,7 +272,7 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          bodyRows={rows}
+          bodyRows={rows.slice(0, 2)}
         />
       ));
       tree.setProps({ bodyRows: [rows[0]] });
@@ -281,10 +297,37 @@ describe('VirtualTableLayout', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
-          headerRows={rows}
+          headerRows={rows.slice(0, 2)}
+          bodyRows={rows.slice(2, 1)}
         />
       ));
       tree.setProps({ headerRows: [rows[0]] });
+
+      const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+
+    it('should clear row height when footerRows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+
+      findDOMNode.mockImplementation(() => ({
+        getBoundingClientRect: () => ({
+          height: 50,
+        }),
+      }));
+
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows.slice(2, 1)}
+          footerRows={rows.slice(0, 2)}
+        />
+      ));
+      tree.setProps({ footerRows: [rows[0]] });
 
       const { getRowHeight } = getCollapsedGrid.mock.calls[0][0];
       expect(getRowHeight(rows[1]))

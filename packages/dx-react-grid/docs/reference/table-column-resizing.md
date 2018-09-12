@@ -2,7 +2,7 @@
 
 A plugin that manages table column widths.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 

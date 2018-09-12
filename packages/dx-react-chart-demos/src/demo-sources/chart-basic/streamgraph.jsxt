@@ -13,7 +13,7 @@ import {
   area,
 } from 'd3-shape';
 
-import { Stack } from '@devexpress/dx-react-chart';
+import { Stack, Scale } from '@devexpress/dx-react-chart';
 
 import { booksSale } from '../../../demo-data/data-vizualization';
 
@@ -22,16 +22,13 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 const Area = (props) => {
   const {
-    x,
-    y,
     coordinates,
-    themeColor,
+    color,
   } = props;
 
   return (
     <path
-      fill={themeColor}
-      transform={`translate(${x} ${y})`}
+      fill={color}
       d={area()
         .x(getX)
         .y1(getY)
@@ -60,7 +57,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           style={{ paddingLeft: '20px' }}
         >
-          <ArgumentAxis name="argument" />
+          <ArgumentAxis name="argument" tickFormat={() => tick => tick} />
 
           <AreaSeries
             name="Mysteries"
@@ -106,6 +103,7 @@ export default class Demo extends React.PureComponent {
             offset={stackOffsetWiggle}
             order={stackOrderInsideOut}
           />
+          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

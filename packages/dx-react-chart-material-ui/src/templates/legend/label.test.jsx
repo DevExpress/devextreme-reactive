@@ -40,4 +40,12 @@ describe('Label', () => {
     expect(customProperty)
       .toBeTruthy();
   });
+
+  it('should pass the style to the element', () => {
+    const tree = shallow(<Label {...defaultProps} style />);
+    const { style } = tree.find(ListItemText).props();
+
+    expect(style)
+      .toBeTruthy();
+  });
 });

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
+  TABLE_EDIT_COMMAND_TYPE,
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -132,6 +133,9 @@ export class TableEditColumn extends React.PureComponent {
     );
   }
 }
+
+TableEditColumn.COLUMN_TYPE = TABLE_EDIT_COMMAND_TYPE;
+
 TableEditColumn.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   headerCellComponent: PropTypes.func.isRequired,
@@ -142,6 +146,7 @@ TableEditColumn.propTypes = {
   width: PropTypes.number,
   messages: PropTypes.object,
 };
+
 TableEditColumn.defaultProps = {
   showAddCommand: false,
   showEditCommand: false,

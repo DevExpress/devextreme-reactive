@@ -8,6 +8,7 @@ import {
   LineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale } from '@devexpress/dx-react-chart';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -47,7 +48,6 @@ export default class Demo extends React.PureComponent {
             valueField="sale"
             argumentField="month"
             axisName="sale"
-            stack="a"
           />
 
           <LineSeries
@@ -55,10 +55,10 @@ export default class Demo extends React.PureComponent {
             valueField="total"
             argumentField="month"
             axisName="total"
-            stack="a"
           />
 
           <Legend />
+          <Scale />
         </Chart>
       </<%&wrapperTag%>>
     );

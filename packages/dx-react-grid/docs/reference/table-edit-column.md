@@ -2,7 +2,7 @@
 
 A plugin that renders a command column. This column contains controls used for row editing, creating, or deleting and committing/canceling changes.
 
-## Importing
+## Import
 
 Use the following statement to import a plugin with embedded theme components:
 
@@ -90,6 +90,12 @@ TableEditColumn.Cell | [TableEditColumn.CellProps](#tableeditcolumncellprops) | 
 TableEditColumn.HeaderCell | [TableEditColumn.HeaderCellProps](#tableeditcolumnheadercellprops) | A component that renders a command cell within the header row.
 
 Additional properties are added to the component's root element.
+
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | string | The name of the edit column type.
 
 ## Plugin Developer Reference
 

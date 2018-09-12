@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  SortingState, EditingState, PagingState,
-  IntegratedPaging, IntegratedSorting,
+  SortingState, EditingState, PagingState, SummaryState,
+  IntegratedPaging, IntegratedSorting, IntegratedSummary,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table, TableHeaderRow, TableEditRow, TableEditColumn,
   PagingPanel, DragDropProvider, TableColumnReordering,
+  TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-bootstrap3';
 import {
   Modal,
@@ -140,7 +141,12 @@ export default class Demo extends React.PureComponent {
         { name: 'customer', title: 'Customer' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
+        { columnName: 'product', width: 200 },
+        { columnName: 'region', width: 180 },
+        { columnName: 'amount', width: 180, align: 'right' },
+        { columnName: 'discount', width: 180 },
+        { columnName: 'saleDate', width: 180 },
+        { columnName: 'customer', width: 200 },
       ],
       rows: generateRows({
         columnValues: { id: ({ index }) => index, ...globalSalesValues },
@@ -157,6 +163,11 @@ export default class Demo extends React.PureComponent {
       columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
       currencyColumns: ['amount'],
       percentColumns: ['discount'],
+      fixedColumnTypes: [TableEditColumn.COLUMN_TYPE],
+      totalSummaryItems: [
+        { columnName: 'discount', type: 'avg' },
+        { columnName: 'amount', type: 'sum' },
+      ],
     };
     const getStateDeletingRows = () => {
       const { deletingRows } = this.state;
@@ -232,6 +243,8 @@ export default class Demo extends React.PureComponent {
       columnOrder,
       currencyColumns,
       percentColumns,
+      fixedColumnTypes,
+      totalSummaryItems,
     } = this.state;
 
     return (
@@ -251,13 +264,6 @@ export default class Demo extends React.PureComponent {
             pageSize={pageSize}
             onPageSizeChange={this.changePageSize}
           />
-
-          <IntegratedSorting />
-          <IntegratedPaging />
-
-          <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
-
           <EditingState
             editingRowIds={editingRowIds}
             onEditingRowIdsChange={this.changeEditingRowIds}
@@ -267,6 +273,16 @@ export default class Demo extends React.PureComponent {
             onAddedRowsChange={this.changeAddedRows}
             onCommitChanges={this.commitChanges}
           />
+          <SummaryState
+            totalItems={totalSummaryItems}
+          />
+
+          <IntegratedSorting />
+          <IntegratedPaging />
+          <IntegratedSummary />
+
+          <CurrencyTypeProvider for={currencyColumns} />
+          <PercentTypeProvider for={percentColumns} />
 
           <DragDropProvider />
 
@@ -274,23 +290,25 @@ export default class Demo extends React.PureComponent {
             columnExtensions={tableColumnExtensions}
             cellComponent={Cell}
           />
-
           <TableColumnReordering
             order={columnOrder}
             onOrderChange={this.changeColumnOrder}
           />
-
           <TableHeaderRow showSortingControls />
           <TableEditRow
             cellComponent={EditCell}
           />
           <TableEditColumn
-            width={100}
+            width={140}
             showAddCommand={!addedRows.length}
             showEditCommand
             showDeleteCommand
             commandComponent={Command}
           />
+          <TableFixedColumns
+            leftColumnTypes={fixedColumnTypes}
+          />
+          <TableSummaryRow />
           <PagingPanel
             pageSizes={pageSizes}
           />
@@ -303,12 +321,12 @@ export default class Demo extends React.PureComponent {
         >
           <Modal.Header closeButton>
             <Modal.Title>
-Delete Row
+              Delete Row
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>
-Are you sure to delete the following row?
+              Are you sure to delete the following row?
             </p>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}
@@ -325,10 +343,10 @@ Are you sure to delete the following row?
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.cancelDelete}>
-Cancel
+              Cancel
             </Button>
             <Button className="btn-danger" onClick={this.deleteRows}>
-Delete
+              Delete
             </Button>
           </Modal.Footer>
         </Modal>

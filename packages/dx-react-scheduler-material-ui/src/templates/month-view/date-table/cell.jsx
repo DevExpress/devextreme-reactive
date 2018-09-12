@@ -4,14 +4,14 @@ import classNames from 'classnames';
 import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorderColor } from '../../utils';
+import { getBorder } from '../../utils';
 
 const styles = theme => ({
   cell: {
     verticalAlign: 'top',
     padding: 0,
     height: 100,
-    borderLeft: getBorderColor(theme),
+    borderLeft: getBorder(theme),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },

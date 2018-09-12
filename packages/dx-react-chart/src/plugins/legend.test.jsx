@@ -10,14 +10,19 @@ const Root = ({ children }) => children;
 const Item = ({ children }) => children;
 
 describe('Legend', () => {
+  const colorDomain = jest.fn();
+  beforeEach(() => {
+    colorDomain.domain = jest.fn().mockReturnValue(['first']);
+  });
   afterEach(() => {
     jest.resetAllMocks();
   });
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      series: [{ name: 'first', themeColor: 'color' }],
+      series: [{ name: 'first', color: 'color', uniqueName: 'first' }],
       setBBox: jest.fn(),
+      colorDomain,
     },
     template: {
       right: {},
@@ -57,7 +62,7 @@ describe('Legend', () => {
     ));
     expect(tree.find(Marker).get(0).props).toEqual({
       name: 'first',
-      themeColor: 'color',
+      color: 'color',
     });
   });
 

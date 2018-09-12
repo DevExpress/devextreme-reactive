@@ -1,13 +1,13 @@
 import {
   DxGetter, DxTemplate, DxTemplateConnector, DxTemplatePlaceholder, DxPlugin,
 } from '@devexpress/dx-vue-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
   getColumnFilterOperations,
-  getMessagesFormatter,
   isFilterValueEmpty,
 } from '@devexpress/dx-grid-core';
 

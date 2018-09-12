@@ -6,6 +6,7 @@ export class SliceCollection extends React.PureComponent {
   render() {
     const {
       pointComponent: Point,
+      path, // Not used - see note above.
       coordinates,
       colorDomain,
       uniqueName,

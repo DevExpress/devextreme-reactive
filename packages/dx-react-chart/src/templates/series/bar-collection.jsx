@@ -7,6 +7,7 @@ export class BarCollection extends React.PureComponent {
   render() {
     const {
       pointComponent: Point,
+      path, // Not used - see note above.
       coordinates,
       ...restProps
     } = this.props;

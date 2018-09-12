@@ -8,7 +8,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  calculateRectByDateIntervalsNew,
+  calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
   getWeekRectByDates,
@@ -16,6 +16,7 @@ import {
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
+  VERTICAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const SidebarPlaceholder = props => (
@@ -137,14 +138,15 @@ export class WeekView extends React.PureComponent {
             {({
               timeScale, dayScale, appointments, startViewDate, endViewDate,
             }) => {
-              const rects = dateTableRef ? calculateRectByDateIntervalsNew(
+              const intervals = calculateWeekDateIntervals(
+                appointments, startViewDate, endViewDate, excludedDays,
+              );
+              const rects = dateTableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: 'vertical',
+                  growDirection: VERTICAL_APPOINTMENT_TYPE,
                   multiline: false,
-                  intervals: calculateWeekDateIntervals(
-                    appointments, startViewDate, endViewDate, excludedDays,
-                  ),
                 },
+                intervals,
                 getWeekRectByDates,
                 {
                   startViewDate,

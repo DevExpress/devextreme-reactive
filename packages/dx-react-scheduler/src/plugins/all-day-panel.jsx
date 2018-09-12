@@ -9,9 +9,10 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   getAppointmentStyle,
-  calculateRectByDateIntervalsNew,
+  calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
   getAllDayRectByDates,
+  HORIZONTAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -67,14 +68,15 @@ export class AllDayPanel extends React.PureComponent {
               dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
             }) => {
               if (currentView === 'month') return null;
-              const rects = tableRef ? calculateRectByDateIntervalsNew(
+              const intervals = calculateAllDayDateIntervals(
+                appointments, startViewDate, endViewDate, excludedDays,
+              );
+              const rects = tableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: 'horizontal',
+                  growDirection: HORIZONTAL_APPOINTMENT_TYPE,
                   multiline: false,
-                  intervals: calculateAllDayDateIntervals(
-                    appointments, startViewDate, endViewDate, excludedDays,
-                  ),
                 },
+                intervals,
                 getAllDayRectByDates,
                 {
                   startViewDate,

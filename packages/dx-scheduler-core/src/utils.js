@@ -242,8 +242,8 @@ const verticalRectCalculator = (
   };
 };
 
-export const calculateRectByDateIntervalsNew = (type, rectByDates, rectByDatesMeta) => {
-  const { growDirection, multiline, intervals } = type;
+export const calculateRectByDateIntervals = (type, intervals, rectByDates, rectByDatesMeta) => {
+  const { growDirection, multiline } = type;
 
   const sorted = sortAppointments(intervals, multiline);
   const grouped = findOverlappedAppointments(sorted, multiline);

@@ -55,11 +55,18 @@ const Marker = (props) => {
     </svg>
   );
 };
+const demoStyles = () => ({
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+});
 
 const format = () => tick => tick;
 const EmptyComponent = () => null;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -70,6 +77,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper>
@@ -104,7 +112,7 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
           <Title
             text="Australian Medal Count"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+            className={classes.title}
           />
           <Scale />
         </Chart>
@@ -112,3 +120,5 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

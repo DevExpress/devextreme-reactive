@@ -37,12 +37,31 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const demoStyles = () => ({
+  chart: {
+    paddingRight: '20px',
+  },
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+  typography: {
+    marginTop: '0px',
+    marginBottom: '8px',
+  },
+  div: {
+    width: '200px',
+    marginLeft: '50px',
+    paddingBottom: '30px',
+  },
+});
 
 const format = () => tick => tick;
 const formatForFullstack = scale => scale.tickFormat(null, '%');
 const EmptyComponent = () => null;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -67,12 +86,12 @@ export default class Demo extends React.PureComponent {
     const {
       data: chartData, offset, valueFormat,
     } = this.state;
-
+    const { classes } = this.props;
     return (
       <Paper>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className={classes.chart}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
           <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickSize={0} />
@@ -108,12 +127,12 @@ export default class Demo extends React.PureComponent {
             stack="a"
           />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Carbon Emission Estimates" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="Carbon Emission Estimates" className={classes.title} />
           <Scale />
           <Stack offset={offset} />
         </Chart>
-        <div style={{ width: '200px', marginLeft: '50px', paddingBottom: '30px' }}>
-          <Typography component="h5" variant="headline" style={{ marginTop: '0px', marginBottom: '8px' }}>Series Type</Typography>
+        <div className={classes.div}>
+          <Typography component="h5" variant="headline" className={classes.typography}>Series Type</Typography>
           <FormControl>
             <NativeSelect onChange={this.changeSeriesType} defaultValue={1}>
               <option value={1}>Stacked Area</option>
@@ -125,3 +144,5 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

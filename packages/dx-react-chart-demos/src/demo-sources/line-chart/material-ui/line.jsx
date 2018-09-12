@@ -46,6 +46,17 @@ const legendItemBase = ({ classes, ...restProps }) => (
 const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
+const demoStyles = () => ({
+  chart: {
+    paddingRight: '20px',
+  },
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+    whiteSpace: 'pre',
+  },
+});
 const EmptyComponent = () => null;
 
 const ValueLabel = (props) => {
@@ -58,7 +69,7 @@ const ValueLabel = (props) => {
   );
 };
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -69,12 +80,13 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className={classes.chart}
         >
           <ArgumentAxis name="argumentAxis" tickFormat={format} />
           <ValueAxis
@@ -103,9 +115,7 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
           <Title
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
-            style={{
-              textAlign: 'center', width: '100%', marginBottom: '10px', whiteSpace: 'pre',
-            }}
+            className={classes.title}
           />
           <Scale />
         </Chart>
@@ -113,3 +123,5 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

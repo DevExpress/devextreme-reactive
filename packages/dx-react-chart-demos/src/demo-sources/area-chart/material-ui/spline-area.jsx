@@ -51,6 +51,16 @@ const legendLabelBase = ({ classes, ...restProps }) => (
   <Legend.Label className={classes.label} {...restProps} />
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+const demoStyles = () => ({
+  chart: {
+    paddingRight: '20px',
+  },
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+});
 
 const Area = props => (
   <AreaSeries.Path
@@ -63,7 +73,8 @@ const Area = props => (
   />
 );
 const EmptyComponent = () => null;
-export default class Demo extends React.PureComponent {
+
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -74,12 +85,12 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-
+    const { classes } = this.props;
     return (
       <Paper>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className={classes.chart}
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
@@ -100,9 +111,11 @@ export default class Demo extends React.PureComponent {
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="iOS App Store vs Google Play Revenue in 2012" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Title text="iOS App Store vs Google Play Revenue in 2012" className={classes.title} />
         </Chart>
       </Paper>
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

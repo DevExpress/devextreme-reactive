@@ -37,6 +37,16 @@ const legendItemStyles = () => ({
     flexDirection: 'column',
   },
 });
+const demoStyles = () => ({
+  chart: {
+    paddingRight: '20px',
+  },
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+});
 
 const legendRootBase = ({ classes, ...restProps }) => (
   <Legend.Root {...restProps} className={classes.root} />
@@ -53,7 +63,7 @@ const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase
 
 const EmptyComponent = () => null;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -64,12 +74,12 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-
+    const { classes } = this.props;
     return (
       <Paper>
         <Chart
           data={chartData}
-          style={{ paddingRight: '20px' }}
+          className={classes.chart}
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
@@ -94,10 +104,12 @@ export default class Demo extends React.PureComponent {
           />
           <Title
             text="Worldwide Sales to End Users by OS"
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+            className={classes.title}
           />
         </Chart>
       </Paper>
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

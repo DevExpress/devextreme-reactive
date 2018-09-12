@@ -72,9 +72,19 @@ const legendItemBase = ({ classes, ...restProps }) => (
 const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
+const demoStyles = () => ({
+  chart: {
+    paddingRight: '30px',
+  },
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+});
 const EmptyComponent = () => null;
 
-export default class Demo extends React.PureComponent {
+class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -85,12 +95,13 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper>
         <Chart
           data={chartData}
-          style={{ paddingRight: '30px' }}
+          className={classes.chart}
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
@@ -131,7 +142,7 @@ export default class Demo extends React.PureComponent {
             text="Energy Consumption in 2004"
             subtext="(Millions of Tons, Oil Equivalent)"
             textComponent={Text}
-            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+            className={classes.title}
           />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>
@@ -139,3 +150,5 @@ export default class Demo extends React.PureComponent {
     );
   }
 }
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

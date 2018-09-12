@@ -8,33 +8,26 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  monthAppointmentRect,
+  calculateRectByDateIntervals,
+  calculateMonthDateIntervals,
+  getAppointmentStyle,
+  getMonthRectByDates,
   endViewBoundary,
   monthCells as monthCellsCore,
   dayScale as dayScaleCore,
+  HORIZONTAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
-
-const appointmentRectsComputed = ({
-  appointments,
-  startViewDate,
-  endViewDate,
-  monthCells,
-  dateTableRef,
-}) => (dateTableRef ? monthAppointmentRect(
-  appointments,
-  startViewDate,
-  endViewDate,
-  monthCells,
-  dateTableRef.querySelectorAll('td'),
-) : []);
 
 const DayScalePlaceholder = props => (
   <TemplatePlaceholder name="navbar" params={props} />
 );
 const DateTablePlaceholder = props => (
   <TemplatePlaceholder name="main" params={props} />
+);
+const AppointmentPlaceholder = props => (
+  <TemplatePlaceholder name="appointment" params={props} />
 );
 
 export class MonthView extends React.PureComponent {
@@ -61,6 +54,7 @@ export class MonthView extends React.PureComponent {
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
+      containerComponent: Container,
       intervalCount,
       firstDayOfWeek,
     } = this.props;
@@ -86,8 +80,6 @@ export class MonthView extends React.PureComponent {
         <Getter name="monthCells" computed={monthCellsComputed} />
         <Getter name="startViewDate" computed={startViewDateComputed} />
         <Getter name="endViewDate" computed={endViewDateComputed} />
-        {dateTableRef && <Getter name="dateTableRef" value={dateTableRef} />}
-        <Getter name="appointmentRects" computed={appointmentRectsComputed} />
 
         <Template name="body">
           <ViewLayout
@@ -112,14 +104,50 @@ export class MonthView extends React.PureComponent {
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ monthCells }) => (
-              <DateTable
-                rowComponent={DateTableRow}
-                cellComponent={DateTableCell}
-                monthCells={monthCells}
-                dateTableRef={this.dateTableRef}
-              />
-            )}
+            {({
+              monthCells, appointments, startViewDate, endViewDate,
+            }) => {
+              const intervals = calculateMonthDateIntervals(
+                appointments, startViewDate, endViewDate,
+              );
+              const rects = dateTableRef ? calculateRectByDateIntervals(
+                {
+                  growDirection: HORIZONTAL_APPOINTMENT_TYPE,
+                  multiline: true,
+                },
+                intervals,
+                getMonthRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  monthCells,
+                  cellElements: dateTableRef.querySelectorAll('td'),
+                },
+              ) : [];
+
+              return (
+                <React.Fragment>
+                  <DateTable
+                    rowComponent={DateTableRow}
+                    cellComponent={DateTableCell}
+                    monthCells={monthCells}
+                    dateTableRef={this.dateTableRef}
+                  />
+                  <Container>
+                    {rects.map(({
+                      dataItem, type, ...geometry
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        type={type}
+                        key={index.toString()}
+                        appointment={dataItem}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
+                  </Container>
+                </React.Fragment>
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>
@@ -135,6 +163,7 @@ MonthView.propTypes = {
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
+  containerComponent: PropTypes.func.isRequired,
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
 };

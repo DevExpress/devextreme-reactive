@@ -1,12 +1,7 @@
 import { mount } from '@vue/test-utils';
-import { getMessagesFormatter } from '@devexpress/dx-grid-core';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { PluginDepsToComponents } from './test-utils';
 import { DxSearchPanel } from './search-panel';
-
-jest.mock('@devexpress/dx-grid-core', () => ({
-  getMessagesFormatter: jest.fn().mockReturnValue(() => { }),
-}));
 
 const defaultDeps = {
   plugins: ['DxToolbar', 'DxSearchState', 'DxIntegratedFiltering'],
@@ -25,9 +20,6 @@ const defaultProps = {
 };
 
 describe('DxSearchPanel', () => {
-  beforeEach(() => {
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
-  });
   it('should pass correct props to inputComponent', () => {
     const tree = mount({
       render() {

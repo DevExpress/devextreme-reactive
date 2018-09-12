@@ -11,7 +11,7 @@ const makeBoundComponent = (Target, components, exposed) => {
   return Component;
 };
 
-const bindSeriesComponents = seriesComponents => (Target) => {
+export const bindSeriesComponents = seriesComponents => (Target) => {
   const components = {};
   const exposed = {};
   Object.entries(Target.components).forEach(([name, value]) => {
@@ -23,13 +23,4 @@ const bindSeriesComponents = seriesComponents => (Target) => {
   });
   return Object.keys(components).length > 0
     ? makeBoundComponent(Target, components, exposed) : Target;
-};
-
-export const batchBindSeriesComponents = (targets, seriesComponents) => {
-  const result = {};
-  const bind = bindSeriesComponents(seriesComponents);
-  Object.keys(targets).forEach((name) => {
-    result[name] = bind(targets[name]);
-  });
-  return result;
 };

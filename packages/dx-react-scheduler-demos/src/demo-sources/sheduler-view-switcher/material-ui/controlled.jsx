@@ -22,6 +22,7 @@ export default class Demo extends React.PureComponent {
       data: appointments,
       currentView: 'Week',
     };
+    this.currentViewChange = (currentView) => { this.setState({ currentView }); };
   }
 
   render() {
@@ -33,8 +34,9 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            defaultCurrentView={currentView}
             defaultCurrentDate="2018-07-25"
+            currentView={currentView}
+            onCurrentViewChange={this.currentViewChange}
           />
 
           <WeekView

@@ -1,4 +1,4 @@
 import { BarSeries as BarSeriesBase } from '@devexpress/dx-react-chart';
-import { withComponents } from './series-components';
+import { withSeriesComponents } from './series-components';
 
-export const BarSeries = withComponents(BarSeriesBase);
+export const BarSeries = withSeriesComponents(BarSeriesBase);

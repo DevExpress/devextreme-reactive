@@ -1,4 +1,4 @@
 import { PieSeries as PieSeriesBase } from '@devexpress/dx-react-chart';
-import { withComponents } from './series-components';
+import { withSeriesComponents } from './series-components';
 
-export const PieSeries = withComponents(PieSeriesBase);
+export const PieSeries = withSeriesComponents(PieSeriesBase);

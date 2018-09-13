@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { bindSeriesComponents } from './series-component';
+import { withComponents } from './series-component';
 
-describe('bindSeriesComponents', () => {
+describe('withComponents', () => {
   const Tester = () => null;
   Tester.components = {
     component1: {
@@ -18,7 +18,7 @@ describe('bindSeriesComponents', () => {
   const TestComponent2 = () => null;
 
   it('should add bound components to props', () => {
-    const BoundTester = bindSeriesComponents({
+    const BoundTester = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
@@ -33,7 +33,7 @@ describe('bindSeriesComponents', () => {
   });
 
   it('should tolerate absence of some components', () => {
-    const BoundTester = bindSeriesComponents({
+    const BoundTester = withComponents({
       Component2: TestComponent2,
     })(Tester);
 
@@ -46,13 +46,13 @@ describe('bindSeriesComponents', () => {
   });
 
   it('should return original if there are no valid components', () => {
-    const BoundTester = bindSeriesComponents({})(Tester);
+    const BoundTester = withComponents({})(Tester);
 
     expect(BoundTester).toEqual(Tester);
   });
 
   it('should expose bound components', () => {
-    const BoundTester = bindSeriesComponents({
+    const BoundTester = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
@@ -62,13 +62,13 @@ describe('bindSeriesComponents', () => {
   });
 
   it('should attempt to preserve already exposed components', () => {
-    const BoundTester1 = bindSeriesComponents({
+    const BoundTester1 = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
     const Component3 = () => null;
 
-    const BoundTester2 = bindSeriesComponents({
+    const BoundTester2 = withComponents({
       Component1: Component3,
     })(BoundTester1);
 
@@ -77,7 +77,7 @@ describe('bindSeriesComponents', () => {
   });
 
   it('should pass along components definition', () => {
-    const BoundTester = bindSeriesComponents({
+    const BoundTester = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);

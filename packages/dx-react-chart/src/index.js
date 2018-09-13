@@ -11,4 +11,4 @@ export * from './templates/series';
 export { Axis } from './plugins/axis';
 export { Grid } from './plugins/grid';
 
-export { patchProps, bindSeriesComponents } from './utils';
+export { patchProps, withComponents } from './utils';

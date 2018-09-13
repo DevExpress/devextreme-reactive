@@ -11,16 +11,16 @@ const makeBoundComponent = (Target, components, exposed) => {
   return Component;
 };
 
-export const bindSeriesComponents = seriesComponents => (Target) => {
-  const components = {};
+export const withComponents = components => (Target) => {
+  const props = {};
   const exposed = {};
   Object.entries(Target.components).forEach(([name, value]) => {
-    const component = seriesComponents[value.name];
+    const component = components[value.name];
     if (component) {
-      components[name] = component;
+      props[name] = component;
     }
     exposed[value.exposedName] = component || Target[value.exposedName];
   });
-  return Object.keys(components).length > 0
-    ? makeBoundComponent(Target, components, exposed) : Target;
+  return Object.keys(props).length > 0
+    ? makeBoundComponent(Target, props, exposed) : Target;
 };

@@ -9,7 +9,9 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   prepareData: jest.fn(data => data),
 }));
 
-const computedDomain = jest.fn(() => 'computedDomain');
+const domains = { argumentName: { domain: 'domain' } };
+const computedDomain = jest.fn(() => domains);
+const themeComputing = jest.fn(() => 'themeComputing');
 
 const defaultProps = {
   data: [{ arg: 1, val: 2 }],
@@ -18,6 +20,7 @@ const defaultProps = {
 const defaultDeps = {
   getter: {
     computedDomain,
+    themeComputing,
   },
 };
 
@@ -34,8 +37,32 @@ describe('Chart Core', () => {
     expect(getComputedState(tree)).toEqual({
       data: defaultProps.data,
       argumentAxisName: 'argumentName',
-      domains: 'computedDomain',
+      domains,
       computedDomain,
+      colorDomain: 'themeComputing',
+      themeComputing,
+    });
+  });
+
+  it('should provide options, themeComputing is not set', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          getter: {
+            computedDomain,
+          },
+        })}
+        <ChartCore
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    expect(getComputedState(tree)).toEqual({
+      data: defaultProps.data,
+      argumentAxisName: 'argumentName',
+      domains,
+      computedDomain,
+      colorDomain: expect.any(Function),
     });
   });
 });

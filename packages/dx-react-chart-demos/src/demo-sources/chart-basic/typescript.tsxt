@@ -8,7 +8,7 @@ import {
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Theme } from '@devexpress/dx-react-chart';
 
 interface IDataItem {
   month: string,
@@ -54,6 +54,7 @@ export default class Demo extends React.Component<object, object> {
             axisName="total"
           />
           <Scale />
+          <Theme />
         </Chart>
       </<%&wrapperTag%>>
     );

@@ -4,6 +4,7 @@ export { Title } from './plugins/title';
 
 export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
+export { Theme } from './plugins/theme';
 
 export { BarSeries } from './plugins/bar-series';
 export { LineSeries } from './plugins/line-series';

@@ -8,7 +8,7 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Theme } from '@devexpress/dx-react-chart';
 
 import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
 import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';
@@ -71,6 +71,7 @@ export default class Demo extends React.PureComponent {
             markerComponent={SpecialMarkerComponent}
           />
           <Scale />
+          <Theme />
         </Chart>
       </<%&wrapperTag%>>
     );

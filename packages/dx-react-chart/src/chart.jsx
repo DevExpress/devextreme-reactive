@@ -11,7 +11,6 @@ import { SpaceFillingRects } from './plugins/space-filling-rects';
 import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
-import { ThemeManager } from './plugins/theme-manager';
 
 export class Chart extends React.PureComponent {
   render() {
@@ -27,7 +26,6 @@ export class Chart extends React.PureComponent {
       <PluginHost>
         {children}
         <ChartCore data={data} />
-        <ThemeManager />
         <LayoutManager
           width={width}
           height={height}

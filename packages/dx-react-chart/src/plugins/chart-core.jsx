@@ -13,11 +13,16 @@ export class ChartCore extends React.PureComponent {
     const calculatedDomains = ({
       axes, series, data: chartData, argumentAxisName, startFromZero, computedDomain,
     }) => computedDomain(axes, series, chartData, argumentAxisName, startFromZero);
+    const colorDomain = ({
+      series, domains, argumentAxisName, items, themeComputing,
+    }) => (themeComputing
+      ? themeComputing(series, domains[argumentAxisName].domain, items) : () => '#000000');
     return (
       <Plugin>
         <Getter name="data" computed={processedData} />
         <Getter name="argumentAxisName" computed={getArgumentAxisName} />
         <Getter name="domains" computed={calculatedDomains} />
+        <Getter name="colorDomain" computed={colorDomain} />
       </Plugin>
     );
   }

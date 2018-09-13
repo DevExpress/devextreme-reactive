@@ -6,9 +6,8 @@ import {
   DxTemplateConnector,
   DxTemplatePlaceholder,
 } from '@devexpress/dx-vue-core';
-
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  getMessagesFormatter,
   toggleColumn,
   visibleTableColumns,
   tableDataColumnsExist,

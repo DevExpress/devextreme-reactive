@@ -1,55 +1,36 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplatePlaceholder, TemplateConnector,
+  Plugin, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
-
-const getAppointmentStyle = ({
-  top,
-  left,
-  width,
-  height,
-}) => ({
-  height,
-  width: `${width}%`,
-  transform: `translateY(${top}px)`,
-  left: `${left}%`,
-  position: 'absolute',
-});
 
 export class Appointments extends React.PureComponent {
   render() {
     const {
       appointmentComponent: Appointment,
-      containerComponent: Container,
     } = this.props;
 
     return (
       <Plugin name="Appointment">
-        <Template name="main">
-          <TemplatePlaceholder />
-          <Container>
+        <Template
+          name="appointment"
+        >
+          {params => (
             <TemplateConnector>
               {({
-                appointmentRects,
                 getAppointmentTitle,
                 getAppointmentStartDate,
                 getAppointmentEndDate,
-              }) => appointmentRects.map(({
-                dataItem, type, ...geometry
-              }, index) => (
+              }) => (
                 <Appointment
-                  type={type}
-                  key={index.toString()}
-                  appointment={dataItem}
+                  {...params}
                   getTitle={getAppointmentTitle}
-                  getEndDate={getAppointmentEndDate}
                   getStartDate={getAppointmentStartDate}
-                  style={getAppointmentStyle(geometry)}
+                  getEndDate={getAppointmentEndDate}
                 />
-              ))}
+              )}
             </TemplateConnector>
-          </Container>
+          )}
         </Template>
       </Plugin>
     );
@@ -58,5 +39,4 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
 };

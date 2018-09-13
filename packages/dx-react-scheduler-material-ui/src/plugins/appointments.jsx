@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Appointments as AppointmentsBase } from '@devexpress/dx-react-scheduler';
 import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from '@devexpress/dx-scheduler-core';
-import { Container } from '../templates/appointment/container';
 import { HorizontalAppointment } from '../templates/appointment/horizontal-appointment';
 import { VerticalAppointment } from '../templates/appointment/vertical-appointment';
 
@@ -24,7 +23,6 @@ export class Appointments extends React.PureComponent {
     return (
       <AppointmentsBase
         appointmentComponent={Appointment}
-        containerComponent={Container}
         {...this.props}
       />
     );

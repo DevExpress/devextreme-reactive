@@ -13,14 +13,6 @@ describe('ViewSwitcher', () => {
   });
 
   describe('Switcher', () => {
-    it('should pass className to the root element', () => {
-      const tree = shallow((
-        <Switcher {...defaultProps} className="custom-class" />
-      ));
-
-      expect(tree.is('.custom-class'))
-        .toBeTruthy();
-    });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Switcher {...defaultProps} data={{ a: 1 }} />

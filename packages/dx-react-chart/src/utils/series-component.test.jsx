@@ -45,6 +45,24 @@ describe('withComponents', () => {
     });
   });
 
+  it('should override existing binding', () => {
+    const BoundTester1 = withComponents({
+      Component1: TestComponent1,
+      Component2: TestComponent2,
+    })(Tester);
+    const Component3 = () => null;
+    const BoundTester2 = withComponents({
+      Component1: Component3,
+    })(BoundTester1);
+
+    const tree = mount(<BoundTester2 />);
+
+    expect(tree.find(Tester).props()).toEqual({
+      component1: Component3,
+      component2: TestComponent2,
+    });
+  });
+
   it('should return original if there are no valid components', () => {
     const BoundTester = withComponents({})(Tester);
 

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { patchProps } from './patch-props';
+import { withPatchedProps } from './patch-props';
 
-describe('patchProps', () => {
+describe('withPatchedProps', () => {
   const Tester = () => null;
 
   it('should substitute props', () => {
-    const PatchedTester = patchProps(({ a, b, ...restProps }) => ({
+    const PatchedTester = withPatchedProps(({ a, b, ...restProps }) => ({
       ...restProps,
       c: a + b,
     }))(Tester);
@@ -20,7 +20,7 @@ describe('patchProps', () => {
   });
 
   it('should replace props', () => {
-    const PatchedTester = patchProps(({ a, b }) => ({
+    const PatchedTester = withPatchedProps(({ a, b }) => ({
       c: a + b,
     }))(Tester);
 

@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Line } from './line';
 
 jest.mock('@devexpress/dx-react-chart', () => ({
-  patchProps: x => x,
+  withPatchedProps: x => x,
 }));
 
 describe('Line', () => {

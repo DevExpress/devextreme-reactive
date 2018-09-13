@@ -1,4 +1,4 @@
-import { patchProps } from '@devexpress/dx-react-chart';
+import { withPatchedProps } from '@devexpress/dx-react-chart';
 import classNames from 'classnames';
 
 export const withClassName = (value) => {
@@ -6,5 +6,5 @@ export const withClassName = (value) => {
     ...restProps,
     className: classNames(value, className),
   });
-  return patchProps(setClassName);
+  return withPatchedProps(setClassName);
 };

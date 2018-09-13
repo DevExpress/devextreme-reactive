@@ -1,4 +1,4 @@
-import { patchProps } from '@devexpress/dx-react-chart';
+import { withPatchedProps } from '@devexpress/dx-react-chart';
 import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -15,5 +15,5 @@ export const withClassName = (styles) => {
     className: classNames(classes.root, className),
   });
   // TODO: First candidate to `compose` util?
-  return Target => withStyles(styles)(patchProps(setClassName)(Target));
+  return Target => withStyles(styles)(withPatchedProps(setClassName)(Target));
 };

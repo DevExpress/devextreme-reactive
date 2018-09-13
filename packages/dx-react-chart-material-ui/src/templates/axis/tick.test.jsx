@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Tick } from './tick';
 
 jest.mock('@devexpress/dx-react-chart', () => ({
-  patchProps: x => x,
+  withPatchedProps: x => x,
 }));
 
 const defaultProps = {

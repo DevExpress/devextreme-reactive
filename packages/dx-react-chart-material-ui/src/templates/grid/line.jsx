@@ -1,4 +1,4 @@
-import { Line as LineBase } from '@devexpress/dx-react-chart';
+import { Grid } from '@devexpress/dx-react-chart';
 import { withClassName, getBorderColor } from '../utils';
 
 const styles = theme => ({
@@ -8,4 +8,4 @@ const styles = theme => ({
   },
 });
 
-export const Line = withClassName(styles)(LineBase);
+export const Line = withClassName(styles)(Grid.Line);

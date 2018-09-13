@@ -11,6 +11,5 @@ export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Grid } from './plugins/grid';
 
 export * from './templates/series';
-export * from './templates/grid';
 
 export { withPatchedProps, withComponents } from './utils';

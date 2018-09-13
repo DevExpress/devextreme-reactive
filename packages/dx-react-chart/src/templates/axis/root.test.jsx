@@ -26,18 +26,6 @@ describe('Root', () => {
       .toBeTruthy();
   });
 
-
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow((
-      <Root {...defaultProps} className="custom-class">
-        <div />
-      </Root>
-    ));
-
-    expect(tree.is('.custom-class.dx-c-bs4-crisp-edges'))
-      .toBeTruthy();
-  });
-
   it('should pass the rest property to the root element', () => {
     const tree = shallow((
       <Root {...defaultProps} customProperty>

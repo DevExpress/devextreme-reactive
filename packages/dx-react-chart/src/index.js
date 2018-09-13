@@ -7,7 +7,7 @@ export { Stack } from './plugins/stack';
 
 export * from './plugins/series-with-components';
 
-export { Axis } from './plugins/axis';
+export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Grid } from './plugins/grid';
 
 export * from './templates/series';

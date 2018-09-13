@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import {
   Plugin,
   TemplateConnector,
@@ -8,10 +7,13 @@ import {
   TemplatePlaceholder,
   Getter,
 } from '@devexpress/dx-react-core';
+import {
+  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, axesData,
+} from '@devexpress/dx-chart-core';
+import * as axisCompoments from '../templates/axis';
+import { withPatchedProps, withComponents } from '../utils';
 
-import { axisCoordinates, HORIZONTAL, axesData } from '@devexpress/dx-chart-core';
-
-export class Axis extends React.Component {
+class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,7 +89,9 @@ export class Axis extends React.Component {
               argumentAxisName,
               layouts,
               scaleExtension,
-            }, { changeBBox }) => {
+            }, {
+              changeBBox,
+            }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation, type } = domain;
@@ -193,7 +197,7 @@ export class Axis extends React.Component {
   }
 }
 
-Axis.propTypes = {
+RawAxis.propTypes = {
   name: PropTypes.string,
   isArgumentAxis: PropTypes.bool,
   rootComponent: PropTypes.func.isRequired,
@@ -205,9 +209,45 @@ Axis.propTypes = {
   indentFromAxis: PropTypes.number,
 };
 
-Axis.defaultProps = {
+RawAxis.defaultProps = {
   tickSize: 5,
   indentFromAxis: 10,
   name: undefined,
   isArgumentAxis: false,
 };
+
+RawAxis.components = {
+  rootComponent: {
+    name: 'Root',
+    exposedName: 'Root',
+  },
+  tickComponent: {
+    name: 'Tick',
+    exposedName: 'Tick',
+  },
+  labelComponent: {
+    name: 'Label',
+    exposedName: 'Label',
+  },
+  lineComponent: {
+    name: 'Line',
+    exposedName: 'Line',
+  },
+};
+
+export const Axis = withComponents(axisCompoments)(RawAxis);
+
+export const ArgumentAxis = withPatchedProps(props => ({
+  ...props,
+  position: BOTTOM,
+  isArgumentAxis: true,
+}))(Axis);
+
+ArgumentAxis.components = Axis.components;
+
+export const ValueAxis = withPatchedProps(props => ({
+  ...props,
+  position: LEFT,
+}))(Axis);
+
+ValueAxis.components = Axis.components;

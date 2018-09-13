@@ -218,6 +218,7 @@ export class WeekView extends React.PureComponent {
                 },
               ) : [];
 
+              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
                   <DateTable
@@ -230,9 +231,14 @@ export class WeekView extends React.PureComponent {
                   <Container>
                     {rects.map(({
                       dataItem, type, ...geometry
-                    }, index) => this.appointmentPlaceholder({
-                      type, key: `${viewName}-${index}`, appointment: dataItem, style: getAppointmentStyle(geometry),
-                    }))}
+                    }, index) => (
+                      <AppointmentPlaceholder
+                        key={index.toString()}
+                        type={type}
+                        appointment={dataItem}
+                        style={getAppointmentStyle(geometry)}
+                      />
+                    ))}
                   </Container>
                 </React.Fragment>
               );

@@ -23,31 +23,6 @@ import {
 
 const DAYS_IN_WEEK = 7;
 
-const endViewDateBaseComputed = ({
-  dayScale, timeScale,
-}) => endViewDateCore(dayScale, timeScale);
-const timeScaleBaseComputed = ({
-  currentDate,
-  firstDayOfWeek,
-  startDayHour,
-  endDayHour,
-  cellDuration,
-  excludedDays,
-}) => timeScaleCore(
-  currentDate,
-  firstDayOfWeek,
-  startDayHour,
-  endDayHour,
-  cellDuration,
-  excludedDays,
-);
-const dayScaleBaseComputed = ({
-  currentDate, firstDayOfWeek, intervalCount, excludedDays,
-}) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
-const startViewDateBaseComputed = ({
-  dayScale, timeScale, startDayHour,
-}) => startViewDateCore(dayScale, timeScale, startDayHour);
-
 export class WeekView extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -63,6 +38,70 @@ export class WeekView extends React.PureComponent {
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+
+    const {
+      viewName,
+      firstDayOfWeek,
+      startDayHour,
+      endDayHour,
+      cellDuration,
+      excludedDays,
+      intervalCount,
+    } = this.props;
+
+    this.endViewDateBaseComputed = ({
+      dayScale, timeScale,
+    }) => endViewDateCore(dayScale, timeScale);
+    this.timeScaleBaseComputed = ({
+      currentDate,
+    }) => timeScaleCore(
+      currentDate,
+      firstDayOfWeek,
+      startDayHour,
+      endDayHour,
+      cellDuration,
+      excludedDays,
+    );
+    this.dayScaleBaseComputed = ({
+      currentDate,
+    }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
+    this.startViewDateBaseComputed = ({
+      dayScale, timeScale,
+    }) => startViewDateCore(dayScale, timeScale, startDayHour);
+
+    this.currentViewComputed = ({ currentView }) => {
+      if (!currentView || viewName === currentView) {
+        return viewName;
+      }
+      return currentView;
+    };
+    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
+      availableViews, viewName,
+    );
+    this.intervalCountComputed = getters => computed(
+      getters, viewName, () => intervalCount, getters.intervalCount,
+    );
+    this.firstDayOfWeekComputed = getters => computed(
+      getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
+    );
+    this.excludedDaysComputed = getters => computed(
+      getters, viewName, () => excludedDays, getters.excludedDays,
+    );
+    this.timeScaleComputed = getters => computed(
+      getters,
+      viewName,
+      this.timeScaleBaseComputed,
+      getters.timeScale,
+    );
+    this.dayScaleComputed = getters => computed(
+      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
+    );
+    this.startViewDateComputed = getters => computed(
+      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+    );
+    this.endViewDateComputed = getters => computed(
+      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+    );
   }
 
   dateTableRef(dateTableRef) {
@@ -81,70 +120,26 @@ export class WeekView extends React.PureComponent {
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
-      startDayHour,
-      endDayHour,
       cellDuration,
-      intervalCount,
-      firstDayOfWeek,
       excludedDays,
       viewName,
       containerComponent: Container,
     } = this.props;
-    const { dateTableRef: stateDateTableRef } = this.state;
-
-    const currentViewComputed = ({ currentView }) => {
-      if (!currentView || viewName === currentView) {
-        return viewName;
-      }
-      return currentView;
-    };
-    const availableViewsComputed = ({ availableViews }) => availableViewsCore(
-      availableViews, viewName,
-    );
-    const intervalCountComputed = getters => computed(
-      getters, viewName, () => intervalCount, getters.intervalCount,
-    );
-    const firstDayOfWeekComputed = getters => computed(
-      getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
-    );
-    const excludedDaysComputed = getters => computed(
-      getters, viewName, () => excludedDays, getters.excludedDays,
-    );
-    const timeScaleComputed = getters => computed(
-      {
-        ...getters,
-        startDayHour,
-        endDayHour,
-        cellDuration,
-        excludedDays,
-      },
-      viewName,
-      timeScaleBaseComputed,
-      getters.timeScale,
-    );
-    const dayScaleComputed = getters => computed(
-      { ...getters, excludedDays }, viewName, dayScaleBaseComputed, getters.dayScale,
-    );
-    const startViewDateComputed = getters => computed(
-      { ...getters, startDayHour }, viewName, startViewDateBaseComputed, getters.startViewDate,
-    );
-    const endViewDateComputed = getters => computed(
-      getters, viewName, endViewDateBaseComputed, getters.endViewDate,
-    );
+    const { dateTableRef } = this.state;
 
     return (
       <Plugin
         name="WeekView"
       >
-        <Getter name="availableViews" computed={availableViewsComputed} />
-        <Getter name="currentView" computed={currentViewComputed} />
-        <Getter name="intervalCount" computed={intervalCountComputed} />
-        <Getter name="firstDayOfWeek" computed={firstDayOfWeekComputed} />
-        <Getter name="excludedDays" computed={excludedDaysComputed} />
-        <Getter name="timeScale" computed={timeScaleComputed} />
-        <Getter name="dayScale" computed={dayScaleComputed} />
-        <Getter name="startViewDate" computed={startViewDateComputed} />
-        <Getter name="endViewDate" computed={endViewDateComputed} />
+        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="currentView" computed={this.currentViewComputed} />
+        <Getter name="intervalCount" computed={this.intervalCountComputed} />
+        <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
+        <Getter name="excludedDays" computed={this.excludedDaysComputed} />
+        <Getter name="timeScale" computed={this.timeScaleComputed} />
+        <Getter name="dayScale" computed={this.dayScaleComputed} />
+        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Template name="body">
           <TemplateConnector>
@@ -201,7 +196,7 @@ export class WeekView extends React.PureComponent {
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = stateDateTableRef ? calculateRectByDateIntervals(
+              const rects = dateTableRef ? calculateRectByDateIntervals(
                 {
                   growDirection: VERTICAL_APPOINTMENT_TYPE,
                   multiline: false,
@@ -214,7 +209,7 @@ export class WeekView extends React.PureComponent {
                   dayScale,
                   timeScale,
                   cellDuration,
-                  cellElements: stateDateTableRef.querySelectorAll('td'),
+                  cellElements: dateTableRef.querySelectorAll('td'),
                 },
               ) : [];
 

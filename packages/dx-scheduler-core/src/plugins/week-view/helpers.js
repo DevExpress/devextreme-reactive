@@ -52,16 +52,25 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   };
 };
 
-export const getRectByDates = (
+export const getWeekRectByDates = (
   startDate,
   endDate,
-  days,
-  times,
-  cellDuration,
-  cellElements,
+  {
+    dayScale,
+    timeScale,
+    cellDuration,
+    cellElements,
+  },
 ) => {
-  const firstCellRect = getCellRect(startDate, days, times, cellDuration, cellElements, false);
-  const lastCellRect = getCellRect(endDate, days, times, cellDuration, cellElements, true);
+  const firstCellRect = getCellRect(
+    startDate,
+    dayScale,
+    timeScale,
+    cellDuration,
+    cellElements,
+    false,
+  );
+  const lastCellRect = getCellRect(endDate, dayScale, timeScale, cellDuration, cellElements, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

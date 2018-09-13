@@ -4,7 +4,7 @@ import {
   DxPlugin,
   DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
-import { getMessagesFormatter } from '@devexpress/dx-grid-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 
 const pluginDependencies = [
   { name: 'DxToolbar' },

@@ -5,6 +5,7 @@ import {
   DxTemplateConnector,
   DxPlugin,
 } from '@devexpress/dx-vue-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   tableColumnsWithDataRows,
   tableRowsWithDataRows,
@@ -14,7 +15,6 @@ import {
   isHeaderStubTableCell,
   isNoDataTableRow,
   isNoDataTableCell,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = {

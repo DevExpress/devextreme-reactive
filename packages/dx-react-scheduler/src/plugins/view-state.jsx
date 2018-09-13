@@ -71,8 +71,8 @@ ViewState.propTypes = {
   currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   defaultCurrentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   onCurrentDateChange: PropTypes.func,
-  currentView: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-  defaultCurrentView: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  currentView: PropTypes.string,
+  defaultCurrentView: PropTypes.string,
   onCurrentViewChange: PropTypes.func,
 };
 

@@ -96,7 +96,7 @@ children | ReactNode | The content's children.
 
 ### TableHeaderRow.GroupButtonProps
 
-Describes propertiesused to render a group button.
+Describes properties used to render a group button.
 
 Field | Type | Description
 ------|------|------------

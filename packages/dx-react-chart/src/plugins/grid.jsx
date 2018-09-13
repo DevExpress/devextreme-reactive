@@ -9,8 +9,11 @@ import {
 import {
   axisCoordinates, HORIZONTAL, TOP, LEFT,
 } from '@devexpress/dx-chart-core';
+import * as gridCompoments from '../templates/grid';
+import { withComponents } from '../utils';
 
-export class Grid extends React.PureComponent {
+
+class RawGrid extends React.PureComponent {
   render() {
     const {
       name,
@@ -68,11 +71,20 @@ export class Grid extends React.PureComponent {
   }
 }
 
-Grid.propTypes = {
+RawGrid.propTypes = {
   name: PropTypes.string,
   lineComponent: PropTypes.func.isRequired,
 };
 
-Grid.defaultProps = {
+RawGrid.defaultProps = {
   name: undefined,
 };
+
+RawGrid.components = {
+  lineComponent: {
+    name: 'Line',
+    exposedName: 'Line',
+  },
+};
+
+export const Grid = withComponents(gridCompoments)(RawGrid);

@@ -35,7 +35,7 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render appointment start date', () => {
+    it('should render appointment date', () => {
       const tree = shallow((
         <Content {...defaultProps} />
       ));

@@ -75,7 +75,6 @@ export const getDayRectByDates = (
   startDate,
   endDate,
   {
-    currentDate,
     timeScale,
     cellDuration,
     cellElements,

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   sliceAppointmentByWeek,
-  getRectByDates,
+  getMonthRectByDates,
 } from './helpers';
 
 describe('MonthView Helpers', () => {
@@ -166,7 +166,7 @@ describe('MonthView Helpers', () => {
     });
   });
 
-  describe('#getRectByDates', () => {
+  describe('#getMonthRectByDates', () => {
     const offsetParent = {
       getBoundingClientRect: () => ({
         top: 10, left: 10, width: 250,
@@ -189,11 +189,13 @@ describe('MonthView Helpers', () => {
       const endDate = new Date('2018-07-06 00:00');
       const {
         top, left, height, width, parentWidth,
-      } = getRectByDates(
+      } = getMonthRectByDates(
         startDate,
         endDate,
-        monthCells,
-        cellElements,
+        {
+          monthCells,
+          cellElements,
+        },
       );
 
       expect(top).toBe(130);
@@ -207,11 +209,13 @@ describe('MonthView Helpers', () => {
       const endDate = new Date('2018-07-08 00:00');
       const {
         top, left, height, width, parentWidth,
-      } = getRectByDates(
+      } = getMonthRectByDates(
         startDate,
         endDate,
-        monthCells,
-        cellElements,
+        {
+          monthCells,
+          cellElements,
+        },
       );
 
       expect(top).toBe(130);

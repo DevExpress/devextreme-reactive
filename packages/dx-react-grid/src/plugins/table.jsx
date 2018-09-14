@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { memoize } from '@devexpress/dx-core';
+import { memoize, getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -17,7 +17,6 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
-  getMessagesFormatter,
   TABLE_DATA_TYPE,
   TABLE_NODATA_TYPE,
 } from '@devexpress/dx-grid-core';

@@ -1,13 +1,13 @@
 import {
   DxGetter, DxTemplate, DxPlugin, DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   tableColumnsWithEditing,
   isHeadingEditCommandsTableCell,
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [

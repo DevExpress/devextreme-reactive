@@ -7,7 +7,6 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
-  getMessagesFormatter,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { TableHeaderRow } from './table-header-row';
@@ -16,7 +15,6 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithHeading: jest.fn(),
   isHeadingTableCell: jest.fn(),
   isHeadingTableRow: jest.fn(),
-  getMessagesFormatter: jest.fn(),
   getColumnSortingDirection: jest.fn(),
 }));
 
@@ -62,7 +60,6 @@ describe('TableHeaderRow', () => {
     tableRowsWithHeading.mockImplementation(() => 'tableRowsWithHeading');
     isHeadingTableCell.mockImplementation(() => false);
     isHeadingTableRow.mockImplementation(() => false);
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     getColumnSortingDirection.mockImplementation(() => null);
   });
   afterEach(() => {

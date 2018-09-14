@@ -5,6 +5,7 @@ import { TableFilterCell } from '../templates/table-filter-cell';
 import { TableRow } from '../templates/table-row';
 import { Editor } from '../templates/filter-row/editor';
 import { FilterSelector } from '../templates/filter-row/filter-selector';
+import { ToggleButton } from '../templates/filter-row/filter-selector/toggle-button';
 import { Icon } from '../templates/filter-row/icon';
 
 const defaultMessages = {
@@ -34,6 +35,7 @@ export class TableFilterRow extends React.PureComponent {
         filterSelectorComponent={FilterSelector}
         iconComponent={Icon}
         editorComponent={Editor}
+        toggleButtonComponent={ToggleButton}
         messages={{ ...defaultMessages, ...messages }}
         {...restProps}
       />
@@ -46,6 +48,7 @@ TableFilterRow.Row = TableRow;
 TableFilterRow.Editor = Editor;
 TableFilterRow.FilterSelector = FilterSelector;
 TableFilterRow.Icon = Icon;
+TableFilterRow.ToggleButton = ToggleButton;
 
 TableFilterRow.propTypes = {
   messages: PropTypes.shape({

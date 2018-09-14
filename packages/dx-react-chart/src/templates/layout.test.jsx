@@ -60,17 +60,6 @@ describe('Root', () => {
       });
   });
 
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow(
-      <Root {...defaultProps} className="custom-class">
-        <span />
-      </Root>,
-    );
-
-    expect(tree.is('.dx-c-bs4-container.custom-class'))
-      .toBeTruthy();
-  });
-
   it('should pass the rest property to the root element', () => {
     const tree = shallow(
       <Root {...defaultProps} customProperty>

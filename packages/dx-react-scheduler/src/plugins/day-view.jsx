@@ -8,6 +8,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
+  computed,
   getDayRectByDates,
   calculateRectByDateIntervals,
   calculateDayViewDateIntervals,
@@ -15,6 +16,7 @@ import {
   timeScale as timeScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
+  availableViews as availableViewsCore,
   VERTICAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -33,6 +35,52 @@ export class DayView extends React.PureComponent {
     this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+
+    const {
+      viewName,
+      startDayHour,
+      endDayHour,
+      cellDuration,
+      intervalCount,
+    } = this.props;
+
+    this.timeScaleBaseComputed = ({
+      currentDate,
+    }) => timeScaleCore(currentDate, 0, startDayHour, endDayHour, cellDuration, []);
+    this.startViewDateBaseComputed = ({
+      currentDate, timeScale,
+    }) => startViewDateCore([currentDate], timeScale);
+    this.endViewDateBaseComputed = ({
+      currentDate, timeScale,
+    }) => endViewDateCore([currentDate], timeScale);
+
+    this.timeScaleComputed = getters => computed(
+      getters,
+      viewName,
+      this.timeScaleBaseComputed,
+      getters.timeScale,
+    );
+    this.startViewDateComputed = getters => computed(
+      getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
+    );
+    this.endViewDateComputed = getters => computed(
+      getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+    );
+    this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
+      availableViews, viewName,
+    );
+    this.currentViewComputed = ({ currentView }) => {
+      if (!currentView || viewName === currentView) {
+        return viewName;
+      }
+      return currentView;
+    };
+    this.intervalCountComputed = getters => computed(
+      getters, viewName, () => intervalCount, getters.intervalCount,
+    );
+    this.cellDurationComputed = getters => computed(
+      getters, viewName, () => cellDuration, getters.cellDuration,
+    );
   }
 
   dateTableRef(dateTableRef) {
@@ -50,69 +98,70 @@ export class DayView extends React.PureComponent {
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
       containerComponent: Container,
-      startDayHour,
-      endDayHour,
       cellDuration,
-      intervalCount,
       viewName,
     } = this.props;
     const { dateTableRef: stateDateTableRef } = this.state;
-
-    const timeScaleComputed = ({ currentDate }) => timeScaleCore(
-      currentDate,
-      0,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      [],
-    );
-    const startViewDateComputed = (
-      { currentDate, timeScale },
-    ) => startViewDateCore([currentDate], timeScale);
-    const endViewDateComputed = (
-      { currentDate, timeScale },
-    ) => endViewDateCore([currentDate], timeScale);
 
     return (
       <Plugin
         name="DayView"
       >
-        <Getter name="currentView" value="Day" />
-        <Getter name="intervalCount" value={intervalCount} />
-        <Getter name="cellDuration" value={cellDuration} />
-        <Getter name="timeScale" computed={timeScaleComputed} />
-        <Getter name="startViewDate" computed={startViewDateComputed} />
-        <Getter name="endViewDate" computed={endViewDateComputed} />
+        <Getter name="availableViews" computed={this.availableViewsComputed} />
+        <Getter name="currentView" computed={this.currentViewComputed} />
+        <Getter name="intervalCount" computed={this.intervalCountComputed} />
+        <Getter name="cellDuration" computed={this.cellDurationComputed} />
+        <Getter name="timeScale" computed={this.timeScaleComputed} />
+        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Template name="body">
-          <ViewLayout
-            navbarComponent={this.dayScalePlaceholder}
-            mainComponent={this.dateTablePlaceholder}
-            navbarEmptyComponent={this.navbarEmptyPlaceholder}
-            sidebarComponent={this.sidebarPlaceholder}
-          />
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView !== viewName) return <TemplatePlaceholder />;
+              return (
+                <ViewLayout
+                  navbarComponent={this.dayScalePlaceholder}
+                  navbarEmptyComponent={this.navbarEmptyPlaceholder}
+                  mainComponent={this.dateTablePlaceholder}
+                  sidebarComponent={this.sidebarPlaceholder}
+                />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="navbar">
           <TemplatePlaceholder />
         </Template>
+
         <Template name="navbarEmpty">
-          <NavbarEmpty />
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView !== viewName) return <TemplatePlaceholder />;
+              return (
+                <NavbarEmpty />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
 
         <Template name="sidebar">
-          <TemplatePlaceholder />
           <TemplateConnector>
-            {({ timeScale }) => (
-              <TimePanel
-                rowComponent={TimePanelRow}
-                cellComponent={TimePanelCell}
-                timeScale={timeScale}
-              />
-            )}
+            {({ timeScale, currentView }) => {
+              if (currentView !== viewName) return <TemplatePlaceholder />;
+              return (
+                <TimePanel
+                  rowComponent={TimePanelRow}
+                  cellComponent={TimePanelCell}
+                  timeScale={timeScale}
+                />
+              );
+            }}
           </TemplateConnector>
         </Template>
+
 
         <Template name="main">
           <TemplateConnector>

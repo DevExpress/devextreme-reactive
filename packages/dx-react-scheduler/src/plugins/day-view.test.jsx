@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   timeScale,
   startViewDate,
   endViewDate,
@@ -12,10 +13,12 @@ import {
 import { DayView } from './day-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   timeScale: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
+  availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateDayViewDateIntervals: jest.fn(),
 }));
@@ -26,6 +29,7 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
+    availableViews: [],
   },
   template: {
     body: {},
@@ -53,6 +57,9 @@ const defaultProps = {
 
 describe('Day View', () => {
   beforeEach(() => {
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     timeScale.mockImplementation(() => [8, 9, 10]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');

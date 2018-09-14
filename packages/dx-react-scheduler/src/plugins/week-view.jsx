@@ -174,7 +174,14 @@ export class WeekView extends React.PureComponent {
         </Template>
 
         <Template name="navbarEmpty">
-          <NavbarEmpty />
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView !== viewName) return <TemplatePlaceholder />;
+              return (
+                <NavbarEmpty />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="sidebar">

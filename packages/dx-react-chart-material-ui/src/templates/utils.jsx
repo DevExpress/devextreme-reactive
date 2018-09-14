@@ -11,8 +11,8 @@ export const getBorderColor = theme => (
 
 export const withClassName = (...args) => {
   const setClassName = ({ className, classes, ...restProps }) => ({
-    ...restProps,
     className: classNames(classes.root, className),
+    ...restProps,
   });
   // TODO: First candidate to `compose` util?
   return Target => withStyles(...args)(withPatchedProps(setClassName)(Target));

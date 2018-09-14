@@ -238,16 +238,16 @@ RawAxis.components = {
 export const Axis = withComponents(axisCompoments)(RawAxis);
 
 export const ArgumentAxis = withPatchedProps(props => ({
-  ...props,
   position: BOTTOM,
+  ...props,
   isArgumentAxis: true,
 }))(Axis);
 
 ArgumentAxis.components = Axis.components;
 
 export const ValueAxis = withPatchedProps(props => ({
-  ...props,
   position: LEFT,
+  ...props,
 }))(Axis);
 
 ValueAxis.components = Axis.components;

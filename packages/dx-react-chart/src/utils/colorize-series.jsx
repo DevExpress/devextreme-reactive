@@ -4,8 +4,8 @@ import { withPatchedProps } from './patch-props';
 const withColorCore = withPatchedProps(({
   colorDomain, uniqueName, color, ...restProps
 }) => ({
-  ...restProps,
   color: color || colorDomain(uniqueName),
+  ...restProps,
 }));
 
 export const withColor = (Target) => {

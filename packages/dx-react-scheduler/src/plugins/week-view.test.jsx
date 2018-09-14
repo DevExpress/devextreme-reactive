@@ -3,20 +3,25 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   timeScale,
   dayScale,
   startViewDate,
   endViewDate,
-  appointmentRects,
+  calculateRectByDateIntervals,
+  calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   timeScale: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  appointmentRects: jest.fn(),
+  availableViews: jest.fn(),
+  calculateRectByDateIntervals: jest.fn(),
+  calculateWeekDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -25,12 +30,14 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
+    availableViews: [],
+    currentView: 'Week',
   },
   template: {
     body: {},
     navbar: {},
     sidebar: {},
-    emptySpace: {},
+    navbarEmpty: {},
     main: {},
   },
 };
@@ -42,21 +49,28 @@ const defaultProps = {
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
   dayPanelCellComponent: () => null,
+  dayPanelRowComponent: () => null,
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
-  emptySpaceComponent: () => null,
+  navbarEmptyComponent: () => null,
+  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+  containerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Week View', () => {
   beforeEach(() => {
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
-    appointmentRects.mockImplementation(() => [{
+    calculateRectByDateIntervals.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
+    calculateWeekDateIntervals.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -152,22 +166,6 @@ describe('Week View', () => {
         .toBe('2018-07-11');
     });
 
-    it('should provide the "cellDuration" getter', () => {
-      const cellDuration = 60;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            cellDuration={cellDuration}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).cellDuration)
-        .toBe(cellDuration);
-    });
-
     it('should provide the "excludedDays" getter', () => {
       const excludedDays = [1, 2];
       const tree = mount((
@@ -182,22 +180,6 @@ describe('Week View', () => {
 
       expect(getComputedState(tree).excludedDays)
         .toBe(excludedDays);
-    });
-
-    it('should provide the "appointmentRects" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).appointmentRects)
-        .toEqual([{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-        }]);
     });
 
     it('should provide the "intervalCount" getter', () => {
@@ -226,7 +208,7 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('week');
+        .toBe('Week');
     });
   });
 
@@ -291,18 +273,34 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render empty space', () => {
+    it('should render appointment container', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            emptySpaceComponent={() => <div className="empty-space" />}
+            // eslint-disable-next-line react/jsx-one-expression-per-line
+            containerComponent={({ children }) => <div className="container">{children}</div>}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.empty-space').exists())
+      expect(tree.find('.container').exists())
+        .toBeTruthy();
+    });
+
+    it('should render navbarEmpty', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            navbarEmptyComponent={() => <div className="navbarEmpty" />}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.navbarEmpty').exists())
         .toBeTruthy();
     });
   });

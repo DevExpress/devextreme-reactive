@@ -32,19 +32,6 @@ const appointmentRectsComputed = ({
   dateTableRef.querySelectorAll('td'),
 ) : []);
 
-const SidebarPlaceholder = props => (
-  <TemplatePlaceholder name="sidebar" params={props} />
-);
-const DayScalePlaceholder = props => (
-  <TemplatePlaceholder name="navbar" params={props} />
-);
-const EmptySpacePlaceholder = props => (
-  <TemplatePlaceholder name="emptySpace" params={props} />
-);
-const DateTablePlaceholder = props => (
-  <TemplatePlaceholder name="main" params={props} />
-);
-
 export class DayView extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -54,6 +41,19 @@ export class DayView extends React.PureComponent {
     };
 
     this.dateTableRef = this.dateTableRef.bind(this);
+
+    this.sidebarPlaceholder = () => (
+      <TemplatePlaceholder name="sidebar" />
+    );
+    this.dayScalePlaceholder = () => (
+      <TemplatePlaceholder name="navbar" />
+    );
+    this.navbarEmptyPlaceholder = () => (
+      <TemplatePlaceholder name="navbarEmpty" />
+    );
+    this.dateTablePlaceholder = () => (
+      <TemplatePlaceholder name="main" />
+    );
   }
 
   dateTableRef(dateTableRef) {
@@ -63,7 +63,7 @@ export class DayView extends React.PureComponent {
   render() {
     const {
       layoutComponent: ViewLayout,
-      emptySpaceComponent: EmptySpace,
+      navbarEmptyComponent: NavbarEmpty,
       timePanelLayoutComponent: TimePanel,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
@@ -107,18 +107,18 @@ export class DayView extends React.PureComponent {
 
         <Template name="body">
           <ViewLayout
-            navbarComponent={DayScalePlaceholder}
-            mainComponent={DateTablePlaceholder}
-            emptySpaceComponent={EmptySpacePlaceholder}
-            sidebarComponent={SidebarPlaceholder}
+            navbarComponent={this.dayScalePlaceholder}
+            mainComponent={this.dateTablePlaceholder}
+            navbarEmptyComponent={this.navbarEmptyPlaceholder}
+            sidebarComponent={this.sidebarPlaceholder}
           />
         </Template>
 
         <Template name="navbar">
           <TemplatePlaceholder />
         </Template>
-        <Template name="emptySpace">
-          <EmptySpace />
+        <Template name="navbarEmpty">
+          <NavbarEmpty />
         </Template>
 
 
@@ -155,7 +155,7 @@ export class DayView extends React.PureComponent {
 
 DayView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  emptySpaceComponent: PropTypes.func.isRequired,
+  navbarEmptyComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,

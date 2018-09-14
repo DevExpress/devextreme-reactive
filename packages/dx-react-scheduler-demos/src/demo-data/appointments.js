@@ -135,5 +135,30 @@ export const appointments = [
     title: 'Launch New Website',
     startDate: new Date(2018, 6, 4, 12, 20),
     endDate: new Date(2018, 6, 4, 14, 10),
+  }, {
+    title: 'Book Flights to San Fran for Sales Trip',
+    startDate: new Date(2018, 5, 26, 0, 0),
+    endDate: new Date(2018, 5, 27, 0, 0),
+  }, {
+    title: 'Customer Workshop',
+    startDate: new Date(2018, 5, 29, 10, 0),
+    endDate: new Date(2018, 5, 30, 14, 30),
+  }, {
+    title: 'Google AdWords Strategy',
+    startDate: new Date(2018, 6, 4, 0, 0),
+    endDate: new Date(2018, 6, 5, 10, 30),
+  }, {
+    title: 'Rollout of New Website and Marketing Brochures',
+    startDate: new Date(2018, 6, 6, 10, 0),
+    endDate: new Date(2018, 6, 10, 14, 30),
+  }, {
+    title: 'Update NDA Agreement',
+    startDate: new Date(2018, 6, 1, 10, 0),
+    endDate: new Date(2018, 6, 4, 14, 30),
+  }, {
+    title: 'Customer Workshop',
+    startDate: new Date(2018, 6, 1),
+    endDate: new Date(2018, 6, 2),
+    allDay: true,
   },
 ];

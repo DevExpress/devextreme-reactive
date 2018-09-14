@@ -1,12 +1,11 @@
 import { mount } from '@vue/test-utils';
-import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
+import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { PluginDepsToComponents } from './test-utils';
 import { DxColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -43,7 +42,6 @@ const defaultProps = {
 describe('DxColumnChooser', () => {
   beforeEach(() => {
     columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
-    getMessagesFormatter.mockImplementation(() => { });
   });
   afterEach(() => {
     jest.resetAllMocks();

@@ -4,7 +4,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
-  FIXED_COLUMN_BEFORE_SIDE,
+  FIXED_COLUMN_LEFT_SIDE,
   getFixedColumnKeys,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
@@ -13,7 +13,7 @@ import {
 import { TableFixedColumns } from './table-fixed-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  FIXED_COLUMN_BEFORE_SIDE: 'BEFORE',
+  FIXED_COLUMN_LEFT_SIDE: 'LEFT',
   getFixedColumnKeys: jest.fn(),
   tableColumnsWithFixed: jest.fn(),
   tableHeaderRowsWithFixed: jest.fn(),
@@ -94,14 +94,14 @@ describe('TableFixedColumns', () => {
 
   it('can render fixed cells', () => {
     tableColumnsWithFixed.mockImplementation(() => [
-      { column: { name: 'a' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
+      { column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
     ]);
-    const beforeColumnNames = ['a'];
+    const leftColumnNames = ['a'];
     const deps = {
       template: {
         tableCell: {
           tableRow: { rowId: 1, row: 'row' },
-          tableColumn: { column: { name: 'column' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
+          tableColumn: { column: { name: 'column' }, fixed: FIXED_COLUMN_LEFT_SIDE },
         },
       },
     };
@@ -111,7 +111,7 @@ describe('TableFixedColumns', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableFixedColumns
           {...defaultProps}
-          beforeColumnNames={beforeColumnNames}
+          leftColumnNames={leftColumnNames}
         />
       </PluginHost>
     ));
@@ -119,7 +119,7 @@ describe('TableFixedColumns', () => {
     expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...deps.template.tableCell,
-        side: FIXED_COLUMN_BEFORE_SIDE,
+        side: FIXED_COLUMN_LEFT_SIDE,
         showLeftDivider: false,
         showRightDivider: true,
         component: expect.any(Function),
@@ -155,11 +155,11 @@ describe('TableFixedColumns', () => {
   it('takes column widths into account', () => {
     getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
     tableColumnsWithFixed.mockImplementation(() => [
-      { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
-      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_BEFORE_SIDE },
+      { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
-    const beforeColumnNames = ['a', 'b'];
+    const leftColumnNames = ['a', 'b'];
 
     const tree = mount((
       <PluginHost>
@@ -167,16 +167,16 @@ describe('TableFixedColumns', () => {
         <Template name="root">
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_BEFORE_SIDE }, tableRow: { type: 'row' } }}
+            params={{ tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE }, tableRow: { type: 'row' } }}
           />
           <TemplatePlaceholder
             name="tableCell"
-            params={{ tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_BEFORE_SIDE }, tableRow: { type: 'fixed' } }}
+            params={{ tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE }, tableRow: { type: 'fixed' } }}
           />
         </Template>
         <TableFixedColumns
           {...defaultProps}
-          beforeColumnNames={beforeColumnNames}
+          leftColumnNames={leftColumnNames}
         />
       </PluginHost>
     ));

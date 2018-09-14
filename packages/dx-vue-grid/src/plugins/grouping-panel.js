@@ -4,10 +4,10 @@ import {
   DxPlugin,
   DxTemplateConnector,
 } from '@devexpress/dx-vue-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 export const DxGroupingPanel = {

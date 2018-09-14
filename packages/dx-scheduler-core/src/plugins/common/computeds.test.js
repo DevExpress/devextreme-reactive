@@ -1,4 +1,4 @@
-import { dayScale } from './computeds';
+import { dayScale, availableViews } from './computeds';
 
 describe('#dayScale', () => {
   const currentDate = new Date(2018, 5, 24);
@@ -45,5 +45,21 @@ describe('#dayScale', () => {
     expect(units).toHaveLength(3);
     expect(units[0]).toEqual(currentDate);
     expect(units[units.length - 1]).toEqual(new Date(2018, 5, 28));
+  });
+});
+describe('#availableViews', () => {
+  it('should return available views if views is not defined', () => {
+    expect(availableViews(undefined, 'Month'))
+      .toEqual(['Month']);
+  });
+
+  it('should return available views if view is expected', () => {
+    expect(availableViews(['Month'], 'Month'))
+      .toEqual(['Month']);
+  });
+
+  it('should return available views if view is not expected', () => {
+    expect(availableViews(['Week'], 'Month'))
+      .toEqual(['Week', 'Month']);
   });
 });

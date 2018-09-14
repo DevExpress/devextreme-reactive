@@ -8,3 +8,5 @@ export const changeCurrentDate = (currentDate, {
 }) => (
   nextDate || moment(currentDate)[back ? 'subtract' : 'add'](amount, step).toDate()
 );
+
+export const setCurrentView = (currentView, { nextView }) => nextView;

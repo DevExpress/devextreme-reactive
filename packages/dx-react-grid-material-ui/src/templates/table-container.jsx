@@ -7,6 +7,8 @@ const styles = {
   root: {
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
+    // NOTE: fix sticky positioning in Safari
+    width: '100%',
   },
 };
 

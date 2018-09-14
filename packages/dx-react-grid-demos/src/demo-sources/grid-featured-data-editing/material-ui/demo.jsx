@@ -339,7 +339,7 @@ class DemoBase extends React.PureComponent {
             commandComponent={Command}
           />
           <TableFixedColumns
-            beforeColumnTypes={fixedColumnTypes}
+            leftColumnTypes={fixedColumnTypes}
           />
           <TableSummaryRow />
           <PagingPanel

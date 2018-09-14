@@ -27,7 +27,7 @@ export class WeekLayoutBase extends React.PureComponent {
       sidebarComponent: Sidebar,
       navbarComponent: Navbar,
       mainComponent: Main,
-      emptySpaceComponent: EmptySpace,
+      navbarEmptyComponent: NavbarEmpty,
       classes,
     } = this.props;
 
@@ -41,8 +41,8 @@ export class WeekLayoutBase extends React.PureComponent {
           direction="row"
           className={classes.stickyHeader}
         >
-          <Grid item xs={1}>
-            <EmptySpace />
+          <Grid item xs={1} className={classes.emptySpace}>
+            <NavbarEmpty />
           </Grid>
 
           <Grid item xs={11}>
@@ -66,10 +66,10 @@ export class WeekLayoutBase extends React.PureComponent {
 }
 
 WeekLayoutBase.propTypes = {
-  emptySpaceComponent: PropTypes.func.isRequired,
   sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
+  navbarEmptyComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

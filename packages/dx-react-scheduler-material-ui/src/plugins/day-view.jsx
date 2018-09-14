@@ -16,7 +16,7 @@ export class DayView extends React.PureComponent {
     return (
       <DayViewBase
         layoutComponent={WeekLayout}
-        emptySpaceComponent={EmptySpace}
+        navbarEmptyComponent={EmptySpace}
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}
         timePanelRowComponent={Row}
@@ -29,6 +29,8 @@ export class DayView extends React.PureComponent {
     );
   }
 }
+
+DayView.NavbarEmpty = EmptySpace;
 
 DayView.TimePanelLayout = TimePanelLayout;
 DayView.TimePanelCell = TimePanelCell;

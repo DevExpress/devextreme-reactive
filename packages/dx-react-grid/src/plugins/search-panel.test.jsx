@@ -4,10 +4,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { SearchPanel } from './search-panel';
 
-jest.mock('@devexpress/dx-grid-core', () => ({
-  getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
-}));
-
 const Input = () => null;
 
 const defaultDeps = {

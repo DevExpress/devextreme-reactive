@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  getMessagesFormatter,
   tableRowsWithSummaries,
   tableRowsWithTotalSummaries,
   isTotalSummaryTableCell,
@@ -17,8 +17,12 @@ import {
 } from '@devexpress/dx-grid-core';
 import { TableSummaryRow } from './table-summary-row';
 
-jest.mock('@devexpress/dx-grid-core', () => ({
+jest.mock('@devexpress/dx-core', () => ({
+  ...require.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn(),
+}));
+
+jest.mock('@devexpress/dx-grid-core', () => ({
   tableRowsWithSummaries: jest.fn(),
   tableRowsWithTotalSummaries: jest.fn(),
   isTotalSummaryTableCell: jest.fn(),

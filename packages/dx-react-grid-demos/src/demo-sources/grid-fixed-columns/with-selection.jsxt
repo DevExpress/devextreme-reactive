@@ -38,17 +38,17 @@ export default class Demo extends React.PureComponent {
         { columnName: 'product', width: 170 },
         { columnName: 'amount', align: 'right', width: 200 },
       ],
-      beforeColumnTypes: [TableSelection.COLUMN_TYPE],
-      beforeColumnNames: ['region'],
-      afterColumnNames: ['amount'],
+      leftColumnTypes: [TableSelection.COLUMN_TYPE],
+      leftColumnNames: ['region'],
+      rightColumnNames: ['amount'],
     };
   }
 
   render() {
     const {
       rows, columns, tableColumnExtensions,
-      beforeColumnTypes,
-      beforeColumnNames, afterColumnNames,
+      leftColumnTypes,
+      leftColumnNames, rightColumnNames,
     } = this.state;
 
     return (
@@ -65,9 +65,9 @@ export default class Demo extends React.PureComponent {
           <TableHeaderRow />
           <TableSelection />
           <TableFixedColumns
-            beforeColumnTypes={beforeColumnTypes}
-            beforeColumnNames={beforeColumnNames}
-            afterColumnNames={afterColumnNames}
+            leftColumnTypes={leftColumnTypes}
+            leftColumnNames={leftColumnNames}
+            rightColumnNames={rightColumnNames}
           />
         </Grid>
       </<%&wrapperTag%>>

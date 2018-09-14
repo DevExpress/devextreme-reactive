@@ -11,6 +11,7 @@ const defaultProps = {
   getTitle: () => 'a',
   getEndDate: () => '2018-07-05',
   getStartDate: () => '2018-07-06',
+  getAllDay: () => undefined,
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

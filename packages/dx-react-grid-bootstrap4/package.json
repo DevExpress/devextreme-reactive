@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap4",
-  "version": "1.7.2",
+  "version": "1.8.0-beta.1",
   "description": "Bootstrap 4 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -44,10 +44,10 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-grid-core": "1.7.2",
-    "@devexpress/dx-react-core": "1.7.2",
-    "@devexpress/dx-react-grid": "1.7.2",
-    "@devexpress/dx-testing": "1.7.2",
+    "@devexpress/dx-grid-core": "1.8.0-beta.1",
+    "@devexpress/dx-react-core": "1.8.0-beta.1",
+    "@devexpress/dx-react-grid": "1.8.0-beta.1",
+    "@devexpress/dx-testing": "1.8.0-beta.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -83,9 +83,9 @@
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "1.7.2",
-    "@devexpress/dx-react-core": "1.7.2",
-    "@devexpress/dx-react-grid": "1.7.2",
+    "@devexpress/dx-grid-core": "1.8.0-beta.1",
+    "@devexpress/dx-react-core": "1.8.0-beta.1",
+    "@devexpress/dx-react-grid": "1.8.0-beta.1",
     "react": ">=16.3.0",
     "reactstrap": ">=6.3.0"
   }

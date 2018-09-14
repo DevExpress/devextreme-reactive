@@ -303,7 +303,7 @@ export default class Demo extends React.PureComponent {
             commandComponent={Command}
           />
           <TableFixedColumns
-            beforeColumnTypes={fixedColumnTypes}
+            leftColumnTypes={fixedColumnTypes}
           />
           <TableSummaryRow />
           <PagingPanel

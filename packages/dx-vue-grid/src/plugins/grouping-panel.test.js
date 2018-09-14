@@ -3,7 +3,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 import { DxPluginHost } from '@devexpress/dx-vue-core';
 import { DxGroupingPanel } from './grouping-panel';
@@ -12,7 +11,6 @@ import { PluginDepsToComponents } from './test-utils';
 jest.mock('@devexpress/dx-grid-core', () => ({
   groupingPanelItems: jest.fn(),
   getColumnSortingDirection: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -52,7 +50,6 @@ describe('DxGroupingPanel', () => {
   });
 
   beforeEach(() => {
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     groupingPanelItems.mockImplementation(() => []);
     getColumnSortingDirection.mockImplementation(() => 'direction');
   });

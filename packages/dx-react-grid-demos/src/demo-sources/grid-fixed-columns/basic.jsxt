@@ -33,15 +33,15 @@ export default class Demo extends React.PureComponent {
         { columnName: 'product', width: 170 },
         { columnName: 'amount', align: 'right', width: 200 },
       ],
-      beforeColumnNames: ['region', 'channel'],
-      afterColumnNames: ['amount'],
+      leftColumnNames: ['region', 'channel'],
+      rightColumnNames: ['amount'],
     };
   }
 
   render() {
     const {
       rows, columns, tableColumnExtensions,
-      beforeColumnNames, afterColumnNames,
+      leftColumnNames, rightColumnNames,
     } = this.state;
 
     return (
@@ -55,8 +55,8 @@ export default class Demo extends React.PureComponent {
           />
           <TableHeaderRow />
           <TableFixedColumns
-            beforeColumnNames={beforeColumnNames}
-            afterColumnNames={afterColumnNames}
+            leftColumnNames={leftColumnNames}
+            rightColumnNames={rightColumnNames}
           />
         </Grid>
       </<%&wrapperTag%>>

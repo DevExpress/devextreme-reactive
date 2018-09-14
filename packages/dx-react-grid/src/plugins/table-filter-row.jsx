@@ -3,13 +3,13 @@ import * as PropTypes from 'prop-types';
 import {
   Getter, Template, TemplatePlaceholder, TemplateConnector, Plugin,
 } from '@devexpress/dx-react-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnFilterConfig,
   tableHeaderRowsWithFilter,
   isFilterTableCell,
   isFilterTableRow,
   getColumnFilterOperations,
-  getMessagesFormatter,
   isFilterValueEmpty,
 } from '@devexpress/dx-grid-core';
 

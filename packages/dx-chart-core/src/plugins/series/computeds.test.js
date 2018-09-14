@@ -345,7 +345,7 @@ describe('checkZeroStart', () => {
   });
 });
 
-describe('get items', () => {
+describe('#getPieItems', () => {
   it('should return function returns items of series', () => {
     expect(getPieItems(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
   });

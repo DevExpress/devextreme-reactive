@@ -1,21 +1,15 @@
 import { pieAttributes } from '@devexpress/dx-chart-core';
 import { makeSeries, withComponents } from '../utils';
-import { SliceCollection } from '../templates/series/slice-collection';
-import { Slice } from '../templates/series/slice';
+import { SliceCollection as Path } from '../templates/series/slice-collection';
+import { Slice as Point } from '../templates/series/slice';
 
-export const PieSeries = withComponents({ SliceCollection, Slice })(makeSeries(
+export const PieSeries = withComponents({ Path, Point })(makeSeries(
   'PieSeries',
   'arc',
   null, // TODO: d3Func is not used.
   pieAttributes,
   {
-    seriesComponent: {
-      name: 'SliceCollection',
-      exposedName: 'Path',
-    },
-    pointComponent: {
-      name: 'Slice',
-      exposedName: 'Point',
-    },
+    seriesComponent: 'Path',
+    pointComponent: 'Point',
   },
 ));

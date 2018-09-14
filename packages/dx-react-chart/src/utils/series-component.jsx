@@ -14,12 +14,12 @@ const makeBoundComponent = (Target, components, exposed) => {
 export const withComponents = components => (Target) => {
   const props = {};
   const exposed = {};
-  Object.entries(Target.components).forEach(([name, value]) => {
-    const component = components[value.name];
-    if (component) {
-      props[name] = component;
+  Object.entries(Target.components).forEach(([fieldName, componentName]) => {
+    const component = components[componentName];
+    if (component && component !== Target[componentName]) {
+      props[fieldName] = component;
     }
-    exposed[value.exposedName] = component || Target[value.exposedName];
+    exposed[componentName] = component || Target[componentName];
   });
   return Object.keys(props).length > 0
     ? makeBoundComponent(Target, props, exposed) : Target;

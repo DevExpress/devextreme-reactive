@@ -62,22 +62,10 @@ RawLegend.defaultProps = {
 };
 
 RawLegend.components = {
-  rootComponent: {
-    name: 'Root',
-    exposedName: 'Root',
-  },
-  itemComponent: {
-    name: 'Item',
-    exposedName: 'Item',
-  },
-  markerComponent: {
-    name: 'Marker',
-    exposedName: 'Marker',
-  },
-  labelComponent: {
-    name: 'Label',
-    exposedName: 'Label',
-  },
+  rootComponent: 'Root',
+  itemComponent: 'Item',
+  markerComponent: 'Marker',
+  labelComponent: 'Label',
 };
 
 export const Legend = withComponents({ Marker })(RawLegend);

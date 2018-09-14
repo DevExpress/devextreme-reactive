@@ -38,8 +38,5 @@ Title.defaultProps = {
 };
 
 Title.components = {
-  textComponent: {
-    name: 'Text',
-    exposedName: 'Text',
-  },
+  textComponent: 'Text',
 };

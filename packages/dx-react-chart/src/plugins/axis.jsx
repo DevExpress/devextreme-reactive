@@ -220,22 +220,10 @@ RawAxis.defaultProps = {
 };
 
 RawAxis.components = {
-  rootComponent: {
-    name: 'Root',
-    exposedName: 'Root',
-  },
-  tickComponent: {
-    name: 'Tick',
-    exposedName: 'Tick',
-  },
-  labelComponent: {
-    name: 'Label',
-    exposedName: 'Label',
-  },
-  lineComponent: {
-    name: 'Line',
-    exposedName: 'Line',
-  },
+  rootComponent: 'Root',
+  tickComponent: 'Tick',
+  labelComponent: 'Label',
+  lineComponent: 'Line',
 };
 
 export const Axis = withComponents({

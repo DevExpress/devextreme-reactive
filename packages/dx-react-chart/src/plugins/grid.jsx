@@ -81,10 +81,7 @@ RawGrid.defaultProps = {
 };
 
 RawGrid.components = {
-  lineComponent: {
-    name: 'Line',
-    exposedName: 'Line',
-  },
+  lineComponent: 'Line',
 };
 
 export const Grid = withComponents({ Line })(RawGrid);

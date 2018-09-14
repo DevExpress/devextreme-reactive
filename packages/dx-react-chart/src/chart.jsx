@@ -69,10 +69,7 @@ RawChart.defaultProps = {
 };
 
 RawChart.components = {
-  rootComponent: {
-    name: 'Root',
-    exposedName: 'Root',
-  },
+  rootComponent: 'Root',
 };
 
 export const Chart = withComponents({ Root })(RawChart);

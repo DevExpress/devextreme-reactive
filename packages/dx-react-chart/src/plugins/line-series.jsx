@@ -8,10 +8,7 @@ export const LineSeries = withComponents({ Path })(makeSeries(
   dLine,
   coordinates,
   {
-    seriesComponent: {
-      name: 'Path',
-      exposedName: 'Path',
-    },
+    seriesComponent: 'Path',
   },
   withColor,
 ));

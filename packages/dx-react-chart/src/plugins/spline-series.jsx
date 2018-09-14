@@ -8,10 +8,7 @@ export const SplineSeries = withComponents({ Path })(makeSeries(
   dSpline,
   coordinates,
   {
-    seriesComponent: {
-      name: 'Path',
-      exposedName: 'Path',
-    },
+    seriesComponent: 'Path',
   },
   withColor,
 ));

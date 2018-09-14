@@ -5,62 +5,62 @@ import { withComponents } from './series-component';
 describe('withComponents', () => {
   const Tester = () => null;
   Tester.components = {
-    component1: {
-      name: 'Component1',
-      exposedName: 'Tester1',
-    },
-    component2: {
-      name: 'Component2',
-      exposedName: 'Tester2',
-    },
+    component1: 'Component1',
+    component2: 'Component2',
   };
   const TestComponent1 = () => null;
   const TestComponent2 = () => null;
 
-  it('should add bound components to props', () => {
+  it('should add bound components to props and exposed them as static fields', () => {
     const BoundTester = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
+    const otherProps = { prop1: 1, prop2: 2 };
 
-    const tree = mount(<BoundTester prop1={1} />);
+    const tree = mount(<BoundTester {...otherProps} />);
 
     expect(tree.find(Tester).props()).toEqual({
-      prop1: 1,
       component1: TestComponent1,
       component2: TestComponent2,
+      ...otherProps,
     });
+    expect(BoundTester.Component1).toEqual(TestComponent1);
+    expect(BoundTester.Component2).toEqual(TestComponent2);
   });
 
   it('should tolerate absence of some components', () => {
     const BoundTester = withComponents({
       Component2: TestComponent2,
     })(Tester);
+    const otherProps = { prop1: 1, prop2: 2 };
 
-    const tree = mount(<BoundTester prop1={1} />);
+    const tree = mount(<BoundTester {...otherProps} />);
 
     expect(tree.find(Tester).props()).toEqual({
-      prop1: 1,
       component2: TestComponent2,
+      ...otherProps,
     });
+    expect(BoundTester.Component1).toBeUndefined();
   });
 
-  it('should override existing binding', () => {
+  it('should override existing bindings', () => {
     const BoundTester1 = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
-    const Component3 = () => null;
+    const TestComponent3 = () => null;
     const BoundTester2 = withComponents({
-      Component1: Component3,
+      Component1: TestComponent3,
     })(BoundTester1);
 
     const tree = mount(<BoundTester2 />);
 
     expect(tree.find(Tester).props()).toEqual({
-      component1: Component3,
+      component1: TestComponent3,
       component2: TestComponent2,
     });
+    expect(BoundTester2.Component1).toEqual(TestComponent3);
   });
 
   it('should return original if there are no valid components', () => {
@@ -69,29 +69,17 @@ describe('withComponents', () => {
     expect(BoundTester).toEqual(Tester);
   });
 
-  it('should expose bound components', () => {
-    const BoundTester = withComponents({
-      Component1: TestComponent1,
-      Component2: TestComponent2,
-    })(Tester);
-
-    expect(BoundTester.Tester1).toEqual(TestComponent1);
-    expect(BoundTester.Tester2).toEqual(TestComponent2);
-  });
-
-  it('should attempt to preserve already exposed components', () => {
+  it('should return original if there are no actual changes', () => {
     const BoundTester1 = withComponents({
       Component1: TestComponent1,
       Component2: TestComponent2,
     })(Tester);
-    const Component3 = () => null;
-
     const BoundTester2 = withComponents({
-      Component1: Component3,
+      Component1: TestComponent1,
+      Component2: TestComponent2,
     })(BoundTester1);
 
-    expect(BoundTester2.Tester1).toEqual(Component3);
-    expect(BoundTester2.Tester2).toEqual(TestComponent2);
+    expect(BoundTester2).toEqual(BoundTester1);
   });
 
   it('should pass along components definition', () => {

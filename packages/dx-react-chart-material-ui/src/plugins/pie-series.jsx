@@ -1,4 +1,4 @@
 import { PieSeries as PieSeriesBase, withComponents } from '@devexpress/dx-react-chart';
-import { Slice } from '../templates/series/slice';
+import { Slice as Point } from '../templates/series/slice';
 
-export const PieSeries = withComponents({ Slice })(PieSeriesBase);
+export const PieSeries = withComponents({ Point })(PieSeriesBase);

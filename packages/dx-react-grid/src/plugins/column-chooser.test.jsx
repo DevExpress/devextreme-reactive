@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { columnChooserItems, getMessagesFormatter } from '@devexpress/dx-grid-core';
+import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ColumnChooser } from './column-chooser';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   columnChooserItems: jest.fn(),
-  getMessagesFormatter: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -54,7 +53,6 @@ const defaultProps = {
 describe('ColumnChooser', () => {
   beforeEach(() => {
     columnChooserItems.mockImplementation(() => [{ column: { name: 'a' }, hidden: true }]);
-    getMessagesFormatter.mockImplementation(() => { });
   });
   afterEach(() => {
     jest.resetAllMocks();

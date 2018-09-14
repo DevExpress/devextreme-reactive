@@ -1,37 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplatePlaceholder, TemplateConnector,
+  Plugin, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
-
-const getAppointmentStyle = ({
-  top,
-  left,
-  width,
-  height,
-}) => ({
-  height,
-  width: `${width}%`,
-  transform: `translateY(${top}px)`,
-  left: `${left}%`,
-  position: 'absolute',
-});
 
 export class Appointments extends React.PureComponent {
   render() {
     const {
       appointmentComponent: Appointment,
-      containerComponent: Container,
     } = this.props;
 
     return (
       <Plugin name="Appointments">
-        <Template name="main">
-          <TemplatePlaceholder />
-          <Container>
+        <Template
+          name="appointment"
+        >
+          {params => (
             <TemplateConnector>
               {({
-                appointmentRects,
                 getAppointmentTitle,
                 getAppointmentStartDate,
                 getAppointmentEndDate,
@@ -43,23 +29,18 @@ export class Appointments extends React.PureComponent {
                   toggleTooltipVisible();
                   setTooltipAppointmentMeta({ target, appointment });
                 };
-                return appointmentRects.map(({
-                  dataItem, type, ...geometry
-                }, index) => (
+                return (
                   <Appointment
-                    type={type}
-                    key={index.toString()}
-                    appointment={dataItem}
+                    {...params}
                     getTitle={getAppointmentTitle}
                     getEndDate={getAppointmentEndDate}
                     getStartDate={getAppointmentStartDate}
                     onClick={onClick}
-                    style={getAppointmentStyle(geometry)}
                   />
-                ));
+                );
               }}
             </TemplateConnector>
-          </Container>
+          )}
         </Template>
       </Plugin>
     );
@@ -68,5 +49,4 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
 };

@@ -3,18 +3,23 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   dayScale,
   monthCells,
   endViewBoundary,
-  monthAppointmentRect,
+  getMonthRectByDates,
+  calculateMonthDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   dayScale: jest.fn(),
   monthCells: jest.fn(),
+  availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
-  monthAppointmentRect: jest.fn(),
+  getMonthRectByDates: jest.fn(),
+  calculateMonthDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -34,25 +39,34 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
+  timePanelLayoutComponent: () => null,
+  timePanelRowComponent: () => null,
+  timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
   dayPanelCellComponent: () => null,
   dayPanelRowComponent: () => null,
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
+  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
+  containerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Month View', () => {
   beforeEach(() => {
-    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     dayScale.mockImplementation(() => [1, 2, 3]);
+    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     monthCells.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}],
       [{}, { value: new Date('2018-08-05') }],
     ]));
-    monthAppointmentRect.mockImplementation(() => [{
+    getMonthRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
+    calculateMonthDateIntervals.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -62,14 +76,12 @@ describe('Month View', () => {
     it('should provide the "dayScale" getter', () => {
       const firstDayOfWeek = 2;
       const intervalCount = 2;
-      const excludedDays = [1, 2];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             firstDayOfWeek={firstDayOfWeek}
             intervalCount={intervalCount}
-            excludedDays={excludedDays}
             {...defaultProps}
           />
         </PluginHost>
@@ -79,6 +91,22 @@ describe('Month View', () => {
         .toBeCalledWith('2018-07-04', firstDayOfWeek, 7, []);
       expect(getComputedState(tree).dayScale)
         .toEqual([1, 2, 3]);
+    });
+
+    it('should provide the "firstDayOfWeek" getter', () => {
+      const firstDayOfWeek = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            firstDayOfWeek={firstDayOfWeek}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).firstDayOfWeek)
+        .toBe(firstDayOfWeek);
     });
 
     it('should provide the "startViewDate" getter', () => {
@@ -105,22 +133,6 @@ describe('Month View', () => {
       ));
       expect(getComputedState(tree).endViewDate)
         .toEqual(new Date('2018-08-06'));
-    });
-
-    it('should provide the "appointmentRects" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).appointmentRects)
-        .toEqual([{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-        }]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {
@@ -165,12 +177,12 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('month');
+        .toBe('Month');
     });
   });
 
   describe('Templates', () => {
-    it('Should render view layout', () => {
+    it('should render view layout', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -185,7 +197,7 @@ describe('Month View', () => {
         .toBeTruthy();
     });
 
-    it('Should render day panel', () => {
+    it('should render day panel', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -200,7 +212,7 @@ describe('Month View', () => {
         .toBeTruthy();
     });
 
-    it('Should render date table', () => {
+    it('should render date table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -212,6 +224,22 @@ describe('Month View', () => {
       ));
 
       expect(tree.find('.date-table').exists())
+        .toBeTruthy();
+    });
+
+    it('should render appointment container', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <MonthView
+            {...defaultProps}
+            // eslint-disable-next-line react/jsx-one-expression-per-line
+            containerComponent={({ children }) => <div className="container">{children}</div>}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.container').exists())
         .toBeTruthy();
     });
   });

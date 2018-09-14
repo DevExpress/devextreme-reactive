@@ -1,4 +1,4 @@
-import { ScatterSeries as ScatterSeriesBase } from '@devexpress/dx-react-chart';
-import { withSeriesComponents } from './series-components';
+import { ScatterSeries as ScatterSeriesBase, withComponents } from '@devexpress/dx-react-chart';
+import { Point } from '../templates/series/point';
 
-export const ScatterSeries = withSeriesComponents(ScatterSeriesBase);
+export const ScatterSeries = withComponents({ Point })(ScatterSeriesBase);

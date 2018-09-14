@@ -1,4 +1,4 @@
-import { Path as PathBase } from '@devexpress/dx-react-chart';
+import { LineSeries } from '@devexpress/dx-react-chart';
 import { withClassName } from '../utils';
 
 const styles = () => ({
@@ -8,4 +8,4 @@ const styles = () => ({
   },
 });
 
-export const Path = withClassName(styles)(PathBase);
+export const Path = withClassName(styles)(LineSeries.Path);

@@ -1,4 +1,4 @@
-import { AreaSeries as AreaSeriesBase } from '@devexpress/dx-react-chart';
-import { withSeriesComponents } from './series-components';
+import { AreaSeries as AreaSeriesBase, withComponents } from '@devexpress/dx-react-chart';
+import { Area } from '../templates/series/area';
 
-export const AreaSeries = withSeriesComponents(AreaSeriesBase);
+export const AreaSeries = withComponents({ Area })(AreaSeriesBase);

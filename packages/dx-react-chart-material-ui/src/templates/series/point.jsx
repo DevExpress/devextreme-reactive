@@ -1,4 +1,4 @@
-import { Point as PointBase } from '@devexpress/dx-react-chart';
+import { ScatterSeries } from '@devexpress/dx-react-chart';
 import { withClassName } from '../utils';
 
 const styles = () => ({
@@ -7,4 +7,4 @@ const styles = () => ({
   },
 });
 
-export const Point = withClassName(styles)(PointBase);
+export const Point = withClassName(styles)(ScatterSeries.Point);

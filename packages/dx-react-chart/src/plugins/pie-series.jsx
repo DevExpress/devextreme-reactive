@@ -1,7 +1,9 @@
 import { pieAttributes } from '@devexpress/dx-chart-core';
-import { makeSeries } from '../utils';
+import { makeSeries, withComponents } from '../utils';
+import { SliceCollection } from '../templates/series/slice-collection';
+import { Slice } from '../templates/series/slice';
 
-export const PieSeries = makeSeries(
+export const PieSeries = withComponents({ SliceCollection, Slice })(makeSeries(
   'PieSeries',
   'arc',
   null, // TODO: d3Func is not used.
@@ -16,4 +18,4 @@ export const PieSeries = makeSeries(
       exposedName: 'Point',
     },
   },
-);
+));

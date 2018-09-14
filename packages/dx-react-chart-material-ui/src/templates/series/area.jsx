@@ -1,4 +1,4 @@
-import { Area as AreaBase } from '@devexpress/dx-react-chart';
+import { AreaSeries } from '@devexpress/dx-react-chart';
 import { withClassName } from '../utils';
 
 const styles = () => ({
@@ -7,4 +7,4 @@ const styles = () => ({
   },
 });
 
-export const Area = withClassName(styles)(AreaBase);
+export const Area = withClassName(styles)(AreaSeries.Path);

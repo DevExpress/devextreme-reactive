@@ -1,4 +1,4 @@
-import { SplineSeries as SplineSeriesBase } from '@devexpress/dx-react-chart';
-import { withSeriesComponents } from './series-components';
+import { SplineSeries as SplineSeriesBase, withComponents } from '@devexpress/dx-react-chart';
+import { Path } from '../templates/series/path';
 
-export const SplineSeries = withSeriesComponents(SplineSeriesBase);
+export const SplineSeries = withComponents({ Path })(SplineSeriesBase);

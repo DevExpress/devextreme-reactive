@@ -31,5 +31,9 @@ export const makeSeries = (
   const RawSeries = enhance(makeRawSeries(d3Func));
   const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates);
   Series.components = componentsDefinition;
+  Object.keys(componentsDefinition).forEach((name) => {
+    // eslint-disable-next-line react/forbid-foreign-prop-types
+    Series.propTypes[name] = PropTypes.func.isRequired;
+  });
   return Series;
 };

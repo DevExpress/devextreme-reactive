@@ -1,4 +1,4 @@
-import { Slice as SliceBase } from '@devexpress/dx-react-chart';
+import { PieSeries } from '@devexpress/dx-react-chart';
 import { withClassName } from '../utils';
 
 const styles = () => ({
@@ -7,4 +7,4 @@ const styles = () => ({
   },
 });
 
-export const Slice = withClassName(styles)(SliceBase);
+export const Slice = withClassName(styles)(PieSeries.Point);

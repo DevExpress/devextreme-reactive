@@ -1,7 +1,9 @@
 import { barCoordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { makeSeries, withColor } from '../utils';
+import { makeSeries, withColor, withComponents } from '../utils';
+import { BarCollection } from '../templates/series/bar-collection';
+import { Bar } from '../templates/series/bar';
 
-export const BarSeries = makeSeries(
+export const BarSeries = withComponents({ BarCollection, Bar })(makeSeries(
   'BarSeries',
   'bar',
   null, // TODO: d3Func is not used.
@@ -17,4 +19,4 @@ export const BarSeries = makeSeries(
     },
   },
   withColor,
-);
+));

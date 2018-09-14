@@ -115,8 +115,6 @@ export default class Demo extends React.PureComponent {
             onVisibleChange={this.toggleVisible}
 
             showCloseButton
-            showDeleteButton
-            showOpenButton
           />
         </Scheduler>
       </Paper>

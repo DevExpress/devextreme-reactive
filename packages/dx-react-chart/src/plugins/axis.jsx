@@ -10,7 +10,10 @@ import {
 import {
   axisCoordinates, HORIZONTAL, LEFT, BOTTOM, axesData,
 } from '@devexpress/dx-chart-core';
-import * as axisCompoments from '../templates/axis';
+import { Root } from '../templates/axis/root';
+import { Tick } from '../templates/axis/tick';
+import { Label } from '../templates/axis/label';
+import { Line } from '../templates/axis/line';
 import { withPatchedProps, withComponents } from '../utils';
 
 class RawAxis extends React.PureComponent {
@@ -71,10 +74,10 @@ class RawAxis extends React.PureComponent {
       name,
       indentFromAxis,
       isArgumentAxis,
-      rootComponent: Root,
-      tickComponent: Tick,
-      labelComponent: Label,
-      lineComponent: Line,
+      rootComponent: RootComponent,
+      tickComponent: TickComponent,
+      labelComponent: LabelComponent,
+      lineComponent: LineComponent,
     } = this.props;
     const getAxesDataComputed = ({ axes }) => axesData(axes, this.props);
     return (
@@ -140,7 +143,7 @@ class RawAxis extends React.PureComponent {
                       position: 'absolute', left: 0, top: 0, overflow: 'visible',
                     }}
                   >
-                    <Root
+                    <RootComponent
                       refsHandler={this.createRefsHandler(
                         placeholder,
                         changeBBox,
@@ -153,7 +156,7 @@ class RawAxis extends React.PureComponent {
                       coordinates.ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
-                        <Tick
+                        <TickComponent
                           key={key}
                           x1={x1}
                           x2={x2}
@@ -162,7 +165,7 @@ class RawAxis extends React.PureComponent {
                         />
                       ))
                     }
-                      <Line
+                      <LineComponent
                         width={widthPostCalculated}
                         height={heightPostCalculated}
                         orientation={orientation}
@@ -176,7 +179,7 @@ class RawAxis extends React.PureComponent {
                         key,
                       }) => (
                         <React.Fragment key={key}>
-                          <Label
+                          <LabelComponent
                             text={text}
                             x={xText}
                             y={yText}
@@ -185,7 +188,7 @@ class RawAxis extends React.PureComponent {
                           />
                         </React.Fragment>
                       ))}
-                    </Root>
+                    </RootComponent>
                   </svg>
                 </div>
               );
@@ -235,7 +238,9 @@ RawAxis.components = {
   },
 };
 
-export const Axis = withComponents(axisCompoments)(RawAxis);
+export const Axis = withComponents({
+  Root, Tick, Label, Line,
+})(RawAxis);
 
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,

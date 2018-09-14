@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { sliceAppointmentByBoundaries, getRectByDates } from './helpers';
+import { sliceAppointmentByBoundaries, getDayRectByDates } from './helpers';
 
 describe('DayView helpers', () => {
   describe('#sliceAppointmentByBoundaries', () => {
@@ -43,7 +43,7 @@ describe('DayView helpers', () => {
         .toEqual(appointment.end.toDate());
     });
   });
-  describe('#getRectByDates', () => {
+  describe('#getDayRectByDates', () => {
     const offsetParent = {
       getBoundingClientRect: () => ({
         top: 10, left: 10, width: 250,
@@ -62,7 +62,7 @@ describe('DayView helpers', () => {
     }, {}];
 
     it('should calculate geometry by dates', () => {
-      const times = [
+      const timeScale = [
         { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 8, 30) },
         { start: new Date(2017, 6, 20, 8, 30), end: new Date(2017, 6, 20, 9, 0) },
         { start: new Date(2017, 6, 20, 9, 0), end: new Date(2017, 6, 20, 9, 30) },
@@ -74,13 +74,15 @@ describe('DayView helpers', () => {
       const endDate = new Date(2018, 5, 25, 9, 15);
       const {
         top, left, height, width, parentWidth,
-      } = getRectByDates(
+      } = getDayRectByDates(
         startDate,
         endDate,
-        currentDate,
-        times,
-        cellDuration,
-        cellElements,
+        {
+          currentDate,
+          timeScale,
+          cellDuration,
+          cellElements,
+        },
       );
 
       expect(top).toBe(50);

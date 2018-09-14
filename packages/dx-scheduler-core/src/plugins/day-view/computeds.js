@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { sliceAppointmentByBoundaries, getRectByDates } from './helpers';
+import { sliceAppointmentByBoundaries, getDayRectByDates } from './helpers';
 import {
   sortAppointments,
   viewPredicate,
@@ -34,7 +34,7 @@ const calculateRectsByDateIntervals = (
         top, left,
         width, height,
         parentWidth,
-      } = getRectByDates(
+      } = getDayRectByDates(
         appointment.start, appointment.end,
         currentDate, timeScale,
         cellDuration, cellElements,

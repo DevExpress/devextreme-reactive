@@ -22,7 +22,7 @@ export const sliceAppointmentByBoundaries = (appointment, leftBoundary, rightBou
   }];
 };
 
-export const getCellByDate = (currentDate, times, date, takePrev = false) => {
+export const getDayCellByDate = (times, date, takePrev = false) => {
   const rowIndex = times.findIndex((timeCell) => {
     const startTime = moment(timeCell.start);
     const endTime = moment(timeCell.end);
@@ -32,7 +32,7 @@ export const getCellByDate = (currentDate, times, date, takePrev = false) => {
   });
 
   const cellStartTime = moment(times[rowIndex].start);
-  const cellStartDate = moment(currentDate)
+  const cellStartDate = moment(date)
     .hour(cellStartTime.hours())
     .minutes(cellStartTime.minutes())
     .toDate();
@@ -42,11 +42,11 @@ export const getCellByDate = (currentDate, times, date, takePrev = false) => {
   };
 };
 
-const getCellRect = (date, currentDate, times, cellDuration, cellElements, takePrev) => {
+const getCellRect = (date, times, cellDuration, cellElements, takePrev) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getCellByDate(currentDate, times, date, takePrev);
+  } = getDayCellByDate(times, date, takePrev);
 
   const cellElement = cellElements[cellIndex];
   const {
@@ -55,6 +55,7 @@ const getCellRect = (date, currentDate, times, cellDuration, cellElements, takeP
     width,
     height: cellHeight,
   } = cellElement.getBoundingClientRect();
+
   const timeOffset = moment(date).diff(cellStartDate, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
   let parentRect = { left: 0, top: 0, width: 0 };
@@ -70,18 +71,20 @@ const getCellRect = (date, currentDate, times, cellDuration, cellElements, takeP
   };
 };
 
-export const getRectByDates = (
+export const getDayRectByDates = (
   startDate,
   endDate,
-  currentDate,
-  times,
-  cellDuration,
-  cellElements,
+  {
+    currentDate,
+    timeScale,
+    cellDuration,
+    cellElements,
+  },
 ) => {
   const firstCellRect = getCellRect(
-    startDate, currentDate, times, cellDuration, cellElements, false,
+    startDate, timeScale, cellDuration, cellElements, false,
   );
-  const lastCellRect = getCellRect(endDate, currentDate, times, cellDuration, cellElements, true);
+  const lastCellRect = getCellRect(endDate, timeScale, cellDuration, cellElements, true);
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

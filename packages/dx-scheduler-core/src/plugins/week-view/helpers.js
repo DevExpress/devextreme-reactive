@@ -2,7 +2,7 @@ import moment from 'moment';
 
 const CELL_GAP = 0.15;
 
-export const getCellByDate = (days, times, date, takePrev = false) => {
+export const getWeekCellByDate = (days, times, date, takePrev = false) => {
   const rowIndex = times.findIndex((timeCell) => {
     const startTime = moment(timeCell.start);
     const endTime = moment(timeCell.end);
@@ -28,7 +28,7 @@ const getCellRect = (date, days, times, cellDuration, cellElements, takePrev) =>
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getCellByDate(days, times, date, takePrev);
+  } = getWeekCellByDate(days, times, date, takePrev);
 
   const cellElement = cellElements[cellIndex];
   const {

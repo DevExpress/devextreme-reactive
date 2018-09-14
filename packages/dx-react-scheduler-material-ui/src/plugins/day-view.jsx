@@ -4,6 +4,7 @@ import { WeekLayout } from '../templates/views/week-layout';
 
 import { Row } from '../templates/day-view/row';
 import { EmptySpace } from '../templates/day-view/empty-space';
+import { Container } from '../templates/appointment/container';
 
 import { Layout as TimePanelLayout } from '../templates/day-view/time-panel/layout';
 import { Cell as TimePanelCell } from '../templates/day-view/time-panel/cell';
@@ -15,6 +16,7 @@ export class DayView extends React.PureComponent {
   render() {
     return (
       <DayViewBase
+        containerComponent={Container}
         layoutComponent={WeekLayout}
         navbarEmptyComponent={EmptySpace}
         timePanelLayoutComponent={TimePanelLayout}
@@ -31,6 +33,7 @@ export class DayView extends React.PureComponent {
 }
 
 DayView.NavbarEmpty = EmptySpace;
+DayView.Container = Container;
 
 DayView.TimePanelLayout = TimePanelLayout;
 DayView.TimePanelCell = TimePanelCell;

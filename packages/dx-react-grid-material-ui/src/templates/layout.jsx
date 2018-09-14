@@ -5,8 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
     display: 'flex',
     flexDirection: 'column',
   },

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {
+  computed,
   viewPredicate,
   sortAppointments,
   calculateFirstDateOfWeek,
@@ -324,6 +325,43 @@ describe('Utils', () => {
           dataItem: 'b',
           type: 'horizontal',
         });
+    });
+  });
+  describe('#computed', () => {
+    it('should work if viewName === currentView', () => {
+      const baseComputed = () => 'baseComputed';
+      const viewName = 'Week';
+      const getters = {
+        currentView: 'Week',
+      };
+      const defaultValue = 'defaultValue';
+
+      expect(computed(getters, viewName, baseComputed, defaultValue))
+        .toEqual('baseComputed');
+    });
+
+    it('should work if viewName !== currentView', () => {
+      const baseComputed = () => 'baseComputed';
+      const viewName = 'Month';
+      const getters = {
+        currentView: 'Week',
+      };
+      const defaultValue = 'defaultValue';
+
+      expect(computed(getters, viewName, baseComputed, defaultValue))
+        .toEqual('defaultValue');
+    });
+
+    it('should work if defaultValue === undefined', () => {
+      const baseComputed = () => 'baseComputed';
+      const viewName = 'Month';
+      const getters = {
+        currentView: 'Week',
+      };
+      const defaultValue = undefined;
+
+      expect(computed(getters, viewName, baseComputed, defaultValue))
+        .toEqual('baseComputed');
     });
   });
 });

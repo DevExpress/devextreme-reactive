@@ -43,15 +43,11 @@ CommandButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string,
   className: PropTypes.string,
-  handler: PropTypes.func,
-  onClick: PropTypes.func,
 };
 
 CommandButtonBase.defaultProps = {
   className: undefined,
   id: '',
-  handler: () => undefined,
-  onClick: () => undefined,
 };
 
 export const CommandButton = withStyles(styles, { name: 'CommandButton' })(CommandButtonBase);

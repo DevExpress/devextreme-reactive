@@ -6,7 +6,8 @@ import {
   timeScale,
   startViewDate,
   endViewDate,
-  dayAppointmentRects,
+  calculateRectByDateIntervals,
+  calculateDayViewDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 
@@ -15,7 +16,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
-  dayAppointmentRects: jest.fn(),
+  calculateRectByDateIntervals: jest.fn(),
+  calculateDayViewDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -29,8 +31,9 @@ const defaultDeps = {
     body: {},
     navbar: {},
     sidebar: {},
-    emptySpace: {},
+    navbarEmpty: {},
     main: {},
+    appointment: {},
   },
 };
 
@@ -44,7 +47,8 @@ const defaultProps = {
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
-  emptySpaceComponent: () => null,
+  navbarEmptyComponent: () => null,
+  containerComponent: () => null,
 };
 
 describe('Day View', () => {
@@ -52,9 +56,10 @@ describe('Day View', () => {
     timeScale.mockImplementation(() => [8, 9, 10]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
-    dayAppointmentRects.mockImplementation(() => [{
+    calculateRectByDateIntervals.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
+    calculateDayViewDateIntervals.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -128,22 +133,6 @@ describe('Day View', () => {
         .toBe(cellDuration);
     });
 
-    it('should provide the "appointmentRects" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).appointmentRects)
-        .toEqual([{
-          x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-        }]);
-    });
-
     it('should provide the "intervalCount" getter', () => {
       const tree = mount((
         <PluginHost>
@@ -170,7 +159,7 @@ describe('Day View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('day');
+        .toBe('Day');
     });
   });
 
@@ -220,18 +209,18 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render empty space', () => {
+    it('should render navbar empty', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            emptySpaceComponent={() => <div className="empty-space" />}
+            navbarEmptyComponent={() => <div className="navbar-empty" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.empty-space').exists())
+      expect(tree.find('.navbar-empty').exists())
         .toBeTruthy();
     });
   });

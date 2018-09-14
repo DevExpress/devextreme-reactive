@@ -1,4 +1,4 @@
 import { Grid as GridBase, withComponents } from '@devexpress/dx-react-chart';
-import * as gridComponents from '../templates/grid';
+import { Line } from '../templates/grid/line';
 
-export const Grid = withComponents(gridComponents)(GridBase);
+export const Grid = withComponents({ Line })(GridBase);

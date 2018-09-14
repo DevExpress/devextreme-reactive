@@ -9,7 +9,7 @@ import {
 import {
   axisCoordinates, HORIZONTAL, TOP, LEFT,
 } from '@devexpress/dx-chart-core';
-import * as gridCompoments from '../templates/grid';
+import { Line } from '../templates/grid/line';
 import { withComponents } from '../utils';
 
 
@@ -17,7 +17,7 @@ class RawGrid extends React.PureComponent {
   render() {
     const {
       name,
-      lineComponent: Line,
+      lineComponent: LineComponent,
       ...restProps
     } = this.props;
     return (
@@ -52,7 +52,7 @@ class RawGrid extends React.PureComponent {
                   {coordinates.ticks.map(({
                     x1, x2, y1, y2, key,
                   }) => (
-                    <Line
+                    <LineComponent
                       key={key}
                       x1={orientation === 'horizontal' ? x1 : width}
                       x2={x2}
@@ -87,4 +87,4 @@ RawGrid.components = {
   },
 };
 
-export const Grid = withComponents(gridCompoments)(RawGrid);
+export const Grid = withComponents({ Line })(RawGrid);

@@ -8,5 +8,5 @@ export * from './plugins/view-state/reducers';
 export * from './plugins/date-navigator/helpers';
 export * from './plugins/all-day-panel/computeds';
 export * from './plugins/all-day-panel/helpers';
-export * from './utils';
 export * from './constants';
+export * from './utils';

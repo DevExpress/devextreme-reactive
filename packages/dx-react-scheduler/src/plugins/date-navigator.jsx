@@ -70,7 +70,6 @@ export class DateNavigator extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="toolbarContent">
-          <TemplatePlaceholder />
           <TemplateConnector>
             {({
               currentDate,
@@ -124,6 +123,7 @@ export class DateNavigator extends React.PureComponent {
               );
             }}
           </TemplateConnector>
+          <TemplatePlaceholder />
         </Template>
       </Plugin>
     );

@@ -5,11 +5,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { GroupingControl } from './table-header-cell/grouping-control';
-
-jest.mock('./table-header-cell/grouping-control', () => ({
-  GroupingControl: jest.fn(),
-}));
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -18,13 +13,6 @@ describe('TableHeaderCell', () => {
   });
   afterAll(() => {
     resetConsole();
-  });
-
-  beforeEach(() => {
-    GroupingControl.mockImplementation(() => null);
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   it('should have correct styles when user interaction disallowed', () => {

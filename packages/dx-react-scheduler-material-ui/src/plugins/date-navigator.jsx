@@ -11,7 +11,6 @@ import { Row as CalendarRow } from '../templates/date-navigator/calendar/row';
 import { Navigator as CalendarNavigator } from '../templates/date-navigator/calendar/navigator';
 import { Title as CalendarTitle } from '../templates/date-navigator/calendar/title';
 
-
 export class DateNavigator extends React.PureComponent {
   render() {
     return (

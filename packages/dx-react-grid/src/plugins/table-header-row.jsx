@@ -3,12 +3,12 @@ import * as PropTypes from 'prop-types';
 import {
   Getter, Template, Plugin, TemplateConnector, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   getColumnSortingDirection,
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
-  getMessagesFormatter,
   TABLE_DATA_TYPE,
 } from '@devexpress/dx-grid-core';
 

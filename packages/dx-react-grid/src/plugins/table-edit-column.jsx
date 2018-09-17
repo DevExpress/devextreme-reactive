@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter, Template, Plugin, TemplateConnector,
 } from '@devexpress/dx-react-core';
@@ -10,7 +11,6 @@ import {
   isEditCommandsTableCell,
   isAddedTableRow,
   isEditTableRow,
-  getMessagesFormatter,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [

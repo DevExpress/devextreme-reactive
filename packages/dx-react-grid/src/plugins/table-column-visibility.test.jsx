@@ -4,7 +4,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents, getComputedState, testStatePluginField } from '@devexpress/dx-react-core/test-utils';
 import {
   visibleTableColumns,
-  getMessagesFormatter,
   columnChooserItems,
   toggleColumn,
   tableDataColumnsExist,
@@ -15,7 +14,6 @@ import { TableColumnVisibility } from './table-column-visibility';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   visibleTableColumns: jest.fn(),
-  getMessagesFormatter: jest.fn(),
   columnChooserItems: jest.fn(),
   toggleColumn: jest.fn(),
   tableDataColumnsExist: jest.fn(),
@@ -57,7 +55,6 @@ describe('TableColumnVisibility', () => {
   beforeEach(() => {
     toggleColumn.mockImplementation(args => (args));
     visibleTableColumns.mockImplementation(() => [{ column: { name: 'c' } }]);
-    getMessagesFormatter.mockImplementation(messages => key => (messages[key] || key));
     columnChooserItems.mockImplementation(args => (args));
     tableDataColumnsExist.mockImplementation(() => false);
     getColumnExtensionValueGetter.mockImplementation(() => () => {});

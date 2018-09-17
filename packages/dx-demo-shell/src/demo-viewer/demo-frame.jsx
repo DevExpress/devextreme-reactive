@@ -128,12 +128,14 @@ Custom theme link
               <Frame
                 style={{
                   border: 'none',
-                  width: '100%',
+                  minWidth: '100%',
+                  width: '100px',
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
                 initialContent={this.markup(editableLink)}
                 mountTarget="#mountPoint"
+                scrolling="no"
               >
                 <div ref={(node) => { this.node = node; }} />
               </Frame>

@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "dx-site",
+  "description": "DevExtreme Reactive Site",
+  "version": "1.8.0-beta.1",
+  "author": {
+    "name": "Developer Express Inc.",
+    "url": "https://www.devexpress.com/"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "homepage": "https://devexpress.github.io/devextreme-reactive/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
+  },
+  "dependencies": {
+    "bootstrap": "4.1.3",
+    "gatsby": "^2.0.0-rc.25",
+    "gatsby-link": "^2.0.0-rc.3",
+    "gatsby-plugin-react-helmet": "^3.0.0-rc.1",
+    "gatsby-plugin-sass": "^2.0.0-rc.2",
+    "react-helmet": "^5.2.0",
+    "reactstrap": "^6.4.0"
+  },
+  "devDependencies": {
+    "node-sass": "4.9.3"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "build:watch": "gatsby develop"
+  }
+}

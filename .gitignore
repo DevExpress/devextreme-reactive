@@ -22,6 +22,9 @@
 /site/vue/grid/*
 !/site/vue/grid/overrides
 
+/packages/dx-site/public
+/packages/dx-site/.cache
+
 # Demos
 /packages/*/src/demo-registry.js
 /packages/*/src/**/*.g*

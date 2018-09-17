@@ -3,8 +3,7 @@
     [ "env", { "modules": false, "targets": { "browsers": ["last 2 versions"] } } ]
   ],
   "plugins": [
-    "transform-vue-jsx",
-    "transform-object-rest-spread"
+    "transform-vue-jsx"
   ],
   "env": {
     "test": {

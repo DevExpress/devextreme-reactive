@@ -14,8 +14,8 @@ import appointments from '../../../demo-data/today-appointments';
 const styles = theme => ({
   button: {
     color: theme.palette.background.default,
-    width: '20px',
-    height: '20px',
+    width: theme.spacing.unit * 2.5,
+    height: theme.spacing.unit * 2.5,
   },
   text: {
     paddingTop: theme.spacing.unit,
@@ -108,13 +108,11 @@ export default class Demo extends React.PureComponent {
           />
 
           <AppointmentTooltip
+            showCloseButton
             visible={visible}
             appointmentMeta={appointmentMeta}
-
             onAppointmentMetaChange={this.onAppointmentMetaChange}
             onVisibleChange={this.toggleVisible}
-
-            showCloseButton
           />
         </Scheduler>
       </Paper>

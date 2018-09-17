@@ -37,17 +37,17 @@ export class AppointmentTooltip extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        visible: () => props.onVisibleChange,
+        visible: () => props.onVisibilityChange,
         appointmentMeta: () => props.onAppointmentMetaChange,
       },
     );
 
-    const toggleVisible = () => {
+    const toggleVisibility = () => {
       const { visible: isOpen } = this.state;
       return !isOpen;
     };
-    this.toggleVisible = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'visible', toggleVisible);
+    this.toggleVisibility = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'visible', toggleVisibility);
     this.setAppointmentMeta = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentMeta', setAppointmentMeta);
   }
@@ -80,7 +80,7 @@ export class AppointmentTooltip extends React.PureComponent {
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleTooltipVisible" action={this.toggleVisible} />
+        <Action name="toggleTooltipVisibility" action={this.toggleVisibility} />
         <Action name="setTooltipAppointmentMeta" action={this.setAppointmentMeta} />
         <Template name="main">
           <TemplateConnector>
@@ -100,9 +100,8 @@ export class AppointmentTooltip extends React.PureComponent {
                   contentComponent={contentComponent}
                   appointmentMeta={appointmentMeta}
                   visible={visible}
-                  onHide={this.toggleVisible}
+                  onHide={this.toggleVisibility}
                   commandButtonIds={commandButtonIds}
-
                   getAppointmentTitle={getAppointmentTitle}
                   getAppointmentStartDate={getAppointmentStartDate}
                   getAppointmentEndDate={getAppointmentEndDate}
@@ -126,13 +125,13 @@ AppointmentTooltip.propTypes = {
   showCloseButton: PropTypes.bool,
   visible: PropTypes.bool,
   appointmentMeta: PropTypes.object,
-  onVisibleChange: PropTypes.func,
+  onVisibilityChange: PropTypes.func,
   onAppointmentMetaChange: PropTypes.func,
 };
 
 AppointmentTooltip.defaultProps = {
   onAppointmentMetaChange: undefined,
-  onVisibleChange: undefined,
+  onVisibilityChange: undefined,
   appointmentMeta: undefined,
   visible: undefined,
   showOpenButton: false,

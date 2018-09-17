@@ -29,7 +29,7 @@ const AppointmentComponentBase = ({
   appointment,
   onClick,
   classes,
-  toggleVisible,
+  toggleVisibility,
   onAppointmentMetaChange,
   ...restProps
 }) => (
@@ -40,7 +40,7 @@ const AppointmentComponentBase = ({
     <IconButton
       className={classes.button}
       onClick={({ target }) => {
-        toggleVisible();
+        toggleVisibility();
         onAppointmentMetaChange({ target: target.parentElement.parentElement, appointment });
       }}
     >
@@ -66,9 +66,9 @@ export default class Demo extends React.PureComponent {
       },
     };
 
-    this.toggleVisible = () => {
-      const { visible: tooltipVisible } = this.state;
-      this.setState({ visible: !tooltipVisible });
+    this.toggleVisibility = () => {
+      const { visible: tooltipVisibility } = this.state;
+      this.setState({ visible: !tooltipVisibility });
     };
     this.onAppointmentMetaChange = ({ appointment, target }) => {
       this.setState({ appointmentMeta: { appointment, target } });
@@ -80,7 +80,7 @@ export default class Demo extends React.PureComponent {
     return (
       <AppointmentComponent
         {...props}
-        toggleVisible={this.toggleVisible}
+        toggleVisibility={this.toggleVisibility}
         onAppointmentMetaChange={this.onAppointmentMetaChange}
       />
     );
@@ -112,7 +112,7 @@ export default class Demo extends React.PureComponent {
             visible={visible}
             appointmentMeta={appointmentMeta}
             onAppointmentMetaChange={this.onAppointmentMetaChange}
-            onVisibleChange={this.toggleVisible}
+            onVisibilityChange={this.toggleVisibility}
           />
         </Scheduler>
       </Paper>

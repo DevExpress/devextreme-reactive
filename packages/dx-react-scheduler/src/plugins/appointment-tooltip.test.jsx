@@ -64,7 +64,7 @@ describe('AppointmentTooltip', () => {
       .toBeCalled();
   });
 
-  it('should provide toggleTooltipVisible action', () => {
+  it('should provide toggleTooltipVisibility action', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -76,7 +76,7 @@ describe('AppointmentTooltip', () => {
 
     expect(tree.find(AppointmentTooltip).instance().state.visible)
       .toEqual(undefined);
-    executeComputedAction(tree, actions => actions.toggleTooltipVisible());
+    executeComputedAction(tree, actions => actions.toggleTooltipVisibility());
     expect(tree.find(AppointmentTooltip).instance().state.visible)
       .toEqual(true);
   });

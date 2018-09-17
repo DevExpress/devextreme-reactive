@@ -64,7 +64,7 @@ Describes properties of a table row that the Table plugin renders.
 Field | Type | Description
 ------|------|------------
 key | string | A unique table row identifier.
-type | string | Specifies the table row type. The specified value defines which cell template is used to render the row.
+type | symbol | Specifies the table row type. The specified value defines which cell template is used to render the row.
 rowId? | number &#124; string | Specifies the associated row's ID.
 row? | any | Specifies the associated row.
 height? | number | Specifies the table row height.
@@ -76,7 +76,7 @@ Describes properties of a table column that the Table plugin renders.
 Field | Type | Description
 ------|------|------------
 key | string | A unique table column identifier.
-type | string | Specifies the table column type. The specified value defines which cell template is used to render the column.
+type | symbol | Specifies the table column type. The specified value defines which cell template is used to render the column.
 column? | [Column](grid.md#column) | Specifies the associated user column.
 width? | number | Specifies the table column width.
 align? | 'left' &#124; 'right' &#124; 'center' | Specifies the table's column alignment.

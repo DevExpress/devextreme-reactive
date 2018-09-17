@@ -4,7 +4,6 @@ import * as PropTypes from 'prop-types';
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { GroupingControl } from './table-header-cell/grouping-control';
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -27,7 +26,6 @@ export class TableHeaderCell extends React.PureComponent {
       ...restProps
     } = this.props;
     const { dragging } = this.state;
-    const align = (tableColumn && tableColumn.align) || 'left';
 
     const cellLayout = (
       <th
@@ -53,19 +51,6 @@ export class TableHeaderCell extends React.PureComponent {
           }}
         >
           {children}
-          {showGroupingControls && (
-            <div
-              style={{
-                flex: 'none',
-              }}
-            >
-              <GroupingControl
-                align={align}
-                disabled={!groupingEnabled}
-                onGroup={onGroup}
-              />
-            </div>
-          )}
         </div>
         {resizingEnabled && (
           <ResizingControl

@@ -8,13 +8,15 @@ import { changeSearchValue, searchFilterExpression } from '@devexpress/dx-grid-c
 export class SearchState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onValueChange } = this.props;
 
     this.state = {
       value: props.value || props.defaultValue,
     };
     const stateHelper = createStateHelper(this, {
-      value: () => onValueChange,
+      value: () => {
+        const { onValueChange } = this.props;
+        return onValueChange;
+      },
     });
 
     this.changeValue = stateHelper.applyFieldReducer

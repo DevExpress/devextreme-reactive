@@ -17,13 +17,17 @@ export class ViewState extends React.PureComponent {
       currentView: props.currentView || props.defaultCurrentView,
     };
 
-    const { onCurrentDateChange, onCurrentViewChange } = this.props;
-
     const stateHelper = createStateHelper(
       this,
       {
-        currentDate: () => onCurrentDateChange,
-        currentView: () => onCurrentViewChange,
+        currentDate: () => {
+          const { onCurrentDateChange } = this.props;
+          return onCurrentDateChange;
+        },
+        currentView: () => {
+          const { onCurrentViewChange } = this.props;
+          return onCurrentViewChange;
+        },
       },
     );
 

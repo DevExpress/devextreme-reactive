@@ -13,10 +13,14 @@ const pluginDependencies = [
   { name: 'SearchState' },
 ];
 
+const defaultMessages = {
+  searchPlaceholder: 'Search...',
+};
+
 export class SearchPanel extends React.PureComponent {
   render() {
     const { inputComponent: Input, messages } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
       <Plugin
@@ -47,4 +51,8 @@ SearchPanel.propTypes = {
 
 SearchPanel.defaultProps = {
   messages: {},
+};
+
+SearchPanel.components = {
+  inputComponent: 'Input',
 };

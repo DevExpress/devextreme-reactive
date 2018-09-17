@@ -7,8 +7,6 @@ describe('Appointment Tooltip', () => {
   let shallow;
   const defaultProps = {
     appointment: {},
-    getAppointmentStartDate: () => new Date('3-09-2018'),
-    getAppointmentEndDate: () => new Date('4-09-2018'),
   };
   beforeAll(() => {
     classes = getClasses(<Content {...defaultProps} />);
@@ -35,15 +33,14 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render appointment date', () => {
+    it('should render children', () => {
       const tree = shallow((
-        <Content {...defaultProps} />
+        <Content {...defaultProps}>
+          <div className="innerContent" />
+        </Content>
       ));
 
-      expect(tree.find(`.${classes.text}`).at(0).props().children)
-        .toEqual('12:00 AM');
-      expect(tree.find(`.${classes.text}`).at(1).props().children)
-        .toEqual('12:00 AM');
+      expect(tree.find('.innerContent').exists()).toBeTruthy();
     });
   });
 });

@@ -1,8 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
+import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Layout = ({
+const styles = theme => ({
+  text: {
+    ...theme.typography.body1,
+    display: 'inline-block',
+  },
+});
+
+const LayoutBase = ({
   headComponent: Head,
   contentComponent: Content,
   commandButtonComponent,
@@ -15,20 +24,22 @@ export const Layout = ({
   getAppointmentTitle,
   visible, onHide,
   commandButtonIds,
+  classes,
   ...restProps
-}) => (
-  <Popover
-    open={visible}
-    anchorEl={appointmentMeta.target}
-    onClose={onHide}
-    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-    {...restProps}
-  >
-    <React.Fragment>
+}) => {
+  const { target, appointment = {} } = appointmentMeta;
+  return (
+    <Popover
+      open={visible}
+      anchorEl={target}
+      onClose={onHide}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      {...restProps}
+    >
       <Head
         commandButtonComponent={commandButtonComponent}
-        appointment={appointmentMeta.appointment}
+        appointment={appointment}
         showOpenButton={showOpenButton}
         showCloseButton={showCloseButton}
         showDeleteButton={showDeleteButton}
@@ -36,16 +47,20 @@ export const Layout = ({
         getAppointmentTitle={getAppointmentTitle}
         commandButtonIds={commandButtonIds}
       />
-      <Content
-        appointment={appointmentMeta.appointment}
-        getAppointmentStartDate={getAppointmentStartDate}
-        getAppointmentEndDate={getAppointmentEndDate}
-      />
-    </React.Fragment>
-  </Popover>
-);
+      <Content appointment={appointment}>
+        <div className={classes.text}>
+          {moment(getAppointmentStartDate(appointment)).format('h:mm A')}
+        </div>
+        {' - '}
+        <div className={classes.text}>
+          {moment(getAppointmentEndDate(appointment)).format('h:mm A')}
+        </div>
+      </Content>
+    </Popover>
+  );
+};
 
-Layout.propTypes = {
+LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.func.isRequired,
   headComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
@@ -56,12 +71,15 @@ Layout.propTypes = {
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentTitle: PropTypes.func.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
   appointmentMeta: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
-Layout.defaultProps = {
+LayoutBase.defaultProps = {
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,
 };
+
+export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

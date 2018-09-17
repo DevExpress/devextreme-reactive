@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('Appointment Tooltip', () => {
+  let classes;
   let shallow;
   const defaultProps = {
     commandButtonComponent: () => null,
@@ -11,12 +12,13 @@ describe('Appointment Tooltip', () => {
     showOpenButton: false,
     showCloseButton: false,
     showDeleteButton: false,
-    getAppointmentEndDate: jest.fn(),
-    getAppointmentStartDate: jest.fn(),
-    getAppointmentTitle: jest.fn(),
+    getAppointmentStartDate: () => new Date('2018-08-17 10:00'),
+    getAppointmentEndDate: () => new Date('2018-08-17 11:00'),
+    getAppointmentTitle: () => 'a',
     commandButtonIds: {},
   };
   beforeAll(() => {
+    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
@@ -45,6 +47,17 @@ describe('Appointment Tooltip', () => {
 
       expect(tree.find(defaultProps.contentComponent).exists())
         .toBeTruthy();
+    });
+
+    it('should render appointment dates', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} />
+      ));
+      const text = tree.find(`.${classes.text}`);
+      expect(text.at(0).props().children)
+        .toEqual('10:00 AM');
+      expect(text.at(1).props().children)
+        .toEqual('11:00 AM');
     });
   });
 });

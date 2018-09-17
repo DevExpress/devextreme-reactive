@@ -54,12 +54,19 @@ describe('Appointment Tooltip', () => {
     });
 
     it('should render CloseButton', () => {
+      const onHideMock = jest.fn();
       const tree = shallow((
-        <Head {...defaultProps} showCloseButton />
+        <Head
+          {...defaultProps}
+          showCloseButton
+          onHide={onHideMock}
+        />
       ));
+      const { id, onClick } = tree.find(defaultProps.commandButtonComponent).props();
+      onClick();
 
-      expect(tree.find(defaultProps.commandButtonComponent).props().id)
-        .toEqual('close');
+      expect(id).toEqual('close');
+      expect(onHideMock).toBeCalled();
     });
 
     it('should render DeleteButton', () => {

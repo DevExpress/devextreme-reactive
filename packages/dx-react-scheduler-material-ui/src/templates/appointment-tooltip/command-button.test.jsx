@@ -34,19 +34,6 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should call onClick', () => {
-      const handlerEvent = jest.fn();
-
-      const tree = shallow((
-        <CommandButton onClick={handlerEvent} />
-      ));
-
-      tree.simulate('click');
-
-      expect(handlerEvent)
-        .toBeCalled();
-    });
-
     it('should render `open` button', () => {
       const editIcon = shallow((
         <CommandButton id={OPEN_COMMAND_BUTTON} />

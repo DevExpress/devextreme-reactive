@@ -28,7 +28,6 @@ export const CommandButtonBase = ({
   classes,
   className,
   id,
-  handler,
   ...restProps
 }) => (
   <IconButton

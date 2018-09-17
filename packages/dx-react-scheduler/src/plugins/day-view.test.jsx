@@ -4,6 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
+  dayScale,
   timeScale,
   startViewDate,
   endViewDate,
@@ -48,6 +49,7 @@ const defaultProps = {
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
   dayPanelCellComponent: () => null,
+  dayPanelRowComponent: () => null,
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
@@ -61,6 +63,7 @@ describe('Day View', () => {
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
+    dayScale.mockImplementation(() => [1, 2, 3]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
@@ -81,7 +84,6 @@ describe('Day View', () => {
             startDayHour={8}
             endDayHour={18}
             cellDuration={60}
-            firstDayOfWeek={1}
             {...defaultProps}
           />
         </PluginHost>
@@ -91,6 +93,24 @@ describe('Day View', () => {
         .toBeCalledWith('2018-07-04', 0, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
+    });
+
+    it('should provide the "dayScale" getter', () => {
+      const intervalCount = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            intervalCount={intervalCount}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(dayScale)
+        .toBeCalledWith('2018-07-04', undefined, intervalCount, []);
+      expect(getComputedState(tree).dayScale)
+        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "startViewDate" getter', () => {

@@ -24,6 +24,7 @@ export class TableHeaderRow extends React.PureComponent {
       rowComponent: HeaderRow,
       contentComponent: Content,
       sortLabelComponent: SortLabel,
+      groupButtonComponent: GroupButton,
       titleComponent: Title,
       messages,
     } = this.props;
@@ -133,6 +134,12 @@ export class TableHeaderRow extends React.PureComponent {
                         </Title>
                       )}
                     </Content>
+                    {showGroupingControls ? (
+                      <GroupButton
+                        disabled={!groupingEnabled}
+                        onGroup={() => changeColumnGrouping({ columnName })}
+                      />
+                    ) : null}
                   </HeaderCell>
                 );
               }}
@@ -160,6 +167,7 @@ TableHeaderRow.propTypes = {
   rowComponent: PropTypes.func.isRequired,
   titleComponent: PropTypes.func.isRequired,
   sortLabelComponent: PropTypes.func.isRequired,
+  groupButtonComponent: PropTypes.func.isRequired,
   messages: PropTypes.object,
 };
 

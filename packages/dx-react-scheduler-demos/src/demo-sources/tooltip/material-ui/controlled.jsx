@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 });
 
-const AppointmentComponentBase = ({
+const AppointmentBase = ({
   appointment,
   onClick,
   classes,
@@ -52,7 +52,7 @@ const AppointmentComponentBase = ({
   </Appointments.Appointment>
 );
 
-const AppointmentComponent = withStyles(styles, { name: 'AppointmentComponent' })(AppointmentComponentBase);
+const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -78,7 +78,7 @@ export default class Demo extends React.PureComponent {
 
   myAppointment(props) {
     return (
-      <AppointmentComponent
+      <Appointment
         {...props}
         toggleVisibility={this.toggleVisibility}
         onAppointmentMetaChange={this.onAppointmentMetaChange}

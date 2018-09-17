@@ -1,19 +1,5 @@
-import * as React from 'react';
-import { TableEditRow as TableEditRowBase } from '@devexpress/dx-react-grid';
-import { EditCell } from '../templates/table-edit-cell';
-import { TableRow } from '../templates/table-row';
+import { TableEditRow as TableEditRowBase, withComponents } from '@devexpress/dx-react-grid';
+import { EditCell as Cell } from '../templates/table-edit-cell';
+import { TableRow as Row } from '../templates/table-row';
 
-export class TableEditRow extends React.PureComponent {
-  render() {
-    return (
-      <TableEditRowBase
-        cellComponent={EditCell}
-        rowComponent={TableRow}
-        {...this.props}
-      />
-    );
-  }
-}
-
-TableEditRow.Cell = EditCell;
-TableEditRow.Row = TableRow;
+export const TableEditRow = withComponents({ Row, Cell })(TableEditRowBase);

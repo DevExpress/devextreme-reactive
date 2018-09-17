@@ -163,9 +163,9 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | symbol | The identificator of the data column type.
-ROW_TYPE | symbol | The identificator of the data row type.
-NODATA_ROW_TYPE | symbol | The identificator of the nodata row type.
+COLUMN_TYPE | symbol | The data column type's indentifier.
+ROW_TYPE | symbol | The data row type's indentifier.
+NODATA_ROW_TYPE | symbol | The nodata row type's indentifier.
 
 ## Plugin Developer Reference
 

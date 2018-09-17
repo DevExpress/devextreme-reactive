@@ -70,7 +70,7 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-ROW_TYPE | symbol | The identificator of the band row type.
+ROW_TYPE | symbol | The band row type's identifier.
 
 ## Plugin Developer Reference
 

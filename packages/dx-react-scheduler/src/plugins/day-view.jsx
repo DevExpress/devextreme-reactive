@@ -47,7 +47,7 @@ export class DayView extends React.PureComponent {
 
     this.timeScaleBaseComputed = ({
       currentDate,
-    }) => timeScaleCore(currentDate, 0, startDayHour, endDayHour, cellDuration, []);
+    }) => timeScaleCore(currentDate, undefined, startDayHour, endDayHour, cellDuration, []);
     this.dayScaleBaseComputed = ({
       currentDate,
     }) => dayScaleCore(currentDate, undefined, intervalCount, []);

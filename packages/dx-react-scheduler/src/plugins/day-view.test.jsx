@@ -90,7 +90,7 @@ describe('Day View', () => {
       ));
 
       expect(timeScale)
-        .toBeCalledWith('2018-07-04', 0, 8, 18, 60, []);
+        .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
     });

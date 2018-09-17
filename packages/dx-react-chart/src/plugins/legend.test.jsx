@@ -19,10 +19,11 @@ describe('Legend', () => {
   });
   const defaultDeps = {
     getter: {
-      layouts: { pane: {} },
       series: [{ name: 'first', color: 'color', uniqueName: 'first' }],
-      setBBox: jest.fn(),
       colorDomain,
+      domains: { argument: { domain: 'domain' } },
+      argumentAxisName: 'argument',
+      items: series => series,
     },
     template: {
       right: {},

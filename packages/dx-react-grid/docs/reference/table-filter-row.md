@@ -109,7 +109,7 @@ Name | Properties | Description
 -----|------------|------------
 TableFilterRow.Cell | [TableFilterRow.CellProps](#tablefilterrowcellprops) | A component that renders a filter row cell.
 TableFilterRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a filter row.
-TableFilterRow.FilterSelector | [TableFilterRow.FilterSelectorProps](#tablefilterrowselectorprops) | A component that renders a filter selector.
+TableFilterRow.FilterSelector | [TableFilterRow.FilterSelectorProps](#tablefilterrowfilterselectorprops) | A component that renders a filter selector.
 TableFilterRow.Icon | [TableFilterRow.IconProps](#tablefilterrowiconprops) | A component that renders filter selector icons.
 TableFilterRow.Editor | [TableFilterRow.EditorProps](#tablefilterroweditorprops) | A component that renders a filter editor.
 

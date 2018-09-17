@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  computed,
   dayScale,
   monthCells,
   endViewBoundary,
@@ -12,8 +13,10 @@ import {
 import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  computed: jest.fn(),
   dayScale: jest.fn(),
   monthCells: jest.fn(),
+  availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
   getMonthRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
@@ -36,6 +39,9 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
+  timePanelLayoutComponent: () => null,
+  timePanelRowComponent: () => null,
+  timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
   dayPanelCellComponent: () => null,
   dayPanelRowComponent: () => null,
@@ -48,8 +54,11 @@ const defaultProps = {
 
 describe('Month View', () => {
   beforeEach(() => {
-    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     dayScale.mockImplementation(() => [1, 2, 3]);
+    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     monthCells.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}],
       [{}, { value: new Date('2018-08-05') }],
@@ -67,14 +76,12 @@ describe('Month View', () => {
     it('should provide the "dayScale" getter', () => {
       const firstDayOfWeek = 2;
       const intervalCount = 2;
-      const excludedDays = [1, 2];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             firstDayOfWeek={firstDayOfWeek}
             intervalCount={intervalCount}
-            excludedDays={excludedDays}
             {...defaultProps}
           />
         </PluginHost>
@@ -170,7 +177,7 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('month');
+        .toBe('Month');
     });
   });
 

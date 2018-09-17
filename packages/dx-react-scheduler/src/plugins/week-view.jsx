@@ -12,7 +12,7 @@ import {
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  getWeekRectByDates,
+  getRectByDates,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
@@ -214,7 +214,7 @@ export class WeekView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getWeekRectByDates,
+                getRectByDates,
                 {
                   startViewDate,
                   endViewDate,

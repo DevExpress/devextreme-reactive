@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  getDayRectByDates,
+  getRectByDates,
   calculateRectByDateIntervals,
   calculateDayViewDateIntervals,
   getAppointmentStyle,
@@ -201,7 +201,7 @@ export class DayView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getDayRectByDates,
+                getRectByDates,
                 {
                   startViewDate,
                   endViewDate,

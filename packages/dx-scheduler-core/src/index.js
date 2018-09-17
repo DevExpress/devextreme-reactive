@@ -1,4 +1,5 @@
 export * from './plugins/common/computeds';
+export * from './plugins/common/helpers';
 export * from './plugins/scheduler-core/computeds';
 export * from './plugins/month-view/computeds';
 export * from './plugins/month-view/helpers';

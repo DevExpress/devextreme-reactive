@@ -7,17 +7,6 @@ describe('Appointment Tooltip', () => {
   let shallow;
   const defaultProps = {
     appointment: {},
-    commandButtonIds: {
-      open: 'open',
-      close: 'close',
-      delete: 'delete',
-    },
-    commandButtonComponent: () => null,
-    showOpenButton: false,
-    showCloseButton: false,
-    showDeleteButton: false,
-    getAppointmentTitle: () => 'title',
-    onHide: jest.fn(),
   };
   beforeAll(() => {
     classes = getClasses(<Head {...defaultProps} />);
@@ -44,38 +33,14 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render OpenButton', () => {
+    it('should render children', () => {
       const tree = shallow((
-        <Head {...defaultProps} showOpenButton />
+        <Head {...defaultProps}>
+          <div className="header-content" />
+        </Head>
       ));
 
-      expect(tree.find(defaultProps.commandButtonComponent).props().id)
-        .toEqual('open');
-    });
-
-    it('should render CloseButton', () => {
-      const onHideMock = jest.fn();
-      const tree = shallow((
-        <Head
-          {...defaultProps}
-          showCloseButton
-          onHide={onHideMock}
-        />
-      ));
-      const { id, onClick } = tree.find(defaultProps.commandButtonComponent).props();
-      onClick();
-
-      expect(id).toEqual('close');
-      expect(onHideMock).toBeCalled();
-    });
-
-    it('should render DeleteButton', () => {
-      const tree = shallow((
-        <Head {...defaultProps} showDeleteButton />
-      ));
-
-      expect(tree.find(defaultProps.commandButtonComponent).props().id)
-        .toEqual('delete');
+      expect(tree.find('.header-content').exists()).toBeTruthy();
     });
   });
 });

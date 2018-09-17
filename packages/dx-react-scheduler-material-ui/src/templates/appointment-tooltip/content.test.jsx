@@ -36,11 +36,11 @@ describe('Appointment Tooltip', () => {
     it('should render children', () => {
       const tree = shallow((
         <Content {...defaultProps}>
-          <div className="innerContent" />
+          <div className="inner-content" />
         </Content>
       ));
 
-      expect(tree.find('.innerContent').exists()).toBeTruthy();
+      expect(tree.find('.inner-content').exists()).toBeTruthy();
     });
   });
 });

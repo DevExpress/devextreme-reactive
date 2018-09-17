@@ -9,12 +9,27 @@ const styles = theme => ({
     ...theme.typography.body1,
     display: 'inline-block',
   },
+  title: {
+    ...theme.typography.title,
+    padding: theme.spacing.unit * 1.75,
+    color: theme.palette.background.default,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  buttonsLeft: {
+    display: 'inline-block',
+  },
+  buttonsRight: {
+    float: 'right',
+    display: 'inline-block',
+  },
 });
 
 const LayoutBase = ({
   headComponent: Head,
   contentComponent: Content,
-  commandButtonComponent,
+  commandButtonComponent: CommandButton,
   appointmentMeta,
   showOpenButton,
   showCloseButton,
@@ -37,16 +52,20 @@ const LayoutBase = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...restProps}
     >
-      <Head
-        commandButtonComponent={commandButtonComponent}
-        appointment={appointment}
-        showOpenButton={showOpenButton}
-        showCloseButton={showCloseButton}
-        showDeleteButton={showDeleteButton}
-        onHide={onHide}
-        getAppointmentTitle={getAppointmentTitle}
-        commandButtonIds={commandButtonIds}
-      />
+      <Head appointment={appointment}>
+        <div>
+          <div className={classes.buttonsLeft}>
+            {showOpenButton && <CommandButton id={commandButtonIds.open} />}
+          </div>
+          <div className={classes.buttonsRight}>
+            {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
+            {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
+          </div>
+        </div>
+        <div className={classes.title}>
+          {getAppointmentTitle(appointment)}
+        </div>
+      </Head>
       <Content appointment={appointment}>
         <div className={classes.text}>
           {moment(getAppointmentStartDate(appointment)).format('h:mm A')}

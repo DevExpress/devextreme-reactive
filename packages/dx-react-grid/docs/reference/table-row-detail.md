@@ -93,8 +93,8 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | symbol | The identificator of the detail column type.
-ROW_TYPE | symbol | The identificator of the detail row type.
+COLUMN_TYPE | symbol | The detail column type's identifier.
+ROW_TYPE | symbol | The detail row type's indentifier.
 
 ## Plugin Developer Reference
 

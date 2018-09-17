@@ -124,7 +124,7 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([defaultDeps.getter.currentDate], [8, 9, 10]);
+        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });
@@ -139,7 +139,7 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([defaultDeps.getter.currentDate], [8, 9, 10]);
+        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });

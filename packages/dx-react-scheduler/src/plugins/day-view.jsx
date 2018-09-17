@@ -52,11 +52,11 @@ export class DayView extends React.PureComponent {
       currentDate,
     }) => dayScaleCore(currentDate, undefined, intervalCount, []);
     this.startViewDateBaseComputed = ({
-      currentDate, timeScale,
-    }) => startViewDateCore([currentDate], timeScale);
+      dayScale, timeScale,
+    }) => startViewDateCore(dayScale, timeScale, startDayHour);
     this.endViewDateBaseComputed = ({
-      currentDate, timeScale,
-    }) => endViewDateCore([currentDate], timeScale);
+      dayScale, timeScale,
+    }) => endViewDateCore(dayScale, timeScale);
 
     this.timeScaleComputed = getters => computed(
       getters,

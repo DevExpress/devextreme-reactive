@@ -104,8 +104,8 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | symbol | The identificator of the group column type.
-ROW_TYPE | symbol | The identificator of the group row type.
+COLUMN_TYPE | symbol | The group column type's identifier.
+ROW_TYPE | symbol | The group row type's identifier.
 
 ## Plugin Developer Reference
 

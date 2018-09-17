@@ -174,3 +174,9 @@ TableFixedColumns.defaultProps = {
   leftColumnTypes: [],
   rightColumnTypes: [],
 };
+
+TableFixedColumns.components = {
+  cellComponent: 'Cell',
+  listenerRowComponent: 'ListenerRow',
+  listenerCellComponent: 'ListenerCell',
+};

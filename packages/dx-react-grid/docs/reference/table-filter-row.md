@@ -119,7 +119,7 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-ROW_TYPE | symbol | The identificator of the filter row type.
+ROW_TYPE | symbol | The filter row type's identifier.
 
 ## Plugin Developer Reference
 

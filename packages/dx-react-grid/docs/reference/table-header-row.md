@@ -101,7 +101,7 @@ Describes properties used to render a group button.
 Field | Type | Description
 ------|------|------------
 disabled | string | Specifies whether the group button is disabled.
-onGroup | () => void | An event that invokes a grouping by the column.
+onGroup | () => void | An event that invokes grouping by the column.
 
 ## Localization Messages
 

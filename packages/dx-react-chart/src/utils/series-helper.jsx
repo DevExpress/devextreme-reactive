@@ -16,6 +16,7 @@ export const withSeriesPlugin = (
   pluginName,
   pathType,
   calculateCoordinates,
+  getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -48,6 +49,7 @@ export const withSeriesPlugin = (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
           <Getter name="startFromZero" computed={startFromZeroByAxes} />
+          <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
@@ -60,7 +62,6 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                pieColorDomain,
               }) => {
                 const {
                   stack, uniqueName,
@@ -88,7 +89,7 @@ export const withSeriesPlugin = (
                 return (
                   <Series
                     uniqueName={uniqueName}
-                    colorDomain={pluginName === 'PieSeries' ? pieColorDomain : colorDomain}
+                    colorDomain={colorDomain}
                     coordinates={calculatedCoordinates}
                     color={color}
                     {...restProps}

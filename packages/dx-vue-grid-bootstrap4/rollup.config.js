@@ -8,12 +8,10 @@ import pkg from './package.json';
 
 export default {
   input: 'src/index.js',
-  sourcemap: true,
   output: [
-    { file: pkg.main, format: 'umd', name: pkg.globalName },
-    { file: pkg.module, format: 'es' },
+    { file: pkg.main, format: 'umd', name: pkg.globalName, sourcemap: true, globals: globals() },
+    { file: pkg.module, format: 'es', sourcemap: true },
   ],
-  globals: globals(),
   external: external(__dirname),
   plugins: [
     css({ output: pkg.styles, include: ['../**/*.css'] }),

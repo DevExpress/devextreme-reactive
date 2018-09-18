@@ -39,6 +39,7 @@ rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | |
 contentComponent | ComponentType&lt;[TableHeaderRow.ContentProps](#tableheaderrowcontentprops)&gt; | | A component that renders a header cell's content.
 sortLabelComponent | ComponentType&lt;[TableHeaderRow.SortLabelProps](#tableheaderrowsortlabelprops)&gt; | | A component that renders a sort label.
 titleComponent | ComponentType&lt;object&gt; | | A component that renders a title.
+groupButtonComponent | ComponentType&lt;[TableHeaderRow.GroupButtonProps](#tableheaderrowgroupbuttonprops)&gt; | | A component that renders a group button.
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -54,9 +55,9 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with the header cell.
-showGroupingControls | boolean | Specifies whether to display a button that groups data by the column.
-groupingEnabled | boolean | Specifies whether grouping by the column is enabled.
-onGroup | () => void | An event that invokes grouping by the column.
+showGroupingControls | boolean | **@deprecated** <br/> Specifies whether to display a button that groups data by the column.
+groupingEnabled | boolean | **@deprecated** <br/> Specifies whether grouping by the column is enabled.
+onGroup | () => void | **@deprecated** <br/> An event that invokes grouping by the column.
 resizingEnabled | boolean | Specifies whether the column's resizing is enabled.
 onWidthChange | (parameters: { shift: number }) => void | An event that initiates the column width change. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 onWidthDraft | (parameters: { shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
@@ -76,12 +77,12 @@ Describes properties used to render a sort label.
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with the sort label.
-align? | string | The sort label alignment.
-direction? | 'asc' &#124; 'desc' | The sorting direction.
+align | string | The sort label alignment.
+direction | 'asc' &#124; 'desc' | The sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
-disabled? | boolean | Specifies whether the sort label is disabled.
+disabled | boolean | Specifies whether the sort label is disabled.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the sort label's text.
-children? | ReactNode | The sort label's children.
+children | ReactNode | The sort label's children.
 
 ### TableHeaderRow.ContentProps
 
@@ -90,8 +91,17 @@ Describes properties used to render a cell content.
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with the cell content.
-align? | string | The content alignment.
-children? | ReactNode | The content's children.
+align | string | The content alignment.
+children | ReactNode | The content's children.
+
+### TableHeaderRow.GroupButtonProps
+
+Describes properties used to render a group button.
+
+Field | Type | Description
+------|------|------------
+disabled | string | Specifies whether the group button is disabled.
+onGroup | () => void | An event that invokes grouping by the associated column.
 
 ## Localization Messages
 
@@ -108,6 +118,7 @@ TableHeaderRow.Cell | [TableHeaderRow.CellProps](#tableheaderrowcellprops) | A c
 TableHeaderRow.Content | [TableHeaderRow.ContentProps](#tableheaderrowcontentprops) | A component that renders a cell content.
 TableHeaderRow.SortLabel | [TableHeaderRow.SortLabelProps](#tableheaderrowsortlabelprops) | A component that renders a sort label.
 TableHeaderRow.Title | object | A component that renders a title.
+TableHeaderRow.GroupButton | [TableHeaderRow.GroupButtonProps](#tableheaderrowgroupbuttonprops) | A component that renders a group button.
 
 Additional properties are added to the component's root element.
 

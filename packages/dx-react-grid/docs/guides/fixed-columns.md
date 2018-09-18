@@ -5,11 +5,14 @@ The Grid allows you to fix one or more first and last columns. Fixed columns rem
 **Browser Support Notes:**
 
 - The following browsers do not support fixed columns because they do not support `position: sticky`:
- - Android Browser before 5.0
- - WebView for Android before 5.0
- - Internet Explorer
+  - Android Browser before 5.0
+  - WebView for Android before 5.0
+  - Internet Explorer
 
-- Currently, there is an issue with column fixing in Microsoft Edge. See this [issue](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/) for more information.
+- Currently, there are issues with fixed columns support in Microsoft Edge:
+  - [sticky elements flicker on scroll](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18769340/)
+  - [nested sticky positioning element will not stick](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18940617/)
+  - [sticky causes border to dissapear on table elements](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/)
 
 ## Related Plugins
 

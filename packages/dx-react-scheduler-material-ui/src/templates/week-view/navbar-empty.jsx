@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
 
 const styles = theme => ({
-  emptySpace: {
+  navbarEmpty: {
     borderBottom: getBorder(theme),
     boxSizing: 'border-box',
     height: '100%',
@@ -13,19 +13,19 @@ const styles = theme => ({
   },
 });
 
-export const EmptySpaceBase = ({
+export const NavbarEmptyBase = ({
   classes,
   className,
   ...restProps
-}) => <div {...restProps} className={classNames(classes.emptySpace, className)} />;
+}) => <div {...restProps} className={classNames(classes.navbarEmpty, className)} />;
 
-EmptySpaceBase.propTypes = {
+NavbarEmptyBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-EmptySpaceBase.defaultProps = {
+NavbarEmptyBase.defaultProps = {
   className: undefined,
 };
 
-export const EmptySpace = withStyles(styles, { name: 'EmptySpace' })(EmptySpaceBase);
+export const NavbarEmpty = withStyles(styles, { name: 'NavbarEmpty' })(NavbarEmptyBase);

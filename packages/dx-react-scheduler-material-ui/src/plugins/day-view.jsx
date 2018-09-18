@@ -3,7 +3,7 @@ import { DayView as DayViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout } from '../templates/views/week-layout';
 
 import { Row } from '../templates/day-view/row';
-import { EmptySpace } from '../templates/week-view/empty-space';
+import { NavbarEmpty } from '../templates/week-view/navbar-empty';
 import { Container } from '../templates/appointment/container';
 
 import { Layout as TimePanelLayout } from '../templates/day-view/time-panel/layout';
@@ -21,7 +21,7 @@ export class DayView extends React.PureComponent {
       <DayViewBase
         containerComponent={Container}
         layoutComponent={WeekLayout}
-        navbarEmptyComponent={EmptySpace}
+        navbarEmptyComponent={NavbarEmpty}
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}
         timePanelRowComponent={Row}
@@ -37,7 +37,7 @@ export class DayView extends React.PureComponent {
   }
 }
 
-DayView.NavbarEmpty = EmptySpace;
+DayView.NavbarEmpty = NavbarEmpty;
 DayView.Container = Container;
 
 DayView.TimePanelLayout = TimePanelLayout;
@@ -46,4 +46,8 @@ DayView.TimePanelRow = Row;
 
 DayView.DateTableLayout = DateTableLayout;
 DayView.DateTableCell = DateTableCell;
+DayView.DateTableRow = Row;
+
+DayView.DayPanelLayout = DayPanelLayout;
+DayView.DayPanelCell = DayPanelCell;
 DayView.DateTableRow = Row;

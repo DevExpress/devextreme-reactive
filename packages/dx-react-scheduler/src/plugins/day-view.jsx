@@ -11,7 +11,7 @@ import {
   computed,
   getRectByDates,
   calculateRectByDateIntervals,
-  calculateDayViewDateIntervals,
+  calculateWeekDateIntervals,
   getAppointmentStyle,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
@@ -192,8 +192,8 @@ export class DayView extends React.PureComponent {
               endViewDate, currentView, currentDate, dayScale,
             }) => {
               if (currentView !== viewName) return <TemplatePlaceholder />;
-              const intervals = calculateDayViewDateIntervals(
-                appointments, startViewDate, endViewDate,
+              const intervals = calculateWeekDateIntervals(
+                appointments, startViewDate, endViewDate, [],
               );
               const rects = stateDateTableRef ? calculateRectByDateIntervals(
                 {

@@ -9,7 +9,7 @@ import {
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
-  calculateDayViewDateIntervals,
+  calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 
@@ -21,7 +21,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
-  calculateDayViewDateIntervals: jest.fn(),
+  calculateWeekDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -69,7 +69,7 @@ describe('Day View', () => {
     calculateRectByDateIntervals.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
-    calculateDayViewDateIntervals.mockImplementation(() => []);
+    calculateWeekDateIntervals.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();

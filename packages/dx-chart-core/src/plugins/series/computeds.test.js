@@ -44,6 +44,7 @@ jest.mock('d3-shape', () => {
     value: jest.fn(func => data => data.map(d => ({
       startAngle: func(d), endAngle: func(d), value: 'value', data: d,
     }))),
+    sort: jest.fn().mockReturnThis(),
   };
 
   return {

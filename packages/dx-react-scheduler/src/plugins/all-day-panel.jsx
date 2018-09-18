@@ -57,7 +57,6 @@ export class AllDayPanel extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="navbarEmpty">
-          <TemplatePlaceholder />
           <Text getMessage={getMessage} />
         </Template>
 

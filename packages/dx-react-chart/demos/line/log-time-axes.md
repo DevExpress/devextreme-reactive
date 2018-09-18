@@ -1,5 +1,5 @@
 # React Chart Type of Axes
 
-The demo illustrates cusomization of the [Scale plugin](../../docs/reference/scale.md). It helps you to create different type of axes.
+The demo shows how to customize the [Scale](../../docs/reference/scale.md) plugin to implement different axis types.
 
 .embedded-demo({ "path": "line-chart/axes-types", "showThemeSelector": true, "showThemeVariants": true })

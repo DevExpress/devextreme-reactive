@@ -208,7 +208,7 @@ export const testStatePluginField = ({
           .toHaveBeenCalledTimes(1);
       });
 
-      it(`should correctly work with when ${eventPropertyName} change event changes`, () => {
+      it(`should correctly work when ${eventPropertyName} change event changes`, () => {
         const Test = ({ changeHandler }) => (
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}

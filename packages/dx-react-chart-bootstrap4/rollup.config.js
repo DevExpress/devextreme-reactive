@@ -5,54 +5,26 @@ import css from 'rollup-plugin-css-only';
 import { banner, external, babelrc, globals, stubProcess } from '../../tools/rollup-utils';
 import pkg from './package.json';
 
-export default [
-  {
-    input: 'src/index.js',
-    sourcemap: true,
-    output: [
-      { file: pkg.main, format: 'umd', name: pkg.globalName },
-    ],
-    globals: globals(),
-    external: external(__dirname),
-    intro: stubProcess,
-    plugins: [
-      css({ output: pkg.styles, include: ['../**/*.css'] }),
-      resolve({
-        main: false,
-        extensions: ['.js', '.jsx'],
-      }),
-      babel(Object.assign({
-        babelrc: false,
-        runtimeHelpers: true,
-        exclude: 'node_modules/**',
-      }, babelrc(__dirname))),
-      license({
-        banner,
-      }),
-    ],
-  },
-  {
-    input: 'src/index.js',
-    sourcemap: true,
-    output: [
-      { file: pkg.module, format: 'es' },
-    ],
-    globals: globals(),
-    external: external(__dirname),
-    plugins: [
-      css({ output: pkg.styles, include: ['../**/*.css'] }),
-      resolve({
-        main: false,
-        extensions: ['.js', '.jsx'],
-      }),
-      babel(Object.assign({
-        babelrc: false,
-        runtimeHelpers: true,
-        exclude: 'node_modules/**',
-      }, babelrc(__dirname))),
-      license({
-        banner,
-      }),
-    ],
-  },
-];
+export default {
+  input: 'src/index.js',
+  output: [
+    { file: pkg.main, format: 'umd', name: pkg.globalName, sourcemap: true, globals: globals(), intro: stubProcess },
+    { file: pkg.module, format: 'es', sourcemap: true },
+  ],
+  external: external(__dirname),
+  plugins: [
+    css({ output: pkg.styles, include: ['../**/*.css'] }),
+    resolve({
+      main: false,
+      extensions: ['.js', '.jsx'],
+    }),
+    babel(Object.assign({
+      babelrc: false,
+      runtimeHelpers: true,
+      exclude: 'node_modules/**',
+    }, babelrc(__dirname))),
+    license({
+      banner,
+    }),
+  ],
+};

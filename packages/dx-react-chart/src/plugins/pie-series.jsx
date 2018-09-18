@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { pieAttributes } from '@devexpress/dx-chart-core';
+import { pieAttributes, getPieItems } from '@devexpress/dx-chart-core';
 import { withSeriesPlugin } from '../utils';
 
 const Series = ({
@@ -29,6 +29,7 @@ export const PieSeries = withSeriesPlugin(
   'PieSeries',
   'arc',
   pieAttributes,
+  getPieItems,
 );
 
 

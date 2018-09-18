@@ -1,6 +1,13 @@
 import moment from 'moment';
 import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
 
+export const computed = (getters, viewName, baseComputed, defaultValue) => {
+  if (getters.currentView !== viewName && !!defaultValue) {
+    return defaultValue;
+  }
+  return baseComputed(getters, viewName);
+};
+
 export const toPercentage = (value, total) => (value * 100) / total;
 
 const createExcludedInterval = (day, start) => {

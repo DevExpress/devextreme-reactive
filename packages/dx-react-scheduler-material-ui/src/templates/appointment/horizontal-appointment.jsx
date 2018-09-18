@@ -21,6 +21,7 @@ const HorizontalAppointmentBase = ({
   ...restProps
 }) => (
   <Appointment
+    appointment={appointment}
     {...restProps}
   >
     {children || (

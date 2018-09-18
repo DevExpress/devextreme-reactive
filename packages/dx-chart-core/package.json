@@ -52,9 +52,9 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.22.0",
     "jest": "^23.5.0",
-    "rollup": "0.50.0",
+    "rollup": "^0.66.0",
     "rollup-plugin-babel": "^3.0.4",
-    "rollup-plugin-license": "^0.6.0"
+    "rollup-plugin-license": "^0.7.0"
   },
   "dependencies": {
     "d3-array": "^1.2.4",

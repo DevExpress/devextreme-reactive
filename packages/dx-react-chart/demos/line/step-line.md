@@ -1,5 +1,5 @@
 # React Chart Step Line
 
-The demo demonstrates how to create Step Line Series from [Line Series](../../docs/reference/line-series.md).
+The demo shows how to customize [Line Series](../../docs/reference/line-series.md) to implement Step Line Sereies.
 
 .embedded-demo({ "path": "line-chart/step-line", "showThemeSelector": true, "showThemeVariants": true })

@@ -10,7 +10,7 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Stack, Scale,Theme } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Theme } from '@devexpress/dx-react-chart';
 
 import { oilProduction } from '../../../demo-data/data-vizualization';
 

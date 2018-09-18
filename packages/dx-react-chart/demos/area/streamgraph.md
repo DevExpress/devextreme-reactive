@@ -1,5 +1,5 @@
 # React Chart Streamgraph
 
-The demo shows how to customize series offset and order using [Stack plugin](../../docs/reference/stack.md) and make Streamgraph chart.
+The demo shows how to customize a series offset and order using the [Stack](../../docs/reference/stack.md) plugin and make a Streamgraph chart.
 
 .embedded-demo({ "path": "chart-basic/streamgraph", "showThemeSelector": true, "showThemeVariants": true })

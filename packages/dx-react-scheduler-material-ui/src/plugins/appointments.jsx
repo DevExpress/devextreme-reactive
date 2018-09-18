@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Appointments as AppointmentsBase } from '@devexpress/dx-react-scheduler';
+import { Appointments as AppointmentsBase, withComponents } from '@devexpress/dx-react-scheduler';
 import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from '@devexpress/dx-scheduler-core';
 import { HorizontalAppointment } from '../templates/appointment/horizontal-appointment';
 import { VerticalAppointment } from '../templates/appointment/vertical-appointment';
@@ -18,15 +18,4 @@ Appointment.propTypes = {
   ]).isRequired,
 };
 
-export class Appointments extends React.PureComponent {
-  render() {
-    return (
-      <AppointmentsBase
-        appointmentComponent={Appointment}
-        {...this.props}
-      />
-    );
-  }
-}
-
-Appointments.Appointment = Appointment;
+export const Appointments = withComponents({ Appointment })(AppointmentsBase);

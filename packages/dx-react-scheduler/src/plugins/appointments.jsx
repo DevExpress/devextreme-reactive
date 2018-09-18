@@ -50,3 +50,7 @@ export class Appointments extends React.PureComponent {
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
 };
+
+Appointments.components = {
+  appointmentComponent: 'Appointment',
+};

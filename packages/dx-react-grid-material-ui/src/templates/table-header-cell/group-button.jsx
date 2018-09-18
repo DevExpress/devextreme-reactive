@@ -5,18 +5,20 @@ import List from '@material-ui/icons/List';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  groupingControl: {
+  root: {
     paddingLeft: 0,
     height: theme.spacing.unit * 3,
     cursor: 'pointer',
   },
-  disabledGroupingControl: {
+  disabled: {
     cursor: 'default',
     opacity: 0.3,
   },
 });
 
-const GroupingControlBase = ({ disabled, onGroup, classes }) => (
+const GroupButtonBase = ({
+  disabled, onGroup, classes, className, ...restProps
+}) => (
   <div
     onClick={(e) => {
       if (disabled) return;
@@ -24,22 +26,25 @@ const GroupingControlBase = ({ disabled, onGroup, classes }) => (
       onGroup(e);
     }}
     className={classNames({
-      [classes.groupingControl]: true,
-      [classes.disabledGroupingControl]: disabled,
-    })}
+      [classes.root]: true,
+      [classes.disabled]: disabled,
+    }, className)}
+    {...restProps}
   >
     <List />
   </div>
 );
 
-GroupingControlBase.propTypes = {
+GroupButtonBase.propTypes = {
   onGroup: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
-GroupingControlBase.defaultProps = {
+GroupButtonBase.defaultProps = {
   disabled: false,
+  className: undefined,
 };
 
-export const GroupingControl = withStyles(styles, { name: 'GroupingControl' })(GroupingControlBase);
+export const GroupButton = withStyles(styles, { name: 'GroupButton' })(GroupButtonBase);

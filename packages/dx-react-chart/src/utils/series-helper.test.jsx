@@ -55,6 +55,7 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
       scaleExtension: 'scaleExtension',
+      colorDomain: 'colorDomain',
     },
     template: {
       series: {},
@@ -68,6 +69,7 @@ describe('Base series', () => {
     argumentField: 'argumentField',
     axisName: 'axisName',
     stack: 'stack',
+    color: 'color',
   };
   const TestComponentPath = () => (
     <div>
@@ -95,6 +97,8 @@ describe('Base series', () => {
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
+      color: 'color',
+      colorDomain: 'colorDomain',
       styles: 'styles',
     });
   });

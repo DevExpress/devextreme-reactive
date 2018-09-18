@@ -1,5 +1,5 @@
 # React Chart Step Area
 
-The demo demonstrates how to customize simple area to create step area. Also it shows legend item customization.
+The demo shows how to customize a simple area to convert it to a step area and demonstrates legend item customization.
 
 .embedded-demo({ "path": "area-chart/step-area", "showThemeSelector": true, "showThemeVariants": true })

@@ -1,6 +1,6 @@
 # Theme Plugin Reference
 
-The `Theme` plugin is used to colorize series with scheme.
+The `Theme` plugin is used to colorize chart with default or user colors.
 
 ## Import
 

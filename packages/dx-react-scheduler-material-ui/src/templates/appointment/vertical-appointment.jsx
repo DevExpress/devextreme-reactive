@@ -31,6 +31,7 @@ const VerticalAppointmentBase = ({
   ...restProps
 }) => (
   <Appointment
+    appointment={appointment}
     {...restProps}
   >
     {children || (

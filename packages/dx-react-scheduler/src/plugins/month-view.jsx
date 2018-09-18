@@ -213,3 +213,14 @@ MonthView.defaultProps = {
   firstDayOfWeek: 0,
   viewName: 'Month',
 };
+
+MonthView.components = {
+  layoutComponent: 'Layout',
+  containerComponent: 'Container',
+  dayPanelLayoutComponent: 'DayPanelLayout',
+  dayPanelCellComponent: 'DayPanelCell',
+  dayPanelRowComponent: 'DayPanelRow',
+  dateTableLayoutComponent: 'DateTableLayout',
+  dateTableCellComponent: 'DateTableCell',
+  dateTableRowComponent: 'DateTableRow',
+};

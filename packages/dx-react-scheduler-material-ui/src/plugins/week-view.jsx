@@ -1,4 +1,5 @@
-import { WeekView as WeekViewBase, withComponents } from '@devexpress/dx-react-scheduler';
+import { withComponents } from '@devexpress/dx-react-core';
+import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { WeekLayout as Layout } from '../templates/views/week-layout';
 
 import { Row } from '../templates/week-view/row';

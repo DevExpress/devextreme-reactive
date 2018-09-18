@@ -18,3 +18,4 @@ export { RefHolder } from './ref-holder';
 export { createRenderComponent } from './render-component';
 
 export { createStateHelper } from './utils/state-helper';
+export { withComponents } from './utils/with-components';

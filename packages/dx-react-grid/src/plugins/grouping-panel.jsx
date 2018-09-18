@@ -2,14 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector, withComponents,
 } from '@devexpress/dx-react-core';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout as Layout } from '../components/group-panel-layout';
-import { withComponents } from '../utils/with-components';
 
 const defaultMessages = {
   groupByColumn: 'Drag a column header here to group by that column',

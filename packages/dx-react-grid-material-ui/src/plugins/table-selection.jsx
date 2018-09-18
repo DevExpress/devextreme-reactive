@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { TableSelection as TableSelectionBase, withComponents } from '@devexpress/dx-react-grid';
+import { withComponents } from '@devexpress/dx-react-core';
+import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-grid';
 import { TableSelectAllCell as HeaderCell } from '../templates/table-select-all-cell';
 import { TableSelectCell as Cell } from '../templates/table-select-cell';
 import { TableSelectRow as Row } from '../templates/table-select-row';

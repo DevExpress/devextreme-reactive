@@ -1,4 +1,5 @@
-import { Table as TableBase, withComponents } from '@devexpress/dx-react-grid';
+import { withComponents } from '@devexpress/dx-react-core';
+import { Table as TableBase } from '@devexpress/dx-react-grid';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableFooter from '@material-ui/core/TableFooter';

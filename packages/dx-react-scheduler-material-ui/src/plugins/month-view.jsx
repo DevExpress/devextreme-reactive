@@ -1,4 +1,5 @@
-import { MonthView as MonthViewBase, withComponents } from '@devexpress/dx-react-scheduler';
+import { withComponents } from '@devexpress/dx-react-core';
+import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { MonthLayout as Layout } from '../templates/views/month-layout';
 
 import { Row } from '../templates/month-view/row';

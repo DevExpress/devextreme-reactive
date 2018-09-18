@@ -48,5 +48,4 @@ export * from './components/table-layout/virtual-table-layout';
 export * from './components/table-layout/static-table-layout';
 export * from './components/group-panel-layout';
 
-export * from './utils/with-components';
 export * from './utils/virtual-table';

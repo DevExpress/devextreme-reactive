@@ -6,7 +6,8 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  DropTarget
+  DropTarget,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
@@ -17,7 +18,6 @@ import {
   tableHeaderRowsWithReordering,
   draftOrder as draftOrderComputed,
 } from '@devexpress/dx-grid-core';
-import { withComponents } from '../utils/with-components';
 
 const pluginDependencies = [
   { name: 'Table' },

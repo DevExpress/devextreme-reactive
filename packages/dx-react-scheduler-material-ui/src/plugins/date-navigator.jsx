@@ -1,4 +1,5 @@
-import { DateNavigator as DateNavigatorBase, withComponents } from '@devexpress/dx-react-scheduler';
+import { withComponents } from '@devexpress/dx-react-core';
+import { DateNavigator as DateNavigatorBase } from '@devexpress/dx-react-scheduler';
 import { Root } from '../templates/date-navigator/root';
 import { Overlay } from '../templates/date-navigator/overlay';
 import { ToggleButton } from '../templates/date-navigator/toggle-button';

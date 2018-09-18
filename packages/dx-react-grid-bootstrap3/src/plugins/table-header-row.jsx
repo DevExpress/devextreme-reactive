@@ -1,4 +1,5 @@
-import { TableHeaderRow as TableHeaderRowBase, withComponents } from '@devexpress/dx-react-grid';
+import { withComponents } from '@devexpress/dx-react-core';
+import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
 import { TableHeaderCell as Cell } from '../templates/table-header-cell';
 import { TableRow as Row } from '../templates/table-row';
 import { SortLabel } from '../templates/table-header-cell/sort-label';

@@ -70,6 +70,10 @@ export const makeVirtualTable = (Table, {
     footerTableComponent: FixedFooter,
   };
 
+  Object.values(Table.components).forEach((name) => {
+    VirtualTable[name] = Table[name];
+  });
+
   VirtualTable.FixedHeader = FixedHeader;
   VirtualTable.FixedFooter = FixedFooter;
 

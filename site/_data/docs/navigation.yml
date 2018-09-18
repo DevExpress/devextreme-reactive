@@ -199,6 +199,8 @@
         path: /react/chart/docs/guides/legend_title
       - title: Stacked Series
         path: /react/chart/docs/guides/stacked-series
+      - title: Theme
+        path: /react/chart/docs/guides/theme
   - title: API Reference
     items:
       - title: AreaSeries
@@ -225,6 +227,8 @@
         path: /react/chart/docs/reference/spline-series
       - title: Stack
         path: /react/chart/docs/reference/stack
+      - title: Theme
+        path: /react/chart/docs/reference/theme
       - title: Title
         path: /react/chart/docs/reference/title
       - title: ValueAxis

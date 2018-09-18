@@ -25,8 +25,8 @@ export const dayBoundaryPredicate = (
     .hour(dayEnd.hour())
     .minutes(dayEnd.minutes());
 
+  if (appointment.end.isBefore(dayStart) || appointment.start.isAfter(dayEnd)) return false;
   if (excludedDays.findIndex(day => day === moment(appointment.start).day()) !== -1) return false;
-
   return (appointment.end.isAfter(startDayTime)
     && appointment.start.isBefore(endDayTime));
 };

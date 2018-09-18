@@ -80,8 +80,8 @@ describe('Week view helpers', () => {
       it('should take appointment that ends between left and right bounds', () => {
         expect(dayBoundaryPredicate(
           { start: moment('2018-06-24 09:00'), end: moment('2018-06-24 15:00') },
-          '2018-04-26 12:00',
-          '2018-04-29 18:00',
+          '2018-06-24 12:00',
+          '2018-06-29 18:00',
         )).toBeTruthy();
       });
 
@@ -91,6 +91,22 @@ describe('Week view helpers', () => {
           '2018-04-22 12:00',
           '2018-07-26 15:00',
         )).toBeTruthy();
+      });
+
+      it('should not take appointment that end before left view bound', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-22 09:00'), end: moment('2018-06-22 12:00') },
+          '2018-06-22 12:00',
+          '2018-06-26 15:00',
+        )).toBeFalsy();
+      });
+
+      it('should not take appointment that start after right view bound', () => {
+        expect(dayBoundaryPredicate(
+          { start: moment('2018-06-26 15:01'), end: moment('2018-06-26 16:00') },
+          '2018-06-22 12:00',
+          '2018-06-26 15:00',
+        )).toBeFalsy();
       });
     });
 

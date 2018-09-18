@@ -70,7 +70,7 @@ export class AllDayPanel extends React.PureComponent {
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef ? calculateRectByDateIntervals(
+              const rects = tableRef && tableRef.querySelectorAll('th').length === dayScale.length ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_APPOINTMENT_TYPE,
                   multiline: false,

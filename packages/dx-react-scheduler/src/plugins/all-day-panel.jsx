@@ -66,7 +66,7 @@ export class AllDayPanel extends React.PureComponent {
             {({
               dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
             }) => {
-              if (currentView === 'month') return null;
+              if (currentView === 'Month') return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );

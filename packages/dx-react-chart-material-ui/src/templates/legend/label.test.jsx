@@ -6,7 +6,7 @@ import { Label } from './label';
 const defaultProps = { text: 'a' };
 
 describe('Label', () => {
-  const mount = createMount({ dive: true });
+  const mount = createMount();
   const classes = getClasses(<Label {...defaultProps} />);
   it('should render ListItemText', () => {
     const tree = mount(<Label {...defaultProps} />);

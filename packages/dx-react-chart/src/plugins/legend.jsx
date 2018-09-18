@@ -9,7 +9,7 @@ import {
 import { Marker } from '../templates/legend/marker';
 import { withComponents } from '../utils';
 
-export class RawLegend extends React.PureComponent {
+class RawLegend extends React.PureComponent {
   render() {
     const {
       markerComponent: MarkerComponent,

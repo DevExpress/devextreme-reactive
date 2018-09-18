@@ -19,6 +19,8 @@
     "gatsby-link": "^2.0.0-rc.3",
     "gatsby-plugin-react-helmet": "^3.0.0-rc.1",
     "gatsby-plugin-sass": "^2.0.0-rc.2",
+    "gatsby-source-filesystem": "^1.5.39",
+    "gatsby-transformer-remark": "^1.7.44",
     "react-helmet": "^5.2.0",
     "reactstrap": "^6.4.0"
   },

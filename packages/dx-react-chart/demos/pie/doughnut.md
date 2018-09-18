@@ -1,5 +1,5 @@
 # React Chart Doughnut
 
-The demo demonstrates Doughnut Chart. To create this type of chart use [Pie Chart](../../docs/reference/pie-series.md) and specify `innerRadius` property.
+The demo shows how to create Doughnut Chart. For this, assign a positive value to the [Pie Chart](../../docs/reference/pie-series.md)'s `innerRadius` property.
 
 .embedded-demo({ "path": "pie-doughnut-chart/doughnut", "showThemeSelector": true, "showThemeVariants": true })

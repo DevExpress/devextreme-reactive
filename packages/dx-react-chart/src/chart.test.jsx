@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Chart } from './chart';
 import { ChartCore } from './plugins/chart-core';
@@ -27,7 +27,7 @@ describe('Chart', () => {
   };
 
   it('should render root children', () => {
-    const tree = shallow((
+    const tree = mount((
       <Chart
         {...defaultProps}
       >
@@ -42,14 +42,14 @@ describe('Chart', () => {
   });
 
   it('should render chart core', () => {
-    const tree = shallow(<Chart {...defaultProps} />);
+    const tree = mount(<Chart {...defaultProps} />);
 
     expect(tree.find(ChartCore).exists())
       .toBeTruthy();
   });
 
   it('should render layout manager', () => {
-    const tree = shallow(<Chart {...defaultProps} />);
+    const tree = mount(<Chart {...defaultProps} />);
 
     expect(tree.find(LayoutManager).exists())
       .toBeTruthy();

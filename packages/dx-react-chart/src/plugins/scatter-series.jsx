@@ -1,49 +1,16 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { pointAttributes, coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin, withColor } from '../utils';
+import { coordinates as computeCoordinates } from '@devexpress/dx-chart-core';
+import { makeSeries, withColor, withComponents } from '../utils';
+import { PointCollection as Path } from '../templates/series/point-collection';
+import { Point } from '../templates/series/point';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    pointComponent: Point,
-    coordinates,
-    point = {},
-    ...restProps
-  } = props;
-  const getAttributes = pointAttributes(point);
-  return (coordinates.map(item => (
-    <Point
-      key={item.id.toString()}
-      {...getAttributes(item)}
-      {...item}
-      {...restProps}
-    />
-  )));
-};
-
-const BaseSeries = ({ Path, path, ...props }) => <Path {...props} />;
-
-BaseSeries.propTypes = {
-  Path: PropTypes.func,
-  path: PropTypes.func,
-};
-
-BaseSeries.defaultProps = {
-  Path: Series,
-  path: null,
-};
-
-export const ScatterSeries = withSeriesPlugin(
-  withColor(BaseSeries),
+export const ScatterSeries = withComponents({ Path, Point })(makeSeries(
   'ScatterSeries',
   'scatter',
+  null, // TODO: d3Func is not used.
   computeCoordinates,
-);
-
-ScatterSeries.Path = Series;
-
-Series.propTypes = {
-  pointComponent: PropTypes.func.isRequired,
-};
+  {
+    seriesComponent: 'Path',
+    pointComponent: 'Point',
+  },
+  withColor,
+));

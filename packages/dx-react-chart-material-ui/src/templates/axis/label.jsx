@@ -1,7 +1,5 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { Axis } from '@devexpress/dx-react-chart';
+import { withClassName } from '../utils';
 
 const styles = (theme) => {
   const { fontFamily } = theme.typography;
@@ -16,42 +14,4 @@ const styles = (theme) => {
   });
 };
 
-export class LabelBase extends React.PureComponent {
-  render() {
-    const {
-      text, x, y, dominantBaseline, textAnchor, classes, className, ...restProps
-    } = this.props;
-
-    return (
-      <text
-        className={classNames(classes.root, className)}
-        dominantBaseline={dominantBaseline}
-        textAnchor={textAnchor}
-        x={x}
-        y={y}
-        {...restProps}
-      >
-        {text}
-      </text>
-    );
-  }
-}
-
-LabelBase.propTypes = {
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  dominantBaseline: PropTypes.string.isRequired,
-  textAnchor: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-};
-
-LabelBase.defaultProps = {
-  className: undefined,
-};
-
-export const Label = withStyles(styles)(LabelBase);
+export const Label = withClassName(styles)(Axis.Label);

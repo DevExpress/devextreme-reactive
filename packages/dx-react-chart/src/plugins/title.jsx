@@ -36,3 +36,7 @@ Title.propTypes = {
 Title.defaultProps = {
   position: 'top',
 };
+
+Title.components = {
+  textComponent: 'Text',
+};

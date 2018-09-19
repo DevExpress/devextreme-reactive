@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import {
   Plugin,
   TemplateConnector,
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { Marker } from '../templates/legend/marker';
+import { withComponents } from '../utils';
 
-export class Legend extends React.PureComponent {
+class RawLegend extends React.PureComponent {
   render() {
     const {
-      markerComponent: Marker,
+      markerComponent: MarkerComponent,
       labelComponent: Label,
       rootComponent: Root,
       itemComponent: Item,
@@ -34,7 +35,7 @@ export class Legend extends React.PureComponent {
                 {items(series, domains[argumentAxisName].domain)
                   .map(({ uniqueName, color }) => (
                     <Item key={uniqueName}>
-                      <Marker name={uniqueName} color={color || colorDomain(uniqueName)} />
+                      <MarkerComponent name={uniqueName} color={color || colorDomain(uniqueName)} />
                       <Label text={uniqueName} />
                     </Item>
                   ))}
@@ -47,7 +48,7 @@ export class Legend extends React.PureComponent {
   }
 }
 
-Legend.propTypes = {
+RawLegend.propTypes = {
   markerComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   rootComponent: PropTypes.func.isRequired,
@@ -55,6 +56,15 @@ Legend.propTypes = {
   position: PropTypes.string,
 };
 
-Legend.defaultProps = {
+RawLegend.defaultProps = {
   position: 'right',
 };
+
+RawLegend.components = {
+  rootComponent: 'Root',
+  itemComponent: 'Item',
+  markerComponent: 'Marker',
+  labelComponent: 'Label',
+};
+
+export const Legend = withComponents({ Marker })(RawLegend);

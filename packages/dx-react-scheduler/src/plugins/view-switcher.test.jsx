@@ -14,7 +14,7 @@ describe('ViewSwitcher', () => {
       availableViews: ['Week', 'Month'],
     },
     action: {
-      setCurrentView: () => {},
+      setCurrentViewName: () => {},
     },
     template: {
       toolbarContent: {},

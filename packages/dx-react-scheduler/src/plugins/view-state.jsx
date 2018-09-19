@@ -6,7 +6,7 @@ import {
   Plugin,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { changeCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate, setCurrentViewName } from '@devexpress/dx-scheduler-core';
 
 export class ViewState extends React.PureComponent {
   constructor(props) {
@@ -33,8 +33,8 @@ export class ViewState extends React.PureComponent {
 
     this.changeCurrentDate = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentDate', changeCurrentDate);
-    this.setCurrentView = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'currentViewName', setCurrentView);
+    this.setCurrentViewName = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'currentViewName', setCurrentViewName);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -68,7 +68,7 @@ export class ViewState extends React.PureComponent {
         <Getter name="currentDate" value={currentDate} />
         <Getter name="currentView" computed={currentViewComputed} />
         <Action name="changeCurrentDate" action={this.changeCurrentDate} />
-        <Action name="setCurrentView" action={this.setCurrentView} />
+        <Action name="setCurrentViewName" action={this.setCurrentViewName} />
       </Plugin>
     );
   }

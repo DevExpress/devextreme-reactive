@@ -332,7 +332,7 @@ describe('Utils', () => {
       const baseComputed = () => 'baseComputed';
       const viewName = 'Week';
       const getters = {
-        currentView: 'Week',
+        currentView: { name: 'Week' },
       };
       const defaultValue = 'defaultValue';
 
@@ -344,7 +344,7 @@ describe('Utils', () => {
       const baseComputed = () => 'baseComputed';
       const viewName = 'Month';
       const getters = {
-        currentView: 'Week',
+        currentView: { name: 'Week' },
       };
       const defaultValue = 'defaultValue';
 
@@ -356,7 +356,7 @@ describe('Utils', () => {
       const baseComputed = () => 'baseComputed';
       const viewName = 'Month';
       const getters = {
-        currentView: 'Week',
+        currentView: { name: 'Week' },
       };
       const defaultValue = undefined;
 

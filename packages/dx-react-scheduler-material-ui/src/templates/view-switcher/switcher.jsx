@@ -4,7 +4,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export const Switcher = ({
-  currentView,
+  currentViewName,
   availableViews,
   onItemClick,
   ...restProps
@@ -16,7 +16,7 @@ export const Switcher = ({
   return (
     <Select
       disableUnderline
-      value={currentView}
+      value={currentViewName}
       onChange={clickHandle}
       {...restProps}
     >
@@ -31,11 +31,11 @@ export const Switcher = ({
 
 Switcher.propTypes = {
   onItemClick: PropTypes.func.isRequired,
-  currentView: PropTypes.string,
+  currentViewName: PropTypes.string,
   availableViews: PropTypes.array,
 };
 
 Switcher.defaultProps = {
-  currentView: undefined,
+  currentViewName: undefined,
   availableViews: [],
 };

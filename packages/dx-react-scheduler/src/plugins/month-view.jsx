@@ -21,6 +21,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
+const TYPE = 'month';
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -47,13 +48,10 @@ export class MonthView extends React.PureComponent {
     );
     this.startViewDateBaseComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
     this.endViewDateBaseComputed = ({ monthCells }) => endViewBoundary(monthCells);
-
-    this.currentViewComputed = ({ currentView }) => {
-      if (!currentView || viewName === currentView) {
-        return viewName;
-      }
-      return currentView;
-    };
+    this.currentViewComputed = ({ currentView }) => ({
+      name: currentView ? currentView.name : viewName,
+      type: TYPE,
+    });
     this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,
     );
@@ -114,7 +112,7 @@ export class MonthView extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
@@ -128,7 +126,7 @@ export class MonthView extends React.PureComponent {
         <Template name="navbar">
           <TemplateConnector>
             {({ dayScale, currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
@@ -144,7 +142,7 @@ export class MonthView extends React.PureComponent {
             {({
               monthCells, appointments, startViewDate, endViewDate, currentView,
             }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
                 appointments, startViewDate, endViewDate,
               );

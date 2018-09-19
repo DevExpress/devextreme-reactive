@@ -31,7 +31,7 @@ const defaultDeps = {
       querySelectorAll: () => {},
     },
     availableViews: [],
-    currentView: 'Week',
+    currentView: { name: 'Week' },
   },
   template: {
     body: {},
@@ -206,7 +206,7 @@ describe('Week View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('Week');
+        .toEqual({ name: 'Week', type: 'week' });
     });
   });
 

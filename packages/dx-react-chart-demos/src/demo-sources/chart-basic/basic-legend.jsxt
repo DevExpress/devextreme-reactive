@@ -6,7 +6,7 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale, Theme } from '@devexpress/dx-react-chart';
+import { Scale } from '@devexpress/dx-react-chart';
 
 import { born as data } from '../../../demo-data/data-vizualization';
 
@@ -37,7 +37,6 @@ export default class Demo extends React.PureComponent {
           <Legend />
           <Title text="Title" />
           <Scale />
-          <Theme />
         </Chart>
       </<%&wrapperTag%>>
     );

@@ -16,12 +16,9 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-import { Scale, Theme } from '@devexpress/dx-react-chart';
-
-const materialUI = ['#2196F3', '#F44336', '#4CAF50', '#FFEB3B', '#E91E63', '#9C27B0'];
+import { Scale, Palette } from '@devexpress/dx-react-chart';
 
 const schemeCollection = [
-  materialUI,
   schemeCategory10,
   schemeAccent,
   schemeDark2,
@@ -67,7 +64,7 @@ export default class Demo extends React.PureComponent {
             argumentField="category"
           />
           <Scale />
-          <Theme scheme={scheme} />
+          <Palette scheme={scheme} />
         </Chart>
         <div className="d-flex justify-content-center mt-3">
           {scheme.map(color => <div key={color} style={{ width: '40px', height: '40px', backgroundColor: color }} />)}
@@ -75,16 +72,15 @@ export default class Demo extends React.PureComponent {
         <div className="pb-5 pl-5 w-200" style={{ width: '200px' }}>
           <h5>Scheme</h5>
           <select className="custom-select" onChange={this.changeScheme}>
-            <option defaultValue value={0}>material UI</option>
-            <option value={1}>schemeCategory10</option>
-            <option value={2}>schemeAccent</option>
-            <option value={3}>schemeDark2</option>
-            <option value={4}>schemePaired</option>
-            <option value={5}>schemePastel1</option>
-            <option value={6}>schemePastel2</option>
-            <option value={7}>schemeSet1</option>
-            <option value={8}>schemeSet2</option>
-            <option value={9}>schemeSet3</option>
+            <option defaultValue value={0}>schemeCategory10</option>
+            <option value={1}>schemeAccent</option>
+            <option value={2}>schemeDark2</option>
+            <option value={3}>schemePaired</option>
+            <option value={4}>schemePastel1</option>
+            <option value={5}>schemePastel2</option>
+            <option value={6}>schemeSet1</option>
+            <option value={7}>schemeSet2</option>
+            <option value={8}>schemeSet3</option>
           </select>
         </div>
       </Card>

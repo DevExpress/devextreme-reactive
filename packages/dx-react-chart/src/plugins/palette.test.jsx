@@ -3,13 +3,13 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { palette } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { Theme } from './theme';
+import { Palette } from './palette';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   palette: jest.fn(),
 }));
 
-describe('Theme', () => {
+describe('Palette', () => {
   beforeEach(() => {
     palette.mockImplementation(() => 'palette');
   });
@@ -21,10 +21,10 @@ describe('Theme', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents({})}
-        <Theme />
+        <Palette />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).themeComputing).toEqual(expect.any(Function));
+    expect(getComputedState(tree).paletteComputing).toEqual(expect.any(Function));
   });
 });

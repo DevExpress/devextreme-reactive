@@ -11,7 +11,7 @@ import {
   symbolDiamond,
   symbolStar,
 } from 'd3-shape';
-import { Scale, Theme } from '@devexpress/dx-react-chart';
+import { Scale } from '@devexpress/dx-react-chart';
 
 const data = [
   {
@@ -132,7 +132,6 @@ export default class Demo extends React.PureComponent {
             seriesComponent={LineWithStarPoint}
           />
           <Scale />
-          <Theme />
         </Chart>
       </<%&wrapperTag%>>
     );

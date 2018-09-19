@@ -7,7 +7,6 @@ import {
 import {
   Stack,
   Scale,
-  Theme,
 } from '@devexpress/dx-react-chart';
 import {
   Chart,
@@ -100,7 +99,6 @@ const gridDetailContainer = data => ({ row }) => {
             rootComponent={legendRoot}
             position="bottom"
           />
-          <Theme />
         </Chart>
       </Card>
     </div>

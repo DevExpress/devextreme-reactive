@@ -20,12 +20,9 @@ import {
   schemeSet3,
 } from 'd3-scale-chromatic';
 
-import { Scale, Theme } from '@devexpress/dx-react-chart';
-
-const materialUI = ['#2196F3', '#F44336', '#4CAF50', '#FFEB3B', '#E91E63', '#9C27B0'];
+import { Scale, Palette } from '@devexpress/dx-react-chart';
 
 const schemeCollection = [
-  materialUI,
   schemeCategory10,
   schemeAccent,
   schemeDark2,
@@ -93,7 +90,7 @@ class Demo extends React.PureComponent {
             argumentField="category"
           />
           <Scale />
-          <Theme scheme={scheme} />
+          <Palette scheme={scheme} />
         </Chart>
         <div className={classes.schemeConteiner}>
           {scheme.map(color => (
@@ -108,16 +105,15 @@ class Demo extends React.PureComponent {
           <Typography component="h5" variant="headline" className={classes.typography}>Scheme</Typography>
           <FormControl>
             <NativeSelect onChange={this.changeScheme} defaultValue={0}>
-              <option value={0}>material UI</option>
-              <option value={1}>schemeCategory10</option>
-              <option value={2}>schemeAccent</option>
-              <option value={3}>schemeDark2</option>
-              <option value={4}>schemePaired</option>
-              <option value={5}>schemePastel1</option>
-              <option value={6}>schemePastel2</option>
-              <option value={7}>schemeSet1</option>
-              <option value={8}>schemeSet2</option>
-              <option value={9}>schemeSet3</option>
+              <option value={0}>schemeCategory10</option>
+              <option value={1}>schemeAccent</option>
+              <option value={2}>schemeDark2</option>
+              <option value={3}>schemePaired</option>
+              <option value={4}>schemePastel1</option>
+              <option value={5}>schemePastel2</option>
+              <option value={6}>schemeSet1</option>
+              <option value={7}>schemeSet2</option>
+              <option value={8}>schemeSet3</option>
             </NativeSelect>
           </FormControl>
         </div>

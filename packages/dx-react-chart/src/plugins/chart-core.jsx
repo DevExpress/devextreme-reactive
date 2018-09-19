@@ -14,9 +14,8 @@ export class ChartCore extends React.PureComponent {
       axes, series, data: chartData, argumentAxisName, startFromZero, computedDomain,
     }) => computedDomain(axes, series, chartData, argumentAxisName, startFromZero);
     const colorDomain = ({
-      series, domains, argumentAxisName, items, themeComputing,
-    }) => (themeComputing
-      ? themeComputing(series, domains[argumentAxisName].domain, items) : () => '#000000');
+      series, domains, argumentAxisName, items, paletteComputing,
+    }) => (paletteComputing(series, domains[argumentAxisName].domain, items));
     return (
       <Plugin>
         <Getter name="data" computed={processedData} />

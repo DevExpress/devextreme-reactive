@@ -6,7 +6,7 @@ import {
   AreaSeries,
   Grid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Stack, Scale, Theme } from '@devexpress/dx-react-chart';
+import { Stack, Scale } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
@@ -58,7 +58,6 @@ export default class Demo extends React.PureComponent {
           />
           <Stack />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
-          <Theme />
         </Chart>
       </<%&wrapperTag%>>
     );

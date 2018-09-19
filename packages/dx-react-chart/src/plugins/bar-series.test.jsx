@@ -4,6 +4,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName, barCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
+import { BarCollection } from '../templates/series/bar-collection';
 
 const PointComponent = () => null;
 
@@ -43,6 +44,7 @@ describe('Bar series', () => {
   };
 
   const defaultProps = {
+    seriesComponent: BarCollection,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',

@@ -4,10 +4,14 @@ import * as PropTypes from 'prop-types';
 export class Root extends React.PureComponent {
   render() {
     const {
-      x, y, children, ...restProps
+      x, y, refsHandler, children, ...restProps
     } = this.props;
     return (
-      <g transform={`translate(${x} ${y})`} {...restProps}>
+      <g
+        ref={refsHandler}
+        transform={`translate(${x} ${y})`}
+        {...restProps}
+      >
         {children}
       </g>
     );
@@ -17,5 +21,6 @@ export class Root extends React.PureComponent {
 Root.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
+  refsHandler: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };

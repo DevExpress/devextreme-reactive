@@ -15,24 +15,25 @@ const columnExtensionValueGetter = (columnExtensions, defaultValue) => getColumn
 export class SortingState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const sorting = props.sorting || props.defaultSorting;
-    const { onSortingChange } = props;
 
     this.state = {
-      sorting,
+      sorting: props.sorting || props.defaultSorting,
     };
-
-    const persistentSortedColumns = getPersistentSortedColumns(sorting, props.columnExtensions);
 
     const stateHelper = createStateHelper(
       this,
       {
-        sorting: () => onSortingChange,
+        sorting: () => {
+          const { onSortingChange } = this.props;
+          return onSortingChange;
+        },
       },
     );
 
     this.changeColumnSorting = stateHelper.applyReducer
       .bind(stateHelper, (prevState, payload) => {
+        const { sorting = prevState.sorting } = this.props;
+        const persistentSortedColumns = getPersistentSortedColumns(sorting, props.columnExtensions);
         const keepOther = calculateKeepOther(
           prevState.sorting, payload.keepOther, persistentSortedColumns,
         );

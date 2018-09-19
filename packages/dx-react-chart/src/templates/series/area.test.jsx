@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { shallow } from 'enzyme';
 import { Area } from './area';
 
-const defaultProps = {
-  path: jest.fn(value => value),
-  coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
-};
-
 describe('Area', () => {
-  const shallow = createShallow({ dive: true });
-  const classes = getClasses(<Area {...defaultProps} />);
+  const defaultProps = {
+    path: jest.fn(value => value),
+    coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
+  };
+
   it('should render root element', () => {
     const tree = shallow((
       <Area
@@ -31,29 +29,25 @@ describe('Area', () => {
       <Area
         {...defaultProps}
         style={customStyle}
-        color="color"
       />
     ));
-    const { style, fill } = tree.find('path').props();
+    const { style } = tree.find('path').props();
 
     expect(style)
       .toEqual(customStyle);
-    expect(fill)
-      .toEqual('color');
-  });
-
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Area {...defaultProps} className="custom-class" />);
-
-    expect(tree.is(`.${classes.root}.custom-class`))
-      .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Area {...defaultProps} customProperty />);
     const { customProperty } = tree.find('path').props();
-
     expect(customProperty)
       .toBeTruthy();
+  });
+
+  it('should apply color', () => {
+    const tree = shallow(<Area {...defaultProps} color="color" />);
+
+    expect(tree.find('path').props().fill)
+      .toBe('color');
   });
 });

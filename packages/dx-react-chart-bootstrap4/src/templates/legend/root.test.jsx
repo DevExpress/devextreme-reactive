@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Root } from './root';
 
 describe('Root', () => {
   it('should render root as ul', () => {
-    const tree = shallow((
+    const tree = mount((
       <Root>
         <div />
       </Root>));
 
-    expect(tree.type())
-      .toEqual('ul');
+    const ul = tree.find('ul');
+    expect(ul).toBeDefined();
+    expect(ul.find('div').exists())
+      .toBeTruthy();
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <Root className="custom-class">
         <div />
       </Root>));
@@ -24,14 +26,13 @@ describe('Root', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow((
-      <Root customProperty>
+    const tree = mount((
+      <Root custom="test">
         <div />
       </Root>));
 
-    const { customProperty } = tree.find('ul').props();
+    const { custom } = tree.find('ul').props();
 
-    expect(customProperty)
-      .toBeTruthy();
+    expect(custom).toEqual('test');
   });
 });

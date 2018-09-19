@@ -31,14 +31,16 @@ export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { onHiddenColumnNamesChange } = this.props;
     this.state = {
       hiddenColumnNames: props.hiddenColumnNames || props.defaultHiddenColumnNames,
     };
     const stateHelper = createStateHelper(
       this,
       {
-        hiddenColumnNames: () => onHiddenColumnNamesChange,
+        hiddenColumnNames: () => {
+          const { onHiddenColumnNamesChange } = this.props;
+          return onHiddenColumnNamesChange;
+        },
       },
     );
 

@@ -1,31 +1,4 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { AreaSeries } from '@devexpress/dx-react-chart';
+import { withClassName } from '../utils';
 
-export class Area extends React.PureComponent {
-  render() {
-    const {
-      className, coordinates, path, color, ...restProps
-    } = this.props;
-    return (
-      <path
-        fill={color}
-        className={classNames('dx-c-bs4-series-opacity', className)}
-        d={path(coordinates)}
-        {...restProps}
-      />
-    );
-  }
-}
-
-Area.propTypes = {
-  className: PropTypes.string,
-  coordinates: PropTypes.array.isRequired,
-  path: PropTypes.func.isRequired,
-  color: PropTypes.string,
-};
-
-Area.defaultProps = {
-  className: undefined,
-  color: undefined,
-};
+export const Area = withClassName('dx-c-bs4-series-opacity')(AreaSeries.Path);

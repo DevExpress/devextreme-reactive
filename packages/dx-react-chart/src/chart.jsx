@@ -12,15 +12,17 @@ import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
 import { ThemeManager } from './plugins/theme-manager';
+import { Root } from './templates/layout';
+import { withComponents } from './utils';
 
-export class Chart extends React.PureComponent {
+class RawChart extends React.PureComponent {
   render() {
     const {
       data,
       width,
       height,
       children,
-      rootComponent: Root,
+      rootComponent,
       ...restProps
     } = this.props;
     return ((
@@ -31,7 +33,7 @@ export class Chart extends React.PureComponent {
         <LayoutManager
           width={width}
           height={height}
-          rootComponent={Root}
+          rootComponent={rootComponent}
           {...restProps}
         />
         <PaneLayout />
@@ -52,7 +54,7 @@ export class Chart extends React.PureComponent {
     ));
   }
 }
-Chart.propTypes = {
+RawChart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
   width: PropTypes.number,
@@ -60,8 +62,14 @@ Chart.propTypes = {
   children: PropTypes.node,
 };
 
-Chart.defaultProps = {
+RawChart.defaultProps = {
   height: 500,
   width: undefined,
   children: null,
 };
+
+RawChart.components = {
+  rootComponent: 'Root',
+};
+
+export const Chart = withComponents({ Root })(RawChart);

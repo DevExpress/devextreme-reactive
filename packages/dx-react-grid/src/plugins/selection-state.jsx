@@ -8,7 +8,6 @@ import { toggleSelection } from '@devexpress/dx-grid-core';
 export class SelectionState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onSelectionChange } = this.props;
 
     this.state = {
       selection: props.selection || props.defaultSelection,
@@ -17,7 +16,10 @@ export class SelectionState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        selection: () => onSelectionChange,
+        selection: () => {
+          const { onSelectionChange } = this.props;
+          return onSelectionChange;
+        },
       },
     );
 

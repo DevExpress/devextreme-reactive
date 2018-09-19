@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { createFilePath } = require(`gatsby-source-filesystem`);
+const { createFilePath } = require('gatsby-source-filesystem');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -40,31 +40,31 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-    `).then(result => {
+    `).then((result) => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         createPage({
           path: node.fields.slug,
-          component: path.resolve('./src/templates/page.js'),
+          component: path.resolve('./src/templates/page.jsx'),
           context: {
             slug: node.fields.slug,
           },
-        })
+        });
       });
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 };
 
 const setupFileSynchronization = (src, dest) => {
   fs.watchFile(src, () => {
     try {
       fs.unlinkSync(dest);
-    } catch(e) {}
+    } catch (e) { /**/ }
     try {
       fs.linkSync(src, dest);
-    } catch(e) {}
+    } catch (e) { /**/ }
   });
-}
+};
 
 exports.onPostBootstrap = () => {
   setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-core-demos.js');

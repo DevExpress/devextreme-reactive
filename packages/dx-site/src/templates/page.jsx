@@ -1,8 +1,17 @@
-import React from 'react';
+/* global document:true window:true */
+
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { graphql, withPrefix } from 'gatsby';
 import PageLayout from '../components/page-layout';
 
 export default class extends React.Component {
+  static get propTypes() {
+    return {
+      data: PropTypes.object.isRequired,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -18,16 +27,16 @@ export default class extends React.Component {
   componentWillUnmount() {
     try {
       window.deinitializeDemos();
-    } catch(e) {};
-    document.getElementsByTagName('head')[0].removeChild(this.demosScript)
+    } catch (e) { /**/ }
+    document.getElementsByTagName('head')[0].removeChild(this.demosScript);
   }
 
   render() {
-    const { data: { markdownRemark }, location } = this.props;
+    const { data: { markdownRemark } } = this.props;
     const content = markdownRemark.html
       .replace(
         /<table>/g,
-        '<table class="table table-bordered table-striped">'
+        '<table class="table table-bordered table-striped">',
       )
       .replace(
         /href="([^"]*)"/g,
@@ -36,7 +45,7 @@ export default class extends React.Component {
             return `href="${p1}"`;
           }
           return `href="../${p1.replace('.md', '')}/"`;
-        }
+        },
       )
       .replace(
         /\.embedded-demo\(([^()]*)\)/g,
@@ -54,18 +63,19 @@ export default class extends React.Component {
             <div class="loading-shading">
               <span class="glyphicon glyphicon-refresh loading-icon"></span>
             </div>
-          </div>`
-        });
+          </div>`;
+        },
+      );
 
     return (
       <PageLayout
         technologyName={markdownRemark.fields.technology}
         sectionName={markdownRemark.fields.section}
-        location={location}
       >
+        {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </PageLayout>
-    )
+    );
   }
 }
 
@@ -82,4 +92,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

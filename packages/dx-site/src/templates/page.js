@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, withPrefix } from 'gatsby';
-import Layout from '../components/layout';
+import PageLayout from '../components/page-layout';
 
 export default class extends React.Component {
   constructor(props) {
@@ -23,9 +23,21 @@ export default class extends React.Component {
   }
 
   render() {
-    const { data: { markdownRemark } } = this.props;
-    let content = markdownRemark.html;
-    content = content
+    const { data: { markdownRemark }, location } = this.props;
+    const content = markdownRemark.html
+      .replace(
+        /<table>/g,
+        '<table class="table table-bordered table-striped">'
+      )
+      .replace(
+        /href="([^"]*)"/g,
+        (match, p1) => {
+          if (p1.startsWith('http')) {
+            return `href="${p1}"`;
+          }
+          return `href="../${p1.replace('.md', '')}/"`;
+        }
+      )
       .replace(
         /\.embedded-demo\(([^()]*)\)/g,
         (match, p1) => {
@@ -46,12 +58,13 @@ export default class extends React.Component {
         });
 
     return (
-      <Layout>
-        <div>
-          <h1>{markdownRemark.frontmatter.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
-      </Layout>
+      <PageLayout
+        technologyName={markdownRemark.fields.technology}
+        sectionName={markdownRemark.fields.section}
+        location={location}
+      >
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      </PageLayout>
     )
   }
 }
@@ -62,6 +75,7 @@ export const query = graphql`
       html
       fields {
         technology
+        section
       }
       frontmatter {
         title

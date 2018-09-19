@@ -56,7 +56,6 @@ exports.createPages = ({ graphql, actions }) => {
 };
 
 const setupFileSynchronization = (src, dest) => {
-  console.log(`sync ${src} -> ${dest}`);
   fs.watchFile(src, () => {
     try {
       fs.unlinkSync(dest);
@@ -68,7 +67,8 @@ const setupFileSynchronization = (src, dest) => {
 }
 
 exports.onPostBootstrap = () => {
-  setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-grid-demos.js');
+  setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-core-demos.js');
   setupFileSynchronization('../dx-react-chart-demos/dist/index.js', './public/static/react-chart-demos.js');
+  setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-grid-demos.js');
   setupFileSynchronization('../dx-vue-grid-demos/dist/index.js', './public/static/vue-grid-demos.js');
 };

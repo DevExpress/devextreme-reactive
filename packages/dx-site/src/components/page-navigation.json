@@ -1,0 +1,811 @@
+{
+  "react/core": {
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Fundamentals",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Rendering Markup",
+            "path": "/react/core/docs/guides/rendering-markup/"
+          },
+          {
+            "title": "Providing Values",
+            "path": "/react/core/docs/guides/providing-values/"
+          },
+          {
+            "title": "Providing Actions",
+            "path": "/react/core/docs/guides/providing-actions/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "PluginHost",
+            "path": "/react/core/docs/reference/plugin-host/"
+          },
+          {
+            "title": "Plugin",
+            "path": "/react/core/docs/reference/plugin/"
+          },
+          {
+            "title": "Action",
+            "path": "/react/core/docs/reference/action/"
+          },
+          {
+            "title": "Getter",
+            "path": "/react/core/docs/reference/getter/"
+          },
+          {
+            "title": "Template",
+            "path": "/react/core/docs/reference/template/"
+          },
+          {
+            "title": "TemplatePlaceholder",
+            "path": "/react/core/docs/reference/template-placeholder/"
+          },
+          {
+            "title": "TemplateConnector",
+            "path": "/react/core/docs/reference/template-connector/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "Vue Grid",
+            "path": "/vue/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/grid": {
+    "demos": [
+      {
+        "title": "DEMOS",
+        "items": [
+          {
+            "title": "Integrated Data Shaping",
+            "path": "/react/grid/demos/featured/integrated-data-shaping/"
+          },
+          {
+            "title": "Data Editing",
+            "path": "/react/grid/demos/featured/data-editing/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/react/grid/demos/featured/virtual-scrolling/"
+          },
+          {
+            "title": "Redux Integration",
+            "path": "/react/grid/demos/featured/redux-integration/"
+          },
+          {
+            "title": "Remote Data",
+            "path": "/react/grid/demos/featured/remote-data/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/react/grid/demos/featured/tree-data/"
+          },
+          {
+            "title": "Chart Integration",
+            "path": "/react/grid/demos/featured/chart-integration/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "Plugin Overview",
+            "path": "/react/grid/docs/guides/plugin-overview/"
+          },
+          {
+            "title": "Fundamentals",
+            "path": "/react/grid/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Controlled and Uncontrolled Modes",
+            "path": "/react/grid/docs/guides/controlled-and-uncontrolled-modes/"
+          },
+          {
+            "title": "Data Accessors",
+            "path": "/react/grid/docs/guides/data-accessors/"
+          },
+          {
+            "title": "Data Formatting",
+            "path": "/react/grid/docs/guides/data-formatting/"
+          },
+          {
+            "title": "Sorting",
+            "path": "/react/grid/docs/guides/sorting/"
+          },
+          {
+            "title": "Paging",
+            "path": "/react/grid/docs/guides/paging/"
+          },
+          {
+            "title": "Filtering",
+            "path": "/react/grid/docs/guides/filtering/"
+          },
+          {
+            "title": "Searching",
+            "path": "/react/grid/docs/guides/searching/"
+          },
+          {
+            "title": "Grouping",
+            "path": "/react/grid/docs/guides/grouping/"
+          },
+          {
+            "title": "Selection",
+            "path": "/react/grid/docs/guides/selection/"
+          },
+          {
+            "title": "Editing",
+            "path": "/react/grid/docs/guides/editing/"
+          },
+          {
+            "title": "Detail Row",
+            "path": "/react/grid/docs/guides/detail-row/"
+          },
+          {
+            "title": "Column Reordering",
+            "path": "/react/grid/docs/guides/column-reordering/"
+          },
+          {
+            "title": "Column Resizing",
+            "path": "/react/grid/docs/guides/column-resizing/"
+          },
+          {
+            "title": "Column Visibility",
+            "path": "/react/grid/docs/guides/column-visibility/"
+          },
+          {
+            "title": "Banded Columns",
+            "path": "/react/grid/docs/guides/banded-columns/"
+          },
+          {
+            "title": "Fixed Columns",
+            "path": "/react/grid/docs/guides/fixed-columns/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/react/grid/docs/guides/virtual-scrolling/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/react/grid/docs/guides/tree-data/"
+          },
+          {
+            "title": "Summary Row",
+            "path": "/react/grid/docs/guides/summary-row/"
+          },
+          {
+            "title": "Localization",
+            "path": "/react/grid/docs/guides/localization/"
+          },
+          {
+            "title": "Immutable Data",
+            "path": "/react/grid/docs/guides/immutable-data/"
+          },
+          {
+            "title": "TypeScript",
+            "path": "/react/grid/docs/guides/typescript/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "Grid",
+            "path": "/react/grid/docs/reference/grid/"
+          },
+          {
+            "title": "FilteringState",
+            "path": "/react/grid/docs/reference/filtering-state/"
+          },
+          {
+            "title": "SortingState",
+            "path": "/react/grid/docs/reference/sorting-state/"
+          },
+          {
+            "title": "GroupingState",
+            "path": "/react/grid/docs/reference/grouping-state/"
+          },
+          {
+            "title": "PagingState",
+            "path": "/react/grid/docs/reference/paging-state/"
+          },
+          {
+            "title": "SearchPanel",
+            "path": "/react/grid/docs/reference/search-panel/"
+          },
+          {
+            "title": "SearchState",
+            "path": "/react/grid/docs/reference/search-state/"
+          },
+          {
+            "title": "SelectionState",
+            "path": "/react/grid/docs/reference/selection-state/"
+          },
+          {
+            "title": "EditingState",
+            "path": "/react/grid/docs/reference/editing-state/"
+          },
+          {
+            "title": "RowDetailState",
+            "path": "/react/grid/docs/reference/row-detail-state/"
+          },
+          {
+            "title": "TableColumnReordering",
+            "path": "/react/grid/docs/reference/table-column-reordering/"
+          },
+          {
+            "title": "IntegratedFiltering",
+            "path": "/react/grid/docs/reference/integrated-filtering/"
+          },
+          {
+            "title": "IntegratedSelection",
+            "path": "/react/grid/docs/reference/integrated-selection/"
+          },
+          {
+            "title": "IntegratedSorting",
+            "path": "/react/grid/docs/reference/integrated-sorting/"
+          },
+          {
+            "title": "IntegratedGrouping",
+            "path": "/react/grid/docs/reference/integrated-grouping/"
+          },
+          {
+            "title": "CustomGrouping",
+            "path": "/react/grid/docs/reference/custom-grouping/"
+          },
+          {
+            "title": "IntegratedPaging",
+            "path": "/react/grid/docs/reference/integrated-paging/"
+          },
+          {
+            "title": "Table",
+            "path": "/react/grid/docs/reference/table/"
+          },
+          {
+            "title": "VirtualTable",
+            "path": "/react/grid/docs/reference/virtual-table/"
+          },
+          {
+            "title": "TableHeaderRow",
+            "path": "/react/grid/docs/reference/table-header-row/"
+          },
+          {
+            "title": "TableSelection",
+            "path": "/react/grid/docs/reference/table-selection/"
+          },
+          {
+            "title": "TableFilterRow",
+            "path": "/react/grid/docs/reference/table-filter-row/"
+          },
+          {
+            "title": "TableRowDetail",
+            "path": "/react/grid/docs/reference/table-row-detail/"
+          },
+          {
+            "title": "TableGroupRow",
+            "path": "/react/grid/docs/reference/table-group-row/"
+          },
+          {
+            "title": "TableEditRow",
+            "path": "/react/grid/docs/reference/table-edit-row/"
+          },
+          {
+            "title": "TableEditColumn",
+            "path": "/react/grid/docs/reference/table-edit-column/"
+          },
+          {
+            "title": "TableBandHeader",
+            "path": "/react/grid/docs/reference/table-band-header/"
+          },
+          {
+            "title": "TableColumnResizing",
+            "path": "/react/grid/docs/reference/table-column-resizing/"
+          },
+          {
+            "title": "PagingPanel",
+            "path": "/react/grid/docs/reference/paging-panel/"
+          },
+          {
+            "title": "GroupingPanel",
+            "path": "/react/grid/docs/reference/grouping-panel/"
+          },
+          {
+            "title": "DragDropProvider",
+            "path": "/react/grid/docs/reference/drag-drop-provider/"
+          },
+          {
+            "title": "DataTypeProvider",
+            "path": "/react/grid/docs/reference/data-type-provider/"
+          },
+          {
+            "title": "ColumnChooser",
+            "path": "/react/grid/docs/reference/column-chooser/"
+          },
+          {
+            "title": "TableColumnVisibility",
+            "path": "/react/grid/docs/reference/table-column-visibility/"
+          },
+          {
+            "title": "Toolbar",
+            "path": "/react/grid/docs/reference/toolbar/"
+          },
+          {
+            "title": "CustomPaging",
+            "path": "/react/grid/docs/reference/custom-paging/"
+          },
+          {
+            "title": "TreeDataState",
+            "path": "/react/grid/docs/reference/tree-data-state/"
+          },
+          {
+            "title": "CustomTreeData",
+            "path": "/react/grid/docs/reference/custom-tree-data/"
+          },
+          {
+            "title": "TableTreeColumn",
+            "path": "/react/grid/docs/reference/table-tree-column/"
+          },
+          {
+            "title": "TableFixedColumns",
+            "path": "/react/grid/docs/reference/table-fixed-columns/"
+          },
+          {
+            "title": "SummaryState",
+            "path": "/react/grid/docs/reference/summary-state/"
+          },
+          {
+            "title": "IntegratedSummary",
+            "path": "/react/grid/docs/reference/integrated-summary/"
+          },
+          {
+            "title": "CustomSummary",
+            "path": "/react/grid/docs/reference/custom-summary/"
+          },
+          {
+            "title": "TableSummaryRow",
+            "path": "/react/grid/docs/reference/table-summary-row/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "Vue Grid",
+            "path": "/vue/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/chart": {
+    "demos": [
+      {
+        "title": "DEMOS",
+        "items": [
+          {
+            "title": "Component customization",
+            "path": "/react/chart/demos/featured/component-customization/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "Plugin Overview",
+            "path": "/react/chart/docs/guides/plugin-overview/"
+          },
+          {
+            "title": "Series",
+            "path": "/react/chart/docs/guides/series/"
+          },
+          {
+            "title": "Axes",
+            "path": "/react/chart/docs/guides/axes/"
+          },
+          {
+            "title": "Legend and Title",
+            "path": "/react/chart/docs/guides/legend_title/"
+          },
+          {
+            "title": "Stacked Series",
+            "path": "/react/chart/docs/guides/stacked-series/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "AreaSeries",
+            "path": "/react/chart/docs/reference/area-series/"
+          },
+          {
+            "title": "ArgumentAxis",
+            "path": "/react/chart/docs/reference/argument-axis/"
+          },
+          {
+            "title": "BarSeries",
+            "path": "/react/chart/docs/reference/bar-series/"
+          },
+          {
+            "title": "Chart",
+            "path": "/react/chart/docs/reference/chart/"
+          },
+          {
+            "title": "Grid",
+            "path": "/react/chart/docs/reference/grid/"
+          },
+          {
+            "title": "Legend",
+            "path": "/react/chart/docs/reference/legend/"
+          },
+          {
+            "title": "LineSeries",
+            "path": "/react/chart/docs/reference/line-series/"
+          },
+          {
+            "title": "PieSeries",
+            "path": "/react/chart/docs/reference/pie-series/"
+          },
+          {
+            "title": "Scale",
+            "path": "/react/chart/docs/reference/scale/"
+          },
+          {
+            "title": "ScatterSeries",
+            "path": "/react/chart/docs/reference/scatter-series/"
+          },
+          {
+            "title": "SplineSeries",
+            "path": "/react/chart/docs/reference/spline-series/"
+          },
+          {
+            "title": "Stack",
+            "path": "/react/chart/docs/reference/stack/"
+          },
+          {
+            "title": "Title",
+            "path": "/react/chart/docs/reference/title/"
+          },
+          {
+            "title": "ValueAxis",
+            "path": "/react/chart/docs/reference/value-axis/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "Vue Grid",
+            "path": "/vue/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "vue/grid": {
+    "demos": [
+      {
+        "title": "DEMOS",
+        "items": [
+          {
+            "title": "Integrated Data Shaping",
+            "path": "/vue/grid/demos/featured/integrated-data-shaping/"
+          },
+          {
+            "title": "Data Editing",
+            "path": "/vue/grid/demos/featured/data-editing/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/vue/grid/demos/featured/virtual-scrolling/"
+          },
+          {
+            "title": "Vuex Integration",
+            "path": "/vue/grid/demos/featured/vuex-integration/"
+          },
+          {
+            "title": "Remote Data",
+            "path": "/vue/grid/demos/featured/remote-data/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/vue/grid/demos/featured/tree-data/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/vue/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "Plugin Overview",
+            "path": "/vue/grid/docs/guides/plugin-overview/"
+          },
+          {
+            "title": "Fundamentals",
+            "path": "/vue/grid/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Data Accessors",
+            "path": "/vue/grid/docs/guides/data-accessors/"
+          },
+          {
+            "title": "Sorting",
+            "path": "/vue/grid/docs/guides/sorting/"
+          },
+          {
+            "title": "Paging",
+            "path": "/vue/grid/docs/guides/paging/"
+          },
+          {
+            "title": "Filtering",
+            "path": "/vue/grid/docs/guides/filtering/"
+          },
+          {
+            "title": "Searching",
+            "path": "/vue/grid/docs/guides/searching/"
+          },
+          {
+            "title": "Grouping",
+            "path": "/vue/grid/docs/guides/grouping/"
+          },
+          {
+            "title": "Selection",
+            "path": "/vue/grid/docs/guides/selection/"
+          },
+          {
+            "title": "Editing",
+            "path": "/vue/grid/docs/guides/editing/"
+          },
+          {
+            "title": "Detail Row",
+            "path": "/vue/grid/docs/guides/detail-row/"
+          },
+          {
+            "title": "Banded Columns",
+            "path": "/vue/grid/docs/guides/banded-columns/"
+          },
+          {
+            "title": "Column Visibility",
+            "path": "/vue/grid/docs/guides/column-visibility/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/vue/grid/docs/guides/virtual-scrolling/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/vue/grid/docs/guides/tree-data/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "DxGrid",
+            "path": "/vue/grid/docs/reference/grid/"
+          },
+          {
+            "title": "DxTable",
+            "path": "/vue/grid/docs/reference/table/"
+          },
+          {
+            "title": "DxDataTypeProvider",
+            "path": "/vue/grid/docs/reference/data-type-provider/"
+          },
+          {
+            "title": "DxGroupingState",
+            "path": "/vue/grid/docs/reference/grouping-state/"
+          },
+          {
+            "title": "DxIntegratedGrouping",
+            "path": "/vue/grid/docs/reference/integrated-grouping/"
+          },
+          {
+            "title": "DxTableGroupRow",
+            "path": "/vue/grid/docs/reference/table-group-row/"
+          },
+          {
+            "title": "DxGroupingPanel",
+            "path": "/vue/grid/docs/reference/grouping-panel/"
+          },
+          {
+            "title": "DxCustomGrouping",
+            "path": "/vue/grid/docs/reference/custom-grouping/"
+          },
+          {
+            "title": "DxFilteringState",
+            "path": "/vue/grid/docs/reference/filtering-state/"
+          },
+          {
+            "title": "DxIntegratedFiltering",
+            "path": "/vue/grid/docs/reference/integrated-filtering/"
+          },
+          {
+            "title": "DxTableFilterRow",
+            "path": "/vue/grid/docs/reference/table-filter-row/"
+          },
+          {
+            "title": "DxSortingState",
+            "path": "/vue/grid/docs/reference/sorting-state/"
+          },
+          {
+            "title": "DxIntegratedSorting",
+            "path": "/vue/grid/docs/reference/integrated-sorting/"
+          },
+          {
+            "title": "DxPagingState",
+            "path": "/vue/grid/docs/reference/paging-state/"
+          },
+          {
+            "title": "DxIntegratedPaging",
+            "path": "/vue/grid/docs/reference/integrated-paging/"
+          },
+          {
+            "title": "DxCustomPaging",
+            "path": "/vue/grid/docs/reference/custom-paging/"
+          },
+          {
+            "title": "DxPagingPanel",
+            "path": "/vue/grid/docs/reference/paging-panel/"
+          },
+          {
+            "title": "DxEditingState",
+            "path": "/vue/grid/docs/reference/editing-state/"
+          },
+          {
+            "title": "DxTableEditRow",
+            "path": "/vue/grid/docs/reference/table-edit-row/"
+          },
+          {
+            "title": "DxTableEditColumn",
+            "path": "/vue/grid/docs/reference/table-edit-column/"
+          },
+          {
+            "title": "DxTableBandHeader",
+            "path": "/vue/grid/docs/reference/table-band-header/"
+          },
+          {
+            "title": "DxSearchState",
+            "path": "/vue/grid/docs/reference/search-state/"
+          },
+          {
+            "title": "DxSearchPanel",
+            "path": "/vue/grid/docs/reference/search-panel/"
+          },
+          {
+            "title": "DxSelectionState",
+            "path": "/vue/grid/docs/reference/selection-state/"
+          },
+          {
+            "title": "DxIntegratedSelection",
+            "path": "/vue/grid/docs/reference/integrated-selection/"
+          },
+          {
+            "title": "DxTableSelection",
+            "path": "/vue/grid/docs/reference/table-selection/"
+          },
+          {
+            "title": "DxRowDetailState",
+            "path": "/vue/grid/docs/reference/row-detail-state/"
+          },
+          {
+            "title": "DxTableRowDetail",
+            "path": "/vue/grid/docs/reference/table-row-detail/"
+          },
+          {
+            "title": "DxToolbar",
+            "path": "/vue/grid/docs/reference/toolbar/"
+          },
+          {
+            "title": "DxTableHeaderRow",
+            "path": "/vue/grid/docs/reference/table-header-row/"
+          },
+          {
+            "title": "DxTreeDataState",
+            "path": "/vue/grid/docs/reference/tree-data-state/"
+          },
+          {
+            "title": "DxCustomTreeData",
+            "path": "/vue/grid/docs/reference/custom-tree-data/"
+          },
+          {
+            "title": "DxTableTreeColumn",
+            "path": "/vue/grid/docs/reference/table-tree-column/"
+          },
+          {
+            "title": "DxColumnChooser",
+            "path": "/vue/grid/docs/reference/column-chooser/"
+          },
+          {
+            "title": "DxTableColumnVisibility",
+            "path": "/vue/grid/docs/reference/table-column-visibility/"
+          },
+          {
+            "title": "DxVirtualTable",
+            "path": "/vue/grid/docs/reference/virtual-table/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          }
+        ]
+      }
+    ]
+  }
+}

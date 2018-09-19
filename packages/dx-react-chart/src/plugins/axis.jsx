@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import {
   Plugin,
   TemplateConnector,
@@ -8,10 +7,16 @@ import {
   TemplatePlaceholder,
   Getter,
 } from '@devexpress/dx-react-core';
+import {
+  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, axesData,
+} from '@devexpress/dx-chart-core';
+import { Root } from '../templates/axis/root';
+import { Tick } from '../templates/axis/tick';
+import { Label } from '../templates/axis/label';
+import { Line } from '../templates/axis/line';
+import { withPatchedProps, withComponents } from '../utils';
 
-import { axisCoordinates, HORIZONTAL, axesData } from '@devexpress/dx-chart-core';
-
-export class Axis extends React.Component {
+class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,10 +74,10 @@ export class Axis extends React.Component {
       name,
       indentFromAxis,
       isArgumentAxis,
-      rootComponent: Root,
-      tickComponent: Tick,
-      labelComponent: Label,
-      lineComponent: Line,
+      rootComponent: RootComponent,
+      tickComponent: TickComponent,
+      labelComponent: LabelComponent,
+      lineComponent: LineComponent,
     } = this.props;
     const getAxesDataComputed = ({ axes }) => axesData(axes, this.props);
     return (
@@ -87,7 +92,9 @@ export class Axis extends React.Component {
               argumentAxisName,
               layouts,
               scaleExtension,
-            }, { changeBBox }) => {
+            }, {
+              changeBBox,
+            }) => {
               const placeholder = `${position}-axis`;
               const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
               const { orientation, type } = domain;
@@ -136,7 +143,7 @@ export class Axis extends React.Component {
                       position: 'absolute', left: 0, top: 0, overflow: 'visible',
                     }}
                   >
-                    <Root
+                    <RootComponent
                       refsHandler={this.createRefsHandler(
                         placeholder,
                         changeBBox,
@@ -149,7 +156,7 @@ export class Axis extends React.Component {
                       coordinates.ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
-                        <Tick
+                        <TickComponent
                           key={key}
                           x1={x1}
                           x2={x2}
@@ -158,7 +165,7 @@ export class Axis extends React.Component {
                         />
                       ))
                     }
-                      <Line
+                      <LineComponent
                         width={widthPostCalculated}
                         height={heightPostCalculated}
                         orientation={orientation}
@@ -172,7 +179,7 @@ export class Axis extends React.Component {
                         key,
                       }) => (
                         <React.Fragment key={key}>
-                          <Label
+                          <LabelComponent
                             text={text}
                             x={xText}
                             y={yText}
@@ -181,7 +188,7 @@ export class Axis extends React.Component {
                           />
                         </React.Fragment>
                       ))}
-                    </Root>
+                    </RootComponent>
                   </svg>
                 </div>
               );
@@ -193,7 +200,7 @@ export class Axis extends React.Component {
   }
 }
 
-Axis.propTypes = {
+RawAxis.propTypes = {
   name: PropTypes.string,
   isArgumentAxis: PropTypes.bool,
   rootComponent: PropTypes.func.isRequired,
@@ -205,9 +212,35 @@ Axis.propTypes = {
   indentFromAxis: PropTypes.number,
 };
 
-Axis.defaultProps = {
+RawAxis.defaultProps = {
   tickSize: 5,
   indentFromAxis: 10,
   name: undefined,
   isArgumentAxis: false,
 };
+
+RawAxis.components = {
+  rootComponent: 'Root',
+  tickComponent: 'Tick',
+  labelComponent: 'Label',
+  lineComponent: 'Line',
+};
+
+export const Axis = withComponents({
+  Root, Tick, Label, Line,
+})(RawAxis);
+
+export const ArgumentAxis = withPatchedProps(props => ({
+  position: BOTTOM,
+  ...props,
+  isArgumentAxis: true,
+}))(Axis);
+
+ArgumentAxis.components = Axis.components;
+
+export const ValueAxis = withPatchedProps(props => ({
+  position: LEFT,
+  ...props,
+}))(Axis);
+
+ValueAxis.components = Axis.components;

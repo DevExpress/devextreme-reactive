@@ -6,7 +6,7 @@ import {
   Plugin,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { changeCurrentDate, setCurrentViewName } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
 
 export class ViewState extends React.PureComponent {
   constructor(props) {
@@ -14,7 +14,7 @@ export class ViewState extends React.PureComponent {
 
     this.state = {
       currentDate: props.currentDate || props.defaultCurrentDate,
-      currentViewName: props.currentViewName || props.defaultCurrentViewName,
+      currentView: props.currentView || props.defaultCurrentView,
     };
 
     const { onCurrentDateChange, onCurrentViewChange } = this.props;
@@ -30,31 +30,29 @@ export class ViewState extends React.PureComponent {
     this.changeCurrentDate = stateHelper.applyFieldReducer
       .bind(stateHelper, 'currentDate', changeCurrentDate);
     this.setCurrentView = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'currentViewName', setCurrentViewName);
+      .bind(stateHelper, 'currentView', setCurrentView);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       currentDate = prevState.currentDate,
-      currentViewName = prevState.currentViewName,
+      currentView = prevState.currentView,
     } = nextProps;
 
     return {
       currentDate,
-      currentViewName,
+      currentView,
     };
   }
 
   render() {
-    const { currentDate, currentViewName: stateCurrentViewName } = this.state;
-    debugger
+    const { currentDate, currentView: stateCurrentView } = this.state;
+
     const currentViewComputed = ({ currentView }) => {
-      if (!currentView) return { name: stateCurrentViewName };
-      if (currentView.name !== stateCurrentViewName) {
-        if (!currentView) return { name: stateCurrentViewName };
-        if (!stateCurrentViewName) return currentView;
-      }
-      return currentView;
+      if (currentView !== stateCurrentView) {
+        if (!currentView) return stateCurrentView;
+        if (!stateCurrentView) return currentView;
+      } return currentView;
     };
     return (
       <Plugin
@@ -70,17 +68,11 @@ export class ViewState extends React.PureComponent {
 }
 
 ViewState.propTypes = {
-  currentDate: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
-  defaultCurrentDate: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
+  currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  defaultCurrentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   onCurrentDateChange: PropTypes.func,
-  currentViewName: PropTypes.string,
-  defaultCurrentViewName: PropTypes.string,
+  currentView: PropTypes.string,
+  defaultCurrentView: PropTypes.string,
   onCurrentViewChange: PropTypes.func,
 };
 
@@ -88,7 +80,7 @@ ViewState.defaultProps = {
   currentDate: undefined,
   defaultCurrentDate: new Date(),
   onCurrentDateChange: undefined,
-  currentViewName: undefined,
-  defaultCurrentViewName: undefined,
+  currentView: undefined,
+  defaultCurrentView: undefined,
   onCurrentViewChange: undefined,
 };

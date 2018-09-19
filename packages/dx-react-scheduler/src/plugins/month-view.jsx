@@ -21,7 +21,6 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
-const TYPE = 'month';
 
 export class MonthView extends React.PureComponent {
   constructor(props) {
@@ -50,11 +49,8 @@ export class MonthView extends React.PureComponent {
     this.endViewDateBaseComputed = ({ monthCells }) => endViewBoundary(monthCells);
 
     this.currentViewComputed = ({ currentView }) => {
-      if (!currentView.name || viewName === currentView.name) {
-        return {
-          name: viewName,
-          type: TYPE,
-        };
+      if (!currentView || viewName === currentView) {
+        return viewName;
       }
       return currentView;
     };
@@ -118,7 +114,7 @@ export class MonthView extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              if (currentView !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
@@ -132,7 +128,7 @@ export class MonthView extends React.PureComponent {
         <Template name="navbar">
           <TemplateConnector>
             {({ dayScale, currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              if (currentView !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
@@ -148,7 +144,7 @@ export class MonthView extends React.PureComponent {
             {({
               monthCells, appointments, startViewDate, endViewDate, currentView,
             }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              if (currentView !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
                 appointments, startViewDate, endViewDate,
               );

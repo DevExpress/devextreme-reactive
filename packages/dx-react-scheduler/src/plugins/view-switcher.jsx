@@ -33,7 +33,7 @@ export class ViewSwitcher extends React.PureComponent {
               setCurrentView,
             }) => (
               <Switcher
-                currentView={currentView.name}
+                currentView={currentView}
                 availableViews={availableViews}
                 onItemClick={setCurrentView}
               />

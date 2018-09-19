@@ -10,7 +10,7 @@ export const Switcher = ({
   ...restProps
 }) => {
   const clickHandle = (event) => {
-    onItemClick({ nextView: event.target.value });
+    onItemClick({ nextViewName: event.target.value });
   };
 
   return (

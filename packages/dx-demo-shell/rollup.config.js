@@ -6,9 +6,8 @@ import pkg from './package.json';
 
 export default {
   input: 'src/index.jsx',
-  sourcemap: true,
   output: [
-    { file: pkg.module, format: 'es' },
+    { file: pkg.module, format: 'es', sourcemap: true },
   ],
   external: external(__dirname),
   plugins: [

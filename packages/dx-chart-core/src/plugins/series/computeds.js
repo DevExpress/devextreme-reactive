@@ -165,3 +165,5 @@ export const seriesData = (series = [], seriesProps) => {
 };
 
 export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
+
+export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));

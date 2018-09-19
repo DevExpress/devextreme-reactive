@@ -1,4 +1,4 @@
-import { pieAttributes } from '@devexpress/dx-chart-core';
+import { pieAttributes, getPieItems } from '@devexpress/dx-chart-core';
 import { makeSeries, withComponents } from '../utils';
 import { SliceCollection as Path } from '../templates/series/slice-collection';
 import { Slice as Point } from '../templates/series/slice';
@@ -12,4 +12,6 @@ export const PieSeries = withComponents({ Path, Point })(makeSeries(
     seriesComponent: 'Path',
     pointComponent: 'Point',
   },
+  undefined,
+  getPieItems,
 ));

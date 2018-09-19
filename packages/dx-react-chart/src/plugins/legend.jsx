@@ -26,20 +26,19 @@ class RawLegend extends React.PureComponent {
           <TemplateConnector>
             {({
               series,
+              domains,
+              argumentAxisName,
               colorDomain,
+              items,
             }) => (
               <Root name={`legend-${placeholder}`}>
-                {colorDomain.domain().map((domainName) => {
-                  const { name, color } = series.find(({
-                    uniqueName,
-                  }) => uniqueName === domainName);
-                  return (
-                    <Item key={domainName}>
-                      <MarkerComponent name={name} color={color || colorDomain(domainName)} />
-                      <Label text={name} />
+                {items(series, domains[argumentAxisName].domain)
+                  .map(({ uniqueName, color }) => (
+                    <Item key={uniqueName}>
+                      <MarkerComponent name={uniqueName} color={color || colorDomain(uniqueName)} />
+                      <Label text={uniqueName} />
                     </Item>
-                  );
-                })}
+                  ))}
               </Root>
             )}
           </TemplateConnector>

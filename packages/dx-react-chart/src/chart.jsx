@@ -61,6 +61,7 @@ RawChart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,
+  palette: PropTypes.array.isRequired,
 };
 
 RawChart.defaultProps = {

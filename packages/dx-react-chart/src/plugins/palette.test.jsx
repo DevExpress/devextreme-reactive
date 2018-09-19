@@ -21,7 +21,7 @@ describe('Palette', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents({})}
-        <Palette />
+        <Palette scheme={[]} />
       </PluginHost>
     ));
 

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
-import {
-  FormGroup, ControlLabel, FormControl, InputGroup, Button,
-} from 'react-bootstrap';
+import { Form, Button, FormGroup, InputGroup, InputGroupAddon, Input, Label } from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
 
 class DemoFrameRenderer extends React.PureComponent {
@@ -83,31 +81,31 @@ class DemoFrameRenderer extends React.PureComponent {
     return (
       <div>
         {!frame && !!editableLink ? (
-          <form
+          <Form
             style={{ marginBottom: '20px' }}
           >
-            <FormGroup controlId="customThemeLink">
-              <ControlLabel>
-Custom theme link
-              </ControlLabel>
+            <FormGroup>
+              <Label for="customLink">Custom theme link</Label>
               <InputGroup>
-                <FormControl
+                <Input
                   type="text"
-                  inputRef={(node) => { this.customThemeLinkNode = node; }}
+                  id="customLink"
+                  innerRef={(node) => { this.customThemeLinkNode = node; }}
                   defaultValue={editableLink}
                 />
-                <InputGroup.Button>
+                <InputGroupAddon addonType="append">
                   <Button
-                    onClick={() => {
+                    color="secondary"
+                    onClick={(e) => {
                       this.setState({ editableLink: this.customThemeLinkNode.value });
                     }}
                   >
                     Apply
                   </Button>
-                </InputGroup.Button>
+                </InputGroupAddon>
               </InputGroup>
             </FormGroup>
-          </form>
+          </Form>
         ) : null}
 
         {frame

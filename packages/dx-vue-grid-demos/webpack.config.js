@@ -8,7 +8,7 @@ module.exports = ({ production }) => ({
   mode: production ? 'production' : 'development',
   context: path.join(__dirname, 'src'),
   entry: {
-    index: ['babel-polyfill', path.join(__dirname, 'src', 'index')]
+    index: ['whatwg-fetch', path.join(__dirname, 'src', 'index')]
   },
   output: {
     publicPath: '/dist',

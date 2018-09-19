@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 
+import './source-code.css';
+
 export class SourceCode extends React.PureComponent {
   render() {
     const { themeName, sectionName, demoName } = this.props;

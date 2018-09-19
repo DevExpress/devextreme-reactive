@@ -26,16 +26,16 @@
     "@devexpress/dx-vue-core": "1.8.0-beta.1",
     "@devexpress/dx-vue-grid": "1.8.0-beta.1",
     "@devexpress/dx-vue-grid-bootstrap4": "1.8.0-beta.1",
-    "babel-polyfill": "^6.26.0",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
-    "react-bootstrap": "^0.32.3",
     "react-dom": "^16.4.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.4.0",
     "vue": "^2.5.17",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.8.0-beta.1",

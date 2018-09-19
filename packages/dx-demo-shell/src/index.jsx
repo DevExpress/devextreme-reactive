@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import {
   HashRouter,
@@ -66,8 +66,8 @@ export const initialize = ({
   renderDemo,
   unmountDemo,
 }) => {
-  const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');
-  const embeddedDemoConfigs = [...embeddedDemoPlaceholders]
+  const embeddedDemoPlaceholders = [...document.getElementsByClassName('embedded-demo')];
+  const embeddedDemoConfigs = embeddedDemoPlaceholders
     .map(placeholder => ({
       options: JSON.parse(placeholder.getAttribute('data-options') || '{}'),
       placeholder,
@@ -85,4 +85,9 @@ export const initialize = ({
         config.placeholder,
       );
     });
+
+  window.deinitializeDemos = () => {
+    embeddedDemoPlaceholders
+      .forEach(placeholder => unmountComponentAtNode(placeholder))
+  };
 };

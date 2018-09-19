@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
@@ -52,4 +53,22 @@ exports.createPages = ({ graphql, actions }) => {
       resolve()
     })
   })
+};
+
+const setupFileSynchronization = (src, dest) => {
+  console.log(`sync ${src} -> ${dest}`);
+  fs.watchFile(src, () => {
+    try {
+      fs.unlinkSync(dest);
+    } catch(e) {}
+    try {
+      fs.linkSync(src, dest);
+    } catch(e) {}
+  });
 }
+
+exports.onPostBootstrap = () => {
+  setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-grid-demos.js');
+  setupFileSynchronization('../dx-react-chart-demos/dist/index.js', './public/static/react-chart-demos.js');
+  setupFileSynchronization('../dx-vue-grid-demos/dist/index.js', './public/static/vue-grid-demos.js');
+};

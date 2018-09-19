@@ -37,9 +37,11 @@ const LayoutBase = ({
   getAppointmentEndDate,
   getAppointmentStartDate,
   getAppointmentTitle,
+  getAppointmentId,
   visible, onHide,
   commandButtonIds,
   classes,
+  onDelete,
   ...restProps
 }) => {
   const { target, appointment = {} } = appointmentMeta;
@@ -58,7 +60,12 @@ const LayoutBase = ({
             {showOpenButton && <CommandButton id={commandButtonIds.open} />}
           </div>
           <div className={classes.buttonsRight}>
-            {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
+            {showDeleteButton
+              && (<CommandButton
+                id={commandButtonIds.delete}
+                onClick={() => onDelete(getAppointmentId(appointment))}
+              />
+              )}
             {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
           </div>
         </div>
@@ -89,6 +96,7 @@ LayoutBase.propTypes = {
   getAppointmentEndDate: PropTypes.func.isRequired,
   getAppointmentStartDate: PropTypes.func.isRequired,
   getAppointmentTitle: PropTypes.func.isRequired,
+  getAppointmentId: PropTypes.func.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   appointmentMeta: PropTypes.object,

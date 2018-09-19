@@ -18,7 +18,7 @@ const pluginDependencies = [
 ];
 
 const navigate = (action, currentView, intervalCount) => payload => action({
-  ...payload, amount: intervalCount, step: currentView,
+  ...payload, amount: intervalCount, step: currentView.type,
 });
 
 export class DateNavigator extends React.PureComponent {

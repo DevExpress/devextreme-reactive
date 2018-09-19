@@ -40,7 +40,7 @@ export class WeekView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
     const {
-      viewName,
+      name: viewName,
       firstDayOfWeek,
       startDayHour,
       endDayHour,
@@ -122,7 +122,7 @@ export class WeekView extends React.PureComponent {
       dateTableCellComponent: DateTableCell,
       cellDuration,
       excludedDays,
-      viewName,
+      name: viewName,
       containerComponent: Container,
     } = this.props;
     const { dateTableRef } = this.state;
@@ -263,7 +263,7 @@ WeekView.propTypes = {
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
   excludedDays: PropTypes.array,
-  viewName: PropTypes.string,
+  name: PropTypes.string,
 };
 
 WeekView.defaultProps = {
@@ -273,5 +273,5 @@ WeekView.defaultProps = {
   intervalCount: 1,
   firstDayOfWeek: 0,
   excludedDays: [],
-  viewName: 'Week',
+  name: 'Week',
 };

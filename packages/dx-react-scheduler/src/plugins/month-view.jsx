@@ -31,7 +31,7 @@ export class MonthView extends React.PureComponent {
     };
 
     const {
-      viewName, firstDayOfWeek, intervalCount,
+      name: viewName, firstDayOfWeek, intervalCount,
     } = this.props;
 
     this.dateTableRef = this.dateTableRef.bind(this);
@@ -94,7 +94,7 @@ export class MonthView extends React.PureComponent {
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
       containerComponent: Container,
-      viewName,
+      name: viewName,
     } = this.props;
     const { dateTableRef } = this.state;
 
@@ -205,11 +205,11 @@ MonthView.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
-  viewName: PropTypes.string,
+  name: PropTypes.string,
 };
 
 MonthView.defaultProps = {
   intervalCount: 1,
   firstDayOfWeek: 0,
-  viewName: 'Month',
+  name: 'Month',
 };

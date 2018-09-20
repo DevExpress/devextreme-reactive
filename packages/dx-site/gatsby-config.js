@@ -67,15 +67,15 @@ module.exports = {
             resolve: 'gatsby-remark-external-links',
             options: {
               target: '_blank',
-              rel: 'nofollow'
-            }
+              rel: 'noopener noreferrer',
+            },
           },
-          'gatsby-remark-autolink-headers'
-        ]
-      }
+          'gatsby-remark-autolink-headers',
+        ],
+      },
     },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
-    'gatsby-plugin-sass'
+    'gatsby-plugin-sass',
   ],
-}
+};

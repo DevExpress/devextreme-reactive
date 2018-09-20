@@ -1,0 +1,23 @@
+.header {
+  background-image: url("./header-background.png");
+  background-size: cover;
+  background-position: center top;
+}
+
+.header-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.links {
+  a {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 255);
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

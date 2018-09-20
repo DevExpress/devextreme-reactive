@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import { Location } from '@reach/router';
 import Layout from './layout';
+import Header from './header';
+import MainLogo from './logos/main';
 
 import navigation from './page-navigation.json';
 import styles from './page-layout.module.scss';
@@ -39,6 +41,15 @@ Section.propTypes = {
 
 const PageLayout = ({ technologyName, sectionName, children }) => (
   <Layout>
+    <Header
+      logo={<MainLogo />}
+      links={(
+        <React.Fragment>
+          <Link to={`/${technologyName}/demos/`}>Demos</Link>
+          <Link to={`/${technologyName}/docs/`}>Docs</Link>
+        </React.Fragment>
+      )}
+    />
     <div className={styles.pageLayout}>
       <div className="container">
         <div className="row">

@@ -1,13 +1,29 @@
 import * as React from 'react';
-import Link from 'gatsby-link';
 import Layout from '../components/layout';
+import Header from '../components/header';
+import MainLogo from '../components/logos/main';
+import LandingHeaderAddon from '../components/langing-header-addon';
+
+import indexHeader from './index-header.png';
 
 const IndexPage = () => (
   <Layout>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
+    <Header
+      logo={<MainLogo />}
+      addon={(
+        <LandingHeaderAddon
+          main={(
+            <React.Fragment>
+              Data-Centric
+              <br />
+              Reactive Components
+            </React.Fragment>
+          )}
+          additional="for Bootstrap and Material Design"
+          imageLink={indexHeader}
+        />
+      )}
+    />
   </Layout>
 );
 

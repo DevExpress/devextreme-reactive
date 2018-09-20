@@ -22,10 +22,20 @@ export default class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
   }
 
-  commitChanges({ deleted }) {
+  commitChanges({ deleted, added }) {
     let { data } = this.state;
     if (deleted) {
       data = data.filter(appointment => deleted !== appointment.id);
+    }
+    if (added) {
+      const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+      data = [
+        ...data,
+        ...[{
+          ...added,
+          id: startingAddedId,
+        }],
+      ];
     }
     this.setState({ data });
   }

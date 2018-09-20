@@ -191,6 +191,8 @@ export class WeekView extends React.PureComponent {
           <TemplateConnector>
             {({
               timeScale, dayScale, appointments, startViewDate, endViewDate, currentView,
+            }, {
+              addAppointment,
             }) => {
               if (currentView !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
@@ -222,6 +224,7 @@ export class WeekView extends React.PureComponent {
                     timeScale={timeScale}
                     dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
+                    addAppointment={addAppointment}
                   />
                   <Container>
                     {rects.map(({

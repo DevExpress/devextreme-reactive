@@ -31,8 +31,8 @@ constructor? | () => [ScaleObject](#scaleobject) | A function that constructs a 
 
 Field | Type | Description
 ------|------|------------
-domain | (domain?: Array&lt;any&gt;) => [ScaleObject](#scaleobject) &#124; Array&lt;any&gt; | A function that accepts a domain array or returns the current domain.
-range | () => (range?: Array&lt;any&gt;) => [ScaleObject](#scaleobject) &#124; Array&lt;any&gt; | A function that accepts a scale’s range array or returns the current range.
+domain | (domain?: Array&lt;any&gt;) => [ScaleObject](#scaleobject) &#124; Array&lt;any&gt; | A function that sets (if the `domain` parameter is an array) or gets (if the `domain` parameter is undefined) the current domain.
+range | () => (range?: Array&lt;any&gt;) => [ScaleObject](#scaleobject) &#124; Array&lt;any&gt; | A function that sets (if the `domain` parameter is an array) or gets (if the `domain` parameter is undefined) the scale's current range.
 tickFormat? | (count: number, specifier: string) => (tick: any) => string | A function that returns a tick formatter function.
 ticks? | (count: number) => Array&lt;any&gt; | A function that returns an array of ticks.
 paddingInner? | (padding: number) => [ScaleObject](#scaleobject) | A function that sets a scale's inner padding and returns the current scale.

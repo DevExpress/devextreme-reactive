@@ -208,6 +208,36 @@ describe('Week View', () => {
       expect(getComputedState(tree).currentView)
         .toEqual({ name: 'Week', type: 'week' });
     });
+
+    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          <WeekView
+            {...defaultProps}
+            name="Week View"
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: 'Week View', type: 'week' });
+    });
+
+    it('should not override previous view type', () => {
+      const prevView = { name: 'Month', type: 'month' };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: prevView } })}
+          <WeekView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual(prevView);
+    });
   });
 
   describe('Templates', () => {

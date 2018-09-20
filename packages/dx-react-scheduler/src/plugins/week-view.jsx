@@ -72,10 +72,7 @@ export class WeekView extends React.PureComponent {
     this.currentViewComputed = ({ currentView }) => {
       const name = currentView ? currentView.name : viewName;
       const type = name === viewName ? TYPE : currentView.type;
-      return {
-        name,
-        type,
-      };
+      return { name, type };
     };
     this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,

@@ -16,10 +16,62 @@
       - title: Chart Integration
         path: /react/grid/demos/featured/chart-integration
 /react/chart:
-  - title: DEMOS
+  - title: Demos
     items:
+      - title: Overview
+        path: /react/chart/demos/overview/multiple-axes
+  - title: Area Chart
+    items:
+      - title: Simple Area
+        path: /react/chart/demos/area/simple-area
+      - title: Spline Area
+        path: /react/chart/demos/area/spline-area
+      - title: Stacked Area
+        path: /react/chart/demos/area/stacked-area
+      - title: Step Area
+        path: /react/chart/demos/area/step-area
+      - title: Streamgraph
+        path: /react/chart/demos/area/streamgraph
+  - title: Bar Chart
+    items:
+      - title: Simple Bar
+        path: /react/chart/demos/bar/simple-bar
+      - title: Side-By-Side Bars
+        path: /react/chart/demos/bar/side-by-side
+      - title: Side-By-Side Stacked Bars
+        path: /react/chart/demos/bar/side-by-side-stacked-bar
+      - title: Stacked Bar
+        path: /react/chart/demos/bar/stacked-bar
+      - title: Fullstacked Bar
+        path: /react/chart/demos/bar/fullstacked-bar
       - title: Component customization
-        path: /react/chart/demos/featured/component-customization
+        path: /react/chart/demos/bar/component-customization
+  - title: Line Chart
+    items:
+      - title: Simple Line
+        path: /react/chart/demos/line/line
+      - title: Spline
+        path: /react/chart/demos/line/spline
+      - title: Step Line
+        path: /react/chart/demos/line/step-line
+      - title: Step Line With Gaps
+        path: /react/chart/demos/line/step-line-with-gaps
+      - title: Axes Type Customization
+        path: /react/chart/demos/line/log-time-axes
+  - title: Point Chart
+    items:
+      - title: Scatter Series
+        path: /react/chart/demos/point/scatter
+  - title: Pie Chart
+    items:
+      - title: Pie Chart
+        path: /react/chart/demos/pie/pie
+      - title: Doughnut Chart
+        path: /react/chart/demos/pie/doughnut
+  - title: Combination
+    items:
+      - title: Multiple Axes
+        path: /react/chart/demos/combination/multiple-axes
 /vue/grid:
   - title: DEMOS
     items:

@@ -1,15 +1,26 @@
 .main {
+  line-height: 1.1;
+  font-family: "Segoe UI Light";
   font-size: 60px;
-  color: rgba(255, 255, 255, 255);
+  color: white;
 }
 
 .additional {
-  font-weight: bold;
+  font-family: "Segoe UI Semibold";
   font-size: 40px;
-  color: rgba(255, 255, 255, 255);
+  color: white;
+  line-height: 1.1;
+  margin-top: 20px;
+}
+
+.container {
+  padding-bottom: 50px;
 }
 
 .block {
   padding-top: 50px;
-  padding-bottom: 50px;
+}
+
+.cropper {
+  overflow: hidden;
 }

@@ -53,7 +53,6 @@ export class ViewState extends React.PureComponent {
     const { currentDate, currentViewName: stateCurrentViewName } = this.state;
     const currentViewComputed = ({ currentView }) => {
       if (currentView && (currentView.name !== stateCurrentViewName)) {
-        if (!currentView) return { name: stateCurrentViewName };
         if (!stateCurrentViewName) return currentView;
       }
       if (!currentView && stateCurrentViewName) {

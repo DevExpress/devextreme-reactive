@@ -63,5 +63,23 @@ describe('Appointment', () => {
       expect(child.exists())
         .toBeTruthy();
     });
+
+    it('should handle the "onClick" handler if exists', () => {
+      const clickMock = jest.fn();
+      const appointment = shallow((
+        <Appointment
+          {...defaultProps}
+          onClick={clickMock}
+          appointment={{ text: 'a' }}
+        >
+          <div />
+        </Appointment>
+      )).find(`.${classes.appointment}`);
+
+      appointment.simulate('click', { target: 'target' });
+
+      expect(clickMock.mock.calls[0][0])
+        .toEqual({ target: 'target', appointment: { text: 'a' } });
+    });
   });
 });

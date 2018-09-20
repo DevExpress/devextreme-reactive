@@ -7,6 +7,7 @@ describe('Path', () => {
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
   };
+
   it('should render root element', () => {
     const tree = shallow((
       <Path
@@ -34,12 +35,6 @@ describe('Path', () => {
 
     expect(style)
       .toEqual(customStyle);
-  });
-
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Path {...defaultProps} className="custom-class" />);
-
-    expect(tree.find('path').is('.custom-class.dx-c-bs4-fill-none.dx-c-bs4-series-path')).toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {

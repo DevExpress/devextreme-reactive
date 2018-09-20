@@ -6,6 +6,7 @@ import {
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
+import { PointCollection } from '../templates/series/point-collection';
 
 const PointComponent = () => null;
 
@@ -55,6 +56,7 @@ describe('Scatter series', () => {
   };
 
   const defaultProps = {
+    seriesComponent: PointCollection,
     pointComponent: PointComponent,
     name: 'val1',
     styles: 'styles',

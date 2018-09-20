@@ -13,15 +13,6 @@ describe('Marker', () => {
       .toEqual('color');
   });
 
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow((
-      <Marker className="custom-class" />
-    ));
-
-    expect(tree.is('.custom-class'))
-      .toBeTruthy();
-  });
-
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Marker customProperty />);
     const { customProperty } = tree.find('svg').props();

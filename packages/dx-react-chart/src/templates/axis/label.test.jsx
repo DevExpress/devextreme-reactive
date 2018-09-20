@@ -24,13 +24,6 @@ describe('Label', () => {
     expect(tree.text()).toBe('a');
   });
 
-  it('should pass the className prop to the root element', () => {
-    const tree = shallow(<Label {...defaultProps} className="custom-class" />);
-
-    expect(tree.is('.custom-class.dx-c-bs4-fill-current-color.dx-c-bs4-axis-label.text-muted'))
-      .toBeTruthy();
-  });
-
   it('should pass the rest property to the root element', () => {
     const tree = shallow(<Label {...defaultProps} customProperty />);
     const { customProperty } = tree.find('text').props();

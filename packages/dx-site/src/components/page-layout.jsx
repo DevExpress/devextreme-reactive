@@ -6,7 +6,7 @@ import Layout from './layout';
 import Header from './header';
 import MainLogo from './logos/main';
 
-import navigation from './page-navigation.json';
+import navigation from '../../page-navigation.json';
 import styles from './page-layout.module.scss';
 
 const Section = ({ section }) => {

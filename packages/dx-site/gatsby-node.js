@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
+const pageNavigation = require('./page-navigation.json');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -26,7 +27,41 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
+
+  Object.keys(pageNavigation)
+    .forEach((technology) => {
+      if (pageNavigation[technology].demos) {
+        createRedirect({
+          fromPath: `/${technology}/demos/`,
+          toPath: pageNavigation[technology].demos.find(item => item.title === 'Demos').items[0].path,
+          redirectInBrowser: true,
+        });
+        createRedirect({
+          fromPath: `/${technology}/demos/featured/`,
+          toPath: pageNavigation[technology].demos.find(item => item.title === 'Demos').items[0].path,
+          redirectInBrowser: true,
+        });
+      }
+      if (pageNavigation[technology].docs) {
+        createRedirect({
+          fromPath: `/${technology}/docs/`,
+          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+          redirectInBrowser: true,
+        });
+        createRedirect({
+          fromPath: `/${technology}/docs/guides/`,
+          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+          redirectInBrowser: true,
+        });
+        createRedirect({
+          fromPath: `/${technology}/docs/reference/`,
+          toPath: pageNavigation[technology].docs.find(item => item.title === 'API Reference').items[0].path,
+          redirectInBrowser: true,
+        });
+      }
+    });
+
   return new Promise((resolve) => {
     graphql(`
       {

@@ -77,7 +77,7 @@
   "react/grid": {
     "demos": [
       {
-        "title": "DEMOS",
+        "title": "Demos",
         "items": [
           {
             "title": "Integrated Data Shaping",
@@ -419,7 +419,7 @@
   "react/chart": {
     "demos": [
       {
-        "title": "DEMOS",
+        "title": "Demos",
         "items": [
           {
             "title": "Component customization",
@@ -541,7 +541,7 @@
   "vue/grid": {
     "demos": [
       {
-        "title": "DEMOS",
+        "title": "Demos",
         "items": [
           {
             "title": "Integrated Data Shaping",

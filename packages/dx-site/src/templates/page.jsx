@@ -41,7 +41,7 @@ export default class extends React.Component {
       .replace(
         /href="([^"]*)"/g,
         (match, p1) => {
-          if (p1.startsWith('http')) {
+          if (p1.startsWith('http') || p1.startsWith('#')) {
             return `href="${p1}"`;
           }
           return `href="../${p1.replace('.md', '')}/"`;

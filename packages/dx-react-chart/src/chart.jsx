@@ -11,7 +11,6 @@ import { SpaceFillingRects } from './plugins/space-filling-rects';
 import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
-import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
 import { withComponents } from './utils';
 
@@ -23,12 +22,10 @@ class RawChart extends React.PureComponent {
       height,
       children,
       rootComponent,
-      palette,
       ...restProps
     } = this.props;
     return ((
       <PluginHost>
-        <Palette scheme={palette} />
         {children}
         <ChartCore data={data} />
         <LayoutManager
@@ -61,7 +58,6 @@ RawChart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,
-  palette: PropTypes.array.isRequired,
 };
 
 RawChart.defaultProps = {

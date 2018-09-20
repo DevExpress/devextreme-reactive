@@ -1,6 +1,6 @@
 # Palette Plugin Reference
 
-The `Palette` plugin is used to colorize chart with default or user colors.
+The `Palette` plugin is used to colorize chart with user colors.
 
 ## Import
 

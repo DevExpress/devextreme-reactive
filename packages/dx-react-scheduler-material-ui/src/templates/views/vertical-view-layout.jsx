@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-export class WeekLayoutBase extends React.PureComponent {
+export class VerticalViewLayoutBase extends React.PureComponent {
   render() {
     const {
       sidebarComponent: Sidebar,
@@ -65,7 +65,7 @@ export class WeekLayoutBase extends React.PureComponent {
   }
 }
 
-WeekLayoutBase.propTypes = {
+VerticalViewLayoutBase.propTypes = {
   sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
@@ -73,4 +73,4 @@ WeekLayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export const WeekLayout = withStyles(styles, { name: 'WeekLayout' })(WeekLayoutBase);
+export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-export class MonthLayoutBase extends React.PureComponent {
+export class HorizontalViewLayoutBase extends React.PureComponent {
   render() {
     const {
       navbarComponent: Navbar,
@@ -53,10 +53,10 @@ export class MonthLayoutBase extends React.PureComponent {
   }
 }
 
-MonthLayoutBase.propTypes = {
+HorizontalViewLayoutBase.propTypes = {
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export const MonthLayout = withStyles(styles, { name: 'MonthLayout' })(MonthLayoutBase);
+export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

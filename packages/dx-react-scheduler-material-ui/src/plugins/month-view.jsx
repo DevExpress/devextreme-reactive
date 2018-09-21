@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
-import { MonthLayout } from '../templates/views/month-layout';
+import { HorizontalViewLayout } from '../templates/views/horizontal-view-layout';
 
 import { Row } from '../templates/month-view/row';
 
@@ -16,7 +16,7 @@ export class MonthView extends React.PureComponent {
   render() {
     return (
       <MonthViewBase
-        layoutComponent={MonthLayout}
+        layoutComponent={HorizontalViewLayout}
         containerComponent={Container}
 
         dayPanelLayoutComponent={DayPanelLayout}

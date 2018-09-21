@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DayView as DayViewBase } from '@devexpress/dx-react-scheduler';
-import { WeekLayout } from '../templates/views/week-layout';
+import { VerticalViewLayout } from '../templates/views/vertical-view-layout';
 
 import { Row } from '../templates/day-view/row';
 import { NavbarEmpty } from '../templates/week-view/navbar-empty';
@@ -20,7 +20,7 @@ export class DayView extends React.PureComponent {
     return (
       <DayViewBase
         containerComponent={Container}
-        layoutComponent={WeekLayout}
+        layoutComponent={VerticalViewLayout}
         navbarEmptyComponent={NavbarEmpty}
         timePanelLayoutComponent={TimePanelLayout}
         timePanelCellComponent={TimePanelCell}

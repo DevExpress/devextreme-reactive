@@ -5,7 +5,6 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  axisName: jest.fn(() => 'argumentName'),
   prepareData: jest.fn(() => 'data'),
 }));
 
@@ -27,7 +26,6 @@ describe('Chart Core', () => {
     ));
     expect(getComputedState(tree)).toEqual({
       data: 'data',
-      argumentAxisName: 'argumentName',
       domains: 'computedDomain',
       computedDomain,
     });

@@ -13,4 +13,15 @@ describe('Week View Row', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should render children', () => {
+    const tree = shallow((
+      <Row>
+        <div className="child" />
+      </Row>
+    ));
+
+    expect(tree.find('.child').exists())
+      .toBeTruthy();
+  });
 });

@@ -93,7 +93,7 @@ describe('Week view helpers', () => {
         )).toBeTruthy();
       });
 
-      it('should not take appointment that end before left view bound', () => {
+      it('should not take appointment that ends before left view bound', () => {
         expect(dayBoundaryPredicate(
           { start: moment('2018-06-22 09:00'), end: moment('2018-06-22 12:00') },
           '2018-06-22 12:00',
@@ -101,7 +101,7 @@ describe('Week view helpers', () => {
         )).toBeFalsy();
       });
 
-      it('should not take appointment that start after right view bound', () => {
+      it('should not take appointment that starts after right view bound', () => {
         expect(dayBoundaryPredicate(
           { start: moment('2018-06-26 15:01'), end: moment('2018-06-26 16:00') },
           '2018-06-22 12:00',

@@ -24,7 +24,6 @@ describe('Axis', () => {
     getter: {
       domains: { name: { orientation: 'horizontal', type: 'someType' } },
       setBBox: jest.fn(),
-      argumentAxisName: 'argumentAxis',
       layouts: {
         'bottom-axis': {
           x: 1, y: 2, width: 200, height: 100,

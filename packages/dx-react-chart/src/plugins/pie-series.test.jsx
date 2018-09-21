@@ -21,27 +21,30 @@ pieAttributes.mockImplementation(() => [
   { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
   { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
 ]);
-findSeriesByName.mockImplementation(() => ({}));
+
+const defaultProps = {
+  name: 'val1',
+  valueField: 'valueField',
+  argumentField: 'argumentField',
+};
+
+findSeriesByName.mockImplementation(() => ({
+  ...defaultProps,
+  style: { opacity: 0.4 },
+  seriesComponent: SliceCollection,
+  pointComponent: PointComponent,
+}));
 
 describe('Pie series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },
+      colorDomain: jest.fn().mockReturnValue('color'),
       domains: {},
     },
     template: {
       series: {},
     },
-  };
-
-  const defaultProps = {
-    seriesComponent: SliceCollection,
-    pointComponent: PointComponent,
-    style: { opacity: 0.4 },
-    name: 'val1',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    colorDomain: jest.fn().mockReturnValue('color'),
   };
 
   it('should render points', () => {
@@ -64,7 +67,8 @@ describe('Pie series', () => {
         style: { opacity: 0.4 },
         id: `value${pointIndex}`,
       });
-      expect(defaultProps.colorDomain).toHaveBeenNthCalledWith(index + 1, `value${pointIndex}`);
+      expect(defaultDeps.getter.colorDomain)
+        .toHaveBeenNthCalledWith(index + 1, `value${pointIndex}`);
     });
   });
 });

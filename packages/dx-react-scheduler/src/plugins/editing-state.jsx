@@ -29,6 +29,11 @@ export class EditingState extends React.PureComponent {
   }
 
   render() {
+    const {
+      disableAdding,
+      disableDeleting,
+    } = this.props;
+
     return (
       <Plugin
         name="EditingState"
@@ -37,8 +42,8 @@ export class EditingState extends React.PureComponent {
         <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
         <Getter name="setAppointmentTitle" value={setAppointmentTitle} /> */}
 
-        <Action name="addAppointment" action={this.addAppointment} />
-        <Action name="deleteAppointment" action={this.deleteAppointment} />
+        <Action name="addAppointment" action={disableAdding ? () => undefined : this.addAppointment} />
+        <Action name="deleteAppointment" action={disableDeleting ? () => undefined : this.deleteAppointment} />
       </Plugin>
     );
   }
@@ -49,10 +54,14 @@ EditingState.propTypes = {
   setAppointmentStartDate: PropTypes.func,
   setAppointmentEndDate: PropTypes.func,
   setAppointmentTitle: PropTypes.func,
+  disableAdding: PropTypes.bool,
+  disableDeleting: PropTypes.bool,
 };
 
 EditingState.defaultProps = {
   setAppointmentStartDate: (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
   setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
   setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
+  disableAdding: false,
+  disableDeleting: false,
 };

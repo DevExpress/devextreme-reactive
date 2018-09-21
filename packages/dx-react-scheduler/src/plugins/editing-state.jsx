@@ -1,37 +1,41 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Getter, Action, Plugin,
+  Action, Plugin,
 } from '@devexpress/dx-react-core';
 
 export class EditingState extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.deleteAppointment = (rowId) => {
+    this.deleteAppointment = (appointmentId) => {
       const { onCommitChanges } = this.props;
-      onCommitChanges({ deleted: rowId });
+      onCommitChanges({ deleted: appointmentId });
     };
-    this.addAppointment = (appointment) => {
-      const { onCommitChanges } = this.props;
-      onCommitChanges({ added: appointment });
+    this.addAppointment = ({ startDate, endDate, title }) => {
+      const {
+        onCommitChanges,
+        setAppointmentEndDate,
+        setAppointmentStartDate,
+        setAppointmentTitle,
+      } = this.props;
+
+      const appointment = {};
+      const a = setAppointmentTitle(appointment, title);
+      const b = setAppointmentStartDate(a, startDate);
+      const c = setAppointmentEndDate(b, endDate);
+      onCommitChanges({ added: c });
     };
   }
 
   render() {
-    const {
-      setAppointmentStartDate,
-      setAppointmentEndDate,
-      setAppointmentTitle,
-    } = this.props;
-
     return (
       <Plugin
         name="EditingState"
       >
-        <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
+        {/* <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
         <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
-        <Getter name="setAppointmentTitle" value={setAppointmentTitle} />
+        <Getter name="setAppointmentTitle" value={setAppointmentTitle} /> */}
 
         <Action name="addAppointment" action={this.addAppointment} />
         <Action name="deleteAppointment" action={this.deleteAppointment} />
@@ -48,10 +52,7 @@ EditingState.propTypes = {
 };
 
 EditingState.defaultProps = {
-  setAppointmentStartDate:
-    (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
-  setAppointmentEndDate:
-    (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
-  setAppointmentTitle:
-    (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
+  setAppointmentStartDate: (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
+  setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
+  setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
 };

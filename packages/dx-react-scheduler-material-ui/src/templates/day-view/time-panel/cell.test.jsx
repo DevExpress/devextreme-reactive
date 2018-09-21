@@ -31,5 +31,13 @@ describe('Week View TimePanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
+    it('should render content', () => {
+      const tree = shallow((
+        <Cell {...defaultProps} />
+      ));
+
+      expect(tree.find(`.${classes.text}`).exists())
+        .toBeTruthy();
+    });
   });
 });

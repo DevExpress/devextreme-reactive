@@ -168,7 +168,6 @@ export class DayView extends React.PureComponent {
           </TemplateConnector>
         </Template>
 
-
         <Template name="sidebar">
           <TemplateConnector>
             {({ timeScale, currentView }) => {
@@ -183,7 +182,6 @@ export class DayView extends React.PureComponent {
             }}
           </TemplateConnector>
         </Template>
-
 
         <Template name="main">
           <TemplateConnector>

@@ -27,7 +27,7 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows },
 ) => tableHeaderRowsWithReordering(tableHeaderRows);
 
-class RawTableColumnReordering extends React.PureComponent {
+class TableColumnReorderingRaw extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -226,7 +226,7 @@ class RawTableColumnReordering extends React.PureComponent {
   }
 }
 
-RawTableColumnReordering.propTypes = {
+TableColumnReorderingRaw.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
@@ -235,13 +235,13 @@ RawTableColumnReordering.propTypes = {
   cellComponent: PropTypes.func.isRequired,
 };
 
-RawTableColumnReordering.defaultProps = {
+TableColumnReorderingRaw.defaultProps = {
   order: undefined,
   defaultOrder: [],
   onOrderChange: undefined,
 };
 
-RawTableColumnReordering.components = {
+TableColumnReorderingRaw.components = {
   tableContainerComponent: 'TableContainer',
   rowComponent: 'Row',
   cellComponent: 'Cell',
@@ -259,4 +259,4 @@ const TableContainer = ({
   </DropTarget>
 );
 
-export const TableColumnReordering = withComponents({ TableContainer })(RawTableColumnReordering);
+export const TableColumnReordering = withComponents({ TableContainer })(TableColumnReorderingRaw);

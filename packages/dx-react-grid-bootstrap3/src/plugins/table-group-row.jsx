@@ -1,20 +1,10 @@
 import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableGroupRow as TableGroupRowBase } from '@devexpress/dx-react-grid';
-import { TableGroupCell } from '../templates/table-group-row-cell';
-import { TableRow } from '../templates/table-row';
+import { TableGroupCell as Cell } from '../templates/table-group-row-cell';
+import { TableRow as Row } from '../templates/table-row';
 
-export class TableGroupRow extends React.PureComponent {
-  render() {
-    return (
-      <TableGroupRowBase
-        cellComponent={TableGroupCell}
-        rowComponent={TableRow}
-        indentColumnWidth={33}
-        {...this.props}
-      />
-    );
-  }
-}
+const TableGroupRowWithIndent = props => <TableGroupRowBase indentColumnWidth={33} {...props} />;
+TableGroupRowWithIndent.components = TableGroupRowBase.components;
 
-TableGroupRow.Row = TableRow;
-TableGroupRow.Cell = TableGroupCell;
+export const TableGroupRow = withComponents({ Row, Cell })(TableGroupRowWithIndent);

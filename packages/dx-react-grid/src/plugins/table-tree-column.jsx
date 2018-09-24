@@ -131,3 +131,11 @@ TableTreeColumn.defaultProps = {
   showSelectionControls: false,
   showSelectAll: false,
 };
+
+TableTreeColumn.components = {
+  cellComponent: 'Cell',
+  contentComponent: 'Content',
+  indentComponent: 'Indent',
+  expandButtonComponent: 'ExpandButton',
+  checkboxComponent: 'Checkbox',
+};

@@ -91,6 +91,12 @@ exports.createPages = ({ graphql, actions }) => {
 };
 
 const setupFileSynchronization = (src, dest) => {
+  try {
+    fs.unlinkSync(dest);
+  } catch (e) { /**/ }
+  try {
+    fs.linkSync(src, dest);
+  } catch (e) { /**/ }
   fs.watchFile(src, () => {
     try {
       fs.unlinkSync(dest);

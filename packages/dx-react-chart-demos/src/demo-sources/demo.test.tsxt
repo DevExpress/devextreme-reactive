@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
+import Demo from './<%&demoName%>';
+
+setupConsole();
+
+/* tslint:disable-next-line:no-empty */
+(Element.prototype as any).getBBox = () => {};
+jest.spyOn((Element.prototype as any), 'getBBox').mockImplementation(() => ({
+  height: 600,
+  width: 800,
+  x: 0,
+  y: 0,
+}));
+
+/* tslint:disable-next-line:no-empty */
+window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));
+
+it('should not fail', () => {
+  expect(() => { mount(<Demo />); })
+    .not.toThrow();
+});

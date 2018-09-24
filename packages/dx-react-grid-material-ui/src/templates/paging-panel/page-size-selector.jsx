@@ -8,24 +8,16 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
-    float: 'right',
     paddingRight: theme.spacing.unit * 5,
   },
   label: {
     paddingRight: theme.spacing.unit * 3,
-    lineHeight: `${theme.spacing.unit * 5}px`,
-    float: 'left',
-  },
-  pageSizes: {
-    display: 'inline-block',
   },
   pageSizeTitle: {
     width: 'auto',
     marginRight: theme.spacing.unit / 2,
   },
   inputRoot: {
-    paddingTop: theme.spacing.unit * 0.75,
-    float: 'right',
     fontSize: theme.spacing.unit * 1.75,
     textAlign: 'right',
   },

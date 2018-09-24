@@ -46,7 +46,7 @@
     "@devexpress/dx-react-scheduler": "1.8.0-beta.1",
     "@devexpress/dx-scheduler-core": "1.8.0-beta.1",
     "@devexpress/dx-testing": "1.8.0-beta.1",
-    "@material-ui/core": "^3.0.1",
+    "@material-ui/core": "^3.1.1",
     "@material-ui/icons": "^3.0.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",

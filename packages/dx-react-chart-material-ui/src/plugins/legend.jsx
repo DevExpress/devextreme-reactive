@@ -1,25 +1,8 @@
-import * as React from 'react';
-import { Legend as LegendBase } from '@devexpress/dx-react-chart';
+import { Legend as LegendBase, withComponents } from '@devexpress/dx-react-chart';
 import { Root } from '../templates/legend/root';
-import { Item } from '../templates/legend/item';
 import { Label } from '../templates/legend/label';
-import { Marker } from '../templates/legend/marker';
+import { Item } from '../templates/legend/item';
 
-export class Legend extends React.PureComponent {
-  render() {
-    return (
-      <LegendBase
-        labelComponent={Label}
-        markerComponent={Marker}
-        rootComponent={Root}
-        itemComponent={Item}
-        {...this.props}
-      />
-    );
-  }
-}
-
-Legend.Root = Root;
-Legend.Marker = Marker;
-Legend.Label = Label;
-Legend.Item = Item;
+export const Legend = withComponents({
+  Root, Item, Label,
+})(LegendBase);

@@ -19,6 +19,20 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
 
+const defaultMessages = {
+  filterPlaceholder: 'Filter...',
+  contains: 'Contains',
+  notContains: 'Does not contain',
+  startsWith: 'Starts with',
+  endsWith: 'Ends with',
+  equal: 'Equals',
+  notEqual: 'Does not equal',
+  greaterThan: 'Greater than',
+  greaterThanOrEqual: 'Greater than or equal to',
+  lessThan: 'Less than',
+  lessThanOrEqual: 'Less than or equal to',
+};
+
 export class TableFilterRow extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -40,7 +54,7 @@ export class TableFilterRow extends React.PureComponent {
       messages,
     } = this.props;
 
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     const tableHeaderRowsComputed = (
       { tableHeaderRows },
@@ -146,7 +160,19 @@ export class TableFilterRow extends React.PureComponent {
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,
   showFilterSelector: PropTypes.bool,
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    filterPlaceholder: PropTypes.string,
+    contains: PropTypes.string,
+    notContains: PropTypes.string,
+    startsWith: PropTypes.string,
+    endsWith: PropTypes.string,
+    equal: PropTypes.string,
+    notEqual: PropTypes.string,
+    greaterThan: PropTypes.string,
+    greaterThanOrEqual: PropTypes.string,
+    lessThan: PropTypes.string,
+    lessThanOrEqual: PropTypes.string,
+  }),
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   filterSelectorComponent: PropTypes.func.isRequired,
@@ -158,4 +184,12 @@ TableFilterRow.defaultProps = {
   rowHeight: undefined,
   showFilterSelector: false,
   messages: {},
+};
+
+TableFilterRow.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  filterSelectorComponent: 'FilterSelector',
+  iconComponent: 'Icon',
+  editorComponent: 'Editor',
 };

@@ -1,21 +1,22 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withPatchedProps } from './patch-props';
 
-export const withColor = (Series) => {
-  const ColorizedSeries = ({
-    colorDomain, uniqueName, color: seriesColor, ...restProps
-  }) => {
-    const color = colorDomain(uniqueName);
-    return <Series color={seriesColor || color} {...restProps} />;
-  };
-  ColorizedSeries.propTypes = {
+const withColorCore = withPatchedProps(({
+  colorDomain, uniqueName, color, ...restProps
+}) => ({
+  color: color || colorDomain(uniqueName),
+  ...restProps,
+}));
+
+export const withColor = (Target) => {
+  const ColoredTarget = withColorCore(Target);
+  ColoredTarget.propTypes = {
     color: PropTypes.string,
     colorDomain: PropTypes.func.isRequired,
     uniqueName: PropTypes.string.isRequired,
   };
-  ColorizedSeries.defaultProps = {
+  ColoredTarget.defaultProps = {
     color: undefined,
   };
-
-  return ColorizedSeries;
+  return ColoredTarget;
 };

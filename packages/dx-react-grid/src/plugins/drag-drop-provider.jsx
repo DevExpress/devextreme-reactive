@@ -71,3 +71,8 @@ DragDropProvider.propTypes = {
   containerComponent: PropTypes.func.isRequired,
   columnComponent: PropTypes.func.isRequired,
 };
+
+DragDropProvider.components = {
+  containerComponent: 'Container',
+  columnComponent: 'Column',
+};

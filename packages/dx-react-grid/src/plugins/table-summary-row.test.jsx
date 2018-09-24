@@ -230,7 +230,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.totalSummaryValues,
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('count:\xa0\xa010');
+      .toBe('Count:\xa0\xa010');
   });
 
   it('should render group summary cell on user-defined column and group summary row intersection', () => {
@@ -263,7 +263,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.groupSummaryValues.g,
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('sum:\xa0\xa020');
+      .toBe('Sum:\xa0\xa020');
   });
 
   it('should render tree summary cell on user-defined column and tree summary row intersection', () => {
@@ -296,7 +296,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.treeSummaryValues[1],
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('max:\xa0\xa030');
+      .toBe('Max:\xa0\xa030');
   });
 
   it('should render tree summary cell on tree column and tree summary row intersection', () => {
@@ -341,6 +341,6 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.treeSummaryValues[1],
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('max:\xa0\xa030');
+      .toBe('Max:\xa0\xa030');
   });
 });

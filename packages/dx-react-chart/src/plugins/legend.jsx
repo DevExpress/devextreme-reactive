@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-
 import {
   Plugin,
   TemplateConnector,
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { Marker } from '../templates/legend/marker';
+import { withComponents } from '../utils';
 
-export class Legend extends React.PureComponent {
+class RawLegend extends React.PureComponent {
   render() {
     const {
-      markerComponent: Marker,
+      markerComponent: MarkerComponent,
       labelComponent: Label,
       rootComponent: Root,
       itemComponent: Item,
@@ -25,20 +26,19 @@ export class Legend extends React.PureComponent {
           <TemplateConnector>
             {({
               series,
+              domains,
+              argumentAxisName,
               colorDomain,
+              items,
             }) => (
               <Root name={`legend-${placeholder}`}>
-                {colorDomain.domain().map((domainName) => {
-                  const { name, color } = series.find(({
-                    uniqueName,
-                  }) => uniqueName === domainName);
-                  return (
-                    <Item key={domainName}>
-                      <Marker name={name} color={color || colorDomain(domainName)} />
-                      <Label text={name} />
+                {items(series, domains[argumentAxisName].domain)
+                  .map(({ uniqueName, color }) => (
+                    <Item key={uniqueName}>
+                      <MarkerComponent name={uniqueName} color={color || colorDomain(uniqueName)} />
+                      <Label text={uniqueName} />
                     </Item>
-                  );
-                })}
+                  ))}
               </Root>
             )}
           </TemplateConnector>
@@ -48,7 +48,7 @@ export class Legend extends React.PureComponent {
   }
 }
 
-Legend.propTypes = {
+RawLegend.propTypes = {
   markerComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
   rootComponent: PropTypes.func.isRequired,
@@ -56,6 +56,15 @@ Legend.propTypes = {
   position: PropTypes.string,
 };
 
-Legend.defaultProps = {
+RawLegend.defaultProps = {
   position: 'right',
 };
+
+RawLegend.components = {
+  rootComponent: 'Root',
+  itemComponent: 'Item',
+  markerComponent: 'Marker',
+  labelComponent: 'Label',
+};
+
+export const Legend = withComponents({ Marker })(RawLegend);

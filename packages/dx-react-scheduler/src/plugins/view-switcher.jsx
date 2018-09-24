@@ -48,3 +48,7 @@ export class ViewSwitcher extends React.PureComponent {
 ViewSwitcher.propTypes = {
   switcherComponent: PropTypes.func.isRequired,
 };
+
+ViewSwitcher.components = {
+  switcherComponent: 'Switcher',
+};

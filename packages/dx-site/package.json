@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "dx-site",
+  "name": "@devexpress/dx-site",
   "description": "DevExtreme Reactive Site",
   "version": "1.8.0-beta.1",
   "author": {
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build:prod": "gatsby build --prefix-paths",
     "build:watch": "gatsby develop",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"

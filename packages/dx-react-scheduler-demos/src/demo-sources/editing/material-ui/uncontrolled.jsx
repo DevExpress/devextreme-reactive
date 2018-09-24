@@ -51,6 +51,8 @@ export default class Demo extends React.PureComponent {
         >
           <EditingState
             onCommitChanges={this.commitChanges}
+            // disableAdding
+            // disableDeleting
           />
 
           <WeekView

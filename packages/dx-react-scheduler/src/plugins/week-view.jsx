@@ -19,6 +19,7 @@ import {
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
   VERTICAL_APPOINTMENT_TYPE,
+  prepareToAdding,
 } from '@devexpress/dx-scheduler-core';
 
 const DAYS_IN_WEEK = 7;
@@ -216,6 +217,10 @@ export class WeekView extends React.PureComponent {
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
+              const createNewAppointment = addAppointment
+                ? appointmentMeta => prepareToAdding(addAppointment, { ...appointmentMeta, title: 'No Title' })
+                : undefined;
+
               return (
                 <React.Fragment>
                   <DateTable
@@ -224,7 +229,7 @@ export class WeekView extends React.PureComponent {
                     timeScale={timeScale}
                     dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
-                    addAppointment={addAppointment}
+                    createNewAppointment={createNewAppointment}
                   />
                   <Container>
                     {rects.map(({

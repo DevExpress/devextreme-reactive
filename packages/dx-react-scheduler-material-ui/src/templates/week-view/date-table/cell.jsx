@@ -24,16 +24,24 @@ const CellBase = ({
   children,
   time,
   date,
+  createNewAppointment,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+}) => {
+  const onDoubleClick = createNewAppointment
+    ? {
+      onDoubleClick: () => createNewAppointment({ date, start: time.start, end: time.end }),
+    } : null;
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames(classes.cell, className)}
+      {...onDoubleClick}
+      {...restProps}
+    >
+      {children}
+    </TableCell>
+  );
+};
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -41,12 +49,14 @@ CellBase.propTypes = {
   date: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
+  addAppointment: PropTypes.func,
 };
 
 CellBase.defaultProps = {
   children: null,
   date: undefined,
   className: undefined,
+  addAppointment: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

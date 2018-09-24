@@ -1,24 +1,31 @@
 import * as React from 'react';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
+  let resetConsole;
   const defaultProps = {
     onValueChange: () => {},
   };
 
-  let shallow;
+  let mount;
   let classes;
 
   beforeAll(() => {
     classes = getClasses(<EditCell onValueChange={() => {}} />);
-    shallow = createShallow({ dive: true });
+    mount = createMount();
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+  });
+
+  afterAll(() => {
+    resetConsole();
   });
 
   it('should render without exceptions', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         value=""
@@ -29,26 +36,25 @@ describe('EditCell', () => {
 
   it('should work with editor properly', () => {
     const onValueChange = jest.fn();
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         value="test"
         onValueChange={onValueChange}
       />
     ));
-
     const input = tree.find(Input);
 
     expect(input.props()).toMatchObject({
       value: 'test',
     });
 
-    input.simulate('change', { target: { value: 'changed' } });
+    input.props().onChange({ target: { value: 'changed' } });
     expect(onValueChange.mock.calls).toHaveLength(1);
     expect(onValueChange.mock.calls[0][0]).toBe('changed');
   });
 
   it('should take column align into account', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         value=""
@@ -56,14 +62,13 @@ describe('EditCell', () => {
     ));
 
     const inputRoot = tree.find(Input);
-    const input = inputRoot.dive().dive().find('input');
-
+    const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeFalsy();
   });
 
   it('should take column align into account if align is "right"', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         value=""
@@ -71,13 +76,13 @@ describe('EditCell', () => {
       />
     ));
     const inputRoot = tree.find(Input);
-    const input = inputRoot.dive().dive().find('input');
+    const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputRight)).toBeTruthy();
   });
 
   it('should take column align into account if align is "center"', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         value=""
@@ -85,13 +90,13 @@ describe('EditCell', () => {
       />
     ));
     const inputRoot = tree.find(Input);
-    const input = inputRoot.dive().dive().find('input');
+    const input = inputRoot.find('input');
     expect(inputRoot.hasClass(classes.inputRoot)).toBeTruthy();
     expect(input.hasClass(classes.inputCenter)).toBeTruthy();
   });
 
   it('should pass style to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         value="a"
@@ -109,7 +114,7 @@ describe('EditCell', () => {
   });
 
   it('should render children if passed', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
       >
@@ -122,21 +127,21 @@ describe('EditCell', () => {
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((
+    const cell = mount((
       <EditCell
         {...defaultProps}
         className="custom-class"
       />
-    ));
+    )).find(TableCell);
 
-    expect(tree.is('.custom-class'))
+    expect(cell.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is(`.${classes.cell}`))
+    expect(cell.is(`.${classes.cell}`))
       .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         data={{ a: 1 }}
@@ -148,7 +153,7 @@ describe('EditCell', () => {
   });
 
   it('should render disabled editor if editing is not allowed', () => {
-    const tree = shallow((
+    const tree = mount((
       <EditCell
         {...defaultProps}
         editingEnabled={false}

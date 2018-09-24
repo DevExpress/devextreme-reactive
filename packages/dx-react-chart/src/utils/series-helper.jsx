@@ -11,6 +11,9 @@ import {
   findSeriesByName, xyScales, seriesData, checkZeroStart,
 } from '@devexpress/dx-chart-core';
 
+// TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
+const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
+
 export const withSeriesPlugin = (
   Series,
   pluginName,
@@ -24,6 +27,7 @@ export const withSeriesPlugin = (
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
+        isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
         uniqueName: seriesName,
       });
@@ -50,8 +54,10 @@ export const withSeriesPlugin = (
               }) => {
                 const {
                   name, axisName, argumentField, valueField, groupWidth, stack,
-                  // It is enumerated here only to prevent it from being passed to Series.
-                  symbolName: _,
+                  // The following props are enumerated here only to prevent them
+                  // from being passed to Series.
+                  symbolName: _symbolName,
+                  isStartedFromZero: _isStartedFromZero,
                   ...restProps
                 } = findSeriesByName(symbolName, series);
 

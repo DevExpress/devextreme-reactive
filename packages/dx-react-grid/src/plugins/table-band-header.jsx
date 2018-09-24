@@ -106,3 +106,10 @@ TableBandHeader.propTypes = {
   bandedHeaderCellComponent: PropTypes.func.isRequired,
   invisibleCellComponent: PropTypes.func.isRequired,
 };
+
+TableBandHeader.components = {
+  cellComponent: 'Cell',
+  rowComponent: 'Row',
+  bandedHeaderCellComponent: 'BandedHeaderCell',
+  invisibleCellComponent: 'InvisibleCell',
+};

@@ -1,0 +1,124 @@
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+  Title,
+  Legend,
+  Grid,
+} from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import { Scale } from '@devexpress/dx-react-chart';
+import { line, curveStep } from 'd3-shape';
+
+import { australianMedals as data } from '../../../demo-data/data-vizualization';
+
+const Line = props => (
+  <LineSeries.Path
+    {...props}
+    path={line()
+      .x(({ x }) => x)
+      .y(({ y }) => y)
+      .curve(curveStep)}
+  />
+);
+
+
+const legendStyles = () => ({
+  root: {
+    display: 'flex',
+    margin: 'auto',
+    flexDirection: 'row',
+  },
+});
+const legendRootBase = ({ classes, ...restProps }) => (
+  <Legend.Root {...restProps} className={classes.root} />
+);
+const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
+const legendLabelStyles = () => ({
+  label: {
+    whiteSpace: 'nowrap',
+  },
+});
+const legendLabelBase = ({ classes, ...restProps }) => (
+  <Legend.Label className={classes.label} {...restProps} />
+);
+const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
+
+const Marker = (props) => {
+  const { className, color, ...restProps } = props;
+  return (
+    <svg className={className} fill={color} width="10" height="10" {...restProps}>
+      <rect x={0} y={0} width={10} height={10} {...restProps} />
+    </svg>
+  );
+};
+const demoStyles = () => ({
+  title: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: '10px',
+  },
+});
+
+const format = () => tick => tick;
+const EmptyComponent = () => null;
+
+class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Paper>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <Grid />
+
+          <LineSeries
+            name="Bronze Medals"
+            valueField="bronze"
+            argumentField="year"
+            color="#cd7f32"
+            seriesComponent={Line}
+          />
+          <LineSeries
+            name="Silver Medals"
+            valueField="silver"
+            argumentField="year"
+            color="#c0c0c0"
+            seriesComponent={Line}
+          />
+          <LineSeries
+            name="Gold Medals"
+            valueField="gold"
+            argumentField="year"
+            color="#ffd700"
+            seriesComponent={Line}
+          />
+          <Legend position="bottom" rootComponent={Root} labelComponent={Label} markerComponent={Marker} />
+          <Title
+            text="Australian Medal Count"
+            className={classes.title}
+          />
+          <Scale />
+        </Chart>
+      </Paper>
+    );
+  }
+}
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

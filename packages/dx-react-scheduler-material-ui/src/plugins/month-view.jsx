@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
-import { MonthLayout } from '../templates/views/month-layout';
+import { MonthLayout as Layout } from '../templates/views/month-layout';
 
 import { Row } from '../templates/month-view/row';
 
@@ -12,32 +12,13 @@ import { Cell as DateTableCell } from '../templates/month-view/date-table/cell';
 
 import { Container } from '../templates/appointment/container';
 
-export class MonthView extends React.PureComponent {
-  render() {
-    return (
-      <MonthViewBase
-        layoutComponent={MonthLayout}
-        containerComponent={Container}
-
-        dayPanelLayoutComponent={DayPanelLayout}
-        dayPanelCellComponent={DayPanelCell}
-        dayPanelRowComponent={Row}
-
-        dateTableLayoutComponent={DateTableLayout}
-        dateTableCellComponent={DateTableCell}
-        dateTableRowComponent={Row}
-        {...this.props}
-      />
-    );
-  }
-}
-
-MonthView.Container = Container;
-
-MonthView.DayPanelLayout = DayPanelLayout;
-MonthView.DayPanelCell = DayPanelCell;
-MonthView.DayPanelRow = Row;
-
-MonthView.DateTableLayout = DateTableLayout;
-MonthView.DateTableCell = DateTableCell;
-MonthView.DateTableRow = Row;
+export const MonthView = withComponents({
+  Layout,
+  Container,
+  DayPanelLayout,
+  DayPanelCell,
+  DayPanelRow: Row,
+  DateTableLayout,
+  DateTableCell,
+  DateTableRow: Row,
+})(MonthViewBase);

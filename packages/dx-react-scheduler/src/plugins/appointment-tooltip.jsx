@@ -138,3 +138,10 @@ AppointmentTooltip.defaultProps = {
   showDeleteButton: false,
   showCloseButton: false,
 };
+
+AppointmentTooltip.components = {
+  layoutComponent: 'Layout',
+  headComponent: 'Head',
+  contentComponent: 'Content',
+  commandButtonComponent: 'CommandButton',
+};

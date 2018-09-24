@@ -1,14 +1,4 @@
-import { axisName, prepareData } from './computeds';
-
-describe('Axis name', () => {
-  it('should return axis name, have to be passed', () => {
-    expect(axisName('axisName')).toBe('axisName');
-  });
-
-  it('should return default axis name', () => {
-    expect(axisName()).toBe('argumentAxis');
-  });
-});
+import { prepareData } from './computeds';
 
 describe('Prepare data', () => {
   it('should return data with extra fields', () => {

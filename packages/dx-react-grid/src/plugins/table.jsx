@@ -30,6 +30,10 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
 
+const defaultMessages = {
+  noData: 'No data',
+};
+
 export class Table extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -60,7 +64,7 @@ export class Table extends React.PureComponent {
       footerComponent,
     } = this.props;
 
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = this.tableColumnsComputed(columnExtensions);
 
     return (
@@ -211,10 +215,28 @@ Table.propTypes = {
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    noData: PropTypes.string,
+  }),
 };
 
 Table.defaultProps = {
   columnExtensions: undefined,
   messages: {},
+};
+
+Table.components = {
+  tableComponent: 'Table',
+  headComponent: 'TableHead',
+  bodyComponent: 'TableBody',
+  footerComponent: 'TableFooter',
+  containerComponent: 'Container',
+  layoutComponent: 'Layout',
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  noDataRowComponent: 'NoDataRow',
+  noDataCellComponent: 'NoDataCell',
+  stubRowComponent: 'StubRow',
+  stubCellComponent: 'StubCell',
+  stubHeaderCellComponent: 'StubHeaderCell',
 };

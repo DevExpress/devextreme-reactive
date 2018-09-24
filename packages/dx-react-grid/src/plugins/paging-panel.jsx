@@ -11,6 +11,11 @@ const pluginDependencies = [
   { name: 'PagingState' },
 ];
 
+const defaultMessages = {
+  showAll: 'All',
+  info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`,
+};
+
 export class PagingPanel extends React.PureComponent {
   render() {
     const {
@@ -18,7 +23,7 @@ export class PagingPanel extends React.PureComponent {
       pageSizes,
       messages,
     } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
       <Plugin
@@ -50,10 +55,20 @@ export class PagingPanel extends React.PureComponent {
 PagingPanel.propTypes = {
   pageSizes: PropTypes.arrayOf(PropTypes.number),
   containerComponent: PropTypes.func.isRequired,
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    showAll: PropTypes.string,
+    info: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
+  }),
 };
 
 PagingPanel.defaultProps = {
   pageSizes: [],
   messages: {},
+};
+
+PagingPanel.components = {
+  containerComponent: 'Container',
 };

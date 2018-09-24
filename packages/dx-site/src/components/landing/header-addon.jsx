@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import styles from './landing-header-addon.module.scss';
+import styles from './header-addon.module.scss';
 
-const LandingHeaderAddon = ({ main, additional, imageLink }) => (
+const HeaderAddon = ({ main, additional, imageLink }) => (
   <div className={styles.cropper}>
     <div className="container">
       <div className={`row ${styles.container}`}>
@@ -28,14 +28,14 @@ const LandingHeaderAddon = ({ main, additional, imageLink }) => (
   </div>
 );
 
-LandingHeaderAddon.propTypes = {
+HeaderAddon.propTypes = {
   main: PropTypes.node.isRequired,
   additional: PropTypes.node.isRequired,
   imageLink: PropTypes.string,
 };
 
-LandingHeaderAddon.defaultProps = {
+HeaderAddon.defaultProps = {
   imageLink: undefined,
 };
 
-export default LandingHeaderAddon;
+export default HeaderAddon;

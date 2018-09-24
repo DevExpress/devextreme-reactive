@@ -10,6 +10,7 @@ const styles = theme => ({
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
     display: 'flex',
+    flex: 'none',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },

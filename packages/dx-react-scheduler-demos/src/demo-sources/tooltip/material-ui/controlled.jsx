@@ -14,8 +14,7 @@ import appointments from '../../../demo-data/today-appointments';
 const styles = theme => ({
   button: {
     color: theme.palette.background.default,
-    width: theme.spacing.unit * 2.5,
-    height: theme.spacing.unit * 2.5,
+    padding: 0,
   },
   text: {
     paddingTop: theme.spacing.unit,
@@ -44,7 +43,7 @@ const AppointmentBase = ({
         onAppointmentMetaChange({ target: target.parentElement.parentElement, appointment });
       }}
     >
-      <InfoIcon />
+      <InfoIcon fontSize="small" />
     </IconButton>
     <div className={classes.text}>
       {appointment.title}

@@ -33,11 +33,21 @@ pointAttributes.mockImplementation(() => () => ({
   d: 'M12 12',
 }));
 
-findSeriesByName.mockImplementation(() => ({
+const defaultProps = {
+  name: 'val1',
   axisName: 'axisName',
   argumentField: 'arg',
   valueField: 'val',
+};
+
+findSeriesByName.mockImplementation(() => ({
+  ...defaultProps,
   stack: 'stack',
+  styles: 'styles',
+  point: { size: 5 },
+  uniqueName: 'uniqueSeriesName',
+  seriesComponent: PointCollection,
+  pointComponent: PointComponent,
 }));
 
 xyScales.mockImplementation();
@@ -53,18 +63,6 @@ describe('Scatter series', () => {
     template: {
       series: {},
     },
-  };
-
-  const defaultProps = {
-    seriesComponent: PointCollection,
-    pointComponent: PointComponent,
-    name: 'val1',
-    styles: 'styles',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    point: { size: 5 },
-    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render points', () => {

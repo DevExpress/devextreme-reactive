@@ -25,6 +25,212 @@ export const born = [
   },
 ];
 
+export const australianMedals = [
+  {
+    year: 1896, gold: 2, silver: 0, bronze: 0,
+  }, {
+    year: 1900, gold: 2, silver: 0, bronze: 3,
+  }, {
+    year: 1904, gold: 0, silver: 0, bronze: 0,
+  }, {
+    year: 1908, gold: 1, silver: 2, bronze: 2,
+  }, {
+    year: 1912, gold: 2, silver: 2, bronze: 3,
+  }, {
+    year: 1916, gold: 0, silver: 0, bronze: 0,
+  }, {
+    year: 1920, gold: 0, silver: 2, bronze: 1,
+  }, {
+    year: 1924, gold: 3, silver: 1, bronze: 2,
+  }, {
+    year: 1928, gold: 1, silver: 2, bronze: 1,
+  }, {
+    year: 1932, gold: 3, silver: 1, bronze: 1,
+  }, {
+    year: 1936, gold: 0, silver: 0, bronze: 1,
+  }, {
+    year: 1940, gold: 0, silver: 0, bronze: 0,
+  }, {
+    year: 1944, gold: 0, silver: 0, bronze: 0,
+  }, {
+    year: 1948, gold: 2, silver: 6, bronze: 5,
+  }, {
+    year: 1952, gold: 6, silver: 2, bronze: 3,
+  }, {
+    year: 1956, gold: 13, silver: 8, bronze: 14,
+  }, {
+    year: 1960, gold: 8, silver: 8, bronze: 6,
+  }, {
+    year: 1964, gold: 6, silver: 2, bronze: 10,
+  }, {
+    year: 1968, gold: 5, silver: 7, bronze: 5,
+  }, {
+    year: 1972, gold: 8, silver: 7, bronze: 2,
+  }, {
+    year: 1976, gold: 0, silver: 1, bronze: 4,
+  }, {
+    year: 1980, gold: 2, silver: 2, bronze: 5,
+  }, {
+    year: 1984, gold: 4, silver: 8, bronze: 12,
+  }, {
+    year: 1988, gold: 3, silver: 6, bronze: 5,
+  }, {
+    year: 1992, gold: 7, silver: 9, bronze: 11,
+  }, {
+    year: 1996, gold: 9, silver: 9, bronze: 23,
+  }, {
+    year: 2000, gold: 16, silver: 25, bronze: 17,
+  }, {
+    year: 2004, gold: 17, silver: 16, bronze: 16,
+  }, {
+    year: 2008, gold: 14, silver: 15, bronze: 17,
+  },
+];
+
+export const bitcoin = [
+  { date: new Date(2015, 10, 15), price: 346 },
+  { date: new Date(2015, 11, 17), price: 441 },
+  { date: new Date(2016, 0, 16), price: 435 },
+  { date: new Date(2016, 1, 21), price: 415 },
+  { date: new Date(2016, 3, 25), price: 445 },
+  { date: new Date(2016, 4, 29), price: 460 },
+  { date: new Date(2016, 5, 20), price: 730 },
+  { date: new Date(2016, 7, 5), price: 600 },
+  { date: new Date(2016, 8, 14), price: 617 },
+  { date: new Date(2016, 9, 30), price: 674 },
+  { date: new Date(2016, 11, 21), price: 785 },
+  { date: new Date(2017, 0, 8), price: 991 },
+  { date: new Date(2017, 1, 9), price: 1028 },
+  { date: new Date(2017, 2, 9), price: 1251 },
+  { date: new Date(2017, 3, 6), price: 1103 },
+  { date: new Date(2017, 4, 4), price: 1392 },
+  { date: new Date(2017, 5, 11), price: 2747 },
+  { date: new Date(2017, 6, 19), price: 2203 },
+  { date: new Date(2017, 7, 18), price: 4114 },
+  { date: new Date(2017, 8, 19), price: 3840 },
+  { date: new Date(2017, 9, 19), price: 5591 },
+  { date: new Date(2017, 10, 14), price: 6716 },
+  { date: new Date(2017, 11, 22), price: 17905 },
+  { date: new Date(2018, 0, 23), price: 11438 },
+  { date: new Date(2018, 1, 10), price: 8125 },
+  { date: new Date(2018, 2, 6), price: 11079 },
+  { date: new Date(2018, 3, 7), price: 6913 },
+  { date: new Date(2018, 4, 9), price: 9511 },
+  { date: new Date(2018, 5, 6), price: 7553 },
+  { date: new Date(2018, 6, 18), price: 6400 },
+];
+
+export const population = [{
+  state: 'USA', maleyoung: 29.956, malemiddle: 90.354, maleolder: 14.472, femaleyoung: 28.597, femalemiddle: 91.827, femaleolder: 20.362,
+}, {
+  state: 'Brazil', maleyoung: 25.607, malemiddle: 55.793, maleolder: 3.727, femaleyoung: 24.67, femalemiddle: 57.598, femaleolder: 5.462,
+}, {
+  state: 'Russia', maleyoung: 13.493, malemiddle: 48.983, maleolder: 5.802, femaleyoung: 12.971, femalemiddle: 52.14, femaleolder: 12.61,
+}, {
+  state: 'Japan', maleyoung: 9.575, malemiddle: 43.363, maleolder: 9.024, femaleyoung: 9.105, femalemiddle: 42.98, femaleolder: 12.501,
+}, {
+  state: 'Mexico', maleyoung: 17.306, malemiddle: 30.223, maleolder: 1.927, femaleyoung: 16.632, femalemiddle: 31.868, femaleolder: 2.391,
+}, {
+  state: 'Germany', maleyoung: 6.679, malemiddle: 28.638, maleolder: 5.133, femaleyoung: 6.333, femalemiddle: 27.693, femaleolder: 8.318,
+}, {
+  state: 'United Kindom', maleyoung: 5.816, malemiddle: 19.622, maleolder: 3.864, femaleyoung: 5.519, femalemiddle: 19.228, femaleolder: 5.459,
+}];
+
+export const olimpicMedals = [{
+  country: 'USA',
+  gold: 36,
+  silver: 38,
+  bronze: 36,
+}, {
+  country: 'China',
+  gold: 51,
+  silver: 21,
+  bronze: 28,
+}, {
+  country: 'Russia',
+  gold: 23,
+  silver: 21,
+  bronze: 28,
+}, {
+  country: 'Britain',
+  gold: 19,
+  silver: 13,
+  bronze: 15,
+}, {
+  country: 'Australia',
+  gold: 14,
+  silver: 15,
+  bronze: 17,
+}, {
+  country: 'Germany',
+  gold: 16,
+  silver: 10,
+  bronze: 15,
+}];
+
+export const confidence = [
+  {
+    year: 1993, tvNews: 19, church: 29, military: 32,
+  }, {
+    year: 1995, tvNews: 13, church: 32, military: 33,
+  }, {
+    year: 1997, tvNews: 14, church: 35, military: 30,
+  }, {
+    year: 1999, tvNews: 13, church: 32, military: 34,
+  }, {
+    year: 2001, tvNews: 15, church: 28, military: 32,
+  }, {
+    year: 2003, tvNews: 16, church: 27, military: 48,
+  }, {
+    year: 2006, tvNews: 12, church: 28, military: 41,
+  }, {
+    year: 2008, tvNews: 11, church: 26, military: 45,
+  }, {
+    year: 2010, tvNews: 10, church: 25, military: 44,
+  }, {
+    year: 2012, tvNews: 11, church: 25, military: 43,
+  }, {
+    year: 2014, tvNews: 10, church: 25, military: 39,
+  }, {
+    year: 2016, tvNews: 8, church: 20, military: 41,
+  }, {
+    year: 2018, tvNews: 10, church: 20, military: 43,
+  },
+];
+
+export const energyConsumption = [
+  {
+    country: 'USA', hydro: 59.8, oil: 937.6, gas: 582, coal: 564.3, nuclear: 187.9,
+  }, {
+    country: 'China', hydro: 74.2, oil: 308.6, gas: 35.1, coal: 956.9, nuclear: 11.3,
+  }, {
+    country: 'Russia', hydro: 40, oil: 128.5, gas: 361.8, coal: 105, nuclear: 32.4,
+  }, {
+    country: 'Japan', hydro: 22.6, oil: 241.5, gas: 64.9, coal: 120.8, nuclear: 64.8,
+  }, {
+    country: 'India', hydro: 19, oil: 119.3, gas: 28.9, coal: 204.8, nuclear: 3.8,
+  }, {
+    country: 'Germany', hydro: 6.1, oil: 123.6, gas: 77.3, coal: 85.7, nuclear: 37.8,
+  }];
+
+export const carbonEmmision = [
+  {
+    year: 1950, gas: 97, liquids: 423, solids: 1070, cementProduction: 18, gasFlaring: 23,
+  }, {
+    year: 1960, gas: 227, liquids: 849, solids: 1410, cementProduction: 43, gasFlaring: 39,
+  }, {
+    year: 1970, gas: 493, liquids: 1839, solids: 1556, cementProduction: 78, gasFlaring: 87,
+  }, {
+    year: 1980, gas: 737, liquids: 2422, solids: 1935, cementProduction: 120, gasFlaring: 86,
+  }, {
+    year: 1990, gas: 1026, liquids: 2492, solids: 2359, cementProduction: 157, gasFlaring: 40,
+  }, {
+    year: 2000, gas: 1289, liquids: 2845, solids: 2327, cementProduction: 226, gasFlaring: 46,
+  }, {
+    year: 2010, gas: 1696, liquids: 3107, solids: 3812, cementProduction: 446, gasFlaring: 67,
+  },
+];
+
 export const booksSale = [{
   year: 1970, mysteries: 9, scienceFiction: 16, romance: 5, fantasy: 4, thrillers: 19,
 }, {

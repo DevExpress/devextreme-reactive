@@ -25,17 +25,21 @@ export class Appointments extends React.PureComponent {
                 toggleTooltipVisibility,
                 setTooltipAppointmentMeta,
               }) => {
-                const onClick = ({ target, appointment }) => {
-                  toggleTooltipVisibility();
-                  setTooltipAppointmentMeta({ target, appointment });
-                };
+                const onClick = (toggleTooltipVisibility && setTooltipAppointmentMeta)
+                  ? {
+                    onClick: ({ target, appointment }) => {
+                      toggleTooltipVisibility();
+                      setTooltipAppointmentMeta({ target, appointment });
+                    },
+                  }
+                  : null;
                 return (
                   <Appointment
                     {...params}
+                    {...onClick}
                     getTitle={getAppointmentTitle}
                     getEndDate={getAppointmentEndDate}
                     getStartDate={getAppointmentStartDate}
-                    onClick={onClick}
                   />
                 );
               }}

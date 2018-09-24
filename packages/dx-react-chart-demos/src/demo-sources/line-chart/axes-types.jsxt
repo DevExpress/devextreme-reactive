@@ -1,0 +1,68 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  LineSeries,
+  Title,
+  Grid,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale } from '@devexpress/dx-react-chart';
+import { scaleLog, scaleTime } from 'd3-scale';
+
+import { bitcoin as data } from '../../../demo-data/data-vizualization';
+
+const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+const formatPower = d => (`${d}`).split('').map(c => superscript[c]).join('');
+const format = scale => scale.tickFormat(4, d => 10
+  + formatPower(Math.round(Math.log(d) / Math.LN10)));
+const EmptyComponent = () => null;
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis type="time" name="argumentAxis" />
+          <ValueAxis
+            type="log"
+            tickFormat={format}
+            min={100}
+            max={100000}
+            lineComponent={EmptyComponent}
+            tickSize={0}
+          />
+
+          <Grid />
+
+          <LineSeries
+            valueField="price"
+            argumentField="date"
+          />
+          <Title
+            text="Average USD market price across major bitcoin exchanges"
+            style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}
+          />
+          <Scale
+            extensions={[
+              { type: 'log', constructor: scaleLog },
+              { type: 'time', constructor: scaleTime },
+            ]}
+          />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

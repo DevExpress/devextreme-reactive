@@ -83,7 +83,7 @@ class RawAxis extends React.PureComponent {
     return (
       <Plugin name="Axis">
         <Getter name="axes" computed={getAxesDataComputed} />
-        {isArgumentAxis ? <Getter name="argumentAxisName" value={name || 'argumentAxis'} /> : null}
+        {isArgumentAxis && name ? <Getter name="argumentAxisName" value={name} /> : null}
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>

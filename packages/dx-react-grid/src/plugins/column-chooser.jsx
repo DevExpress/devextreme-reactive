@@ -107,3 +107,10 @@ ColumnChooser.propTypes = {
 ColumnChooser.defaultProps = {
   messages: {},
 };
+
+ColumnChooser.components = {
+  overlayComponent: 'Overlay',
+  containerComponent: 'Container',
+  itemComponent: 'Item',
+  toggleButtonComponent: 'ToggleButton',
+};

@@ -25,8 +25,22 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn(),
 }));
 
+const defaultProps = {
+  name: 'val1',
+  axisName: 'axisName',
+  valueField: 'valueField',
+  argumentField: 'argumentField',
+};
+
 findSeriesByName.mockImplementation(() => ({
+  ...defaultProps,
   stack: 'stack',
+  barWidth: 0.3,
+  styles: 'styles',
+  groupWidth: 0.6,
+  uniqueName: 'uniqueSeriesName',
+  seriesComponent: BarCollection,
+  pointComponent: PointComponent,
 }));
 
 barCoordinates.mockImplementation(() => coords);
@@ -41,19 +55,6 @@ describe('Bar series', () => {
     template: {
       series: {},
     },
-  };
-
-  const defaultProps = {
-    seriesComponent: BarCollection,
-    pointComponent: PointComponent,
-    name: 'val1',
-    styles: 'styles',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    barWidth: 0.3,
-    groupWidth: 0.6,
-    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render bars', () => {

@@ -18,6 +18,14 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
+const defaultMessages = {
+  addCommand: 'New',
+  editCommand: 'Edit',
+  deleteCommand: 'Delete',
+  commitCommand: 'Save',
+  cancelCommand: 'Cancel',
+};
+
 export class TableEditColumn extends React.PureComponent {
   render() {
     const {
@@ -30,7 +38,7 @@ export class TableEditColumn extends React.PureComponent {
       width,
       messages,
     } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithEditing(tableColumns, width);
 
     return (
@@ -144,7 +152,13 @@ TableEditColumn.propTypes = {
   showEditCommand: PropTypes.bool,
   showDeleteCommand: PropTypes.bool,
   width: PropTypes.number,
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    addCommand: PropTypes.string,
+    editCommand: PropTypes.string,
+    deleteCommand: PropTypes.string,
+    commitCommand: PropTypes.string,
+    cancelCommand: PropTypes.string,
+  }),
 };
 
 TableEditColumn.defaultProps = {
@@ -153,4 +167,10 @@ TableEditColumn.defaultProps = {
   showDeleteCommand: false,
   width: 140,
   messages: {},
+};
+
+TableEditColumn.components = {
+  cellComponent: 'Cell',
+  headerCellComponent: 'HeaderCell',
+  commandComponent: 'Command',
 };

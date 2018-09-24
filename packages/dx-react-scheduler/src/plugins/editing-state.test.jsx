@@ -23,4 +23,19 @@ describe('EditingState', () => {
     expect(defaultProps.onCommitChanges)
       .toBeCalledWith({ deleted: 10 });
   });
+
+  it('should provide addAppointment action', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <EditingState
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, actions => actions.addAppointment({ startDate: '1', endDate: '2', title: '3' }));
+    expect(defaultProps.onCommitChanges)
+      .toBeCalledWith({ added: { startDate: '1', endDate: '2', title: '3' } });
+  });
 });

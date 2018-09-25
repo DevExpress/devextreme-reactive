@@ -15,4 +15,3 @@ jobs:
       - run: yarn run build
       - run: yarn run lint
       - run: yarn run test -- -- -- --maxWorkers=2
-      - run: yarn run build:site:docs

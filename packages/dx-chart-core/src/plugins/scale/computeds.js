@@ -6,7 +6,10 @@ import {
 
 const isDefined = item => item !== undefined;
 
-const getValueDomainName = series => series.axisName || VALUE_DOMAIN;
+export const getValueDomainName = name => name || VALUE_DOMAIN;
+
+// TODO: Property name should not contain "axis" part.
+const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
 
 const calculateDomainField = (getFieldItemFirst, getFieldItemSecond, data, domain, type) => {
   const getCategories = (prev, cur) => {
@@ -39,7 +42,7 @@ const getFieldStack = (index, object) => (
 
 const calculateDomains = (domains, seriesList, data) => {
   seriesList.forEach((seriesItem) => {
-    const valueDomainName = getValueDomainName(seriesItem);
+    const valueDomainName = getSeriesValueDomainName(seriesItem);
     const { argumentField, valueField, name } = seriesItem;
     const argumentDomain = domains[ARGUMENT_DOMAIN];
     const valueDomain = domains[valueDomainName];
@@ -81,7 +84,7 @@ const collectDomains = (seriesList) => {
     [ARGUMENT_DOMAIN]: { domain: [], orientation: HORIZONTAL },
   };
   seriesList.forEach((seriesItem) => {
-    const name = getValueDomainName(seriesItem);
+    const name = getSeriesValueDomainName(seriesItem);
     const domain = domains[name] || { domain: [], orientation: VERTICAL };
     domains[name] = domain;
     domain.isStartedFromZero = domain.isStartedFromZero || seriesItem.isStartedFromZero;
@@ -118,14 +121,11 @@ const takeRestAxesOptions = (domains, axes) => {
 
 // TODO:
 // - add "axes" getter
-// - remove "argumentAxisName" getter
 // - remove "startFromZero" getter
 // - rename it to "computeDomains"
 // - rename "computedExtensions" to "computeExtensions"
 // - replace computed with value in "scaleExtension" getter
 // - rename "computedDomain" getter to "computeDomain"
-// - suppress "name" property in ArgumentAxis
-// - use "getValueDomainName" in ValueAxis
 
 export const domains = (axes = [], series, data) => {
   const result = collectDomains(series);

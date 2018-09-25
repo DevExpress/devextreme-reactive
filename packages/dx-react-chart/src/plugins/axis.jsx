@@ -8,13 +8,16 @@ import {
   Getter,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, axesData,
+  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
 import { withPatchedProps, withComponents } from '../utils';
+
+const getDomainName = (name, isArgumentAxis) => (
+  isArgumentAxis ? ARGUMENT_DOMAIN : getValueDomainName(name));
 
 class RawAxis extends React.PureComponent {
   constructor(props) {
@@ -79,24 +82,30 @@ class RawAxis extends React.PureComponent {
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
     } = this.props;
-    const getAxesDataComputed = ({ axes }) => axesData(axes, this.props);
+    const domainName = getDomainName(name, isArgumentAxis);
+    const getAxesDataComputed = ({ axes }) => axesData(axes, {
+      ...this.props,
+      name: domainName,
+    });
     return (
       <Plugin name="Axis">
         <Getter name="axes" computed={getAxesDataComputed} />
-        {isArgumentAxis && name ? <Getter name="argumentAxisName" value={name} /> : null}
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
               domains,
-              argumentAxisName,
               layouts,
               scaleExtension,
             }, {
               changeBBox,
             }) => {
+              // TODO: Take axis from "axes" getter.
               const placeholder = `${position}-axis`;
-              const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
+              const domain = domains[domainName];
+              // TODO_DEBUG
+              if (!domain) { throw new Error(`domain is not found: ${name}`); }
+              // TODO_DEBUG
               const { orientation, type } = domain;
               const { constructor } = scaleExtension.find(item => item.type === type);
               const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]

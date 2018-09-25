@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, seriesData, checkZeroStart, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
@@ -47,7 +47,6 @@ export const withSeriesPlugin = (
                 domains,
                 stacks,
                 data,
-                argumentAxisName,
                 layouts,
                 scaleExtension,
                 colorDomain,
@@ -62,8 +61,8 @@ export const withSeriesPlugin = (
                 } = findSeriesByName(symbolName, series);
 
                 const scales = xyScales(
-                  domains[argumentAxisName],
-                  domains[axisName],
+                  domains[ARGUMENT_DOMAIN],
+                  domains[getValueDomainName(axisName)],
                   layouts.pane,
                   groupWidth,
                   scaleExtension,

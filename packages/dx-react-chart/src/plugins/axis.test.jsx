@@ -115,7 +115,6 @@ describe('Axis', () => {
     expect(y).toBe(-0);
     expect(refsHandler).toEqual(expect.any(Function));
     expect(children).toEqual(expect.any(Object));
-    expect(getComputedState(tree).argumentAxisName).toBe('name');
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {

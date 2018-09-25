@@ -22,7 +22,6 @@ describe('Legend', () => {
       series: [{ name: 'first', color: 'color', uniqueName: 'first' }],
       colorDomain,
       domains: { argument: { domain: 'domain' } },
-      argumentAxisName: 'argument',
       items: series => series,
     },
     template: {

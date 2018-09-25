@@ -5,8 +5,8 @@ import { prepareData } from '@devexpress/dx-chart-core';
 const getData = ({ data, series, processingData }) => prepareData(data, series, processingData);
 
 const getDomains = ({
-  axes, series, data, argumentAxisName, startFromZero, computedDomain,
-}) => computedDomain(axes, series, data, argumentAxisName, startFromZero);
+  axes, series, data, computedDomain,
+}) => computedDomain(axes, series, data);
 
 const colorDomain = ({
   series, domains, argumentAxisName, items, paletteComputing,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
@@ -63,9 +63,8 @@ describe('Base series', () => {
       layouts: { pane: { height: 50, width: 60 } },
       data: 'data',
       series: 'series',
-      domains: { argumentAxisName: 'argumentDomain', axisName: 'valueDomain' },
+      domains: { [ARGUMENT_DOMAIN]: 'argumentDomain', axisName: 'valueDomain' },
       stacks: ['one', 'two'],
-      argumentAxisName: 'argumentAxisName',
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
     },

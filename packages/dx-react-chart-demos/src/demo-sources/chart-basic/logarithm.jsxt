@@ -4,7 +4,8 @@ import {
   ValueAxis,
   Chart,
   ScatterSeries,
-  Grid,
+  ArgumentGrid,
+  ValueGrid,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { scaleLog } from 'd3-scale';
@@ -57,15 +58,15 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
 
-          <ArgumentAxis name="argumentAxis" />
+          <ArgumentAxis />
           <ValueAxis
             type="log"
             max={5000e24}
             tickFormat={format}
           />
 
-          <Grid name="argumentAxis" />
-          <Grid />
+          <ArgumentGrid />
+          <ValueGrid />
 
           <ScatterSeries
             valueField="mass"

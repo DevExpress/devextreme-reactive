@@ -10,7 +10,7 @@ const getDomains = ({
 
 const colorDomain = ({
   series, domains, items, paletteComputing,
-}) => (paletteComputing(series, domains[ARGUMENT_DOMAIN].domain, items));
+}) => paletteComputing(series, domains[ARGUMENT_DOMAIN].domain, items);
 
 export const ChartCore = () => (
   <Plugin>

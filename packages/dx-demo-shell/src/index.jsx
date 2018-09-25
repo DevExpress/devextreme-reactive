@@ -88,6 +88,6 @@ export const initialize = ({
 
   window.deinitializeDemos = () => {
     embeddedDemoPlaceholders
-      .forEach(placeholder => unmountComponentAtNode(placeholder))
+      .forEach(placeholder => unmountComponentAtNode(placeholder));
   };
 };

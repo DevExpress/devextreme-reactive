@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  TabContent, TabPane, Nav, NavItem, NavLink,
+} from 'reactstrap';
 
 import { ThemeViewer } from './theme-viewer';
 import { DemoFrame } from './demo-frame';
@@ -14,16 +16,17 @@ export class DemoViewer extends React.Component {
     const { embeddedDemoOptions: { defaultTab } } = context;
 
     this.state = {
-      activeTab: defaultTab || 'preview'
+      activeTab: defaultTab || 'preview',
     };
 
     this.toggle = this.toggle.bind(this);
   }
 
   toggle(tab) {
-    if (this.state.activeTab !== tab) {
+    const { activeTab } = this.state;
+    if (activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
   }
@@ -60,7 +63,7 @@ export class DemoViewer extends React.Component {
                     <Nav tabs>
                       <NavItem>
                         <NavLink
-                          className={this.state.activeTab === 'preview' ? 'active' : ''}
+                          className={activeTab === 'preview' ? 'active' : ''}
                           onClick={() => { this.toggle('preview'); }}
                         >
                           Preview
@@ -68,7 +71,7 @@ export class DemoViewer extends React.Component {
                       </NavItem>
                       <NavItem>
                         <NavLink
-                          className={this.state.activeTab === 'source' ? 'active' : ''}
+                          className={activeTab === 'source' ? 'active' : ''}
                           onClick={() => { this.toggle('source'); }}
                         >
                           Source

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
-import { Form, Button, FormGroup, InputGroup, InputGroupAddon, Input, Label } from 'reactstrap';
+import {
+  Form, Button, FormGroup, InputGroup, InputGroupAddon, Input, Label,
+} from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
 
 class DemoFrameRenderer extends React.PureComponent {
@@ -96,7 +98,7 @@ class DemoFrameRenderer extends React.PureComponent {
                 <InputGroupAddon addonType="append">
                   <Button
                     color="secondary"
-                    onClick={(e) => {
+                    onClick={() => {
                       this.setState({ editableLink: this.customThemeLinkNode.value });
                     }}
                   >

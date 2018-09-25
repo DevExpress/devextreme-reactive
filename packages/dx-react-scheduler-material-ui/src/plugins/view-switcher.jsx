@@ -1,17 +1,5 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { ViewSwitcher as ViewSwitcherBase } from '@devexpress/dx-react-scheduler';
 import { Switcher } from '../templates/view-switcher/switcher';
 
-
-export class ViewSwitcher extends React.PureComponent {
-  render() {
-    return (
-      <ViewSwitcherBase
-        switcherComponent={Switcher}
-        {...this.props}
-      />
-    );
-  }
-}
-
-ViewSwitcher.Switcher = Switcher;
+export const ViewSwitcher = withComponents({ Switcher })(ViewSwitcherBase);

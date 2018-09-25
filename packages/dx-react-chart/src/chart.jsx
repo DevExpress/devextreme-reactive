@@ -5,6 +5,7 @@ import {
   TOP, BOTTOM, LEFT, RIGHT,
 } from '@devexpress/dx-chart-core';
 
+import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
 import { AxesLayout } from './plugins/axes-layout';
 import { SpaceFillingRects } from './plugins/space-filling-rects';
@@ -26,8 +27,9 @@ class RawChart extends React.PureComponent {
     } = this.props;
     return ((
       <PluginHost>
+        <BasicData data={data} />
         {children}
-        <ChartCore data={data} />
+        <ChartCore />
         <LayoutManager
           width={width}
           height={height}

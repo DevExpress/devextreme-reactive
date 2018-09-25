@@ -1,23 +1,11 @@
 import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableRowDetail as TableRowDetailBase } from '@devexpress/dx-react-grid';
-import { TableDetailToggleCell } from '../templates/table-detail-toggle-cell';
-import { TableDetailCell } from '../templates/table-detail-cell';
-import { TableRow } from '../templates/table-row';
+import { TableDetailToggleCell as ToggleCell } from '../templates/table-detail-toggle-cell';
+import { TableDetailCell as Cell } from '../templates/table-detail-cell';
+import { TableRow as Row } from '../templates/table-row';
 
-export class TableRowDetail extends React.PureComponent {
-  render() {
-    return (
-      <TableRowDetailBase
-        toggleCellComponent={TableDetailToggleCell}
-        cellComponent={TableDetailCell}
-        rowComponent={TableRow}
-        toggleColumnWidth={33}
-        {...this.props}
-      />
-    );
-  }
-}
+const TableRowDetailWithWidth = props => <TableRowDetailBase toggleColumnWidth={33} {...props} />;
+TableRowDetailWithWidth.components = TableRowDetailBase.components;
 
-TableRowDetail.Cell = TableDetailCell;
-TableRowDetail.ToggleCell = TableDetailToggleCell;
-TableRowDetail.Row = TableRow;
+export const TableRowDetail = withComponents({ Row, Cell, ToggleCell })(TableRowDetailWithWidth);

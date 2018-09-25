@@ -5,17 +5,12 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  axisName: jest.fn(() => 'argumentName'),
-  prepareData: jest.fn(data => data),
+  prepareData: jest.fn(() => 'data'),
 }));
 
 const domains = { argumentName: { domain: 'domain' } };
 const computedDomain = jest.fn(() => domains);
 const paletteComputing = jest.fn(() => 'paletteComputing');
-
-const defaultProps = {
-  data: [{ arg: 1, val: 2 }],
-};
 
 const defaultDeps = {
   getter: {
@@ -29,14 +24,11 @@ describe('Chart Core', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <ChartCore
-          {...defaultProps}
-        />
+        <ChartCore />
       </PluginHost>
     ));
     expect(getComputedState(tree)).toEqual({
-      data: defaultProps.data,
-      argumentAxisName: 'argumentName',
+      data: 'data',
       domains,
       computedDomain,
       colorDomain: 'paletteComputing',

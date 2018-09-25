@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { domains, computedExtension } from '@devexpress/dx-chart-core';
+import { computeDomains, computedExtension } from '@devexpress/dx-chart-core';
 
 export class Scale extends React.PureComponent {
   render() {
@@ -9,7 +9,7 @@ export class Scale extends React.PureComponent {
     const getExtension = () => computedExtension(extensions);
     return (
       <Plugin name="Scale">
-        <Getter name="computedDomain" value={domains} />
+        <Getter name="computeDomains" value={computeDomains} />
         <Getter name="scaleExtension" computed={getExtension} />
       </Plugin>
     );

@@ -54,9 +54,9 @@ class RawGrid extends React.PureComponent {
                   }) => (
                     <LineComponent
                       key={key}
-                      x1={orientation === 'horizontal' ? x1 : width}
+                      x1={orientation === HORIZONTAL ? x1 : width}
                       x2={x2}
-                      y1={orientation === 'horizontal' ? height : y1}
+                      y1={orientation === HORIZONTAL ? height : y1}
                       y2={y2}
                       {...restProps}
                     />

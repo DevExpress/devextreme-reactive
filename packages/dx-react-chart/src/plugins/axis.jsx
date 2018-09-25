@@ -139,9 +139,9 @@ class RawAxis extends React.PureComponent {
                 <div
                   style={{
                     position: 'relative',
-                    width: orientation === 'horizontal' ? undefined : widthCalculated,
-                    height: orientation === 'horizontal' ? heightCalculated : null,
-                    flexGrow: orientation === 'horizontal' ? 1 : undefined,
+                    width: orientation === HORIZONTAL ? undefined : widthCalculated,
+                    height: orientation === HORIZONTAL ? heightCalculated : null,
+                    flexGrow: orientation === HORIZONTAL ? 1 : undefined,
                   }}
                   ref={(node) => { this.node = node; }}
                 >

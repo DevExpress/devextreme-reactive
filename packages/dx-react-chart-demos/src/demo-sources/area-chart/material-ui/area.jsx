@@ -7,7 +7,7 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Scale } from '@devexpress/dx-react-chart';
@@ -83,7 +83,7 @@ class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueGrid />
 
           <AreaSeries
             name="Android"

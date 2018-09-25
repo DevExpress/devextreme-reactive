@@ -7,10 +7,10 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, HORIZONTAL, TOP, LEFT,
+  axisCoordinates, HORIZONTAL, TOP, LEFT, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { Line } from '../templates/grid/line';
-import { withComponents } from '../utils';
+import { withPatchedProps, withComponents } from '../utils';
 
 class RawGrid extends React.PureComponent {
   render() {
@@ -84,3 +84,16 @@ RawGrid.components = {
 };
 
 export const Grid = withComponents({ Line })(RawGrid);
+
+export const ArgumentGrid = withPatchedProps(props => ({
+  ...props,
+  name: ARGUMENT_DOMAIN,
+}))(Grid);
+
+export const ValueGrid = withPatchedProps(props => ({
+  ...props,
+  name: getValueDomainName(props.name),
+}))(Grid);
+
+ArgumentGrid.components = Grid.components;
+ValueGrid.components = Grid.components;

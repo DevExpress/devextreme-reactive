@@ -16,6 +16,7 @@ const defaultDeps = {
   getter: {
     computedDomain,
     paletteComputing,
+    argumentAxisName: 'argumentName',
   },
 };
 
@@ -31,6 +32,7 @@ describe('Chart Core', () => {
       data: 'data',
       domains,
       computedDomain,
+      argumentAxisName: 'argumentName',
       colorDomain: 'paletteComputing',
       paletteComputing,
     });

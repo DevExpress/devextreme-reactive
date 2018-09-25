@@ -71,7 +71,7 @@ const calculateDomains = (domains, seriesList, data) => {
   });
 };
 
-export const computedExtension = (extension) => {
+export const computeExtension = (extension) => {
   const defaultExtension = [
     { type: LINEAR, constructor: scaleLinear },
     { type: BAND, constructor: scaleBand },
@@ -118,10 +118,6 @@ const takeRestAxesOptions = (domains, axes) => {
     }
   });
 };
-
-// TODO:
-// - rename "computedExtensions" to "computeExtensions"
-// - replace computed with value in "scaleExtension" getter
 
 export const computeDomains = (axes, series, data) => {
   const result = collectDomains(series);

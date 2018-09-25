@@ -8,9 +8,14 @@ const getDomains = ({
   axes, series, data, argumentAxisName, startFromZero, computedDomain,
 }) => computedDomain(axes, series, data, argumentAxisName, startFromZero);
 
+const colorDomain = ({
+  series, domains, argumentAxisName, items, paletteComputing,
+}) => (paletteComputing(series, domains[argumentAxisName].domain, items));
+
 export const ChartCore = () => (
   <Plugin>
     <Getter name="data" computed={getData} />
     <Getter name="domains" computed={getDomains} />
+    <Getter name="colorDomain" computed={colorDomain} />
   </Plugin>
 );

@@ -9,7 +9,6 @@ import {
 
 const computedSeries = ({ series = [] }) => seriesWithStacks(series);
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class Stack extends React.PureComponent {
   render() {
     const { offset, order } = this.props;

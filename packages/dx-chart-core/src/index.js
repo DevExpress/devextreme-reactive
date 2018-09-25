@@ -5,5 +5,5 @@ export * from './plugins/series/computeds';
 export * from './utils/scale';
 export * from './constants';
 export * from './plugins/stack/computeds';
-export * from './plugins/theme-manager/computeds';
+export * from './plugins/palette/computeds';
 export * from './plugins/chart/computeds';

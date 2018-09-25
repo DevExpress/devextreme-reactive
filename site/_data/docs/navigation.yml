@@ -199,6 +199,8 @@
         path: /react/chart/docs/guides/legend_title
       - title: Stacked Series
         path: /react/chart/docs/guides/stacked-series
+      - title: Palette
+        path: /react/chart/docs/guides/palette
   - title: API Reference
     items:
       - title: AreaSeries
@@ -215,6 +217,8 @@
         path: /react/chart/docs/reference/legend
       - title: LineSeries
         path: /react/chart/docs/reference/line-series
+      - title: Palette
+        path: /react/chart/docs/reference/palette
       - title: PieSeries
         path: /react/chart/docs/reference/pie-series
       - title: Scale

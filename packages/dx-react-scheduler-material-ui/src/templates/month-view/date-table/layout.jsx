@@ -19,6 +19,7 @@ const LayoutBase = ({
   classes,
   dateTableRef,
   className,
+  createNewAppointment,
   ...restProps
 }) => (
   <RootRef rootRef={dateTableRef}>
@@ -28,8 +29,14 @@ const LayoutBase = ({
     >
       <TableBody>
         {monthCells.map(row => (
-          <Row key={`date_table_row_${row[0].value.toString()}`}>
-            {row.map(date => <Cell key={date.value} date={date} />)}
+          <Row key={row[0].value.toString()}>
+            {row.map(date => (
+              <Cell
+                key={date.value}
+                date={date}
+                createNewAppointment={createNewAppointment}
+              />
+            ))}
           </Row>
         ))}
       </TableBody>
@@ -44,11 +51,13 @@ LayoutBase.propTypes = {
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,
+  createNewAppointment: PropTypes.func,
 };
 LayoutBase.defaultProps = {
   cellComponent: () => null,
   rowComponent: () => null,
   className: undefined,
+  createNewAppointment: undefined,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

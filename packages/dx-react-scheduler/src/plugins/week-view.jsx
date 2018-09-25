@@ -19,7 +19,7 @@ import {
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
   VERTICAL_APPOINTMENT_TYPE,
-  prepareToAdding,
+  createWeekAppointment,
 } from '@devexpress/dx-scheduler-core';
 
 const DAYS_IN_WEEK = 7;
@@ -218,7 +218,7 @@ export class WeekView extends React.PureComponent {
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               const createNewAppointment = addAppointment
-                ? appointmentMeta => prepareToAdding(addAppointment, { ...appointmentMeta, title: 'No Title' })
+                ? appointmentMeta => createWeekAppointment(addAppointment, { title: 'No Title', ...appointmentMeta })
                 : undefined;
 
               return (

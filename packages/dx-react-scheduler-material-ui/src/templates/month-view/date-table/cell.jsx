@@ -44,34 +44,44 @@ const CellBase = ({
   classes,
   className,
   date,
+  createNewAppointment,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    <div
-      className={classNames({
-        [classes.text]: !date.isCurrent,
-        [classes.current]: date.isCurrent,
-        [classes.otherMonth]: date.isOtherMonth,
-      })}
+}) => {
+  const onDoubleClick = createNewAppointment
+    ? {
+      onDoubleClick: () => { createNewAppointment({ date: date.value }); },
+    } : null;
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames(classes.cell, className)}
+      {...onDoubleClick}
+      {...restProps}
     >
-      {moment(date.value).format('D')}
-    </div>
-  </TableCell>
-);
+      <div
+        className={classNames({
+          [classes.text]: !date.isCurrent,
+          [classes.current]: date.isCurrent,
+          [classes.otherMonth]: date.isOtherMonth,
+        })}
+      >
+        {moment(date.value).format('D')}
+      </div>
+    </TableCell>
+  );
+};
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   date: PropTypes.object,
   className: PropTypes.string,
+  createNewAppointment: PropTypes.func,
 };
 
 CellBase.defaultProps = {
   date: undefined,
   className: undefined,
+  createNewAppointment: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

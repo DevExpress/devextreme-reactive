@@ -455,6 +455,10 @@
           {
             "title": "Stacked Series",
             "path": "/react/chart/docs/guides/stacked-series/"
+          },
+          {
+            "title": "Palette",
+            "path": "/react/chart/docs/guides/palette/"
           }
         ]
       },

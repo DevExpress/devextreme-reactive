@@ -3,15 +3,13 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { palette } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { ThemeManager } from './theme-manager';
-
-const callbackItems = jest.fn();
+import { Palette } from './palette';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   palette: jest.fn(),
 }));
 
-describe('Theme Manager', () => {
+describe('Palette', () => {
   beforeEach(() => {
     palette.mockImplementation(() => 'palette');
   });
@@ -22,19 +20,11 @@ describe('Theme Manager', () => {
   it('should provide options', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({
-          getter: {
-            series: [{}],
-            domains: { argument: { domain: 'domain' } },
-            argumentAxisName: 'argument',
-            items: callbackItems,
-          },
-        })}
-        <ThemeManager />
+        {pluginDepsToComponents({})}
+        <Palette scheme={[]} />
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).colorDomain).toBe('palette');
-    expect(callbackItems).toBeCalledWith([{}], 'domain');
+    expect(getComputedState(tree).paletteComputing).toEqual(expect.any(Function));
   });
 });

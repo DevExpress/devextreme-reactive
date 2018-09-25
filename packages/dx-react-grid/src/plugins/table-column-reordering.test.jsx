@@ -331,7 +331,7 @@ describe('TableColumnReordering', () => {
           </PluginHost>
         </DragDropProvider>
       ));
-      const { cellDimensionGetters } = tree.find(TableColumnReordering).instance();
+      const { cellDimensionGetters } = tree.find(TableColumnReordering).childAt(0).instance();
       expect(Object.keys(cellDimensionGetters)).toEqual(['a']);
     });
   });

@@ -28,6 +28,7 @@ valueField | string | | The name of a data field that provides series point valu
 argumentField | string | | The name of a data field that provides series point argument values.
 axisName? | string | | The associated axis.
 stack? | string | | The associated stack.
+color? | string | | A series color.
 seriesComponent | ComponentType&lt;[LineSeries.SeriesProps](#lineseriesseriesprops)&gt; | | A component that renders the series.
 
 ## Interfaces

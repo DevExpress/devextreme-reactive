@@ -1,23 +1,17 @@
 import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableSelection as TableSelectionBase } from '@devexpress/dx-react-grid';
-import { TableSelectAllCell } from '../templates/table-select-all-cell';
-import { TableSelectCell } from '../templates/table-select-cell';
-import { TableSelectRow } from '../templates/table-select-row';
+import { TableSelectAllCell as HeaderCell } from '../templates/table-select-all-cell';
+import { TableSelectCell as Cell } from '../templates/table-select-cell';
+import { TableSelectRow as Row } from '../templates/table-select-row';
 
-export class TableSelection extends React.PureComponent {
-  render() {
-    return (
-      <TableSelectionBase
-        rowComponent={TableSelectRow}
-        cellComponent={TableSelectCell}
-        headerCellComponent={TableSelectAllCell}
-        selectionColumnWidth={40}
-        {...this.props}
-      />
-    );
-  }
-}
+const TableSelectionWithWidth = props => (
+  <TableSelectionBase
+    selectionColumnWidth={40}
+    {...props}
+  />
+);
+TableSelectionWithWidth.components = TableSelectionBase.components;
 
-TableSelection.Cell = TableSelectCell;
-TableSelection.HeaderCell = TableSelectAllCell;
+export const TableSelection = withComponents({ Row, Cell, HeaderCell })(TableSelectionWithWidth);
 TableSelection.COLUMN_TYPE = TableSelectionBase.COLUMN_TYPE;

@@ -22,6 +22,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   seriesData: jest.fn(),
   barCoordinates: jest.fn(),
   dBar: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  getValueDomainName: () => 'test_value_domain',
 }));
 
 const defaultProps = {

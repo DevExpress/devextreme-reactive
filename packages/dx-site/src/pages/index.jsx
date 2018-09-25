@@ -6,6 +6,7 @@ import LandingHeaderAddon from '../components/landing/header-addon';
 import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
 import LandingIconFeature from '../components/landing/icon-feature';
+import LandingMaintainence from '../components/landing/maintainence';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -68,6 +69,7 @@ const IndexPage = () => (
         description="Every component has a complete API reference and a usage guide with code examples and live demos with source avaliable on GitHub."
       />
     </LandingLayout>
+    <LandingMaintainence />
   </Layout>
 );
 

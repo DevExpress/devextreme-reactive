@@ -8,6 +8,7 @@ import LandingTitle from '../../components/landing/title';
 import LandingHr from '../../components/landing/hr';
 import LandingIconFeature from '../../components/landing/icon-feature';
 import LandingImageFeature from '../../components/landing/image-feature';
+import LandingMaintainence from '../../components/landing/maintainence';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -71,6 +72,7 @@ const IndexPage = () => (
         description="Improve your productivity using our comprehensive and simple docs with live Vue demos and code examples."
       />
     </LandingLayout>
+    <LandingMaintainence />
   </Layout>
 );
 

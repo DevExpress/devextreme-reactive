@@ -124,3 +124,9 @@ TableSelection.defaultProps = {
   showSelectAll: false,
   showSelectionColumn: true,
 };
+
+TableSelection.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  headerCellComponent: 'HeaderCell',
+};

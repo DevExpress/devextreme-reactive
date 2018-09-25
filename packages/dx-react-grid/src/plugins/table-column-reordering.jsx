@@ -6,6 +6,8 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
+  DropTarget,
+  withComponents,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
@@ -25,7 +27,7 @@ const tableHeaderRowsComputed = (
   { tableHeaderRows },
 ) => tableHeaderRowsWithReordering(tableHeaderRows);
 
-export class TableColumnReordering extends React.PureComponent {
+class TableColumnReorderingRaw extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -224,7 +226,7 @@ export class TableColumnReordering extends React.PureComponent {
   }
 }
 
-TableColumnReordering.propTypes = {
+TableColumnReorderingRaw.propTypes = {
   order: PropTypes.arrayOf(PropTypes.string),
   defaultOrder: PropTypes.arrayOf(PropTypes.string),
   onOrderChange: PropTypes.func,
@@ -233,8 +235,28 @@ TableColumnReordering.propTypes = {
   cellComponent: PropTypes.func.isRequired,
 };
 
-TableColumnReordering.defaultProps = {
+TableColumnReorderingRaw.defaultProps = {
   order: undefined,
   defaultOrder: [],
   onOrderChange: undefined,
 };
+
+TableColumnReorderingRaw.components = {
+  tableContainerComponent: 'TableContainer',
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+};
+
+const TableContainer = ({
+  onOver, onLeave, onDrop, children, // eslint-disable-line react/prop-types
+}) => (
+  <DropTarget
+    onOver={onOver}
+    onLeave={onLeave}
+    onDrop={onDrop}
+  >
+    {children}
+  </DropTarget>
+);
+
+export const TableColumnReordering = withComponents({ TableContainer })(TableColumnReorderingRaw);

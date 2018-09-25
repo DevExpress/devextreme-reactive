@@ -117,3 +117,9 @@ TableRowDetail.defaultProps = {
   contentComponent: () => null,
   rowHeight: undefined,
 };
+
+TableRowDetail.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  toggleCellComponent: 'ToggleCell',
+};

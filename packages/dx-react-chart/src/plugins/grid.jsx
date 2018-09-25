@@ -12,7 +12,6 @@ import {
 import { Line } from '../templates/grid/line';
 import { withComponents } from '../utils';
 
-
 class RawGrid extends React.PureComponent {
   render() {
     const {

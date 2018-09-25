@@ -8,7 +8,7 @@ const isDefined = item => item !== undefined;
 
 export const getValueDomainName = name => name || VALUE_DOMAIN;
 
-// TODO: Property name should not contain "axis" part.
+// TODO: Property name should not contain "axis" part as it actually means domain.
 const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
 
 const calculateDomainField = (getFieldItemFirst, getFieldItemSecond, data, domain, type) => {

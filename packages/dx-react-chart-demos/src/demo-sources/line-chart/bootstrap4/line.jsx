@@ -7,7 +7,7 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale } from '@devexpress/dx-react-chart';
 
@@ -62,14 +62,14 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           className="pr-3"
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis
             max={50}
             labelComponent={ValueLabel}
             lineComponent={EmptyComponent}
             tickSize={0}
           />
-          <Grid />
+          <ValueGrid />
 
           <LineSeries
             name="TV news"

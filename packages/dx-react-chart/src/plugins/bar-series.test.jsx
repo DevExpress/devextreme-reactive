@@ -21,7 +21,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   xyScales: jest.fn(),
   seriesData: jest.fn(),
   barCoordinates: jest.fn(),
-  checkZeroStart: jest.fn(),
   dBar: jest.fn(),
 }));
 

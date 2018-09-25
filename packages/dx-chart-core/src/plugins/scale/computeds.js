@@ -121,7 +121,6 @@ const takeRestAxesOptions = (domains, axes) => {
 
 // TODO:
 // - add "axes" getter
-// - remove "startFromZero" getter
 // - rename it to "computeDomains"
 // - rename "computedExtensions" to "computeExtensions"
 // - replace computed with value in "scaleExtension" getter

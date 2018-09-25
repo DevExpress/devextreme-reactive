@@ -91,7 +91,7 @@ describe('calculateDomain', () => {
     });
   });
 
-  it('should be computed from data and series option, startFromZero option set for value axis', () => {
+  it('should be computed from data and series option, option set for value axis', () => {
     const calculatedDomains = domains(
       [argumentAxis, valueAxis],
       [{
@@ -114,7 +114,7 @@ describe('calculateDomain', () => {
     });
   });
 
-  it('should be computed from data and series option, startFromZero option set for value axis, no series component', () => {
+  it('should be computed from data and series option, option set for value axis, no series component', () => {
     const calculatedDomains = domains(
       undefined,
       [{

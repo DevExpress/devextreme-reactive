@@ -9,6 +9,8 @@ import LandingHr from '../../components/landing/hr';
 import LandingIconFeature from '../../components/landing/icon-feature';
 import LandingImageFeature from '../../components/landing/image-feature';
 import LandingMaintainence from '../../components/landing/maintainence';
+import LandingProductLayout from '../../components/landing/product-layout';
+import LandingProductBlock from '../../components/landing/product-block';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -33,6 +35,20 @@ const IndexPage = () => (
         />
       )}
     />
+    <LandingProductLayout
+      position="header"
+    >
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Grid"
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Chart"
+      />
+    </LandingProductLayout>
     <LandingLayout>
       <LandingTitle
         text="Why DevExtreme for React?"
@@ -83,6 +99,20 @@ const IndexPage = () => (
       />
     </LandingLayout>
     <LandingMaintainence />
+    <LandingProductLayout
+      position="footer"
+    >
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Grid"
+      />
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React Chart"
+      />
+    </LandingProductLayout>
   </Layout>
 );
 

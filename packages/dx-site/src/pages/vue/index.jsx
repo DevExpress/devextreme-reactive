@@ -9,6 +9,8 @@ import LandingHr from '../../components/landing/hr';
 import LandingIconFeature from '../../components/landing/icon-feature';
 import LandingImageFeature from '../../components/landing/image-feature';
 import LandingMaintainence from '../../components/landing/maintainence';
+import LandingProductLayout from '../../components/landing/product-layout';
+import LandingProductBlock from '../../components/landing/product-block';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -32,6 +34,15 @@ const IndexPage = () => (
         />
       )}
     />
+    <LandingProductLayout
+      position="header"
+    >
+      <LandingProductBlock
+        type="vue"
+        iconLink={featureIcon}
+        title="Vue Grid"
+      />
+    </LandingProductLayout>
     <LandingLayout>
       <LandingTitle
         text="Why DevExtreme for Vue?"
@@ -44,7 +55,7 @@ const IndexPage = () => (
       <LandingIconFeature
         iconLink={featureIcon}
         title="Plugin-based Architecture"
-        description="DevExtreme Vueive Components are build of plugins. Add and deploy only the features you need or extend the build-in functionality with your or third-party custom plugins."
+        description="DevExtreme Reactive Components are build of plugins. Add and deploy only the features you need or extend the build-in functionality with your or third-party custom plugins."
       />
       <LandingHr />
       <LandingTitle
@@ -73,6 +84,15 @@ const IndexPage = () => (
       />
     </LandingLayout>
     <LandingMaintainence />
+    <LandingProductLayout
+      position="footer"
+    >
+      <LandingProductBlock
+        type="vue"
+        iconLink={featureIcon}
+        title="Vue Grid"
+      />
+    </LandingProductLayout>
   </Layout>
 );
 

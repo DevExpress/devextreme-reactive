@@ -7,6 +7,8 @@ import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
 import LandingIconFeature from '../components/landing/icon-feature';
 import LandingMaintainence from '../components/landing/maintainence';
+import LandingProductLayout from '../components/landing/product-layout';
+import LandingProductBlock from '../components/landing/product-block';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -29,6 +31,20 @@ const IndexPage = () => (
         />
       )}
     />
+    <LandingProductLayout
+      position="header"
+    >
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React"
+      />
+      <LandingProductBlock
+        type="vue"
+        iconLink={featureIcon}
+        title="Vue"
+      />
+    </LandingProductLayout>
     <LandingLayout>
       <LandingTitle
         text="Why DevExtreme Reactive?"
@@ -70,6 +86,20 @@ const IndexPage = () => (
       />
     </LandingLayout>
     <LandingMaintainence />
+    <LandingProductLayout
+      position="footer"
+    >
+      <LandingProductBlock
+        type="react"
+        iconLink={featureIcon}
+        title="React"
+      />
+      <LandingProductBlock
+        type="vue"
+        iconLink={featureIcon}
+        title="Vue"
+      />
+    </LandingProductLayout>
   </Layout>
 );
 

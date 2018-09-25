@@ -120,13 +120,12 @@ const takeRestAxesOptions = (domains, axes) => {
 };
 
 // TODO:
-// - add "axes" getter
 // - rename it to "computeDomains"
 // - rename "computedExtensions" to "computeExtensions"
 // - replace computed with value in "scaleExtension" getter
 // - rename "computedDomain" getter to "computeDomain"
 
-export const domains = (axes = [], series, data) => {
+export const domains = (axes, series, data) => {
   const result = collectDomains(series);
   // Axes options are taken in two steps because *type* is required for domains calculation
   // and other options must be applied after domains are calculated.

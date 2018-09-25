@@ -48,11 +48,11 @@ export class MonthView extends React.PureComponent {
     );
     this.startViewDateBaseComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
     this.endViewDateBaseComputed = ({ monthCells }) => endViewBoundary(monthCells);
-    this.currentViewComputed = ({ currentView }) => {
-      const name = currentView ? currentView.name : viewName;
-      const type = name === viewName ? TYPE : currentView.type;
-      return { name, type };
-    };
+    this.currentViewComputed = ({ currentView }) => (
+      currentView && currentView.name !== viewName
+        ? currentView
+        : { name: viewName, type: TYPE }
+    );
     this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,
     );

@@ -3,15 +3,24 @@ import * as PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Item = ({
+const styles = ({
+  checkbox: {
+    padding: 0,
+  },
+});
+
+const ItemBase = ({
   item: { column, hidden },
   disabled, onToggle,
+  classes,
   ...restProps
 }) => (
   <ListItem
     key={column.name}
     button={!disabled}
+    component="li"
     disabled={disabled}
     onClick={!disabled ? onToggle : null}
     {...restProps}
@@ -21,13 +30,13 @@ export const Item = ({
       tabIndex={-1}
       disableRipple
       disabled={disabled}
-      style={{ width: 'auto', height: 'auto' }}
+      className={classes.checkbox}
     />
     <ListItemText primary={column.title || column.name} />
   </ListItem>
 );
 
-Item.propTypes = {
+ItemBase.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       name: PropTypes.string,
@@ -36,9 +45,12 @@ Item.propTypes = {
   }).isRequired,
   disabled: PropTypes.bool,
   onToggle: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
 
-Item.defaultProps = {
+ItemBase.defaultProps = {
   onToggle: () => { },
   disabled: false,
 };
+
+export const Item = withStyles(styles, { name: 'Item' })(ItemBase);

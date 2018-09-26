@@ -202,7 +202,7 @@ class RawAxis extends React.PureComponent {
 }
 
 RawAxis.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
@@ -215,7 +215,6 @@ RawAxis.propTypes = {
 RawAxis.defaultProps = {
   tickSize: 5,
   indentFromAxis: 10,
-  name: undefined,
 };
 
 RawAxis.components = {

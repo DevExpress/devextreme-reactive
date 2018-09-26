@@ -71,12 +71,8 @@ class RawGrid extends React.PureComponent {
 }
 
 RawGrid.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   lineComponent: PropTypes.func.isRequired,
-};
-
-RawGrid.defaultProps = {
-  name: undefined,
 };
 
 RawGrid.components = {

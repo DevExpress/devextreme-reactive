@@ -459,6 +459,10 @@
           {
             "title": "Palette",
             "path": "/react/chart/docs/guides/palette/"
+          },
+          {
+            "title": "TypeScript",
+            "path": "/react/chart/docs/guides/typescript/"
           }
         ]
       },

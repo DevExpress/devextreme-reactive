@@ -1,17 +1,19 @@
 .container {
   height: 210px;
   margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
 
 .icon {
-  margin: 10px;
+  margin-right: 10px;
 }
 
 .title {
   font-family: "Segoe UI Bold";
-  font-size: 24px;
+  font-size: 22px;
   color: white;
-  margin-bottom: 10px;
 }
 
 .description {

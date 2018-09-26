@@ -11,6 +11,7 @@ import LandingImageFeature from '../../components/landing/image-feature';
 import LandingMaintainence from '../../components/landing/maintainence';
 import LandingProductLayout from '../../components/landing/product-layout';
 import LandingProductBlock from '../../components/landing/product-block';
+import LandingLink from '../../components/landing/link';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -42,11 +43,13 @@ const IndexPage = () => (
         type="react"
         iconLink={featureIcon}
         title="React Grid"
+        links={<LandingLink to="/react/grid/">Explore Component</LandingLink>}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
         title="React Chart"
+        links={<LandingLink to="/react/chart/">Explore Component</LandingLink>}
       />
     </LandingProductLayout>
     <LandingLayout>
@@ -106,11 +109,13 @@ const IndexPage = () => (
         type="react"
         iconLink={featureIcon}
         title="React Grid"
+        links={<LandingLink to="/react/grid/">Learn More</LandingLink>}
       />
       <LandingProductBlock
         type="react"
         iconLink={featureIcon}
         title="React Chart"
+        links={<LandingLink to="/react/chart/">Learn More</LandingLink>}
       />
     </LandingProductLayout>
   </Layout>

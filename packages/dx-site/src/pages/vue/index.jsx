@@ -11,6 +11,7 @@ import LandingImageFeature from '../../components/landing/image-feature';
 import LandingMaintainence from '../../components/landing/maintainence';
 import LandingProductLayout from '../../components/landing/product-layout';
 import LandingProductBlock from '../../components/landing/product-block';
+import LandingLink from '../../components/landing/link';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -41,6 +42,7 @@ const IndexPage = () => (
         type="vue"
         iconLink={featureIcon}
         title="Vue Grid"
+        links={<LandingLink to="/vue/grid/">Explore Component</LandingLink>}
       />
     </LandingProductLayout>
     <LandingLayout>
@@ -91,6 +93,7 @@ const IndexPage = () => (
         type="vue"
         iconLink={featureIcon}
         title="Vue Grid"
+        links={<LandingLink to="/vue/grid/">Learn More</LandingLink>}
       />
     </LandingProductLayout>
   </Layout>

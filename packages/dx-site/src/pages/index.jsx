@@ -9,6 +9,7 @@ import LandingIconFeature from '../components/landing/icon-feature';
 import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
 import LandingProductBlock from '../components/landing/product-block';
+import LandingLink from '../components/landing/link';
 
 import headerLink from './images/header.png';
 import featureIcon from './images/feature-icon.png';
@@ -38,11 +39,13 @@ const IndexPage = () => (
         type="react"
         iconLink={featureIcon}
         title="React"
+        links={<LandingLink to="/react/">Explore Components</LandingLink>}
       />
       <LandingProductBlock
         type="vue"
         iconLink={featureIcon}
         title="Vue"
+        links={<LandingLink to="/vue/">Explore Components</LandingLink>}
       />
     </LandingProductLayout>
     <LandingLayout>
@@ -93,11 +96,13 @@ const IndexPage = () => (
         type="react"
         iconLink={featureIcon}
         title="React"
+        links={<LandingLink to="/react/">Learn More</LandingLink>}
       />
       <LandingProductBlock
         type="vue"
         iconLink={featureIcon}
         title="Vue"
+        links={<LandingLink to="/vue/">Learn More</LandingLink>}
       />
     </LandingProductLayout>
   </Layout>

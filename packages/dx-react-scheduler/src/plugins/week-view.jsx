@@ -22,6 +22,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const DAYS_IN_WEEK = 7;
+const TYPE = 'week';
 
 export class WeekView extends React.PureComponent {
   constructor(props) {
@@ -40,7 +41,7 @@ export class WeekView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
     const {
-      viewName,
+      name: viewName,
       firstDayOfWeek,
       startDayHour,
       endDayHour,
@@ -68,13 +69,11 @@ export class WeekView extends React.PureComponent {
     this.startViewDateBaseComputed = ({
       dayScale, timeScale,
     }) => startViewDateCore(dayScale, timeScale, startDayHour);
-
-    this.currentViewComputed = ({ currentView }) => {
-      if (!currentView || viewName === currentView) {
-        return viewName;
-      }
-      return currentView;
-    };
+    this.currentViewComputed = ({ currentView }) => (
+      currentView && currentView.name !== viewName
+        ? currentView
+        : { name: viewName, type: TYPE }
+    );
     this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,
     );
@@ -122,7 +121,7 @@ export class WeekView extends React.PureComponent {
       dateTableCellComponent: DateTableCell,
       cellDuration,
       excludedDays,
-      viewName,
+      name: viewName,
       containerComponent: Container,
     } = this.props;
     const { dateTableRef } = this.state;
@@ -144,7 +143,7 @@ export class WeekView extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
@@ -160,7 +159,7 @@ export class WeekView extends React.PureComponent {
         <Template name="navbar">
           <TemplateConnector>
             {({ dayScale, currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
@@ -175,7 +174,7 @@ export class WeekView extends React.PureComponent {
         <Template name="sidebar">
           <TemplateConnector>
             {({ timeScale, currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimePanel
                   rowComponent={TimePanelRow}
@@ -192,7 +191,7 @@ export class WeekView extends React.PureComponent {
             {({
               timeScale, dayScale, appointments, startViewDate, endViewDate, currentView,
             }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
@@ -263,7 +262,7 @@ WeekView.propTypes = {
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
   excludedDays: PropTypes.array,
-  viewName: PropTypes.string,
+  name: PropTypes.string,
 };
 
 WeekView.defaultProps = {
@@ -273,7 +272,7 @@ WeekView.defaultProps = {
   intervalCount: 1,
   firstDayOfWeek: 0,
   excludedDays: [],
-  viewName: 'Week',
+  name: 'Week',
 };
 
 WeekView.components = {

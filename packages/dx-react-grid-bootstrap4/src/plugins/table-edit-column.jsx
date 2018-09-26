@@ -1,54 +1,11 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableEditColumn as TableEditColumnBase } from '@devexpress/dx-react-grid';
 import {
-  EditCommandHeadingCell,
-  EditCommandCell,
-  CommandButton,
+  EditCommandHeadingCell as HeaderCell,
+  EditCommandCell as Cell,
+  CommandButton as Command,
 } from '../templates/table-edit-command-cell';
 
-const defaultMessages = {
-  addCommand: 'New',
-  editCommand: 'Edit',
-  deleteCommand: 'Delete',
-  commitCommand: 'Save',
-  cancelCommand: 'Cancel',
-};
+export const TableEditColumn = withComponents({ Cell, HeaderCell, Command })(TableEditColumnBase);
 
-export class TableEditColumn extends React.PureComponent {
-  render() {
-    const {
-      messages,
-      ...restProps
-    } = this.props;
-
-    return (
-      <TableEditColumnBase
-        cellComponent={EditCommandCell}
-        headerCellComponent={EditCommandHeadingCell}
-        commandComponent={CommandButton}
-        messages={{ ...defaultMessages, ...messages }}
-        {...restProps}
-      />
-    );
-  }
-}
-
-TableEditColumn.Command = CommandButton;
-TableEditColumn.Cell = EditCommandCell;
-TableEditColumn.HeaderCell = EditCommandHeadingCell;
 TableEditColumn.COLUMN_TYPE = TableEditColumnBase.COLUMN_TYPE;
-
-TableEditColumn.propTypes = {
-  messages: PropTypes.shape({
-    addCommand: PropTypes.string,
-    editCommand: PropTypes.string,
-    deleteCommand: PropTypes.string,
-    commitCommand: PropTypes.string,
-    cancelCommand: PropTypes.string,
-  }),
-};
-
-TableEditColumn.defaultProps = {
-  messages: {},
-};

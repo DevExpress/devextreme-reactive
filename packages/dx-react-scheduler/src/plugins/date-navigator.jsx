@@ -144,3 +144,18 @@ DateNavigator.propTypes = {
   calendarNavigationButtonComponent: PropTypes.func.isRequired,
   calendarNavigatorComponent: PropTypes.func.isRequired,
 };
+
+DateNavigator.components = {
+  rootComponent: 'Root',
+  overlayComponent: 'Overlay',
+  toggleButtonComponent: 'ToggleButton',
+  navigationButtonComponent: 'NavigationButton',
+  calendarComponent: 'Calendar',
+  calendarRowComponent: 'CalendarRow',
+  calendarCellComponent: 'CalendarCell',
+  calendarHeaderRowComponent: 'CalendarHeaderRow',
+  calendarHeaderCellComponent: 'CalendarHeaderCell',
+  calendarTitleComponent: 'CalendarTitle',
+  calendarNavigatorComponent: 'CalendarNavigator',
+  calendarNavigationButtonComponent: 'CalendarNavigationButton',
+};

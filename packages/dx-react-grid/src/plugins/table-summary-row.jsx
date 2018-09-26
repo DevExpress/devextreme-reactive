@@ -29,6 +29,14 @@ const dependencies = [
   { name: 'TableTreeColumn', optional: true },
 ];
 
+const defaultMessages = {
+  sum: 'Sum',
+  min: 'Min',
+  max: 'Max',
+  avg: 'Avg',
+  count: 'Count',
+};
+
 const tableBodyRowsComputed = ({
   tableBodyRows,
   getRowLevelKey,
@@ -49,7 +57,7 @@ export class TableSummaryRow extends React.PureComponent {
       messages,
     } = this.props;
 
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
       <React.Fragment>
@@ -255,10 +263,29 @@ TableSummaryRow.propTypes = {
 
   itemComponent: PropTypes.func.isRequired,
 
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    sum: PropTypes.string,
+    min: PropTypes.string,
+    max: PropTypes.string,
+    avg: PropTypes.string,
+    count: PropTypes.string,
+  }),
 };
 
 TableSummaryRow.defaultProps = {
   formatlessSummaryTypes: [],
   messages: {},
+};
+
+TableSummaryRow.components = {
+  totalRowComponent: 'TotalRow',
+  groupRowComponent: 'GroupRow',
+  treeRowComponent: 'TreeRow',
+  totalCellComponent: 'TotalCell',
+  groupCellComponent: 'GroupCell',
+  treeCellComponent: 'TreeCell',
+  treeColumnCellComponent: 'TableTreeCell',
+  treeColumnContentComponent: 'TableTreeContent',
+  treeColumnIndentComponent: 'TableTreeIndent',
+  itemComponent: 'Item',
 };

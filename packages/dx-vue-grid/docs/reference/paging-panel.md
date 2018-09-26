@@ -40,9 +40,10 @@ Field | Type | Description
 ------|------|------------
 totalPages | number | Specifies the total page count.
 currentPage | number | Specifies the current page.
+totalCount | number | Specifies the total row count.
 pageSize | number | Specifies the page size.
 pageSizes | Array&lt;number&gt; | Specifies the page sizes that a user can select.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the paging panel's text.
+getMessage | ([messageKey](#localization-messages): string, parameters?: { from: number, to: number, count: number }) => string | Returns the paging panel's text.
 
 #### Events
 

@@ -274,3 +274,17 @@ WeekView.defaultProps = {
   excludedDays: [],
   name: 'Week',
 };
+
+WeekView.components = {
+  layoutComponent: 'Layout',
+  containerComponent: 'Container',
+  timePanelLayoutComponent: 'TimePanelLayout',
+  timePanelCellComponent: 'TimePanelCell',
+  timePanelRowComponent: 'TimePanelRow',
+  dayPanelLayoutComponent: 'DayPanelLayout',
+  dayPanelCellComponent: 'DayPanelCell',
+  dayPanelRowComponent: 'DayPanelRow',
+  dateTableLayoutComponent: 'DateTableLayout',
+  dateTableCellComponent: 'DateTableCell',
+  dateTableRowComponent: 'DateTableRow',
+};

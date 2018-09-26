@@ -9,7 +9,10 @@ const styles = theme => ({
   pager: {
     overflow: 'hidden',
     padding: theme.spacing.unit * 1.5,
+    display: 'flex',
     flex: 'none',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 });
 
@@ -30,14 +33,6 @@ const PagerBase = ({
     className={classNames(classes.pager, className)}
     {...restProps}
   >
-    <Pagination
-      totalPages={totalPages}
-      totalCount={totalCount}
-      currentPage={currentPage}
-      onCurrentPageChange={page => onCurrentPageChange(page)}
-      pageSize={pageSize}
-      getMessage={getMessage}
-    />
     {!!pageSizes.length && (
     <PageSizeSelector
       pageSize={pageSize}
@@ -46,6 +41,14 @@ const PagerBase = ({
       getMessage={getMessage}
     />
     )}
+    <Pagination
+      totalPages={totalPages}
+      totalCount={totalCount}
+      currentPage={currentPage}
+      onCurrentPageChange={page => onCurrentPageChange(page)}
+      pageSize={pageSize}
+      getMessage={getMessage}
+    />
   </div>
 );
 

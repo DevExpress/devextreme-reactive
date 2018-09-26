@@ -1,52 +1,35 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableHeaderRow as TableHeaderRowBase } from '@devexpress/dx-react-grid';
-import { TableHeaderCell } from '../templates/table-header-cell';
-import { Content } from '../templates/table-header-cell/content';
+import { TableHeaderCell as Cell } from '../templates/table-header-cell';
+import { TableRow as Row } from '../templates/table-row';
 import { SortLabel } from '../templates/table-header-cell/sort-label';
 import { GroupButton } from '../templates/table-header-cell/group-button';
 import { Title } from '../templates/table-header-cell/title';
-import { TableRow } from '../templates/table-row';
+import { Content } from '../templates/table-header-cell/content';
+import { withPatchedProps } from '../utils/with-patched-props';
 
 const defaultMessages = {
   sortingHint: 'Sort',
 };
 
-export class TableHeaderRow extends React.PureComponent {
-  render() {
-    const {
-      messages,
-      ...restProps
-    } = this.props;
+const TableHeaderRowWithMessages = withPatchedProps(({ messages, ...restProps }) => ({
+  messages: { ...defaultMessages, ...messages },
+  ...restProps,
+}))(TableHeaderRowBase);
 
-    return (
-      <TableHeaderRowBase
-        cellComponent={TableHeaderCell}
-        contentComponent={Content}
-        rowComponent={TableRow}
-        sortLabelComponent={SortLabel}
-        titleComponent={Title}
-        groupButtonComponent={GroupButton}
-        messages={{ ...defaultMessages, ...messages }}
-        {...restProps}
-      />
-    );
-  }
-}
-
-TableHeaderRow.Cell = TableHeaderCell;
-TableHeaderRow.Content = Content;
-TableHeaderRow.Row = TableRow;
-TableHeaderRow.SortLabel = SortLabel;
-TableHeaderRow.Title = Title;
-TableHeaderRow.GroupButton = GroupButton;
-
-TableHeaderRow.propTypes = {
+TableHeaderRowWithMessages.propTypes = {
   messages: PropTypes.shape({
     sortingHint: PropTypes.string,
   }),
 };
 
-TableHeaderRow.defaultProps = {
+TableHeaderRowWithMessages.defaultProps = {
   messages: {},
 };
+
+TableHeaderRowWithMessages.components = TableHeaderRowBase.components;
+
+export const TableHeaderRow = withComponents({
+  Cell, Row, Content, SortLabel, Title, GroupButton,
+})(TableHeaderRowWithMessages);

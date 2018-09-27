@@ -68,7 +68,7 @@ const IndexPage = () => (
       />
       <LandingHr />
       <LandingTitle
-        text="Native Rendering & Seamsell Theming"
+        text="Native Rendering & Seamless Theming"
       />
       <LandingImageFeature
         imageLink={bootstrapThemeLink}

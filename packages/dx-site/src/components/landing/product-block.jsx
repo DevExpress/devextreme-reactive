@@ -8,7 +8,7 @@ const ProductLink = ({
 }) => (
   <div className="col-md-4 col-lg-3">
     <div className={`d-flex flex-column align-items-center justify-content-center ${styles.container} ${styles[type]}`}>
-      <div className="d-flex flex-row justify-content-center align-items-center">
+      <div className={`d-flex flex-row justify-content-center align-items-center ${styles.logo}`}>
         <img
           className={styles.icon}
           alt="title"

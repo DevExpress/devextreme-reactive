@@ -21,6 +21,8 @@ import {
   VERTICAL_APPOINTMENT_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
+const TYPE = 'day';
+
 export class DayView extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ export class DayView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
     const {
-      viewName,
+      name: viewName,
       startDayHour,
       endDayHour,
       cellDuration,
@@ -76,12 +78,11 @@ export class DayView extends React.PureComponent {
     this.availableViewsComputed = ({ availableViews }) => availableViewsCore(
       availableViews, viewName,
     );
-    this.currentViewComputed = ({ currentView }) => {
-      if (!currentView || viewName === currentView) {
-        return viewName;
-      }
-      return currentView;
-    };
+    this.currentViewComputed = ({ currentView }) => (
+      currentView && currentView.name !== viewName
+        ? currentView
+        : { name: viewName, type: TYPE }
+    );
     this.intervalCountComputed = getters => computed(
       getters, viewName, () => intervalCount, getters.intervalCount,
     );
@@ -109,7 +110,7 @@ export class DayView extends React.PureComponent {
       dateTableCellComponent: DateTableCell,
       containerComponent: Container,
       cellDuration,
-      viewName,
+      name: viewName,
     } = this.props;
     const { dateTableRef: stateDateTableRef } = this.state;
 
@@ -129,7 +130,7 @@ export class DayView extends React.PureComponent {
         <Template name="body">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
@@ -145,7 +146,7 @@ export class DayView extends React.PureComponent {
         <Template name="navbar">
           <TemplateConnector>
             {({ dayScale, currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
@@ -160,7 +161,7 @@ export class DayView extends React.PureComponent {
         <Template name="navbarEmpty">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <NavbarEmpty />
               );
@@ -171,7 +172,7 @@ export class DayView extends React.PureComponent {
         <Template name="sidebar">
           <TemplateConnector>
             {({ timeScale, currentView }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimePanel
                   rowComponent={TimePanelRow}
@@ -189,7 +190,7 @@ export class DayView extends React.PureComponent {
               timeScale, appointments, startViewDate,
               endViewDate, currentView, currentDate, dayScale,
             }) => {
-              if (currentView !== viewName) return <TemplatePlaceholder />;
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, [],
               );
@@ -260,13 +261,28 @@ DayView.propTypes = {
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,
   intervalCount: PropTypes.number,
-  viewName: PropTypes.string,
+  name: PropTypes.string,
 };
 
 DayView.defaultProps = {
-  viewName: 'Day',
+  name: 'Day',
   startDayHour: 0,
   endDayHour: 24,
   cellDuration: 30,
   intervalCount: 1,
+};
+
+DayView.components = {
+  layoutComponent: 'Layout',
+  containerComponent: 'Container',
+  navbarEmptyComponent: 'NavbarEmpty',
+  timePanelLayoutComponent: 'TimePanelLayout',
+  timePanelCellComponent: 'TimePanelCell',
+  timePanelRowComponent: 'TimePanelRow',
+  dayPanelLayoutComponent: 'DayPanelLayout',
+  dayPanelCellComponent: 'DayPanelCell',
+  dayPanelRowComponent: 'DayPanelRow',
+  dateTableLayoutComponent: 'DateTableLayout',
+  dateTableCellComponent: 'DateTableCell',
+  dateTableRowComponent: 'DateTableRow',
 };

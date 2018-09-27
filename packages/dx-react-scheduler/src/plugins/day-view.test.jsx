@@ -186,7 +186,7 @@ describe('Day View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('Day');
+        .toEqual({ name: 'Day', type: 'day' });
     });
   });
 

@@ -64,20 +64,26 @@ export const getBandComponent = (
     : { level: 0, title: '' };
 
   if (currentColumnMeta.level < currentRowLevel) return { type: BAND_EMPTY_CELL, payload: null };
+  const currentColumnIndex = tableColumns
+    .findIndex(column => column.key === currentTableColumn.key);
+  const previousTableColumn = tableColumns[currentColumnIndex - 1];
+  let leftBorder = false;
+  if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
+      && (previousTableColumn.type === 'editCommand' || previousTableColumn.type === 'select' || previousTableColumn.type === 'detail')) {
+    leftBorder = true;
+  }
   if (currentColumnMeta.level === currentRowLevel) {
     return {
       type: BAND_HEADER_CELL,
       payload: {
         tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
         rowSpan: maxLevel - currentRowLevel,
+        ...leftBorder && { leftBorder },
       },
     };
   }
 
   const isCurrentColumnFixed = !!currentTableColumn.fixed;
-  const currentColumnIndex = tableColumns
-    .findIndex(column => column.key === currentTableColumn.key);
-  const previousTableColumn = tableColumns[currentColumnIndex - 1];
   if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
     const isPrevColumnFixed = !!previousTableColumn.fixed;
     const prevColumnMeta = getColumnMeta(
@@ -104,6 +110,7 @@ export const getBandComponent = (
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,
+      ...leftBorder && { leftBorder },
     },
   };
 };

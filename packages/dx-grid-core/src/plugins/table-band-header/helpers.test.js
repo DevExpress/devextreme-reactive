@@ -372,7 +372,7 @@ describe('TableBandHeader Plugin helpers', () => {
         });
     });
 
-    fit('should return correct data when there are multiple fixed columns', () => {
+    it('should return correct data when there are multiple fixed columns', () => {
       expect(
         getBandComponent(
           {
@@ -396,6 +396,77 @@ describe('TableBandHeader Plugin helpers', () => {
             column: { title: 'Band A', level: 2 },
           },
         });
+    });
+
+    describe('with command button', () => {
+      const testTableHeaderRows = [
+        { type: 'select' },
+        { type: TABLE_BAND_TYPE, level: 0 },
+        { type: TABLE_HEADING_TYPE },
+        { type: TABLE_HEADING_TYPE },
+      ];
+      const testColumnBands = [
+        {
+          title: 'Band A',
+          children: [
+            { columnName: 'a' },
+            { columnName: 'b' },
+          ],
+        },
+      ];
+
+      it('should add leftBorder if commandButton is before BandGroupCell', () => {
+        expect(
+          getBandComponent(
+            {
+              tableColumn: { ...tableColumns[0] },
+              tableRow: { level: 0 },
+            },
+            testTableHeaderRows,
+            [
+              { key: 'select', column: { name: 'select' }, type: 'select' },
+              { ...tableColumns[0] },
+              { ...tableColumns[1] },
+            ],
+            testColumnBands,
+          ),
+        )
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 2,
+              value: 'Band A',
+              column: { title: 'Band A', level: 1 },
+              leftBorder: true,
+            },
+          });
+      });
+
+      it('should add leftBorder if commandButton is before BandHeaderCell', () => {
+        expect(
+          getBandComponent(
+            {
+              tableColumn: { ...tableColumns[0] },
+              tableRow: { level: 1 },
+            },
+            testTableHeaderRows,
+            [
+              { key: 'select', column: { name: 'select' }, type: 'select' },
+              { ...tableColumns[0] },
+              { ...tableColumns[1] },
+            ],
+            testColumnBands,
+          ),
+        )
+          .toEqual({
+            type: BAND_HEADER_CELL,
+            payload: {
+              tableRow: { type: TABLE_HEADING_TYPE },
+              rowSpan: 1,
+              leftBorder: true,
+            },
+          });
+      });
     });
   });
 });

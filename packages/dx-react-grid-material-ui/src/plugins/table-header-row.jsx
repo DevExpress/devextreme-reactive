@@ -28,6 +28,7 @@ TableHeaderRowWithMessages.defaultProps = {
   messages: {},
 };
 
+TableHeaderRowWithMessages.components = TableHeaderRowBase.components;
 
 export const TableHeaderRow = withComponents({
   Cell, Row, Content, SortLabel, Title, GroupButton,

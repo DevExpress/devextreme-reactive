@@ -46,10 +46,10 @@ export class BandedHeaderCell extends React.Component {
 BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,
   style: PropTypes.object,
-  borderLeft: PropTypes.bool,
+  leftBorder: PropTypes.bool,
 };
 
 BandedHeaderCell.defaultProps = {
   style: null,
-  borderLeft: false,
+  leftBorder: false,
 };

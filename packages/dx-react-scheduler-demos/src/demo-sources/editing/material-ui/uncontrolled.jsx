@@ -4,6 +4,7 @@ import { EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   WeekView,
+  MonthView,
   Appointments,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
@@ -55,7 +56,7 @@ export default class Demo extends React.PureComponent {
             // disableDeleting
           />
 
-          <WeekView
+          <MonthView
             startDayHour={9}
             endDayHour={19}
           />

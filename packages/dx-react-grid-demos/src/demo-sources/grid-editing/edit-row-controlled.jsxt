@@ -47,6 +47,7 @@ export default class Demo extends React.PureComponent {
 
   changeAddedRows(addedRows) {
     const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+    debugger
     this.setState({ addedRows: initialized });
   }
 
@@ -55,6 +56,7 @@ export default class Demo extends React.PureComponent {
   }
 
   changeRowChanges(rowChanges) {
+    debugger
     this.setState({ rowChanges });
   }
 

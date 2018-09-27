@@ -32,4 +32,17 @@ describe('ToggleButton', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should pass children', () => {
+    const tree = shallow((
+      <ToggleButton
+        {...defaultProps}
+      >
+        <div className="content" />
+      </ToggleButton>
+    ));
+
+    expect(tree.find('.content').exists())
+      .toBeTruthy();
+  });
 });

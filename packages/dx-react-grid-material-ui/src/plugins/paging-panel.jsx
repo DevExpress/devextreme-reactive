@@ -1,31 +1,19 @@
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withComponents } from '@devexpress/dx-react-core';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
-import { Pager } from '../templates/paging-panel/pager';
+import { Pager as Container } from '../templates/paging-panel/pager';
+import { withPatchedProps } from '../utils/with-patched-props';
 
 const defaultMessages = {
-  showAll: 'All',
   rowsPerPage: 'Rows per page:',
-  info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`,
 };
 
-export class PagingPanel extends React.PureComponent {
-  render() {
-    const { messages, ...restProps } = this.props;
+const PagingPanelWithMessages = withPatchedProps(({ messages, ...restProps }) => ({
+  messages: { ...defaultMessages, ...messages },
+  ...restProps,
+}))(PagingPanelBase);
 
-    return (
-      <PagingPanelBase
-        containerComponent={Pager}
-        messages={{ ...defaultMessages, ...messages }}
-        {...restProps}
-      />
-    );
-  }
-}
-
-PagingPanel.Container = Pager;
-
-PagingPanel.propTypes = {
+PagingPanelWithMessages.propTypes = {
   messages: PropTypes.shape({
     showAll: PropTypes.string,
     rowsPerPage: PropTypes.string,
@@ -36,6 +24,10 @@ PagingPanel.propTypes = {
   }),
 };
 
-PagingPanel.defaultProps = {
+PagingPanelWithMessages.defaultProps = {
   messages: {},
 };
+
+PagingPanelWithMessages.components = PagingPanelBase.components;
+
+export const PagingPanel = withComponents({ Container })(PagingPanelWithMessages);

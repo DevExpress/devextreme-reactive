@@ -23,7 +23,6 @@ const columnExtensionValueGetter = (
 export class GroupingState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onGroupingChange, onExpandedGroupsChange } = this.props;
 
     this.state = {
       grouping: props.grouping || props.defaultGrouping,
@@ -34,8 +33,14 @@ export class GroupingState extends React.PureComponent {
     this.stateHelper = createStateHelper(
       this,
       {
-        grouping: () => onGroupingChange,
-        expandedGroups: () => onExpandedGroupsChange,
+        grouping: () => {
+          const { onGroupingChange } = this.props;
+          return onGroupingChange;
+        },
+        expandedGroups: () => {
+          const { onExpandedGroupsChange } = this.props;
+          return onExpandedGroupsChange;
+        },
       },
     );
 

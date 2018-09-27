@@ -35,17 +35,29 @@ const coords = [
 
 
 describe('Base series', () => {
+  const defaultProps = {
+    name: 'name',
+    axisName: 'axisName',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+  };
+
   beforeEach(() => {
     findSeriesByName.mockReturnValue({
+      ...defaultProps,
       stack: 'stack1',
+      groupWidth: 0.7,
       color: 'color',
+      styles: 'styles',
     });
     coordinates.mockReturnValue(coords);
     seriesData.mockReturnValue('series');
   });
+
   afterEach(() => {
     jest.resetAllMocks();
   });
+
   const defaultDeps = {
     getter: {
       layouts: { pane: { height: 50, width: 60 } },
@@ -55,20 +67,13 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       argumentAxisName: 'argumentAxisName',
       scaleExtension: 'scaleExtension',
+      colorDomain: 'colorDomain',
     },
     template: {
       series: {},
     },
   };
 
-  const defaultProps = {
-    name: 'name',
-    styles: 'styles',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    stack: 'stack',
-  };
   const TestComponentPath = () => (
     <div>
       TestComponentPath
@@ -95,6 +100,8 @@ describe('Base series', () => {
 
     expect(tree.find(TestComponentPath).props()).toEqual({
       coordinates: coords,
+      color: 'color',
+      colorDomain: 'colorDomain',
       styles: 'styles',
     });
   });
@@ -135,7 +142,7 @@ describe('Base series', () => {
       'name',
       'stack1',
       ['one', 'two'],
-      { styles: 'styles' },
+      { styles: 'styles', color: 'color' },
       'scaleExtension',
     );
   });
@@ -157,7 +164,6 @@ describe('Base series', () => {
         argumentField: 'argumentField',
         name: 'name',
         axisName: 'axisName',
-        stack: 'stack',
       }),
     );
   });

@@ -1,27 +1,14 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { dLine, coordinates } from '@devexpress/dx-chart-core';
-import { withSeriesPlugin, withColor } from '../utils';
+import { makeSeries, withColor, withComponents } from '../utils';
+import { Path } from '../templates/series/path';
 
-const Series = ({
-  ...props
-}) => {
-  const {
-    seriesComponent: Path,
-    ...restProps
-  } = props;
-  return (
-    <Path {...restProps} path={dLine} />
-  );
-};
-
-export const LineSeries = withSeriesPlugin(
-  withColor(Series),
+export const LineSeries = withComponents({ Path })(makeSeries(
   'LineSeries',
   'line',
+  dLine,
   coordinates,
-);
-
-Series.propTypes = {
-  seriesComponent: PropTypes.func.isRequired,
-};
+  {
+    seriesComponent: 'Path',
+  },
+  withColor,
+));

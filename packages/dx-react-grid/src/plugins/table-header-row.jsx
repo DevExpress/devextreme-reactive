@@ -176,3 +176,12 @@ TableHeaderRow.defaultProps = {
   showGroupingControls: false,
   messages: null,
 };
+
+TableHeaderRow.components = {
+  cellComponent: 'Cell',
+  rowComponent: 'Row',
+  contentComponent: 'Content',
+  sortLabelComponent: 'SortLabel',
+  titleComponent: 'Title',
+  groupButtonComponent: 'GroupButton',
+};

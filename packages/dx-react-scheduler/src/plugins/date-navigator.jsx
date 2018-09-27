@@ -18,7 +18,7 @@ const pluginDependencies = [
 ];
 
 const navigate = (action, currentView, intervalCount) => payload => action({
-  ...payload, amount: intervalCount, step: currentView,
+  ...payload, amount: intervalCount, step: currentView.type,
 });
 
 export class DateNavigator extends React.PureComponent {
@@ -143,4 +143,19 @@ DateNavigator.propTypes = {
   calendarTitleComponent: PropTypes.func.isRequired,
   calendarNavigationButtonComponent: PropTypes.func.isRequired,
   calendarNavigatorComponent: PropTypes.func.isRequired,
+};
+
+DateNavigator.components = {
+  rootComponent: 'Root',
+  overlayComponent: 'Overlay',
+  toggleButtonComponent: 'ToggleButton',
+  navigationButtonComponent: 'NavigationButton',
+  calendarComponent: 'Calendar',
+  calendarRowComponent: 'CalendarRow',
+  calendarCellComponent: 'CalendarCell',
+  calendarHeaderRowComponent: 'CalendarHeaderRow',
+  calendarHeaderCellComponent: 'CalendarHeaderCell',
+  calendarTitleComponent: 'CalendarTitle',
+  calendarNavigatorComponent: 'CalendarNavigator',
+  calendarNavigationButtonComponent: 'CalendarNavigationButton',
 };

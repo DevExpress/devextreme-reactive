@@ -24,8 +24,20 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   checkZeroStart: jest.fn(),
 }));
 
+
+const defaultProps = {
+  name: 'val1',
+  axisName: 'axisName',
+  valueField: 'valueField',
+  argumentField: 'argumentField',
+};
+
 findSeriesByName.mockImplementation(() => ({
+  ...defaultProps,
   stack: 'stack',
+  uniqueName: 'uniqueSeriesName',
+  seriesComponent: SeriesComponent,
+  customProperty: 'custom',
 }));
 
 coordinates.mockImplementation(() => coords);
@@ -42,15 +54,6 @@ describe('Line series', () => {
     },
   };
 
-  const defaultProps = {
-    seriesComponent: SeriesComponent,
-    name: 'val1',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    uniqueName: 'uniqueSeriesName',
-  };
-
   it('should render path', () => {
     const tree = mount((
       <PluginHost>
@@ -58,7 +61,6 @@ describe('Line series', () => {
 
         <LineSeries
           {...defaultProps}
-          customProperty="custom"
         />
       </PluginHost>
     ));

@@ -45,7 +45,7 @@ describe('Appointments', () => {
     const {
       appointment: appointmentData,
       style, type,
-      getTitle, getEndDate, getStartDate,
+      getTitle, getEndDate, getStartDate, onClick,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
@@ -61,5 +61,32 @@ describe('Appointments', () => {
     expect(getTitle()).toBe('a');
     expect(getEndDate()).toBe('2018-07-05');
     expect(getStartDate()).toBe('2018-07-06');
+    expect(onClick).toBeUndefined();
+  });
+
+  it('should pass the onClick handler to appointment', () => {
+    const toggleTooltipVisibilityMock = jest.fn();
+    const setTooltipAppointmentMetaMock = jest.fn();
+    const { onClick } = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, {
+          action: {
+            toggleTooltipVisibility: toggleTooltipVisibilityMock,
+            setTooltipAppointmentMeta: setTooltipAppointmentMetaMock,
+          },
+        })}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    )).find(Appointment).props();
+    const onClickArgs = { target: 'target', appointment: 'appt' };
+
+    onClick(onClickArgs);
+
+    expect(toggleTooltipVisibilityMock)
+      .toBeCalled();
+    expect(setTooltipAppointmentMetaMock.mock.calls[0][0])
+      .toMatchObject(onClickArgs);
   });
 });

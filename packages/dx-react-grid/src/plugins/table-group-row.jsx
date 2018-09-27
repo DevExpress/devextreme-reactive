@@ -148,3 +148,8 @@ TableGroupRow.defaultProps = {
   showColumnsWhenGrouped: false,
   columnExtensions: undefined,
 };
+
+TableGroupRow.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+};

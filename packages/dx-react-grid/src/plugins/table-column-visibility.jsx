@@ -21,6 +21,10 @@ const pluginDependencies = [
   { name: 'Table' },
 ];
 
+const defaultMessages = {
+  noColumns: 'Nothing to show',
+};
+
 const visibleTableColumnsComputed = (
   { tableColumns, hiddenColumnNames },
 ) => visibleTableColumns(tableColumns, hiddenColumnNames);
@@ -31,14 +35,16 @@ export class TableColumnVisibility extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { onHiddenColumnNamesChange } = this.props;
     this.state = {
       hiddenColumnNames: props.hiddenColumnNames || props.defaultHiddenColumnNames,
     };
     const stateHelper = createStateHelper(
       this,
       {
-        hiddenColumnNames: () => onHiddenColumnNamesChange,
+        hiddenColumnNames: () => {
+          const { onHiddenColumnNamesChange } = this.props;
+          return onHiddenColumnNamesChange;
+        },
       },
     );
 
@@ -60,7 +66,7 @@ export class TableColumnVisibility extends React.PureComponent {
       emptyMessageComponent: EmptyMessage,
       messages,
     } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const { hiddenColumnNames } = this.state;
     const { columnExtensions, columnTogglingEnabled } = this.props;
 
@@ -117,4 +123,8 @@ TableColumnVisibility.defaultProps = {
   messages: {},
   columnExtensions: undefined,
   columnTogglingEnabled: true,
+};
+
+TableColumnVisibility.components = {
+  emptyMessageComponent: 'EmptyMessage',
 };

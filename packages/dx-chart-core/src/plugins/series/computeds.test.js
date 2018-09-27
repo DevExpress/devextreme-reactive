@@ -17,6 +17,7 @@ import {
   seriesData,
   checkZeroStart,
   barCoordinates,
+  getPieItems,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -43,6 +44,7 @@ jest.mock('d3-shape', () => {
     value: jest.fn(func => data => data.map(d => ({
       startAngle: func(d), endAngle: func(d), value: 'value', data: d,
     }))),
+    sort: jest.fn().mockReturnThis(),
   };
 
   return {
@@ -341,5 +343,11 @@ describe('checkZeroStart', () => {
   it('should return false for axis with another series type', () => {
     const fromZero = checkZeroStart({}, 'axis1', 'line');
     expect(fromZero).toEqual({ axis1: false });
+  });
+});
+
+describe('#getPieItems', () => {
+  it('should return function returns items of series', () => {
+    expect(getPieItems(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
   });
 });

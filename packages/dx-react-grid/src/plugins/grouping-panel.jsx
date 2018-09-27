@@ -2,17 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector,
+  Template, TemplatePlaceholder, Plugin, TemplateConnector, withComponents,
 } from '@devexpress/dx-react-core';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
 } from '@devexpress/dx-grid-core';
+import { GroupPanelLayout as Layout } from '../components/group-panel-layout';
 
-export class GroupingPanel extends React.PureComponent {
+const defaultMessages = {
+  groupByColumn: 'Drag a column header here to group by that column',
+};
+
+class GroupingPanelRaw extends React.PureComponent {
   render() {
     const {
-      layoutComponent: Layout,
+      layoutComponent: LayoutComponent,
       containerComponent: Container,
       itemComponent: Item,
       emptyMessageComponent: EmptyMessage,
@@ -21,7 +26,7 @@ export class GroupingPanel extends React.PureComponent {
       messages,
     } = this.props;
 
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     const EmptyMessagePlaceholder = () => (
       <EmptyMessage
@@ -77,7 +82,7 @@ export class GroupingPanel extends React.PureComponent {
             }, {
               changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
             }) => (
-              <Layout
+              <LayoutComponent
                 items={groupingPanelItems(columns, grouping, draftGrouping)}
                 isColumnGroupingEnabled={isColumnGroupingEnabled}
                 draggingEnabled={draggingEnabled}
@@ -97,7 +102,7 @@ export class GroupingPanel extends React.PureComponent {
   }
 }
 
-GroupingPanel.propTypes = {
+GroupingPanelRaw.propTypes = {
   showSortingControls: PropTypes.bool,
   showGroupingControls: PropTypes.bool,
   layoutComponent: PropTypes.func.isRequired,
@@ -107,8 +112,17 @@ GroupingPanel.propTypes = {
   messages: PropTypes.object,
 };
 
-GroupingPanel.defaultProps = {
+GroupingPanelRaw.defaultProps = {
   showSortingControls: false,
   showGroupingControls: false,
   messages: {},
 };
+
+GroupingPanelRaw.components = {
+  layoutComponent: 'Layout',
+  containerComponent: 'Container',
+  itemComponent: 'Item',
+  emptyMessageComponent: 'EmptyMessage',
+};
+
+export const GroupingPanel = withComponents({ Layout })(GroupingPanelRaw);

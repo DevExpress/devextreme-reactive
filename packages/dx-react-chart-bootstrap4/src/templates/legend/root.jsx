@@ -1,25 +1,6 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { withClassName } from '../utils';
 
-export class Root extends React.PureComponent {
-  render() {
-    const {
-      children, className, ...restProps
-    } = this.props;
-    return (
-      <ul className={classNames('list-group py-3', className)} {...restProps}>
-        {children}
-      </ul>
-    );
-  }
-}
-
-Root.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-Root.defaultProps = {
-  className: undefined,
-};
+export const Root = withClassName('list-group', 'py-3')(
+  props => <ul {...props} />,
+);

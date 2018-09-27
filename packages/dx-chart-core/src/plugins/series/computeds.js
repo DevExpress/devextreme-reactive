@@ -61,7 +61,7 @@ export const pieAttributes = (
   const width = Math.max.apply(null, xScale.range());
   const height = Math.max.apply(null, yScale.range());
   const radius = Math.min(width, height) / 2;
-  const pieData = pie().value(d => d[valueField])(data);
+  const pieData = pie().sort(null).value(d => d[valueField])(data);
 
   return pieData.map(({
     startAngle, endAngle, value, data: itemData,
@@ -165,3 +165,5 @@ export const seriesData = (series = [], seriesProps) => {
 };
 
 export const checkZeroStart = (fromZero, axisName, pathType) => ({ ...fromZero, [axisName]: fromZero[axisName] || (pathType === 'area' || pathType === 'bar') });
+
+export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));

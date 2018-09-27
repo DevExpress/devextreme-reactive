@@ -17,7 +17,6 @@ const filterExpressionComputed = (
 export class FilteringState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onFiltersChange } = this.props;
 
     this.state = {
       filters: props.filters || props.defaultFilters,
@@ -25,7 +24,10 @@ export class FilteringState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        filters: () => onFiltersChange,
+        filters: () => {
+          const { onFiltersChange } = this.props;
+          return onFiltersChange;
+        },
       },
     );
 

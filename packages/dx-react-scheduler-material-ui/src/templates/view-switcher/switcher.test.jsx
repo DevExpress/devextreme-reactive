@@ -6,7 +6,7 @@ import { Switcher } from './switcher';
 describe('ViewSwitcher', () => {
   let shallow;
   const defaultProps = {
-    onItemClick: jest.fn(),
+    onChange: jest.fn(),
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
@@ -28,7 +28,7 @@ describe('ViewSwitcher', () => {
 
       tree.simulate('change', { target: { value: '' } });
 
-      expect(defaultProps.onItemClick)
+      expect(defaultProps.onChange)
         .toBeCalled();
     });
     it('should render items depend of available views', () => {

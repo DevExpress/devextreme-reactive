@@ -44,9 +44,10 @@ totalPages | number | Specifies the total page count.
 currentPage | number | Specifies the current page.
 onCurrentPageChange | (page: number) => void | Handles the current page changes.
 pageSize | number | Specifies the page size.
+totalCount | number | Specifies the total row count.
 onPageSizeChange | (size: number) => void | Handles the page size changes.
 pageSizes | Array&lt;number&gt; | Specifies the page sizes that a user can select.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the paging panel's text.
+getMessage | ([messageKey](#localization-messages): string, parameters?: { from: number, to: number, count: number }) => string | Returns the paging panel's text.
 
 ## Localization Messages
 

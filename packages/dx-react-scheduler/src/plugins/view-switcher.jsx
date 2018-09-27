@@ -30,12 +30,12 @@ export class ViewSwitcher extends React.PureComponent {
               currentView,
               availableViews,
             }, {
-              setCurrentView,
+              setCurrentViewName,
             }) => (
               <Switcher
-                currentView={currentView}
+                currentViewName={currentView.name}
                 availableViews={availableViews}
-                onItemClick={setCurrentView}
+                onChange={setCurrentViewName}
               />
             )}
           </TemplateConnector>
@@ -47,4 +47,8 @@ export class ViewSwitcher extends React.PureComponent {
 
 ViewSwitcher.propTypes = {
   switcherComponent: PropTypes.func.isRequired,
+};
+
+ViewSwitcher.components = {
+  switcherComponent: 'Switcher',
 };

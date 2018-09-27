@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@material-ui/core/test-utils';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };
 
 describe('Label', () => {
-  const shallow = createShallow({ dive: true });
+  const mount = createMount();
   const classes = getClasses(<Label {...defaultProps} />);
   it('should render ListItemText', () => {
-    const tree = shallow(<Label {...defaultProps} />);
+    const tree = mount(<Label {...defaultProps} />);
 
     expect(tree.find(ListItemText).exists())
       .toBeTruthy();
   });
 
   it('should render text', () => {
-    const tree = shallow((
+    const tree = mount((
       <Label {...defaultProps} />
     ));
 
@@ -25,27 +25,25 @@ describe('Label', () => {
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <Label {...defaultProps} className="custom-class" />
     ));
 
-    expect(tree.is(`.${classes.root}.custom-class`))
+    expect(tree.find(ListItemText).is(`.${classes.root}.custom-class`))
       .toBeTruthy();
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Label {...defaultProps} customProperty />);
-    const { customProperty } = tree.find(ListItemText).props();
+    const tree = mount(<Label {...defaultProps} custom="test" />);
+    const { custom } = tree.find(ListItemText).props();
 
-    expect(customProperty)
-      .toBeTruthy();
+    expect(custom).toEqual('test');
   });
 
   it('should pass the style to the element', () => {
-    const tree = shallow(<Label {...defaultProps} style />);
+    const tree = mount(<Label {...defaultProps} style={{ tag: 'test' }} />);
     const { style } = tree.find(ListItemText).props();
 
-    expect(style)
-      .toBeTruthy();
+    expect(style).toEqual({ tag: 'test' });
   });
 });

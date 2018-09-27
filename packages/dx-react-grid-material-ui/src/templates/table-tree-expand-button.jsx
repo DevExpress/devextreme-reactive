@@ -13,8 +13,7 @@ const styles = theme => ({
     marginBottom: '-1px',
     marginLeft: -theme.spacing.unit,
     marginRight: theme.spacing.unit * 2,
-    width: theme.spacing.unit * 5,
-    height: theme.spacing.unit * 5,
+    padding: theme.spacing.unit,
   },
   hidden: {
     cursor: 'default',

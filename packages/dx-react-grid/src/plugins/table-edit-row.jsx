@@ -129,3 +129,8 @@ TableEditRow.propTypes = {
 TableEditRow.defaultProps = {
   rowHeight: undefined,
 };
+
+TableEditRow.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+};

@@ -1,0 +1,125 @@
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import {
+  Chart,
+  PieSeries,
+} from '@devexpress/dx-react-chart-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import FormControl from '@material-ui/core/FormControl';
+import {
+  schemeCategory10,
+  schemeAccent,
+  schemeDark2,
+  schemePaired,
+  schemePastel1,
+  schemePastel2,
+  schemeSet1,
+  schemeSet2,
+  schemeSet3,
+} from 'd3-scale-chromatic';
+
+import { Scale, Palette } from '@devexpress/dx-react-chart';
+
+const schemeCollection = [
+  schemeCategory10,
+  schemeAccent,
+  schemeDark2,
+  schemePaired,
+  schemePastel1,
+  schemePastel2,
+  schemeSet1,
+  schemeSet2,
+  schemeSet3,
+];
+
+const demoStyles = theme => ({
+  typography: {
+    marginTop: theme.spacing.unit * 0,
+    marginBottom: theme.spacing.unit,
+  },
+  div: {
+    width: '200px',
+    marginLeft: '50px',
+    paddingBottom: '30px',
+  },
+  item: {
+    width: '40px',
+    height: '40px',
+  },
+  schemeConteiner: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing.unit,
+  },
+});
+
+const data = [];
+for (let i = 0; i < 15; i += 1) {
+  data.push({ category: `item${i}`, val: 1 });
+}
+
+class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+      scheme: schemeCollection[0],
+    };
+
+    this.changeScheme = this.changeScheme.bind(this);
+  }
+
+  changeScheme(e) {
+    this.setState({ scheme: schemeCollection[e.target.value] });
+  }
+
+  render() {
+    const { data: chartData, scheme } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Paper>
+        <Chart
+          data={chartData}
+        >
+          <PieSeries
+            valueField="val"
+            argumentField="category"
+          />
+          <Scale />
+          <Palette scheme={scheme} />
+        </Chart>
+        <div className={classes.schemeConteiner}>
+          {scheme.map(color => (
+            <div
+              key={color}
+              className={classes.item}
+              style={{ backgroundColor: color }}
+            />
+          ))}
+        </div>
+        <div className={classes.div}>
+          <Typography component="h5" variant="headline" className={classes.typography}>Scheme</Typography>
+          <FormControl>
+            <NativeSelect onChange={this.changeScheme} defaultValue={0}>
+              <option value={0}>schemeCategory10</option>
+              <option value={1}>schemeAccent</option>
+              <option value={2}>schemeDark2</option>
+              <option value={3}>schemePaired</option>
+              <option value={4}>schemePastel1</option>
+              <option value={5}>schemePastel2</option>
+              <option value={6}>schemeSet1</option>
+              <option value={7}>schemeSet2</option>
+              <option value={8}>schemeSet3</option>
+            </NativeSelect>
+          </FormControl>
+        </div>
+      </Paper>
+    );
+  }
+}
+
+export default withStyles(demoStyles, { name: 'Demo' })(Demo);

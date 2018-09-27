@@ -17,6 +17,8 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  TABLE_DATA_TYPE,
+  TABLE_NODATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
@@ -199,6 +201,10 @@ export class Table extends React.PureComponent {
     );
   }
 }
+
+Table.COLUMN_TYPE = TABLE_DATA_TYPE;
+Table.ROW_TYPE = TABLE_DATA_TYPE;
+Table.NODATA_ROW_TYPE = TABLE_NODATA_TYPE;
 
 Table.propTypes = {
   layoutComponent: PropTypes.func.isRequired,

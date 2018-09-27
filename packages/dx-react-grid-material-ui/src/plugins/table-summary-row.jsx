@@ -19,3 +19,7 @@ export const TableSummaryRow = withComponents({
   TableTreeIndent,
   Item: TableSummaryItem,
 })(TableSummaryRowBase);
+
+TableSummaryRow.TREE_ROW_TYPE = TableSummaryRowBase.TREE_ROW_TYPE;
+TableSummaryRow.GROUP_ROW_TYPE = TableSummaryRowBase.GROUP_ROW_TYPE;
+TableSummaryRow.TOTAL_ROW_TYPE = TableSummaryRowBase.TOTAL_ROW_TYPE;

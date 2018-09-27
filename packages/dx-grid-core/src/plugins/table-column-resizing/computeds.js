@@ -1,3 +1,5 @@
+import { TABLE_DATA_TYPE } from '../table/constants';
+
 const UNSET_COLUMN_WIDTH_ERROR = [
   'The "$1" column\'s width is not specified.',
   'The TableColumnResizing plugin requires that all columns have the specified width.',
@@ -7,7 +9,7 @@ const specifyWidths = (tableColumns, widths, onAbsence) => {
   if (!widths.length) return tableColumns;
   return tableColumns
     .reduce((acc, tableColumn) => {
-      if (tableColumn.type === 'data') {
+      if (tableColumn.type === TABLE_DATA_TYPE) {
         const columnName = tableColumn.column.name;
         const column = widths.find(el => el.columnName === columnName);
         const width = column && column.width;

@@ -70,8 +70,6 @@ describe('TableFixedColumns', () => {
           defaultDeps.getter.tableColumns,
           [],
           [],
-          [],
-          [],
         );
     });
 
@@ -96,7 +94,7 @@ describe('TableFixedColumns', () => {
     tableColumnsWithFixed.mockImplementation(() => [
       { column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
     ]);
-    const leftColumnNames = ['a'];
+    const leftColumns = ['a'];
     const deps = {
       template: {
         tableCell: {
@@ -111,7 +109,7 @@ describe('TableFixedColumns', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <TableFixedColumns
           {...defaultProps}
-          leftColumnNames={leftColumnNames}
+          leftColumns={leftColumns}
         />
       </PluginHost>
     ));
@@ -159,7 +157,7 @@ describe('TableFixedColumns', () => {
       { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
-    const leftColumnNames = ['a', 'b'];
+    const leftColumns = ['a', 'b'];
 
     const tree = mount((
       <PluginHost>
@@ -176,7 +174,7 @@ describe('TableFixedColumns', () => {
         </Template>
         <TableFixedColumns
           {...defaultProps}
-          leftColumnNames={leftColumnNames}
+          leftColumns={leftColumns}
         />
       </PluginHost>
     ));

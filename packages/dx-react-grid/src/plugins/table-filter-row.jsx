@@ -11,6 +11,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  TABLE_FILTER_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -156,6 +157,8 @@ export class TableFilterRow extends React.PureComponent {
     );
   }
 }
+
+TableFilterRow.ROW_TYPE = TABLE_FILTER_TYPE;
 
 TableFilterRow.propTypes = {
   rowHeight: PropTypes.any,

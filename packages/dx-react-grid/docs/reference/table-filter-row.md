@@ -115,6 +115,12 @@ TableFilterRow.Editor | [TableFilterRow.EditorProps](#tablefilterroweditorprops)
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ROW_TYPE | symbol | The filter row type's identifier.
+
 ## Plugin Developer Reference
 
 ### Imports

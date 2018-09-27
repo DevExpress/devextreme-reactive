@@ -1,20 +1,22 @@
+import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_FIXED_TYPE } from './constants';
 import { getFixedColumnKeys, isFixedTableRow } from './helpers';
 
 describe('TableFixedColumns Plugin helpers', () => {
   describe('#getFixedColumnKeys', () => {
     it('should return the correct array of column keys', () => {
-      const tableColumns = [
-        { key: 'key_a', column: { name: 'a' } },
-        { key: 'key_b', column: { name: 'b' } },
-        { key: 'key_type1', type: 'type1' },
-        { key: 'key_c', column: { name: 'c' } },
-        { key: 'key_d', column: { name: 'd' } },
-      ];
-      const fixedNames = ['a', 'd'];
-      const fixedTypes = ['type1'];
+      const sampleType = Symbol('sample');
 
-      expect(getFixedColumnKeys(tableColumns, fixedNames, fixedTypes))
+      const tableColumns = [
+        { key: 'key_a', type: TABLE_DATA_TYPE, column: { name: 'a' } },
+        { key: 'key_b', type: TABLE_DATA_TYPE, column: { name: 'b' } },
+        { key: 'key_type1', type: sampleType },
+        { key: 'key_c', type: TABLE_DATA_TYPE, column: { name: 'c' } },
+        { key: 'key_d', type: TABLE_DATA_TYPE, column: { name: 'd' } },
+      ];
+      const fixedNames = ['a', 'd', sampleType];
+
+      expect(getFixedColumnKeys(tableColumns, fixedNames))
         .toEqual(['key_a', 'key_type1', 'key_d']);
     });
   });

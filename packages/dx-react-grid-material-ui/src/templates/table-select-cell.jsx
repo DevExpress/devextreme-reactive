@@ -15,8 +15,7 @@ const styles = theme => ({
   checkbox: {
     marginTop: '-1px',
     marginBottom: '-1px',
-    width: theme.spacing.unit * 5,
-    height: theme.spacing.unit * 5,
+    padding: theme.spacing.unit,
   },
 });
 

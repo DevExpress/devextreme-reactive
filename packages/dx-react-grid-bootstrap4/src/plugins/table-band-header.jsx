@@ -8,3 +8,5 @@ import { TableRow as Row } from '../templates/table-row';
 export const TableBandHeader = withComponents({
   Cell, Row, BandedHeaderCell, InvisibleCell,
 })(TableBandHeaderBase);
+
+TableBandHeader.ROW_TYPE = TableBandHeaderBase.ROW_TYPE;

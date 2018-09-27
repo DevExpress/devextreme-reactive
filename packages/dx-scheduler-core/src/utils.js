@@ -2,7 +2,7 @@ import moment from 'moment';
 import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
 
 export const computed = (getters, viewName, baseComputed, defaultValue) => {
-  if (getters.currentView !== viewName && !!defaultValue) {
+  if (getters.currentView.name !== viewName && !!defaultValue) {
     return defaultValue;
   }
   return baseComputed(getters, viewName);

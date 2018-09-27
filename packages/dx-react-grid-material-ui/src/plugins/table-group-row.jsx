@@ -8,3 +8,6 @@ const TableGroupRowWithIndent = props => <TableGroupRowBase indentColumnWidth={4
 TableGroupRowWithIndent.components = TableGroupRowBase.components;
 
 export const TableGroupRow = withComponents({ Row, Cell })(TableGroupRowWithIndent);
+
+TableGroupRow.COLUMN_TYPE = TableGroupRowBase.COLUMN_TYPE;
+TableGroupRow.ROW_TYPE = TableGroupRowBase.ROW_TYPE;

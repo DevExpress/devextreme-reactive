@@ -100,6 +100,13 @@ TableGroupRow.Cell | [TableGroupRow.CellProps](#tablegrouprowcellprops) | A comp
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | symbol | The group column type's identifier.
+ROW_TYPE | symbol | The group row type's identifier.
+
 ## Plugin Developer Reference
 
 ### Imports

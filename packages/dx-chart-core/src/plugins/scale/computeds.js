@@ -1,5 +1,6 @@
 import { extent } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
+import { setScalePadding } from '../../utils/scale';
 import {
   HORIZONTAL, VERTICAL, LINEAR, BAND, ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../../constants';
@@ -67,7 +68,7 @@ const calculateDomains = (domains, seriesList, data) => {
 export const computeExtension = (extension) => {
   const defaultExtension = [
     { type: LINEAR, constructor: scaleLinear },
-    { type: BAND, constructor: scaleBand },
+    { type: BAND, constructor: () => setScalePadding(scaleBand(), 0.3) },
   ];
   return extension.concat(defaultExtension);
 };

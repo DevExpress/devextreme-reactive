@@ -47,7 +47,6 @@ describe('Base series', () => {
     findSeriesByName.mockReturnValue({
       ...defaultProps,
       stack: 'stack1',
-      groupWidth: 0.7,
       color: 'color',
       styles: 'styles',
       calculateCoordinates: coordinates,
@@ -132,7 +131,6 @@ describe('Base series', () => {
       'argumentDomain',
       'valueDomain',
       { width: 60, height: 50 },
-      0.7,
       'scaleExtension',
     );
 
@@ -147,7 +145,6 @@ describe('Base series', () => {
         stack: 'stack1',
         styles: 'styles',
         color: 'color',
-        groupWidth: 0.7,
         calculateCoordinates: coordinates,
       },
       ['one', 'two'],

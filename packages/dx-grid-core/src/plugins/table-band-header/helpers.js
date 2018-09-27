@@ -3,10 +3,18 @@ import {
 } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
+import { TABLE_EDIT_COMMAND_TYPE } from '../table-edit-column/constants';
+import { TABLE_DETAIL_TYPE } from '../table-row-detail/constants';
+import { TABLE_SELECT_TYPE } from '../table-selection/constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
 || tableRow.type === TABLE_HEADING_TYPE;
+export const isCommandColumn = columnType => (
+  columnType === TABLE_EDIT_COMMAND_TYPE
+  || columnType === TABLE_SELECT_TYPE
+  || columnType === TABLE_DETAIL_TYPE
+);
 
 export const getColumnMeta = (
   columnName, bands, tableRowLevel,
@@ -69,7 +77,7 @@ export const getBandComponent = (
   const previousTableColumn = tableColumns[currentColumnIndex - 1];
   let leftBorder = false;
   if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
-      && (previousTableColumn.type === 'editCommand' || previousTableColumn.type === 'select' || previousTableColumn.type === 'detail')) {
+    && isCommandColumn(previousTableColumn.type)) {
     leftBorder = true;
   }
   if (currentColumnMeta.level === currentRowLevel) {

@@ -4,7 +4,7 @@ import {
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import {
-  isCommandColumn,
+  isNoDataColumn,
   isBandedTableRow,
   isBandedOrHeaderRow,
   getColSpan,
@@ -48,18 +48,14 @@ describe('TableBandHeader Plugin helpers', () => {
     { key: 'e', column: { name: 'e' }, type: TABLE_DATA_TYPE },
   ];
 
-  describe('#isCommandColumn', () => {
-    it('should work with EDIT column', () => {
-      expect(isCommandColumn('editCommand'))
+  describe('#isNoDataColumn', () => {
+    it('should work with not data column', () => {
+      expect(isNoDataColumn('editCommand'))
         .toBeTruthy();
     });
-    it('should work with SELECT column', () => {
-      expect(isCommandColumn('select'))
-        .toBeTruthy();
-    });
-    it('should work with DETAIL column', () => {
-      expect(isCommandColumn('detail'))
-        .toBeTruthy();
+    it('should work with data column', () => {
+      expect(isNoDataColumn(TABLE_DATA_TYPE))
+        .toBeFalsy();
     });
   });
 

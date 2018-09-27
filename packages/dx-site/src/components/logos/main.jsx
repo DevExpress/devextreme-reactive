@@ -2,9 +2,9 @@ import * as React from 'react';
 import Link from 'gatsby-link';
 import styles from './main.module.scss';
 
-const Footer = () => (
+const Main = () => (
   <Link to="/" className={styles.main}>
-    <span className={styles.product}>
+    <span className={styles.title}>
       DevExtreme
     </span>
     {' '}
@@ -14,4 +14,4 @@ const Footer = () => (
   </Link>
 );
 
-export default Footer;
+export default Main;

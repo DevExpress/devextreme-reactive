@@ -32,6 +32,8 @@ export default class extends React.Component {
           />
           {headComponents}
           <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" />
         </head>
         <body>
           <div

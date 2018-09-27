@@ -2,7 +2,7 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import Layout from '../../../components/layout';
 import Header from '../../../components/header';
-import MainLogo from '../../../components/logos/main';
+import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
@@ -25,7 +25,7 @@ const IndexPage = () => (
   <Layout>
     <Helmet title="React Grid" />
     <Header
-      logo={<MainLogo />}
+      logo={<ProductLogo link="react/grid" />}
       addon={(
         <LandingHeaderAddon
           main="React Grid"

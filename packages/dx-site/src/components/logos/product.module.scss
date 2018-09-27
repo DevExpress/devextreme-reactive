@@ -1,0 +1,40 @@
+.main {
+  color: white;
+  font-size: 16px;
+  &:hover {
+    color: lightgray;
+    text-decoration: none;
+  }
+}
+
+.title {
+  letter-spacing: -0.5px;
+  font-family: "Segoe UI Semibold";
+}
+
+.name {
+  text-transform: uppercase;
+  font-family: "Segoe UI Light";
+}
+
+.product {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  font-family: "Segoe UI Bold";
+  &:hover {
+    color: lightgray;
+    text-decoration: none;
+  }
+}
+
+.react {
+  color: rgb(89, 208, 240);
+}
+
+.vue {
+  color: rgb(82, 184, 135);
+}
+
+.icon {
+  margin-right: 10px;
+}

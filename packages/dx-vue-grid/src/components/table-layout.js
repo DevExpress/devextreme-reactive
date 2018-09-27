@@ -24,7 +24,7 @@ export const TableLayout = {
       const isFixedWidth = columns.filter(column => column.width === undefined).length === 0;
       if (isFixedWidth) {
         result = result.slice();
-        result.push({ key: TABLE_FLEX_TYPE, type: TABLE_FLEX_TYPE });
+        result.push({ key: TABLE_FLEX_TYPE.toString(), type: TABLE_FLEX_TYPE });
       }
 
       return result;

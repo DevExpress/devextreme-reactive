@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
-import { VerticalViewLayout } from '../templates/views/vertical-view-layout';
+import { VerticalViewLayout as Layout } from '../templates/views/vertical-view-layout';
 
 import { Row } from '../templates/week-view/row';
 import { NavbarEmpty } from '../templates/week-view/navbar-empty';
@@ -16,39 +16,17 @@ import { Cell as DateTableCell } from '../templates/week-view/date-table/cell';
 
 import { Container } from '../templates/appointment/container';
 
-export class WeekView extends React.PureComponent {
-  render() {
-    return (
-      <WeekViewBase
-        layoutComponent={VerticalViewLayout}
-        navbarEmptyComponent={NavbarEmpty}
-        timePanelLayoutComponent={TimePanelLayout}
-        timePanelCellComponent={TimePanelCell}
-        timePanelRowComponent={Row}
-        dayPanelLayoutComponent={DayPanelLayout}
-        dayPanelCellComponent={DayPanelCell}
-        dayPanelRowComponent={Row}
-        dateTableLayoutComponent={DateTableLayout}
-        dateTableCellComponent={DateTableCell}
-        dateTableRowComponent={Row}
-        containerComponent={Container}
-        {...this.props}
-      />
-    );
-  }
-}
-
-WeekView.NavbarEmpty = NavbarEmpty;
-WeekView.Container = Container;
-
-WeekView.TimePanelLayout = TimePanelLayout;
-WeekView.TimePanelCell = TimePanelCell;
-WeekView.TimePanelRow = Row;
-
-WeekView.DayPanelLayout = DayPanelLayout;
-WeekView.DayPanelCell = DayPanelCell;
-WeekView.DayPanelRow = Row;
-
-WeekView.DateTableLayout = DateTableLayout;
-WeekView.DateTableCell = DateTableCell;
-WeekView.DateTableRow = Row;
+export const WeekView = withComponents({
+  Layout,
+  Container,
+  NavbarEmpty,
+  TimePanelLayout,
+  TimePanelCell,
+  TimePanelRow: Row,
+  DayPanelLayout,
+  DayPanelCell,
+  DayPanelRow: Row,
+  DateTableLayout,
+  DateTableCell,
+  DateTableRow: Row,
+})(WeekViewBase);

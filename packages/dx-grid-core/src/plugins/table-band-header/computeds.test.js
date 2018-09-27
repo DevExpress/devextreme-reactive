@@ -20,7 +20,7 @@ describe('TableBandHeader Plugin computeds', () => {
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
       expect(rows)
-        .toEqual([{ key: `${TABLE_BAND_TYPE}_0`, type: TABLE_BAND_TYPE, level: 0 }, {}]);
+        .toEqual([{ key: `${TABLE_BAND_TYPE.toString()}_0`, type: TABLE_BAND_TYPE, level: 0 }, {}]);
     });
 
     it('should add one band row if one nested level is hidden', () => {
@@ -46,7 +46,7 @@ describe('TableBandHeader Plugin computeds', () => {
       const rows = tableRowsWithBands(tableHeaderRows, columnBands, tableColumns);
 
       expect(rows)
-        .toEqual([{ key: `${TABLE_BAND_TYPE}_0`, type: TABLE_BAND_TYPE, level: 0 }, {}]);
+        .toEqual([{ key: `${TABLE_BAND_TYPE.toString()}_0`, type: TABLE_BAND_TYPE, level: 0 }, {}]);
     });
   });
 });

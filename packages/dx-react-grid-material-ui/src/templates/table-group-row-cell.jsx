@@ -20,8 +20,7 @@ const styles = theme => ({
   groupButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    height: theme.spacing.unit * 5,
-    width: theme.spacing.unit * 5,
+    padding: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
   columnTitle: {

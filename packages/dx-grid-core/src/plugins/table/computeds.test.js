@@ -12,8 +12,8 @@ describe('Table Plugin computeds', () => {
 
       expect(tableColumnsWithDataRows(columns))
         .toEqual([
-          { key: `${TABLE_DATA_TYPE}_a`, type: TABLE_DATA_TYPE, column: columns[0] },
-          { key: `${TABLE_DATA_TYPE}_b`, type: TABLE_DATA_TYPE, column: columns[1] },
+          { key: `${TABLE_DATA_TYPE.toString()}_a`, type: TABLE_DATA_TYPE, column: columns[0] },
+          { key: `${TABLE_DATA_TYPE.toString()}_b`, type: TABLE_DATA_TYPE, column: columns[1] },
         ]);
     });
 
@@ -53,13 +53,13 @@ describe('Table Plugin computeds', () => {
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
           {
-            key: `${TABLE_DATA_TYPE}_1`,
+            key: `${TABLE_DATA_TYPE.toString()}_1`,
             type: TABLE_DATA_TYPE,
             rowId: 1,
             row: rows[0],
           },
           {
-            key: `${TABLE_DATA_TYPE}_2`,
+            key: `${TABLE_DATA_TYPE.toString()}_2`,
             type: TABLE_DATA_TYPE,
             rowId: 2,
             row: rows[1],
@@ -73,7 +73,7 @@ describe('Table Plugin computeds', () => {
 
       expect(tableRowsWithDataRows(rows, getRowId))
         .toEqual([
-          { key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE },
+          { key: TABLE_NODATA_TYPE.toString(), type: TABLE_NODATA_TYPE },
         ]);
     });
 

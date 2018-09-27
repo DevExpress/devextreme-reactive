@@ -1,16 +1,4 @@
-import * as React from 'react';
-import { AreaSeries as AreaSeriesBase } from '@devexpress/dx-react-chart';
-import { Area } from '../templates/series/area';
+import { AreaSeries as AreaSeriesBase, withComponents } from '@devexpress/dx-react-chart';
+import { Area as Path } from '../templates/series/area';
 
-export class AreaSeries extends React.PureComponent {
-  render() {
-    return (
-      <AreaSeriesBase
-        seriesComponent={Area}
-        {...this.props}
-      />
-    );
-  }
-}
-
-AreaSeries.Path = Area;
+export const AreaSeries = withComponents({ Path })(AreaSeriesBase);

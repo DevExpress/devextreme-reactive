@@ -1,3 +1,4 @@
+import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_DETAIL_TYPE } from './constants';
 import {
   tableRowsWithExpandedDetail,
@@ -9,17 +10,17 @@ describe('TableRowDetail Plugin computeds', () => {
   describe('#tableRowsWithExpandedDetail', () => {
     it('can expand one row', () => {
       const tableRows = [
-        { type: 'data', rowId: 1, row: 'row1' },
-        { type: 'data', rowId: 2, row: 'row2' },
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
       ];
       const expandedDetailRowIds = [2];
 
       const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedDetailRowIds, 100);
       expect(rowsWithDetails).toEqual([
-        { type: 'data', rowId: 1, row: 'row1' },
-        { type: 'data', rowId: 2, row: 'row2' },
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
         {
-          key: `${TABLE_DETAIL_TYPE}_2`,
+          key: `${TABLE_DETAIL_TYPE.toString()}_2`,
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
@@ -29,33 +30,33 @@ describe('TableRowDetail Plugin computeds', () => {
     });
 
     it('can\'t expand not data', () => {
-      const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'undefined', rowId: 2, row: 'row2' }];
+      const tableRows = [{ type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' }, { type: 'undefined', rowId: 2, row: 'row2' }];
       const expandedDetailRowIds = [2];
 
       const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedDetailRowIds, 100);
       expect(rowsWithDetails).toEqual([
-        { type: 'data', rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
         { type: 'undefined', rowId: 2, row: 'row2' },
       ]);
     });
 
     it('can expand several rows', () => {
-      const tableRows = [{ type: 'data', rowId: 1, row: 'row1' }, { type: 'data', rowId: 2, row: 'row2' }];
+      const tableRows = [{ type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' }, { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' }];
       const expandedDetailRowIds = [1, 2];
 
       const rowsWithDetails = tableRowsWithExpandedDetail(tableRows, expandedDetailRowIds, 100);
       expect(rowsWithDetails).toEqual([
-        { type: 'data', rowId: 1, row: 'row1' },
+        { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
         {
-          key: `${TABLE_DETAIL_TYPE}_1`,
+          key: `${TABLE_DETAIL_TYPE.toString()}_1`,
           type: TABLE_DETAIL_TYPE,
           rowId: 1,
           row: 'row1',
           height: 100,
         },
-        { type: 'data', rowId: 2, row: 'row2' },
+        { type: TABLE_DATA_TYPE, rowId: 2, row: 'row2' },
         {
-          key: `${TABLE_DETAIL_TYPE}_2`,
+          key: `${TABLE_DETAIL_TYPE.toString()}_2`,
           type: TABLE_DETAIL_TYPE,
           rowId: 2,
           row: 'row2',
@@ -69,7 +70,7 @@ describe('TableRowDetail Plugin computeds', () => {
     it('should work', () => {
       expect(tableColumnsWithDetail([{}], 50))
         .toEqual([
-          { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: 50 },
+          { key: TABLE_DETAIL_TYPE.toString(), type: TABLE_DETAIL_TYPE, width: 50 },
           {},
         ]);
     });

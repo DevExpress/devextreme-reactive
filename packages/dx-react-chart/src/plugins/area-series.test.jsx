@@ -24,8 +24,23 @@ const coords = [
   { x: 5, y: 15, id: 5 },
 ];
 
-findSeriesByName.mockImplementation(() => ({
+const defaultProps = {
+  name: 'val1',
+  axisName: 'axisName',
+  valueField: 'valueField',
+  argumentField: 'argumentField',
+};
+
+const findSeriesByNameResult = {
+  ...defaultProps,
   stack: 'stack1',
+  uniqueName: 'uniqueSeriesName',
+  seriesComponent: SeriesComponent,
+};
+
+findSeriesByName.mockImplementation(() => ({
+  ...findSeriesByNameResult,
+  customProperty: 'custom',
 }));
 
 coordinates.mockImplementation(() => coords);
@@ -34,21 +49,12 @@ describe('Area series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      colorDomain: jest.fn(),
+      colorDomain: jest.fn().mockReturnValue('red'),
       domains: {},
     },
     template: {
       series: {},
     },
-  };
-
-  const defaultProps = {
-    seriesComponent: SeriesComponent,
-    name: 'val1',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render path', () => {
@@ -58,7 +64,6 @@ describe('Area series', () => {
 
         <AreaSeries
           {...defaultProps}
-          customProperty="custom"
         />
       </PluginHost>
     ));
@@ -72,20 +77,17 @@ describe('Area series', () => {
   });
 
   it('should render with color', () => {
-    const colorDomain = jest.fn().mockReturnValue('red');
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
+
         <AreaSeries
           {...defaultProps}
-          colorDomain={colorDomain}
-          customProperty="custom"
         />
       </PluginHost>
     ));
     const { color } = tree.find(SeriesComponent).props();
 
     expect(color).toEqual('red');
-    expect(colorDomain).lastCalledWith('uniqueSeriesName');
   });
 });

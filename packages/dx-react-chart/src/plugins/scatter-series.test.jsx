@@ -6,6 +6,7 @@ import {
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
+import { PointCollection } from '../templates/series/point-collection';
 
 const PointComponent = () => null;
 
@@ -32,11 +33,21 @@ pointAttributes.mockImplementation(() => () => ({
   d: 'M12 12',
 }));
 
-findSeriesByName.mockImplementation(() => ({
+const defaultProps = {
+  name: 'val1',
   axisName: 'axisName',
   argumentField: 'arg',
   valueField: 'val',
+};
+
+findSeriesByName.mockImplementation(() => ({
+  ...defaultProps,
   stack: 'stack',
+  styles: 'styles',
+  point: { size: 5 },
+  uniqueName: 'uniqueSeriesName',
+  seriesComponent: PointCollection,
+  pointComponent: PointComponent,
 }));
 
 xyScales.mockImplementation();
@@ -52,17 +63,6 @@ describe('Scatter series', () => {
     template: {
       series: {},
     },
-  };
-
-  const defaultProps = {
-    pointComponent: PointComponent,
-    name: 'val1',
-    styles: 'styles',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-    axisName: 'axisName',
-    point: { size: 5 },
-    uniqueName: 'uniqueSeriesName',
   };
 
   it('should render points', () => {

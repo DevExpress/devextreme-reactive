@@ -207,6 +207,40 @@ export const testStatePluginField = ({
         expect(change)
           .toHaveBeenCalledTimes(1);
       });
+
+      it(`should correctly work when ${eventPropertyName} change event changes`, () => {
+        const Test = ({ changeHandler }) => (
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <Plugin
+              {...defaultProps}
+              {...{
+                [defaultPropertyName]: values[0],
+                [eventPropertyName]: changeHandler,
+              }}
+            />
+          </PluginHost>
+        );
+
+        const tree = mount((
+          <Test changeHandler={jest.fn()} />
+        ));
+
+        const change = jest.fn();
+        tree.setProps({
+          changeHandler: change,
+        });
+
+        const payload = {};
+        reducer
+          .mockReturnValueOnce(fieldReducer ? values[1] : { [propertyName]: values[1] });
+        executeComputedAction(tree, (computedActions) => {
+          computedActions[actionName](payload);
+        });
+
+        expect(change)
+          .toHaveBeenCalledTimes(1);
+      });
     });
   });
 };

@@ -12,6 +12,9 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit,
     textAlign: 'center',
   },
+  checkbox: {
+    padding: theme.spacing.unit,
+  },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing.unit / 2,
@@ -41,6 +44,7 @@ const TableSelectAllCellBase = ({
     >
       <Checkbox
         checked={allSelected}
+        className={classes.checkbox}
         indeterminate={someSelected}
         disabled={disabled}
         onClick={(e) => {

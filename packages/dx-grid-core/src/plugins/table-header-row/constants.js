@@ -1,1 +1,1 @@
-export const TABLE_HEADING_TYPE = 'heading';
+export const TABLE_HEADING_TYPE = Symbol('heading');

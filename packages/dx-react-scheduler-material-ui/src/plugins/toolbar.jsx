@@ -1,18 +1,6 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { Toolbar as ToolbarBase } from '@devexpress/dx-react-scheduler';
 import { Toolbar as Root } from '../templates/toolbar/toolbar';
 import { FlexibleSpace } from '../templates/toolbar/flexible-space';
 
-export class Toolbar extends React.PureComponent {
-  render() {
-    return (
-      <ToolbarBase
-        rootComponent={Root}
-        flexibleSpaceComponent={FlexibleSpace}
-        {...this.props}
-      />
-    );
-  }
-}
-
-Toolbar.Root = Root;
+export const Toolbar = withComponents({ Root, FlexibleSpace })(ToolbarBase);

@@ -4,20 +4,20 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export const Switcher = ({
-  currentView,
+  currentViewName,
   availableViews,
-  onItemClick,
+  onChange,
   ...restProps
 }) => {
-  const clickHandle = (event) => {
-    onItemClick({ nextView: event.target.value });
+  const handleChange = (event) => {
+    onChange({ nextViewName: event.target.value });
   };
 
   return (
     <Select
       disableUnderline
-      value={currentView}
-      onChange={clickHandle}
+      value={currentViewName}
+      onChange={handleChange}
       {...restProps}
     >
       {availableViews.map(view => (
@@ -30,12 +30,12 @@ export const Switcher = ({
 };
 
 Switcher.propTypes = {
-  onItemClick: PropTypes.func.isRequired,
-  currentView: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  currentViewName: PropTypes.string,
   availableViews: PropTypes.array,
 };
 
 Switcher.defaultProps = {
-  currentView: undefined,
+  currentViewName: undefined,
   availableViews: [],
 };

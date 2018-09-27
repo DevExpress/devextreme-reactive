@@ -11,9 +11,9 @@ export const getValueDomainName = name => name || VALUE_DOMAIN;
 // TODO: Property name should not contain "axis" part as it actually means domain.
 const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
 
-const calculateDomainField = (getFieldItemFirst, getFieldItemSecond, data, domain, type) => {
+const calculateDomainField = (getValue, data, domain, type) => {
   const getCategories = (prev, cur) => {
-    const categories = getFieldItemFirst(cur);
+    const categories = getValue(cur);
     if (isDefined(categories)) {
       return [...prev, categories];
     }
@@ -24,8 +24,7 @@ const calculateDomainField = (getFieldItemFirst, getFieldItemSecond, data, domai
   }
   return extent([
     ...domain,
-    ...extent(data, getFieldItemFirst),
-    ...extent(data, getFieldItemSecond),
+    ...extent(data, getValue),
   ]);
 };
 
@@ -36,14 +35,10 @@ const getCorrectAxisType = (type, data, field) => {
   return type || LINEAR;
 };
 
-const getFieldStack = (index, object) => (
-  object && isDefined(object[index]) ? object[index] : undefined
-);
-
 const calculateDomains = (domains, seriesList, data) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
-    const { argumentField, valueField, name } = seriesItem;
+    const { argumentField, valueField } = seriesItem;
     const argumentDomain = domains[ARGUMENT_DOMAIN];
     const valueDomain = domains[valueDomainName];
 
@@ -51,9 +46,7 @@ const calculateDomains = (domains, seriesList, data) => {
     const argumentType = getCorrectAxisType(argumentDomain.type, data, argumentField);
 
     valueDomain.domain = calculateDomainField(
-      object => getFieldStack(1, object[`${valueField}-${name}-stack`]),
-      valueDomain.isStartedFromZero
-        ? object => getFieldStack(0, object[`${valueField}-${name}-stack`]) : undefined,
+      object => object[valueField],
       data,
       valueDomain.domain,
       valueType,
@@ -62,7 +55,6 @@ const calculateDomains = (domains, seriesList, data) => {
 
     argumentDomain.domain = calculateDomainField(
       object => object[argumentField],
-      null,
       data,
       argumentDomain.domain,
       argumentType,
@@ -87,7 +79,9 @@ const collectDomains = (seriesList) => {
     const name = getSeriesValueDomainName(seriesItem);
     const domain = domains[name] || { domain: [], orientation: VERTICAL };
     domains[name] = domain;
-    domain.isStartedFromZero = domain.isStartedFromZero || seriesItem.isStartedFromZero;
+    if (seriesItem.isStartedFromZero && domain.domain.length === 0) {
+      domain.domain = [0];
+    }
   });
   return domains;
 };

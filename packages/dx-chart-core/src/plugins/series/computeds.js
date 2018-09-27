@@ -84,19 +84,21 @@ export const coordinates = (
   { xScale, yScale },
   argumentField,
   valueField,
-  name,
-) => data.reduce((result, dataItem, index) => {
-  if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
-    return [...result, {
-      x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
-      y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
-      y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
-      id: index,
-      value: dataItem[valueField],
-    }];
-  }
-  return result;
-}, []);
+) => {
+  const y1 = yScale.range()[0];
+  return data.reduce((result, dataItem, index) => {
+    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+      return [...result, {
+        x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
+        y: yScale(dataItem[valueField]),
+        y1,
+        id: index,
+        value: dataItem[valueField],
+      }];
+    }
+    return result;
+  }, []);
+};
 
 export const barCoordinates = (
   data,
@@ -114,7 +116,6 @@ export const barCoordinates = (
     { xScale, yScale },
     argumentField,
     valueField,
-    name,
   );
   const width = getWidth(xScale);
   const x0Scale = createScale(

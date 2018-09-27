@@ -58,40 +58,40 @@ jest.mock('d3-shape', () => {
 
 const data = [
   {
-    arg: 1, val1: 3, 'val1-Series3-stack': [2, 3],
+    arg: 1, val1: 3,
   },
   {
-    arg: 2, val1: 5, 'val1-Series3-stack': [4, 5],
+    arg: 2, val1: 5,
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-stack': [6, 7],
+    arg: 3, val1: 7,
   },
   {
-    arg: 4, val1: 10, 'val1-Series3-stack': [9, 10],
+    arg: 4, val1: 10,
   },
   {
-    arg: 5, val1: 15, 'val1-Series3-stack': [14, 15],
+    arg: 5, val1: 15,
   },
 ];
 
 const dataWithUndefined = [
   {
-    arg: 1, val1: 3, 'val1-Series3-stack': [3, 3],
+    arg: 1, val1: 3,
   },
   {
-    arg: undefined, val1: 5, 'val1-Series3-stack': [5, 5],
+    arg: undefined, val1: 5,
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-stack': [7, 7],
+    arg: 3, val1: 7,
   },
   { arg: 4, val1: undefined },
   {
-    arg: 5, val1: 15, 'val1-Series3-stack': [15, 15],
+    arg: 5, val1: 15,
   },
 ];
 
 const computedLine = data.map((item, index) => ({
-  id: index, x: item.arg + 5, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
+  id: index, x: item.arg + 5, y: item.val1, y1: 10, value: item.val1,
 }));
 
 const groupWidth = 0.7;
@@ -184,9 +184,11 @@ describe('barCoordinates', () => {
   });
 
   it('should return array object with x, width properties', () => {
+    const yScale = createScale();
+    yScale.range = () => ([10, 0]);
     const result = barCoordinates(
       data,
-      { xScale: createScale(), yScale: createScale() },
+      { xScale: createScale(), yScale },
       'arg',
       'val1',
       'Series3',
@@ -199,15 +201,15 @@ describe('barCoordinates', () => {
     );
 
     expect(result).toEqual([{
-      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 2,
+      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 10,
     }, {
-      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 4,
+      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 10,
     }, {
-      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 6,
+      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 10,
     }, {
-      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 9,
+      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 10,
     }, {
-      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 14,
+      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
     }]);
   });
 });
@@ -258,9 +260,11 @@ describe('Series attributes', () => {
   });
 
   it('should return coordinates for path', () => {
+    const yScale = createScale();
+    yScale.range = () => ([10, 0]);
     expect(coordinates(
       data,
-      { xScale: createScale(), yScale: createScale() },
+      { xScale: createScale(), yScale },
       'arg',
       'val1',
       'Series3',
@@ -268,6 +272,8 @@ describe('Series attributes', () => {
   });
 
   it('should return coordinates for path, some value and argument fields are undefined', () => {
+    const yScale = createScale();
+    yScale.range = () => ([7, 1]);
     expect(coordinates(
       dataWithUndefined,
       { xScale: createScale(), yScale: createScale() },
@@ -276,13 +282,13 @@ describe('Series attributes', () => {
       'Series3',
     )).toEqual([
       {
-        id: 0, x: 6, y: 3, y1: 3, value: 3,
+        id: 0, x: 6, y: 3, y1: 7, value: 3,
       },
       {
         id: 2, x: 8, y: 7, y1: 7, value: 7,
       },
       {
-        id: 4, x: 10, y: 15, y1: 15, value: 15,
+        id: 4, x: 10, y: 15, y1: 7, value: 15,
       },
     ]);
   });

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import Layout from '../../components/layout';
 import Header from '../../components/header';
 import MainLogo from '../../components/logos/main';
@@ -20,6 +21,7 @@ import materialThemeLink from './images/material-theme.png';
 
 const IndexPage = () => (
   <Layout>
+    <Helmet title="React Components" />
     <Header
       logo={<MainLogo />}
       addon={(

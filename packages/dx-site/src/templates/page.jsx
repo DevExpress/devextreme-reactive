@@ -3,6 +3,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { graphql, withPrefix } from 'gatsby';
+import Helmet from 'react-helmet';
 import PageLayout from '../components/page-layout';
 
 export default class extends React.Component {
@@ -67,11 +68,14 @@ export default class extends React.Component {
         },
       );
 
+    const title = content.split('</h1>')[0].split('</a>')[1];
+
     return (
       <PageLayout
         technologyName={markdownRemark.fields.technology}
         sectionName={markdownRemark.fields.section}
       >
+        <Helmet title={title} />
         {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </PageLayout>

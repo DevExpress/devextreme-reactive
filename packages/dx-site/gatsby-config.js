@@ -1,8 +1,10 @@
 const path = require('path');
+const { version } = require('../../lerna.json');
 
 module.exports = {
   siteMetadata: {
     title: 'DevExterme Reactive',
+    version,
   },
   pathPrefix: '/devextreme-reactive',
   plugins: [

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Helmet from 'react-helmet';
 import Layout from '../../components/layout';
 import Header from '../../components/header';
 import MainLogo from '../../components/logos/main';
@@ -19,6 +20,7 @@ import bootstrapThemeLink from './images/bootstrap-theme.png';
 
 const IndexPage = () => (
   <Layout>
+    <Helmet title="Vue Components" />
     <Header
       logo={<MainLogo />}
       addon={(

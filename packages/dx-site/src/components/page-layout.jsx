@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import { Location } from '@reach/router';
+import { StaticQuery, graphql } from 'gatsby';
 import Layout from './layout';
 import Header from './header';
 import MainLogo from './logos/main';
@@ -57,6 +58,34 @@ const PageLayout = ({ technologyName, sectionName, children }) => (
             {children}
           </div>
           <div className="col-md-3 order-md-1">
+            {sectionName === 'docs' ? (
+              <StaticQuery
+                query={graphql`
+                  query {
+                    site {
+                      siteMetadata {
+                        version
+                      }
+                    }
+                  }
+                `}
+                render={data => (
+                  <div className={styles.versionLink}>
+                    <a
+                      href={`https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#${data.site.siteMetadata.version}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Version
+                      {' '}
+                      <span className={styles.version}>
+                        {data.site.siteMetadata.version}
+                      </span>
+                    </a>
+                  </div>
+                )}
+              />
+            ) : null}
             {navigation[technologyName][sectionName].map(section => (
               <Section
                 key={section.title}

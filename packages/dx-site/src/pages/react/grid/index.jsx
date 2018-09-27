@@ -9,6 +9,7 @@ import LandingHr from '../../../components/landing/hr';
 import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingImageFeature from '../../../components/landing/image-feature';
 import LandingMaintainence from '../../../components/landing/maintainence';
+import LandingLink from '../../../components/landing/link';
 
 import headerLink from './images/header.png';
 import bootstrapThemeLink from './images/bootstrap-theme.png';
@@ -25,7 +26,16 @@ const IndexPage = () => (
       addon={(
         <LandingHeaderAddon
           main="React Grid"
-          additional="for Bootstrap and Material UI"
+          additional={(
+            <React.Fragment>
+              for Bootstrap and Material UI
+              <br />
+              <br />
+              <LandingLink to="/react/grid/docs/">Getting Started</LandingLink>
+              {' '}
+              <LandingLink to="/react/grid/demos/" type="react">Demos</LandingLink>
+            </React.Fragment>
+          )}
           imageLink={headerLink}
         />
       )}

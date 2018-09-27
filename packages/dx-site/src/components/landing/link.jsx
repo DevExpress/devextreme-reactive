@@ -4,13 +4,18 @@ import GatsbyLink from 'gatsby-link';
 
 import styles from './link.module.scss';
 
-const Link = ({ children, to }) => (
-  <GatsbyLink className={styles.link} to={to}>{children}</GatsbyLink>
+const Link = ({ children, type, to }) => (
+  <GatsbyLink className={`${styles.link} ${type ? styles[type] : ''}`} to={to}>{children}</GatsbyLink>
 );
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,
+  type: PropTypes.string,
   to: PropTypes.string.isRequired,
+};
+
+Link.defaultProps = {
+  type: undefined,
 };
 
 export default Link;

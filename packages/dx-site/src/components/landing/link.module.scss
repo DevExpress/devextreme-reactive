@@ -1,6 +1,8 @@
 .link {
+  font-family: "Segoe UI";
+  font-size: 16px;
   background-color: white;
-  padding: 10px 20px;
+  padding: 15px 20px;
   color: black;
   margin-top: 20px;
   border-radius: 3px;
@@ -9,4 +11,12 @@
     color: darkgray;
     text-decoration: none;
   }
+}
+
+.react {
+  background-color: rgb(89, 208, 240);
+}
+
+.vue {
+  background-color: rgb(82, 184, 135);
 }

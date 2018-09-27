@@ -2,7 +2,7 @@ import * as React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Item } from './item';
 
 const defaultProps = {
@@ -13,13 +13,23 @@ const defaultProps = {
 };
 
 describe('Item', () => {
+  it('should use the "li" tag as an item element', () => {
+    const { component } = mount((
+      <Item
+        {...defaultProps}
+      />
+    )).find(ListItem).props();
+
+    expect(component)
+      .toBe('li');
+  });
+
   it('should set item checkbox value depending on the "hidden" property', () => {
-    const tree = shallow((
+    const tree = mount((
       <Item
         {...defaultProps}
       />
     ));
-
     expect(tree.find(Checkbox).prop('checked'))
       .toBe(true);
 
@@ -31,7 +41,7 @@ describe('Item', () => {
 
   it('should call the "onToggle" on the list item "onClick" event', () => {
     const toggleHandler = jest.fn();
-    const tree = shallow((
+    const tree = mount((
       <Item
         onToggle={toggleHandler}
         {...defaultProps}
@@ -63,7 +73,7 @@ describe('Item', () => {
   });
 
   it('should pass rest props to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <Item
         {...defaultProps}
         data={{ a: 1 }}
@@ -75,7 +85,7 @@ describe('Item', () => {
   });
 
   it('should process the disabled prop', () => {
-    const tree = shallow((
+    const tree = mount((
       <Item
         {...defaultProps}
         disabled

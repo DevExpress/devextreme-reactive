@@ -32,6 +32,7 @@
     "@types/react-dom": "^16.0.7",
     "core-js": "^2.5.7",
     "d3-shape": "^1.2.2",
+    "moment": "^2.22.2",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",

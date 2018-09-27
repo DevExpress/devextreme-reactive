@@ -43,18 +43,25 @@ export class EditingState extends React.PureComponent {
       deletedRowIds: props.deletedRowIds || props.defaultDeletedRowIds,
     };
 
-    const {
-      onEditingRowIdsChange, onAddedRowsChange, onRowChangesChange,
-      onDeletedRowIdsChange, onCommitChanges,
-    } = this.props;
-
     const stateHelper = createStateHelper(
       this,
       {
-        editingRowIds: () => onEditingRowIdsChange,
-        addedRows: () => onAddedRowsChange,
-        rowChanges: () => onRowChangesChange,
-        deletedRowIds: () => onDeletedRowIdsChange,
+        editingRowIds: () => {
+          const { onEditingRowIdsChange } = this.props;
+          return onEditingRowIdsChange;
+        },
+        addedRows: () => {
+          const { onAddedRowsChange } = this.props;
+          return onAddedRowsChange;
+        },
+        rowChanges: () => {
+          const { onRowChangesChange } = this.props;
+          return onRowChangesChange;
+        },
+        deletedRowIds: () => {
+          const { onDeletedRowIdsChange } = this.props;
+          return onDeletedRowIdsChange;
+        },
       },
     );
 
@@ -68,6 +75,7 @@ export class EditingState extends React.PureComponent {
     this.cancelChangedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'rowChanges', cancelChanges);
     this.commitChangedRows = ({ rowIds }) => {
+      const { onCommitChanges } = this.props;
       onCommitChanges({
         changed: changedRowsByIds(getRowChanges(), rowIds),
       });
@@ -81,6 +89,7 @@ export class EditingState extends React.PureComponent {
     this.cancelAddedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedRows', cancelAddedRows);
     this.commitAddedRows = ({ rowIds }) => {
+      const { onCommitChanges } = this.props;
       onCommitChanges({
         added: addedRowsByIds(getAddedRows(), rowIds),
       });
@@ -92,6 +101,7 @@ export class EditingState extends React.PureComponent {
     this.cancelDeletedRows = stateHelper.applyFieldReducer
       .bind(stateHelper, 'deletedRowIds', cancelDeletedRows);
     this.commitDeletedRows = ({ rowIds }) => {
+      const { onCommitChanges } = this.props;
       onCommitChanges({ deleted: rowIds });
       this.cancelDeletedRows({ rowIds });
     };

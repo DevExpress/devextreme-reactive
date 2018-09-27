@@ -8,7 +8,6 @@ import { toggleRowExpanded } from '@devexpress/dx-grid-core';
 export class TreeDataState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onExpandedRowIdsChange } = this.props;
 
     this.state = {
       expandedRowIds: props.expandedRowIds || props.defaultExpandedRowIds,
@@ -17,7 +16,10 @@ export class TreeDataState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        expandedRowIds: () => onExpandedRowIdsChange,
+        expandedRowIds: () => {
+          const { onExpandedRowIdsChange } = this.props;
+          return onExpandedRowIdsChange;
+        },
       },
     );
 

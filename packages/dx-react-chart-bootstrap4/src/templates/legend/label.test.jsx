@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };
 
 describe('Label', () => {
   it('should render text', () => {
-    const tree = shallow((
+    const tree = mount((
       <Label {...defaultProps} />
     ));
 
@@ -17,22 +17,21 @@ describe('Label', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Label {...defaultProps} customProperty />);
+    const tree = mount(<Label {...defaultProps} custom="test" />);
 
-    const { customProperty } = tree.find('span').props();
+    const { custom } = tree.find('span').props();
 
-    expect(customProperty)
-      .toBeTruthy();
+    expect(custom).toEqual('test');
   });
 
   it('should pass the className prop to the root element', () => {
-    const tree = shallow((
+    const tree = mount((
       <Label {...defaultProps} className="custom-class">
         <div />
       </Label>
     ));
 
-    expect(tree.is('.custom-class.text-body.pl-2.pr-2'))
+    expect(tree.find('span').is('.custom-class.text-body.pl-2.pr-2'))
       .toBeTruthy();
   });
 });

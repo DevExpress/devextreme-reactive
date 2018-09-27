@@ -1,26 +1,6 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { withClassName } from '../utils';
 
-export class Label extends React.PureComponent {
-  render() {
-    const { text, className, ...restProps } = this.props;
-    return (
-      <span className={classNames('text-body pl-2 pr-2', className)} {...restProps}>
-        {text}
-      </span>
-    );
-  }
-}
-
-Label.propTypes = {
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  className: PropTypes.string,
-};
-
-Label.defaultProps = {
-  className: undefined,
-};
+export const Label = withClassName('text-body', 'pl-2', 'pr-2')(
+  ({ text, ...restProps }) => (<span {...restProps}>{text}</span>),
+);

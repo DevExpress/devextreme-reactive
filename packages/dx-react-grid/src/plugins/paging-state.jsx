@@ -8,7 +8,6 @@ import { setCurrentPage, setPageSize } from '@devexpress/dx-grid-core';
 export class PagingState extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { onCurrentPageChange, onPageSizeChange } = this.props;
 
     this.state = {
       currentPage: props.currentPage || props.defaultCurrentPage,
@@ -18,8 +17,14 @@ export class PagingState extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        currentPage: () => onCurrentPageChange,
-        pageSize: () => onPageSizeChange,
+        currentPage: () => {
+          const { onCurrentPageChange } = this.props;
+          return onCurrentPageChange;
+        },
+        pageSize: () => {
+          const { onPageSizeChange } = this.props;
+          return onPageSizeChange;
+        },
       },
     );
 

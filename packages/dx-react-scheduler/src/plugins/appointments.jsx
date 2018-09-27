@@ -11,7 +11,7 @@ export class Appointments extends React.PureComponent {
     } = this.props;
 
     return (
-      <Plugin name="Appointment">
+      <Plugin name="Appointments">
         <Template
           name="appointment"
         >
@@ -21,14 +21,28 @@ export class Appointments extends React.PureComponent {
                 getAppointmentTitle,
                 getAppointmentStartDate,
                 getAppointmentEndDate,
-              }) => (
-                <Appointment
-                  {...params}
-                  getTitle={getAppointmentTitle}
-                  getStartDate={getAppointmentStartDate}
-                  getEndDate={getAppointmentEndDate}
-                />
-              )}
+              }, {
+                toggleTooltipVisibility,
+                setTooltipAppointmentMeta,
+              }) => {
+                const onClick = (toggleTooltipVisibility && setTooltipAppointmentMeta)
+                  ? {
+                    onClick: ({ target, appointment }) => {
+                      toggleTooltipVisibility();
+                      setTooltipAppointmentMeta({ target, appointment });
+                    },
+                  }
+                  : null;
+                return (
+                  <Appointment
+                    {...params}
+                    {...onClick}
+                    getTitle={getAppointmentTitle}
+                    getEndDate={getAppointmentEndDate}
+                    getStartDate={getAppointmentStartDate}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>
@@ -39,4 +53,8 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
+};
+
+Appointments.components = {
+  appointmentComponent: 'Appointment',
 };

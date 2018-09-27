@@ -14,40 +14,27 @@ import {
 export const withSeriesPlugin = (
   Series,
   pluginName,
-  pathType,
+  pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
+  getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
     render() {
-      const {
-        name,
-        valueField,
-        argumentField,
-        axisName,
-        stack: stackProp,
-        color,
-        groupWidth,
-        ...restProps
-      } = this.props;
-
-      const symbolName = Symbol(name);
+      const { name: seriesName, axisName: seriesAxisName } = this.props;
+      const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
-        valueField,
-        argumentField,
-        name,
+        ...this.props,
         symbolName,
-        axisName,
-        stack: stackProp,
-        color,
-        uniqueName: name,
+        uniqueName: seriesName,
       });
       const startFromZeroByAxes = (
         { startFromZero = {} },
-      ) => checkZeroStart(startFromZero, axisName, pathType);
+      ) => checkZeroStart(startFromZero, seriesAxisName, pathType);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
           <Getter name="startFromZero" computed={startFromZeroByAxes} />
+          <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
@@ -60,10 +47,12 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                pieColorDomain,
               }) => {
                 const {
-                  stack, uniqueName,
+                  name, axisName, argumentField, valueField, groupWidth, stack,
+                  // It is enumerated here only to prevent it from being passed to Series.
+                  symbolName: _,
+                  ...restProps
                 } = findSeriesByName(symbolName, series);
 
                 const scales = xyScales(
@@ -87,10 +76,8 @@ export const withSeriesPlugin = (
 
                 return (
                   <Series
-                    uniqueName={uniqueName}
-                    colorDomain={pluginName === 'PieSeries' ? pieColorDomain : colorDomain}
+                    colorDomain={colorDomain}
                     coordinates={calculatedCoordinates}
-                    color={color}
                     {...restProps}
                   />
                 );

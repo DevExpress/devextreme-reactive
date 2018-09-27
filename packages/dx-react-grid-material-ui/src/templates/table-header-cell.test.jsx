@@ -5,11 +5,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { GroupingControl } from './table-header-cell/grouping-control';
-
-jest.mock('./table-header-cell/grouping-control', () => ({
-  GroupingControl: jest.fn(),
-}));
 
 const defaultProps = {
   getMessage: key => key,
@@ -30,13 +25,6 @@ describe('TableHeaderCell', () => {
   afterAll(() => {
     resetConsole();
     mount.cleanUp();
-  });
-
-  beforeEach(() => {
-    GroupingControl.mockImplementation(() => null);
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   it('should consider the `wordWrapEnabled` property', () => {

@@ -7,7 +7,6 @@ import { DragSource } from '@devexpress/dx-react-core';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
-import { GroupingControl } from './table-header-cell/grouping-control';
 import { ResizingControl } from './table-header-cell/resizing-control';
 
 const styles = theme => ({
@@ -133,14 +132,6 @@ class TableHeaderCellBase extends React.PureComponent {
       >
         <div className={classes.container}>
           {children}
-          {showGroupingControls && (
-            <div className={classes.controls}>
-              <GroupingControl
-                disabled={!groupingEnabled}
-                onGroup={onGroup}
-              />
-            </div>
-          )}
         </div>
         {resizingEnabled && (
           <ResizingControl

@@ -51,7 +51,7 @@ export class Root extends React.PureComponent {
           onNavigate={this.onNavigate}
         />
         <Table
-          headerCells={getHeaderCells(currentDateState, firstDayOfWeek)}
+          headerCells={getHeaderCells(currentDateState, firstDayOfWeek, 7)}
           cells={getCells(currentDateState, firstDayOfWeek)}
           rowComponent={Row}
           cellComponent={Cell}

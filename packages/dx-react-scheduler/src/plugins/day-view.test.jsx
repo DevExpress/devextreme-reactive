@@ -4,14 +4,14 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  timeScale,
   dayScale,
+  timeScale,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
-import { WeekView } from './week-view';
+import { DayView } from './day-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
@@ -31,7 +31,6 @@ const defaultDeps = {
       querySelectorAll: () => {},
     },
     availableViews: [],
-    currentView: { name: 'Week' },
   },
   template: {
     body: {},
@@ -39,6 +38,7 @@ const defaultDeps = {
     sidebar: {},
     navbarEmpty: {},
     main: {},
+    appointment: {},
   },
 };
 
@@ -54,11 +54,10 @@ const defaultProps = {
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
   navbarEmptyComponent: () => null,
-  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div>{children}</div>,
+  containerComponent: () => null,
 };
 
-describe('Week View', () => {
+describe('Day View', () => {
   beforeEach(() => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
@@ -81,65 +80,44 @@ describe('Week View', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             startDayHour={8}
             endDayHour={18}
             cellDuration={60}
-            firstDayOfWeek={1}
             {...defaultProps}
           />
         </PluginHost>
       ));
 
       expect(timeScale)
-        .toBeCalledWith('2018-07-04', 1, 8, 18, 60, []);
+        .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
     });
 
     it('should provide the "dayScale" getter', () => {
-      const firstDayOfWeek = 2;
       const intervalCount = 2;
-      const excludedDays = [1, 2];
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
+          <DayView
             intervalCount={intervalCount}
-            excludedDays={excludedDays}
             {...defaultProps}
           />
         </PluginHost>
       ));
 
       expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
+        .toBeCalledWith('2018-07-04', undefined, intervalCount, []);
       expect(getComputedState(tree).dayScale)
         .toEqual([1, 2, 3]);
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
     });
 
     it('should provide the "startViewDate" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
             startDayHour={2}
           />
@@ -155,7 +133,7 @@ describe('Week View', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
           />
         </PluginHost>
@@ -166,27 +144,27 @@ describe('Week View', () => {
         .toBe('2018-07-11');
     });
 
-    it('should provide the "excludedDays" getter', () => {
-      const excludedDays = [1, 2];
+    it('should provide the "cellDuration" getter', () => {
+      const cellDuration = 60;
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            excludedDays={excludedDays}
+          <DayView
+            cellDuration={cellDuration}
             {...defaultProps}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).excludedDays)
-        .toBe(excludedDays);
+      expect(getComputedState(tree).cellDuration)
+        .toBe(cellDuration);
     });
 
     it('should provide the "intervalCount" getter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             intervalCount={2}
             {...defaultProps}
           />
@@ -201,44 +179,14 @@ describe('Week View', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
           />
         </PluginHost>
       ));
 
       expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week', type: 'week' });
-    });
-
-    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
-          <WeekView
-            {...defaultProps}
-            name="Week View"
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual({ name: 'Week View', type: 'week' });
-    });
-
-    it('should not override previous view type', () => {
-      const prevView = { name: 'Month', type: 'month' };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, { getter: { currentView: prevView } })}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).currentView)
-        .toEqual(prevView);
+        .toEqual({ name: 'Day', type: 'day' });
     });
   });
 
@@ -247,7 +195,7 @@ describe('Week View', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
             layoutComponent={() => <div className="view-layout" />}
           />
@@ -258,26 +206,11 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render day panel', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            dayPanelLayoutComponent={() => <div className="day-panel" />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.day-panel').exists())
-        .toBeTruthy();
-    });
-
     it('should render time panel', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
             timePanelLayoutComponent={() => <div className="time-panel" />}
           />
@@ -292,7 +225,7 @@ describe('Week View', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
             dateTableLayoutComponent={() => <div className="date-table" />}
           />
@@ -303,34 +236,18 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render navbar empty', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <WeekView
+          <DayView
             {...defaultProps}
-            // eslint-disable-next-line react/jsx-one-expression-per-line
-            containerComponent={({ children }) => <div className="container">{children}</div>}
+            navbarEmptyComponent={() => <div className="navbar-empty" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
-        .toBeTruthy();
-    });
-
-    it('should render navbarEmpty', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            navbarEmptyComponent={() => <div className="navbarEmpty" />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.navbarEmpty').exists())
+      expect(tree.find('.navbar-empty').exists())
         .toBeTruthy();
     });
   });

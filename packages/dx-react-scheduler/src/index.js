@@ -1,4 +1,5 @@
 export * from './scheduler';
+export * from './plugins/day-view';
 export * from './plugins/week-view';
 export * from './plugins/month-view';
 export * from './plugins/toolbar';

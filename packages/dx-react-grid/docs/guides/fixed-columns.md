@@ -22,13 +22,13 @@ The following plugins implement the capability to fix columns to the grid:
 
 ## Basic Setup
 
-Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the columns that should be fixed. The `leftColumnNames` property specifies columns fixed at the grid's left side, the `rightColumnNames` property - at the right side.
+Import the [TableFixedColumns](../reference/table-fixed-columns.md) plugin and specify the names of the columns that should be fixed. The `leftColumns` property specifies columns fixed at the grid's left side, the `rightColumns` property - at the right side.
 
 .embedded-demo({ "path": "grid-fixed-columns/basic", "showThemeSelector": true })
 
 ## Fixing Service Columns
 
-You can also use the `leftColumnTypes` and `rightColumnTypes` properties to fix service columns, such as Selection Column or Editing Column.
+You can also use the `leftColumns` and `rightColumns` properties to fix service columns, such as Selection Column or Editing Column.
 
 .embedded-demo({ "path": "grid-fixed-columns/with-selection", "showThemeSelector": true })
 

@@ -18,6 +18,9 @@ import {
   isGroupSummaryTableRow,
   isTreeSummaryTableRow,
   getColumnSummaries,
+  TABLE_TREE_SUMMARY_TYPE,
+  TABLE_GROUP_SUMMARY_TYPE,
+  TABLE_TOTAL_SUMMARY_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const dependencies = [
@@ -245,6 +248,10 @@ export class TableSummaryRow extends React.PureComponent {
     );
   }
 }
+
+TableSummaryRow.TREE_ROW_TYPE = TABLE_TREE_SUMMARY_TYPE;
+TableSummaryRow.GROUP_ROW_TYPE = TABLE_GROUP_SUMMARY_TYPE;
+TableSummaryRow.TOTAL_ROW_TYPE = TABLE_TOTAL_SUMMARY_TYPE;
 
 TableSummaryRow.propTypes = {
   formatlessSummaryTypes: PropTypes.array,

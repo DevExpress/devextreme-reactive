@@ -6,7 +6,7 @@ import {
   getCollapsedColumns,
   getCollapsedCells,
   getCollapsedGrid,
-  STUB_TYPE,
+  TABLE_STUB_TYPE,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -287,12 +287,12 @@ describe('VirtualTableLayout utils', () => {
       const getColumnWidth = column => column.width;
 
       const result = [
-        { type: 'stub', key: 'stub_0_0', width: 40 },
-        { type: 'stub', key: 'stub_1_2', width: 80 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0`, width: 40 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_1_2`, width: 80 },
         { ...columns[3] },
         { ...columns[4] },
-        { type: 'stub', key: 'stub_5_6', width: 80 },
-        { type: 'stub', key: 'stub_7_7', width: 40 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_5_6`, width: 80 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_7`, width: 40 },
       ];
 
       expect(getCollapsedColumns(columns, visibleBoundary, boundaries, getColumnWidth))
@@ -318,10 +318,10 @@ describe('VirtualTableLayout utils', () => {
       const result = [
         { ...columns[0] },
         { ...columns[1] },
-        { type: 'stub', key: 'stub_2_3', width: 80 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_2_3`, width: 80 },
         { ...columns[4] },
         { ...columns[5] },
-        { type: 'stub', key: 'stub_6_7', width: 80 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_6_7`, width: 80 },
         { ...columns[8] },
       ];
 
@@ -347,12 +347,12 @@ describe('VirtualTableLayout utils', () => {
       const getColSpan = column => column.colSpan;
 
       const result = [
-        { column: { type: 'stub', key: 'stub_0_0' }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0` }, colSpan: 1 },
         { column: columns[1], colSpan: 4 },
         { column: columns[3], colSpan: 1 },
         { column: columns[4], colSpan: 1 },
         { column: columns[5], colSpan: 1 },
-        { column: { type: 'stub', key: 'stub_7_7' }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_7` }, colSpan: 1 },
       ];
 
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
@@ -388,11 +388,11 @@ describe('VirtualTableLayout utils', () => {
       const result = [
         { column: columns[0], colSpan: 1 },
         { column: columns[1], colSpan: 1 },
-        { column: { type: 'stub', key: 'stub_2_3' }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_2_3` }, colSpan: 1 },
         { column: columns[4], colSpan: 3 },
         { column: columns[5], colSpan: 1 },
         { column: columns[6], colSpan: 1 },
-        { column: { type: 'stub', key: 'stub_7_8' }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_8` }, colSpan: 1 },
         { column: columns[9], colSpan: 1 },
       ];
 
@@ -431,9 +431,17 @@ describe('VirtualTableLayout utils', () => {
       const result = getCollapsedGrid(args);
 
       expect(result.rows.map(row => row.row.type))
-        .toEqual([STUB_TYPE, ...Array.from({ length: 7 }).map(() => undefined), STUB_TYPE]);
+        .toEqual([
+          TABLE_STUB_TYPE,
+          ...Array.from({ length: 7 }).map(() => undefined),
+          TABLE_STUB_TYPE,
+        ]);
       expect(result.columns.map(column => column.type))
-        .toEqual([STUB_TYPE, ...Array.from({ length: 3 }).map(() => undefined), STUB_TYPE]);
+        .toEqual([
+          TABLE_STUB_TYPE,
+          ...Array.from({ length: 3 }).map(() => undefined),
+          TABLE_STUB_TYPE,
+        ]);
       expect(result.rows[1].cells.map(cell => cell.colSpan))
         .toEqual([...Array.from({ length: 5 }).map(() => 1)]);
     });
@@ -513,9 +521,9 @@ describe('VirtualTableLayout utils', () => {
 
       expect(result.columns.map(column => column.type))
         .toEqual([
-          STUB_TYPE, STUB_TYPE,
+          TABLE_STUB_TYPE, TABLE_STUB_TYPE,
           ...Array.from({ length: 3 }).map(() => undefined),
-          STUB_TYPE, STUB_TYPE,
+          TABLE_STUB_TYPE, TABLE_STUB_TYPE,
         ]);
 
       expect(result.rows[0].cells.map(cell => cell.colSpan))

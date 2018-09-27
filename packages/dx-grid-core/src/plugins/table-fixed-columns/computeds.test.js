@@ -14,7 +14,7 @@ describe('TableFixedColumns computeds', () => {
         { type: 'type3' },
         { type: TABLE_DATA_TYPE, column: { name: 'd' } },
       ];
-      expect(tableColumnsWithFixed(tableColumns, ['a'], ['type1'], ['d'], ['type3']))
+      expect(tableColumnsWithFixed(tableColumns, ['a', 'type1'], ['d', 'type3']))
         .toEqual([
           { type: TABLE_DATA_TYPE, column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
           { type: 'type1', fixed: FIXED_COLUMN_LEFT_SIDE },
@@ -31,7 +31,7 @@ describe('TableFixedColumns computeds', () => {
       expect(tableHeaderRowsWithFixed([{}]))
         .toEqual([
           {},
-          { type: TABLE_FIXED_TYPE, key: TABLE_FIXED_TYPE, height: 0 },
+          { key: TABLE_FIXED_TYPE.toString(), type: TABLE_FIXED_TYPE, height: 0 },
         ]);
     });
   });

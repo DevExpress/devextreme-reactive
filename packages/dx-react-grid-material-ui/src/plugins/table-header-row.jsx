@@ -33,3 +33,5 @@ TableHeaderRowWithMessages.components = TableHeaderRowBase.components;
 export const TableHeaderRow = withComponents({
   Cell, Row, Content, SortLabel, Title, GroupButton,
 })(TableHeaderRowWithMessages);
+
+TableHeaderRow.ROW_TYPE = TableHeaderRowBase.ROW_TYPE;

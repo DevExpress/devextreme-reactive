@@ -215,9 +215,9 @@ describe('CustomTreeData Plugin computeds', () => {
       const getRowLevelKey = customTreeRowLevelKeyGetter(parentGetRowLevelKey, linearizedRows);
 
       expect(getRowLevelKey(linearizedRows.rows[0]))
-        .toBe(`${GRID_TREE_NODE_TYPE}_0`);
+        .toBe(`${GRID_TREE_NODE_TYPE.toString()}_0`);
       expect(getRowLevelKey(linearizedRows.rows[1]))
-        .toBe(`${GRID_TREE_NODE_TYPE}_1`);
+        .toBe(`${GRID_TREE_NODE_TYPE.toString()}_1`);
     });
 
     it('should provide row levels for unknown rows', () => {

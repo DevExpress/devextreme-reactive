@@ -10,6 +10,7 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   TABLE_DATA_TYPE,
+  TABLE_HEADING_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const tableHeaderRowsComputed = ({ tableHeaderRows }) => tableRowsWithHeading(tableHeaderRows);
@@ -155,6 +156,8 @@ export class TableHeaderRow extends React.PureComponent {
     );
   }
 }
+
+TableHeaderRow.ROW_TYPE = TABLE_HEADING_TYPE;
 
 TableHeaderRow.propTypes = {
   showSortingControls: PropTypes.bool,

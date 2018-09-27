@@ -1,1 +1,1 @@
-export const TABLE_DETAIL_TYPE = 'detail';
+export const TABLE_DETAIL_TYPE = Symbol('detail');

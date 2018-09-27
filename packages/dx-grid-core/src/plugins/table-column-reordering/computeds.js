@@ -13,7 +13,7 @@ export const orderedColumns = (tableColumns, order) => mergeSort(tableColumns, (
 export const tableHeaderRowsWithReordering = tableHeaderRows => [
   ...tableHeaderRows,
   {
-    key: TABLE_REORDERING_TYPE,
+    key: TABLE_REORDERING_TYPE.toString(),
     type: TABLE_REORDERING_TYPE,
     height: 0,
   },

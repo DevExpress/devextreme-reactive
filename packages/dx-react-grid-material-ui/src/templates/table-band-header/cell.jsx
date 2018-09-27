@@ -23,13 +23,19 @@ const styles = theme => ({
     borderBottom: getBorder(theme),
     borderRight: getBorder(theme),
   },
+  leftBorder: {
+    borderLeft: getBorder(theme),
+  },
 });
 
 const CellBase = ({
-  column, value, children, classes, tableRow, tableColumn, row, className, ...restProps
+  column, value, children, classes, tableRow, tableColumn, row, className, leftBorder, ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.leftBorder]: leftBorder,
+    }, className)}
     {...restProps}
   >
     {children}
@@ -45,6 +51,7 @@ CellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  leftBorder: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -55,6 +62,7 @@ CellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  leftBorder: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

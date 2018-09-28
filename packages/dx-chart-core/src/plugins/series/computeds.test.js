@@ -189,12 +189,8 @@ describe('barCoordinates', () => {
     const result = barCoordinates(
       data,
       { xScale: createScale(), yScale },
-      'arg',
-      'val1',
-      'Series3',
-      null,
-      null,
-      {},
+      { argumentField: 'arg', valueField: 'val1', stack: null },
+      undefined,
       [
         { type: 'band', constructor: 'bandConstructor' },
       ],
@@ -265,9 +261,7 @@ describe('Series attributes', () => {
     expect(coordinates(
       data,
       { xScale: createScale(), yScale },
-      'arg',
-      'val1',
-      'Series3',
+      { argumentField: 'arg', valueField: 'val1' },
     )).toEqual(computedLine);
   });
 
@@ -277,9 +271,7 @@ describe('Series attributes', () => {
     expect(coordinates(
       dataWithUndefined,
       { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
+      { argumentField: 'arg', valueField: 'val1' },
     )).toEqual([
       {
         id: 0, x: 6, y: 3, y1: 7, value: 3,
@@ -297,7 +289,13 @@ describe('Series attributes', () => {
 describe('Pie attributes', () => {
   it('should return array of arcs', () => {
     const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
-    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1', null, null, null, { innerRadius: 0.3, outerRadius: 0.5 });
+    const pieAttr = pieAttributes(
+      data,
+      { xScale: getScale(), yScale: getScale() },
+      {
+        argumentField: 'arg', valueField: 'val1', innerRadius: 0.3, outerRadius: 0.5,
+      },
+    );
 
     expect(pieAttr).toHaveLength(data.length);
     pieAttr.forEach((attr, index) => {

@@ -138,12 +138,17 @@ describe('Base series', () => {
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
       undefined,
-      'argumentField',
-      'valueField',
-      'name',
-      'stack1',
+      {
+        argumentField: 'argumentField',
+        valueField: 'valueField',
+        name: 'name',
+        axisName: 'axisName',
+        stack: 'stack1',
+        styles: 'styles',
+        color: 'color',
+        groupWidth: 0.7,
+      },
       ['one', 'two'],
-      { styles: 'styles', color: 'color' },
       'scaleExtension',
     );
   });

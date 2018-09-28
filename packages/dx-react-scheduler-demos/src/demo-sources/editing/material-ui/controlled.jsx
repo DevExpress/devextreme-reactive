@@ -51,7 +51,6 @@ class EditingForm extends React.PureComponent {
                 <Button onClick={this.onOpenButtonClick}>
                   Toggle Form
                 </Button>
-                {console.log(addedAppointment)}
                 {openForm && (
                   <React.Fragment>
                     <Button onClick={() => commitAddedAppointment()}>

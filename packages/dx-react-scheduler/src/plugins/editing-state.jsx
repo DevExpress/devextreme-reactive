@@ -69,8 +69,6 @@ export class EditingState extends React.PureComponent {
     } = this.props;
     const { addedAppointment } = this.state;
 
-    console.log(addedAppointment);
-
     return (
       <Plugin
         name="EditingState"

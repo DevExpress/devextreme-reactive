@@ -7,6 +7,13 @@ import {
   addAppointment,
   changeAddedAppointment,
   cancelAddedAppointment,
+  deleteAppointment,
+  cancelDeletedAppointment,
+  startEditAppointment,
+  stopEditAppointment,
+  changeAppointment,
+  cancelChanges,
+  changedAppointmentById,
 } from '@devexpress/dx-scheduler-core';
 
 export class EditingState extends React.PureComponent {
@@ -14,20 +21,51 @@ export class EditingState extends React.PureComponent {
     super(props);
 
     this.state = {
-      // editingAppointmentId: props.editingAppointmentId || props.defaultEditingAppointmentId,
+      editingAppointmentId: props.editingAppointmentId || props.defaultEditingAppointmentId,
       addedAppointment: props.addedAppointment || props.defaultAddedAppointment,
-      // appointmentChanges,
+      appointmentChanges: props.appointmentChanges || props.defaultAppointmentChanges,
+      deletedAppointmentId: props.deletedAppointmentId || props.defaultDeletedAppointmentId,
     };
 
     const stateHelper = createStateHelper(
       this,
       {
+        editingAppointmentId: () => {
+          const { onEditingAppointmentIdChange } = this.props;
+          return onEditingAppointmentIdChange;
+        },
         addedAppointment: () => {
           const { onAddedAppointmentChange } = this.props;
           return onAddedAppointmentChange;
         },
+        appointmentChanges: () => {
+          const { onAppointmentChangesChange } = this.props;
+          return onAppointmentChangesChange;
+        },
+        deletedAppointmentId: () => {
+          const { onDeletedAppointmentIdChange } = this.props;
+          return onDeletedAppointmentIdChange;
+        },
       },
     );
+
+    this.startEditAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'editingAppointmentId', startEditAppointment);
+    this.stopEditAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'editingAppointmentId', stopEditAppointment);
+
+    this.changeAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointmentChanges', changeAppointment);
+    this.cancelChangedAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointmentChanges', cancelChanges);
+    this.commitChangedAppointment = ({ appointmentId }) => {
+      const { onCommitChanges } = this.props;
+      const { appointmentChanges } = this.state;
+      onCommitChanges({
+        changed: changedAppointmentById(appointmentChanges, appointmentId),
+      });
+      this.cancelChangedAppointment();
+    };
 
     this.addAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', addAppointment);
@@ -47,6 +85,18 @@ export class EditingState extends React.PureComponent {
       const { onCommitChanges } = this.props;
       onCommitChanges({ deleted: appointmentId });
     };
+
+    this.deleteAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'deletedAppointmentId', deleteAppointment);
+    this.cancelDeletedAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'deletedAppointmentId', cancelDeletedAppointment);
+    this.commitDeletedAppointment = () => {
+      const { onCommitChanges } = this.props;
+      const { deletedAppointmentId } = this.state;
+      onCommitChanges({ deleted: deletedAppointmentId });
+      this.cancelDeletedAppointment();
+    };
+
     this.validateAppointment = ({ startDate, endDate, title }) => {
       const {
         setAppointmentEndDate,
@@ -62,52 +112,102 @@ export class EditingState extends React.PureComponent {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      editingAppointmentId = prevState.editingAppointmentId,
+      appointmentChanges = prevState.appointmentChanges,
+      addedAppointment = prevState.addedAppointment,
+      deletedAppointmentId = prevState.deletedAppointmentId,
+    } = nextProps;
+
+    return {
+      editingAppointmentId,
+      appointmentChanges,
+      addedAppointment,
+      deletedAppointmentId,
+    };
+  }
+
   render() {
     const {
-      disableAdding,
-      disableDeleting,
-    } = this.props;
-    const { addedAppointment } = this.state;
+      addedAppointment, deletedAppointmentId, editingAppointmentId, appointmentChanges,
+    } = this.state;
 
     return (
       <Plugin
         name="EditingState"
       >
-        {/* <Action name="addAppointment" action={disableAdding ? () => undefined : this.addAppointment} /> */}
-        <Action name="deleteAppointment" action={disableDeleting ? () => undefined : this.deleteAppointment} />
+        <Getter name="editingAppointmentId" value={editingAppointmentId} />
+        <Action name="startEditAppointments" action={this.startEditAppointments} />
+        <Action name="stopEditAppointments" action={this.stopEditAppointments} />
+
+        <Getter name="appointmentChanges" value={appointmentChanges} />
+        <Action name="changeAppointment" action={this.changeAppointment} />
+        <Action name="cancelChangedAppointments" action={this.cancelChangedAppointments} />
+        <Action name="commitChangedAppointments" action={this.commitChangedAppointments} />
 
         <Getter name="addedAppointment" value={addedAppointment} />
         <Action name="addAppointment" action={this.addAppointment} />
         <Action name="changeAddedAppointment" action={this.changeAddedAppointment} />
         <Action name="cancelAddedAppointment" action={this.cancelAddedAppointment} />
         <Action name="commitAddedAppointment" action={this.commitAddedAppointment} />
+
+        <Getter name="deletedAppointmentId" value={deletedAppointmentId} />
+        <Action name="deleteAppointment" action={this.deleteAppointment} />
+        <Action name="cancelDeletedAppointment" action={this.cancelDeletedAppointment} />
+        <Action name="commitDeletedAppointment" action={this.commitDeletedAppointment} />
       </Plugin>
     );
   }
 }
 
 EditingState.propTypes = {
+  // createAppointmentChange: PropTypes.func,
+
+  editingAppointmentId: PropTypes.array,
+  defaultEditingAppointmentId: PropTypes.number,
+  onEditingAppointmentIdChange: PropTypes.func,
+
+  addedAppointment: PropTypes.array,
+  defaultAddedAppointment: PropTypes.object,
+  onAddedAppointmentChange: PropTypes.func,
+
+  appointmentChanges: PropTypes.object,
+  defaultAppointmentChanges: PropTypes.object,
+  onAppointmentChangesChange: PropTypes.func,
+
+  deletedAppointmentId: PropTypes.array,
+  defaultDeletedAppointmentId: PropTypes.number,
+  onDeletedAppointmentIdChange: PropTypes.func,
+
   onCommitChanges: PropTypes.func.isRequired,
+
   setAppointmentStartDate: PropTypes.func,
   setAppointmentEndDate: PropTypes.func,
   setAppointmentTitle: PropTypes.func,
-  disableAdding: PropTypes.bool,
-  disableDeleting: PropTypes.bool,
-
-  addedAppointment: PropTypes.object,
-  defaultAddedAppointment: PropTypes.object,
-  onAddedAppointmentChange: PropTypes.func,
 };
 
 EditingState.defaultProps = {
-  setAppointmentStartDate:
-    (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
-  setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
-  setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
-  disableAdding: false,
-  disableDeleting: false,
+  // createAppointmentChange: undefined,
+
+  editingAppointmentId: undefined,
+  defaultEditingAppointmentId: undefined,
+  onEditingAppointmentIdChange: undefined,
+
+  appointmentChanges: undefined,
+  defaultAppointmentChanges: {},
+  onAppointmentChangesChange: undefined,
 
   addedAppointment: undefined,
   defaultAddedAppointment: {},
   onAddedAppointmentChange: undefined,
+
+  deletedAppointmentId: undefined,
+  defaultDeletedAppointmentId: undefined,
+  onDeletedAppointmentIdChange: undefined,
+
+  setAppointmentStartDate:
+    (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
+  setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
+  setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
 };

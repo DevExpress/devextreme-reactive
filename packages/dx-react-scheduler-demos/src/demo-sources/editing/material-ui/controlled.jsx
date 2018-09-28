@@ -45,7 +45,7 @@ class EditingForm extends React.PureComponent {
           <TemplateConnector>
             {(
               { addedAppointment },
-              { cancelAddedAppointment, changeAddedAppointment, commitAddedAppointment },
+              { cancelAddedAppointment, changeAddedAppointment, commitAddedAppointment, commitDeletedAppointment },
             ) => (
               <Paper>
                 <Button onClick={this.onOpenButtonClick}>
@@ -53,6 +53,9 @@ class EditingForm extends React.PureComponent {
                 </Button>
                 {openForm && (
                   <React.Fragment>
+                    <Button onClick={() => commitDeletedAppointment()}>
+                      Delete
+                    </Button>
                     <Button onClick={() => commitAddedAppointment()}>
                       Save
                     </Button>

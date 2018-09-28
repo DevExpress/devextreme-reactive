@@ -10,3 +10,5 @@ import { Content } from '../templates/table-header-cell/content';
 export const TableHeaderRow = withComponents({
   Cell, Row, Content, SortLabel, Title, GroupButton,
 })(TableHeaderRowBase);
+
+TableHeaderRow.ROW_TYPE = TableHeaderRowBase.ROW_TYPE;

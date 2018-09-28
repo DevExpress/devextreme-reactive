@@ -119,6 +119,48 @@ describe('IntegratedSorting computeds', () => {
           { a: 4 },
         ]);
       });
+
+      it('should correctly sort column with \'null\' values', () => {
+        const spacedRows = [
+          { a: 1, b: null },
+          { a: 2, b: 1 },
+          { a: 3, b: 2 },
+          { a: 4, b: null },
+        ];
+        const getColumnCompare = () => undefined;
+        const sorting = [{ columnName: 'b', direction: 'asc' }];
+        const sorted = sortedRows(spacedRows, sorting, getCellValue, getColumnCompare);
+
+        expect(sorted).toEqual([
+          { a: 2, b: 1 },
+          { a: 3, b: 2 },
+          { a: 1, b: null },
+          { a: 4, b: null },
+        ]);
+      });
+
+      it('should correctly sort column with \'null\' and \'undefined\' values', () => {
+        const spacedRows = [
+          { a: 1, b: null },
+          { a: 2, b: 1 },
+          { a: 3, b: undefined },
+          { a: 4, b: 0 },
+          { a: 5, b: 2 },
+          { a: 6, b: null },
+        ];
+        const getColumnCompare = () => undefined;
+        const sorting = [{ columnName: 'b', direction: 'asc' }];
+        const sorted = sortedRows(spacedRows, sorting, getCellValue, getColumnCompare);
+
+        expect(sorted).toEqual([
+          { a: 4, b: 0 },
+          { a: 2, b: 1 },
+          { a: 5, b: 2 },
+          { a: 1, b: null },
+          { a: 6, b: null },
+          { a: 3, b: undefined },
+        ]);
+      });
     });
 
     describe('grouped rows', () => {

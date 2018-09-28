@@ -6,7 +6,8 @@ import { Editor } from '../templates/filter-row/editor';
 import { FilterSelector } from '../templates/filter-row/filter-selector';
 import { Icon } from '../templates/filter-row/icon';
 
-
 export const TableFilterRow = withComponents({
   Row, Cell, Editor, FilterSelector, Icon,
 })(TableFilterRowBase);
+
+TableFilterRow.ROW_TYPE = TableFilterRowBase.ROW_TYPE;

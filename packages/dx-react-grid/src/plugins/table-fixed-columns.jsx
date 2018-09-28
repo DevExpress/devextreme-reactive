@@ -52,10 +52,8 @@ export class TableFixedColumns extends React.PureComponent {
 
   render() {
     const {
-      leftColumnNames,
-      leftColumnTypes,
-      rightColumnNames,
-      rightColumnTypes,
+      leftColumns,
+      rightColumns,
       cellComponent: Cell,
       listenerRowComponent: ListenerRow,
       listenerCellComponent: ListenerCell,
@@ -66,10 +64,8 @@ export class TableFixedColumns extends React.PureComponent {
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithFixed(
       tableColumns,
-      leftColumnNames,
-      leftColumnTypes,
-      rightColumnNames,
-      rightColumnTypes,
+      leftColumns,
+      rightColumns,
     );
 
     return (
@@ -89,8 +85,8 @@ export class TableFixedColumns extends React.PureComponent {
                 const { tableColumn } = params;
                 const { fixed: side } = tableColumn;
                 const targetArray = side === FIXED_COLUMN_LEFT_SIDE
-                  ? getFixedColumnKeys(tableColumns, leftColumnNames, leftColumnTypes)
-                  : getFixedColumnKeys(tableColumns, rightColumnNames, rightColumnTypes);
+                  ? getFixedColumnKeys(tableColumns, leftColumns)
+                  : getFixedColumnKeys(tableColumns, rightColumns);
 
                 const fixedIndex = targetArray.indexOf(tableColumn.key);
                 const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
@@ -159,20 +155,16 @@ export class TableFixedColumns extends React.PureComponent {
 }
 
 TableFixedColumns.propTypes = {
-  leftColumnNames: PropTypes.arrayOf(PropTypes.string),
-  rightColumnNames: PropTypes.arrayOf(PropTypes.string),
-  leftColumnTypes: PropTypes.arrayOf(PropTypes.string),
-  rightColumnTypes: PropTypes.arrayOf(PropTypes.string),
+  leftColumns: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.symbol])),
+  rightColumns: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.symbol])),
   cellComponent: PropTypes.func.isRequired,
   listenerRowComponent: PropTypes.func.isRequired,
   listenerCellComponent: PropTypes.func.isRequired,
 };
 
 TableFixedColumns.defaultProps = {
-  leftColumnNames: [],
-  rightColumnNames: [],
-  leftColumnTypes: [],
-  rightColumnTypes: [],
+  leftColumns: [],
+  rightColumns: [],
 };
 
 TableFixedColumns.components = {

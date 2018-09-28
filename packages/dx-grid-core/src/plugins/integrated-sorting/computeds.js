@@ -2,9 +2,18 @@ import mergeSort from '../../utils/merge-sort';
 import { NODE_CHECK, rowsToTree, treeToRows } from '../../utils/hierarchical-data';
 
 const defaultCompare = (a, b) => {
-  if (a < b || (a !== undefined && b === undefined)) return -1;
-  if (a > b || (a === undefined && b !== undefined)) return 1;
-  return 0;
+  if (a === b) return 0;
+
+  if (a === null) {
+    return b === undefined ? -1 : 1;
+  }
+  if (a === undefined) {
+    return 1;
+  }
+  if (b === null || b === undefined) {
+    return -1;
+  }
+  return a < b ? -1 : 1;
 };
 
 const createCompare = (sorting, getColumnCompare, getComparableValue) => sorting.slice()

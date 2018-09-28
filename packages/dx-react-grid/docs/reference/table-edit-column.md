@@ -95,7 +95,7 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | string | The name of the edit column type.
+COLUMN_TYPE | symbol | The edit column type's identifier.
 
 ## Plugin Developer Reference
 

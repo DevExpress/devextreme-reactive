@@ -14,7 +14,7 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedDetailRowIds, row
       result = [
         ...result.slice(0, insertIndex),
         {
-          key: `${TABLE_DETAIL_TYPE}_${rowId}`,
+          key: `${TABLE_DETAIL_TYPE.toString()}_${rowId}`,
           type: TABLE_DETAIL_TYPE,
           rowId,
           row,
@@ -27,7 +27,7 @@ export const tableRowsWithExpandedDetail = (tableRows, expandedDetailRowIds, row
 };
 
 export const tableColumnsWithDetail = (tableColumns, toggleColumnWidth) => [
-  { key: TABLE_DETAIL_TYPE, type: TABLE_DETAIL_TYPE, width: toggleColumnWidth },
+  { key: TABLE_DETAIL_TYPE.toString(), type: TABLE_DETAIL_TYPE, width: toggleColumnWidth },
   ...tableColumns,
 ];
 

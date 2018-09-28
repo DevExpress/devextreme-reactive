@@ -168,8 +168,7 @@ describe('Stack', () => {
     stackFunc.offset = jest.fn().mockReturnValue(stackFunc);
 
     beforeEach(() => {
-      stack.mockReturnValueOnce(stackFunc);
-      stack.mockReturnValueOnce(stackFunc);
+      stack.mockReturnValue(stackFunc);
     });
 
     afterEach(() => {
@@ -233,6 +232,44 @@ describe('Stack', () => {
         {
           ...data[3], s1_val0: 4, s1_val1: 8, s2_val0: 14,
         },
+      ]);
+    });
+
+    it('should ignore stacked data when there is no original value', () => {
+      stackFunc.mockReturnValueOnce([
+        [[0, 1], [0, 2], [0, 3], [0, 4]],
+        [[0, 5], [0, 6], [0, 7], [0, 8]],
+      ]);
+      const processData = buildStackedDataProcessor(jest.fn(), jest.fn());
+      const data = [
+        {
+          arg: 1, val2: '1-2',
+        },
+        {
+          arg: 2, val1: '2-1', val2: '2-2',
+        },
+        {
+          arg: 3, val1: '3-1',
+        },
+        {
+          arg: 4,
+        },
+      ];
+
+      const processedData = processData(data, [
+        {
+          stack: 's1', stackKey: 'val1', stackPosition: 0, valueField: 's1_val0',
+        },
+        {
+          stack: 's1', stackKey: 'val2', stackPosition: 1, valueField: 's1_val1',
+        },
+      ]);
+
+      expect(processedData).toEqual([
+        { ...data[0], s1_val1: 5 },
+        { ...data[1], s1_val0: 2, s1_val1: 6 },
+        { ...data[2], s1_val0: 3 },
+        { ...data[3] },
       ]);
     });
   });

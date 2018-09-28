@@ -57,11 +57,10 @@ export const buildStackedDataProcessor = (offset, order) => (dataItems, seriesLi
     const newData = {};
     seriesList.forEach((seriesItem) => {
       const stackData = stacks[seriesItem.stack];
-      if (!stackData) {
-        return;
+      if (stackData && dataItem[seriesItem.stackKey] !== undefined) {
+        const value = stackData[seriesItem.stackPosition][i][1];
+        newData[seriesItem.valueField] = value;
       }
-      const value = stackData[seriesItem.stackPosition][i][1];
-      newData[seriesItem.valueField] = value;
     });
     return Object.keys(newData).length ? { ...dataItem, ...newData } : dataItem;
   });

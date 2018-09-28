@@ -74,5 +74,6 @@ export const clearStackedSeries = seriesList => seriesList.map((seriesItem) => {
   return restProps;
 });
 
-export const getStacks = series => Array.from(new Set(series))
-  .map(({ stack: seriesStack }) => seriesStack).filter(x => x);
+export const getStacks = series => Array.from(
+  new Set(series.map(({ stack: seriesStack }) => seriesStack).filter(x => x)),
+);

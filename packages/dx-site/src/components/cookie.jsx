@@ -9,7 +9,7 @@ class Cookie extends React.PureComponent {
     super(props);
 
     this.state = {
-      shown: document.cookie.indexOf('dx-cookie-policy') === -1,
+      shown: typeof document !== 'undefined' && document.cookie.indexOf('dx-cookie-policy') === -1,
     };
 
     this.close = this.close.bind(this);

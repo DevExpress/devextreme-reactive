@@ -20,15 +20,8 @@ const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
 
 const makeQueryString = (currentDate, currentViewName) => {
   const format = 'YYYY-MM-DDTHH:mm:ss';
-  let start;
-  let end;
-  if (currentViewName === 'Week') {
-    start = moment(currentDate).startOf('week');
-    end = start.clone().add(7, 'days');
-  } else {
-    start = moment(currentDate).startOf('day');
-    end = start.clone().endOf('day');
-  }
+  const start = moment(currentDate).startOf(currentViewName.toLowerCase());
+  const end = start.clone().endOf(currentViewName.toLowerCase());
   return encodeURI(`${URL}?filter=[["EndDate", ">", "${start.format(format)}"],["StartDate", "<", "${end.format(format)}"]]`);
 };
 
@@ -70,10 +63,10 @@ export default class Demo extends React.PureComponent {
     };
     this.loadData = this.loadData.bind(this);
     this.currentViewNameChange = (currentViewName) => {
-      this.setState({ currentViewName });
+      this.setState({ currentViewName, loading: true });
     };
     this.currentDateChange = (currentDate) => {
-      this.setState({ currentDate });
+      this.setState({ currentDate, loading: true });
     };
   }
 

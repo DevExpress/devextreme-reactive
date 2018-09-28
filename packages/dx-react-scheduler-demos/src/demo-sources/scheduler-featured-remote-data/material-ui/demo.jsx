@@ -9,23 +9,27 @@ import {
 import {
   Scheduler,
   WeekView,
-  MonthView,
+  DayView,
   Appointments,
   Toolbar,
   DateNavigator,
   ViewSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import {
-  Plugin, Template, TemplateConnector, TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
 
 const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
 
-const makeQueryString = (startViewDate, endViewDate) => {
+const makeQueryString = (currentDate, currentViewName) => {
   const format = 'YYYY-MM-DDTHH:mm:ss';
-  const start = moment(startViewDate).format(format);
-  const end = moment(endViewDate).format(format);
-  return encodeURI(`${URL}?filter=[["EndDate", ">", "${start}"],["StartDate", "<", "${end}"]]`);
+  let start;
+  let end;
+  if (currentViewName === 'Week') {
+    start = moment(currentDate).startOf('week');
+    end = start.clone().add(7, 'days');
+  } else {
+    start = moment(currentDate).startOf('day');
+    end = start.clone().endOf('day');
+  }
+  return encodeURI(`${URL}?filter=[["EndDate", ">", "${start.format(format)}"],["StartDate", "<", "${end.format(format)}"]]`);
 };
 
 const styles = {
@@ -55,33 +59,35 @@ const getStartDate = appointment => appointment.StartDate;
 const getEndDate = appointment => appointment.EndDate;
 const getTitle = appointment => appointment.Text;
 
-const DataLoader = ({ loadData }) => (
-  <Plugin>
-    <Template name="body">
-      <TemplatePlaceholder />
-      <TemplateConnector>
-        {({ startViewDate, endViewDate }) => {
-          loadData(startViewDate, endViewDate);
-          return null;
-        }}
-      </TemplateConnector>
-    </Template>
-
-  </Plugin>
-);
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       loading: true,
+      currentDate: '2017-05-23',
+      currentViewName: 'Day',
     };
     this.loadData = this.loadData.bind(this);
+    this.currentViewNameChange = (currentViewName) => {
+      this.setState({ currentViewName });
+    };
+    this.currentDateChange = (currentDate) => {
+      this.setState({ currentDate });
+    };
   }
 
-  loadData(startViewDate, endViewDate) {
-    const queryString = makeQueryString(startViewDate, endViewDate);
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+  loadData() {
+    const { currentDate, currentViewName } = this.state;
+    const queryString = makeQueryString(currentDate, currentViewName);
     if (queryString === this.lastQuery) {
       return;
     }
@@ -99,8 +105,8 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      data,
-      loading,
+      data, loading,
+      currentDate, currentViewName,
     } = this.state;
 
     return (
@@ -112,18 +118,18 @@ export default class Demo extends React.PureComponent {
           getTitle={getTitle}
         >
           <ViewState
-            defaultCurrentDate="2017-05-23"
+            currentDate={currentDate}
+            currentViewName={currentViewName}
+            onCurrentViewNameChange={this.currentViewNameChange}
+            onCurrentDateChange={this.currentDateChange}
           />
-          <WeekView
-            startDayHour={8}
-          />
-          <MonthView />
+          <DayView startDayHour={8} />
+          <WeekView startDayHour={8} />
           <Appointments />
           <Toolbar
             {...loading ? { rootComponent: ToolbarWithLoading } : null}
           />
           <DateNavigator />
-          <DataLoader loadData={this.loadData} />
           <ViewSwitcher />
         </Scheduler>
       </Paper>

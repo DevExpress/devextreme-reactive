@@ -14,3 +14,7 @@ export const VirtualTable = makeVirtualTable(Table, {
   defaultEstimatedRowHeight: 48,
   defaultHeight: 530,
 });
+
+VirtualTable.COLUMN_TYPE = Table.COLUMN_TYPE;
+VirtualTable.ROW_TYPE = Table.ROW_TYPE;
+VirtualTable.NODATA_ROW_TYPE = Table.NODATA_ROW_TYPE;

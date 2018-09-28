@@ -1,4 +1,4 @@
-export const TABLE_FILTER_TYPE = 'filter';
+export const TABLE_FILTER_TYPE = Symbol('filter');
 export const DEFAULT_FILTER_OPERATIONS = [
   'contains',
   'notContains',

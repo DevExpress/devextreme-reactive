@@ -57,7 +57,7 @@ export class MonthView extends React.PureComponent {
       availableViews, viewName,
     );
     this.intervalCountComputed = getters => computed(
-      getters, viewName, () => intervalCount, getters.excludedDaysComputed,
+      getters, viewName, () => intervalCount, getters.intervalCount,
     );
     this.firstDayOfWeekComputed = getters => computed(
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,

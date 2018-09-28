@@ -5,10 +5,11 @@ import { ViewState } from '@devexpress/dx-react-scheduler';
 
 import {
   Scheduler,
+  DayView,
   WeekView,
-  Toolbar,
-  Appointments,
   MonthView,
+  Appointments,
+  Toolbar,
   ViewSwitcher,
   DateNavigator,
 } from '@devexpress/dx-react-scheduler-material-ui';
@@ -42,6 +43,10 @@ export default class Demo extends React.PureComponent {
             onCurrentViewNameChange={this.currentViewNameChange}
           />
 
+          <DayView
+            startDayHour={9}
+            endDayHour={18}
+          />
           <WeekView
             startDayHour={10}
             endDayHour={19}

@@ -47,7 +47,7 @@ export const groupedRows = (
       const compoundKey = `${keyPrefix}${key}`;
       acc.push({
         [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE}_${groupedBy}`,
+        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
         groupedBy,
         compoundKey,
         key,

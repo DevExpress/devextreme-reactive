@@ -7,7 +7,7 @@ describe('TableHeaderRow Plugin computeds', () => {
       const rows = tableRowsWithHeading([{}]);
 
       expect(rows)
-        .toEqual([{ key: TABLE_HEADING_TYPE, type: TABLE_HEADING_TYPE }, {}]);
+        .toEqual([{ key: TABLE_HEADING_TYPE.toString(), type: TABLE_HEADING_TYPE }, {}]);
     });
   });
 });

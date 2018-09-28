@@ -1,54 +1,27 @@
 import { stack } from 'd3-shape';
 
-const getStacks = series => series.reduce((
-  prevValue,
-  { valueField, stack: seriesStack },
-  index,
-) => {
-  if (!prevValue[seriesStack]) {
-    return {
-      ...prevValue,
-      [seriesStack]: {
-        keys: [valueField],
-        series: [index],
-      },
-    };
+// "Stack" plugin relies on "data" and "series" plugins and
+// knowledge about "calculateCoordinates" and "d3Func" functions behavior.
+
+const getStackValueField = (seriesStack, stackPosition) => `stack_${seriesStack}_${stackPosition}`;
+
+const getStackedCoordinatesCalculator = (series, seriesStack, stackPosition) => {
+  const { calculateCoordinates, isStartedFromZero } = series;
+  if (!isStartedFromZero || stackPosition === 0) {
+    return calculateCoordinates;
   }
-  return {
-    ...prevValue,
-    [seriesStack]: {
-      keys: [...prevValue[seriesStack].keys, valueField],
-      series: [...prevValue[seriesStack].series, index],
-    },
+  const field = getStackValueField(seriesStack, stackPosition - 1);
+  return (data, scales, ...args) => {
+    const { yScale } = scales;
+    const items = calculateCoordinates(data, scales, ...args);
+    items.forEach(item => Object.assign(item, {
+      y1: yScale(data[item.id][field]),
+    }));
+    return items;
   };
-}, {});
-
-const filtering = ({ stack: seriesStack }) => seriesStack;
-
-export const processData = (offset, order) => (series, data) => {
-  const stacks = getStacks(series);
-
-  const arrayOfStacks = Object.entries(stacks).reduce((prevValue, item) => ({
-    ...prevValue,
-    [item[0]]: stack()
-      .keys(item[1].keys)
-      .order(order)
-      .offset(offset)(data),
-  }), {});
-
-
-  return data.map((singleData, dataIndex) => series.reduce((prevValue, {
-    valueField, name, stack: seriesStack,
-  }, index) => {
-    const seriesIndex = stacks[seriesStack].series.findIndex(item => item === index);
-    return {
-      ...prevValue,
-      [`${valueField}-${name}-stack`]: arrayOfStacks[seriesStack][seriesIndex][dataIndex],
-    };
-  }, singleData));
 };
 
-export const getStackedSeries = ({ series: seriesList }) => {
+export const buildStackedSeries = (seriesList) => {
   const stacks = {};
   return seriesList.map((seriesItem, i) => {
     const { stack: seriesStack = `stack${i}` } = seriesItem;
@@ -59,30 +32,28 @@ export const getStackedSeries = ({ series: seriesList }) => {
     stacks[seriesStack] = position + 1;
     return {
       ...seriesItem,
+      valueField: getStackValueField(seriesStack, position),
+      calculateCoordinates: getStackedCoordinatesCalculator(seriesItem, seriesStack, position),
       stack: seriesStack,
       stackKey: seriesItem.valueField,
       stackPosition: position,
-      valueField: `stack_${seriesStack}_${position}`,
     };
   });
 };
 
-export const buildGetStackedData = (offset, order) => ({ data, series: seriesList }) => {
-  const stacks = seriesList.reduce((total, { stack: seriesStack, stackKey }) => {
-    if (!seriesStack) {
-      return total;
-    }
-    return {
-      ...total,
-      [seriesStack]: (total[seriesStack] || []).concat(stackKey),
-    };
-  }, {});
+const getStackedData = (offset, order, dataItems, seriesList) => {
+  const stacks = seriesList.reduce((total, { stack: seriesStack, stackKey }) => (seriesStack ? {
+    ...total,
+    [seriesStack]: (total[seriesStack] || []).concat(stackKey),
+  } : total), {});
+  return Object.entries(stacks).reduce((result, [name, keys]) => Object.assign(result, {
+    [name]: stack().keys(keys).order(order).offset(offset)(dataItems),
+  }), {});
+};
 
-  Object.keys(stacks).forEach((name) => {
-    stacks[name] = stack().keys(stacks[name]).order(order).offset(offset)(data);
-  });
-
-  return data.map((dataItem, i) => {
+export const buildStackedDataProcessor = (offset, order) => (dataItems, seriesList) => {
+  const stacks = getStackedData(offset, order, dataItems, seriesList);
+  return dataItems.map((dataItem, i) => {
     const newData = {};
     seriesList.forEach((seriesItem) => {
       const stackData = stacks[seriesItem.stack];
@@ -96,14 +67,12 @@ export const buildGetStackedData = (offset, order) => ({ data, series: seriesLis
   });
 };
 
-export const seriesWithStacks = series => series.reduce((prevResult, singleSeries, index) => {
-  const { stack: seriesStack = `stack${index}` } = singleSeries;
+// The only purpose of this function is to prevent some props from being passed to DOM.
+// It should be removed when that issue is resolved.
+export const clearStackedSeries = seriesList => seriesList.map((seriesItem) => {
+  const { stackKey, stackPosition, ...restProps } = seriesItem;
+  return restProps;
+});
 
-  return [...prevResult, { ...singleSeries, stack: seriesStack }];
-}, []);
-
-export const stacks = series => [
-  ...new Set(series
-    .filter(singleSeries => filtering(singleSeries))
-    .map(({ stack: seriesStack }) => seriesStack)),
-];
+export const getStacks = series => Array.from(new Set(series))
+  .map(({ stack: seriesStack }) => seriesStack).filter(x => x);

@@ -2,28 +2,31 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import {
-  // processData, seriesWithStacks,
-  stacks, getStackedSeries, buildGetStackedData,
+  buildStackedSeries,
+  buildStackedDataProcessor,
+  clearStackedSeries,
+  getStacks as getStacksCore,
 } from '@devexpress/dx-chart-core';
 import {
   stackOrderNone,
   stackOffsetDiverging,
 } from 'd3-shape';
 
-// const computedSeries = ({ series = [] }) => seriesWithStacks(series);
+const getSeries = ({ series }) => buildStackedSeries(series);
+const getClearedSeries = ({ series }) => clearStackedSeries(series);
+const getStacks = ({ series }) => getStacksCore(series);
 
 export class Stack extends React.PureComponent {
   render() {
     const { offset, order } = this.props;
-    const getStackedData = buildGetStackedData(offset, order);
-    const computedStacks = ({ series = [] }) => stacks(series);
+    const processStackedData = buildStackedDataProcessor(offset, order);
+    const getData = ({ data, series }) => processStackedData(data, series);
     return (
       <Plugin name="Stack">
-        {/* <Getter name="series" computed={computedSeries} />
-        <Getter name="processingData" value={processData(offset, order)} /> */}
-        <Getter name="series" computed={getStackedSeries} />
-        <Getter name="data" computed={getStackedData} />
-        <Getter name="stacks" computed={computedStacks} />
+        <Getter name="series" computed={getSeries} />
+        <Getter name="data" computed={getData} />
+        <Getter name="series" computed={getClearedSeries} />
+        <Getter name="stacks" computed={getStacks} />
       </Plugin>
     );
   }

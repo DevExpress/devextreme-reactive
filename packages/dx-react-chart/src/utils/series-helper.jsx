@@ -72,7 +72,9 @@ export const withSeriesPlugin = (
                   domains[ARGUMENT_DOMAIN],
                   domains[getValueDomainName(currentSeries.axisName)],
                   layouts.pane,
-                  currentSeries.groupWidth, // TODO: This is strange.
+                  // Looks like it is the only reason scales are recalculated for each series
+                  // while they depends only on domains and layout.
+                  currentSeries.groupWidth,
                   scaleExtension,
                 );
                 const coordinates = currentSeries.calculateCoordinates(

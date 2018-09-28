@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
 import Footer from './footer';
+import Cookie from './cookie';
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -23,6 +24,7 @@ const Layout = ({ children }) => (
         />
         {children}
         <Footer />
+        <Cookie />
       </div>
     )}
   />

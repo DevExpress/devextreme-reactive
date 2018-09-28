@@ -19,7 +19,6 @@ export class EditingState extends React.PureComponent {
       // appointmentChanges,
     };
 
-
     const stateHelper = createStateHelper(
       this,
       {
@@ -44,7 +43,6 @@ export class EditingState extends React.PureComponent {
       });
       this.cancelAddedAppointment();
     };
-
     this.deleteAppointment = (appointmentId) => {
       const { onCommitChanges } = this.props;
       onCommitChanges({ deleted: appointmentId });

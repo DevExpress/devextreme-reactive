@@ -5,7 +5,7 @@ export const createWeekAppointment = (addAppointment, {
 }) => {
   const start = moment(date).hours(startTime.getHours()).minutes(startTime.getMinutes()).toDate();
   const end = moment(date).hours(endTime.getHours()).minutes(endTime.getMinutes()).toDate();
-  addAppointment({ startDate: start, endDate: end, title });
+  addAppointment({ appointment: { startDate: start, endDate: end, title } });
 };
 
 export const createMonthAppointment = (addAppointment, {
@@ -14,6 +14,8 @@ export const createMonthAppointment = (addAppointment, {
   const start = moment(date).startOf('day').toDate();
   const end = moment(date).add(1, 'days').startOf('day').toDate();
   addAppointment({
-    startDate: start, endDate: end, title, allDay: true,
+    apppointment: {
+      startDate: start, endDate: end, title, allDay: true,
+    },
   });
 };

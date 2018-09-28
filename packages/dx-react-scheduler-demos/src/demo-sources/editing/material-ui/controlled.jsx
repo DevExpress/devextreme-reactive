@@ -73,12 +73,14 @@ class EditingForm extends React.PureComponent {
                       value={addedAppointment.startDate || ''}
                       onChange={({ target }) => changeAddedAppointment({ change: { startDate: target.value } })}
                     />
+                    {addedAppointment.startDate && addedAppointment.startDate.toString()}
                     <TextField
                       label="End Date"
                       type="datetime-local"
                       value={addedAppointment.endDate || ''}
                       onChange={({ target }) => changeAddedAppointment({ change: { endDate: target.value } })}
                     />
+                    {addedAppointment.endDate && addedAppointment.endDate.toString()}
                   </React.Fragment>
                 )}
               </Paper>

@@ -6,6 +6,7 @@ describe('Path', () => {
   const defaultProps = {
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
+    startCoords: { x: 1, y: 2 },
   };
 
   it('should render root element', () => {
@@ -49,5 +50,26 @@ describe('Path', () => {
 
     expect(tree.find('path').props().stroke)
       .toBe('color');
+  });
+
+  it('should pass custom styles with animation', () => {
+    const animationStyle = {
+      someStyle: 'style',
+    };
+    const customStyle = {
+      anyStyle: 'style',
+    };
+    const getAnimation = jest.fn(() => animationStyle);
+    const tree = shallow(<Path
+      {...defaultProps}
+      style={customStyle}
+      prepareAnimation={getAnimation}
+    />);
+    const { style } = tree.find('path').props();
+    expect(style)
+      .toEqual({
+        anyStyle: 'style',
+        someStyle: 'style',
+      });
   });
 });

@@ -25,12 +25,20 @@ export const makeSeries = (
   pathType,
   d3Func,
   calculateCoordinates,
+  animationOptions,
   componentsDefinition,
   enhance = x => x,
   getItems = x => x,
 ) => {
   const RawSeries = enhance(makeRawSeries(d3Func));
-  const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates, getItems);
+  const Series = withSeriesPlugin(
+    RawSeries,
+    pluginName,
+    pathType,
+    calculateCoordinates,
+    animationOptions,
+    getItems,
+  );
   Series.components = componentsDefinition;
   return Series;
 };

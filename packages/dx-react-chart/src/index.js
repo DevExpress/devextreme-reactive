@@ -5,6 +5,7 @@ export { Title } from './plugins/title';
 export { Scale } from './plugins/scale';
 export { Stack } from './plugins/stack';
 export { Palette } from './plugins/palette';
+export { Animation } from './plugins/animation';
 
 export { AreaSeries } from './plugins/area-series';
 export { BarSeries } from './plugins/bar-series';

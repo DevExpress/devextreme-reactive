@@ -38,6 +38,7 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
+  { getStartCoordinates, animationName: defaultAnimation },
   getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
@@ -66,6 +67,8 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
+                animationExtensions = [],
+                prepareAnimation = () => {},
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
 
@@ -87,11 +90,19 @@ export const withSeriesPlugin = (
                 );
 
                 const props = getRenderProps(currentSeries);
+                const animationName = currentSeries.animationName || defaultAnimation;
+
+                const currentAnimation = (animationExtensions
+                  .find(item => item[animationName]) || {})[animationName];
                 return (
                   <Series
                     colorDomain={colorDomain}
                     coordinates={coordinates}
+                    startCoords={getStartCoordinates(scales)}
+                    prepareAnimation={prepareAnimation}
+                    animation={currentAnimation}
                     {...props}
+
                   />
                 );
               }}

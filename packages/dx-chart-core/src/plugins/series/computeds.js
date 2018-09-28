@@ -159,3 +159,31 @@ export const seriesData = (series = [], seriesProps) => {
 };
 
 export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));
+
+const getCoord = (domain, scale) => {
+  if (typeof domain[0] === 'number') {
+    if (domain[0] >= 0 && domain[1] > 0) {
+      return scale(domain[0]);
+    } if (domain[0] < 0 && domain[1] <= 0) {
+      return scale(domain[1]);
+    }
+    return scale(0);
+  }
+  return scale(domain[0]);
+};
+
+export const getStartCoordinates = ({ xScale, yScale }) => {
+  const domainX = xScale.domain();
+  const domainY = yScale.domain();
+
+  return { x: getCoord(domainX, xScale), y: getCoord(domainY, yScale) };
+};
+
+export const getPieStartCoordinates = ({ xScale, yScale }) => {
+  const width = Math.max.apply(null, xScale.range());
+  const height = Math.max.apply(null, yScale.range());
+  return {
+    x: width / 2,
+    y: height / 2,
+  };
+};

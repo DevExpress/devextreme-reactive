@@ -27,10 +27,11 @@ const data = [
 
 const Point = (props) => {
   const {
-    x, y, color,
+    x, y, color, ...restProps
   } = props;
   return (
     <path
+      {...restProps}
       fill={color}
       transform={`translate(${x} ${y})`}
       d={symbol().size([20 ** 2]).type(symbolCircle)()}
@@ -73,7 +74,6 @@ export default class Demo extends React.PureComponent {
             argumentField="planet"
             pointComponent={Point}
           />
-
           <Scale
             extensions={[
               { type: 'log', constructor: () => scaleLog().base(2) },

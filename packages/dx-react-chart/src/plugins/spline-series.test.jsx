@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, coordinates, dSpline } from '@devexpress/dx-chart-core';
+import {
+  findSeriesByName, coordinates, dSpline, getStartCoordinates,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { SplineSeries } from './spline-series';
 
@@ -14,6 +16,7 @@ const coords = [
   { x: 4, y: 10, id: 4 },
   { x: 5, y: 15, id: 5 },
 ];
+const startCoords = { x: 5, y: 10 };
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dSpline: jest.fn(),
@@ -23,6 +26,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
+  checkZeroStart: jest.fn(),
+  getStartCoordinates: jest.fn(),
 }));
 
 const defaultProps = {
@@ -42,6 +47,7 @@ findSeriesByName.mockImplementation(() => ({
 }));
 
 coordinates.mockImplementation(() => coords);
+getStartCoordinates.mockImplementation(() => startCoords);
 
 describe('Spline series', () => {
   const defaultDeps = {
@@ -71,6 +77,11 @@ describe('Spline series', () => {
 
     expect(seriesCoordinates).toBe(coords);
     expect(path).toBe(dSpline);
-    expect(restProps).toEqual({ customProperty: 'custom' });
+    expect(restProps).toEqual({
+      customProperty: 'custom',
+      animation: undefined,
+      prepareAnimation: expect.any(Function),
+      startCoords,
+    });
   });
 });

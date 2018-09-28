@@ -17,6 +17,8 @@ import {
   seriesData,
   barCoordinates,
   getPieItems,
+  getStartCoordinates,
+  getPieStartCoordinates,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -338,5 +340,47 @@ describe('seriesData', () => {
 describe('#getPieItems', () => {
   it('should return function returns items of series', () => {
     expect(getPieItems(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
+  });
+});
+
+describe('#getStartCoordinates', () => {
+  it('should return proper coords, values more than zero', () => {
+    const scale = value => value;
+    scale.domain = jest.fn().mockReturnValue([10, 50]);
+    const getScale = () => scale;
+    expect(getStartCoordinates({ xScale: getScale(), yScale: getScale() })).toEqual({
+      x: 10,
+      y: 10,
+    });
+  });
+
+  it('should return proper coords, values less than zero', () => {
+    const scale = value => value;
+    scale.domain = jest.fn().mockReturnValue([-50, -10]);
+    const getScale = () => scale;
+    expect(getStartCoordinates({ xScale: getScale(), yScale: getScale() })).toEqual({
+      x: -10,
+      y: -10,
+    });
+  });
+
+  it('should return proper coords, values less and more than zero', () => {
+    const scale = value => value;
+    scale.domain = jest.fn().mockReturnValue([-50, 50]);
+    const getScale = () => scale;
+    expect(getStartCoordinates({ xScale: getScale(), yScale: getScale() })).toEqual({
+      x: 0,
+      y: 0,
+    });
+  });
+});
+
+describe('#getPieStartCoordinates', () => {
+  it('should return proper coords', () => {
+    const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
+    expect(getPieStartCoordinates({ xScale: getScale(), yScale: getScale() })).toEqual({
+      x: 5,
+      y: 5,
+    });
   });
 });

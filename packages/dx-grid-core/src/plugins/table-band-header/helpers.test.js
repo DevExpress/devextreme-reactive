@@ -412,7 +412,7 @@ describe('TableBandHeader Plugin helpers', () => {
 
     describe('with command button', () => {
       const testTableHeaderRows = [
-        { type: 'select' },
+        { type: 'commandColumn' },
         { type: TABLE_BAND_TYPE, level: 0 },
         { type: TABLE_HEADING_TYPE },
         { type: TABLE_HEADING_TYPE },
@@ -436,7 +436,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             testTableHeaderRows,
             [
-              { key: 'select', column: { name: 'select' }, type: 'select' },
+              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
               { ...tableColumns[0] },
               { ...tableColumns[1] },
             ],
@@ -463,7 +463,7 @@ describe('TableBandHeader Plugin helpers', () => {
             },
             testTableHeaderRows,
             [
-              { key: 'select', column: { name: 'select' }, type: 'select' },
+              { key: 'commandColumn', column: { name: 'commandColumn' }, type: 'commandColumn' },
               { ...tableColumns[0] },
               { ...tableColumns[1] },
             ],

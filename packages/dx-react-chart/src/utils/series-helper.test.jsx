@@ -50,6 +50,7 @@ describe('Base series', () => {
       groupWidth: 0.7,
       color: 'color',
       styles: 'styles',
+      calculateCoordinates: coordinates,
     });
     coordinates.mockReturnValue(coords);
     seriesData.mockReturnValue('series');
@@ -147,6 +148,7 @@ describe('Base series', () => {
         styles: 'styles',
         color: 'color',
         groupWidth: 0.7,
+        calculateCoordinates: coordinates,
       },
       ['one', 'two'],
       'scaleExtension',

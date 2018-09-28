@@ -37,6 +37,7 @@ const findSeriesByNameResult = {
   stack: 'stack1',
   uniqueName: 'uniqueSeriesName',
   seriesComponent: SeriesComponent,
+  calculateCoordinates: coordinates,
 };
 
 findSeriesByName.mockImplementation(() => ({

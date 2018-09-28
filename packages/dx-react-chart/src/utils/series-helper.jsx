@@ -25,6 +25,7 @@ const getRenderProps = (series) => {
     stack,
     symbolName,
     isStartedFromZero: _,
+    calculateCoordinates,
     ...restProps
   } = series;
 
@@ -44,6 +45,7 @@ export const withSeriesPlugin = (
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
+        calculateCoordinates,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
         uniqueName: seriesName,
@@ -73,7 +75,7 @@ export const withSeriesPlugin = (
                   currentSeries.groupWidth, // TODO: This is strange.
                   scaleExtension,
                 );
-                const coordinates = calculateCoordinates(
+                const coordinates = currentSeries.calculateCoordinates(
                   data,
                   scales,
                   currentSeries,

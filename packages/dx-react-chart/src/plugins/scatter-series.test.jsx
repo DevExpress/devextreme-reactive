@@ -49,6 +49,7 @@ findSeriesByName.mockImplementation(() => ({
   uniqueName: 'uniqueSeriesName',
   seriesComponent: PointCollection,
   pointComponent: PointComponent,
+  calculateCoordinates: coordinates,
 }));
 
 xyScales.mockImplementation();

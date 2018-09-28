@@ -48,6 +48,54 @@ export const processData = (offset, order) => (series, data) => {
   }, singleData));
 };
 
+export const getStackedSeries = ({ series: seriesList }) => {
+  const stacks = {};
+  return seriesList.map((seriesItem, i) => {
+    const { stack: seriesStack = `stack${i}` } = seriesItem;
+    if (seriesStack === null) {
+      return seriesItem;
+    }
+    const position = stacks[seriesStack] || 0;
+    stacks[seriesStack] = position + 1;
+    return {
+      ...seriesItem,
+      stack: seriesStack,
+      stackKey: seriesItem.valueField,
+      stackPosition: position,
+      valueField: `stack_${seriesStack}_${position}`,
+    };
+  });
+};
+
+export const buildGetStackedData = (offset, order) => ({ data, series: seriesList }) => {
+  const stacks = seriesList.reduce((total, { stack: seriesStack, stackKey }) => {
+    if (!seriesStack) {
+      return total;
+    }
+    return {
+      ...total,
+      [seriesStack]: (total[seriesStack] || []).concat(stackKey),
+    };
+  }, {});
+
+  Object.keys(stacks).forEach((name) => {
+    stacks[name] = stack().keys(stacks[name]).order(order).offset(offset)(data);
+  });
+
+  return data.map((dataItem, i) => {
+    const newData = {};
+    seriesList.forEach((seriesItem) => {
+      const stackData = stacks[seriesItem.stack];
+      if (!stackData) {
+        return;
+      }
+      const value = stackData[seriesItem.stackPosition][i][1];
+      newData[seriesItem.valueField] = value;
+    });
+    return Object.keys(newData).length ? { ...dataItem, ...newData } : dataItem;
+  });
+};
+
 export const seriesWithStacks = series => series.reduce((prevResult, singleSeries, index) => {
   const { stack: seriesStack = `stack${index}` } = singleSeries;
 

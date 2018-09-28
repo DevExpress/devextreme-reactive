@@ -14,9 +14,6 @@ const styles = theme => ({
     paddingRight: theme.spacing.unit,
     paddingTop: (theme.spacing.unit / 2) - 1,
   },
-  indentCell: {
-    padding: 0,
-  },
   groupButton: {
     verticalAlign: 'middle',
     display: 'inline-block',

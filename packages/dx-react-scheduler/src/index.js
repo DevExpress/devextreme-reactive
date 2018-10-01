@@ -8,4 +8,5 @@ export * from './plugins/view-switcher';
 export * from './plugins/appointments';
 export * from './plugins/all-day-panel';
 export * from './plugins/view-state';
+export * from './plugins/editing-state';
 export * from './plugins/appointment-tooltip';

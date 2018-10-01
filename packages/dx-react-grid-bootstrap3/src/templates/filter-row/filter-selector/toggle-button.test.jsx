@@ -19,6 +19,8 @@ describe('ToggleButton', () => {
 
     expect(tree.is('.class'))
       .toBeTruthy();
+    expect(tree.is('.btn.btn-default'))
+      .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {

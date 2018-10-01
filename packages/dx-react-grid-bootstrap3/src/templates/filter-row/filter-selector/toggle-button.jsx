@@ -7,7 +7,7 @@ export const ToggleButton = ({
 }) => (
   <button
     type="button"
-    className={classNames('btn btn-outline-secondary', className)}
+    className={classNames('btn btn-default', className)}
     disabled={disabled}
     onClick={onToggle}
     ref={buttonRef}

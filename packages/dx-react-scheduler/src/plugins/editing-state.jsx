@@ -138,13 +138,13 @@ export class EditingState extends React.PureComponent {
         name="EditingState"
       >
         <Getter name="editingAppointmentId" value={editingAppointmentId} />
-        <Action name="startEditAppointments" action={this.startEditAppointments} />
-        <Action name="stopEditAppointments" action={this.stopEditAppointments} />
+        <Action name="startEditAppointment" action={this.startEditAppointment} />
+        <Action name="stopEditAppointment" action={this.stopEditAppointment} />
 
         <Getter name="appointmentChanges" value={appointmentChanges} />
         <Action name="changeAppointment" action={this.changeAppointment} />
-        <Action name="cancelChangedAppointments" action={this.cancelChangedAppointments} />
-        <Action name="commitChangedAppointments" action={this.commitChangedAppointments} />
+        <Action name="cancelChangedAppointment" action={this.cancelChangedAppointment} />
+        <Action name="commitChangedAppointment" action={this.commitChangedAppointment} />
 
         <Getter name="addedAppointment" value={addedAppointment} />
         <Action name="addAppointment" action={this.addAppointment} />
@@ -164,11 +164,11 @@ export class EditingState extends React.PureComponent {
 EditingState.propTypes = {
   // createAppointmentChange: PropTypes.func,
 
-  editingAppointmentId: PropTypes.array,
+  editingAppointmentId: PropTypes.number,
   defaultEditingAppointmentId: PropTypes.number,
   onEditingAppointmentIdChange: PropTypes.func,
 
-  addedAppointment: PropTypes.array,
+  addedAppointment: PropTypes.object,
   defaultAddedAppointment: PropTypes.object,
   onAddedAppointmentChange: PropTypes.func,
 
@@ -176,7 +176,7 @@ EditingState.propTypes = {
   defaultAppointmentChanges: PropTypes.object,
   onAppointmentChangesChange: PropTypes.func,
 
-  deletedAppointmentId: PropTypes.array,
+  deletedAppointmentId: PropTypes.number,
   defaultDeletedAppointmentId: PropTypes.number,
   onDeletedAppointmentIdChange: PropTypes.func,
 
@@ -191,7 +191,7 @@ EditingState.defaultProps = {
   // createAppointmentChange: undefined,
 
   editingAppointmentId: undefined,
-  defaultEditingAppointmentId: undefined,
+  defaultEditingAppointmentId: null,
   onEditingAppointmentIdChange: undefined,
 
   appointmentChanges: undefined,
@@ -203,7 +203,7 @@ EditingState.defaultProps = {
   onAddedAppointmentChange: undefined,
 
   deletedAppointmentId: undefined,
-  defaultDeletedAppointmentId: undefined,
+  defaultDeletedAppointmentId: null,
   onDeletedAppointmentIdChange: undefined,
 
   setAppointmentStartDate:

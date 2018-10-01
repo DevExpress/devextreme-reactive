@@ -1,5 +1,8 @@
+import * as React from 'react';
+import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents, getComputedState, testStatePluginField } from '@devexpress/dx-react-core/test-utils';
+import { PluginHost } from '@devexpress/dx-react-core';
 import {
   addAppointment,
   changeAddedAppointment,
@@ -10,6 +13,7 @@ import {
   stopEditAppointment,
   changeAppointment,
   cancelChanges,
+  createAppointmentChangeGetter,
 } from '@devexpress/dx-scheduler-core';
 import { EditingState } from './editing-state';
 
@@ -19,8 +23,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   stopEditAppointment: jest.fn(),
   deleteAppointment: jest.fn(),
   cancelDeletedAppointment: jest.fn(),
-  // createAppointmentChangeGetter: jest.fn(),
-  // getColumnExtensionValueGetter: jest.fn(),
+  createAppointmentChangeGetter: jest.fn(),
   changeAppointment: jest.fn(),
   cancelChanges: jest.fn(),
   addAppointment: jest.fn(),
@@ -44,6 +47,25 @@ describe('EditingState', () => {
 
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  it('should provide createAppointmentChange', () => {
+    const createAppointmentChange = () => {};
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          createAppointmentChange={createAppointmentChange}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(createAppointmentChangeGetter)
+      .toBeCalledWith(createAppointmentChange);
+    expect(getComputedState(tree).createAppointmentChange)
+      .toEqual(createAppointmentChangeGetter());
   });
 
   testStatePluginField({

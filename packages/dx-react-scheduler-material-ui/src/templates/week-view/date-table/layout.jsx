@@ -18,7 +18,6 @@ const LayoutBase = ({
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
-  createNewAppointment,
   ...restProps
 }) => (
   <RootRef rootRef={dateTableRef}>
@@ -29,14 +28,7 @@ const LayoutBase = ({
       <TableBody>
         {timeScale.map((time, index) => (
           <Row key={index.toString()}>
-            {dayScale.map(date => (
-              <Cell
-                key={date}
-                date={date}
-                time={time}
-                createNewAppointment={createNewAppointment}
-              />
-            ))}
+            {dayScale.map(date => <Cell key={date} date={date} time={time} />)}
           </Row>
         ))}
       </TableBody>
@@ -51,7 +43,6 @@ LayoutBase.propTypes = {
   dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
-  createNewAppointment: PropTypes.func,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
@@ -60,7 +51,6 @@ LayoutBase.defaultProps = {
   className: undefined,
   cellComponent: () => null,
   rowComponent: () => null,
-  createNewAppointment: undefined,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

@@ -88,9 +88,6 @@ export class AppointmentTooltip extends React.PureComponent {
               getAppointmentEndDate,
               getAppointmentStartDate,
               getAppointmentTitle,
-              getAppointmentId,
-            }, {
-              deleteAppointment,
             }) => (
               <React.Fragment>
                 <TemplatePlaceholder />
@@ -108,12 +105,7 @@ export class AppointmentTooltip extends React.PureComponent {
                   getAppointmentTitle={getAppointmentTitle}
                   getAppointmentStartDate={getAppointmentStartDate}
                   getAppointmentEndDate={getAppointmentEndDate}
-                  getAppointmentId={getAppointmentId}
 
-                  onDelete={(id) => {
-                    deleteAppointment(id);
-                    this.toggleVisibility();
-                  }}
                 />
               </React.Fragment>
             )}

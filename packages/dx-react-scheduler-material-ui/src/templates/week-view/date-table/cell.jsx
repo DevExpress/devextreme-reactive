@@ -24,24 +24,16 @@ const CellBase = ({
   children,
   time,
   date,
-  createNewAppointment,
   ...restProps
-}) => {
-  const onDoubleClick = createNewAppointment
-    ? {
-      onDoubleClick: () => createNewAppointment({ date, start: time.start, end: time.end }),
-    } : null;
-  return (
-    <TableCell
-      tabIndex={0}
-      className={classNames(classes.cell, className)}
-      {...onDoubleClick}
-      {...restProps}
-    >
-      {children}
-    </TableCell>
-  );
-};
+}) => (
+  <TableCell
+    tabIndex={0}
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    {children}
+  </TableCell>
+);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -15,7 +15,6 @@ describe('Appointment Tooltip', () => {
     getAppointmentStartDate: () => new Date('2018-08-17 10:00'),
     getAppointmentEndDate: () => new Date('2018-08-17 11:00'),
     getAppointmentTitle: () => 'title',
-    getAppointmentId: () => 10,
     commandButtonIds: {
       open: 'open',
       close: 'close',

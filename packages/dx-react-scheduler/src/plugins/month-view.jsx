@@ -18,7 +18,6 @@ import {
   monthCells as monthCellsCore,
   availableViews as availableViewsCore,
   HORIZONTAL_APPOINTMENT_TYPE,
-  createMonthAppointment,
 } from '@devexpress/dx-scheduler-core';
 
 const WEEK_COUNT = 7;
@@ -144,8 +143,6 @@ export class MonthView extends React.PureComponent {
           <TemplateConnector>
             {({
               monthCells, appointments, startViewDate, endViewDate, currentView,
-            }, {
-              addAppointment,
             }) => {
               if (currentView !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
@@ -167,9 +164,6 @@ export class MonthView extends React.PureComponent {
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
-              const createNewAppointment = addAppointment
-                ? appointmentMeta => createMonthAppointment(addAppointment, { title: 'No Title', ...appointmentMeta })
-                : undefined;
 
               return (
                 <React.Fragment>
@@ -178,7 +172,6 @@ export class MonthView extends React.PureComponent {
                     cellComponent={DateTableCell}
                     monthCells={monthCells}
                     dateTableRef={this.dateTableRef}
-                    createNewAppointment={createNewAppointment}
                   />
                   <Container>
                     {rects.map(({

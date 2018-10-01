@@ -1,28 +1,11 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { TableTreeColumn as TableTreeColumnBase } from '@devexpress/dx-react-grid';
-import { TableTreeExpandButton } from '../templates/table-tree-expand-button';
-import { TableTreeCheckbox } from '../templates/table-tree-checkbox';
-import { TableTreeIndent } from '../templates/table-tree-indent';
-import { TableTreeCell } from '../templates/table-tree-cell';
-import { TableTreeContent } from '../templates/table-tree-content';
+import { TableTreeExpandButton as ExpandButton } from '../templates/table-tree-expand-button';
+import { TableTreeCheckbox as Checkbox } from '../templates/table-tree-checkbox';
+import { TableTreeIndent as Indent } from '../templates/table-tree-indent';
+import { TableTreeCell as Cell } from '../templates/table-tree-cell';
+import { TableTreeContent as Content } from '../templates/table-tree-content';
 
-export class TableTreeColumn extends React.PureComponent {
-  render() {
-    return (
-      <TableTreeColumnBase
-        cellComponent={TableTreeCell}
-        contentComponent={TableTreeContent}
-        indentComponent={TableTreeIndent}
-        expandButtonComponent={TableTreeExpandButton}
-        checkboxComponent={TableTreeCheckbox}
-        {...this.props}
-      />
-    );
-  }
-}
-
-TableTreeColumn.Cell = TableTreeCell;
-TableTreeColumn.Content = TableTreeContent;
-TableTreeColumn.Indent = TableTreeIndent;
-TableTreeColumn.ExpandButton = TableTreeExpandButton;
-TableTreeColumn.Checkbox = TableTreeCheckbox;
+export const TableTreeColumn = withComponents({
+  Cell, Content, Indent, ExpandButton, Checkbox,
+})(TableTreeColumnBase);

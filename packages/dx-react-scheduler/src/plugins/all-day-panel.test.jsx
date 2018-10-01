@@ -16,13 +16,11 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
     currentView: 'week',
     startViewDate: '',
     endViewDate: '',
     excludedDays: [],
+    dayScale: [],
   },
   template: {
     body: {},

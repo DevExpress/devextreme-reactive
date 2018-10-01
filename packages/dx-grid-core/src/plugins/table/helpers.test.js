@@ -31,7 +31,7 @@ describe('Table Plugin helpers', () => {
   });
   describe('#isDataTableRow', () => {
     it('should work', () => {
-      expect(isDataTableRow({ type: 'data' }))
+      expect(isDataTableRow({ type: TABLE_DATA_TYPE }))
         .toBeTruthy();
       expect(isDataTableRow({ type: 'undefined' }))
         .toBeFalsy();

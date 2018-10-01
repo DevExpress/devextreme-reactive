@@ -17,6 +17,8 @@ import {
   isDataTableCell,
   isHeaderStubTableCell,
   isDataTableRow,
+  TABLE_DATA_TYPE,
+  TABLE_NODATA_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
@@ -29,6 +31,10 @@ const tableFooterRows = [];
 const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
 ];
+
+const defaultMessages = {
+  noData: 'No data',
+};
 
 export class Table extends React.PureComponent {
   constructor(props) {
@@ -60,7 +66,7 @@ export class Table extends React.PureComponent {
       footerComponent,
     } = this.props;
 
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = this.tableColumnsComputed(columnExtensions);
 
     return (
@@ -196,6 +202,10 @@ export class Table extends React.PureComponent {
   }
 }
 
+Table.COLUMN_TYPE = TABLE_DATA_TYPE;
+Table.ROW_TYPE = TABLE_DATA_TYPE;
+Table.NODATA_ROW_TYPE = TABLE_NODATA_TYPE;
+
 Table.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
   tableComponent: PropTypes.func.isRequired,
@@ -211,10 +221,28 @@ Table.propTypes = {
   stubCellComponent: PropTypes.func.isRequired,
   stubHeaderCellComponent: PropTypes.func.isRequired,
   columnExtensions: PropTypes.array,
-  messages: PropTypes.object,
+  messages: PropTypes.shape({
+    noData: PropTypes.string,
+  }),
 };
 
 Table.defaultProps = {
   columnExtensions: undefined,
   messages: {},
+};
+
+Table.components = {
+  tableComponent: 'Table',
+  headComponent: 'TableHead',
+  bodyComponent: 'TableBody',
+  footerComponent: 'TableFooter',
+  containerComponent: 'Container',
+  layoutComponent: 'Layout',
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  noDataRowComponent: 'NoDataRow',
+  noDataCellComponent: 'NoDataCell',
+  stubRowComponent: 'StubRow',
+  stubCellComponent: 'StubCell',
+  stubHeaderCellComponent: 'StubHeaderCell',
 };

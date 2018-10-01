@@ -35,3 +35,8 @@ Toolbar.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   flexibleSpaceComponent: PropTypes.func.isRequired,
 };
+
+Toolbar.components = {
+  rootComponent: 'Root',
+  flexibleSpaceComponent: 'FlexibleSpace',
+};

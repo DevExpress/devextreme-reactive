@@ -9,7 +9,7 @@ describe('TableEditColumn Plugin computeds', () => {
       expect(tableColumnsWithEditing(columns, 100))
         .toEqual([
           {
-            key: TABLE_EDIT_COMMAND_TYPE,
+            key: TABLE_EDIT_COMMAND_TYPE.toString(),
             type: TABLE_EDIT_COMMAND_TYPE,
             width: 100,
           },

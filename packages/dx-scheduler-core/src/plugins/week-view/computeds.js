@@ -39,7 +39,9 @@ export const timeScale = (
   excludedDays,
 ) => {
   const result = [];
-  const startViewDate = calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays);
+  const startViewDate = firstDayOfWeek !== undefined
+    ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
+    : currentDate;
   const left = moment(startViewDate).startOf('hour').hour(startDayHour);
   const right = moment(startViewDate).startOf('hour').hour(endDayHour);
   while (left.isBefore(right)) {

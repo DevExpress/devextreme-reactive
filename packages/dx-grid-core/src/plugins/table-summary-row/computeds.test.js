@@ -5,7 +5,10 @@ describe('TableSummaryRow', () => {
   describe('#tableRowsWithTotalSummaries', () => {
     it('should work', () => {
       expect(tableRowsWithTotalSummaries([{}]))
-        .toEqual([{ key: TABLE_TOTAL_SUMMARY_TYPE, type: TABLE_TOTAL_SUMMARY_TYPE }, {}]);
+        .toEqual([{
+          key: TABLE_TOTAL_SUMMARY_TYPE.toString(),
+          type: TABLE_TOTAL_SUMMARY_TYPE,
+        }, {}]);
     });
   });
 
@@ -28,12 +31,12 @@ describe('TableSummaryRow', () => {
         { row: { levelKey: 'a', compoundKey: 'a2', group: true } },
         { row: { a: 1 } },
         { row: { a: 2 } },
-        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a2`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a2', group: true } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a2`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a2', group: true } },
         { row: { levelKey: 'a', compoundKey: 'a3', group: true } },
         { row: { levelKey: 'b', a: 3 } },
         { row: { a: 4 } },
-        { key: `${TABLE_TREE_SUMMARY_TYPE}_3`, type: TABLE_TREE_SUMMARY_TYPE, row: { levelKey: 'b', a: 3 } },
-        { key: `${TABLE_GROUP_SUMMARY_TYPE}_a3`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a3', group: true } },
+        { key: `${TABLE_TREE_SUMMARY_TYPE.toString()}_3`, type: TABLE_TREE_SUMMARY_TYPE, row: { levelKey: 'b', a: 3 } },
+        { key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_a3`, type: TABLE_GROUP_SUMMARY_TYPE, row: { levelKey: 'a', compoundKey: 'a3', group: true } },
       ];
 
       expect(tableRowsWithSummaries(tableRows, getRowLevelKey, isGroupRow, getRowId))

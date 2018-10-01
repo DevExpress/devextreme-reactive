@@ -19,6 +19,10 @@ const pluginDependencies = [
   { name: 'WeekView', optional: true },
 ];
 
+const defaultMessages = {
+  allDay: 'All Day',
+};
+
 const AppointmentPlaceholder = props => (
   <TemplatePlaceholder name="appointment" params={props} />
 );
@@ -49,7 +53,7 @@ export class AllDayPanel extends React.PureComponent {
       messages,
     } = this.props;
     const { tableRef } = this.state;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
       <Plugin
@@ -57,7 +61,6 @@ export class AllDayPanel extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="navbarEmpty">
-          <TemplatePlaceholder />
           <Text getMessage={getMessage} />
         </Template>
 
@@ -67,11 +70,11 @@ export class AllDayPanel extends React.PureComponent {
             {({
               dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
             }) => {
-              if (currentView === 'month') return null;
+              if (currentView === 'Month') return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef ? calculateRectByDateIntervals(
+              const rects = tableRef && tableRef.querySelectorAll('th').length === dayScale.length ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_APPOINTMENT_TYPE,
                   multiline: false,
@@ -119,5 +122,19 @@ AllDayPanel.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   textComponent: PropTypes.func.isRequired,
-  messages: PropTypes.object.isRequired,
+  messages: PropTypes.shape({
+    allDay: PropTypes.string,
+  }),
+};
+
+AllDayPanel.defaultProps = {
+  messages: {},
+};
+
+AllDayPanel.components = {
+  containerComponent: 'Container',
+  layoutComponent: 'Layout',
+  cellComponent: 'Cell',
+  rowComponent: 'Row',
+  textComponent: 'Text',
 };

@@ -2,7 +2,7 @@ import moment from 'moment';
 import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
 
 export const computed = (getters, viewName, baseComputed, defaultValue) => {
-  if (getters.currentView !== viewName && !!defaultValue) {
+  if (getters.currentView.name !== viewName && !!defaultValue) {
     return defaultValue;
   }
   return baseComputed(getters, viewName);
@@ -38,7 +38,7 @@ const byDayPredicate = (boundary, date) => (
 export const viewPredicate = (
   appointment, left, right,
   excludedDays = [],
-  filterAllDayAppointments = false,
+  removeAllDayAppointments = false,
 ) => {
   const { start, end } = appointment;
   const isAppointmentInBoundary = end.isAfter(left) && start.isBefore(right);
@@ -46,7 +46,7 @@ export const viewPredicate = (
   const isAppointmentInExcludedDays = !!excludedIntervals(excludedDays, moment(left))
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
 
-  const considerAllDayAppointment = filterAllDayAppointments
+  const considerAllDayAppointment = removeAllDayAppointments
     ? moment(end).diff(start, 'hours') < 24
     : true;
 

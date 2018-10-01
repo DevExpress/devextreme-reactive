@@ -11,6 +11,7 @@ import {
   isDetailToggleTableCell,
   isDetailTableRow,
   isDetailTableCell,
+  TABLE_DETAIL_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const getCellColSpanComputed = (
@@ -104,6 +105,9 @@ export class TableRowDetail extends React.PureComponent {
   }
 }
 
+TableRowDetail.ROW_TYPE = TABLE_DETAIL_TYPE;
+TableRowDetail.COLUMN_TYPE = TABLE_DETAIL_TYPE;
+
 TableRowDetail.propTypes = {
   contentComponent: PropTypes.func,
   toggleCellComponent: PropTypes.func.isRequired,
@@ -116,4 +120,10 @@ TableRowDetail.propTypes = {
 TableRowDetail.defaultProps = {
   contentComponent: () => null,
   rowHeight: undefined,
+};
+
+TableRowDetail.components = {
+  rowComponent: 'Row',
+  cellComponent: 'Cell',
+  toggleCellComponent: 'ToggleCell',
 };

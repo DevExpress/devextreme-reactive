@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import IconButton from '@material-ui/core/IconButton';
 import { FilterSelector } from './filter-selector';
 
 const defaultProps = {
+  toggleButtonComponent: () => null,
   iconComponent: () => null,
   getMessage: key => key,
 };
@@ -28,7 +28,7 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find(IconButton).prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
 
@@ -41,7 +41,7 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find(IconButton).prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
 });

@@ -69,6 +69,13 @@ TableEditRow.Row | [TableEditRow.RowProps](#tableeditrowrowprops) | A component 
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ADDED_ROW_TYPE | symbol | The added row type's identifier.
+EDIT_ROW_TYPE | symbol | The edit row type's identifier.
+
 ## Plugin Developer Reference
 
 ### Imports

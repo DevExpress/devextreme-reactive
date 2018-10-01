@@ -142,7 +142,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'add').props())
-        .toMatchObject({ text: 'addCommand' });
+        .toMatchObject({ text: 'New' });
 
       const { onExecute } = findCommandWithId(tree, 'add').props();
       onExecute();
@@ -198,7 +198,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'edit').props())
-        .toMatchObject({ text: 'editCommand' });
+        .toMatchObject({ text: 'Edit' });
 
       const { onExecute } = findCommandWithId(tree, 'edit').props();
       onExecute();
@@ -256,7 +256,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'delete').props())
-        .toMatchObject({ text: 'deleteCommand' });
+        .toMatchObject({ text: 'Delete' });
 
       const { onExecute } = findCommandWithId(tree, 'delete').props();
       onExecute();
@@ -316,7 +316,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'commit').props())
-        .toMatchObject({ text: 'commitCommand' });
+        .toMatchObject({ text: 'Save' });
 
       const { onExecute } = findCommandWithId(tree, 'commit').props();
       onExecute();
@@ -340,7 +340,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'commit').props())
-        .toMatchObject({ text: 'commitCommand' });
+        .toMatchObject({ text: 'Save' });
 
       const { onExecute } = findCommandWithId(tree, 'commit').props();
       onExecute();
@@ -362,7 +362,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'cancel').props())
-        .toMatchObject({ text: 'cancelCommand' });
+        .toMatchObject({ text: 'Cancel' });
 
       const { onExecute } = findCommandWithId(tree, 'cancel').props();
       onExecute();
@@ -386,7 +386,7 @@ describe('TableEditColumn', () => {
       ));
 
       expect(findCommandWithId(tree, 'cancel').props())
-        .toMatchObject({ text: 'cancelCommand' });
+        .toMatchObject({ text: 'Cancel' });
 
       const { onExecute } = findCommandWithId(tree, 'cancel').props();
       onExecute();

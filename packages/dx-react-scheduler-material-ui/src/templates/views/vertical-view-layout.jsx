@@ -21,42 +21,56 @@ const styles = theme => ({
   },
 });
 
-export class MonthLayoutBase extends React.PureComponent {
+export class VerticalViewLayoutBase extends React.PureComponent {
   render() {
     const {
+      sidebarComponent: Sidebar,
       navbarComponent: Navbar,
       mainComponent: Main,
+      navbarEmptyComponent: NavbarEmpty,
       classes,
     } = this.props;
 
     return (
       <Grid
-        className={classes.container}
         container
-        direction="column"
-        wrap="nowrap"
+        className={classes.container}
       >
         <Grid
-          item
+          container
+          direction="row"
           className={classes.stickyHeader}
         >
-          <Navbar />
+          <Grid item xs={1} className={classes.emptySpace}>
+            <NavbarEmpty />
+          </Grid>
+
+          <Grid item xs={11}>
+            <Navbar />
+          </Grid>
         </Grid>
-        <Grid
-          item
-          className={classes.main}
-        >
-          <Main />
+
+        <Grid container direction="row">
+          <Grid item xs={1}>
+            <Sidebar />
+          </Grid>
+
+          <Grid item xs={11} className={classes.main}>
+            <Main />
+          </Grid>
         </Grid>
+
       </Grid>
     );
   }
 }
 
-MonthLayoutBase.propTypes = {
+VerticalViewLayoutBase.propTypes = {
+  sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
+  navbarEmptyComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export const MonthLayout = withStyles(styles, { name: 'MonthLayout' })(MonthLayoutBase);
+export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

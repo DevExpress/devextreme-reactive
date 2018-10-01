@@ -10,6 +10,7 @@ import {
   tableRowsWithBands, isHeadingTableCell,
   BAND_GROUP_CELL, BAND_HEADER_CELL,
   BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
+  TABLE_BAND_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
@@ -99,10 +100,19 @@ export class TableBandHeader extends React.PureComponent {
   }
 }
 
+TableBandHeader.ROW_TYPE = TABLE_BAND_TYPE;
+
 TableBandHeader.propTypes = {
   columnBands: PropTypes.array.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   bandedHeaderCellComponent: PropTypes.func.isRequired,
   invisibleCellComponent: PropTypes.func.isRequired,
+};
+
+TableBandHeader.components = {
+  cellComponent: 'Cell',
+  rowComponent: 'Row',
+  bandedHeaderCellComponent: 'BandedHeaderCell',
+  invisibleCellComponent: 'InvisibleCell',
 };

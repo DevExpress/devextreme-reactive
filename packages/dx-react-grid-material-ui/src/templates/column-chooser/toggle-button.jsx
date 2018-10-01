@@ -13,11 +13,11 @@ export const ToggleButton = ({
     title={getMessage('showColumnChooser')}
     placement="bottom"
     enterDelay={300}
-    {...restProps}
   >
     <IconButton
       onClick={onToggle}
       buttonRef={buttonRef}
+      {...restProps}
     >
       <VisibilityOff />
     </IconButton>

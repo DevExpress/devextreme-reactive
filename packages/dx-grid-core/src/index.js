@@ -94,6 +94,7 @@ export * from './plugins/table-fixed-columns/computeds';
 export * from './plugins/integrated-summary/computeds';
 export * from './plugins/table-summary-row/computeds';
 export * from './plugins/table-summary-row/helpers';
+export * from './plugins/table-summary-row/constants';
 
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
@@ -107,4 +108,4 @@ export {
 
 export { getGroupCellTargetIndex } from './utils/group-panel';
 
-export { getCollapsedGrid } from './utils/virtual-table';
+export { getCollapsedGrid, TABLE_STUB_TYPE } from './utils/virtual-table';

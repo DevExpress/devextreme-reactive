@@ -1,5 +1,4 @@
-export const STUB_TYPE = 'stub';
-export const VISIBLE_TYPE = 'visible';
+export const TABLE_STUB_TYPE = Symbol('stub');
 
 export const getVisibleBoundaryWithFixed = (
   visibleBoundary, items,
@@ -138,8 +137,8 @@ export const getCollapsedColumns = (columns, visibleBoundaries, boundaries, getC
       collapsedColumns.push(column);
     } else {
       collapsedColumns.push({
-        key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
-        type: STUB_TYPE,
+        key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
+        type: TABLE_STUB_TYPE,
         width: getColumnsSize(columns, boundary[0], boundary[1], getColumnWidth),
       });
     }
@@ -160,8 +159,8 @@ export const getCollapsedRows = (rows, visibleBoundary, boundaries, getRowHeight
     } else {
       collapsedColumns.push({
         row: {
-          type: STUB_TYPE,
-          key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
+          key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
+          type: TABLE_STUB_TYPE,
           height: getColumnsSize(rows, boundary[0], boundary[1], getRowHeight),
         },
       });
@@ -194,8 +193,8 @@ export const getCollapsedCells = (columns, spanBoundaries, boundaries, getColSpa
     } else {
       collapsedColumns.push({
         column: {
-          key: `${STUB_TYPE}_${boundary[0]}_${boundary[1]}`,
-          type: STUB_TYPE,
+          key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
+          type: TABLE_STUB_TYPE,
         },
         colSpan: 1,
       });

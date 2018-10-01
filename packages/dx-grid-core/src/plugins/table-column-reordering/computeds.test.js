@@ -67,7 +67,7 @@ describe('TableColumnReordering computeds', () => {
     it('should add a reordering row to the rows passed', () => {
       expect(tableHeaderRowsWithReordering([]))
         .toEqual([{
-          key: TABLE_REORDERING_TYPE,
+          key: TABLE_REORDERING_TYPE.toString(),
           type: TABLE_REORDERING_TYPE,
           height: 0,
         }]);

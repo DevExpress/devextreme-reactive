@@ -5,6 +5,7 @@ import { Sizer, RefHolder } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrid,
   TABLE_FLEX_TYPE,
+  TABLE_STUB_TYPE,
 } from '@devexpress/dx-grid-core';
 import { ColumnGroup } from './column-group';
 
@@ -76,7 +77,7 @@ export class VirtualTableLayout extends React.PureComponent {
       .map(([row, ref]) => [row, findDOMNode(ref)])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
-      .filter(([row]) => row.type !== 'stub')
+      .filter(([row]) => row.type !== TABLE_STUB_TYPE)
       .filter(([row, height]) => height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {

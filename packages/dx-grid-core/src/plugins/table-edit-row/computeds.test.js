@@ -8,7 +8,7 @@ describe('TableEditRow Plugin computeds', () => {
       const tableRows = [
         { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
         {
-          key: `${TABLE_DATA_TYPE}_2`,
+          key: `${TABLE_DATA_TYPE.toString()}_2`,
           type: TABLE_DATA_TYPE,
           rowId: 2,
           row: 'row2',
@@ -21,14 +21,14 @@ describe('TableEditRow Plugin computeds', () => {
       expect(tableRowsWithEditing(tableRows, editingRowIds, addedRows, 100))
         .toEqual([
           {
-            key: `${TABLE_ADDED_TYPE}_1`,
+            key: `${TABLE_ADDED_TYPE.toString()}_1`,
             type: TABLE_ADDED_TYPE,
             rowId: 1,
             row: { id: 4 },
             height: 100,
           },
           {
-            key: `${TABLE_ADDED_TYPE}_0`,
+            key: `${TABLE_ADDED_TYPE.toString()}_0`,
             type: TABLE_ADDED_TYPE,
             rowId: 0,
             row: { id: 3 },
@@ -36,7 +36,7 @@ describe('TableEditRow Plugin computeds', () => {
           },
           { type: TABLE_DATA_TYPE, rowId: 1, row: 'row1' },
           {
-            key: `${TABLE_DATA_TYPE}_2`,
+            key: `${TABLE_DATA_TYPE.toString()}_2`,
             type: TABLE_EDIT_TYPE,
             rowId: 2,
             row: 'row2',

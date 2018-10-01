@@ -12,7 +12,7 @@ import {
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  getWeekRectByDates,
+  getRectByDates,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
@@ -110,6 +110,7 @@ export class WeekView extends React.PureComponent {
   render() {
     const {
       layoutComponent: ViewLayout,
+      navbarEmptyComponent: NavbarEmpty,
       timePanelLayoutComponent: TimePanel,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
@@ -171,6 +172,17 @@ export class WeekView extends React.PureComponent {
           </TemplateConnector>
         </Template>
 
+        <Template name="navbarEmpty">
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              return (
+                <NavbarEmpty />
+              );
+            }}
+          </TemplateConnector>
+        </Template>
+
         <Template name="sidebar">
           <TemplateConnector>
             {({ timeScale, currentView }) => {
@@ -201,7 +213,7 @@ export class WeekView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getWeekRectByDates,
+                getRectByDates,
                 {
                   startViewDate,
                   endViewDate,
@@ -246,6 +258,7 @@ export class WeekView extends React.PureComponent {
 
 WeekView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
+  navbarEmptyComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,
@@ -278,6 +291,7 @@ WeekView.defaultProps = {
 WeekView.components = {
   layoutComponent: 'Layout',
   containerComponent: 'Container',
+  navbarEmptyComponent: 'NavbarEmpty',
   timePanelLayoutComponent: 'TimePanelLayout',
   timePanelCellComponent: 'TimePanelCell',
   timePanelRowComponent: 'TimePanelRow',

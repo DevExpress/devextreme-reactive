@@ -24,21 +24,20 @@ export class FilterSelector extends React.PureComponent {
 
   render() {
     const {
-      value, availableValues, disabled, getMessage, iconComponent: Icon,
+      value, availableValues, disabled, getMessage,
+      iconComponent: Icon, toggleButtonComponent: ToggleButton,
     } = this.props;
     const { opened } = this.state;
 
     return availableValues.length ? (
       <span className="input-group-btn">
-        <button
-          type="button"
-          className="btn btn-default"
+        <ToggleButton
           disabled={disabled || availableValues.length === 1}
-          onClick={this.handleButtonClick}
-          ref={(ref) => { this.targetElement = ref; }}
+          onToggle={this.handleButtonClick}
+          buttonRef={(ref) => { this.targetElement = ref; }}
         >
           <Icon type={value} />
-        </button>
+        </ToggleButton>
         <Overlay
           visible={opened}
           target={this.targetElement}
@@ -79,6 +78,7 @@ FilterSelector.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
 };
 

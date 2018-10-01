@@ -50,7 +50,7 @@ export const customTreeRowIdGetter = (getRowId, { rows, treeMeta }) => {
 export const customTreeRowLevelKeyGetter = (getRowLevelKey, { treeMeta }) => (row) => {
   const rowMeta = treeMeta.get(row);
   if (rowMeta !== undefined) {
-    return `${GRID_TREE_NODE_TYPE}_${rowMeta.level}`;
+    return `${GRID_TREE_NODE_TYPE.toString()}_${rowMeta.level}`;
   }
   return getRowLevelKey && getRowLevelKey();
 };

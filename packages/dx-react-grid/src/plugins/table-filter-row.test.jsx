@@ -56,6 +56,7 @@ const defaultProps = {
   editorComponent: () => null,
   filterSelectorComponent: () => null,
   iconComponent: () => null,
+  toggleButtonComponent: () => null,
 };
 
 describe('TableFilterRow', () => {

@@ -51,6 +51,7 @@ export class TableFilterRow extends React.PureComponent {
       rowComponent: FilterRow,
       filterSelectorComponent: FilterSelector,
       iconComponent,
+      toggleButtonComponent,
       editorComponent: EditorComponent,
       messages,
     } = this.props;
@@ -122,6 +123,7 @@ export class TableFilterRow extends React.PureComponent {
                         {showFilterSelector
                           ? (
                             <FilterSelector
+                              toggleButtonComponent={toggleButtonComponent}
                               iconComponent={iconComponent}
                               value={selectedFilterOperation}
                               availableValues={columnFilterOperations}
@@ -179,6 +181,7 @@ TableFilterRow.propTypes = {
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   filterSelectorComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
   editorComponent: PropTypes.func.isRequired,
 };
@@ -195,4 +198,5 @@ TableFilterRow.components = {
   filterSelectorComponent: 'FilterSelector',
   iconComponent: 'Icon',
   editorComponent: 'Editor',
+  toggleButtonComponent: 'ToggleButton',
 };

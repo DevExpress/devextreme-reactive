@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import { ToggleButton } from './toggle-button';
 
 const defaultProps = {
@@ -11,16 +9,16 @@ const defaultProps = {
 };
 
 describe('ToggleButton', () => {
-  it('should provide a correct message text', () => {
+  it('should pass className to the root element', () => {
     const tree = shallow((
       <ToggleButton
         {...defaultProps}
-        data={{ a: 1 }}
+        className="class"
       />
     ));
 
-    expect(tree.find(Tooltip).props().title)
-      .toBe('showColumnChooser');
+    expect(tree.is('.class'))
+      .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -31,7 +29,20 @@ describe('ToggleButton', () => {
       />
     ));
 
-    expect(tree.find(IconButton).props().data)
+    expect(tree.props().data)
       .toMatchObject({ a: 1 });
+  });
+
+  it('should pass children', () => {
+    const tree = shallow((
+      <ToggleButton
+        {...defaultProps}
+      >
+        <div className="content" />
+      </ToggleButton>
+    ));
+
+    expect(tree.find('.content').exists())
+      .toBeTruthy();
   });
 });

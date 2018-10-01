@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,37 +16,44 @@ class FilterSelectorBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { anchorEl: null };
+    this.state = {
+      opened: false,
+    };
 
-    this.handleButtonClick = (event) => {
-      this.setState({ anchorEl: event.currentTarget });
+    this.setButtonRef = (buttonRef) => {
+      this.buttonRef = buttonRef;
+    };
+    this.handleButtonClick = () => {
+      this.setState(prevState => ({ opened: !prevState.opened }));
     };
     this.handleMenuClose = () => {
-      this.setState({ anchorEl: null });
+      this.setState({ opened: false });
     };
     this.handleMenuItemClick = (nextValue) => {
       const { onChange } = this.props;
-      this.setState({ anchorEl: null });
+      this.setState({ opened: false });
       onChange(nextValue);
     };
   }
 
   render() {
     const {
-      value, availableValues, disabled, getMessage, iconComponent: Icon, classes,
+      value, availableValues, disabled, getMessage,
+      iconComponent: Icon, toggleButtonComponent: ToggleButton, classes,
     } = this.props;
-    const { anchorEl } = this.state;
+    const { opened } = this.state;
     return availableValues.length ? (
       <React.Fragment>
-        <IconButton
-          onClick={this.handleButtonClick}
+        <ToggleButton
+          buttonRef={this.setButtonRef}
+          onToggle={this.handleButtonClick}
           disabled={disabled || availableValues.length === 1}
         >
           <Icon type={value} />
-        </IconButton>
+        </ToggleButton>
         <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
+          anchorEl={this.buttonRef}
+          open={opened}
           onClose={this.handleMenuClose}
           MenuListProps={{ dense: true }}
         >
@@ -80,6 +86,7 @@ FilterSelectorBase.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   iconComponent: PropTypes.func.isRequired,
+  toggleButtonComponent: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

@@ -87,10 +87,12 @@ export default class Demo extends React.PureComponent {
     fetch(queryString)
       .then(response => response.json())
       .then(({ data }) => {
-        this.setState({
-          data,
-          loading: false,
-        });
+        setTimeout(() => {
+          this.setState({
+            data,
+            loading: false,
+          });
+        }, 600);
       })
       .catch(() => this.setState({ loading: false }));
     this.lastQuery = queryString;

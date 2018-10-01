@@ -78,7 +78,7 @@ export class EditingState extends React.PureComponent {
       const { onCommitChanges } = this.props;
       const { addedAppointment: stateAddedAppointment } = this.state;
       onCommitChanges({
-        added: this.validateAppointment(stateAddedAppointment),
+        added: this.makeAppointment(stateAddedAppointment),
       });
       this.cancelAddedAppointment();
     };
@@ -98,7 +98,7 @@ export class EditingState extends React.PureComponent {
       this.cancelDeletedAppointment();
     };
 
-    this.validateAppointment = ({ startDate, endDate, title }) => {
+    this.makeAppointment = ({ startDate, endDate, title }) => {
       const {
         setAppointmentEndDate,
         setAppointmentStartDate,
@@ -106,10 +106,9 @@ export class EditingState extends React.PureComponent {
       } = this.props;
 
       const appointment = {};
-      const a = setAppointmentTitle(appointment, title);
-      const b = setAppointmentStartDate(a, startDate);
-      const c = setAppointmentEndDate(b, endDate);
-      return c;
+      const withTitle = setAppointmentTitle(appointment, title);
+      const withStartDate = setAppointmentStartDate(withTitle, startDate);
+      return setAppointmentEndDate(withStartDate, endDate);
     };
   }
 

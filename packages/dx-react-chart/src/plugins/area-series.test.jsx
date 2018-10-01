@@ -10,7 +10,6 @@ const SeriesComponent = () => null;
 jest.mock('@devexpress/dx-chart-core', () => ({
   dArea: jest.fn(),
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',

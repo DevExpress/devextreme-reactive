@@ -29,24 +29,6 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-const getConstructor = (scaleExtension, type) => scaleExtension.find(
-  item => item.type === type,
-).constructor;
-
-export const xyScales = (
-  argumentDomainOptions,
-  valueDomainOptions,
-  { width, height },
-  scaleExtension,
-) => {
-  const xConstructor = getConstructor(scaleExtension, argumentDomainOptions.type);
-  const yConstructor = getConstructor(scaleExtension, valueDomainOptions.type);
-  return {
-    xScale: createScale(argumentDomainOptions, width, height, xConstructor),
-    yScale: createScale(valueDomainOptions, width, height, yConstructor),
-  };
-};
-
 export const pieAttributes = (
   data,
   { xScale, yScale },
@@ -116,7 +98,7 @@ export const barCoordinates = (
     },
     width,
     width,
-    getConstructor(scaleExtension, 'band'),
+    scaleExtension.find(item => item.type === 'band').constructor,
   ), 1 - barWidth);
   return rawCoordinates.map(item => ({
     ...item,

@@ -18,7 +18,6 @@ const coords = [{
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   seriesData: jest.fn(),
   barCoordinates: jest.fn(),
   dBar: jest.fn(),

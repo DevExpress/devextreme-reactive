@@ -12,7 +12,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
   seriesData: jest.fn(),
-  xyScales: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
 }));

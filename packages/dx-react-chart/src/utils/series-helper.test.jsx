@@ -2,14 +2,13 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, getValueDomainName,
+  findSeriesByName, coordinates, seriesData, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -119,19 +118,11 @@ describe('Base series', () => {
     ));
 
     expect(findSeriesByName).toHaveBeenCalledTimes(1);
-    expect(xyScales).toHaveBeenCalledTimes(1);
     expect(coordinates).toHaveBeenCalledTimes(1);
 
     expect(findSeriesByName).toHaveBeenLastCalledWith(
       expect.anything(),
       'series',
-    );
-
-    expect(xyScales).toHaveBeenLastCalledWith(
-      'argumentDomain',
-      'valueDomain',
-      { width: 60, height: 50 },
-      'scaleExtension',
     );
 
     expect(coordinates).toHaveBeenLastCalledWith(

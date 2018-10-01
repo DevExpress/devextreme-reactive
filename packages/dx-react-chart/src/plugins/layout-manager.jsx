@@ -8,7 +8,12 @@ import {
   TemplatePlaceholder,
   createStateHelper,
 } from '@devexpress/dx-react-core';
-import { bBoxes } from '@devexpress/dx-chart-core';
+import { bBoxes, buildScales } from '@devexpress/dx-chart-core';
+
+// TODO: Move it to ChartCore.
+const getScales = ({ domains, layouts, scaleExtension }) => buildScales(
+  domains, scaleExtension, layouts.pane,
+);
 
 export class LayoutManager extends React.Component {
   constructor(props) {
@@ -35,6 +40,7 @@ export class LayoutManager extends React.Component {
     return (
       <Plugin>
         <Getter name="layouts" value={stateBBoxes} />
+        <Getter name="scales" computed={getScales} />
         <Action name="changeBBox" action={this.changeBBox} />
 
         <Template name="root">

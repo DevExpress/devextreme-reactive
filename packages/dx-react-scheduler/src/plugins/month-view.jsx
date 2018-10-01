@@ -164,7 +164,6 @@ export class MonthView extends React.PureComponent {
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
-
               return (
                 <React.Fragment>
                   <DateTable

@@ -105,7 +105,6 @@ export class AppointmentTooltip extends React.PureComponent {
                   getAppointmentTitle={getAppointmentTitle}
                   getAppointmentStartDate={getAppointmentStartDate}
                   getAppointmentEndDate={getAppointmentEndDate}
-
                 />
               </React.Fragment>
             )}

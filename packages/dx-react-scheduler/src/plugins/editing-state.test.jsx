@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { setupConsole } from '@devexpress/dx-testing';
 import { pluginDepsToComponents, getComputedState, testStatePluginField } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
@@ -37,18 +36,6 @@ const defaultProps = {
 };
 
 describe('EditingState', () => {
-  let resetConsole;
-  beforeAll(() => {
-    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-  });
-  afterAll(() => {
-    resetConsole();
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('should provide createAppointmentChange', () => {
     const createAppointmentChange = () => {};
 

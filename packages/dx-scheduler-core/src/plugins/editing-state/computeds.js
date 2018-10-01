@@ -5,3 +5,10 @@ export const changedAppointmentById = (changes, appointmentId) => { // !
   result[appointmentId] = changes[appointmentId];
   return result;
 };
+
+const defaultCreateAppointmentChange = (
+  appointment, field, value,
+) => ({ [field]: value });
+export const createAppointmentChangeGetter = (
+  createAppointmentChange = defaultCreateAppointmentChange,
+) => (appointment, field, value) => createAppointmentChange(appointment, field, value);

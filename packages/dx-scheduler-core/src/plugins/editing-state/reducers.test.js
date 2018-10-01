@@ -2,6 +2,12 @@ import {
   addAppointment,
   changeAddedAppointment,
   cancelAddedAppointment,
+  deleteAppointment,
+  cancelDeletedAppointment,
+  startEditAppointment,
+  stopEditAppointment,
+  changeAppointment,
+  cancelChanges,
 } from './reducers';
 
 describe('EditingState reducers', () => {
@@ -34,6 +40,47 @@ describe('EditingState reducers', () => {
     it('should work', () => {
       const nextAddedAppointment = cancelAddedAppointment();
       expect(nextAddedAppointment).toEqual({});
+    });
+  });
+  describe('#deleteAppointment', () => {
+    it('should work', () => {
+      const deletedAppointmentId = 10;
+      const appointmentId = 20;
+      const nextDeletedAppointmentId = deleteAppointment(deletedAppointmentId, { appointmentId });
+      expect(nextDeletedAppointmentId).toEqual(20);
+    });
+  });
+  describe('#cancelDeletedAppointment', () => {
+    it('should work', () => {
+      expect(cancelDeletedAppointment()).toEqual(null);
+    });
+  });
+  describe('#startEditAppointment', () => {
+    it('should work', () => {
+      const prevEditingAppointmentId = 1;
+      const appointmentId = 2;
+      expect(startEditAppointment(prevEditingAppointmentId, { appointmentId }))
+        .toEqual(appointmentId);
+    });
+  });
+  describe('#stopEditAppointment', () => {
+    it('should work', () => {
+      expect(stopEditAppointment())
+        .toEqual(null);
+    });
+  });
+  describe('#changeAppointment', () => {
+    it('should work', () => {
+      const addedAppointment = { a: 0 };
+      const change = { a: 1, b: 2 };
+      expect(changeAppointment(addedAppointment, { change }))
+        .toEqual({ a: 1, b: 2 });
+    });
+  });
+  describe('#cancelChanges', () => {
+    it('should work', () => {
+      expect(cancelChanges())
+        .toEqual({});
     });
   });
 });

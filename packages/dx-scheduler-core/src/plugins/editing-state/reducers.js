@@ -10,14 +10,14 @@ export const cancelAddedAppointment = () => ({});
 
 export const deleteAppointment = (deletedAppointmentId, { appointmentId }) => appointmentId;
 
-export const cancelDeletedAppointment = () => undefined;
+export const cancelDeletedAppointment = () => null;
 
 export const startEditAppointment = (prevEditingAppointmentId, { appointmentId }) => appointmentId;
 
-export const stopEditAppointment = () => undefined;
+export const stopEditAppointment = () => null;
 
 export const changeAppointment = (
   addedAppointment, { change },
 ) => ({ ...addedAppointment, ...change });
 
-export const cancelChanges = () => undefined;
+export const cancelChanges = () => ({});

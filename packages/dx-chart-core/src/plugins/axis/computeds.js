@@ -71,24 +71,18 @@ const calculateAxisCoordinates = (
 };
 
 export const axisCoordinates = (
-  domainOptions,
+  domain,
+  scale,
   position,
-  width,
-  height,
   tickSize,
   indentFromAxis,
-  constructor,
-) => {
-  const scale = createScale(domainOptions, width, height, constructor);
-
-  return calculateAxisCoordinates(
-    scale,
-    domainOptions.orientation,
-    position,
-    tickSize,
-    indentFromAxis,
-    domainOptions.tickFormat,
-  );
-};
+) => calculateAxisCoordinates(
+  scale,
+  domain.orientation,
+  position,
+  tickSize,
+  indentFromAxis,
+  domain.tickFormat,
+);
 
 export const axesData = (axes, axisProps) => [...axes, axisProps];

@@ -26,24 +26,22 @@ class RawGrid extends React.PureComponent {
           <TemplateConnector>
             {({
               domains,
+              scales,
               layouts,
-              scaleExtension,
             }) => {
               const domain = domains[name];
-              const { orientation, type } = domain;
-              const { constructor } = scaleExtension.find(item => item.type === type);
+              const scale = scales[name];
+              const { orientation } = domain;
               const {
                 width, height,
               } = layouts.pane;
 
               const coordinates = axisCoordinates(
                 domain,
+                scale,
                 orientation === HORIZONTAL ? TOP : LEFT,
-                width,
-                height,
                 0,
                 undefined,
-                constructor,
               );
 
               return ((

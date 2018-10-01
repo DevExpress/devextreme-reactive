@@ -9,6 +9,8 @@ import {
   isEditTableRow,
   isAddedTableRow,
   isEditTableCell,
+  TABLE_EDIT_TYPE,
+  TABLE_ADDED_TYPE,
 } from '@devexpress/dx-grid-core';
 
 const pluginDependencies = [
@@ -114,6 +116,9 @@ export class TableEditRow extends React.PureComponent {
     );
   }
 }
+
+TableEditRow.ADDED_ROW_TYPE = TABLE_ADDED_TYPE;
+TableEditRow.EDIT_ROW_TYPE = TABLE_EDIT_TYPE;
 
 TableEditRow.propTypes = {
   rowHeight: PropTypes.any,

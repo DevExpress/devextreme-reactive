@@ -122,6 +122,12 @@ TableHeaderRow.GroupButton | [TableHeaderRow.GroupButtonProps](#tableheaderrowgr
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ROW_TYPE | symbol | The header row type's identifier.
+
 ## Plugin Developer Reference
 
 ### Imports

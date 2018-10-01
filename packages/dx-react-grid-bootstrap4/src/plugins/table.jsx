@@ -30,3 +30,7 @@ export const Table = withComponents({
   StubCell,
   StubHeaderCell,
 })(TableBase);
+
+Table.COLUMN_TYPE = TableBase.COLUMN_TYPE;
+Table.ROW_TYPE = TableBase.ROW_TYPE;
+Table.NODATA_ROW_TYPE = TableBase.NODATA_ROW_TYPE;

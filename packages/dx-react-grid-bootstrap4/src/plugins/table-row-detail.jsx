@@ -9,3 +9,6 @@ const TableRowDetailWithWidth = props => <TableRowDetailBase toggleColumnWidth={
 TableRowDetailWithWidth.components = TableRowDetailBase.components;
 
 export const TableRowDetail = withComponents({ Row, Cell, ToggleCell })(TableRowDetailWithWidth);
+
+TableRowDetail.COLUMN_TYPE = TableRowDetailBase.COLUMN_TYPE;
+TableRowDetail.ROW_TYPE = TableRowDetailBase.ROW_TYPE;

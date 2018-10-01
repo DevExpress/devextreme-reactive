@@ -37,6 +37,7 @@ const defaultDeps = {
     body: {},
     navbar: {},
     sidebar: {},
+    navbarEmpty: {},
     main: {},
   },
 };
@@ -52,6 +53,7 @@ const defaultProps = {
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
+  navbarEmptyComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div>{children}</div>,
 };
@@ -314,6 +316,21 @@ describe('Week View', () => {
       ));
 
       expect(tree.find('.container').exists())
+        .toBeTruthy();
+    });
+
+    it('should render navbarEmpty', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            {...defaultProps}
+            navbarEmptyComponent={() => <div className="navbarEmpty" />}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find('.navbarEmpty').exists())
         .toBeTruthy();
     });
   });

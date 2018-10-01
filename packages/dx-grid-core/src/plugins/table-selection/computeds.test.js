@@ -6,7 +6,7 @@ describe('TableSelection Plugin computeds', () => {
     it('should work', () => {
       expect(tableColumnsWithSelection([{}], 123))
         .toEqual([
-          { key: TABLE_SELECT_TYPE, type: TABLE_SELECT_TYPE, width: 123 },
+          { key: TABLE_SELECT_TYPE.toString(), type: TABLE_SELECT_TYPE, width: 123 },
           {},
         ]);
     });

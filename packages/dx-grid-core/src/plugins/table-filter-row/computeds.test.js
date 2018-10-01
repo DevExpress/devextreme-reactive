@@ -7,7 +7,7 @@ describe('TableFilterRow Plugin computeds', () => {
       expect(tableHeaderRowsWithFilter([{}], 100))
         .toEqual([
           {},
-          { key: TABLE_FILTER_TYPE, type: TABLE_FILTER_TYPE, height: 100 },
+          { key: TABLE_FILTER_TYPE.toString(), type: TABLE_FILTER_TYPE, height: 100 },
         ]);
     });
   });

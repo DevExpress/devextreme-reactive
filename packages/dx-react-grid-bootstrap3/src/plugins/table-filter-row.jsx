@@ -11,3 +11,5 @@ import { Icon } from '../templates/filter-row/icon';
 export const TableFilterRow = withComponents({
   Row, Cell, Editor, FilterSelector, Icon, ToggleButton,
 })(TableFilterRowBase);
+
+TableFilterRow.ROW_TYPE = TableFilterRowBase.ROW_TYPE;

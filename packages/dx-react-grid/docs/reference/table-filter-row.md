@@ -35,6 +35,7 @@ rowComponent | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | |
 filterSelectorComponent | ComponentType&lt;[TableFilterRow.FilterSelectorProps](#tablefilterrowfilterselectorprops)&gt; | | A component that renders a filter selector.
 iconComponent | ComponentType&lt;[TableFilterRow.IconProps](#tablefilterrowiconprops)&gt; | | A component that renders filter selector icons.
 editorComponent | ComponentType&lt;[TableFilterRow.EditorProps](#tablefilterroweditorprops)&gt; | | A component that renders a filter editor.
+toggleButtonComponent | ComponentType&lt;[TableFilterRow.ToggleButtonProps](#tablefilterrowtogglebuttonprops)&gt; | | A component that renders a filter selector's toggle button.
 showFilterSelector? | boolean | false | Specifies whether the FilterSelector should be displayed.
 rowHeight? | number | | The filter row's height.
 messages? | [TableFilterRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
@@ -87,6 +88,17 @@ disabled | boolean | Specifies whether the editor is disabled.
 onChange | (value: string) => void | Handles filter value changes.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the specified localization message.
 
+### TableFilterRow.ToggleButtonProps
+
+Describes properties passed to a component that renders a toggle button for a filter selector.
+
+Field | Type | Description
+------|------|------------
+value | any | The current editor value.
+disabled | boolean | Specifies whether the editor is disabled.
+onToggle | () => void | Handles filter value changes.
+buttonRef | (ref: ReactInstance) => void | A function that accepts the button's root React element.
+
 ## Localization Messages
 
 Field | Type | Default | Description
@@ -112,6 +124,7 @@ TableFilterRow.Row | [Table.RowProps](table.md#tablerowprops) | A component that
 TableFilterRow.FilterSelector | [TableFilterRow.FilterSelectorProps](#tablefilterrowfilterselectorprops) | A component that renders a filter selector.
 TableFilterRow.Icon | [TableFilterRow.IconProps](#tablefilterrowiconprops) | A component that renders filter selector icons.
 TableFilterRow.Editor | [TableFilterRow.EditorProps](#tablefilterroweditorprops) | A component that renders a filter editor.
+TableFilterRow.ToggleButton | [TableFilterRow.ToggleButtonProps](#tablefilterrowtogglebuttonprops) | A component that renders a filter selector's toggle button.
 
 Additional properties are added to the component's root element.
 

@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { FilterSelector } from './filter-selector';
 
 const defaultProps = {
+  toggleButtonComponent: () => null,
   iconComponent: () => null,
   getMessage: key => key,
 };
@@ -23,7 +24,7 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find('button').prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
 
@@ -36,7 +37,7 @@ describe('FilterSelector', () => {
       />
     ));
 
-    expect(tree.find('button').prop('disabled'))
+    expect(tree.find(defaultProps.toggleButtonComponent).prop('disabled'))
       .toBeTruthy();
   });
 });

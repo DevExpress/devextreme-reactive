@@ -73,6 +73,7 @@ export const withSeriesPlugin = (
                     yScale: scales[getValueDomainName(currentSeries.axisName)],
                   },
                   currentSeries,
+                  // TODO: The following are BarSeries specifics - remove them.
                   stacks,
                   scaleExtension,
                 );

@@ -41,14 +41,12 @@ CellBase.propTypes = {
   date: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  createNewAppointment: PropTypes.func,
 };
 
 CellBase.defaultProps = {
   children: null,
   date: undefined,
   className: undefined,
-  createNewAppointment: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

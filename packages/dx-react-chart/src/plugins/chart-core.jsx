@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { ARGUMENT_DOMAIN } from '@devexpress/dx-chart-core';
+import { ARGUMENT_DOMAIN, computeDomains } from '@devexpress/dx-chart-core';
 
-const getDomains = ({
-  axes, series, data, computeDomains,
-}) => computeDomains(axes, series, data);
+const getDomains = ({ axes, series, data }) => computeDomains(axes, series, data);
 
 const colorDomain = ({
   series, domains, items, paletteComputing,

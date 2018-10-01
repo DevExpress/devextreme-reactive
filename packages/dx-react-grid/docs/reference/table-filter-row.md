@@ -90,7 +90,7 @@ getMessage | ([messageKey](#localization-messages): string) => string | Returns 
 
 ### TableFilterRow.ToggleButtonProps
 
-Describes properties passed to a component that renders a toggle button for filter selector.
+Describes properties passed to a component that renders a toggle button for a filter selector.
 
 Field | Type | Description
 ------|------|------------

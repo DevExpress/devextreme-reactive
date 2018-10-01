@@ -50,7 +50,7 @@ describe('TableCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = shallow((
-      <Cell className="custom-class" leftBorder />
+      <Cell className="custom-class" beforeBorder />
     ));
 
     tree.setState({ borderColor: 'red' });

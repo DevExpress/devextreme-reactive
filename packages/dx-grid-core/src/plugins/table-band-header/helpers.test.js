@@ -427,7 +427,7 @@ describe('TableBandHeader Plugin helpers', () => {
         },
       ];
 
-      it('should add leftBorder if commandButton is before BandGroupCell', () => {
+      it('should add beforeBorder if commandButton is before BandGroupCell', () => {
         expect(
           getBandComponent(
             {
@@ -449,12 +449,12 @@ describe('TableBandHeader Plugin helpers', () => {
               colSpan: 2,
               value: 'Band A',
               column: { title: 'Band A', level: 1 },
-              leftBorder: true,
+              beforeBorder: true,
             },
           });
       });
 
-      it('should add leftBorder if commandButton is before BandHeaderCell', () => {
+      it('should add beforeBorder if commandButton is before BandHeaderCell', () => {
         expect(
           getBandComponent(
             {
@@ -475,7 +475,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               tableRow: { type: TABLE_HEADING_TYPE },
               rowSpan: 1,
-              leftBorder: true,
+              beforeBorder: true,
             },
           });
       });

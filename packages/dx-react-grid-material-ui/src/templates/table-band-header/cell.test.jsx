@@ -43,10 +43,10 @@ describe('TableCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = shallow((
-      <Cell leftBorder />
+      <Cell beforeBorder />
     ));
 
-    expect(tree.is(`.${classes.leftBorder}`))
+    expect(tree.is(`.${classes.beforeBorder}`))
       .toBeTruthy();
   });
 });

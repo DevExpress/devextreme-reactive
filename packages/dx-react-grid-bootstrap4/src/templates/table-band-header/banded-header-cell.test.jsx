@@ -34,7 +34,7 @@ describe('BandedHeaderCell', () => {
   it('should apply left border if necessary', () => {
     const tree = shallow((
       <BandedHeaderCell
-        leftBorder
+        beforeBorder
         {...defaultProps}
       />
     ));

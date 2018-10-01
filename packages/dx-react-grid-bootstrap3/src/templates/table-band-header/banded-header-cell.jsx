@@ -21,7 +21,7 @@ export class BandedHeaderCell extends React.Component {
   render() {
     const {
       component: HeaderCellComponent,
-      style, leftBorder,
+      style, beforeBorder,
       ...restProps
     } = this.props;
     const { borderColor } = this.state;
@@ -33,7 +33,7 @@ export class BandedHeaderCell extends React.Component {
           ...borderColor
             ? {
               borderRight: `1px solid ${borderColor}`,
-              ...leftBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
+              ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
             } : null,
           ...style,
         }}
@@ -46,10 +46,10 @@ export class BandedHeaderCell extends React.Component {
 BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,
   style: PropTypes.object,
-  leftBorder: PropTypes.bool,
+  beforeBorder: PropTypes.bool,
 };
 
 BandedHeaderCell.defaultProps = {
   style: null,
-  leftBorder: false,
+  beforeBorder: false,
 };

@@ -31,12 +31,12 @@ describe('BandedHeaderCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = shallow((
-      <BandedHeaderCell {...defaultProps} leftBorder className="custom-class" />
+      <BandedHeaderCell {...defaultProps} beforeBorder className="custom-class" />
     ));
 
     expect(tree.is(`.${classes.headerCellBorder}`))
       .toBeTruthy();
-    expect(tree.is(`.${classes.leftBorder}`))
+    expect(tree.is(`.${classes.beforeBorder}`))
       .toBeTruthy();
   });
 });

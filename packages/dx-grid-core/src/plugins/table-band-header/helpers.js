@@ -68,10 +68,10 @@ export const getBandComponent = (
   const currentColumnIndex = tableColumns
     .findIndex(column => column.key === currentTableColumn.key);
   const previousTableColumn = tableColumns[currentColumnIndex - 1];
-  let leftBorder = false;
+  let beforeBorder = false;
   if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
     && isNoDataColumn(previousTableColumn.type)) {
-    leftBorder = true;
+    beforeBorder = true;
   }
   if (currentColumnMeta.level === currentRowLevel) {
     return {
@@ -79,7 +79,7 @@ export const getBandComponent = (
       payload: {
         tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
         rowSpan: maxLevel - currentRowLevel,
-        ...leftBorder && { leftBorder },
+        ...beforeBorder && { beforeBorder },
       },
     };
   }
@@ -111,7 +111,7 @@ export const getBandComponent = (
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,
-      ...leftBorder && { leftBorder },
+      ...beforeBorder && { beforeBorder },
     },
   };
 };

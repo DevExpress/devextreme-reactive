@@ -3,14 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Cell = ({
-  column, children, leftBorder,
+  column, children, beforeBorder,
   tableRow, tableColumn, row,
   className, ...restProps
 }) => (
   <th
     className={classNames({
       'dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right': true,
-      'border-left': leftBorder,
+      'border-left': beforeBorder,
     }, className)}
     {...restProps}
   >
@@ -28,7 +28,7 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
-  leftBorder: PropTypes.bool,
+  beforeBorder: PropTypes.bool,
 };
 
 Cell.defaultProps = {
@@ -38,5 +38,5 @@ Cell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
-  leftBorder: false,
+  beforeBorder: false,
 };

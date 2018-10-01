@@ -33,7 +33,7 @@ describe('TableCell', () => {
 
   it('should apply left border if necessary', () => {
     const tree = shallow((
-      <Cell leftBorder />
+      <Cell beforeBorder />
     ));
 
     expect(tree.is('.border-left.dx-g-bs4-banded-cell.text-nowrap.dx-g-bs4-table-cell.border-right'))

@@ -46,7 +46,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Name | Type | Description
 -----|------------|------------
 children? | ReactNode | A React node used to render band cell content.
-leftBorder? | boolean | Specifies whether to show the left border.
+beforeBorder? | boolean | Specifies whether to show the left border.
 
 ### TableBandHeader.ColumnBands
 

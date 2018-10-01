@@ -21,7 +21,7 @@ export class Cell extends React.Component {
   render() {
     const {
       style, column, value, children,
-      tableRow, tableColumn, row, leftBorder,
+      tableRow, tableColumn, row, beforeBorder,
       ...restProps
     } = this.props;
     const { borderColor } = this.state;
@@ -35,7 +35,7 @@ export class Cell extends React.Component {
           borderTop: 'none',
           borderBottom: `1px solid ${borderColor}`,
           borderRight: `1px solid ${borderColor}`,
-          ...leftBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
+          ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
           ...style,
         }}
         {...restProps}
@@ -54,7 +54,7 @@ Cell.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  leftBorder: PropTypes.bool,
+  beforeBorder: PropTypes.bool,
 };
 
 Cell.defaultProps = {
@@ -65,5 +65,5 @@ Cell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  leftBorder: false,
+  beforeBorder: false,
 };

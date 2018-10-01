@@ -53,7 +53,7 @@ describe('BandedHeaderCell', () => {
       <BandedHeaderCell
         {...defaultProps}
         className="custom-class"
-        leftBorder
+        beforeBorder
       />
     ));
 

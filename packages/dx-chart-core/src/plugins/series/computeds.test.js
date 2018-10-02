@@ -15,7 +15,6 @@ import {
   coordinates,
   findSeriesByName,
   seriesData,
-  checkZeroStart,
   barCoordinates,
   getPieItems,
 } from './computeds';
@@ -326,23 +325,6 @@ describe('seriesData', () => {
   it('should push new  props', () => {
     const seriesArray = seriesData([{ uniqueName: 'defaultName0' }], { uniqueName: 'defaultName0' });
     expect(seriesArray).toEqual([{ uniqueName: 'defaultName0' }, { uniqueName: 'defaultName1' }]);
-  });
-});
-
-describe('checkZeroStart', () => {
-  it('should return true for axis with bar', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'bar');
-    expect(fromZero).toEqual({ axis1: true });
-  });
-
-  it('should return true for axis with area', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'area');
-    expect(fromZero).toEqual({ axis1: true });
-  });
-
-  it('should return false for axis with another series type', () => {
-    const fromZero = checkZeroStart({}, 'axis1', 'line');
-    expect(fromZero).toEqual({ axis1: false });
   });
 });
 

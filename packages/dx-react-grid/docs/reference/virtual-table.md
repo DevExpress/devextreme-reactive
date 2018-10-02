@@ -17,7 +17,6 @@ import { VirtualTable } from '@devexpress/dx-react-grid-material-ui';
 ### Dependencies
 
 - [DragDropProvider](drag-drop-provider.md) [Optional]
-- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

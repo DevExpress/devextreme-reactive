@@ -8,7 +8,7 @@ import {
   Getter,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, axesData,
+  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
@@ -73,30 +73,31 @@ class RawAxis extends React.PureComponent {
       position,
       name,
       indentFromAxis,
-      isArgumentAxis,
       rootComponent: RootComponent,
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
     } = this.props;
-    const getAxesDataComputed = ({ axes }) => axesData(axes, this.props);
+    const getAxes = ({ axes }) => axesData(axes, this.props);
     return (
       <Plugin name="Axis">
-        <Getter name="axes" computed={getAxesDataComputed} />
-        {isArgumentAxis && name ? <Getter name="argumentAxisName" value={name} /> : null}
+        <Getter name="axes" computed={getAxes} />
         <Template name={`${position}-axis`}>
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
               domains,
-              argumentAxisName,
               layouts,
               scaleExtension,
             }, {
               changeBBox,
             }) => {
+              // TODO: Take axis from "axes" getter rather then from closure.
               const placeholder = `${position}-axis`;
-              const domain = isArgumentAxis ? domains[argumentAxisName] : domains[name];
+              const domain = domains[name];
+              // TODO_DEBUG
+              if (!domain) { throw new Error(`domain is not found: ${name}`); }
+              // TODO_DEBUG
               const { orientation, type } = domain;
               const { constructor } = scaleExtension.find(item => item.type === type);
               const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]
@@ -130,9 +131,9 @@ class RawAxis extends React.PureComponent {
                 <div
                   style={{
                     position: 'relative',
-                    width: orientation === 'horizontal' ? undefined : widthCalculated,
-                    height: orientation === 'horizontal' ? heightCalculated : null,
-                    flexGrow: orientation === 'horizontal' ? 1 : undefined,
+                    width: orientation === HORIZONTAL ? undefined : widthCalculated,
+                    height: orientation === HORIZONTAL ? heightCalculated : null,
+                    flexGrow: orientation === HORIZONTAL ? 1 : undefined,
                   }}
                   ref={(node) => { this.node = node; }}
                 >
@@ -201,8 +202,7 @@ class RawAxis extends React.PureComponent {
 }
 
 RawAxis.propTypes = {
-  name: PropTypes.string,
-  isArgumentAxis: PropTypes.bool,
+  name: PropTypes.string.isRequired,
   rootComponent: PropTypes.func.isRequired,
   tickComponent: PropTypes.func.isRequired,
   labelComponent: PropTypes.func.isRequired,
@@ -215,8 +215,6 @@ RawAxis.propTypes = {
 RawAxis.defaultProps = {
   tickSize: 5,
   indentFromAxis: 10,
-  name: undefined,
-  isArgumentAxis: false,
 };
 
 RawAxis.components = {
@@ -230,17 +228,21 @@ export const Axis = withComponents({
   Root, Tick, Label, Line,
 })(RawAxis);
 
+// TODO: It is not axis who defines that argument is HORIZONTAL and value is VERTICAL.
+
+// TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({
   position: BOTTOM,
   ...props,
-  isArgumentAxis: true,
+  name: ARGUMENT_DOMAIN,
 }))(Axis);
 
-ArgumentAxis.components = Axis.components;
-
+// TODO: Check that only LEFT and RIGHT are accepted.
 export const ValueAxis = withPatchedProps(props => ({
   position: LEFT,
   ...props,
+  name: getValueDomainName(props.name),
 }))(Axis);
 
+ArgumentAxis.components = Axis.components;
 ValueAxis.components = Axis.components;

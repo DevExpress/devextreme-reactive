@@ -28,10 +28,6 @@ const tableHeaderRows = [];
 const tableBodyRowsComputed = ({ rows, getRowId }) => tableRowsWithDataRows(rows, getRowId);
 const tableFooterRows = [];
 
-const pluginDependencies = [
-  { name: 'DataTypeProvider', optional: true },
-];
-
 const defaultMessages = {
   noData: 'No data',
 };
@@ -72,7 +68,6 @@ export class Table extends React.PureComponent {
     return (
       <Plugin
         name="Table"
-        dependencies={pluginDependencies}
       >
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />

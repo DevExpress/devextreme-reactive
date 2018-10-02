@@ -7,7 +7,7 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
@@ -66,7 +66,7 @@ class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickSize={0}
           />
-          <Grid />
+          <ValueGrid />
 
           <BarSeries
             name="Gold Medals"

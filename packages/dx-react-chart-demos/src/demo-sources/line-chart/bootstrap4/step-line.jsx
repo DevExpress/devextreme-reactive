@@ -7,7 +7,7 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale } from '@devexpress/dx-react-chart';
 import { line, curveStep } from 'd3-shape';
@@ -60,12 +60,12 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis
             lineComponent={EmptyComponent}
             tickSize={0}
           />
-          <Grid />
+          <ValueGrid />
 
           <LineSeries
             name="Bronze Medals"

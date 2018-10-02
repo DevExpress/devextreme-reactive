@@ -1,329 +1,358 @@
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { domains, computedExtension } from './computeds';
+import { computeDomains, computeExtension, getValueDomainName } from './computeds';
+import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
 describe('calculateDomain', () => {
-  const argumentAxis = { name: 'argumentAxis' };
-  const valueAxis = { name: 'valueAxis' };
-
-  it('should be equal axes min max option', () => {
-    const calculatedDomains = domains(
-      [{ ...argumentAxis, min: 0, max: 10 }],
+  it('should always create argument domain', () => {
+    const domains = computeDomains(
       [],
       [],
-      'argumentAxis',
-      {},
-    );
-    const { domain } = calculatedDomains.argumentAxis;
-    expect(domain).toEqual([0, 10]);
-  });
-
-
-  it('should be computed from data and series option', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, valueAxis],
-      [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
-      }],
-      [{
-        arg: 1, val: 9, 'val-name-stack': [0, 9],
-      }],
-      'argumentAxis',
-      {},
+      [],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
-      },
-      valueAxis: {
-        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [], orientation: 'horizontal',
       },
     });
   });
 
-  it('should be computed from data, negative values', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, valueAxis],
+  it('should create default value domain', () => {
+    const domains = computeDomains(
+      [],
+      [{ name: 'series1', argumentField: 'arg', valueField: 'val' }],
+      [{ arg: 1, val: 1, 'val-series1-stack': [0, 1] }],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [1, 1], orientation: 'vertical', type: 'linear',
+      },
+    });
+  });
+
+  it('should compute domains from data and series options', () => {
+    const domains = computeDomains(
+      [],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
+      [
+        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 2, val: 2, 'val-series1-stack': [0, 2] },
+        { arg: 3, val: 7, 'val-series1-stack': [0, 7] },
+      ],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 3], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [2, 9], orientation: 'vertical', type: 'linear',
+      },
+    });
+  });
+
+  it('should compute domains from data and series options, negative values', () => {
+    const domains = computeDomains(
+      [],
       [{
-        arg: 1, val: 9, 'val-name-stack': [0, 9],
+        name: 'series1', argumentField: 'arg', valueField: 'val',
+      }],
+      [
+        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 2, val: -10, 'val-series1-stack': [0, -10] },
+      ],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [-10, 9], orientation: 'vertical', type: 'linear',
+      },
+    });
+  });
+
+  it('should compute domains from data and series options, zero values', () => {
+    const domains = computeDomains(
+      [],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val',
+      }],
+      [
+        { arg: 1, val: 0, 'val-series1-stack': [0, 0] },
+        { arg: 2, val: 10, 'val-series1-stack': [0, 10] },
+      ],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [0, 10], orientation: 'vertical', type: 'linear',
+      },
+    });
+  });
+
+  it('should include zero into bounds if series starts from zero', () => {
+    const domains = computeDomains(
+      [],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val', isStartedFromZero: true,
+      }],
+      [
+        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+      ],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [0, 9], orientation: 'vertical', type: 'linear', isStartedFromZero: true,
+      },
+    });
+  });
+
+  it('should compute domains from several series', () => {
+    const makeItem = (arg, val1, val2, val3, val4) => ({
+      arg,
+      val1,
+      'val1-series1-stack': [0, val1],
+      val2,
+      'val2-series2-stack': [0, val2],
+      val3,
+      'val3-series3-stack': [0, val3],
+      val4,
+      'val4-series4-stack': [0, val4],
+    });
+    const domains = computeDomains(
+      [],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val1',
       }, {
-        arg: 2, val: -10, 'val-name-stack': [0, -10],
-      }],
-      'argumentAxis',
-      {},
-    );
-
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 2], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
-      },
-      valueAxis: {
-        domain: [-10, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
-      },
-    });
-  });
-
-  it('should be computed from data with zero values', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, valueAxis],
-      [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
-      }],
-      [{
-        arg: 1, val: 0, 'val-name-stack': [0, 0],
+        name: 'series2', argumentField: 'arg', valueField: 'val2', axisName: 'domain1',
       }, {
-        arg: 2, val: 10, 'val-name-stack': [0, 10],
+        name: 'series3', argumentField: 'arg', valueField: 'val3', axisName: 'domain1',
+      }, {
+        name: 'series4', argumentField: 'arg', valueField: 'val4',
       }],
-      'argumentAxis',
-      {},
+      [
+        makeItem(1, 2, -1, 1, 2),
+        makeItem(2, 3, -3, 2, 5),
+        makeItem(3, 5, 0, 3, 7),
+        makeItem(4, 6, 1, 1, 3),
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 2], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 4], orientation: 'horizontal', type: 'linear',
       },
-      valueAxis: {
-        domain: [0, 10], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      [VALUE_DOMAIN]: {
+        domain: [2, 7], orientation: 'vertical', type: 'linear',
+      },
+      domain1: {
+        domain: [-3, 3], orientation: 'vertical', type: 'linear',
       },
     });
   });
 
-  it('should be computed from data and series option, startFromZero option set for value axis', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, valueAxis],
+  it('should compute banded domain', () => {
+    const domains = computeDomains(
+      [{ name: ARGUMENT_DOMAIN, type: 'band' }],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
-      [{
-        arg: 1, val: 9, 'val-name-stack': [0, 9],
-      }],
-      'argumentAxis',
-      { valueAxis: true },
+      [
+        { arg: 'a', val: 1, 'val-series1-stack': [0, 1] },
+        { arg: 'b', val: 2, 'val-series1-stack': [0, 2] },
+        { arg: 'c' },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: ['a', 'b', 'c'], orientation: 'horizontal', type: 'band',
       },
-      valueAxis: {
-        domain: [0, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      [VALUE_DOMAIN]: {
+        domain: [1, 2], orientation: 'vertical', type: 'linear',
       },
     });
   });
 
-  it('should be computed from data and series option, startFromZero option set for value axis, no series component', () => {
-    const calculatedDomains = domains(
-      undefined,
-      [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
-      }],
-      [{
-        arg: 1, val: 9, 'val-name-stack': [0, 9],
-      }],
-      'argumentAxis',
-      { valueAxis: true },
-    );
-
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
-      },
-      valueAxis: {
-        domain: [0, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
-      },
-    });
-  });
-
-  it('should be computed from data and series option, axes is empty array', () => {
-    const calculatedDomains = domains(
+  it('should guess banded domain type by data', () => {
+    const domains = computeDomains(
       [],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
-      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 'a', val: 'A', 'val-series1-stack': [0, 'A'] },
+        { arg: 'b', val: 'B', 'val-series1-stack': [0, 'B'] },
+        { arg: 'c' },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: ['a', 'b', 'c'], orientation: 'horizontal', type: 'band',
       },
-      valueAxis: {
-        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      [VALUE_DOMAIN]: {
+        domain: ['A', 'B'], orientation: 'vertical', type: 'band',
       },
     });
   });
 
-  it('should be computed from data and series option with band type option', () => {
-    const calculatedDomains = domains(
-      [{ ...argumentAxis, type: 'band' }, valueAxis],
+  it('should tolerate undefined values', () => {
+    const domains = computeDomains(
+      [{ name: ARGUMENT_DOMAIN, type: 'band' }],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
-      [{ arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }, { arg: 'c' }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 'a', val: 1, 'val-series1-stack': [0, 1] },
+        { arg: 'b', val: 2, 'val-series1-stack': [0, 2] },
+        { arg: undefined },
+        { arg: 'c' },
+      ],
     );
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
         domain: ['a', 'b', 'c'],
         orientation: 'horizontal',
         type: 'band',
-        tickFormat: undefined,
       },
-      valueAxis: {
+      [VALUE_DOMAIN]: {
         domain: [1, 2],
         orientation: 'vertical',
         type: 'linear',
-        tickFormat: undefined,
       },
     });
   });
 
-  it('should be computed from data and series option with band type, one argument is undefined', () => {
-    const calculatedDomains = domains(
-      [{ ...argumentAxis, type: 'band' }, valueAxis],
+  it('should take min/max from axis', () => {
+    const domains = computeDomains(
+      [{ name: 'domain1', min: 0, max: 10 }],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
-      [{ arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }, { arg: undefined }],
-      'argumentAxis',
-      {},
-    );
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: ['a', 'b'],
-        orientation: 'horizontal',
-        type: 'band',
-        tickFormat: undefined,
-      },
-      valueAxis: {
-        domain: [1, 2],
-        orientation: 'vertical',
-        type: 'linear',
-        tickFormat: undefined,
-      },
-    });
-  });
-
-  it('should be computed from data and series option, type is not set, arguments are string', () => {
-    const calculatedDomains = domains(
-      undefined,
-      [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
-      }],
-      [{ arg: 'c' }, { arg: 'a', val: 1, 'val-name-stack': [0, 1] }, { arg: 'b', val: 2, 'val-name-stack': [0, 2] }],
-      'argumentAxis',
-      {},
-    );
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: ['c', 'a', 'b'],
-        orientation: 'horizontal',
-        type: 'band',
-        tickFormat: undefined,
-      },
-      valueAxis: {
-        domain: [1, 2],
-        orientation: 'vertical',
-        type: 'linear',
-        tickFormat: undefined,
-      },
-    });
-  });
-
-  it('should be computed from data and min/max of axis', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, { ...valueAxis, min: 3, max: 7 }],
-      [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
-      }],
-      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }, { arg: 4, val: 1, 'val-name-stack': [0, 1] }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 1, val: 3, 'val-series1-stack': [0, 3] },
+        { arg: 2, val: 14, 'val-series1-stack': [0, 14] },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 4], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear',
       },
-      valueAxis: {
-        domain: [3, 7], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      domain1: {
+        domain: [0, 10], orientation: 'vertical', type: 'linear',
       },
     });
   });
 
-  it('should be computed from data and max of axis', () => {
-    const calculatedDomains = domains(
-      [argumentAxis, { ...valueAxis, max: 7 }],
+  it('should take one of min/max from axis', () => {
+    const domains = computeDomains(
+      [{ name: 'domain1', max: 7 }],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
-      [{ arg: 1, val: 9, 'val-name-stack': [0, 9] }, { arg: 4, val: 1, 'val-name-stack': [0, 1] }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 1, val: 3, 'val-series1-stack': [0, 3] },
+        { arg: 2, val: 14, 'val-series1-stack': [0, 14] },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 4], orientation: 'horizontal', type: 'linear', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 2], orientation: 'horizontal', type: 'linear',
       },
-      valueAxis: {
-        domain: [1, 7], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      domain1: {
+        domain: [3, 7], orientation: 'vertical', type: 'linear',
       },
     });
   });
 
-  it('should be computed from data, type is band and axis min/max is ignore', () => {
-    const calculatedDomains = domains(
+  it('should ignore min/max for band domain', () => {
+    const domains = computeDomains(
       [{
-        ...argumentAxis, min: 1, max: 7, type: 'band',
+        name: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
+      }],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val',
+      }],
+      [
+        { arg: 'one', val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 'two', val: 1, 'val-series1-stack': [0, 1] },
+        { arg: 'three', val: 1, 'val-series1-stack': [0, 1] },
+      ],
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: ['one', 'two', 'three'], orientation: 'horizontal', type: 'band',
       },
-      valueAxis,
+      [VALUE_DOMAIN]: {
+        domain: [1, 9], orientation: 'vertical', type: 'linear',
+      },
+    });
+  });
+
+  it('should take tickFormat from axes', () => {
+    const domains = computeDomains(
+      [
+        { name: ARGUMENT_DOMAIN, tickFormat: 'argumentTickFormat' },
+        { name: VALUE_DOMAIN, tickFormat: 'valueTickFormat' },
       ],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
-      [{ arg: 'one', val: 9, 'val-name-stack': [0, 9] },
-        { arg: 'two', val: 1, 'val-name-stack': [0, 1] },
-        { arg: 'three', val: 1, 'val-name-stack': [0, 1] }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: ['one', 'two', 'three'], orientation: 'horizontal', type: 'band', tickFormat: undefined,
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: 'argumentTickFormat',
       },
-      valueAxis: {
-        domain: [1, 9], orientation: 'vertical', type: 'linear', tickFormat: undefined,
+      [VALUE_DOMAIN]: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'valueTickFormat',
       },
     });
   });
 
-  it('should be computed from data and series option, tickFormat is specify', () => {
-    const calculatedDomains = domains(
-      [{ ...argumentAxis, tickFormat: 'argumentTickFormat' }, { ...valueAxis, tickFormat: 'valueTickFormat' }],
+  it('should ignore axes for unknown domains', () => {
+    const domains = computeDomains(
+      [
+        { name: 'domain1', tickFormat: 'format1' },
+        { name: 'domain2', tickFormat: 'format2' },
+      ],
       [{
-        axisName: 'valueAxis', argumentField: 'arg', valueField: 'val', name: 'name',
+        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
-      [{
-        arg: 1, val: 9, 'val-name-stack': [0, 9],
-      }],
-      'argumentAxis',
-      {},
+      [
+        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+      ],
     );
 
-    expect(calculatedDomains).toEqual({
-      argumentAxis: {
-        domain: [1, 1], orientation: 'horizontal', type: 'linear', tickFormat: 'argumentTickFormat',
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 1], orientation: 'horizontal', type: 'linear',
       },
-      valueAxis: {
-        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'valueTickFormat',
+      domain1: {
+        domain: [9, 9], orientation: 'vertical', type: 'linear', tickFormat: 'format1',
       },
     });
   });
@@ -331,7 +360,7 @@ describe('calculateDomain', () => {
 
 describe('computedExtension', () => {
   it('should return default extension', () => {
-    expect(computedExtension([]))
+    expect(computeExtension([]))
       .toEqual([
         { type: 'linear', constructor: scaleLinear },
         { type: 'band', constructor: scaleBand },
@@ -339,12 +368,22 @@ describe('computedExtension', () => {
   });
 
   it('should return mix of user and default extension', () => {
-    expect(computedExtension([{ type: 'extraType', constructor: 'extraConstructor' }, { type: 'band', constructor: 'bandConstructor' }]))
+    expect(computeExtension([{ type: 'extraType', constructor: 'extraConstructor' }, { type: 'band', constructor: 'bandConstructor' }]))
       .toEqual([
         { type: 'extraType', constructor: 'extraConstructor' },
         { type: 'band', constructor: 'bandConstructor' },
         { type: 'linear', constructor: scaleLinear },
         { type: 'band', constructor: scaleBand },
       ]);
+  });
+});
+
+describe('getValueDomainName', () => {
+  it('should return argument', () => {
+    expect(getValueDomainName('test-domain')).toEqual('test-domain');
+  });
+
+  it('should return default value', () => {
+    expect(getValueDomainName()).toEqual('value-domain');
   });
 });

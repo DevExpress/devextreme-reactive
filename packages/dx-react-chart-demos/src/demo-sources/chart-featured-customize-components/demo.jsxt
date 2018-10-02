@@ -3,7 +3,7 @@ import {
   Chart,
   ArgumentAxis,
   ValueAxis,
-  Grid,
+  ValueGrid,
   BarSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -102,19 +102,17 @@ export default class Demo extends React.PureComponent {
           chartData ? (
             <Chart data={chartData}>
               <ArgumentAxis
-                name="login"
                 type="band"
                 labelComponent={this.getLabelWithAvatarComponent}
                 tickComponent={() => null}
               />
-              <ValueAxis name="commits" lineComponent={() => null} />
-              <Grid name="commits" strokeDasharray="10 5" />
+              <ValueAxis lineComponent={() => null} />
+              <ValueGrid strokeDasharray="10 5" />
 
               <BarSeries
                 name="Contributions"
                 valueField="contributions"
                 argumentField="login"
-                axisName="commits"
                 pointComponent={BarWithLabel}
               />
               <Title

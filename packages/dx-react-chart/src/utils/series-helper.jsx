@@ -8,8 +8,11 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, seriesData, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
+
+// TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
+const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
 
 export const withSeriesPlugin = (
   Series,
@@ -20,20 +23,17 @@ export const withSeriesPlugin = (
 ) => {
   class Component extends React.PureComponent {
     render() {
-      const { name: seriesName, axisName: seriesAxisName } = this.props;
+      const { name: seriesName } = this.props;
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
+        isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
         uniqueName: seriesName,
       });
-      const startFromZeroByAxes = (
-        { startFromZero = {} },
-      ) => checkZeroStart(startFromZero, seriesAxisName, pathType);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
-          <Getter name="startFromZero" computed={startFromZeroByAxes} />
           <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
@@ -43,21 +43,22 @@ export const withSeriesPlugin = (
                 domains,
                 stacks,
                 data,
-                argumentAxisName,
                 layouts,
                 scaleExtension,
                 colorDomain,
               }) => {
                 const {
                   name, axisName, argumentField, valueField, groupWidth, stack,
-                  // It is enumerated here only to prevent it from being passed to Series.
-                  symbolName: _,
+                  // The following props are enumerated here only to prevent them
+                  // from being passed to Series.
+                  symbolName: _symbolName,
+                  isStartedFromZero: _isStartedFromZero,
                   ...restProps
                 } = findSeriesByName(symbolName, series);
 
                 const scales = xyScales(
-                  domains[argumentAxisName],
-                  domains[axisName],
+                  domains[ARGUMENT_DOMAIN],
+                  domains[getValueDomainName(axisName)],
                   layouts.pane,
                   groupWidth,
                   scaleExtension,

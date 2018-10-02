@@ -7,7 +7,7 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Scale } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueGrid />
 
           <AreaSeries
             name="Android"

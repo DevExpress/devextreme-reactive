@@ -1,4 +1,4 @@
-import { createScale, getWidth } from '../../utils/scale';
+import { getWidth } from '../../utils/scale';
 import {
   HORIZONTAL, TOP, LEFT, MIDDLE, END, START,
 } from '../../constants';

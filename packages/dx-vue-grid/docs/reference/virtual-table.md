@@ -14,7 +14,7 @@ import { DxVirtualTable } from '@devexpress/dx-vue-grid-bootstrap4';
 
 ### Dependencies
 
-- [DxDataTypeProvider](data-type-provider.md) [Optional]
+none
 
 ### Properties
 

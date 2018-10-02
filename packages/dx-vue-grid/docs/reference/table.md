@@ -20,7 +20,7 @@ import { DxTable } from '@devexpress/dx-vue-grid';
 
 ### Dependencies
 
-- [DxDataTypeProvider](data-type-provider.md) [Optional]
+none
 
 ### Properties
 

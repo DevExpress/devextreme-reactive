@@ -24,10 +24,11 @@ export const ContainerBase = ({
   classes,
   readOnly,
   onVisibilityChange,
+  ...restProps
 }) => {
   const date = new Date('2018-10-2 10:35'); // stub
   return (
-    <div>
+    <div {...restProps}>
       <div className={classes.scrolableSpace}>
         <Editor
           label="Subject"

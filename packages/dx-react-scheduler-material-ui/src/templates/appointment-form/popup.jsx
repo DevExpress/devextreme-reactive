@@ -19,6 +19,7 @@ const PopupBase = ({
   container: Container,
   editor,
   button,
+  checkbox,
   visible,
   appointment,
   readOnly,
@@ -34,6 +35,7 @@ const PopupBase = ({
       <Container
         editor={editor}
         button={button}
+        checkbox={checkbox}
         appointment={appointment}
         readOnly={readOnly}
         onAppointmentChange={onAppointmentChange}
@@ -48,6 +50,7 @@ PopupBase.propTypes = {
   container: PropTypes.func,
   editor: PropTypes.func,
   button: PropTypes.func,
+  checkbox: PropTypes.func,
   visible: PropTypes.bool,
   appointment: PropTypes.object,
   readOnly: PropTypes.bool,
@@ -59,6 +62,7 @@ PopupBase.defaultProps = {
   container: () => undefined,
   editor: () => undefined,
   button: () => undefined,
+  checkbox: () => undefined,
   visible: false,
   appointment: {},
   readOnly: false,

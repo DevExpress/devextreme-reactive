@@ -1,5 +1,7 @@
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { computeDomains, computeExtension, getValueDomainName } from './computeds';
+import {
+  computeDomains, computeExtension, getValueDomainName, buildScales,
+} from './computeds';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
 jest.mock('d3-scale', () => ({
@@ -429,5 +431,45 @@ describe('getValueDomainName', () => {
 
   it('should return default value', () => {
     expect(getValueDomainName()).toEqual('value-domain');
+  });
+});
+
+describe('buildScales', () => {
+  it('should build scales from domains', () => {
+    const mockConstructor = jest.fn();
+    const createMockScale = () => {
+      const mock = jest.fn();
+      mock.domain = jest.fn().mockReturnValue(mock);
+      mock.range = jest.fn().mockReturnValue(mock);
+      return mock;
+    };
+    const mockScale1 = createMockScale();
+    const mockScale2 = createMockScale();
+    const mockScale3 = createMockScale();
+    mockConstructor.mockReturnValueOnce(mockScale1);
+    mockConstructor.mockReturnValueOnce(mockScale2);
+    mockConstructor.mockReturnValueOnce(mockScale3);
+
+    const scales = buildScales({
+      name1: { domain: 'test-domain-1', orientation: 'horizontal', type: 'test-type-1' },
+      name2: { domain: 'test-domain-2', orientation: 'vertical', type: 'test-type-2' },
+      name3: { domain: 'test-domain-3', orientation: 'horizontal', type: 'test-type-3' },
+    }, [
+      { type: 'test-type-1', constructor: mockConstructor },
+      { type: 'test-type-2', constructor: mockConstructor },
+      { type: 'test-type-3', constructor: mockConstructor },
+    ], { width: 400, height: 300 });
+
+    expect(scales).toEqual({
+      name1: mockScale1,
+      name2: mockScale2,
+      name3: mockScale3,
+    });
+    expect(mockScale1.domain).toBeCalledWith('test-domain-1');
+    expect(mockScale1.range).toBeCalledWith([0, 400]);
+    expect(mockScale2.domain).toBeCalledWith('test-domain-2');
+    expect(mockScale2.range).toBeCalledWith([300, 0]);
+    expect(mockScale3.domain).toBeCalledWith('test-domain-3');
+    expect(mockScale3.range).toBeCalledWith([0, 400]);
   });
 });

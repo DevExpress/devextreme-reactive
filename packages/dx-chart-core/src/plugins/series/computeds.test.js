@@ -174,7 +174,7 @@ describe('line & spline', () => {
 
 describe('barCoordinates', () => {
   beforeAll(() => {
-    const translateValue = value => value;
+    const translateValue = value => (value !== 0 ? value : 10);
     createScale.mockImplementation(() => translateValue);
     getWidth.mockImplementation(() => 10);
   });
@@ -184,11 +184,9 @@ describe('barCoordinates', () => {
   });
 
   it('should return array object with x, width properties', () => {
-    const yScale = createScale();
-    yScale.range = () => ([10, 0]);
     const result = barCoordinates(
       data,
-      { xScale: createScale(), yScale },
+      { xScale: createScale(), yScale: createScale() },
       { argumentField: 'arg', valueField: 'val1', stack: null },
       undefined,
       [
@@ -228,6 +226,8 @@ describe('Scales', () => {
     createScale.mockImplementation(() => translateValue);
   });
 
+  afterAll(jest.clearAllMocks);
+
   it('should create scales with proper parameters', () => {
     const { xScale, yScale } = xyScales(...defaultOptions);
 
@@ -240,6 +240,13 @@ describe('Scales', () => {
 });
 
 describe('Series attributes', () => {
+  beforeAll(() => {
+    const translateValue = value => (value !== 0 ? value : 10);
+    createScale.mockImplementation(() => translateValue);
+  });
+
+  afterAll(jest.clearAllMocks);
+
   it('should return series by name', () => {
     const seriesSymbol = Symbol('Series2');
     const series = [{ symbolName: Symbol('Series2') }, { symbolName: seriesSymbol }, { symbolName: Symbol('Series3') }];
@@ -256,31 +263,27 @@ describe('Series attributes', () => {
   });
 
   it('should return coordinates for path', () => {
-    const yScale = createScale();
-    yScale.range = () => ([10, 0]);
     expect(coordinates(
       data,
-      { xScale: createScale(), yScale },
+      { xScale: createScale(), yScale: createScale() },
       { argumentField: 'arg', valueField: 'val1' },
     )).toEqual(computedLine);
   });
 
   it('should return coordinates for path, some value and argument fields are undefined', () => {
-    const yScale = createScale();
-    yScale.range = () => ([7, 1]);
     expect(coordinates(
       dataWithUndefined,
       { xScale: createScale(), yScale: createScale() },
       { argumentField: 'arg', valueField: 'val1' },
     )).toEqual([
       {
-        id: 0, x: 6, y: 3, y1: 7, value: 3,
+        id: 0, x: 6, y: 3, y1: 10, value: 3,
       },
       {
-        id: 2, x: 8, y: 7, y1: 7, value: 7,
+        id: 2, x: 8, y: 7, y1: 10, value: 7,
       },
       {
-        id: 4, x: 10, y: 15, y1: 7, value: 15,
+        id: 4, x: 10, y: 15, y1: 10, value: 15,
       },
     ]);
   });

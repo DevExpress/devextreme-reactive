@@ -81,7 +81,7 @@ export const coordinates = (
   { xScale, yScale },
   { argumentField, valueField },
 ) => {
-  const y1 = yScale.range()[0];
+  const y1 = yScale(0);
   return data.reduce((result, dataItem, index) => {
     if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
       return [...result, {

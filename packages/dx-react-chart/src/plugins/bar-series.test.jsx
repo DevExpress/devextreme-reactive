@@ -49,7 +49,7 @@ describe('Bar series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      domains: {},
+      scales: {},
       colorDomain: jest.fn(),
     },
     template: {

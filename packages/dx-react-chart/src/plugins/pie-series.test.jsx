@@ -41,7 +41,7 @@ describe('Pie series', () => {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },
       colorDomain: jest.fn().mockReturnValue('color'),
-      domains: {},
+      scales: {},
     },
     template: {
       series: {},

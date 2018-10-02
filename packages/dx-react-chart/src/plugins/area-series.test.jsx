@@ -51,7 +51,7 @@ describe('Area series', () => {
     getter: {
       layouts: { pane: {} },
       colorDomain: jest.fn().mockReturnValue('red'),
-      domains: {},
+      scales: {},
     },
     template: {
       series: {},

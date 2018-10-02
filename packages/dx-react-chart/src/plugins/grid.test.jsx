@@ -40,12 +40,12 @@ describe('Grid', () => {
   const defaultDeps = {
     getter: {
       domains: { name: { orientation: 'horizontal', type: 'type' } },
+      scales: { name: jest.fn() },
       layouts: {
         pane: {
           x: 1, y: 2, width: 200, height: 300,
         },
       },
-      scaleExtension: [{ type: 'type', constructor: 'constructor' }],
     },
     template: {
       series: {},

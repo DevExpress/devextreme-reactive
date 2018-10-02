@@ -65,6 +65,7 @@ describe('Base series', () => {
       data: 'data',
       series: 'series',
       domains: { test_argument_domain: 'argumentDomain', test_value_domain: 'valueDomain' },
+      scales: { test_argument_domain: 'argument-scale', test_value_domain: 'value-scale' },
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
@@ -127,7 +128,7 @@ describe('Base series', () => {
 
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
-      undefined,
+      { xScale: 'argument-scale', yScale: 'value-scale' },
       {
         argumentField: 'argumentField',
         valueField: 'valueField',

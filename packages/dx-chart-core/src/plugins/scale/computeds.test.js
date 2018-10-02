@@ -57,6 +57,32 @@ describe('calculateDomain', () => {
     });
   });
 
+  it('should compute domains from data and series options (temporary workaround for Stack)', () => {
+    const getValueDomain = jest.fn().mockReturnValue([11, 15, 19, 23]);
+    const data = [
+      { arg: 1, val: 9 },
+      { arg: 2, val: 2 },
+      { arg: 3, val: 7 },
+    ];
+    const domains = computeDomains(
+      [],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val', getValueDomain,
+      }],
+      data,
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 3], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [11, 23], orientation: 'vertical', type: 'linear',
+      },
+    });
+    expect(getValueDomain).toBeCalledWith(data);
+  });
+
   it('should compute domains from data and series options, negative values', () => {
     const domains = computeDomains(
       [],

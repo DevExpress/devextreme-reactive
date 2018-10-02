@@ -11,21 +11,19 @@ export const getValueDomainName = name => name || VALUE_DOMAIN;
 // TODO: Property name should not contain "axis" part as it actually means domain.
 const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
 
-const calculateDomainField = (getValue, data, domain, type) => {
-  const getCategories = (prev, cur) => {
-    const categories = getValue(cur);
-    if (isDefined(categories)) {
-      return [...prev, categories];
+const calculateDomainField = (items, domain, type) => (
+  type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])
+);
+
+const getDomainItems = (data, field) => {
+  const items = [];
+  data.forEach((dataItem) => {
+    const value = dataItem[field];
+    if (isDefined(value)) {
+      items.push(value);
     }
-    return prev;
-  };
-  if (type === BAND) {
-    return [...domain, ...data.reduce(getCategories, [])];
-  }
-  return extent([
-    ...domain,
-    ...extent(data, getValue),
-  ]);
+  });
+  return items;
 };
 
 const getCorrectAxisType = (type, data, field) => {
@@ -45,17 +43,20 @@ const calculateDomains = (domains, seriesList, data) => {
     const valueType = getCorrectAxisType(valueDomain.type, data, valueField);
     const argumentType = getCorrectAxisType(argumentDomain.type, data, argumentField);
 
+    // TODO: This is a temporary workaround for Stack plugin.
+    // Once scales (or domains) are exposed for modification Stack will modify scale and
+    // this code will be removed.
+    const valueDomainItems = seriesItem.getValueDomain
+      ? seriesItem.getValueDomain(data) : getDomainItems(data, valueField);
     valueDomain.domain = calculateDomainField(
-      object => object[valueField],
-      data,
+      valueDomainItems,
       valueDomain.domain,
       valueType,
     );
     valueDomain.type = valueType;
 
     argumentDomain.domain = calculateDomainField(
-      object => object[argumentField],
-      data,
+      getDomainItems(data, argumentField),
       argumentDomain.domain,
       argumentType,
     );

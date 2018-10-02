@@ -25,6 +25,7 @@ const getRenderProps = (series) => {
     stack,
     symbolName,
     isStartedFromZero: _,
+    getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     calculateCoordinates,
     ...restProps
   } = series;

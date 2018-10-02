@@ -98,6 +98,26 @@ describe('Stack', () => {
       expect(series[2].calculateCoordinates).toEqual(calculateCoordinates);
     });
 
+    it('should add *valueField0* for starting from zero series', () => {
+      const series = buildStackedSeries([
+        { stack: 's1', valueField: 'val1' },
+        { stack: 's1', valueField: 'val2' },
+        {
+          stack: 's2', valueField: 'val3', isStartedFromZero: true,
+        },
+        {
+          stack: 's2', valueField: 'val4', isStartedFromZero: true,
+        },
+        {
+          stack: 's3', valueField: 'val5', isStartedFromZero: true,
+        },
+      ]);
+
+      expect(series[2].valueField0).toEqual('stack_s2_0_0');
+      expect(series[3].valueField0).toEqual('stack_s2_1_0');
+      expect(series[4].valueField0).toEqual('stack_s3_0_0');
+    });
+
     it('should wrap *calculateCoordinates* for starting from zero series', () => {
       const calculateCoordinates = jest.fn();
       const series = buildStackedSeries([
@@ -116,17 +136,24 @@ describe('Stack', () => {
 
       expect(series[0].calculateCoordinates).toEqual(calculateCoordinates);
       expect(series[1].calculateCoordinates).toEqual(calculateCoordinates);
-      expect(series[2].calculateCoordinates).toEqual(calculateCoordinates);
+      expect(series[2].calculateCoordinates).not.toEqual(calculateCoordinates);
       expect(series[3].calculateCoordinates).not.toEqual(calculateCoordinates);
-      expect(series[4].calculateCoordinates).toEqual(calculateCoordinates);
+      expect(series[4].calculateCoordinates).not.toEqual(calculateCoordinates);
+
+      // TODO: Temporary - see note for *getValueDomainCalculator*.
+      expect(series[0].getValueDomain).toBeUndefined();
+      expect(series[1].getValueDomain).toBeUndefined();
+      expect(series[2].getValueDomain).toEqual(expect.any(Function));
+      expect(series[3].getValueDomain).toEqual(expect.any(Function));
+      expect(series[4].getValueDomain).toEqual(expect.any(Function));
     });
 
     it('should update *y1* in wrapped *calculateCoordinates*', () => {
       const data = [
-        { stack_s1_0: '1-val1', stack_s1_1: '1-val2', stack_s1_2: '1-val3' },
-        { stack_s1_0: '2-val1', stack_s1_1: '2-val2', stack_s1_2: '2-val3' },
-        { stack_s1_0: '3-val1', stack_s1_1: '3-val2', stack_s1_2: '3-val3' },
-        { stack_s1_0: '4-val1', stack_s1_1: '4-val2', stack_s1_2: '4-val3' },
+        { stack_s1_1_0: '1-val1', stack_s1_2_0: '1-val2' },
+        { stack_s1_1_0: '2-val1', stack_s1_2_0: '2-val2' },
+        { stack_s1_1_0: '3-val1', stack_s1_2_0: '3-val2' },
+        { stack_s1_1_0: '4-val1', stack_s1_2_0: '4-val2' },
       ];
       const scales = {
         yScale: value => `${value}#`,
@@ -159,6 +186,23 @@ describe('Stack', () => {
       ]);
       expect(calc2).toHaveBeenLastCalledWith(data, scales, 'c');
     });
+
+    // TODO: Temporary - see note for *getValueDomainCalculator*.
+    it('should collect values in *getValueDomain*', () => {
+      const data = [
+        { stack_s1_0_0: 1, stack_s1_0: 2, val1: 1 },
+        { stack_s1_0_0: 3, stack_s1_0: 4, val1: 1 },
+        { stack_s1_0_0: 5, stack_s1_0: 6 },
+        { stack_s1_0_0: 7, stack_s1_0: 8, val1: 1 },
+      ];
+      const series = buildStackedSeries([
+        {
+          stack: 's1', valueField: 'val1', isStartedFromZero: true,
+        },
+      ]);
+
+      expect(series[0].getValueDomain(data)).toEqual([2, 1, 4, 3, 8, 7]);
+    });
   });
 
   describe('buildStackedDataProcessor', () => {
@@ -181,10 +225,10 @@ describe('Stack', () => {
       const order = jest.fn();
       stackFunc.mockReturnValueOnce([
         [[0, 1], [0, 2], [0, 3], [0, 4]],
-        [[0, 5], [0, 6], [0, 7], [0, 8]],
+        [[1, 5], [1, 6], [1, 7], [1, 8]],
       ]);
       stackFunc.mockReturnValueOnce([
-        [[0, 11], [0, 12], [0, 13], [0, 14]],
+        [[2, 11], [2, 12], [2, 13], [2, 14]],
       ]);
       const processData = buildStackedDataProcessor(offset, order);
       const data = [
@@ -207,10 +251,10 @@ describe('Stack', () => {
           stack: 's1', stackKey: 'val1', stackPosition: 0, valueField: 's1_val0',
         },
         {
-          stack: 's1', stackKey: 'val2', stackPosition: 1, valueField: 's1_val1',
+          stack: 's1', stackKey: 'val2', stackPosition: 1, valueField: 's1_val1', valueField0: 's1_val1_0',
         },
         {
-          stack: 's2', stackKey: 'val3', stackPosition: 0, valueField: 's2_val0',
+          stack: 's2', stackKey: 'val3', stackPosition: 0, valueField: 's2_val0', valueField0: 's2_val0_0',
         },
         { stack: null },
       ]);
@@ -221,16 +265,16 @@ describe('Stack', () => {
       expect(stackFunc.mock.calls).toEqual([[data], [data]]);
       expect(processedData).toEqual([
         {
-          ...data[0], s1_val0: 1, s1_val1: 5, s2_val0: 11,
+          ...data[0], s1_val0: 1, s1_val1_0: 1, s1_val1: 5, s2_val0_0: 2, s2_val0: 11,
         },
         {
-          ...data[1], s1_val0: 2, s1_val1: 6, s2_val0: 12,
+          ...data[1], s1_val0: 2, s1_val1_0: 1, s1_val1: 6, s2_val0_0: 2, s2_val0: 12,
         },
         {
-          ...data[2], s1_val0: 3, s1_val1: 7, s2_val0: 13,
+          ...data[2], s1_val0: 3, s1_val1_0: 1, s1_val1: 7, s2_val0_0: 2, s2_val0: 13,
         },
         {
-          ...data[3], s1_val0: 4, s1_val1: 8, s2_val0: 14,
+          ...data[3], s1_val0: 4, s1_val1_0: 1, s1_val1: 8, s2_val0_0: 2, s2_val0: 14,
         },
       ]);
     });
@@ -281,7 +325,7 @@ describe('Stack', () => {
           stack: 's1', valueField: 'val1', stackKey: 'val1', stackPosition: 0,
         },
         {
-          stack: 's1', valueField: 'val2', stackKey: 'val2', stackPosition: 1,
+          stack: 's1', valueField: 'val2', stackKey: 'val2', stackPosition: 1, valueField0: 'val3',
         },
         {
           stack: null,

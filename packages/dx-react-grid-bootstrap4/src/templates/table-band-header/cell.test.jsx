@@ -30,4 +30,13 @@ describe('TableCell', () => {
     expect(tree.find('th').prop('data'))
       .toMatchObject({ a: 1 });
   });
+
+  it('should apply left border if necessary', () => {
+    const tree = shallow((
+      <Cell beforeBorder />
+    ));
+
+    expect(tree.is('.border-left.dx-g-bs4-banded-cell.text-nowrap.dx-g-bs4-table-cell.border-right'))
+      .toBeTruthy();
+  });
 });

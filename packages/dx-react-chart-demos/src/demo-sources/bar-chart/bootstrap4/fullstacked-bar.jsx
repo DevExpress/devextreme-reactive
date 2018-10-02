@@ -7,7 +7,7 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
@@ -47,7 +47,7 @@ export default class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickSize={0}
           />
-          <Grid />
+          <ValueGrid />
 
           <BarSeries
             name="Saudi Arabia"

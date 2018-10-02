@@ -12,6 +12,7 @@ const defaultProps = {
   getEndDate: () => '2018-07-05',
   getStartDate: () => '2018-07-06',
   getAllDay: () => undefined,
+  getId: () => undefined,
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -26,6 +27,21 @@ describe('Scheduler Core', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  it('should provide the "getAppointmentId" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          {...defaultProps}
+          getId={() => 10}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).getAppointmentId())
+      .toBe(10);
   });
 
   it('should provide the "getAppointmentTitle" getter', () => {

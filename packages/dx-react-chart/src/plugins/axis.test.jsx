@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { axisCoordinates, axesData } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -115,7 +115,6 @@ describe('Axis', () => {
     expect(y).toBe(-0);
     expect(refsHandler).toEqual(expect.any(Function));
     expect(children).toEqual(expect.any(Object));
-    expect(getComputedState(tree).argumentAxisName).toBe('name');
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {

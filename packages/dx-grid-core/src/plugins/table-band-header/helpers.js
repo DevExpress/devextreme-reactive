@@ -1,12 +1,13 @@
 import {
   TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
 } from './constants';
-import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
-|| tableRow.type === TABLE_HEADING_TYPE;
+  || tableRow.type === TABLE_HEADING_TYPE;
+export const isNoDataColumn = columnType => columnType !== TABLE_DATA_TYPE;
 
 export const getColumnMeta = (
   columnName, bands, tableRowLevel,
@@ -64,20 +65,26 @@ export const getBandComponent = (
     : { level: 0, title: '' };
 
   if (currentColumnMeta.level < currentRowLevel) return { type: BAND_EMPTY_CELL, payload: null };
+  const currentColumnIndex = tableColumns
+    .findIndex(column => column.key === currentTableColumn.key);
+  const previousTableColumn = tableColumns[currentColumnIndex - 1];
+  let beforeBorder = false;
+  if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
+    && isNoDataColumn(previousTableColumn.type)) {
+    beforeBorder = true;
+  }
   if (currentColumnMeta.level === currentRowLevel) {
     return {
       type: BAND_HEADER_CELL,
       payload: {
         tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
         rowSpan: maxLevel - currentRowLevel,
+        ...beforeBorder && { beforeBorder },
       },
     };
   }
 
   const isCurrentColumnFixed = !!currentTableColumn.fixed;
-  const currentColumnIndex = tableColumns
-    .findIndex(column => column.key === currentTableColumn.key);
-  const previousTableColumn = tableColumns[currentColumnIndex - 1];
   if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
     const isPrevColumnFixed = !!previousTableColumn.fixed;
     const prevColumnMeta = getColumnMeta(
@@ -104,6 +111,7 @@ export const getBandComponent = (
       ),
       value: currentColumnMeta.title,
       column: currentColumnMeta,
+      ...beforeBorder && { beforeBorder },
     },
   };
 };

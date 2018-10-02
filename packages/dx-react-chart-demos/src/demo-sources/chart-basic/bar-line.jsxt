@@ -5,7 +5,7 @@ import {
   LineSeries,
   ArgumentAxis,
   ValueAxis,
-  Grid,
+  ValueGrid,
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
@@ -46,7 +46,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
 
-          <ArgumentAxis name="argument" />
+          <ArgumentAxis />
           <ValueAxis
             name="oil"
             max={2200}
@@ -64,7 +64,7 @@ export default class Demo extends React.PureComponent {
             tickSize={0}
           />
 
-          <Grid name="oil" />
+          <ValueGrid name="oil" />
 
           <Title
             text="Oil production vs Oil price"

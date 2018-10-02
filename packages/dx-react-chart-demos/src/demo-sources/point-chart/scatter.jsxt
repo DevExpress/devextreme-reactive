@@ -4,7 +4,8 @@ import {
   ScatterSeries,
   ArgumentAxis,
   ValueAxis,
-  Grid,
+  ArgumentGrid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { Scale } from '@devexpress/dx-react-chart';
 
@@ -29,10 +30,10 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
-          <ArgumentAxis name="argumentAxis" />
+          <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid name="argumentAxis" />
-          <Grid />
+          <ArgumentGrid />
+          <ValueGrid />
           <ScatterSeries
             valueField="val1"
             argumentField="arg1"

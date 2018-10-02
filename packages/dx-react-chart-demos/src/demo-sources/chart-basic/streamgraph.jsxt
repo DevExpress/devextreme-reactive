@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
           style={{ paddingLeft: '20px' }}
         >
-          <ArgumentAxis name="argument" tickFormat={() => tick => tick} />
+          <ArgumentAxis tickFormat={() => tick => tick} />
 
           <AreaSeries
             name="Mysteries"

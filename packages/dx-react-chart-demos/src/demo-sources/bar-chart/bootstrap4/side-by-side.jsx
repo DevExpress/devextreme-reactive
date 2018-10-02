@@ -7,7 +7,7 @@ import {
   BarSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
 import { Stack, Scale } from '@devexpress/dx-react-chart';
 
@@ -43,7 +43,7 @@ export default class Demo extends React.PureComponent {
             lineComponent={EmptyComponent}
             tickSize={0}
           />
-          <Grid />
+          <ValueGrid />
 
           <BarSeries
             name="Gold Medals"

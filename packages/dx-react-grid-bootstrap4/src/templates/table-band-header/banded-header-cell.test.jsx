@@ -30,4 +30,16 @@ describe('BandedHeaderCell', () => {
 
     expect(tree.find('.custom-class').prop('style').color).toBe('red');
   });
+
+  it('should apply left border if necessary', () => {
+    const tree = shallow((
+      <BandedHeaderCell
+        beforeBorder
+        {...defaultProps}
+      />
+    ));
+
+    expect(tree.find('.border-left.dx-g-bs4-banded-header-cell.border-right').exists())
+      .toBeTruthy();
+  });
 });

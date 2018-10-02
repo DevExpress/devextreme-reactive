@@ -23,7 +23,6 @@ import { Table } from '@devexpress/dx-react-grid';
 ### Dependencies
 
 - [DragDropProvider](drag-drop-provider.md) [Optional]
-- [DataTypeProvider](data-type-provider.md) [Optional]
 
 ### Properties
 

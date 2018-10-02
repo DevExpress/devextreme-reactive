@@ -72,10 +72,6 @@ const tableBodyRowsComputed = (
   { rows, getRowId },
 ) => tableRowsWithDataRows(rows, getRowId);
 
-const pluginDependencies = [
-  { name: 'DxDataTypeProvider', optional: true },
-];
-
 export const DxTable = {
   name: 'DxTable',
   props: {
@@ -160,7 +156,6 @@ export const DxTable = {
     return (
       <DxPlugin
         name="DxTable"
-        dependencies={pluginDependencies}
       >
         <DxGetter name="tableHeaderRows" value={tableHeaderRows} />
         <DxGetter name="tableBodyRows" computed={tableBodyRowsComputed} />

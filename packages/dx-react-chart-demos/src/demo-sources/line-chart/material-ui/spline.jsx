@@ -7,7 +7,7 @@ import {
   LineSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -105,7 +105,7 @@ class Demo extends React.PureComponent {
         >
           <ArgumentAxis />
           <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueGrid />
 
           <LineSeries
             name="Hydro-electric"

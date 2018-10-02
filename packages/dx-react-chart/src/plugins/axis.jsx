@@ -118,6 +118,8 @@ class RawAxis extends React.PureComponent {
                 orientation === HORIZONTAL ? [0, widthPostCalculated] : [heightPostCalculated, 0],
               );
               const coordinates = axisCoordinates(
+                // TODO: Only *orientation* and *tickFormat* are taken from *domain* -
+                // take *tickFormat* directly from props.
                 domain,
                 postCalculatedScale,
                 position,

@@ -24,6 +24,7 @@ const getFormat = (scale, tickFormat) => {
   return tick => tick;
 };
 
+// It is called for grid (which do not have labels) - how is it handled here?
 const calculateAxisCoordinates = (
   scale,
   orientation,
@@ -82,6 +83,7 @@ export const axisCoordinates = (
   position,
   tickSize,
   indentFromAxis,
+  // TODO: *tickFormat* belongs to axis rather then domain - take it from axis.
   domain.tickFormat,
 );
 

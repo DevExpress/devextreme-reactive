@@ -4,7 +4,8 @@ import { Popup } from '../templates/appointment-form/popup';
 import { Container } from '../templates/appointment-form/container';
 import { Button } from '../templates/appointment-form/button';
 import { Editor } from '../templates/appointment-form/editor';
+import { Checkbox } from '../templates/appointment-form/checkbox';
 
 export const AppointmentForm = withComponents({
-  Popup, Container, Button, Editor,
+  Popup, Container, Button, Editor, Checkbox,
 })(AppointmentFormBase);

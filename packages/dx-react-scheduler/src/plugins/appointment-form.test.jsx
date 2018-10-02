@@ -10,6 +10,7 @@ describe('AppointmentForm', () => {
     containerComponent: () => null,
     editorComponents: () => null,
     buttonComponents: () => null,
+    checkboxComponents: () => null,
   };
 
   it('should render Popup component', () => {

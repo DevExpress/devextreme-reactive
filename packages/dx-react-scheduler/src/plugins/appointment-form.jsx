@@ -42,8 +42,9 @@ export class AppointmentForm extends React.PureComponent {
     const {
       popupComponent: Popup,
       containerComponent: container,
-      editorComponents: editor,
-      buttonComponents: button,
+      editorComponent: editor,
+      buttonComponent: button,
+      checkboxComponent: checkbox,
       appointment,
       readOnly,
       onAppointmentChange,
@@ -60,6 +61,7 @@ export class AppointmentForm extends React.PureComponent {
           container={container}
           editor={editor}
           button={button}
+          checkbox={checkbox}
           visible={visible}
           appointment={appointment}
           readOnly={readOnly}
@@ -74,8 +76,9 @@ export class AppointmentForm extends React.PureComponent {
 AppointmentForm.propTypes = {
   popupComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  editorComponents: PropTypes.func.isRequired,
-  buttonComponents: PropTypes.func.isRequired,
+  editorComponent: PropTypes.func.isRequired,
+  buttonComponent: PropTypes.func.isRequired,
+  checkboxComponent: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
   defaultVisible: PropTypes.bool,
@@ -87,7 +90,7 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  defaultVisible: false,
+  defaultVisible: true,
   appointment: {},
   onVisibilityChange: undefined,
   onAppointmentChange: undefined,
@@ -96,6 +99,7 @@ AppointmentForm.defaultProps = {
 AppointmentForm.components = {
   popupComponent: 'Popup',
   containerComponent: 'Container',
-  editorComponents: 'Editor',
-  buttonComponents: 'Button',
+  editorComponent: 'Editor',
+  buttonComponent: 'Button',
+  checkboxComponent: 'Checkbox',
 };

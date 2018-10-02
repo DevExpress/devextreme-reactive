@@ -1,10 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
 
-const styles = theme => ({
+const styles = {
   scrolableSpace: {
     maxHeight: '400px',
     overflowY: 'scroll',
@@ -17,54 +15,41 @@ const styles = theme => ({
     width: '100%',
     display: 'flex',
   },
-  allDayText: {
-    paddingTop: theme.spacing.unit * 1.5,
-  },
-});
+};
 
 export const ContainerBase = ({
-  children,
   button: Button,
   editor: Editor,
+  checkbox: Checkbox,
   classes,
-  appointment,
   readOnly,
   onVisibilityChange,
-  onAppointmentChange,
 }) => {
-  const date = new Date('2018-10-2 10:35');
+  const date = new Date('2018-10-2 10:35'); // stub
   return (
     <div>
       <div className={classes.scrolableSpace}>
         <Editor
-          placeholder="Subject"
+          label="Subject"
           value="Install New Databases"
           readOnly={readOnly}
         />
         <Editor
-          placeholder="Start Date"
+          label="Start Date"
           type="datetime-local"
           value={date.toISOString().slice(0, -8)}
           readOnly={readOnly}
         />
         <Editor
-          placeholder="End Date"
+          label="End Date"
           type="datetime-local"
           value={date.toISOString().slice(0, -8)}
           readOnly={readOnly}
         />
-        <div className={classes.inputGroup}>
-          <Checkbox
-            color="primary"
-            disabled={readOnly}
-          />
-          <Typography
-            className={classes.allDayText}
-            variant="subheading"
-          >
-            All Day
-          </Typography>
-        </div>
+        <Checkbox
+          text="All Day"
+          readOnly={readOnly}
+        />
       </div>
       <div className={classes.buttonGroup}>
         <Button
@@ -79,6 +64,23 @@ export const ContainerBase = ({
       </div>
     </div>
   );
+};
+
+ContainerBase.propTypes = {
+  button: PropTypes.func,
+  editor: PropTypes.func,
+  checkbox: PropTypes.func,
+  classes: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool,
+  onVisibilityChange: PropTypes.func,
+};
+
+ContainerBase.defaultProps = {
+  button: () => undefined,
+  editor: () => undefined,
+  checkbox: () => undefined,
+  readOnly: false,
+  onVisibilityChange: () => undefined,
 };
 
 export const Container = withStyles(styles)(ContainerBase);

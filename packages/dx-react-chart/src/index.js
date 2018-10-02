@@ -14,6 +14,6 @@ export { ScatterSeries } from './plugins/scatter-series';
 export { SplineSeries } from './plugins/spline-series';
 
 export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
-export { Grid } from './plugins/grid';
+export { Grid, ArgumentGrid, ValueGrid } from './plugins/grid';
 
 export { withPatchedProps, withComponents } from './utils';

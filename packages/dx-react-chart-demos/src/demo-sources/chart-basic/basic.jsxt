@@ -4,7 +4,8 @@ import {
   ValueAxis,
   Chart,
   Legend,
-  Grid,
+  ArgumentGrid,
+  ValueGrid,
   LineSeries,
   AreaSeries,
   SplineSeries,
@@ -33,29 +34,26 @@ export default class Demo extends React.PureComponent {
         >
           <Title text="Born amount" />
           <Legend placeholder="right" />
-          <ArgumentAxis position="top" name="year" />
-          <ValueAxis name="born" />
+          <ArgumentAxis position="top" />
+          <ValueAxis />
 
-          <Grid name="year" />
-          <Grid name="born" />
+          <ArgumentGrid />
+          <ValueGrid />
 
           <LineSeries
+            name="Russia"
             valueField="ru"
             argumentField="year"
-            axisName="born"
-            name="Russia"
           />
           <SplineSeries
+            name="China"
             valueField="ch"
             argumentField="year"
-            axisName="born"
-            name="China"
           />
           <AreaSeries
             name="USA"
             valueField="us"
             argumentField="year"
-            axisName="born"
           />
           <Scale />
         </Chart>

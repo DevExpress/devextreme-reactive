@@ -154,7 +154,7 @@ describe('AxisCoordinates', () => {
 
 describe('axesData', () => {
   it('should return array with props', () => {
-    const axes = axesData(undefined, { first: true });
+    const axes = axesData([], { first: true });
     expect(axes).toEqual([{ first: true }]);
   });
 

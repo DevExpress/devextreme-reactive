@@ -17,7 +17,7 @@ describe('Basis Data', () => {
     expect(getComputedState(tree)).toEqual({
       data,
       series: [],
-      argumentAxisName: 'argumentAxis',
+      axes: [],
     });
   });
 });

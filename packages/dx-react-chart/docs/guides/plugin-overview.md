@@ -4,10 +4,10 @@ The Chart component visualizes data specified via the `data` property using plug
 
 The React Chart supports the following plugin types:
 
-- **UI plugins**  
+- **UI plugins**
  Render UI elements using the provided data.
- 
-- **Data processing plugins**  
+
+- **Data processing plugins**
  Transform data passed to the Chart component.
 
 ## UI Plugins
@@ -25,7 +25,8 @@ The following plugins render additional elements:
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
-- `Grid` - renders a grid
+- `ArgumentGrid` - renders an argument grid
+- `ValueGrid` - renders a value grid
 - `Legend` - renders a legend
 - `Title` - renders a title
 

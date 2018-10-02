@@ -6,17 +6,20 @@ import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   prepareData: jest.fn(() => 'data'),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
 }));
 
-const domains = { argumentName: { domain: 'domain' } };
-const computedDomain = jest.fn(() => domains);
+
+const domains = {
+  test_argument_domain: {},
+};
+const computeDomains = jest.fn(() => domains);
 const paletteComputing = jest.fn(() => 'paletteComputing');
 
 const defaultDeps = {
   getter: {
-    computedDomain,
+    computeDomains,
     paletteComputing,
-    argumentAxisName: 'argumentName',
   },
 };
 
@@ -31,8 +34,7 @@ describe('Chart Core', () => {
     expect(getComputedState(tree)).toEqual({
       data: 'data',
       domains,
-      computedDomain,
-      argumentAxisName: 'argumentName',
+      computeDomains,
       colorDomain: 'paletteComputing',
       paletteComputing,
     });

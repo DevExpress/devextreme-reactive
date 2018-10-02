@@ -4,29 +4,27 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-let borderColor;
-
 export class Cell extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { borderColor };
+    this.state = { borderColor: undefined };
   }
 
   componentDidMount() {
     const { borderColor: stateBorderColor } = this.state;
     if (!stateBorderColor) {
       // eslint-disable-next-line react/no-find-dom-node
-      borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
-      this.setState({ borderColor });
+      this.setState({ borderColor: window.getComputedStyle(findDOMNode(this)).borderBottomColor });
     }
   }
 
   render() {
     const {
       style, column, value, children,
-      tableRow, tableColumn, row,
+      tableRow, tableColumn, row, beforeBorder,
       ...restProps
     } = this.props;
+    const { borderColor } = this.state;
 
     return (
       <th
@@ -37,6 +35,7 @@ export class Cell extends React.Component {
           borderTop: 'none',
           borderBottom: `1px solid ${borderColor}`,
           borderRight: `1px solid ${borderColor}`,
+          ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
           ...style,
         }}
         {...restProps}
@@ -55,6 +54,7 @@ Cell.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  beforeBorder: PropTypes.bool,
 };
 
 Cell.defaultProps = {
@@ -65,4 +65,5 @@ Cell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  beforeBorder: false,
 };

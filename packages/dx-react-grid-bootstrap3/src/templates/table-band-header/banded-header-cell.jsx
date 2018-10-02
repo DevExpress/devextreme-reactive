@@ -4,35 +4,37 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 
-let borderColor;
-
 export class BandedHeaderCell extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { borderColor };
+    this.state = { borderColor: undefined };
   }
 
   componentDidMount() {
     const { borderColor: stateBorderColor } = this.state;
     if (!stateBorderColor) {
       // eslint-disable-next-line react/no-find-dom-node
-      borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
-      this.setState({ borderColor });
+      this.setState({ borderColor: window.getComputedStyle(findDOMNode(this)).borderBottomColor });
     }
   }
 
   render() {
     const {
       component: HeaderCellComponent,
-      style,
+      style, beforeBorder,
       ...restProps
     } = this.props;
+    const { borderColor } = this.state;
 
     return (
       <HeaderCellComponent
         style={{
           borderTop: 'none',
-          ...borderColor ? { borderRight: `1px solid ${borderColor}` } : null,
+          ...borderColor
+            ? {
+              borderRight: `1px solid ${borderColor}`,
+              ...beforeBorder ? { borderLeft: `1px solid ${borderColor}` } : null,
+            } : null,
           ...style,
         }}
         {...restProps}
@@ -44,8 +46,10 @@ export class BandedHeaderCell extends React.Component {
 BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,
   style: PropTypes.object,
+  beforeBorder: PropTypes.bool,
 };
 
 BandedHeaderCell.defaultProps = {
   style: null,
+  beforeBorder: false,
 };

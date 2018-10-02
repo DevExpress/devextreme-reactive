@@ -12,6 +12,7 @@ export const Scheduler = ({
   getStartDate,
   getEndDate,
   getAllDay,
+  getId,
 }) => (
   <PluginHost>
     <SchedulerCore
@@ -23,6 +24,7 @@ export const Scheduler = ({
       getStartDate={getStartDate}
       getEndDate={getEndDate}
       getAllDay={getAllDay}
+      getId={getId}
     />
     {children}
   </PluginHost>
@@ -40,6 +42,7 @@ Scheduler.propTypes = {
   getStartDate: PropTypes.func,
   getEndDate: PropTypes.func,
   getAllDay: PropTypes.func,
+  getId: PropTypes.func,
 };
 
 Scheduler.defaultProps = {
@@ -50,4 +53,5 @@ Scheduler.defaultProps = {
   getStartDate: appointment => appointment.startDate,
   getEndDate: appointment => appointment.endDate,
   getAllDay: appointment => appointment.allDay,
+  getId: appointment => appointment.id,
 };

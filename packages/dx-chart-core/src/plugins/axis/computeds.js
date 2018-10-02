@@ -91,4 +91,4 @@ export const axisCoordinates = (
   );
 };
 
-export const axesData = (axes = [], axisProps) => [...axes, axisProps];
+export const axesData = (axes, axisProps) => [...axes, axisProps];

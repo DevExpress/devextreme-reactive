@@ -29,32 +29,39 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-export const pieAttributes = (
-  data,
-  { xScale, yScale },
-  {
-    argumentField, valueField, innerRadius = 0, outerRadius = 1,
-  },
-) => {
-  const width = Math.max.apply(null, xScale.range());
-  const height = Math.max.apply(null, yScale.range());
-  const radius = Math.min(width, height) / 2;
-  const pieData = pie().sort(null).value(d => d[valueField])(data);
+const getSeriesPoints = (series, dataItems, transformPoint = x => x) => {
+  const points = [];
+  dataItems.forEach((dataItem, index) => {
+    const argument = dataItem[series.argumentField];
+    const value = dataItem[series.valueField];
+    if (argument !== undefined && value !== undefined) {
+      points.push(transformPoint({
+        argument,
+        value,
+        index,
+      }));
+    }
+  });
+  return points;
+};
 
-  return pieData.map(({
-    startAngle, endAngle, value, data: itemData,
-  }) => ({
-    d: arc()
-      .innerRadius(innerRadius * radius)
-      .outerRadius(outerRadius * radius)
-      .startAngle(startAngle)
-      .endAngle(endAngle)(),
-    value,
-    data: itemData,
-    id: itemData[argumentField],
-    x: width / 2,
-    y: height / 2,
-  }));
+export const pieAttributes = (data, { xScale, yScale }, series) => {
+  const { innerRadius = 0, outerRadius = 1, valueField } = series;
+  const x = Math.max(...xScale.range()) / 2;
+  const y = Math.max(...yScale.range()) / 2;
+  const radius = Math.min(x, y);
+  const pieData = pie().sort(null).value(d => d[valueField])(data);
+  const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
+  return getSeriesPoints(series, data, ({ argument, value, index }) => {
+    const { startAngle, endAngle } = pieData[index];
+    return {
+      d: gen.startAngle(startAngle).endAngle(endAngle)(),
+      value,
+      id: argument,
+      x,
+      y,
+    };
+  });
 };
 
 export const coordinates = (
@@ -77,22 +84,12 @@ export const coordinates = (
   }, []);
 };
 
-export const barCoordinates = (
-  data,
-  { xScale, yScale },
-  {
-    argumentField, valueField, stack, barWidth = 0.9,
-  },
-  stacks = [undefined],
-  scaleExtension,
-) => {
-  const rawCoordinates = coordinates(
-    data,
-    { xScale, yScale },
-    { argumentField, valueField },
-  );
-  const width = getWidth(xScale);
-  const x0Scale = setScalePadding(createScale(
+// TODO: Take group settings from *series*; move settings calculation to Stack plugin
+// (since it handles bar grouping by now)
+const getGroupSettings = (series, argumentScale, stacks, scaleExtension) => {
+  const width = getWidth(argumentScale);
+  const { barWidth = 0.9, stack } = series;
+  const groupsScale = setScalePadding(createScale(
     {
       domain: stacks,
     },
@@ -100,10 +97,24 @@ export const barCoordinates = (
     width,
     scaleExtension.find(item => item.type === 'band').constructor,
   ), 1 - barWidth);
-  return rawCoordinates.map(item => ({
-    ...item,
-    width: getWidth(x0Scale),
-    x: item.x - width / 2 + x0Scale(stack),
+  return {
+    groupWidth: getWidth(groupsScale),
+    groupOffset: groupsScale(stack),
+  };
+};
+
+export const barCoordinates = (
+  data, { xScale, yScale }, series, stacks = [undefined], scaleExtension,
+) => {
+  const y1 = yScale.range()[0];
+  const { groupWidth, groupOffset } = getGroupSettings(series, xScale, stacks, scaleExtension);
+  return getSeriesPoints(series, data, ({ argument, value, index }) => ({
+    x: xScale(argument) + groupOffset,
+    y: yScale(value),
+    y1,
+    id: index,
+    value,
+    width: groupWidth,
   }));
 };
 

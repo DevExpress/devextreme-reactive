@@ -274,8 +274,7 @@ describe('Pie attributes', () => {
     expect(pieAttr).toHaveLength(data.length);
     pieAttr.forEach((attr, index) => {
       expect(attr.d).toBeTruthy();
-      expect(attr.value).toBe('value');
-      expect(attr.data).toEqual(data[index]);
+      expect(attr.value).toBe(data[index].val1);
       expect(attr.id).toEqual(data[index].arg);
       expect(attr.x).toEqual(5);
       expect(attr.y).toEqual(5);

@@ -28,6 +28,7 @@ valueField | string | | The name of a data field that provides series point valu
 argumentField | string | | The name of a data field that provides series point argument values.
 innerRadius? | number | 0 | The inner radius in relative units.
 outerRadius? | number | 1 | The outer radius in relative units.
+animationName? | string | 'transformPie' | Animation name for pie.
 pointComponent | ComponentType&lt;[PieSeries.PointProps](#pieseriespointprops)&gt; | | A component that renders a slice.
 
 ## Interfaces

@@ -1,28 +1,30 @@
 import { keyframes } from 'styled-components';
 
-export const getAnimationStyles = ({ keyframes: frames, styles, options }) => {
+export const getAnimationStyles = ({ keyframes: frames, options }) => {
   const name = keyframes`${frames}`;
-  return { ...styles, animation: `${name} ${options}` };
+  return { animation: `${name} ${options}` };
 };
 
 export const mergeExtensionsWithDefault = (extension) => {
   const defaultExtension = [
     {
-      transform: (_, { x, y }) => ({
+      name: 'transform',
+      settings: (_, { x, y }) => ({
         options: '1s',
-        styles: { transformOrigin: `${x}px ${y}px` },
-        keyframes: 'from {transform: scaleY(0);}',
+        keyframes: `from {transform: scaleY(0); transform-origin: ${x}px ${y}px; } to { transition: none; transform-origin: ${x}px ${y}px;}`,
       }),
     },
     {
-      translate: ({ x, y }, { y: startY }) => ({
+      name: 'translate',
+      settings: ({ x, y }, { y: startY }) => ({
         options: '1s',
         keyframes: `from {transform: translate(${x}px, ${startY}px )} to {transform: translate(${x}px, ${y}px )}`,
       }),
     },
     {
-      pie: ({ index }, { x, y }) => ({
-        options: `${index * 0.2}s`,
+      name: 'transformPie',
+      settings: ({ index }, { x, y }) => ({
+        options: `${(index + 1) * 0.2}s`,
         keyframes: `from {transform: translate(${x}px, ${y}px) scale(0)}; to {transform: translate(${x}px, ${y}px) scale(1)}`,
       }),
     },

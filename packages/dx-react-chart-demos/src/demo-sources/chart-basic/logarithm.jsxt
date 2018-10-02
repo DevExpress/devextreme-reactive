@@ -27,7 +27,7 @@ const data = [
 
 const Point = (props) => {
   const {
-    x, y, color, ...restProps
+    x, y, color, value, y1, id, ...restProps
   } = props;
   return (
     <path

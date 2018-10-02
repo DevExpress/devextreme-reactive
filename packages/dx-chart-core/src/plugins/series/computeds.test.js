@@ -93,7 +93,7 @@ const dataWithUndefined = [
 ];
 
 const computedLine = data.map((item, index) => ({
-  id: index, x: item.arg + 5, y: item.val1, y1: 10, value: item.val1,
+  id: index, index, x: item.arg + 5, y: item.val1, y1: 10, value: item.val1,
 }));
 
 const groupWidth = 0.7;
@@ -197,15 +197,15 @@ describe('barCoordinates', () => {
     );
 
     expect(result).toEqual([{
-      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 10,
+      id: 0, index: 0, value: 3, width: 10, x: 1, y: 3, y1: 10,
     }, {
-      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 10,
+      id: 1, index: 1, value: 5, width: 10, x: 2, y: 5, y1: 10,
     }, {
-      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 10,
+      id: 2, index: 2, value: 7, width: 10, x: 3, y: 7, y1: 10,
     }, {
-      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 10,
+      id: 3, index: 3, value: 10, width: 10, x: 4, y: 10, y1: 10,
     }, {
-      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
+      id: 4, index: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
     }]);
   });
 });
@@ -279,13 +279,13 @@ describe('Series attributes', () => {
       { argumentField: 'arg', valueField: 'val1' },
     )).toEqual([
       {
-        id: 0, x: 6, y: 3, y1: 10, value: 3,
+        id: 0, index: 0, x: 6, y: 3, y1: 10, value: 3,
       },
       {
-        id: 2, x: 8, y: 7, y1: 10, value: 7,
+        id: 2, index: 2, x: 8, y: 7, y1: 10, value: 7,
       },
       {
-        id: 4, x: 10, y: 15, y1: 10, value: 15,
+        id: 4, index: 4, x: 10, y: 15, y1: 10, value: 15,
       },
     ]);
   });

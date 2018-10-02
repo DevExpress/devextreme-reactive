@@ -17,22 +17,25 @@ describe('#getAnimationStyles', () => {
     jest.clearAllMocks();
   });
   it('should return proper styles', () => {
-    const object = { keyframes: 'keyframes', options: 'options', styles: { extraStyle: 'style' } };
+    const object = { keyframes: 'keyframes', options: 'options' };
     expect(getAnimationStyles(object)).toEqual({
-      animation: 'keyframes options', extraStyle: 'style',
+      animation: 'keyframes options',
     });
   });
 });
 
 describe('#mergeExtensionsWithDefault', () => {
   it('should return proper extensions', () => {
-    expect(mergeExtensionsWithDefault([{ animation1: () => {} }, { animation2: () => {} }]))
+    expect(mergeExtensionsWithDefault([
+      { name: 'animation1', settings: () => {} },
+      { name: 'animation2', settings: () => {} },
+    ]))
       .toEqual([
-        { animation1: expect.any(Function) },
-        { animation2: expect.any(Function) },
-        { transform: expect.any(Function) },
-        { translate: expect.any(Function) },
-        { pie: expect.any(Function) },
+        { name: 'animation1', settings: expect.any(Function) },
+        { name: 'animation2', settings: expect.any(Function) },
+        { name: 'transform', settings: expect.any(Function) },
+        { name: 'translate', settings: expect.any(Function) },
+        { name: 'transformPie', settings: expect.any(Function) },
       ]);
   });
 });

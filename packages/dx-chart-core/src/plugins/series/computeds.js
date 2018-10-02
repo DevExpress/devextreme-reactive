@@ -62,7 +62,7 @@ export const pieAttributes = (
 
   return pieData.map(({
     startAngle, endAngle, value, data: itemData,
-  }) => ({
+  }, index) => ({
     d: arc()
       .innerRadius(innerRadius * radius)
       .outerRadius(outerRadius * radius)
@@ -71,6 +71,7 @@ export const pieAttributes = (
     value,
     data: itemData,
     id: itemData[argumentField],
+    index,
     x: width / 2,
     y: height / 2,
   }));
@@ -89,6 +90,7 @@ export const coordinates = (
         y: yScale(dataItem[valueField]),
         y1,
         id: index,
+        index,
         value: dataItem[valueField],
       }];
     }

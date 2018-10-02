@@ -17,10 +17,10 @@ export class SliceCollection extends React.PureComponent {
       ...restProps
     } = this.props;
     const { innerRadius, outerRadius, ...pointOptions } = restProps;
-    return (coordinates.map((item, index) => (
+    return (coordinates.map(item => (
       <Point
         key={item.id.toString()}
-        style={{ ...style, ...prepareAnimation(animation({ ...item, ...{ index } }, startCoords)) }}
+        style={{ ...style, ...prepareAnimation(animation(item, startCoords)) }}
         {...item}
         {...pointOptions}
         color={colorDomain(item.id)}

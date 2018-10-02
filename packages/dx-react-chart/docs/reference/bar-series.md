@@ -31,6 +31,7 @@ stack? | string | | The associated stack.
 barWidth? | number | | The bar width in relative units.
 groupWidth? | number | | The bar group width in relative units.
 color? | string | | A series color.
+animationName? | string | 'transform' | Animation name for series.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
 
 ## Interfaces

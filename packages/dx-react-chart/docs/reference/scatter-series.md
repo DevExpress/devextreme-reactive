@@ -29,6 +29,7 @@ argumentField | string | | The name of a data field that provides series point a
 axisName? | string | | The associated axis.
 point? | { size : number } | point: { size: 7 } | Point options.
 color? | string | | A series color.
+animationName? | string | 'translate' | Animation name for series.
 pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders a series point.
 
 ## Interfaces

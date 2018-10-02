@@ -72,7 +72,7 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
-      animationExtensions: [{ defaultAnimationName: 'animation' }],
+      animationExtensions: [{ name: 'defaultAnimationName', settings: 'animation' }],
     },
     template: {
       series: {},

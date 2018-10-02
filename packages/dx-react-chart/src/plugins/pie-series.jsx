@@ -8,7 +8,7 @@ export const PieSeries = withComponents({ Path, Point })(makeSeries(
   'arc',
   null, // TODO: d3Func is not used.
   pieAttributes,
-  { getStartCoordinates: getPieStartCoordinates, animationName: 'pie' },
+  { getStartCoordinates: getPieStartCoordinates, animationName: 'transformPie' },
   {
     seriesComponent: 'Path',
     pointComponent: 'Point',

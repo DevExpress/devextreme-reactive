@@ -92,17 +92,17 @@ export const withSeriesPlugin = (
                 const props = getRenderProps(currentSeries);
                 const animationName = currentSeries.animationName || defaultAnimation;
 
-                const currentAnimation = (animationExtensions
-                  .find(item => item[animationName]) || {})[animationName];
+                const { settings } = animationExtensions
+                  .find(item => item.name === animationName) || {};
+
                 return (
                   <Series
                     colorDomain={colorDomain}
                     coordinates={coordinates}
                     startCoords={getStartCoordinates(scales)}
                     prepareAnimation={prepareAnimation}
-                    animation={currentAnimation}
+                    animation={settings}
                     {...props}
-
                   />
                 );
               }}

@@ -29,6 +29,7 @@ argumentField | string | | The name of a data field that provides series point a
 axisName? | string | | The associated axis.
 stack? | string | | The associated stack.
 color? | string | | A series color.
+animationName? | string | 'transform' | Animation name for series.
 seriesComponent | ComponentType&lt;[AreaSeries.SeriesProps](#areaseriesseriesprops)&gt; | | A component that renders the series.
 
 ## Interfaces

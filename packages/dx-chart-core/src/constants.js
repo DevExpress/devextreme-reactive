@@ -8,4 +8,8 @@ export const MIDDLE = 'middle';
 export const END = 'end';
 export const START = 'start';
 
+export const LINEAR = 'linear';
 export const BAND = 'band';
+
+export const ARGUMENT_DOMAIN = 'argument-domain';
+export const VALUE_DOMAIN = 'value-domain';

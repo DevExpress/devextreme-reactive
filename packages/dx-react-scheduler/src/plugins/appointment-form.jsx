@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
   Plugin,
+  Action,
+  createStateHelper,
 } from '@devexpress/dx-react-core';
 
 export class AppointmentForm extends React.PureComponent {
@@ -10,6 +12,29 @@ export class AppointmentForm extends React.PureComponent {
 
     this.state = {
       visible: props.visible || props.defaultVisible,
+    };
+
+    const stateHelper = createStateHelper(
+      this,
+      {
+        visible: () => props.onVisibilityChange,
+      },
+    );
+
+    const toggleVisibility = () => {
+      const { visible: isOpen } = this.state;
+      return !isOpen;
+    };
+    this.toggleVisibility = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'visible', toggleVisibility);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      visible = prevState.visible,
+    } = nextProps;
+    return {
+      visible,
     };
   }
 
@@ -21,7 +46,6 @@ export class AppointmentForm extends React.PureComponent {
       buttonComponents: button,
       appointment,
       readOnly,
-      onVisibilityChange,
       onAppointmentChange,
     } = this.props;
     const { visible } = this.state;
@@ -30,6 +54,8 @@ export class AppointmentForm extends React.PureComponent {
       <Plugin
         name="AppointmentForm"
       >
+        <Action name="toggleFormVisibility" action={this.toggleVisibility} />
+
         <Popup
           container={container}
           editor={editor}
@@ -37,7 +63,7 @@ export class AppointmentForm extends React.PureComponent {
           visible={visible}
           appointment={appointment}
           readOnly={readOnly}
-          onVisibilityChange={onVisibilityChange}
+          onVisibilityChange={this.toggleVisibility}
           onAppointmentChange={onAppointmentChange}
         />
       </Plugin>

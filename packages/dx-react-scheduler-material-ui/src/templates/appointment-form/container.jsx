@@ -10,12 +10,11 @@ const styles = theme => ({
     overflowY: 'scroll',
   },
   buttonGroup: {
-    float: 'right',
-    paddingTop: theme.spacing.unit * 2,
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   inputGroup: {
     width: '100%',
-    // paddingTop: theme.spacing.unit * 2,
     display: 'flex',
   },
   allDayText: {
@@ -40,7 +39,6 @@ export const ContainerBase = ({
         <Editor
           placeholder="Subject"
           value="Install New Databases"
-          // value={appointment.title}
           readOnly={readOnly}
         />
         <Editor
@@ -58,7 +56,6 @@ export const ContainerBase = ({
         <div className={classes.inputGroup}>
           <Checkbox
             color="primary"
-            // checked={appointment.allDay}
             disabled={readOnly}
           />
           <Typography
@@ -70,16 +67,15 @@ export const ContainerBase = ({
         </div>
       </div>
       <div className={classes.buttonGroup}>
-        <div>
-          <Button
-            text="cancel"
-            // onClick={onVisibilityChange}
-          />
-          <Button
-            text="save"
-            readOnly={readOnly}
-          />
-        </div>
+        <Button
+          text="cancel"
+          onClick={onVisibilityChange}
+        />
+        <Button
+          text="save"
+          readOnly={readOnly}
+          onClick={onVisibilityChange}
+        />
       </div>
     </div>
   );

@@ -5,12 +5,13 @@ import ButtonMUI from '@material-ui/core/Button';
 export const Button = ({
   text,
   readOnly,
+  onClick,
 }) => {
   return (
     <ButtonMUI
-      // variant="outlined"
       color="primary"
       disabled={readOnly}
+      onClick={onClick}
     >
       {text}
     </ButtonMUI>

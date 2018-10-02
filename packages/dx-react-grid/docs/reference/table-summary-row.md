@@ -103,6 +103,14 @@ TableSummaryRow.Item | ComponentType&lt;object&gt; | A component that renders a 
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+TREE_ROW_TYPE | symbol | The tree summary row type's indentifier.
+GROUP_ROW_TYPE | symbol | The group summary row type's indentifier.
+TOTAL_ROW_TYPE | symbol | The total row type's indentifier.
+
 ## Plugin Developer Reference
 
 ### Imports

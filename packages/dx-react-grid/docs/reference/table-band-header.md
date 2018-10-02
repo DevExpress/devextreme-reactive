@@ -46,6 +46,7 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Name | Type | Description
 -----|------------|------------
 children? | ReactNode | A React node used to render band cell content.
+beforeBorder? | boolean | Specifies whether to show the left border.
 
 ### TableBandHeader.ColumnBands
 
@@ -65,6 +66,12 @@ TableBandHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprop
 TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a band cells' row.
 
 Additional properties are added to the component's root element.
+
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+ROW_TYPE | symbol | The band row type's identifier.
 
 ## Plugin Developer Reference
 

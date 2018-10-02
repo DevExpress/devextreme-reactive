@@ -16,7 +16,6 @@ import {
   changedRowsByIds,
   deleteRows,
   cancelDeletedRows,
-
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
 

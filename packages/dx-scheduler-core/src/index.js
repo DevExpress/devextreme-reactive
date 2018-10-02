@@ -1,4 +1,5 @@
 export * from './plugins/common/computeds';
+export * from './plugins/common/helpers';
 export * from './plugins/scheduler-core/computeds';
 export * from './plugins/month-view/computeds';
 export * from './plugins/month-view/helpers';
@@ -10,5 +11,6 @@ export * from './plugins/appointment-tooltip/reducers';
 export * from './plugins/appointment-tooltip/constants';
 export * from './plugins/all-day-panel/computeds';
 export * from './plugins/all-day-panel/helpers';
+export * from './plugins/editing-state/reducers';
 export * from './constants';
 export * from './utils';

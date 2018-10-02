@@ -177,7 +177,37 @@ describe('Month View', () => {
       ));
 
       expect(getComputedState(tree).currentView)
-        .toBe('Month');
+        .toEqual({ name: 'Month', type: 'month' });
+    });
+
+    it('should calculate the "currentView" getter if there aren\'t any views before', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: undefined } })}
+          <MonthView
+            {...defaultProps}
+            name="Custom Month"
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual({ name: 'Custom Month', type: 'month' });
+    });
+
+    it('should not override previous view type', () => {
+      const prevView = { name: 'Week', type: 'week' };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, { getter: { currentView: prevView } })}
+          <MonthView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).currentView)
+        .toEqual(prevView);
     });
   });
 

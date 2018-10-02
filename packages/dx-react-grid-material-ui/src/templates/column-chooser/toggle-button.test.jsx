@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 import { ToggleButton } from './toggle-button';
 
 const defaultProps = {
@@ -30,7 +31,7 @@ describe('ToggleButton', () => {
       />
     ));
 
-    expect(tree.props().data)
+    expect(tree.find(IconButton).props().data)
       .toMatchObject({ a: 1 });
   });
 });

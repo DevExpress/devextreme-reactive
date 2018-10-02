@@ -10,27 +10,21 @@ import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/d
 
 const styles = theme => ({
   pagination: {
-    float: 'right',
     margin: 0,
   },
   rowsLabel: {
     ...theme.typography.caption,
     paddingRight: theme.spacing.unit * 5,
-    lineHeight: `${theme.spacing.unit * 5}px`,
   },
   button: {
     minWidth: theme.spacing.unit * 2,
-    height: theme.spacing.unit * 5,
   },
   activeButton: {
     fontWeight: 'bold',
     cursor: 'default',
   },
   arrowButton: {
-    width: theme.spacing.unit * 4,
-    height: theme.spacing.unit * 4,
     display: 'inline-block',
-    verticalAlign: 'middle',
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
   },
   prev: {

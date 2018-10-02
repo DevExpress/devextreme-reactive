@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { setupConsole } from '@devexpress/dx-testing';
 import { testStatePluginField, pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { changeCurrentDate, setCurrentView } from '@devexpress/dx-scheduler-core';
+import { changeCurrentDate, setCurrentViewName } from '@devexpress/dx-scheduler-core';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { ViewState } from './view-state';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   changeCurrentDate: jest.fn(),
-  setCurrentView: jest.fn(),
+  setCurrentViewName: jest.fn(),
 }));
 
 const defaultDeps = {};
@@ -42,7 +42,8 @@ describe('ViewState', () => {
 
   testStatePluginField({
     Plugin: ViewState,
-    propertyName: 'currentView',
+    propertyName: 'currentViewName',
+    getGetterValue: tree => getComputedState(tree).currentView.name,
     defaultDeps,
     values: [
       'MonthView',
@@ -50,8 +51,8 @@ describe('ViewState', () => {
       'AgendaView',
     ],
     actions: [{
-      actionName: 'setCurrentView',
-      reducer: setCurrentView,
+      actionName: 'setCurrentViewName',
+      reducer: setCurrentViewName,
     }],
   });
 
@@ -73,13 +74,13 @@ describe('ViewState', () => {
     const tree = mount((
       <PluginHost>
         <ViewState
-          currentView="MonthView"
+          currentViewName="MonthView"
         />
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
 
     expect(getComputedState(tree).currentView)
-      .toBe('MonthView');
+      .toEqual({ name: 'MonthView' });
   });
 });

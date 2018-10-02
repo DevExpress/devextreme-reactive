@@ -5,7 +5,7 @@ export const tableColumnsWithDataRows = (columns, columnExtensions) => columns.m
   const { name } = column;
   const columnExtension = getColumnExtension(columnExtensions, name);
   return {
-    key: `${TABLE_DATA_TYPE}_${name}`,
+    key: `${TABLE_DATA_TYPE.toString()}_${name}`,
     type: TABLE_DATA_TYPE,
     width: columnExtension.width,
     align: columnExtension.align,
@@ -16,14 +16,14 @@ export const tableColumnsWithDataRows = (columns, columnExtensions) => columns.m
 
 export const tableRowsWithDataRows = (rows, getRowId) => (
   !rows.length
-    ? [{ key: TABLE_NODATA_TYPE, type: TABLE_NODATA_TYPE }]
+    ? [{ key: TABLE_NODATA_TYPE.toString(), type: TABLE_NODATA_TYPE }]
     : rows.map((row) => {
       const rowId = getRowId(row);
       return {
         row,
         rowId,
         type: TABLE_DATA_TYPE,
-        key: `${TABLE_DATA_TYPE}_${rowId}`,
+        key: `${TABLE_DATA_TYPE.toString()}_${rowId}`,
       };
     }));
 

@@ -89,6 +89,13 @@ TableRowDetail.ToggleCell | [TableRowDetail.ToggleCellProps](#tablerowdetailtogg
 
 Additional properties are added to the component's root element.
 
+## Static Fields
+
+Field | Type | Description
+------|------|------------
+COLUMN_TYPE | symbol | The detail column type's identifier.
+ROW_TYPE | symbol | The detail row type's indentifier.
+
 ## Plugin Developer Reference
 
 ### Imports

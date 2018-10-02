@@ -19,8 +19,7 @@ const styles = theme => ({
   toggleCellButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    height: theme.spacing.unit * 5,
-    width: theme.spacing.unit * 5,
+    padding: theme.spacing.unit,
   },
 });
 

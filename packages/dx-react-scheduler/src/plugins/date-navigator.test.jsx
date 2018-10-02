@@ -15,7 +15,7 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-05',
     firstDayOfWeek: 1,
-    currentView: 'month',
+    currentView: { type: 'month' },
     intervalCount: 3,
   },
   action: {

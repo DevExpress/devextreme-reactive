@@ -28,10 +28,8 @@ import { TableFixedColumns } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-leftColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed to the left grid's side.
-rightColumnNames? | Array&lt;string&gt; | [] | Specifies names of the columns to be fixed to the right grid's side.
-leftColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed to the left grid's side.
-rightColumnTypes? | Array&lt;string&gt; | [] | Specifies types of the service columns to be fixed to the right grid's side.
+leftColumns? | Array&lt;string &#124; symbol&gt; | [] | Specifies names and types of the columns to be fixed to the left grid's side.
+rightColumns? | Array&lt;string &#124; symbol&gt; | [] | Specifies names and types of the columns to be fixed to the right grid's side.
 cellComponent | ComponentType&lt;[TableFixedColumns.CellProps](#tablefixedcolumnscellprops)&gt; | | A component that renders a fixed column's cell.
 
 ## Interfaces

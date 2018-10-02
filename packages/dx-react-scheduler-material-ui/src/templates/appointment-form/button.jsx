@@ -6,14 +6,25 @@ export const Button = ({
   text,
   readOnly,
   onClick,
-}) => {
-  return (
-    <ButtonMUI
-      color="primary"
-      disabled={readOnly}
-      onClick={onClick}
-    >
-      {text}
-    </ButtonMUI>
-  );
+  ...restProps
+}) => (
+  <ButtonMUI
+    color="primary"
+    disabled={readOnly}
+    onClick={onClick}
+    {...restProps}
+  >
+    {text}
+  </ButtonMUI>
+);
+
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+Button.defaultProps = {
+  readOnly: false,
+  onClick: () => undefined,
 };

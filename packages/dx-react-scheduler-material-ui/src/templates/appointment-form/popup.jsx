@@ -1,16 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   paper: {
-    margin: '0 auto',
     width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
     paddingTop: theme.spacing.unit * 2,
+    margin: '0 auto',
     transform: 'translateY(20%)',
   },
 });
@@ -25,11 +24,13 @@ const PopupBase = ({
   readOnly,
   onVisibilityChange,
   onAppointmentChange,
+  ...restProps
 }) => (
   <Modal
     open={visible}
+    {...restProps}
   >
-    <div className={classes.paper}>
+    <Paper className={classes.paper}>
       <Container
         editor={editor}
         button={button}
@@ -38,7 +39,7 @@ const PopupBase = ({
         onAppointmentChange={onAppointmentChange}
         onVisibilityChange={onVisibilityChange}
       />
-    </div>
+    </Paper>
   </Modal>
 );
 
@@ -55,9 +56,9 @@ PopupBase.propTypes = {
 };
 
 PopupBase.defaultProps = {
-  container: undefined,
-  editor: undefined,
-  button: undefined,
+  container: () => undefined,
+  editor: () => undefined,
+  button: () => undefined,
   visible: false,
   appointment: {},
   readOnly: false,

@@ -8,9 +8,9 @@ describe('AppointmentForm', () => {
   const defaultProps = {
     popupComponent: () => null,
     containerComponent: () => null,
-    editorComponents: () => null,
-    buttonComponents: () => null,
-    checkboxComponents: () => null,
+    editorComponent: () => null,
+    buttonComponent: () => null,
+    checkboxComponent: () => null,
   };
 
   it('should render Popup component', () => {

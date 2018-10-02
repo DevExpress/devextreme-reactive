@@ -90,7 +90,7 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  defaultVisible: true,
+  defaultVisible: false,
   appointment: {},
   onVisibilityChange: undefined,
   onAppointmentChange: undefined,

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
   scrolableSpace: {
     maxHeight: '400px',
     overflowY: 'scroll',
@@ -15,7 +16,14 @@ const styles = {
     width: '100%',
     display: 'flex',
   },
-};
+  paper: {
+    width: theme.spacing.unit * 50,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
+    paddingTop: theme.spacing.unit * 2,
+    margin: '0 auto',
+    transform: 'translateY(20%)',
+  },
+});
 
 export const ContainerBase = ({
   button: Button,
@@ -24,11 +32,12 @@ export const ContainerBase = ({
   classes,
   readOnly,
   onVisibilityChange,
+  onAppointmentChange,
   ...restProps
 }) => {
   const date = new Date('2018-10-2 10:35'); // stub
   return (
-    <div {...restProps}>
+    <Paper className={classes.paper} {...restProps}>
       <div className={classes.scrolableSpace}>
         <Editor
           label="Subject"
@@ -63,7 +72,7 @@ export const ContainerBase = ({
           onClick={onVisibilityChange}
         />
       </div>
-    </div>
+    </Paper>
   );
 };
 
@@ -74,6 +83,7 @@ ContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
   onVisibilityChange: PropTypes.func,
+  onAppointmentChange: PropTypes.func,
 };
 
 ContainerBase.defaultProps = {
@@ -82,6 +92,7 @@ ContainerBase.defaultProps = {
   checkbox: () => undefined,
   readOnly: false,
   onVisibilityChange: () => undefined,
+  onAppointmentChange: () => undefined,
 };
 
 export const Container = withStyles(styles)(ContainerBase);

@@ -8,7 +8,7 @@ describe('Appointment Form', () => {
     shallow = createShallow({ dive: true });
   });
   describe('Popup', () => {
-    it('should pass className to the root element', () => {
+    it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Popup className="custom-class" />
       ));

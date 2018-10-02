@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
+import { ARGUMENT_DOMAIN } from '@devexpress/dx-chart-core';
 import { Legend } from './legend';
 
 const Label = () => null;
@@ -21,8 +22,7 @@ describe('Legend', () => {
     getter: {
       series: [{ name: 'first', color: 'color', uniqueName: 'first' }],
       colorDomain,
-      domains: { argument: { domain: 'domain' } },
-      argumentAxisName: 'argument',
+      domains: { [ARGUMENT_DOMAIN]: { domain: 'domain' } },
       items: series => series,
     },
     template: {

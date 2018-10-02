@@ -8,7 +8,8 @@ The following plugins implement the axes and grid:
 
 - `ArgumentAxis` - renders an argument axis
 - `ValueAxis` - renders a value axis
-- `Grid` - renders vertical and horizontal grid lines
+- `ArgumentGrid` - renders grid lines for an argument axis
+- `ValueGrid` - renders grid lines for a value axis
 - `Scale` - processes data
 
 ## Basic Setup

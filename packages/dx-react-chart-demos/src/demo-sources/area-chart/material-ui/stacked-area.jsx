@@ -7,7 +7,7 @@ import {
   AreaSeries,
   Title,
   Legend,
-  Grid,
+  ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -93,9 +93,9 @@ class Demo extends React.PureComponent {
           data={chartData}
           className={classes.chart}
         >
-          <ArgumentAxis name="argumentAxis" tickFormat={format} />
+          <ArgumentAxis tickFormat={format} />
           <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickSize={0} />
-          <Grid />
+          <ValueGrid />
           <AreaSeries
             name="Liquids"
             valueField="liquids"

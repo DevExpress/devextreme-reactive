@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, checkZeroStart,
+  findSeriesByName, xyScales, coordinates, seriesData, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
@@ -12,7 +12,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
-  checkZeroStart: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  getValueDomainName: jest.fn(),
 }));
 
 const coords = [
@@ -52,6 +53,7 @@ describe('Base series', () => {
     });
     coordinates.mockReturnValue(coords);
     seriesData.mockReturnValue('series');
+    getValueDomainName.mockReturnValue('test_value_domain');
   });
 
   afterEach(() => {
@@ -63,9 +65,8 @@ describe('Base series', () => {
       layouts: { pane: { height: 50, width: 60 } },
       data: 'data',
       series: 'series',
-      domains: { argumentAxisName: 'argumentDomain', axisName: 'valueDomain' },
+      domains: { test_argument_domain: 'argumentDomain', test_value_domain: 'valueDomain' },
       stacks: ['one', 'two'],
-      argumentAxisName: 'argumentAxisName',
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
     },
@@ -166,19 +167,5 @@ describe('Base series', () => {
         axisName: 'axisName',
       }),
     );
-  });
-
-  it('should pass correct arguments to checkZeroStart', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponent
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(checkZeroStart)
-      .toHaveBeenCalledWith({}, 'axisName', 'pathType');
   });
 });

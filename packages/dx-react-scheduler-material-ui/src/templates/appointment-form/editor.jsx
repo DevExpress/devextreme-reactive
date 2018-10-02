@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const styles = theme => ({
+const styles = () => ({
   editor: {
     width: '100%',
   },
@@ -13,28 +13,40 @@ const styles = theme => ({
 const EditorBase = ({
   classes,
   value,
-  placeholder,
-  changeHandler,
-  className,
   label,
-  defaultValue,
+  className,
   type,
   readOnly,
-}) => {
-  return (
-    <TextField
-      id="standard-name"
-      label={placeholder}
-      className={classNames(classes.editor, className)}
-      value={value}
-      defaultValue={defaultValue}
-      // onChange={this.handleChange('name')}
-      margin="normal"
-      variant="filled"
-      type={type && type}
-      disabled={readOnly}
-    />
-  );
+  ...restProps
+}) => (
+  <TextField
+    id="standard-name"
+    label={label}
+    className={classNames(classes.editor, className)}
+    value={value}
+    margin="normal"
+    variant="filled"
+    type={type && type}
+    disabled={readOnly}
+    {...restProps}
+  />
+);
+
+EditorBase.propTypes = {
+  classes: PropTypes.object.isRequired,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  className: PropTypes.string,
+  readOnly: PropTypes.bool,
+  type: PropTypes.string,
+};
+
+EditorBase.defaultProps = {
+  value: '',
+  label: undefined,
+  className: undefined,
+  readOnly: false,
+  type: undefined,
 };
 
 export const Editor = withStyles(styles)(EditorBase);

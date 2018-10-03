@@ -146,6 +146,9 @@ class TableColumnReorderingRaw extends React.PureComponent {
   handleDrop() {
     const { sourceColumnIndex, targetColumnIndex, order } = this.getState();
     const { onOrderChange } = this.props;
+
+    if (sourceColumnIndex === -1 && targetColumnIndex === -1) return;
+
     const nextOrder = changeColumnOrder(order, {
       sourceColumnName: order[sourceColumnIndex],
       targetColumnName: order[targetColumnIndex],

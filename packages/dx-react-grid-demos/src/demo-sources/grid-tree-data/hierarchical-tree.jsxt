@@ -1,9 +1,7 @@
 import * as React from 'react';<%&additionalImports%>
 import {
-  SelectionState,
   TreeDataState,
   CustomTreeData,
-  IntegratedSelection,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -69,12 +67,10 @@ export default class Demo extends React.PureComponent {
           rows={data}
           columns={columns}
         >
-          <SelectionState />
           <TreeDataState />
           <CustomTreeData
             getChildRows={getChildRows}
           />
-          <IntegratedSelection />
           <Table
             columnExtensions={tableColumnExtensions}
           />

@@ -10,7 +10,7 @@ describe('AppointmentForm', () => {
     popupComponent: ({ children }) => <div>{children}</div>,
     popupContainer: ({ children }) => <div>{children}</div>,
     scrollableSpaceContainer: ({ children }) => <div>{children}</div>,
-    StaticSpaceContainer: ({ children }) => <div>{children}</div>,
+    staticSpaceContainer: ({ children }) => <div>{children}</div>,
     dateEditorComponent: () => null,
     textEditorComponent: () => null,
     buttonComponent: () => null,
@@ -42,10 +42,10 @@ describe('AppointmentForm', () => {
     ));
 
     expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(false);
+      .toEqual(true);
     executeComputedAction(tree, actions => actions.toggleFormVisibility());
     expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(true);
+      .toEqual(false);
   });
 
   it('should render text editor', () => {

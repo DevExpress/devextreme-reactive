@@ -10,15 +10,6 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const myContainer = ({ children }) => {
-  return (
-    <React.Fragment>
-      {children}
-      <AppointmentForm.Editor label="myEditor" />
-    </React.Fragment>
-  );
-};
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -44,9 +35,7 @@ export default class Demo extends React.PureComponent {
             endDayHour={19}
           />
           <Appointments />
-          <AppointmentForm
-            // containerComponent={myContainer}
-          />
+          <AppointmentForm />
         </Scheduler>
       </Paper>
     );

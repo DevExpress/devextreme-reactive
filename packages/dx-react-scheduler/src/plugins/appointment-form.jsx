@@ -53,7 +53,7 @@ export class AppointmentForm extends React.PureComponent {
       allDayEditorComponent: AllDayEditor,
       popupContainer: PopupContainer,
       scrollableSpaceContainer: ScrollableSpace,
-      StaticSpaceContainer: StaticSpace,
+      staticSpaceContainer: StaticSpace,
       popupComponent: Popup,
       dateEditorComponent: DateEditor,
       textEditorComponent: TextEditor,
@@ -126,7 +126,7 @@ AppointmentForm.propTypes = {
   allDayEditorComponent: PropTypes.func.isRequired,
   popupContainer: PropTypes.func.isRequired,
   scrollableSpaceContainer: PropTypes.func.isRequired,
-  StaticSpaceContainer: PropTypes.func.isRequired,
+  staticSpaceContainer: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
   defaultVisible: PropTypes.bool,
@@ -145,7 +145,7 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  defaultVisible: false,
+  defaultVisible: true,
   appointment: {},
   onVisibilityChange: () => undefined,
   messages: {},
@@ -160,5 +160,5 @@ AppointmentForm.components = {
   allDayEditorComponent: 'AllDayEditor',
   popupContainer: 'PopupContainer',
   scrollableSpaceContainer: 'ScrollableSpace',
-  StaticSpaceContainer: 'StaticSpace',
+  staticSpaceContainer: 'StaticSpace',
 };

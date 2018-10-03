@@ -26,7 +26,7 @@ const summaryCalculator = (type, rows, getValue) => {
 const formatlessSummaryTypes = ['overpriced'];
 
 const messages = {
-  overpriced: 'High price',
+  overpriced: 'Price higher than $6000',
 };
 
 const CurrencyFormatter = ({ value }) => `$${value}`;
@@ -44,14 +44,13 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       columns: [
-        { name: 'region', title: 'Region' },
         { name: 'sector', title: 'Sector' },
         { name: 'customer', title: 'Customer' },
         { name: 'product', title: 'Product' },
         { name: 'amount', title: 'Sale Amount' },
       ],
       tableColumnExtensions: [
-        { columnName: 'amount', align: 'right' },
+        { columnName: 'amount', align: 'right', width: 230 },
       ],
       totalSummaryItems: [
         { columnName: 'amount', type: 'overpriced' },

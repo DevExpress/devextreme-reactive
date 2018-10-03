@@ -7,7 +7,6 @@ export const BasicData = ({ data }) => (
     <Getter name="data" value={data} />
     <Getter name="series" value={[]} />
     <Getter name="axes" value={[]} />
-    <Getter name="palette" value={[]} />
   </Plugin>
 );
 

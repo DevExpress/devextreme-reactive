@@ -6,6 +6,7 @@ export const Button = ({
   text,
   readOnly,
   onClick,
+  appointment,
   ...restProps
 }) => (
   <ButtonMUI
@@ -22,9 +23,11 @@ Button.propTypes = {
   text: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   onClick: PropTypes.func,
+  appointment: PropTypes.object,
 };
 
 Button.defaultProps = {
   readOnly: false,
   onClick: () => undefined,
+  appointment: undefined,
 };

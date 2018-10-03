@@ -1,10 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
   Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
+
+const defaultMessages = {
+  allDayText: 'All Day',
+  titleLabel: 'Subject',
+  startDateLabel: 'Start Date',
+  endDateLabel: 'End Date',
+  commitCommand: 'Save',
+  cancelCommand: 'Cancel',
+};
 
 export class AppointmentForm extends React.PureComponent {
   constructor(props) {
@@ -50,8 +60,11 @@ export class AppointmentForm extends React.PureComponent {
       buttonComponent: Button,
       appointment,
       readOnly,
+      messages,
     } = this.props;
     const { visible } = this.state;
+
+    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
     return (
       <Plugin
@@ -67,33 +80,33 @@ export class AppointmentForm extends React.PureComponent {
               <TextEditor
                 appointment={appointment}
                 readOnly={readOnly}
-                label="Subject"
+                label={getMessage('titleLabel')}
               />
               <DateEditor
                 appointment={appointment}
                 readOnly={readOnly}
-                label="Start Date"
+                label={getMessage('startDateLabel')}
                 type="datetime-local"
               />
               <DateEditor
                 appointment={appointment}
                 readOnly={readOnly}
-                label="End Date"
+                label={getMessage('endDateLabel')}
                 type="datetime-local"
               />
               <AllDayEditor
-                text="All Day"
+                text={getMessage('allDayText')}
                 appointment={appointment}
               />
             </ScrollableSpace>
             <StaticSpace>
               <Button
-                text="cancel"
+                text={getMessage('cancelCommand')}
                 readOnly={readOnly}
                 appointment={appointment}
               />
               <Button
-                text="save"
+                text={getMessage('commitCommand')}
                 readOnly={readOnly}
                 appointment={appointment}
               />
@@ -119,6 +132,14 @@ AppointmentForm.propTypes = {
   defaultVisible: PropTypes.bool,
   appointment: PropTypes.object,
   onVisibilityChange: PropTypes.func,
+  messages: PropTypes.shape({
+    allDayText: PropTypes.string,
+    titleLabel: PropTypes.string,
+    startDateLabel: PropTypes.string,
+    endDateLabel: PropTypes.string,
+    commitCommand: PropTypes.string,
+    cancelCommand: PropTypes.string,
+  }),
 };
 
 AppointmentForm.defaultProps = {
@@ -127,6 +148,7 @@ AppointmentForm.defaultProps = {
   defaultVisible: true,
   appointment: {},
   onVisibilityChange: () => undefined,
+  messages: {},
 };
 
 AppointmentForm.components = {

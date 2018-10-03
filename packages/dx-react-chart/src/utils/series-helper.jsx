@@ -22,6 +22,7 @@ const getRenderProps = (series) => {
     axisName,
     argumentField,
     valueField,
+    palette,
     stack,
     symbolName,
     isStartedFromZero: _,

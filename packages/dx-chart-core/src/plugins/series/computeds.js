@@ -7,6 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
+import { scaleOrdinal } from 'd3-scale';
 import { createScale, getWidth, setScalePadding } from '../../utils/scale';
 
 const getX = ({ x }) => x;
@@ -52,11 +53,13 @@ export const pieAttributes = (data, { xScale, yScale }, series) => {
   const radius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d[valueField])(data);
   const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
+  const colorScale = scaleOrdinal().range(series.palette);
   return getSeriesPoints(series, data, ({ argument, value, index }) => {
     const { startAngle, endAngle } = pieData[index];
     return {
       d: gen.startAngle(startAngle).endAngle(endAngle)(),
       value,
+      color: colorScale(index),
       id: argument,
       x,
       y,
@@ -149,6 +152,7 @@ const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.unique
 
 export const addSeries = (series, palette, props) => addItem(series, {
   ...props,
+  palette, // TODO: For Pie only. Find a better place for it.
   color: props.color || palette[series.length % palette.length],
   uniqueName: props.name,
 });

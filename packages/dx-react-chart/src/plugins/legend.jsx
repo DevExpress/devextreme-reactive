@@ -6,7 +6,6 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { ARGUMENT_DOMAIN } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
 import { withComponents } from '../utils';
 
@@ -25,20 +24,14 @@ class RawLegend extends React.PureComponent {
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              series,
-              domains,
-              colorDomain,
-              items,
-            }) => (
+            {({ series }) => (
               <Root name={`legend-${placeholder}`}>
-                {items(series, domains[ARGUMENT_DOMAIN].domain)
-                  .map(({ uniqueName, color }) => (
-                    <Item key={uniqueName}>
-                      <MarkerComponent name={uniqueName} color={color || colorDomain(uniqueName)} />
-                      <Label text={uniqueName} />
-                    </Item>
-                  ))}
+                {series.map(({ uniqueName, color }) => (
+                  <Item key={uniqueName}>
+                    <MarkerComponent name={uniqueName} color={color} />
+                    <Label text={uniqueName} />
+                  </Item>
+                ))}
               </Root>
             )}
           </TemplateConnector>

@@ -10,7 +10,7 @@ describe('Appointment Form', () => {
   describe('Popup', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Popup className="custom-class" />
+        <Popup className="custom-class"><div /></Popup>
       ));
 
       expect(tree.is('.custom-class'))

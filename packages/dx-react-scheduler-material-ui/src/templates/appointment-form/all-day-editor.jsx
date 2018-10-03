@@ -6,7 +6,7 @@ import CheckboxMUI from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  container: {
+  root: {
     width: '100%',
     display: 'flex',
   },
@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 });
 
-export const CheckboxBase = ({
+export const AllDayEditorBase = ({
   text,
   checked,
   readOnly,
@@ -23,7 +23,7 @@ export const CheckboxBase = ({
   className,
   ...restProps
 }) => (
-  <div className={classNames(classes.container, className)} {...restProps}>
+  <div className={classNames(classes.root, className)} {...restProps}>
     <CheckboxMUI
       color="primary"
       disabled={readOnly}
@@ -38,7 +38,7 @@ export const CheckboxBase = ({
   </div>
 );
 
-CheckboxBase.propTypes = {
+AllDayEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   readOnly: PropTypes.bool,
@@ -46,11 +46,11 @@ CheckboxBase.propTypes = {
   checked: PropTypes.bool,
 };
 
-CheckboxBase.defaultProps = {
+AllDayEditorBase.defaultProps = {
   text: undefined,
   className: undefined,
   readOnly: false,
   checked: false,
 };
 
-export const Checkbox = withStyles(styles)(CheckboxBase);
+export const AllDayEditor = withStyles(styles)(AllDayEditorBase, { name: 'AllDayEditor' });

@@ -10,43 +10,38 @@ const styles = () => ({
   },
 });
 
-const EditorBase = ({
+const TextEditorBase = ({
   classes,
   value,
   label,
   className,
-  type,
   readOnly,
   ...restProps
 }) => (
   <TextField
-    id="standard-name"
     label={label}
     className={classNames(classes.editor, className)}
     value={value}
     margin="normal"
     variant="filled"
-    type={type && type}
     disabled={readOnly}
     {...restProps}
   />
 );
 
-EditorBase.propTypes = {
+TextEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
-  type: PropTypes.string,
 };
 
-EditorBase.defaultProps = {
+TextEditorBase.defaultProps = {
   value: '',
   label: undefined,
   className: undefined,
   readOnly: false,
-  type: undefined,
 };
 
-export const Editor = withStyles(styles)(EditorBase);
+export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });

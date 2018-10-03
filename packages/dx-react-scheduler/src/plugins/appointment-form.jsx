@@ -40,14 +40,16 @@ export class AppointmentForm extends React.PureComponent {
 
   render() {
     const {
+      allDayEditorComponent: AllDayEditor,
+      popupContainer: PopupContainer,
+      scrollableSpaceContainer: ScrollableSpace,
+      StaticSpaceContainer: StaticSpace,
       popupComponent: Popup,
-      containerComponent: container,
-      editorComponent: editor,
-      buttonComponent: button,
-      checkboxComponent: checkbox,
+      dateEditorComponent: DateEditor,
+      textEditorComponent: TextEditor,
+      buttonComponent: Button,
       appointment,
       readOnly,
-      onAppointmentChange,
     } = this.props;
     const { visible } = this.state;
 
@@ -58,16 +60,46 @@ export class AppointmentForm extends React.PureComponent {
         <Action name="toggleFormVisibility" action={this.toggleVisibility} />
 
         <Popup
-          container={container}
-          editor={editor}
-          button={button}
-          checkbox={checkbox}
           visible={visible}
-          appointment={appointment}
-          readOnly={readOnly}
-          onVisibilityChange={this.toggleVisibility}
-          onAppointmentChange={onAppointmentChange}
-        />
+        >
+          <PopupContainer>
+            <ScrollableSpace>
+              <TextEditor
+                appointment={appointment}
+                readOnly={readOnly}
+                label="Subject"
+              />
+              <DateEditor
+                appointment={appointment}
+                readOnly={readOnly}
+                label="Start Date"
+                type="datetime-local"
+              />
+              <DateEditor
+                appointment={appointment}
+                readOnly={readOnly}
+                label="End Date"
+                type="datetime-local"
+              />
+              <AllDayEditor
+                text="All Day"
+                appointment={appointment}
+              />
+            </ScrollableSpace>
+            <StaticSpace>
+              <Button
+                text="cancel"
+                readOnly={readOnly}
+                appointment={appointment}
+              />
+              <Button
+                text="save"
+                readOnly={readOnly}
+                appointment={appointment}
+              />
+            </StaticSpace>
+          </PopupContainer>
+        </Popup>
       </Plugin>
     );
   }
@@ -75,31 +107,36 @@ export class AppointmentForm extends React.PureComponent {
 
 AppointmentForm.propTypes = {
   popupComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  editorComponent: PropTypes.func.isRequired,
+  dateEditorComponent: PropTypes.func.isRequired,
+  textEditorComponent: PropTypes.func.isRequired,
   buttonComponent: PropTypes.func.isRequired,
-  checkboxComponent: PropTypes.func.isRequired,
+  allDayEditorComponent: PropTypes.func.isRequired,
+  popupContainer: PropTypes.func.isRequired,
+  scrollableSpaceContainer: PropTypes.func.isRequired,
+  StaticSpaceContainer: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
   defaultVisible: PropTypes.bool,
   appointment: PropTypes.object,
   onVisibilityChange: PropTypes.func,
-  onAppointmentChange: PropTypes.func,
 };
 
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  defaultVisible: false,
+  defaultVisible: true,
   appointment: {},
-  onVisibilityChange: undefined,
-  onAppointmentChange: undefined,
+  onVisibilityChange: () => undefined,
 };
 
 AppointmentForm.components = {
   popupComponent: 'Popup',
   containerComponent: 'Container',
-  editorComponent: 'Editor',
+  dateEditorComponent: 'DateEditor',
+  textEditorComponent: 'TextEditor',
   buttonComponent: 'Button',
-  checkboxComponent: 'Checkbox',
+  allDayEditorComponent: 'AllDayEditor',
+  popupContainer: 'PopupContainer',
+  scrollableSpaceContainer: 'ScrollableSpace',
+  StaticSpaceContainer: 'StaticSpace',
 };

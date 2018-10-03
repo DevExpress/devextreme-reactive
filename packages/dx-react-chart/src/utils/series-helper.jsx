@@ -39,7 +39,6 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
-  getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -54,7 +53,6 @@ export const withSeriesPlugin = (
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
-          <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>

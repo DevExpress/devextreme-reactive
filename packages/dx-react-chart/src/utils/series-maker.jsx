@@ -26,11 +26,9 @@ export const makeSeries = (
   d3Func,
   calculateCoordinates,
   componentsDefinition,
-  _enhance, // TODO: Remove it.
-  getItems = x => x,
 ) => {
   const RawSeries = makeRawSeries(d3Func);
-  const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates, getItems);
+  const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates);
   Series.components = componentsDefinition;
   return Series;
 };

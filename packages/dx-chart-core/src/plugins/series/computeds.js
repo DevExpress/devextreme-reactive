@@ -156,5 +156,3 @@ export const addSeries = (series, palette, props) => addItem(series, {
   color: props.color || palette[series.length % palette.length],
   uniqueName: props.name,
 });
-
-export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));

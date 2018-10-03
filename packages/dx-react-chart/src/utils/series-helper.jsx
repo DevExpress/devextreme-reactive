@@ -106,17 +106,11 @@ export const withSeriesPlugin = (
     /* eslint-disable react/no-unused-prop-types */
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
-    axisName: PropTypes.string,
-    stack: PropTypes.string,
-    color: PropTypes.string,
     groupWidth: PropTypes.number,
     /* eslint-enable react/no-unused-prop-types */
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
-    color: undefined,
-    axisName: undefined,
-    stack: undefined,
     groupWidth: 0.7,
   };
   return Component;

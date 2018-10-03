@@ -26,10 +26,10 @@ export const makeSeries = (
   d3Func,
   calculateCoordinates,
   componentsDefinition,
-  enhance = x => x,
+  _enhance, // TODO: Remove it.
   getItems = x => x,
 ) => {
-  const RawSeries = enhance(makeRawSeries(d3Func));
+  const RawSeries = makeRawSeries(d3Func);
   const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates, getItems);
   Series.components = componentsDefinition;
   return Series;

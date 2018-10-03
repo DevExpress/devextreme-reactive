@@ -1,5 +1,5 @@
 import { dSpline, coordinates } from '@devexpress/dx-chart-core';
-import { makeSeries, withColor, withComponents } from '../utils';
+import { makeSeries, withComponents } from '../utils';
 import { Path } from '../templates/series/path';
 
 export const SplineSeries = withComponents({ Path })(makeSeries(
@@ -10,5 +10,4 @@ export const SplineSeries = withComponents({ Path })(makeSeries(
   {
     seriesComponent: 'Path',
   },
-  withColor,
 ));

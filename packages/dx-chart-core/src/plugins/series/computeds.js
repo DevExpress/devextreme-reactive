@@ -139,14 +139,18 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
 
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
-export const seriesData = (series = [], seriesProps) => {
-  if (series.find((({ uniqueName }) => uniqueName === seriesProps.uniqueName))) {
-    return seriesData(
-      series,
-      { ...seriesProps, uniqueName: createNewUniqueName(seriesProps.uniqueName) },
-    );
-  }
-  return [...series, seriesProps];
-};
+const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
+  ? addItem(list, {
+    ...item,
+    uniqueName: createNewUniqueName(item.uniqueName),
+  })
+  : list.concat(item)
+);
+
+export const addSeries = (series, palette, props) => addItem(series, {
+  ...props,
+  color: props.color || palette[series.length % palette.length],
+  uniqueName: props.name,
+});
 
 export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));

@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, seriesData, ARGUMENT_DOMAIN, getValueDomainName,
+  findSeriesByName, addSeries, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
@@ -18,6 +18,7 @@ const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
 const getRenderProps = (series) => {
   const {
     name,
+    uniqueName,
     axisName,
     argumentField,
     valueField,
@@ -43,12 +44,11 @@ export const withSeriesPlugin = (
     render() {
       const { name: seriesName } = this.props;
       const symbolName = Symbol(seriesName);
-      const getSeriesDataComputed = ({ series }) => seriesData(series, {
+      const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
         ...this.props,
         calculateCoordinates,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
-        uniqueName: seriesName,
       });
       return (
         <Plugin name={pluginName}>
@@ -63,7 +63,6 @@ export const withSeriesPlugin = (
                 stacks,
                 data,
                 scaleExtension,
-                colorDomain,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
                 const coordinates = currentSeries.calculateCoordinates(
@@ -80,7 +79,6 @@ export const withSeriesPlugin = (
                 const props = getRenderProps(currentSeries);
                 return (
                   <Series
-                    colorDomain={colorDomain}
                     coordinates={coordinates}
                     {...props}
                   />

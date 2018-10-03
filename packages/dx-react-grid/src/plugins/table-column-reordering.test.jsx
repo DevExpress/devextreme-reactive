@@ -139,7 +139,9 @@ describe('TableColumnReordering', () => {
         {children}
       </div>
     );
-    const mountWithCellTemplates = ({ defaultOrder }, deps = {}) => mount((
+    const mountWithCellTemplates = ({
+      defaultOrder, onOrderChange = undefined,
+    }, deps = {}) => mount((
       <DragDropProvider>
         <PluginHost>
           <Template name="table">
@@ -165,6 +167,7 @@ describe('TableColumnReordering', () => {
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableColumnReordering
             {...defaultProps}
+            onOrderChange={onOrderChange}
             defaultOrder={defaultOrder}
             tableContainerComponent={props => <TableMock {...props} />}
           />
@@ -333,6 +336,19 @@ describe('TableColumnReordering', () => {
       ));
       const { cellDimensionGetters } = tree.find(TableColumnReordering).childAt(0).instance();
       expect(Object.keys(cellDimensionGetters)).toEqual(['a']);
+    });
+
+    it('should not change column order if target is moved from outside', () => {
+      const onOrderChangeMock = jest.fn();
+      const { onLeave, onDrop } = mountWithCellTemplates({ defaultOrder: ['a', 'b'], onOrderChange: onOrderChangeMock })
+        .find(TableMock)
+        .props();
+
+      onLeave();
+      onDrop();
+
+      expect(changeColumnOrder).not.toBeCalled();
+      expect(onOrderChangeMock).not.toBeCalled();
     });
   });
 });

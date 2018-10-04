@@ -8,7 +8,7 @@ describe('AppointmentForm', () => {
   const defaultProps = {
     /* eslint-disable react/prop-types */
     popupComponent: ({ children }) => <div>{children}</div>,
-    popupContainer: ({ children }) => <div>{children}</div>,
+    containerComponent: ({ children }) => <div>{children}</div>,
     scrollableSpaceContainer: ({ children }) => <div>{children}</div>,
     staticSpaceContainer: ({ children }) => <div>{children}</div>,
     dateEditorComponent: () => null,

@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { PopupContainer } from './popup-container';
+import { Container } from './container';
 
 describe('AppointmentForm', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<PopupContainer><div /></PopupContainer>);
+    classes = getClasses(<Container><div /></Container>);
     shallow = createShallow({ dive: true });
   });
-  describe('PopupContainer', () => {
+  describe('Container', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <PopupContainer data={{ a: 1 }}>
+        <Container data={{ a: 1 }}>
           <div />
-        </PopupContainer>
+        </Container>
       ));
 
       expect(tree.props().data)
@@ -23,9 +23,9 @@ describe('AppointmentForm', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <PopupContainer className="custom-class">
+        <Container className="custom-class">
           <div />
-        </PopupContainer>
+        </Container>
       ));
 
       expect(tree.is('.custom-class'))

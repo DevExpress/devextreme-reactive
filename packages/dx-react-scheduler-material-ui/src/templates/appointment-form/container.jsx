@@ -13,7 +13,7 @@ const styles = theme => ({
   },
 });
 
-const PopupContainerBase = ({
+const ContainerBase = ({
   children, classes, className, ...restProps
 }) => (
   <Paper
@@ -24,13 +24,13 @@ const PopupContainerBase = ({
   </Paper>
 );
 
-PopupContainerBase.propTypes = {
+ContainerBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 
-PopupContainerBase.defaultProps = {
+ContainerBase.defaultProps = {
   className: undefined,
 };
 
-export const PopupContainer = withStyles(styles)(PopupContainerBase, { name: 'PopupContainer' });
+export const Container = withStyles(styles)(ContainerBase, { name: 'Container' });

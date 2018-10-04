@@ -78,7 +78,7 @@ describe('AppointmentForm', () => {
     ));
 
     expect(tree.find(defaultProps.textEditorComponent).prop('label'))
-      .toEqual('Subject');
+      .toEqual('Title');
   });
 
   it('should render start date editor', () => {

@@ -14,7 +14,7 @@ import {
 
 const defaultMessages = {
   allDayText: 'All Day',
-  titleLabel: 'Subject',
+  titleLabel: 'Title',
   startDateLabel: 'Start Date',
   endDateLabel: 'End Date',
   commitCommand: 'Save',
@@ -150,7 +150,7 @@ AppointmentForm.propTypes = {
 
 AppointmentForm.defaultProps = {
   readOnly: false,
-  visible: true,
+  visible: undefined,
   appointment: undefined,
   onVisibilityChange: () => undefined,
   onAppointmentChange: () => undefined,

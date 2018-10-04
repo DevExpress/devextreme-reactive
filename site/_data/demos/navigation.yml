@@ -44,7 +44,7 @@
         path: /react/chart/demos/bar/stacked-bar
       - title: Fullstacked Bar
         path: /react/chart/demos/bar/fullstacked-bar
-      - title: Component customization
+      - title: Component Customization
         path: /react/chart/demos/bar/component-customization
   - title: Line Chart
     items:

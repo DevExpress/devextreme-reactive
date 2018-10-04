@@ -1,3 +1,35 @@
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0-beta.1...v1.8.0) (2018-10-04)
+
+
+### Bug Fixes
+
+* **grid:** add missed props to documentation ([#1414](https://github.com/DevExpress/devextreme-reactive/issues/1414)) ([e7fe289](https://github.com/DevExpress/devextreme-reactive/commit/e7fe289)), closes [#1412](https://github.com/DevExpress/devextreme-reactive/issues/1412)
+* **grid:** fix nullable values sorting ([#1432](https://github.com/DevExpress/devextreme-reactive/issues/1432)) ([f75deb1](https://github.com/DevExpress/devextreme-reactive/commit/f75deb1)), closes [#1428](https://github.com/DevExpress/devextreme-reactive/issues/1428)
+* **react:** handle event changes correctly ([#1405](https://github.com/DevExpress/devextreme-reactive/issues/1405)) ([61732a1](https://github.com/DevExpress/devextreme-reactive/commit/61732a1))
+* **react-chart:** fix crash in production caused by PropTypes reference ([fd386f5](https://github.com/DevExpress/devextreme-reactive/commit/fd386f5))
+* **react-chart:** bind default domain names for argument and value axes ([#1435](https://github.com/DevExpress/devextreme-reactive/issues/1435)) ([0a5fdf1](https://github.com/DevExpress/devextreme-reactive/commit/0a5fdf1))
+* **react-grid:** add lost border to bands ([#1440](https://github.com/DevExpress/devextreme-reactive/issues/1440)) ([f051c69](https://github.com/DevExpress/devextreme-reactive/commit/f051c69))
+* **react-grid:** fix virtual scrolling in desktop Safari ([#1397](https://github.com/DevExpress/devextreme-reactive/issues/1397)) ([d353edf](https://github.com/DevExpress/devextreme-reactive/commit/d353edf))
+* **react-grid-material-ui:** update MUI ([#1430](https://github.com/DevExpress/devextreme-reactive/issues/1430)) ([c6ef66c](https://github.com/DevExpress/devextreme-reactive/commit/c6ef66c)), closes [#1413](https://github.com/DevExpress/devextreme-reactive/issues/1413)
+
+
+### Features
+
+* **react-chart:** add legend for pie chart ([#1393](https://github.com/DevExpress/devextreme-reactive/issues/1393)) ([088767c](https://github.com/DevExpress/devextreme-reactive/commit/088767c))
+* **react-chart:** add palette plugin ([#1408](https://github.com/DevExpress/devextreme-reactive/issues/1408)) ([a025bb0](https://github.com/DevExpress/devextreme-reactive/commit/a025bb0))
+* **react-grid:** extract ToggleButton component in TableFilterRow ([#1403](https://github.com/DevExpress/devextreme-reactive/issues/1403)) ([687fe3b](https://github.com/DevExpress/devextreme-reactive/commit/687fe3b))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** Previously, there was a single `Grid` plugin. Now there are `ArgumentGrid` and `ValueGrid` plugins.
+`ArgumentGrid` is bound to an argument domain.
+`ValueGrid` is bound to a value domain specified by the name property or to a default domain.
+
+* **react-chart:** Previously, the Chart component configured scales internally. Starting with this release, we extracted the scale customization logic to a separate plugin to enable a user to customize a scale. Now, you need to manually add the `Scale` plugin to the Chart component to draw a chart.
+
+
 <a name="1.8.0-beta.1"></a>
 # [1.8.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.7.2...v1.8.0-beta.1) (2018-09-07)
 

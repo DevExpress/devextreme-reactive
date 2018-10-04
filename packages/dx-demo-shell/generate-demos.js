@@ -7,6 +7,7 @@ const DEMOS_FOLDER = './src/demo-sources';
 const TEMPLATE_EXT_POSTFIX = 't';
 const THEME_DEMO_DATA_FILE = 'demo-source-data.json';
 const TEST_FILE = 'demo.test.jsxt';
+const TEST_FILE_TS = 'demo.test.tsxt';
 const SSR_TEST_FILE = 'demo.ssr.test.jsxt';
 const GENERATED_SUFFIX = '.g';
 const TEST_SUFFIX = '.test';
@@ -38,6 +39,11 @@ const getDemoExtension = (source) => {
   if (extensionMatches === null) return null;
   return extensionMatches[1];
 };
+const getTestFileName = demoExtension => (
+  demoExtension.startsWith('tsx')
+    ? TEST_FILE_TS
+    : TEST_FILE
+);
 
 const demos = [];
 const loadDemosToGenerate = () => {
@@ -62,7 +68,7 @@ const loadDemosToGenerate = () => {
             const demoName = nestedFile.replace(`.${demoExtension}`, '');
             const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
               ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
-              : TEST_FILE;
+              : getTestFileName(demoExtension);
             demos.push({
               sectionName,
               demoName,
@@ -82,7 +88,7 @@ const loadDemosToGenerate = () => {
           const demoName = file.replace(`.${demoExtension}${TEMPLATE_EXT_POSTFIX}`, '');
           const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
             ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
-            : TEST_FILE;
+            : getTestFileName(demoExtension);
           themeNames.forEach((themeName) => {
             if (fs.existsSync(path.join(DEMOS_FOLDER, sectionName, themeName, `${demoName}.${demoExtension}`))) {
               return;

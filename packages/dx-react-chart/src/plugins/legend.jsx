@@ -6,6 +6,7 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
+import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
 import { withComponents } from '../utils';
 
@@ -17,6 +18,7 @@ class RawLegend extends React.PureComponent {
       rootComponent: Root,
       itemComponent: Item,
       position,
+      getItems,
     } = this.props;
     const placeholder = position;
     return (
@@ -24,12 +26,12 @@ class RawLegend extends React.PureComponent {
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ series }) => (
+            {getters => (
               <Root name={`legend-${placeholder}`}>
-                {series.map(({ uniqueName, color }) => (
-                  <Item key={uniqueName}>
-                    <MarkerComponent name={uniqueName} color={color} />
-                    <Label text={uniqueName} />
+                {getItems(getters).map(({ text, color }) => (
+                  <Item key={text}>
+                    <MarkerComponent name={text} color={color} />
+                    <Label text={text} />
                   </Item>
                 ))}
               </Root>
@@ -47,10 +49,12 @@ RawLegend.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
   position: PropTypes.string,
+  getItems: PropTypes.func,
 };
 
 RawLegend.defaultProps = {
   position: 'right',
+  getItems: ({ series }) => getLegendItems(series),
 };
 
 RawLegend.components = {

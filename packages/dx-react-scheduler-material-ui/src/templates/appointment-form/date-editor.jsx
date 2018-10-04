@@ -15,9 +15,7 @@ const DateEditorBase = ({
   value,
   label,
   className,
-  type,
   readOnly,
-  appointment,
   ...restProps
 }) => (
   <TextField
@@ -41,8 +39,6 @@ DateEditorBase.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
-  type: PropTypes.string,
-  appointment: PropTypes.object,
 };
 
 DateEditorBase.defaultProps = {
@@ -50,8 +46,6 @@ DateEditorBase.defaultProps = {
   label: undefined,
   className: undefined,
   readOnly: false,
-  type: undefined,
-  appointment: undefined,
 };
 
-export const DateEditor = withStyles(styles)(DateEditorBase);
+export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

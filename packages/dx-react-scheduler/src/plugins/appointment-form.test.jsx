@@ -60,7 +60,9 @@ describe('AppointmentForm', () => {
 
     expect(tree.find(AppointmentForm).instance().state.appointment)
       .toEqual(undefined);
-    executeComputedAction(tree, actions => actions.setFormAppointment({ appointment: { data: 1 } }));
+    executeComputedAction(
+      tree, actions => actions.setFormAppointment({ appointment: { data: 1 } }),
+    );
     expect(tree.find(AppointmentForm).instance().state.appointment)
       .toEqual({ data: 1 });
   });

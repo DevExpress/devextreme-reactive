@@ -42,6 +42,7 @@ findSeriesByName.mockImplementation(() => ({
   uniqueName: 'uniqueSeriesName',
   seriesComponent: BarCollection,
   pointComponent: PointComponent,
+  calculateCoordinates: barCoordinates,
 }));
 
 barCoordinates.mockImplementation(() => coords);

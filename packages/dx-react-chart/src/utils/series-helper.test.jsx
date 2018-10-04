@@ -50,6 +50,7 @@ describe('Base series', () => {
       groupWidth: 0.7,
       color: 'color',
       styles: 'styles',
+      calculateCoordinates: coordinates,
     });
     coordinates.mockReturnValue(coords);
     seriesData.mockReturnValue('series');
@@ -138,12 +139,18 @@ describe('Base series', () => {
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
       undefined,
-      'argumentField',
-      'valueField',
-      'name',
-      'stack1',
+      {
+        argumentField: 'argumentField',
+        valueField: 'valueField',
+        name: 'name',
+        axisName: 'axisName',
+        stack: 'stack1',
+        styles: 'styles',
+        color: 'color',
+        groupWidth: 0.7,
+        calculateCoordinates: coordinates,
+      },
       ['one', 'two'],
-      { styles: 'styles', color: 'color' },
       'scaleExtension',
     );
   });

@@ -34,6 +34,7 @@ findSeriesByName.mockImplementation(() => ({
   style: { opacity: 0.4 },
   seriesComponent: SliceCollection,
   pointComponent: PointComponent,
+  calculateCoordinates: pieAttributes,
 }));
 
 describe('Pie series', () => {

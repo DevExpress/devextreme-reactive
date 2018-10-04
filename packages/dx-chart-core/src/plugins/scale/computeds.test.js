@@ -21,7 +21,7 @@ describe('calculateDomain', () => {
     const domains = computeDomains(
       [],
       [{ name: 'series1', argumentField: 'arg', valueField: 'val' }],
-      [{ arg: 1, val: 1, 'val-series1-stack': [0, 1] }],
+      [{ arg: 1, val: 1 }],
     );
 
     expect(domains).toEqual({
@@ -41,9 +41,9 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
-        { arg: 2, val: 2, 'val-series1-stack': [0, 2] },
-        { arg: 3, val: 7, 'val-series1-stack': [0, 7] },
+        { arg: 1, val: 9 },
+        { arg: 2, val: 2 },
+        { arg: 3, val: 7 },
       ],
     );
 
@@ -57,6 +57,32 @@ describe('calculateDomain', () => {
     });
   });
 
+  it('should compute domains from data and series options (temporary workaround for Stack)', () => {
+    const getValueDomain = jest.fn().mockReturnValue([11, 15, 19, 23]);
+    const data = [
+      { arg: 1, val: 9 },
+      { arg: 2, val: 2 },
+      { arg: 3, val: 7 },
+    ];
+    const domains = computeDomains(
+      [],
+      [{
+        name: 'series1', argumentField: 'arg', valueField: 'val', getValueDomain,
+      }],
+      data,
+    );
+
+    expect(domains).toEqual({
+      [ARGUMENT_DOMAIN]: {
+        domain: [1, 3], orientation: 'horizontal', type: 'linear',
+      },
+      [VALUE_DOMAIN]: {
+        domain: [11, 23], orientation: 'vertical', type: 'linear',
+      },
+    });
+    expect(getValueDomain).toBeCalledWith(data);
+  });
+
   it('should compute domains from data and series options, negative values', () => {
     const domains = computeDomains(
       [],
@@ -64,8 +90,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
-        { arg: 2, val: -10, 'val-series1-stack': [0, -10] },
+        { arg: 1, val: 9 },
+        { arg: 2, val: -10 },
       ],
     );
 
@@ -86,8 +112,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 1, val: 0, 'val-series1-stack': [0, 0] },
-        { arg: 2, val: 10, 'val-series1-stack': [0, 10] },
+        { arg: 1, val: 0 },
+        { arg: 2, val: 10 },
       ],
     );
 
@@ -108,7 +134,7 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val', isStartedFromZero: true,
       }],
       [
-        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 1, val: 9 },
       ],
     );
 
@@ -117,7 +143,7 @@ describe('calculateDomain', () => {
         domain: [1, 1], orientation: 'horizontal', type: 'linear',
       },
       [VALUE_DOMAIN]: {
-        domain: [0, 9], orientation: 'vertical', type: 'linear', isStartedFromZero: true,
+        domain: [0, 9], orientation: 'vertical', type: 'linear',
       },
     });
   });
@@ -126,13 +152,9 @@ describe('calculateDomain', () => {
     const makeItem = (arg, val1, val2, val3, val4) => ({
       arg,
       val1,
-      'val1-series1-stack': [0, val1],
       val2,
-      'val2-series2-stack': [0, val2],
       val3,
-      'val3-series3-stack': [0, val3],
       val4,
-      'val4-series4-stack': [0, val4],
     });
     const domains = computeDomains(
       [],
@@ -173,8 +195,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 'a', val: 1, 'val-series1-stack': [0, 1] },
-        { arg: 'b', val: 2, 'val-series1-stack': [0, 2] },
+        { arg: 'a', val: 1 },
+        { arg: 'b', val: 2 },
         { arg: 'c' },
       ],
     );
@@ -196,8 +218,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 'a', val: 'A', 'val-series1-stack': [0, 'A'] },
-        { arg: 'b', val: 'B', 'val-series1-stack': [0, 'B'] },
+        { arg: 'a', val: 'A' },
+        { arg: 'b', val: 'B' },
         { arg: 'c' },
       ],
     );
@@ -219,8 +241,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 'a', val: 1, 'val-series1-stack': [0, 1] },
-        { arg: 'b', val: 2, 'val-series1-stack': [0, 2] },
+        { arg: 'a', val: 1 },
+        { arg: 'b', val: 2 },
         { arg: undefined },
         { arg: 'c' },
       ],
@@ -247,8 +269,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
       [
-        { arg: 1, val: 3, 'val-series1-stack': [0, 3] },
-        { arg: 2, val: 14, 'val-series1-stack': [0, 14] },
+        { arg: 1, val: 3 },
+        { arg: 2, val: 14 },
       ],
     );
 
@@ -269,8 +291,8 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
       [
-        { arg: 1, val: 3, 'val-series1-stack': [0, 3] },
-        { arg: 2, val: 14, 'val-series1-stack': [0, 14] },
+        { arg: 1, val: 3 },
+        { arg: 2, val: 14 },
       ],
     );
 
@@ -293,9 +315,9 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 'one', val: 9, 'val-series1-stack': [0, 9] },
-        { arg: 'two', val: 1, 'val-series1-stack': [0, 1] },
-        { arg: 'three', val: 1, 'val-series1-stack': [0, 1] },
+        { arg: 'one', val: 9 },
+        { arg: 'two', val: 1 },
+        { arg: 'three', val: 1 },
       ],
     );
 
@@ -319,7 +341,7 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val',
       }],
       [
-        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 1, val: 9 },
       ],
     );
 
@@ -343,7 +365,7 @@ describe('calculateDomain', () => {
         name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
       }],
       [
-        { arg: 1, val: 9, 'val-series1-stack': [0, 9] },
+        { arg: 1, val: 9 },
       ],
     );
 

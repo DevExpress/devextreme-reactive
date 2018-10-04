@@ -14,6 +14,25 @@ import {
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
 const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
 
+// May be it is better to say what props are passed along rather then what are NOT passed?
+const getRenderProps = (series) => {
+  const {
+    name,
+    axisName,
+    argumentField,
+    valueField,
+    groupWidth,
+    stack,
+    symbolName,
+    isStartedFromZero: _,
+    getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
+    calculateCoordinates,
+    ...restProps
+  } = series;
+
+  return restProps;
+};
+
 export const withSeriesPlugin = (
   Series,
   pluginName,
@@ -27,6 +46,7 @@ export const withSeriesPlugin = (
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
+        calculateCoordinates,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
         uniqueName: seriesName,
@@ -47,39 +67,31 @@ export const withSeriesPlugin = (
                 scaleExtension,
                 colorDomain,
               }) => {
-                const {
-                  name, axisName, argumentField, valueField, groupWidth, stack,
-                  // The following props are enumerated here only to prevent them
-                  // from being passed to Series.
-                  symbolName: _symbolName,
-                  isStartedFromZero: _isStartedFromZero,
-                  ...restProps
-                } = findSeriesByName(symbolName, series);
+                const currentSeries = findSeriesByName(symbolName, series);
 
                 const scales = xyScales(
                   domains[ARGUMENT_DOMAIN],
-                  domains[getValueDomainName(axisName)],
+                  domains[getValueDomainName(currentSeries.axisName)],
                   layouts.pane,
-                  groupWidth,
+                  // Looks like it is the only reason scales are recalculated for each series
+                  // while they depends only on domains and layout.
+                  currentSeries.groupWidth,
                   scaleExtension,
                 );
-                const calculatedCoordinates = calculateCoordinates(
+                const coordinates = currentSeries.calculateCoordinates(
                   data,
                   scales,
-                  argumentField,
-                  valueField,
-                  name,
-                  stack,
+                  currentSeries,
                   stacks,
-                  restProps,
                   scaleExtension,
                 );
 
+                const props = getRenderProps(currentSeries);
                 return (
                   <Series
                     colorDomain={colorDomain}
-                    coordinates={calculatedCoordinates}
-                    {...restProps}
+                    coordinates={coordinates}
+                    {...props}
                   />
                 );
               }}
@@ -91,18 +103,14 @@ export const withSeriesPlugin = (
   }
   Component.propTypes = {
     name: PropTypes.string,
+    /* eslint-disable react/no-unused-prop-types */
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
-    axisName: PropTypes.string,
-    stack: PropTypes.string,
-    color: PropTypes.string,
     groupWidth: PropTypes.number,
+    /* eslint-enable react/no-unused-prop-types */
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
-    color: undefined,
-    axisName: undefined,
-    stack: undefined,
     groupWidth: 0.7,
   };
   return Component;

@@ -51,12 +51,9 @@ export const xyScales = (
 export const pieAttributes = (
   data,
   { xScale, yScale },
-  argumentField,
-  valueField,
-  name,
-  stack,
-  stacks,
-  { innerRadius = 0, outerRadius = 1 },
+  {
+    argumentField, valueField, innerRadius = 0, outerRadius = 1,
+  },
 ) => {
   const width = Math.max.apply(null, xScale.range());
   const height = Math.max.apply(null, yScale.range());
@@ -82,39 +79,36 @@ export const pieAttributes = (
 export const coordinates = (
   data,
   { xScale, yScale },
-  argumentField,
-  valueField,
-  name,
-) => data.reduce((result, dataItem, index) => {
-  if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
-    return [...result, {
-      x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
-      y: yScale(dataItem[`${valueField}-${name}-stack`][1]),
-      y1: yScale(dataItem[`${valueField}-${name}-stack`][0]),
-      id: index,
-      value: dataItem[valueField],
-    }];
-  }
-  return result;
-}, []);
+  { argumentField, valueField },
+) => {
+  const y1 = yScale(0);
+  return data.reduce((result, dataItem, index) => {
+    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
+      return [...result, {
+        x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
+        y: yScale(dataItem[valueField]),
+        y1,
+        id: index,
+        value: dataItem[valueField],
+      }];
+    }
+    return result;
+  }, []);
+};
 
 export const barCoordinates = (
   data,
   { xScale, yScale },
-  argumentField,
-  valueField,
-  name,
-  stack,
+  {
+    argumentField, valueField, stack, barWidth = 0.9,
+  },
   stacks = [undefined],
-  { barWidth = 0.9 },
   scaleExtension,
 ) => {
   const rawCoordinates = coordinates(
     data,
     { xScale, yScale },
-    argumentField,
-    valueField,
-    name,
+    { argumentField, valueField },
   );
   const width = getWidth(xScale);
   const x0Scale = createScale(

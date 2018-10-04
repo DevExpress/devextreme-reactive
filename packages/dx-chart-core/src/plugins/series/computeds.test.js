@@ -58,40 +58,40 @@ jest.mock('d3-shape', () => {
 
 const data = [
   {
-    arg: 1, val1: 3, 'val1-Series3-stack': [2, 3],
+    arg: 1, val1: 3,
   },
   {
-    arg: 2, val1: 5, 'val1-Series3-stack': [4, 5],
+    arg: 2, val1: 5,
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-stack': [6, 7],
+    arg: 3, val1: 7,
   },
   {
-    arg: 4, val1: 10, 'val1-Series3-stack': [9, 10],
+    arg: 4, val1: 10,
   },
   {
-    arg: 5, val1: 15, 'val1-Series3-stack': [14, 15],
+    arg: 5, val1: 15,
   },
 ];
 
 const dataWithUndefined = [
   {
-    arg: 1, val1: 3, 'val1-Series3-stack': [3, 3],
+    arg: 1, val1: 3,
   },
   {
-    arg: undefined, val1: 5, 'val1-Series3-stack': [5, 5],
+    arg: undefined, val1: 5,
   },
   {
-    arg: 3, val1: 7, 'val1-Series3-stack': [7, 7],
+    arg: 3, val1: 7,
   },
   { arg: 4, val1: undefined },
   {
-    arg: 5, val1: 15, 'val1-Series3-stack': [15, 15],
+    arg: 5, val1: 15,
   },
 ];
 
 const computedLine = data.map((item, index) => ({
-  id: index, x: item.arg + 5, y: item['val1-Series3-stack'][1], y1: item['val1-Series3-stack'][0], value: item.val1,
+  id: index, x: item.arg + 5, y: item.val1, y1: 10, value: item.val1,
 }));
 
 const groupWidth = 0.7;
@@ -174,7 +174,7 @@ describe('line & spline', () => {
 
 describe('barCoordinates', () => {
   beforeAll(() => {
-    const translateValue = value => value;
+    const translateValue = value => (value !== 0 ? value : 10);
     createScale.mockImplementation(() => translateValue);
     getWidth.mockImplementation(() => 10);
   });
@@ -187,27 +187,23 @@ describe('barCoordinates', () => {
     const result = barCoordinates(
       data,
       { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
-      null,
-      null,
-      {},
+      { argumentField: 'arg', valueField: 'val1', stack: null },
+      undefined,
       [
         { type: 'band', constructor: 'bandConstructor' },
       ],
     );
 
     expect(result).toEqual([{
-      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 2,
+      id: 0, value: 3, width: 10, x: 1, y: 3, y1: 10,
     }, {
-      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 4,
+      id: 1, value: 5, width: 10, x: 2, y: 5, y1: 10,
     }, {
-      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 6,
+      id: 2, value: 7, width: 10, x: 3, y: 7, y1: 10,
     }, {
-      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 9,
+      id: 3, value: 10, width: 10, x: 4, y: 10, y1: 10,
     }, {
-      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 14,
+      id: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
     }]);
   });
 });
@@ -230,6 +226,8 @@ describe('Scales', () => {
     createScale.mockImplementation(() => translateValue);
   });
 
+  afterAll(jest.clearAllMocks);
+
   it('should create scales with proper parameters', () => {
     const { xScale, yScale } = xyScales(...defaultOptions);
 
@@ -242,6 +240,13 @@ describe('Scales', () => {
 });
 
 describe('Series attributes', () => {
+  beforeAll(() => {
+    const translateValue = value => (value !== 0 ? value : 10);
+    createScale.mockImplementation(() => translateValue);
+  });
+
+  afterAll(jest.clearAllMocks);
+
   it('should return series by name', () => {
     const seriesSymbol = Symbol('Series2');
     const series = [{ symbolName: Symbol('Series2') }, { symbolName: seriesSymbol }, { symbolName: Symbol('Series3') }];
@@ -261,9 +266,7 @@ describe('Series attributes', () => {
     expect(coordinates(
       data,
       { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
+      { argumentField: 'arg', valueField: 'val1' },
     )).toEqual(computedLine);
   });
 
@@ -271,18 +274,16 @@ describe('Series attributes', () => {
     expect(coordinates(
       dataWithUndefined,
       { xScale: createScale(), yScale: createScale() },
-      'arg',
-      'val1',
-      'Series3',
+      { argumentField: 'arg', valueField: 'val1' },
     )).toEqual([
       {
-        id: 0, x: 6, y: 3, y1: 3, value: 3,
+        id: 0, x: 6, y: 3, y1: 10, value: 3,
       },
       {
-        id: 2, x: 8, y: 7, y1: 7, value: 7,
+        id: 2, x: 8, y: 7, y1: 10, value: 7,
       },
       {
-        id: 4, x: 10, y: 15, y1: 15, value: 15,
+        id: 4, x: 10, y: 15, y1: 10, value: 15,
       },
     ]);
   });
@@ -291,7 +292,13 @@ describe('Series attributes', () => {
 describe('Pie attributes', () => {
   it('should return array of arcs', () => {
     const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
-    const pieAttr = pieAttributes(data, { xScale: getScale(), yScale: getScale() }, 'arg', 'val1', null, null, null, { innerRadius: 0.3, outerRadius: 0.5 });
+    const pieAttr = pieAttributes(
+      data,
+      { xScale: getScale(), yScale: getScale() },
+      {
+        argumentField: 'arg', valueField: 'val1', innerRadius: 0.3, outerRadius: 0.5,
+      },
+    );
 
     expect(pieAttr).toHaveLength(data.length);
     pieAttr.forEach((attr, index) => {

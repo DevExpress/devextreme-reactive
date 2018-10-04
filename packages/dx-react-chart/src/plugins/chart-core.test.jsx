@@ -5,7 +5,6 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  prepareData: jest.fn(() => 'data'),
   ARGUMENT_DOMAIN: 'test_argument_domain',
 }));
 
@@ -32,7 +31,6 @@ describe('Chart Core', () => {
       </PluginHost>
     ));
     expect(getComputedState(tree)).toEqual({
-      data: 'data',
       domains,
       computeDomains,
       colorDomain: 'paletteComputing',

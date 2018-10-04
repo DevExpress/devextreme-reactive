@@ -38,6 +38,7 @@ findSeriesByName.mockImplementation(() => ({
   uniqueName: 'uniqueSeriesName',
   seriesComponent: SeriesComponent,
   customProperty: 'custom',
+  calculateCoordinates: coordinates,
 }));
 
 coordinates.mockImplementation(() => coords);

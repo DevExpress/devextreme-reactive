@@ -11,22 +11,19 @@ export const getValueDomainName = name => name || VALUE_DOMAIN;
 // TODO: Property name should not contain "axis" part as it actually means domain.
 const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
 
-const calculateDomainField = (getFieldItemFirst, getFieldItemSecond, data, domain, type) => {
-  const getCategories = (prev, cur) => {
-    const categories = getFieldItemFirst(cur);
-    if (isDefined(categories)) {
-      return [...prev, categories];
+const calculateDomainField = (items, domain, type) => (
+  type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])
+);
+
+const getDomainItems = (data, field) => {
+  const items = [];
+  data.forEach((dataItem) => {
+    const value = dataItem[field];
+    if (isDefined(value)) {
+      items.push(value);
     }
-    return prev;
-  };
-  if (type === BAND) {
-    return [...domain, ...data.reduce(getCategories, [])];
-  }
-  return extent([
-    ...domain,
-    ...extent(data, getFieldItemFirst),
-    ...extent(data, getFieldItemSecond),
-  ]);
+  });
+  return items;
 };
 
 const getCorrectAxisType = (type, data, field) => {
@@ -36,34 +33,30 @@ const getCorrectAxisType = (type, data, field) => {
   return type || LINEAR;
 };
 
-const getFieldStack = (index, object) => (
-  object && isDefined(object[index]) ? object[index] : undefined
-);
-
 const calculateDomains = (domains, seriesList, data) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
-    const { argumentField, valueField, name } = seriesItem;
+    const { argumentField, valueField } = seriesItem;
     const argumentDomain = domains[ARGUMENT_DOMAIN];
     const valueDomain = domains[valueDomainName];
 
     const valueType = getCorrectAxisType(valueDomain.type, data, valueField);
     const argumentType = getCorrectAxisType(argumentDomain.type, data, argumentField);
 
+    // TODO: This is a temporary workaround for Stack plugin.
+    // Once scales (or domains) are exposed for modification Stack will modify scale and
+    // this code will be removed.
+    const valueDomainItems = seriesItem.getValueDomain
+      ? seriesItem.getValueDomain(data) : getDomainItems(data, valueField);
     valueDomain.domain = calculateDomainField(
-      object => getFieldStack(1, object[`${valueField}-${name}-stack`]),
-      valueDomain.isStartedFromZero
-        ? object => getFieldStack(0, object[`${valueField}-${name}-stack`]) : undefined,
-      data,
+      valueDomainItems,
       valueDomain.domain,
       valueType,
     );
     valueDomain.type = valueType;
 
     argumentDomain.domain = calculateDomainField(
-      object => object[argumentField],
-      null,
-      data,
+      getDomainItems(data, argumentField),
       argumentDomain.domain,
       argumentType,
     );
@@ -87,7 +80,9 @@ const collectDomains = (seriesList) => {
     const name = getSeriesValueDomainName(seriesItem);
     const domain = domains[name] || { domain: [], orientation: VERTICAL };
     domains[name] = domain;
-    domain.isStartedFromZero = domain.isStartedFromZero || seriesItem.isStartedFromZero;
+    if (seriesItem.isStartedFromZero && domain.domain.length === 0) {
+      domain.domain = [0];
+    }
   });
   return domains;
 };

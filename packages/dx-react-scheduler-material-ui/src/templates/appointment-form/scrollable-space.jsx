@@ -7,6 +7,8 @@ const styles = theme => ({
   root: {
     maxHeight: theme.spacing.unit * 50,
     overflowY: 'scroll',
+    padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
   },
 });
 

@@ -7,6 +7,9 @@ import classNames from 'classnames';
 const styles = {
   editor: {
     width: '100%',
+    '&:first-child': {
+      marginTop: 0,
+    },
   },
 };
 

@@ -3,12 +3,13 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const styles = {
+const styles = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingTop: theme.spacing.unit,
   },
-};
+});
 
 const StaticSpaceBase = ({
   children, classes, className, ...restProps

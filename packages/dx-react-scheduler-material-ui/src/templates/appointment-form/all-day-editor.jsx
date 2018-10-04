@@ -1,56 +1,35 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import CheckboxMUI from '@material-ui/core/Checkbox';
-import { withStyles } from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    display: 'flex',
-  },
-  text: {
-    paddingTop: theme.spacing.unit * 1.5,
-  },
-});
-
-export const AllDayEditorBase = ({
+export const AllDayEditor = ({
   text,
   checked,
   readOnly,
-  classes,
-  className,
   ...restProps
 }) => (
-  <div className={classNames(classes.root, className)} {...restProps}>
-    <CheckboxMUI
-      color="primary"
-      disabled={readOnly}
-      checked={checked}
-    />
-    <Typography
-      className={classes.text}
-      variant="subheading"
-    >
-      {text}
-    </Typography>
-  </div>
+  <FormControlLabel
+    control={(
+      <Checkbox
+        color="primary"
+        disabled={readOnly}
+        checked={checked}
+      />
+    )}
+    label={text}
+    {...restProps}
+  />
 );
 
-AllDayEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+AllDayEditor.propTypes = {
   text: PropTypes.string,
   readOnly: PropTypes.bool,
-  className: PropTypes.string,
   checked: PropTypes.bool,
 };
 
-AllDayEditorBase.defaultProps = {
+AllDayEditor.defaultProps = {
   text: undefined,
-  className: undefined,
   readOnly: false,
   checked: false,
 };
-
-export const AllDayEditor = withStyles(styles)(AllDayEditorBase, { name: 'AllDayEditor' });

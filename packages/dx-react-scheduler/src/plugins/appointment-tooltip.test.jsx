@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
+import { PluginHost, Template } from '@devexpress/dx-react-core';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
 import { AppointmentTooltip } from './appointment-tooltip';
 
@@ -49,7 +49,7 @@ describe('AppointmentTooltip', () => {
       .toBeTruthy();
   });
 
-  it('should provide setTooltipAppointmentMeta action', () => {
+  it('should render appointment template', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -59,25 +59,12 @@ describe('AppointmentTooltip', () => {
       </PluginHost>
     ));
 
-    executeComputedAction(tree, actions => actions.setTooltipAppointmentMeta());
-    expect(setAppointmentMeta)
-      .toBeCalled();
-  });
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'appointment')
+      .props().children();
 
-  it('should provide toggleTooltipVisibility action', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-        <AppointmentTooltip
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(AppointmentTooltip).instance().state.visible)
-      .toEqual(undefined);
-    executeComputedAction(tree, actions => actions.toggleTooltipVisibility());
-    expect(tree.find(AppointmentTooltip).instance().state.visible)
-      .toEqual(true);
+    expect(templatePlaceholder.props.params.onClick)
+      .toEqual(expect.any(Function));
   });
 });

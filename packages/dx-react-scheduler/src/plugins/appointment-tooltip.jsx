@@ -5,7 +5,6 @@ import {
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
 import {
@@ -50,6 +49,10 @@ export class AppointmentTooltip extends React.PureComponent {
       .bind(stateHelper, 'visible', toggleVisibility);
     this.setAppointmentMeta = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentMeta', setAppointmentMeta);
+    this.onAppointmentClick = ({ target, appointment }) => {
+      this.setAppointmentMeta({ target, appointment });
+      this.toggleVisibility();
+    };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -80,8 +83,6 @@ export class AppointmentTooltip extends React.PureComponent {
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleTooltipVisibility" action={this.toggleVisibility} />
-        <Action name="setTooltipAppointmentMeta" action={this.setAppointmentMeta} />
         <Template name="main">
           <TemplateConnector>
             {({
@@ -109,6 +110,12 @@ export class AppointmentTooltip extends React.PureComponent {
               </React.Fragment>
             )}
           </TemplateConnector>
+        </Template>
+
+        <Template name="appointment">
+          {params => (
+            <TemplatePlaceholder params={{ ...params, onClick: this.onAppointmentClick }} />
+          )}
         </Template>
       </Plugin>
     );

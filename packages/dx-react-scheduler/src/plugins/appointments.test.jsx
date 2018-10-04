@@ -63,30 +63,4 @@ describe('Appointments', () => {
     expect(getStartDate()).toBe('2018-07-06');
     expect(onClick).toBeUndefined();
   });
-
-  it('should pass the onClick handler to appointment', () => {
-    const toggleTooltipVisibilityMock = jest.fn();
-    const setTooltipAppointmentMetaMock = jest.fn();
-    const { onClick } = mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          action: {
-            toggleTooltipVisibility: toggleTooltipVisibilityMock,
-            setTooltipAppointmentMeta: setTooltipAppointmentMetaMock,
-          },
-        })}
-        <Appointments
-          {...defaultProps}
-        />
-      </PluginHost>
-    )).find(Appointment).props();
-    const onClickArgs = { target: 'target', appointment: 'appt' };
-
-    onClick(onClickArgs);
-
-    expect(toggleTooltipVisibilityMock)
-      .toBeCalled();
-    expect(setTooltipAppointmentMetaMock.mock.calls[0][0])
-      .toMatchObject(onClickArgs);
-  });
 });

@@ -13,7 +13,7 @@ describe('AppointmentForm', () => {
     staticSpaceContainer: ({ children }) => <div>{children}</div>,
     dateEditorComponent: () => null,
     textEditorComponent: () => null,
-    buttonComponent: () => null,
+    commandButtonComponent: () => null,
     allDayEditorComponent: () => null,
   };
 
@@ -42,10 +42,27 @@ describe('AppointmentForm', () => {
     ));
 
     expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(true);
+      .toEqual(undefined);
     executeComputedAction(tree, actions => actions.toggleFormVisibility());
     expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(false);
+      .toEqual(true);
+  });
+
+  it('should provide setAppointmentmeta action', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({})}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(AppointmentForm).instance().state.appointment)
+      .toEqual(undefined);
+    executeComputedAction(tree, actions => actions.setFormAppointment({ appointment: { data: 1 } }));
+    expect(tree.find(AppointmentForm).instance().state.appointment)
+      .toEqual({ data: 1 });
   });
 
   it('should render text editor', () => {
@@ -114,7 +131,7 @@ describe('AppointmentForm', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.buttonComponent).at(0).prop('text'))
+    expect(tree.find(defaultProps.commandButtonComponent).at(0).prop('text'))
       .toEqual('Cancel');
   });
 
@@ -128,7 +145,7 @@ describe('AppointmentForm', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.buttonComponent).at(1).prop('text'))
+    expect(tree.find(defaultProps.commandButtonComponent).at(1).prop('text'))
       .toEqual('Save');
   });
 });

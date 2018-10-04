@@ -6,6 +6,9 @@ import {
   Action,
   createStateHelper,
 } from '@devexpress/dx-react-core';
+import {
+  setAppointment,
+} from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   allDayText: 'All Day',
@@ -21,13 +24,15 @@ export class AppointmentForm extends React.PureComponent {
     super(props);
 
     this.state = {
-      visible: props.visible || props.defaultVisible,
+      visible: props.visible,
+      appointment: props.appointment,
     };
 
     const stateHelper = createStateHelper(
       this,
       {
         visible: () => props.onVisibilityChange,
+        appointment: () => props.onAppointmentChange,
       },
     );
 
@@ -37,13 +42,17 @@ export class AppointmentForm extends React.PureComponent {
     };
     this.toggleVisibility = stateHelper.applyFieldReducer
       .bind(stateHelper, 'visible', toggleVisibility);
+    this.setAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointment', setAppointment);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       visible = prevState.visible,
+      appointment = prevState.appointment,
     } = nextProps;
     return {
+      appointment,
       visible,
     };
   }
@@ -57,20 +66,19 @@ export class AppointmentForm extends React.PureComponent {
       popupComponent: Popup,
       dateEditorComponent: DateEditor,
       textEditorComponent: TextEditor,
-      buttonComponent: Button,
-      appointment,
+      commandButtonComponent: CommandButton,
       readOnly,
       messages,
     } = this.props;
     const { visible } = this.state;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-
     return (
       <Plugin
         name="AppointmentForm"
       >
         <Action name="toggleFormVisibility" action={this.toggleVisibility} />
+        <Action name="setFormAppointment" action={this.setAppointment} />
 
         <Popup
           visible={visible}
@@ -78,37 +86,33 @@ export class AppointmentForm extends React.PureComponent {
           <PopupContainer>
             <ScrollableSpace>
               <TextEditor
-                appointment={appointment}
                 readOnly={readOnly}
                 label={getMessage('titleLabel')}
               />
               <DateEditor
-                appointment={appointment}
                 readOnly={readOnly}
                 label={getMessage('startDateLabel')}
-                type="datetime-local"
               />
               <DateEditor
-                appointment={appointment}
                 readOnly={readOnly}
                 label={getMessage('endDateLabel')}
-                type="datetime-local"
               />
               <AllDayEditor
                 text={getMessage('allDayText')}
-                appointment={appointment}
               />
             </ScrollableSpace>
             <StaticSpace>
-              <Button
+              <CommandButton
                 text={getMessage('cancelCommand')}
                 readOnly={readOnly}
-                appointment={appointment}
+                onExecute={this.toggleVisibility}
+                id="cancel"
               />
-              <Button
+              <CommandButton
                 text={getMessage('commitCommand')}
                 readOnly={readOnly}
-                appointment={appointment}
+                onExecute={this.toggleVisibility}
+                id="commit"
               />
             </StaticSpace>
           </PopupContainer>
@@ -122,16 +126,16 @@ AppointmentForm.propTypes = {
   popupComponent: PropTypes.func.isRequired,
   dateEditorComponent: PropTypes.func.isRequired,
   textEditorComponent: PropTypes.func.isRequired,
-  buttonComponent: PropTypes.func.isRequired,
+  commandButtonComponent: PropTypes.func.isRequired,
   allDayEditorComponent: PropTypes.func.isRequired,
   popupContainer: PropTypes.func.isRequired,
   scrollableSpaceContainer: PropTypes.func.isRequired,
   staticSpaceContainer: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
-  defaultVisible: PropTypes.bool,
   appointment: PropTypes.object,
   onVisibilityChange: PropTypes.func,
+  onAppointmentChange: PropTypes.func,
   messages: PropTypes.shape({
     allDayText: PropTypes.string,
     titleLabel: PropTypes.string,
@@ -145,9 +149,9 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  defaultVisible: true,
-  appointment: {},
+  appointment: undefined,
   onVisibilityChange: () => undefined,
+  onAppointmentChange: () => undefined,
   messages: {},
 };
 
@@ -156,7 +160,7 @@ AppointmentForm.components = {
   containerComponent: 'Container',
   dateEditorComponent: 'DateEditor',
   textEditorComponent: 'TextEditor',
-  buttonComponent: 'Button',
+  commandButtonComponent: 'CommandButton',
   allDayEditorComponent: 'AllDayEditor',
   popupContainer: 'PopupContainer',
   scrollableSpaceContainer: 'ScrollableSpace',

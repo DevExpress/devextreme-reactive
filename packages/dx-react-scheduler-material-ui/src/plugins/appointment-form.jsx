@@ -1,7 +1,7 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { AppointmentForm as AppointmentFormBase } from '@devexpress/dx-react-scheduler';
 import { Popup } from '../templates/appointment-form/popup';
-import { Button } from '../templates/appointment-form/button';
+import { CommandButton } from '../templates/appointment-form/command-button';
 import { TextEditor } from '../templates/appointment-form/text-editor';
 import { DateEditor } from '../templates/appointment-form/date-editor';
 import { AllDayEditor } from '../templates/appointment-form/all-day-editor';
@@ -11,7 +11,7 @@ import { StaticSpace } from '../templates/appointment-form/static-space';
 
 export const AppointmentForm = withComponents({
   Popup,
-  Button,
+  CommandButton,
   TextEditor,
   DateEditor,
   AllDayEditor,

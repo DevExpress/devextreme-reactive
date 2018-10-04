@@ -27,7 +27,7 @@ const getRenderProps = (series) => {
     symbolName,
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    calculateCoordinates,
+    getPointTransformer,
     ...restProps
   } = series;
 
@@ -38,7 +38,7 @@ export const withSeriesPlugin = (
   Series,
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
-  calculateCoordinates,
+  getPointTransformer,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -46,7 +46,7 @@ export const withSeriesPlugin = (
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
         ...this.props,
-        calculateCoordinates,
+        getPointTransformer,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
       });
@@ -57,6 +57,7 @@ export const withSeriesPlugin = (
             <TemplatePlaceholder />
             <TemplateConnector>
               {({
+                getSeriesPoints,
                 series,
                 scales,
                 stacks,
@@ -64,16 +65,13 @@ export const withSeriesPlugin = (
                 scaleExtension,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-                const coordinates = currentSeries.calculateCoordinates(
-                  data,
-                  {
-                    xScale: scales[ARGUMENT_DOMAIN],
-                    yScale: scales[getValueDomainName(currentSeries.axisName)],
+                const coordinates = getSeriesPoints(
+                  currentSeries, data, {
+                    argumentScale: scales[ARGUMENT_DOMAIN],
+                    valueScale: scales[getValueDomainName(currentSeries.axisName)],
                   },
-                  currentSeries,
                   // TODO: The following are BarSeries specifics - remove them.
-                  stacks,
-                  scaleExtension,
+                  stacks, scaleExtension,
                 );
                 const props = getRenderProps(currentSeries);
                 return (

@@ -7,7 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { scaleOrdinal } from 'd3-scale';
+import { scaleIdentity, scaleOrdinal } from 'd3-scale';
 import { createScale, getWidth, setScalePadding } from '../../utils/scale';
 
 const getX = ({ x }) => x;
@@ -30,13 +30,21 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-const getSeriesPoints = (series, dataItems, transformPoint = x => x) => {
+// Default scales are provided because this function is called to get legend source
+// where coordinates are not required and hence scales are not available.
+// TODO: Is there a way to improve it?
+// `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
+// TODO: Remove `...args` when Bar case is resolved.
+export const getSeriesPoints = (
+  series, data, scales = { argumentScale: scaleIdentity(), valueScale: scaleIdentity() }, ...args
+) => {
   const points = [];
-  dataItems.forEach((dataItem, index) => {
+  const transform = series.getPointTransformer(series, scales, data, ...args);
+  data.forEach((dataItem, index) => {
     const argument = dataItem[series.argumentField];
     const value = dataItem[series.valueField];
     if (argument !== undefined && value !== undefined) {
-      points.push(transformPoint({
+      points.push(transform({
         argument,
         value,
         index,
@@ -46,15 +54,15 @@ const getSeriesPoints = (series, dataItems, transformPoint = x => x) => {
   return points;
 };
 
-export const pieAttributes = (data, { xScale, yScale }, series) => {
+export const getPiePointTransformer = (series, { argumentScale, valueScale }, data) => {
   const { innerRadius = 0, outerRadius = 1, valueField } = series;
-  const x = Math.max(...xScale.range()) / 2;
-  const y = Math.max(...yScale.range()) / 2;
+  const x = Math.max(...argumentScale.range()) / 2;
+  const y = Math.max(...valueScale.range()) / 2;
   const radius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d[valueField])(data);
   const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
   const colorScale = scaleOrdinal().range(series.palette);
-  return getSeriesPoints(series, data, ({ argument, value, index }) => {
+  return ({ argument, value, index }) => {
     const { startAngle, endAngle } = pieData[index];
     return {
       d: gen.startAngle(startAngle).endAngle(endAngle)(),
@@ -64,27 +72,19 @@ export const pieAttributes = (data, { xScale, yScale }, series) => {
       x,
       y,
     };
-  });
+  };
 };
 
-export const coordinates = (
-  data,
-  { xScale, yScale },
-  { argumentField, valueField },
-) => {
-  const y1 = yScale(0);
-  return data.reduce((result, dataItem, index) => {
-    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
-      return [...result, {
-        x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
-        y: yScale(dataItem[valueField]),
-        y1,
-        id: index,
-        value: dataItem[valueField],
-      }];
-    }
-    return result;
-  }, []);
+export const getAreaPointTransformer = (series, { argumentScale, valueScale }) => {
+  const y1 = valueScale(0);
+  const offset = getWidth(argumentScale) / 2;
+  return ({ argument, value, index }) => ({
+    x: argumentScale(argument) + offset,
+    y: valueScale(value),
+    y1,
+    id: index,
+    value,
+  });
 };
 
 // TODO: Take group settings from *series*; move settings calculation to Stack plugin
@@ -106,19 +106,21 @@ const getGroupSettings = (series, argumentScale, stacks, scaleExtension) => {
   };
 };
 
-export const barCoordinates = (
-  data, { xScale, yScale }, series, stacks = [undefined], scaleExtension,
+export const getBarPointTransformer = (
+  series, { argumentScale, valueScale }, data, stacks = [undefined], scaleExtension,
 ) => {
-  const y1 = yScale.range()[0];
-  const { groupWidth, groupOffset } = getGroupSettings(series, xScale, stacks, scaleExtension);
-  return getSeriesPoints(series, data, ({ argument, value, index }) => ({
-    x: xScale(argument) + groupOffset,
-    y: yScale(value),
+  const y1 = valueScale(0);
+  const { groupWidth, groupOffset } = getGroupSettings(
+    series, argumentScale, stacks, scaleExtension,
+  );
+  return ({ argument, value, index }) => ({
+    x: argumentScale(argument) + groupOffset,
+    y: valueScale(value),
     y1,
     id: index,
     value,
     width: groupWidth,
-  }));
+  });
 };
 
 export const findSeriesByName = (

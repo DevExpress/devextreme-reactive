@@ -43,6 +43,11 @@ x | number | The slice's x coordinate.
 y | number | The slice's y coordinate.
 d | string | The slice's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
 value | number | The slice's value.
+color | string | Series color.
+style | object | Series styles.
+startCoords | {x: number, y: number} | Coordinates of the start position for drawing series.
+animation | (item: {x: number, y: number, index: number}, startCoords: {x: number, y: number}) => object | A function returns animation options and keyframes.
+prepareAnimation | (options: object) => string | A function that gets animation options and keyframes, create style for animation and return it.
 
 ## Plugin Components
 

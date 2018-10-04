@@ -47,6 +47,11 @@ y | number | The bar's y coordinate.
 width | number | The bar width.
 height | number | The bar height.
 value | number | The bar's value.
+color | string | Series color.
+style | object | Series styles.
+startCoords | {x: number, y: number} | Coordinates of the start position for drawing series.
+animation | (item: {x: number, y: number, index: number}, startCoords: {x: number, y: number}) => object | A function returns animation options and keyframes.
+prepareAnimation | (options: object) => string | A function that gets animation options and keyframes, create style for animation and return it.
 
 ## Plugin Components
 

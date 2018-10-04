@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -86,6 +86,7 @@ class Demo extends React.PureComponent {
             argumentField="country"
             color="#cd7f32"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Olimpic Medals in 2008" className={classes.title} />
           <Stack />

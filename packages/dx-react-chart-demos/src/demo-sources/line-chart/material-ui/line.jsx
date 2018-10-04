@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
@@ -117,6 +117,7 @@ class Demo extends React.PureComponent {
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
             className={classes.title}
           />
+          <Animation />
           <Scale />
         </Chart>
       </Paper>

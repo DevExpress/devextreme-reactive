@@ -11,7 +11,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   line,
   curveStep,
@@ -23,7 +23,7 @@ import { australianMedals as data } from '../../../demo-data/data-vizualization'
 
 const Point = (props) => {
   const {
-    x, y, value, color,
+    x, y, value, color, style,
   } = props;
   if (value) {
     return (
@@ -31,11 +31,17 @@ const Point = (props) => {
         fill={color}
         transform={`translate(${x} ${y})`}
         d={symbol().size([10 ** 2]).type(symbolCircle)()}
+        style={style}
       />
     );
   }
   return null;
 };
+
+const pointAnimation = () => ({
+  options: '1s',
+  keyframes: '0% {opacity: 0} 90% {opacity: 0} 100% {opacity: 1}',
+});
 
 const LineWithPoint = props => (
   <React.Fragment>
@@ -47,7 +53,7 @@ const LineWithPoint = props => (
         .y(({ y }) => y)
         .curve(curveStep)}
     />
-    <ScatterSeries.Path {...props} pointComponent={Point} />
+    <ScatterSeries.Path {...props} {...{ animation: pointAnimation }} pointComponent={Point} />
   </React.Fragment>
 );
 
@@ -125,6 +131,7 @@ class Demo extends React.PureComponent {
             color="#ffd700"
             seriesComponent={LineWithPoint}
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Australian Medal Count" className={classes.title} />
           <Scale />

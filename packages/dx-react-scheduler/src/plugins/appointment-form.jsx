@@ -8,6 +8,8 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
+  COMMIT_COMMAND_BUTTON,
+  CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
@@ -106,13 +108,13 @@ export class AppointmentForm extends React.PureComponent {
                 text={getMessage('cancelCommand')}
                 readOnly={readOnly}
                 onExecute={this.toggleVisibility}
-                id="cancel"
+                id={CANCEL_COMMAND_BUTTON}
               />
               <CommandButton
                 text={getMessage('commitCommand')}
                 readOnly={readOnly}
                 onExecute={this.toggleVisibility}
-                id="commit"
+                id={COMMIT_COMMAND_BUTTON}
               />
             </StaticSpace>
           </PopupContainer>

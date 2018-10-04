@@ -6,6 +6,7 @@ describe('Appointment Form', () => {
   const defaultProps = {
     text: 'text',
     onExecute: jest.fn(),
+    id: 'id',
   };
   let shallow;
   beforeAll(() => {

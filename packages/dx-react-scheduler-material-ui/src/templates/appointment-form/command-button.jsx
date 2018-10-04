@@ -22,6 +22,7 @@ export const CommandButton = ({
 CommandButton.propTypes = {
   text: PropTypes.string.isRequired,
   onExecute: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
 };
 

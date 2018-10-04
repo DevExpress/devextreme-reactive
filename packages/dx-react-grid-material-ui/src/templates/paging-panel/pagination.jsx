@@ -62,7 +62,7 @@ const PageButton = ({
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}
-      disableRipple={isActive}
+      {...isActive ? { tabIndex: -1 } : null}
     >
       {text}
     </Button>

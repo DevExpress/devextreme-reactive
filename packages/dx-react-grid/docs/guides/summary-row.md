@@ -51,7 +51,7 @@ The `IntegratedSummary` plugin allows you to extend the built-in summary types (
 
 .embedded-demo({ "path": "grid-summary/custom-algorithm", "showThemeSelector": true })
 
-## Avoiding Summary Formatting
+## Summary Formatting Prevention
 
 If a `DataTypeProvider` plugin is assigned to a column, its value formatting component is applied to a summary row. Use the `formattlessSummaryTypes` property to specify summary types that should not be formatted. The following example shows a custom `overprice` summary type that is not formatted:
 

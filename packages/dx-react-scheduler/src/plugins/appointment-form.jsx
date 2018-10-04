@@ -62,7 +62,7 @@ export class AppointmentForm extends React.PureComponent {
   render() {
     const {
       allDayEditorComponent: AllDayEditor,
-      containerComponent: PopupContainer,
+      containerComponent: Container,
       scrollableSpaceContainer: ScrollableSpace,
       staticSpaceContainer: StaticSpace,
       popupComponent: Popup,
@@ -85,7 +85,7 @@ export class AppointmentForm extends React.PureComponent {
         <Popup
           visible={visible}
         >
-          <PopupContainer>
+          <Container>
             <ScrollableSpace>
               <TextEditor
                 readOnly={readOnly}
@@ -117,7 +117,7 @@ export class AppointmentForm extends React.PureComponent {
                 id={COMMIT_COMMAND_BUTTON}
               />
             </StaticSpace>
-          </PopupContainer>
+          </Container>
         </Popup>
       </Plugin>
     );
@@ -150,7 +150,7 @@ AppointmentForm.propTypes = {
 
 AppointmentForm.defaultProps = {
   readOnly: false,
-  visible: undefined,
+  visible: true,
   appointment: undefined,
   onVisibilityChange: () => undefined,
   onAppointmentChange: () => undefined,

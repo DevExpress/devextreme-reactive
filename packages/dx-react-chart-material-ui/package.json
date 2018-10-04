@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-chart-material-ui",
-  "version": "1.8.0-beta.1",
+  "version": "1.8.0",
   "description": "Material UI templates for DevExtreme React Chart component",
   "author": {
     "name": "Developer Express Inc.",
@@ -43,8 +43,8 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-react-core": "1.8.0-beta.1",
-    "@devexpress/dx-testing": "1.8.0-beta.1",
+    "@devexpress/dx-react-core": "1.8.0",
+    "@devexpress/dx-testing": "1.8.0",
     "@material-ui/core": "^3.1.2",
     "@material-ui/icons": "^3.0.1",
     "babel-core": "^6.26.3",

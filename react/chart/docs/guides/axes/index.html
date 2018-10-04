@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +48,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -72,7 +72,9 @@
 <ul>
   <li><code class="highlighter-rouge">ArgumentAxis</code> - renders an argument axis</li>
   <li><code class="highlighter-rouge">ValueAxis</code> - renders a value axis</li>
-  <li><code class="highlighter-rouge">Grid</code> - renders vertical or horizontal grid lines</li>
+  <li><code class="highlighter-rouge">ArgumentGrid</code> - renders grid lines for an argument axis</li>
+  <li><code class="highlighter-rouge">ValueGrid</code> - renders grid lines for a value axis</li>
+  <li><code class="highlighter-rouge">Scale</code> - processes data</li>
 </ul>
 
 <h2 id="basic-setup">Basic Setup</h2>
@@ -81,17 +83,27 @@
 
 <h2 id="axis-types">Axis Types</h2>
 
-<p>The default axis type is linear which is sutable for numeric data. The following example illustrates this axis type:</p>
+<p>The default axis type is linear. It is sutable for numeric data. The following example shows a Grid with a linear axis:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/default-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1535731146&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/default-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<p>The band axis type is used to display string values. To apply it, set the axis’ <code class="highlighter-rouge">type</code> property to <code class="highlighter-rouge">"band"</code> as demonstrated in the following example:</p>
+<p>The band axis type is used to display string values. Set the axis’ <code class="highlighter-rouge">type</code> property to <code class="highlighter-rouge">"band"</code> as demonstrated in the following example to use a band axis:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/band-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1535731146&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/band-axis&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1538652338&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="custom-axis-types">Custom Axis Types</h2>
+
+<p>You can also use custom axis types. For this, assign an array of scale configuration objects to the <code class="highlighter-rouge">Scale</code> plugin’s <code class="highlighter-rouge">extensions</code> property. The following example demonstrates how to use a logarithmic scale with d3 plugins:</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/logarithm&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -107,9 +119,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -165,6 +177,30 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -235,7 +271,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/pie-series/">PieSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
           
 
         
@@ -316,7 +368,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -336,7 +388,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -368,7 +420,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

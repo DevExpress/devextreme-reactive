@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -65,7 +65,22 @@
 
 <p>Virtual scrolling allows the Grid component to display thousands of records on a single page. You can use this feature as an alternative to paging.</p>
 
-<p><em>Browser Support Note:</em> Virtual scrolling does not work in Android Browser/WebView for Android &lt; 5.0 and Internet Explorer because it requires the browser to support <code class="highlighter-rouge">position: sticky</code>.</p>
+<p><strong>Browser Support Notes:</strong></p>
+
+<ul>
+  <li>The following browsers do not support virtual scrolling because they do not support <code class="highlighter-rouge">position: sticky</code>:
+    <ul>
+      <li>Android Browser before 5.0</li>
+      <li>WebView for Android before 5.0</li>
+      <li>Internet Explorer</li>
+    </ul>
+  </li>
+  <li>Currently, there is an issue with virtual scrolling in Microsoft Edge:
+    <ul>
+      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18769340/">sticky elements flicker on scroll</a></li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="related-plugins">Related Plugins</h2>
 
@@ -81,7 +96,7 @@
 
 <p>The following example demonstrates the basic Grid with virtual scrolling:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/row-virtualization&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1535731146&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/row-virtualization&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -89,7 +104,7 @@
 
 <p>The Grid also supports column virtualization, which is demonstrated in the following demo:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/column-virtualization&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1535731146&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/column-virtualization&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -99,7 +114,7 @@
 
 <p>If the Grid should have the same size as the container element, set the <code class="highlighter-rouge">VirtualTable</code> plugin’s <code class="highlighter-rouge">height</code> property to “auto” and the Grid element’s style setting to <code class="highlighter-rouge">height: 100%</code>.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/stretching-to-parent-element&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1535731146&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-virtual-scrolling/stretching-to-parent-element&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -115,9 +130,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -269,6 +284,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
           
 
         
@@ -603,6 +626,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
@@ -708,7 +739,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -760,7 +791,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

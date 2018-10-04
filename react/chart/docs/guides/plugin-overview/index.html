@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +48,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -63,11 +63,24 @@
     <div class="col-sm-9 col-sm-push-3 docs-content">
         <h1 id="react-chart---plugin-overview">React Chart - Plugin Overview</h1>
 
-<p>The Chart component visualizes data specified via the <code class="highlighter-rouge">data</code> property using plugins. These components implement particular features and should be defined within the Chart component.</p>
+<p>The Chart component visualizes data specified via the <code class="highlighter-rouge">data</code> property using plugin components. These components implement particular features and should be defined within the Chart component.</p>
 
-<p>The React Chart includes only the UI plugins that render specific UI elements using the provided data.</p>
+<p>The React Chart supports the following plugin types:</p>
 
-<p>The following plugins render a corresponding series:</p>
+<ul>
+  <li>
+    <p><strong>UI plugins</strong>
+ Render UI elements using the provided data.</p>
+  </li>
+  <li>
+    <p><strong>Data processing plugins</strong>
+ Transform data passed to the Chart component.</p>
+  </li>
+</ul>
+
+<h2 id="ui-plugins">UI Plugins</h2>
+
+<p>The following plugins render series:</p>
 
 <ul>
   <li><code class="highlighter-rouge">LineSeries</code></li>
@@ -78,25 +91,37 @@
   <li><code class="highlighter-rouge">PieSeries</code></li>
 </ul>
 
-<p>The plugins below render extra elements like a grid, legend, axes, etc.</p>
+<p>The following plugins render additional elements:</p>
 
 <ul>
   <li><code class="highlighter-rouge">ArgumentAxis</code> - renders an argument axis</li>
   <li><code class="highlighter-rouge">ValueAxis</code> - renders a value axis</li>
-  <li><code class="highlighter-rouge">Grid</code> - renders a grid</li>
+  <li><code class="highlighter-rouge">ArgumentGrid</code> - renders an argument grid</li>
+  <li><code class="highlighter-rouge">ValueGrid</code> - renders a value grid</li>
   <li><code class="highlighter-rouge">Legend</code> - renders a legend</li>
   <li><code class="highlighter-rouge">Title</code> - renders a title</li>
 </ul>
 
-<p>The plugin order is important because plugins are rendered in the same order they are defined in the Chart component. For example, if the <code class="highlighter-rouge">BarSeries</code> plugin precedes the <code class="highlighter-rouge">LineSeries</code>, the line series overlays the bar series.</p>
+<h2 id="data-processing-plugins">Data Processing Plugins</h2>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1535731146&quot;}">
+<ul>
+  <li><code class="highlighter-rouge">Scale</code> - extends user data with service information that is required to render axes and series</li>
+  <li><code class="highlighter-rouge">Stack</code> - transforms user data to display series points side-by-side or one under another other</li>
+</ul>
+
+<h2 id="plugin-order">Plugin Order</h2>
+
+<p>The plugin order is important. UI plugins are rendered in the same order as they are defined in the Chart component. For example, if the <code class="highlighter-rouge">BarSeries</code> plugin precedes the <code class="highlighter-rouge">LineSeries</code>, the line series overlays the bar series.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1538652338&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
         </div>
 
-<p>The Chart’s plugins use special components to render the UI. You can implement your component suite or use a predefined one:</p>
+<p>Note that the data processing plugin <code class="highlighter-rouge">Scale</code> should be defined after series and axes plugins because it requires options defined in these plugins for correct work.</p>
+
+<p>The Chart’s plugins use special components to render the UI. You can implement your component suite or use a predefined suite:</p>
 
 <ul>
   <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui">DevExtreme React Chart for Material UI</a> - renders the Chart’s UI elements based on <a href="http://www.material-ui.com">Material UI</a> components.</li>
@@ -113,9 +138,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -171,6 +196,30 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -241,7 +290,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/pie-series/">PieSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
           
 
         
@@ -322,7 +387,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -342,7 +407,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -374,7 +439,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

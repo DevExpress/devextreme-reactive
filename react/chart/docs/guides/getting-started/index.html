@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +48,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -122,7 +122,7 @@
 
 <h2 id="using-the-chart-component">Using the Chart Component</h2>
 
-<p>The Chart component renders nothing by default; plugins implement all its functionality. To create a simple chart, add one of the <a href="/devextreme-reactive/react/chart/docs/guides/series/"><code class="highlighter-rouge">*Series</code> plugins</a> (for example, <code class="highlighter-rouge">LineSeries</code>) to draw a series and the <code class="highlighter-rouge">ArgumentAxis</code> and <code class="highlighter-rouge">ValueAxis</code> plugins to add the axes:</p>
+<p>The Chart component’s functionality is implemented in plugins. You need a <a href="/devextreme-reactive/react/chart/docs/guides/series/">series</a> plugin and the <code class="highlighter-rouge">ArgumentAxis</code>, <code class="highlighter-rouge">ValuesAxis</code>, and <code class="highlighter-rouge">Scale</code> plugins to draw a simple chart. The following code shows how to configure a simple line chart:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Chart</span><span class="p">,</span> <span class="nx">ArgumentAxis</span><span class="p">,</span> <span class="nx">ValueAxis</span><span class="p">,</span> <span class="nx">LineSeries</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"@devexpress/dx-react-chart-material-ui"</span><span class="p">;</span>
 <span class="c1">// import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-bootstrap4";</span>
@@ -138,6 +138,7 @@
       <span class="p">&lt;</span><span class="nc">ArgumentAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">ValueAxis</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nc">LineSeries</span> <span class="na">valueField=</span><span class="s2">"value"</span> <span class="na">argumentField=</span><span class="s2">"argument"</span> <span class="p">/&gt;</span>
+      <span class="p">&lt;</span><span class="nc">Scale</span> <span class="p">/&gt;</span>
     <span class="p">&lt;/</span><span class="nc">Chart</span><span class="p">&gt;</span>
 <span class="p">);</span>
 
@@ -166,9 +167,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -224,6 +225,30 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -294,7 +319,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/pie-series/">PieSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
           
 
         
@@ -375,7 +416,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -395,7 +436,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -427,7 +468,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -118,6 +118,30 @@
       <td>A component that renders a header row.</td>
     </tr>
     <tr>
+      <td>contentComponent</td>
+      <td>ComponentType&lt;<a href="#tableheaderrowcontentprops">TableHeaderRow.ContentProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a header cell’s content.</td>
+    </tr>
+    <tr>
+      <td>sortLabelComponent</td>
+      <td>ComponentType&lt;<a href="#tableheaderrowsortlabelprops">TableHeaderRow.SortLabelProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a sort label.</td>
+    </tr>
+    <tr>
+      <td>titleComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders a title.</td>
+    </tr>
+    <tr>
+      <td>groupButtonComponent</td>
+      <td>ComponentType&lt;<a href="#tableheaderrowgroupbuttonprops">TableHeaderRow.GroupButtonProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group button.</td>
+    </tr>
+    <tr>
       <td>showSortingControls?</td>
       <td>boolean</td>
       <td>false</td>
@@ -158,52 +182,32 @@
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A column object associated with a header cell.</td>
-    </tr>
-    <tr>
-      <td>showSortingControls</td>
-      <td>boolean</td>
-      <td>Specifies whether to render controls that toggle the column’s sorting state.</td>
-    </tr>
-    <tr>
-      <td>sortingEnabled</td>
-      <td>boolean</td>
-      <td>Specifies whether sorting by a column is enabled.</td>
-    </tr>
-    <tr>
-      <td>sortingDirection?</td>
-      <td>‘asc’ | ‘desc’</td>
-      <td>Specifies the associated column’s sorting direction.</td>
-    </tr>
-    <tr>
-      <td>onSort</td>
-      <td>(parameters: { direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean }) =&gt; void</td>
-      <td>An event that initiates changing the column sorting direction. Keeps the current sorting state if <code class="highlighter-rouge">keepOther</code> is set to true. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
+      <td>A column object associated with the header cell.</td>
     </tr>
     <tr>
       <td>showGroupingControls</td>
       <td>boolean</td>
-      <td>Specifies whether to display a button that groups data by column.</td>
+      <td><strong>@deprecated</strong> <br /> Specifies whether to display a button that groups data by the column.</td>
     </tr>
     <tr>
       <td>groupingEnabled</td>
       <td>boolean</td>
-      <td>Specifies whether grouping by a column is enabled.</td>
+      <td><strong>@deprecated</strong> <br /> Specifies whether grouping by the column is enabled.</td>
     </tr>
     <tr>
       <td>onGroup</td>
       <td>() =&gt; void</td>
-      <td>An event that invokes grouping by the associated column.</td>
+      <td><strong>@deprecated</strong> <br /> An event that invokes grouping by the column.</td>
     </tr>
     <tr>
       <td>resizingEnabled</td>
       <td>boolean</td>
-      <td>Specifies whether table column resizing is enabled.</td>
+      <td>Specifies whether the column’s resizing is enabled.</td>
     </tr>
     <tr>
       <td>onWidthChange</td>
       <td>(parameters: { shift: number }) =&gt; void</td>
-      <td>An event that initiates column width changing. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative.</td>
+      <td>An event that initiates the column width change. The initial column width increases by the <code class="highlighter-rouge">shift</code> value or decreases if <code class="highlighter-rouge">shift</code> is negative.</td>
     </tr>
     <tr>
       <td>onWidthDraft</td>
@@ -213,7 +217,7 @@
     <tr>
       <td>onWidthDraftCancel</td>
       <td>() =&gt; void</td>
-      <td>An event that cancels changes of column width used for preview.</td>
+      <td>An event that cancels the column width change used for preview.</td>
     </tr>
     <tr>
       <td>draggingEnabled</td>
@@ -223,7 +227,140 @@
     <tr>
       <td>getMessage</td>
       <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
-      <td>Returns the text displayed in a sorting control within the header cell.</td>
+      <td>Returns the sort label’s text.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>The header cell’s children.</td>
+    </tr>
+    <tr>
+      <td>showSortingControls</td>
+      <td>boolean</td>
+      <td><strong>@deprecated</strong> <br /> Specifies whether to render controls that toggle the column’s sorting state.</td>
+    </tr>
+    <tr>
+      <td>sortingEnabled</td>
+      <td>boolean</td>
+      <td><strong>@deprecated</strong> <br /> Specifies whether sorting by the column is enabled.</td>
+    </tr>
+    <tr>
+      <td>sortingDirection?</td>
+      <td>‘asc’ | ‘desc’</td>
+      <td><strong>@deprecated</strong> <br /> Specifies the column’s sorting direction.</td>
+    </tr>
+    <tr>
+      <td>onSort</td>
+      <td>(parameters: { direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean }) =&gt; void</td>
+      <td><strong>@deprecated</strong> <br /> An event that invokes a sorting direction change. Keeps the current sorting state if <code class="highlighter-rouge">keepOther</code> is set to true. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tableheaderrowsortlabelprops">TableHeaderRow.SortLabelProps</h3>
+
+<p>Describes properties used to render a sort label.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column object associated with the sort label.</td>
+    </tr>
+    <tr>
+      <td>align</td>
+      <td>string</td>
+      <td>The sort label alignment.</td>
+    </tr>
+    <tr>
+      <td>direction</td>
+      <td>‘asc’ | ‘desc’</td>
+      <td>The sorting direction.</td>
+    </tr>
+    <tr>
+      <td>onSort</td>
+      <td>(parameters: { direction?: ‘asc’ | ‘desc’ | null, keepOther?: boolean }) =&gt; void</td>
+      <td>An event that invokes a sorting direction change. Keeps the current sorting state if <code class="highlighter-rouge">keepOther</code> is set to true. Cancels sorting by the current column if <code class="highlighter-rouge">direction</code> is set to null.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the sort label is disabled.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>Returns the sort label’s text.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>The sort label’s children.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tableheaderrowcontentprops">TableHeaderRow.ContentProps</h3>
+
+<p>Describes properties used to render a cell content.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>A column object associated with the cell content.</td>
+    </tr>
+    <tr>
+      <td>align</td>
+      <td>string</td>
+      <td>The content alignment.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>The content’s children.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tableheaderrowgroupbuttonprops">TableHeaderRow.GroupButtonProps</h3>
+
+<p>Describes properties used to render a group button.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>disabled</td>
+      <td>string</td>
+      <td>Specifies whether the group button is disabled.</td>
+    </tr>
+    <tr>
+      <td>onGroup</td>
+      <td>() =&gt; void</td>
+      <td>An event that invokes grouping by the associated column.</td>
     </tr>
   </tbody>
 </table>
@@ -270,10 +407,49 @@
       <td><a href="#tableheaderrowcellprops">TableHeaderRow.CellProps</a></td>
       <td>A component that renders a header cell.</td>
     </tr>
+    <tr>
+      <td>TableHeaderRow.Content</td>
+      <td><a href="#tableheaderrowcontentprops">TableHeaderRow.ContentProps</a></td>
+      <td>A component that renders a cell content.</td>
+    </tr>
+    <tr>
+      <td>TableHeaderRow.SortLabel</td>
+      <td><a href="#tableheaderrowsortlabelprops">TableHeaderRow.SortLabelProps</a></td>
+      <td>A component that renders a sort label.</td>
+    </tr>
+    <tr>
+      <td>TableHeaderRow.Title</td>
+      <td>object</td>
+      <td>A component that renders a title.</td>
+    </tr>
+    <tr>
+      <td>TableHeaderRow.GroupButton</td>
+      <td><a href="#tableheaderrowgroupbuttonprops">TableHeaderRow.GroupButtonProps</a></td>
+      <td>A component that renders a group button.</td>
+    </tr>
   </tbody>
 </table>
 
 <p>Additional properties are added to the component’s root element.</p>
+
+<h2 id="static-fields">Static Fields</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ROW_TYPE</td>
+      <td>symbol</td>
+      <td>The header row type’s identifier.</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -413,9 +589,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -567,6 +743,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
           
 
         
@@ -901,6 +1085,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
@@ -1006,7 +1198,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -1058,7 +1250,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

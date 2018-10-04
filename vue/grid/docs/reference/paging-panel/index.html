@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -144,6 +144,11 @@
       <td>Specifies the current page.</td>
     </tr>
     <tr>
+      <td>totalCount</td>
+      <td>number</td>
+      <td>Specifies the total row count.</td>
+    </tr>
+    <tr>
       <td>pageSize</td>
       <td>number</td>
       <td>Specifies the page size.</td>
@@ -155,7 +160,7 @@
     </tr>
     <tr>
       <td>getMessage</td>
-      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string, parameters?: { from: number, to: number, count: number }) =&gt; string</td>
       <td>Returns the paging panel’s text.</td>
     </tr>
   </tbody>
@@ -298,9 +303,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -771,7 +776,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/vue/grid/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/vue/grid/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -823,7 +828,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

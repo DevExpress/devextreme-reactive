@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -48,7 +48,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -67,7 +67,7 @@
 
 <h2 id="import">Import</h2>
 
-<p>Use the following statement to import the plugin:</p>
+<p>Use the following statement to import a plugin:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ArgumentAxis</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-chart-material-ui'</span><span class="p">;</span>
 <span class="c1">// import { ArgumentAxis } from '@devexpress/dx-react-chart-bootstrap4';</span>
@@ -119,14 +119,20 @@
     <tr>
       <td>type?</td>
       <td>‘band’ | ‘linear’</td>
-      <td> </td>
+      <td>‘linear’</td>
       <td>Axis type.</td>
+    </tr>
+    <tr>
+      <td>tickFormat?</td>
+      <td>(scale: <a href="/devextreme-reactive/react/chart/docs/reference/scale/#scaleobject">ScaleObject</a>) =&gt; (tick: string) =&gt; string</td>
+      <td> </td>
+      <td>A function that returns a tick formatter function.</td>
     </tr>
     <tr>
       <td>rootComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxisrootprops">ArgumentAxis.RootProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis root layout.</td>
+      <td>A component that renders the axis’s root layout.</td>
     </tr>
     <tr>
       <td>tickComponent</td>
@@ -138,13 +144,13 @@
       <td>labelComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxislabelprops">ArgumentAxis.LabelProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis label.</td>
+      <td>A component that renders the axis’s label.</td>
     </tr>
     <tr>
       <td>lineComponent</td>
       <td>ComponentType&lt;<a href="#argumentaxislineprops">ArgumentAxis.LineProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders the axis line.</td>
+      <td>A component that renders the axis’s line.</td>
     </tr>
   </tbody>
 </table>
@@ -153,7 +159,7 @@
 
 <h3 id="argumentaxisrootprops">ArgumentAxis.RootProps</h3>
 
-<p>Describes properties passed to a component that renders the axis root layout.</p>
+<p>Describes properties passed to a component that renders the axis’s root layout.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -167,7 +173,7 @@
     <tr>
       <td>x</td>
       <td>number</td>
-      <td>The x coordinate of the top left corner of the axis’ rendering area.</td>
+      <td>The x coordinate of the top left corner of the axis’s rendering area.</td>
     </tr>
     <tr>
       <td>y</td>
@@ -220,7 +226,7 @@
 
 <h3 id="argumentaxislabelprops">ArgumentAxis.LabelProps</h3>
 
-<p>Describes properties passed to a component that renders the axis label.</p>
+<p>Describes properties passed to a component that renders the axis’s label.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -261,7 +267,7 @@
 
 <h3 id="argumentaxislineprops">ArgumentAxis.LineProps</h3>
 
-<p>Describes properties passed to a component that renders the axis line.</p>
+<p>Describes properties passed to a component that renders the axis’s line.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -304,7 +310,7 @@
     <tr>
       <td>ArgumentAxis.Root</td>
       <td><a href="#argumentaxisrootprops">ArgumentAxis.RootProps</a></td>
-      <td>A component that renders the axis root layout.</td>
+      <td>A component that renders the axis’s root layout.</td>
     </tr>
     <tr>
       <td>ArgumentAxis.Tick</td>
@@ -314,12 +320,12 @@
     <tr>
       <td>ArgumentAxis.Label</td>
       <td><a href="#argumentaxislabelprops">ArgumentAxis.LabelProps</a></td>
-      <td>A component that renders the axis label.</td>
+      <td>A component that renders the axis’s label.</td>
     </tr>
     <tr>
       <td>ArgumentAxis.Line</td>
       <td><a href="#argumentaxislineprops">ArgumentAxis.LineProps</a></td>
-      <td>A component that renders the axis line.</td>
+      <td>A component that renders the axis’s line.</td>
     </tr>
   </tbody>
 </table>
@@ -334,9 +340,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -392,6 +398,30 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/guides/stacked-series/">Stacked Series</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
           
 
         
@@ -462,7 +492,23 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/palette/">Palette</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/pie-series/">PieSeries</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/scale/">Scale</a></li>
           
 
         
@@ -543,7 +589,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -563,7 +609,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/chart/demos/featured/component-customization">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -595,7 +641,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

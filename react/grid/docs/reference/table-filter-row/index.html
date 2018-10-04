@@ -11,8 +11,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1535731146">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1535731146">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -130,6 +130,12 @@
       <td>ComponentType&lt;<a href="#tablefilterroweditorprops">TableFilterRow.EditorProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders a filter editor.</td>
+    </tr>
+    <tr>
+      <td>toggleButtonComponent</td>
+      <td>ComponentType&lt;<a href="#tablefilterrowtogglebuttonprops">TableFilterRow.ToggleButtonProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a filter selector’s toggle button.</td>
     </tr>
     <tr>
       <td>showFilterSelector?</td>
@@ -300,6 +306,42 @@
   </tbody>
 </table>
 
+<h3 id="tablefilterrowtogglebuttonprops">TableFilterRow.ToggleButtonProps</h3>
+
+<p>Describes properties passed to a component that renders a toggle button for a filter selector.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td>any</td>
+      <td>The current editor value.</td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td>boolean</td>
+      <td>Specifies whether the editor is disabled.</td>
+    </tr>
+    <tr>
+      <td>onToggle</td>
+      <td>() =&gt; void</td>
+      <td>Handles filter value changes.</td>
+    </tr>
+    <tr>
+      <td>buttonRef</td>
+      <td>(ref: ReactInstance) =&gt; void</td>
+      <td>A function that accepts the button’s root React element.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2 id="localization-messages">Localization Messages</h2>
 
 <table class="table table-bordered table-striped">
@@ -404,7 +446,7 @@
     </tr>
     <tr>
       <td>TableFilterRow.FilterSelector</td>
-      <td><a href="#tablefilterrowselectorprops">TableFilterRow.FilterSelectorProps</a></td>
+      <td><a href="#tablefilterrowfilterselectorprops">TableFilterRow.FilterSelectorProps</a></td>
       <td>A component that renders a filter selector.</td>
     </tr>
     <tr>
@@ -417,10 +459,34 @@
       <td><a href="#tablefilterroweditorprops">TableFilterRow.EditorProps</a></td>
       <td>A component that renders a filter editor.</td>
     </tr>
+    <tr>
+      <td>TableFilterRow.ToggleButton</td>
+      <td><a href="#tablefilterrowtogglebuttonprops">TableFilterRow.ToggleButtonProps</a></td>
+      <td>A component that renders a filter selector’s toggle button.</td>
+    </tr>
   </tbody>
 </table>
 
 <p>Additional properties are added to the component’s root element.</p>
+
+<h2 id="static-fields">Static Fields</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ROW_TYPE</td>
+      <td>symbol</td>
+      <td>The filter row type’s identifier.</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -518,9 +584,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.7.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
             Version
-            <span>1.7.2</span>
+            <span>1.8.0</span>
           </a>
         </li>
       </ul>
@@ -672,6 +738,14 @@
 
           
           <li><a href="/devextreme-reactive/react/grid/docs/guides/banded-columns/">Banded Columns</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/fixed-columns/">Fixed Columns</a></li>
           
 
         
@@ -1006,6 +1080,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
@@ -1111,7 +1193,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1535731146"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1538652338"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -1163,7 +1245,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1535731146"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
     <script>
         trackingCookie.notice();
     </script>

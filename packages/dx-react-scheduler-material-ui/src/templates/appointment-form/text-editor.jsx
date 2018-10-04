@@ -4,11 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const styles = () => ({
+const styles = {
   editor: {
     width: '100%',
   },
-});
+};
 
 const TextEditorBase = ({
   classes,

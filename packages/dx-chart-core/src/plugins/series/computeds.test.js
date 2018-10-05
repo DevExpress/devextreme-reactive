@@ -7,7 +7,7 @@ import {
   area,
   line,
 } from 'd3-shape';
-import { createScale, getWidth } from '../../utils/scale';
+import { createScale, getWidth, setScalePadding } from '../../utils/scale';
 import {
   pieAttributes,
   xyScales,
@@ -22,6 +22,7 @@ import {
 jest.mock('../../utils/scale', () => ({
   createScale: jest.fn(),
   getWidth: jest.fn(),
+  setScalePadding: jest.fn(),
 }));
 
 jest.mock('d3-shape', () => {
@@ -93,8 +94,6 @@ const dataWithUndefined = [
 const computedLine = data.map((item, index) => ({
   id: index, x: item.arg + 5, y: item.val1, y1: 10, value: item.val1,
 }));
-
-const groupWidth = 0.7;
 
 describe('dArea', () => {
   it('init function', () => {
@@ -177,6 +176,7 @@ describe('barCoordinates', () => {
     const translateValue = value => (value !== 0 ? value : 10);
     createScale.mockImplementation(() => translateValue);
     getWidth.mockImplementation(() => 10);
+    setScalePadding.mockImplementation(scale => scale);
   });
 
   afterAll(() => {
@@ -187,7 +187,9 @@ describe('barCoordinates', () => {
     const result = barCoordinates(
       data,
       { xScale: createScale(), yScale: createScale() },
-      { argumentField: 'arg', valueField: 'val1', stack: null },
+      {
+        argumentField: 'arg', valueField: 'val1', stack: null, barWidth: 0.4,
+      },
       undefined,
       [
         { type: 'band', constructor: 'bandConstructor' },
@@ -205,6 +207,7 @@ describe('barCoordinates', () => {
     }, {
       id: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
     }]);
+    expect(setScalePadding).toBeCalledWith(expect.anything(), 0.6);
   });
 });
 
@@ -213,7 +216,6 @@ describe('Scales', () => {
     { type: 'argumentType', orientation: 'orientation' },
     { type: 'valueType' },
     { width: 20, height: 10 },
-    0.7,
     [
       { type: 'argumentType', constructor: 'argumentConstructor' },
       { type: 'valueType', constructor: 'valueConstructor' },
@@ -232,7 +234,7 @@ describe('Scales', () => {
     const { xScale, yScale } = xyScales(...defaultOptions);
 
     expect(createScale).toHaveBeenCalledTimes(2);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'argumentType', orientation: 'orientation' }, 20, 10, 'argumentConstructor', 1 - groupWidth]);
+    expect(createScale.mock.calls[0]).toEqual([{ type: 'argumentType', orientation: 'orientation' }, 20, 10, 'argumentConstructor']);
     expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
     expect(xScale).toBeTruthy();
     expect(yScale).toBeTruthy();

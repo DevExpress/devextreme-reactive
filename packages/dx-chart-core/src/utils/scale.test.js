@@ -1,4 +1,4 @@
-import { createScale, getWidth } from './scale';
+import { createScale, getWidth, setScalePadding } from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
 const width = 500;
@@ -14,18 +14,15 @@ bandMockScale.paddingOuter = jest.fn().mockReturnThis();
 bandMockScale.range = jest.fn().mockReturnThis();
 bandMockScale.domain = jest.fn().mockReturnThis();
 
-const scaleLinear = jest.fn();
-const scaleBand = jest.fn();
+const scaleLinear = jest.fn(() => linearMockScale);
+const scaleBand = jest.fn(() => bandMockScale);
+
 describe('Create scale', () => {
-  beforeAll(() => {
-    scaleLinear.mockImplementation(() => linearMockScale);
-    scaleBand.mockImplementation(() => bandMockScale);
-  });
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should create scale', () => {
+  it('should create linear scale', () => {
     const scale = createScale(domainOptions, width, height, scaleLinear);
     expect(scale).toBe(linearMockScale);
   });
@@ -45,10 +42,9 @@ describe('Create scale', () => {
     expect(linearMockScale.range).toBeCalledWith([400, 0]);
   });
 
-  it('should be set paddings to scale if it is "band"', () => {
-    createScale(domainOptions, width, height, scaleBand, 0.3);
-    expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
-    expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
+  it('should create band scale', () => {
+    const scale = createScale(domainOptions, width, height, scaleBand, 0.3);
+    expect(scale).toBe(bandMockScale);
   });
 });
 
@@ -59,5 +55,14 @@ describe('Get offset', () => {
 
   it('should return offset not zero, scale is band', () => {
     expect(getWidth({ bandwidth: () => 4 })).toBe(4);
+  });
+});
+
+describe('Set scale padding', () => {
+  it('should set inner and outer paddings', () => {
+    setScalePadding(bandMockScale, 0.3);
+
+    expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
+    expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
   });
 });

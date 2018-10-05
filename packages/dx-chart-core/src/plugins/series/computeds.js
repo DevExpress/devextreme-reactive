@@ -7,7 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { createScale, getWidth } from '../../utils/scale';
+import { createScale, getWidth, setScalePadding } from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -37,13 +37,12 @@ export const xyScales = (
   argumentDomainOptions,
   valueDomainOptions,
   { width, height },
-  groupWidth,
   scaleExtension,
 ) => {
   const xConstructor = getConstructor(scaleExtension, argumentDomainOptions.type);
   const yConstructor = getConstructor(scaleExtension, valueDomainOptions.type);
   return {
-    xScale: createScale(argumentDomainOptions, width, height, xConstructor, 1 - groupWidth),
+    xScale: createScale(argumentDomainOptions, width, height, xConstructor),
     yScale: createScale(valueDomainOptions, width, height, yConstructor),
   };
 };
@@ -111,15 +110,14 @@ export const barCoordinates = (
     { argumentField, valueField },
   );
   const width = getWidth(xScale);
-  const x0Scale = createScale(
+  const x0Scale = setScalePadding(createScale(
     {
       domain: stacks,
     },
     width,
     width,
     getConstructor(scaleExtension, 'band'),
-    1 - barWidth,
-  );
+  ), 1 - barWidth);
   return rawCoordinates.map(item => ({
     ...item,
     width: getWidth(x0Scale),

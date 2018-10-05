@@ -60,7 +60,8 @@ const LayoutBase = ({
       <Head appointment={appointment}>
         <div>
           <div className={classes.buttonsLeft}>
-            {showOpenButton && <CommandButton id={commandButtonIds.open} onClick={openButtonClcikHandler} />}
+            {showOpenButton
+              && <CommandButton id={commandButtonIds.open} onClick={openButtonClcikHandler} />}
           </div>
           <div className={classes.buttonsRight}>
             {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}

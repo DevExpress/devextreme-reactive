@@ -14,7 +14,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 const domains = {
   test_argument_domain: {},
 };
-const paletteComputing = jest.fn(() => 'paletteComputing');
 
 const defaultDeps = {
   getter: {
@@ -23,7 +22,6 @@ const defaultDeps = {
     data: 'test-data',
     layouts: { pane: 'test-pane' },
     scaleExtension: 'test-scale-extension',
-    paletteComputing,
   },
 };
 
@@ -47,7 +45,6 @@ describe('Chart Core', () => {
       ...defaultDeps.getter,
       domains,
       scales: 'test-scales',
-      colorDomain: 'paletteComputing',
     });
     expect(computeDomains).toBeCalledWith('test-axes', 'test-series', 'test-data');
     expect(buildScales).toBeCalledWith(domains, 'test-scale-extension', 'test-pane');

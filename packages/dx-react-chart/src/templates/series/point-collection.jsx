@@ -11,16 +11,17 @@ export class PointCollection extends React.PureComponent {
       coordinates,
       point = {},
       style,
-      startCoords,
-      prepareAnimation,
       animation,
       ...restProps
     } = this.props;
     const getAttributes = pointAttributes(point);
+    const {
+      startCoords, frames, prepareAnimation, options,
+    } = animation;
     return (coordinates.map(item => (
       <Point
         key={item.id.toString()}
-        style={{ ...style, ...prepareAnimation(animation(item, startCoords)) }}
+        style={{ ...style, ...prepareAnimation(options(item), frames, startCoords) }}
         {...getAttributes(item)}
         {...item}
         {...restProps}
@@ -32,16 +33,17 @@ export class PointCollection extends React.PureComponent {
 PointCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
-  startCoords: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
+  animation: PropTypes.shape({
+    startCoords: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+    frames: PropTypes.string,
+    prepareAnimation: PropTypes.func,
+    options: PropTypes.func,
   }).isRequired,
-  prepareAnimation: PropTypes.func,
-  animation: PropTypes.func,
 };
 
 PointCollection.defaultProps = {
   style: undefined,
-  prepareAnimation: () => {},
-  animation: () => {},
 };

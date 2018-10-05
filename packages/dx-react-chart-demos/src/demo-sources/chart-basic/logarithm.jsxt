@@ -12,7 +12,7 @@ import { scaleLog } from 'd3-scale';
 import { symbolCircle, symbol } from 'd3-shape';
 import { formatPrefix } from 'd3-format';
 
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { planet: 'Moon', mass: 0.073e24 },
@@ -71,13 +71,13 @@ export default class Demo extends React.PureComponent {
           <ScatterSeries
             valueField="mass"
             argumentField="planet"
-            pointComponent={Point}
           />
           <Scale
             extensions={[
               { type: 'log', constructor: () => scaleLog().base(2) },
             ]}
           />
+          <Animation />
           <Title
             text="Planetary mass (kg)"
             style={{ textAlign: 'center', width: '100%', paddingBottom: '20px' }}

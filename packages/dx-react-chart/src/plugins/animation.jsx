@@ -4,6 +4,7 @@ import { Plugin, Getter } from '@devexpress/dx-react-core';
 import {
   getAnimationStyles,
   mergeExtensionsWithDefault,
+  getAnimationKeyframes,
 } from '@devexpress/dx-chart-core';
 
 export class Animation extends React.PureComponent {
@@ -14,6 +15,7 @@ export class Animation extends React.PureComponent {
       <Plugin name="Animation">
         <Getter name="animationExtensions" computed={getExtensions} />
         <Getter name="prepareAnimation" value={getAnimationStyles} />
+        <Getter name="getAnimationKeyframes" value={getAnimationKeyframes} />
       </Plugin>
     );
   }

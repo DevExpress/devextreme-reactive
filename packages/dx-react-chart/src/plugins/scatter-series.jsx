@@ -8,7 +8,7 @@ export const ScatterSeries = withComponents({ Path, Point })(makeSeries(
   'scatter',
   null, // TODO: d3Func is not used.
   computeCoordinates,
-  { getStartCoordinates, animationName: 'translate' },
+  { getStartCoordinates, animationName: 'opacity' },
   {
     seriesComponent: 'Path',
     pointComponent: 'Point',

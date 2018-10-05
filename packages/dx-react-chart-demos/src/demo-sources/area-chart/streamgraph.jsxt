@@ -25,9 +25,7 @@ const Area = (props) => {
     coordinates,
     color,
     style,
-    prepareAnimation,
     animation,
-    startCoords,
   } = props;
 
   return (
@@ -39,7 +37,7 @@ const Area = (props) => {
         .y0(getY1)
         .curve(curveCatmullRom)(coordinates)}
       opacity={0.5}
-      style={{ ...style, ...prepareAnimation(animation(undefined, startCoords)) }}
+      style={{ ...style, ...prepareAnimation(options(), frames, startCoords)) }}
     />
   );
 };

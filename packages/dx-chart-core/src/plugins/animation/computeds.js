@@ -1,40 +1,39 @@
 import keyframes from 'jss-keyframes';
 
-export const getAnimationStyles = ({ keyframes: frames, options }) => {
-  const name = keyframes(frames);
+export const getAnimationStyles = (options, name, startCoords) => {
+  if (startCoords) {
+    return {
+      animation: `${name} ${options}`,
+      transformOrigin: `${startCoords.x}px ${startCoords.y}px`,
+    };
+  }
   return { animation: `${name} ${options}` };
 };
+
+export const getAnimationKeyframes = frames => keyframes(frames);
 
 export const mergeExtensionsWithDefault = (extension) => {
   const defaultExtension = [
     {
       name: 'transform',
-      settings: (_, { x, y }) => ({
-        options: '1s',
-        keyframes: {
-          from: { transform: 'scaleY(0)', 'transform-origin': `${x}px ${y}px` },
-          to: { 'transform-origin': `${x}px ${y}px` },
-        },
+      options: () => '1s',
+      keyframes: () => ({
+        from: { transform: 'scaleY(0)' },
       }),
     },
     {
-      name: 'translate',
-      settings: ({ x, y }, { y: startY }) => ({
-        options: '1s',
-        keyframes: {
-          from: { transform: `translate(${x}px, ${startY}px )` },
-          to: { transform: `translate(${x}px, ${y}px)` },
-        },
+      name: 'opacity',
+      options: () => '1s',
+      keyframes: () => ({
+        from: { opacity: 0 },
       }),
     },
     {
       name: 'transformPie',
-      settings: ({ index }, { x, y }) => ({
-        options: `${(index + 1) * 0.2}s`,
-        keyframes: {
-          from: { transform: `translate(${x}px, ${y}px) scale(0)` },
-          to: { transform: `translate(${x}px, ${y}px) scale(1)` },
-        },
+      options: ({ index }) => `${(index + 1) * 0.2}s`,
+      keyframes: ({ x, y }) => ({
+        from: { transform: `translate(${x}px, ${y}px) scale(0)` },
+        to: { transform: `translate(${x}px, ${y}px) scale(1)` },
       }),
     },
   ];

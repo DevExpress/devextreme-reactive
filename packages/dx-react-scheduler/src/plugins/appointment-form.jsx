@@ -111,21 +111,16 @@ export class AppointmentForm extends React.PureComponent {
               addedAppointment,
               deletedAppointmentId,
             }, {
-              startEditAppointment,
               stopEditAppointment,
 
               changeAppointment,
               cancelChangedAppointment,
               commitChangedAppointment,
 
-              addAppointment,
+              addAppointment, // by click on empty cell
               changeAddedAppointment,
               cancelAddedAppointment,
               commitAddedAppointment,
-
-              deleteAppointment,
-              cancelDeletedAppointment,
-              commitDeletedAppointment,
             }) => {
               const changedAppointment = {
                 ...appointment,
@@ -223,7 +218,9 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler({
                         appointment: params.appointmentMeta.appointment,
                       });
-                      startEditAppointment({ appointmentId: getAppointmentId(params.appointmentMeta.appointment) });
+                      startEditAppointment({
+                        appointmentId: getAppointmentId(params.appointmentMeta.appointment),
+                      });
                     },
                   }}
                 />
@@ -247,7 +244,9 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler({
                         appointment: params.appointmentMeta.appointment,
                       });
-                      startEditAppointment({ appointmentId: getAppointmentId(params.appointmentMeta.appointment) });
+                      startEditAppointment({
+                        appointmentId: getAppointmentId(params.appointmentMeta.appointment),
+                      });
                     },
                   }}
                 />

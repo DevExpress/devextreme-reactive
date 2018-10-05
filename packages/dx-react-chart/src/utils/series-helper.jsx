@@ -27,6 +27,7 @@ const getRenderProps = (series) => {
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     calculateCoordinates,
+    animationName,
     ...restProps
   } = series;
 
@@ -43,7 +44,7 @@ export const withSeriesPlugin = (
 ) => {
   class Component extends React.PureComponent {
     render() {
-      const { name: seriesName } = this.props;
+      const { name: seriesName, animationName = defaultAnimationName } = this.props;
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
@@ -90,7 +91,6 @@ export const withSeriesPlugin = (
                 );
 
                 const props = getRenderProps(currentSeries);
-                const { animationName = defaultAnimationName } = currentSeries;
 
                 const { settings } = animationExtensions
                   .find(item => item.name === animationName) || {};

@@ -38,7 +38,7 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
-  { getStartCoordinates, animationName: defaultAnimation },
+  { getStartCoordinates, animationName: defaultAnimationName },
   getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
@@ -90,7 +90,7 @@ export const withSeriesPlugin = (
                 );
 
                 const props = getRenderProps(currentSeries);
-                const animationName = currentSeries.animationName || defaultAnimation;
+                const { animationName = defaultAnimationName } = currentSeries;
 
                 const { settings } = animationExtensions
                   .find(item => item.name === animationName) || {};

@@ -66,6 +66,7 @@ export class EditingState extends React.PureComponent {
         changed: changedAppointmentById(appointmentChanges, appointmentId),
       });
       this.cancelChangedAppointment();
+      this.stopEditAppointment();
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -133,6 +134,8 @@ export class EditingState extends React.PureComponent {
     const {
       addedAppointment, deletedAppointmentId, editingAppointmentId, appointmentChanges,
     } = this.state;
+
+    console.log(this.state);
 
     return (
       <Plugin

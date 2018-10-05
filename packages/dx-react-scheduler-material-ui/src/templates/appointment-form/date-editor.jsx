@@ -19,6 +19,7 @@ const DateEditorBase = ({
   label,
   className,
   readOnly,
+  onValueChange,
   ...restProps
 }) => (
   <TextField
@@ -32,6 +33,7 @@ const DateEditorBase = ({
     InputLabelProps={{
       shrink: true,
     }}
+    onChange={onValueChange}
     {...restProps}
   />
 );
@@ -45,6 +47,7 @@ DateEditorBase.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 DateEditorBase.defaultProps = {
@@ -52,6 +55,7 @@ DateEditorBase.defaultProps = {
   label: undefined,
   className: undefined,
   readOnly: false,
+  onValueChange: () => undefined,
 };
 
 export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

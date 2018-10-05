@@ -7,16 +7,18 @@ export const AllDayEditor = ({
   text,
   value,
   readOnly,
+  onValueChange,
   ...restProps
 }) => (
   <FormControlLabel
-    disabled={readOnly}
     control={(
       <Checkbox
         color="primary"
         checked={value}
+        onChange={onValueChange}
       />
     )}
+    disabled={readOnly}
     label={text}
     {...restProps}
   />

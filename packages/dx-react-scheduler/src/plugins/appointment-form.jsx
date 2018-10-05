@@ -23,6 +23,11 @@ const defaultMessages = {
   cancelCommand: 'Cancel',
 };
 
+const pluginDependencies = [
+  { name: 'Appointments', optional: true },
+  { name: 'AppointmentTooltip', optional: true },
+];
+
 export class AppointmentForm extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -85,6 +90,7 @@ export class AppointmentForm extends React.PureComponent {
     return (
       <Plugin
         name="AppointmentForm"
+        dependencies={pluginDependencies}
       >
         <Template name="main">
           <TemplatePlaceholder />
@@ -98,55 +104,155 @@ export class AppointmentForm extends React.PureComponent {
               getAppointmentStartDate,
               getAppointmentEndDate,
               getAppointmentAllDay,
-            }) => (
-              <Popup
-                visible={visible}
-              >
-                <Container>
-                  <ScrollableSpace>
-                    <TextEditor
-                      readOnly={readOnly}
-                      label={getMessage('titleLabel')}
-                      value={getAppointmentTitle(appointment)}
-                    />
-                    <DateEditor
-                      readOnly={readOnly}
-                      label={getMessage('startDateLabel')}
-                      value={getAppointmentStartDate(appointment)}
-                    />
-                    <DateEditor
-                      readOnly={readOnly}
-                      label={getMessage('endDateLabel')}
-                      value={getAppointmentEndDate(appointment)}
-                    />
-                    <AllDayEditor
-                      readOnly={readOnly}
-                      text={getMessage('allDayText')}
-                      value={getAppointmentAllDay(appointment)}
-                    />
-                  </ScrollableSpace>
-                  <StaticSpace>
-                    <CommandButton
-                      text={getMessage('cancelCommand')}
-                      onExecute={this.toggleVisibility}
-                      id={CANCEL_COMMAND_BUTTON}
-                    />
-                    <CommandButton
-                      text={getMessage('commitCommand')}
-                      readOnly={readOnly}
-                      onExecute={this.toggleVisibility}
-                      id={COMMIT_COMMAND_BUTTON}
-                    />
-                  </StaticSpace>
-                </Container>
-              </Popup>
-            )}
+              getAppointmentId,
+
+              editingAppointmentId,
+              appointmentChanges,
+              addedAppointment,
+              deletedAppointmentId,
+            }, {
+              startEditAppointment,
+              stopEditAppointment,
+
+              changeAppointment,
+              cancelChangedAppointment,
+              commitChangedAppointment,
+
+              addAppointment,
+              changeAddedAppointment,
+              cancelAddedAppointment,
+              commitAddedAppointment,
+
+              deleteAppointment,
+              cancelDeletedAppointment,
+              commitDeletedAppointment,
+            }) => {
+              const changedAppointment = {
+                ...appointment,
+                ...appointmentChanges,
+              };
+
+              return (
+                <Popup
+                  visible={visible}
+                >
+                  <Container>
+                    <ScrollableSpace>
+                      <TextEditor
+                        readOnly={readOnly}
+                        label={getMessage('titleLabel')}
+                        value={getAppointmentTitle(changedAppointment)}
+                        onValueChange={(e) => {
+                          changeAppointment({
+                            change: { title: e.target.value }, // ??? setAppointmentTitle
+                          });
+                        }}
+                      />
+                      <DateEditor
+                        readOnly={readOnly}
+                        label={getMessage('startDateLabel')}
+                        value={getAppointmentStartDate(changedAppointment)}
+                        onValueChange={(e) => {
+                          changeAppointment({
+                            change: { startDate: e.target.value }, // ??? setAppointmentStartDate
+                          });
+                        }}
+                      />
+                      <DateEditor
+                        readOnly={readOnly}
+                        label={getMessage('endDateLabel')}
+                        value={getAppointmentEndDate(changedAppointment)}
+                        onValueChange={(e) => {
+                          changeAppointment({
+                            change: { endDate: e.target.value }, // ??? setAppointmentEdnDate
+                          });
+                        }}
+                      />
+                      <AllDayEditor
+                        readOnly={readOnly}
+                        text={getMessage('allDayText')}
+                        value={getAppointmentAllDay(changedAppointment)}
+                        onValueChange={(e) => {
+                          changeAppointment({
+                            change: { allDay: e.target.checked }, // ??? setAppointmentAllDay
+                          });
+                        }}
+                      />
+                    </ScrollableSpace>
+                    <StaticSpace>
+                      <CommandButton
+                        text={getMessage('cancelCommand')}
+                        onExecute={() => {
+                          this.toggleVisibility();
+                          stopEditAppointment();
+                          cancelChangedAppointment();
+                        }}
+                        id={CANCEL_COMMAND_BUTTON}
+                      />
+                      <CommandButton
+                        text={getMessage('commitCommand')}
+                        readOnly={readOnly}
+                        onExecute={() => {
+                          this.toggleVisibility();
+                          commitChangedAppointment({
+                            appointmentId: getAppointmentId(changedAppointment),
+                          });
+                        }}
+                        id={COMMIT_COMMAND_BUTTON}
+                      />
+                    </StaticSpace>
+                  </Container>
+                </Popup>
+              );
+            }}
           </TemplateConnector>
         </Template>
 
         <Template name="tooltip">
           {params => (
-            <TemplatePlaceholder params={{ ...params, onOpenButtonClick: this.openFormHandler }} />
+            <TemplateConnector>
+              {({
+                getAppointmentId,
+              }, {
+                startEditAppointment,
+              }) => (
+                <TemplatePlaceholder
+                  params={{
+                    ...params,
+                    onOpenButtonClick: () => {
+                      this.openFormHandler({
+                        appointment: params.appointmentMeta.appointment,
+                      });
+                      startEditAppointment({ appointmentId: getAppointmentId(params.appointmentMeta.appointment) });
+                    },
+                  }}
+                />
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
+
+        <Template name="appointment">
+          {params => (
+            <TemplateConnector>
+              {({
+                getAppointmentId,
+              }, {
+                startEditAppointment,
+              }) => (
+                <TemplatePlaceholder
+                  params={{
+                    ...params,
+                    onDoubleClick: () => {
+                      this.openFormHandler({
+                        appointment: params.appointmentMeta.appointment,
+                      });
+                      startEditAppointment({ appointmentId: getAppointmentId(params.appointmentMeta.appointment) });
+                    },
+                  }}
+                />
+              )}
+            </TemplateConnector>
           )}
         </Template>
       </Plugin>

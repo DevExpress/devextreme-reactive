@@ -19,6 +19,7 @@ const TextEditorBase = ({
   label,
   className,
   readOnly,
+  onValueChange,
   ...restProps
 }) => (
   <TextField
@@ -28,6 +29,7 @@ const TextEditorBase = ({
     margin="normal"
     variant="filled"
     disabled={readOnly}
+    onChange={onValueChange}
     {...restProps}
   />
 );

@@ -46,7 +46,7 @@ const LayoutBase = ({
   const { target, appointment = {} } = appointmentMeta;
   const openButtonClcikHandler = () => {
     onHide();
-    onOpenButtonClick({ appointment });
+    onOpenButtonClick();
   };
   return (
     <Popover

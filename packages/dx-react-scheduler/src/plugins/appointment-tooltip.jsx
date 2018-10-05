@@ -85,36 +85,36 @@ export class AppointmentTooltip extends React.PureComponent {
       >
         <Template name="main">
           <TemplatePlaceholder />
-          <TemplatePlaceholder name="tooltip" />
+          <TemplateConnector>
+            {({
+              getAppointmentEndDate,
+              getAppointmentStartDate,
+              getAppointmentTitle,
+            }) => (
+              <TemplatePlaceholder
+                name="tooltip"
+                params={{
+                  commandButtonComponent,
+                  showOpenButton,
+                  showDeleteButton,
+                  showCloseButton,
+                  headComponent,
+                  contentComponent,
+                  appointmentMeta,
+                  visible,
+                  onHide: this.toggleVisibility,
+                  commandButtonIds,
+                  getAppointmentTitle,
+                  getAppointmentStartDate,
+                  getAppointmentEndDate,
+                }}
+              />
+            )}
+          </TemplateConnector>
         </Template>
 
         <Template name="tooltip">
-          {params => (
-            <TemplateConnector>
-              {({
-                getAppointmentEndDate,
-                getAppointmentStartDate,
-                getAppointmentTitle,
-              }) => (
-                <Layout
-                  {...params}
-                  commandButtonComponent={commandButtonComponent}
-                  showOpenButton={showOpenButton}
-                  showDeleteButton={showDeleteButton}
-                  showCloseButton={showCloseButton}
-                  headComponent={headComponent}
-                  contentComponent={contentComponent}
-                  appointmentMeta={appointmentMeta}
-                  visible={visible}
-                  onHide={this.toggleVisibility}
-                  commandButtonIds={commandButtonIds}
-                  getAppointmentTitle={getAppointmentTitle}
-                  getAppointmentStartDate={getAppointmentStartDate}
-                  getAppointmentEndDate={getAppointmentEndDate}
-                />
-              )}
-            </TemplateConnector>
-          )}
+          {params => <Layout {...params} />}
         </Template>
 
         <Template name="appointment">

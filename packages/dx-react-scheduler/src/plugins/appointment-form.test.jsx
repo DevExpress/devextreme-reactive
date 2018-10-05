@@ -31,22 +31,22 @@ describe('AppointmentForm', () => {
       .toBeTruthy();
   });
 
-  it('should provide toggleFormVisibility action', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents({})}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
+  // it('should provide toggleFormVisibility action', () => {
+  //   const tree = mount((
+  //     <PluginHost>
+  //       {pluginDepsToComponents({})}
+  //       <AppointmentForm
+  //         {...defaultProps}
+  //       />
+  //     </PluginHost>
+  //   ));
 
-    expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(undefined);
-    executeComputedAction(tree, actions => actions.toggleFormVisibility());
-    expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(true);
-  });
+  //   expect(tree.find(AppointmentForm).instance().state.visible)
+  //     .toEqual(undefined);
+  //   executeComputedAction(tree, actions => actions.toggleFormVisibility());
+  //   expect(tree.find(AppointmentForm).instance().state.visible)
+  //     .toEqual(true);
+  // });
 
   it('should provide setAppointmentmeta action', () => {
     const tree = mount((

@@ -3,8 +3,10 @@ import * as PropTypes from 'prop-types';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
-  Action,
+  Template,
   createStateHelper,
+  TemplateConnector,
+  TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
@@ -27,7 +29,7 @@ export class AppointmentForm extends React.PureComponent {
 
     this.state = {
       visible: props.visible,
-      appointment: props.appointment,
+      appointment: {} || props.appointment,
     };
 
     const stateHelper = createStateHelper(
@@ -46,6 +48,11 @@ export class AppointmentForm extends React.PureComponent {
       .bind(stateHelper, 'visible', toggleVisibility);
     this.setAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointment', setAppointment);
+
+    this.openFormHandler = ({ appointment }) => {
+      this.setAppointment({ appointment });
+      this.toggleVisibility();
+    };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -72,53 +79,76 @@ export class AppointmentForm extends React.PureComponent {
       readOnly,
       messages,
     } = this.props;
-    const { visible } = this.state;
+    const { visible, appointment } = this.state;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     return (
       <Plugin
         name="AppointmentForm"
       >
-        <Action name="toggleFormVisibility" action={this.toggleVisibility} />
-        <Action name="setFormAppointment" action={this.setAppointment} />
+        <Template name="main">
+          <TemplatePlaceholder />
+          <TemplatePlaceholder name="form" />
+        </Template>
 
-        <Popup
-          visible={visible}
-        >
-          <Container>
-            <ScrollableSpace>
-              <TextEditor
-                readOnly={readOnly}
-                label={getMessage('titleLabel')}
-              />
-              <DateEditor
-                readOnly={readOnly}
-                label={getMessage('startDateLabel')}
-              />
-              <DateEditor
-                readOnly={readOnly}
-                label={getMessage('endDateLabel')}
-              />
-              <AllDayEditor
-                text={getMessage('allDayText')}
-              />
-            </ScrollableSpace>
-            <StaticSpace>
-              <CommandButton
-                text={getMessage('cancelCommand')}
-                readOnly={readOnly}
-                onExecute={this.toggleVisibility}
-                id={CANCEL_COMMAND_BUTTON}
-              />
-              <CommandButton
-                text={getMessage('commitCommand')}
-                readOnly={readOnly}
-                onExecute={this.toggleVisibility}
-                id={COMMIT_COMMAND_BUTTON}
-              />
-            </StaticSpace>
-          </Container>
-        </Popup>
+        <Template name="form">
+          <TemplateConnector>
+            {({
+              getAppointmentTitle,
+              getAppointmentStartDate,
+              getAppointmentEndDate,
+              getAppointmentAllDay,
+            }) => (
+              <Popup
+                visible={visible}
+              >
+                <Container>
+                  <ScrollableSpace>
+                    <TextEditor
+                      readOnly={readOnly}
+                      label={getMessage('titleLabel')}
+                      value={getAppointmentTitle(appointment)}
+                    />
+                    <DateEditor
+                      readOnly={readOnly}
+                      label={getMessage('startDateLabel')}
+                      value={getAppointmentStartDate(appointment)}
+                    />
+                    <DateEditor
+                      readOnly={readOnly}
+                      label={getMessage('endDateLabel')}
+                      value={getAppointmentEndDate(appointment)}
+                    />
+                    <AllDayEditor
+                      readOnly={readOnly}
+                      text={getMessage('allDayText')}
+                      value={getAppointmentAllDay(appointment)}
+                    />
+                  </ScrollableSpace>
+                  <StaticSpace>
+                    <CommandButton
+                      text={getMessage('cancelCommand')}
+                      onExecute={this.toggleVisibility}
+                      id={CANCEL_COMMAND_BUTTON}
+                    />
+                    <CommandButton
+                      text={getMessage('commitCommand')}
+                      readOnly={readOnly}
+                      onExecute={this.toggleVisibility}
+                      id={COMMIT_COMMAND_BUTTON}
+                    />
+                  </StaticSpace>
+                </Container>
+              </Popup>
+            )}
+          </TemplateConnector>
+        </Template>
+
+        <Template name="tooltip">
+          {params => (
+            <TemplatePlaceholder params={{ ...params, onOpenButtonClick: this.openFormHandler }} />
+          )}
+        </Template>
       </Plugin>
     );
   }

@@ -84,15 +84,20 @@ export class AppointmentTooltip extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="main">
-          <TemplateConnector>
-            {({
-              getAppointmentEndDate,
-              getAppointmentStartDate,
-              getAppointmentTitle,
-            }) => (
-              <React.Fragment>
-                <TemplatePlaceholder />
+          <TemplatePlaceholder />
+          <TemplatePlaceholder name="tooltip" />
+        </Template>
+
+        <Template name="tooltip">
+          {params => (
+            <TemplateConnector>
+              {({
+                getAppointmentEndDate,
+                getAppointmentStartDate,
+                getAppointmentTitle,
+              }) => (
                 <Layout
+                  {...params}
                   commandButtonComponent={commandButtonComponent}
                   showOpenButton={showOpenButton}
                   showDeleteButton={showDeleteButton}
@@ -107,9 +112,9 @@ export class AppointmentTooltip extends React.PureComponent {
                   getAppointmentStartDate={getAppointmentStartDate}
                   getAppointmentEndDate={getAppointmentEndDate}
                 />
-              </React.Fragment>
-            )}
-          </TemplateConnector>
+              )}
+            </TemplateConnector>
+          )}
         </Template>
 
         <Template name="appointment">

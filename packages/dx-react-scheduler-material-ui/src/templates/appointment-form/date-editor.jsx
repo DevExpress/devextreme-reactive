@@ -1,8 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+
+const dateToIsoString = date => moment(date).toISOString(true).slice(0, -10);
 
 const styles = () => ({
   editor: {
@@ -21,7 +24,7 @@ const DateEditorBase = ({
   <TextField
     label={label}
     className={classNames(classes.editor, className)}
-    value={value}
+    value={dateToIsoString(value)}
     margin="normal"
     variant="filled"
     type="datetime-local"
@@ -35,14 +38,17 @@ const DateEditorBase = ({
 
 DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 
 DateEditorBase.defaultProps = {
-  value: '',
+  value: undefined,
   label: undefined,
   className: undefined,
   readOnly: false,

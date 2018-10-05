@@ -27,11 +27,10 @@ const data = [
 
 const Point = (props) => {
   const {
-    x, y, color, value, y1, id, ...restProps
+    x, y, color,
   } = props;
   return (
     <path
-      {...restProps}
       fill={color}
       transform={`translate(${x} ${y})`}
       d={symbol().size([20 ** 2]).type(symbolCircle)()}

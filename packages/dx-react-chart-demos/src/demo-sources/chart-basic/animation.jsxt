@@ -60,8 +60,23 @@ export default class Demo extends React.PureComponent {
             style={{ strokeDasharray: '3px 3px' }}
           />
           <Animation extensions={[
-            { name: 'movingDashes', settings: () => ({ options: '1s linear infinite', keyframes: '100% { stroke-dashoffset: -31px;}' }) },
-            { name: 'movingBars', settings: ({ index }, { x, y }) => ({ options: `${index * 0.3}s`, keyframes: `from {transform: scaleY(0); transform-origin: ${x}px ${y}px} to {transform: scaleY(1); transform-origin: ${x}px ${y}px}` }) },
+            {
+              name: 'movingDashes',
+              settings: () => ({
+                options: '1s linear infinite',
+                keyframes: { '100%': { 'stroke-dashoffset': '-31px' } },
+              }),
+            },
+            {
+              name: 'movingBars',
+              settings: ({ index }, { x, y }) => ({
+                options: `${index * 0.3}s`,
+                keyframes: {
+                  from: { transform: 'scaleY(0)', 'transform-origin': `${x}px ${y}px` },
+                  to: { transform: 'scaleY(1)', 'transform-origin': `${x}px ${y}px` },
+                },
+              }),
+            },
           ]}
           />
           <Legend />

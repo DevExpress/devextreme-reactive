@@ -39,7 +39,7 @@ const Point = (props) => {
 
 const pointAnimation = () => ({
   options: '1s',
-  keyframes: '0% {opacity: 0} 90% {opacity: 0} 100% {opacity: 1}',
+  keyframes: { '0%': { opacity: 0 }, '90%': { opacity: 0 }, '100%': { opacity: 1 } },
 });
 
 const LineWithPoint = props => (

@@ -1,12 +1,10 @@
-import { keyframes } from 'styled-components';
+import keyframes from 'jss-keyframes';
 import {
   getAnimationStyles,
   mergeExtensionsWithDefault,
 } from './computeds';
 
-jest.mock('styled-components', () => ({
-  keyframes: jest.fn(),
-}));
+jest.mock('jss-keyframes');
 
 describe('#getAnimationStyles', () => {
   beforeAll(() => {

@@ -25,4 +25,4 @@ extensions? | Array&lt;[AnimationOptions](#animationoptions)&gt; | | An array of
 Field | Type | Description
 ------|------|------------
 name | string | Animation name.
-settings | (item: {index: number, x: number, y: number}, startCoordinates: {x: number, y: number} ) => { keyframes: string, options: string } | Animation settings.
+settings | (item: {index: number, x: number, y: number}, startCoordinates: {x: number, y: number} ) => { keyframes: object, options: string } | Animation settings.

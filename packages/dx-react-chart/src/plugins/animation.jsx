@@ -2,9 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import {
-  getAnimationStyles,
+  getAnimation,
   mergeExtensionsWithDefault,
-  getAnimationKeyframes,
 } from '@devexpress/dx-chart-core';
 
 export class Animation extends React.PureComponent {
@@ -14,8 +13,7 @@ export class Animation extends React.PureComponent {
     return (
       <Plugin name="Animation">
         <Getter name="animationExtensions" computed={getExtensions} />
-        <Getter name="prepareAnimation" value={getAnimationStyles} />
-        <Getter name="getAnimationKeyframes" value={getAnimationKeyframes} />
+        <Getter name="getAnimation" value={getAnimation} />
       </Plugin>
     );
   }

@@ -68,9 +68,8 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                animationExtensions = [],
-                getAnimationKeyframes = () => {},
-                prepareAnimation = () => {},
+                animationExtensions,
+                getAnimation = () => {},
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
 
@@ -93,18 +92,12 @@ export const withSeriesPlugin = (
 
                 const props = getRenderProps(currentSeries);
 
-                const { keyframes, options } = animationExtensions
-                  .find(item => item.name === animationName) || {};
-                const startCoords = getStartCoordinates(scales);
-                const frames = getAnimationKeyframes(keyframes(startCoords));
-
                 return (
                   <Series
                     colorDomain={colorDomain}
                     coordinates={coordinates}
-                    animation={{
-                      startCoords, frames, prepareAnimation, options,
-                    }}
+                    animationName={animationName}
+                    animation={getAnimation(getStartCoordinates(scales), animationExtensions)}
                     {...props}
                   />
                 );

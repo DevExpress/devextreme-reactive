@@ -70,6 +70,7 @@ export default class Demo extends React.PureComponent {
               keyframes: () => ({
                 from: { transform: 'scaleY(0)' },
               }),
+              styles: ({ y }, { x }) => ({ transformOrigin: `${x}px ${y}px` }),
               options: ({ index }) => `${index * 0.3}s`,
             },
           ]}

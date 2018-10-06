@@ -8,17 +8,15 @@ export class Path extends React.PureComponent {
       coordinates,
       color,
       style,
+      animationName,
       animation,
       ...restProps
     } = this.props;
-    const {
-      startCoords, frames, prepareAnimation, options,
-    } = animation;
     return (
       <path
         d={path(coordinates)}
         stroke={color}
-        style={{ ...style, ...prepareAnimation(options(), frames, startCoords) }}
+        style={{ ...style, ...animation(animationName)({ x: 0 }) }}
         {...restProps}
       />
     );
@@ -30,18 +28,12 @@ Path.propTypes = {
   coordinates: PropTypes.array.isRequired,
   color: PropTypes.string,
   style: PropTypes.object,
-  animation: PropTypes.shape({
-    startCoords: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-    frames: PropTypes.string,
-    prepareAnimation: PropTypes.func,
-    options: PropTypes.func,
-  }).isRequired,
+  animationName: PropTypes.string.isRequired,
+  animation: PropTypes.func,
 };
 
 Path.defaultProps = {
   color: undefined,
   style: undefined,
+  animation: () => () => {},
 };

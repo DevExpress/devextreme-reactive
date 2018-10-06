@@ -38,11 +38,6 @@ const Point = (props) => {
   return null;
 };
 
-const pointAnimation = () => ({
-  options: '1s',
-  keyframes: { '0%': { opacity: 0 }, '90%': { opacity: 0 }, '100%': { opacity: 1 } },
-});
-
 const LineWithPoint = props => (
   <React.Fragment>
     <LineSeries.Path
@@ -53,7 +48,7 @@ const LineWithPoint = props => (
         .y(({ y }) => y)
         .curve(curveStep)}
     />
-    <ScatterSeries.Path {...props} {...{ animation: pointAnimation }} pointComponent={Point} />
+    <ScatterSeries.Path {...props} {...{ animationName: 'opacity' }} pointComponent={Point} />
   </React.Fragment>
 );
 

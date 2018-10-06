@@ -25,4 +25,6 @@ extensions? | Array&lt;[AnimationOptions](#animationoptions)&gt; | | An array of
 Field | Type | Description
 ------|------|------------
 name | string | Animation name.
-settings | (item: {index: number, x: number, y: number}, startCoordinates: {x: number, y: number} ) => { keyframes: object, options: string } | Animation settings.
+options | (item: {index: number, x: number, y: number}) => string | A function returns options for animation.
+keyframes | (startCoord: {x: number, y: number}) => object | A function returns keyframes for animation.
+styles | (startCoord: {x: number, y: number}, item: {index: number, x: number, y: number}) => object | A function returns extra styles for animation.

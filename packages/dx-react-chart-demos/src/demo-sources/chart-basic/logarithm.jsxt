@@ -71,13 +71,13 @@ export default class Demo extends React.PureComponent {
           <ScatterSeries
             valueField="mass"
             argumentField="planet"
+            pointComponent={Point}
           />
           <Scale
             extensions={[
               { type: 'log', constructor: () => scaleLog().base(2) },
             ]}
           />
-          <Animation />
           <Title
             text="Planetary mass (kg)"
             style={{ textAlign: 'center', width: '100%', paddingBottom: '20px' }}

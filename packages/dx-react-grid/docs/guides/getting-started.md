@@ -2,7 +2,7 @@
 
 ## Overview
 
-DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.
+DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material-UI rendering and theming out of the box.
 
 ## Installation
 
@@ -14,9 +14,9 @@ npm i --save @devexpress/dx-react-core.npm-tag() @devexpress/dx-react-grid.npm-t
 
 *Note: [react](https://www.npmjs.com/package/react) >=16.3.0 and [react-dom](https://www.npmjs.com/package/react) >=16.3.0 are peer dependencies.*
 
-This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:
+This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:
 
-- Material UI
+- Material-UI
 
   ```
   npm i --save @devexpress/dx-react-grid-material-ui.npm-tag()
@@ -24,7 +24,7 @@ This package does not contain visual components. In the examples below, visual c
 
   *Note: [@material-ui/core](https://www.npmjs.com/package/@material-ui/core) >=1.1.0 and [@material-ui/icons](https://www.npmjs.com/package/@material-ui/icons) >=1.1.0 are peer dependencies.*
 
-  Make sure that the [Material UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
+  Make sure that the [Material-UI](https://material-ui.com/) dependencies are installed and properly configured. Check the Material-UI's [Getting Started](https://material-ui.com/getting-started/installation) article for configuration details.
 
 - Bootstrap 4
 
@@ -98,7 +98,7 @@ const App = () => (
 
 Follow the links below to try out the React Grid:
 
-- [CodeSandbox for Material UI](https://codesandbox.io/s/13qvz1qqzl)
+- [CodeSandbox for Material-UI](https://codesandbox.io/s/13qvz1qqzl)
 - [CodeSandbox for Bootstrap4](https://codesandbox.io/s/rymyjlonpq)
 - [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
 

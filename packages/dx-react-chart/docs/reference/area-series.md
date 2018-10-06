@@ -46,9 +46,8 @@ coordinates | Array&lt;{ x: number, y: number, y1: number }&gt; | Coordinates of
 path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
 color | string | Series color.
 style | object | Series styles.
-startCoords | {x: number, y: number} | Coordinates of the start position for drawing series.
-animation | (item: {x: number, y: number, index: number}, startCoords: {x: number, y: number}) => object | A function returns animation options and keyframes.
-prepareAnimation | (options: object) => string | A function that gets animation options and keyframes, create style for animation and return it.
+animation | (animationName: string) => (item: {x: number, y: number, index: number}) => object | A function returns styles for animation.
+animationName | string | Animation name for series.
 
 ## Plugin Components
 

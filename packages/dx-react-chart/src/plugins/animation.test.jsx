@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { getAnimationStyles, mergeExtensionsWithDefault } from '@devexpress/dx-chart-core';
+import { getAnimation, mergeExtensionsWithDefault } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { Animation } from './animation';
 
@@ -22,7 +22,7 @@ describe('Animation', () => {
 
     expect(getComputedState(tree)).toEqual({
       animationExtensions: 'mergedExtensions',
-      prepareAnimation: getAnimationStyles,
+      getAnimation,
     });
   });
 });

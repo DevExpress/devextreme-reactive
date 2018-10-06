@@ -1,12 +1,12 @@
 import keyframes from 'jss-keyframes';
 import {
-  getAnimationStyles,
+  getAnimation,
   mergeExtensionsWithDefault,
 } from './computeds';
 
 jest.mock('jss-keyframes');
 
-describe('#getAnimationStyles', () => {
+describe('#getAnimation', () => {
   beforeAll(() => {
     keyframes.mockImplementation(() => 'keyframes');
   });
@@ -15,8 +15,8 @@ describe('#getAnimationStyles', () => {
     jest.clearAllMocks();
   });
   it('should return proper styles', () => {
-    const object = { keyframes: 'keyframes', options: 'options' };
-    expect(getAnimationStyles(object)).toEqual({
+    const extensions = [{ name: 'animationName', keyframes: () => 'keyframes', options: () => 'options' }];
+    expect(getAnimation({ x: 1, y: 2 }, extensions)('animationName')()).toEqual({
       animation: 'keyframes options',
     });
   });
@@ -25,15 +25,23 @@ describe('#getAnimationStyles', () => {
 describe('#mergeExtensionsWithDefault', () => {
   it('should return proper extensions', () => {
     expect(mergeExtensionsWithDefault([
-      { name: 'animation1', settings: () => {} },
-      { name: 'animation2', settings: () => {} },
+      {
+        name: 'animation', options: jest.fn(), styles: jest.fn(), keyframes: jest.fn(),
+      },
     ]))
       .toEqual([
-        { name: 'animation1', settings: expect.any(Function) },
-        { name: 'animation2', settings: expect.any(Function) },
-        { name: 'transform', settings: expect.any(Function) },
-        { name: 'translate', settings: expect.any(Function) },
-        { name: 'transformPie', settings: expect.any(Function) },
+        {
+          name: 'animation', options: expect.any(Function), styles: expect.any(Function), keyframes: expect.any(Function),
+        },
+        {
+          name: 'transform', options: expect.any(Function), styles: expect.any(Function), keyframes: expect.any(Function),
+        },
+        {
+          name: 'opacity', options: expect.any(Function), keyframes: expect.any(Function),
+        },
+        {
+          name: 'transformPie', options: expect.any(Function), keyframes: expect.any(Function),
+        },
       ]);
   });
 });

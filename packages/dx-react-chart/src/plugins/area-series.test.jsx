@@ -83,9 +83,8 @@ describe('Area series', () => {
     expect(path).toBe(dArea);
     expect(restProps).toEqual({
       customProperty: 'custom',
+      animationName: 'transform',
       animation: undefined,
-      prepareAnimation: expect.any(Function),
-      startCoords,
     });
   });
 

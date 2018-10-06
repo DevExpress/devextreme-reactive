@@ -80,8 +80,7 @@ describe('Spline series', () => {
     expect(restProps).toEqual({
       customProperty: 'custom',
       animation: undefined,
-      prepareAnimation: expect.any(Function),
-      startCoords,
+      animationName: 'transform',
     });
   });
 });

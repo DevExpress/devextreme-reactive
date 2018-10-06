@@ -73,6 +73,7 @@ describe('Base series', () => {
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
       animationExtensions: [{ name: 'defaultAnimationName', settings: 'animation' }],
+      getAnimation: jest.fn(() => 'animation'),
     },
     template: {
       series: {},
@@ -109,9 +110,8 @@ describe('Base series', () => {
       color: 'color',
       colorDomain: 'colorDomain',
       styles: 'styles',
+      animationName: 'defaultAnimationName',
       animation: 'animation',
-      prepareAnimation: expect.any(Function),
-      startCoords: 'startCoordinates',
     });
   });
 

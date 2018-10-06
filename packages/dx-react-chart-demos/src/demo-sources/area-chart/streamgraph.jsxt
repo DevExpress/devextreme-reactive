@@ -38,7 +38,7 @@ const Area = (props) => {
         .y0(getY1)
         .curve(curveCatmullRom)(coordinates)}
       opacity={0.5}
-        style={{ ...style, ...animation(animationName)({ x: 0 }) }}
+      style={{ ...style, ...animation(animationName)({ x: 0 }) }}
     />
   );
 };

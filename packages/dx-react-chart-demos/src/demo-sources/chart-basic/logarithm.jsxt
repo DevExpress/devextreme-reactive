@@ -12,7 +12,7 @@ import { scaleLog } from 'd3-scale';
 import { symbolCircle, symbol } from 'd3-shape';
 import { formatPrefix } from 'd3-format';
 
-import { Scale, Animation } from '@devexpress/dx-react-chart';
+import { Scale } from '@devexpress/dx-react-chart';
 
 const data = [
   { planet: 'Moon', mass: 0.073e24 },

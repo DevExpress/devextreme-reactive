@@ -1,4 +1,4 @@
-import { scaleIdentity, scaleOrdinal } from 'd3-scale';
+import { scaleOrdinal } from 'd3-scale';
 import {
   symbol,
   symbolCircle,
@@ -20,7 +20,6 @@ import {
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
-  scaleIdentity: jest.fn(),
   scaleOrdinal: jest.fn(),
 }));
 
@@ -135,7 +134,11 @@ describe('getSeriesPoints', () => {
     const dataItems = [
       { arg: 'a', val: 1 }, { arg: 'b' }, { arg: 'c', val: 3 }, { val: 4 }, { arg: 'e', val: 5 },
     ];
-    const points = getSeriesPoints(series, dataItems, 'test-scales', 'r1', 'r2');
+    const scales = {
+      'argument-domain': 'test-arg-scale',
+      'value-domain': 'test-val-scale',
+    };
+    const points = getSeriesPoints(series, dataItems, scales, 'r1', 'r2');
 
     expect(points).toEqual([
       {
@@ -148,7 +151,11 @@ describe('getSeriesPoints', () => {
         argument: 'e', value: 5, index: 4, tag: 'transformed',
       },
     ]);
-    expect(getPointTransformer).toBeCalledWith(series, 'test-scales', dataItems, 'r1', 'r2');
+    expect(getPointTransformer).toBeCalledWith({
+      ...series,
+      argumentScale: 'test-arg-scale',
+      valueScale: 'test-val-scale',
+    }, dataItems, scales, 'r1', 'r2');
     expect(transform.mock.calls).toEqual([
       [{ argument: 'a', value: 1, index: 0 }],
       [{ argument: 'c', value: 3, index: 2 }],
@@ -156,14 +163,31 @@ describe('getSeriesPoints', () => {
     ]);
   });
 
+  it('should take value scale from "axisName"', () => {
+    const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
+    const scales = {
+      'argument-domain': 'test-arg-scale',
+      'test-domain-1': 'test-val-scale',
+    };
+    getSeriesPoints({ ...series, axisName: 'test-domain-1' }, dataItems, scales);
+
+    expect(getPointTransformer).toBeCalledWith({
+      ...series,
+      axisName: 'test-domain-1',
+      argumentScale: 'test-arg-scale',
+      valueScale: 'test-val-scale',
+    }, dataItems, scales);
+  });
+
   it('should be callable without scales', () => {
-    scaleIdentity.mockReturnValue(() => null);
     const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
     getSeriesPoints(series, dataItems);
 
-    expect(getPointTransformer).toBeCalledWith(series, {
-      argumentScale: expect.any(Function), valueScale: expect.any(Function),
-    }, dataItems);
+    expect(getPointTransformer).toBeCalledWith({
+      ...series,
+      argumentScale: expect.any(Function),
+      valueScale: expect.any(Function),
+    }, dataItems, undefined);
   });
 });
 
@@ -175,7 +199,7 @@ describe('getAreaPointTransformer', () => {
     valueScale.mockReturnValueOnce(4);
     valueScale.mockReturnValueOnce(9);
 
-    const transform = getAreaPointTransformer({}, { argumentScale, valueScale });
+    const transform = getAreaPointTransformer({ argumentScale, valueScale });
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
@@ -205,8 +229,11 @@ describe('getBarPointTransformer', () => {
     groupScale.paddingOuter = jest.fn().mockReturnValue(groupScale);
 
     const transform = getBarPointTransformer(
-      { barWidth: 0.4, stack: 'stack-1' }, { argumentScale, valueScale },
-      null, 'test-stacks', [{ type: 'band', constructor: () => groupScale }],
+      {
+        barWidth: 0.4, stack: 'stack-1', argumentScale, valueScale,
+      },
+      'test-data', 'test-scales',
+      'test-stacks', [{ type: 'band', constructor: () => groupScale }],
     );
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
@@ -259,12 +286,14 @@ describe('getPiePointTransformer', () => {
 
     const argumentScale = { range: () => [0, 50] };
     const valueScale = { range: () => [40, 0] };
-    const transform = getPiePointTransformer(
-      {
-        innerRadius: 0.2, outerRadius: 0.3, valueField: 'val', palette: 'test-palette',
-      },
-      { argumentScale, valueScale }, 'test-data',
-    );
+    const transform = getPiePointTransformer({
+      argumentScale,
+      valueScale,
+      innerRadius: 0.2,
+      outerRadius: 0.3,
+      valueField: 'val',
+      palette: 'test-palette',
+    }, 'test-data');
 
     expect(
       transform({ argument: 'arg-1', value: 'val-1', index: 1 }),

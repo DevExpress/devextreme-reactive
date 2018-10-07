@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  findSeriesByName, addSeries, getValueDomainName,
-} from '@devexpress/dx-chart-core';
+import { findSeriesByName, addSeries } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
-  ARGUMENT_DOMAIN: 'test_argument_domain',
-  getValueDomainName: jest.fn(),
 }));
 
 describe('Base series', () => {
@@ -34,7 +30,6 @@ describe('Base series', () => {
     });
     addSeries.mockReturnValue('series');
     getSeriesPoints.mockReturnValue(coords);
-    getValueDomainName.mockReturnValue('test_value_domain');
   });
 
   afterEach(() => {
@@ -46,7 +41,7 @@ describe('Base series', () => {
       data: 'data',
       series: 'series',
       palette: 'test-palette',
-      scales: { test_argument_domain: 'argument-scale', test_value_domain: 'value-scale' },
+      scales: 'test-scales',
       getSeriesPoints,
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
@@ -110,7 +105,7 @@ describe('Base series', () => {
     expect(getSeriesPoints).toHaveBeenLastCalledWith(
       findSeriesByName.mock.results[0].value,
       'data',
-      { argumentScale: 'argument-scale', valueScale: 'value-scale' },
+      'test-scales',
       ['one', 'two'],
       'scaleExtension',
     );

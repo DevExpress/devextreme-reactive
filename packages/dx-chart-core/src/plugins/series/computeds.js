@@ -7,8 +7,11 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { scaleIdentity, scaleOrdinal } from 'd3-scale';
-import { createScale, getWidth, setScalePadding } from '../../utils/scale';
+import { scaleOrdinal } from 'd3-scale';
+import { ARGUMENT_DOMAIN } from '../../constants';
+import {
+  getValueDomainName, createScale, getWidth, setScalePadding,
+} from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -30,16 +33,20 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-// Default scales are provided because this function is called to get legend source
+const identity = x => x;
+
+// No-scales case is handled because the function is also called to get legend source
 // where coordinates are not required and hence scales are not available.
 // TODO: Is there a way to improve it?
 // `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
 // TODO: Remove `...args` when Bar case is resolved.
-export const getSeriesPoints = (
-  series, data, scales = { argumentScale: scaleIdentity(), valueScale: scaleIdentity() }, ...args
-) => {
+export const getSeriesPoints = (series, data, scales, ...args) => {
   const points = [];
-  const transform = series.getPointTransformer(series, scales, data, ...args);
+  const transform = series.getPointTransformer({
+    ...series,
+    argumentScale: scales ? scales[ARGUMENT_DOMAIN] : identity,
+    valueScale: scales ? scales[getValueDomainName(series.axisName)] : identity,
+  }, data, scales, ...args);
   data.forEach((dataItem, index) => {
     const argument = dataItem[series.argumentField];
     const value = dataItem[series.valueField];
@@ -54,14 +61,15 @@ export const getSeriesPoints = (
   return points;
 };
 
-export const getPiePointTransformer = (series, { argumentScale, valueScale }, data) => {
-  const { innerRadius = 0, outerRadius = 1, valueField } = series;
+export const getPiePointTransformer = ({
+  innerRadius = 0, outerRadius = 1, valueField, argumentScale, valueScale, palette,
+}, data) => {
   const x = Math.max(...argumentScale.range()) / 2;
   const y = Math.max(...valueScale.range()) / 2;
   const radius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d[valueField])(data);
   const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
-  const colorScale = scaleOrdinal().range(series.palette);
+  const colorScale = scaleOrdinal().range(palette);
   return ({ argument, value, index }) => {
     const { startAngle, endAngle } = pieData[index];
     return {
@@ -75,7 +83,7 @@ export const getPiePointTransformer = (series, { argumentScale, valueScale }, da
   };
 };
 
-export const getAreaPointTransformer = (series, { argumentScale, valueScale }) => {
+export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
   const y1 = valueScale(0);
   const offset = getWidth(argumentScale) / 2;
   return ({ argument, value, index }) => ({
@@ -89,9 +97,8 @@ export const getAreaPointTransformer = (series, { argumentScale, valueScale }) =
 
 // TODO: Take group settings from *series*; move settings calculation to Stack plugin
 // (since it handles bar grouping by now)
-const getGroupSettings = (series, argumentScale, stacks, scaleExtension) => {
+const getGroupSettings = (argumentScale, barWidth, stack, stacks, scaleExtension) => {
   const width = getWidth(argumentScale);
-  const { barWidth = 0.9, stack } = series;
   const groupsScale = setScalePadding(createScale(
     {
       domain: stacks,
@@ -101,17 +108,17 @@ const getGroupSettings = (series, argumentScale, stacks, scaleExtension) => {
     scaleExtension.find(item => item.type === 'band').constructor,
   ), 1 - barWidth);
   return {
-    groupWidth: getWidth(groupsScale),
     groupOffset: groupsScale(stack),
+    groupWidth: getWidth(groupsScale),
   };
 };
 
-export const getBarPointTransformer = (
-  series, { argumentScale, valueScale }, data, stacks = [undefined], scaleExtension,
-) => {
+export const getBarPointTransformer = ({
+  argumentScale, valueScale, barWidth = 0.9, stack,
+}, data, scales, stacks = [undefined], scaleExtension) => {
   const y1 = valueScale(0);
   const { groupWidth, groupOffset } = getGroupSettings(
-    series, argumentScale, stacks, scaleExtension,
+    argumentScale, barWidth, stack, stacks, scaleExtension,
   );
   return ({ argument, value, index }) => ({
     x: argumentScale(argument) + groupOffset,

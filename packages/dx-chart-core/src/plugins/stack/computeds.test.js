@@ -155,21 +155,19 @@ describe('Stack', () => {
         { stack_s1_0_0: '3-val1' },
         { stack_s1_0_0: '4-val1' },
       ];
-      const scales = {
-        valueScale: value => `${value}#`,
-      };
       const mock = jest.fn().mockReturnValue(point => ({
         ...point,
         status: 'transformed',
       }));
+      const valueScale = value => `${value}#`;
       const series = buildStackedSeries([
         {
           stack: 's1', valueField: 'val1', getPointTransformer: mock, isStartedFromZero: true,
         },
       ]);
 
-      const transform = series[0].getPointTransformer(series[0], scales, data, 'a', 'b');
-      expect(mock).toBeCalledWith(series[0], scales, data, 'a', 'b');
+      const transform = series[0].getPointTransformer({ ...series[0], valueScale }, data, 'a', 'b');
+      expect(mock).toBeCalledWith({ ...series[0], valueScale }, data, 'a', 'b');
       expect(transform({ index: 1 })).toEqual({
         index: 1,
         status: 'transformed',

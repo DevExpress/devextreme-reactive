@@ -1,7 +1,5 @@
 import { scaleLinear, scaleBand } from 'd3-scale';
-import {
-  computeDomains, computeExtension, getValueDomainName, buildScales,
-} from './computeds';
+import { computeDomains, computeExtension, buildScales } from './computeds';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
 jest.mock('d3-scale', () => ({
@@ -421,16 +419,6 @@ describe('computeExtension', () => {
     expect(scale).toEqual(mockBandScale);
     expect(scale.paddingInner).toBeCalledWith(0.3);
     expect(scale.paddingOuter).toBeCalledWith(0.15);
-  });
-});
-
-describe('getValueDomainName', () => {
-  it('should return argument', () => {
-    expect(getValueDomainName('test-domain')).toEqual('test-domain');
-  });
-
-  it('should return default value', () => {
-    expect(getValueDomainName()).toEqual('value-domain');
   });
 });
 

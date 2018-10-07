@@ -5,9 +5,9 @@ import { stack } from 'd3-shape';
 
 const getStackedPointTransformer = ({
   getPointTransformer, valueField0,
-}) => (series, scales, data, ...args) => {
-  const transform = getPointTransformer(series, scales, data, ...args);
-  const { valueScale } = scales;
+}) => (series, data, ...args) => {
+  const transform = getPointTransformer(series, data, ...args);
+  const { valueScale } = series;
   return (point) => {
     const ret = transform(point);
     ret.y1 = valueScale(data[point.index][valueField0]);

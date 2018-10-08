@@ -55,6 +55,74 @@ describe('EditingState', () => {
       .toEqual(createAppointmentChangeGetter());
   });
 
+  it('should provide setAppointmentTitle', () => {
+    const setAppointmentTitle = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          setAppointmentTitle={setAppointmentTitle}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).setAppointmentTitle)
+      .toBe(setAppointmentTitle);
+  });
+
+  it('should provide setAppointmentStartDate', () => {
+    const setAppointmentStartDate = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          setAppointmentStartDate={setAppointmentStartDate}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).setAppointmentStartDate)
+      .toBe(setAppointmentStartDate);
+  });
+
+  it('should provide setAppointmentEndDate', () => {
+    const setAppointmentEndDate = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          setAppointmentEndDate={setAppointmentEndDate}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).setAppointmentEndDate)
+      .toBe(setAppointmentEndDate);
+  });
+
+  it('should provide setAppointmentAllDay', () => {
+    const setAppointmentAllDay = jest.fn();
+
+    const tree = mount((
+      <PluginHost>
+        <EditingState
+          {...defaultProps}
+          setAppointmentAllDay={setAppointmentAllDay}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).setAppointmentAllDay)
+      .toBe(setAppointmentAllDay);
+  });
+
   testStatePluginField({
     Plugin: EditingState,
     propertyName: 'editingAppointmentId',

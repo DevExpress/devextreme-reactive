@@ -98,10 +98,6 @@ export class AppointmentForm extends React.PureComponent {
       >
         <Template name="main">
           <TemplatePlaceholder />
-          <TemplatePlaceholder name="form" />
-        </Template>
-
-        <Template name="form">
           <TemplateConnector>
             {({
               getAppointmentTitle,

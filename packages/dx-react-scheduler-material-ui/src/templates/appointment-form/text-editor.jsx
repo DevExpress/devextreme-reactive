@@ -29,7 +29,7 @@ const TextEditorBase = ({
     margin="normal"
     variant="filled"
     disabled={readOnly}
-    onChange={onValueChange}
+    onChange={({ target }) => onValueChange(target.value)}
     {...restProps}
   />
 );

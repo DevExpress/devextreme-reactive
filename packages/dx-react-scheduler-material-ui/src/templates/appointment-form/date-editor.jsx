@@ -33,7 +33,7 @@ const DateEditorBase = ({
     InputLabelProps={{
       shrink: true,
     }}
-    onChange={onValueChange}
+    onChange={({ target }) => onValueChange(target.value)}
     {...restProps}
   />
 );

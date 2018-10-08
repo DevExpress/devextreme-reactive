@@ -137,9 +137,9 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
-                        onValueChange={(e) => {
+                        onValueChange={(nextValue) => {
                           changeAppointment({
-                            change: { title: e.target.value }, // ??? setAppointmentTitle
+                            change: { title: nextValue }, // ??? setAppointmentTitle
                           });
                         }}
                       />
@@ -147,9 +147,9 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
-                        onValueChange={(e) => {
+                        onValueChange={(nextValue) => {
                           changeAppointment({
-                            change: { startDate: e.target.value }, // ??? setAppointmentStartDate
+                            change: { startDate: nextValue }, // ??? setAppointmentStartDate
                           });
                         }}
                       />
@@ -157,9 +157,9 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
-                        onValueChange={(e) => {
+                        onValueChange={(nextValue) => {
                           changeAppointment({
-                            change: { endDate: e.target.value }, // ??? setAppointmentEdnDate
+                            change: { endDate: nextValue }, // ??? setAppointmentEdnDate
                           });
                         }}
                       />
@@ -167,9 +167,9 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         text={getMessage('allDayText')}
                         value={getAppointmentAllDay(changedAppointment)}
-                        onValueChange={(e) => {
+                        onValueChange={(nextValue) => {
                           changeAppointment({
-                            change: { allDay: e.target.checked }, // ??? setAppointmentAllDay
+                            change: { allDay: nextValue }, // ??? setAppointmentAllDay
                           });
                         }}
                       />

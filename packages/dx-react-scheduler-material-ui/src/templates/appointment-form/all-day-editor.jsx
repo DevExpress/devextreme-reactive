@@ -15,7 +15,7 @@ export const AllDayEditor = ({
       <Checkbox
         color="primary"
         checked={value}
-        onChange={onValueChange}
+        onChange={({ target }) => onValueChange(target.checked)}
       />
     )}
     disabled={readOnly}

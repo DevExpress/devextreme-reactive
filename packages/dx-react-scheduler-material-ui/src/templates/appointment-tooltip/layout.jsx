@@ -44,7 +44,7 @@ const LayoutBase = ({
   ...restProps
 }) => {
   const { target, appointment = {} } = appointmentMeta;
-  const openButtonClcikHandler = () => {
+  const openButtonClickHandler = () => {
     onHide();
     onOpenButtonClick();
   };
@@ -61,7 +61,7 @@ const LayoutBase = ({
         <div>
           <div className={classes.buttonsLeft}>
             {showOpenButton
-              && <CommandButton id={commandButtonIds.open} onClick={openButtonClcikHandler} />}
+              && <CommandButton id={commandButtonIds.open} onClick={openButtonClickHandler} />}
           </div>
           <div className={classes.buttonsRight}>
             {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}

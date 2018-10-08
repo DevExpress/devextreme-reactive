@@ -14,6 +14,10 @@ import {
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
 
+const changeAppointmentField = (changeAppointment, setAppointmentField) => (nextValue) => {
+  changeAppointment({ change: setAppointmentField({}, nextValue) });
+};
+
 const defaultMessages = {
   allDayText: 'All Day',
   titleLabel: 'Title',
@@ -106,21 +110,18 @@ export class AppointmentForm extends React.PureComponent {
               getAppointmentAllDay,
               getAppointmentId,
 
-              editingAppointmentId,
+              setAppointmentTitle,
+              setAppointmentStartDate,
+              setAppointmentEndDate,
+              setAppointmentAllDay,
+
               appointmentChanges,
-              addedAppointment,
-              deletedAppointmentId,
             }, {
               stopEditAppointment,
 
               changeAppointment,
               cancelChangedAppointment,
               commitChangedAppointment,
-
-              addAppointment, // by click on empty cell
-              changeAddedAppointment,
-              cancelAddedAppointment,
-              commitAddedAppointment,
             }) => {
               const changedAppointment = {
                 ...appointment,
@@ -137,41 +138,33 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
-                        onValueChange={(nextValue) => {
-                          changeAppointment({
-                            change: { title: nextValue }, // ??? setAppointmentTitle
-                          });
-                        }}
+                        onValueChange={changeAppointmentField(
+                          changeAppointment, setAppointmentTitle,
+                        )}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
-                        onValueChange={(nextValue) => {
-                          changeAppointment({
-                            change: { startDate: nextValue }, // ??? setAppointmentStartDate
-                          });
-                        }}
+                        onValueChange={changeAppointmentField(
+                          changeAppointment, setAppointmentStartDate,
+                        )}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
-                        onValueChange={(nextValue) => {
-                          changeAppointment({
-                            change: { endDate: nextValue }, // ??? setAppointmentEdnDate
-                          });
-                        }}
+                        onValueChange={changeAppointmentField(
+                          changeAppointment, setAppointmentEndDate,
+                        )}
                       />
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayText')}
                         value={getAppointmentAllDay(changedAppointment)}
-                        onValueChange={(nextValue) => {
-                          changeAppointment({
-                            change: { allDay: nextValue }, // ??? setAppointmentAllDay
-                          });
-                        }}
+                        onValueChange={changeAppointmentField(
+                          changeAppointment, setAppointmentAllDay,
+                        )}
                       />
                     </ScrollableSpace>
                     <StaticSpace>

@@ -58,7 +58,7 @@ export class AppointmentForm extends React.PureComponent {
     this.setAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointment', setAppointment);
 
-    this.openFormHandler = ({ appointment }) => {
+    this.openFormHandler = (appointment) => {
       this.setAppointment({ appointment });
       this.toggleVisibility();
     };
@@ -208,9 +208,9 @@ export class AppointmentForm extends React.PureComponent {
                   params={{
                     ...params,
                     onOpenButtonClick: () => {
-                      this.openFormHandler({
-                        appointment: params.appointmentMeta.appointment,
-                      });
+                      this.openFormHandler(
+                        params.appointmentMeta.appointment,
+                      );
                       startEditAppointment({
                         appointmentId: getAppointmentId(params.appointmentMeta.appointment),
                       });
@@ -234,9 +234,9 @@ export class AppointmentForm extends React.PureComponent {
                   params={{
                     ...params,
                     onDoubleClick: () => {
-                      this.openFormHandler({
-                        appointment: params.appointmentMeta.appointment,
-                      });
+                      this.openFormHandler(
+                        params.appointmentMeta.appointment,
+                      );
                       startEditAppointment({
                         appointmentId: getAppointmentId(params.appointmentMeta.appointment),
                       });

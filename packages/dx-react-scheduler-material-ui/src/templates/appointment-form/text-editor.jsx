@@ -40,6 +40,7 @@ TextEditorBase.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 TextEditorBase.defaultProps = {
@@ -47,6 +48,7 @@ TextEditorBase.defaultProps = {
   label: undefined,
   className: undefined,
   readOnly: false,
+  onValueChange: () => undefined,
 };
 
 export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });

@@ -228,4 +228,28 @@ describe('AppointmentForm', () => {
     expect(defaultDeps.action.cancelChangedAppointment)
       .toBeCalled();
   });
+
+  it('should not render commit button while readOnly mode', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+          readOnly
+        />
+      </PluginHost>
+    ));
+
+    const commitButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === COMMIT_COMMAND_BUTTON);
+    const cancelButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === CANCEL_COMMAND_BUTTON);
+
+    expect(commitButton.exists())
+      .toBeFalsy();
+    expect(cancelButton.exists())
+      .toBeTruthy();
+  });
 });

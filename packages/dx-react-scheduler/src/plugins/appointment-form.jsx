@@ -18,6 +18,12 @@ const changeAppointmentField = (changeAppointment, setAppointmentField) => (next
   changeAppointment({ change: setAppointmentField({}, nextValue) });
 };
 
+const conditionalActionCall = (action, payload) => {
+  if (action) {
+    action(payload);
+  }
+};
+
 const defaultMessages = {
   allDayText: 'All Day',
   titleLabel: 'Title',
@@ -28,6 +34,7 @@ const defaultMessages = {
 };
 
 const pluginDependencies = [
+  { name: 'EditingState', optional: true },
   { name: 'Appointments', optional: true },
   { name: 'AppointmentTooltip', optional: true },
 ];
@@ -134,33 +141,41 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
-                        onValueChange={changeAppointmentField(
-                          changeAppointment, setAppointmentTitle,
-                        )}
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            changeAppointment, setAppointmentTitle,
+                          ),
+                        }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
-                        onValueChange={changeAppointmentField(
-                          changeAppointment, setAppointmentStartDate,
-                        )}
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            changeAppointment, setAppointmentStartDate,
+                          ),
+                        }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
-                        onValueChange={changeAppointmentField(
-                          changeAppointment, setAppointmentEndDate,
-                        )}
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            changeAppointment, setAppointmentEndDate,
+                          ),
+                        }}
                       />
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayText')}
                         value={getAppointmentAllDay(changedAppointment)}
-                        onValueChange={changeAppointmentField(
-                          changeAppointment, setAppointmentAllDay,
-                        )}
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            changeAppointment, setAppointmentAllDay,
+                          ),
+                        }}
                       />
                     </ScrollableSpace>
                     <StaticSpace>
@@ -168,22 +183,25 @@ export class AppointmentForm extends React.PureComponent {
                         text={getMessage('cancelCommand')}
                         onExecute={() => {
                           this.toggleVisibility();
-                          stopEditAppointment();
-                          cancelChangedAppointment();
+                          if (stopEditAppointment) {
+                            stopEditAppointment();
+                            cancelChangedAppointment();
+                          }
                         }}
                         id={CANCEL_COMMAND_BUTTON}
                       />
-                      <CommandButton
-                        text={getMessage('commitCommand')}
-                        readOnly={readOnly}
-                        onExecute={() => {
-                          this.toggleVisibility();
-                          commitChangedAppointment({
-                            appointmentId: getAppointmentId(changedAppointment),
-                          });
-                        }}
-                        id={COMMIT_COMMAND_BUTTON}
-                      />
+                      {!readOnly && (
+                        <CommandButton
+                          text={getMessage('commitCommand')}
+                          onExecute={() => {
+                            this.toggleVisibility();
+                            conditionalActionCall(commitChangedAppointment, {
+                              appointmentId: getAppointmentId(changedAppointment),
+                            });
+                          }}
+                          id={COMMIT_COMMAND_BUTTON}
+                        />
+                      )}
                     </StaticSpace>
                   </Container>
                 </Popup>
@@ -207,7 +225,7 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler(
                         params.appointmentMeta.appointment,
                       );
-                      startEditAppointment({
+                      conditionalActionCall(startEditAppointment, {
                         appointmentId: getAppointmentId(params.appointmentMeta.appointment),
                       });
                     },
@@ -231,10 +249,10 @@ export class AppointmentForm extends React.PureComponent {
                     ...params,
                     onDoubleClick: () => {
                       this.openFormHandler(
-                        params.appointmentMeta.appointment,
+                        params.appointment,
                       );
-                      startEditAppointment({
-                        appointmentId: getAppointmentId(params.appointmentMeta.appointment),
+                      conditionalActionCall(startEditAppointment, {
+                        appointmentId: getAppointmentId(params.appointment),
                       });
                     },
                   }}

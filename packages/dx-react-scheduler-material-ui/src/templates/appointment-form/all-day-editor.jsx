@@ -28,10 +28,12 @@ AllDayEditor.propTypes = {
   text: PropTypes.string,
   readOnly: PropTypes.bool,
   value: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 AllDayEditor.defaultProps = {
   text: undefined,
   readOnly: false,
   value: false,
+  onValueChange: () => undefined,
 };

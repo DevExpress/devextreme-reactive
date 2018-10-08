@@ -5,8 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-const dateToIsoString = date => moment(date).toISOString(true).slice(0, -10);
-
 const styles = () => ({
   editor: {
     width: '100%',
@@ -25,7 +23,7 @@ const DateEditorBase = ({
   <TextField
     label={label}
     className={classNames(classes.editor, className)}
-    value={dateToIsoString(value)}
+    value={moment(value).format(moment.HTML5_FMT.DATETIME_LOCAL)}
     margin="normal"
     variant="filled"
     type="datetime-local"

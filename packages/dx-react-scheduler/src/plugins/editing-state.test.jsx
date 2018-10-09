@@ -36,7 +36,7 @@ const defaultProps = {
 };
 
 describe('EditingState', () => {
-  it('should provide createAppointmentChange', () => {
+  it('should provide createAppointmentChange getter', () => {
     const createAppointmentChange = () => {};
 
     const tree = mount((
@@ -55,7 +55,7 @@ describe('EditingState', () => {
       .toEqual(createAppointmentChangeGetter());
   });
 
-  it('should provide setAppointmentTitle', () => {
+  it('should provide setAppointmentTitle getter', () => {
     const setAppointmentTitle = jest.fn();
 
     const tree = mount((
@@ -72,7 +72,7 @@ describe('EditingState', () => {
       .toBe(setAppointmentTitle);
   });
 
-  it('should provide setAppointmentStartDate', () => {
+  it('should provide setAppointmentStartDate getter', () => {
     const setAppointmentStartDate = jest.fn();
 
     const tree = mount((
@@ -89,7 +89,7 @@ describe('EditingState', () => {
       .toBe(setAppointmentStartDate);
   });
 
-  it('should provide setAppointmentEndDate', () => {
+  it('should provide setAppointmentEndDate getter', () => {
     const setAppointmentEndDate = jest.fn();
 
     const tree = mount((
@@ -106,7 +106,7 @@ describe('EditingState', () => {
       .toBe(setAppointmentEndDate);
   });
 
-  it('should provide setAppointmentAllDay', () => {
+  it('should provide setAppointmentAllDay getter', () => {
     const setAppointmentAllDay = jest.fn();
 
     const tree = mount((

@@ -229,7 +229,7 @@ describe('AppointmentForm', () => {
       .toBeCalled();
   });
 
-  it('should not render commit button while readOnly mode', () => {
+  it('should not render commit button in readOnly mode', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

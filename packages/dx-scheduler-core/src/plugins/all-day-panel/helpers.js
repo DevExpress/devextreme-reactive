@@ -58,7 +58,7 @@ export const getAllDayRectByDates = (
   };
 };
 
-export const sliceAppointmentsByBoundaries = (appointment, left, right, excludedDays) => {
+export const sliceAppointmentsByBoundaries = (appointment, left, right, excludedDays = []) => {
   const startDate = appointment.start.clone();
   const endDate = appointment.end.clone();
   let nextStart = startDate.clone();

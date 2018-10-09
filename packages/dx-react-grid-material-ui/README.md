@@ -1,6 +1,6 @@
-# DevExtreme React Grid Material UI
+# DevExtreme React Grid Material-UI
 
-A template suite used to render the React Grid based on Material UI components.
+A template suite used to render the React Grid based on Material-UI components.
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/grid/)
 |

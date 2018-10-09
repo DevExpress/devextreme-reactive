@@ -13,7 +13,7 @@ DevExtreme Reactive is a set of business components for React and Vue that deepl
 
 ### Common Features
 
-- [Material UI](https://github.com/callemall/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
+- [Material-UI](https://github.com/mui-org/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
 

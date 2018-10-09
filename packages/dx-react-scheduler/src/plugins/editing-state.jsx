@@ -66,6 +66,7 @@ export class EditingState extends React.PureComponent {
         changed: changedAppointmentById(appointmentChanges, appointmentId),
       });
       this.cancelChangedAppointment();
+      this.stopEditAppointment();
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -129,7 +130,13 @@ export class EditingState extends React.PureComponent {
   }
 
   render() {
-    const { createAppointmentChange } = this.props;
+    const {
+      createAppointmentChange,
+      setAppointmentTitle,
+      setAppointmentStartDate,
+      setAppointmentEndDate,
+      setAppointmentAllDay,
+    } = this.props;
     const {
       addedAppointment, deletedAppointmentId, editingAppointmentId, appointmentChanges,
     } = this.state;
@@ -142,6 +149,11 @@ export class EditingState extends React.PureComponent {
           name="createRowChange"
           value={createAppointmentChangeGetter(createAppointmentChange)}
         />
+
+        <Getter name="setAppointmentTitle" value={setAppointmentTitle} />
+        <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
+        <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
+        <Getter name="setAppointmentAllDay" value={setAppointmentAllDay} />
 
         <Getter name="editingAppointmentId" value={editingAppointmentId} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
@@ -191,6 +203,7 @@ EditingState.propTypes = {
   setAppointmentStartDate: PropTypes.func,
   setAppointmentEndDate: PropTypes.func,
   setAppointmentTitle: PropTypes.func,
+  setAppointmentAllDay: PropTypes.func,
 };
 
 EditingState.defaultProps = {
@@ -216,4 +229,5 @@ EditingState.defaultProps = {
     (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
   setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
   setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
+  setAppointmentAllDay: (appointment, nextAllDay) => ({ ...appointment, allDay: nextAllDay }),
 };

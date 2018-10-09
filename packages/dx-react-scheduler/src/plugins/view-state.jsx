@@ -70,8 +70,16 @@ export class ViewState extends React.PureComponent {
 }
 
 ViewState.propTypes = {
-  currentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-  defaultCurrentDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  currentDate: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
+  defaultCurrentDate: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   onCurrentDateChange: PropTypes.func,
   currentViewName: PropTypes.string,
   defaultCurrentViewName: PropTypes.string,

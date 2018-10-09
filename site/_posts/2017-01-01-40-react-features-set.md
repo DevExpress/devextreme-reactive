@@ -13,7 +13,7 @@ description: |
 * Built-in data filtering, selection, and editing
 * Advanced UI elements such as a filter row and record detail row
 * Virtual record scrolling
-* Bootstrap and Material-UI templates
+* Bootstrap and [Material-UI](https://material-ui.com/) templates
 * Column resizing/reordering
 * Column chooser
 * Keyboard navigation

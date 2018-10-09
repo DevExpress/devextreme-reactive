@@ -29,7 +29,7 @@ import { TableColumnResizing } from '@devexpress/dx-react-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 columnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | | Specifies column widths.
-minColumnWidth? | number | `45` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `55` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4); `40` for [Material UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui); | Specifies a column's minimum width.
+minColumnWidth? | number | `45` for [Bootstrap3](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `55` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4); `40` for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui); | Specifies a column's minimum width.
 defaultColumnWidths? | Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt; | [] | Specifies initial column widths in uncontrolled mode.
 onColumnWidthsChange? | (nextColumnWidths: Array&lt;[TableColumnWidthInfo](#tablecolumnwidthinfo)&gt;) => void | | Handles column width changes.
 

@@ -33,6 +33,7 @@ export const Scheduler = ({
 Scheduler.propTypes = {
   data: PropTypes.array,
   currentDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.instanceOf(Date),
     PropTypes.string,
   ]),

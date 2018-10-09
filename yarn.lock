@@ -6285,12 +6285,6 @@ jss-global@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/jss-global/-/jss-global-3.0.0.tgz#e19e5c91ab2b96353c227e30aa2cbd938cdaafa2"
 
-jss-keyframes@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/jss-keyframes/-/jss-keyframes-0.1.0.tgz#9fb11a418c4f07136f69289cca63a59d8bc224c9"
-  dependencies:
-    warning "^4.0.1"
-
 jss-nested@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jss-nested/-/jss-nested-4.0.1.tgz#f50cc206430c8a920ccd54e3b756f7fc72455130"

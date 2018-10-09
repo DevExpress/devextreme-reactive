@@ -75,6 +75,7 @@ Root.propTypes = {
   headerCellComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
   currentDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,

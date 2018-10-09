@@ -33,6 +33,7 @@ const TitleBase = ({
 TitleBase.propTypes = {
   classes: PropTypes.object.isRequired,
   currentDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,

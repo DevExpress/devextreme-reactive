@@ -6,7 +6,7 @@ describe('Path', () => {
   const defaultProps = {
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
-    animationName: 'animationName',
+    seriesName: 'seriesName',
   };
 
   it('should render root element', () => {
@@ -59,7 +59,7 @@ describe('Path', () => {
     const customStyle = {
       anyStyle: 'style',
     };
-    const getAnimation = jest.fn(() => () => animationStyle);
+    const getAnimation = jest.fn(() => animationStyle);
     const tree = shallow(<Path
       {...defaultProps}
       style={customStyle}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  dLine, findSeriesByName, coordinates, getStartCoordinates,
+  dLine, findSeriesByName, coordinates, getStartCoordinates, transformAnimation,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { LineSeries } from './line-series';
@@ -28,6 +28,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getValueDomainName: () => 'test_value_domain',
   checkZeroStart: jest.fn(),
   getStartCoordinates: jest.fn(),
+  transformAnimation: jest.fn(),
 }));
 
 const defaultProps = {
@@ -48,6 +49,7 @@ findSeriesByName.mockImplementation(() => ({
 
 coordinates.mockImplementation(() => coords);
 getStartCoordinates.mockImplementation(() => startCoords);
+transformAnimation.mockImplementation(() => () => 'animation');
 
 describe('Line series', () => {
   const defaultDeps = {
@@ -80,7 +82,7 @@ describe('Line series', () => {
     expect(restProps).toEqual({
       customProperty: 'custom',
       animation: undefined,
-      animationName: 'transform',
+      seriesName: 'val1',
     });
   });
 });

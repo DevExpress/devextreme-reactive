@@ -7,6 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
+import jss from 'jss';
 import { createScale, getWidth } from '../../utils/scale';
 
 const getX = ({ x }) => x;
@@ -14,6 +15,11 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
 const DEFAULT_POINT_SIZE = 7;
+
+const getPieWidthHeight = ({ xScale, yScale }) => ({
+  width: Math.max.apply(null, xScale.range()),
+  height: Math.max.apply(null, yScale.range()),
+});
 
 export const dArea = area()
   .x(getX)
@@ -50,13 +56,12 @@ export const xyScales = (
 
 export const pieAttributes = (
   data,
-  { xScale, yScale },
+  scales,
   {
     argumentField, valueField, innerRadius = 0, outerRadius = 1,
   },
 ) => {
-  const width = Math.max.apply(null, xScale.range());
-  const height = Math.max.apply(null, yScale.range());
+  const { width, height } = getPieWidthHeight(scales);
   const radius = Math.min(width, height) / 2;
   const pieData = pie().sort(null).value(d => d[valueField])(data);
 
@@ -162,30 +167,57 @@ export const seriesData = (series = [], seriesProps) => {
 
 export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));
 
-const getCoord = (domain, scale) => {
-  if (typeof domain[0] === 'number') {
-    if (domain[0] >= 0 && domain[1] > 0) {
-      return scale(domain[0]);
-    } if (domain[0] < 0 && domain[1] <= 0) {
-      return scale(domain[1]);
-    }
-    return scale(0);
-  }
-  return scale(domain[0]);
-};
+export const getStartCoordinates = ({ yScale }) => ({ x: 0, y: yScale.copy().clamp(true)(0) });
 
-export const getStartCoordinates = ({ xScale, yScale }) => {
-  const domainX = xScale.domain();
-  const domainY = yScale.domain();
-
-  return { x: getCoord(domainX, xScale), y: getCoord(domainY, yScale) };
-};
-
-export const getPieStartCoordinates = ({ xScale, yScale }) => {
-  const width = Math.max.apply(null, xScale.range());
-  const height = Math.max.apply(null, yScale.range());
+export const getPieStartCoordinates = (scales) => {
+  const { width, height } = getPieWidthHeight(scales);
   return {
     x: width / 2,
     y: height / 2,
+  };
+};
+
+const setAnimationKeyframes = (frames, nameId) => {
+  const styles = {
+    [`@keyframes ${nameId}`]: frames,
+  };
+  jss.createStyleSheet(styles).attach();
+};
+
+const getId = name => `${name}_${Math.round(Math.random() * 100)}`;
+
+export const scatterAnimation = () => {
+  const name = getId('animation_scatter');
+  setAnimationKeyframes({
+    '0%': { opacity: 0 },
+    '50%': { opacity: 0 },
+    '100%': { opacity: 1 },
+  }, name);
+  return {
+    options: () => '1s',
+    name,
+  };
+};
+
+export const transformAnimation = () => {
+  const name = getId('animation_transform');
+  setAnimationKeyframes({
+    from: { transform: 'scaleY(0)' },
+  }, name);
+  return {
+    options: () => '1s',
+    styles: (x, y) => ({ transformOrigin: `${x}px ${y}px` }),
+    name,
+  };
+};
+
+export const pieAnimation = () => {
+  const name = getId('animation_pie');
+  setAnimationKeyframes({
+    from: { transform: 'scale(0)' },
+  }, name);
+  return {
+    options: ({ index }) => `${(index + 1) * 0.2}s`,
+    name,
   };
 };

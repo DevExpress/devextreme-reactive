@@ -11,32 +11,35 @@ export class SliceCollection extends React.PureComponent {
       colorDomain,
       uniqueName,
       style,
-      animationName,
+      seriesName,
       animation,
+      innerRadius,
+      outerRadius,
       ...restProps
     } = this.props;
-    const { innerRadius, outerRadius, ...pointOptions } = restProps;
-    const styles = animation(animationName);
-    return (coordinates.map(item => (
-      <Point
-        key={item.id.toString()}
-        style={{ ...style, ...styles(item) }}
-        {...item}
-        {...pointOptions}
-        color={colorDomain(item.id)}
-      />
-    )));
+    return (
+      <g transform={`translate(${coordinates[0].x} ${coordinates[0].y})`}>
+        {coordinates.map(item => (
+          <Point
+            key={item.id.toString()}
+            style={{ ...style, ...animation(item, seriesName) }}
+            {...item}
+            {...restProps}
+            color={colorDomain(item.id)}
+          />
+        ))}
+      </g>);
   }
 }
 
 SliceCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
-  animationName: PropTypes.string.isRequired,
+  seriesName: PropTypes.string.isRequired,
   animation: PropTypes.func,
 };
 
 SliceCollection.defaultProps = {
   style: undefined,
-  animation: () => () => {},
+  animation: () => {},
 };

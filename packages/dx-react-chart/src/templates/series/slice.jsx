@@ -9,7 +9,6 @@ export class Slice extends React.PureComponent {
     return (
       <path
         fill={color}
-        transform={`translate(${x} ${y})`}
         d={d}
         {...restProps}
       />

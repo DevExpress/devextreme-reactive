@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  dArea, findSeriesByName, coordinates, getStartCoordinates,
+  dArea, findSeriesByName, coordinates, getStartCoordinates, transformAnimation,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AreaSeries } from './area-series';
@@ -19,6 +19,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getValueDomainName: () => 'test_value_domain',
   checkZeroStart: jest.fn(),
   getStartCoordinates: jest.fn(),
+  transformAnimation: jest.fn(),
 }));
 
 const coords = [
@@ -52,6 +53,7 @@ findSeriesByName.mockImplementation(() => ({
 
 coordinates.mockImplementation(() => coords);
 getStartCoordinates.mockImplementation(() => startCoords);
+transformAnimation.mockImplementation(() => () => 'animation');
 
 describe('Area series', () => {
   const defaultDeps = {
@@ -83,8 +85,8 @@ describe('Area series', () => {
     expect(path).toBe(dArea);
     expect(restProps).toEqual({
       customProperty: 'custom',
-      animationName: 'transform',
       animation: undefined,
+      seriesName: 'val1',
     });
   });
 

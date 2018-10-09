@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { pieAttributes, findSeriesByName, getPieStartCoordinates } from '@devexpress/dx-chart-core';
+import {
+  pieAttributes, findSeriesByName, getPieStartCoordinates, pieAnimation,
+} from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PieSeries } from './pie-series';
 import { SliceCollection } from '../templates/series/slice-collection';
@@ -17,6 +19,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
   getPieStartCoordinates: jest.fn(),
+  pieAnimation: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => [
@@ -26,6 +29,7 @@ pieAttributes.mockImplementation(() => [
 ]);
 
 getPieStartCoordinates.mockImplementation(() => startCoords);
+pieAnimation.mockImplementation(() => () => 'animation');
 
 const defaultProps = {
   name: 'val1',

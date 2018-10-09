@@ -8,15 +8,15 @@ export class Area extends React.PureComponent {
       coordinates,
       color,
       style,
-      animationName,
       animation,
+      seriesName,
       ...restProps
     } = this.props;
     return (
       <path
         d={path(coordinates)}
         fill={color}
-        style={{ ...style, ...animation(animationName)({ x: 0 }) }}
+        style={{ ...style, ...animation(undefined, seriesName) }}
         {...restProps}
       />
     );
@@ -28,12 +28,12 @@ Area.propTypes = {
   coordinates: PropTypes.array.isRequired,
   color: PropTypes.string,
   style: PropTypes.object,
-  animationName: PropTypes.string.isRequired,
+  seriesName: PropTypes.string.isRequired,
   animation: PropTypes.func,
 };
 
 Area.defaultProps = {
   color: undefined,
   style: undefined,
-  animation: () => () => {},
+  animation: () => {},
 };

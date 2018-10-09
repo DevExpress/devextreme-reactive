@@ -23,7 +23,7 @@ import { australianMedals as data } from '../../../demo-data/data-vizualization'
 
 const Point = (props) => {
   const {
-    x, y, value, color, style,
+    x, y, value, color,
   } = props;
   if (value) {
     return (
@@ -31,7 +31,6 @@ const Point = (props) => {
         fill={color}
         transform={`translate(${x} ${y})`}
         d={symbol().size([10 ** 2]).type(symbolCircle)()}
-        style={style}
       />
     );
   }
@@ -48,7 +47,11 @@ const LineWithPoint = props => (
         .y(({ y }) => y)
         .curve(curveStep)}
     />
-    <ScatterSeries.Path {...props} {...{ animationName: 'opacity' }} pointComponent={Point} />
+    <ScatterSeries.Path
+      {...props}
+      {...{ animation: ScatterSeries.animation }}
+      pointComponent={Point}
+    />
   </React.Fragment>
 );
 

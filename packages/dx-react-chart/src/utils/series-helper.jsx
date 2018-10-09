@@ -27,7 +27,6 @@ const getRenderProps = (series) => {
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     calculateCoordinates,
-    animationName,
     ...restProps
   } = series;
 
@@ -39,12 +38,12 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
-  { getStartCoordinates, animationName: defaultAnimationName },
+  { getStartCoordinates, animationOptions },
   getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
     render() {
-      const { name: seriesName, animationName = defaultAnimationName } = this.props;
+      const { name: seriesName } = this.props;
       const symbolName = Symbol(seriesName);
       const getSeriesDataComputed = ({ series }) => seriesData(series, {
         ...this.props,
@@ -68,7 +67,6 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                animationExtensions,
                 getAnimation = () => {},
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
@@ -91,13 +89,14 @@ export const withSeriesPlugin = (
                 );
 
                 const props = getRenderProps(currentSeries);
+                const startCoords = getStartCoordinates(scales);
 
                 return (
                   <Series
                     colorDomain={colorDomain}
                     coordinates={coordinates}
-                    animationName={animationName}
-                    animation={getAnimation(getStartCoordinates(scales), animationExtensions)}
+                    seriesName={seriesName}
+                    animation={getAnimation(startCoords, animationOptions)}
                     {...props}
                   />
                 );

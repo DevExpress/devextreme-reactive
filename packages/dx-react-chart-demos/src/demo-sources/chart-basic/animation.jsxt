@@ -48,7 +48,6 @@ export default class Demo extends React.PureComponent {
             valueField="sale"
             argumentField="month"
             axisName="sale"
-            animationName="movingBars"
           />
 
           <SplineSeries
@@ -56,25 +55,8 @@ export default class Demo extends React.PureComponent {
             valueField="total"
             argumentField="month"
             axisName="total"
-            animationName="movingDashes"
-            style={{ strokeDasharray: '3px 3px' }}
           />
-          <Animation extensions={[
-            {
-              name: 'movingDashes',
-              keyframes: () => ({ '100%': { 'stroke-dashoffset': '-31px' } }),
-              options: () => '1s linear infinite',
-            },
-            {
-              name: 'movingBars',
-              keyframes: () => ({
-                from: { transform: 'scaleY(0)' },
-              }),
-              styles: ({ y }, { x }) => ({ transformOrigin: `${x}px ${y}px` }),
-              options: ({ index }) => `${index * 0.3}s`,
-            },
-          ]}
-          />
+          <Animation settings={item => (item ? `${item.index * 0.3}s` : '1.5s')} />
           <Legend />
           <Scale />
         </Chart>

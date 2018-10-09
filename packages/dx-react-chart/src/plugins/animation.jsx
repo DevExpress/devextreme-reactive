@@ -3,26 +3,23 @@ import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import {
   getAnimation,
-  mergeExtensionsWithDefault,
 } from '@devexpress/dx-chart-core';
 
 export class Animation extends React.PureComponent {
   render() {
-    const { extensions } = this.props;
-    const getExtensions = () => mergeExtensionsWithDefault(extensions);
+    const { settings } = this.props;
     return (
       <Plugin name="Animation">
-        <Getter name="animationExtensions" computed={getExtensions} />
-        <Getter name="getAnimation" value={getAnimation} />
+        <Getter name="getAnimation" value={getAnimation(settings)} />
       </Plugin>
     );
   }
 }
 
 Animation.propTypes = {
-  extensions: PropTypes.array,
+  settings: PropTypes.func,
 };
 
 Animation.defaultProps = {
-  extensions: [],
+  settings: null,
 };

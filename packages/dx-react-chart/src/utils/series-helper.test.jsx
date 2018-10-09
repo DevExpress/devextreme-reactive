@@ -72,7 +72,6 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
-      animationExtensions: [{ name: 'defaultAnimationName', settings: 'animation' }],
       getAnimation: jest.fn(() => 'animation'),
     },
     template: {
@@ -91,7 +90,7 @@ describe('Base series', () => {
     'TestComponent',
     'pathType',
     coordinates,
-    { getStartCoordinates, animationName: 'defaultAnimationName' },
+    { getStartCoordinates, animationOptions: 'animationOptions' },
   );
 
   it('should render test component', () => {
@@ -110,8 +109,8 @@ describe('Base series', () => {
       color: 'color',
       colorDomain: 'colorDomain',
       styles: 'styles',
-      animationName: 'defaultAnimationName',
       animation: 'animation',
+      seriesName: 'name',
     });
   });
 

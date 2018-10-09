@@ -39,6 +39,7 @@ const DateEditorBase = ({
 DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),

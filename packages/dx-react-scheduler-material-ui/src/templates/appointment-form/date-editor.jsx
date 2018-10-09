@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -16,12 +17,13 @@ const DateEditorBase = ({
   label,
   className,
   readOnly,
+  onValueChange,
   ...restProps
 }) => (
   <TextField
     label={label}
     className={classNames(classes.editor, className)}
-    value={value}
+    value={moment(value).format(moment.HTML5_FMT.DATETIME_LOCAL)}
     margin="normal"
     variant="filled"
     type="datetime-local"
@@ -29,23 +31,30 @@ const DateEditorBase = ({
     InputLabelProps={{
       shrink: true,
     }}
+    onChange={({ target }) => onValueChange(target.value)}
     {...restProps}
   />
 );
 
 DateEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   label: PropTypes.string,
   className: PropTypes.string,
   readOnly: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 DateEditorBase.defaultProps = {
-  value: '',
+  value: undefined,
   label: undefined,
   className: undefined,
   readOnly: false,
+  onValueChange: () => undefined,
 };
 
 export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

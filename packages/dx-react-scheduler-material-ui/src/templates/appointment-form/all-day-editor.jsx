@@ -5,18 +5,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export const AllDayEditor = ({
   text,
-  checked,
+  value,
   readOnly,
+  onValueChange,
   ...restProps
 }) => (
   <FormControlLabel
     control={(
       <Checkbox
         color="primary"
-        disabled={readOnly}
-        checked={checked}
+        checked={value}
+        onChange={({ target }) => onValueChange(target.checked)}
       />
     )}
+    disabled={readOnly}
     label={text}
     {...restProps}
   />
@@ -25,11 +27,13 @@ export const AllDayEditor = ({
 AllDayEditor.propTypes = {
   text: PropTypes.string,
   readOnly: PropTypes.bool,
-  checked: PropTypes.bool,
+  value: PropTypes.bool,
+  onValueChange: PropTypes.func,
 };
 
 AllDayEditor.defaultProps = {
   text: undefined,
   readOnly: false,
-  checked: false,
+  value: false,
+  onValueChange: () => undefined,
 };

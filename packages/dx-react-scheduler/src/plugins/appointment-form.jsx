@@ -261,6 +261,35 @@ export class AppointmentForm extends React.PureComponent {
             </TemplateConnector>
           )}
         </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {(getters, {
+                addAppointment,
+              }) => {
+                const newAppointment = {
+                  title: undefined,
+                  startDate: params.time.start,
+                  endDate: params.time.end,
+                };
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      onDoubleClick: () => {
+                        this.openFormHandler(
+                          newAppointment,
+                        );
+                        conditionalActionCall(addAppointment, { appointment: newAppointment });
+                      },
+                    }}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
       </Plugin>
     );
   }

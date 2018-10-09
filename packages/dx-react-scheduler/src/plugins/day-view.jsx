@@ -38,6 +38,7 @@ export class DayView extends React.PureComponent {
     this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     const {
       name: viewName,
@@ -217,7 +218,7 @@ export class DayView extends React.PureComponent {
                 <React.Fragment>
                   <DateTable
                     rowComponent={DateTableRow}
-                    cellComponent={DateTableCell}
+                    cellComponent={this.cellPlaceholder}
                     timeScale={timeScale}
                     dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
@@ -238,6 +239,10 @@ export class DayView extends React.PureComponent {
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => <DateTableCell {...params} />}
         </Template>
       </Plugin>
     );

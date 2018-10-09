@@ -148,7 +148,7 @@ export class VirtualTableLayout extends React.PureComponent {
       return;
     }
 
-    // NOTE: prevent iOS to flicker in bounces
+    // NOTE: prevent iOS to flicker in bounces and correct rendering on high dpi screens
     const nodeHorizontalOffset = parseInt(node.scrollLeft + node.clientWidth, 10);
     const nodeVerticalOffset = parseInt(node.scrollTop + node.clientHeight, 10);
     if (node.scrollTop < 0

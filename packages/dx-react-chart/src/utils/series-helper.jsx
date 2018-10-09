@@ -21,7 +21,6 @@ const getRenderProps = (series) => {
     axisName,
     argumentField,
     valueField,
-    groupWidth,
     stack,
     symbolName,
     isStartedFromZero: _,
@@ -73,9 +72,6 @@ export const withSeriesPlugin = (
                   domains[ARGUMENT_DOMAIN],
                   domains[getValueDomainName(currentSeries.axisName)],
                   layouts.pane,
-                  // Looks like it is the only reason scales are recalculated for each series
-                  // while they depends only on domains and layout.
-                  currentSeries.groupWidth,
                   scaleExtension,
                 );
                 const coordinates = currentSeries.calculateCoordinates(
@@ -106,12 +102,10 @@ export const withSeriesPlugin = (
     /* eslint-disable react/no-unused-prop-types */
     valueField: PropTypes.string.isRequired,
     argumentField: PropTypes.string.isRequired,
-    groupWidth: PropTypes.number,
     /* eslint-enable react/no-unused-prop-types */
   };
   Component.defaultProps = {
     name: 'defaultSeriesName',
-    groupWidth: 0.7,
   };
   return Component;
 };

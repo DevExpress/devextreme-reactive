@@ -4,13 +4,13 @@ img: themes.png
 imgAnimated: themes.gif
 cssClass: block-theming
 category: LandingGridReact
-title: Twitter Bootstrap and Material UI<br/>with Seamless Theming
+title: Twitter Bootstrap and Material-UI<br/>with Seamless Theming
 description: |
 ---
 
 **Native Rendering**
 
-Use native Twitter Bootstrap and Material UI renderings and apply themes automatically - without unnecessary configuration.
+Use native Twitter Bootstrap and Material-UI renderings and apply themes automatically - without unnecessary configuration.
 
 **Individual UI Templates**
 

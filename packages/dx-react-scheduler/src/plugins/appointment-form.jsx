@@ -45,7 +45,7 @@ export class AppointmentForm extends React.PureComponent {
 
     this.state = {
       visible: props.visible,
-      appointment: {} || props.appointment,
+      appointment: props.appointment || {},
     };
 
     const stateHelper = createStateHelper(

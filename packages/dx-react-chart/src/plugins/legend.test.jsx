@@ -18,6 +18,8 @@ describe('Legend', () => {
   const defaultDeps = {
     getter: {
       series: 'test-series',
+      data: 'test-data',
+      getSeriesPoints: 'test-get-series-points',
     },
     template: {
       right: {},
@@ -47,7 +49,7 @@ describe('Legend', () => {
       </PluginHost>
     ));
 
-    expect(getLegendItems).toBeCalledWith('test-series');
+    expect(getLegendItems).toBeCalledWith('test-series', 'test-data', 'test-get-series-points');
     expect(tree.find(Label)).toHaveLength(2);
     expect(tree.find(Marker)).toHaveLength(2);
   });

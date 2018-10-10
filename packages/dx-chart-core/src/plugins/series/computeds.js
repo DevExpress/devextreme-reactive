@@ -7,7 +7,7 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { scaleOrdinal } from 'd3-scale';
+import { scaleIdentity, scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import {
   getValueDomainName, createScale, getWidth, setScalePadding,
@@ -33,7 +33,7 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-const identity = x => x;
+const identityScale = scaleIdentity();
 
 // No-scales case is handled because the function is also called to get legend source
 // where coordinates are not required and hence scales are not available.
@@ -44,8 +44,8 @@ export const getSeriesPoints = (series, data, scales, ...args) => {
   const points = [];
   const transform = series.getPointTransformer({
     ...series,
-    argumentScale: scales ? scales[ARGUMENT_DOMAIN] : identity,
-    valueScale: scales ? scales[getValueDomainName(series.axisName)] : identity,
+    argumentScale: scales ? scales[ARGUMENT_DOMAIN] : identityScale,
+    valueScale: scales ? scales[getValueDomainName(series.axisName)] : identityScale,
   }, data, scales, ...args);
   data.forEach((dataItem, index) => {
     const argument = dataItem[series.argumentField];

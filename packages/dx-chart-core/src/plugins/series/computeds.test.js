@@ -20,6 +20,7 @@ import {
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
+  scaleIdentity: () => x => x,
   scaleOrdinal: jest.fn(),
 }));
 

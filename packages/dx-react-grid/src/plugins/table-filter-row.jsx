@@ -34,6 +34,15 @@ const defaultMessages = {
   lessThanOrEqual: 'Less than or equal to',
 };
 
+const getSelectedFilterOperation = (
+  filterOperations, columnName, filter, columnFilterOperations,
+) => {
+  if (filterOperations[columnName]) {
+    return filterOperations[columnName];
+  }
+  return filter && filter.operation ? filter.operation : columnFilterOperations[0];
+};
+
 export class TableFilterRow extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -85,8 +94,9 @@ export class TableFilterRow extends React.PureComponent {
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,
                 );
-                const selectedFilterOperation = filterOperations[columnName]
-                  || columnFilterOperations[0];
+                const selectedFilterOperation = getSelectedFilterOperation(
+                  filterOperations, columnName, filter, columnFilterOperations,
+                );
                 const handleFilterOperationChange = (value) => {
                   this.setState({
                     filterOperations: {

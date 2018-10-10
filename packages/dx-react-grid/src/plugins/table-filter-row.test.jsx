@@ -311,4 +311,20 @@ describe('TableFilterRow', () => {
     expect(tree.find(defaultProps.filterSelectorComponent).prop('value'))
       .toBe('a');
   });
+
+  it('should use a column filter operation as the FilterSelector value', () => {
+    getColumnFilterConfig.mockImplementation(() => ({ columnName: 'a', value: 'b', operation: 'startsWith' }));
+    const filterSelectorValue = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+          showFilterSelector
+        />
+      </PluginHost>
+    )).find(defaultProps.filterSelectorComponent).prop('value');
+
+    expect(filterSelectorValue)
+      .toBe('startsWith');
+  });
 });

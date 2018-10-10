@@ -6,8 +6,6 @@ import {
   addAppointment,
   changeAddedAppointment,
   cancelAddedAppointment,
-  deleteAppointment,
-  cancelDeletedAppointment,
   startEditAppointment,
   stopEditAppointment,
   changeAppointment,
@@ -139,25 +137,6 @@ describe('EditingState', () => {
     }, {
       actionName: 'stopEditAppointment',
       reducer: stopEditAppointment,
-    }],
-  });
-
-  testStatePluginField({
-    Plugin: EditingState,
-    propertyName: 'deletedAppointmentId',
-    defaultDeps,
-    defaultProps,
-    values: [
-      0,
-      1,
-      2,
-    ],
-    actions: [{
-      actionName: 'deleteAppointment',
-      reducer: deleteAppointment,
-    }, {
-      actionName: 'cancelDeletedAppointment',
-      reducer: cancelDeletedAppointment,
     }],
   });
 

@@ -66,6 +66,7 @@ export default class Demo extends React.PureComponent {
           <Appointments />
           <AppointmentTooltip
             showOpenButton
+            showDeleteButton
           />
           <AppointmentForm />
         </Scheduler>

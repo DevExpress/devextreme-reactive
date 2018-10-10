@@ -67,4 +67,35 @@ describe('AppointmentTooltip', () => {
     expect(templatePlaceholder.props.params.onClick)
       .toEqual(expect.any(Function));
   });
+
+  it('should pass onDeleteButtonClick function', () => {
+    const deps = {
+      action: {
+        commitDeletedAppointment: jest.fn(),
+      },
+      getter: {
+        getAppointmentId: jest.fn(),
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <AppointmentTooltip
+          {...defaultProps}
+          appointmentMeta={{ appointment: {} }}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find('TemplatePlaceholder')
+      .filterWhere(node => node.props().name === 'tooltip');
+
+    expect(templatePlaceholder.props().params.onDeleteButtonClick)
+      .toEqual(expect.any(Function));
+
+    templatePlaceholder.props().params.onDeleteButtonClick();
+    expect(deps.action.commitDeletedAppointment)
+      .toBeCalled();
+  });
 });

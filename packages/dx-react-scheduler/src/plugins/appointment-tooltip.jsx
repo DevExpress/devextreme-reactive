@@ -16,6 +16,7 @@ import {
 
 const pluginDependencies = [
   { name: 'Appointments' },
+  { name: 'EditingState', optional: true },
 ];
 
 const commandButtonIds = {
@@ -90,26 +91,41 @@ export class AppointmentTooltip extends React.PureComponent {
               getAppointmentEndDate,
               getAppointmentStartDate,
               getAppointmentTitle,
-            }) => (
-              <TemplatePlaceholder
-                name="tooltip"
-                params={{
-                  commandButtonComponent,
-                  showOpenButton,
-                  showDeleteButton,
-                  showCloseButton,
-                  headComponent,
-                  contentComponent,
-                  appointmentMeta,
-                  visible,
-                  onHide: this.toggleVisibility,
-                  commandButtonIds,
-                  getAppointmentTitle,
-                  getAppointmentStartDate,
-                  getAppointmentEndDate,
-                }}
-              />
-            )}
+              getAppointmentId,
+            }, {
+              commitDeletedAppointment,
+            }) => {
+              const onDeleteButtonClick = () => {
+                commitDeletedAppointment({
+                  deletedAppointmentId: getAppointmentId(appointmentMeta.appointment),
+                });
+                this.toggleVisibility();
+              };
+
+              return (
+                <TemplatePlaceholder
+                  name="tooltip"
+                  params={{
+                    commandButtonComponent,
+                    showOpenButton,
+                    showDeleteButton,
+                    showCloseButton,
+                    headComponent,
+                    contentComponent,
+                    appointmentMeta,
+                    visible,
+                    onHide: this.toggleVisibility,
+                    commandButtonIds,
+                    getAppointmentTitle,
+                    getAppointmentStartDate,
+                    getAppointmentEndDate,
+                    ...commitDeletedAppointment && {
+                      onDeleteButtonClick,
+                    },
+                  }}
+                />
+              );
+            }}
           </TemplateConnector>
         </Template>
 

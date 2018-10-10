@@ -16,15 +16,4 @@ import { Animation } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-extensions? | Array&lt;[AnimationOptions](#animationoptions)&gt; | | An array of animations for series.
-
-## Interfaces
-
-### AnimationOptions
-
-Field | Type | Description
-------|------|------------
-name | string | Animation name.
-options | (item: {index: number, x: number, y: number}) => string | A function returns options for animation.
-keyframes | (startCoord: {x: number, y: number}) => object | A function returns keyframes for animation.
-styles | (startCoord: {x: number, y: number}, item: {index: number, x: number, y: number}) => object | A function returns extra styles for animation.
+settings? | (point: object, seriesName: string) => string | | A function that returns string with animation options for series and their points. The string can consists of the following properties: duration, timing, direction, delay, fill mode, play state, iteration. All this properties has the same values as in the css animation (https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).

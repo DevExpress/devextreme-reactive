@@ -29,7 +29,6 @@ argumentField | string | | The name of a data field that provides series point a
 axisName? | string | | The associated axis.
 stack? | string | | The associated stack.
 color? | string | | A series color.
-animationName? | string | 'transform' | Animation name for series.
 seriesComponent | ComponentType&lt;[LineSeries.SeriesProps](#lineseriesseriesprops)&gt; | | A component that renders the series.
 
 ## Interfaces
@@ -40,14 +39,10 @@ Describes properties passed to a component that renders the series.
 
 Field | Type | Description
 ------|------|------------
-x | number | The x coordinate of the top left corner of the series' rendering area.
-y | number | The y coordinate of the top left corner of the series' rendering area.
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
 path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
 color | string | Series color.
 style | object | Series styles.
-animation | (animationName: string) => (item: {x: number, y: number, index: number}) => object | A function returns styles for animation.
-animationName | string | Animation name for series.
 
 ## Plugin Components
 

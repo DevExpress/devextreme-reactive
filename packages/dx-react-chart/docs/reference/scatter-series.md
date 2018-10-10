@@ -29,7 +29,6 @@ argumentField | string | | The name of a data field that provides series point a
 axisName? | string | | The associated axis.
 point? | { size : number } | point: { size: 7 } | Point options.
 color? | string | | A series color.
-animationName? | string | 'translate' | Animation name for series.
 pointComponent | ComponentType&lt;[ScatterSeries.PointProps](#scatterseriespointprops)&gt; | | A component that renders a series point.
 
 ## Interfaces
@@ -46,8 +45,6 @@ d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG
 value | number | The point's value.
 color | string | Series color.
 style | object | Series styles.
-animation | (animationName: string) => (item: {x: number, y: number, index: number}) => object | A function returns styles for animation.
-animationName | string | Animation name for series.
 
 ### ScatterSeries.SeriesProps
 

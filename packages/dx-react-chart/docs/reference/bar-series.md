@@ -31,7 +31,6 @@ stack? | string | | The associated stack.
 barWidth? | number | | The bar width in relative units.
 groupWidth? | number | | The bar group width in relative units.
 color? | string | | A series color.
-animationName? | string | 'transform' | Animation name for series.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
 
 ## Interfaces
@@ -49,8 +48,6 @@ height | number | The bar height.
 value | number | The bar's value.
 color | string | Series color.
 style | object | Series styles.
-animation | (animationName: string) => (item: {x: number, y: number, index: number}) => object | A function returns styles for animation.
-animationName | string | Animation name for series.
 
 ## Plugin Components
 

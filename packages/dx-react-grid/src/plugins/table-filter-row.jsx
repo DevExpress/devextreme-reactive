@@ -11,6 +11,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  getSelectedFilterOperation,
   TABLE_FILTER_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -32,15 +33,6 @@ const defaultMessages = {
   greaterThanOrEqual: 'Greater than or equal to',
   lessThan: 'Less than',
   lessThanOrEqual: 'Less than or equal to',
-};
-
-const getSelectedFilterOperation = (
-  filterOperations, columnName, filter, columnFilterOperations,
-) => {
-  if (filterOperations[columnName]) {
-    return filterOperations[columnName];
-  }
-  return filter && filter.operation ? filter.operation : columnFilterOperations[0];
 };
 
 export class TableFilterRow extends React.PureComponent {

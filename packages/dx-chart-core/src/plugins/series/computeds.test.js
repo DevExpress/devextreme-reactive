@@ -7,7 +7,6 @@ import {
   area,
   line,
 } from 'd3-shape';
-import jss from 'jss';
 import { createScale, getWidth } from '../../utils/scale';
 import {
   pieAttributes,
@@ -18,11 +17,6 @@ import {
   seriesData,
   barCoordinates,
   getPieItems,
-  getStartCoordinates,
-  getPieStartCoordinates,
-  scatterAnimation,
-  transformAnimation,
-  pieAnimation,
 } from './computeds';
 
 jest.mock('../../utils/scale', () => ({
@@ -30,7 +24,6 @@ jest.mock('../../utils/scale', () => ({
   getWidth: jest.fn(),
 }));
 
-jest.mock('jss');
 jest.mock('d3-shape', () => {
   const createMockWithFluentInterface = () => {
     const proxy = new Proxy(jest.fn().mockReturnValue('symbol path'), {
@@ -345,58 +338,5 @@ describe('seriesData', () => {
 describe('#getPieItems', () => {
   it('should return function returns items of series', () => {
     expect(getPieItems(undefined, ['name1', 'name2'])).toEqual([{ uniqueName: 'name1' }, { uniqueName: 'name2' }]);
-  });
-});
-
-describe('#getStartCoordinates', () => {
-  it('should return proper coords', () => {
-    const scale = jest.fn().mockReturnValue(10);
-    scale.copy = jest.fn().mockReturnThis();
-    scale.clamp = jest.fn().mockReturnThis();
-    const getScale = () => scale;
-    expect(getStartCoordinates({ yScale: getScale() })).toEqual({
-      x: 0,
-      y: 10,
-    });
-  });
-});
-
-describe('#getPieStartCoordinates', () => {
-  it('should return proper coords', () => {
-    const getScale = () => ({ range: jest.fn().mockReturnValue([10]) });
-    expect(getPieStartCoordinates({ xScale: getScale(), yScale: getScale() })).toEqual({
-      x: 5,
-      y: 5,
-    });
-  });
-});
-
-describe('get animation options', () => {
-  beforeEach(() => {
-    jss.createStyleSheet.mockImplementation(() => ({ attach: jest.fn() }));
-  });
-
-  afterAll(jest.clearAllMocks);
-
-  it('should return animtion options for scatter', () => {
-    expect(scatterAnimation()).toEqual({
-      name: expect.any(String),
-      options: expect.any(Function),
-    });
-  });
-
-  it('should return animtion options for transformation series', () => {
-    expect(transformAnimation()).toEqual({
-      name: expect.any(String),
-      options: expect.any(Function),
-      styles: expect.any(Function),
-    });
-  });
-
-  it('should return animtion options for pie', () => {
-    expect(pieAnimation()).toEqual({
-      name: expect.any(String),
-      options: expect.any(Function),
-    });
   });
 });

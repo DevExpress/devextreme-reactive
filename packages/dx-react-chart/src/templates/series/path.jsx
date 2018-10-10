@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getAreaAnimationStyle } from '@devexpress/dx-chart-core';
 
 export class Path extends React.PureComponent {
   render() {
@@ -9,14 +10,15 @@ export class Path extends React.PureComponent {
       color,
       style,
       seriesName,
-      animation,
+      getAnimatedStyle,
+      scales,
       ...restProps
     } = this.props;
     return (
       <path
         d={path(coordinates)}
         stroke={color}
-        style={{ ...style, ...animation(undefined, seriesName) }}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales, undefined, seriesName)}
         {...restProps}
       />
     );
@@ -29,11 +31,9 @@ Path.propTypes = {
   color: PropTypes.string,
   style: PropTypes.object,
   seriesName: PropTypes.string.isRequired,
-  animation: PropTypes.func,
 };
 
 Path.defaultProps = {
   color: undefined,
   style: undefined,
-  animation: () => {},
 };

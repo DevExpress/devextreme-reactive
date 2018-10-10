@@ -21,26 +21,13 @@ const getX = ({ x }) => x;
 const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 const Area = (props) => {
-  const {
-    coordinates,
-    color,
-    style,
-    animation,
-    seriesName,
-  } = props;
+  const path = area()
+    .x(getX)
+    .y1(getY)
+    .y0(getY1)
+    .curve(curveCatmullRom);
 
-  return (
-    <path
-      fill={color}
-      d={area()
-        .x(getX)
-        .y1(getY)
-        .y0(getY1)
-        .curve(curveCatmullRom)(coordinates)}
-      opacity={0.5}
-      style={{ ...style, ...animation(undefined, seriesName) }}
-    />
-  );
+  return <AreaSeries.Path {...props} path={path} />;
 };
 
 export default class Demo extends React.PureComponent {

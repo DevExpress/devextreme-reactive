@@ -2,16 +2,15 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, getValueDomainName, getStartCoordinates,
+  findSeriesByName, xyScales, coordinates, seriesData, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
+  xyScales: jest.fn().mockReturnValue('test-scales'),
   coordinates: jest.fn(),
-  getStartCoordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: jest.fn(),
@@ -56,7 +55,6 @@ describe('Base series', () => {
     coordinates.mockReturnValue(coords);
     seriesData.mockReturnValue('series');
     getValueDomainName.mockReturnValue('test_value_domain');
-    getStartCoordinates.mockReturnValue('startCoordinates');
   });
 
   afterEach(() => {
@@ -72,7 +70,7 @@ describe('Base series', () => {
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
-      getAnimation: jest.fn(() => 'animation'),
+      getAnimatedStyle: 'test-animated-style-getter',
     },
     template: {
       series: {},
@@ -90,7 +88,6 @@ describe('Base series', () => {
     'TestComponent',
     'pathType',
     coordinates,
-    { getStartCoordinates, animationOptions: 'animationOptions' },
   );
 
   it('should render test component', () => {
@@ -109,8 +106,9 @@ describe('Base series', () => {
       color: 'color',
       colorDomain: 'colorDomain',
       styles: 'styles',
-      animation: 'animation',
       seriesName: 'name',
+      scales: 'test-scales',
+      getAnimatedStyle: 'test-animated-style-getter',
     });
   });
 

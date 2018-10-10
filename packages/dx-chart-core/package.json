@@ -59,7 +59,6 @@
   "dependencies": {
     "d3-array": "^1.2.4",
     "d3-scale": "^2.1.2",
-    "d3-shape": "^1.2.2",
-    "jss": "^9.8.7"
+    "d3-shape": "^1.2.2"
   }
 }

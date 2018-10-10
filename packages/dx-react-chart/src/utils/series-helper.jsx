@@ -38,7 +38,6 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   calculateCoordinates,
-  { getStartCoordinates, animationOptions },
   getItems = series => series,
 ) => {
   class Component extends React.PureComponent {
@@ -67,7 +66,7 @@ export const withSeriesPlugin = (
                 layouts,
                 scaleExtension,
                 colorDomain,
-                getAnimation = () => {},
+                getAnimatedStyle,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
 
@@ -89,14 +88,14 @@ export const withSeriesPlugin = (
                 );
 
                 const props = getRenderProps(currentSeries);
-                const startCoords = getStartCoordinates(scales);
 
                 return (
                   <Series
                     colorDomain={colorDomain}
                     coordinates={coordinates}
-                    seriesName={seriesName}
-                    animation={getAnimation(startCoords, animationOptions)}
+                    seriesName={currentSeries.name}
+                    scales={scales}
+                    getAnimatedStyle={getAnimatedStyle}
                     {...props}
                   />
                 );

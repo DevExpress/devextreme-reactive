@@ -7,7 +7,6 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import jss from 'jss';
 import { createScale, getWidth } from '../../utils/scale';
 
 const getX = ({ x }) => x;
@@ -15,11 +14,6 @@ const getY = ({ y }) => y;
 const getY1 = ({ y1 }) => y1;
 
 const DEFAULT_POINT_SIZE = 7;
-
-const getPieWidthHeight = ({ xScale, yScale }) => ({
-  width: Math.max.apply(null, xScale.range()),
-  height: Math.max.apply(null, yScale.range()),
-});
 
 export const dArea = area()
   .x(getX)
@@ -56,12 +50,13 @@ export const xyScales = (
 
 export const pieAttributes = (
   data,
-  scales,
+  { xScale, yScale },
   {
     argumentField, valueField, innerRadius = 0, outerRadius = 1,
   },
 ) => {
-  const { width, height } = getPieWidthHeight(scales);
+  const width = Math.max.apply(null, xScale.range());
+  const height = Math.max.apply(null, yScale.range());
   const radius = Math.min(width, height) / 2;
   const pieData = pie().sort(null).value(d => d[valueField])(data);
 
@@ -166,58 +161,3 @@ export const seriesData = (series = [], seriesProps) => {
 };
 
 export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));
-
-export const getStartCoordinates = ({ yScale }) => ({ x: 0, y: yScale.copy().clamp(true)(0) });
-
-export const getPieStartCoordinates = (scales) => {
-  const { width, height } = getPieWidthHeight(scales);
-  return {
-    x: width / 2,
-    y: height / 2,
-  };
-};
-
-const setAnimationKeyframes = (frames, nameId) => {
-  const styles = {
-    [`@keyframes ${nameId}`]: frames,
-  };
-  jss.createStyleSheet(styles).attach();
-};
-
-const getId = name => `${name}_${Math.round(Math.random() * 100)}`;
-
-export const scatterAnimation = () => {
-  const name = getId('animation_scatter');
-  setAnimationKeyframes({
-    '0%': { opacity: 0 },
-    '50%': { opacity: 0 },
-    '100%': { opacity: 1 },
-  }, name);
-  return {
-    options: () => '1s',
-    name,
-  };
-};
-
-export const transformAnimation = () => {
-  const name = getId('animation_transform');
-  setAnimationKeyframes({
-    from: { transform: 'scaleY(0)' },
-  }, name);
-  return {
-    options: () => '1s',
-    styles: (x, y) => ({ transformOrigin: `${x}px ${y}px` }),
-    name,
-  };
-};
-
-export const pieAnimation = () => {
-  const name = getId('animation_pie');
-  setAnimationKeyframes({
-    from: { transform: 'scale(0)' },
-  }, name);
-  return {
-    options: ({ index }) => `${(index + 1) * 0.2}s`,
-    name,
-  };
-};

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  findSeriesByName, barCoordinates, getStartCoordinates, transformAnimation,
-} from '@devexpress/dx-chart-core';
+import { findSeriesByName, barCoordinates } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { BarSeries } from './bar-series';
 import { BarCollection } from '../templates/series/bar-collection';
@@ -17,7 +15,6 @@ const coords = [{
 }, {
   x: 3, y: 7, y1: 11, id: 3,
 }];
-const startCoords = { x: 5, y: 10 };
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
@@ -27,8 +24,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
-  getStartCoordinates: jest.fn(),
-  transformAnimation: jest.fn(),
 }));
 
 const defaultProps = {
@@ -51,8 +46,6 @@ findSeriesByName.mockImplementation(() => ({
 }));
 
 barCoordinates.mockImplementation(() => coords);
-getStartCoordinates.mockImplementation(() => startCoords);
-transformAnimation.mockImplementation(() => () => 'animation');
 
 describe('Bar series', () => {
   const defaultDeps = {
@@ -60,6 +53,7 @@ describe('Bar series', () => {
       layouts: { pane: {} },
       domains: {},
       colorDomain: jest.fn(),
+      getAnimatedStyle: jest.fn(),
     },
     template: {
       series: {},

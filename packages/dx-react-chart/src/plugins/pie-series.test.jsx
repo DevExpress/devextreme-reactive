@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  pieAttributes, findSeriesByName, getPieStartCoordinates, pieAnimation,
-} from '@devexpress/dx-chart-core';
+import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PieSeries } from './pie-series';
 import { SliceCollection } from '../templates/series/slice-collection';
 
 const PointComponent = () => null;
-const startCoords = { x: 100, y: 200 };
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   pieAttributes: jest.fn(),
@@ -18,8 +15,6 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   xyScales: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
-  getPieStartCoordinates: jest.fn(),
-  pieAnimation: jest.fn(),
 }));
 
 pieAttributes.mockImplementation(() => [
@@ -27,9 +22,6 @@ pieAttributes.mockImplementation(() => [
   { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
   { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
 ]);
-
-getPieStartCoordinates.mockImplementation(() => startCoords);
-pieAnimation.mockImplementation(() => () => 'animation');
 
 const defaultProps = {
   name: 'val1',
@@ -51,6 +43,7 @@ describe('Pie series', () => {
       layouts: { pane: { width: 200, height: 100 } },
       colorDomain: jest.fn().mockReturnValue('color'),
       domains: {},
+      getAnimatedStyle: jest.fn(style => style),
     },
     template: {
       series: {},

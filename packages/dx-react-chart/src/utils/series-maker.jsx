@@ -25,7 +25,6 @@ export const makeSeries = (
   pathType,
   d3Func,
   calculateCoordinates,
-  animationOptions,
   componentsDefinition,
   enhance = x => x,
   getItems = x => x,
@@ -36,7 +35,6 @@ export const makeSeries = (
     pluginName,
     pathType,
     calculateCoordinates,
-    animationOptions,
     getItems,
   );
   Series.components = componentsDefinition;

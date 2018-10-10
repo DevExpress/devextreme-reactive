@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getPieAnimationStyle } from '@devexpress/dx-chart-core';
 
 // TODO: Is it fine to have it hard coded or should there be `path` property?
 export class SliceCollection extends React.PureComponent {
@@ -12,7 +13,8 @@ export class SliceCollection extends React.PureComponent {
       uniqueName,
       style,
       seriesName,
-      animation,
+      getAnimatedStyle,
+      scales,
       innerRadius,
       outerRadius,
       ...restProps
@@ -22,7 +24,7 @@ export class SliceCollection extends React.PureComponent {
         {coordinates.map(item => (
           <Point
             key={item.id.toString()}
-            style={{ ...style, ...animation(item, seriesName) }}
+            style={getAnimatedStyle(style, getPieAnimationStyle, scales, item, seriesName)}
             {...item}
             {...restProps}
             color={colorDomain(item.id)}
@@ -36,10 +38,8 @@ SliceCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   seriesName: PropTypes.string.isRequired,
-  animation: PropTypes.func,
 };
 
 SliceCollection.defaultProps = {
   style: undefined,
-  animation: () => {},
 };

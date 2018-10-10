@@ -7,6 +7,7 @@ describe('Area', () => {
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
     seriesName: 'seriesName',
+    getAnimatedStyle: jest.fn(style => style),
   };
 
   it('should render root element', () => {
@@ -50,26 +51,5 @@ describe('Area', () => {
 
     expect(tree.find('path').props().fill)
       .toBe('color');
-  });
-
-  it('should pass custom styles with animation', () => {
-    const animationStyle = {
-      someStyle: 'style',
-    };
-    const customStyle = {
-      anyStyle: 'style',
-    };
-    const getAnimation = jest.fn(() => animationStyle);
-    const tree = shallow(<Area
-      {...defaultProps}
-      style={customStyle}
-      animation={getAnimation}
-    />);
-    const { style } = tree.find('path').props();
-    expect(style)
-      .toEqual({
-        anyStyle: 'style',
-        someStyle: 'style',
-      });
   });
 });

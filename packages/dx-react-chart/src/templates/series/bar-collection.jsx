@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 // TODO: Is it fine to have it hard coded or should there be `path` property?
-import { dBar } from '@devexpress/dx-chart-core';
+import { getAreaAnimationStyle, dBar } from '@devexpress/dx-chart-core';
 
 export class BarCollection extends React.PureComponent {
   render() {
@@ -11,13 +11,14 @@ export class BarCollection extends React.PureComponent {
       coordinates,
       style,
       seriesName,
-      animation,
+      scales,
+      getAnimatedStyle,
       ...restProps
     } = this.props;
     return (coordinates.map(item => (
       <Point
         key={item.id.toString()}
-        style={{ ...style, ...animation(item, seriesName) }}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales, item, seriesName)}
         {...item}
         {...dBar(item)}
         {...restProps}
@@ -30,10 +31,8 @@ BarCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
   seriesName: PropTypes.string.isRequired,
-  animation: PropTypes.func,
 };
 
 BarCollection.defaultProps = {
   style: undefined,
-  animation: () => {},
 };

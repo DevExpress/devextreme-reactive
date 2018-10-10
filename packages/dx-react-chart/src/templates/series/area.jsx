@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getAreaAnimationStyle } from '@devexpress/dx-chart-core';
 
 export class Area extends React.PureComponent {
   render() {
@@ -8,15 +9,16 @@ export class Area extends React.PureComponent {
       coordinates,
       color,
       style,
-      animation,
       seriesName,
+      getAnimatedStyle,
+      scales,
       ...restProps
     } = this.props;
     return (
       <path
         d={path(coordinates)}
         fill={color}
-        style={{ ...style, ...animation(undefined, seriesName) }}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales, undefined, seriesName)}
         {...restProps}
       />
     );
@@ -29,11 +31,9 @@ Area.propTypes = {
   color: PropTypes.string,
   style: PropTypes.object,
   seriesName: PropTypes.string.isRequired,
-  animation: PropTypes.func,
 };
 
 Area.defaultProps = {
   color: undefined,
   style: undefined,
-  animation: () => {},
 };

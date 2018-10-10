@@ -242,7 +242,16 @@ export class DayView extends React.PureComponent {
         </Template>
 
         <Template name="cell">
-          {params => <DateTableCell {...params} />}
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
+                return (
+                  <DateTableCell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

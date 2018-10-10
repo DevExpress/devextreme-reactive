@@ -118,17 +118,24 @@ export class AppointmentForm extends React.PureComponent {
               setAppointmentEndDate,
               setAppointmentAllDay,
 
+              addedAppointment,
               appointmentChanges,
+              editingAppointmentId,
             }, {
               stopEditAppointment,
+
+              changeAddedAppointment,
+              cancelAddedAppointment,
+              commitAddedAppointment,
 
               changeAppointment,
               cancelChangedAppointment,
               commitChangedAppointment,
             }) => {
+              const isNew = editingAppointmentId === undefined;
               const changedAppointment = {
                 ...appointment,
-                ...appointmentChanges,
+                ...isNew ? addedAppointment : appointmentChanges,
               };
 
               return (
@@ -141,40 +148,68 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
-                        {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentTitle,
-                          ),
+                        // {...changeAppointment && {
+                        //   onValueChange: changeAppointmentField(
+                        //     changeAppointment, setAppointmentTitle,
+                        //   ),
+                        // }}
+                        onValueChange={(nextValue) => {
+                          if (isNew) {
+                            changeAddedAppointment({ change: setAppointmentTitle({}, nextValue) });
+                          } else {
+                            changeAppointment({ change: setAppointmentTitle({}, nextValue) });
+                          }
                         }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
-                        {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentStartDate,
-                          ),
+                        // {...changeAppointment && {
+                        //   onValueChange: changeAppointmentField(
+                        //     changeAppointment, setAppointmentStartDate,
+                        //   ),
+                        // }}
+                        onValueChange={(nextValue) => {
+                          if (isNew) {
+                            changeAddedAppointment({ change: setAppointmentStartDate({}, nextValue) });
+                          } else {
+                            changeAppointment({ change: setAppointmentStartDate({}, nextValue) });
+                          }
                         }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
-                        {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentEndDate,
-                          ),
+                        // {...changeAppointment && {
+                        //   onValueChange: changeAppointmentField(
+                        //     changeAppointment, setAppointmentEndDate,
+                        //   ),
+                        // }}
+                        onValueChange={(nextValue) => {
+                          if (isNew) {
+                            changeAddedAppointment({ change: setAppointmentEndDate({}, nextValue) });
+                          } else {
+                            changeAppointment({ change: setAppointmentEndDate({}, nextValue) });
+                          }
                         }}
                       />
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayText')}
                         value={getAppointmentAllDay(changedAppointment)}
-                        {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentAllDay,
-                          ),
+                        // {...changeAppointment && {
+                        //   onValueChange: changeAppointmentField(
+                        //     changeAppointment, setAppointmentAllDay,
+                        //   ),
+                        // }}
+                        onValueChange={(nextValue) => {
+                          if (isNew) {
+                            changeAddedAppointment({ change: setAppointmentAllDay({}, nextValue) });
+                          } else {
+                            changeAppointment({ change: setAppointmentAllDay({}, nextValue) });
+                          }
                         }}
                       />
                     </ScrollableSpace>
@@ -184,8 +219,12 @@ export class AppointmentForm extends React.PureComponent {
                         onExecute={() => {
                           this.toggleVisibility();
                           if (stopEditAppointment) {
-                            stopEditAppointment();
-                            cancelChangedAppointment();
+                            if (isNew) {
+                              cancelAddedAppointment();
+                            } else {
+                              stopEditAppointment();
+                              cancelChangedAppointment();
+                            }
                           }
                         }}
                         id={CANCEL_COMMAND_BUTTON}
@@ -195,9 +234,16 @@ export class AppointmentForm extends React.PureComponent {
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            conditionalActionCall(commitChangedAppointment, {
-                              appointmentId: getAppointmentId(changedAppointment),
-                            });
+                            // conditionalActionCall(commitChangedAppointment, {
+                            //   appointmentId: getAppointmentId(changedAppointment),
+                            // });
+                            if (commitChangedAppointment) {
+                              if (isNew) {
+                                commitAddedAppointment();
+                              } else {
+                                commitChangedAppointment({ appointmentId: getAppointmentId(changedAppointment) });
+                              }
+                            }
                           }}
                           id={COMMIT_COMMAND_BUTTON}
                         />
@@ -268,11 +314,32 @@ export class AppointmentForm extends React.PureComponent {
               {(getters, {
                 addAppointment,
               }) => {
-                const newAppointment = {
-                  title: undefined,
-                  startDate: params.time.start,
-                  endDate: params.time.end,
-                };
+                let newAppointment = {};
+                if (params.time) { // day, week
+                  const sHours = new Date(params.time.start).getHours();
+                  const sMinutes = new Date(params.time.start).getMinutes();
+                  const eHours = new Date(params.time.end).getHours();
+                  const eMinutes = new Date(params.time.end).getMinutes();
+
+                  newAppointment = {
+                    title: undefined,
+                    startDate: new Date(params.date).setHours(sHours, sMinutes),
+                    endDate: new Date(params.date).setHours(eHours, eMinutes),
+                  };
+                } else if (params.date.value) { // month
+                  newAppointment = {
+                    title: undefined,
+                    startDate: new Date(params.date.value),
+                    endDate: new Date(params.date.value).setHours(1),
+                  };
+                } else {
+                  newAppointment = { // all day
+                    title: undefined,
+                    allDay: true,
+                    startDate: new Date(params.date),
+                    endDate: new Date(params.date).setHours(24),
+                  };
+                }
                 return (
                   <TemplatePlaceholder
                     params={{

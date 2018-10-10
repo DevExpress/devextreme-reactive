@@ -10,6 +10,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
+  createAppointment,
   conditionalActionCall,
   changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
@@ -289,32 +290,7 @@ export class AppointmentForm extends React.PureComponent {
               {(getters, {
                 addAppointment,
               }) => {
-                let newAppointment = {};
-                if (params.time) { // day, week
-                  const sHours = new Date(params.time.start).getHours();
-                  const sMinutes = new Date(params.time.start).getMinutes();
-                  const eHours = new Date(params.time.end).getHours();
-                  const eMinutes = new Date(params.time.end).getMinutes();
-
-                  newAppointment = {
-                    title: undefined,
-                    startDate: new Date(params.date).setHours(sHours, sMinutes),
-                    endDate: new Date(params.date).setHours(eHours, eMinutes),
-                  };
-                } else if (params.date.value) { // month
-                  newAppointment = {
-                    title: undefined,
-                    startDate: new Date(params.date.value),
-                    endDate: new Date(params.date.value).setHours(1),
-                  };
-                } else {
-                  newAppointment = { // all day
-                    title: undefined,
-                    allDay: true,
-                    startDate: new Date(params.date),
-                    endDate: new Date(params.date).setHours(24),
-                  };
-                }
+                const newAppointment = createAppointment(params);
                 return (
                   <TemplatePlaceholder
                     params={{

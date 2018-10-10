@@ -126,8 +126,6 @@ export class EditingState extends React.PureComponent {
       addedAppointment, editingAppointmentId, appointmentChanges,
     } = this.state;
 
-    console.log(this.state);
-
     return (
       <Plugin
         name="EditingState"

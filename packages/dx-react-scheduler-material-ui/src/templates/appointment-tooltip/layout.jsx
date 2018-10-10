@@ -40,6 +40,7 @@ const LayoutBase = ({
   visible, onHide,
   commandButtonIds,
   onOpenButtonClick,
+  onDeleteButtonClick,
   classes,
   ...restProps
 }) => {
@@ -64,7 +65,8 @@ const LayoutBase = ({
               && <CommandButton id={commandButtonIds.open} onClick={openButtonClickHandler} />}
           </div>
           <div className={classes.buttonsRight}>
-            {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
+            {showDeleteButton
+              && <CommandButton id={commandButtonIds.delete} onClick={onDeleteButtonClick} />}
             {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
           </div>
         </div>
@@ -98,12 +100,14 @@ LayoutBase.propTypes = {
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   onOpenButtonClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
 LayoutBase.defaultProps = {
   onOpenButtonClick: () => undefined,
+  onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,

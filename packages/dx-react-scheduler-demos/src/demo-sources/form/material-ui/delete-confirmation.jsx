@@ -107,7 +107,7 @@ export default class Demo extends React.PureComponent {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure to delete an appointment?
+              Are you sure you want to delete this appointment?
             </DialogContentText>
           </DialogContent>
           <DialogActions>

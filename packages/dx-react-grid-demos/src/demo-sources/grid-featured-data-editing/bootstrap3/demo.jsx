@@ -326,7 +326,7 @@ export default class Demo extends React.PureComponent {
           </Modal.Header>
           <Modal.Body>
             <p>
-              Are you sure to delete the following row?
+              Are you sure you want to delete the following row?
             </p>
             <Grid
               rows={rows.filter(row => deletingRows.indexOf(row.id) > -1)}

@@ -10,19 +10,11 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
+  conditionalActionCall,
+  changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
-
-const changeAppointmentField = (changeAppointment, setAppointmentField) => (nextValue) => {
-  changeAppointment({ change: setAppointmentField({}, nextValue) });
-};
-
-const conditionalActionCall = (action, payload) => {
-  if (action) {
-    action(payload);
-  }
-};
 
 const defaultMessages = {
   allDayText: 'All Day',
@@ -148,68 +140,52 @@ export class AppointmentForm extends React.PureComponent {
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
-                        // {...changeAppointment && {
-                        //   onValueChange: changeAppointmentField(
-                        //     changeAppointment, setAppointmentTitle,
-                        //   ),
-                        // }}
-                        onValueChange={(nextValue) => {
-                          if (isNew) {
-                            changeAddedAppointment({ change: setAppointmentTitle({}, nextValue) });
-                          } else {
-                            changeAppointment({ change: setAppointmentTitle({}, nextValue) });
-                          }
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentTitle,
+                          ),
                         }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
-                        // {...changeAppointment && {
-                        //   onValueChange: changeAppointmentField(
-                        //     changeAppointment, setAppointmentStartDate,
-                        //   ),
-                        // }}
-                        onValueChange={(nextValue) => {
-                          if (isNew) {
-                            changeAddedAppointment({ change: setAppointmentStartDate({}, nextValue) });
-                          } else {
-                            changeAppointment({ change: setAppointmentStartDate({}, nextValue) });
-                          }
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentStartDate,
+                          ),
                         }}
                       />
                       <DateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
-                        // {...changeAppointment && {
-                        //   onValueChange: changeAppointmentField(
-                        //     changeAppointment, setAppointmentEndDate,
-                        //   ),
-                        // }}
-                        onValueChange={(nextValue) => {
-                          if (isNew) {
-                            changeAddedAppointment({ change: setAppointmentEndDate({}, nextValue) });
-                          } else {
-                            changeAppointment({ change: setAppointmentEndDate({}, nextValue) });
-                          }
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentEndDate,
+                          ),
                         }}
                       />
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayText')}
                         value={getAppointmentAllDay(changedAppointment)}
-                        // {...changeAppointment && {
-                        //   onValueChange: changeAppointmentField(
-                        //     changeAppointment, setAppointmentAllDay,
-                        //   ),
-                        // }}
-                        onValueChange={(nextValue) => {
-                          if (isNew) {
-                            changeAddedAppointment({ change: setAppointmentAllDay({}, nextValue) });
-                          } else {
-                            changeAppointment({ change: setAppointmentAllDay({}, nextValue) });
-                          }
+                        {...changeAppointment && {
+                          onValueChange: changeAppointmentField(
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentAllDay,
+                          ),
                         }}
                       />
                     </ScrollableSpace>
@@ -234,14 +210,13 @@ export class AppointmentForm extends React.PureComponent {
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            // conditionalActionCall(commitChangedAppointment, {
-                            //   appointmentId: getAppointmentId(changedAppointment),
-                            // });
                             if (commitChangedAppointment) {
                               if (isNew) {
                                 commitAddedAppointment();
                               } else {
-                                commitChangedAppointment({ appointmentId: getAppointmentId(changedAppointment) });
+                                commitChangedAppointment({
+                                  appointmentId: getAppointmentId(changedAppointment),
+                                });
                               }
                             }
                           }}

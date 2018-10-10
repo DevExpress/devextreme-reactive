@@ -38,7 +38,6 @@ findSeriesByName.mockImplementation(() => ({
   stack: 'stack',
   barWidth: 0.3,
   styles: 'styles',
-  groupWidth: 0.6,
   uniqueName: 'uniqueSeriesName',
   seriesComponent: BarCollection,
   pointComponent: PointComponent,

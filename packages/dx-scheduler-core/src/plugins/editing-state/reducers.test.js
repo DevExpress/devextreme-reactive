@@ -2,8 +2,6 @@ import {
   addAppointment,
   changeAddedAppointment,
   cancelAddedAppointment,
-  deleteAppointment,
-  cancelDeletedAppointment,
   startEditAppointment,
   stopEditAppointment,
   changeAppointment,
@@ -40,19 +38,6 @@ describe('EditingState reducers', () => {
     it('should work', () => {
       const nextAddedAppointment = cancelAddedAppointment();
       expect(nextAddedAppointment).toEqual({});
-    });
-  });
-  describe('#deleteAppointment', () => {
-    it('should work', () => {
-      const deletedAppointmentId = 10;
-      const appointmentId = 20;
-      const nextDeletedAppointmentId = deleteAppointment(deletedAppointmentId, { appointmentId });
-      expect(nextDeletedAppointmentId).toEqual(20);
-    });
-  });
-  describe('#cancelDeletedAppointment', () => {
-    it('should work', () => {
-      expect(cancelDeletedAppointment()).toEqual(null);
     });
   });
   describe('#startEditAppointment', () => {

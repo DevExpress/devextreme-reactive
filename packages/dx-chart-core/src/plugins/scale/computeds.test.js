@@ -2,7 +2,12 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { computeDomains, computeExtension, getValueDomainName } from './computeds';
 import { ARGUMENT_DOMAIN, VALUE_DOMAIN } from '../../constants';
 
-describe('calculateDomain', () => {
+jest.mock('d3-scale', () => ({
+  scaleLinear: jest.fn(),
+  scaleBand: jest.fn(),
+}));
+
+describe('computeDomains', () => {
   it('should always create argument domain', () => {
     const domains = computeDomains(
       [],
@@ -380,12 +385,16 @@ describe('calculateDomain', () => {
   });
 });
 
-describe('computedExtension', () => {
+describe('computeExtension', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should return default extension', () => {
     expect(computeExtension([]))
       .toEqual([
         { type: 'linear', constructor: scaleLinear },
-        { type: 'band', constructor: scaleBand },
+        { type: 'band', constructor: expect.any(Function) },
       ]);
   });
 
@@ -395,8 +404,21 @@ describe('computedExtension', () => {
         { type: 'extraType', constructor: 'extraConstructor' },
         { type: 'band', constructor: 'bandConstructor' },
         { type: 'linear', constructor: scaleLinear },
-        { type: 'band', constructor: scaleBand },
+        { type: 'band', constructor: expect.any(Function) },
       ]);
+  });
+
+  it('should apply paddings to band scale', () => {
+    const mockBandScale = jest.fn();
+    mockBandScale.paddingInner = jest.fn().mockReturnValue(mockBandScale);
+    mockBandScale.paddingOuter = jest.fn().mockReturnValue(mockBandScale);
+    scaleBand.mockReturnValue(mockBandScale);
+
+    const scale = computeExtension([])[1].constructor();
+
+    expect(scale).toEqual(mockBandScale);
+    expect(scale.paddingInner).toBeCalledWith(0.3);
+    expect(scale.paddingOuter).toBeCalledWith(0.15);
   });
 });
 

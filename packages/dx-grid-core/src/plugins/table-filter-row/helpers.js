@@ -13,3 +13,14 @@ export const getColumnFilterOperations = (
   || DEFAULT_FILTER_OPERATIONS;
 
 export const isFilterValueEmpty = value => value === undefined || !String(value).length;
+
+export const getSelectedFilterOperation = (
+  filterOperations, columnName, columnFilter, columnFilterOperations,
+) => {
+  if (filterOperations[columnName]) {
+    return filterOperations[columnName];
+  }
+  return columnFilter && columnFilter.operation
+    ? columnFilter.operation
+    : columnFilterOperations[0];
+};

@@ -1,10 +1,38 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-react-core/test-utils';
+import { PluginHost, Template } from '@devexpress/dx-react-core';
+import {
+  COMMIT_COMMAND_BUTTON,
+  CANCEL_COMMAND_BUTTON,
+} from '@devexpress/dx-scheduler-core';
+import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { AppointmentForm } from './appointment-form';
 
 describe('AppointmentForm', () => {
+  const defaultDeps = {
+    template: {
+      main: {},
+    },
+    getter: {
+      getAppointmentTitle: jest.fn(),
+      getAppointmentStartDate: jest.fn(),
+      getAppointmentEndDate: jest.fn(),
+      getAppointmentAllDay: jest.fn(),
+      getAppointmentId: jest.fn(),
+      setAppointmentTitle: jest.fn(),
+      setAppointmentStartDate: jest.fn(),
+      setAppointmentEndDate: jest.fn(),
+      setAppointmentAllDay: jest.fn(),
+      appointmentChanges: jest.fn(),
+    },
+    action: {
+      stopEditAppointment: jest.fn(),
+      changeAppointment: jest.fn(),
+      cancelChangedAppointment: jest.fn(),
+      commitChangedAppointment: jest.fn(),
+    },
+  };
+
   const defaultProps = {
     /* eslint-disable react/prop-types */
     popupComponent: ({ children }) => <div>{children}</div>,
@@ -20,7 +48,7 @@ describe('AppointmentForm', () => {
   it('should render Popup component', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
@@ -31,123 +59,197 @@ describe('AppointmentForm', () => {
       .toBeTruthy();
   });
 
-  it('should provide toggleFormVisibility action', () => {
+  it('should render appointment template', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(undefined);
-    executeComputedAction(tree, actions => actions.toggleFormVisibility());
-    expect(tree.find(AppointmentForm).instance().state.visible)
-      .toEqual(true);
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'appointment');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
   });
 
-  it('should provide setAppointmentmeta action', () => {
+  it('should render tooltip template', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(AppointmentForm).instance().state.appointment)
-      .toEqual(undefined);
-    executeComputedAction(
-      tree, actions => actions.setFormAppointment({ appointment: { data: 1 } }),
-    );
-    expect(tree.find(AppointmentForm).instance().state.appointment)
-      .toEqual({ data: 1 });
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'tooltip');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
   });
 
   it('should render text editor', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.textEditorComponent).prop('label'))
+    const textEditor = tree.find(defaultProps.textEditorComponent);
+    expect(textEditor.prop('label'))
       .toEqual('Title');
+
+    textEditor.prop('onValueChange')();
+    expect(defaultDeps.action.changeAppointment)
+      .toBeCalled();
+    expect(defaultDeps.getter.setAppointmentTitle)
+      .toBeCalled();
   });
 
   it('should render start date editor', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.dateEditorComponent).at(0).prop('label'))
-      .toEqual('Start Date');
+    const startDateEditor = tree
+      .find(defaultProps.dateEditorComponent)
+      .filterWhere(node => node.props().label === 'Start Date');
+
+    startDateEditor.prop('onValueChange')();
+    expect(defaultDeps.action.changeAppointment)
+      .toBeCalled();
+    expect(defaultDeps.getter.setAppointmentStartDate)
+      .toBeCalled();
   });
 
   it('should render end date editor', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.dateEditorComponent).at(1).prop('label'))
-      .toEqual('End Date');
+    const endDateEditor = tree
+      .find(defaultProps.dateEditorComponent)
+      .filterWhere(node => node.props().label === 'End Date');
+
+    endDateEditor.prop('onValueChange')();
+    expect(defaultDeps.action.changeAppointment)
+      .toBeCalled();
+    expect(defaultDeps.getter.setAppointmentEndDate)
+      .toBeCalled();
   });
 
   it('should render all day editor', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.allDayEditorComponent).prop('text'))
+    const AllDayEditor = tree
+      .find(defaultProps.allDayEditorComponent);
+
+    expect(AllDayEditor.prop('text'))
       .toEqual('All Day');
-  });
 
-  it('should render cancel button', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents({})}
-        <AppointmentForm
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(tree.find(defaultProps.commandButtonComponent).at(0).prop('text'))
-      .toEqual('Cancel');
+    AllDayEditor.prop('onValueChange')();
+    expect(defaultDeps.action.changeAppointment)
+      .toBeCalled();
+    expect(defaultDeps.getter.setAppointmentAllDay)
+      .toBeCalled();
   });
 
   it('should render commit button', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents({})}
+        {pluginDepsToComponents(defaultDeps)}
         <AppointmentForm
           {...defaultProps}
         />
       </PluginHost>
     ));
 
-    expect(tree.find(defaultProps.commandButtonComponent).at(1).prop('text'))
+    const commitButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === COMMIT_COMMAND_BUTTON);
+
+    expect(commitButton.prop('text'))
       .toEqual('Save');
+
+    commitButton.prop('onExecute')();
+    expect(defaultDeps.action.commitChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.getter.getAppointmentId)
+      .toBeCalled();
+  });
+
+  it('should render cancel button', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const cancelButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === CANCEL_COMMAND_BUTTON);
+
+    expect(cancelButton.prop('text'))
+      .toEqual('Cancel');
+
+    cancelButton.prop('onExecute')();
+    expect(defaultDeps.action.stopEditAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+  });
+
+  it('should not render commit button in readOnly mode', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+          readOnly
+        />
+      </PluginHost>
+    ));
+
+    const commitButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === COMMIT_COMMAND_BUTTON);
+    const cancelButton = tree
+      .find(defaultProps.commandButtonComponent)
+      .filterWhere(node => node.props().id === CANCEL_COMMAND_BUTTON);
+
+    expect(commitButton.exists())
+      .toBeFalsy();
+    expect(cancelButton.exists())
+      .toBeTruthy();
   });
 });

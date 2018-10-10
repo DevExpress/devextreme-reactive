@@ -75,13 +75,15 @@ Root.propTypes = {
   headerCellComponent: PropTypes.func.isRequired,
   navigatorComponent: PropTypes.func.isRequired,
   currentDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
-  firstDayOfWeek: PropTypes.number.isRequired,
+  firstDayOfWeek: PropTypes.number,
   onNavigate: PropTypes.func,
 };
 
 Root.defaultProps = {
   onNavigate: () => {},
+  firstDayOfWeek: 0,
 };

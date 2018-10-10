@@ -29,7 +29,6 @@ argumentField | string | | The name of a data field that provides series point a
 axisName? | string | | The associated axis.
 stack? | string | | The associated stack.
 barWidth? | number | | The bar width in relative units.
-groupWidth? | number | | The bar group width in relative units.
 color? | string | | A series color.
 pointComponent | ComponentType&lt;[BarSeries.PointProps](#barseriespointprops)&gt; | | A component that renders a bar.
 

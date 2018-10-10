@@ -7,10 +7,8 @@ import {
 describe('EditingState computeds', () => {
   describe('#changedAppointmentById', () => {
     it('should work', () => {
-      const changed = {
-        o2: { b: 1 },
-      };
-      const appointmentId = ['o2'];
+      const changed = { b: 1 };
+      const appointmentId = 'o2';
 
       const computed = changedAppointmentById(changed, appointmentId);
       expect(computed).toEqual({

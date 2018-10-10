@@ -16,6 +16,7 @@ import {
 
 const pluginDependencies = [
   { name: 'Appointments' },
+  { name: 'EditingState', optional: true },
 ];
 
 const commandButtonIds = {
@@ -84,32 +85,52 @@ export class AppointmentTooltip extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="main">
+          <TemplatePlaceholder />
           <TemplateConnector>
             {({
               getAppointmentEndDate,
               getAppointmentStartDate,
               getAppointmentTitle,
-            }) => (
-              <React.Fragment>
-                <TemplatePlaceholder />
-                <Layout
-                  commandButtonComponent={commandButtonComponent}
-                  showOpenButton={showOpenButton}
-                  showDeleteButton={showDeleteButton}
-                  showCloseButton={showCloseButton}
-                  headComponent={headComponent}
-                  contentComponent={contentComponent}
-                  appointmentMeta={appointmentMeta}
-                  visible={visible}
-                  onHide={this.toggleVisibility}
-                  commandButtonIds={commandButtonIds}
-                  getAppointmentTitle={getAppointmentTitle}
-                  getAppointmentStartDate={getAppointmentStartDate}
-                  getAppointmentEndDate={getAppointmentEndDate}
+              getAppointmentId,
+            }, {
+              commitDeletedAppointment,
+            }) => {
+              const onDeleteButtonClick = () => {
+                commitDeletedAppointment({
+                  deletedAppointmentId: getAppointmentId(appointmentMeta.appointment),
+                });
+                this.toggleVisibility();
+              };
+
+              return (
+                <TemplatePlaceholder
+                  name="tooltip"
+                  params={{
+                    commandButtonComponent,
+                    showOpenButton,
+                    showDeleteButton,
+                    showCloseButton,
+                    headComponent,
+                    contentComponent,
+                    appointmentMeta,
+                    visible,
+                    onHide: this.toggleVisibility,
+                    commandButtonIds,
+                    getAppointmentTitle,
+                    getAppointmentStartDate,
+                    getAppointmentEndDate,
+                    ...commitDeletedAppointment && {
+                      onDeleteButtonClick,
+                    },
+                  }}
                 />
-              </React.Fragment>
-            )}
+              );
+            }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="tooltip">
+          {params => <Layout {...params} />}
         </Template>
 
         <Template name="appointment">

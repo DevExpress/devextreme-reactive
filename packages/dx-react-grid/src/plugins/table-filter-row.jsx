@@ -11,6 +11,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  getSelectedFilterOperation,
   TABLE_FILTER_TYPE,
 } from '@devexpress/dx-grid-core';
 
@@ -85,8 +86,9 @@ export class TableFilterRow extends React.PureComponent {
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,
                 );
-                const selectedFilterOperation = filterOperations[columnName]
-                  || columnFilterOperations[0];
+                const selectedFilterOperation = getSelectedFilterOperation(
+                  filterOperations, columnName, filter, columnFilterOperations,
+                );
                 const handleFilterOperationChange = (value) => {
                   this.setState({
                     filterOperations: {

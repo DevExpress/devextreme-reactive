@@ -18,7 +18,6 @@ const coords = [
 jest.mock('@devexpress/dx-chart-core', () => ({
   dSpline: jest.fn(),
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -47,7 +46,7 @@ describe('Spline series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      domains: {},
+      scales: {},
       colorDomain: jest.fn(),
     },
     template: {

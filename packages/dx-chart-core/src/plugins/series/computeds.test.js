@@ -10,7 +10,6 @@ import {
 import { createScale, getWidth, setScalePadding } from '../../utils/scale';
 import {
   pieAttributes,
-  xyScales,
   pointAttributes,
   coordinates,
   findSeriesByName,
@@ -208,36 +207,6 @@ describe('barCoordinates', () => {
       id: 4, value: 15, width: 10, x: 5, y: 15, y1: 10,
     }]);
     expect(setScalePadding).toBeCalledWith(expect.anything(), 0.6);
-  });
-});
-
-describe('Scales', () => {
-  const defaultOptions = [
-    { type: 'argumentType', orientation: 'orientation' },
-    { type: 'valueType' },
-    { width: 20, height: 10 },
-    [
-      { type: 'argumentType', constructor: 'argumentConstructor' },
-      { type: 'valueType', constructor: 'valueConstructor' },
-      { type: 'band', constructor: 'bandConstructor' },
-    ],
-  ];
-
-  beforeAll(() => {
-    const translateValue = value => value;
-    createScale.mockImplementation(() => translateValue);
-  });
-
-  afterAll(jest.clearAllMocks);
-
-  it('should create scales with proper parameters', () => {
-    const { xScale, yScale } = xyScales(...defaultOptions);
-
-    expect(createScale).toHaveBeenCalledTimes(2);
-    expect(createScale.mock.calls[0]).toEqual([{ type: 'argumentType', orientation: 'orientation' }, 20, 10, 'argumentConstructor']);
-    expect(createScale.mock.calls[1]).toEqual([{ type: 'valueType' }, 20, 10, 'valueConstructor']);
-    expect(xScale).toBeTruthy();
-    expect(yScale).toBeTruthy();
   });
 });
 

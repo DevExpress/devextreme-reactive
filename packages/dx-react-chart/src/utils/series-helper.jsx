@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, ARGUMENT_DOMAIN, getValueDomainName,
+  findSeriesByName, seriesData, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
@@ -59,29 +59,24 @@ export const withSeriesPlugin = (
             <TemplateConnector>
               {({
                 series,
-                domains,
+                scales,
                 stacks,
                 data,
-                layouts,
                 scaleExtension,
                 colorDomain,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-
-                const scales = xyScales(
-                  domains[ARGUMENT_DOMAIN],
-                  domains[getValueDomainName(currentSeries.axisName)],
-                  layouts.pane,
-                  scaleExtension,
-                );
                 const coordinates = currentSeries.calculateCoordinates(
                   data,
-                  scales,
+                  {
+                    xScale: scales[ARGUMENT_DOMAIN],
+                    yScale: scales[getValueDomainName(currentSeries.axisName)],
+                  },
                   currentSeries,
+                  // TODO: The following are BarSeries specifics - remove them.
                   stacks,
                   scaleExtension,
                 );
-
                 const props = getRenderProps(currentSeries);
                 return (
                   <Series

@@ -87,19 +87,19 @@ class RawAxis extends React.PureComponent {
           <TemplateConnector>
             {({
               domains,
+              scales,
               layouts,
-              scaleExtension,
             }, {
               changeBBox,
             }) => {
               // TODO: Take axis from "axes" getter rather then from closure.
               const placeholder = `${position}-axis`;
               const domain = domains[name];
+              const scale = scales[name];
               // TODO_DEBUG
               if (!domain) { throw new Error(`domain is not found: ${name}`); }
               // TODO_DEBUG
-              const { orientation, type } = domain;
-              const { constructor } = scaleExtension.find(item => item.type === type);
+              const { orientation } = domain;
               const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]
                     || { width: 0, height: 0 };
 
@@ -113,14 +113,18 @@ class RawAxis extends React.PureComponent {
                 0,
               );
 
+              // Isn't it too late to adjust sizes?
+              const postCalculatedScale = scale.copy().range(
+                orientation === HORIZONTAL ? [0, widthPostCalculated] : [heightPostCalculated, 0],
+              );
               const coordinates = axisCoordinates(
+                // TODO: Only *orientation* and *tickFormat* are taken from *domain* -
+                // take *tickFormat* directly from props.
                 domain,
+                postCalculatedScale,
                 position,
-                widthPostCalculated,
-                heightPostCalculated,
                 tickSize,
                 indentFromAxis,
-                constructor,
               );
               const {
                 xCorrection,

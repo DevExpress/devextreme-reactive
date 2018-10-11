@@ -68,13 +68,13 @@ describe('Utils', () => {
     it('should filter all-day appointments', () => {
       const appointments = [
         {
-          start: moment('2018-07-10 22:00'), end: moment('2018-07-11 02:00'), expected: true, allDay: false,
+          start: moment('2018-07-10 22:00'), end: moment('2018-07-11 02:00'), allDay: false,
         },
         {
-          start: moment('2018-07-10 08:00'), end: moment('2018-07-10 10:00'), expected: true, allDay: true,
+          start: moment('2018-07-10 08:00'), end: moment('2018-07-10 10:00'), allDay: true,
         },
         {
-          start: moment('2018-07-09 08:00'), end: moment('2018-07-10 08:00'), expected: false, allDay: undefined,
+          start: moment('2018-07-09 08:00'), end: moment('2018-07-10 08:00'), allDay: undefined,
         },
       ];
       const filtered = appointments.filter(appointment => viewPredicate(appointment, '2018-07-08', '2018-07-12', [], true));

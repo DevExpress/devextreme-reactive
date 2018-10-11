@@ -9,7 +9,6 @@ import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn().mockReturnValue('test-scales'),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -107,7 +106,7 @@ describe('Base series', () => {
       colorDomain: 'colorDomain',
       styles: 'styles',
       seriesName: 'name',
-      scales: 'test-scales',
+      scales: { test_argument_domain: 'argument-scale', test_value_domain: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
     });
   });

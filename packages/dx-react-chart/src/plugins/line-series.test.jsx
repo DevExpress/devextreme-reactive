@@ -73,7 +73,8 @@ describe('Line series', () => {
     expect(path).toBe(dLine);
     expect(restProps).toEqual({
       customProperty: 'custom',
-      animation: undefined,
+      getAnimatedStyle: undefined,
+      scales: {},
       seriesName: 'val1',
     });
   });

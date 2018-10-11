@@ -77,7 +77,8 @@ describe('Area series', () => {
     expect(path).toBe(dArea);
     expect(restProps).toEqual({
       customProperty: 'custom',
-      animation: undefined,
+      getAnimatedStyle: undefined,
+      scales: {},
       seriesName: 'val1',
     });
   });

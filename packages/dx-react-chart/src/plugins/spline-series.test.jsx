@@ -73,7 +73,8 @@ describe('Spline series', () => {
     expect(path).toBe(dSpline);
     expect(restProps).toEqual({
       customProperty: 'custom',
-      animation: undefined,
+      getAnimationStyle: undefined,
+      scales: {},
       seriesName: 'val1',
     });
   });

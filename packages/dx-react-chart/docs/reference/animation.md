@@ -16,4 +16,4 @@ import { Animation } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-settings? | (point: object, seriesName: string) => string | | A function that returns string with animation options for series and their points. The string can consists of the following properties: duration, timing, direction, delay, fill mode, play state, iteration. All this properties has the same values as in the css animation (https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+settings? | (point: object, seriesName: string) => string | | A function that returns string with animation options for series and their points. The string can consist of the following properties: duration, timing, direction, delay, fill mode, play state, iteration. All this properties have the same values as in the css animation (https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).

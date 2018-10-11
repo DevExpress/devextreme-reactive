@@ -7,7 +7,11 @@ import {
   arc,
   pie,
 } from 'd3-shape';
-import { createScale, getWidth, setScalePadding } from '../../utils/scale';
+import { scaleIdentity, scaleOrdinal } from 'd3-scale';
+import { ARGUMENT_DOMAIN } from '../../constants';
+import {
+  getValueDomainName, createScale, getWidth, setScalePadding,
+} from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -29,70 +33,73 @@ export const dSpline = line()
   .y(getY)
   .curve(curveMonotoneX);
 
-export const pieAttributes = (
-  data,
-  { xScale, yScale },
-  {
-    argumentField, valueField, innerRadius = 0, outerRadius = 1,
-  },
-) => {
-  const width = Math.max.apply(null, xScale.range());
-  const height = Math.max.apply(null, yScale.range());
-  const radius = Math.min(width, height) / 2;
-  const pieData = pie().sort(null).value(d => d[valueField])(data);
+const identityScale = scaleIdentity();
 
-  return pieData.map(({
-    startAngle, endAngle, value, data: itemData,
-  }) => ({
-    d: arc()
-      .innerRadius(innerRadius * radius)
-      .outerRadius(outerRadius * radius)
-      .startAngle(startAngle)
-      .endAngle(endAngle)(),
-    value,
-    data: itemData,
-    id: itemData[argumentField],
-    x: width / 2,
-    y: height / 2,
-  }));
-};
-
-export const coordinates = (
-  data,
-  { xScale, yScale },
-  { argumentField, valueField },
-) => {
-  const y1 = yScale(0);
-  return data.reduce((result, dataItem, index) => {
-    if (dataItem[argumentField] !== undefined && dataItem[valueField] !== undefined) {
-      return [...result, {
-        x: xScale(dataItem[argumentField]) + getWidth(xScale) / 2,
-        y: yScale(dataItem[valueField]),
-        y1,
-        id: index,
-        value: dataItem[valueField],
-      }];
+// No-scales case is handled because the function is also called to get legend source
+// where coordinates are not required and hence scales are not available.
+// TODO: Is there a way to improve it?
+// `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
+// TODO: Remove `...args` when Bar case is resolved.
+export const getSeriesPoints = (series, data, scales, ...args) => {
+  const points = [];
+  const transform = series.getPointTransformer({
+    ...series,
+    argumentScale: scales ? scales[ARGUMENT_DOMAIN] : identityScale,
+    valueScale: scales ? scales[getValueDomainName(series.axisName)] : identityScale,
+  }, data, scales, ...args);
+  data.forEach((dataItem, index) => {
+    const argument = dataItem[series.argumentField];
+    const value = dataItem[series.valueField];
+    if (argument !== undefined && value !== undefined) {
+      points.push(transform({
+        argument,
+        value,
+        index,
+      }));
     }
-    return result;
-  }, []);
+  });
+  return points;
 };
 
-export const barCoordinates = (
-  data,
-  { xScale, yScale },
-  {
-    argumentField, valueField, stack, barWidth = 0.9,
-  },
-  stacks = [undefined],
-  scaleExtension,
-) => {
-  const rawCoordinates = coordinates(
-    data,
-    { xScale, yScale },
-    { argumentField, valueField },
-  );
-  const width = getWidth(xScale);
-  const x0Scale = setScalePadding(createScale(
+export const getPiePointTransformer = ({
+  innerRadius = 0, outerRadius = 1, valueField, argumentScale, valueScale, palette,
+}, data) => {
+  const x = Math.max(...argumentScale.range()) / 2;
+  const y = Math.max(...valueScale.range()) / 2;
+  const radius = Math.min(x, y);
+  const pieData = pie().sort(null).value(d => d[valueField])(data);
+  const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
+  const colorScale = scaleOrdinal().range(palette);
+  return ({ argument, value, index }) => {
+    const { startAngle, endAngle } = pieData[index];
+    return {
+      d: gen.startAngle(startAngle).endAngle(endAngle)(),
+      value,
+      color: colorScale(index),
+      id: argument,
+      x,
+      y,
+    };
+  };
+};
+
+export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
+  const y1 = valueScale(0);
+  const offset = getWidth(argumentScale) / 2;
+  return ({ argument, value, index }) => ({
+    x: argumentScale(argument) + offset,
+    y: valueScale(value),
+    y1,
+    id: index,
+    value,
+  });
+};
+
+// TODO: Take group settings from *series*; move settings calculation to Stack plugin
+// (since it handles bar grouping by now)
+const getGroupSettings = (argumentScale, barWidth, stack, stacks, scaleExtension) => {
+  const width = getWidth(argumentScale);
+  const groupsScale = setScalePadding(createScale(
     {
       domain: stacks,
     },
@@ -100,11 +107,27 @@ export const barCoordinates = (
     width,
     scaleExtension.find(item => item.type === 'band').constructor,
   ), 1 - barWidth);
-  return rawCoordinates.map(item => ({
-    ...item,
-    width: getWidth(x0Scale),
-    x: item.x - width / 2 + x0Scale(stack),
-  }));
+  return {
+    groupOffset: groupsScale(stack),
+    groupWidth: getWidth(groupsScale),
+  };
+};
+
+export const getBarPointTransformer = ({
+  argumentScale, valueScale, barWidth = 0.9, stack,
+}, data, scales, stacks = [undefined], scaleExtension) => {
+  const y1 = valueScale(0);
+  const { groupWidth, groupOffset } = getGroupSettings(
+    argumentScale, barWidth, stack, stacks, scaleExtension,
+  );
+  return ({ argument, value, index }) => ({
+    x: argumentScale(argument) + groupOffset,
+    y: valueScale(value),
+    y1,
+    id: index,
+    value,
+    width: groupWidth,
+  });
 };
 
 export const findSeriesByName = (
@@ -128,14 +151,17 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
 
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
-export const seriesData = (series = [], seriesProps) => {
-  if (series.find((({ uniqueName }) => uniqueName === seriesProps.uniqueName))) {
-    return seriesData(
-      series,
-      { ...seriesProps, uniqueName: createNewUniqueName(seriesProps.uniqueName) },
-    );
-  }
-  return [...series, seriesProps];
-};
+const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)
+  ? addItem(list, {
+    ...item,
+    uniqueName: createNewUniqueName(item.uniqueName),
+  })
+  : list.concat(item)
+);
 
-export const getPieItems = (series, domain) => domain.map(uniqueName => ({ uniqueName }));
+export const addSeries = (series, palette, props) => addItem(series, {
+  ...props,
+  palette, // TODO: For Pie only. Find a better place for it.
+  color: props.color || palette[series.length % palette.length],
+  uniqueName: props.name,
+});

@@ -1,4 +1,6 @@
-import { createScale, getWidth, setScalePadding } from './scale';
+import {
+  createScale, getWidth, setScalePadding, getValueDomainName,
+} from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
 const width = 500;
@@ -64,5 +66,15 @@ describe('Set scale padding', () => {
 
     expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
     expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
+  });
+});
+
+describe('getValueDomainName', () => {
+  it('should return argument', () => {
+    expect(getValueDomainName('test-domain')).toEqual('test-domain');
+  });
+
+  it('should return default value', () => {
+    expect(getValueDomainName()).toEqual('value-domain');
   });
 });

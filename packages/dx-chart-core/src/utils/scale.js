@@ -1,4 +1,4 @@
-import { HORIZONTAL } from '../constants';
+import { HORIZONTAL, VALUE_DOMAIN } from '../constants';
 
 export const createScale = (
   { domain, orientation },
@@ -15,3 +15,5 @@ export const setScalePadding = (scale, padding = 0) => scale
   .paddingInner(padding).paddingOuter(padding / 2);
 
 export const getWidth = scale => (scale.bandwidth ? scale.bandwidth() : 0);
+
+export const getValueDomainName = name => name || VALUE_DOMAIN;

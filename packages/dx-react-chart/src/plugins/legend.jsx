@@ -6,7 +6,7 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { ARGUMENT_DOMAIN } from '@devexpress/dx-chart-core';
+import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Marker } from '../templates/legend/marker';
 import { withComponents } from '../utils';
 
@@ -18,6 +18,7 @@ class RawLegend extends React.PureComponent {
       rootComponent: Root,
       itemComponent: Item,
       position,
+      getItems,
     } = this.props;
     const placeholder = position;
     return (
@@ -25,20 +26,14 @@ class RawLegend extends React.PureComponent {
         <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              series,
-              domains,
-              colorDomain,
-              items,
-            }) => (
+            {getters => (
               <Root name={`legend-${placeholder}`}>
-                {items(series, domains[ARGUMENT_DOMAIN].domain)
-                  .map(({ uniqueName, color }) => (
-                    <Item key={uniqueName}>
-                      <MarkerComponent name={uniqueName} color={color || colorDomain(uniqueName)} />
-                      <Label text={uniqueName} />
-                    </Item>
-                  ))}
+                {getItems(getters).map(({ text, color }) => (
+                  <Item key={text}>
+                    <MarkerComponent name={text} color={color} />
+                    <Label text={text} />
+                  </Item>
+                ))}
               </Root>
             )}
           </TemplateConnector>
@@ -54,10 +49,12 @@ RawLegend.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   itemComponent: PropTypes.func.isRequired,
   position: PropTypes.string,
+  getItems: PropTypes.func,
 };
 
 RawLegend.defaultProps = {
   position: 'right',
+  getItems: ({ series, data, getSeriesPoints }) => getLegendItems(series, data, getSeriesPoints),
 };
 
 RawLegend.components = {

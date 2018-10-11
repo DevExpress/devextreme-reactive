@@ -37,7 +37,7 @@ describe('AppointmentForm helpers', () => {
     it('should call action if it is defined', () => {
       conditionalActionCall(action, payload);
       expect(action)
-        .toBeCalledWith({});
+        .toBeCalledWith(payload);
     });
 
     it('should not call action if it is not defined', () => {

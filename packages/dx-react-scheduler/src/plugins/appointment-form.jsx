@@ -11,7 +11,7 @@ import {
 import {
   setAppointment,
   createAppointment,
-  conditionalActionCall,
+  callActionIfExists,
   changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
@@ -247,7 +247,7 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler(
                         params.appointmentMeta.appointment,
                       );
-                      conditionalActionCall(startEditAppointment, {
+                      callActionIfExists(startEditAppointment, {
                         appointmentId: getAppointmentId(params.appointmentMeta.appointment),
                       });
                     },
@@ -273,7 +273,7 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler(
                         params.appointment,
                       );
-                      conditionalActionCall(startEditAppointment, {
+                      callActionIfExists(startEditAppointment, {
                         appointmentId: getAppointmentId(params.appointment),
                       });
                     },
@@ -299,7 +299,7 @@ export class AppointmentForm extends React.PureComponent {
                         this.openFormHandler(
                           newAppointment,
                         );
-                        conditionalActionCall(addAppointment, { appointment: newAppointment });
+                        callActionIfExists(addAppointment, { appointment: newAppointment });
                       },
                     }}
                   />

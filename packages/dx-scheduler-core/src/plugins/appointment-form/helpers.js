@@ -7,7 +7,7 @@ export const changeAppointmentField = (
   action({ change: setAppointmentField({}, nextValue) });
 };
 
-export const conditionalActionCall = (action, payload) => {
+export const callActionIfExists = (action, payload) => {
   if (action) {
     action(payload);
   }

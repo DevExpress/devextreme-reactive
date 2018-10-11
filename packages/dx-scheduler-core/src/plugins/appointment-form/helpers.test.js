@@ -1,4 +1,4 @@
-import { changeAppointmentField, conditionalActionCall, createAppointment } from './helpers';
+import { changeAppointmentField, callActionIfExists, createAppointment } from './helpers';
 
 describe('AppointmentForm helpers', () => {
   describe('#changeAppointmentField', () => {
@@ -31,17 +31,17 @@ describe('AppointmentForm helpers', () => {
         .not.toBeCalled();
     });
   });
-  describe('#conditionalActionCall', () => {
+  describe('#callActionIfExists', () => {
     const action = jest.fn();
     const payload = {};
     it('should call action if it is defined', () => {
-      conditionalActionCall(action, payload);
+      callActionIfExists(action, payload);
       expect(action)
         .toBeCalledWith(payload);
     });
 
     it('should not call action if it is not defined', () => {
-      expect(() => conditionalActionCall(undefined, payload))
+      expect(() => callActionIfExists(undefined, payload))
         .not.toThrow();
     });
   });

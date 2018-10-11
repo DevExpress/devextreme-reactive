@@ -24,12 +24,16 @@ describe('AppointmentForm', () => {
       setAppointmentEndDate: jest.fn(),
       setAppointmentAllDay: jest.fn(),
       appointmentChanges: jest.fn(),
+      editingAppointmentId: 10,
     },
     action: {
       stopEditAppointment: jest.fn(),
       changeAppointment: jest.fn(),
       cancelChangedAppointment: jest.fn(),
       commitChangedAppointment: jest.fn(),
+      changeAddedAppointment: jest.fn(),
+      cancelAddedAppointment: jest.fn(),
+      commitAddedAppointment: jest.fn(),
     },
   };
 

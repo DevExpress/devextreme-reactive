@@ -82,17 +82,21 @@ export class EditingState extends React.PureComponent {
       onCommitChanges({ deleted: deletedAppointmentId });
     };
 
-    this.makeAppointment = ({ startDate, endDate, title }) => {
+    this.makeAppointment = ({
+      startDate, endDate, title, allDay,
+    }) => {
       const {
         setAppointmentEndDate,
         setAppointmentStartDate,
         setAppointmentTitle,
+        setAppointmentAllDay,
       } = this.props;
 
       const appointment = {};
       const withTitle = setAppointmentTitle(appointment, title);
       const withStartDate = setAppointmentStartDate(withTitle, startDate);
-      return setAppointmentEndDate(withStartDate, endDate);
+      const withEndDate = setAppointmentEndDate(withStartDate, endDate);
+      return setAppointmentAllDay(withEndDate, allDay);
     };
   }
 
@@ -101,14 +105,12 @@ export class EditingState extends React.PureComponent {
       editingAppointmentId = prevState.editingAppointmentId,
       appointmentChanges = prevState.appointmentChanges,
       addedAppointment = prevState.addedAppointment,
-      deletedAppointmentId = prevState.deletedAppointmentId,
     } = nextProps;
 
     return {
       editingAppointmentId,
       appointmentChanges,
       addedAppointment,
-      deletedAppointmentId,
     };
   }
 
@@ -186,7 +188,7 @@ EditingState.defaultProps = {
   createAppointmentChange: undefined,
 
   editingAppointmentId: undefined,
-  defaultEditingAppointmentId: null,
+  defaultEditingAppointmentId: undefined,
   onEditingAppointmentIdChange: undefined,
 
   appointmentChanges: undefined,

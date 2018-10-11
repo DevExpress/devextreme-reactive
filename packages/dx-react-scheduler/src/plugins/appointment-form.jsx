@@ -10,19 +10,12 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
+  createAppointment,
+  callActionIfExists,
+  changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
-
-const changeAppointmentField = (changeAppointment, setAppointmentField) => (nextValue) => {
-  changeAppointment({ change: setAppointmentField({}, nextValue) });
-};
-
-const conditionalActionCall = (action, payload) => {
-  if (action) {
-    action(payload);
-  }
-};
 
 const defaultMessages = {
   allDayText: 'All Day',
@@ -118,17 +111,24 @@ export class AppointmentForm extends React.PureComponent {
               setAppointmentEndDate,
               setAppointmentAllDay,
 
+              addedAppointment,
               appointmentChanges,
+              editingAppointmentId,
             }, {
               stopEditAppointment,
+
+              changeAddedAppointment,
+              cancelAddedAppointment,
+              commitAddedAppointment,
 
               changeAppointment,
               cancelChangedAppointment,
               commitChangedAppointment,
             }) => {
+              const isNew = editingAppointmentId === undefined;
               const changedAppointment = {
                 ...appointment,
-                ...appointmentChanges,
+                ...isNew ? addedAppointment : appointmentChanges,
               };
 
               return (
@@ -143,7 +143,10 @@ export class AppointmentForm extends React.PureComponent {
                         value={getAppointmentTitle(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentTitle,
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentTitle,
                           ),
                         }}
                       />
@@ -153,7 +156,10 @@ export class AppointmentForm extends React.PureComponent {
                         value={getAppointmentStartDate(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentStartDate,
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentStartDate,
                           ),
                         }}
                       />
@@ -163,7 +169,10 @@ export class AppointmentForm extends React.PureComponent {
                         value={getAppointmentEndDate(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentEndDate,
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentEndDate,
                           ),
                         }}
                       />
@@ -173,7 +182,10 @@ export class AppointmentForm extends React.PureComponent {
                         value={getAppointmentAllDay(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
-                            changeAppointment, setAppointmentAllDay,
+                            isNew,
+                            changeAddedAppointment,
+                            changeAppointment,
+                            setAppointmentAllDay,
                           ),
                         }}
                       />
@@ -184,8 +196,12 @@ export class AppointmentForm extends React.PureComponent {
                         onExecute={() => {
                           this.toggleVisibility();
                           if (stopEditAppointment) {
-                            stopEditAppointment();
-                            cancelChangedAppointment();
+                            if (isNew) {
+                              cancelAddedAppointment();
+                            } else {
+                              stopEditAppointment();
+                              cancelChangedAppointment();
+                            }
                           }
                         }}
                         id={CANCEL_COMMAND_BUTTON}
@@ -195,9 +211,15 @@ export class AppointmentForm extends React.PureComponent {
                           text={getMessage('commitCommand')}
                           onExecute={() => {
                             this.toggleVisibility();
-                            conditionalActionCall(commitChangedAppointment, {
-                              appointmentId: getAppointmentId(changedAppointment),
-                            });
+                            if (commitChangedAppointment) {
+                              if (isNew) {
+                                commitAddedAppointment();
+                              } else {
+                                commitChangedAppointment({
+                                  appointmentId: getAppointmentId(changedAppointment),
+                                });
+                              }
+                            }
                           }}
                           id={COMMIT_COMMAND_BUTTON}
                         />
@@ -225,7 +247,7 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler(
                         params.appointmentMeta.appointment,
                       );
-                      conditionalActionCall(startEditAppointment, {
+                      callActionIfExists(startEditAppointment, {
                         appointmentId: getAppointmentId(params.appointmentMeta.appointment),
                       });
                     },
@@ -251,13 +273,38 @@ export class AppointmentForm extends React.PureComponent {
                       this.openFormHandler(
                         params.appointment,
                       );
-                      conditionalActionCall(startEditAppointment, {
+                      callActionIfExists(startEditAppointment, {
                         appointmentId: getAppointmentId(params.appointment),
                       });
                     },
                   }}
                 />
               )}
+            </TemplateConnector>
+          )}
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {(getters, {
+                addAppointment,
+              }) => {
+                const newAppointment = createAppointment(params);
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      onDoubleClick: () => {
+                        this.openFormHandler(
+                          newAppointment,
+                        );
+                        callActionIfExists(addAppointment, { appointment: newAppointment });
+                      },
+                    }}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

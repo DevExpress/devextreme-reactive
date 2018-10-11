@@ -68,7 +68,10 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
           />
-          <WeekView />
+          <WeekView
+            startDayHour={9}
+            endDayHour={19}
+          />
           <MonthView />
           <AllDayPanel />
           <Toolbar />

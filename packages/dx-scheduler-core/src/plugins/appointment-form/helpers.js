@@ -1,13 +1,10 @@
 import moment from 'moment';
 
 export const changeAppointmentField = (
-  condition, actionWhileTrue, actionWhileFalse, setAppointmentField,
+  isNew, create, update, setAppointmentField,
 ) => (nextValue) => {
-  if (condition) {
-    actionWhileTrue({ change: setAppointmentField({}, nextValue) });
-  } else {
-    actionWhileFalse({ change: setAppointmentField({}, nextValue) });
-  }
+  const action = isNew ? create : update;
+  action({ change: setAppointmentField({}, nextValue) });
 };
 
 export const conditionalActionCall = (action, payload) => {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, coordinates, seriesData, getValueDomainName,
+  findSeriesByName, coordinates, seriesData, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
@@ -66,6 +66,7 @@ describe('Base series', () => {
       data: 'data',
       series: 'series',
       domains: { test_argument_domain: 'argumentDomain', test_value_domain: 'valueDomain' },
+      scales: { test_argument_domain: 'argument-scale', test_value_domain: 'value-scale' },
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       colorDomain: 'colorDomain',
@@ -123,7 +124,6 @@ describe('Base series', () => {
     ));
 
     expect(findSeriesByName).toHaveBeenCalledTimes(1);
-    expect(xyScales).toHaveBeenCalledTimes(1);
     expect(coordinates).toHaveBeenCalledTimes(1);
 
     expect(findSeriesByName).toHaveBeenLastCalledWith(
@@ -131,16 +131,9 @@ describe('Base series', () => {
       'series',
     );
 
-    expect(xyScales).toHaveBeenLastCalledWith(
-      'argumentDomain',
-      'valueDomain',
-      { width: 60, height: 50 },
-      'scaleExtension',
-    );
-
     expect(coordinates).toHaveBeenLastCalledWith(
       'data',
-      undefined,
+      { xScale: 'argument-scale', yScale: 'value-scale' },
       {
         argumentField: 'argumentField',
         valueField: 'valueField',

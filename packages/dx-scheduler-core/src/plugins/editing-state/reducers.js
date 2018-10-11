@@ -10,7 +10,7 @@ export const cancelAddedAppointment = () => ({});
 
 export const startEditAppointment = (prevEditingAppointmentId, { appointmentId }) => appointmentId;
 
-export const stopEditAppointment = () => null;
+export const stopEditAppointment = () => undefined;
 
 export const changeAppointment = (
   addedAppointment, { change },

@@ -11,6 +11,10 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Axis', () => {
+  const mockScale = jest.fn();
+  mockScale.copy = jest.fn().mockReturnValue(mockScale);
+  mockScale.range = jest.fn().mockReturnValue(mockScale);
+
   // eslint-disable-next-line react/prop-types
   const RootComponent = ({ children }) => (
     <div>
@@ -23,6 +27,7 @@ describe('Axis', () => {
   const defaultDeps = {
     getter: {
       domains: { name: { orientation: 'horizontal', type: 'someType' } },
+      scales: { name: mockScale },
       setBBox: jest.fn(),
       layouts: {
         'bottom-axis': {
@@ -30,7 +35,6 @@ describe('Axis', () => {
         },
       },
       axes: [{}],
-      scaleExtension: [{ type: 'someType', constructor: 'constructor' }],
     },
     template: {
       'bottom-axis': {},
@@ -75,7 +79,7 @@ describe('Axis', () => {
     }));
   });
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should render root component', () => {
@@ -127,7 +131,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, 'bottom', 200, 100, 5, 10, 'constructor');
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, mockScale, 'bottom', 5, 10);
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -150,7 +154,7 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical', type: 'someType' }, 'bottom', 250, 150, 6, 10, 'constructor');
+    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical', type: 'someType' }, mockScale, 'bottom', 6, 10);
   });
 
   it('should render tick component', () => {

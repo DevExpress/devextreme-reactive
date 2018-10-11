@@ -16,6 +16,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
+  { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
 ];
 
@@ -23,9 +24,7 @@ const defaultMessages = {
   allDay: 'All Day',
 };
 
-const AppointmentPlaceholder = props => (
-  <TemplatePlaceholder name="appointment" params={props} />
-);
+const MONTH = 'Month';
 
 export class AllDayPanel extends React.PureComponent {
   constructor(props) {
@@ -35,6 +34,9 @@ export class AllDayPanel extends React.PureComponent {
       tableRef: null,
     };
     this.allDayPanelRef = this.allDayPanelRef.bind(this);
+
+    this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
   }
 
   allDayPanelRef(ref) {
@@ -61,7 +63,14 @@ export class AllDayPanel extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="navbarEmpty">
-          <Text getMessage={getMessage} />
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView === MONTH) return null;
+              return (
+                <Text getMessage={getMessage} />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="navbar">
@@ -70,7 +79,7 @@ export class AllDayPanel extends React.PureComponent {
             {({
               dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
             }) => {
-              if (currentView === 'Month') return null;
+              if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
@@ -89,10 +98,11 @@ export class AllDayPanel extends React.PureComponent {
                   cellElements: tableRef.querySelectorAll('th'),
                 },
               ) : [];
+              const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <Layout
                   allDayPanelRef={this.allDayPanelRef}
-                  cellComponent={Cell}
+                  cellComponent={this.cellPlaceholder}
                   rowComponent={Row}
                   dayScale={dayScale}
                 >
@@ -110,6 +120,19 @@ export class AllDayPanel extends React.PureComponent {
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name === MONTH) return <TemplatePlaceholder params={params} />;
+                return (
+                  <Cell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

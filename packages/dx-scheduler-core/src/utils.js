@@ -47,7 +47,7 @@ export const viewPredicate = (
     .find(interval => (inInterval(start, interval) && inInterval(end, interval)));
 
   const considerAllDayAppointment = removeAllDayAppointments
-    ? moment(end).diff(start, 'hours') < 24
+    ? moment(end).diff(start, 'hours') < 24 && !appointment.allDay
     : true;
 
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;

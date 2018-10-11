@@ -18,7 +18,6 @@ const coords = [
 jest.mock('@devexpress/dx-chart-core', () => ({
   dLine: jest.fn(),
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -48,7 +47,7 @@ describe('Line series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      domains: {},
+      scales: {},
       colorDomain: jest.fn(),
     },
     template: {

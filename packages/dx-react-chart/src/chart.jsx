@@ -28,8 +28,6 @@ class RawChart extends React.PureComponent {
     return ((
       <PluginHost>
         <BasicData data={data} />
-        {children}
-        <ChartCore />
         <LayoutManager
           width={width}
           height={height}
@@ -50,6 +48,9 @@ class RawChart extends React.PureComponent {
           `${BOTTOM}-${RIGHT}-axis`,
         ]}
         />
+        {children}
+        <ChartCore />
+
       </PluginHost>
     ));
   }

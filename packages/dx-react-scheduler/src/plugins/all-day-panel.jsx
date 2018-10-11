@@ -24,6 +24,8 @@ const defaultMessages = {
   allDay: 'All Day',
 };
 
+const MONTH = 'Month';
+
 export class AllDayPanel extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -63,7 +65,7 @@ export class AllDayPanel extends React.PureComponent {
         <Template name="navbarEmpty">
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView === 'Month') return null;
+              if (currentView === MONTH) return null;
               return (
                 <Text getMessage={getMessage} />
               );
@@ -77,7 +79,7 @@ export class AllDayPanel extends React.PureComponent {
             {({
               dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
             }) => {
-              if (currentView.name === 'Month') return null;
+              if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
@@ -124,7 +126,7 @@ export class AllDayPanel extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ currentView }) => {
-                if (currentView.name === 'Month') return <TemplatePlaceholder params={params} />;
+                if (currentView.name === MONTH) return <TemplatePlaceholder params={params} />;
                 return (
                   <Cell {...params} />
                 );

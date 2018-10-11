@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
+import { setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pieAttributes, findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
@@ -44,6 +45,13 @@ findSeriesByName.mockImplementation(() => ({
 }));
 
 describe('Pie series', () => {
+  let resetConsole;
+  beforeAll(() => {
+    resetConsole = setupConsole({ ignore: ['<%s>'] });
+  });
+  afterAll(() => {
+    resetConsole();
+  });
   const defaultDeps = {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },

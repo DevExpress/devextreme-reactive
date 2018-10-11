@@ -85,12 +85,12 @@ class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
+          <Palette scheme={scheme} />
           <PieSeries
             valueField="val"
             argumentField="category"
           />
           <Scale />
-          <Palette scheme={scheme} />
         </Chart>
         <div className={classes.schemeConteiner}>
           {scheme.map(color => (

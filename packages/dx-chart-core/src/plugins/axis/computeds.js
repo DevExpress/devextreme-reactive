@@ -1,4 +1,4 @@
-import { createScale, getWidth } from '../../utils/scale';
+import { getWidth } from '../../utils/scale';
 import {
   HORIZONTAL, TOP, LEFT, MIDDLE, END, START,
 } from '../../constants';
@@ -24,6 +24,7 @@ const getFormat = (scale, tickFormat) => {
   return tick => tick;
 };
 
+// It is called for grid (which do not have labels) - how is it handled here?
 const calculateAxisCoordinates = (
   scale,
   orientation,
@@ -71,24 +72,19 @@ const calculateAxisCoordinates = (
 };
 
 export const axisCoordinates = (
-  domainOptions,
+  domain,
+  scale,
   position,
-  width,
-  height,
   tickSize,
   indentFromAxis,
-  constructor,
-) => {
-  const scale = createScale(domainOptions, width, height, constructor);
-
-  return calculateAxisCoordinates(
-    scale,
-    domainOptions.orientation,
-    position,
-    tickSize,
-    indentFromAxis,
-    domainOptions.tickFormat,
-  );
-};
+) => calculateAxisCoordinates(
+  scale,
+  domain.orientation,
+  position,
+  tickSize,
+  indentFromAxis,
+  // TODO: *tickFormat* belongs to axis rather then domain - take it from axis.
+  domain.tickFormat,
+);
 
 export const axesData = (axes, axisProps) => [...axes, axisProps];

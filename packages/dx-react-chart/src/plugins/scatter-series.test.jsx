@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  pointAttributes, findSeriesByName, xyScales, coordinates,
+  pointAttributes, findSeriesByName, coordinates,
 } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { ScatterSeries } from './scatter-series';
@@ -21,7 +21,6 @@ const coords = [
 jest.mock('@devexpress/dx-chart-core', () => ({
   pointAttributes: jest.fn(),
   findSeriesByName: jest.fn(),
-  xyScales: jest.fn(),
   coordinates: jest.fn(),
   seriesData: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
@@ -52,14 +51,13 @@ findSeriesByName.mockImplementation(() => ({
   calculateCoordinates: coordinates,
 }));
 
-xyScales.mockImplementation();
 coordinates.mockImplementation(() => coords);
 
 describe('Scatter series', () => {
   const defaultDeps = {
     getter: {
       layouts: { pane: {} },
-      domains: {},
+      scales: {},
       colorDomain: jest.fn(),
     },
     template: {

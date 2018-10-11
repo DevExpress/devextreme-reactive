@@ -199,8 +199,6 @@
         path: /react/chart/docs/guides/legend_title
       - title: Stacked Series
         path: /react/chart/docs/guides/stacked-series
-      - title: TypeScript
-        path: /react/chart/docs/guides/typescript
       - title: Palette
         path: /react/chart/docs/guides/palette
       - title: TypeScript
@@ -211,12 +209,12 @@
         path: /react/chart/docs/reference/area-series
       - title: ArgumentAxis
         path: /react/chart/docs/reference/argument-axis
+      - title: ArgumentGrid
+        path: /react/chart/docs/reference/argument-grid
       - title: BarSeries
         path: /react/chart/docs/reference/bar-series
       - title: Chart
         path: /react/chart/docs/reference/chart
-      - title: Grid
-        path: /react/chart/docs/reference/grid
       - title: Legend
         path: /react/chart/docs/reference/legend
       - title: LineSeries
@@ -237,6 +235,8 @@
         path: /react/chart/docs/reference/title
       - title: ValueAxis
         path: /react/chart/docs/reference/value-axis
+      - title: ValueGrid
+        path: /react/chart/docs/reference/value-grid
   - title: Related Docs
     items:
       - title: React Core

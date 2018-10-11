@@ -39,6 +39,7 @@ export class MonthView extends React.PureComponent {
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     this.dayScaleBaseComputed = ({ currentDate }) => dayScaleCore(
       currentDate, firstDayOfWeek, WEEK_COUNT, [],
@@ -167,7 +168,7 @@ export class MonthView extends React.PureComponent {
                 <React.Fragment>
                   <DateTable
                     rowComponent={DateTableRow}
-                    cellComponent={DateTableCell}
+                    cellComponent={this.cellPlaceholder}
                     monthCells={monthCells}
                     dateTableRef={this.dateTableRef}
                   />
@@ -187,6 +188,19 @@ export class MonthView extends React.PureComponent {
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
+                return (
+                  <DateTableCell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

@@ -39,6 +39,7 @@ export class WeekView extends React.PureComponent {
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+    this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     const {
       name: viewName,
@@ -229,7 +230,7 @@ export class WeekView extends React.PureComponent {
                 <React.Fragment>
                   <DateTable
                     rowComponent={DateTableRow}
-                    cellComponent={DateTableCell}
+                    cellComponent={this.cellPlaceholder}
                     timeScale={timeScale}
                     dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
@@ -250,6 +251,19 @@ export class WeekView extends React.PureComponent {
               );
             }}
           </TemplateConnector>
+        </Template>
+
+        <Template name="cell">
+          {params => (
+            <TemplateConnector>
+              {({ currentView }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
+                return (
+                  <DateTableCell {...params} />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

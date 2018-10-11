@@ -111,5 +111,14 @@ describe('AllDayPanel helpers', () => {
       expect(slicedAppointment[0].end.format())
         .toEqual(moment('2018-08-05 23:59:59').format());
     });
+
+    it('should not fail if excluded days are not defined', () => {
+      const appointment = { start: moment('2018-07-31 10:00'), end: moment('2018-08-06 22:30'), dataItem: {} };
+      expect(() => {
+        sliceAppointmentsByBoundaries(
+          appointment, left, right,
+        );
+      }).not.toThrow();
+    });
   });
 });

@@ -40,6 +40,7 @@ NavigatorBase.propTypes = {
   titleComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   currentDate: PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,

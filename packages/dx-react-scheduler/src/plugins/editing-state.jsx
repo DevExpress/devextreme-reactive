@@ -7,8 +7,6 @@ import {
   addAppointment,
   changeAddedAppointment,
   cancelAddedAppointment,
-  deleteAppointment,
-  cancelDeletedAppointment,
   startEditAppointment,
   stopEditAppointment,
   changeAppointment,
@@ -25,7 +23,6 @@ export class EditingState extends React.PureComponent {
       editingAppointmentId: props.editingAppointmentId || props.defaultEditingAppointmentId,
       addedAppointment: props.addedAppointment || props.defaultAddedAppointment,
       appointmentChanges: props.appointmentChanges || props.defaultAppointmentChanges,
-      deletedAppointmentId: props.deletedAppointmentId || props.defaultDeletedAppointmentId,
     };
 
     const stateHelper = createStateHelper(
@@ -42,10 +39,6 @@ export class EditingState extends React.PureComponent {
         appointmentChanges: () => {
           const { onAppointmentChangesChange } = this.props;
           return onAppointmentChangesChange;
-        },
-        deletedAppointmentId: () => {
-          const { onDeletedAppointmentIdChange } = this.props;
-          return onDeletedAppointmentIdChange;
         },
       },
     );
@@ -66,6 +59,7 @@ export class EditingState extends React.PureComponent {
         changed: changedAppointmentById(appointmentChanges, appointmentId),
       });
       this.cancelChangedAppointment();
+      this.stopEditAppointment();
     };
 
     this.addAppointment = stateHelper.applyFieldReducer
@@ -82,20 +76,10 @@ export class EditingState extends React.PureComponent {
       });
       this.cancelAddedAppointment();
     };
-    this.deleteAppointment = (appointmentId) => {
-      const { onCommitChanges } = this.props;
-      onCommitChanges({ deleted: appointmentId });
-    };
 
-    this.deleteAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'deletedAppointmentId', deleteAppointment);
-    this.cancelDeletedAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'deletedAppointmentId', cancelDeletedAppointment);
-    this.commitDeletedAppointment = () => {
+    this.commitDeletedAppointment = ({ deletedAppointmentId }) => {
       const { onCommitChanges } = this.props;
-      const { deletedAppointmentId } = this.state;
       onCommitChanges({ deleted: deletedAppointmentId });
-      this.cancelDeletedAppointment();
     };
 
     this.makeAppointment = ({ startDate, endDate, title }) => {
@@ -129,9 +113,15 @@ export class EditingState extends React.PureComponent {
   }
 
   render() {
-    const { createAppointmentChange } = this.props;
     const {
-      addedAppointment, deletedAppointmentId, editingAppointmentId, appointmentChanges,
+      createAppointmentChange,
+      setAppointmentTitle,
+      setAppointmentStartDate,
+      setAppointmentEndDate,
+      setAppointmentAllDay,
+    } = this.props;
+    const {
+      addedAppointment, editingAppointmentId, appointmentChanges,
     } = this.state;
 
     return (
@@ -142,6 +132,11 @@ export class EditingState extends React.PureComponent {
           name="createRowChange"
           value={createAppointmentChangeGetter(createAppointmentChange)}
         />
+
+        <Getter name="setAppointmentTitle" value={setAppointmentTitle} />
+        <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
+        <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
+        <Getter name="setAppointmentAllDay" value={setAppointmentAllDay} />
 
         <Getter name="editingAppointmentId" value={editingAppointmentId} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
@@ -158,9 +153,6 @@ export class EditingState extends React.PureComponent {
         <Action name="cancelAddedAppointment" action={this.cancelAddedAppointment} />
         <Action name="commitAddedAppointment" action={this.commitAddedAppointment} />
 
-        <Getter name="deletedAppointmentId" value={deletedAppointmentId} />
-        <Action name="deleteAppointment" action={this.deleteAppointment} />
-        <Action name="cancelDeletedAppointment" action={this.cancelDeletedAppointment} />
         <Action name="commitDeletedAppointment" action={this.commitDeletedAppointment} />
       </Plugin>
     );
@@ -182,15 +174,12 @@ EditingState.propTypes = {
   defaultAppointmentChanges: PropTypes.object,
   onAppointmentChangesChange: PropTypes.func,
 
-  deletedAppointmentId: PropTypes.number,
-  defaultDeletedAppointmentId: PropTypes.number,
-  onDeletedAppointmentIdChange: PropTypes.func,
-
   onCommitChanges: PropTypes.func.isRequired,
 
   setAppointmentStartDate: PropTypes.func,
   setAppointmentEndDate: PropTypes.func,
   setAppointmentTitle: PropTypes.func,
+  setAppointmentAllDay: PropTypes.func,
 };
 
 EditingState.defaultProps = {
@@ -208,12 +197,9 @@ EditingState.defaultProps = {
   defaultAddedAppointment: {},
   onAddedAppointmentChange: undefined,
 
-  deletedAppointmentId: undefined,
-  defaultDeletedAppointmentId: null,
-  onDeletedAppointmentIdChange: undefined,
-
   setAppointmentStartDate:
     (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
   setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
   setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
+  setAppointmentAllDay: (appointment, nextAllDay) => ({ ...appointment, allDay: nextAllDay }),
 };

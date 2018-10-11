@@ -5,6 +5,7 @@ import {
   isFilterTableRow,
   getColumnFilterOperations,
   isFilterValueEmpty,
+  getSelectedFilterOperation,
 } from './helpers';
 
 describe('TableFilterRow Plugin helpers', () => {
@@ -51,6 +52,29 @@ describe('TableFilterRow Plugin helpers', () => {
         .toBeFalsy();
       expect(isFilterValueEmpty('0'))
         .toBeFalsy();
+    });
+  });
+
+  describe('#getSelectedFilterOperation', () => {
+    it('should get filter operation by column name', () => {
+      const filterOperation = getSelectedFilterOperation({ a: 'contains', b: 'startsWith' }, 'b');
+
+      expect(filterOperation)
+        .toBe('startsWith');
+    });
+
+    it('should use column filter operation if exists', () => {
+      const filterOperation = getSelectedFilterOperation({}, 'a', { operation: 'contains' });
+
+      expect(filterOperation)
+        .toBe('contains');
+    });
+
+    it('should use the first column filter operation', () => {
+      const filterOperation = getSelectedFilterOperation({}, 'a', null, ['endsWith', 'contains']);
+
+      expect(filterOperation)
+        .toBe('endsWith');
     });
   });
 });

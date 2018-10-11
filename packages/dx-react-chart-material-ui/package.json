@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-react-chart-material-ui",
   "version": "1.8.0",
-  "description": "Material UI templates for DevExtreme React Chart component",
+  "description": "Material-UI templates for DevExtreme React Chart component",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"

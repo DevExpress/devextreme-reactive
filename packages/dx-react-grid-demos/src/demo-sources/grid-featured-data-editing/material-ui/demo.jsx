@@ -357,7 +357,7 @@ class DemoBase extends React.PureComponent {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure to delete the following row?
+              Are you sure you want to delete the following row?
             </DialogContentText>
             <Paper>
               <Grid

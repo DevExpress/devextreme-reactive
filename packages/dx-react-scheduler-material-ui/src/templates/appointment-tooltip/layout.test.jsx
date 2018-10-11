@@ -45,13 +45,19 @@ describe('Appointment Tooltip', () => {
     });
 
     it('should render OpenButton', () => {
+      const onOpenButtonClick = jest.fn();
       const tree = shallow((
-        <Layout {...defaultProps} showOpenButton />
+        <Layout {...defaultProps} showOpenButton onOpenButtonClick={onOpenButtonClick} />
       ));
 
-      expect(tree.find(defaultProps.headComponent).find(defaultProps.commandButtonComponent)
-        .props().id)
-        .toBe('open');
+      const { id, onClick } = tree
+        .find(defaultProps.headComponent)
+        .find(defaultProps.commandButtonComponent).props();
+
+      onClick();
+
+      expect(id).toBe('open');
+      expect(onOpenButtonClick).toBeCalled();
     });
 
     it('should render CloseButton', () => {
@@ -74,13 +80,23 @@ describe('Appointment Tooltip', () => {
     });
 
     it('should render DeleteButton', () => {
+      const onDeleteButtonClick = jest.fn();
       const tree = shallow((
-        <Layout {...defaultProps} showDeleteButton />
+        <Layout
+          {...defaultProps}
+          showDeleteButton
+          onDeleteButtonClick={onDeleteButtonClick}
+        />
       ));
 
-      expect(tree.find(defaultProps.headComponent).find(defaultProps.commandButtonComponent)
-        .props().id)
-        .toBe('delete');
+      const { id, onClick } = tree
+        .find(defaultProps.headComponent)
+        .find(defaultProps.commandButtonComponent).props();
+
+      onClick();
+
+      expect(id).toBe('delete');
+      expect(onDeleteButtonClick).toBeCalled();
     });
 
     it('should render title', () => {

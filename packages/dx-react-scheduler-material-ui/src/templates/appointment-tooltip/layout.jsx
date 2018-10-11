@@ -39,10 +39,16 @@ const LayoutBase = ({
   getAppointmentTitle,
   visible, onHide,
   commandButtonIds,
+  onOpenButtonClick,
+  onDeleteButtonClick,
   classes,
   ...restProps
 }) => {
   const { target, appointment = {} } = appointmentMeta;
+  const openButtonClickHandler = () => {
+    onHide();
+    onOpenButtonClick();
+  };
   return (
     <Popover
       open={visible}
@@ -55,10 +61,12 @@ const LayoutBase = ({
       <Head appointment={appointment}>
         <div>
           <div className={classes.buttonsLeft}>
-            {showOpenButton && <CommandButton id={commandButtonIds.open} />}
+            {showOpenButton
+              && <CommandButton id={commandButtonIds.open} onClick={openButtonClickHandler} />}
           </div>
           <div className={classes.buttonsRight}>
-            {showDeleteButton && <CommandButton id={commandButtonIds.delete} />}
+            {showDeleteButton
+              && <CommandButton id={commandButtonIds.delete} onClick={onDeleteButtonClick} />}
             {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
           </div>
         </div>
@@ -91,11 +99,15 @@ LayoutBase.propTypes = {
   getAppointmentTitle: PropTypes.func.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  onOpenButtonClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.object,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
 LayoutBase.defaultProps = {
+  onOpenButtonClick: () => undefined,
+  onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
   appointmentMeta: {},
   visible: false,

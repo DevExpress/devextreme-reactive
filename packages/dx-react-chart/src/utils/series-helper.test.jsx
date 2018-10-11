@@ -106,7 +106,7 @@ describe('Base series', () => {
       colorDomain: 'colorDomain',
       styles: 'styles',
       seriesName: 'name',
-      scales: { test_argument_domain: 'argument-scale', test_value_domain: 'value-scale' },
+      scales: { xScale: 'argument-scale', yScale: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
     });
   });

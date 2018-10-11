@@ -67,12 +67,13 @@ export const withSeriesPlugin = (
                 getAnimatedStyle,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
+                const currentScales = {
+                  xScale: scales[ARGUMENT_DOMAIN],
+                  yScale: scales[getValueDomainName(currentSeries.axisName)],
+                };
                 const coordinates = currentSeries.calculateCoordinates(
                   data,
-                  {
-                    xScale: scales[ARGUMENT_DOMAIN],
-                    yScale: scales[getValueDomainName(currentSeries.axisName)],
-                  },
+                  currentScales,
                   currentSeries,
                   // TODO: The following are BarSeries specifics - remove them.
                   stacks,
@@ -85,7 +86,7 @@ export const withSeriesPlugin = (
                     colorDomain={colorDomain}
                     coordinates={coordinates}
                     seriesName={currentSeries.name}
-                    scales={scales}
+                    scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
                     {...props}
                   />

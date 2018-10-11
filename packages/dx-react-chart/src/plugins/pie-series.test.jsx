@@ -18,9 +18,15 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 pieAttributes.mockImplementation(() => [
-  { value: 'value1', data: { argumentField: 'argument1' }, id: 'value1' },
-  { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
-  { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
+  {
+    value: 'value1', data: { argumentField: 'argument1' }, id: 'value1', x: 1, y: 2,
+  },
+  {
+    value: 'value2', data: { argumentField: 'argument2' }, id: 'value2', x: 1, y: 2,
+  },
+  {
+    value: 'value3', data: { argumentField: 'argument3' }, id: 'value3', x: 1, y: 2,
+  },
 ]);
 
 const defaultProps = {
@@ -50,6 +56,24 @@ describe('Pie series', () => {
     },
   };
 
+  it('should render root element', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+
+        <PieSeries
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const g = tree.find('g');
+    const { transform } = g.props();
+
+    expect(transform)
+      .toBe('translate(1 2)');
+  });
+
   it('should render points', () => {
     const tree = mount((
       <PluginHost>
@@ -69,6 +93,8 @@ describe('Pie series', () => {
         color: 'color',
         style: { opacity: 0.4 },
         id: `value${pointIndex}`,
+        x: 1,
+        y: 2,
       });
       expect(defaultDeps.getter.colorDomain)
         .toHaveBeenNthCalledWith(index + 1, `value${pointIndex}`);

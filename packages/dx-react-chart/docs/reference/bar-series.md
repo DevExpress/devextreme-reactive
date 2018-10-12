@@ -45,7 +45,7 @@ y | number | The bar's y coordinate.
 width | number | The bar width.
 height | number | The bar height.
 value | number | The bar's value.
-color | string | Series color.
+color | string | A series color.
 style | object | Series styles.
 
 ## Plugin Components

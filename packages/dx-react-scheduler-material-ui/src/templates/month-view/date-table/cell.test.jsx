@@ -4,8 +4,9 @@ import { Cell } from './cell';
 
 describe('Month View DateTable', () => {
   const defaultProps = {
-    time: { start: new Date(2018, 6, 7, 16), end: new Date(2018, 6, 7, 18) },
-    date: { value: new Date(2018, 6, 7, 17), isCurrent: false, isOtherMonth: false },
+    startDate: new Date(2018, 6, 7, 16),
+    isCurrent: false,
+    isOtherMonth: false,
   };
   let classes;
   let shallow;

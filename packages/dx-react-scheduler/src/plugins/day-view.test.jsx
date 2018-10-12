@@ -82,6 +82,24 @@ describe('Day View', () => {
   });
 
   describe('Getters', () => {
+    it('should provide the "viewCellsData" getter', () => {
+      const intervalCount = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            intervalCount={intervalCount}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(viewCells)
+        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(getComputedState(tree).viewCellsData)
+        .toEqual([[{}, {}], [{}, {}]]);
+    });
+
     it('should provide the "timeScale" getter', () => {
       const tree = mount((
         <PluginHost>

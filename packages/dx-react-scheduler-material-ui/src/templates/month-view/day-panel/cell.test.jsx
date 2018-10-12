@@ -4,7 +4,7 @@ import { Cell } from './cell';
 
 describe('Month View DayPanel', () => {
   const defaultProps = {
-    date: new Date(2018, 6, 7, 16, 20),
+    startDate: new Date(2018, 6, 7, 16, 20),
   };
   let classes;
   let shallow;

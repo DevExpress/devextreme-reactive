@@ -15,10 +15,10 @@ const styles = {
 const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
-  monthCells,
   classes,
   dateTableRef,
   className,
+  viewCellsData,
   ...restProps
 }) => (
   <RootRef rootRef={dateTableRef}>
@@ -27,9 +27,22 @@ const LayoutBase = ({
       {...restProps}
     >
       <TableBody>
-        {monthCells.map(row => (
-          <Row key={`date_table_row_${row[0].value.toString()}`}>
-            {row.map(date => <Cell key={date.value} date={date} />)}
+        {viewCellsData.map(row => (
+          <Row key={row[0].startDate.toString()}>
+            {row.map(({
+              startDate,
+              endDate,
+              isCurrent,
+              isOtherMonth,
+            }) => (
+              <Cell
+                key={startDate}
+                startDate={startDate}
+                endDate={endDate}
+                isCurrent={isCurrent}
+                isOtherMonth={isOtherMonth}
+              />
+            ))}
           </Row>
         ))}
       </TableBody>
@@ -38,7 +51,7 @@ const LayoutBase = ({
 );
 
 LayoutBase.propTypes = {
-  monthCells: PropTypes.array.isRequired,
+  viewCellsData: PropTypes.arrayOf(Array).isRequired,
   dateTableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.func,

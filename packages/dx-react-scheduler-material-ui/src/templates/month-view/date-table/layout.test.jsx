@@ -5,7 +5,16 @@ import { Layout } from './layout';
 describe('Month View DateTable', () => {
   const defaultProps = {
     dateTableRef: () => undefined,
-    monthCells: [],
+    viewCellsData: [
+      [
+        { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
+        { startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) },
+      ],
+      [
+        { startDate: new Date(2018, 6, 7, 18), endDate: new Date(2018, 6, 7, 20) },
+        { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
+      ],
+    ],
   };
   let classes;
   let shallow;

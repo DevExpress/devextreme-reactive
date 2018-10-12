@@ -5,14 +5,26 @@ import { Layout } from './layout';
 describe('Month View DayPanel', () => {
   let classes;
   let shallow;
+  const defaultProps = {
+    viewCellsData: [
+      [
+        { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
+        { startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) },
+      ],
+      [
+        { startDate: new Date(2018, 6, 7, 18), endDate: new Date(2018, 6, 7, 20) },
+        { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
+      ],
+    ],
+  };
   beforeAll(() => {
-    classes = getClasses(<Layout />);
+    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Layout className="custom-class" />
+        <Layout {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.find('.custom-class'))
@@ -22,7 +34,7 @@ describe('Month View DayPanel', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Layout data={{ a: 1 }} />
+        <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.find(`.${classes.table}`).props().data)
@@ -30,9 +42,8 @@ describe('Month View DayPanel', () => {
     });
     it('should render array of days', () => {
       const cell = () => <td />;
-      const dayScale = [new Date('2018-07-26'), new Date('2018-07-26')];
       const tree = shallow((
-        <Layout dayScale={dayScale} cellComponent={cell} />
+        <Layout {...defaultProps} cellComponent={cell} />
       ));
 
       expect(tree.find(cell))

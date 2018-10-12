@@ -16,7 +16,6 @@ const LayoutBase = ({
   rowComponent: Row,
   viewCellsData,
   className,
-  dayScale,
   classes,
   ...restProps
 }) => (

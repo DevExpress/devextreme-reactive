@@ -5,6 +5,16 @@ import { Layout } from './layout';
 describe('Week View DateTable', () => {
   const defaultProps = {
     dateTableRef: () => undefined,
+    viewCellsData: [
+      [
+        { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
+        { startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) },
+      ],
+      [
+        { startDate: new Date(2018, 6, 7, 18), endDate: new Date(2018, 6, 7, 20) },
+        { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
+      ],
+    ],
   };
   let classes;
   let shallow;
@@ -35,13 +45,9 @@ describe('Week View DateTable', () => {
       const cell = () => <td />;
       /* eslint-disable-next-line */
       const row = ({ children }) => <tr>{children}</tr>;
-      const timeScale = [{}, {}];
-      const dayScale = [new Date('2018-07-26'), new Date('2018-07-26')];
       const tree = shallow((
         <Layout
           {...defaultProps}
-          timeScale={timeScale}
-          dayScale={dayScale}
           cellComponent={cell}
           rowComponent={row}
         />

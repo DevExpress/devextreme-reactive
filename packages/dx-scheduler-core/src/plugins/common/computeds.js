@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { monthCells2 } from '../month-view/computeds';
 import { calculateFirstDateOfWeek } from '../../utils';
 
 export const dayScale = (
@@ -27,4 +28,30 @@ export const availableViews = (views, viewName) => {
     nextViews.push(viewName);
     return nextViews;
   } return views;
+};
+
+export const viewCells = (
+  currentViewType, currentDate, firstDayOfWeek, intervalCount, days, times,
+) => {
+  if (currentViewType === 'month') {
+    return monthCells2(currentDate, firstDayOfWeek, intervalCount);
+  }
+
+  const cells = [];
+  times.forEach((time) => {
+    const rowCells = [];
+    days.forEach((day) => {
+      const start = moment(time.start);
+      const end = moment(time.end);
+      const startDate = moment(day).hours(start.hours()).minutes(start.minutes()).toDate();
+      const endDate = moment(day).hours(end.hours()).minutes(end.minutes()).toDate();
+      rowCells.push({
+        startDate,
+        endDate,
+      });
+    });
+
+    cells.push(rowCells);
+  });
+  return cells;
 };

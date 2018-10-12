@@ -21,10 +21,11 @@ const styles = theme => ({
 const CellBase = ({
   classes,
   className,
-  time,
+  startDate,
+  endDate,
   ...restProps
 }) => {
-  const currentTime = moment(time);
+  const currentTime = moment(endDate);
   return (
     <TableCell
       numeric
@@ -39,13 +40,15 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
-  time: PropTypes.instanceOf(Date).isRequired,
+  endDate: PropTypes.instanceOf(Date).isRequired,
+  startDate: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   className: undefined,
+  startDate: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

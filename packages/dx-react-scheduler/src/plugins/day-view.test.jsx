@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   dayScale,
+  viewCells,
   timeScale,
   startViewDate,
   endViewDate,
@@ -16,6 +17,7 @@ import { DayView } from './day-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
+  viewCells: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
@@ -64,6 +66,10 @@ describe('Day View', () => {
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
+    viewCells.mockImplementation(() => [
+      [{}, {}],
+      [{}, {}],
+    ]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{

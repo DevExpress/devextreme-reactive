@@ -9,6 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
+  viewCells as viewCellsComputed,
   getRectByDates,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
@@ -60,6 +61,11 @@ export class DayView extends React.PureComponent {
     this.endViewDateBaseComputed = ({
       dayScale, timeScale,
     }) => endViewDateCore(dayScale, timeScale);
+    this.viewCellsBaseComputed = ({
+      currentView, currentDate, firstDayOfWeek, dayScale, timeScale,
+    }) => viewCellsComputed(
+      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+    );
 
     this.timeScaleComputed = getters => computed(
       getters,
@@ -89,6 +95,9 @@ export class DayView extends React.PureComponent {
     );
     this.cellDurationComputed = getters => computed(
       getters, viewName, () => cellDuration, getters.cellDuration,
+    );
+    this.viewCells = getters => computed(
+      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
     );
   }
 
@@ -125,6 +134,7 @@ export class DayView extends React.PureComponent {
         <Getter name="cellDuration" computed={this.cellDurationComputed} />
         <Getter name="timeScale" computed={this.timeScaleComputed} />
         <Getter name="dayScale" computed={this.dayScaleComputed} />
+        <Getter name="viewCellsData" computed={this.viewCells} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
@@ -146,13 +156,13 @@ export class DayView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ dayScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
                   rowComponent={DayPanelRow}
-                  dayScale={dayScale}
+                  viewCellsData={viewCellsData}
                 />
               );
             }}
@@ -172,13 +182,13 @@ export class DayView extends React.PureComponent {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ timeScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimePanel
                   rowComponent={TimePanelRow}
                   cellComponent={TimePanelCell}
-                  timeScale={timeScale}
+                  viewCellsData={viewCellsData}
                 />
               );
             }}
@@ -190,6 +200,7 @@ export class DayView extends React.PureComponent {
             {({
               timeScale, appointments, startViewDate,
               endViewDate, currentView, currentDate, dayScale,
+              viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
@@ -219,9 +230,8 @@ export class DayView extends React.PureComponent {
                   <DateTable
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
-                    timeScale={timeScale}
-                    dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
+                    viewCellsData={viewCellsData}
                   />
                   <Container>
                     {rects.map(({

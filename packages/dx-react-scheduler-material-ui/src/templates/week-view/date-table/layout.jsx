@@ -13,11 +13,11 @@ const styles = {
 };
 
 const LayoutBase = ({
-  timeScale, dayScale,
   dateTableRef,
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
+  viewCellsData,
   ...restProps
 }) => (
   <RootRef rootRef={dateTableRef}>
@@ -26,9 +26,15 @@ const LayoutBase = ({
       {...restProps}
     >
       <TableBody>
-        {timeScale.map((time, index) => (
+        {viewCellsData.map((days, index) => (
           <Row key={index.toString()}>
-            {dayScale.map(date => <Cell key={date} date={date} time={time} />)}
+            {days.map(({ startDate, endDate }) => (
+              <Cell
+                key={startDate.toString()}
+                startDate={startDate}
+                endDate={endDate}
+              />
+            ))}
           </Row>
         ))}
       </TableBody>
@@ -39,15 +45,12 @@ const LayoutBase = ({
 LayoutBase.propTypes = {
   dateTableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  timeScale: PropTypes.array,
-  dayScale: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  viewCellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  timeScale: [],
-  dayScale: [],
   className: undefined,
   cellComponent: () => null,
   rowComponent: () => null,

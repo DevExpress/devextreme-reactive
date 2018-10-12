@@ -3,19 +3,16 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
 describe('Week VIew DateTable', () => {
-  const defaultProps = {
-    time: { start: new Date(2018, 6, 7, 16), end: new Date(2018, 6, 7, 18) },
-  };
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell {...defaultProps} />);
+    classes = getClasses(<Cell />);
     shallow = createShallow({ dive: true });
   });
   describe('Cell', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Cell {...defaultProps} className="custom-class" />
+        <Cell className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -25,7 +22,7 @@ describe('Week VIew DateTable', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Cell {...defaultProps} data={{ a: 1 }} />
+        <Cell data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -33,7 +30,7 @@ describe('Week VIew DateTable', () => {
     });
     it('should have tabIndex 0', () => {
       const tree = shallow((
-        <Cell {...defaultProps} />
+        <Cell />
       ));
 
       expect(tree.props().tabIndex)

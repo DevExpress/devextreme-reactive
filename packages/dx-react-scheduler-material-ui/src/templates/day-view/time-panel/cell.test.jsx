@@ -2,9 +2,9 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('Week View TimePanel', () => {
+describe('Day View TimePanel', () => {
   const defaultProps = {
-    time: new Date(2018, 6, 7, 16, 20),
+    endDate: new Date(2018, 6, 7, 16, 20),
   };
   let classes;
   let shallow;

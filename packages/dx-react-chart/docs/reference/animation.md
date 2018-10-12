@@ -1,6 +1,6 @@
 # Animation Plugin Reference
 
-The `Animation` plugin animate series elements such as series and points.
+The `Animation` plugin animates series.
 
 ## Import
 
@@ -16,4 +16,5 @@ import { Animation } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-settings? | (point: object, seriesName: string) => string | | A function that returns string with animation options for series and their points. The string can consist of the following properties: duration, timing, direction, delay, fill mode, play state, iteration. All this properties have the same values as in the css animation (https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+settings? | (point: object, seriesName: string) => string | | A function that returns a settings string. The string can contain the following animation properties: duration, timing, direction, delay, fill mode, play state, iteration. See the [Using CSS animations
+](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) article for more information.

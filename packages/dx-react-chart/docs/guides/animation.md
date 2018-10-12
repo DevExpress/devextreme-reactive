@@ -4,6 +4,6 @@ The Chart can animate series elements at the beginning of the lifetime with the 
 
 ## Basic Setup
 
-Add the `Animation` plugin to the Chart to animate series elements. You can use the `settings` property to configure animation serttings. The following example:
+Add the `Animation` plugin to the Chart to animate series elements. You can use the `settings` property to configure animation settings. The following example:
 
 .embedded-demo({ "path": "chart-basic/animation", "showThemeSelector": true })

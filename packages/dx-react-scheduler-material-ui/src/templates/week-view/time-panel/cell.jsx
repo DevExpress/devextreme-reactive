@@ -25,7 +25,7 @@ const CellBase = ({
   endDate,
   ...restProps
 }) => {
-  const currentTime = moment(startDate);
+  const currentTime = moment(endDate);
   return (
     <TableCell
       numeric

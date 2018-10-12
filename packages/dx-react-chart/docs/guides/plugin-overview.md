@@ -30,7 +30,7 @@ The following plugins render additional elements:
 - `Legend` - renders a legend
 - `Title` - renders a title
 
-The following plugins add extra features:
+The following plugins implement additional features:
 
 - `Animation` - animates series
 

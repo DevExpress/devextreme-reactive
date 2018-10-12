@@ -40,15 +40,15 @@ const CellBase = ({
 };
 
 CellBase.propTypes = {
-  startDate: PropTypes.instanceOf(Date).isRequired,
-  endDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date).isRequired,
+  startDate: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   className: undefined,
-  endDate: undefined,
+  startDate: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

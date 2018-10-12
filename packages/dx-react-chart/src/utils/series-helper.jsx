@@ -8,7 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, xyScales, seriesData, ARGUMENT_DOMAIN, getValueDomainName,
+  findSeriesByName, addSeries,
 } from '@devexpress/dx-chart-core';
 
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
@@ -18,14 +18,16 @@ const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
 const getRenderProps = (series) => {
   const {
     name,
+    uniqueName,
     axisName,
     argumentField,
     valueField,
+    palette,
     stack,
     symbolName,
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    calculateCoordinates,
+    getPointTransformer,
     ...restProps
   } = series;
 
@@ -36,56 +38,41 @@ export const withSeriesPlugin = (
   Series,
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
-  calculateCoordinates,
-  getItems = series => series,
+  getPointTransformer,
 ) => {
   class Component extends React.PureComponent {
     render() {
       const { name: seriesName } = this.props;
       const symbolName = Symbol(seriesName);
-      const getSeriesDataComputed = ({ series }) => seriesData(series, {
+      const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
         ...this.props,
-        calculateCoordinates,
+        getPointTransformer,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
-        uniqueName: seriesName,
       });
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeriesDataComputed} />
-          <Getter name="items" value={getItems} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
               {({
+                getSeriesPoints,
                 series,
-                domains,
+                scales,
                 stacks,
                 data,
-                layouts,
                 scaleExtension,
-                colorDomain,
               }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-
-                const scales = xyScales(
-                  domains[ARGUMENT_DOMAIN],
-                  domains[getValueDomainName(currentSeries.axisName)],
-                  layouts.pane,
-                  scaleExtension,
+                const coordinates = getSeriesPoints(
+                  currentSeries, data, scales,
+                  // TODO: The following are BarSeries specifics - remove them.
+                  stacks, scaleExtension,
                 );
-                const coordinates = currentSeries.calculateCoordinates(
-                  data,
-                  scales,
-                  currentSeries,
-                  stacks,
-                  scaleExtension,
-                );
-
                 const props = getRenderProps(currentSeries);
                 return (
                   <Series
-                    colorDomain={colorDomain}
                     coordinates={coordinates}
                     {...props}
                   />

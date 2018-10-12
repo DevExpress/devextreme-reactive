@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { computeDomains, computeExtension } from '@devexpress/dx-chart-core';
+import { computeExtension } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { Scale } from './scale';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  computeDomains: jest.fn(),
   computeExtension: jest.fn(),
 }));
 
@@ -23,7 +22,6 @@ describe('Scale', () => {
 
     expect(getComputedState(tree))
       .toEqual({
-        computeDomains,
         scaleExtension: 'computedExtension',
       });
   });

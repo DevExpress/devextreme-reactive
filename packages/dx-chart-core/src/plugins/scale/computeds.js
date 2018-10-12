@@ -1,13 +1,11 @@
 import { extent } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import { setScalePadding } from '../../utils/scale';
+import { createScale, setScalePadding, getValueDomainName } from '../../utils/scale';
 import {
-  HORIZONTAL, VERTICAL, LINEAR, BAND, ARGUMENT_DOMAIN, VALUE_DOMAIN,
+  HORIZONTAL, VERTICAL, LINEAR, BAND, ARGUMENT_DOMAIN,
 } from '../../constants';
 
 const isDefined = item => item !== undefined;
-
-export const getValueDomainName = name => name || VALUE_DOMAIN;
 
 // TODO: Property name should not contain "axis" part as it actually means domain.
 const getSeriesValueDomainName = series => getValueDomainName(series.axisName);
@@ -123,4 +121,13 @@ export const computeDomains = (axes, series, data) => {
   calculateDomains(result, series, data);
   takeRestAxesOptions(result, axes);
   return result;
+};
+
+export const buildScales = (domains, scaleExtension, { width, height }) => {
+  const scales = {};
+  Object.entries(domains).forEach(([name, domain]) => {
+    const { constructor } = scaleExtension.find(item => item.type === domain.type);
+    scales[name] = createScale(domain, width, height, constructor);
+  });
+  return scales;
 };

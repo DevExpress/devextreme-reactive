@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { monthCellsData } from '../month-view/computeds';
 import { calculateFirstDateOfWeek } from '../../utils';
+import { getViewType } from './helpers';
+import { HORIZONTAL_TYPE } from '../../constants';
 
 export const dayScale = (
   currentDate,
@@ -33,7 +35,7 @@ export const availableViews = (views, viewName) => {
 export const viewCells = (
   currentViewType, currentDate, firstDayOfWeek, intervalCount, days, times,
 ) => {
-  if (currentViewType === 'month') {
+  if (getViewType(currentViewType) === HORIZONTAL_TYPE) {
     return monthCellsData(currentDate, firstDayOfWeek, intervalCount);
   }
 

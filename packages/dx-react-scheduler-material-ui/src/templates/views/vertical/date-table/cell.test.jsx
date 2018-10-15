@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('Week VIew DateTable', () => {
+describe('Vertical view DateTable', () => {
   let classes;
   let shallow;
   beforeAll(() => {

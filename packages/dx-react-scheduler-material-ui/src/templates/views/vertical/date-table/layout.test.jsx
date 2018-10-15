@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('Week View DateTable', () => {
+describe('Vertical view DateTable', () => {
   const defaultProps = {
     dateTableRef: () => undefined,
     viewCellsData: [

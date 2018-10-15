@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('Month View DateTable', () => {
+describe('Horizontal view DateTable', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16),
     isCurrent: false,

@@ -1,52 +1,57 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../utils';
+import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    paddingBottom: 0,
     borderLeft: getBorder(theme),
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:focus': {
-      backgroundColor: theme.palette.primary[100],
-      outline: 0,
-    },
+  },
+  dayOfWeek: {
+    ...theme.typography.caption,
+    margin: 0,
+  },
+  dayOfMonth: {
+    ...theme.typography.display1,
   },
 });
 
 const CellBase = ({
   classes,
   className,
-  children,
   startDate,
   endDate,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+}) => {
+  const currentDate = moment(startDate);
+  return (
+    <TableCell
+      className={classNames(classes.cell, className)}
+      {...restProps}
+    >
+      <p className={classes.dayOfWeek}>
+        {currentDate.format('ddd')}
+      </p>
+      <span className={classes.dayOfMonth}>
+        {currentDate.format('D')}
+      </span>
+    </TableCell>
+  );
+};
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  startDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
-  children: null,
   className: undefined,
-  startDate: undefined,
   endDate: undefined,
 };
 

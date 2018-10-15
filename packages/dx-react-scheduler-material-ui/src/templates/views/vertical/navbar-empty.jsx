@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../utils';
+import { getBorder } from '../../utils';
 
 const styles = theme => ({
   navbarEmpty: {

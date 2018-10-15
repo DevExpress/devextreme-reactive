@@ -30,7 +30,7 @@ const LayoutBase = ({
           <Row key={index.toString()}>
             {days.map(({ startDate, endDate }) => (
               <Cell
-                key={startDate.toString()}
+                key={startDate}
                 startDate={startDate}
                 endDate={endDate}
               />

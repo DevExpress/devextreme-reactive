@@ -14,14 +14,14 @@ const styles = {
 const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
-  viewCellsData,
+  cellsData,
   classes,
   className,
   ...restProps
 }) => (
   <Table {...restProps} className={classNames(classes.table, className)}>
     <TableBody>
-      {viewCellsData.map((days, index) => (
+      {cellsData.map((days, index) => (
         <Row key={days[0].startDate}>
           {index % 2
             ? null
@@ -40,7 +40,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  viewCellsData: PropTypes.arrayOf(Array).isRequired,
+  cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,

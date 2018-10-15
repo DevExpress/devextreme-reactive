@@ -14,7 +14,7 @@ const styles = {
 const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
-  viewCellsData,
+  cellsData,
   className,
   classes,
   ...restProps
@@ -25,7 +25,7 @@ const LayoutBase = ({
   >
     <TableBody>
       <Row>
-        {viewCellsData[0].map(({
+        {cellsData[0].map(({
           startDate,
           endDate,
         }, index) => (
@@ -42,7 +42,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  viewCellsData: PropTypes.arrayOf(Array).isRequired,
+  cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,

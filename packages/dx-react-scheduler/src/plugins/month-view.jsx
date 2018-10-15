@@ -135,7 +135,7 @@ export class MonthView extends React.PureComponent {
                 <DayPanel
                   cellComponent={DayPanelCell}
                   rowComponent={DayPanelRow}
-                  viewCellsData={viewCellsData}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -172,7 +172,7 @@ export class MonthView extends React.PureComponent {
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
                     dateTableRef={this.dateTableRef}
-                    viewCellsData={viewCellsData}
+                    cellsData={viewCellsData}
                   />
                   <Container>
                     {rects.map(({

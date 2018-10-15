@@ -6,7 +6,7 @@ describe('Vertical week TimePanel', () => {
   let classes;
   let shallow;
   const defaultProps = {
-    viewCellsData: [
+    cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
         { startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) },

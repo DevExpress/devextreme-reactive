@@ -17,7 +17,7 @@ const LayoutBase = ({
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
-  viewCellsData,
+  cellsData,
   ...restProps
 }) => (
   <RootRef rootRef={dateTableRef}>
@@ -26,7 +26,7 @@ const LayoutBase = ({
       {...restProps}
     >
       <TableBody>
-        {viewCellsData.map((days, index) => (
+        {cellsData.map((days, index) => (
           <Row key={index.toString()}>
             {days.map(({ startDate, endDate }) => (
               <Cell
@@ -45,7 +45,7 @@ const LayoutBase = ({
 LayoutBase.propTypes = {
   dateTableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  viewCellsData: PropTypes.arrayOf(Array).isRequired,
+  cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,

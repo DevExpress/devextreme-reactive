@@ -177,7 +177,7 @@ export class WeekView extends React.PureComponent {
                 <DayPanel
                   cellComponent={DayPanelCell}
                   rowComponent={DayPanelRow}
-                  viewCellsData={viewCellsData}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -203,7 +203,7 @@ export class WeekView extends React.PureComponent {
                 <TimePanel
                   rowComponent={TimePanelRow}
                   cellComponent={TimePanelCell}
-                  viewCellsData={viewCellsData}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -244,7 +244,7 @@ export class WeekView extends React.PureComponent {
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
                     dateTableRef={this.dateTableRef}
-                    viewCellsData={viewCellsData}
+                    cellsData={viewCellsData}
                   />
                   <Container>
                     {rects.map(({

@@ -13,7 +13,7 @@ import {
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
   getAllDayRectByDates,
-  HORIZONTAL_APPOINTMENT_TYPE,
+  HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -87,7 +87,7 @@ export class AllDayPanel extends React.PureComponent {
               );
               const rects = tableRef && tableRef.querySelectorAll('th').length === dayScale.length ? calculateRectByDateIntervals(
                 {
-                  growDirection: HORIZONTAL_APPOINTMENT_TYPE,
+                  growDirection: HORIZONTAL_TYPE,
                   multiline: false,
                 },
                 intervals,

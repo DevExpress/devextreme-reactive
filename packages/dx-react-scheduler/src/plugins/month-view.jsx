@@ -17,7 +17,7 @@ import {
   endViewBoundary,
   monthCells as monthCellsCore,
   availableViews as availableViewsCore,
-  HORIZONTAL_APPOINTMENT_TYPE,
+  HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'month';
@@ -152,7 +152,7 @@ export class MonthView extends React.PureComponent {
               );
               const rects = dateTableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: HORIZONTAL_APPOINTMENT_TYPE,
+                  growDirection: HORIZONTAL_TYPE,
                   multiline: true,
                 },
                 intervals,

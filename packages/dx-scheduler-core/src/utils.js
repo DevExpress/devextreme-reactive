@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { HORIZONTAL_APPOINTMENT_TYPE, VERTICAL_APPOINTMENT_TYPE } from './constants';
+import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 
 export const computed = (getters, viewName, baseComputed, defaultValue) => {
   if (getters.currentView.name !== viewName && !!defaultValue) {
@@ -197,7 +197,7 @@ const horizontalRectCalculator = (
     left: toPercentage(left, parentWidth),
     width: toPercentage(width, parentWidth),
     dataItem: appointment.dataItem,
-    type: HORIZONTAL_APPOINTMENT_TYPE,
+    type: HORIZONTAL_TYPE,
   };
 };
 
@@ -237,7 +237,7 @@ const verticalRectCalculator = (
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
     width: toPercentage(widthInPx, parentWidth),
     dataItem: appointment.dataItem,
-    type: VERTICAL_APPOINTMENT_TYPE,
+    type: VERTICAL_TYPE,
   };
 };
 
@@ -246,7 +246,7 @@ export const calculateRectByDateIntervals = (type, intervals, rectByDates, rectB
   const sorted = sortAppointments(intervals, multiline);
   const grouped = findOverlappedAppointments(sorted, multiline);
 
-  const rectCalculator = growDirection === HORIZONTAL_APPOINTMENT_TYPE
+  const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
     : verticalRectCalculator;
 

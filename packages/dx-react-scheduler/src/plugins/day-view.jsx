@@ -19,7 +19,7 @@ import {
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
-  VERTICAL_APPOINTMENT_TYPE,
+  VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const TYPE = 'day';
@@ -208,7 +208,7 @@ export class DayView extends React.PureComponent {
               );
               const rects = stateDateTableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: VERTICAL_APPOINTMENT_TYPE,
+                  growDirection: VERTICAL_TYPE,
                   multiline: false,
                 },
                 intervals,

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { monthCells2 } from '../month-view/computeds';
+import { monthCellsData } from '../month-view/computeds';
 import { calculateFirstDateOfWeek } from '../../utils';
 
 export const dayScale = (
@@ -34,7 +34,7 @@ export const viewCells = (
   currentViewType, currentDate, firstDayOfWeek, intervalCount, days, times,
 ) => {
   if (currentViewType === 'month') {
-    return monthCells2(currentDate, firstDayOfWeek, intervalCount);
+    return monthCellsData(currentDate, firstDayOfWeek, intervalCount);
   }
 
   const cells = [];

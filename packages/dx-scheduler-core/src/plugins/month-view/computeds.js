@@ -51,7 +51,7 @@ export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   return result;
 };
 
-export const monthCells2 = (currentDate, firstDayOfWeek, intervalCount = 1) => {
+export const monthCellsData = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();
   const targetDate = moment(currentDate);
   const currentMonths = [targetDate.month()];

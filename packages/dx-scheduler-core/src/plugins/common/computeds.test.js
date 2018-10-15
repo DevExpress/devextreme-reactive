@@ -1,5 +1,5 @@
 import { dayScale as dayScaleComputed, availableViews, viewCells } from './computeds';
-import { monthCells2 } from '../month-view/computeds';
+import { monthCellsData } from '../month-view/computeds';
 
 describe('#dayScale', () => {
   const currentDate = new Date(2018, 5, 24);
@@ -86,7 +86,7 @@ describe('#viewCells', () => {
     const intervalCount = 1;
     const currentViewType = 'month';
     expect(viewCells(currentViewType, currentDate, firstDayOfWeek, intervalCount))
-      .toEqual(monthCells2(currentDate, firstDayOfWeek, intervalCount));
+      .toEqual(monthCellsData(currentDate, firstDayOfWeek, intervalCount));
   });
 
   it('should work when growDirection type is vertical', () => {

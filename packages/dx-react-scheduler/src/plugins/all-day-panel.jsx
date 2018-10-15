@@ -8,6 +8,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
+  allDayCells,
   getAppointmentStyle,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
@@ -77,7 +78,8 @@ export class AllDayPanel extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              dayScale, currentView, appointments, startViewDate, endViewDate, excludedDays,
+              dayScale, currentView, appointments, startViewDate,
+              endViewDate, excludedDays, viewCellsData,
             }) => {
               if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
@@ -104,7 +106,7 @@ export class AllDayPanel extends React.PureComponent {
                   allDayPanelRef={this.allDayPanelRef}
                   cellComponent={this.cellPlaceholder}
                   rowComponent={Row}
-                  dayScale={dayScale}
+                  cellsData={allDayCells(viewCellsData)}
                 >
                   <Container>
                     {rects.map(({ dataItem, type, ...geometry }, index) => (

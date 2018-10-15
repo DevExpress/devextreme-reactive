@@ -55,3 +55,10 @@ export const viewCells = (
   });
   return cells;
 };
+
+export const allDayCells = (viewCellsData) => {
+  return viewCellsData[0].map(cell => ({
+    startDate: moment(cell.startDate).startOf('day').toDate(),
+    endDate: moment(cell.startDate).add(1, 'day').startOf('day').toDate(),
+  }));
+};

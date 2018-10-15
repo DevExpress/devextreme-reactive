@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DayView as DayViewBase } from '@devexpress/dx-react-scheduler';
-import { VerticalViewLayout } from '../templates/views/vertical-view-layout';
+import { VerticalViewLayout } from '../templates/layouts/vertical-view-layout';
 
 import { Row } from '../templates/vertical-view/row';
 import { NavbarEmpty } from '../templates/vertical-view/navbar-empty';

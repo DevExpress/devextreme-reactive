@@ -1,6 +1,6 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
-import { HorizontalViewLayout as Layout } from '../templates/views/horizontal-view-layout';
+import { HorizontalViewLayout as Layout } from '../templates/layouts/horizontal-view-layout';
 
 import { Row } from '../templates/horizontal-view/row';
 

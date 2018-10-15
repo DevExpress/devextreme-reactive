@@ -31,6 +31,18 @@ describe('SortLabel', () => {
     expect(tree.find('span.custom').exists())
       .toBeTruthy();
   });
+
+  it('should not add the onClick and onKeyDown handlers if disabled is true', () => {
+    const { onClick, onKeyDown } = shallow((
+      <SortLabel
+        {...defaultProps}
+        disabled
+      />
+    )).props();
+
+    expect(onClick).toBeUndefined();
+    expect(onKeyDown).toBeUndefined();
+  });
 });
 
 describe('Keyboard navigation', () => {

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../utils';
+import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -45,9 +45,9 @@ CellBase.propTypes = {
 
 CellBase.defaultProps = {
   children: null,
+  className: undefined,
   startDate: undefined,
   endDate: undefined,
-  className: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
 import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -13,27 +13,22 @@ const styles = {
 };
 
 const LayoutBase = ({
-  children,
-  dayScale,
-  cellsData,
-  allDayPanelRef,
+  dateTableRef,
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
+  cellsData,
   ...restProps
 }) => (
-  <div style={{ position: 'relative' }}>
-    <RootRef rootRef={allDayPanelRef}>
-      <Table
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableHead>
-          <Row>
-            {cellsData.map(({
-              startDate,
-              endDate,
-            }) => (
+  <RootRef rootRef={dateTableRef}>
+    <Table
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map((days, index) => (
+          <Row key={index.toString()}>
+            {days.map(({ startDate, endDate }) => (
               <Cell
                 key={startDate}
                 startDate={startDate}
@@ -41,16 +36,14 @@ const LayoutBase = ({
               />
             ))}
           </Row>
-        </TableHead>
-      </Table>
-    </RootRef>
-    {children}
-  </div>
+        ))}
+      </TableBody>
+    </Table>
+  </RootRef>
 );
 
 LayoutBase.propTypes = {
-  children: PropTypes.node.isRequired,
-  allDayPanelRef: PropTypes.func.isRequired,
+  dateTableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,

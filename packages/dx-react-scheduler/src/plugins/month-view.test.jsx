@@ -4,7 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  dayScale,
+  viewCells,
   monthCells,
   endViewBoundary,
   getMonthRectByDates,
@@ -14,7 +14,7 @@ import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  dayScale: jest.fn(),
+  viewCells: jest.fn(),
   monthCells: jest.fn(),
   availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
@@ -28,6 +28,8 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
+    dayScale: [],
+    timeScale: [],
   },
   template: {
     body: {},
@@ -57,7 +59,9 @@ describe('Month View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    dayScale.mockImplementation(() => [1, 2, 3]);
+    viewCells.mockImplementation(() => ([
+      [{}, {}], [{}, {}],
+    ]));
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     monthCells.mockImplementation(() => ([
       [{ value: new Date('2018-06-25') }, {}],
@@ -73,7 +77,7 @@ describe('Month View', () => {
   });
 
   describe('Getters', () => {
-    it('should provide the "dayScale" getter', () => {
+    it('should provide the "viewCellsData" getter', () => {
       const firstDayOfWeek = 2;
       const intervalCount = 2;
       const tree = mount((
@@ -87,10 +91,10 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, 7, []);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
+      expect(viewCells)
+        .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, [], []);
+      expect(getComputedState(tree).viewCellsData)
+        .toEqual([[{}, {}], [{}, {}]]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {

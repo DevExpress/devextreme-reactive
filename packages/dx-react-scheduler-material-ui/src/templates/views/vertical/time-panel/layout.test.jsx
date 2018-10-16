@@ -2,27 +2,29 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('AllDayPanel', () => {
+describe('Vertical view TimePanel', () => {
   let classes;
   let shallow;
   const defaultProps = {
-    allDayPanelRef: () => null,
-    cellsData: [{ startDate: 1 }, { startDate: 2 }],
+    cellsData: [
+      [
+        { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
+        { startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) },
+      ],
+      [
+        { startDate: new Date(2018, 6, 7, 18), endDate: new Date(2018, 6, 7, 20) },
+        { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
+      ],
+    ],
   };
   beforeAll(() => {
-    classes = getClasses(
-      <Layout {...defaultProps}>
-        <div />
-      </Layout>,
-    );
+    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Layout {...defaultProps} className="custom-class">
-          <div />
-        </Layout>
+        <Layout {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.find('.custom-class'))
@@ -32,9 +34,7 @@ describe('AllDayPanel', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Layout {...defaultProps} data={{ a: 1 }}>
-          <div />
-        </Layout>
+        <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.find(`.${classes.table}`).props().data)
@@ -42,13 +42,19 @@ describe('AllDayPanel', () => {
     });
     it('should render array of days', () => {
       const cell = () => <td />;
+      /* eslint-disable-next-line */
+      const row = ({ children }) => <tr>{children}</tr>;
       const tree = shallow((
-        <Layout {...defaultProps} cellComponent={cell}>
-          <div />
-        </Layout>
+        <Layout
+          {...defaultProps}
+          cellComponent={cell}
+          rowComponent={row}
+        />
       ));
 
       expect(tree.find(cell))
+        .toHaveLength(1);
+      expect(tree.find(row))
         .toHaveLength(2);
     });
   });

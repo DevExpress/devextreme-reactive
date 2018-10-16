@@ -47,8 +47,15 @@ const buildEventHandler = ({
 
 export class Tracker extends React.PureComponent {
   render() {
-    const { onClick } = this.props;
-    if (!onClick) {
+    const { onClick, onHover } = this.props;
+    const handlers = {};
+    if (onClick) {
+      handlers.onClick = onClick;
+    }
+    if (onHover) {
+      handlers.onPointerMove = onHover;
+    }
+    if (!Object.keys(handlers).length) {
       return null;
     }
     return (
@@ -56,10 +63,11 @@ export class Tracker extends React.PureComponent {
         <Template name="canvas">
           <TemplateConnector>
             {(getters) => {
-              const handlers = {
-                onClick: buildEventHandler(getters, onClick),
-              };
-              return <TemplatePlaceholder params={handlers} />;
+              const boundHandlers = Object.entries(handlers).reduce((obj, [name, handler]) => ({
+                ...obj,
+                [name]: buildEventHandler(getters, handler),
+              }), {});
+              return <TemplatePlaceholder params={boundHandlers} />;
             }}
           </TemplateConnector>
         </Template>
@@ -70,8 +78,10 @@ export class Tracker extends React.PureComponent {
 
 Tracker.propTypes = {
   onClick: PropTypes.func,
+  onHover: PropTypes.func,
 };
 
 Tracker.defaultProps = {
   onClick: undefined,
+  onHover: undefined,
 };

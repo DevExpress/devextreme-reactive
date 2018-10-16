@@ -2,7 +2,7 @@ import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 
 // This function is called from event handlers (when DOM is available) -
-// window.document can be accessed safely.
+// *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d'); // eslint-disable-line no-undef
 
 // For a start using browser canvas will suffice.

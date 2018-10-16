@@ -36,12 +36,16 @@ const buildEventHandler = ({
   return (e) => {
     const coords = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
+    const targets = [];
     seriesList.forEach((seriesItem) => {
       const status = hitTesters[seriesItem.symbolName](coords);
       if (status) {
-        handler({ name: seriesItem.name, ...status });
+        targets.push({ name: seriesItem.name, ...status });
       }
     });
+    if (targets.length) {
+      handler({ targets });
+    }
   };
 };
 

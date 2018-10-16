@@ -5,7 +5,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   viewCells,
-  monthCells,
   endViewBoundary,
   getMonthRectByDates,
   calculateMonthDateIntervals,
@@ -15,7 +14,6 @@ import { MonthView } from './month-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCells: jest.fn(),
-  monthCells: jest.fn(),
   availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
   getMonthRectByDates: jest.fn(),
@@ -30,6 +28,10 @@ const defaultDeps = {
     },
     dayScale: [],
     timeScale: [],
+    viewCellsData: [
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
+    ],
   },
   template: {
     body: {},
@@ -60,13 +62,10 @@ describe('Month View', () => {
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
     viewCells.mockImplementation(() => ([
-      [{}, {}], [{}, {}],
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
     ]));
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
-    monthCells.mockImplementation(() => ([
-      [{ value: new Date('2018-06-25') }, {}],
-      [{}, { value: new Date('2018-08-05') }],
-    ]));
     getMonthRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
@@ -94,7 +93,10 @@ describe('Month View', () => {
       expect(viewCells)
         .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, [], []);
       expect(getComputedState(tree).viewCellsData)
-        .toEqual([[{}, {}], [{}, {}]]);
+        .toEqual([
+          [{ startDate: new Date('2018-06-25') }, {}],
+          [{}, { startDate: new Date('2018-08-05') }],
+        ]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {

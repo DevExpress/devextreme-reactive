@@ -34,8 +34,8 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   return pieces;
 };
 
-const getCellRect = (date, monthCells, cellElements, takePrev) => {
-  const startViewDate = moment(monthCells[0][0].value);
+const getCellRect = (date, viewCellsData, cellElements, takePrev) => {
+  const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date);
   let cellIndex = currentDate.diff(startViewDate, 'days');
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
@@ -66,12 +66,12 @@ export const getMonthRectByDates = (
   startDate,
   endDate,
   {
-    monthCells,
+    viewCellsData,
     cellElements,
   },
 ) => {
-  const firstCellRect = getCellRect(startDate, monthCells, cellElements, false);
-  const lastCellRect = getCellRect(endDate, monthCells, cellElements, true);
+  const firstCellRect = getCellRect(startDate, viewCellsData, cellElements, false);
+  const lastCellRect = getCellRect(endDate, viewCellsData, cellElements, true);
 
   const top = firstCellRect.top + (firstCellRect.height * TOP_CELL_OFFSET);
   const height = firstCellRect.height - (firstCellRect.height * TOP_CELL_OFFSET);

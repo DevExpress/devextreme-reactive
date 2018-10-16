@@ -168,11 +168,9 @@ const horizontalRectCalculator = (
   {
     rectByDates,
     rectByDatesMeta: {
-      dayScale,
+      dayScale, // for allDay
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   },
 ) => {
@@ -185,9 +183,7 @@ const horizontalRectCalculator = (
     {
       dayScale,
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   );
 

@@ -184,15 +184,16 @@ describe('Month view computeds', () => {
       const cells = [
         [
           {}, {}, {}, {}, {}, {}, {
-            value: new Date('2018-07-31 10:30'),
+            startDate: new Date('2018-07-31'),
+            endDate: new Date('2018-08-01'),
           },
         ],
       ];
 
       expect(endViewBoundary(cells).toString())
         .toBe(new Date('2018-07-31 23:59:59').toString());
-      expect(cells[0][6].value)
-        .toEqual(new Date('2018-07-31 10:30'));
+      expect(cells[0][6].startDate)
+        .toEqual(new Date('2018-07-31'));
     });
   });
 });

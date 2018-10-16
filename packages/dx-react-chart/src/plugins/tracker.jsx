@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   Plugin,
   Template,
+  Getter,
   TemplatePlaceholder,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
@@ -20,7 +21,7 @@ const buildEventHandler = ({
   series: seriesList,
   getSeriesPoints, data, scales,
   stacks, scaleExtension,
-}, handler) => {
+}, handlers) => {
   let hitTesters = null;
 
   const createHitTesters = () => {
@@ -43,33 +44,32 @@ const buildEventHandler = ({
         targets.push({ name: seriesItem.name, ...status });
       }
     });
-    handler({ coords, targets });
+    const arg = { coords, targets };
+    handlers.forEach(handler => handler(arg));
   };
 };
+
+const wrapToList = arg => (arg ? [arg] : []);
 
 export class Tracker extends React.PureComponent {
   render() {
     const { onClick, onPointerMove } = this.props;
-    const handlers = {};
-    if (onClick) {
-      handlers.onClick = onClick;
-    }
-    if (onPointerMove) {
-      handlers.onPointerMove = onPointerMove;
-    }
-    if (!Object.keys(handlers).length) {
-      return null;
-    }
     return (
       <Plugin name="Tracker">
+        <Getter name="clickHandlers" value={wrapToList(onClick)} />
+        <Getter name="pointerMoveHandlers" value={wrapToList(onPointerMove)} />
         <Template name="canvas">
           <TemplateConnector>
             {(getters) => {
-              const boundHandlers = Object.entries(handlers).reduce((obj, [name, handler]) => ({
-                ...obj,
-                [name]: buildEventHandler(getters, handler),
-              }), {});
-              return <TemplatePlaceholder params={boundHandlers} />;
+              const { clickHandlers, pointerMoveHandlers } = getters;
+              const handlers = {};
+              if (clickHandlers.length) {
+                handlers.onClick = buildEventHandler(getters, clickHandlers);
+              }
+              if (pointerMoveHandlers.length) {
+                handlers.onPointerMove = buildEventHandler(getters, pointerMoveHandlers);
+              }
+              return <TemplatePlaceholder params={handlers} />;
             }}
           </TemplateConnector>
         </Template>

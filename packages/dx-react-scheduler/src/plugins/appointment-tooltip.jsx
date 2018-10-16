@@ -153,7 +153,10 @@ AppointmentTooltip.propTypes = {
   showCloseButton: PropTypes.bool,
   visible: PropTypes.bool,
   appointmentMeta: PropTypes.shape({
-    target: PropTypes.object,
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
     data: PropTypes.object,
   }),
   onVisibilityChange: PropTypes.func,

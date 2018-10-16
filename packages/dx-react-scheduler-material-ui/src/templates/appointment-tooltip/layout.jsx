@@ -102,7 +102,10 @@ LayoutBase.propTypes = {
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.shape({
-    target: PropTypes.object,
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
     data: PropTypes.object,
   }),
   visible: PropTypes.bool,

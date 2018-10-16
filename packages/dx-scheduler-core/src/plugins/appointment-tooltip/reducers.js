@@ -1,4 +1,4 @@
 export const setAppointmentMeta = (
   prevAppointmentMeta,
-  { target, appointment },
-) => ({ target, appointment });
+  { target, data },
+) => ({ target, data });

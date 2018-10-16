@@ -253,7 +253,7 @@ export class WeekView extends React.PureComponent {
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
-                        appointment={dataItem}
+                        data={dataItem}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}

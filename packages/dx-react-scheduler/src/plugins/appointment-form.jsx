@@ -245,10 +245,10 @@ export class AppointmentForm extends React.PureComponent {
                     ...params,
                     onOpenButtonClick: () => {
                       this.openFormHandler(
-                        params.appointmentMeta.appointment,
+                        params.appointmentMeta.data,
                       );
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: getAppointmentId(params.appointmentMeta.appointment),
+                        appointmentId: getAppointmentId(params.appointmentMeta.data),
                       });
                     },
                   }}
@@ -271,15 +271,15 @@ export class AppointmentForm extends React.PureComponent {
                     ...params,
                     onDoubleClick: () => {
                       this.openFormHandler(
-                        params.appointment,
+                        params.data,
                       );
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: getAppointmentId(params.appointment),
+                        appointmentId: getAppointmentId(params.data),
                       });
                     },
                   }}
-                />
-              )}
+                />)
+              }
             </TemplateConnector>
           )}
         </Template>

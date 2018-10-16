@@ -9,7 +9,7 @@ jest.mock('./appointment', () => ({
 
 describe('HorizontalAppointment', () => {
   const defaultProps = {
-    appointment: {},
+    data: {},
   };
 
   let classes;

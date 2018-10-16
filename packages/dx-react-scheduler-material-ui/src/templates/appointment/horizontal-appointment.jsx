@@ -16,17 +16,17 @@ const HorizontalAppointmentBase = ({
   getTitle,
   getStartDate,
   getEndDate,
-  appointment,
+  data,
   children,
   ...restProps
 }) => (
   <Appointment
-    appointment={appointment}
+    data={data}
     {...restProps}
   >
     {children || (
       <div className={classes.title}>
-        {getTitle(appointment)}
+        {getTitle(data)}
       </div>
     )}
   </Appointment>
@@ -34,7 +34,7 @@ const HorizontalAppointmentBase = ({
 
 HorizontalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  appointment: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   children: PropTypes.node,
   getTitle: PropTypes.func,
   getStartDate: PropTypes.func,

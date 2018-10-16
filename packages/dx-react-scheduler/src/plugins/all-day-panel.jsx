@@ -114,7 +114,7 @@ export class AllDayPanel extends React.PureComponent {
                         style={getAppointmentStyle(geometry)}
                         type={type}
                         key={index.toString()}
-                        appointment={dataItem}
+                        data={dataItem}
                       />
                     ))}
                   </Container>

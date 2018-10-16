@@ -1,4 +1,4 @@
-import { changeAppointmentField, callActionIfExists, createAppointment } from './helpers';
+import { changeAppointmentField, callActionIfExists, isAllDayCell } from './helpers';
 
 describe('AppointmentForm helpers', () => {
   describe('#changeAppointmentField', () => {
@@ -45,48 +45,10 @@ describe('AppointmentForm helpers', () => {
         .not.toThrow();
     });
   });
-  describe('#createAppointment', () => {
-    it('should work with Day/Week params', () => {
-      const params = {
-        date: new Date('2018-10-10'),
-        time: {
-          start: new Date('2018-10-5 10:00'),
-          end: new Date('2018-10-5 14:00'),
-        },
-      };
-      expect(createAppointment(params))
-        .toEqual({
-          title: undefined,
-          startDate: new Date('2018-10-10 10:00'),
-          endDate: new Date('2018-10-10 14:00'),
-        });
-    });
-
-    it('should work with Month params', () => {
-      const params = {
-        date: {
-          value: new Date('2018-10-10'),
-        },
-      };
-      expect(createAppointment(params))
-        .toEqual({
-          title: undefined,
-          startDate: new Date('2018-10-10'),
-          endDate: new Date('2018-10-11'),
-        });
-    });
-
-    it('should work with AllDay params', () => {
-      const params = {
-        date: new Date('2018-10-10'),
-      };
-      expect(createAppointment(params))
-        .toEqual({
-          allDay: true,
-          title: undefined,
-          startDate: new Date('2018-10-10'),
-          endDate: new Date('2018-10-11'),
-        });
+  describe('#isAllDayCell', () => {
+    it('should work', () => {
+      expect(isAllDayCell(new Date('2018-10-10'), new Date('2018-10-11')))
+        .toBeTruthy();
     });
   });
 });

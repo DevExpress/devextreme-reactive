@@ -85,17 +85,17 @@ describe('Stack', () => {
       ]);
     });
 
-    it('should not wrap *calculateCoordinates* by default', () => {
-      const calculateCoordinates = jest.fn();
+    it('should not wrap *getPointTransformer* by default', () => {
+      const getPointTransformer = jest.fn();
       const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1', calculateCoordinates },
-        { stack: 's1', valueField: 'val2', calculateCoordinates },
-        { stack: 's2', valueField: 'val3', calculateCoordinates },
+        { stack: 's1', valueField: 'val1', getPointTransformer },
+        { stack: 's1', valueField: 'val2', getPointTransformer },
+        { stack: 's2', valueField: 'val3', getPointTransformer },
       ]);
 
-      expect(series[0].calculateCoordinates).toEqual(calculateCoordinates);
-      expect(series[1].calculateCoordinates).toEqual(calculateCoordinates);
-      expect(series[2].calculateCoordinates).toEqual(calculateCoordinates);
+      expect(series[0].getPointTransformer).toEqual(getPointTransformer);
+      expect(series[1].getPointTransformer).toEqual(getPointTransformer);
+      expect(series[2].getPointTransformer).toEqual(getPointTransformer);
     });
 
     it('should add *valueField0* for starting from zero series', () => {
@@ -118,27 +118,27 @@ describe('Stack', () => {
       expect(series[4].valueField0).toEqual('stack_s3_0_0');
     });
 
-    it('should wrap *calculateCoordinates* for starting from zero series', () => {
-      const calculateCoordinates = jest.fn();
+    it('should wrap *getPointTransformer* for starting from zero series', () => {
+      const getPointTransformer = jest.fn();
       const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1', calculateCoordinates },
-        { stack: 's1', valueField: 'val2', calculateCoordinates },
+        { stack: 's1', valueField: 'val1', getPointTransformer },
+        { stack: 's1', valueField: 'val2', getPointTransformer },
         {
-          stack: 's2', valueField: 'val3', calculateCoordinates, isStartedFromZero: true,
+          stack: 's2', valueField: 'val3', getPointTransformer, isStartedFromZero: true,
         },
         {
-          stack: 's2', valueField: 'val4', calculateCoordinates, isStartedFromZero: true,
+          stack: 's2', valueField: 'val4', getPointTransformer, isStartedFromZero: true,
         },
         {
-          stack: 's3', valueField: 'val5', calculateCoordinates, isStartedFromZero: true,
+          stack: 's3', valueField: 'val5', getPointTransformer, isStartedFromZero: true,
         },
       ]);
 
-      expect(series[0].calculateCoordinates).toEqual(calculateCoordinates);
-      expect(series[1].calculateCoordinates).toEqual(calculateCoordinates);
-      expect(series[2].calculateCoordinates).not.toEqual(calculateCoordinates);
-      expect(series[3].calculateCoordinates).not.toEqual(calculateCoordinates);
-      expect(series[4].calculateCoordinates).not.toEqual(calculateCoordinates);
+      expect(series[0].getPointTransformer).toEqual(getPointTransformer);
+      expect(series[1].getPointTransformer).toEqual(getPointTransformer);
+      expect(series[2].getPointTransformer).not.toEqual(getPointTransformer);
+      expect(series[3].getPointTransformer).not.toEqual(getPointTransformer);
+      expect(series[4].getPointTransformer).not.toEqual(getPointTransformer);
 
       // TODO: Temporary - see note for *getValueDomainCalculator*.
       expect(series[0].getValueDomain).toBeUndefined();
@@ -148,43 +148,36 @@ describe('Stack', () => {
       expect(series[4].getValueDomain).toEqual(expect.any(Function));
     });
 
-    it('should update *y1* in wrapped *calculateCoordinates*', () => {
+    it('should update *y1* in wrapped *getPointTransformer*', () => {
       const data = [
-        { stack_s1_1_0: '1-val1', stack_s1_2_0: '1-val2' },
-        { stack_s1_1_0: '2-val1', stack_s1_2_0: '2-val2' },
-        { stack_s1_1_0: '3-val1', stack_s1_2_0: '3-val2' },
-        { stack_s1_1_0: '4-val1', stack_s1_2_0: '4-val2' },
+        { stack_s1_0_0: '1-val1' },
+        { stack_s1_0_0: '2-val1' },
+        { stack_s1_0_0: '3-val1' },
+        { stack_s1_0_0: '4-val1' },
       ];
-      const scales = {
-        yScale: value => `${value}#`,
-      };
-      const calc1 = jest.fn().mockReturnValueOnce([{ id: 0 }, { id: 1 }, { id: 3 }]);
-      const calc2 = jest.fn().mockReturnValueOnce([{ id: 0 }, { id: 2 }, { id: 3 }]);
+      const mock = jest.fn().mockReturnValue(point => ({
+        ...point,
+        status: 'transformed',
+      }));
+      const valueScale = value => `${value}#`;
       const series = buildStackedSeries([
         {
-          stack: 's1', valueField: 'val1',
-        },
-        {
-          stack: 's1', valueField: 'val2', calculateCoordinates: calc1, isStartedFromZero: true,
-        },
-        {
-          stack: 's1', valueField: 'val3', calculateCoordinates: calc2, isStartedFromZero: true,
+          stack: 's1', valueField: 'val1', getPointTransformer: mock, isStartedFromZero: true,
         },
       ]);
 
-      expect(series[1].calculateCoordinates(data, scales, 'a', 'b')).toEqual([
-        { id: 0, y1: '1-val1#' },
-        { id: 1, y1: '2-val1#' },
-        { id: 3, y1: '4-val1#' },
-      ]);
-      expect(calc1).toHaveBeenLastCalledWith(data, scales, 'a', 'b');
-
-      expect(series[2].calculateCoordinates(data, scales, 'c')).toEqual([
-        { id: 0, y1: '1-val2#' },
-        { id: 2, y1: '3-val2#' },
-        { id: 3, y1: '4-val2#' },
-      ]);
-      expect(calc2).toHaveBeenLastCalledWith(data, scales, 'c');
+      const transform = series[0].getPointTransformer({ ...series[0], valueScale }, data, 'a', 'b');
+      expect(mock).toBeCalledWith({ ...series[0], valueScale }, data, 'a', 'b');
+      expect(transform({ index: 1 })).toEqual({
+        index: 1,
+        status: 'transformed',
+        y1: '2-val1#',
+      });
+      expect(transform({ index: 3 })).toEqual({
+        index: 3,
+        status: 'transformed',
+        y1: '4-val1#',
+      });
     });
 
     // TODO: Temporary - see note for *getValueDomainCalculator*.

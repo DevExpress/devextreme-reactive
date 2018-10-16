@@ -9,7 +9,6 @@ export class SliceCollection extends React.PureComponent {
       pointComponent: Point,
       path, // Not used - see note above.
       coordinates,
-      colorDomain,
       uniqueName,
       style,
       seriesName,
@@ -25,9 +24,8 @@ export class SliceCollection extends React.PureComponent {
           <Point
             key={item.id.toString()}
             style={getAnimatedStyle(style, getPieAnimationStyle, scales, item, seriesName)}
-            {...item}
             {...restProps}
-            color={colorDomain(item.id)}
+            {...item}
           />
         ))}
       </g>);

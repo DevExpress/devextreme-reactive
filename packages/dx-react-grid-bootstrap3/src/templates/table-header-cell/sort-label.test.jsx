@@ -35,6 +35,18 @@ describe('SortLabel', () => {
         color: 'red',
       });
   });
+
+  it('should not add the onClick and onKeyDown handlers if disabled is true', () => {
+    const { onClick, onKeyDown } = mount((
+      <SortLabel
+        {...defaultProps}
+        disabled
+      />
+    )).props();
+
+    expect(onClick).toBeUndefined();
+    expect(onKeyDown).toBeUndefined();
+  });
 });
 
 describe('with keyboard navigation', () => {

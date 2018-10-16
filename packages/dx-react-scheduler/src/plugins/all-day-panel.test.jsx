@@ -3,12 +3,14 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
+  allDayCells,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  allDayCells: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateAllDayDateIntervals: jest.fn(),
 }));
@@ -48,6 +50,7 @@ describe('AllDayPanel', () => {
       dataItem: {}, type: 'h', top: 0, left: 0,
     }]);
     calculateAllDayDateIntervals.mockImplementation(() => []);
+    allDayCells.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();

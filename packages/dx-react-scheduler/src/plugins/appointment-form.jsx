@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   setAppointment,
-  createAppointment,
+  isAllDayCell,
   callActionIfExists,
   changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
@@ -290,7 +290,12 @@ export class AppointmentForm extends React.PureComponent {
               {(getters, {
                 addAppointment,
               }) => {
-                const newAppointment = createAppointment(params);
+                const newAppointment = {
+                  title: undefined,
+                  startDate: params.startDate,
+                  endDate: params.endDate,
+                  allDay: isAllDayCell(params.startDate, params.endDate),
+                };
                 return (
                   <TemplatePlaceholder
                     params={{

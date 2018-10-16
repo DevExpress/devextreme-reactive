@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   dayScale,
+  viewCells,
   timeScale,
   startViewDate,
   endViewDate,
@@ -16,6 +17,7 @@ import { DayView } from './day-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
+  viewCells: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
@@ -64,6 +66,10 @@ describe('Day View', () => {
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
+    viewCells.mockImplementation(() => [
+      [{}, {}],
+      [{}, {}],
+    ]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
@@ -76,6 +82,24 @@ describe('Day View', () => {
   });
 
   describe('Getters', () => {
+    it('should provide the "viewCellsData" getter', () => {
+      const intervalCount = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DayView
+            intervalCount={intervalCount}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(viewCells)
+        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(getComputedState(tree).viewCellsData)
+        .toEqual([[{}, {}], [{}, {}]]);
+    });
+
     it('should provide the "timeScale" getter', () => {
       const tree = mount((
         <PluginHost>

@@ -22,7 +22,8 @@ const CellBase = ({
   classes,
   className,
   children,
-  date,
+  startDate,
+  endDate,
   ...restProps
 }) => (
   <TableCell
@@ -36,14 +37,16 @@ const CellBase = ({
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  date: PropTypes.instanceOf(Date),
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
 CellBase.defaultProps = {
   children: null,
-  date: undefined,
+  startDate: undefined,
+  endDate: undefined,
   className: undefined,
 };
 

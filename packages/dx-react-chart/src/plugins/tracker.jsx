@@ -16,12 +16,32 @@ const getEventCoords = (e) => {
   ];
 };
 
-const buildEventHandler = ({ series: seriesList }, handler) => (e) => {
-  const coords = getEventCoords(e);
-  seriesList.forEach((/* seriesItem */) => {
-    // TODO: Hit test series.
-  });
-  handler(coords);
+const buildEventHandler = ({
+  series: seriesList,
+  getSeriesPoints, data, scales,
+  stacks, scaleExtension,
+}, handler) => {
+  let hitTesters = null;
+
+  const createHitTesters = () => {
+    const obj = {};
+    seriesList.forEach((seriesItem) => {
+      // TODO: Calculate series coodinates in a separate getter and remove `getSeriesPoints`.
+      const coordinates = getSeriesPoints(seriesItem, data, scales, stacks, scaleExtension);
+      obj[seriesItem.symbolName] = seriesItem.createHitTester(coordinates);
+    });
+    return obj;
+  };
+
+  return (e) => {
+    const coords = getEventCoords(e);
+    hitTesters = hitTesters || createHitTesters();
+    seriesList.forEach((seriesItem) => {
+      if (hitTesters[seriesItem.symbolName](coords)) {
+        handler(seriesItem);
+      }
+    });
+  };
 };
 
 export class Tracker extends React.PureComponent {

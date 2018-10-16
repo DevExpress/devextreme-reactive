@@ -4,6 +4,6 @@ You can use the [Animation](../reference/animation.md) plugin to animate Chart s
 
 ## Basic Setup
 
-Add the `Animation` plugin to the Chart component and configure animation settings in the `settings` property as demonstrated in the follownig example to create a chart with animated series:
+Add the `Animation` plugin to the Chart component and all series will be animated out of the box. Also you can customize base animation options, like duration for each bar, as demonstrated in the following example:
 
 .embedded-demo({ "path": "chart-basic/animation", "showThemeSelector": true })

@@ -47,6 +47,7 @@ height | number | The bar height.
 value | number | The bar's value.
 color | string | A series color.
 style | object | Series styles.
+index | number | Point index.
 
 ## Plugin Components
 

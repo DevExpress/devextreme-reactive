@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../utils';
 
 const styles = theme => ({
-  navbarEmpty: {
+  emptyCell: {
     borderBottom: getBorder(theme),
     boxSizing: 'border-box',
     height: '100%',
@@ -13,19 +13,19 @@ const styles = theme => ({
   },
 });
 
-export const NavbarEmptyBase = ({
+export const DayScaleEmptyCellBase = ({
   classes,
   className,
   ...restProps
-}) => <div {...restProps} className={classNames(classes.navbarEmpty, className)} />;
+}) => <div {...restProps} className={classNames(classes.emptyCell, className)} />;
 
-NavbarEmptyBase.propTypes = {
+DayScaleEmptyCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-NavbarEmptyBase.defaultProps = {
+DayScaleEmptyCellBase.defaultProps = {
   className: undefined,
 };
 
-export const NavbarEmpty = withStyles(styles, { name: 'NavbarEmpty' })(NavbarEmptyBase);
+export const DayScaleEmptyCell = withStyles(styles, { name: 'DayScaleEmptyCell' })(DayScaleEmptyCellBase);

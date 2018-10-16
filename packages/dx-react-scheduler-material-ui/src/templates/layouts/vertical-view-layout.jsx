@@ -27,7 +27,7 @@ export class VerticalViewLayoutBase extends React.PureComponent {
       sidebarComponent: Sidebar,
       navbarComponent: Navbar,
       mainComponent: Main,
-      navbarEmptyComponent: NavbarEmpty,
+      dayScaleEmptyCellComponent: DayScaleEmptyCell,
       classes,
     } = this.props;
 
@@ -42,7 +42,7 @@ export class VerticalViewLayoutBase extends React.PureComponent {
           className={classes.stickyHeader}
         >
           <Grid item xs={1} className={classes.emptySpace}>
-            <NavbarEmpty />
+            <DayScaleEmptyCell />
           </Grid>
 
           <Grid item xs={11}>
@@ -69,7 +69,7 @@ VerticalViewLayoutBase.propTypes = {
   sidebarComponent: PropTypes.func.isRequired,
   navbarComponent: PropTypes.func.isRequired,
   mainComponent: PropTypes.func.isRequired,
-  navbarEmptyComponent: PropTypes.func.isRequired,
+  dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

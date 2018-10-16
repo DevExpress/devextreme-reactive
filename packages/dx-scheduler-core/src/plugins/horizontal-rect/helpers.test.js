@@ -1,5 +1,14 @@
 import moment from 'moment';
 import { getHorizontalRectByDates } from './helpers';
+import { getAllDayCellByDate } from '../all-day-panel/helpers';
+import { getMonthCellByDate } from '../month-view/helpers';
+
+jest.mock('../all-day-panel/helpers', () => ({
+  getAllDayCellByDate: jest.fn(),
+}));
+jest.mock('../month-view/helpers', () => ({
+  getMonthCellByDate: jest.fn(),
+}));
 
 describe('Horizontal rect helpers', () => {
   const viewCellsData = [
@@ -75,8 +84,14 @@ describe('Horizontal rect helpers', () => {
       }),
       offsetParent,
     }];
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
 
     it('should calculate geometry by dates for single day appointment', () => {
+      getMonthCellByDate
+        .mockImplementationOnce(() => 7)
+        .mockImplementationOnce(() => 7);
       const startDate = new Date('2018-07-05 10:20');
       const endDate = new Date('2018-07-06 00:00');
       const {
@@ -87,17 +102,20 @@ describe('Horizontal rect helpers', () => {
         {
           viewCellsData,
           cellElements,
-          multiline: false,
+          multiline: true,
         },
       );
 
-      expect(top).toBe(130);
+      expect(top).toBe(132);
       expect(left).toBe(12);
-      expect(height).toBe(70);
-      expect(width).toBe(98);
+      expect(height).toBe(68);
+      expect(width).toBe(98); // !!!!!
       expect(parentWidth).toBe(250);
     });
     it('should calculate geometry by dates for many days appointment', () => {
+      getMonthCellByDate
+        .mockImplementationOnce(() => 7)
+        .mockImplementationOnce(() => 9);
       const startDate = new Date('2018-07-05 00:00');
       const endDate = new Date('2018-07-08 00:00');
       const {
@@ -108,15 +126,39 @@ describe('Horizontal rect helpers', () => {
         {
           viewCellsData,
           cellElements,
+          multiline: true,
+        },
+      );
+
+      expect(top).toBe(132);
+      expect(left).toBe(12);
+      expect(height).toBe(68);
+      expect(width).toBe(398);
+      expect(parentWidth).toBe(250);
+    });
+    it('should correct call with multiline property', () => {
+      getMonthCellByDate.mockImplementation(() => 7);
+      getAllDayCellByDate.mockImplementation(() => 7);
+
+      const startDate = new Date('2018-07-05 00:00');
+      const endDate = new Date('2018-07-08 00:00');
+      getHorizontalRectByDates(
+        startDate,
+        endDate,
+        {
+          viewCellsData,
+          cellElements,
           multiline: false,
         },
       );
 
-      expect(top).toBe(130);
-      expect(left).toBe(12);
-      expect(height).toBe(70);
-      expect(width).toBe(398);
-      expect(parentWidth).toBe(250);
+
+      expect(getMonthCellByDate)
+        .not.toBeCalled();
+      expect(getAllDayCellByDate)
+        .toBeCalledTimes(2);
+      expect(getAllDayCellByDate)
+        .toHaveBeenCalledWith(viewCellsData, startDate, false);
     });
   });
 });

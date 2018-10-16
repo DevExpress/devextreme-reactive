@@ -43,21 +43,19 @@ const buildEventHandler = ({
         targets.push({ name: seriesItem.name, ...status });
       }
     });
-    if (targets.length) {
-      handler({ targets });
-    }
+    handler({ coords, targets });
   };
 };
 
 export class Tracker extends React.PureComponent {
   render() {
-    const { onClick, onHover } = this.props;
+    const { onClick, onPointerMove } = this.props;
     const handlers = {};
     if (onClick) {
       handlers.onClick = onClick;
     }
-    if (onHover) {
-      handlers.onPointerMove = onHover;
+    if (onPointerMove) {
+      handlers.onPointerMove = onPointerMove;
     }
     if (!Object.keys(handlers).length) {
       return null;
@@ -82,10 +80,10 @@ export class Tracker extends React.PureComponent {
 
 Tracker.propTypes = {
   onClick: PropTypes.func,
-  onHover: PropTypes.func,
+  onPointerMove: PropTypes.func,
 };
 
 Tracker.defaultProps = {
   onClick: undefined,
-  onHover: undefined,
+  onPointerMove: undefined,
 };

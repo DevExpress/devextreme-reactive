@@ -15,7 +15,7 @@ const Point = (props) => {
     style, index, ...restProps
   } = props;
   return (
-    <BarSeries.Point style={{ ...style, animationDuration: `${(index + 1) * 0.3}s`}} {...restProps} />
+    <BarSeries.Point style={{ ...style, animationDuration: `${(index + 1) * 0.3}s` }} {...restProps} />
   );
 };
 

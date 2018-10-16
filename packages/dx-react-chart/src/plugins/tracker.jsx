@@ -37,8 +37,9 @@ const buildEventHandler = ({
     const coords = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
     seriesList.forEach((seriesItem) => {
-      if (hitTesters[seriesItem.symbolName](coords)) {
-        handler(seriesItem);
+      const status = hitTesters[seriesItem.symbolName](coords);
+      if (status) {
+        handler({ ...seriesItem, point: status.point });
       }
     });
   };

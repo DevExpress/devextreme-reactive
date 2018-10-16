@@ -68,17 +68,24 @@ export const getPiePointTransformer = ({
   const y = Math.max(...valueScale.range()) / 2;
   const radius = Math.min(x, y);
   const pieData = pie().sort(null).value(d => d[valueField])(data);
-  const gen = arc().innerRadius(innerRadius * radius).outerRadius(outerRadius * radius);
+  const inner = innerRadius * radius;
+  const outer = outerRadius * radius;
+  const gen = arc().innerRadius(inner).outerRadius(outer);
   const colorScale = scaleOrdinal().range(palette);
   return ({ argument, value, index }) => {
     const { startAngle, endAngle } = pieData[index];
     return {
+      // TODO: It should be calculated in *pointComponent*.
       d: gen.startAngle(startAngle).endAngle(endAngle)(),
       value,
       color: colorScale(index),
       id: argument,
       x,
       y,
+      innerRadius: inner,
+      outerRadius: outer,
+      startAngle,
+      endAngle,
     };
   };
 };
@@ -143,6 +150,7 @@ export const dBar = ({
 export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   const dPoint = symbol().size([size ** 2]).type(symbolCircle)();
   return item => ({
+    // TODO: It should be calculated in *pointComponent*.
     d: dPoint,
     x: item.x,
     y: item.y,

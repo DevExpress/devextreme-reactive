@@ -41,37 +41,37 @@ const getDefaultAreaAnimationOptions = () => '1s';
 
 const getDefaultPieAnimationOptions = ({ index }) => `${(index + 1) * 0.2}s`;
 
-export const getAreaAnimationStyle = (scales, getCustomAnimationOptions, point, seriesName) => {
+export const getAreaAnimationStyle = (scales) => {
   const animationStyle = {
     transformOrigin: `0px ${scales.yScale.copy().clamp(true)(0)}px`,
   };
-  const options = (getCustomAnimationOptions || getDefaultAreaAnimationOptions)(point, seriesName);
+  const options = getDefaultAreaAnimationOptions();
   return {
     animation: `${getAreaAnimationName()} ${options}`,
     ...animationStyle,
   };
 };
 
-export const getPieAnimationStyle = (scales, getCustomAnimationOptions, point, seriesName) => {
-  const options = (getCustomAnimationOptions || getDefaultPieAnimationOptions)(point, seriesName);
+export const getPieAnimationStyle = (scales, point) => {
+  const options = getDefaultPieAnimationOptions(point);
   return {
     animation: `${getPieAnimationName()} ${options}`,
   };
 };
 
-export const getScatterAnimationStyle = (scales, getCustomAnimationOptions, point, seriesName) => {
-  const options = (getCustomAnimationOptions || getDefaultAreaAnimationOptions)(point, seriesName);
+export const getScatterAnimationStyle = () => {
+  const options = getDefaultAreaAnimationOptions();
   return {
     animation: `${getScatterAnimationName()} ${options}`,
   };
 };
 
-export const buildAnimatedStyleGetter = getCustomAnimationOptions => (
-  style, getAnimationStyle, scales, point, seriesName,
+export const buildAnimatedStyleGetter = (
+  style, getAnimationStyle, scales, point,
 ) => {
-  const animationStyle = getAnimationStyle(scales, getCustomAnimationOptions, point, seriesName);
+  const animationStyle = getAnimationStyle(scales, point);
   return {
-    ...style,
     ...animationStyle,
+    ...style,
   };
 };

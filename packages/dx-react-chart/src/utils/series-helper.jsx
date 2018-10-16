@@ -80,7 +80,6 @@ export const withSeriesPlugin = (
                 return (
                   <Series
                     coordinates={coordinates}
-                    seriesName={currentSeries.name}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
                     {...props}

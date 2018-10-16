@@ -10,7 +10,6 @@ export class BarCollection extends React.PureComponent {
       path, // Not used - see note above.
       coordinates,
       style,
-      seriesName,
       scales,
       getAnimatedStyle,
       ...restProps
@@ -18,7 +17,7 @@ export class BarCollection extends React.PureComponent {
     return (coordinates.map(item => (
       <Point
         key={item.id.toString()}
-        style={getAnimatedStyle(style, getAreaAnimationStyle, scales, item, seriesName)}
+        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...item}
         {...dBar(item)}
         {...restProps}
@@ -30,7 +29,6 @@ export class BarCollection extends React.PureComponent {
 BarCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
-  seriesName: PropTypes.string.isRequired,
 };
 
 BarCollection.defaultProps = {

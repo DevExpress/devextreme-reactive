@@ -28,7 +28,6 @@ describe('Area series', () => {
   const defaultProps = {
     valueField: 'valueField',
     argumentField: 'argumentField',
-    seriesName: 'val1',
   };
 
   findSeriesByName.mockReturnValue({
@@ -69,7 +68,6 @@ describe('Area series', () => {
       customProperty: 'custom',
       getAnimatedStyle: undefined,
       scales: {},
-      seriesName: 'val1',
     });
   });
 });

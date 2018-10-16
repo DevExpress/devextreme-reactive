@@ -11,7 +11,6 @@ export class PointCollection extends React.PureComponent {
       coordinates,
       point = {},
       style,
-      seriesName,
       getAnimatedStyle,
       scales,
       ...restProps
@@ -20,7 +19,7 @@ export class PointCollection extends React.PureComponent {
     return (coordinates.map(item => (
       <Point
         key={item.id.toString()}
-        style={getAnimatedStyle(style, getScatterAnimationStyle, scales, item, seriesName)}
+        style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
         {...getAttributes(item)}
         {...item}
         {...restProps}
@@ -32,7 +31,6 @@ export class PointCollection extends React.PureComponent {
 PointCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
-  seriesName: PropTypes.string.isRequired,
 };
 
 PointCollection.defaultProps = {

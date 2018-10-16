@@ -11,7 +11,6 @@ export class SliceCollection extends React.PureComponent {
       coordinates,
       uniqueName,
       style,
-      seriesName,
       getAnimatedStyle,
       scales,
       innerRadius,
@@ -23,7 +22,7 @@ export class SliceCollection extends React.PureComponent {
         {coordinates.map(item => (
           <Point
             key={item.id.toString()}
-            style={getAnimatedStyle(style, getPieAnimationStyle, scales, item, seriesName)}
+            style={getAnimatedStyle(style, getPieAnimationStyle, scales, item)}
             {...restProps}
             {...item}
           />
@@ -35,7 +34,6 @@ export class SliceCollection extends React.PureComponent {
 SliceCollection.propTypes = {
   pointComponent: PropTypes.func.isRequired,
   style: PropTypes.object,
-  seriesName: PropTypes.string.isRequired,
 };
 
 SliceCollection.defaultProps = {

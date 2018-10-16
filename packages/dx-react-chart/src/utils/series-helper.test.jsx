@@ -85,7 +85,6 @@ describe('Base series', () => {
       coordinates: coords,
       color: 'color',
       styles: 'styles',
-      seriesName: 'name',
       scales: { xScale: 'argument-scale', yScale: 'value-scale' },
       getAnimatedStyle: 'test-animated-style-getter',
     });

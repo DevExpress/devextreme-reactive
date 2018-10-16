@@ -19,26 +19,16 @@ describe('Animation styles', () => {
     yScale.clamp = () => yScale;
 
     it('should return style', () => {
-      expect(getAreaAnimationStyle({ yScale }, null, 'test-point', 'test-series-name')).toEqual({
+      expect(getAreaAnimationStyle({ yScale })).toEqual({
         animation: 'animation_transform 1s',
         transformOrigin: '0px 4px',
       });
-    });
-
-    it('should apply custom options', () => {
-      const getOptions = jest.fn().mockReturnValue('test-options');
-      expect(getAreaAnimationStyle({ yScale }, getOptions, 'test-point', 'test-series-name'))
-        .toEqual({
-          animation: 'animation_transform test-options',
-          transformOrigin: '0px 4px',
-        });
-      expect(getOptions).toBeCalledWith('test-point', 'test-series-name');
     });
   });
 
   describe('#getPieAnimationStyle', () => {
     it('should return style', () => {
-      expect(getPieAnimationStyle({}, null, { index: 3 }, 'test-series-name')).toEqual({
+      expect(getPieAnimationStyle({}, { index: 3 })).toEqual({
         animation: 'animation_pie 0.8s',
       });
     });
@@ -46,7 +36,7 @@ describe('Animation styles', () => {
 
   describe('#getScatterAnimationStyle', () => {
     it('should return style', () => {
-      expect(getScatterAnimationStyle({}, null, 'test-point', 'test-series-name')).toEqual({
+      expect(getScatterAnimationStyle({})).toEqual({
         animation: 'animation_scatter 1s',
       });
     });
@@ -67,17 +57,15 @@ describe('Animation styles', () => {
 
 describe('#buildAnimatedStyleGetter', () => {
   it('should create function', () => {
-    const getCustomOptions = jest.fn();
-    const getStyle = buildAnimatedStyleGetter(getCustomOptions);
     const getAnimationStyle = jest.fn().mockReturnValue({ animation: 'test' });
 
-    expect(getStyle(
-      { style: 'base' }, getAnimationStyle, 'test-scales', 'test-point', 'test-series-name',
+    expect(buildAnimatedStyleGetter(
+      { style: 'base' }, getAnimationStyle, 'test-scales', 'test-point',
     )).toEqual({
       style: 'base',
       animation: 'test',
     });
     expect(getAnimationStyle)
-      .toBeCalledWith('test-scales', getCustomOptions, 'test-point', 'test-series-name');
+      .toBeCalledWith('test-scales', 'test-point');
   });
 });

@@ -28,7 +28,6 @@ describe('Bar series', () => {
   const defaultProps = {
     valueField: 'valueField',
     argumentField: 'argumentField',
-    seriesName: 'seriesName',
   };
 
   findSeriesByName.mockReturnValue({

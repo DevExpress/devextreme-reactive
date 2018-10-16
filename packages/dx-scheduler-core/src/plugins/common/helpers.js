@@ -1,4 +1,7 @@
 import moment from 'moment';
+import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
+
+const MONTH_TYPE = 'month';
 
 const CELL_GAP = 0.15;
 
@@ -78,4 +81,9 @@ export const getRectByDates = (
     parentWidth: firstCellRect.parentRect.width,
     height,
   };
+};
+
+export const getViewType = (currentViewType) => {
+  if (currentViewType === MONTH_TYPE) return HORIZONTAL_TYPE;
+  return VERTICAL_TYPE;
 };

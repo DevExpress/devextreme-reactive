@@ -13,7 +13,7 @@ import {
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
   getAppointmentStyle,
-  getMonthRectByDates,
+  getHorizontalRectByDates,
   endViewBoundary,
   availableViews as availableViewsCore,
   HORIZONTAL_TYPE,
@@ -145,7 +145,7 @@ export class MonthView extends React.PureComponent {
                   multiline: true,
                 },
                 intervals,
-                getMonthRectByDates,
+                getHorizontalRectByDates,
                 {
                   startViewDate,
                   endViewDate,

@@ -10,7 +10,7 @@ import {
 import {
   computed,
   viewCells as viewCellsComputed,
-  getRectByDates,
+  getVerticalRectByDates,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
@@ -198,8 +198,8 @@ export class DayView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, appointments, startViewDate,
-              endViewDate, currentView, currentDate, dayScale,
+              appointments, startViewDate,
+              endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -212,14 +212,13 @@ export class DayView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getRectByDates,
+                getVerticalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
-                  timeScale,
                   cellDuration,
                   currentDate,
+                  viewCellsData,
                   cellElements: stateDateTableRef.querySelectorAll('td'),
                 },
               ) : [];

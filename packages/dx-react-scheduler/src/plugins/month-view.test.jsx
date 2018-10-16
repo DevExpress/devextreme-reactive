@@ -6,7 +6,7 @@ import {
   computed,
   viewCells,
   endViewBoundary,
-  getMonthRectByDates,
+  getHorizontalRectByDates,
   calculateMonthDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
@@ -16,7 +16,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewCells: jest.fn(),
   availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
-  getMonthRectByDates: jest.fn(),
+  getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
 }));
 
@@ -66,7 +66,7 @@ describe('Month View', () => {
       [{}, { startDate: new Date('2018-08-05') }],
     ]));
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
-    getMonthRectByDates.mockImplementation(() => [{
+    getHorizontalRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
     calculateMonthDateIntervals.mockImplementation(() => []);

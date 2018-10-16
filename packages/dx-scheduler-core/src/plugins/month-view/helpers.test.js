@@ -1,7 +1,6 @@
 import moment from 'moment';
 import {
   sliceAppointmentByWeek,
-  getMonthRectByDates,
 } from './helpers';
 
 describe('MonthView Helpers', () => {
@@ -163,66 +162,6 @@ describe('MonthView Helpers', () => {
       );
       expect(slicedAppointment)
         .toHaveLength(1);
-    });
-  });
-
-  describe('#getMonthRectByDates', () => {
-    const offsetParent = {
-      getBoundingClientRect: () => ({
-        top: 10, left: 10, width: 250,
-      }),
-    };
-    const cellElements = [{}, {}, {}, {}, {}, {}, {}, {
-      getBoundingClientRect: () => ({
-        top: 110, left: 20, width: 100, height: 100,
-      }),
-      offsetParent,
-    }, {}, {
-      getBoundingClientRect: () => ({
-        top: 110, left: 320, width: 100, height: 100,
-      }),
-      offsetParent,
-    }];
-
-    it('should calculate geometry by dates for single day appointment', () => {
-      const startDate = new Date('2018-07-05 10:20');
-      const endDate = new Date('2018-07-06 00:00');
-      const {
-        top, left, height, width, parentWidth,
-      } = getMonthRectByDates(
-        startDate,
-        endDate,
-        {
-          viewCellsData,
-          cellElements,
-        },
-      );
-
-      expect(top).toBe(130);
-      expect(left).toBe(12);
-      expect(height).toBe(70);
-      expect(width).toBe(98);
-      expect(parentWidth).toBe(250);
-    });
-    it('should calculate geometry by dates for many days appointment', () => {
-      const startDate = new Date('2018-07-05 00:00');
-      const endDate = new Date('2018-07-08 00:00');
-      const {
-        top, left, height, width, parentWidth,
-      } = getMonthRectByDates(
-        startDate,
-        endDate,
-        {
-          viewCellsData,
-          cellElements,
-        },
-      );
-
-      expect(top).toBe(130);
-      expect(left).toBe(12);
-      expect(height).toBe(70);
-      expect(width).toBe(398);
-      expect(parentWidth).toBe(250);
     });
   });
 });

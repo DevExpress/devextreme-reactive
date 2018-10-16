@@ -13,7 +13,7 @@ import {
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  getRectByDates,
+  getVerticalRectByDates,
   timeScale as timeScaleCore,
   dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
@@ -213,7 +213,7 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, dayScale, appointments, startViewDate,
+              appointments, startViewDate,
               endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -226,12 +226,11 @@ export class WeekView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getRectByDates,
+                getVerticalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
-                  timeScale,
+                  viewCellsData,
                   cellDuration,
                   cellElements: dateTableRef.querySelectorAll('td'),
                 },

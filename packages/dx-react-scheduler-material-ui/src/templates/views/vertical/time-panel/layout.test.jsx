@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('Vertical week TimePanel', () => {
+describe('Vertical view TimePanel', () => {
   let classes;
   let shallow;
   const defaultProps = {

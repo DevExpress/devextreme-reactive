@@ -29,6 +29,7 @@ describe('Spline series', () => {
   const defaultProps = {
     valueField: 'valueField',
     argumentField: 'argumentField',
+    seriesName: 'val1',
   };
 
   findSeriesByName.mockReturnValue({
@@ -67,7 +68,7 @@ describe('Spline series', () => {
     expect(path).toBe(dSpline);
     expect(restProps).toEqual({
       customProperty: 'custom',
-      getAnimationStyle: undefined,
+      getAnimatedStyle: undefined,
       scales: {},
       seriesName: 'val1',
     });

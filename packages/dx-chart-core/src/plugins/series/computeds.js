@@ -8,9 +8,8 @@ import {
   pie,
 } from 'd3-shape';
 import { scaleIdentity, scaleOrdinal } from 'd3-scale';
-import { ARGUMENT_DOMAIN } from '../../constants';
 import {
-  getValueDomainName, createScale, getWidth, setScalePadding,
+  createScale, getWidth, setScalePadding,
 } from '../../utils/scale';
 
 const getX = ({ x }) => x;
@@ -40,13 +39,13 @@ const identityScale = scaleIdentity();
 // TODO: Is there a way to improve it?
 // `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
 // TODO: Remove `...args` when Bar case is resolved.
-export const getSeriesPoints = (series, data, scales, ...args) => {
+export const getSeriesPoints = (series, data, { xScale, yScale }, ...args) => {
   const points = [];
   const transform = series.getPointTransformer({
     ...series,
-    argumentScale: scales ? scales[ARGUMENT_DOMAIN] : identityScale,
-    valueScale: scales ? scales[getValueDomainName(series.axisName)] : identityScale,
-  }, data, scales, ...args);
+    argumentScale: xScale || identityScale,
+    valueScale: yScale || identityScale,
+  }, data, ...args);
   data.forEach((dataItem, index) => {
     const argument = dataItem[series.argumentField];
     const value = dataItem[series.valueField];
@@ -116,7 +115,7 @@ const getGroupSettings = (argumentScale, barWidth, stack, stacks, scaleExtension
 
 export const getBarPointTransformer = ({
   argumentScale, valueScale, barWidth = 0.9, stack,
-}, data, scales, stacks = [undefined], scaleExtension) => {
+}, data, stacks = [undefined], scaleExtension) => {
   const y1 = valueScale(0);
   const { groupWidth, groupOffset } = getGroupSettings(
     argumentScale, barWidth, stack, stacks, scaleExtension,

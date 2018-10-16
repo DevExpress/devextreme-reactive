@@ -28,6 +28,7 @@ describe('Line series', () => {
   const defaultProps = {
     valueField: 'valueField',
     argumentField: 'argumentField',
+    seriesName: 'val1',
   };
 
   findSeriesByName.mockReturnValue({

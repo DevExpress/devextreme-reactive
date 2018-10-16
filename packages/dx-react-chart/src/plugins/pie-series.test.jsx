@@ -27,6 +27,7 @@ describe('Pie series', () => {
   const defaultProps = {
     valueField: 'valueField',
     argumentField: 'argumentField',
+    seriesName: 'seriesName',
   };
 
   findSeriesByName.mockReturnValue({
@@ -42,9 +43,15 @@ describe('Pie series', () => {
       scales: {},
       getAnimatedStyle: jest.fn(style => style),
       getSeriesPoints: jest.fn().mockReturnValue([
-        { value: 'value1', data: { argumentField: 'argument1' }, id: 'value1' },
-        { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
-        { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
+        {
+          value: 'value1', data: { argumentField: 'argument1' }, id: 'value1', x: 1, y: 2,
+        },
+        {
+          value: 'value2', data: { argumentField: 'argument2' }, id: 'value2', x: 1, y: 2,
+        },
+        {
+          value: 'value3', data: { argumentField: 'argument3' }, id: 'value3', x: 1, y: 2,
+        },
       ]),
     },
     template: {

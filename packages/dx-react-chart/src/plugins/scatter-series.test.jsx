@@ -35,6 +35,7 @@ describe('Scatter series', () => {
   const defaultProps = {
     argumentField: 'arg',
     valueField: 'val',
+    seriesName: 'seriesName',
   };
 
   findSeriesByName.mockReturnValue({

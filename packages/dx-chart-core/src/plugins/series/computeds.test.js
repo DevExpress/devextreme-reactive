@@ -136,8 +136,8 @@ describe('getSeriesPoints', () => {
       { arg: 'a', val: 1 }, { arg: 'b' }, { arg: 'c', val: 3 }, { val: 4 }, { arg: 'e', val: 5 },
     ];
     const scales = {
-      'argument-domain': 'test-arg-scale',
-      'value-domain': 'test-val-scale',
+      xScale: 'test-arg-scale',
+      yScale: 'test-val-scale',
     };
     const points = getSeriesPoints(series, dataItems, scales, 'r1', 'r2');
 
@@ -157,7 +157,7 @@ describe('getSeriesPoints', () => {
       ...series,
       argumentScale: 'test-arg-scale',
       valueScale: 'test-val-scale',
-    }, dataItems, scales, 'r1', 'r2');
+    }, dataItems, 'r1', 'r2');
     expect(transform.mock.calls).toEqual([
       [{ argument: 'a', value: 1, index: 0 }],
       [{ argument: 'c', value: 3, index: 2 }],
@@ -168,8 +168,8 @@ describe('getSeriesPoints', () => {
   it('should take value scale from "axisName"', () => {
     const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
     const scales = {
-      'argument-domain': 'test-arg-scale',
-      'test-domain-1': 'test-val-scale',
+      xScale: 'test-arg-scale',
+      yScale: 'test-val-scale',
     };
     getSeriesPoints({ ...series, axisName: 'test-domain-1' }, dataItems, scales);
 
@@ -178,18 +178,18 @@ describe('getSeriesPoints', () => {
       axisName: 'test-domain-1',
       argumentScale: 'test-arg-scale',
       valueScale: 'test-val-scale',
-    }, dataItems, scales);
+    }, dataItems);
   });
 
-  it('should be callable without scales', () => {
+  it('should be callable with empty scales', () => {
     const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
-    getSeriesPoints(series, dataItems);
+    getSeriesPoints(series, dataItems, { xScale: undefined, yScale: undefined });
 
     expect(getPointTransformer).toBeCalledWith({
       ...series,
       argumentScale: expect.any(Function),
       valueScale: expect.any(Function),
-    }, dataItems, undefined);
+    }, dataItems);
   });
 });
 
@@ -234,7 +234,7 @@ describe('getBarPointTransformer', () => {
       {
         barWidth: 0.4, stack: 'stack-1', argumentScale, valueScale,
       },
-      'test-data', 'test-scales',
+      'test-data',
       'test-stacks', [{ type: 'band', constructor: () => groupScale }],
     );
     expect(
@@ -244,6 +244,7 @@ describe('getBarPointTransformer', () => {
       y: 9,
       y1: 4,
       id: 1,
+      index: 1,
       value: 'val',
       width: 12,
     });
@@ -306,6 +307,7 @@ describe('getPiePointTransformer', () => {
       value: 'val-1',
       color: 'c1',
       d: 'test-arc-1',
+      index: 1,
     });
     expect(
       transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
@@ -316,6 +318,7 @@ describe('getPiePointTransformer', () => {
       value: 'val-2',
       color: 'c2',
       d: 'test-arc-2',
+      index: 3,
     });
 
     expect(mockPie.sort).toBeCalledWith(null);

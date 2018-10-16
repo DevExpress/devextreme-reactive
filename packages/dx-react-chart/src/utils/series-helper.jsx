@@ -8,9 +8,8 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, addSeries, getValueDomainName,
+  findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-import { ARGUMENT_DOMAIN } from '../../constants';
 
 // TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
 const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
@@ -72,7 +71,7 @@ export const withSeriesPlugin = (
                   yScale: scales[getValueDomainName(currentSeries.axisName)],
                 };
                 const coordinates = getSeriesPoints(
-                  currentSeries, data, scales,
+                  currentSeries, data, currentScales,
                   // TODO: The following are BarSeries specifics - remove them.
                   stacks, scaleExtension,
                 );

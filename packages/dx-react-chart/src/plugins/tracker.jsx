@@ -39,7 +39,7 @@ const buildEventHandler = ({
     seriesList.forEach((seriesItem) => {
       const status = hitTesters[seriesItem.symbolName](coords);
       if (status) {
-        handler({ ...seriesItem, point: status.point });
+        handler({ name: seriesItem.name, ...status });
       }
     });
   };

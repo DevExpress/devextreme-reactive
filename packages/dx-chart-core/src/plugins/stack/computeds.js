@@ -3,15 +3,16 @@ import { stack } from 'd3-shape';
 // "Stack" plugin relies on "data" and "series" plugins and
 // knowledge about "calculateCoordinates" and "d3Func" functions behavior.
 
-const getStackedCoordinatesCalculator = ({
-  calculateCoordinates, valueField0,
-}) => (data, scales, ...args) => {
-  const { yScale } = scales;
-  const items = calculateCoordinates(data, scales, ...args);
-  items.forEach(item => Object.assign(item, {
-    y1: yScale(data[item.id][valueField0]),
-  }));
-  return items;
+const getStackedPointTransformer = ({
+  getPointTransformer, valueField0,
+}) => (series, data, ...args) => {
+  const transform = getPointTransformer(series, data, ...args);
+  const { valueScale } = series;
+  return (point) => {
+    const ret = transform(point);
+    ret.y1 = valueScale(data[point.index][valueField0]);
+    return ret;
+  };
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
@@ -43,7 +44,7 @@ export const buildStackedSeries = (seriesList) => {
     };
     if (stackedSeriesItem.isStartedFromZero) {
       stackedSeriesItem.valueField0 = `${stackedSeriesItem.valueField}_0`;
-      stackedSeriesItem.calculateCoordinates = getStackedCoordinatesCalculator(stackedSeriesItem);
+      stackedSeriesItem.getPointTransformer = getStackedPointTransformer(stackedSeriesItem);
       stackedSeriesItem.getValueDomain = getValueDomainCalculator(stackedSeriesItem);
     }
     return stackedSeriesItem;

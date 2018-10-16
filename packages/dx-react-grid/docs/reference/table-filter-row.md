@@ -94,10 +94,10 @@ Describes properties passed to a component that renders a toggle button for a fi
 
 Field | Type | Description
 ------|------|------------
-value | any | The current editor value.
-disabled | boolean | Specifies whether the editor is disabled.
+disabled? | boolean | Specifies whether the editor is disabled.
 onToggle | () => void | Handles filter value changes.
 buttonRef | (ref: ReactInstance) => void | A function that accepts the button's root React element.
+children? | ReactNode | A React node used to render the button content.
 
 ## Localization Messages
 

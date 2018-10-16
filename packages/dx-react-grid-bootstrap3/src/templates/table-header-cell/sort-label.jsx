@@ -32,8 +32,6 @@ export const SortLabel = ({
     tabIndex={disabled ? -1 : 0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
     onMouseDown={handleMouseDown}
     onBlur={handleBlur}
-    onKeyDown={e => onClick(e, onSort)}
-    onClick={e => onClick(e, onSort)}
     style={{
       display: 'inline-flex',
       flexDirection: 'row',
@@ -46,6 +44,7 @@ export const SortLabel = ({
       ...(align === 'right' ? { flexDirection: 'row-reverse' } : null),
       ...style,
     }}
+    {...!disabled ? { onKeyDown: e => onClick(e, onSort), onClick: e => onClick(e, onSort) } : null}
     {...restProps}
   >
     {children}

@@ -59,12 +59,12 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
+          <Palette scheme={scheme} />
           <PieSeries
             valueField="val"
             argumentField="category"
           />
           <Scale />
-          <Palette scheme={scheme} />
         </Chart>
         <div className="d-flex justify-content-center mt-3">
           {scheme.map(color => <div key={color} style={{ width: '40px', height: '40px', backgroundColor: color }} />)}

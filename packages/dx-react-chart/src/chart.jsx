@@ -14,6 +14,7 @@ import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
 import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
+import { Label } from './templates/label';
 import { withComponents } from './utils';
 
 class RawChart extends React.PureComponent {
@@ -24,6 +25,7 @@ class RawChart extends React.PureComponent {
       height,
       children,
       rootComponent,
+      labelComponent,
       ...restProps
     } = this.props;
     return ((
@@ -60,6 +62,7 @@ class RawChart extends React.PureComponent {
 RawChart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
+  labelComponent: PropTypes.func.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,
@@ -73,6 +76,7 @@ RawChart.defaultProps = {
 
 RawChart.components = {
   rootComponent: 'Root',
+  labelComponent: 'Label',
 };
 
-export const Chart = withComponents({ Root })(RawChart);
+export const Chart = withComponents({ Root, Label })(RawChart);

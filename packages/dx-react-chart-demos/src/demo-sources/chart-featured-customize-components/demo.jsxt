@@ -31,14 +31,15 @@ const BarWithLabel = (props) => {
   return (
     <React.Fragment>
       <path d={getPath(x, y, width, height)} fill={color} />
-      <ArgumentAxis.Label
+      <Chart.Label
         x={x + (width / 2)}
         y={y + (height / 2)}
-        dominantBaseline="central"
+        dominantBaseline="middle"
         textAnchor="middle"
-        text={value}
         style={{ fill: '#BBDEFB' }}
-      />
+      >
+        {value}
+      </Chart.Label>
     </React.Fragment>);
 };
 

@@ -82,7 +82,7 @@ describe('AppointmentTooltip', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <AppointmentTooltip
           {...defaultProps}
-          appointmentMeta={{ appointment: {} }}
+          appointmentMeta={{ data: {} }}
         />
       </PluginHost>
     ));

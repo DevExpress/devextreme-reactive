@@ -26,28 +26,28 @@ const VerticalAppointmentBase = ({
   classes,
   getAppointmentTitle,
   getAppointmentStartDate, getAppointmentEndDate,
-  appointment,
+  data,
   children,
   ...restProps
 }) => (
   <Appointment
-    appointment={appointment}
+    data={data}
     {...restProps}
   >
     {children || (
     <React.Fragment>
       <div className={classes.title}>
-        {getAppointmentTitle(appointment)}
+        {getAppointmentTitle(data)}
       </div>
       <div className={classes.textContainer}>
         <div className={classes.time}>
-          {moment(getAppointmentStartDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>
         <div className={classes.time}>
           {' - '}
         </div>
         <div className={classes.time}>
-          {moment(getAppointmentEndDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentEndDate(data)).format('h:mm A')}
         </div>
       </div>
     </React.Fragment>
@@ -57,7 +57,7 @@ const VerticalAppointmentBase = ({
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  appointment: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   getAppointmentTitle: PropTypes.func,
   getAppointmentStartDate: PropTypes.func,
   getAppointmentEndDate: PropTypes.func,

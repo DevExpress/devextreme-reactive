@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {
   sliceAppointmentByWeek,
+  getMonthCellByDate,
 } from './helpers';
 
 describe('MonthView Helpers', () => {
@@ -106,6 +107,37 @@ describe('MonthView Helpers', () => {
       );
       expect(slicedAppointment)
         .toHaveLength(1);
+    });
+  });
+
+  describe('#getMonthCellByDate', () => {
+    const viewCellsData = [
+      [
+        { startDate: moment('2018-06-24'), endDate: moment('2018-06-25') },
+        { startDate: moment('2018-06-25'), endDate: moment('2018-06-26') },
+        { startDate: moment('2018-06-26'), endDate: moment('2018-06-27') },
+        { startDate: moment('2018-06-27'), endDate: moment('2018-06-28') },
+      ],
+      [
+        { startDate: moment('2018-06-28'), endDate: moment('2018-06-29') },
+        { startDate: moment('2018-06-29'), endDate: moment('2018-06-30') },
+        { startDate: moment('2018-06-30'), endDate: moment('2018-07-01') },
+        { startDate: moment('2018-07-01'), endDate: moment('2018-07-02') },
+      ],
+    ];
+    it('should return cell index', () => {
+      const date = '2018-06-26 07:30';
+      const takePrev = false;
+      expect(getMonthCellByDate(viewCellsData, date, takePrev))
+        .toEqual(2);
+    });
+
+    it('should return cell index with takePrev property', () => {
+      const date = '2018-06-29';
+      expect(getMonthCellByDate(viewCellsData, date, false))
+        .toEqual(5);
+      expect(getMonthCellByDate(viewCellsData, date, true))
+        .toEqual(4);
     });
   });
 });

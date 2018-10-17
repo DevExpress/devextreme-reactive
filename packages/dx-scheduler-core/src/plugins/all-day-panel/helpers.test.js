@@ -138,7 +138,7 @@ describe('AllDayPanel helpers', () => {
       ],
     ];
     it('should return cell index', () => {
-      const date = new Date('2018-06-24 07:30');
+      const date = '2018-06-24 07:30';
       const takePrev = false;
       expect(getAllDayCellByDate(viewCellsData, date, takePrev))
         .toEqual(0);

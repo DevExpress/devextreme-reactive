@@ -31,7 +31,7 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   return pieces;
 };
 
-export const getMonthCellByDate = (viewCellsData, date, takePrev = false) => {
+export const getMonthCellIndexByDate = (viewCellsData, date, takePrev = false) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date);
   let cellIndex = currentDate.diff(startViewDate, 'days');

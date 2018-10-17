@@ -1,13 +1,13 @@
-import { getAllDayCellByDate } from '../all-day-panel/helpers';
-import { getMonthCellByDate } from '../month-view/helpers';
+import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
+import { getMonthCellIndexByDate } from '../month-view/helpers';
 
 const TOP_CELL_OFFSET = 0.32;
 const CELL_BOUND_OFFSET_PX = 2;
 
 const getCellRect = (date, viewCellsData, cellElements, takePrev, multiline) => {
   const cellIndex = multiline
-    ? getMonthCellByDate(viewCellsData, date, takePrev)
-    : getAllDayCellByDate(viewCellsData, date, takePrev);
+    ? getMonthCellIndexByDate(viewCellsData, date, takePrev)
+    : getAllDayCellIndexByDate(viewCellsData, date, takePrev);
 
   const cellElement = cellElements[cellIndex];
   const {

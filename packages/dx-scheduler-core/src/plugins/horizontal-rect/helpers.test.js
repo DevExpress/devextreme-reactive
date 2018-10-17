@@ -1,13 +1,13 @@
 import moment from 'moment';
 import { getHorizontalRectByDates } from './helpers';
-import { getAllDayCellByDate } from '../all-day-panel/helpers';
-import { getMonthCellByDate } from '../month-view/helpers';
+import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
+import { getMonthCellIndexByDate } from '../month-view/helpers';
 
 jest.mock('../all-day-panel/helpers', () => ({
-  getAllDayCellByDate: jest.fn(),
+  getAllDayCellIndexByDate: jest.fn(),
 }));
 jest.mock('../month-view/helpers', () => ({
-  getMonthCellByDate: jest.fn(),
+  getMonthCellIndexByDate: jest.fn(),
 }));
 
 describe('Horizontal rect helpers', () => {
@@ -89,7 +89,7 @@ describe('Horizontal rect helpers', () => {
     });
 
     it('should calculate geometry by dates for single day appointment', () => {
-      getMonthCellByDate
+      getMonthCellIndexByDate
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 7);
       const startDate = new Date('2018-07-05 10:20');
@@ -109,11 +109,11 @@ describe('Horizontal rect helpers', () => {
       expect(top).toBe(132);
       expect(left).toBe(12);
       expect(height).toBe(68);
-      expect(width).toBe(98); // !!!!!
+      expect(width).toBe(98);
       expect(parentWidth).toBe(250);
     });
     it('should calculate geometry by dates for many days appointment', () => {
-      getMonthCellByDate
+      getMonthCellIndexByDate
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 9);
       const startDate = new Date('2018-07-05 00:00');
@@ -137,8 +137,8 @@ describe('Horizontal rect helpers', () => {
       expect(parentWidth).toBe(250);
     });
     it('should correct call with multiline property', () => {
-      getMonthCellByDate.mockImplementation(() => 7);
-      getAllDayCellByDate.mockImplementation(() => 7);
+      getMonthCellIndexByDate.mockImplementation(() => 7);
+      getAllDayCellIndexByDate.mockImplementation(() => 7);
 
       const startDate = new Date('2018-07-05 00:00');
       const endDate = new Date('2018-07-08 00:00');
@@ -153,11 +153,11 @@ describe('Horizontal rect helpers', () => {
       );
 
 
-      expect(getMonthCellByDate)
+      expect(getMonthCellIndexByDate)
         .not.toBeCalled();
-      expect(getAllDayCellByDate)
+      expect(getAllDayCellIndexByDate)
         .toBeCalledTimes(2);
-      expect(getAllDayCellByDate)
+      expect(getAllDayCellIndexByDate)
         .toHaveBeenCalledWith(viewCellsData, startDate, false);
     });
   });

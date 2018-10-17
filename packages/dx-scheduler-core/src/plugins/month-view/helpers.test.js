@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   sliceAppointmentByWeek,
-  getMonthCellByDate,
+  getMonthCellIndexByDate,
 } from './helpers';
 
 describe('MonthView Helpers', () => {
@@ -110,7 +110,7 @@ describe('MonthView Helpers', () => {
     });
   });
 
-  describe('#getMonthCellByDate', () => {
+  describe('#getMonthCellIndexByDate', () => {
     const viewCellsData = [
       [
         { startDate: moment('2018-06-24'), endDate: moment('2018-06-25') },
@@ -128,15 +128,15 @@ describe('MonthView Helpers', () => {
     it('should return cell index', () => {
       const date = '2018-06-26 07:30';
       const takePrev = false;
-      expect(getMonthCellByDate(viewCellsData, date, takePrev))
+      expect(getMonthCellIndexByDate(viewCellsData, date, takePrev))
         .toEqual(2);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-06-29';
-      expect(getMonthCellByDate(viewCellsData, date, false))
+      expect(getMonthCellIndexByDate(viewCellsData, date, false))
         .toEqual(5);
-      expect(getMonthCellByDate(viewCellsData, date, true))
+      expect(getMonthCellIndexByDate(viewCellsData, date, true))
         .toEqual(4);
     });
   });

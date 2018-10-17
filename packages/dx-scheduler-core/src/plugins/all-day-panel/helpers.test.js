@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellByDate } from './helpers';
+import { allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate } from './helpers';
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -122,7 +122,7 @@ describe('AllDayPanel helpers', () => {
     });
   });
 
-  describe('#getAllDayCellByDate', () => {
+  describe('#getAllDayCellIndexByDate', () => {
     const viewCellsData = [
       [
         { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
@@ -140,15 +140,15 @@ describe('AllDayPanel helpers', () => {
     it('should return cell index', () => {
       const date = '2018-06-24 07:30';
       const takePrev = false;
-      expect(getAllDayCellByDate(viewCellsData, date, takePrev))
+      expect(getAllDayCellIndexByDate(viewCellsData, date, takePrev))
         .toEqual(0);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-06-25';
-      expect(getAllDayCellByDate(viewCellsData, date, false))
+      expect(getAllDayCellIndexByDate(viewCellsData, date, false))
         .toEqual(1);
-      expect(getAllDayCellByDate(viewCellsData, date, true))
+      expect(getAllDayCellIndexByDate(viewCellsData, date, true))
         .toEqual(0);
     });
   });

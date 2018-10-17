@@ -5,7 +5,7 @@ export const allDayPredicate = appointment => (
   || !!appointment.allDay
 );
 
-export const getAllDayCellByDate = (viewCellsData, date, takePrev) => {
+export const getAllDayCellIndexByDate = (viewCellsData, date, takePrev) => {
   const currentDate = moment(date);
   let cellIndex = viewCellsData[0]
     .findIndex(day => moment(day.startDate).day() === currentDate.day());

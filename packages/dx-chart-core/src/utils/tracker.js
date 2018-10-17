@@ -33,7 +33,7 @@ export const buildEventHandler = ({
     seriesList.forEach((seriesItem) => {
       const status = hitTesters[seriesItem.symbolName](coords);
       if (status) {
-        targets.push({ name: seriesItem.name, ...status });
+        targets.push({ series: seriesItem.name, ...status });
       }
     });
     const arg = { coords, targets };

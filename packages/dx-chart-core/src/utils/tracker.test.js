@@ -73,11 +73,11 @@ describe('Tracker', () => {
 
       expect(handler1).toBeCalledWith({
         coords: [192, 281],
-        targets: [{ name: 'Series 1', tag: 'hit1' }, { name: 'Series 3', tag: 'hit3' }],
+        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
       });
       expect(handler2).toBeCalledWith({
         coords: [192, 281],
-        targets: [{ name: 'Series 1', tag: 'hit1' }, { name: 'Series 3', tag: 'hit3' }],
+        targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
       });
     });
 

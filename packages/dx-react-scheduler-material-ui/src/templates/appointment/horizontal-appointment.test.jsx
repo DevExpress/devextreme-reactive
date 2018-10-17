@@ -48,7 +48,7 @@ describe('HorizontalAppointment', () => {
       const tree = mount((
         <HorizontalAppointment
           {...defaultProps}
-          getTitle={() => 'title'}
+          getAppointmentTitle={() => 'title'}
         />
       ));
 

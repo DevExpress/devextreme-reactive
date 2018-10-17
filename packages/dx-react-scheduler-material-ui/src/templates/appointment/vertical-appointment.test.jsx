@@ -41,7 +41,7 @@ describe('VerticalAppointment', () => {
 
     it('should render title', () => {
       const tree = mount((
-        <VerticalAppointment {...defaultProps} getTitle={() => 'title'} />
+        <VerticalAppointment {...defaultProps} getAppointmentTitle={() => 'title'} />
       ));
 
       expect(tree.find(`.${classes.title}`).text())
@@ -52,8 +52,8 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          getStartDate={() => new Date('2018-07-27 13:10')}
-          getEndDate={() => new Date('2018-07-27 17:10')}
+          getAppointmentStartDate={() => new Date('2018-07-27 13:10')}
+          getAppointmentEndDate={() => new Date('2018-07-27 17:10')}
         />
       ));
 

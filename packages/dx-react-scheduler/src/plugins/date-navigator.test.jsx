@@ -2,11 +2,11 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { monthCells, dayScale, viewBoundTitle } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, dayScale, viewBoundTitle } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  monthCells: jest.fn(),
+  monthCellsData: jest.fn(),
   dayScale: jest.fn(),
   viewBoundTitle: jest.fn(),
 }));
@@ -64,7 +64,7 @@ const defaultProps = {
 
 describe('DateNavigator', () => {
   beforeEach(() => {
-    monthCells.mockImplementation(() => [[{ value: '2018-04-07' }]]);
+    monthCellsData.mockImplementation(() => [[{ startDate: '2018-04-07' }]]);
     dayScale.mockImplementation(() => ['Mon', 'Tue', 'Wed']);
     viewBoundTitle.mockImplementation(() => 'July 2018');
   });
@@ -164,7 +164,7 @@ describe('DateNavigator', () => {
     )).find(CalendarComponent).props();
 
     expect(getCells())
-      .toEqual([[{ value: '2018-04-07' }]]);
+      .toEqual([[{ startDate: '2018-04-07' }]]);
     expect(getHeaderCells())
       .toEqual(['Mon', 'Tue', 'Wed']);
   });

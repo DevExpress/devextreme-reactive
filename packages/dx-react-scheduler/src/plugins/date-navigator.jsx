@@ -7,7 +7,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  monthCells,
+  monthCellsData,
   viewBoundTitle,
   dayScale,
 } from '@devexpress/dx-scheduler-core';
@@ -107,7 +107,7 @@ export class DateNavigator extends React.PureComponent {
                     <Calendar
                       currentDate={currentDate}
                       firstDayOfWeek={firstDayOfWeek}
-                      getCells={monthCells}
+                      getCells={monthCellsData}
                       getHeaderCells={dayScale}
                       titleComponent={CalendarTitle}
                       navigationButtonComponent={CalendarNavigationButton}

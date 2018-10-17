@@ -28,7 +28,6 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
-    timeScale: [],
     viewCellsData: [
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
@@ -93,7 +92,7 @@ describe('Month View', () => {
       ));
 
       expect(viewCellsData)
-        .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, undefined, undefined, []);
+        .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, undefined, undefined, undefined);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([
           [{ startDate: new Date('2018-06-25') }, {}],

@@ -43,10 +43,10 @@ export class MonthView extends React.PureComponent {
     this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
     this.viewCellsDataBaseComputed = ({
-      currentView, currentDate, timeScale,
+      currentView, currentDate,
     }) => viewCellsDataCore(
       currentView.type, currentDate, firstDayOfWeek,
-      intervalCount, undefined, undefined, timeScale,
+      intervalCount, undefined, undefined, undefined,
     );
 
     this.currentViewComputed = ({ currentView }) => (

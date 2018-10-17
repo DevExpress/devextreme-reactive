@@ -97,9 +97,9 @@ export class DayView extends React.PureComponent {
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
       timeScaleCellComponent: TimeScaleCell,
-      dayPanelLayoutComponent: DayPanel,
-      dayPanelCellComponent: DayPanelCell,
-      dayPanelRowComponent: DayPanelRow,
+      dayScaleLayoutComponent: DayScale,
+      dayScaleCellComponent: DayScaleCell,
+      dayScaleRowComponent: DayScaleRow,
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
@@ -142,9 +142,9 @@ export class DayView extends React.PureComponent {
             {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <DayPanel
-                  cellComponent={DayPanelCell}
-                  rowComponent={DayPanelRow}
+                <DayScale
+                  cellComponent={DayScaleCell}
+                  rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
                 />
               );
@@ -256,9 +256,9 @@ DayView.propTypes = {
   timeScaleLayoutComponent: PropTypes.func.isRequired,
   timeScaleRowComponent: PropTypes.func.isRequired,
   timeScaleCellComponent: PropTypes.func.isRequired,
-  dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelCellComponent: PropTypes.func.isRequired,
-  dayPanelRowComponent: PropTypes.func.isRequired,
+  dayScaleLayoutComponent: PropTypes.func.isRequired,
+  dayScaleCellComponent: PropTypes.func.isRequired,
+  dayScaleRowComponent: PropTypes.func.isRequired,
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
@@ -285,9 +285,9 @@ DayView.components = {
   timeScaleLayoutComponent: 'TimeScaleLayout',
   timeScaleCellComponent: 'TimeScaleCell',
   timeScaleRowComponent: 'TimeScaleRow',
-  dayPanelLayoutComponent: 'DayPanelLayout',
-  dayPanelCellComponent: 'DayPanelCell',
-  dayPanelRowComponent: 'DayPanelRow',
+  dayScaleLayoutComponent: 'DayScaleLayout',
+  dayScaleCellComponent: 'DayScaleCell',
+  dayScaleRowComponent: 'DayScaleRow',
   dateTableLayoutComponent: 'DateTableLayout',
   dateTableCellComponent: 'DateTableCell',
   dateTableRowComponent: 'DateTableRow',

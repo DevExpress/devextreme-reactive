@@ -5,6 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   viewCells,
+  startViewDate,
   endViewBoundary,
   getHorizontalRectByDates,
   calculateMonthDateIntervals,
@@ -14,6 +15,7 @@ import { MonthView } from './month-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCells: jest.fn(),
+  startViewDate: jest.fn(),
   availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
   getHorizontalRectByDates: jest.fn(),
@@ -65,6 +67,7 @@ describe('Month View', () => {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ]));
+    startViewDate.mockImplementation(() => new Date('2018-06-25'));
     endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
     getHorizontalRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',

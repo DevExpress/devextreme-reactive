@@ -9,6 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
+  startViewDate as startViewDateComputed,
   viewCells as viewCellsComputed,
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
@@ -39,7 +40,7 @@ export class MonthView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    this.startViewDateBaseComputed = ({ viewCellsData }) => new Date(viewCellsData[0][0].startDate);
+    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateComputed(viewCellsData);
     this.endViewDateBaseComputed = ({ viewCellsData }) => endViewBoundary(viewCellsData);
     this.viewCellsBaseComputed = ({
       currentView, currentDate, dayScale, timeScale,

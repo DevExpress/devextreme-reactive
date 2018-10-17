@@ -1,4 +1,7 @@
-import { dayScale as dayScaleComputed, availableViews, viewCells } from './computeds';
+import moment from 'moment';
+import {
+  dayScale as dayScaleComputed, availableViews, viewCells, startViewDate,
+} from './computeds';
 import { monthCellsData } from '../month-view/computeds';
 
 describe('#dayScale', () => {
@@ -111,5 +114,17 @@ describe('#viewCells', () => {
         { startDate: new Date('2018-10-10 10:30'), endDate: new Date('2018-10-10 11:00') },
       ],
     ]);
+  });
+
+  describe('#startViewDate', () => {
+    const viewCellsData = [
+      [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
+      [{ startDate: moment('2018-06-11'), endDate: moment('2018-06-12') }],
+    ];
+
+    it('should work', () => {
+      expect(startViewDate(viewCellsData))
+        .toEqual(moment('2018-06-10').toDate());
+    });
   });
 });

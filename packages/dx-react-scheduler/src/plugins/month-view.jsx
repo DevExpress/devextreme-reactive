@@ -15,7 +15,7 @@ import {
   calculateMonthDateIntervals,
   getAppointmentStyle,
   getHorizontalRectByDates,
-  endViewBoundary,
+  endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
@@ -41,11 +41,12 @@ export class MonthView extends React.PureComponent {
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
     this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
-    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewBoundary(viewCellsData);
+    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
     this.viewCellsDataBaseComputed = ({
-      currentView, currentDate, dayScale, timeScale,
+      currentView, currentDate, timeScale,
     }) => viewCellsDataCore(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+      currentView.type, currentDate, firstDayOfWeek,
+      intervalCount, undefined, undefined, timeScale,
     );
 
     this.currentViewComputed = ({ currentView }) => (

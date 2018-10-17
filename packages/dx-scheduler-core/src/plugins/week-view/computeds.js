@@ -11,14 +11,6 @@ import {
 
 const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
 
-const calculateViewBound = (dateBound, timeBound) => {
-  const time = moment(timeBound);
-  return moment(dateBound)
-    .hour(time.hours())
-    .minute(time.minutes())
-    .toDate();
-};
-
 export const calculateWeekDateIntervals = (
   appointments,
   leftBound, rightBound,
@@ -51,9 +43,4 @@ export const timeScale = (
   }
   result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
   return result;
-};
-
-export const endViewDate = (days, times) => {
-  const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
-  return subtractSecond(bound);
 };

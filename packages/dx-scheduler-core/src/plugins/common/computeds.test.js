@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  dayScale as dayScaleComputed, availableViews, viewCellsData, startViewDate,
+  dayScale as dayScaleComputed, availableViews, viewCellsData, startViewDate, endViewDate,
 } from './computeds';
 import { monthCellsData } from '../month-view/computeds';
 
@@ -93,18 +93,17 @@ describe('#viewCellsData', () => {
   });
 
   it('should work when growDirection type is vertical', () => {
-    const currentDate = new Date('2018-10-11 10:00');
-    const firstDayOfWeek = 1;
-    const intervalCount = 1;
+    const currentDate = new Date('2018-10-09 10:00');
+    const firstDayOfWeek = undefined;
+    const intervalCount = 2;
     const currentViewType = 'day';
-    const dayScale = [new Date('2018-10-9'), new Date('2018-10-10')];
     const timeScale = [
       { start: new Date('2018-10-10 10:00'), end: new Date('2018-10-10 10:30') },
       { start: new Date('2018-10-10 10:30'), end: new Date('2018-10-10 11:00') },
     ];
-    expect(
-      viewCellsData(currentViewType, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale),
-    ).toEqual([
+    expect(viewCellsData(
+      currentViewType, currentDate, firstDayOfWeek, intervalCount, 2, undefined, timeScale,
+    )).toEqual([
       [
         { startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30') },
         { startDate: new Date('2018-10-10 10:00'), endDate: new Date('2018-10-10 10:30') },
@@ -125,6 +124,21 @@ describe('#viewCellsData', () => {
     it('should work', () => {
       expect(startViewDate(viewCells))
         .toEqual(moment('2018-06-10').toDate());
+    });
+  });
+
+  describe('#endViewDate', () => {
+    const viewCells = [
+      [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
+      [
+        { startDate: moment('2018-06-11 10:00'), endDate: moment('2018-06-12 10:30') },
+        { startDate: moment('2018-06-11 10:30'), endDate: moment('2018-06-12 11:00') },
+      ],
+    ];
+
+    it('should work', () => {
+      expect(endViewDate(viewCells))
+        .toEqual(moment('2018-06-12 10:59:59').toDate());
     });
   });
 });

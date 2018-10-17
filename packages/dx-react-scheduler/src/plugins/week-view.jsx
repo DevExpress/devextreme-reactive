@@ -15,7 +15,6 @@ import {
   getAppointmentStyle,
   getVerticalRectByDates,
   timeScale as timeScaleCore,
-  dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
@@ -53,8 +52,8 @@ export class WeekView extends React.PureComponent {
     } = this.props;
 
     this.endViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => endViewDateCore(dayScale, timeScale);
+      viewCellsData,
+    }) => endViewDateCore(viewCellsData);
     this.timeScaleBaseComputed = ({
       currentDate,
     }) => timeScaleCore(
@@ -65,16 +64,14 @@ export class WeekView extends React.PureComponent {
       cellDuration,
       excludedDays,
     );
-    this.dayScaleBaseComputed = ({
-      currentDate,
-    }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
     this.startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
     this.viewCellsDataBaseComputed = ({
-      currentView, currentDate, dayScale, timeScale,
+      currentView, currentDate, timeScale,
     }) => viewCellsDataCore(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+      currentView.type, currentDate, firstDayOfWeek,
+      intervalCount, intervalCount * DAYS_IN_WEEK, excludedDays, timeScale,
     );
 
     this.currentViewComputed = ({ currentView }) => (
@@ -99,9 +96,6 @@ export class WeekView extends React.PureComponent {
       viewName,
       this.timeScaleBaseComputed,
       getters.timeScale,
-    );
-    this.dayScaleComputed = getters => computed(
-      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
     );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
@@ -148,7 +142,6 @@ export class WeekView extends React.PureComponent {
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="excludedDays" computed={this.excludedDaysComputed} />
         <Getter name="timeScale" computed={this.timeScaleComputed} />
-        <Getter name="dayScale" computed={this.dayScaleComputed} />
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />

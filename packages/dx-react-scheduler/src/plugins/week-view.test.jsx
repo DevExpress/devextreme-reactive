@@ -5,7 +5,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   timeScale,
-  dayScale,
   viewCellsData,
   startViewDate,
   endViewDate,
@@ -17,7 +16,6 @@ import { WeekView } from './week-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
-  dayScale: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
@@ -25,6 +23,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
+
+const DAYS_IN_WEEK = 7;
 
 const defaultDeps = {
   getter: {
@@ -66,7 +66,6 @@ describe('Week View', () => {
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
     viewCellsData.mockImplementation(() => ([
       [{}, {}], [{}, {}],
     ]));
@@ -91,13 +90,14 @@ describe('Week View', () => {
           <WeekView
             firstDayOfWeek={firstDayOfWeek}
             intervalCount={intervalCount}
+            excludedDays={[1]}
             {...defaultProps}
           />
         </PluginHost>
       ));
 
       expect(viewCellsData)
-        .toBeCalledWith('week', '2018-07-04', firstDayOfWeek, intervalCount, [1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith('week', '2018-07-04', firstDayOfWeek, intervalCount, intervalCount * DAYS_IN_WEEK, [1], [8, 9, 10]);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
     });
@@ -120,28 +120,6 @@ describe('Week View', () => {
         .toBeCalledWith('2018-07-04', 1, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const firstDayOfWeek = 2;
-      const intervalCount = 2;
-      const excludedDays = [1, 2];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            intervalCount={intervalCount}
-            excludedDays={excludedDays}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {
@@ -188,7 +166,10 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });

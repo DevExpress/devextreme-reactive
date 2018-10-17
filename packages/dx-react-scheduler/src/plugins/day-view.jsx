@@ -9,13 +9,12 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCellsData as viewCellsComputed,
+  viewCellsData as viewCellsDataCore,
   getVerticalRectByDates,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
   timeScale as timeScaleCore,
-  dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
@@ -52,19 +51,17 @@ export class DayView extends React.PureComponent {
     this.timeScaleBaseComputed = ({
       currentDate,
     }) => timeScaleCore(currentDate, undefined, startDayHour, endDayHour, cellDuration, []);
-    this.dayScaleBaseComputed = ({
-      currentDate,
-    }) => dayScaleCore(currentDate, undefined, intervalCount, []);
     this.startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => endViewDateCore(dayScale, timeScale);
+      viewCellsData,
+    }) => endViewDateCore(viewCellsData);
     this.viewCellsDataBaseComputed = ({
-      currentView, currentDate, firstDayOfWeek, dayScale, timeScale,
-    }) => viewCellsComputed(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+      currentView, currentDate, timeScale,
+    }) => viewCellsDataCore(
+      currentView.type, currentDate, undefined,
+      intervalCount, intervalCount, [], timeScale,
     );
 
     this.timeScaleComputed = getters => computed(
@@ -72,9 +69,6 @@ export class DayView extends React.PureComponent {
       viewName,
       this.timeScaleBaseComputed,
       getters.timeScale,
-    );
-    this.dayScaleComputed = getters => computed(
-      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
     );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
@@ -133,7 +127,6 @@ export class DayView extends React.PureComponent {
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="cellDuration" computed={this.cellDurationComputed} />
         <Getter name="timeScale" computed={this.timeScaleComputed} />
-        <Getter name="dayScale" computed={this.dayScaleComputed} />
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />

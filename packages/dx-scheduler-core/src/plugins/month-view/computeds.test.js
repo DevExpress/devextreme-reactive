@@ -1,7 +1,6 @@
 import {
   monthCells,
   monthCellsData,
-  endViewBoundary,
 } from './computeds';
 
 describe('Month view computeds', () => {
@@ -177,23 +176,6 @@ describe('Month view computeds', () => {
         .toBeFalsy();
       expect(cells[9][1].isOtherMonth)
         .toBeTruthy();
-    });
-  });
-  describe('#endViewBoundary', () => {
-    it('should work', () => {
-      const cells = [
-        [
-          {}, {}, {}, {}, {}, {}, {
-            startDate: new Date('2018-07-31'),
-            endDate: new Date('2018-08-01'),
-          },
-        ],
-      ];
-
-      expect(endViewBoundary(cells).toString())
-        .toBe(new Date('2018-07-31 23:59:59').toString());
-      expect(cells[0][6].startDate)
-        .toEqual(new Date('2018-07-31'));
     });
   });
 });

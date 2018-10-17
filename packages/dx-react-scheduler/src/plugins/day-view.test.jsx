@@ -4,7 +4,6 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  dayScale,
   viewCellsData,
   timeScale,
   startViewDate,
@@ -18,7 +17,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
   viewCellsData: jest.fn(),
-  dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
@@ -69,7 +67,6 @@ describe('Day View', () => {
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
     viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
@@ -99,7 +96,7 @@ describe('Day View', () => {
       ));
 
       expect(viewCellsData)
-        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, intervalCount, [], [8, 9, 10]);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
     });
@@ -121,24 +118,6 @@ describe('Day View', () => {
         .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
       expect(getComputedState(tree).timeScale)
         .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const intervalCount = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            intervalCount={intervalCount}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', undefined, intervalCount, []);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "startViewDate" getter', () => {
@@ -169,7 +148,10 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });

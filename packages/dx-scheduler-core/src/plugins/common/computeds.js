@@ -33,11 +33,12 @@ export const availableViews = (views, viewName) => {
 };
 
 export const viewCellsData = (
-  currentViewType, currentDate, firstDayOfWeek, intervalCount, days, times,
+  currentViewType, currentDate, firstDayOfWeek, intervalCount, dayCount, excluded, times,
 ) => {
   if (getViewType(currentViewType) === HORIZONTAL_TYPE) {
     return monthCellsData(currentDate, firstDayOfWeek, intervalCount);
   }
+  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excluded);
 
   const cells = [];
   times.forEach((time) => {
@@ -64,3 +65,9 @@ export const allDayCells = viewCells => viewCells[0].map(cell => ({
 }));
 
 export const startViewDate = viewCells => moment(viewCells[0][0].startDate).toDate();
+
+export const endViewDate = (viewCells) => {
+  const lastRowIndex = viewCells.length - 1;
+  const lastCellIndex = viewCells[lastRowIndex].length - 1;
+  return moment(viewCells[lastRowIndex][lastCellIndex].endDate).subtract(1, 'second').toDate();
+};

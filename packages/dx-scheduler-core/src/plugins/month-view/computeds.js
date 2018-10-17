@@ -7,14 +7,7 @@ import {
 } from './helpers';
 
 const DAY_COUNT = 7;
-const WEEK_COUNT = 6;
 const MONTH_LENGTH = 31;
-
-export const endViewBoundary = (viewCellsData) => {
-  const lastCellIndex = viewCellsData.length - 1;
-  const lastDate = moment(viewCellsData[lastCellIndex][WEEK_COUNT].startDate);
-  return lastDate.startOf('day').add(1, 'days').subtract(1, 'second').toDate();
-};
 
 export const monthCells = (currentDate, firstDayOfWeek, intervalCount = 1) => {
   const currentMonth = moment(currentDate).month();

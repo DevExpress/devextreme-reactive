@@ -14,7 +14,6 @@ import {
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  timeScale as timeScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
@@ -48,9 +47,6 @@ export class DayView extends React.PureComponent {
       intervalCount,
     } = this.props;
 
-    this.timeScaleBaseComputed = ({
-      currentDate,
-    }) => timeScaleCore(currentDate, undefined, startDayHour, endDayHour, cellDuration, []);
     this.startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
@@ -58,18 +54,13 @@ export class DayView extends React.PureComponent {
       viewCellsData,
     }) => endViewDateCore(viewCellsData);
     this.viewCellsDataBaseComputed = ({
-      currentView, currentDate, timeScale,
+      currentView, currentDate,
     }) => viewCellsDataCore(
       currentView.type, currentDate, undefined,
-      intervalCount, intervalCount, [], timeScale,
+      intervalCount, intervalCount, [],
+      startDayHour, endDayHour, cellDuration,
     );
 
-    this.timeScaleComputed = getters => computed(
-      getters,
-      viewName,
-      this.timeScaleBaseComputed,
-      getters.timeScale,
-    );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
@@ -126,7 +117,6 @@ export class DayView extends React.PureComponent {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="cellDuration" computed={this.cellDurationComputed} />
-        <Getter name="timeScale" computed={this.timeScaleComputed} />
         <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />

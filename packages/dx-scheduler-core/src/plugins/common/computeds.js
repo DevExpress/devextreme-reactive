@@ -4,6 +4,8 @@ import { calculateFirstDateOfWeek } from '../../utils';
 import { getViewType } from './helpers';
 import { HORIZONTAL_TYPE } from '../../constants';
 
+const subtractSecond = date => moment(date).subtract(1, 'second').toDate();
+
 export const dayScale = (
   currentDate,
   firstDayOfWeek,
@@ -23,6 +25,29 @@ export const dayScale = (
   return result;
 };
 
+export const timeScale = (
+  currentDate,
+  firstDayOfWeek,
+  startDayHour,
+  endDayHour,
+  cellDuration,
+  excludedDays,
+) => {
+  const result = [];
+  const startViewDate = firstDayOfWeek !== undefined
+    ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
+    : currentDate;
+  const left = moment(startViewDate).startOf('hour').hour(startDayHour);
+  const right = moment(startViewDate).startOf('hour').hour(endDayHour);
+  while (left.isBefore(right)) {
+    const startDate = left.toDate();
+    left.add(cellDuration, 'minutes');
+    result.push({ start: startDate, end: left.toDate() });
+  }
+  result[result.length - 1].end = subtractSecond(result[result.length - 1].end);
+  return result;
+};
+
 export const availableViews = (views, viewName) => {
   if (!views) return [viewName];
   if (views.findIndex(view => viewName === view) === -1) {
@@ -33,12 +58,17 @@ export const availableViews = (views, viewName) => {
 };
 
 export const viewCellsData = (
-  currentViewType, currentDate, firstDayOfWeek, intervalCount, dayCount, excluded, times,
+  currentViewType, currentDate, firstDayOfWeek,
+  intervalCount, dayCount, excludedDays,
+  startDayHour, endDayHour, cellDuration,
 ) => {
   if (getViewType(currentViewType) === HORIZONTAL_TYPE) {
     return monthCellsData(currentDate, firstDayOfWeek, intervalCount);
   }
-  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excluded);
+  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
+  const times = timeScale(
+    currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
+  );
 
   const cells = [];
   times.forEach((time) => {
@@ -69,5 +99,5 @@ export const startViewDate = viewCells => moment(viewCells[0][0].startDate).toDa
 export const endViewDate = (viewCells) => {
   const lastRowIndex = viewCells.length - 1;
   const lastCellIndex = viewCells[lastRowIndex].length - 1;
-  return moment(viewCells[lastRowIndex][lastCellIndex].endDate).subtract(1, 'second').toDate();
+  return subtractSecond(viewCells[lastRowIndex][lastCellIndex].endDate);
 };

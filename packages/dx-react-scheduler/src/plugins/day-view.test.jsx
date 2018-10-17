@@ -5,7 +5,6 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   viewCellsData,
-  timeScale,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -15,7 +14,6 @@ import { DayView } from './day-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  timeScale: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
@@ -66,7 +64,6 @@ describe('Day View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    timeScale.mockImplementation(() => [8, 9, 10]);
     viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
@@ -84,40 +81,32 @@ describe('Day View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
-      const intervalCount = 2;
+      const props = {
+        firstDayOfWeek: 2,
+        intervalCount: 2,
+        startDayHour: 1,
+        endDayHour: 9,
+        cellDuration: 30,
+        excludedDays: [1],
+      };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
-            intervalCount={intervalCount}
             {...defaultProps}
+            {...props}
           />
         </PluginHost>
       ));
 
       expect(viewCellsData)
-        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, intervalCount, [], [8, 9, 10]);
+        .toBeCalledWith(
+          'day', '2018-07-04', undefined,
+          props.intervalCount, props.intervalCount, [],
+          props.startDayHour, props.endDayHour, props.cellDuration,
+        );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "timeScale" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            startDayHour={8}
-            endDayHour={18}
-            cellDuration={60}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(timeScale)
-        .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
-      expect(getComputedState(tree).timeScale)
-        .toEqual([8, 9, 10]);
     });
 
     it('should provide the "startViewDate" getter', () => {

@@ -84,7 +84,7 @@ describe('#availableViews', () => {
 
 describe('#viewCellsData', () => {
   it('should work when growDirection type is horizontal', () => {
-    const currentDate = new Date('2018-10-11 10:00');
+    const currentDate = '2018-10-11 10:00';
     const firstDayOfWeek = 1;
     const intervalCount = 1;
     const currentViewType = 'month';
@@ -93,24 +93,25 @@ describe('#viewCellsData', () => {
   });
 
   it('should work when growDirection type is vertical', () => {
-    const currentDate = new Date('2018-10-09 10:00');
+    const currentDate = '2018-10-09 10:00';
     const firstDayOfWeek = undefined;
     const intervalCount = 2;
     const currentViewType = 'day';
-    const timeScale = [
-      { start: new Date('2018-10-10 10:00'), end: new Date('2018-10-10 10:30') },
-      { start: new Date('2018-10-10 10:30'), end: new Date('2018-10-10 11:00') },
-    ];
+    const startDayHour = 10;
+    const endDayHour = 11;
+    const cellDuration = 30;
     expect(viewCellsData(
-      currentViewType, currentDate, firstDayOfWeek, intervalCount, 2, undefined, timeScale,
+      currentViewType, currentDate, firstDayOfWeek,
+      intervalCount, 2, undefined, startDayHour,
+      endDayHour, cellDuration,
     )).toEqual([
       [
         { startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30') },
         { startDate: new Date('2018-10-10 10:00'), endDate: new Date('2018-10-10 10:30') },
       ],
       [
-        { startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 11:00') },
-        { startDate: new Date('2018-10-10 10:30'), endDate: new Date('2018-10-10 11:00') },
+        { startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59') },
+        { startDate: new Date('2018-10-10 10:30'), endDate: new Date('2018-10-10 10:59') },
       ],
     ]);
   });

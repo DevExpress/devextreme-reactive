@@ -96,7 +96,7 @@ export class DayView extends React.PureComponent {
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
-      timePanelCellComponent: TimePanelCell,
+      timeScaleCellComponent: TimeScaleCell,
       dayPanelLayoutComponent: DayPanel,
       dayPanelCellComponent: DayPanelCell,
       dayPanelRowComponent: DayPanelRow,
@@ -170,7 +170,7 @@ export class DayView extends React.PureComponent {
               return (
                 <TimeScale
                   rowComponent={TimeScaleRow}
-                  cellComponent={TimePanelCell}
+                  cellComponent={TimeScaleCell}
                   cellsData={viewCellsData}
                 />
               );
@@ -255,7 +255,7 @@ DayView.propTypes = {
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   timeScaleLayoutComponent: PropTypes.func.isRequired,
   timeScaleRowComponent: PropTypes.func.isRequired,
-  timePanelCellComponent: PropTypes.func.isRequired,
+  timeScaleCellComponent: PropTypes.func.isRequired,
   dayPanelLayoutComponent: PropTypes.func.isRequired,
   dayPanelCellComponent: PropTypes.func.isRequired,
   dayPanelRowComponent: PropTypes.func.isRequired,
@@ -283,7 +283,7 @@ DayView.components = {
   containerComponent: 'Container',
   dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
   timeScaleLayoutComponent: 'TimeScaleLayout',
-  timePanelCellComponent: 'TimePanelCell',
+  timeScaleCellComponent: 'TimeScaleCell',
   timeScaleRowComponent: 'TimeScaleRow',
   dayPanelLayoutComponent: 'DayPanelLayout',
   dayPanelCellComponent: 'DayPanelCell',

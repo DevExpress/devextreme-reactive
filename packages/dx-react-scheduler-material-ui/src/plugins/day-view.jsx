@@ -7,7 +7,7 @@ import { DayScaleEmptyCell } from '../templates/views/vertical/day-scale-empty-c
 import { Container } from '../templates/appointment/container';
 
 import { Layout as TimeScaleLayout } from '../templates/views/vertical/time-scale/layout';
-import { Cell as TimePanelCell } from '../templates/views/vertical/time-scale/cell';
+import { Cell as TimeScaleCell } from '../templates/views/vertical/time-scale/cell';
 
 import { Layout as DateTableLayout } from '../templates/views/vertical/date-table/layout';
 import { Cell as DateTableCell } from '../templates/views/vertical/date-table/cell';
@@ -21,7 +21,7 @@ export const DayView = withComponents({
   Container,
   DayScaleEmptyCell,
   TimeScaleLayout,
-  TimePanelCell,
+  TimeScaleCell,
   TimeScaleRow: Row,
   DayPanelLayout,
   DayPanelCell,

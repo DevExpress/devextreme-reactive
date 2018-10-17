@@ -260,7 +260,7 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render navbar empty', () => {
+    it('should render day scale empty cell', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

@@ -38,7 +38,7 @@ const defaultDeps = {
     body: {},
     navbar: {},
     sidebar: {},
-    navbarEmpty: {},
+    dayScaleEmptyCell: {},
     main: {},
     appointment: {},
   },
@@ -55,7 +55,7 @@ const defaultProps = {
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
-  navbarEmptyComponent: () => null,
+  dayScaleEmptyCellComponent: () => null,
   containerComponent: () => null,
 };
 
@@ -260,18 +260,18 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render navbar empty', () => {
+    it('should render day scale empty cell', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            navbarEmptyComponent={() => <div className="navbar-empty" />}
+            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.navbar-empty').exists())
+      expect(tree.find('.empty-cell').exists())
         .toBeTruthy();
     });
   });

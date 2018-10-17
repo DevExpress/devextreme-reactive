@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { withComponents } from '@devexpress/dx-react-core';
 import { DayView as DayViewBase } from '@devexpress/dx-react-scheduler';
-import { VerticalViewLayout } from '../templates/layouts/vertical-view-layout';
+import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
 
 import { Row } from '../templates/views/common/row';
-import { NavbarEmpty } from '../templates/views/vertical/navbar-empty';
+import { DayScaleEmptyCell } from '../templates/views/vertical/day-scale-empty-cell';
 import { Container } from '../templates/appointment/container';
 
 import { Layout as TimePanelLayout } from '../templates/views/vertical/time-panel/layout';
@@ -15,39 +15,18 @@ import { Cell as DateTableCell } from '../templates/views/vertical/date-table/ce
 import { Layout as DayPanelLayout } from '../templates/views/common/day-panel/layout';
 import { Cell as DayPanelCell } from '../templates/views/vertical/day-panel/cell';
 
-export class DayView extends React.PureComponent {
-  render() {
-    return (
-      <DayViewBase
-        containerComponent={Container}
-        layoutComponent={VerticalViewLayout}
-        navbarEmptyComponent={NavbarEmpty}
-        timePanelLayoutComponent={TimePanelLayout}
-        timePanelCellComponent={TimePanelCell}
-        timePanelRowComponent={Row}
-        dayPanelLayoutComponent={DayPanelLayout}
-        dayPanelCellComponent={DayPanelCell}
-        dayPanelRowComponent={Row}
-        dateTableLayoutComponent={DateTableLayout}
-        dateTableCellComponent={DateTableCell}
-        dateTableRowComponent={Row}
-        {...this.props}
-      />
-    );
-  }
-}
 
-DayView.NavbarEmpty = NavbarEmpty;
-DayView.Container = Container;
-
-DayView.TimePanelLayout = TimePanelLayout;
-DayView.TimePanelCell = TimePanelCell;
-DayView.TimePanelRow = Row;
-
-DayView.DateTableLayout = DateTableLayout;
-DayView.DateTableCell = DateTableCell;
-DayView.DateTableRow = Row;
-
-DayView.DayPanelLayout = DayPanelLayout;
-DayView.DayPanelCell = DayPanelCell;
-DayView.DateTableRow = Row;
+export const DayView = withComponents({
+  Layout,
+  Container,
+  DayScaleEmptyCell,
+  TimePanelLayout,
+  TimePanelCell,
+  TimePanelRow: Row,
+  DayPanelLayout,
+  DayPanelCell,
+  DayPanelRow: Row,
+  DateTableLayout,
+  DateTableCell,
+  DateTableRow: Row,
+})(DayViewBase);

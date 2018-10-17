@@ -117,13 +117,13 @@ describe('#viewCellsData', () => {
   });
 
   describe('#startViewDate', () => {
-    const viewCellsData = [
+    const viewCells = [
       [{ startDate: moment('2018-06-10'), endDate: moment('2018-06-11') }],
       [{ startDate: moment('2018-06-11'), endDate: moment('2018-06-12') }],
     ];
 
     it('should work', () => {
-      expect(startViewDate(viewCellsData))
+      expect(startViewDate(viewCells))
         .toEqual(moment('2018-06-10').toDate());
     });
   });

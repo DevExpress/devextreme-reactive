@@ -167,8 +167,8 @@ const horizontalRectCalculator = (
   appointment,
   {
     rectByDates,
+    multiline,
     rectByDatesMeta: {
-      multiline,
       cellElements,
       viewCellsData,
     },

@@ -9,7 +9,6 @@ import {
 import {
   monthCellsData,
   viewBoundTitle,
-  dayScale,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -108,7 +107,6 @@ export class DateNavigator extends React.PureComponent {
                       currentDate={currentDate}
                       firstDayOfWeek={firstDayOfWeek}
                       getCells={monthCellsData}
-                      getHeaderCells={dayScale}
                       titleComponent={CalendarTitle}
                       navigationButtonComponent={CalendarNavigationButton}
                       rowComponent={CalendarRow}

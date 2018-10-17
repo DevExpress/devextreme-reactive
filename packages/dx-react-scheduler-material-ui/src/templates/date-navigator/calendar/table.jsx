@@ -33,7 +33,7 @@ const TableBase = ({
     <TableHead>
       <HeaderRow>
         {headerCells.map((cell) => {
-          const key = moment(cell).format('ddd');
+          const key = moment(cell.startDate).format('ddd');
           return (
             <HeaderCell
               key={key}

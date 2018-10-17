@@ -1,27 +1,21 @@
 # DevExtreme Reactive &middot; [![CircleCI](https://img.shields.io/circleci/project/github/DevExpress/devextreme-reactive/master.svg)](https://circleci.com/gh/DevExpress/devextreme-reactive) [![NPM](https://img.shields.io/npm/v/@devexpress/dx-core.svg)](https://www.npmjs.com/package/@devexpress/dx-core)
 
-DevExtreme Reactive is a set of business components for React that deeply integrates with popular Bootstrap and Material Design UI libraries.
+DevExtreme Reactive is a set of business components for React that deeply integrates with Bootstrap and Material-UI libraries.
 
-### Common Features
+## Common Features
 
 - Composable and extendable plugin-based architecture
 - 100% Native React(no jQuery or other dependencies)
 - High performance by using React best practicies
-- Native Bootstrap rendering with seamless theming
-
-## [React Components](https://devexpress.github.io/devextreme-reactive/react/)
-
-### Common Features
-
 - [Material-UI](https://github.com/mui-org/material-ui), [Bootstrap 4](http://reactstrap.github.io) and [Bootstrap 3](https://github.com/react-bootstrap/react-bootstrap) integration with seamless theming
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
 
-### React Data Grid
+## React Data Grid
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/grid/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
-### React Chart (CTP)
+## React Chart (CTP)
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 

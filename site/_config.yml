@@ -81,6 +81,7 @@ defaults:
       path: vue
     values:
       demos_link: /vue
+      noindex: true
   # Vue Grid
   - scope:
       path: vue/grid

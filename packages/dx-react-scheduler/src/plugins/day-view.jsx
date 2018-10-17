@@ -34,7 +34,7 @@ export class DayView extends React.PureComponent {
 
     this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.navbarEmptyPlaceholder = () => <TemplatePlaceholder name="navbarEmpty" />;
+    this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
     this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
@@ -93,7 +93,7 @@ export class DayView extends React.PureComponent {
   render() {
     const {
       layoutComponent: ViewLayout,
-      navbarEmptyComponent: NavbarEmpty,
+      dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timePanelLayoutComponent: TimePanel,
       timePanelRowComponent: TimePanelRow,
       timePanelCellComponent: TimePanelCell,
@@ -128,7 +128,7 @@ export class DayView extends React.PureComponent {
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
-                  navbarEmptyComponent={this.navbarEmptyPlaceholder}
+                  dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
                   mainComponent={this.dateTablePlaceholder}
                   sidebarComponent={this.sidebarPlaceholder}
                 />
@@ -152,12 +152,12 @@ export class DayView extends React.PureComponent {
           </TemplateConnector>
         </Template>
 
-        <Template name="navbarEmpty">
+        <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <NavbarEmpty />
+                <DayScaleEmptyCell />
               );
             }}
           </TemplateConnector>
@@ -252,7 +252,7 @@ export class DayView extends React.PureComponent {
 
 DayView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  navbarEmptyComponent: PropTypes.func.isRequired,
+  dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   timePanelLayoutComponent: PropTypes.func.isRequired,
   timePanelRowComponent: PropTypes.func.isRequired,
   timePanelCellComponent: PropTypes.func.isRequired,
@@ -281,7 +281,7 @@ DayView.defaultProps = {
 DayView.components = {
   layoutComponent: 'Layout',
   containerComponent: 'Container',
-  navbarEmptyComponent: 'NavbarEmpty',
+  dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
   timePanelLayoutComponent: 'TimePanelLayout',
   timePanelCellComponent: 'TimePanelCell',
   timePanelRowComponent: 'TimePanelRow',

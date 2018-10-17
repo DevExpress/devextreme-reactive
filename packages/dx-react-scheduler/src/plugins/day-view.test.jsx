@@ -46,7 +46,7 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timePanelLayoutComponent: () => null,
+  timeScaleLayoutComponent: () => null,
   timePanelRowComponent: () => null,
   timePanelCellComponent: () => null,
   dayPanelLayoutComponent: () => null,
@@ -207,13 +207,13 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render time panel', () => {
+    it('should render time scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timePanelLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={() => <div className="time-panel" />}
           />
         </PluginHost>
       ));

@@ -10,7 +10,7 @@ import {
 import {
   computed,
   startViewDate as startViewDateCore,
-  viewCells as viewCellsCore,
+  viewCellsData as viewCellsDataCore,
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
   getAppointmentStyle,
@@ -42,9 +42,9 @@ export class MonthView extends React.PureComponent {
 
     this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({ viewCellsData }) => endViewBoundary(viewCellsData);
-    this.viewCellsBaseComputed = ({
+    this.viewCellsDataBaseComputed = ({
       currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsCore(
+    }) => viewCellsDataCore(
       currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
     );
 
@@ -68,8 +68,8 @@ export class MonthView extends React.PureComponent {
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCells = getters => computed(
-      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
@@ -99,7 +99,7 @@ export class MonthView extends React.PureComponent {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
-        <Getter name="viewCellsData" computed={this.viewCells} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 

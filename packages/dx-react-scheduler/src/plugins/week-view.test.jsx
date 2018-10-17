@@ -6,7 +6,7 @@ import {
   computed,
   timeScale,
   dayScale,
-  viewCells,
+  viewCellsData,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -18,7 +18,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
   dayScale: jest.fn(),
-  viewCells: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
@@ -67,7 +67,7 @@ describe('Week View', () => {
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
-    viewCells.mockImplementation(() => ([
+    viewCellsData.mockImplementation(() => ([
       [{}, {}], [{}, {}],
     ]));
     startViewDate.mockImplementation(() => '2018-07-04');
@@ -96,7 +96,7 @@ describe('Week View', () => {
         </PluginHost>
       ));
 
-      expect(viewCells)
+      expect(viewCellsData)
         .toBeCalledWith('week', '2018-07-04', firstDayOfWeek, intervalCount, [1, 2, 3], [8, 9, 10]);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);

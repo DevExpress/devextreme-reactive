@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells as viewCellsCore,
+  viewCellsData as viewCellsDataCore,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
@@ -71,9 +71,9 @@ export class WeekView extends React.PureComponent {
     this.startViewDateBaseComputed = ({
       viewCellsData,
     }) => startViewDateCore(viewCellsData);
-    this.viewCellsBaseComputed = ({
+    this.viewCellsDataBaseComputed = ({
       currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsCore(
+    }) => viewCellsDataCore(
       currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
     );
 
@@ -109,8 +109,8 @@ export class WeekView extends React.PureComponent {
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCells = getters => computed(
-      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
@@ -149,7 +149,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="excludedDays" computed={this.excludedDaysComputed} />
         <Getter name="timeScale" computed={this.timeScaleComputed} />
         <Getter name="dayScale" computed={this.dayScaleComputed} />
-        <Getter name="viewCellsData" computed={this.viewCells} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 

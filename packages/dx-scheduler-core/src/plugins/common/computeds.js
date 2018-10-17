@@ -32,7 +32,7 @@ export const availableViews = (views, viewName) => {
   } return views;
 };
 
-export const viewCells = (
+export const viewCellsData = (
   currentViewType, currentDate, firstDayOfWeek, intervalCount, days, times,
 ) => {
   if (getViewType(currentViewType) === HORIZONTAL_TYPE) {

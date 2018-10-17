@@ -4,7 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells,
+  viewCellsData,
   startViewDate,
   endViewBoundary,
   getHorizontalRectByDates,
@@ -14,7 +14,7 @@ import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  viewCells: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   availableViews: jest.fn(),
   endViewBoundary: jest.fn(),
@@ -63,7 +63,7 @@ describe('Month View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    viewCells.mockImplementation(() => ([
+    viewCellsData.mockImplementation(() => ([
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ]));
@@ -93,7 +93,7 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(viewCells)
+      expect(viewCellsData)
         .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, [], []);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([

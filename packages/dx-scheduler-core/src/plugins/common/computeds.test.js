@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  dayScale as dayScaleComputed, availableViews, viewCells, startViewDate,
+  dayScale as dayScaleComputed, availableViews, viewCellsData, startViewDate,
 } from './computeds';
 import { monthCellsData } from '../month-view/computeds';
 
@@ -82,13 +82,13 @@ describe('#availableViews', () => {
   });
 });
 
-describe('#viewCells', () => {
+describe('#viewCellsData', () => {
   it('should work when growDirection type is horizontal', () => {
     const currentDate = new Date('2018-10-11 10:00');
     const firstDayOfWeek = 1;
     const intervalCount = 1;
     const currentViewType = 'month';
-    expect(viewCells(currentViewType, currentDate, firstDayOfWeek, intervalCount))
+    expect(viewCellsData(currentViewType, currentDate, firstDayOfWeek, intervalCount))
       .toEqual(monthCellsData(currentDate, firstDayOfWeek, intervalCount));
   });
 
@@ -103,7 +103,7 @@ describe('#viewCells', () => {
       { start: new Date('2018-10-10 10:30'), end: new Date('2018-10-10 11:00') },
     ];
     expect(
-      viewCells(currentViewType, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale),
+      viewCellsData(currentViewType, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale),
     ).toEqual([
       [
         { startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30') },

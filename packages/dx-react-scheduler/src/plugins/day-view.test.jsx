@@ -5,7 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   dayScale,
-  viewCells,
+  viewCellsData,
   timeScale,
   startViewDate,
   endViewDate,
@@ -17,7 +17,7 @@ import { DayView } from './day-view';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
-  viewCells: jest.fn(),
+  viewCellsData: jest.fn(),
   dayScale: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
@@ -70,7 +70,7 @@ describe('Day View', () => {
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
-    viewCells.mockImplementation(() => [
+    viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
     ]);
@@ -98,7 +98,7 @@ describe('Day View', () => {
         </PluginHost>
       ));
 
-      expect(viewCells)
+      expect(viewCellsData)
         .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);

@@ -6,6 +6,7 @@ import {
   computed,
   timeScale,
   dayScale,
+  viewCells,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -17,6 +18,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   timeScale: jest.fn(),
   dayScale: jest.fn(),
+  viewCells: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
@@ -65,6 +67,9 @@ describe('Week View', () => {
     );
     timeScale.mockImplementation(() => [8, 9, 10]);
     dayScale.mockImplementation(() => [1, 2, 3]);
+    viewCells.mockImplementation(() => ([
+      [{}, {}], [{}, {}],
+    ]));
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
     calculateRectByDateIntervals.mockImplementation(() => [{
@@ -77,6 +82,26 @@ describe('Week View', () => {
   });
 
   describe('Getters', () => {
+    it('should provide the "viewCellsData" getter', () => {
+      const firstDayOfWeek = 2;
+      const intervalCount = 2;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView
+            firstDayOfWeek={firstDayOfWeek}
+            intervalCount={intervalCount}
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(viewCells)
+        .toBeCalledWith('week', '2018-07-04', firstDayOfWeek, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(getComputedState(tree).viewCellsData)
+        .toEqual([[{}, {}], [{}, {}]]);
+    });
+
     it('should provide the "timeScale" getter', () => {
       const tree = mount((
         <PluginHost>

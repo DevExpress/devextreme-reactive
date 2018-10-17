@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
+import classNames from 'classnames';
+import TableMUI from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
 import RootRef from '@material-ui/core/RootRef';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 
 const styles = {
   table: {
@@ -13,54 +13,55 @@ const styles = {
 };
 
 const LayoutBase = ({
-  children,
-  dayScale,
-  cellsData,
-  allDayPanelRef,
-  classes, className,
   cellComponent: Cell,
   rowComponent: Row,
+  classes,
+  dateTableRef,
+  className,
+  cellsData,
   ...restProps
 }) => (
-  <div style={{ position: 'relative' }}>
-    <RootRef rootRef={allDayPanelRef}>
-      <Table
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableHead>
-          <Row>
-            {cellsData.map(({
+  <RootRef rootRef={dateTableRef}>
+    <TableMUI
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map(row => (
+          <Row key={row[0].startDate.toString()}>
+            {row.map(({
               startDate,
               endDate,
+              isCurrent,
+              isOtherMonth,
             }) => (
               <Cell
                 key={startDate}
                 startDate={startDate}
                 endDate={endDate}
+                isCurrent={isCurrent}
+                isOtherMonth={isOtherMonth}
               />
             ))}
           </Row>
-        </TableHead>
-      </Table>
-    </RootRef>
-    {children}
-  </div>
+        ))}
+      </TableBody>
+    </TableMUI>
+  </RootRef>
 );
 
 LayoutBase.propTypes = {
-  children: PropTypes.node.isRequired,
-  allDayPanelRef: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
+  dateTableRef: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  className: undefined,
   cellComponent: () => null,
   rowComponent: () => null,
+  className: undefined,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

@@ -1,7 +1,9 @@
 import {
   getCellByDate,
   getRectByDates,
+  getViewType,
 } from './helpers';
+import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 
 describe('Week view helpers', () => {
   describe('Rect calculation helper', () => {
@@ -82,6 +84,18 @@ describe('Week view helpers', () => {
         expect(width).toBe(85);
         expect(parentWidth).toBe(250);
       });
+    });
+  });
+
+  describe('#getViewType', () => {
+    it('should work with horizontal type', () => {
+      expect(getViewType('month'))
+        .toEqual(HORIZONTAL_TYPE);
+    });
+
+    it('should work with vertical type', () => {
+      expect(getViewType('day'))
+        .toEqual(VERTICAL_TYPE);
     });
   });
 });

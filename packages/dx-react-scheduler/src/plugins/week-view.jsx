@@ -9,6 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
+  viewCells as viewCellsComputed,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
@@ -18,7 +19,7 @@ import {
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
-  VERTICAL_APPOINTMENT_TYPE,
+  VERTICAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
 const DAYS_IN_WEEK = 7;
@@ -70,6 +71,12 @@ export class WeekView extends React.PureComponent {
     this.startViewDateBaseComputed = ({
       dayScale, timeScale,
     }) => startViewDateCore(dayScale, timeScale, startDayHour);
+    this.viewCellsBaseComputed = ({
+      currentView, currentDate, dayScale, timeScale,
+    }) => viewCellsComputed(
+      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+    );
+
     this.currentViewComputed = ({ currentView }) => (
       currentView && currentView.name !== viewName
         ? currentView
@@ -101,6 +108,9 @@ export class WeekView extends React.PureComponent {
     );
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
+    );
+    this.viewCells = getters => computed(
+      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
     );
   }
 
@@ -139,6 +149,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="excludedDays" computed={this.excludedDaysComputed} />
         <Getter name="timeScale" computed={this.timeScaleComputed} />
         <Getter name="dayScale" computed={this.dayScaleComputed} />
+        <Getter name="viewCellsData" computed={this.viewCells} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
@@ -160,13 +171,13 @@ export class WeekView extends React.PureComponent {
 
         <Template name="navbar">
           <TemplateConnector>
-            {({ dayScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <DayPanel
                   cellComponent={DayPanelCell}
                   rowComponent={DayPanelRow}
-                  dayScale={dayScale}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -186,13 +197,13 @@ export class WeekView extends React.PureComponent {
 
         <Template name="sidebar">
           <TemplateConnector>
-            {({ timeScale, currentView }) => {
+            {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimePanel
                   rowComponent={TimePanelRow}
                   cellComponent={TimePanelCell}
-                  timeScale={timeScale}
+                  cellsData={viewCellsData}
                 />
               );
             }}
@@ -202,7 +213,8 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, dayScale, appointments, startViewDate, endViewDate, currentView,
+              timeScale, dayScale, appointments, startViewDate,
+              endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
@@ -210,7 +222,7 @@ export class WeekView extends React.PureComponent {
               );
               const rects = dateTableRef ? calculateRectByDateIntervals(
                 {
-                  growDirection: VERTICAL_APPOINTMENT_TYPE,
+                  growDirection: VERTICAL_TYPE,
                   multiline: false,
                 },
                 intervals,
@@ -231,9 +243,8 @@ export class WeekView extends React.PureComponent {
                   <DateTable
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
-                    timeScale={timeScale}
-                    dayScale={dayScale}
                     dateTableRef={this.dateTableRef}
+                    cellsData={viewCellsData}
                   />
                   <Container>
                     {rects.map(({

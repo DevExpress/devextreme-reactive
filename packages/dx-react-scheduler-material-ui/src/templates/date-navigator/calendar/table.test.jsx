@@ -49,8 +49,8 @@ describe('Calendar', () => {
     });
     it('should render cell and rows by the "cells" props', () => {
       const cells = [
-        [{ value: 1, isOtherMonth: true }, { value: 2 }],
-        [{ value: 3 }, { value: 4, isCurrent: true }],
+        [{ startDate: 1, isOtherMonth: true }, { startDate: 2 }],
+        [{ startDate: 3 }, { startDate: 4, isCurrent: true }],
       ];
       const tree = mount((
         <Table
@@ -88,7 +88,7 @@ describe('Calendar', () => {
       const tree = mount((
         <Table
           {...defaultProps}
-          cells={[[{ value: '2018-07-16' }]]}
+          cells={[[{ startDate: '2018-07-16' }]]}
           onCellClick={cellClickMock}
         />
       ));

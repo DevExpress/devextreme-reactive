@@ -9,13 +9,11 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells as viewCellsComputed,
-  getRectByDates,
+  viewCellsData as viewCellsDataCore,
+  getVerticalRectByDates,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  timeScale as timeScaleCore,
-  dayScale as dayScaleCore,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
@@ -49,33 +47,20 @@ export class DayView extends React.PureComponent {
       intervalCount,
     } = this.props;
 
-    this.timeScaleBaseComputed = ({
-      currentDate,
-    }) => timeScaleCore(currentDate, undefined, startDayHour, endDayHour, cellDuration, []);
-    this.dayScaleBaseComputed = ({
-      currentDate,
-    }) => dayScaleCore(currentDate, undefined, intervalCount, []);
     this.startViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => startViewDateCore(dayScale, timeScale, startDayHour);
+      viewCellsData,
+    }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => endViewDateCore(dayScale, timeScale);
-    this.viewCellsBaseComputed = ({
-      currentView, currentDate, firstDayOfWeek, dayScale, timeScale,
-    }) => viewCellsComputed(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+      viewCellsData,
+    }) => endViewDateCore(viewCellsData);
+    this.viewCellsDataBaseComputed = ({
+      currentView, currentDate,
+    }) => viewCellsDataCore(
+      currentView.type, currentDate, undefined,
+      intervalCount, intervalCount, [],
+      startDayHour, endDayHour, cellDuration,
     );
 
-    this.timeScaleComputed = getters => computed(
-      getters,
-      viewName,
-      this.timeScaleBaseComputed,
-      getters.timeScale,
-    );
-    this.dayScaleComputed = getters => computed(
-      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
-    );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
@@ -96,8 +81,8 @@ export class DayView extends React.PureComponent {
     this.cellDurationComputed = getters => computed(
       getters, viewName, () => cellDuration, getters.cellDuration,
     );
-    this.viewCells = getters => computed(
-      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
@@ -132,9 +117,7 @@ export class DayView extends React.PureComponent {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="cellDuration" computed={this.cellDurationComputed} />
-        <Getter name="timeScale" computed={this.timeScaleComputed} />
-        <Getter name="dayScale" computed={this.dayScaleComputed} />
-        <Getter name="viewCellsData" computed={this.viewCells} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
@@ -198,8 +181,8 @@ export class DayView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, appointments, startViewDate,
-              endViewDate, currentView, currentDate, dayScale,
+              appointments, startViewDate,
+              endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -212,14 +195,13 @@ export class DayView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getRectByDates,
+                getVerticalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
-                  timeScale,
                   cellDuration,
                   currentDate,
+                  viewCellsData,
                   cellElements: stateDateTableRef.querySelectorAll('td'),
                 },
               ) : [];

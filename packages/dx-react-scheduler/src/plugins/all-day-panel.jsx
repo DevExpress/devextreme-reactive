@@ -12,7 +12,7 @@ import {
   getAppointmentStyle,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
-  getAllDayRectByDates,
+  getHorizontalRectByDates,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -78,25 +78,25 @@ export class AllDayPanel extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              dayScale, currentView, appointments, startViewDate,
+              currentView, appointments, startViewDate,
               endViewDate, excludedDays, viewCellsData,
             }) => {
               if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef && tableRef.querySelectorAll('th').length === dayScale.length ? calculateRectByDateIntervals(
+              const rects = tableRef && tableRef.querySelectorAll('th').length === viewCellsData[0].length ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
                   multiline: false,
                 },
                 intervals,
-                getAllDayRectByDates,
+                getHorizontalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
                   excludedDays,
+                  viewCellsData,
                   cellElements: tableRef.querySelectorAll('th'),
                 },
               ) : [];

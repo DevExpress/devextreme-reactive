@@ -4,9 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  dayScale,
-  viewCells,
-  timeScale,
+  viewCellsData,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -16,9 +14,7 @@ import { DayView } from './day-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  timeScale: jest.fn(),
-  viewCells: jest.fn(),
-  dayScale: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
@@ -33,6 +29,10 @@ const defaultDeps = {
       querySelectorAll: () => {},
     },
     availableViews: [],
+    viewCellsData: [
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
+    ],
   },
   template: {
     body: {},
@@ -64,9 +64,7 @@ describe('Day View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
-    viewCells.mockImplementation(() => [
+    viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
     ]);
@@ -83,58 +81,32 @@ describe('Day View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
-      const intervalCount = 2;
+      const props = {
+        firstDayOfWeek: 2,
+        intervalCount: 2,
+        startDayHour: 1,
+        endDayHour: 9,
+        cellDuration: 30,
+        excludedDays: [1],
+      };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
-            intervalCount={intervalCount}
             {...defaultProps}
+            {...props}
           />
         </PluginHost>
       ));
 
-      expect(viewCells)
-        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(viewCellsData)
+        .toBeCalledWith(
+          'day', '2018-07-04', undefined,
+          props.intervalCount, props.intervalCount, [],
+          props.startDayHour, props.endDayHour, props.cellDuration,
+        );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "timeScale" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            startDayHour={8}
-            endDayHour={18}
-            cellDuration={60}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(timeScale)
-        .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
-      expect(getComputedState(tree).timeScale)
-        .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const intervalCount = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            intervalCount={intervalCount}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', undefined, intervalCount, []);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "startViewDate" getter', () => {
@@ -148,7 +120,9 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });
@@ -163,7 +137,10 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });

@@ -4,21 +4,21 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells,
-  monthCells,
-  endViewBoundary,
-  getMonthRectByDates,
+  viewCellsData,
+  startViewDate,
+  endViewDate,
+  getHorizontalRectByDates,
   calculateMonthDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  viewCells: jest.fn(),
-  monthCells: jest.fn(),
+  viewCellsData: jest.fn(),
+  startViewDate: jest.fn(),
   availableViews: jest.fn(),
-  endViewBoundary: jest.fn(),
-  getMonthRectByDates: jest.fn(),
+  endViewDate: jest.fn(),
+  getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),
 }));
 
@@ -28,8 +28,10 @@ const defaultDeps = {
     dateTableRef: {
       querySelectorAll: () => {},
     },
-    dayScale: [],
-    timeScale: [],
+    viewCellsData: [
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
+    ],
   },
   template: {
     body: {},
@@ -59,15 +61,13 @@ describe('Month View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    viewCells.mockImplementation(() => ([
-      [{}, {}], [{}, {}],
+    viewCellsData.mockImplementation(() => ([
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
     ]));
-    endViewBoundary.mockImplementation(() => new Date('2018-08-06'));
-    monthCells.mockImplementation(() => ([
-      [{ value: new Date('2018-06-25') }, {}],
-      [{}, { value: new Date('2018-08-05') }],
-    ]));
-    getMonthRectByDates.mockImplementation(() => [{
+    startViewDate.mockImplementation(() => new Date('2018-06-25'));
+    endViewDate.mockImplementation(() => new Date('2018-08-06'));
+    getHorizontalRectByDates.mockImplementation(() => [{
       x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
     }]);
     calculateMonthDateIntervals.mockImplementation(() => []);
@@ -91,10 +91,13 @@ describe('Month View', () => {
         </PluginHost>
       ));
 
-      expect(viewCells)
-        .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, [], []);
+      expect(viewCellsData)
+        .toBeCalledWith('month', '2018-07-04', firstDayOfWeek, intervalCount, undefined, undefined, undefined);
       expect(getComputedState(tree).viewCellsData)
-        .toEqual([[{}, {}], [{}, {}]]);
+        .toEqual([
+          [{ startDate: new Date('2018-06-25') }, {}],
+          [{}, { startDate: new Date('2018-08-05') }],
+        ]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {

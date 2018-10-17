@@ -16,16 +16,23 @@ const styles = theme => ({
 export const DayScaleEmptyCellBase = ({
   classes,
   className,
+  children,
   ...restProps
-}) => <div {...restProps} className={classNames(classes.emptyCell, className)} />;
+}) => (
+  <div {...restProps} className={classNames(classes.emptyCell, className)}>
+    {children}
+  </div>
+);
 
 DayScaleEmptyCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 DayScaleEmptyCellBase.defaultProps = {
   className: undefined,
+  children: undefined,
 };
 
 export const DayScaleEmptyCell = withStyles(styles, { name: 'DayScaleEmptyCell' })(DayScaleEmptyCellBase);

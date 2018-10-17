@@ -133,17 +133,16 @@ export class AppointmentTooltip extends React.PureComponent {
         </Template>
 
         <Template name="appointment">
-          {(params) => {
-            console.log('TOOLTIP');
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...params,
-                  onClick: ({ target, appointment }) => this.onAppointmentClick({ target, appointment }),
-                }}
-              />
-            )}
-        }
+          {params => (
+            <TemplatePlaceholder
+              params={{
+                ...params,
+                onClick: (
+                  { target, appointment },
+                ) => this.onAppointmentClick({ target, appointment }),
+              }}
+            />
+          )}
         </Template>
       </Plugin>
     );

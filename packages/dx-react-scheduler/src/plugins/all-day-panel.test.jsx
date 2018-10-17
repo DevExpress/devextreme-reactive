@@ -22,7 +22,6 @@ const defaultDeps = {
     startViewDate: '',
     endViewDate: '',
     excludedDays: [],
-    dayScale: [],
   },
   template: {
     body: {},

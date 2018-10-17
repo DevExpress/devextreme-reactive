@@ -9,13 +9,11 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells as viewCellsComputed,
+  viewCellsData as viewCellsDataCore,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
-  getRectByDates,
-  timeScale as timeScaleCore,
-  dayScale as dayScaleCore,
+  getVerticalRectByDates,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
@@ -53,28 +51,17 @@ export class WeekView extends React.PureComponent {
     } = this.props;
 
     this.endViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => endViewDateCore(dayScale, timeScale);
-    this.timeScaleBaseComputed = ({
-      currentDate,
-    }) => timeScaleCore(
-      currentDate,
-      firstDayOfWeek,
-      startDayHour,
-      endDayHour,
-      cellDuration,
-      excludedDays,
-    );
-    this.dayScaleBaseComputed = ({
-      currentDate,
-    }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
+      viewCellsData,
+    }) => endViewDateCore(viewCellsData);
     this.startViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => startViewDateCore(dayScale, timeScale, startDayHour);
-    this.viewCellsBaseComputed = ({
-      currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsComputed(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+      viewCellsData,
+    }) => startViewDateCore(viewCellsData);
+    this.viewCellsDataBaseComputed = ({
+      currentView, currentDate,
+    }) => viewCellsDataCore(
+      currentView.type, currentDate, firstDayOfWeek,
+      intervalCount, intervalCount * DAYS_IN_WEEK, excludedDays,
+      startDayHour, endDayHour, cellDuration,
     );
 
     this.currentViewComputed = ({ currentView }) => (
@@ -94,23 +81,14 @@ export class WeekView extends React.PureComponent {
     this.excludedDaysComputed = getters => computed(
       getters, viewName, () => excludedDays, getters.excludedDays,
     );
-    this.timeScaleComputed = getters => computed(
-      getters,
-      viewName,
-      this.timeScaleBaseComputed,
-      getters.timeScale,
-    );
-    this.dayScaleComputed = getters => computed(
-      getters, viewName, this.dayScaleBaseComputed, getters.dayScale,
-    );
     this.startViewDateComputed = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCells = getters => computed(
-      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
@@ -147,9 +125,7 @@ export class WeekView extends React.PureComponent {
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="excludedDays" computed={this.excludedDaysComputed} />
-        <Getter name="timeScale" computed={this.timeScaleComputed} />
-        <Getter name="dayScale" computed={this.dayScaleComputed} />
-        <Getter name="viewCellsData" computed={this.viewCells} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
@@ -213,7 +189,7 @@ export class WeekView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              timeScale, dayScale, appointments, startViewDate,
+              appointments, startViewDate,
               endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -226,12 +202,11 @@ export class WeekView extends React.PureComponent {
                   multiline: false,
                 },
                 intervals,
-                getRectByDates,
+                getVerticalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
-                  timeScale,
+                  viewCellsData,
                   cellDuration,
                   cellElements: dateTableRef.querySelectorAll('td'),
                 },

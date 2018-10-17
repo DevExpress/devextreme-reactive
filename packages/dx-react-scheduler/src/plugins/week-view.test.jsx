@@ -4,9 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  timeScale,
-  dayScale,
-  viewCells,
+  viewCellsData,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -16,15 +14,15 @@ import { WeekView } from './week-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  timeScale: jest.fn(),
-  dayScale: jest.fn(),
-  viewCells: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
   calculateRectByDateIntervals: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
 }));
+
+const DAYS_IN_WEEK = 7;
 
 const defaultDeps = {
   getter: {
@@ -65,9 +63,7 @@ describe('Week View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
-    viewCells.mockImplementation(() => ([
+    viewCellsData.mockImplementation(() => ([
       [{}, {}], [{}, {}],
     ]));
     startViewDate.mockImplementation(() => '2018-07-04');
@@ -83,65 +79,32 @@ describe('Week View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
-      const firstDayOfWeek = 2;
-      const intervalCount = 2;
+      const props = {
+        firstDayOfWeek: 2,
+        intervalCount: 2,
+        startDayHour: 1,
+        endDayHour: 9,
+        cellDuration: 30,
+        excludedDays: [1],
+      };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            intervalCount={intervalCount}
             {...defaultProps}
+            {...props}
           />
         </PluginHost>
       ));
 
-      expect(viewCells)
-        .toBeCalledWith('week', '2018-07-04', firstDayOfWeek, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(viewCellsData)
+        .toBeCalledWith(
+          'week', '2018-07-04', props.firstDayOfWeek, props.intervalCount,
+          props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
+          props.startDayHour, props.endDayHour, props.cellDuration,
+        );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "timeScale" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            startDayHour={8}
-            endDayHour={18}
-            cellDuration={60}
-            firstDayOfWeek={1}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(timeScale)
-        .toBeCalledWith('2018-07-04', 1, 8, 18, 60, []);
-      expect(getComputedState(tree).timeScale)
-        .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const firstDayOfWeek = 2;
-      const intervalCount = 2;
-      const excludedDays = [1, 2];
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            intervalCount={intervalCount}
-            excludedDays={excludedDays}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', firstDayOfWeek, intervalCount * 7, excludedDays);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "firstDayOfWeek" getter', () => {
@@ -171,7 +134,9 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });
@@ -186,7 +151,10 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });

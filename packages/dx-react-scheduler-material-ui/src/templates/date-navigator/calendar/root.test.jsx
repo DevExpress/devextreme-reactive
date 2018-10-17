@@ -18,7 +18,6 @@ describe('Calendar', () => {
     navigatorComponent: () => null,
     currentDate: '2018-07-16',
     firstDayOfWeek: 1,
-    getHeaderCells: () => [],
     getCells: () => [],
   };
   describe('Root', () => {
@@ -79,7 +78,6 @@ describe('Calendar', () => {
     it('should render calendar table', () => {
       const tree = mount(<Root {...defaultProps} />);
       const {
-        headerCells,
         cells,
         rowComponent,
         cellComponent,
@@ -89,8 +87,6 @@ describe('Calendar', () => {
 
       expect(tree.find('.table').exists())
         .toBeTruthy();
-      expect(headerCells)
-        .toEqual(defaultProps.getHeaderCells());
       expect(cells)
         .toEqual(defaultProps.getCells());
       expect(rowComponent)

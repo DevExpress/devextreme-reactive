@@ -39,7 +39,7 @@ const defaultDeps = {
     body: {},
     navbar: {},
     sidebar: {},
-    navbarEmpty: {},
+    dayScaleEmptyCell: {},
     main: {},
   },
 };
@@ -55,7 +55,7 @@ const defaultProps = {
   dateTableLayoutComponent: () => null,
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
-  navbarEmptyComponent: () => null,
+  dayScaleEmptyCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div>{children}</div>,
 };
@@ -344,18 +344,18 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render navbarEmpty', () => {
+    it('should render dayScaleEmptyCell', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            navbarEmptyComponent={() => <div className="navbarEmpty" />}
+            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.navbarEmpty').exists())
+      expect(tree.find('.empty-cell').exists())
         .toBeTruthy();
     });
   });

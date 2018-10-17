@@ -63,7 +63,7 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="navbarEmpty">
+        <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView }) => {
               if (currentView === MONTH) return null;

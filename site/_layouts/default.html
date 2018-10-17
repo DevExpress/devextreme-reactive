@@ -2,6 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    {% if page.noindex %}
+    <meta name="robots" content="noindex" />
+    {% endif %}
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     {% if page.description %}
     <meta name="description" content="{{ page.description }}" />

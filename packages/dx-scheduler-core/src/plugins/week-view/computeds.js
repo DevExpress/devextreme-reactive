@@ -53,8 +53,6 @@ export const timeScale = (
   return result;
 };
 
-export const startViewDate = (days, times) => calculateViewBound(days[0], times[0].start);
-
 export const endViewDate = (days, times) => {
   const bound = calculateViewBound(days[days.length - 1], times[times.length - 1].end);
   return subtractSecond(bound);

@@ -33,6 +33,10 @@ const defaultDeps = {
       querySelectorAll: () => {},
     },
     availableViews: [],
+    viewCellsData: [
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
+    ],
   },
   template: {
     body: {},
@@ -148,7 +152,9 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });

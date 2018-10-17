@@ -9,8 +9,8 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  startViewDate as startViewDateComputed,
-  viewCells as viewCellsComputed,
+  startViewDate as startViewDateCore,
+  viewCells as viewCellsCore,
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
   getAppointmentStyle,
@@ -40,11 +40,11 @@ export class MonthView extends React.PureComponent {
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateComputed(viewCellsData);
+    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
     this.endViewDateBaseComputed = ({ viewCellsData }) => endViewBoundary(viewCellsData);
     this.viewCellsBaseComputed = ({
       currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsComputed(
+    }) => viewCellsCore(
       currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
     );
 
@@ -62,7 +62,7 @@ export class MonthView extends React.PureComponent {
     this.firstDayOfWeekComputed = getters => computed(
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-    this.startViewDateComputed = getters => computed(
+    this.startViewDateCore = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
@@ -100,7 +100,7 @@ export class MonthView extends React.PureComponent {
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
         <Getter name="viewCellsData" computed={this.viewCells} />
-        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Template name="body">

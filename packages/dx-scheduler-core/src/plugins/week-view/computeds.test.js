@@ -1,6 +1,5 @@
 import {
   timeScale,
-  startViewDate,
   endViewDate,
 } from './computeds';
 
@@ -52,19 +51,6 @@ describe('View computeds', () => {
       expect(units[1].start.getMinutes()).toBe(20);
       expect(units[1].end.getHours()).toBe(10);
       expect(units[1].end.getMinutes()).toBe(40);
-    });
-  });
-
-  describe('#startViewDate', () => {
-    it('should return start date', () => {
-      const startDate = startViewDate(
-        [new Date(2018, 5, 24)],
-        [
-          { start: new Date(2017, 6, 20, 8, 0), end: new Date(2017, 6, 20, 10, 30) },
-          { start: new Date(2017, 6, 20, 12, 0), end: new Date(2017, 6, 20, 12, 33) },
-        ],
-      );
-      expect(startDate).toEqual(new Date(2018, 5, 24, 8, 0));
     });
   });
 

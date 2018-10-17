@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells as viewCellsComputed,
+  viewCells as viewCellsCore,
   calculateRectByDateIntervals,
   calculateWeekDateIntervals,
   getAppointmentStyle,
@@ -69,11 +69,11 @@ export class WeekView extends React.PureComponent {
       currentDate,
     }) => dayScaleCore(currentDate, firstDayOfWeek, intervalCount * DAYS_IN_WEEK, excludedDays);
     this.startViewDateBaseComputed = ({
-      dayScale, timeScale,
-    }) => startViewDateCore(dayScale, timeScale, startDayHour);
+      viewCellsData,
+    }) => startViewDateCore(viewCellsData);
     this.viewCellsBaseComputed = ({
       currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsComputed(
+    }) => viewCellsCore(
       currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
     );
 

@@ -171,7 +171,9 @@ describe('Week View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });

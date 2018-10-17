@@ -22,7 +22,7 @@ export const DayView = withComponents({
   DayScaleEmptyCell,
   TimeScaleLayout,
   TimePanelCell,
-  TimePanelRow: Row,
+  TimeScaleRow: Row,
   DayPanelLayout,
   DayPanelCell,
   DayPanelRow: Row,

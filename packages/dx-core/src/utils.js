@@ -1,3 +1,5 @@
+const DELAY = 200;
+
 const compare = (a, b) => {
   const aPosition = a.position();
   const bPosition = b.position();
@@ -16,4 +18,25 @@ export const insertPlugin = (array, newItem) => {
     && compare(newItem, array[targetIndex]) === 0;
   result.splice(targetIndex, alreadyExists ? 1 : 0, newItem);
   return result;
+};
+
+export const createHandlers = (clickEvent, dblClickEvent) => {
+  let timeoutId;
+  const onClick = clickEvent ? (payload) => {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        clearTimeout(timeoutId);
+        clickEvent(payload);
+      }, DELAY);
+    }
+  } : undefined;
+  const onDoubleClick = dblClickEvent ? (payload) => {
+    clearTimeout(timeoutId);
+    dblClickEvent(payload);
+  } : undefined;
+
+  return {
+    onClick,
+    onDoubleClick,
+  };
 };

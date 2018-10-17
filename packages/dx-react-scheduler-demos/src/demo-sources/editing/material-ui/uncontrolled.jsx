@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
+import { Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,

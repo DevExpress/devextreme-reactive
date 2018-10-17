@@ -3,6 +3,9 @@ import * as PropTypes from 'prop-types';
 import {
   Plugin, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
+import {
+  createHandlers,
+} from '@devexpress/dx-core';
 
 export class Appointments extends React.PureComponent {
   render() {
@@ -15,22 +18,27 @@ export class Appointments extends React.PureComponent {
         <Template
           name="appointment"
         >
-          {params => (
-            <TemplateConnector>
-              {({
-                getAppointmentTitle,
-                getAppointmentStartDate,
-                getAppointmentEndDate,
-              }) => (
-                <Appointment
-                  {...params}
-                  getTitle={getAppointmentTitle}
-                  getEndDate={getAppointmentEndDate}
-                  getStartDate={getAppointmentStartDate}
-                />
-              )}
-            </TemplateConnector>
-          )}
+          {({ onClick, onDoubleClick, ...params }) => {
+            const a = createHandlers(onClick, onDoubleClick);
+            debugger
+            return (
+              <TemplateConnector>
+                {({
+                  getAppointmentTitle,
+                  getAppointmentStartDate,
+                  getAppointmentEndDate,
+                }) => (
+                  <Appointment
+                    {...params}
+                    {...a}
+                    getTitle={getAppointmentTitle}
+                    getEndDate={getAppointmentEndDate}
+                    getStartDate={getAppointmentStartDate}
+                  />
+                )}
+              </TemplateConnector>
+            )
+          }}
         </Template>
       </Plugin>
     );

@@ -101,7 +101,6 @@ export class AppointmentTooltip extends React.PureComponent {
                 });
                 this.toggleVisibility();
               };
-
               return (
                 <TemplatePlaceholder
                   name="tooltip"
@@ -134,9 +133,17 @@ export class AppointmentTooltip extends React.PureComponent {
         </Template>
 
         <Template name="appointment">
-          {params => (
-            <TemplatePlaceholder params={{ ...params, onClick: this.onAppointmentClick }} />
-          )}
+          {(params) => {
+            console.log('TOOLTIP');
+            return (
+              <TemplatePlaceholder
+                params={{
+                  ...params,
+                  onClick: ({ target, appointment }) => this.onAppointmentClick({ target, appointment }),
+                }}
+              />
+            )}
+        }
         </Template>
       </Plugin>
     );

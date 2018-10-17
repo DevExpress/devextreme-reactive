@@ -265,21 +265,42 @@ export class AppointmentForm extends React.PureComponent {
                 getAppointmentId,
               }, {
                 startEditAppointment,
-              }) => (
-                <TemplatePlaceholder
-                  params={{
-                    ...params,
-                    onDoubleClick: () => {
-                      this.openFormHandler(
-                        params.appointment,
-                      );
-                      callActionIfExists(startEditAppointment, {
-                        appointmentId: getAppointmentId(params.appointment),
-                      });
-                    },
-                  }}
-                />
-              )}
+              }) => {
+                console.log('Form');
+                // let timeoutId;
+                // const clickHandler = (payload) => {
+                //   if (!timeoutId) {
+                //     timeoutId = setTimeout(() => {
+                //       clearTimeout(timeoutId);
+                //       params.onClick(payload);
+                //     }, 200);
+                //   }
+                // };
+                // const doubleClickHandler = () => {
+                //   clearTimeout(timeoutId);
+                //   this.openFormHandler(params.appointment);
+                //   callActionIfExists(startEditAppointment, {
+                //     appointmentId: getAppointmentId(params.appointment),
+                //   });
+                // };
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      // onClick: clickHandler,
+                      // onDoubleClick: doubleClickHandler,
+                      onDoubleClick: () => {
+                        this.openFormHandler(
+                          params.appointment,
+                        );
+                        callActionIfExists(startEditAppointment, {
+                          appointmentId: getAppointmentId(params.appointment),
+                        });
+                      },
+                    }}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

@@ -27,9 +27,6 @@ const DAYS_IN_WEEK = 7;
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
     availableViews: [],
     currentView: { name: 'Week' },
   },
@@ -44,15 +41,15 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timePanelLayoutComponent: () => null,
-  timePanelRowComponent: () => null,
-  timePanelCellComponent: () => null,
-  dayPanelLayoutComponent: () => null,
-  dayPanelCellComponent: () => null,
-  dayPanelRowComponent: () => null,
-  dateTableLayoutComponent: () => null,
-  dateTableRowComponent: () => null,
-  dateTableCellComponent: () => null,
+  timeScaleLayoutComponent: () => null,
+  timeScaleRowComponent: () => null,
+  timeScaleCellComponent: () => null,
+  dayScaleLayoutComponent: () => null,
+  dayScaleCellComponent: () => null,
+  dayScaleRowComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div>{children}</div>,
@@ -251,48 +248,48 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render day panel', () => {
+    it('should render day scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dayPanelLayoutComponent={() => <div className="day-panel" />}
+            dayScaleLayoutComponent={() => <div className="day-scale" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.day-panel').exists())
+      expect(tree.find('.day-scale').exists())
         .toBeTruthy();
     });
 
-    it('should render time panel', () => {
+    it('should render time scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timePanelLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={() => <div className="time-scale" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.time-panel').exists())
+      expect(tree.find('.time-scale').exists())
         .toBeTruthy();
     });
 
-    it('should render date table', () => {
+    it('should render time table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            dateTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="time-table" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.date-table').exists())
+      expect(tree.find('.time-table').exists())
         .toBeTruthy();
     });
 

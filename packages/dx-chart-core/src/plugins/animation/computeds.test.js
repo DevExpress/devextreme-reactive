@@ -29,7 +29,7 @@ describe('Animation styles', () => {
   describe('#getPieAnimationStyle', () => {
     it('should return style', () => {
       expect(getPieAnimationStyle({}, { index: 3 })).toEqual({
-        animation: 'animation_pie 0.8s',
+        animation: 'animation_pie 1s',
       });
     });
   });

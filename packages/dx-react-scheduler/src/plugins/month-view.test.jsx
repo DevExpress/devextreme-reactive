@@ -25,9 +25,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
     viewCellsData: [
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],

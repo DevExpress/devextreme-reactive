@@ -138,8 +138,8 @@ export class AppointmentTooltip extends React.PureComponent {
               params={{
                 ...params,
                 onClick: (
-                  { target, appointment },
-                ) => this.onAppointmentClick({ target, appointment }),
+                  { target, data },
+                ) => this.onAppointmentClick({ target, data }),
               }}
             />
           )}

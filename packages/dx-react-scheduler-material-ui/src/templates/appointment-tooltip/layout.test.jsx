@@ -6,7 +6,7 @@ describe('Appointment Tooltip', () => {
   let classes;
   let shallow;
   const defaultProps = {
-    headComponent: () => null,
+    headerComponent: () => null,
     commandButtonComponent: () => null,
     contentComponent: () => null,
     showOpenButton: false,
@@ -35,12 +35,12 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render Head component', () => {
+    it('should render Header component', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(defaultProps.headComponent).exists())
+      expect(tree.find(defaultProps.headerComponent).exists())
         .toBeTruthy();
     });
 
@@ -50,11 +50,11 @@ describe('Appointment Tooltip', () => {
         <Layout {...defaultProps} showOpenButton onOpenButtonClick={onOpenButtonClick} />
       ));
 
-      const { id, onClick } = tree
-        .find(defaultProps.headComponent)
+      const { id, onExecute } = tree
+        .find(defaultProps.headerComponent)
         .find(defaultProps.commandButtonComponent).props();
 
-      onClick();
+      onExecute();
 
       expect(id).toBe('open');
       expect(onOpenButtonClick).toBeCalled();
@@ -69,11 +69,11 @@ describe('Appointment Tooltip', () => {
           onHide={onHideMock}
         />
       ));
-      const { id, onClick } = tree
-        .find(defaultProps.headComponent)
+      const { id, onExecute } = tree
+        .find(defaultProps.headerComponent)
         .find(defaultProps.commandButtonComponent).props();
 
-      onClick();
+      onExecute();
 
       expect(id).toBe('close');
       expect(onHideMock).toBeCalled();
@@ -89,11 +89,11 @@ describe('Appointment Tooltip', () => {
         />
       ));
 
-      const { id, onClick } = tree
-        .find(defaultProps.headComponent)
+      const { id, onExecute } = tree
+        .find(defaultProps.headerComponent)
         .find(defaultProps.commandButtonComponent).props();
 
-      onClick();
+      onExecute();
 
       expect(id).toBe('delete');
       expect(onDeleteButtonClick).toBeCalled();
@@ -104,7 +104,7 @@ describe('Appointment Tooltip', () => {
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(defaultProps.headComponent).find(`.${classes.title}`).exists())
+      expect(tree.find(defaultProps.headerComponent).find(`.${classes.title}`).exists())
         .toBeTruthy();
     });
 

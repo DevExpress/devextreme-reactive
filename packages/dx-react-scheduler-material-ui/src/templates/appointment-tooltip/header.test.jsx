@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Head } from './head';
+import { Header } from './header';
 
 describe('Appointment Tooltip', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Head />);
+    classes = getClasses(<Header />);
     shallow = createShallow({ dive: true });
   });
-  describe('Head', () => {
+  describe('Header', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Head className="custom-class" />
+        <Header className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -23,7 +23,7 @@ describe('Appointment Tooltip', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Head data={{ a: 1 }} />
+        <Header data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -32,9 +32,9 @@ describe('Appointment Tooltip', () => {
 
     it('should render children', () => {
       const tree = shallow((
-        <Head>
+        <Header>
           <div className="header-content" />
-        </Head>
+        </Header>
       ));
 
       expect(tree.find('.header-content').exists()).toBeTruthy();

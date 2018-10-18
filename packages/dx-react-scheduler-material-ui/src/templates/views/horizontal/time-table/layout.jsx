@@ -16,12 +16,12 @@ const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
   classes,
-  dateTableRef,
+  tableRef,
   className,
   cellsData,
   ...restProps
 }) => (
-  <RootRef rootRef={dateTableRef}>
+  <RootRef rootRef={tableRef}>
     <TableMUI
       className={classNames(classes.table, className)}
       {...restProps}
@@ -52,7 +52,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  dateTableRef: PropTypes.func.isRequired,
+  tableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.func,
   rowComponent: PropTypes.func,

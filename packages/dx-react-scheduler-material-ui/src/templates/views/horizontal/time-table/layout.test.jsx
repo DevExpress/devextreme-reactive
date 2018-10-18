@@ -4,7 +4,7 @@ import { Layout } from './layout';
 
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
-    dateTableRef: () => undefined,
+    tableRef: () => undefined,
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },

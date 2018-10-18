@@ -27,14 +27,14 @@ export class MonthView extends React.PureComponent {
     super(props);
 
     this.state = {
-      dateTableRef: null,
+      timeTableRef: null,
     };
 
     const {
       name: viewName, firstDayOfWeek, intervalCount,
     } = this.props;
 
-    this.dateTableRef = this.dateTableRef.bind(this);
+    this.timeTableRef = this.timeTableRef.bind(this);
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
@@ -74,8 +74,8 @@ export class MonthView extends React.PureComponent {
     );
   }
 
-  dateTableRef(dateTableRef) {
-    this.setState({ dateTableRef });
+  timeTableRef(timeTableRef) {
+    this.setState({ timeTableRef });
   }
 
   render() {
@@ -90,7 +90,7 @@ export class MonthView extends React.PureComponent {
       appointmentLayerComponent: AppointmentLayer,
       name: viewName,
     } = this.props;
-    const { dateTableRef } = this.state;
+    const { timeTableRef } = this.state;
 
     return (
       <Plugin
@@ -141,7 +141,7 @@ export class MonthView extends React.PureComponent {
               const intervals = calculateMonthDateIntervals(
                 appointments, startViewDate, endViewDate,
               );
-              const rects = dateTableRef ? calculateRectByDateIntervals(
+              const rects = timeTableRef ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
                   multiline: true,
@@ -152,7 +152,7 @@ export class MonthView extends React.PureComponent {
                   startViewDate,
                   endViewDate,
                   viewCellsData,
-                  cellElements: dateTableRef.querySelectorAll('td'),
+                  cellElements: timeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 
@@ -162,7 +162,7 @@ export class MonthView extends React.PureComponent {
                   <TimeTable
                     rowComponent={TimeTableRow}
                     cellComponent={this.cellPlaceholder}
-                    dateTableRef={this.dateTableRef}
+                    tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />
                   <AppointmentLayer>

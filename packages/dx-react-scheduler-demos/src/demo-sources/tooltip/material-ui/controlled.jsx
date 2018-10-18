@@ -25,7 +25,7 @@ const styles = theme => ({
 });
 
 const AppointmentBase = ({
-  appointment,
+  data,
   onClick,
   classes,
   toggleVisibility,
@@ -34,19 +34,19 @@ const AppointmentBase = ({
 }) => (
   <Appointments.Appointment
     {...restProps}
-    appointment={appointment}
+    data={data}
   >
     <IconButton
       className={classes.button}
       onClick={({ target }) => {
         toggleVisibility();
-        onAppointmentMetaChange({ target: target.parentElement.parentElement, appointment });
+        onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
       }}
     >
       <InfoIcon fontSize="small" />
     </IconButton>
     <div className={classes.text}>
-      {appointment.title}
+      {data.title}
     </div>
   </Appointments.Appointment>
 );
@@ -61,7 +61,7 @@ export default class Demo extends React.PureComponent {
       visible: false,
       appointmentMeta: {
         target: null,
-        appointment: {},
+        data: {},
       },
     };
 
@@ -69,8 +69,8 @@ export default class Demo extends React.PureComponent {
       const { visible: tooltipVisibility } = this.state;
       this.setState({ visible: !tooltipVisibility });
     };
-    this.onAppointmentMetaChange = ({ appointment, target }) => {
-      this.setState({ appointmentMeta: { appointment, target } });
+    this.onAppointmentMetaChange = ({ data, target }) => {
+      this.setState({ appointmentMeta: { data, target } });
     };
     this.myAppointment = this.myAppointment.bind(this);
   }

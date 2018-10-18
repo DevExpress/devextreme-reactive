@@ -50,8 +50,8 @@ export class AppointmentTooltip extends React.PureComponent {
       .bind(stateHelper, 'visible', toggleVisibility);
     this.setAppointmentMeta = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentMeta', setAppointmentMeta);
-    this.onAppointmentClick = ({ target, appointment }) => {
-      this.setAppointmentMeta({ target, appointment });
+    this.onAppointmentClick = ({ target, data }) => {
+      this.setAppointmentMeta({ target, data });
       this.toggleVisibility();
     };
   }
@@ -97,11 +97,10 @@ export class AppointmentTooltip extends React.PureComponent {
             }) => {
               const onDeleteButtonClick = () => {
                 commitDeletedAppointment({
-                  deletedAppointmentId: getAppointmentId(appointmentMeta.appointment),
+                  deletedAppointmentId: getAppointmentId(appointmentMeta.data),
                 });
                 this.toggleVisibility();
               };
-
               return (
                 <TemplatePlaceholder
                   name="tooltip"
@@ -135,7 +134,14 @@ export class AppointmentTooltip extends React.PureComponent {
 
         <Template name="appointment">
           {params => (
-            <TemplatePlaceholder params={{ ...params, onClick: this.onAppointmentClick }} />
+            <TemplatePlaceholder
+              params={{
+                ...params,
+                onClick: (
+                  { target, data },
+                ) => this.onAppointmentClick({ target, data }),
+              }}
+            />
           )}
         </Template>
       </Plugin>
@@ -152,7 +158,13 @@ AppointmentTooltip.propTypes = {
   showDeleteButton: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   visible: PropTypes.bool,
-  appointmentMeta: PropTypes.object,
+  appointmentMeta: PropTypes.shape({
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
+    data: PropTypes.object,
+  }),
   onVisibilityChange: PropTypes.func,
   onAppointmentMetaChange: PropTypes.func,
 };

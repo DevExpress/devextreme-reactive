@@ -7,22 +7,21 @@ export const Scheduler = ({
   data,
   rootComponent,
   children,
-  getTitle,
-  getStartDate,
-  getEndDate,
-  getAllDay,
-  getId,
+  getAppointmentTitle,
+  getAppointmentStartDate,
+  getAppointmentEndDate,
+  getAppointmentAllDay,
+  getAppointmentId,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
-      appointmentExtension
-      getTitle={getTitle}
-      getStartDate={getStartDate}
-      getEndDate={getEndDate}
-      getAllDay={getAllDay}
-      getId={getId}
+      getAppointmentTitle={getAppointmentTitle}
+      getAppointmentStartDate={getAppointmentStartDate}
+      getAppointmentEndDate={getAppointmentEndDate}
+      getAppointmentAllDay={getAppointmentAllDay}
+      getAppointmentId={getAppointmentId}
     />
     {children}
   </PluginHost>
@@ -32,19 +31,19 @@ Scheduler.propTypes = {
   data: PropTypes.array,
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
-  getAllDay: PropTypes.func,
-  getId: PropTypes.func,
+  getAppointmentTitle: PropTypes.func,
+  getAppointmentStartDate: PropTypes.func,
+  getAppointmentEndDate: PropTypes.func,
+  getAppointmentAllDay: PropTypes.func,
+  getAppointmentId: PropTypes.func,
 };
 
 Scheduler.defaultProps = {
   children: undefined,
   data: [],
-  getTitle: appointment => appointment.title,
-  getStartDate: appointment => appointment.startDate,
-  getEndDate: appointment => appointment.endDate,
-  getAllDay: appointment => appointment.allDay,
-  getId: appointment => appointment.id,
+  getAppointmentTitle: appointment => appointment.title,
+  getAppointmentStartDate: appointment => appointment.startDate,
+  getAppointmentEndDate: appointment => appointment.endDate,
+  getAppointmentAllDay: appointment => appointment.allDay,
+  getAppointmentId: appointment => appointment.id,
 };

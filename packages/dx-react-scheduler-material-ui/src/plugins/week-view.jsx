@@ -3,7 +3,7 @@ import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
 
 import { Row } from '../templates/views/common/row';
-import { NavbarEmpty } from '../templates/views/vertical/navbar-empty';
+import { DayScaleEmptyCell } from '../templates/views/vertical/day-scale-empty-cell';
 import { Container } from '../templates/appointment/container';
 
 import { Layout as TimePanelLayout } from '../templates/views/vertical/time-panel/layout';
@@ -18,7 +18,7 @@ import { Cell as DayPanelCell } from '../templates/views/vertical/day-panel/cell
 export const WeekView = withComponents({
   Layout,
   Container,
-  NavbarEmpty,
+  DayScaleEmptyCell,
   TimePanelLayout,
   TimePanelCell,
   TimePanelRow: Row,

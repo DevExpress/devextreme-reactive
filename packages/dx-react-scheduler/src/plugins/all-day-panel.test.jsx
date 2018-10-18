@@ -22,14 +22,13 @@ const defaultDeps = {
     startViewDate: '',
     endViewDate: '',
     excludedDays: [],
-    dayScale: [],
   },
   template: {
     body: {},
     navbar: {},
     sidebar: {},
     main: {},
-    navbarEmpty: {},
+    dayScaleEmptyCell: {},
   },
 };
 

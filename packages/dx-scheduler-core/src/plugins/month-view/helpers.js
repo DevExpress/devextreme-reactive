@@ -1,8 +1,5 @@
 import moment from 'moment';
 
-const TOP_CELL_OFFSET = 0.3;
-const CELL_BOUND_OFFSET_PX = 2;
-
 export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
   const pieces = [];
@@ -34,53 +31,14 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
   return pieces;
 };
 
-const getCellRect = (date, monthCells, cellElements, takePrev) => {
-  const startViewDate = moment(monthCells[0][0].value);
+export const getMonthCellIndexByDate = (viewCellsData, date, takePrev = false) => {
+  const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date);
   let cellIndex = currentDate.diff(startViewDate, 'days');
+
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
     cellIndex -= 1;
   }
 
-  const cellElement = cellElements[cellIndex];
-  const {
-    top,
-    left,
-    width,
-    height,
-  } = cellElement.getBoundingClientRect();
-  let parentRect = { left: 0, top: 0, width: 0 };
-  if (cellElement.offsetParent) {
-    parentRect = cellElement.offsetParent.getBoundingClientRect();
-  }
-  return {
-    top,
-    left,
-    width,
-    height,
-    parentRect,
-  };
-};
-
-export const getMonthRectByDates = (
-  startDate,
-  endDate,
-  {
-    monthCells,
-    cellElements,
-  },
-) => {
-  const firstCellRect = getCellRect(startDate, monthCells, cellElements, false);
-  const lastCellRect = getCellRect(endDate, monthCells, cellElements, true);
-
-  const top = firstCellRect.top + (firstCellRect.height * TOP_CELL_OFFSET);
-  const height = firstCellRect.height - (firstCellRect.height * TOP_CELL_OFFSET);
-
-  return {
-    top: top - firstCellRect.parentRect.top,
-    left: (firstCellRect.left - firstCellRect.parentRect.left) + CELL_BOUND_OFFSET_PX,
-    width: ((lastCellRect.left - firstCellRect.left) + firstCellRect.width) - CELL_BOUND_OFFSET_PX,
-    height,
-    parentWidth: firstCellRect.parentRect.width,
-  };
+  return cellIndex;
 };

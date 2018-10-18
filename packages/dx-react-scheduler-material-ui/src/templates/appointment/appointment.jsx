@@ -32,14 +32,14 @@ const AppointmentBase = ({
   classes, className,
   style,
   children,
-  appointment,
+  data,
   onClick: handleClick,
   ...restProps
 }) => {
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {
-        handleClick({ target, appointment });
+        handleClick({ target, data });
       },
     }
     : null;
@@ -62,14 +62,14 @@ AppointmentBase.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object.isRequired,
   className: PropTypes.string,
-  appointment: PropTypes.object,
+  data: PropTypes.object,
   onClick: PropTypes.func,
 };
 
 AppointmentBase.defaultProps = {
   onClick: undefined,
   className: undefined,
-  appointment: {},
+  data: {},
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

@@ -87,7 +87,7 @@ export class MonthView extends React.PureComponent {
       dateTableLayoutComponent: DateTable,
       dateTableRowComponent: DateTableRow,
       dateTableCellComponent: DateTableCell,
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
       name: viewName,
     } = this.props;
     const { dateTableRef } = this.state;
@@ -165,7 +165,7 @@ export class MonthView extends React.PureComponent {
                     dateTableRef={this.dateTableRef}
                     cellsData={viewCellsData}
                   />
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
@@ -176,7 +176,7 @@ export class MonthView extends React.PureComponent {
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </React.Fragment>
               );
             }}
@@ -208,7 +208,7 @@ MonthView.propTypes = {
   dateTableLayoutComponent: PropTypes.func.isRequired,
   dateTableRowComponent: PropTypes.func.isRequired,
   dateTableCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
   name: PropTypes.string,
@@ -222,7 +222,7 @@ MonthView.defaultProps = {
 
 MonthView.components = {
   layoutComponent: 'Layout',
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   dayPanelLayoutComponent: 'DayPanelLayout',
   dayPanelCellComponent: 'DayPanelCell',
   dayPanelRowComponent: 'DayPanelRow',

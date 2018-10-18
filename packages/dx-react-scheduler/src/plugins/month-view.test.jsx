@@ -53,7 +53,7 @@ const defaultProps = {
   dateTableRowComponent: () => null,
   dateTableCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div>{children}</div>,
+  appointmentLayerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Month View', () => {
@@ -264,19 +264,19 @@ describe('Month View', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render appointment layer', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
             {...defaultProps}
             // eslint-disable-next-line react/jsx-one-expression-per-line
-            containerComponent={({ children }) => <div className="container">{children}</div>}
+            appointmentLayerComponent={({ children }) => <div className="layer">{children}</div>}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
+      expect(tree.find('.layer').exists())
         .toBeTruthy();
     });
   });

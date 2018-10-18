@@ -3,7 +3,7 @@ import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { HorizontalViewLayout as Layout } from '../templates/layouts/horizontal-view-layout';
 
 import { Row } from '../templates/views/common/row';
-import { Container } from '../templates/appointment/container';
+import { Container as AppointmentLayer } from '../templates/appointment/container';
 
 import { Layout as DateTableLayout } from '../templates/views/horizontal/date-table/layout';
 import { Cell as DateTableCell } from '../templates/views/horizontal/date-table/cell';
@@ -13,7 +13,7 @@ import { Cell as DayPanelCell } from '../templates/views/horizontal/day-panel/ce
 
 export const MonthView = withComponents({
   Layout,
-  Container,
+  AppointmentLayer,
   DayPanelLayout,
   DayPanelCell,
   DayPanelRow: Row,

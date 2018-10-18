@@ -41,12 +41,13 @@ describe('AppointmentForm', () => {
     /* eslint-disable react/prop-types */
     popupComponent: ({ children }) => <div>{children}</div>,
     containerComponent: ({ children }) => <div>{children}</div>,
-    scrollableSpaceContainer: ({ children }) => <div>{children}</div>,
-    staticSpaceContainer: ({ children }) => <div>{children}</div>,
-    dateEditorComponent: () => null,
-    textEditorComponent: () => null,
+    scrollableAreaComponent: ({ children }) => <div>{children}</div>,
+    staticAreaComponent: ({ children }) => <div>{children}</div>,
+    startDateComponent: () => null,
+    endDateComponent: () => null,
+    titleComponent: () => null,
     commandButtonComponent: () => null,
-    allDayEditorComponent: () => null,
+    allDayComponent: () => null,
   };
 
   it('should render Popup component', () => {
@@ -99,7 +100,7 @@ describe('AppointmentForm', () => {
       .toBeTruthy();
   });
 
-  it('should render text editor', () => {
+  it('should render title editor', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -109,7 +110,7 @@ describe('AppointmentForm', () => {
       </PluginHost>
     ));
 
-    const textEditor = tree.find(defaultProps.textEditorComponent);
+    const textEditor = tree.find(defaultProps.titleComponent);
     expect(textEditor.prop('label'))
       .toEqual('Title');
 
@@ -131,7 +132,7 @@ describe('AppointmentForm', () => {
     ));
 
     const startDateEditor = tree
-      .find(defaultProps.dateEditorComponent)
+      .find(defaultProps.startDateComponent)
       .filterWhere(node => node.props().label === 'Start Date');
 
     startDateEditor.prop('onValueChange')();
@@ -152,7 +153,7 @@ describe('AppointmentForm', () => {
     ));
 
     const endDateEditor = tree
-      .find(defaultProps.dateEditorComponent)
+      .find(defaultProps.endDateComponent)
       .filterWhere(node => node.props().label === 'End Date');
 
     endDateEditor.prop('onValueChange')();
@@ -172,13 +173,13 @@ describe('AppointmentForm', () => {
       </PluginHost>
     ));
 
-    const AllDayEditor = tree
-      .find(defaultProps.allDayEditorComponent);
+    const allDayEditor = tree
+      .find(defaultProps.allDayComponent);
 
-    expect(AllDayEditor.prop('text'))
+    expect(allDayEditor.prop('text'))
       .toEqual('All Day');
 
-    AllDayEditor.prop('onValueChange')();
+    allDayEditor.prop('onValueChange')();
     expect(defaultDeps.action.changeAppointment)
       .toBeCalled();
     expect(defaultDeps.getter.setAppointmentAllDay)

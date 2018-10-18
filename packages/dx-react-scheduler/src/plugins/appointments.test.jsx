@@ -2,6 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 
 const Appointment = () => null;
@@ -9,6 +10,11 @@ const Appointment = () => null;
 const defaultProps = {
   appointmentComponent: Appointment,
 };
+
+jest.mock('@devexpress/dx-core', () => ({
+  ...require.requireActual('@devexpress/dx-core'),
+  createClickHandlers: jest.fn(),
+}));
 
 const defaultDeps = {
   getter: {
@@ -20,6 +26,8 @@ const defaultDeps = {
     appointment: {
       type: 'horizontal',
       appointment: 'data',
+      onClick: 'onClick',
+      onDoubleClick: 'onDoubleClick',
       style: {
         height: 150,
         width: '60%',
@@ -32,6 +40,15 @@ const defaultDeps = {
 };
 
 describe('Appointments', () => {
+  beforeEach(() => {
+    createClickHandlers.mockImplementation((click, dblClick) => ({
+      onClick: click,
+      onDoubleClick: dblClick,
+    }));
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
   it('should render appointments', () => {
     const appointment = mount((
       <PluginHost>
@@ -45,7 +62,7 @@ describe('Appointments', () => {
     const {
       appointment: appointmentData,
       style, type,
-      getAppointmentTitle, getAppointmentEndDate, getAppointmentStartDate, onClick,
+      getAppointmentTitle, getAppointmentEndDate, getAppointmentStartDate,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
@@ -61,6 +78,29 @@ describe('Appointments', () => {
     expect(getAppointmentTitle()).toBe('a');
     expect(getAppointmentEndDate()).toBe('2018-07-05');
     expect(getAppointmentStartDate()).toBe('2018-07-06');
-    expect(onClick).toBeUndefined();
+  });
+
+  it('should pass correct event handlers', () => {
+    const appointment = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    )).find(Appointment);
+
+    expect(createClickHandlers)
+      .toHaveBeenCalledWith(
+        defaultDeps.template.appointment.onClick,
+        defaultDeps.template.appointment.onDoubleClick,
+      );
+
+    const {
+      onClick, onDoubleClick,
+    } = appointment.props();
+
+    expect(onClick).toBe('onClick');
+    expect(onDoubleClick).toBe('onDoubleClick');
   });
 });

@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { ScrollableSpace } from './scrollable-space';
+import { StaticArea } from './static-area';
 
 describe('AppointmentForm', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<ScrollableSpace><div /></ScrollableSpace>);
+    classes = getClasses(<StaticArea><div /></StaticArea>);
     shallow = createShallow({ dive: true });
   });
-  describe('ScrollableSpace', () => {
+  describe('StaticArea', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <ScrollableSpace data={{ a: 1 }}>
+        <StaticArea data={{ a: 1 }}>
           <div />
-        </ScrollableSpace>
+        </StaticArea>
       ));
 
       expect(tree.props().data)
@@ -23,9 +23,9 @@ describe('AppointmentForm', () => {
 
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <ScrollableSpace className="custom-class">
+        <StaticArea className="custom-class">
           <div />
-        </ScrollableSpace>
+        </StaticArea>
       ));
 
       expect(tree.is('.custom-class'))

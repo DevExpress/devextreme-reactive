@@ -5,13 +5,14 @@ import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    paddingTop: theme.spacing.unit,
+    maxHeight: theme.spacing.unit * 50,
+    overflowY: 'scroll',
+    padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
   },
 });
 
-const StaticSpaceBase = ({
+const ScrollableAreaBase = ({
   children, classes, className, ...restProps
 }) => (
   <div
@@ -22,8 +23,13 @@ const StaticSpaceBase = ({
   </div>
 );
 
-StaticSpaceBase.propTypes = {
+ScrollableAreaBase.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
-export const StaticSpace = withStyles(styles)(StaticSpaceBase, { name: 'StaticSpace' });
+ScrollableAreaBase.defaultProps = {
+  className: undefined,
+};
+
+export const ScrollableArea = withStyles(styles)(ScrollableAreaBase, { name: 'ScrollableArea' });

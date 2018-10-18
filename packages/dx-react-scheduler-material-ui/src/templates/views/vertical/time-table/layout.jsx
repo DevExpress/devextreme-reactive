@@ -13,14 +13,14 @@ const styles = {
 };
 
 const LayoutBase = ({
-  dateTableRef,
+  tableRef,
   classes, className,
   cellComponent: Cell,
   rowComponent: Row,
   cellsData,
   ...restProps
 }) => (
-  <RootRef rootRef={dateTableRef}>
+  <RootRef rootRef={tableRef}>
     <Table
       className={classNames(classes.table, className)}
       {...restProps}
@@ -43,7 +43,7 @@ const LayoutBase = ({
 );
 
 LayoutBase.propTypes = {
-  dateTableRef: PropTypes.func.isRequired,
+  tableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.func,

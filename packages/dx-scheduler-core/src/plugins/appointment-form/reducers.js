@@ -1,1 +1,1 @@
-export const setAppointment = (prevAppointment, { appointment }) => appointment;
+export const setAppointmentData = (prevAppointmentData, { appointmentData }) => appointmentData;

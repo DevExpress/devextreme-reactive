@@ -135,10 +135,10 @@ export class WeekView extends React.PureComponent {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  navbarComponent={this.dayScalePlaceholder}
+                  dayScaleComponent={this.dayScalePlaceholder}
                   dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
-                  mainComponent={this.dateTablePlaceholder}
-                  sidebarComponent={this.sidebarPlaceholder}
+                  timeTableComponent={this.dateTablePlaceholder}
+                  timeScaleComponent={this.sidebarPlaceholder}
                 />
               );
             }}
@@ -218,7 +218,7 @@ export class WeekView extends React.PureComponent {
                   <DateTable
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
-                    dateTableRef={this.dateTableRef}
+                    tableRef={this.dateTableRef}
                     cellsData={viewCellsData}
                   />
                   <Container>

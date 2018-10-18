@@ -18,7 +18,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
-  allDayText: 'All Day',
+  allDayLabel: 'All Day',
   titleLabel: 'Title',
   startDateLabel: 'Start Date',
   endDateLabel: 'End Date',
@@ -179,7 +179,7 @@ export class AppointmentForm extends React.PureComponent {
                       />
                       <AllDayEditor
                         readOnly={readOnly}
-                        text={getMessage('allDayText')}
+                        text={getMessage('allDayLabel')}
                         value={getAppointmentAllDay(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
@@ -329,7 +329,7 @@ AppointmentForm.propTypes = {
   onVisibilityChange: PropTypes.func,
   onAppointmentDataChange: PropTypes.func,
   messages: PropTypes.shape({
-    allDayText: PropTypes.string,
+    allDayLabel: PropTypes.string,
     titleLabel: PropTypes.string,
     startDateLabel: PropTypes.string,
     endDateLabel: PropTypes.string,

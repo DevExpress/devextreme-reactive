@@ -18,7 +18,7 @@ export const ContentBase = ({
   classes,
   className,
   children,
-  appointment,
+  appointmentData,
   ...restProps
 }) => (
   <div
@@ -30,13 +30,14 @@ export const ContentBase = ({
 );
 
 ContentBase.propTypes = {
-  appointment: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
 ContentBase.defaultProps = {
+  appointmentData: undefined,
   className: undefined,
   children: undefined,
 };

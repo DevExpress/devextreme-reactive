@@ -27,7 +27,7 @@ const styles = theme => ({
 });
 
 const LayoutBase = ({
-  headComponent: Head,
+  headerComponent: Header,
   contentComponent: Content,
   commandButtonComponent: CommandButton,
   appointmentMeta,
@@ -58,23 +58,23 @@ const LayoutBase = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...restProps}
     >
-      <Head appointment={data}>
+      <Header appointmentData={data}>
         <div>
           <div className={classes.buttonsLeft}>
             {showOpenButton
-              && <CommandButton id={commandButtonIds.open} onClick={openButtonClickHandler} />}
+              && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
           </div>
           <div className={classes.buttonsRight}>
             {showDeleteButton
-              && <CommandButton id={commandButtonIds.delete} onClick={onDeleteButtonClick} />}
-            {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
+              && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
+            {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
           </div>
         </div>
         <div className={classes.title}>
           {getAppointmentTitle(data)}
         </div>
-      </Head>
-      <Content appointment={data}>
+      </Header>
+      <Content appointmentData={data}>
         <div className={classes.text}>
           {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>
@@ -89,7 +89,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.func.isRequired,
-  headComponent: PropTypes.func.isRequired,
+  headerComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,

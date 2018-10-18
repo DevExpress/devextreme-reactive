@@ -73,7 +73,7 @@ export class AppointmentTooltip extends React.PureComponent {
       showDeleteButton,
       showCloseButton,
       layoutComponent: Layout,
-      headComponent,
+      headerComponent,
       contentComponent,
       commandButtonComponent,
     } = this.props;
@@ -109,7 +109,7 @@ export class AppointmentTooltip extends React.PureComponent {
                     showOpenButton,
                     showDeleteButton,
                     showCloseButton,
-                    headComponent,
+                    headerComponent,
                     contentComponent,
                     appointmentMeta,
                     visible,
@@ -151,7 +151,7 @@ export class AppointmentTooltip extends React.PureComponent {
 
 AppointmentTooltip.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  headComponent: PropTypes.func.isRequired,
+  headerComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   commandButtonComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool,
@@ -181,7 +181,7 @@ AppointmentTooltip.defaultProps = {
 
 AppointmentTooltip.components = {
   layoutComponent: 'Layout',
-  headComponent: 'Head',
+  headerComponent: 'Header',
   contentComponent: 'Content',
   commandButtonComponent: 'CommandButton',
 };

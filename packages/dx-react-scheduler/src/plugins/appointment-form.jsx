@@ -9,7 +9,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  setAppointment,
+  setAppointmentData,
   isAllDayCell,
   callActionIfExists,
   changeAppointmentField,
@@ -18,7 +18,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
-  allDayText: 'All Day',
+  allDayLabel: 'All Day',
   titleLabel: 'Title',
   startDateLabel: 'Start Date',
   endDateLabel: 'End Date',
@@ -38,14 +38,14 @@ export class AppointmentForm extends React.PureComponent {
 
     this.state = {
       visible: props.visible,
-      appointment: props.appointment || {},
+      appointmentData: props.appointmentData || {},
     };
 
     const stateHelper = createStateHelper(
       this,
       {
         visible: () => props.onVisibilityChange,
-        appointment: () => props.onAppointmentChange,
+        appointmentData: () => props.onAppointmentDataChange,
       },
     );
 
@@ -55,11 +55,11 @@ export class AppointmentForm extends React.PureComponent {
     };
     this.toggleVisibility = stateHelper.applyFieldReducer
       .bind(stateHelper, 'visible', toggleVisibility);
-    this.setAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'appointment', setAppointment);
+    this.setAppointmentData = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointmentData', setAppointmentData);
 
-    this.openFormHandler = (appointment) => {
-      this.setAppointment({ appointment });
+    this.openFormHandler = (appointmentData) => {
+      this.setAppointmentData({ appointmentData });
       this.toggleVisibility();
     };
   }
@@ -67,28 +67,29 @@ export class AppointmentForm extends React.PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       visible = prevState.visible,
-      appointment = prevState.appointment,
+      appointmentData = prevState.appointmentData,
     } = nextProps;
     return {
-      appointment,
+      appointmentData,
       visible,
     };
   }
 
   render() {
     const {
-      allDayEditorComponent: AllDayEditor,
+      allDayComponent: AllDayEditor,
       containerComponent: Container,
-      scrollableSpaceContainer: ScrollableSpace,
-      staticSpaceContainer: StaticSpace,
+      scrollableAreaComponent: ScrollableArea,
+      staticAreaComponent: StaticArea,
       popupComponent: Popup,
-      dateEditorComponent: DateEditor,
-      textEditorComponent: TextEditor,
+      startDateComponent: StartDateEditor,
+      endDateComponent: EndDateEditor,
+      titleComponent: TitleEditor,
       commandButtonComponent: CommandButton,
       readOnly,
       messages,
     } = this.props;
-    const { visible, appointment } = this.state;
+    const { visible, appointmentData } = this.state;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     return (
@@ -127,7 +128,7 @@ export class AppointmentForm extends React.PureComponent {
             }) => {
               const isNew = editingAppointmentId === undefined;
               const changedAppointment = {
-                ...appointment,
+                ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
 
@@ -136,8 +137,8 @@ export class AppointmentForm extends React.PureComponent {
                   visible={visible}
                 >
                   <Container>
-                    <ScrollableSpace>
-                      <TextEditor
+                    <ScrollableArea>
+                      <TitleEditor
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
@@ -150,7 +151,7 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                      <DateEditor
+                      <StartDateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
@@ -163,7 +164,7 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                      <DateEditor
+                      <EndDateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
@@ -178,7 +179,7 @@ export class AppointmentForm extends React.PureComponent {
                       />
                       <AllDayEditor
                         readOnly={readOnly}
-                        text={getMessage('allDayText')}
+                        text={getMessage('allDayLabel')}
                         value={getAppointmentAllDay(changedAppointment)}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
@@ -189,8 +190,8 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                    </ScrollableSpace>
-                    <StaticSpace>
+                    </ScrollableArea>
+                    <StaticArea>
                       <CommandButton
                         text={getMessage('cancelCommand')}
                         onExecute={() => {
@@ -224,7 +225,7 @@ export class AppointmentForm extends React.PureComponent {
                           id={COMMIT_COMMAND_BUTTON}
                         />
                       )}
-                    </StaticSpace>
+                    </StaticArea>
                   </Container>
                 </Popup>
               );
@@ -286,7 +287,7 @@ export class AppointmentForm extends React.PureComponent {
               {(getters, {
                 addAppointment,
               }) => {
-                const newAppointment = {
+                const newAppointmentData = {
                   title: undefined,
                   startDate: params.startDate,
                   endDate: params.endDate,
@@ -297,8 +298,8 @@ export class AppointmentForm extends React.PureComponent {
                     params={{
                       ...params,
                       onDoubleClick: () => {
-                        this.openFormHandler(newAppointment);
-                        callActionIfExists(addAppointment, { appointment: newAppointment });
+                        this.openFormHandler(newAppointmentData);
+                        callActionIfExists(addAppointment, { appointmentData: newAppointmentData });
                       },
                     }}
                   />
@@ -314,20 +315,21 @@ export class AppointmentForm extends React.PureComponent {
 
 AppointmentForm.propTypes = {
   popupComponent: PropTypes.func.isRequired,
-  dateEditorComponent: PropTypes.func.isRequired,
-  textEditorComponent: PropTypes.func.isRequired,
+  startDateComponent: PropTypes.func.isRequired,
+  endDateComponent: PropTypes.func.isRequired,
+  titleComponent: PropTypes.func.isRequired,
   commandButtonComponent: PropTypes.func.isRequired,
-  allDayEditorComponent: PropTypes.func.isRequired,
+  allDayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  scrollableSpaceContainer: PropTypes.func.isRequired,
-  staticSpaceContainer: PropTypes.func.isRequired,
+  scrollableAreaComponent: PropTypes.func.isRequired,
+  staticAreaComponent: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
-  appointment: PropTypes.object,
+  appointmentData: PropTypes.object,
   onVisibilityChange: PropTypes.func,
-  onAppointmentChange: PropTypes.func,
+  onAppointmentDataChange: PropTypes.func,
   messages: PropTypes.shape({
-    allDayText: PropTypes.string,
+    allDayLabel: PropTypes.string,
     titleLabel: PropTypes.string,
     startDateLabel: PropTypes.string,
     endDateLabel: PropTypes.string,
@@ -339,19 +341,20 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  appointment: undefined,
+  appointmentData: undefined,
   onVisibilityChange: () => undefined,
-  onAppointmentChange: () => undefined,
+  onAppointmentDataChange: () => undefined,
   messages: {},
 };
 
 AppointmentForm.components = {
   popupComponent: 'Popup',
   containerComponent: 'Container',
-  dateEditorComponent: 'DateEditor',
-  textEditorComponent: 'TextEditor',
+  startDateComponent: 'StartDateEditor',
+  endDateComponent: 'EndDateEditor',
+  titleComponent: 'TitleEditor',
+  allDayComponent: 'AllDayEditor',
   commandButtonComponent: 'CommandButton',
-  allDayEditorComponent: 'AllDayEditor',
-  scrollableSpaceContainer: 'ScrollableSpace',
-  staticSpaceContainer: 'StaticSpace',
+  scrollableAreaComponent: 'ScrollableArea',
+  staticAreaComponent: 'StaticArea',
 };

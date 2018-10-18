@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-export const AllDayEditor = ({
+export const BooleanEditor = ({
   text,
   value,
   readOnly,
@@ -24,14 +24,14 @@ export const AllDayEditor = ({
   />
 );
 
-AllDayEditor.propTypes = {
+BooleanEditor.propTypes = {
   text: PropTypes.string,
   readOnly: PropTypes.bool,
   value: PropTypes.bool,
   onValueChange: PropTypes.func,
 };
 
-AllDayEditor.defaultProps = {
+BooleanEditor.defaultProps = {
   text: undefined,
   readOnly: false,
   value: false,

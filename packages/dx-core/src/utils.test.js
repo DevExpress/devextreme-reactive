@@ -1,4 +1,4 @@
-import { insertPlugin, createHandlers } from './utils';
+import { insertPlugin, createClickHandlers } from './utils';
 
 describe('utils', () => {
   afterEach(() => {
@@ -28,16 +28,16 @@ describe('utils', () => {
     });
   });
 
-  describe('#createHandlers', () => {
+  describe('#createClickHandlers', () => {
     const DELAY = 200;
     const clickEvent = jest.fn();
     const dblClickEvent = jest.fn();
 
     it('should not throw without arguments', () => {
-      expect(() => createHandlers())
+      expect(() => createClickHandlers())
         .not.toThrow();
 
-      expect(createHandlers())
+      expect(createClickHandlers())
         .toEqual({
           onClick: undefined,
           onDoubleClick: undefined,
@@ -45,7 +45,7 @@ describe('utils', () => {
     });
 
     it('should return onClick function if onClick event is define', () => {
-      const events = createHandlers(clickEvent);
+      const events = createClickHandlers(clickEvent);
 
       expect(events)
         .toEqual({
@@ -56,7 +56,7 @@ describe('utils', () => {
 
     it('should call onClick event with delay', () => {
       const payload = { data: 1 };
-      const events = createHandlers(clickEvent);
+      const events = createClickHandlers(clickEvent);
 
       events.onClick(payload);
 
@@ -67,7 +67,7 @@ describe('utils', () => {
     });
 
     it('should return onDblClick function if onDblClick event is define', () => {
-      const events = createHandlers(undefined, dblClickEvent);
+      const events = createClickHandlers(undefined, dblClickEvent);
 
       expect(events)
         .toEqual({
@@ -78,7 +78,7 @@ describe('utils', () => {
 
     it('should call onDblClick event without delay', () => {
       const payload = { data: 1 };
-      const events = createHandlers(undefined, dblClickEvent);
+      const events = createClickHandlers(undefined, dblClickEvent);
 
       events.onDoubleClick(payload);
 
@@ -87,7 +87,7 @@ describe('utils', () => {
     });
 
     it('should not call onClick event if onDblClick event called', () => {
-      const events = createHandlers(clickEvent, dblClickEvent);
+      const events = createClickHandlers(clickEvent, dblClickEvent);
 
       events.onClick();
       events.onDoubleClick();

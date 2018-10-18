@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { createHandlers } from '@devexpress/dx-core';
+import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 
 const Appointment = () => null;
@@ -13,7 +13,7 @@ const defaultProps = {
 
 jest.mock('@devexpress/dx-core', () => ({
   ...require.requireActual('@devexpress/dx-core'),
-  createHandlers: jest.fn(),
+  createClickHandlers: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -41,7 +41,7 @@ const defaultDeps = {
 
 describe('Appointments', () => {
   beforeEach(() => {
-    createHandlers.mockImplementation((click, dblClick) => ({
+    createClickHandlers.mockImplementation((click, dblClick) => ({
       onClick: click,
       onDoubleClick: dblClick,
     }));
@@ -90,7 +90,7 @@ describe('Appointments', () => {
       </PluginHost>
     )).find(Appointment);
 
-    expect(createHandlers)
+    expect(createClickHandlers)
       .toHaveBeenCalledWith(
         defaultDeps.template.appointment.onClick,
         defaultDeps.template.appointment.onDoubleClick,

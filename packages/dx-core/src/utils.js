@@ -20,19 +20,19 @@ export const insertPlugin = (array, newItem) => {
   return result;
 };
 
-export const createHandlers = (clickEvent, dblClickEvent) => {
+export const createClickHandlers = (click, dblClick) => {
   let timeoutId;
-  const onClick = clickEvent ? (payload) => {
+  const onClick = click ? (e) => {
     if (!timeoutId) {
       timeoutId = setTimeout(() => {
         clearTimeout(timeoutId);
-        clickEvent(payload);
+        click(e);
       }, DELAY);
     }
   } : undefined;
-  const onDoubleClick = dblClickEvent ? (payload) => {
+  const onDoubleClick = dblClick ? (e) => {
     clearTimeout(timeoutId);
-    dblClickEvent(payload);
+    dblClick(e);
   } : undefined;
 
   return {

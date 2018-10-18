@@ -36,9 +36,9 @@ const defaultProps = {
   messages: {},
   cellComponent: () => null,
   rowComponent: () => null,
-  textComponent: () => <div className="text" />,
+  titleCellComponent: () => <div className="titleCell" />,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div className="container">{children}</div>,
+  appointmentLayerComponent: ({ children }) => <div className="layer">{children}</div>,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   layoutComponent: ({ children }) => <div className="layout">{children}</div>,
 };
@@ -84,7 +84,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render appointment layer', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -94,11 +94,11 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
+      expect(tree.find('.layer').exists())
         .toBeTruthy();
     });
 
-    it('should render text component', () => {
+    it('should render title cell component', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -108,7 +108,7 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      expect(tree.find('.text').exists())
+      expect(tree.find('.titleCell').exists())
         .toBeTruthy();
     });
   });

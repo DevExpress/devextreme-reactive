@@ -22,32 +22,32 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  text: {
+  title: {
     padding: theme.spacing.unit,
     ...theme.typography.caption,
   },
 });
 
-export const TitleBase = ({
+export const TitleCellBase = ({
   classes, getMessage, className, ...restProps
 }) => (
   <div className={classNames(classes.container, className)} {...restProps}>
     <div className={classes.content}>
-      <Typography className={classes.text} variant="body2">
+      <Typography className={classes.title} variant="body2">
         {getMessage('allDay')}
       </Typography>
     </div>
   </div>
 );
 
-TitleBase.propTypes = {
+TitleCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 
-TitleBase.defaultProps = {
+TitleCellBase.defaultProps = {
   className: undefined,
 };
 
-export const Title = withStyles(styles, { name: 'Title' })(TitleBase);
+export const TitleCell = withStyles(styles, { name: 'TitleCell' })(TitleCellBase);

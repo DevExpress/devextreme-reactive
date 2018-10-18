@@ -39,7 +39,7 @@ const getPieAnimationName = () => {
 
 const getDefaultAreaAnimationOptions = () => '1s';
 
-const getDefaultPieAnimationOptions = ({ index }) => `${(index + 1) * 0.2}s`;
+const getDefaultPieAnimationOptions = ({ index }) => `${0.7 + index * 0.1}s`;
 
 export const getAreaAnimationStyle = (scales) => {
   const animationStyle = {

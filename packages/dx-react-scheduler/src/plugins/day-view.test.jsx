@@ -222,18 +222,18 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render date table', () => {
+    it('should render time table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timeTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="time-table" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.date-table').exists())
+      expect(tree.find('.time-table').exists())
         .toBeTruthy();
     });
 

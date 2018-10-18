@@ -25,7 +25,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
+    timeTableRef: {
       querySelectorAll: () => {},
     },
     availableViews: [],
@@ -52,9 +52,9 @@ const defaultProps = {
   dayScaleLayoutComponent: () => null,
   dayScaleCellComponent: () => null,
   dayScaleRowComponent: () => null,
-  dateTableLayoutComponent: () => null,
-  dateTableRowComponent: () => null,
-  dateTableCellComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
   containerComponent: () => null,
 };
@@ -228,7 +228,7 @@ describe('Day View', () => {
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            dateTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="date-table" />}
           />
         </PluginHost>
       ));

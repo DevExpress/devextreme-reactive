@@ -27,15 +27,15 @@ export class DayView extends React.PureComponent {
     super(props);
 
     this.state = {
-      dateTableRef: null,
+      timeTableRef: null,
     };
 
-    this.dateTableRef = this.dateTableRef.bind(this);
+    this.timeTableRef = this.timeTableRef.bind(this);
 
     this.sidebarPlaceholder = () => <TemplatePlaceholder name="sidebar" />;
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
     this.dayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-    this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
@@ -86,8 +86,8 @@ export class DayView extends React.PureComponent {
     );
   }
 
-  dateTableRef(dateTableRef) {
-    this.setState({ dateTableRef });
+  timeTableRef(timeTableRef) {
+    this.setState({ timeTableRef });
   }
 
   render() {
@@ -100,14 +100,14 @@ export class DayView extends React.PureComponent {
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
-      dateTableLayoutComponent: DateTable,
-      dateTableRowComponent: DateTableRow,
-      dateTableCellComponent: DateTableCell,
+      timeTableLayoutComponent: TimeTable,
+      timeTableRowComponent: TimeTableRow,
+      timeTableCellComponent: TimeTableCell,
       containerComponent: Container,
       cellDuration,
       name: viewName,
     } = this.props;
-    const { dateTableRef: stateDateTableRef } = this.state;
+    const { timeTableRef: stateTimeTableRef } = this.state;
 
     return (
       <Plugin
@@ -129,7 +129,7 @@ export class DayView extends React.PureComponent {
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
                   dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
-                  mainComponent={this.dateTablePlaceholder}
+                  mainComponent={this.timeTablePlaceholder}
                   sidebarComponent={this.sidebarPlaceholder}
                 />
               );
@@ -189,7 +189,7 @@ export class DayView extends React.PureComponent {
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, [],
               );
-              const rects = stateDateTableRef ? calculateRectByDateIntervals(
+              const rects = stateTimeTableRef ? calculateRectByDateIntervals(
                 {
                   growDirection: VERTICAL_TYPE,
                   multiline: false,
@@ -202,17 +202,17 @@ export class DayView extends React.PureComponent {
                   cellDuration,
                   currentDate,
                   viewCellsData,
-                  cellElements: stateDateTableRef.querySelectorAll('td'),
+                  cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
-                  <DateTable
-                    rowComponent={DateTableRow}
+                  <TimeTable
+                    rowComponent={TimeTableRow}
                     cellComponent={this.cellPlaceholder}
-                    dateTableRef={this.dateTableRef}
+                    tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />
                   <Container>
@@ -239,7 +239,7 @@ export class DayView extends React.PureComponent {
               {({ currentView }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
                 return (
-                  <DateTableCell {...params} />
+                  <TimeTableCell {...params} />
                 );
               }}
             </TemplateConnector>
@@ -259,9 +259,9 @@ DayView.propTypes = {
   dayScaleLayoutComponent: PropTypes.func.isRequired,
   dayScaleCellComponent: PropTypes.func.isRequired,
   dayScaleRowComponent: PropTypes.func.isRequired,
-  dateTableLayoutComponent: PropTypes.func.isRequired,
-  dateTableRowComponent: PropTypes.func.isRequired,
-  dateTableCellComponent: PropTypes.func.isRequired,
+  timeTableLayoutComponent: PropTypes.func.isRequired,
+  timeTableRowComponent: PropTypes.func.isRequired,
+  timeTableCellComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
@@ -288,7 +288,7 @@ DayView.components = {
   dayScaleLayoutComponent: 'DayScaleLayout',
   dayScaleCellComponent: 'DayScaleCell',
   dayScaleRowComponent: 'DayScaleRow',
-  dateTableLayoutComponent: 'DateTableLayout',
-  dateTableCellComponent: 'DateTableCell',
-  dateTableRowComponent: 'DateTableRow',
+  timeTableLayoutComponent: 'TimeTableLayout',
+  timeTableCellComponent: 'TimeTableCell',
+  timeTableRowComponent: 'TimeTableRow',
 };

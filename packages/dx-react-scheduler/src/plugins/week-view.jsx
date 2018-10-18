@@ -218,7 +218,7 @@ export class WeekView extends React.PureComponent {
                   <DateTable
                     rowComponent={DateTableRow}
                     cellComponent={this.cellPlaceholder}
-                    dateTableRef={this.dateTableRef}
+                    tableRef={this.dateTableRef}
                     cellsData={viewCellsData}
                   />
                   <Container>

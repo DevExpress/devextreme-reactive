@@ -5,8 +5,8 @@ import { Cell } from './cell';
 describe('Horizontal view DateTable', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16),
-    isCurrent: false,
-    isOtherMonth: false,
+    current: false,
+    otherMonth: false,
   };
   let classes;
   let shallow;

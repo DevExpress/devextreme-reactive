@@ -32,15 +32,15 @@ const LayoutBase = ({
             {row.map(({
               startDate,
               endDate,
-              isCurrent,
-              isOtherMonth,
+              current,
+              otherMonth,
             }) => (
               <Cell
                 key={startDate}
                 startDate={startDate}
                 endDate={endDate}
-                isCurrent={isCurrent}
-                isOtherMonth={isOtherMonth}
+                current={current}
+                otherMonth={otherMonth}
               />
             ))}
           </Row>

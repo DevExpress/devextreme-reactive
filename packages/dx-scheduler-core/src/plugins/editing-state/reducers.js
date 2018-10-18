@@ -1,6 +1,6 @@
 export const addAppointment = (
-  addedAppointment, { appointment } = { appointment: {} },
-) => appointment;
+  addedAppointmentData, { appointmentData } = { appointmentData: {} },
+) => appointmentData;
 
 export const changeAddedAppointment = (
   addedAppointment, { change },

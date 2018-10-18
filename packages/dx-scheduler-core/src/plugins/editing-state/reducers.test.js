@@ -12,7 +12,7 @@ describe('EditingState reducers', () => {
   describe('#addAppointment', () => {
     it('should work', () => {
       const addedAppointment = { a: 1 };
-      const payload = { appointment: { a: 2 } };
+      const payload = { appointmentData: { a: 2 } };
 
       const nextAddedAppointment = addAppointment(addedAppointment, payload);
       expect(nextAddedAppointment).toEqual({ a: 2 });

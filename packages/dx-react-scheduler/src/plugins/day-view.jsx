@@ -127,10 +127,10 @@ export class DayView extends React.PureComponent {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  navbarComponent={this.dayScalePlaceholder}
+                  dayScaleComponent={this.dayScalePlaceholder}
                   dayScaleEmptyCellComponent={this.dayScaleEmptyCellPlaceholder}
-                  mainComponent={this.timeTablePlaceholder}
-                  sidebarComponent={this.sidebarPlaceholder}
+                  timeTableComponent={this.timeTablePlaceholder}
+                  timeScaleComponent={this.sidebarPlaceholder}
                 />
               );
             }}

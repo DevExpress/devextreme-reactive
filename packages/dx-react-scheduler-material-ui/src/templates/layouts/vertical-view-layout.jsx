@@ -16,7 +16,7 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  main: {
+  timeTable: {
     position: 'relative',
   },
 });
@@ -24,9 +24,9 @@ const styles = theme => ({
 export class VerticalViewLayoutBase extends React.PureComponent {
   render() {
     const {
-      sidebarComponent: Sidebar,
-      navbarComponent: Navbar,
-      mainComponent: Main,
+      timeScaleComponent: TimeScale,
+      dayScaleComponent: DayScale,
+      timeTableComponent: TimeTable,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       classes,
     } = this.props;
@@ -46,29 +46,28 @@ export class VerticalViewLayoutBase extends React.PureComponent {
           </Grid>
 
           <Grid item xs={11}>
-            <Navbar />
+            <DayScale />
           </Grid>
         </Grid>
 
         <Grid container direction="row">
           <Grid item xs={1}>
-            <Sidebar />
+            <TimeScale />
           </Grid>
 
-          <Grid item xs={11} className={classes.main}>
-            <Main />
+          <Grid item xs={11} className={classes.timeTable}>
+            <TimeTable />
           </Grid>
         </Grid>
-
       </Grid>
     );
   }
 }
 
 VerticalViewLayoutBase.propTypes = {
-  sidebarComponent: PropTypes.func.isRequired,
-  navbarComponent: PropTypes.func.isRequired,
-  mainComponent: PropTypes.func.isRequired,
+  timeScaleComponent: PropTypes.func.isRequired,
+  dayScaleComponent: PropTypes.func.isRequired,
+  timeTableComponent: PropTypes.func.isRequired,
   dayScaleEmptyCellComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

@@ -27,7 +27,6 @@ data | Array&lt;any&gt; | | An array containing custom data.
 width? | number | undefined | Chart width.
 height? | number | 500 | Chart height.
 rootComponent | ComponentType&lt;[Chart.RootProps](#chartrootprops)&gt; | | A component that renders the chart root layout.
-labelComponent | ComponentType&lt;[Chart.LabelProps](#chartlabelprops)&gt; | | A component that renders the chart's label.
 
 ## Interfaces
 

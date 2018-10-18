@@ -21,4 +21,5 @@ ChartWithPalette.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const Chart = withComponents({ Root, Label })(ChartWithPalette);
+export const Chart = withComponents({ Root })(ChartWithPalette);
+Chart.Label = Label;

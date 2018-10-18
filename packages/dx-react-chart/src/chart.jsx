@@ -25,7 +25,6 @@ class RawChart extends React.PureComponent {
       height,
       children,
       rootComponent,
-      labelComponent,
       ...restProps
     } = this.props;
     return ((
@@ -62,7 +61,6 @@ class RawChart extends React.PureComponent {
 RawChart.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  labelComponent: PropTypes.func.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
   children: PropTypes.node,
@@ -76,7 +74,7 @@ RawChart.defaultProps = {
 
 RawChart.components = {
   rootComponent: 'Root',
-  labelComponent: 'Label',
 };
 
-export const Chart = withComponents({ Root, Label })(RawChart);
+export const Chart = withComponents({ Root })(RawChart);
+Chart.Label = Label;

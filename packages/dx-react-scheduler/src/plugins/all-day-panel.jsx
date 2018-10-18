@@ -48,11 +48,11 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
-      textComponent: Text,
+      titleCellComponent: TitleCell,
       messages,
     } = this.props;
     const { tableRef } = this.state;
@@ -68,7 +68,7 @@ export class AllDayPanel extends React.PureComponent {
             {({ currentView }) => {
               if (currentView === MONTH) return null;
               return (
-                <Text getMessage={getMessage} />
+                <TitleCell getMessage={getMessage} />
               );
             }}
           </TemplateConnector>
@@ -108,7 +108,7 @@ export class AllDayPanel extends React.PureComponent {
                   rowComponent={Row}
                   cellsData={allDayCells(viewCellsData)}
                 >
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({ dataItem, type, ...geometry }, index) => (
                       <AppointmentPlaceholder
                         style={getAppointmentStyle(geometry)}
@@ -117,7 +117,7 @@ export class AllDayPanel extends React.PureComponent {
                         data={dataItem}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </Layout>
               );
             }}
@@ -142,11 +142,11 @@ export class AllDayPanel extends React.PureComponent {
 }
 
 AllDayPanel.propTypes = {
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  textComponent: PropTypes.func.isRequired,
+  titleCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.shape({
     allDay: PropTypes.string,
   }),
@@ -157,9 +157,9 @@ AllDayPanel.defaultProps = {
 };
 
 AllDayPanel.components = {
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   layoutComponent: 'Layout',
   cellComponent: 'Cell',
   rowComponent: 'Row',
-  textComponent: 'Text',
+  titleCellComponent: 'TitleCell',
 };

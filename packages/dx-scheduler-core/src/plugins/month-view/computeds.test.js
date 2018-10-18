@@ -27,11 +27,11 @@ describe('Month view computeds', () => {
       const lastCell = cells[5][6];
       const cell = cells[2][5];
 
-      expect(firstCell.isOtherMonth)
+      expect(firstCell.otherMonth)
         .toBeTruthy();
-      expect(lastCell.isOtherMonth)
+      expect(lastCell.otherMonth)
         .toBeTruthy();
-      expect(cell.isOtherMonth)
+      expect(cell.otherMonth)
         .toBeFalsy();
     });
 
@@ -40,9 +40,9 @@ describe('Month view computeds', () => {
       const currentCell = cells[4][0];
       const cell = cells[2][5];
 
-      expect(currentCell.isCurrent)
+      expect(currentCell.current)
         .toBeTruthy();
-      expect(cell.isCurrent)
+      expect(cell.current)
         .toBeFalsy();
     });
 
@@ -88,13 +88,13 @@ describe('Month view computeds', () => {
     it('should mark other month with interval count', () => {
       const cells = monthCellsData(new Date(2010, 0, 1), 0, 2);
 
-      expect(cells[0][4].isOtherMonth)
+      expect(cells[0][4].otherMonth)
         .toBeTruthy();
-      expect(cells[0][5].isOtherMonth)
+      expect(cells[0][5].otherMonth)
         .toBeFalsy();
-      expect(cells[9][0].isOtherMonth)
+      expect(cells[9][0].otherMonth)
         .toBeFalsy();
-      expect(cells[9][1].isOtherMonth)
+      expect(cells[9][1].otherMonth)
         .toBeTruthy();
     });
   });

@@ -23,7 +23,7 @@ describe('AppointmentTooltip', () => {
   };
   const defaultProps = {
     layoutComponent: () => <div />,
-    headComponent: () => null,
+    headerComponent: () => null,
     contentComponent: () => null,
     commandButtonComponent: () => null,
   };

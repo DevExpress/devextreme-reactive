@@ -103,7 +103,7 @@ export class DayView extends React.PureComponent {
       timeTableLayoutComponent: TimeTable,
       timeTableRowComponent: TimeTableRow,
       timeTableCellComponent: TimeTableCell,
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
       cellDuration,
       name: viewName,
     } = this.props;
@@ -215,7 +215,7 @@ export class DayView extends React.PureComponent {
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
@@ -226,7 +226,7 @@ export class DayView extends React.PureComponent {
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </React.Fragment>
               );
             }}
@@ -262,7 +262,7 @@ DayView.propTypes = {
   timeTableLayoutComponent: PropTypes.func.isRequired,
   timeTableRowComponent: PropTypes.func.isRequired,
   timeTableCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,
@@ -280,7 +280,7 @@ DayView.defaultProps = {
 
 DayView.components = {
   layoutComponent: 'Layout',
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
   timeScaleLayoutComponent: 'TimeScaleLayout',
   timeScaleCellComponent: 'TimeScaleCell',

@@ -56,7 +56,7 @@ const defaultProps = {
   timeTableRowComponent: () => null,
   timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
-  containerComponent: () => null,
+  appointmentLayerComponent: () => null,
 };
 
 describe('Day View', () => {

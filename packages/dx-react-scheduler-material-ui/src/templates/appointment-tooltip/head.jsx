@@ -13,7 +13,7 @@ const styles = theme => ({
 });
 
 const HeadBase = ({
-  appointment,
+  appointmentData,
   classes,
   className,
   children,
@@ -28,13 +28,14 @@ const HeadBase = ({
 );
 
 HeadBase.propTypes = {
-  appointment: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
 HeadBase.defaultProps = {
+  appointmentData: undefined,
   className: undefined,
   children: undefined,
 };

@@ -58,7 +58,7 @@ const LayoutBase = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...restProps}
     >
-      <Head appointment={data}>
+      <Head appointmentData={data}>
         <div>
           <div className={classes.buttonsLeft}>
             {showOpenButton
@@ -74,7 +74,7 @@ const LayoutBase = ({
           {getAppointmentTitle(data)}
         </div>
       </Head>
-      <Content appointment={data}>
+      <Content appointmentData={data}>
         <div className={classes.text}>
           {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>

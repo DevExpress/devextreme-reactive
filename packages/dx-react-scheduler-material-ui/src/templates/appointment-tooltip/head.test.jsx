@@ -5,17 +5,14 @@ import { Head } from './head';
 describe('Appointment Tooltip', () => {
   let classes;
   let shallow;
-  const defaultProps = {
-    appointment: {},
-  };
   beforeAll(() => {
-    classes = getClasses(<Head {...defaultProps} />);
+    classes = getClasses(<Head />);
     shallow = createShallow({ dive: true });
   });
   describe('Head', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Head {...defaultProps} className="custom-class" />
+        <Head className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -26,7 +23,7 @@ describe('Appointment Tooltip', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Head {...defaultProps} data={{ a: 1 }} />
+        <Head data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -35,7 +32,7 @@ describe('Appointment Tooltip', () => {
 
     it('should render children', () => {
       const tree = shallow((
-        <Head {...defaultProps}>
+        <Head>
           <div className="header-content" />
         </Head>
       ));

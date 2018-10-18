@@ -25,7 +25,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
+    timeTableRef: {
       querySelectorAll: () => {},
     },
     availableViews: [],
@@ -46,17 +46,17 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timePanelLayoutComponent: () => null,
-  timePanelRowComponent: () => null,
-  timePanelCellComponent: () => null,
-  dayPanelLayoutComponent: () => null,
-  dayPanelCellComponent: () => null,
-  dayPanelRowComponent: () => null,
-  dateTableLayoutComponent: () => null,
-  dateTableRowComponent: () => null,
-  dateTableCellComponent: () => null,
+  timeScaleLayoutComponent: () => null,
+  timeScaleRowComponent: () => null,
+  timeScaleCellComponent: () => null,
+  dayScaleLayoutComponent: () => null,
+  dayScaleCellComponent: () => null,
+  dayScaleRowComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
-  containerComponent: () => null,
+  appointmentLayerComponent: () => null,
 };
 
 describe('Day View', () => {
@@ -207,13 +207,13 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render time panel', () => {
+    it('should render time scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timePanelLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={() => <div className="time-panel" />}
           />
         </PluginHost>
       ));
@@ -222,18 +222,18 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render date table', () => {
+    it('should render time table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            dateTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="time-table" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.date-table').exists())
+      expect(tree.find('.time-table').exists())
         .toBeTruthy();
     });
 

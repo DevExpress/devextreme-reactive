@@ -12,8 +12,8 @@ const styles = theme => ({
   },
 });
 
-const HeadBase = ({
-  appointment,
+const HeaderBase = ({
+  appointmentData,
   classes,
   className,
   children,
@@ -27,16 +27,17 @@ const HeadBase = ({
   </div>
 );
 
-HeadBase.propTypes = {
-  appointment: PropTypes.object.isRequired,
+HeaderBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-HeadBase.defaultProps = {
+HeaderBase.defaultProps = {
+  appointmentData: undefined,
   className: undefined,
   children: undefined,
 };
 
-export const Head = withStyles(styles, { name: 'Head' })(HeadBase);
+export const Header = withStyles(styles, { name: 'Header' })(HeaderBase);

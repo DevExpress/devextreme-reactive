@@ -2,12 +2,11 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { monthCells, dayScale, viewBoundTitle } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, viewBoundTitle } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  monthCells: jest.fn(),
-  dayScale: jest.fn(),
+  monthCellsData: jest.fn(),
   viewBoundTitle: jest.fn(),
 }));
 
@@ -64,8 +63,7 @@ const defaultProps = {
 
 describe('DateNavigator', () => {
   beforeEach(() => {
-    monthCells.mockImplementation(() => [[{ value: '2018-04-07' }]]);
-    dayScale.mockImplementation(() => ['Mon', 'Tue', 'Wed']);
+    monthCellsData.mockImplementation(() => [[{ startDate: '2018-04-07' }]]);
     viewBoundTitle.mockImplementation(() => 'July 2018');
   });
   afterEach(() => {
@@ -153,8 +151,8 @@ describe('DateNavigator', () => {
     expect(defaultDeps.action.changeCurrentDate).toHaveBeenCalled();
   });
 
-  it('should calculate calendar cells via the "monthCells" and "dayScale" computeds', () => {
-    const { getCells, getHeaderCells } = mount((
+  it('should calculate calendar cells via the "monthCells" computed', () => {
+    const { getCells } = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <DateNavigator
@@ -164,8 +162,6 @@ describe('DateNavigator', () => {
     )).find(CalendarComponent).props();
 
     expect(getCells())
-      .toEqual([[{ value: '2018-04-07' }]]);
-    expect(getHeaderCells())
-      .toEqual(['Mon', 'Tue', 'Wed']);
+      .toEqual([[{ startDate: '2018-04-07' }]]);
   });
 });

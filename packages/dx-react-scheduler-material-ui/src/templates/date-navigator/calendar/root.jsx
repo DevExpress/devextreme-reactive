@@ -28,7 +28,7 @@ export class Root extends React.PureComponent {
 
   render() {
     const {
-      currentDate, firstDayOfWeek, getHeaderCells, getCells,
+      currentDate, firstDayOfWeek, getCells,
       titleComponent: Title,
       navigationButtonComponent: NavigationButton,
       navigatorComponent: Navigator,
@@ -40,6 +40,7 @@ export class Root extends React.PureComponent {
       ...restProps
     } = this.props;
     const { currentDate: currentDateState } = this.state;
+    const cellsData = getCells(currentDateState, firstDayOfWeek);
     return (
       <div
         {...restProps}
@@ -51,8 +52,8 @@ export class Root extends React.PureComponent {
           onNavigate={this.onNavigate}
         />
         <Table
-          headerCells={getHeaderCells(currentDateState, firstDayOfWeek, 7)}
-          cells={getCells(currentDateState, firstDayOfWeek)}
+          headerCells={cellsData[0]}
+          cells={cellsData}
           rowComponent={Row}
           cellComponent={Cell}
           headerRowComponent={HeaderRow}
@@ -67,7 +68,6 @@ export class Root extends React.PureComponent {
 Root.propTypes = {
   titleComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
-  getHeaderCells: PropTypes.func.isRequired,
   getCells: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,

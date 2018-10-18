@@ -62,7 +62,7 @@ describe('Appointments', () => {
     const {
       appointment: appointmentData,
       style, type,
-      getTitle, getEndDate, getStartDate,
+      getAppointmentTitle, getAppointmentEndDate, getAppointmentStartDate,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
@@ -75,9 +75,9 @@ describe('Appointments', () => {
       position: 'absolute',
     });
     expect(appointmentData).toBe('data');
-    expect(getTitle()).toBe('a');
-    expect(getEndDate()).toBe('2018-07-05');
-    expect(getStartDate()).toBe('2018-07-06');
+    expect(getAppointmentTitle()).toBe('a');
+    expect(getAppointmentEndDate()).toBe('2018-07-05');
+    expect(getAppointmentStartDate()).toBe('2018-07-06');
   });
 
   it('should pass correct event handlers', () => {

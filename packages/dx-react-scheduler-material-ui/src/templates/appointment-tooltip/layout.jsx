@@ -44,7 +44,7 @@ const LayoutBase = ({
   classes,
   ...restProps
 }) => {
-  const { target, appointment = {} } = appointmentMeta;
+  const { target, data = {} } = appointmentMeta;
   const openButtonClickHandler = () => {
     onHide();
     onOpenButtonClick();
@@ -58,7 +58,7 @@ const LayoutBase = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...restProps}
     >
-      <Head appointment={appointment}>
+      <Head appointment={data}>
         <div>
           <div className={classes.buttonsLeft}>
             {showOpenButton
@@ -71,16 +71,16 @@ const LayoutBase = ({
           </div>
         </div>
         <div className={classes.title}>
-          {getAppointmentTitle(appointment)}
+          {getAppointmentTitle(data)}
         </div>
       </Head>
-      <Content appointment={appointment}>
+      <Content appointment={data}>
         <div className={classes.text}>
-          {moment(getAppointmentStartDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>
         {' - '}
         <div className={classes.text}>
-          {moment(getAppointmentEndDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentEndDate(data)).format('h:mm A')}
         </div>
       </Content>
     </Popover>
@@ -101,7 +101,13 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
-  appointmentMeta: PropTypes.object,
+  appointmentMeta: PropTypes.shape({
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
+    data: PropTypes.object,
+  }),
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };

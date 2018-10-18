@@ -77,13 +77,14 @@ export class AppointmentForm extends React.PureComponent {
 
   render() {
     const {
-      allDayEditorComponent: AllDayEditor,
+      allDayComponent: AllDayEditor,
       containerComponent: Container,
       scrollableSpaceContainer: ScrollableSpace,
       staticSpaceContainer: StaticSpace,
       popupComponent: Popup,
-      dateEditorComponent: DateEditor,
-      textEditorComponent: TextEditor,
+      startDateComponent: StartDateEditor,
+      endDateComponent: EndDateEditor,
+      titleComponent: TitleEditor,
       commandButtonComponent: CommandButton,
       readOnly,
       messages,
@@ -137,7 +138,7 @@ export class AppointmentForm extends React.PureComponent {
                 >
                   <Container>
                     <ScrollableSpace>
-                      <TextEditor
+                      <TitleEditor
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
                         value={getAppointmentTitle(changedAppointment)}
@@ -150,7 +151,7 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                      <DateEditor
+                      <StartDateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
                         value={getAppointmentStartDate(changedAppointment)}
@@ -163,7 +164,7 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                      <DateEditor
+                      <EndDateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
                         value={getAppointmentEndDate(changedAppointment)}
@@ -314,10 +315,11 @@ export class AppointmentForm extends React.PureComponent {
 
 AppointmentForm.propTypes = {
   popupComponent: PropTypes.func.isRequired,
-  dateEditorComponent: PropTypes.func.isRequired,
-  textEditorComponent: PropTypes.func.isRequired,
+  startDateComponent: PropTypes.func.isRequired,
+  endDateComponent: PropTypes.func.isRequired,
+  titleComponent: PropTypes.func.isRequired,
   commandButtonComponent: PropTypes.func.isRequired,
-  allDayEditorComponent: PropTypes.func.isRequired,
+  allDayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
   scrollableSpaceContainer: PropTypes.func.isRequired,
   staticSpaceContainer: PropTypes.func.isRequired,
@@ -348,10 +350,11 @@ AppointmentForm.defaultProps = {
 AppointmentForm.components = {
   popupComponent: 'Popup',
   containerComponent: 'Container',
-  dateEditorComponent: 'DateEditor',
-  textEditorComponent: 'TextEditor',
+  startDateComponent: 'StartDateEditor',
+  endDateComponent: 'EndDateEditor',
+  titleComponent: 'TitleEditor',
+  allDayComponent: 'AllDayEditor',
   commandButtonComponent: 'CommandButton',
-  allDayEditorComponent: 'AllDayEditor',
   scrollableSpaceContainer: 'ScrollableSpace',
   staticSpaceContainer: 'StaticSpace',
 };

@@ -1,10 +1,10 @@
-import { buildEventHandler } from './tracker';
+import { buildEventHandlers } from './tracker';
 
 window.pageXOffset = 120; // eslint-disable-line no-undef
 window.pageYOffset = 110; // eslint-disable-line no-undef
 
 describe('Tracker', () => {
-  describe('#buildEventHandler', () => {
+  describe('#buildEventHandlers', () => {
     const handler1 = jest.fn();
     const handler2 = jest.fn();
     const getSeriesPoints = jest.fn();
@@ -34,10 +34,10 @@ describe('Tracker', () => {
       getBoundingClientRect: () => ({ left: 40, top: 30 }),
     };
 
-    const call = () => buildEventHandler(
+    const call = () => buildEventHandlers(
       { series: [series1, series2, series3], getSeriesPoints },
-      [handler1, handler2],
-    );
+      { clickHandlers: [handler1, handler2], pointerMoveHandlers: [] },
+    ).click;
 
     afterEach(jest.clearAllMocks);
 
@@ -87,6 +87,47 @@ describe('Tracker', () => {
       expect(series1.createHitTester).not.toBeCalled();
       expect(series2.createHitTester).not.toBeCalled();
       expect(series3.createHitTester).not.toBeCalled();
+    });
+
+    it('should create only click handlers', () => {
+      const handlers = buildEventHandlers(
+        { series: [series1, series2, series3], getSeriesPoints }, {
+          clickHandlers: [1], pointerMoveHandlers: [],
+        },
+      );
+
+      expect(handlers).toEqual({
+        click: expect.any(Function),
+      });
+    });
+
+    it('should create only pointer move handlers', () => {
+      const handlers = buildEventHandlers(
+        { series: [series1, series2, series3], getSeriesPoints }, {
+          clickHandlers: [], pointerMoveHandlers: [1],
+        },
+      );
+
+      expect(handlers).toEqual({
+        pointermove: expect.any(Function),
+        pointerleave: expect.any(Function),
+      });
+    });
+
+    it('should raise event on pointer leave', () => {
+      const { pointerleave } = buildEventHandlers(
+        { series: [series1, series2, series3], getSeriesPoints }, {
+          clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
+        },
+      );
+      pointerleave({
+        clientX: 572,
+        clientY: 421,
+        currentTarget,
+      });
+
+      expect(handler1).toBeCalledWith({ coords: [412, 281], targets: [] });
+      expect(handler2).toBeCalledWith({ coords: [412, 281], targets: [] });
     });
   });
 });

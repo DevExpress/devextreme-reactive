@@ -9,7 +9,8 @@ const getEventCoords = (e) => {
   ];
 };
 
-export const buildEventHandler = ({
+// TODO: First argument should be just a series list.
+const buildEventHandler = ({
   series: seriesList,
   getSeriesPoints, data, scales,
   stacks, scaleExtension,
@@ -39,4 +40,22 @@ export const buildEventHandler = ({
     const arg = { coords, targets };
     handlers.forEach(handler => handler(arg));
   };
+};
+
+const buildLeaveEventHandler = handlers => (e) => {
+  const coords = getEventCoords(e);
+  const arg = { coords, targets: [] };
+  handlers.forEach(handler => handler(arg));
+};
+
+export const buildEventHandlers = (context, { clickHandlers, pointerMoveHandlers }) => {
+  const handlers = {};
+  if (clickHandlers.length) {
+    handlers.click = buildEventHandler(context, clickHandlers);
+  }
+  if (pointerMoveHandlers.length) {
+    handlers.pointermove = buildEventHandler(context, pointerMoveHandlers);
+    handlers.pointerleave = buildLeaveEventHandler(pointerMoveHandlers);
+  }
+  return handlers;
 };

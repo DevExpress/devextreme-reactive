@@ -2,21 +2,29 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { buildEventHandler } from '@devexpress/dx-chart-core';
+import { buildEventHandlers } from '@devexpress/dx-chart-core';
 import { Tracker } from './tracker';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  buildEventHandler: jest.fn(),
+  buildEventHandlers: jest.fn(),
 }));
 
 describe('Tracker', () => {
   afterEach(jest.clearAllMocks);
 
-  it('should pass empty params to template', () => {
+  it('should pass params to template', () => {
+    buildEventHandlers.mockReturnValue({
+      click: 'test-click',
+      pointermove: 'test-pointer-move',
+      pointerleave: 'test-pointer-leave',
+    });
     const mock = jest.fn().mockReturnValue(null);
     mount(
       <PluginHost>
         {pluginDepsToComponents({
+          getter: {
+            tag: 'test',
+          },
           template: {
             canvas: {},
           },
@@ -30,48 +38,15 @@ describe('Tracker', () => {
       </PluginHost>,
     );
 
-    expect(mock).toBeCalledWith({});
-  });
-
-  it('should pass event handlers to template', () => {
-    buildEventHandler.mockReturnValueOnce('handler-1');
-    buildEventHandler.mockReturnValueOnce('handler-2');
-    const testOnClick = () => 0;
-    const testOnPointerMove = () => 0;
-    const mock = jest.fn().mockReturnValue(null);
-    mount(
-      <PluginHost>
-        {pluginDepsToComponents({
-          template: {
-            canvas: {},
-          },
-          getter: {
-            tag: 'test',
-          },
-        })}
-
-        <Template name="canvas">
-          {mock}
-        </Template>
-
-        <Tracker onClick={testOnClick} onPointerMove={testOnPointerMove} />
-      </PluginHost>,
-    );
-
     expect(mock).toBeCalledWith({
-      onClick: 'handler-1',
-      onPointerMove: 'handler-2',
+      onClick: 'test-click',
+      onPointerMove: 'test-pointer-move',
+      onPointerLeave: 'test-pointer-leave',
     });
-    expect(buildEventHandler.mock.calls).toEqual([
-      [
-        { tag: 'test', clickHandlers: [testOnClick], pointerMoveHandlers: [testOnPointerMove] },
-        [testOnClick],
-      ],
-      [
-        { tag: 'test', clickHandlers: [testOnClick], pointerMoveHandlers: [testOnPointerMove] },
-        [testOnPointerMove],
-      ],
-    ]);
+    expect(buildEventHandlers).toBeCalledWith(
+      { tag: 'test', clickHandlers: [], pointerMoveHandlers: [] },
+      { clickHandlers: [], pointerMoveHandlers: [] },
+    );
   });
 
   it('should declare getters', () => {

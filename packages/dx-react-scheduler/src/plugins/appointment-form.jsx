@@ -79,8 +79,8 @@ export class AppointmentForm extends React.PureComponent {
     const {
       allDayComponent: AllDayEditor,
       containerComponent: Container,
-      scrollableSpaceContainer: ScrollableSpace,
-      staticSpaceContainer: StaticSpace,
+      scrollableAreaComponent: ScrollableArea,
+      staticAreaComponent: StaticArea,
       popupComponent: Popup,
       startDateComponent: StartDateEditor,
       endDateComponent: EndDateEditor,
@@ -137,7 +137,7 @@ export class AppointmentForm extends React.PureComponent {
                   visible={visible}
                 >
                   <Container>
-                    <ScrollableSpace>
+                    <ScrollableArea>
                       <TitleEditor
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
@@ -190,8 +190,8 @@ export class AppointmentForm extends React.PureComponent {
                           ),
                         }}
                       />
-                    </ScrollableSpace>
-                    <StaticSpace>
+                    </ScrollableArea>
+                    <StaticArea>
                       <CommandButton
                         text={getMessage('cancelCommand')}
                         onExecute={() => {
@@ -225,7 +225,7 @@ export class AppointmentForm extends React.PureComponent {
                           id={COMMIT_COMMAND_BUTTON}
                         />
                       )}
-                    </StaticSpace>
+                    </StaticArea>
                   </Container>
                 </Popup>
               );
@@ -321,8 +321,8 @@ AppointmentForm.propTypes = {
   commandButtonComponent: PropTypes.func.isRequired,
   allDayComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  scrollableSpaceContainer: PropTypes.func.isRequired,
-  staticSpaceContainer: PropTypes.func.isRequired,
+  scrollableAreaComponent: PropTypes.func.isRequired,
+  staticAreaComponent: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
   appointment: PropTypes.object,
@@ -355,6 +355,6 @@ AppointmentForm.components = {
   titleComponent: 'TitleEditor',
   allDayComponent: 'AllDayEditor',
   commandButtonComponent: 'CommandButton',
-  scrollableSpaceContainer: 'ScrollableSpace',
-  staticSpaceContainer: 'StaticSpace',
+  scrollableAreaComponent: 'ScrollableArea',
+  staticAreaComponent: 'StaticArea',
 };

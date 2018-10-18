@@ -41,8 +41,8 @@ describe('AppointmentForm', () => {
     /* eslint-disable react/prop-types */
     popupComponent: ({ children }) => <div>{children}</div>,
     containerComponent: ({ children }) => <div>{children}</div>,
-    scrollableSpaceContainer: ({ children }) => <div>{children}</div>,
-    staticSpaceContainer: ({ children }) => <div>{children}</div>,
+    scrollableAreaComponent: ({ children }) => <div>{children}</div>,
+    staticAreaComponent: ({ children }) => <div>{children}</div>,
     startDateComponent: () => null,
     endDateComponent: () => null,
     titleComponent: () => null,

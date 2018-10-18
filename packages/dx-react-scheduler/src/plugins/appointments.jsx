@@ -3,9 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   Plugin, Template, TemplateConnector,
 } from '@devexpress/dx-react-core';
-import {
-  createHandlers,
-} from '@devexpress/dx-core';
+import { createHandlers } from '@devexpress/dx-core';
 
 export class Appointments extends React.PureComponent {
   render() {

@@ -49,11 +49,11 @@ const TableBase = ({
         <Row
           key={row[0].startDate.toString()}
         >
-          {row.map(({ startDate, isOtherMonth, isCurrent }) => (
+          {row.map(({ startDate, otherMonth, current }) => (
             <Cell
               key={startDate.toString()}
-              otherMonth={isOtherMonth}
-              current={isCurrent}
+              otherMonth={otherMonth}
+              current={current}
               onClick={() => {
                 onCellClick({ nextDate: startDate });
               }}

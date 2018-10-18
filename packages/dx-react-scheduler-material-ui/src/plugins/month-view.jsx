@@ -8,8 +8,8 @@ import { Container } from '../templates/appointment/container';
 import { Layout as DateTableLayout } from '../templates/views/horizontal/date-table/layout';
 import { Cell as DateTableCell } from '../templates/views/horizontal/date-table/cell';
 
-import { Layout as DayPanelLayout } from '../templates/views/common/day-panel/layout';
-import { Cell as DayPanelCell } from '../templates/views/horizontal/day-panel/cell';
+import { Layout as DayPanelLayout } from '../templates/views/common/day-scale/layout';
+import { Cell as DayPanelCell } from '../templates/views/horizontal/day-scale/cell';
 
 export const MonthView = withComponents({
   Layout,

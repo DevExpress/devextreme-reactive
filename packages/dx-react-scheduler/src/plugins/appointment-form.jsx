@@ -9,7 +9,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  setAppointment,
+  setAppointmentData,
   isAllDayCell,
   callActionIfExists,
   changeAppointmentField,
@@ -38,14 +38,14 @@ export class AppointmentForm extends React.PureComponent {
 
     this.state = {
       visible: props.visible,
-      appointment: props.appointment || {},
+      appointmentData: props.appointmentData || {},
     };
 
     const stateHelper = createStateHelper(
       this,
       {
         visible: () => props.onVisibilityChange,
-        appointment: () => props.onAppointmentChange,
+        appointmentData: () => props.onAppointmentDataChange,
       },
     );
 
@@ -55,11 +55,11 @@ export class AppointmentForm extends React.PureComponent {
     };
     this.toggleVisibility = stateHelper.applyFieldReducer
       .bind(stateHelper, 'visible', toggleVisibility);
-    this.setAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'appointment', setAppointment);
+    this.setAppointmentData = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'appointmentData', setAppointmentData);
 
-    this.openFormHandler = (appointment) => {
-      this.setAppointment({ appointment });
+    this.openFormHandler = (appointmentData) => {
+      this.setAppointmentData({ appointmentData });
       this.toggleVisibility();
     };
   }
@@ -67,10 +67,10 @@ export class AppointmentForm extends React.PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       visible = prevState.visible,
-      appointment = prevState.appointment,
+      appointmentData = prevState.appointmentData,
     } = nextProps;
     return {
-      appointment,
+      appointmentData,
       visible,
     };
   }
@@ -89,7 +89,7 @@ export class AppointmentForm extends React.PureComponent {
       readOnly,
       messages,
     } = this.props;
-    const { visible, appointment } = this.state;
+    const { visible, appointmentData } = this.state;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     return (
@@ -128,7 +128,7 @@ export class AppointmentForm extends React.PureComponent {
             }) => {
               const isNew = editingAppointmentId === undefined;
               const changedAppointment = {
-                ...appointment,
+                ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
 
@@ -287,7 +287,7 @@ export class AppointmentForm extends React.PureComponent {
               {(getters, {
                 addAppointment,
               }) => {
-                const newAppointment = {
+                const newAppointmentData = {
                   title: undefined,
                   startDate: params.startDate,
                   endDate: params.endDate,
@@ -298,8 +298,8 @@ export class AppointmentForm extends React.PureComponent {
                     params={{
                       ...params,
                       onDoubleClick: () => {
-                        this.openFormHandler(newAppointment);
-                        callActionIfExists(addAppointment, { appointment: newAppointment });
+                        this.openFormHandler(newAppointmentData);
+                        callActionIfExists(addAppointment, { appointmentData: newAppointmentData });
                       },
                     }}
                   />
@@ -325,9 +325,9 @@ AppointmentForm.propTypes = {
   staticAreaComponent: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   visible: PropTypes.bool,
-  appointment: PropTypes.object,
+  appointmentData: PropTypes.object,
   onVisibilityChange: PropTypes.func,
-  onAppointmentChange: PropTypes.func,
+  onAppointmentDataChange: PropTypes.func,
   messages: PropTypes.shape({
     allDayText: PropTypes.string,
     titleLabel: PropTypes.string,
@@ -341,9 +341,9 @@ AppointmentForm.propTypes = {
 AppointmentForm.defaultProps = {
   readOnly: false,
   visible: undefined,
-  appointment: undefined,
+  appointmentData: undefined,
   onVisibilityChange: () => undefined,
-  onAppointmentChange: () => undefined,
+  onAppointmentDataChange: () => undefined,
   messages: {},
 };
 

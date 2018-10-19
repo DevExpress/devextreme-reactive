@@ -52,10 +52,10 @@ describe('Calendar', () => {
 
       expect(buttons)
         .toHaveLength(2);
-      expect(buttons.at(0).prop('back'))
-        .toBeTruthy();
-      expect(buttons.at(1).prop('back'))
-        .toBeFalsy();
+      expect(buttons.at(0).prop('type'))
+        .toBe('back');
+      expect(buttons.at(1).prop('type'))
+        .toBe('forward');
     });
     it('should pass onNavigate handler to navigation buttons', () => {
       const onNavigate = jest.fn();

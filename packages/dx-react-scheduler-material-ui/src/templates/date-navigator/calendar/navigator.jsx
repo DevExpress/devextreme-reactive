@@ -25,11 +25,12 @@ const NavigatorBase = ({
     {...restProps}
   >
     <NavigationButton
-      back
+      type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
     <Text currentDate={currentDate} />
     <NavigationButton
+      type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
   </Toolbar>

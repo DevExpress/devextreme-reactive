@@ -33,7 +33,7 @@ const OverlayComponent = ({ children }) => (
   </div>
 );
 const Root = () => null;
-const ToggleButtonComponent = () => null;
+const OpenButtonComponent = () => null;
 const NavigationButton = () => null;
 
 const CalendarComponent = () => null;
@@ -49,7 +49,7 @@ const defaultProps = {
   rootComponent: Root,
   overlayComponent: OverlayComponent,
   navigationButtonComponent: NavigationButton,
-  toggleButtonComponent: ToggleButtonComponent,
+  openButtonComponent: OpenButtonComponent,
 
   calendarComponent: CalendarComponent,
   calendarNavigatorComponent: CalendarNavigatorComponent,
@@ -95,7 +95,7 @@ describe('DateNavigator', () => {
     )).find(Root);
     const {
       navigationButtonComponent,
-      toggleButtonComponent,
+      openButtonComponent,
       navigatorTitle,
       onNavigate,
     } = root.props();
@@ -106,8 +106,8 @@ describe('DateNavigator', () => {
       .toBeTruthy();
     expect(navigationButtonComponent)
       .toBe(NavigationButton);
-    expect(toggleButtonComponent)
-      .toBe(ToggleButtonComponent);
+    expect(openButtonComponent)
+      .toBe(OpenButtonComponent);
     expect(navigatorTitle)
       .toBe('July 2018');
     expect(defaultDeps.action.changeCurrentDate)

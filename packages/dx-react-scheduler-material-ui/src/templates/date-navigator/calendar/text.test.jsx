@@ -25,7 +25,7 @@ describe('Calendar', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.title}`))
+      expect(tree.is(`.${classes.text}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {

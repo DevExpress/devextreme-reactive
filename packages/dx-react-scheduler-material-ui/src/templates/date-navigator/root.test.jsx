@@ -7,7 +7,7 @@ describe('DateNavigator', () => {
     const OpenButton = () => null;
     const NavigationButton = () => null;
     const defaultProps = {
-      onToggle: () => {},
+      onVisibilityToggle: () => {},
       onNavigate: () => {},
       targetRef: () => {},
       navigationButtonComponent: NavigationButton,
@@ -26,22 +26,22 @@ describe('DateNavigator', () => {
         .toMatchObject({ a: 1 });
     });
     it('should render open button', () => {
-      const onToggle = jest.fn();
+      const onVisibilityToggle = jest.fn();
       const openButton = shallow((
         <Root
           {...defaultProps}
           navigatorText="a"
-          onToggle={onToggle}
+          onVisibilityToggle={onVisibilityToggle}
         />
       )).find(OpenButton);
 
-      openButton.props().onToggle();
+      openButton.props().onVisibilityToggle();
 
       expect(openButton.exists())
         .toBeTruthy();
       expect(openButton.props().text)
         .toBe('a');
-      expect(onToggle)
+      expect(onVisibilityToggle)
         .toBeCalled();
     });
     it('should render navigation buttons', () => {

@@ -10,11 +10,11 @@ const styles = {
   },
 };
 
-const ToggleButtonBase = ({
-  text, classes, onToggle, className, ...restProps
+const OpenButtonBase = ({
+  text, classes, onVisibilityToggle, className, ...restProps
 }) => (
   <Button
-    onClick={onToggle}
+    onClick={onVisibilityToggle}
     className={classNames({
       [classes.button]: true,
     }, className)}
@@ -24,16 +24,16 @@ const ToggleButtonBase = ({
   </Button>
 );
 
-ToggleButtonBase.propTypes = {
-  onToggle: PropTypes.func.isRequired,
+OpenButtonBase.propTypes = {
+  onVisibilityToggle: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
 };
 
-ToggleButtonBase.defaultProps = {
+OpenButtonBase.defaultProps = {
   text: '',
   className: undefined,
 };
 
-export const ToggleButton = withStyles(styles, { name: 'ToggleButton' })(ToggleButtonBase);
+export const OpenButton = withStyles(styles, { name: 'OpenButton' })(OpenButtonBase);

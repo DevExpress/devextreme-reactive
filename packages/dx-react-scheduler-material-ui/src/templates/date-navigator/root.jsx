@@ -6,7 +6,7 @@ export const Root = ({
   openButtonComponent: OpenButton,
   navigatorText,
   targetRef,
-  onToggle,
+  onVisibilityToggle,
   onNavigate,
   ...restProps
 }) => (
@@ -19,7 +19,7 @@ export const Root = ({
       onClick={() => { onNavigate({ back: true }); }}
     />
     <OpenButton
-      onToggle={onToggle}
+      onVisibilityToggle={onVisibilityToggle}
       text={navigatorText}
     />
     <NavigationButton
@@ -29,7 +29,7 @@ export const Root = ({
 );
 
 Root.propTypes = {
-  onToggle: PropTypes.func.isRequired,
+  onVisibilityToggle: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   targetRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,

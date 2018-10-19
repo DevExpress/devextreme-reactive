@@ -28,7 +28,7 @@ export class DateNavigator extends React.PureComponent {
       visible: false,
     };
 
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.setTargetRef = this.setTargetRef.bind(this);
   }
@@ -37,7 +37,7 @@ export class DateNavigator extends React.PureComponent {
     this.target = target;
   }
 
-  handleToggle() {
+  handleVisibilityToggle() {
     const { visible } = this.state;
     this.setState({ visible: !visible });
   }
@@ -95,7 +95,7 @@ export class DateNavigator extends React.PureComponent {
                     openButtonComponent={OpenButton}
                     navigatorText={navigatorText}
                     targetRef={this.setTargetRef}
-                    onToggle={this.handleToggle}
+                    onVisibilityToggle={this.handleVisibilityToggle}
                     onNavigate={navigateAction}
                   />
                   <Overlay
@@ -146,7 +146,7 @@ DateNavigator.propTypes = {
 DateNavigator.components = {
   rootComponent: 'Root',
   overlayComponent: 'Overlay',
-  openButtonComponent: 'ToggleButton',
+  openButtonComponent: 'OpenButton',
   navigationButtonComponent: 'NavigationButton',
   calendarComponent: 'Calendar',
   calendarRowComponent: 'CalendarRow',

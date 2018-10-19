@@ -60,10 +60,10 @@ describe('DateNavigator', () => {
 
       expect(buttons)
         .toHaveLength(2);
-      expect(prev.props().back)
-        .toBeTruthy();
-      expect(next.props().back)
-        .toBeFalsy();
+      expect(prev.props().type)
+        .toBe('back');
+      expect(next.props().type)
+        .toBe('forward');
       expect(onNavigate.mock.calls[0][0].back)
         .toBeTruthy();
       expect(onNavigate.mock.calls[1][0].back)

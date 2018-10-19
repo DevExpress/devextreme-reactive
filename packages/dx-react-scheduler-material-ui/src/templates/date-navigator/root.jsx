@@ -15,7 +15,7 @@ export const Root = ({
     {...restProps}
   >
     <NavigationButton
-      back
+      type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
     <OpenButton
@@ -23,6 +23,7 @@ export const Root = ({
       text={navigatorText}
     />
     <NavigationButton
+      type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
   </div>

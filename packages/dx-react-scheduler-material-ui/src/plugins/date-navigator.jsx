@@ -9,7 +9,7 @@ import { Cell as CalendarCell } from '../templates/date-navigator/calendar/cell'
 import { HeaderCell as CalendarHeaderCell } from '../templates/date-navigator/calendar/header-cell';
 import { Row as CalendarRow } from '../templates/date-navigator/calendar/row';
 import { Navigator as CalendarNavigator } from '../templates/date-navigator/calendar/navigator';
-import { Title as CalendarTitle } from '../templates/date-navigator/calendar/title';
+import { Text as CalendarText } from '../templates/date-navigator/calendar/text';
 
 export const DateNavigator = withComponents({
   Root,
@@ -22,6 +22,6 @@ export const DateNavigator = withComponents({
   CalendarRow,
   CalendarHeaderCell,
   CalendarHeaderRow: CalendarRow,
-  CalendarTitle,
+  CalendarText,
   CalendarNavigationButton: NavigationButton,
 })(DateNavigatorBase);

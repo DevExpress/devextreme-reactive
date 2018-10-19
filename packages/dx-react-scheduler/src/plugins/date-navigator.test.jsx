@@ -37,7 +37,7 @@ const ToggleButtonComponent = () => null;
 const NavigationButton = () => null;
 
 const CalendarComponent = () => null;
-const CalendarTitleComponent = () => null;
+const CalendarTextComponent = () => null;
 const CalendarNavigationButtonComponent = () => null;
 const CalendarNavigatorComponent = () => null;
 const CalendarCell = () => null;
@@ -53,7 +53,7 @@ const defaultProps = {
 
   calendarComponent: CalendarComponent,
   calendarNavigatorComponent: CalendarNavigatorComponent,
-  calendarTitleComponent: CalendarTitleComponent,
+  calendarTextComponent: CalendarTextComponent,
   calendarNavigationButtonComponent: CalendarNavigationButtonComponent,
   calendarCellComponent: CalendarCell,
   calendarRowComponent: CalendarRow,
@@ -126,7 +126,7 @@ describe('DateNavigator', () => {
     const {
       currentDate,
       firstDayOfWeek,
-      titleComponent,
+      textComponent,
       navigationButtonComponent,
       rowComponent,
       cellComponent,
@@ -141,7 +141,7 @@ describe('DateNavigator', () => {
     expect(calendar.exists()).toBeTruthy();
     expect(currentDate).toBe('2018-07-05');
     expect(firstDayOfWeek).toBe(1);
-    expect(titleComponent).toBe(CalendarTitleComponent);
+    expect(textComponent).toBe(CalendarTextComponent);
     expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
     expect(rowComponent).toBe(CalendarRow);
     expect(cellComponent).toBe(CalendarCell);

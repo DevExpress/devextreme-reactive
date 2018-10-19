@@ -50,14 +50,14 @@ export class DateNavigator extends React.PureComponent {
     const {
       rootComponent: Root,
       overlayComponent: Overlay,
-      toggleButtonComponent: ToggleButton,
+      openButtonComponent: OpenButton,
       navigationButtonComponent: NavigationButton,
       calendarComponent: Calendar,
       calendarRowComponent: CalendarRow,
       calendarCellComponent: CalendarCell,
       calendarHeaderRowComponent: CalendarHeaderRow,
       calendarHeaderCellComponent: CalendarHeaderCell,
-      calendarTitleComponent: CalendarTitle,
+      calendarTextComponent: CalendarText,
       calendarNavigationButtonComponent: CalendarNavigationButton,
       calendarNavigatorComponent: CalendarNavigator,
     } = this.props;
@@ -92,7 +92,7 @@ export class DateNavigator extends React.PureComponent {
                 <React.Fragment>
                   <Root
                     navigationButtonComponent={NavigationButton}
-                    toggleButtonComponent={ToggleButton}
+                    openButtonComponent={OpenButton}
                     navigatorTitle={navigatorTitle}
                     targetRef={this.setTargetRef}
                     onToggle={this.handleToggle}
@@ -107,7 +107,7 @@ export class DateNavigator extends React.PureComponent {
                       currentDate={currentDate}
                       firstDayOfWeek={firstDayOfWeek}
                       getCells={monthCellsData}
-                      titleComponent={CalendarTitle}
+                      textComponent={CalendarText}
                       navigationButtonComponent={CalendarNavigationButton}
                       rowComponent={CalendarRow}
                       cellComponent={CalendarCell}
@@ -131,14 +131,14 @@ export class DateNavigator extends React.PureComponent {
 DateNavigator.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  openButtonComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   calendarComponent: PropTypes.func.isRequired,
   calendarRowComponent: PropTypes.func.isRequired,
   calendarCellComponent: PropTypes.func.isRequired,
   calendarHeaderRowComponent: PropTypes.func.isRequired,
   calendarHeaderCellComponent: PropTypes.func.isRequired,
-  calendarTitleComponent: PropTypes.func.isRequired,
+  calendarTextComponent: PropTypes.func.isRequired,
   calendarNavigationButtonComponent: PropTypes.func.isRequired,
   calendarNavigatorComponent: PropTypes.func.isRequired,
 };
@@ -146,14 +146,14 @@ DateNavigator.propTypes = {
 DateNavigator.components = {
   rootComponent: 'Root',
   overlayComponent: 'Overlay',
-  toggleButtonComponent: 'ToggleButton',
+  openButtonComponent: 'ToggleButton',
   navigationButtonComponent: 'NavigationButton',
   calendarComponent: 'Calendar',
   calendarRowComponent: 'CalendarRow',
   calendarCellComponent: 'CalendarCell',
   calendarHeaderRowComponent: 'CalendarHeaderRow',
   calendarHeaderCellComponent: 'CalendarHeaderCell',
-  calendarTitleComponent: 'CalendarTitle',
+  calendarTextComponent: 'CalendarText',
   calendarNavigatorComponent: 'CalendarNavigator',
   calendarNavigationButtonComponent: 'CalendarNavigationButton',
 };

@@ -29,7 +29,7 @@ export class Root extends React.PureComponent {
   render() {
     const {
       currentDate, firstDayOfWeek, getCells,
-      titleComponent: Title,
+      textComponent: Text,
       navigationButtonComponent: NavigationButton,
       navigatorComponent: Navigator,
       rowComponent: Row,
@@ -47,7 +47,7 @@ export class Root extends React.PureComponent {
       >
         <Navigator
           currentDate={currentDateState}
-          titleComponent={Title}
+          textComponent={Text}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
         />
@@ -66,7 +66,7 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  titleComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   getCells: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,

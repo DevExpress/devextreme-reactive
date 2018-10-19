@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 
 export const Root = ({
   navigationButtonComponent: NavigationButton,
-  toggleButtonComponent: ToggleButton,
+  openButtonComponent: OpenButton,
   navigatorTitle,
   targetRef,
   onToggle,
@@ -18,7 +18,7 @@ export const Root = ({
       back
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <ToggleButton
+    <OpenButton
       onToggle={onToggle}
       title={navigatorTitle}
     />
@@ -33,7 +33,7 @@ Root.propTypes = {
   onNavigate: PropTypes.func.isRequired,
   targetRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  openButtonComponent: PropTypes.func.isRequired,
   navigatorTitle: PropTypes.string,
 };
 

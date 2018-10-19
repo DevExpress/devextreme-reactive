@@ -15,7 +15,7 @@ const NavigatorBase = ({
   classes,
   className,
   currentDate,
-  titleComponent: Title,
+  textComponent: Text,
   navigationButtonComponent: NavigationButton,
   onNavigate,
   ...restProps
@@ -28,7 +28,7 @@ const NavigatorBase = ({
       back
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <Title currentDate={currentDate} />
+    <Text currentDate={currentDate} />
     <NavigationButton
       onClick={() => { onNavigate({ back: false }); }}
     />
@@ -37,7 +37,7 @@ const NavigatorBase = ({
 
 NavigatorBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  titleComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,

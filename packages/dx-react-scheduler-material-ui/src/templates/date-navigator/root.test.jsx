@@ -4,14 +4,14 @@ import { Root } from './root';
 
 describe('DateNavigator', () => {
   describe('Root', () => {
-    const ToggleButton = () => null;
+    const OpenButton = () => null;
     const NavigationButton = () => null;
     const defaultProps = {
       onToggle: () => {},
       onNavigate: () => {},
       targetRef: () => {},
       navigationButtonComponent: NavigationButton,
-      toggleButtonComponent: ToggleButton,
+      openButtonComponent: OpenButton,
     };
     let shallow;
     beforeAll(() => {
@@ -25,21 +25,21 @@ describe('DateNavigator', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render toggle button', () => {
+    it('should render open button', () => {
       const onToggle = jest.fn();
-      const toggleButton = shallow((
+      const openButton = shallow((
         <Root
           {...defaultProps}
           navigatorTitle="a"
           onToggle={onToggle}
         />
-      )).find(ToggleButton);
+      )).find(OpenButton);
 
-      toggleButton.props().onToggle();
+      openButton.props().onToggle();
 
-      expect(toggleButton.exists())
+      expect(openButton.exists())
         .toBeTruthy();
-      expect(toggleButton.props().title)
+      expect(openButton.props().title)
         .toBe('a');
       expect(onToggle)
         .toBeCalled();

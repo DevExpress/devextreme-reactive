@@ -30,7 +30,7 @@ describe('DateNavigator', () => {
       const openButton = shallow((
         <Root
           {...defaultProps}
-          navigatorTitle="a"
+          navigatorText="a"
           onToggle={onToggle}
         />
       )).find(OpenButton);
@@ -39,7 +39,7 @@ describe('DateNavigator', () => {
 
       expect(openButton.exists())
         .toBeTruthy();
-      expect(openButton.props().title)
+      expect(openButton.props().text)
         .toBe('a');
       expect(onToggle)
         .toBeCalled();

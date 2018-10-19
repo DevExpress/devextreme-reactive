@@ -2,12 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { monthCellsData, viewBoundTitle } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   monthCellsData: jest.fn(),
-  viewBoundTitle: jest.fn(),
+  viewBoundText: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -64,7 +64,7 @@ const defaultProps = {
 describe('DateNavigator', () => {
   beforeEach(() => {
     monthCellsData.mockImplementation(() => [[{ startDate: '2018-04-07' }]]);
-    viewBoundTitle.mockImplementation(() => 'July 2018');
+    viewBoundText.mockImplementation(() => 'July 2018');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -96,7 +96,7 @@ describe('DateNavigator', () => {
     const {
       navigationButtonComponent,
       openButtonComponent,
-      navigatorTitle,
+      navigatorText,
       onNavigate,
     } = root.props();
 
@@ -108,7 +108,7 @@ describe('DateNavigator', () => {
       .toBe(NavigationButton);
     expect(openButtonComponent)
       .toBe(OpenButtonComponent);
-    expect(navigatorTitle)
+    expect(navigatorText)
       .toBe('July 2018');
     expect(defaultDeps.action.changeCurrentDate)
       .toBeCalledWith({ amount: 3, step: 'month' }, expect.any(Object), expect.any(Object));

@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export const Root = ({
   navigationButtonComponent: NavigationButton,
   openButtonComponent: OpenButton,
-  navigatorTitle,
+  navigatorText,
   targetRef,
   onToggle,
   onNavigate,
@@ -20,7 +20,7 @@ export const Root = ({
     />
     <OpenButton
       onToggle={onToggle}
-      title={navigatorTitle}
+      text={navigatorText}
     />
     <NavigationButton
       onClick={() => { onNavigate({ back: false }); }}
@@ -34,9 +34,9 @@ Root.propTypes = {
   targetRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   openButtonComponent: PropTypes.func.isRequired,
-  navigatorTitle: PropTypes.string,
+  navigatorText: PropTypes.string,
 };
 
 Root.defaultProps = {
-  navigatorTitle: '',
+  navigatorText: '',
 };

@@ -11,7 +11,7 @@ const styles = {
 };
 
 const ToggleButtonBase = ({
-  title, classes, onToggle, className, ...restProps
+  text, classes, onToggle, className, ...restProps
 }) => (
   <Button
     onClick={onToggle}
@@ -20,19 +20,19 @@ const ToggleButtonBase = ({
     }, className)}
     {...restProps}
   >
-    {title}
+    {text}
   </Button>
 );
 
 ToggleButtonBase.propTypes = {
   onToggle: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  title: PropTypes.string,
+  text: PropTypes.string,
   className: PropTypes.string,
 };
 
 ToggleButtonBase.defaultProps = {
-  title: '',
+  text: '',
   className: undefined,
 };
 

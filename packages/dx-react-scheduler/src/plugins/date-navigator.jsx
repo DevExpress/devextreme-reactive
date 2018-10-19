@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   monthCellsData,
-  viewBoundTitle,
+  viewBoundText,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -81,7 +81,7 @@ export class DateNavigator extends React.PureComponent {
               changeCurrentDate,
             }) => {
               const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
-              const navigatorTitle = viewBoundTitle(
+              const navigatorText = viewBoundText(
                 startViewDate,
                 endViewDate,
                 currentView,
@@ -93,7 +93,7 @@ export class DateNavigator extends React.PureComponent {
                   <Root
                     navigationButtonComponent={NavigationButton}
                     openButtonComponent={OpenButton}
-                    navigatorTitle={navigatorTitle}
+                    navigatorText={navigatorText}
                     targetRef={this.setTargetRef}
                     onToggle={this.handleToggle}
                     onNavigate={navigateAction}

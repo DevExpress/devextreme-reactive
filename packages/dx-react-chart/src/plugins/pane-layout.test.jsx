@@ -20,9 +20,9 @@ describe('PaneLayout', () => {
       </PluginHost>
     ));
 
-    expect(tree.find('Pane').props().width)
+    expect(tree.find('svg').props().width)
       .toEqual(expect.any(Number));
-    expect(tree.find('Pane').props().height)
+    expect(tree.find('svg').props().height)
       .toEqual(expect.any(Number));
   });
 

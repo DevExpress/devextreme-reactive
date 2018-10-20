@@ -28,6 +28,7 @@ const getRenderProps = (series) => {
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     getPointTransformer,
+    createHitTester,
     ...restProps
   } = series;
 
@@ -39,6 +40,9 @@ export const withSeriesPlugin = (
   pluginName,
   pathType, // TODO: Replace it with bool - `isStartedFromZero`.
   getPointTransformer,
+  // Hit tester belongs to Tracker plugin and should not be part of basic code.
+  // TODO: Is there a way to remove it from here?
+  createHitTester,
 ) => {
   class Component extends React.PureComponent {
     render() {
@@ -47,6 +51,7 @@ export const withSeriesPlugin = (
       const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
         ...this.props,
         getPointTransformer,
+        createHitTester,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
       });

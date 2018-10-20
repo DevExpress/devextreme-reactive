@@ -26,8 +26,8 @@ export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {
 
 export const createLineHitTester = createCanvasAbusingHitTesterCreator(() => {
   const path = area();
-  path.x(dLine.x());
   const getY = dLine.y();
+  path.x(dLine.x());
   path.y1(point => getY(point) - 10);
   path.y0(point => getY(point) + 10);
   return path;
@@ -35,8 +35,8 @@ export const createLineHitTester = createCanvasAbusingHitTesterCreator(() => {
 
 export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
   const path = area();
-  path.x(dSpline.x());
   const getY = dSpline.y();
+  path.x(dSpline.x());
   path.y1(point => getY(point) - 10);
   path.y0(point => getY(point) + 10);
   path.curve(dSpline.curve());

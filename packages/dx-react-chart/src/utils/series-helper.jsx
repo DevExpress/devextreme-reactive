@@ -56,9 +56,7 @@ export const withSeriesPlugin = (
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
       };
-      const getSeries = ({
-        cache, series, data, palette,
-      }) => addSeries(cache, series, data, palette, seriesItem);
+      const getSeries = ({ series, data, palette }) => addSeries(series, data, palette, seriesItem);
       return (
         <Plugin name={pluginName}>
           <Getter name="series" computed={getSeries} />

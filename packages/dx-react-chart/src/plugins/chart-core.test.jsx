@@ -2,13 +2,14 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { computeDomains, buildScales } from '@devexpress/dx-chart-core';
+import { computeDomains, buildScales, scaleSeriesPoints } from '@devexpress/dx-chart-core';
 import { ChartCore } from './chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   ARGUMENT_DOMAIN: 'test_argument_domain',
   computeDomains: jest.fn(),
-  buildScales: jest.fn(),
+  buildScales: jest.fn().mockReturnValue('test-scales'),
+  scaleSeriesPoints: jest.fn().mockReturnValue('scaled-series'),
 }));
 
 const domains = {
@@ -21,6 +22,7 @@ const defaultDeps = {
     series: 'test-series',
     data: 'test-data',
     layouts: { pane: 'test-pane' },
+    stacks: 'test-stacks',
     scaleExtension: 'test-scale-extension',
   },
 };
@@ -28,7 +30,6 @@ const defaultDeps = {
 describe('Chart Core', () => {
   beforeEach(() => {
     computeDomains.mockReturnValue(domains);
-    buildScales.mockReturnValue('test-scales');
   });
 
   afterEach(jest.clearAllMocks);
@@ -45,8 +46,11 @@ describe('Chart Core', () => {
       ...defaultDeps.getter,
       domains,
       scales: 'test-scales',
+      series: 'scaled-series',
     });
-    expect(computeDomains).toBeCalledWith('test-axes', 'test-series', 'test-data');
+    expect(computeDomains).toBeCalledWith('test-axes', 'test-series');
     expect(buildScales).toBeCalledWith(domains, 'test-scale-extension', 'test-pane');
+    expect(scaleSeriesPoints)
+      .toBeCalledWith('test-series', 'test-scales', 'test-stacks', 'test-scale-extension');
   });
 });

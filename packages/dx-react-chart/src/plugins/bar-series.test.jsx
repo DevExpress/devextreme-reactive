@@ -32,10 +32,10 @@ describe('Bar series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    points: coords,
     stack: 'stack',
     barWidth: 0.3,
     styles: 'styles',
-    uniqueName: 'uniqueSeriesName',
     seriesComponent: BarCollection,
     pointComponent: PointComponent,
   });
@@ -44,7 +44,6 @@ describe('Bar series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

@@ -3,9 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { stackOrderNone, stackOffsetDiverging } from 'd3-shape';
-import {
-  buildStackedSeries, buildStackedDataProcessor, clearStackedSeries, getStacks,
-} from '@devexpress/dx-chart-core';
+import { getStackedSeries, getStacks } from '@devexpress/dx-chart-core';
 import { Stack } from './stack';
 
 jest.mock('d3-shape', () => ({
@@ -14,9 +12,7 @@ jest.mock('d3-shape', () => ({
 }));
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  buildStackedSeries: jest.fn().mockReturnValue('stacked-series'),
-  buildStackedDataProcessor: jest.fn().mockReturnValue(jest.fn().mockReturnValue('stacked-data')),
-  clearStackedSeries: jest.fn().mockReturnValue('cleared-series'),
+  getStackedSeries: jest.fn().mockReturnValue('stacked-series'),
   getStacks: jest.fn().mockReturnValue('stacks'),
 }));
 
@@ -38,16 +34,12 @@ describe('Stack', () => {
     ));
 
     expect(getComputedState(tree)).toEqual({
-      data: 'stacked-data',
-      series: 'cleared-series',
+      data: 'test-data',
+      series: 'stacked-series',
       stacks: 'stacks',
     });
-    expect(buildStackedSeries).toHaveBeenLastCalledWith('test-series');
-    expect(clearStackedSeries).toHaveBeenLastCalledWith('stacked-series');
-    expect(getStacks).toHaveBeenLastCalledWith('cleared-series');
-    expect(buildStackedDataProcessor)
-      .toHaveBeenLastCalledWith(stackOffsetDiverging, stackOrderNone);
-    expect(buildStackedDataProcessor.mock.results[0].value)
-      .toHaveBeenLastCalledWith('test-data', 'stacked-series');
+    expect(getStackedSeries)
+      .toBeCalledWith('test-series', 'test-data', stackOffsetDiverging, stackOrderNone);
+    expect(getStacks).toBeCalledWith('stacked-series');
   });
 });

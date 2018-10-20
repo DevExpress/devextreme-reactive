@@ -38,9 +38,9 @@ describe('Scatter series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    points: coords,
     styles: 'styles',
     point: { size: 5 },
-    uniqueName: 'uniqueSeriesName',
     seriesComponent: PointCollection,
     pointComponent: PointComponent,
   });
@@ -49,7 +49,6 @@ describe('Scatter series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

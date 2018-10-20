@@ -3,29 +3,29 @@ import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
 import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
 
 import { Row } from '../templates/views/common/row';
-import { NavbarEmpty } from '../templates/views/vertical/navbar-empty';
+import { DayScaleEmptyCell } from '../templates/views/vertical/day-scale-empty-cell';
 import { Container } from '../templates/appointment/container';
 
-import { Layout as TimePanelLayout } from '../templates/views/vertical/time-panel/layout';
-import { Cell as TimePanelCell } from '../templates/views/vertical/time-panel/cell';
+import { Layout as TimeScaleLayout } from '../templates/views/vertical/time-scale/layout';
+import { Cell as TimeScaleCell } from '../templates/views/vertical/time-scale/cell';
 
-import { Layout as DateTableLayout } from '../templates/views/vertical/date-table/layout';
-import { Cell as DateTableCell } from '../templates/views/vertical/date-table/cell';
+import { Layout as TimeTableLayout } from '../templates/views/vertical/time-table/layout';
+import { Cell as TimeTableCell } from '../templates/views/vertical/time-table/cell';
 
-import { Layout as DayPanelLayout } from '../templates/views/common/day-panel/layout';
-import { Cell as DayPanelCell } from '../templates/views/vertical/day-panel/cell';
+import { Layout as DayScaleLayout } from '../templates/views/common/day-scale/layout';
+import { Cell as DayScaleCell } from '../templates/views/vertical/day-scale/cell';
 
 export const WeekView = withComponents({
   Layout,
   Container,
-  NavbarEmpty,
-  TimePanelLayout,
-  TimePanelCell,
-  TimePanelRow: Row,
-  DayPanelLayout,
-  DayPanelCell,
-  DayPanelRow: Row,
-  DateTableLayout,
-  DateTableCell,
-  DateTableRow: Row,
+  DayScaleEmptyCell,
+  TimeScaleLayout,
+  TimeScaleCell,
+  TimeScaleRow: Row,
+  DayScaleLayout,
+  DayScaleCell,
+  DayScaleRow: Row,
+  TimeTableLayout,
+  TimeTableCell,
+  TimeTableRow: Row,
 })(WeekViewBase);

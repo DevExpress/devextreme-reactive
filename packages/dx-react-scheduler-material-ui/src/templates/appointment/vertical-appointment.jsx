@@ -24,30 +24,30 @@ const styles = {
 
 const VerticalAppointmentBase = ({
   classes,
-  getTitle,
-  getStartDate, getEndDate,
-  appointment,
+  getAppointmentTitle,
+  getAppointmentStartDate, getAppointmentEndDate,
+  data,
   children,
   ...restProps
 }) => (
   <Appointment
-    appointment={appointment}
+    data={data}
     {...restProps}
   >
     {children || (
     <React.Fragment>
       <div className={classes.title}>
-        {getTitle(appointment)}
+        {getAppointmentTitle(data)}
       </div>
       <div className={classes.textContainer}>
         <div className={classes.time}>
-          {moment(getStartDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>
         <div className={classes.time}>
           {' - '}
         </div>
         <div className={classes.time}>
-          {moment(getEndDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentEndDate(data)).format('h:mm A')}
         </div>
       </div>
     </React.Fragment>
@@ -57,18 +57,18 @@ const VerticalAppointmentBase = ({
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  appointment: PropTypes.object.isRequired,
-  getTitle: PropTypes.func,
-  getStartDate: PropTypes.func,
-  getEndDate: PropTypes.func,
+  data: PropTypes.object.isRequired,
+  getAppointmentTitle: PropTypes.func,
+  getAppointmentStartDate: PropTypes.func,
+  getAppointmentEndDate: PropTypes.func,
   children: PropTypes.node,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  getStartDate: () => { },
-  getEndDate: () => { },
-  getTitle: () => { },
+  getAppointmentStartDate: () => { },
+  getAppointmentEndDate: () => { },
+  getAppointmentTitle: () => { },
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

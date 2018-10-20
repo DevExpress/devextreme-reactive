@@ -28,10 +28,12 @@ export const CommandButtonBase = ({
   classes,
   className,
   id,
+  onExecute,
   ...restProps
 }) => (
   <IconButton
     className={classNames(classes.button, className)}
+    onClick={onExecute}
     {...restProps}
   >
     {getIcon(id)}
@@ -42,10 +44,12 @@ CommandButtonBase.propTypes = {
   classes: PropTypes.object.isRequired,
   id: PropTypes.string,
   className: PropTypes.string,
+  onExecute: PropTypes.func,
 };
 
 CommandButtonBase.defaultProps = {
   className: undefined,
+  onExecute: () => undefined,
   id: '',
 };
 

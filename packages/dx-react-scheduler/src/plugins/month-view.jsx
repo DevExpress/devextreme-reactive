@@ -9,13 +9,13 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  viewCells as viewCellsComputed,
+  startViewDate as startViewDateCore,
+  viewCellsData as viewCellsDataCore,
   calculateRectByDateIntervals,
   calculateMonthDateIntervals,
   getAppointmentStyle,
-  getMonthRectByDates,
-  endViewBoundary,
-  monthCells as monthCellsCore,
+  getHorizontalRectByDates,
+  endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
@@ -27,28 +27,26 @@ export class MonthView extends React.PureComponent {
     super(props);
 
     this.state = {
-      dateTableRef: null,
+      timeTableRef: null,
     };
 
     const {
       name: viewName, firstDayOfWeek, intervalCount,
     } = this.props;
 
-    this.dateTableRef = this.dateTableRef.bind(this);
+    this.timeTableRef = this.timeTableRef.bind(this);
     this.dayScalePlaceholder = () => <TemplatePlaceholder name="navbar" />;
-    this.dateTablePlaceholder = () => <TemplatePlaceholder name="main" />;
+    this.timeTablePlaceholder = () => <TemplatePlaceholder name="main" />;
     this.appointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
     this.cellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 
-    this.monthCellsBaseComputed = ({ currentDate }) => monthCellsCore(
-      currentDate, firstDayOfWeek, intervalCount,
-    );
-    this.startViewDateBaseComputed = ({ monthCells }) => new Date(monthCells[0][0].value);
-    this.endViewDateBaseComputed = ({ monthCells }) => endViewBoundary(monthCells);
-    this.viewCellsBaseComputed = ({
-      currentView, currentDate, dayScale, timeScale,
-    }) => viewCellsComputed(
-      currentView.type, currentDate, firstDayOfWeek, intervalCount, dayScale, timeScale,
+    this.startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
+    this.endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
+    this.viewCellsDataBaseComputed = ({
+      currentView, currentDate,
+    }) => viewCellsDataCore(
+      currentView.type, currentDate, firstDayOfWeek,
+      intervalCount, undefined, undefined, undefined,
     );
 
     this.currentViewComputed = ({ currentView }) => (
@@ -65,40 +63,34 @@ export class MonthView extends React.PureComponent {
     this.firstDayOfWeekComputed = getters => computed(
       getters, viewName, () => firstDayOfWeek, getters.firstDayOfWeek,
     );
-    this.monthCellsComputed = getters => computed(
-      getters,
-      viewName,
-      this.monthCellsBaseComputed,
-      getters.monthCells,
-    );
-    this.startViewDateComputed = getters => computed(
+    this.startViewDateCore = getters => computed(
       getters, viewName, this.startViewDateBaseComputed, getters.startViewDate,
     );
     this.endViewDateComputed = getters => computed(
       getters, viewName, this.endViewDateBaseComputed, getters.endViewDate,
     );
-    this.viewCells = getters => computed(
-      getters, viewName, this.viewCellsBaseComputed, getters.viewCells,
+    this.viewCellsData = getters => computed(
+      getters, viewName, this.viewCellsDataBaseComputed, getters.viewCellsData,
     );
   }
 
-  dateTableRef(dateTableRef) {
-    this.setState({ dateTableRef });
+  timeTableRef(timeTableRef) {
+    this.setState({ timeTableRef });
   }
 
   render() {
     const {
       layoutComponent: ViewLayout,
-      dayPanelLayoutComponent: DayPanel,
-      dayPanelCellComponent: DayPanelCell,
-      dayPanelRowComponent: DayPanelRow,
-      dateTableLayoutComponent: DateTable,
-      dateTableRowComponent: DateTableRow,
-      dateTableCellComponent: DateTableCell,
-      containerComponent: Container,
+      dayScaleLayoutComponent: DayScale,
+      dayScaleCellComponent: DayScaleCell,
+      dayScaleRowComponent: DayScaleRow,
+      timeTableLayoutComponent: TimeTable,
+      timeTableRowComponent: TimeTableRow,
+      timeTableCellComponent: TimeTableCell,
+      appointmentLayerComponent: AppointmentLayer,
       name: viewName,
     } = this.props;
-    const { dateTableRef } = this.state;
+    const { timeTableRef } = this.state;
 
     return (
       <Plugin
@@ -108,9 +100,8 @@ export class MonthView extends React.PureComponent {
         <Getter name="currentView" computed={this.currentViewComputed} />
         <Getter name="firstDayOfWeek" computed={this.firstDayOfWeekComputed} />
         <Getter name="intervalCount" computed={this.intervalCountComputed} />
-        <Getter name="monthCells" computed={this.monthCellsComputed} />
-        <Getter name="viewCellsData" computed={this.viewCells} />
-        <Getter name="startViewDate" computed={this.startViewDateComputed} />
+        <Getter name="viewCellsData" computed={this.viewCellsData} />
+        <Getter name="startViewDate" computed={this.startViewDateCore} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
 
         <Template name="body">
@@ -120,7 +111,7 @@ export class MonthView extends React.PureComponent {
               return (
                 <ViewLayout
                   navbarComponent={this.dayScalePlaceholder}
-                  mainComponent={this.dateTablePlaceholder}
+                  mainComponent={this.timeTablePlaceholder}
                 />
               );
             }}
@@ -132,9 +123,9 @@ export class MonthView extends React.PureComponent {
             {({ currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <DayPanel
-                  cellComponent={DayPanelCell}
-                  rowComponent={DayPanelRow}
+                <DayScale
+                  cellComponent={DayScaleCell}
+                  rowComponent={DayScaleRow}
                   cellsData={viewCellsData}
                 />
               );
@@ -144,48 +135,48 @@ export class MonthView extends React.PureComponent {
         <Template name="main">
           <TemplateConnector>
             {({
-              monthCells, appointments, startViewDate, endViewDate, currentView, viewCellsData,
+              appointments, startViewDate, endViewDate, currentView, viewCellsData,
             }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateMonthDateIntervals(
                 appointments, startViewDate, endViewDate,
               );
-              const rects = dateTableRef ? calculateRectByDateIntervals(
+              const rects = timeTableRef ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
                   multiline: true,
                 },
                 intervals,
-                getMonthRectByDates,
+                getHorizontalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  monthCells,
-                  cellElements: dateTableRef.querySelectorAll('td'),
+                  viewCellsData,
+                  cellElements: timeTableRef.querySelectorAll('td'),
                 },
               ) : [];
 
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>
-                  <DateTable
-                    rowComponent={DateTableRow}
+                  <TimeTable
+                    rowComponent={TimeTableRow}
                     cellComponent={this.cellPlaceholder}
-                    dateTableRef={this.dateTableRef}
+                    tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={type}
-                        appointment={dataItem}
+                        data={dataItem}
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </React.Fragment>
               );
             }}
@@ -198,7 +189,7 @@ export class MonthView extends React.PureComponent {
               {({ currentView }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder params={params} />;
                 return (
-                  <DateTableCell {...params} />
+                  <TimeTableCell {...params} />
                 );
               }}
             </TemplateConnector>
@@ -211,13 +202,13 @@ export class MonthView extends React.PureComponent {
 
 MonthView.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  dayPanelLayoutComponent: PropTypes.func.isRequired,
-  dayPanelCellComponent: PropTypes.func.isRequired,
-  dayPanelRowComponent: PropTypes.func.isRequired,
-  dateTableLayoutComponent: PropTypes.func.isRequired,
-  dateTableRowComponent: PropTypes.func.isRequired,
-  dateTableCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  dayScaleLayoutComponent: PropTypes.func.isRequired,
+  dayScaleCellComponent: PropTypes.func.isRequired,
+  dayScaleRowComponent: PropTypes.func.isRequired,
+  timeTableLayoutComponent: PropTypes.func.isRequired,
+  timeTableRowComponent: PropTypes.func.isRequired,
+  timeTableCellComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   intervalCount: PropTypes.number,
   firstDayOfWeek: PropTypes.number,
   name: PropTypes.string,
@@ -231,11 +222,11 @@ MonthView.defaultProps = {
 
 MonthView.components = {
   layoutComponent: 'Layout',
-  containerComponent: 'Container',
-  dayPanelLayoutComponent: 'DayPanelLayout',
-  dayPanelCellComponent: 'DayPanelCell',
-  dayPanelRowComponent: 'DayPanelRow',
-  dateTableLayoutComponent: 'DateTableLayout',
-  dateTableCellComponent: 'DateTableCell',
-  dateTableRowComponent: 'DateTableRow',
+  appointmentLayerComponent: 'AppointmentLayer',
+  dayScaleLayoutComponent: 'DayScaleLayout',
+  dayScaleCellComponent: 'DayScaleCell',
+  dayScaleRowComponent: 'DayScaleRow',
+  timeTableLayoutComponent: 'TimeTableLayout',
+  timeTableCellComponent: 'TimeTableCell',
+  timeTableRowComponent: 'TimeTableRow',
 };

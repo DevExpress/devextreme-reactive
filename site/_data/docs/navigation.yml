@@ -31,8 +31,6 @@
         path: /react/grid/docs/guides/getting-started
       - title: React Chart
         path: /react/chart/docs/guides/getting-started
-      - title: Vue Grid
-        path: /vue/grid/docs/guides/getting-started
 /react/grid:
   - title: Guides
     items:
@@ -182,8 +180,6 @@
         path: /react/core/docs/guides/fundamentals
       - title: React Chart
         path: /react/chart/docs/guides/getting-started
-      - title: Vue Grid
-        path: /vue/grid/docs/guides/getting-started
 /react/chart:
   - title: Guides
     items:
@@ -243,8 +239,6 @@
         path: /react/core/docs/guides/fundamentals
       - title: React Grid
         path: /react/grid/docs/guides/getting-started
-      - title: Vue Grid
-        path: /vue/grid/docs/guides/getting-started
 /vue/grid:
   - title: Guides
     items:

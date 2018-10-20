@@ -4,9 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  dayScale,
-  viewCells,
-  timeScale,
+  viewCellsData,
   startViewDate,
   endViewDate,
   calculateRectByDateIntervals,
@@ -16,9 +14,7 @@ import { DayView } from './day-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
-  timeScale: jest.fn(),
-  viewCells: jest.fn(),
-  dayScale: jest.fn(),
+  viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
@@ -29,16 +25,17 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    dateTableRef: {
-      querySelectorAll: () => {},
-    },
     availableViews: [],
+    viewCellsData: [
+      [{ startDate: new Date('2018-06-25') }, {}],
+      [{}, { startDate: new Date('2018-08-05') }],
+    ],
   },
   template: {
     body: {},
     navbar: {},
     sidebar: {},
-    navbarEmpty: {},
+    dayScaleEmptyCell: {},
     main: {},
     appointment: {},
   },
@@ -46,17 +43,17 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timePanelLayoutComponent: () => null,
-  timePanelRowComponent: () => null,
-  timePanelCellComponent: () => null,
-  dayPanelLayoutComponent: () => null,
-  dayPanelCellComponent: () => null,
-  dayPanelRowComponent: () => null,
-  dateTableLayoutComponent: () => null,
-  dateTableRowComponent: () => null,
-  dateTableCellComponent: () => null,
-  navbarEmptyComponent: () => null,
-  containerComponent: () => null,
+  timeScaleLayoutComponent: () => null,
+  timeScaleRowComponent: () => null,
+  timeScaleCellComponent: () => null,
+  dayScaleLayoutComponent: () => null,
+  dayScaleCellComponent: () => null,
+  dayScaleRowComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
+  dayScaleEmptyCellComponent: () => null,
+  appointmentLayerComponent: () => null,
 };
 
 describe('Day View', () => {
@@ -64,9 +61,7 @@ describe('Day View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    timeScale.mockImplementation(() => [8, 9, 10]);
-    dayScale.mockImplementation(() => [1, 2, 3]);
-    viewCells.mockImplementation(() => [
+    viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
     ]);
@@ -83,58 +78,32 @@ describe('Day View', () => {
 
   describe('Getters', () => {
     it('should provide the "viewCellsData" getter', () => {
-      const intervalCount = 2;
+      const props = {
+        firstDayOfWeek: 2,
+        intervalCount: 2,
+        startDayHour: 1,
+        endDayHour: 9,
+        cellDuration: 30,
+        excludedDays: [1],
+      };
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
-            intervalCount={intervalCount}
             {...defaultProps}
+            {...props}
           />
         </PluginHost>
       ));
 
-      expect(viewCells)
-        .toBeCalledWith('day', '2018-07-04', undefined, intervalCount, [1, 2, 3], [8, 9, 10]);
+      expect(viewCellsData)
+        .toBeCalledWith(
+          'day', '2018-07-04', undefined,
+          props.intervalCount, props.intervalCount, [],
+          props.startDayHour, props.endDayHour, props.cellDuration,
+        );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "timeScale" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            startDayHour={8}
-            endDayHour={18}
-            cellDuration={60}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(timeScale)
-        .toBeCalledWith('2018-07-04', undefined, 8, 18, 60, []);
-      expect(getComputedState(tree).timeScale)
-        .toEqual([8, 9, 10]);
-    });
-
-    it('should provide the "dayScale" getter', () => {
-      const intervalCount = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            intervalCount={intervalCount}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(dayScale)
-        .toBeCalledWith('2018-07-04', undefined, intervalCount, []);
-      expect(getComputedState(tree).dayScale)
-        .toEqual([1, 2, 3]);
     });
 
     it('should provide the "startViewDate" getter', () => {
@@ -148,7 +117,9 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(startViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10], 2);
+        .toBeCalledWith([
+          [{}, {}], [{}, {}],
+        ]);
       expect(getComputedState(tree).startViewDate)
         .toBe('2018-07-04');
     });
@@ -163,7 +134,10 @@ describe('Day View', () => {
         </PluginHost>
       ));
       expect(endViewDate)
-        .toBeCalledWith([1, 2, 3], [8, 9, 10]);
+        .toBeCalledWith([
+          [{}, {}],
+          [{}, {}],
+        ]);
       expect(getComputedState(tree).endViewDate)
         .toBe('2018-07-11');
     });
@@ -230,13 +204,13 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render time panel', () => {
+    it('should render time scale', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            timePanelLayoutComponent={() => <div className="time-panel" />}
+            timeScaleLayoutComponent={() => <div className="time-panel" />}
           />
         </PluginHost>
       ));
@@ -245,33 +219,33 @@ describe('Day View', () => {
         .toBeTruthy();
     });
 
-    it('should render date table', () => {
+    it('should render time table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            dateTableLayoutComponent={() => <div className="date-table" />}
+            timeTableLayoutComponent={() => <div className="time-table" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.date-table').exists())
+      expect(tree.find('.time-table').exists())
         .toBeTruthy();
     });
 
-    it('should render navbar empty', () => {
+    it('should render day scale empty cell', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <DayView
             {...defaultProps}
-            navbarEmptyComponent={() => <div className="navbar-empty" />}
+            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.navbar-empty').exists())
+      expect(tree.find('.empty-cell').exists())
         .toBeTruthy();
     });
   });

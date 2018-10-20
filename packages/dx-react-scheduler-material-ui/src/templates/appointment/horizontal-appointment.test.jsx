@@ -9,7 +9,7 @@ jest.mock('./appointment', () => ({
 
 describe('HorizontalAppointment', () => {
   const defaultProps = {
-    appointment: {},
+    data: {},
   };
 
   let classes;
@@ -48,7 +48,7 @@ describe('HorizontalAppointment', () => {
       const tree = mount((
         <HorizontalAppointment
           {...defaultProps}
-          getTitle={() => 'title'}
+          getAppointmentTitle={() => 'title'}
         />
       ));
 

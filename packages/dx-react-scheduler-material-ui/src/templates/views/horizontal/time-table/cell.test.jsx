@@ -1,46 +1,45 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Head } from './head';
+import { Cell } from './cell';
 
-describe('Appointment Tooltip', () => {
+describe('Horizontal view TimeTable', () => {
+  const defaultProps = {
+    startDate: new Date(2018, 6, 7, 16),
+    current: false,
+    otherMonth: false,
+  };
   let classes;
   let shallow;
-  const defaultProps = {
-    appointment: {},
-  };
   beforeAll(() => {
-    classes = getClasses(<Head {...defaultProps} />);
+    classes = getClasses(<Cell {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Head', () => {
+  describe('Cell', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Head {...defaultProps} className="custom-class" />
+        <Cell {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.head}`))
+      expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
     });
-
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Head {...defaultProps} data={{ a: 1 }} />
+        <Cell {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-
-    it('should render children', () => {
+    it('should have tabIndex 0', () => {
       const tree = shallow((
-        <Head {...defaultProps}>
-          <div className="header-content" />
-        </Head>
+        <Cell {...defaultProps} />
       ));
 
-      expect(tree.find('.header-content').exists()).toBeTruthy();
+      expect(tree.props().tabIndex)
+        .toBe(0);
     });
   });
 });

@@ -23,7 +23,7 @@ describe('AppointmentTooltip', () => {
   };
   const defaultProps = {
     layoutComponent: () => <div />,
-    headComponent: () => null,
+    headerComponent: () => null,
     contentComponent: () => null,
     commandButtonComponent: () => null,
   };
@@ -82,7 +82,7 @@ describe('AppointmentTooltip', () => {
         {pluginDepsToComponents(defaultDeps, deps)}
         <AppointmentTooltip
           {...defaultProps}
-          appointmentMeta={{ appointment: {} }}
+          appointmentMeta={{ data: {} }}
         />
       </PluginHost>
     ));

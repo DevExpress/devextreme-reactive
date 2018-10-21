@@ -19,7 +19,6 @@ describe('Legend', () => {
     getter: {
       series: 'test-series',
       data: 'test-data',
-      getSeriesPoints: 'test-get-series-points',
     },
     template: {
       right: {},

@@ -49,7 +49,7 @@ export const createBarHitTester = coordinates => ([px, py]) => {
   const point = coordinates.find(({
     x, width, y, y1,
   }) => isPointInRect(px, py, x, x + width, Math.min(y, y1), Math.max(y, y1)));
-  return point ? { point: point.id } : null;
+  return point ? { point: point.index } : null;
 };
 
 // TODO: Use actual point size here!
@@ -57,7 +57,7 @@ export const createScatterHitTester = coordinates => ([px, py]) => {
   const point = coordinates.find(({
     x, y,
   }) => isPointInRect(px, py, x - 10, x + 10, y - 10, y + 10));
-  return point ? { point: point.id } : null;
+  return point ? { point: point.index } : null;
 };
 
 const mapAngleTod3 = (angle) => {
@@ -78,5 +78,5 @@ export const createPieHitTester = coordinates => ([px, py]) => {
     const angle = mapAngleTod3(Math.atan2(dy, dx));
     return startAngle <= angle && angle <= endAngle;
   });
-  return point ? { point: point.id } : null;
+  return point ? { point: point.index } : null;
 };

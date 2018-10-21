@@ -9,20 +9,13 @@ const getEventCoords = (e) => {
   ];
 };
 
-// TODO: First argument should be just a series list.
-const buildEventHandler = ({
-  series: seriesList,
-  getSeriesPoints, data, scales,
-  stacks, scaleExtension,
-}, handlers) => {
+const buildEventHandler = (seriesList, handlers) => {
   let hitTesters = null;
 
   const createHitTesters = () => {
     const obj = {};
     seriesList.forEach((seriesItem) => {
-      // TODO: Calculate series coodinates in a separate getter and remove `getSeriesPoints`.
-      const coordinates = getSeriesPoints(seriesItem, data, scales, stacks, scaleExtension);
-      obj[seriesItem.symbolName] = seriesItem.createHitTester(coordinates);
+      obj[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
     });
     return obj;
   };
@@ -48,13 +41,13 @@ const buildLeaveEventHandler = handlers => (e) => {
   handlers.forEach(handler => handler(arg));
 };
 
-export const buildEventHandlers = (context, { clickHandlers, pointerMoveHandlers }) => {
+export const buildEventHandlers = (seriesList, { clickHandlers, pointerMoveHandlers }) => {
   const handlers = {};
   if (clickHandlers.length) {
-    handlers.click = buildEventHandler(context, clickHandlers);
+    handlers.click = buildEventHandler(seriesList, clickHandlers);
   }
   if (pointerMoveHandlers.length) {
-    handlers.pointermove = buildEventHandler(context, pointerMoveHandlers);
+    handlers.pointermove = buildEventHandler(seriesList, pointerMoveHandlers);
     handlers.pointerleave = buildLeaveEventHandler(pointerMoveHandlers);
   }
   return handlers;

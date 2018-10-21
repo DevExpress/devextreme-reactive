@@ -136,11 +136,12 @@ describe('getAreaPointTransformer', () => {
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
       x: 14,
       y: 9,
       y1: 4,
-      id: 1,
-      value: 'val',
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -170,11 +171,12 @@ describe('getBarPointTransformer', () => {
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
       x: 17,
       y: 9,
       y1: 4,
-      id: 1,
-      value: 'val',
       width: 12,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
@@ -231,10 +233,11 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({ argument: 'arg-1', value: 'val-1', index: 1 }),
     ).toEqual({
+      argument: 'arg-1',
+      value: 'val-1',
+      index: 1,
       x: 25,
       y: 20,
-      id: 'arg-1',
-      value: 'val-1',
       color: 'c1',
       d: 'test-arc-1',
       innerRadius: 4,
@@ -245,10 +248,11 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
     ).toEqual({
+      argument: 'arg-2',
+      value: 'val-2',
+      index: 3,
       x: 25,
       y: 20,
-      id: 'arg-2',
-      value: 'val-2',
       color: 'c2',
       d: 'test-arc-2',
       innerRadius: 4,

@@ -44,16 +44,13 @@ export const getPiePointTransformer = ({
   const outer = outerRadius * radius;
   const gen = arc().innerRadius(inner).outerRadius(outer);
   const colorScale = scaleOrdinal().range(palette);
-  return ({
-    argument, value, index, color,
-  }) => {
-    const { startAngle, endAngle } = pieData[index];
+  return (point) => {
+    const { startAngle, endAngle } = pieData[point.index];
     return {
+      ...point,
       // TODO: It should be calculated in *pointComponent*.
       d: gen.startAngle(startAngle).endAngle(endAngle)(),
-      value,
-      color: color || colorScale(index),
-      id: argument,
+      color: point.color || colorScale(point.index),
       x,
       y,
       innerRadius: inner,
@@ -67,12 +64,11 @@ export const getPiePointTransformer = ({
 export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
   const y1 = valueScale(0);
   const offset = getWidth(argumentScale) / 2;
-  return ({ argument, value, index }) => ({
-    x: argumentScale(argument) + offset,
-    y: valueScale(value),
+  return point => ({
+    ...point,
+    x: argumentScale(point.argument) + offset,
+    y: valueScale(point.value),
     y1,
-    id: index,
-    value,
   });
 };
 
@@ -101,12 +97,11 @@ export const getBarPointTransformer = ({
   const { groupWidth, groupOffset } = getGroupSettings(
     argumentScale, barWidth, stack, stacks, scaleExtension,
   );
-  return ({ argument, value, index }) => ({
-    x: argumentScale(argument) + groupOffset,
-    y: valueScale(value),
+  return point => ({
+    ...point,
+    x: argumentScale(point.argument) + groupOffset,
+    y: valueScale(point.value),
     y1,
-    id: index,
-    value,
     width: groupWidth,
   });
 };

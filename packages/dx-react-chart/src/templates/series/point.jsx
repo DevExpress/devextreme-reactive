@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export class Point extends React.PureComponent {
   render() {
     const {
-      x, y, value, color, ...restProps
+      argument, value, index, x, y, color, ...restProps
     } = this.props;
     return (
       <path

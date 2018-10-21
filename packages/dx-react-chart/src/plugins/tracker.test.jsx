@@ -44,7 +44,7 @@ describe('Tracker', () => {
       onPointerLeave: 'test-pointer-leave',
     });
     expect(buildEventHandlers).toBeCalledWith(
-      'test-series', { clickHandlers: [], pointerMoveHandlers: [] },
+      'test-series', { click: [], hoverChange: [] },
     );
   });
 
@@ -59,24 +59,24 @@ describe('Tracker', () => {
 
     expect(getComputedState(tree)).toEqual({
       clickHandlers: [],
-      pointerMoveHandlers: [],
+      hoverChangeHandlers: [],
     });
   });
 
   it('should declare getters filled with props', () => {
     const testOnClick = () => 0;
-    const testOnPointerMove = () => 0;
+    const testOnHoverChange = () => 0;
     const tree = mount(
       <PluginHost>
         {pluginDepsToComponents({})}
 
-        <Tracker onClick={testOnClick} onPointerMove={testOnPointerMove} />
+        <Tracker onClick={testOnClick} onHoverChange={testOnHoverChange} />
       </PluginHost>,
     );
 
     expect(getComputedState(tree)).toEqual({
       clickHandlers: [testOnClick],
-      pointerMoveHandlers: [testOnPointerMove],
+      hoverChangeHandlers: [testOnHoverChange],
     });
   });
 });

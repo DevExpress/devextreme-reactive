@@ -28,15 +28,15 @@ const translateEventNames = (handlers) => {
 // eslint-disable-next-line react/no-multi-comp
 export class Tracker extends React.PureComponent {
   render() {
-    const { onClick, onPointerMove } = this.props;
+    const { onClick, onHoverChange } = this.props;
     return (
       <Plugin name="Tracker">
         <Getter name="clickHandlers" value={wrapToList(onClick)} />
-        <Getter name="pointerMoveHandlers" value={wrapToList(onPointerMove)} />
+        <Getter name="hoverChangeHandlers" value={wrapToList(onHoverChange)} />
         <Template name="canvas">
           <TemplateConnector>
-            {({ series, clickHandlers, pointerMoveHandlers }) => {
-              const handlers = buildEventHandlers(series, { clickHandlers, pointerMoveHandlers });
+            {({ series, clickHandlers: click, hoverChangeHandlers: hoverChange }) => {
+              const handlers = buildEventHandlers(series, { click, hoverChange });
               return <TemplatePlaceholder params={translateEventNames(handlers)} />;
             }}
           </TemplateConnector>
@@ -48,10 +48,10 @@ export class Tracker extends React.PureComponent {
 
 Tracker.propTypes = {
   onClick: PropTypes.func,
-  onPointerMove: PropTypes.func,
+  onHoverChange: PropTypes.func,
 };
 
 Tracker.defaultProps = {
   onClick: undefined,
-  onPointerMove: undefined,
+  onHoverChange: undefined,
 };

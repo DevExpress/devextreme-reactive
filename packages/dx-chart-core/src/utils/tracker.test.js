@@ -103,15 +103,19 @@ describe('Tracker', () => {
       });
     });
 
-    it('should not call *click* if there are no targets', () => {
+    it('should call *click* if there are no targets', () => {
       const { click } = buildEventHandlers([series1, series2, series3], {
         click: [handler1, handler2], hoverChange: [],
       });
 
       click({ clientX: 352, clientY: 421, currentTarget });
 
-      expect(handler1).not.toBeCalled();
-      expect(handler2).not.toBeCalled();
+      expect(handler1).toBeCalledWith({
+        coords: [192, 281], target: null,
+      });
+      expect(handler2).toBeCalledWith({
+        coords: [192, 281], target: null,
+      });
     });
 
     it('should call *hoverChange*', () => {

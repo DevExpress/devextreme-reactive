@@ -39,9 +39,7 @@ const processEvent = (seriesList, hitTesters, e) => {
 
 const createClickHandler = (seriesList, hitTesters, handlers) => (e) => {
   const arg = processEvent(seriesList, hitTesters, e);
-  if (arg.target) {
-    handlers.forEach(handler => handler(arg));
-  }
+  handlers.forEach(handler => handler(arg));
 };
 
 const compareTargets = (target1, target2) => (

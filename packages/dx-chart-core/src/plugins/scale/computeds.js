@@ -19,7 +19,7 @@ const getArgument = point => point.argument;
 const getValue = point => point.value;
 
 const getCorrectAxisType = (type, points, getItem) => (
-  type || (typeof getItem(points[0]) === 'string' && BAND) || LINEAR
+  type || (points.length && typeof getItem(points[0]) === 'string' && BAND) || LINEAR
 );
 
 const calculateDomains = (domains, seriesList) => {

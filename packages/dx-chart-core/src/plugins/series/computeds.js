@@ -155,7 +155,7 @@ const createPoints = (argumentField, valueField, data) => {
   return points;
 };
 
-export const addSeries = (cache, series, data, palette, props) => {
+export const addSeries = (series, data, palette, props) => {
   const points = createPoints(props.argumentField, props.valueField, data);
   return addItem(series, {
     ...props,

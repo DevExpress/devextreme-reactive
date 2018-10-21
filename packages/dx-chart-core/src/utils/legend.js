@@ -2,7 +2,8 @@ const getDefaultLegendItems = series => series.map(
   ({ uniqueName: text, color }) => ({ text, color }),
 );
 
-const getPieLegendItems = series => series.points.map(({ id: text, color }) => ({ text, color }));
+const getPieLegendItems = series => series[0]
+  .points.map(({ id: text, color }) => ({ text, color }));
 
 // The function supports special case when there is single Pie series.
 // There is no commom way to tell if series is of Pie type -

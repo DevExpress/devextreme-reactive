@@ -56,20 +56,26 @@ describe('Series', () => {
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(false);
+      isPointInPath.mockReturnValueOnce(true);
       getContext.mockReturnValue({ isPointInPath });
 
-      const hitTest = createAreaHitTester('test-coordinates');
+      const hitTest = createAreaHitTester([
+        { x: 115, y: 35, index: 'p1' },
+        { x: 175, y: 65, index: 'p2' },
+      ]);
 
-      expect(hitTest([1, 2])).toEqual(null);
-      expect(hitTest([3, 4])).toEqual({});
-      expect(hitTest([5, 6])).toEqual({});
-      expect(hitTest([7, 8])).toEqual(null);
+      expect(hitTest([100, 20])).toEqual(null);
+      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([140, 60])).toEqual({});
+      expect(hitTest([160, 30])).toEqual(null);
+      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
 
       expect(isPointInPath.mock.calls).toEqual([
-        [1, 2],
-        [3, 4],
-        [5, 6],
-        [7, 8],
+        [100, 20],
+        [120, 40],
+        [140, 60],
+        [160, 30],
+        [180, 70],
       ]);
     });
   });
@@ -106,20 +112,26 @@ describe('Series', () => {
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(false);
+      isPointInPath.mockReturnValueOnce(true);
       getContext.mockReturnValue({ isPointInPath });
 
-      const hitTest = createLineHitTester('test-coordinates');
+      const hitTest = createLineHitTester([
+        { x: 115, y: 35, index: 'p1' },
+        { x: 175, y: 65, index: 'p2' },
+      ]);
 
-      expect(hitTest([1, 2])).toEqual(null);
-      expect(hitTest([3, 4])).toEqual({});
-      expect(hitTest([5, 6])).toEqual({});
-      expect(hitTest([7, 8])).toEqual(null);
+      expect(hitTest([100, 20])).toEqual(null);
+      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([140, 60])).toEqual({});
+      expect(hitTest([160, 30])).toEqual(null);
+      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
 
       expect(isPointInPath.mock.calls).toEqual([
-        [1, 2],
-        [3, 4],
-        [5, 6],
-        [7, 8],
+        [100, 20],
+        [120, 40],
+        [140, 60],
+        [160, 30],
+        [180, 70],
       ]);
     });
   });
@@ -159,20 +171,26 @@ describe('Series', () => {
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(true);
       isPointInPath.mockReturnValueOnce(false);
+      isPointInPath.mockReturnValueOnce(true);
       getContext.mockReturnValue({ isPointInPath });
 
-      const hitTest = createSplineHitTester('test-coordinates');
+      const hitTest = createSplineHitTester([
+        { x: 115, y: 35, index: 'p1' },
+        { x: 175, y: 65, index: 'p2' },
+      ]);
 
-      expect(hitTest([1, 2])).toEqual(null);
-      expect(hitTest([3, 4])).toEqual({});
-      expect(hitTest([5, 6])).toEqual({});
-      expect(hitTest([7, 8])).toEqual(null);
+      expect(hitTest([100, 20])).toEqual(null);
+      expect(hitTest([120, 40])).toEqual({ point: 'p1' });
+      expect(hitTest([140, 60])).toEqual({});
+      expect(hitTest([160, 30])).toEqual(null);
+      expect(hitTest([180, 70])).toEqual({ point: 'p2' });
 
       expect(isPointInPath.mock.calls).toEqual([
-        [1, 2],
-        [3, 4],
-        [5, 6],
-        [7, 8],
+        [100, 20],
+        [120, 40],
+        [140, 60],
+        [160, 30],
+        [180, 70],
       ]);
     });
   });

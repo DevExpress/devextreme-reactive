@@ -10,7 +10,7 @@ export const Editor = ({
     type="text"
     className={classNames('form-control', className)}
     value={value}
-    onChange={event => onChange(event.target.value)}
+    onChange={event => onChange(event.target.value === '' ? undefined : event.target.value)}
     readOnly={disabled}
     placeholder={getMessage('filterPlaceholder')}
     {...restProps}

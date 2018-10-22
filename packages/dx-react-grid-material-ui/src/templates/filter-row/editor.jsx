@@ -20,7 +20,7 @@ const EditorBase = ({
     fullWidth
     disabled={disabled}
     value={value}
-    onChange={event => onChange(event.target.value)}
+    onChange={event => onChange(event.target.value === '' ? undefined : event.target.value)}
     placeholder={getMessage('filterPlaceholder')}
     {...restProps}
   />

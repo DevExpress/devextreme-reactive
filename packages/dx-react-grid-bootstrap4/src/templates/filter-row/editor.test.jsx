@@ -44,4 +44,19 @@ describe('Editor', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should pass undefined as value if value is empty', function() {
+    const onChange = jest.fn();
+    const tree = shallow((
+      <Editor
+        {...defaultProps}
+        onChange={onChange}
+      />
+    ));
+
+    tree.simulate('change', { target: { value: '' }});
+
+    expect(onChange)
+      .toHaveBeenCalledWith(undefined);
+  });
 });

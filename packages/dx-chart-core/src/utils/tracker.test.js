@@ -42,7 +42,7 @@ describe('Tracker', () => {
     afterEach(jest.resetAllMocks);
 
     it('should create and invoke hit testers', () => {
-      const { click } = buildEventHandlers([series1, series2, series3], {
+      const { click } = buildEventHandlers([series1, series2, series3], {}, {
         click: [handler1, handler2], hoverChange: [],
       });
 
@@ -58,7 +58,9 @@ describe('Tracker', () => {
     });
 
     it('should create hit testers lazily', () => {
-      buildEventHandlers([series1, series2, series3], { click: [], hoverChange: [] });
+      buildEventHandlers([series1, series2, series3], {}, {
+        click: [], hoverChange: [],
+      });
 
       expect(series1.createHitTester).not.toBeCalled();
       expect(series2.createHitTester).not.toBeCalled();
@@ -66,7 +68,7 @@ describe('Tracker', () => {
     });
 
     it('should create only click handlers', () => {
-      const handlers = buildEventHandlers([series1, series2, series3], {
+      const handlers = buildEventHandlers([series1, series2, series3], {}, {
         click: [1], hoverChange: [],
       });
 
@@ -76,7 +78,7 @@ describe('Tracker', () => {
     });
 
     it('should create only pointer move handlers', () => {
-      const handlers = buildEventHandlers([series1, series2, series3], {
+      const handlers = buildEventHandlers([series1, series2, series3], {}, {
         click: [], hoverChange: [1],
       });
 
@@ -89,7 +91,7 @@ describe('Tracker', () => {
     it('should call *click*', () => {
       hitTest1.mockReturnValue({ tag: 'hit1' });
       hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { click } = buildEventHandlers([series1, series2, series3], {
+      const { click } = buildEventHandlers([series1, series2, series3], {}, {
         click: [handler1, handler2], hoverChange: [],
       });
 
@@ -104,7 +106,7 @@ describe('Tracker', () => {
     });
 
     it('should call *click* if there are no targets', () => {
-      const { click } = buildEventHandlers([series1, series2, series3], {
+      const { click } = buildEventHandlers([series1, series2, series3], {}, {
         click: [handler1, handler2], hoverChange: [],
       });
 
@@ -121,7 +123,7 @@ describe('Tracker', () => {
     it('should call *hoverChange*', () => {
       hitTest1.mockReturnValue({ tag: 'hit1' });
       hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { pointermove } = buildEventHandlers([series1, series2, series3], {
+      const { pointermove } = buildEventHandlers([series1, series2, series3], {}, {
         click: [], hoverChange: [handler1, handler2],
       });
 
@@ -138,13 +140,12 @@ describe('Tracker', () => {
     it('should not call *hoverChange* on the same target', () => {
       hitTest1.mockReturnValue({ tag: 'hit1' });
       hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { pointermove } = buildEventHandlers([series1, series2, series3], {
-        click: [], hoverChange: [handler1, handler2],
-      });
+      const { pointermove } = buildEventHandlers(
+        [series1, series2, series3],
+        { hoverTarget: { series: 'Series 2' } },
+        { click: [], hoverChange: [handler1, handler2] },
+      );
 
-      pointermove({ clientX: 352, clientY: 421, currentTarget });
-      handler1.mockClear();
-      handler2.mockClear();
       pointermove({ clientX: 362, clientY: 411, currentTarget });
 
       expect(handler1).not.toBeCalled();
@@ -153,15 +154,12 @@ describe('Tracker', () => {
 
     it('should call *hoverChange* on the other target', () => {
       hitTest1.mockReturnValue({ tag: 'hit1' });
-      hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { pointermove } = buildEventHandlers([series1, series2, series3], {
-        click: [], hoverChange: [handler1, handler2],
-      });
+      const { pointermove } = buildEventHandlers(
+        [series1, series2, series3],
+        { hoverTarget: { series: 'Series 2' } },
+        { click: [], hoverChange: [handler1, handler2] },
+      );
 
-      pointermove({ clientX: 352, clientY: 421, currentTarget });
-      hitTest2.mockReset();
-      handler1.mockClear();
-      handler2.mockClear();
       pointermove({ clientX: 362, clientY: 411, currentTarget });
 
       expect(handler1).toBeCalledWith({
@@ -173,17 +171,12 @@ describe('Tracker', () => {
     });
 
     it('should call *hoverChange* on empty target', () => {
-      hitTest1.mockReturnValue({ tag: 'hit1' });
-      hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { pointermove } = buildEventHandlers([series1, series2, series3], {
-        click: [], hoverChange: [handler1, handler2],
-      });
+      const { pointermove } = buildEventHandlers(
+        [series1, series2, series3],
+        { hoverTarget: { series: 'Series 2' } },
+        { click: [], hoverChange: [handler1, handler2] },
+      );
 
-      pointermove({ clientX: 352, clientY: 421, currentTarget });
-      hitTest1.mockReset();
-      hitTest2.mockReset();
-      handler1.mockClear();
-      handler2.mockClear();
       pointermove({ clientX: 362, clientY: 411, currentTarget });
 
       expect(handler1).toBeCalledWith({
@@ -195,15 +188,12 @@ describe('Tracker', () => {
     });
 
     it('should call *hoverChange* on leave', () => {
-      hitTest1.mockReturnValue({ tag: 'hit1' });
-      hitTest2.mockReturnValue({ tag: 'hit2' });
-      const { pointermove, pointerleave } = buildEventHandlers([series1, series2, series3], {
-        click: [], hoverChange: [handler1, handler2],
-      });
+      const { pointerleave } = buildEventHandlers(
+        [series1, series2, series3],
+        { hoverTarget: { series: 'Series 2' } },
+        { click: [], hoverChange: [handler1, handler2] },
+      );
 
-      pointermove({ clientX: 352, clientY: 421, currentTarget });
-      handler1.mockClear();
-      handler2.mockClear();
       pointerleave({ clientX: 362, clientY: 411, currentTarget });
 
       expect(handler1).toBeCalledWith({

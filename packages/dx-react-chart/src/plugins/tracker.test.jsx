@@ -44,7 +44,7 @@ describe('Tracker', () => {
       onPointerLeave: 'test-pointer-leave',
     });
     expect(buildEventHandlers).toBeCalledWith(
-      'test-series', { click: [], hoverChange: [] },
+      'test-series', {}, { click: [], hoverChange: [] },
     );
   });
 

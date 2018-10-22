@@ -12,11 +12,11 @@ const getEventCoords = (e) => {
 const CREATED = Symbol('HIT_TESTERS');
 
 const createHitTesters = (seriesList, hitTesters) => {
-  const obj = { [CREATED]: true };
+  hitTesters[CREATED] = true; // eslint-disable-line no-param-reassign
   seriesList.forEach((seriesItem) => {
-    obj[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
+    // eslint-disable-next-line no-param-reassign
+    hitTesters[seriesItem.symbolName] = seriesItem.createHitTester(seriesItem.points);
   });
-  Object.assign(hitTesters, obj);
 };
 
 const selectTarget = targets => targets[targets.length - 1] || null;
@@ -47,18 +47,17 @@ const compareTargets = (target1, target2) => (
     || (!target1 && !target2)
 );
 
-const createHoverChangeHandler = (seriesList, hitTesters, handlers) => {
-  let currentTarget = null;
+const createHoverChangeHandler = (seriesList, hitTesters, handlers, context) => {
   const move = (e) => {
     const arg = processEvent(seriesList, hitTesters, e);
-    if (!compareTargets(currentTarget, arg.target)) {
-      currentTarget = arg.target;
+    if (!compareTargets(context.hoverTarget, arg.target)) {
+      context.hoverTarget = arg.target; // eslint-disable-line no-param-reassign
       handlers.forEach(handler => handler(arg));
     }
   };
   const leave = (e) => {
-    if (currentTarget) {
-      currentTarget = null;
+    if (context.hoverTarget) {
+      context.hoverTarget = null; // eslint-disable-line no-param-reassign
       const arg = { coords: getEventCoords(e), target: null };
       handlers.forEach(handler => handler(arg));
     }
@@ -66,14 +65,16 @@ const createHoverChangeHandler = (seriesList, hitTesters, handlers) => {
   return [move, leave];
 };
 
-export const buildEventHandlers = (seriesList, { click, hoverChange }) => {
+// Context is used in hover changes tracking - to prevent excessive *hoverChange* events
+// when pointer is moving over the same target.
+export const buildEventHandlers = (seriesList, context, { click, hoverChange }) => {
   const hitTesters = {};
   const handlers = {};
   if (click.length) {
     handlers.click = createClickHandler(seriesList, hitTesters, click);
   }
   if (hoverChange.length) {
-    const [move, leave] = createHoverChangeHandler(seriesList, hitTesters, hoverChange);
+    const [move, leave] = createHoverChangeHandler(seriesList, hitTesters, hoverChange, context);
     handlers.pointermove = move;
     handlers.pointerleave = leave;
   }

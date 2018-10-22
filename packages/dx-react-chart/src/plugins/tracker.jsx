@@ -25,8 +25,14 @@ const translateEventNames = (handlers) => {
   return result;
 };
 
-// eslint-disable-next-line react/no-multi-comp
 export class Tracker extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    // When any series is changed local template is rerendered and event handlers are recreated.
+    // Event targets context has to be kept somewhere outside the *buildEventHandlers* function.
+    this.ctx = {};
+  }
+
   render() {
     const { onClick, onHoverChange } = this.props;
     return (
@@ -36,7 +42,7 @@ export class Tracker extends React.PureComponent {
         <Template name="canvas">
           <TemplateConnector>
             {({ series, clickHandlers: click, hoverChangeHandlers: hoverChange }) => {
-              const handlers = buildEventHandlers(series, { click, hoverChange });
+              const handlers = buildEventHandlers(series, this.ctx, { click, hoverChange });
               return <TemplatePlaceholder params={translateEventNames(handlers)} />;
             }}
           </TemplateConnector>

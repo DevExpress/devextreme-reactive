@@ -48,9 +48,9 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
   ),
 );
 
-const getStartDate = appointment => appointment.StartDate;
-const getEndDate = appointment => appointment.EndDate;
-const getTitle = appointment => appointment.Text;
+const getAppointmentStartDate = appointment => appointment.StartDate;
+const getAppointmentEndDate = appointment => appointment.EndDate;
+const getAppointmentTitle = appointment => appointment.Text;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -108,9 +108,9 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          getStartDate={getStartDate}
-          getEndDate={getEndDate}
-          getTitle={getTitle}
+          getAppointmentStartDate={getAppointmentStartDate}
+          getAppointmentEndDate={getAppointmentEndDate}
+          getAppointmentTitle={getAppointmentTitle}
         >
           <ViewState
             currentDate={currentDate}

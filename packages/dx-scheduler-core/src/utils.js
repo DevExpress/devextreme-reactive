@@ -167,12 +167,10 @@ const horizontalRectCalculator = (
   appointment,
   {
     rectByDates,
+    multiline,
     rectByDatesMeta: {
-      dayScale,
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   },
 ) => {
@@ -183,11 +181,9 @@ const horizontalRectCalculator = (
     appointment,
     rectByDates,
     {
-      dayScale,
+      multiline,
       cellElements,
-      cells,
-      monthCells,
-      excludedDays,
+      viewCellsData,
     },
   );
 
@@ -205,9 +201,9 @@ const verticalRectCalculator = (
   appointment,
   {
     rectByDates,
+    multiline,
     rectByDatesMeta: {
-      dayScale,
-      timeScale,
+      viewCellsData,
       cellDuration,
       cellElements,
       excludedDays,
@@ -221,8 +217,8 @@ const verticalRectCalculator = (
     appointment,
     rectByDates,
     {
-      dayScale,
-      timeScale,
+      multiline,
+      viewCellsData,
       cellDuration,
       excludedDays,
       cellElements,
@@ -251,5 +247,5 @@ export const calculateRectByDateIntervals = (type, intervals, rectByDates, rectB
     : verticalRectCalculator;
 
   return unwrapGroups(adjustAppointments(grouped, multiline))
-    .map(appointment => rectCalculator(appointment, { rectByDates, rectByDatesMeta }));
+    .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };

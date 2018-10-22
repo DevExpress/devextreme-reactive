@@ -8,11 +8,11 @@ import { SchedulerCore } from './scheduler-core';
 const defaultProps = {
   data: [1, 2, 3],
   rootComponent: () => null,
-  getTitle: () => 'a',
-  getEndDate: () => '2018-07-05',
-  getStartDate: () => '2018-07-06',
-  getAllDay: () => undefined,
-  getId: () => undefined,
+  getAppointmentTitle: () => 'a',
+  getAppointmentEndDate: () => '2018-07-05',
+  getAppointmentStartDate: () => '2018-07-06',
+  getAppointmentAllDay: () => undefined,
+  getAppointmentId: () => undefined,
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -34,7 +34,7 @@ describe('Scheduler Core', () => {
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          getId={() => 10}
+          getAppointmentId={() => 10}
         />
         {pluginDepsToComponents({})}
       </PluginHost>
@@ -49,7 +49,7 @@ describe('Scheduler Core', () => {
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          getTitle={() => 'a'}
+          getAppointmentTitle={() => 'a'}
         />
         {pluginDepsToComponents({})}
       </PluginHost>
@@ -64,7 +64,7 @@ describe('Scheduler Core', () => {
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          getStartDate={() => '2018-07-05'}
+          getAppointmentStartDate={() => '2018-07-05'}
         />
         {pluginDepsToComponents({})}
       </PluginHost>
@@ -79,7 +79,7 @@ describe('Scheduler Core', () => {
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          getEndDate={() => '2018-07-05'}
+          getAppointmentEndDate={() => '2018-07-05'}
         />
         {pluginDepsToComponents({})}
       </PluginHost>

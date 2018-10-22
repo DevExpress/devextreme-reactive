@@ -50,8 +50,8 @@ export class AppointmentTooltip extends React.PureComponent {
       .bind(stateHelper, 'visible', toggleVisibility);
     this.setAppointmentMeta = stateHelper.applyFieldReducer
       .bind(stateHelper, 'appointmentMeta', setAppointmentMeta);
-    this.onAppointmentClick = ({ target, appointment }) => {
-      this.setAppointmentMeta({ target, appointment });
+    this.onAppointmentClick = ({ target, data }) => {
+      this.setAppointmentMeta({ target, data });
       this.toggleVisibility();
     };
   }
@@ -73,7 +73,7 @@ export class AppointmentTooltip extends React.PureComponent {
       showDeleteButton,
       showCloseButton,
       layoutComponent: Layout,
-      headComponent,
+      headerComponent,
       contentComponent,
       commandButtonComponent,
     } = this.props;
@@ -97,11 +97,10 @@ export class AppointmentTooltip extends React.PureComponent {
             }) => {
               const onDeleteButtonClick = () => {
                 commitDeletedAppointment({
-                  deletedAppointmentId: getAppointmentId(appointmentMeta.appointment),
+                  deletedAppointmentId: getAppointmentId(appointmentMeta.data),
                 });
                 this.toggleVisibility();
               };
-
               return (
                 <TemplatePlaceholder
                   name="tooltip"
@@ -110,7 +109,7 @@ export class AppointmentTooltip extends React.PureComponent {
                     showOpenButton,
                     showDeleteButton,
                     showCloseButton,
-                    headComponent,
+                    headerComponent,
                     contentComponent,
                     appointmentMeta,
                     visible,
@@ -135,7 +134,14 @@ export class AppointmentTooltip extends React.PureComponent {
 
         <Template name="appointment">
           {params => (
-            <TemplatePlaceholder params={{ ...params, onClick: this.onAppointmentClick }} />
+            <TemplatePlaceholder
+              params={{
+                ...params,
+                onClick: (
+                  { target, data },
+                ) => this.onAppointmentClick({ target, data }),
+              }}
+            />
           )}
         </Template>
       </Plugin>
@@ -145,14 +151,20 @@ export class AppointmentTooltip extends React.PureComponent {
 
 AppointmentTooltip.propTypes = {
   layoutComponent: PropTypes.func.isRequired,
-  headComponent: PropTypes.func.isRequired,
+  headerComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   commandButtonComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool,
   showDeleteButton: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   visible: PropTypes.bool,
-  appointmentMeta: PropTypes.object,
+  appointmentMeta: PropTypes.shape({
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
+    data: PropTypes.object,
+  }),
   onVisibilityChange: PropTypes.func,
   onAppointmentMetaChange: PropTypes.func,
 };
@@ -169,7 +181,7 @@ AppointmentTooltip.defaultProps = {
 
 AppointmentTooltip.components = {
   layoutComponent: 'Layout',
-  headComponent: 'Head',
+  headerComponent: 'Header',
   contentComponent: 'Content',
   commandButtonComponent: 'CommandButton',
 };

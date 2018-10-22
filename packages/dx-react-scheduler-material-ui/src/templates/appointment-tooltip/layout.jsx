@@ -27,7 +27,7 @@ const styles = theme => ({
 });
 
 const LayoutBase = ({
-  headComponent: Head,
+  headerComponent: Header,
   contentComponent: Content,
   commandButtonComponent: CommandButton,
   appointmentMeta,
@@ -44,7 +44,7 @@ const LayoutBase = ({
   classes,
   ...restProps
 }) => {
-  const { target, appointment = {} } = appointmentMeta;
+  const { target, data = {} } = appointmentMeta;
   const openButtonClickHandler = () => {
     onHide();
     onOpenButtonClick();
@@ -58,29 +58,29 @@ const LayoutBase = ({
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       {...restProps}
     >
-      <Head appointment={appointment}>
+      <Header appointmentData={data}>
         <div>
           <div className={classes.buttonsLeft}>
             {showOpenButton
-              && <CommandButton id={commandButtonIds.open} onClick={openButtonClickHandler} />}
+              && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
           </div>
           <div className={classes.buttonsRight}>
             {showDeleteButton
-              && <CommandButton id={commandButtonIds.delete} onClick={onDeleteButtonClick} />}
-            {showCloseButton && <CommandButton id={commandButtonIds.close} onClick={onHide} />}
+              && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
+            {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
           </div>
         </div>
         <div className={classes.title}>
-          {getAppointmentTitle(appointment)}
+          {getAppointmentTitle(data)}
         </div>
-      </Head>
-      <Content appointment={appointment}>
+      </Header>
+      <Content appointmentData={data}>
         <div className={classes.text}>
-          {moment(getAppointmentStartDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentStartDate(data)).format('h:mm A')}
         </div>
         {' - '}
         <div className={classes.text}>
-          {moment(getAppointmentEndDate(appointment)).format('h:mm A')}
+          {moment(getAppointmentEndDate(data)).format('h:mm A')}
         </div>
       </Content>
     </Popover>
@@ -89,7 +89,7 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.func.isRequired,
-  headComponent: PropTypes.func.isRequired,
+  headerComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
@@ -101,7 +101,13 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
-  appointmentMeta: PropTypes.object,
+  appointmentMeta: PropTypes.shape({
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
+    data: PropTypes.object,
+  }),
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };

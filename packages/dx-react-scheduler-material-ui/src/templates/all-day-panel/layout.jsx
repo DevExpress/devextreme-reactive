@@ -14,7 +14,6 @@ const styles = {
 
 const LayoutBase = ({
   children,
-  dayScale,
   cellsData,
   allDayPanelRef,
   classes, className,

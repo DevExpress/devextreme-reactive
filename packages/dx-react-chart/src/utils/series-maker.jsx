@@ -20,15 +20,19 @@ const makeRawSeries = (d3Func) => {
   return Series;
 };
 
+// TODO: Change its signature to `declareSeries(name, options, components)`.
 export const makeSeries = (
   pluginName,
   pathType,
   d3Func,
   calculateCoordinates,
   componentsDefinition,
+  createHitTester,
 ) => {
   const RawSeries = makeRawSeries(d3Func);
-  const Series = withSeriesPlugin(RawSeries, pluginName, pathType, calculateCoordinates);
+  const Series = withSeriesPlugin(
+    RawSeries, pluginName, pathType, calculateCoordinates, createHitTester,
+  );
   Series.components = componentsDefinition;
   return Series;
 };

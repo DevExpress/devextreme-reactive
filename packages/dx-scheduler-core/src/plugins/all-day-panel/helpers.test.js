@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
+import { allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate } from './helpers';
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -119,6 +119,37 @@ describe('AllDayPanel helpers', () => {
           appointment, left, right,
         );
       }).not.toThrow();
+    });
+  });
+
+  describe('#getAllDayCellIndexByDate', () => {
+    const viewCellsData = [
+      [
+        { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
+        { startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') },
+        { startDate: new Date('2018-06-26 08:00'), endDate: new Date('2018-06-26 08:30') },
+        { startDate: new Date('2018-06-27 08:00'), endDate: new Date('2018-06-27 08:30') },
+      ],
+      [
+        { startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') },
+        { startDate: new Date('2018-06-25 08:30'), endDate: new Date('2018-06-25 09:00') },
+        { startDate: new Date('2018-06-26 08:30'), endDate: new Date('2018-06-26 09:00') },
+        { startDate: new Date('2018-06-27 08:30'), endDate: new Date('2018-06-27 09:00') },
+      ],
+    ];
+    it('should return cell index', () => {
+      const date = '2018-06-24 07:30';
+      const takePrev = false;
+      expect(getAllDayCellIndexByDate(viewCellsData, date, takePrev))
+        .toEqual(0);
+    });
+
+    it('should return cell index with takePrev property', () => {
+      const date = '2018-06-25';
+      expect(getAllDayCellIndexByDate(viewCellsData, date, false))
+        .toEqual(1);
+      expect(getAllDayCellIndexByDate(viewCellsData, date, true))
+        .toEqual(0);
     });
   });
 });

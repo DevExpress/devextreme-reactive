@@ -12,7 +12,7 @@ import {
   getAppointmentStyle,
   calculateRectByDateIntervals,
   calculateAllDayDateIntervals,
-  getAllDayRectByDates,
+  getHorizontalRectByDates,
   HORIZONTAL_TYPE,
 } from '@devexpress/dx-scheduler-core';
 
@@ -48,11 +48,11 @@ export class AllDayPanel extends React.PureComponent {
 
   render() {
     const {
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
       rowComponent: Row,
-      textComponent: Text,
+      titleCellComponent: TitleCell,
       messages,
     } = this.props;
     const { tableRef } = this.state;
@@ -63,12 +63,12 @@ export class AllDayPanel extends React.PureComponent {
         name="AllDayPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="navbarEmpty">
+        <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView }) => {
               if (currentView === MONTH) return null;
               return (
-                <Text getMessage={getMessage} />
+                <TitleCell getMessage={getMessage} />
               );
             }}
           </TemplateConnector>
@@ -78,25 +78,25 @@ export class AllDayPanel extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              dayScale, currentView, appointments, startViewDate,
+              currentView, appointments, startViewDate,
               endViewDate, excludedDays, viewCellsData,
             }) => {
               if (currentView.name === MONTH) return null;
               const intervals = calculateAllDayDateIntervals(
                 appointments, startViewDate, endViewDate, excludedDays,
               );
-              const rects = tableRef && tableRef.querySelectorAll('th').length === dayScale.length ? calculateRectByDateIntervals(
+              const rects = tableRef && tableRef.querySelectorAll('th').length === viewCellsData[0].length ? calculateRectByDateIntervals(
                 {
                   growDirection: HORIZONTAL_TYPE,
                   multiline: false,
                 },
                 intervals,
-                getAllDayRectByDates,
+                getHorizontalRectByDates,
                 {
                   startViewDate,
                   endViewDate,
-                  dayScale,
                   excludedDays,
+                  viewCellsData,
                   cellElements: tableRef.querySelectorAll('th'),
                 },
               ) : [];
@@ -108,16 +108,16 @@ export class AllDayPanel extends React.PureComponent {
                   rowComponent={Row}
                   cellsData={allDayCells(viewCellsData)}
                 >
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({ dataItem, type, ...geometry }, index) => (
                       <AppointmentPlaceholder
                         style={getAppointmentStyle(geometry)}
                         type={type}
                         key={index.toString()}
-                        appointment={dataItem}
+                        data={dataItem}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </Layout>
               );
             }}
@@ -142,11 +142,11 @@ export class AllDayPanel extends React.PureComponent {
 }
 
 AllDayPanel.propTypes = {
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   layoutComponent: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
   rowComponent: PropTypes.func.isRequired,
-  textComponent: PropTypes.func.isRequired,
+  titleCellComponent: PropTypes.func.isRequired,
   messages: PropTypes.shape({
     allDay: PropTypes.string,
   }),
@@ -157,9 +157,9 @@ AllDayPanel.defaultProps = {
 };
 
 AllDayPanel.components = {
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   layoutComponent: 'Layout',
   cellComponent: 'Cell',
   rowComponent: 'Row',
-  textComponent: 'Text',
+  titleCellComponent: 'TitleCell',
 };

@@ -16,4 +16,6 @@ export { SplineSeries } from './plugins/spline-series';
 export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Grid, ArgumentGrid, ValueGrid } from './plugins/grid';
 
+export * from './plugins/tracker';
+
 export { withPatchedProps, withComponents } from './utils';

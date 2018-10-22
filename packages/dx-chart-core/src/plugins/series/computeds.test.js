@@ -305,6 +305,10 @@ describe('getPiePointTransformer', () => {
       value: 'val-1',
       color: 'c1',
       d: 'test-arc-1',
+      innerRadius: 4,
+      outerRadius: 6,
+      startAngle: 3,
+      endAngle: 4,
     });
     expect(
       transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
@@ -315,6 +319,10 @@ describe('getPiePointTransformer', () => {
       value: 'val-2',
       color: 'c2',
       d: 'test-arc-2',
+      innerRadius: 4,
+      outerRadius: 6,
+      startAngle: 7,
+      endAngle: 8,
     });
 
     expect(mockPie.sort).toBeCalledWith(null);

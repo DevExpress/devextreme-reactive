@@ -14,7 +14,6 @@
 -->
 - [ ] React Grid
 - [ ] React Chart
-- [ ] Vue Grid
 
 ### Current Behaviour
 
@@ -38,7 +37,6 @@
 
 - devextreme-reactive: xxx
 - react: xxx
-- vue: xxx
 - browser: xxx
 - bootstrap: none
 - react-bootstrap: none

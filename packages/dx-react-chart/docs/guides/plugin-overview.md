@@ -32,7 +32,7 @@ The following plugins render additional elements:
 
 The following plugins implement additional features:
 
-- `Animation` - animates series
+- `Animation` - animates series when they first appear on-screen
 
 ## Data Processing Plugins
 

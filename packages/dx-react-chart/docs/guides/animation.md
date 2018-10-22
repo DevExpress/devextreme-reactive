@@ -1,9 +1,5 @@
 # React Chart - Animation
 
-You can use the [Animation](../reference/animation.md) plugin to animate Chart series at the beginning of the lifetime.
-
-## Basic Setup
-
-Add the `Animation` plugin to the Chart component and all series will be animated out of the box. Also you can customize base animation options, like duration for each bar, as demonstrated in the following example:
+You can add the [Animation](../reference/animation.md) plugin to the Chart component to animate all its series at the beginning of the lifetime. If you need to modify animation options, implement a custom point component for a series. In the following example, animation duration is configured individually for each bar:
 
 .embedded-demo({ "path": "chart-basic/animation", "showThemeSelector": true })

@@ -12,7 +12,6 @@ import {
   changeAppointment,
   cancelChanges,
   changedAppointmentById,
-  createAppointmentChangeGetter,
 } from '@devexpress/dx-scheduler-core';
 
 export class EditingState extends React.PureComponent {
@@ -116,7 +115,6 @@ export class EditingState extends React.PureComponent {
 
   render() {
     const {
-      createAppointmentChange,
       setAppointmentTitle,
       setAppointmentStartDate,
       setAppointmentEndDate,
@@ -130,11 +128,6 @@ export class EditingState extends React.PureComponent {
       <Plugin
         name="EditingState"
       >
-        <Getter
-          name="createRowChange"
-          value={createAppointmentChangeGetter(createAppointmentChange)}
-        />
-
         <Getter name="setAppointmentTitle" value={setAppointmentTitle} />
         <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
         <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
@@ -162,8 +155,6 @@ export class EditingState extends React.PureComponent {
 }
 
 EditingState.propTypes = {
-  createAppointmentChange: PropTypes.func,
-
   editingAppointmentId: PropTypes.number,
   defaultEditingAppointmentId: PropTypes.number,
   onEditingAppointmentIdChange: PropTypes.func,
@@ -185,8 +176,6 @@ EditingState.propTypes = {
 };
 
 EditingState.defaultProps = {
-  createAppointmentChange: undefined,
-
   editingAppointmentId: undefined,
   defaultEditingAppointmentId: undefined,
   onEditingAppointmentIdChange: undefined,

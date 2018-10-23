@@ -137,7 +137,7 @@ export class TableFilterRow extends React.PureComponent {
                         }
                         {content || (
                           <EditorComponent
-                            value={filter ? filter.value : ''}
+                            value={filter ? filter.value : undefined}
                             disabled={!filteringEnabled}
                             getMessage={getMessage}
                             onChange={handleFilterValueChange}

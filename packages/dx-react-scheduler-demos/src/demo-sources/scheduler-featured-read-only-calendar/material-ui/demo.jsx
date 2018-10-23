@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
+
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';
@@ -13,7 +12,19 @@ import {
   DateNavigator,
   ViewSwitcher,
   AllDayPanel,
+  AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+import PriorityHigh from '@material-ui/icons/PriorityHigh';
+import LowPriority from '@material-ui/icons/LowPriority';
+import Event from '@material-ui/icons/Event';
+import AccessTime from '@material-ui/icons/AccessTime';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import { tasks } from '../../../demo-data/tasks';
 
@@ -23,41 +34,110 @@ const priorities = {
   3: 'high',
 };
 
-const styles = {
-  toolbarRoot: {
-    position: 'relative',
-  },
-  lowPriority: {
-    '&:hover': {
-      background: '#43A047',
+const styles = (theme) => {
+  const priorityClasses = Object.entries({ low: '#81C784', medium: '#4FC3F7', high: '#FF8A65' })
+    .reduce((acc, [priority, color]) => {
+      acc[`${priority}PriorityBackground`] = { background: color };
+      acc[`${priority}PriorityColor`] = { color };
+      return acc;
+    }, {});
+
+  return {
+    ...priorityClasses,
+    lowPriorityHover: {
+      '&:hover': {
+        background: '#43A047',
+      },
     },
-    background: '#81C784',
-  },
-  mediumPriority: {
-    '&:hover': {
-      background: '#039BE5',
+    mediumPriorityHover: {
+      '&:hover': {
+        background: '#039BE5',
+      },
     },
-    background: '#4FC3F7',
-  },
-  highPriority: {
-    '&:hover': {
-      background: '#F4511E',
+    highPriorityHover: {
+      '&:hover': {
+        background: '#F4511E',
+      },
     },
-    background: '#FF8A65',
-  },
+    conentItem: {
+      paddingLeft: 0,
+    },
+    conentItemValue: {
+      textTransform: 'capitalize',
+      padding: 0,
+    },
+    conentItemIcon: {
+      marginRight: theme.spacing.unit,
+    },
+  };
+};
+
+const Priority = ({ id, classes }) => {
+  const priority = priorities[id];
+  let icon = <LowPriority />;
+  if (id === 2) icon = <Event />;
+  else if (id === 3) icon = <PriorityHigh />;
+  return (
+    <React.Fragment>
+      <ListItemIcon className={`${classes.conentItemIcon} ${classes[`${priority}PriorityColor`]}`}>
+        {icon}
+      </ListItemIcon>
+      <ListItemText className={classes.conentItemValue}>
+        <span className={classes[`${priority}PriorityColor`]}>{` ${priorities[id]} priority`}</span>
+      </ListItemText>
+    </React.Fragment>
+  );
 };
 
 const Appointment = withStyles(styles, { name: 'Appointment' })(
   ({ classes, data, ...restProps }) => {
     const priority = priorities[data.priorityId];
+    const className = classes[`${priority}PriorityBackground`];
+    const hoverClassName = classes[`${priority}PriorityHover`];
     return (
       <Appointments.Appointment
         data={data}
-        className={classes[`${priority}Priority`]}
+        className={`${className} ${hoverClassName}`}
         {...restProps}
       />
     );
   },
+);
+
+const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
+  ({ classes, appointmentData, ...restProps }) => {
+    const priority = priorities[appointmentData.priorityId];
+    const className = classes[`${priority}PriorityBackground`];
+    return (
+      <AppointmentTooltip.Header
+        appointmentData={appointmentData}
+        className={className}
+        {...restProps}
+      />
+    );
+  },
+);
+
+const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
+  ({ classes, appointmentData, ...restProps }) => (
+    <AppointmentTooltip.Content {...restProps}>
+      <List>
+        <ListItem className={classes.conentItem}>
+          <Priority id={appointmentData.priorityId} classes={classes} />
+        </ListItem>
+        <ListItem className={classes.conentItem}>
+          <ListItemIcon className={`${classes.conentItemIcon}`}>
+            <AccessTime />
+          </ListItemIcon>
+          <ListItemText className={classes.conentItemValue}>
+            {moment(appointmentData.startDate).format('h:mm A')}
+            {' - '}
+            {moment(appointmentData.endDate).format('h:mm A')}
+          </ListItemText>
+        </ListItem>
+      </List>
+    </AppointmentTooltip.Content>
+  ),
 );
 
 export default class Demo extends React.PureComponent {
@@ -99,6 +179,10 @@ export default class Demo extends React.PureComponent {
           <DateNavigator />
           <ViewSwitcher />
           <AllDayPanel />
+          <AppointmentTooltip
+            headerComponent={TooltipHeader}
+            contentComponent={TooltipContent}
+          />
         </Scheduler>
       </Paper>
     );

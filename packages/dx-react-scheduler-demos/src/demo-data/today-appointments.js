@@ -1,23 +1,28 @@
+import moment from 'moment';
 import { appointments } from './appointments';
 
-const today = new Date();
-const todayArgs = [
-  today.getFullYear(),
-  today.getMonth(),
-];
 let date = 1;
-const makeToday = prevDate => (
-  new Date(
-    ...todayArgs,
-    date,
-    prevDate.getHours(),
-    prevDate.getMinutes(),
-  )
-);
+const makeTodayAppointment = (startDate, endDate) => {
+  const currentDate = moment();
+  const days = moment(startDate).diff(endDate, 'days');
+  const nextStartDate = moment(startDate)
+    .year(currentDate.year())
+    .month(currentDate.month())
+    .day(date);
+  const nextEndDate = moment(endDate)
+    .year(currentDate.year())
+    .month(currentDate.month())
+    .day(date + days);
+
+  return {
+    startDate: nextStartDate.toDate(),
+    endDate: nextEndDate.toDate(),
+  };
+};
+
 export default appointments.map(({ startDate, endDate, ...restArgs }) => {
   const result = {
-    startDate: makeToday(startDate),
-    endDate: makeToday(endDate),
+    ...makeTodayAppointment(startDate, endDate),
     ...restArgs,
   };
   date += 1;

@@ -18,5 +18,6 @@ export { Grid, ArgumentGrid, ValueGrid } from './plugins/grid';
 
 export * from './plugins/tracker';
 export * from './plugins/hover';
+export * from './plugins/selection';
 
 export { withPatchedProps, withComponents } from './utils';

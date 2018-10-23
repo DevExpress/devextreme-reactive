@@ -19,11 +19,11 @@ describe('Scatter series', () => {
   const PointComponent = () => null;
 
   const coords = [
-    { x: 1, y: 11, id: 1 },
-    { x: 2, y: 12, id: 2 },
-    { x: 3, y: 13, id: 3 },
-    { x: 4, y: 14, id: 4 },
-    { x: 5, y: 15, id: 5 },
+    { x: 1, y: 11, index: 1 },
+    { x: 2, y: 12, index: 2 },
+    { x: 3, y: 13, index: 3 },
+    { x: 4, y: 14, index: 4 },
+    { x: 5, y: 15, index: 5 },
   ];
 
   pointAttributes.mockReturnValue(() => ({
@@ -39,9 +39,9 @@ describe('Scatter series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    points: coords,
     styles: 'styles',
     point: { size: 5 },
-    uniqueName: 'uniqueSeriesName',
     seriesComponent: PointCollection,
     pointComponent: PointComponent,
   });
@@ -51,7 +51,6 @@ describe('Scatter series', () => {
       layouts: { pane: {} },
       scales: {},
       getAnimatedStyle: jest.fn(),
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

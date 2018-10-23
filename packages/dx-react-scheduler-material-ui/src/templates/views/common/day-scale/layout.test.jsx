@@ -2,9 +2,10 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('Horizontal view DateTable', () => {
+describe('Common view DayScale', () => {
+  let classes;
+  let shallow;
   const defaultProps = {
-    dateTableRef: () => undefined,
     cellsData: [
       [
         { startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) },
@@ -16,8 +17,6 @@ describe('Horizontal view DateTable', () => {
       ],
     ],
   };
-  let classes;
-  let shallow;
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
@@ -43,19 +42,11 @@ describe('Horizontal view DateTable', () => {
     });
     it('should render array of days', () => {
       const cell = () => <td />;
-      /* eslint-disable-next-line */
-      const row = ({ children }) => <tr>{children}</tr>;
-      const monthCells = [
-        [{ value: 1 }, { value: 2 }],
-        [{ value: 3 }, { value: 4 }],
-      ];
       const tree = shallow((
-        <Layout {...defaultProps} monthCells={monthCells} cellComponent={cell} rowComponent={row} />
+        <Layout {...defaultProps} cellComponent={cell} />
       ));
 
       expect(tree.find(cell))
-        .toHaveLength(4);
-      expect(tree.find(row))
         .toHaveLength(2);
     });
   });

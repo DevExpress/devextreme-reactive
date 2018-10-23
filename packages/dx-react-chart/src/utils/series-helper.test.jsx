@@ -22,16 +22,14 @@ describe('Base series', () => {
     argumentField: 'argumentField',
   };
 
-  const getSeriesPoints = jest.fn();
-
   beforeEach(() => {
     findSeriesByName.mockReturnValue({
       ...defaultProps,
+      points: coords,
       color: 'color',
       styles: 'styles',
     });
     addSeries.mockReturnValue('series');
-    getSeriesPoints.mockReturnValue(coords);
     getValueDomainName.mockReturnValue('value_domain');
   });
 
@@ -45,7 +43,6 @@ describe('Base series', () => {
       series: 'series',
       palette: 'test-palette',
       scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
-      getSeriesPoints,
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
       getAnimatedStyle: 'test-animated-style-getter',
@@ -90,7 +87,7 @@ describe('Base series', () => {
     });
   });
 
-  it('should call function to get attributes for series', () => {
+  it('should add series to list', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -100,34 +97,7 @@ describe('Base series', () => {
         />
       </PluginHost>
     ));
-
-    expect(findSeriesByName).toHaveBeenCalledTimes(1);
-    expect(findSeriesByName).toHaveBeenLastCalledWith(
-      expect.anything(),
-      'series',
-    );
-
-    expect(getSeriesPoints).toHaveBeenCalledTimes(1);
-    expect(getSeriesPoints).toHaveBeenLastCalledWith(
-      findSeriesByName.mock.results[0].value,
-      'data',
-      { xScale: 'argument-scale', yScale: 'value-scale' },
-      ['one', 'two'],
-      'scaleExtension',
-    );
-  });
-
-  it('should pass axesData correct arguments', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents(defaultDeps)}
-
-        <WrappedComponent
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-    expect(addSeries).toHaveBeenCalledWith('series', 'test-palette', expect.objectContaining({
+    expect(addSeries).toHaveBeenCalledWith('series', 'data', 'test-palette', expect.objectContaining({
       ...defaultProps,
       isStartedFromZero: false,
       getPointTransformer: testGetPointTransformer,

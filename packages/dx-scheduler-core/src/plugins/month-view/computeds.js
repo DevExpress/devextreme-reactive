@@ -35,8 +35,8 @@ export const monthCellsData = (currentDate, firstDayOfWeek, intervalCount = 1) =
       week.push({
         startDate: from.toDate(),
         endDate: from.clone().add(1, 'day').toDate(),
-        isOtherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
-        isCurrent: currentDay === from.date() && from.month() === currentMonth,
+        otherMonth: currentMonths.findIndex(month => month === from.month()) === -1,
+        current: currentDay === from.date() && from.month() === currentMonth,
       });
       from.add(1, 'day');
     }

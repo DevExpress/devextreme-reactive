@@ -10,7 +10,6 @@ import {
   stopEditAppointment,
   changeAppointment,
   cancelChanges,
-  createAppointmentChangeGetter,
 } from '@devexpress/dx-scheduler-core';
 import { EditingState } from './editing-state';
 
@@ -20,7 +19,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   stopEditAppointment: jest.fn(),
   deleteAppointment: jest.fn(),
   cancelDeletedAppointment: jest.fn(),
-  createAppointmentChangeGetter: jest.fn(),
   changeAppointment: jest.fn(),
   cancelChanges: jest.fn(),
   addAppointment: jest.fn(),
@@ -34,25 +32,6 @@ const defaultProps = {
 };
 
 describe('EditingState', () => {
-  it('should provide createAppointmentChange getter', () => {
-    const createAppointmentChange = () => {};
-
-    const tree = mount((
-      <PluginHost>
-        <EditingState
-          {...defaultProps}
-          createAppointmentChange={createAppointmentChange}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(createAppointmentChangeGetter)
-      .toBeCalledWith(createAppointmentChange);
-    expect(getComputedState(tree).createAppointmentChange)
-      .toEqual(createAppointmentChangeGetter());
-  });
-
   it('should provide setAppointmentTitle getter', () => {
     const setAppointmentTitle = jest.fn();
 

@@ -32,7 +32,7 @@ describe('Area series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
-    uniqueName: 'uniqueSeriesName',
+    points: coords,
     seriesComponent: SeriesComponent,
     customProperty: 'custom',
   });
@@ -41,7 +41,6 @@ describe('Area series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

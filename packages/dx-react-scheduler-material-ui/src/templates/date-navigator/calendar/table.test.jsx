@@ -49,8 +49,8 @@ describe('Calendar', () => {
     });
     it('should render cell and rows by the "cells" props', () => {
       const cells = [
-        [{ startDate: 1, isOtherMonth: true }, { startDate: 2 }],
-        [{ startDate: 3 }, { startDate: 4, isCurrent: true }],
+        [{ startDate: 1, otherMonth: true }, { startDate: 2 }],
+        [{ startDate: 3 }, { startDate: 4, current: true }],
       ];
       const tree = mount((
         <Table

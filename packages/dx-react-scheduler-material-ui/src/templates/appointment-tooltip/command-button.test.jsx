@@ -60,5 +60,15 @@ describe('Appointment Tooltip', () => {
       expect(deleteIcon.exists())
         .toBeTruthy();
     });
+
+    it('should call onExecute function by click', () => {
+      const onExecute = jest.fn();
+      const tree = shallow((
+        <CommandButton onClick={onExecute} />
+      ));
+
+      tree.simulate('click');
+      expect(onExecute).toBeCalled();
+    });
   });
 });

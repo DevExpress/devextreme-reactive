@@ -18,11 +18,11 @@ export class PointCollection extends React.PureComponent {
     const getAttributes = pointAttributes(point);
     return (coordinates.map(item => (
       <Point
-        key={item.id.toString()}
+        key={item.index.toString()}
         style={getAnimatedStyle(style, getScatterAnimationStyle, scales)}
+        {...restProps}
         {...getAttributes(item)}
         {...item}
-        {...restProps}
       />
     )));
   }

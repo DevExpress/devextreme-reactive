@@ -54,7 +54,7 @@ RawLegend.propTypes = {
 
 RawLegend.defaultProps = {
   position: 'right',
-  getItems: ({ series, data, getSeriesPoints }) => getLegendItems(series, data, getSeriesPoints),
+  getItems: ({ series }) => getLegendItems(series),
 };
 
 RawLegend.components = {

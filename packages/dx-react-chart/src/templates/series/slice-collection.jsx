@@ -21,7 +21,7 @@ export class SliceCollection extends React.PureComponent {
       <g transform={`translate(${coordinates[0].x} ${coordinates[0].y})`}>
         {coordinates.map(item => (
           <Point
-            key={item.id.toString()}
+            key={item.index.toString()}
             style={getAnimatedStyle(style, getPieAnimationStyle, scales, item)}
             {...restProps}
             {...item}

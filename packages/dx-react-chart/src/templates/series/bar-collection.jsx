@@ -16,11 +16,11 @@ export class BarCollection extends React.PureComponent {
     } = this.props;
     return (coordinates.map(item => (
       <Point
-        key={item.id.toString()}
+        key={item.index.toString()}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
-        {...item}
-        {...dBar(item)}
         {...restProps}
+        {...dBar(item)}
+        {...item}
       />
     )));
   }

@@ -45,8 +45,8 @@ const CellBase = ({
   className,
   startDate,
   endDate,
-  isCurrent,
-  isOtherMonth,
+  current,
+  otherMonth,
   ...restProps
 }) => (
   <TableCell
@@ -56,9 +56,9 @@ const CellBase = ({
   >
     <div
       className={classNames({
-        [classes.text]: !isCurrent,
-        [classes.current]: isCurrent,
-        [classes.otherMonth]: isOtherMonth,
+        [classes.text]: !current,
+        [classes.current]: current,
+        [classes.otherMonth]: otherMonth,
       })}
     >
       {moment(startDate).format('D')}
@@ -71,8 +71,8 @@ CellBase.propTypes = {
   className: PropTypes.string,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
-  isCurrent: PropTypes.bool.isRequired,
-  isOtherMonth: PropTypes.bool.isRequired,
+  current: PropTypes.bool.isRequired,
+  otherMonth: PropTypes.bool.isRequired,
 };
 
 CellBase.defaultProps = {

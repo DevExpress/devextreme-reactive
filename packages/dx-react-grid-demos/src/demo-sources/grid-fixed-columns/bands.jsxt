@@ -19,6 +19,7 @@ const columns = [
   { name: 'birthDate', title: 'Birth Date' },
   { name: 'position', title: 'Position' },
   { name: 'state', title: 'State' },
+  { name: 'phone', title: 'Phone' },
 ];
 const columnBands = [
   {
@@ -40,6 +41,7 @@ const columnBands = [
     children: [
       { columnName: 'state' },
       { columnName: 'position' },
+      { columnName: 'phone' },
     ],
   },
 ];
@@ -49,9 +51,10 @@ const rows = generateRows({
   length: 8,
 });
 const tableColumnExtensions = [
-  { columnName: 'prefix', width: 150 },
+  { columnName: 'prefix', width: 80 },
   { columnName: 'firstName', width: 220 },
   { columnName: 'lastName', width: 220 },
+  { columnName: 'phone', width: 140 },
 ];
 
 export default () => (

@@ -37,8 +37,14 @@ export class AppointmentTooltip extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        visible: () => props.onVisibilityChange,
-        appointmentMeta: () => props.onAppointmentMetaChange,
+        visible: () => {
+          const { onVisibilityChange } = this.props;
+          return onVisibilityChange;
+        },
+        appointmentMeta: () => {
+          const { onAppointmentMetaChange } = this.props;
+          return onAppointmentMetaChange;
+        },
       },
     );
 

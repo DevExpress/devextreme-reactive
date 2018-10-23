@@ -13,10 +13,10 @@ export class BarCollection extends React.PureComponent {
     } = this.props;
     return (coordinates.map(item => (
       <Point
-        key={item.id.toString()}
-        {...item}
-        {...dBar(item)}
+        key={item.index.toString()}
         {...restProps}
+        {...dBar(item)}
+        {...item}
       />
     )));
   }

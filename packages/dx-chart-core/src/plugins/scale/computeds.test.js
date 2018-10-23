@@ -9,11 +9,7 @@ jest.mock('d3-scale', () => ({
 
 describe('computeDomains', () => {
   it('should always create argument domain', () => {
-    const domains = computeDomains(
-      [],
-      [],
-      [],
-    );
+    const domains = computeDomains([], []);
 
     expect(domains).toEqual({
       [ARGUMENT_DOMAIN]: {
@@ -25,8 +21,7 @@ describe('computeDomains', () => {
   it('should create default value domain', () => {
     const domains = computeDomains(
       [],
-      [{ name: 'series1', argumentField: 'arg', valueField: 'val' }],
-      [{ arg: 1, val: 1 }],
+      [{ name: 'series1', points: [{ argument: 1, value: 1 }] }],
     );
 
     expect(domains).toEqual({
@@ -39,17 +34,17 @@ describe('computeDomains', () => {
     });
   });
 
-  it('should compute domains from data and series options', () => {
+  it('should compute domains from series points', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1',
+        points: [
+          { argument: 1, value: 9 },
+          { argument: 2, value: 2 },
+          { argument: 3, value: 7 },
+        ],
       }],
-      [
-        { arg: 1, val: 9 },
-        { arg: 2, val: 2 },
-        { arg: 3, val: 7 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -62,19 +57,18 @@ describe('computeDomains', () => {
     });
   });
 
-  it('should compute domains from data and series options (temporary workaround for Stack)', () => {
+  it('should compute domains from series points (temporary workaround for Stack)', () => {
     const getValueDomain = jest.fn().mockReturnValue([11, 15, 19, 23]);
-    const data = [
-      { arg: 1, val: 9 },
-      { arg: 2, val: 2 },
-      { arg: 3, val: 7 },
+    const points = [
+      { argument: 1, value: 9 },
+      { argument: 2, value: 2 },
+      { argument: 3, value: 7 },
     ];
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val', getValueDomain,
+        name: 'series1', getValueDomain, points,
       }],
-      data,
     );
 
     expect(domains).toEqual({
@@ -85,19 +79,15 @@ describe('computeDomains', () => {
         domain: [11, 23], orientation: 'vertical', type: 'linear',
       },
     });
-    expect(getValueDomain).toBeCalledWith(data);
+    expect(getValueDomain).toBeCalledWith(points);
   });
 
-  it('should compute domains from data and series options, negative values', () => {
+  it('should compute domains from series points, negative values', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1', points: [{ argument: 1, value: 9 }, { argument: 2, value: -10 }],
       }],
-      [
-        { arg: 1, val: 9 },
-        { arg: 2, val: -10 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -110,16 +100,12 @@ describe('computeDomains', () => {
     });
   });
 
-  it('should compute domains from data and series options, zero values', () => {
+  it('should compute domains from series points, zero values', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1', points: [{ argument: 1, value: 0 }, { argument: 2, value: 10 }],
       }],
-      [
-        { arg: 1, val: 0 },
-        { arg: 2, val: 10 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -136,11 +122,8 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val', isStartedFromZero: true,
+        name: 'series1', isStartedFromZero: true, points: [{ argument: 1, value: 9 }],
       }],
-      [
-        { arg: 1, val: 9 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -154,30 +137,18 @@ describe('computeDomains', () => {
   });
 
   it('should compute domains from several series', () => {
-    const makeItem = (arg, val1, val2, val3, val4) => ({
-      arg,
-      val1,
-      val2,
-      val3,
-      val4,
-    });
+    const makePoints = values => values.map((value, index) => ({ argument: index + 1, value }));
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val1',
+        name: 'series1', points: makePoints([2, 3, 5, 6]),
       }, {
-        name: 'series2', argumentField: 'arg', valueField: 'val2', axisName: 'domain1',
+        name: 'series2', points: makePoints([-1, -3, 0, 1]), axisName: 'domain1',
       }, {
-        name: 'series3', argumentField: 'arg', valueField: 'val3', axisName: 'domain1',
+        name: 'series3', points: makePoints([1, 2, 3, 1]), axisName: 'domain1',
       }, {
-        name: 'series4', argumentField: 'arg', valueField: 'val4',
+        name: 'series4', points: makePoints([2, 5, 7, 3]),
       }],
-      [
-        makeItem(1, 2, -1, 1, 2),
-        makeItem(2, 3, -3, 2, 5),
-        makeItem(3, 5, 0, 3, 7),
-        makeItem(4, 6, 1, 1, 3),
-      ],
     );
 
     expect(domains).toEqual({
@@ -197,13 +168,13 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [{ name: ARGUMENT_DOMAIN, type: 'band' }],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1',
+        points: [
+          { argument: 'a', value: 1 },
+          { argument: 'b', value: 2 },
+          { argument: 'c', value: 1.5 },
+        ],
       }],
-      [
-        { arg: 'a', val: 1 },
-        { arg: 'b', val: 2 },
-        { arg: 'c' },
-      ],
     );
 
     expect(domains).toEqual({
@@ -220,49 +191,16 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1', points: [{ argument: 'a', value: 'A' }, { argument: 'b', value: 'B' }],
       }],
-      [
-        { arg: 'a', val: 'A' },
-        { arg: 'b', val: 'B' },
-        { arg: 'c' },
-      ],
     );
 
     expect(domains).toEqual({
       [ARGUMENT_DOMAIN]: {
-        domain: ['a', 'b', 'c'], orientation: 'horizontal', type: 'band',
+        domain: ['a', 'b'], orientation: 'horizontal', type: 'band',
       },
       [VALUE_DOMAIN]: {
         domain: ['A', 'B'], orientation: 'vertical', type: 'band',
-      },
-    });
-  });
-
-  it('should tolerate undefined values', () => {
-    const domains = computeDomains(
-      [{ name: ARGUMENT_DOMAIN, type: 'band' }],
-      [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
-      }],
-      [
-        { arg: 'a', val: 1 },
-        { arg: 'b', val: 2 },
-        { arg: undefined },
-        { arg: 'c' },
-      ],
-    );
-
-    expect(domains).toEqual({
-      [ARGUMENT_DOMAIN]: {
-        domain: ['a', 'b', 'c'],
-        orientation: 'horizontal',
-        type: 'band',
-      },
-      [VALUE_DOMAIN]: {
-        domain: [1, 2],
-        orientation: 'vertical',
-        type: 'linear',
       },
     });
   });
@@ -271,12 +209,10 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [{ name: 'domain1', min: 0, max: 10 }],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
+        name: 'series1',
+        axisName: 'domain1',
+        points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
-      [
-        { arg: 1, val: 3 },
-        { arg: 2, val: 14 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -293,12 +229,10 @@ describe('computeDomains', () => {
     const domains = computeDomains(
       [{ name: 'domain1', max: 7 }],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
+        name: 'series1',
+        axisName: 'domain1',
+        points: [{ argument: 1, value: 3 }, { argument: 2, value: 14 }],
       }],
-      [
-        { arg: 1, val: 3 },
-        { arg: 2, val: 14 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -317,13 +251,9 @@ describe('computeDomains', () => {
         name: ARGUMENT_DOMAIN, min: 1, max: 7, type: 'band',
       }],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1',
+        points: [{ argument: 'one', value: 9 }, { argument: 'two', value: 1 }, { argument: 'three', value: 1 }],
       }],
-      [
-        { arg: 'one', val: 9 },
-        { arg: 'two', val: 1 },
-        { arg: 'three', val: 1 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -343,11 +273,8 @@ describe('computeDomains', () => {
         { name: VALUE_DOMAIN, tickFormat: 'valueTickFormat' },
       ],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val',
+        name: 'series1', points: [{ argument: 1, value: 9 }],
       }],
-      [
-        { arg: 1, val: 9 },
-      ],
     );
 
     expect(domains).toEqual({
@@ -367,11 +294,8 @@ describe('computeDomains', () => {
         { name: 'domain2', tickFormat: 'format2' },
       ],
       [{
-        name: 'series1', argumentField: 'arg', valueField: 'val', axisName: 'domain1',
+        name: 'series1', axisName: 'domain1', points: [{ argument: 1, value: 9 }],
       }],
-      [
-        { arg: 1, val: 9 },
-      ],
     );
 
     expect(domains).toEqual({

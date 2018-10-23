@@ -14,39 +14,29 @@ const calculateDomainField = (items, domain, type) => (
   type === BAND ? [...domain, ...items] : extent([...domain, ...extent(items)])
 );
 
-const getDomainItems = (data, field) => {
-  const items = [];
-  data.forEach((dataItem) => {
-    const value = dataItem[field];
-    if (isDefined(value)) {
-      items.push(value);
-    }
-  });
-  return items;
-};
+const getArgument = point => point.argument;
 
-const getCorrectAxisType = (type, data, field) => {
-  if (!type && typeof data.find(item => isDefined(item[field]))[field] === 'string') {
-    return BAND;
-  }
-  return type || LINEAR;
-};
+const getValue = point => point.value;
 
-const calculateDomains = (domains, seriesList, data) => {
+const getCorrectAxisType = (type, points, getItem) => (
+  type || (points.length && typeof getItem(points[0]) === 'string' && BAND) || LINEAR
+);
+
+const calculateDomains = (domains, seriesList) => {
   seriesList.forEach((seriesItem) => {
     const valueDomainName = getSeriesValueDomainName(seriesItem);
-    const { argumentField, valueField } = seriesItem;
+    const { points } = seriesItem;
     const argumentDomain = domains[ARGUMENT_DOMAIN];
     const valueDomain = domains[valueDomainName];
 
-    const valueType = getCorrectAxisType(valueDomain.type, data, valueField);
-    const argumentType = getCorrectAxisType(argumentDomain.type, data, argumentField);
+    const valueType = getCorrectAxisType(valueDomain.type, points, getValue);
+    const argumentType = getCorrectAxisType(argumentDomain.type, points, getArgument);
 
     // TODO: This is a temporary workaround for Stack plugin.
     // Once scales (or domains) are exposed for modification Stack will modify scale and
     // this code will be removed.
     const valueDomainItems = seriesItem.getValueDomain
-      ? seriesItem.getValueDomain(data) : getDomainItems(data, valueField);
+      ? seriesItem.getValueDomain(points) : points.map(getValue);
     valueDomain.domain = calculateDomainField(
       valueDomainItems,
       valueDomain.domain,
@@ -55,7 +45,7 @@ const calculateDomains = (domains, seriesList, data) => {
     valueDomain.type = valueType;
 
     argumentDomain.domain = calculateDomainField(
-      getDomainItems(data, argumentField),
+      points.map(getArgument),
       argumentDomain.domain,
       argumentType,
     );
@@ -113,12 +103,12 @@ const takeRestAxesOptions = (domains, axes) => {
   });
 };
 
-export const computeDomains = (axes, series, data) => {
+export const computeDomains = (axes, series) => {
   const result = collectDomains(series);
   // Axes options are taken in two steps because *type* is required for domains calculation
   // and other options must be applied after domains are calculated.
   takeTypeFromAxesOptions(result, axes);
-  calculateDomains(result, series, data);
+  calculateDomains(result, series);
   takeRestAxesOptions(result, axes);
   return result;
 };

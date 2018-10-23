@@ -52,7 +52,7 @@ const defaultProps = {
   timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  containerComponent: ({ children }) => <div>{children}</div>,
+  appointmentLayerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Week View', () => {
@@ -293,19 +293,19 @@ describe('Week View', () => {
         .toBeTruthy();
     });
 
-    it('should render appointment container', () => {
+    it('should render appointment layer', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
             // eslint-disable-next-line react/jsx-one-expression-per-line
-            containerComponent={({ children }) => <div className="container">{children}</div>}
+            appointmentLayerComponent={({ children }) => <div className="appointment-layer">{children}</div>}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.container').exists())
+      expect(tree.find('.appointment-layer').exists())
         .toBeTruthy();
     });
 

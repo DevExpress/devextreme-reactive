@@ -82,6 +82,8 @@ const generateDate = ({
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 };
 
+const generatePhone = () => Math.random().toString().slice(2, 12).replace(/(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3');
+
 export const defaultColumnValues = {
   sex: ['Male', 'Female'],
   name: [
@@ -150,6 +152,7 @@ export const employeeValues = {
     random,
     year: () => Math.floor(random() * 30) + 1960,
   }),
+  phone: generatePhone,
 };
 
 export const employeeTaskValues = {

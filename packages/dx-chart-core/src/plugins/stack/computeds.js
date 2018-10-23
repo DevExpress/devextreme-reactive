@@ -3,90 +3,80 @@ import { stack } from 'd3-shape';
 // "Stack" plugin relies on "data" and "series" plugins and
 // knowledge about "calculateCoordinates" and "d3Func" functions behavior.
 
-const getStackedPointTransformer = ({
-  getPointTransformer, valueField0,
-}) => (series, data, ...args) => {
-  const transform = getPointTransformer(series, data, ...args);
+const getStackedPointTransformer = getPointTransformer => (series, ...args) => {
+  const transform = getPointTransformer(series, ...args);
   const { valueScale } = series;
   return (point) => {
     const ret = transform(point);
-    ret.y1 = valueScale(data[point.index][valueField0]);
+    ret.y1 = valueScale(point.value0);
     return ret;
   };
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
-const getValueDomainCalculator = ({ valueField, valueField0, stackKey }) => (data) => {
+const getValueDomain = (points) => {
   const items = [];
-  data.forEach((dataItem) => {
-    if (dataItem[stackKey] !== undefined) {
-      items.push(dataItem[valueField], dataItem[valueField0]);
-    }
+  points.forEach((point) => {
+    items.push(point.value, point.value0);
   });
   return items;
 };
 
-export const buildStackedSeries = (seriesList) => {
+const collectStacks = (seriesList) => {
   const stacks = {};
-  return seriesList.map((seriesItem, i) => {
+  const seriesInfo = {};
+  seriesList.forEach((seriesItem, i) => {
     const { stack: seriesStack = `stack${i}` } = seriesItem;
     if (seriesStack === null) {
-      return seriesItem;
+      return;
     }
-    const position = stacks[seriesStack] || 0;
-    stacks[seriesStack] = position + 1;
-    const stackedSeriesItem = {
-      ...seriesItem,
-      valueField: `stack_${seriesStack}_${position}`,
-      stack: seriesStack,
-      stackKey: seriesItem.valueField,
-      stackPosition: position,
-    };
-    if (stackedSeriesItem.isStartedFromZero) {
-      stackedSeriesItem.valueField0 = `${stackedSeriesItem.valueField}_0`;
-      stackedSeriesItem.getPointTransformer = getStackedPointTransformer(stackedSeriesItem);
-      stackedSeriesItem.getValueDomain = getValueDomainCalculator(stackedSeriesItem);
+
+    if (!stacks[seriesStack]) {
+      stacks[seriesStack] = [];
     }
-    return stackedSeriesItem;
+    const stackKeys = stacks[seriesStack];
+    const position = stackKeys.length;
+    stackKeys.push(seriesItem.valueField);
+    seriesInfo[seriesItem.symbolName] = { stack: seriesStack, position };
   });
+  return { stacks, seriesInfo };
 };
 
-const getStackedData = (offset, order, dataItems, seriesList) => {
-  const stacks = seriesList.reduce((total, { stack: seriesStack, stackKey }) => (seriesStack ? {
-    ...total,
-    [seriesStack]: (total[seriesStack] || []).concat(stackKey),
-  } : total), {});
-  return Object.entries(stacks).reduce((result, [name, keys]) => Object.assign(result, {
-    [name]: stack().keys(keys).order(order).offset(offset)(dataItems),
-  }), {});
-};
-
-export const buildStackedDataProcessor = (offset, order) => (dataItems, seriesList) => {
-  const stacks = getStackedData(offset, order, dataItems, seriesList);
-  return dataItems.map((dataItem, i) => {
-    const newData = {};
-    seriesList.forEach((seriesItem) => {
-      const stackData = stacks[seriesItem.stack];
-      if (stackData && dataItem[seriesItem.stackKey] !== undefined) {
-        const [value0, value] = stackData[seriesItem.stackPosition][i];
-        newData[seriesItem.valueField] = value;
-        if (seriesItem.valueField0) {
-          newData[seriesItem.valueField0] = value0;
-        }
-      }
-    });
-    return Object.keys(newData).length ? { ...dataItem, ...newData } : dataItem;
+const getStackedData = (stacks, dataItems, offset, order) => {
+  const result = {};
+  Object.entries(stacks).forEach(([name, keys]) => {
+    result[name] = stack().keys(keys).order(order).offset(offset)(dataItems);
   });
+  return result;
 };
 
-// The only purpose of this function is to prevent some props from being passed to DOM.
-// It should be removed when that issue is resolved.
-export const clearStackedSeries = seriesList => seriesList.map((seriesItem) => {
-  const {
-    stackKey, stackPosition, valueField0, ...restProps
-  } = seriesItem;
-  return restProps;
-});
+const buildStackedSeries = (series, { stack: seriesStack, position }, stackedData) => {
+  const dataItems = stackedData[seriesStack][position];
+  const points = series.points.map((point) => {
+    const [value0, value] = dataItems[point.index];
+    return { ...point, value, value0 };
+  });
+  const stackedSeries = {
+    ...series,
+    stack: seriesStack,
+    points,
+  };
+  if (series.isStartedFromZero) {
+    stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
+    stackedSeries.getValueDomain = getValueDomain;
+  }
+  return stackedSeries;
+};
+
+export const getStackedSeries = (seriesList, dataItems, offset, order) => {
+  const { stacks, seriesInfo } = collectStacks(seriesList);
+  const stackedData = getStackedData(stacks, dataItems, offset, order);
+  const stackedSeriesList = seriesList.map((seriesItem) => {
+    const info = seriesInfo[seriesItem.symbolName];
+    return info ? buildStackedSeries(seriesItem, info, stackedData) : seriesItem;
+  });
+  return stackedSeriesList;
+};
 
 export const getStacks = series => Array.from(
   new Set(series.map(({ stack: seriesStack }) => seriesStack).filter(x => x)),

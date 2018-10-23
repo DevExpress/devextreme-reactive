@@ -2,9 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
 import {
-  buildStackedSeries,
-  buildStackedDataProcessor,
-  clearStackedSeries,
+  getStackedSeries,
   getStacks as getStacksCore,
 } from '@devexpress/dx-chart-core';
 import {
@@ -12,20 +10,15 @@ import {
   stackOffsetDiverging,
 } from 'd3-shape';
 
-const getSeries = ({ series }) => buildStackedSeries(series);
-const getClearedSeries = ({ series }) => clearStackedSeries(series);
 const getStacks = ({ series }) => getStacksCore(series);
 
 export class Stack extends React.PureComponent {
   render() {
     const { offset, order } = this.props;
-    const processStackedData = buildStackedDataProcessor(offset, order);
-    const getData = ({ data, series }) => processStackedData(data, series);
+    const getSeries = ({ series, data }) => getStackedSeries(series, data, offset, order);
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
-        <Getter name="data" computed={getData} />
-        <Getter name="series" computed={getClearedSeries} />
         <Getter name="stacks" computed={getStacks} />
       </Plugin>
     );

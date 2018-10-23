@@ -23,7 +23,7 @@ describe('Tracker', () => {
       <PluginHost>
         {pluginDepsToComponents({
           getter: {
-            tag: 'test',
+            series: 'test-series',
           },
           template: {
             canvas: {},
@@ -44,8 +44,7 @@ describe('Tracker', () => {
       onPointerLeave: 'test-pointer-leave',
     });
     expect(buildEventHandlers).toBeCalledWith(
-      { tag: 'test', clickHandlers: [], pointerMoveHandlers: [] },
-      { clickHandlers: [], pointerMoveHandlers: [] },
+      'test-series', { clickHandlers: [], pointerMoveHandlers: [] },
     );
   });
 

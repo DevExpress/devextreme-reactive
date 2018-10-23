@@ -24,6 +24,11 @@ describe('Pie series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    points: [
+      { value: 'value1', data: { argumentField: 'argument1' }, index: 'value1' },
+      { value: 'value2', data: { argumentField: 'argument2' }, index: 'value2' },
+      { value: 'value3', data: { argumentField: 'argument3' }, index: 'value3' },
+    ],
     style: { opacity: 0.4 },
     seriesComponent: SliceCollection,
     pointComponent: PointComponent,
@@ -33,11 +38,6 @@ describe('Pie series', () => {
     getter: {
       layouts: { pane: { width: 200, height: 100 } },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue([
-        { value: 'value1', data: { argumentField: 'argument1' }, id: 'value1' },
-        { value: 'value2', data: { argumentField: 'argument2' }, id: 'value2' },
-        { value: 'value3', data: { argumentField: 'argument3' }, id: 'value3' },
-      ]),
     },
     template: {
       series: {},
@@ -61,7 +61,7 @@ describe('Pie series', () => {
         data: { argumentField: `argument${pointIndex}` },
         value: `value${pointIndex}`,
         style: { opacity: 0.4 },
-        id: `value${pointIndex}`,
+        index: `value${pointIndex}`,
       });
     });
   });

@@ -27,6 +27,7 @@ const getRenderProps = (series) => {
     symbolName,
     isStartedFromZero: _,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
+    points,
     getPointTransformer,
     createHitTester,
     ...restProps
@@ -46,42 +47,26 @@ export const withSeriesPlugin = (
 ) => {
   class Component extends React.PureComponent {
     render() {
-      const { name: seriesName } = this.props;
-      const symbolName = Symbol(seriesName);
-      const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
+      const { name } = this.props;
+      const symbolName = Symbol(name);
+      const seriesItem = {
         ...this.props,
         getPointTransformer,
         createHitTester,
         isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
-      });
+      };
+      const getSeries = ({ series, data, palette }) => addSeries(series, data, palette, seriesItem);
       return (
         <Plugin name={pluginName}>
-          <Getter name="series" computed={getSeriesDataComputed} />
+          <Getter name="series" computed={getSeries} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({
-                getSeriesPoints,
-                series,
-                scales,
-                stacks,
-                data,
-                scaleExtension,
-              }) => {
+              {({ series }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-                const coordinates = getSeriesPoints(
-                  currentSeries, data, scales,
-                  // TODO: The following are BarSeries specifics - remove them.
-                  stacks, scaleExtension,
-                );
                 const props = getRenderProps(currentSeries);
-                return (
-                  <Series
-                    coordinates={coordinates}
-                    {...props}
-                  />
-                );
+                return <Series coordinates={currentSeries.points} {...props} />;
               }}
             </TemplateConnector>
           </Template>

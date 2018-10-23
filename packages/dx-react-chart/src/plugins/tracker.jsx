@@ -35,9 +35,8 @@ export class Tracker extends React.PureComponent {
         <Getter name="pointerMoveHandlers" value={wrapToList(onPointerMove)} />
         <Template name="canvas">
           <TemplateConnector>
-            {(getters) => {
-              const { clickHandlers, pointerMoveHandlers } = getters;
-              const handlers = buildEventHandlers(getters, { clickHandlers, pointerMoveHandlers });
+            {({ series, clickHandlers, pointerMoveHandlers }) => {
+              const handlers = buildEventHandlers(series, { clickHandlers, pointerMoveHandlers });
               return <TemplatePlaceholder params={translateEventNames(handlers)} />;
             }}
           </TemplateConnector>

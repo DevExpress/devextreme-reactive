@@ -32,7 +32,7 @@ describe('Spline series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
-    uniqueName: 'uniqueSeriesName',
+    points: coords,
     seriesComponent: SeriesComponent,
     customProperty: 'custom',
   });
@@ -41,7 +41,6 @@ describe('Spline series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

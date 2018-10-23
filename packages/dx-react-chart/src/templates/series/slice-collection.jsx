@@ -13,7 +13,7 @@ export class SliceCollection extends React.PureComponent {
     const { innerRadius, outerRadius, ...pointOptions } = restProps;
     return (coordinates.map(item => (
       <Point
-        key={item.id.toString()}
+        key={item.index.toString()}
         {...pointOptions}
         {...item}
       />

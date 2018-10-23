@@ -17,13 +17,17 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 describe('Bar series', () => {
   const PointComponent = () => null;
 
-  const coords = [{
-    x: 1, y: 3, y1: 6, id: 1,
-  }, {
-    x: 2, y: 5, y1: 8, id: 2,
-  }, {
-    x: 3, y: 7, y1: 11, id: 3,
-  }];
+  const coords = [
+    {
+      x: 1, y: 3, y1: 6, index: 1,
+    },
+    {
+      x: 2, y: 5, y1: 8, index: 2,
+    },
+    {
+      x: 3, y: 7, y1: 11, index: 3,
+    },
+  ];
 
   const defaultProps = {
     valueField: 'valueField',
@@ -32,10 +36,10 @@ describe('Bar series', () => {
 
   findSeriesByName.mockReturnValue({
     ...defaultProps,
+    points: coords,
     stack: 'stack',
     barWidth: 0.3,
     styles: 'styles',
-    uniqueName: 'uniqueSeriesName',
     seriesComponent: BarCollection,
     pointComponent: PointComponent,
   });
@@ -44,7 +48,6 @@ describe('Bar series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
-      getSeriesPoints: jest.fn().mockReturnValue(coords),
     },
     template: {
       series: {},

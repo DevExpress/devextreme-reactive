@@ -13,3 +13,5 @@ export const BAND = 'band';
 
 export const ARGUMENT_DOMAIN = 'argument-domain';
 export const VALUE_DOMAIN = 'value-domain';
+
+export const HOVERED = 'hovered';

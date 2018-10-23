@@ -17,5 +17,6 @@ export { Axis, ArgumentAxis, ValueAxis } from './plugins/axis';
 export { Grid, ArgumentGrid, ValueGrid } from './plugins/grid';
 
 export * from './plugins/tracker';
+export * from './plugins/hover';
 
 export { withPatchedProps, withComponents } from './utils';

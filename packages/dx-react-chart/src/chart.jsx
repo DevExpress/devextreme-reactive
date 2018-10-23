@@ -14,6 +14,7 @@ import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
 import { Palette } from './plugins/palette';
 import { Root } from './templates/layout';
+import { Label } from './templates/label';
 import { withComponents } from './utils';
 
 class RawChart extends React.PureComponent {
@@ -76,3 +77,4 @@ RawChart.components = {
 };
 
 export const Chart = withComponents({ Root })(RawChart);
+Chart.Label = Label;

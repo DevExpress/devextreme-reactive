@@ -38,7 +38,6 @@ const Header = withStyles(style, { name: 'Header' })(({
 }) => (
   <AppointmentTooltip.Header
     {...restProps}
-    appointment={appointmentData}
     className={classes.header}
   >
     <span role="img" aria-label="Clock" className={classes.icon}>🕒</span>
@@ -51,7 +50,7 @@ const Header = withStyles(style, { name: 'Header' })(({
 const Content = withStyles(style, { name: 'Content' })(({
   children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Content appointment={appointmentData} {...restProps}>
+  <AppointmentTooltip.Content {...restProps}>
     {children}
     <Button
       variant="outlined"

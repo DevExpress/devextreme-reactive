@@ -12,24 +12,52 @@ import {
   Toolbar,
   DateNavigator,
   ViewSwitcher,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { tasks } from '../../../demo-data/tasks';
+
+const priorities = {
+  1: 'low',
+  2: 'medium',
+  3: 'high',
+};
 
 const styles = {
   toolbarRoot: {
     position: 'relative',
   },
+  lowPriority: {
+    '&:hover': {
+      background: '#43A047',
+    },
+    background: '#81C784',
+  },
+  mediumPriority: {
+    '&:hover': {
+      background: '#039BE5',
+    },
+    background: '#4FC3F7',
+  },
+  highPriority: {
+    '&:hover': {
+      background: '#F4511E',
+    },
+    background: '#FF8A65',
+  },
 };
 
-const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes }) => (
-    <div className={classes.toolbarRoot}>
-      <Toolbar.Root>
-        {children}
-      </Toolbar.Root>
-    </div>
-  ),
+const Appointment = withStyles(styles, { name: 'Appointment' })(
+  ({ classes, data, ...restProps }) => {
+    const priority = priorities[data.priorityId];
+    return (
+      <Appointments.Appointment
+        data={data}
+        className={classes[`${priority}Priority`]}
+        {...restProps}
+      />
+    );
+  },
 );
 
 export default class Demo extends React.PureComponent {
@@ -66,12 +94,11 @@ export default class Demo extends React.PureComponent {
           />
           <WeekView startDayHour={8} endDayHour={18} excludedDays={[0, 6]} />
           <DayView startDayHour={8} endDayHour={18} />
-          <Appointments />
-          <Toolbar
-            rootComponent={ToolbarWithLoading}
-          />
+          <Appointments appointmentComponent={Appointment} />
+          <Toolbar />
           <DateNavigator />
           <ViewSwitcher />
+          <AllDayPanel />
         </Scheduler>
       </Paper>
     );

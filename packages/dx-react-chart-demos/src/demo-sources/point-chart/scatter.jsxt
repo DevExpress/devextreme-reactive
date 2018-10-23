@@ -31,7 +31,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ArgumentGrid />
           <ValueGrid />
           <ScatterSeries

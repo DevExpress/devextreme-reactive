@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
           <ValueAxis
             max={2400}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 

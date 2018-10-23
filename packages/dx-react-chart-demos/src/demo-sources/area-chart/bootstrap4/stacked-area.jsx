@@ -59,7 +59,7 @@ export default class Demo extends React.PureComponent {
           <ValueAxis
             tickFormat={valueFormat}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
 
           <ValueGrid />

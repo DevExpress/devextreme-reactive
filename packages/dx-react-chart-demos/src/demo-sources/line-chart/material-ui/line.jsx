@@ -93,7 +93,7 @@ class Demo extends React.PureComponent {
             max={50}
             labelComponent={ValueLabel}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 

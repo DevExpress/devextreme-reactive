@@ -94,7 +94,11 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueAxis
+            tickFormat={valueFormat}
+            lineComponent={EmptyComponent}
+            tickComponent={EmptyComponent}
+          />
           <ValueGrid />
           <AreaSeries
             name="Liquids"

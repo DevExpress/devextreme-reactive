@@ -115,6 +115,7 @@ export default class Demo extends React.PureComponent {
           />
           <Stack />
           <Scale />
+          <Legend />
         </Chart>
       </<%&wrapperTag%>>
     );

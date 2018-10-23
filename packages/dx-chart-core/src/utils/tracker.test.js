@@ -7,26 +7,25 @@ describe('Tracker', () => {
   describe('#buildEventHandlers', () => {
     const handler1 = jest.fn();
     const handler2 = jest.fn();
-    const getSeriesPoints = jest.fn();
-    getSeriesPoints.mockReturnValueOnce('coordinates-1');
-    getSeriesPoints.mockReturnValueOnce('coordinates-2');
-    getSeriesPoints.mockReturnValueOnce('coordinates-3');
     const hitTest1 = jest.fn();
     const series1 = {
       name: 'Series 1',
       symbolName: 'series-1',
+      points: 'coordinates-1',
       createHitTester: jest.fn().mockReturnValue(hitTest1),
     };
     const hitTest2 = jest.fn();
     const series2 = {
       name: 'Series 2',
       symbolName: 'series-2',
+      points: 'coordinates-2',
       createHitTester: jest.fn().mockReturnValue(hitTest2),
     };
     const hitTest3 = jest.fn();
     const series3 = {
       name: 'Series 3',
       symbolName: 'series-3',
+      points: 'coordinates-3',
       createHitTester: jest.fn().mockReturnValue(hitTest3),
     };
 
@@ -34,10 +33,9 @@ describe('Tracker', () => {
       getBoundingClientRect: () => ({ left: 40, top: 30 }),
     };
 
-    const call = () => buildEventHandlers(
-      { series: [series1, series2, series3], getSeriesPoints },
-      { clickHandlers: [handler1, handler2], pointerMoveHandlers: [] },
-    ).click;
+    const call = () => buildEventHandlers([series1, series2, series3], {
+      clickHandlers: [handler1, handler2], pointerMoveHandlers: [],
+    }).click;
 
     afterEach(jest.clearAllMocks);
 
@@ -90,11 +88,9 @@ describe('Tracker', () => {
     });
 
     it('should create only click handlers', () => {
-      const handlers = buildEventHandlers(
-        { series: [series1, series2, series3], getSeriesPoints }, {
-          clickHandlers: [1], pointerMoveHandlers: [],
-        },
-      );
+      const handlers = buildEventHandlers([series1, series2, series3], {
+        clickHandlers: [1], pointerMoveHandlers: [],
+      });
 
       expect(handlers).toEqual({
         click: expect.any(Function),
@@ -102,11 +98,9 @@ describe('Tracker', () => {
     });
 
     it('should create only pointer move handlers', () => {
-      const handlers = buildEventHandlers(
-        { series: [series1, series2, series3], getSeriesPoints }, {
-          clickHandlers: [], pointerMoveHandlers: [1],
-        },
-      );
+      const handlers = buildEventHandlers([series1, series2, series3], {
+        clickHandlers: [], pointerMoveHandlers: [1],
+      });
 
       expect(handlers).toEqual({
         pointermove: expect.any(Function),
@@ -115,11 +109,9 @@ describe('Tracker', () => {
     });
 
     it('should raise event on pointer leave', () => {
-      const { pointerleave } = buildEventHandlers(
-        { series: [series1, series2, series3], getSeriesPoints }, {
-          clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
-        },
-      );
+      const { pointerleave } = buildEventHandlers([series1, series2, series3], {
+        clickHandlers: [], pointerMoveHandlers: [handler1, handler2],
+      });
       pointerleave({
         clientX: 572,
         clientY: 421,

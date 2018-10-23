@@ -9,7 +9,6 @@ import {
   pie,
 } from 'd3-shape';
 import {
-  getSeriesPoints,
   findSeriesByName,
   addSeries,
   pointAttributes,
@@ -17,6 +16,7 @@ import {
   getAreaPointTransformer,
   getBarPointTransformer,
   getPiePointTransformer,
+  scaleSeriesPoints,
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
@@ -124,74 +124,6 @@ describe('line & spline', () => {
   });
 });
 
-describe('getSeriesPoints', () => {
-  const transform = jest.fn(point => ({ ...point, tag: 'transformed' }));
-  const getPointTransformer = jest.fn().mockReturnValue(transform);
-  const series = { argumentField: 'arg', valueField: 'val', getPointTransformer };
-
-  afterEach(jest.clearAllMocks);
-
-  it('should create points from data', () => {
-    const dataItems = [
-      { arg: 'a', val: 1 }, { arg: 'b' }, { arg: 'c', val: 3 }, { val: 4 }, { arg: 'e', val: 5 },
-    ];
-    const scales = {
-      'argument-domain': 'test-arg-scale',
-      'value-domain': 'test-val-scale',
-    };
-    const points = getSeriesPoints(series, dataItems, scales, 'r1', 'r2');
-
-    expect(points).toEqual([
-      {
-        argument: 'a', value: 1, index: 0, tag: 'transformed',
-      },
-      {
-        argument: 'c', value: 3, index: 2, tag: 'transformed',
-      },
-      {
-        argument: 'e', value: 5, index: 4, tag: 'transformed',
-      },
-    ]);
-    expect(getPointTransformer).toBeCalledWith({
-      ...series,
-      argumentScale: 'test-arg-scale',
-      valueScale: 'test-val-scale',
-    }, dataItems, scales, 'r1', 'r2');
-    expect(transform.mock.calls).toEqual([
-      [{ argument: 'a', value: 1, index: 0 }],
-      [{ argument: 'c', value: 3, index: 2 }],
-      [{ argument: 'e', value: 5, index: 4 }],
-    ]);
-  });
-
-  it('should take value scale from "axisName"', () => {
-    const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
-    const scales = {
-      'argument-domain': 'test-arg-scale',
-      'test-domain-1': 'test-val-scale',
-    };
-    getSeriesPoints({ ...series, axisName: 'test-domain-1' }, dataItems, scales);
-
-    expect(getPointTransformer).toBeCalledWith({
-      ...series,
-      axisName: 'test-domain-1',
-      argumentScale: 'test-arg-scale',
-      valueScale: 'test-val-scale',
-    }, dataItems, scales);
-  });
-
-  it('should be callable without scales', () => {
-    const dataItems = [{ arg: 'a', val: 1 }, { arg: 'b', val: 2 }];
-    getSeriesPoints(series, dataItems);
-
-    expect(getPointTransformer).toBeCalledWith({
-      ...series,
-      argumentScale: expect.any(Function),
-      valueScale: expect.any(Function),
-    }, dataItems, undefined);
-  });
-});
-
 describe('getAreaPointTransformer', () => {
   it('should return data', () => {
     const argumentScale = jest.fn().mockReturnValue(10);
@@ -204,11 +136,12 @@ describe('getAreaPointTransformer', () => {
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
       x: 14,
       y: 9,
       y1: 4,
-      id: 1,
-      value: 'val',
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
@@ -233,17 +166,17 @@ describe('getBarPointTransformer', () => {
       {
         barWidth: 0.4, stack: 'stack-1', argumentScale, valueScale,
       },
-      'test-data', 'test-scales',
       'test-stacks', [{ type: 'band', constructor: () => groupScale }],
     );
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
+      argument: 'arg',
+      value: 'val',
+      index: 1,
       x: 17,
       y: 9,
       y1: 4,
-      id: 1,
-      value: 'val',
       width: 12,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
@@ -294,15 +227,17 @@ describe('getPiePointTransformer', () => {
       outerRadius: 0.3,
       valueField: 'val',
       palette: 'test-palette',
-    }, 'test-data');
+      points: 'test-points',
+    });
 
     expect(
       transform({ argument: 'arg-1', value: 'val-1', index: 1 }),
     ).toEqual({
+      argument: 'arg-1',
+      value: 'val-1',
+      index: 1,
       x: 25,
       y: 20,
-      id: 'arg-1',
-      value: 'val-1',
       color: 'c1',
       d: 'test-arc-1',
       innerRadius: 4,
@@ -313,10 +248,11 @@ describe('getPiePointTransformer', () => {
     expect(
       transform({ argument: 'arg-2', value: 'val-2', index: 3 }),
     ).toEqual({
+      argument: 'arg-2',
+      value: 'val-2',
+      index: 3,
       x: 25,
       y: 20,
-      id: 'arg-2',
-      value: 'val-2',
       color: 'c2',
       d: 'test-arc-2',
       innerRadius: 4,
@@ -327,7 +263,7 @@ describe('getPiePointTransformer', () => {
 
     expect(mockPie.sort).toBeCalledWith(null);
     expect(mockPie.value).toBeCalledWith(expect.any(Function));
-    expect(mockPie).toBeCalledWith('test-data');
+    expect(mockPie).toBeCalledWith('test-points');
 
     expect(mockArc.innerRadius).toBeCalledWith(4);
     expect(mockArc.outerRadius).toBeCalledWith(6);
@@ -399,7 +335,7 @@ describe('addSeries', () => {
 
   it('should append element to list', () => {
     const result = addSeries(
-      [{ uniqueName: 's1' }, { uniqueName: 's2' }], palette, { name: 'test' },
+      [{ uniqueName: 's1' }, { uniqueName: 's2' }], [], palette, { name: 'test' },
     );
     expect(result).toEqual([
       { uniqueName: 's1' },
@@ -407,6 +343,7 @@ describe('addSeries', () => {
       {
         name: 'test',
         uniqueName: 'test',
+        points: [],
         color: 'c3',
         palette,
       },
@@ -414,7 +351,7 @@ describe('addSeries', () => {
   });
 
   it('should generate unique name prop', () => {
-    const result = addSeries([{ uniqueName: 'test' }], palette, { name: 'test' });
+    const result = addSeries([{ uniqueName: 'test' }], [], palette, { name: 'test' });
     expect(result).toEqual([
       { uniqueName: 'test' },
       expect.objectContaining({ uniqueName: 'test0' }),
@@ -424,19 +361,87 @@ describe('addSeries', () => {
   it('should attempt to generate unique name several times', () => {
     const result = addSeries(
       [{ uniqueName: 'test1' }, { uniqueName: 'test2' }, { uniqueName: 'test3' }],
-      palette, { name: 'test1' },
+      [], palette, { name: 'test1' },
     );
     expect(result[3].uniqueName).toEqual('test4');
   });
 
   it('should take color from palette and favor own series color', () => {
     let result = [{ uniqueName: 's1' }, { uniqueName: 's2' }];
-    result = addSeries(result, palette, { name: 't1' });
-    result = addSeries(result, palette, { name: 't2', color: 'red' });
-    result = addSeries(result, palette, { name: 't3' });
+    result = addSeries(result, [], palette, { name: 't1' });
+    result = addSeries(result, [], palette, { name: 't2', color: 'red' });
+    result = addSeries(result, [], palette, { name: 't3' });
 
     expect(result[2].color).toEqual('c3');
     expect(result[3].color).toEqual('red');
     expect(result[4].color).toEqual('c2');
+  });
+
+  it('should create points', () => {
+    const props = {
+      name: 'test',
+      argumentField: 'arg',
+      valueField: 'val',
+    };
+    const data = [
+      { arg: 'a', val: 1 },
+      { arg: 'b', val: 2 },
+      { val: 3 },
+      { arg: 'd', val: 4 },
+      { arg: 'e' },
+    ];
+    const result = addSeries([{ uniqueName: 's1' }], data, palette, props);
+    expect(result).toEqual([
+      { uniqueName: 's1' },
+      {
+        ...props,
+        uniqueName: 'test',
+        points: [
+          { argument: 'a', value: 1, index: 0 },
+          { argument: 'b', value: 2, index: 1 },
+          { argument: 'd', value: 4, index: 3 },
+        ],
+        color: 'c2',
+        palette,
+      },
+    ]);
+  });
+});
+
+describe('scaleSeriesPoints', () => {
+  it('should update points', () => {
+    const scales = {
+      'argument-domain': 'test-arg-scale',
+      'value-domain': 'test-val-scale',
+      'domain-1': 'test-val-scale-1',
+    };
+    const getPointTransformer1 = jest.fn()
+      .mockReturnValue(point => ({ ...point, tag: '#1' }));
+    const getPointTransformer2 = jest.fn()
+      .mockReturnValue(point => ({ ...point, tag: '#2' }));
+    const series1 = {
+      axisName: 'domain-1',
+      getPointTransformer: getPointTransformer1,
+      points: [{ name: 'a1' }, { name: 'a2' }],
+    };
+    const series2 = {
+      getPointTransformer: getPointTransformer2,
+      points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
+    };
+
+    const result = scaleSeriesPoints([series1, series2], scales, 'a', 'b');
+
+    expect(result[0].points).toEqual(
+      [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
+    );
+    expect(result[1].points).toEqual(
+      [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
+    );
+    expect(getPointTransformer1).toBeCalledWith(
+      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' }, 'a', 'b',
+    );
+    expect(getPointTransformer2).toBeCalledWith(
+      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' }, 'a', 'b',
+    );
   });
 });

@@ -4,7 +4,8 @@ import * as PropTypes from 'prop-types';
 export class Slice extends React.PureComponent {
   render() {
     const {
-      x, y, d, value, color, ...restProps
+      argument, value, index, innerRadius, outerRadius, startAngle, endAngle,
+      x, y, d, color, ...restProps
     } = this.props;
     return (
       <path

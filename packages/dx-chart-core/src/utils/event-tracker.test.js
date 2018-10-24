@@ -1,9 +1,9 @@
-import { buildEventHandlers } from './tracker';
+import { buildEventHandlers } from './event-tracker';
 
 window.pageXOffset = 120; // eslint-disable-line no-undef
 window.pageYOffset = 110; // eslint-disable-line no-undef
 
-describe('Tracker', () => {
+describe('EventTracker', () => {
   describe('#buildEventHandlers', () => {
     const handler1 = jest.fn();
     const handler2 = jest.fn();

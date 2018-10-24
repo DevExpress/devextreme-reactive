@@ -3,13 +3,13 @@ import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { buildEventHandlers } from '@devexpress/dx-chart-core';
-import { Tracker } from './tracker';
+import { EventTracker } from './event-tracker';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   buildEventHandlers: jest.fn(),
 }));
 
-describe('Tracker', () => {
+describe('EventTracker', () => {
   afterEach(jest.clearAllMocks);
 
   it('should pass params to template', () => {
@@ -34,7 +34,7 @@ describe('Tracker', () => {
           {mock}
         </Template>
 
-        <Tracker />
+        <EventTracker />
       </PluginHost>,
     );
 
@@ -53,7 +53,7 @@ describe('Tracker', () => {
       <PluginHost>
         {pluginDepsToComponents({})}
 
-        <Tracker />
+        <EventTracker />
       </PluginHost>,
     );
 
@@ -70,7 +70,7 @@ describe('Tracker', () => {
       <PluginHost>
         {pluginDepsToComponents({})}
 
-        <Tracker onClick={testOnClick} onPointerMove={testOnPointerMove} />
+        <EventTracker onClick={testOnClick} onPointerMove={testOnPointerMove} />
       </PluginHost>,
     );
 

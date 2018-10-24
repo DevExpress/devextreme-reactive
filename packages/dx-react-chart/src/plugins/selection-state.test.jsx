@@ -3,14 +3,14 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { changeSeriesState } from '@devexpress/dx-chart-core';
-import { Selection } from './selection';
+import { SelectionState } from './selection-state';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   SELECTED: 'TEST-SELECTED',
   changeSeriesState: jest.fn().mockReturnValue('selected-series'),
 }));
 
-describe('Selection', () => {
+describe('SelectionState', () => {
   afterEach(jest.clearAllMocks);
 
   const defaultDeps = {
@@ -25,7 +25,7 @@ describe('Selection', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Selection selection={mock} />
+        <SelectionState selection={mock} />
       </PluginHost>
     ));
 

@@ -92,7 +92,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} ticKSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
 
           <ValueGrid />
 

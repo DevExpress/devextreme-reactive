@@ -64,7 +64,7 @@ class Demo extends React.PureComponent {
           <ArgumentAxis />
           <ValueAxis
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 

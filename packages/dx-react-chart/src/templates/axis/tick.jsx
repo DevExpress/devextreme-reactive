@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export class Tick extends React.PureComponent {
   render() {
     const {
-      x1, x2, y1, y2, className, ...restProps
+      x1, x2, y1, y2, ...restProps
     } = this.props;
     return (
       <path

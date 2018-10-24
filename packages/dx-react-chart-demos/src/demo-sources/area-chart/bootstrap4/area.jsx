@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
           className="pr-3"
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
 
           <AreaSeries

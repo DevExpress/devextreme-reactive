@@ -1,0 +1,76 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  ArgumentAxis,
+  ValueAxis,
+  ArgumentGrid,
+  BarSeries,
+  SplineSeries,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
+
+const Point = (props) => {
+  const {
+    style, index, ...restProps
+  } = props;
+  return (
+    <BarSeries.Point style={{ ...style, animationDuration: `${(index + 1) * 0.3}s` }} {...restProps} />
+  );
+};
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [
+        { month: 'Jan', sale: 50, total: 987 },
+        { month: 'Feb', sale: 100, total: 3000 },
+        { month: 'March', sale: 30, total: 1100 },
+        { month: 'April', sale: 107, total: 7100 },
+        { month: 'May', sale: 95, total: 4300 },
+        { month: 'June', sale: 150, total: 7500 },
+      ],
+    };
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis
+            name="month"
+            type="band"
+          />
+          <ValueAxis name="sale" />
+          <ValueAxis name="total" position="right" />
+
+          <ArgumentGrid name="month" />
+
+          <BarSeries
+            name="Units Sold"
+            valueField="sale"
+            argumentField="month"
+            axisName="sale"
+            pointComponent={Point}
+          />
+
+          <SplineSeries
+            name="Total Transactions"
+            valueField="total"
+            argumentField="month"
+            axisName="total"
+          />
+          <Animation />
+          <Legend />
+          <Scale />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

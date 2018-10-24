@@ -11,6 +11,8 @@ export const Container = ({
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
       zIndex: 1000,
+      left: 0,
+      top: 0,
       ...style,
     }}
     {...restProps}

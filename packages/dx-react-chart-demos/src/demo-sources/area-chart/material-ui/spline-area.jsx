@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   area,
@@ -109,6 +109,7 @@ class Demo extends React.PureComponent {
             argumentField="month"
             seriesComponent={Area}
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="iOS App Store vs Google Play Revenue in 2012" className={classes.title} />

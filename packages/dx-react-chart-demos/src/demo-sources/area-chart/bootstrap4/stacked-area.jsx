@@ -9,7 +9,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
@@ -93,6 +93,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
             stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Carbon Emission Estimates" className="w-100 text-center mb-2" />
           <Scale />

@@ -9,7 +9,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
@@ -91,6 +91,7 @@ export default class Demo extends React.PureComponent {
             text={`Confidence in Institutions in American society ${'\n'}(Great deal)`}
             className="w-100 text-center mb-2"
           />
+          <Animation />
           <Scale />
         </Chart>
       </Card>

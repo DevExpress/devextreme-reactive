@@ -6,13 +6,13 @@ import classNames from 'classnames';
 import moment from 'moment';
 
 const styles = {
-  title: {
+  text: {
     flex: 1,
     textAlign: 'center',
   },
 };
 
-const TitleBase = ({
+const TextBase = ({
   classes,
   className,
   currentDate,
@@ -22,7 +22,7 @@ const TitleBase = ({
     variant="title"
     color="inherit"
     className={classNames({
-      [classes.title]: true,
+      [classes.text]: true,
     }, className)}
     {...restProps}
   >
@@ -30,7 +30,7 @@ const TitleBase = ({
   </Typography>
 );
 
-TitleBase.propTypes = {
+TextBase.propTypes = {
   classes: PropTypes.object.isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
@@ -40,8 +40,8 @@ TitleBase.propTypes = {
   className: PropTypes.string,
 };
 
-TitleBase.defaultProps = {
+TextBase.defaultProps = {
   className: undefined,
 };
 
-export const Title = withStyles(styles, { name: 'Title' })(TitleBase);
+export const Text = withStyles(styles, { name: 'Text' })(TextBase);

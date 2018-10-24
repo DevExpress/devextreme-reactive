@@ -7,7 +7,7 @@ import {
   ArgumentGrid,
   ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { dataGenerator } from '../../../demo-data/generator';
 
@@ -42,6 +42,7 @@ export default class Demo extends React.PureComponent {
             valueField="val2"
             argumentField="arg2"
           />
+          <Animation />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

@@ -9,7 +9,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -63,6 +63,7 @@ export default class Demo extends React.PureComponent {
             argumentField="country"
             color="#cd7f32"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Olimpic Medals in 2008" className="w-100 text-center mb-2" />
           <Stack />

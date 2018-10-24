@@ -9,7 +9,7 @@ jest.mock('./table', () => ({
 
 describe('Calendar', () => {
   const defaultProps = {
-    titleComponent: () => null,
+    textComponent: () => null,
     navigationButtonComponent: () => null,
     rowComponent: () => null,
     cellComponent: () => null,
@@ -52,13 +52,13 @@ describe('Calendar', () => {
 
       const {
         currentDate,
-        titleComponent,
+        textComponent,
         navigationButtonComponent,
       } = navigator.props();
 
       expect(navigator.exists()).toBeTruthy();
       expect(currentDate).toBe('2018-07-16');
-      expect(titleComponent).toBe(defaultProps.titleComponent);
+      expect(textComponent).toBe(defaultProps.textComponent);
       expect(navigationButtonComponent).toBe(defaultProps.navigationButtonComponent);
     });
     it('should navigate to the prev and next month', () => {

@@ -8,7 +8,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { population as data } from '../../../demo-data/data-vizualization';
 
@@ -82,6 +82,7 @@ export default class Demo extends React.PureComponent {
             argumentField="state"
             stack="female"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Population: Age Structure" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
           <Stack />

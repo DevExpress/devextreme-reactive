@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -95,6 +95,7 @@ class Demo extends React.PureComponent {
             valueField="ios"
             argumentField="year"
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"

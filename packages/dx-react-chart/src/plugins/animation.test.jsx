@@ -2,23 +2,20 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
-import { BasicData } from './basic-data';
+import { buildAnimatedStyleGetter } from '@devexpress/dx-chart-core';
+import { Animation } from './animation';
 
-describe('Basis Data', () => {
-  it('should provide *data* and *series*', () => {
-    const data = [1, 2, 3];
+describe('Animation', () => {
+  it('should provide optinos', () => {
     const tree = mount((
       <PluginHost>
+        <Animation />
         {pluginDepsToComponents({})}
-        <BasicData data={data} />
       </PluginHost>
     ));
 
     expect(getComputedState(tree)).toEqual({
-      data,
-      series: [],
-      axes: [],
-      getAnimatedStyle: expect.any(Function),
+      getAnimatedStyle: buildAnimatedStyleGetter,
     });
   });
 });

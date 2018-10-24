@@ -8,7 +8,7 @@ import {
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const imageSize = 50;
 const labelOffset = 10;
@@ -25,12 +25,12 @@ const getPath = (x, y, width, height) => `M ${x} ${height + y}
 
 const BarWithLabel = (props) => {
   const {
-    x, y, width, height, color, value,
+    x, y, width, height, color, value, style,
   } = props;
 
   return (
     <React.Fragment>
-      <path d={getPath(x, y, width, height)} fill={color} />
+      <path d={getPath(x, y, width, height)} fill={color} style={style} />
       <Chart.Label
         x={x + (width / 2)}
         y={y + (height / 2)}
@@ -120,6 +120,7 @@ export default class Demo extends React.PureComponent {
                 text={`Contributions commits to master ${owner}/${repository} repository`}
                 style={{ textAlign: 'center', width: '100%', marginBottom: 4 }}
               />
+              <Animation />
               <Scale />
             </Chart>
           ) : (

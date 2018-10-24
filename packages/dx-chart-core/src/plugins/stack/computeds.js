@@ -25,9 +25,9 @@ const getValueDomain = (points) => {
 const collectStacks = (seriesList) => {
   const stacks = {};
   const seriesInfo = {};
-  seriesList.forEach((seriesItem, i) => {
-    const { stack: seriesStack = `stack${i}` } = seriesItem;
-    if (seriesStack === null) {
+  seriesList.forEach((seriesItem) => {
+    const { stack: seriesStack } = seriesItem;
+    if (!seriesStack) {
       return;
     }
 
@@ -38,6 +38,12 @@ const collectStacks = (seriesList) => {
     const position = stackKeys.length;
     stackKeys.push(seriesItem.valueField);
     seriesInfo[seriesItem.symbolName] = { stack: seriesStack, position };
+  });
+  // Stack cannot consist of single series.
+  Object.keys(stacks).forEach((name) => {
+    if (stacks[name].length === 1) {
+      delete stacks[name];
+    }
   });
   return { stacks, seriesInfo };
 };

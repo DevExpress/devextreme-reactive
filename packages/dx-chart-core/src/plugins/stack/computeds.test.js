@@ -116,37 +116,21 @@ describe('Stack', () => {
       ]);
     });
 
-    it('should provide default stack names', () => {
+    it('should ignore series without *stack* prop', () => {
       mockStack.mockReturnValue([]);
-
-      const result = getStackedSeries([
-        { symbolName: '1', stack: 's1', points: [] },
-        { symbolName: '2', points: [] },
-        { symbolName: '3', stack: 's1', points: [] },
-        { symbolName: '4', points: [] },
-      ], 'test-data', 'test-offset', 'test-order');
-
-      expect(result[0].stack).toEqual('s1');
-      expect(result[1].stack).toEqual('stack1');
-      expect(result[2].stack).toEqual('s1');
-      expect(result[3].stack).toEqual('stack3');
-    });
-
-    it('should ignore series with stack:null', () => {
-      mockStack.mockReturnValue([]);
-      const series1 = { symbolName: '1', stack: null };
-      const series2 = { symbolName: '2', points: [] };
-      const series3 = { symbolName: '3', stack: null };
-      const series4 = { symbolName: '4', points: [] };
+      const series1 = { symbolName: '1' };
+      const series2 = { symbolName: '2', points: [], stack: 's1' };
+      const series3 = { symbolName: '3' };
+      const series4 = { symbolName: '4', points: [], stack: 's1' };
 
       const result = getStackedSeries(
         [series1, series2, series3, series4], 'test-data', 'test-offset', 'test-order',
       );
 
-      expect(result[0]).toEqual(series1);
-      expect(result[1]).not.toEqual(series2);
-      expect(result[2]).toEqual(series3);
-      expect(result[3]).not.toEqual(series4);
+      expect(result[0]).toBe(series1);
+      expect(result[1]).not.toBe(series2);
+      expect(result[2]).toBe(series3);
+      expect(result[3]).not.toBe(series4);
     });
 
     it('should wrap *getPointTransformer* for starting from zero series', () => {
@@ -194,6 +178,9 @@ describe('Stack', () => {
         {
           symbolName: '1', stack: 's1', points: [], getPointTransformer: mock, isStartedFromZero: true,
         },
+        {
+          symbolName: '2', stack: 's1', points: [], getPointTransformer: mock, isStartedFromZero: true,
+        },
       ], 'test-data', 'test-offset', 'test-order');
 
       const transform = result[0].getPointTransformer({ valueScale }, 'a', 'b');
@@ -218,6 +205,9 @@ describe('Stack', () => {
       const result = getStackedSeries([
         {
           symbolName: '1', stack: 's1', points: [], isStartedFromZero: true,
+        },
+        {
+          symbolName: '2', stack: 's1', points: [], isStartedFromZero: true,
         },
       ], 'test-data', 'test-offset', 'test-order');
 

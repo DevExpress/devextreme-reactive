@@ -12,7 +12,7 @@ describe('DateNavigator', () => {
   describe('NavigationButton', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <NavigationButton data={{ a: 1 }} />
+        <NavigationButton data={{ a: 1 }} type="forward" />
       ));
 
       expect(tree.props().data)
@@ -20,7 +20,7 @@ describe('DateNavigator', () => {
     });
     it('should render next button', () => {
       const next = shallow((
-        <NavigationButton />
+        <NavigationButton type="forward" />
       )).find(ChevronRight);
 
       expect(next.exists())
@@ -28,7 +28,7 @@ describe('DateNavigator', () => {
     });
     it('should render prev button', () => {
       const prev = shallow((
-        <NavigationButton back />
+        <NavigationButton type="back" />
       )).find(ChevronLeft);
 
       expect(prev.exists())
@@ -37,7 +37,7 @@ describe('DateNavigator', () => {
     it('should handle onClink event', () => {
       const onClick = jest.fn();
       const button = shallow((
-        <NavigationButton onClick={onClick} />
+        <NavigationButton onClick={onClick} type="forward" />
       ));
       button.simulate('click');
 

@@ -5,11 +5,11 @@ import { Navigator } from './navigator';
 describe('Calendar', () => {
   let classes;
   let shallow;
-  const Title = () => null;
+  const Text = () => null;
   const NavigationButton = () => null;
   const defaultProps = {
     currentDate: '2018-07-12',
-    titleComponent: Title,
+    textComponent: Text,
     navigationButtonComponent: NavigationButton,
   };
   beforeAll(() => {
@@ -35,14 +35,14 @@ describe('Calendar', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render title', () => {
-      const title = shallow((
+    it('should render text', () => {
+      const text = shallow((
         <Navigator {...defaultProps} />
-      )).find(Title);
+      )).find(Text);
 
-      expect(title.exists())
+      expect(text.exists())
         .toBeTruthy();
-      expect(title.prop('currentDate'))
+      expect(text.prop('currentDate'))
         .toBe('2018-07-12');
     });
     it('should render navigation buttons', () => {
@@ -52,10 +52,10 @@ describe('Calendar', () => {
 
       expect(buttons)
         .toHaveLength(2);
-      expect(buttons.at(0).prop('back'))
-        .toBeTruthy();
-      expect(buttons.at(1).prop('back'))
-        .toBeFalsy();
+      expect(buttons.at(0).prop('type'))
+        .toBe('back');
+      expect(buttons.at(1).prop('type'))
+        .toBe('forward');
     });
     it('should pass onNavigate handler to navigation buttons', () => {
       const onNavigate = jest.fn();

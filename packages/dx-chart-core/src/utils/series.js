@@ -99,11 +99,13 @@ export const changeSeriesState = (seriesList, targets, state) => {
     return seriesList;
   }
   const filter = buildFilter(targets);
-  return seriesList.map((seriesItem) => {
+  let matches = 0;
+  const result = seriesList.map((seriesItem) => {
     const obj = filter[seriesItem.name];
     if (!obj) {
       return seriesItem;
     }
+    matches += 1;
     const props = {};
     if (obj.self) {
       props.state = state;
@@ -115,4 +117,6 @@ export const changeSeriesState = (seriesList, targets, state) => {
     }
     return { ...seriesItem, ...props };
   });
+  // This is to prevent false rerenders.
+  return matches > 0 ? result : seriesList;
 };

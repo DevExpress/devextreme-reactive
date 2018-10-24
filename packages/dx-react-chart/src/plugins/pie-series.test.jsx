@@ -32,9 +32,15 @@ describe('Pie series', () => {
   findSeriesByName.mockReturnValue({
     ...defaultProps,
     points: [
-      { value: 'value1', data: { argumentField: 'argument1' }, index: 'value1' },
-      { value: 'value2', data: { argumentField: 'argument2' }, index: 'value2' },
-      { value: 'value3', data: { argumentField: 'argument3' }, index: 'value3' },
+      {
+        value: 'value1', data: { argumentField: 'argument1' }, index: 'value1', x: 1, y: 2,
+      },
+      {
+        value: 'value2', data: { argumentField: 'argument2' }, index: 'value2', x: 1, y: 2,
+      },
+      {
+        value: 'value3', data: { argumentField: 'argument3' }, index: 'value3', x: 1, y: 2,
+      },
     ],
     style: { opacity: 0.4 },
     seriesComponent: SliceCollection,
@@ -88,6 +94,8 @@ describe('Pie series', () => {
         value: `value${pointIndex}`,
         style: { opacity: 0.4 },
         index: `value${pointIndex}`,
+        x: 1,
+        y: 2,
       });
     });
   });

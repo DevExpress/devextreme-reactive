@@ -63,17 +63,21 @@ export const withSeriesPlugin = (
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales }) => {
+              {({ series, scales, getAnimatedStyle }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales = {
                   xScale: scales[ARGUMENT_DOMAIN],
                   yScale: scales[getValueDomainName(currentSeries.axisName)],
                 };
                 const props = getRenderProps(currentSeries);
-                return <Series coordinates={currentSeries.points} 
-                         scales={currentScales}
-                         getAnimatedStyle={getAnimatedStyle} 
-                         {...props} />;
+                return (
+                  <Series
+                    coordinates={currentSeries.points}
+                    scales={currentScales}
+                    getAnimatedStyle={getAnimatedStyle}
+                    {...props}
+                  />
+                );
               }}
             </TemplateConnector>
           </Template>

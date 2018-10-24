@@ -8,7 +8,7 @@ import {
   changeSeriesState, processPointerMove, getHoverTargets, HOVERED,
 } from '@devexpress/dx-chart-core';
 
-export class Hover extends React.PureComponent {
+export class HoverState extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ export class Hover extends React.PureComponent {
     // to notify that "series" is updated.
     const getSeries = ({ series }) => changeSeriesState(series, getHoverTargets(hover), HOVERED);
     return (
-      <Plugin name="Hover">
+      <Plugin name="HoverState">
         <Getter name="pointerMoveHandlers" computed={this.getPointerMoveHandlers} />
         <Getter name="series" computed={getSeries} />
       </Plugin>
@@ -47,7 +47,7 @@ export class Hover extends React.PureComponent {
   }
 }
 
-Hover.propTypes = {
+HoverState.propTypes = {
   defaultHover: PropTypes.shape({
     series: PropTypes.string.isRequired,
     point: PropTypes.number,
@@ -59,7 +59,7 @@ Hover.propTypes = {
   onHoverChange: PropTypes.func,
 };
 
-Hover.defaultProps = {
+HoverState.defaultProps = {
   defaultHover: undefined,
   hover: undefined,
   onHoverChange: undefined,

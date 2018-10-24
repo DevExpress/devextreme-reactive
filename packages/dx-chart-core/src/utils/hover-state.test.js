@@ -1,6 +1,6 @@
-import { getHoverTargets, processPointerMove } from './hover';
+import { getHoverTargets, processPointerMove } from './hover-state';
 
-describe('Hover', () => {
+describe('HoverState', () => {
   describe('#processPointerMove', () => {
     it('should return selected target and notify', () => {
       const mock = jest.fn();

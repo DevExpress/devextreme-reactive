@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { changeSeriesState, processPointerMove, getHoverTargets } from '@devexpress/dx-chart-core';
-import { Hover } from './hover';
+import { HoverState } from './hover-state';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'TEST-HOVERED',
@@ -12,7 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getHoverTargets: jest.fn().mockReturnValue('test-hover-target'),
 }));
 
-describe('Hover', () => {
+describe('HoverState', () => {
   afterEach(jest.clearAllMocks);
 
   const defaultDeps = {
@@ -27,7 +27,7 @@ describe('Hover', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Hover />
+        <HoverState />
       </PluginHost>
     ));
 
@@ -44,7 +44,7 @@ describe('Hover', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Hover defaultHover={{ series: '2', point: 3 }} hover={{ series: '1' }} />
+        <HoverState defaultHover={{ series: '2', point: 3 }} hover={{ series: '1' }} />
       </PluginHost>
     ));
 
@@ -56,7 +56,7 @@ describe('Hover', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Hover defaultHover={{ series: '1' }} />
+        <HoverState defaultHover={{ series: '1' }} />
       </PluginHost>
     ));
 
@@ -69,7 +69,7 @@ describe('Hover', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
-        <Hover hover={{ series: '1' }} onHoverChange={mock} />
+        <HoverState hover={{ series: '1' }} onHoverChange={mock} />
       </PluginHost>
     ));
 

@@ -21,23 +21,23 @@ const buildEventHandler = (seriesList, handlers) => {
   };
 
   return (e) => {
-    const coords = getEventCoords(e);
+    const location = getEventCoords(e);
     hitTesters = hitTesters || createHitTesters();
     const targets = [];
     seriesList.forEach((seriesItem) => {
-      const status = hitTesters[seriesItem.symbolName](coords);
+      const status = hitTesters[seriesItem.symbolName](location);
       if (status) {
         targets.push({ series: seriesItem.name, ...status });
       }
     });
-    const arg = { coords, targets };
+    const arg = { location, targets };
     handlers.forEach(handler => handler(arg));
   };
 };
 
 const buildLeaveEventHandler = handlers => (e) => {
-  const coords = getEventCoords(e);
-  const arg = { coords, targets: [] };
+  const location = getEventCoords(e);
+  const arg = { location, targets: [] };
   handlers.forEach(handler => handler(arg));
 };
 

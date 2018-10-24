@@ -55,8 +55,8 @@ describe('EventTracker', () => {
       expect(hitTest2).toBeCalledWith([294, 203]);
       expect(hitTest3).toBeCalledWith([294, 203]);
 
-      expect(handler1).toBeCalledWith({ coords: [294, 203], targets: [] });
-      expect(handler2).toBeCalledWith({ coords: [294, 203], targets: [] });
+      expect(handler1).toBeCalledWith({ location: [294, 203], targets: [] });
+      expect(handler2).toBeCalledWith({ location: [294, 203], targets: [] });
     });
 
     it('should provide targets on successful hit tests', () => {
@@ -70,11 +70,11 @@ describe('EventTracker', () => {
       });
 
       expect(handler1).toBeCalledWith({
-        coords: [192, 281],
+        location: [192, 281],
         targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
       });
       expect(handler2).toBeCalledWith({
-        coords: [192, 281],
+        location: [192, 281],
         targets: [{ series: 'Series 1', tag: 'hit1' }, { series: 'Series 3', tag: 'hit3' }],
       });
     });
@@ -118,8 +118,8 @@ describe('EventTracker', () => {
         currentTarget,
       });
 
-      expect(handler1).toBeCalledWith({ coords: [412, 281], targets: [] });
-      expect(handler2).toBeCalledWith({ coords: [412, 281], targets: [] });
+      expect(handler1).toBeCalledWith({ location: [412, 281], targets: [] });
+      expect(handler2).toBeCalledWith({ location: [412, 281], targets: [] });
     });
   });
 });

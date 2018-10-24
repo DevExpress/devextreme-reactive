@@ -2,12 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { monthCellsData, viewBoundTitle } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { DateNavigator } from './date-navigator';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   monthCellsData: jest.fn(),
-  viewBoundTitle: jest.fn(),
+  viewBoundText: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -33,11 +33,11 @@ const OverlayComponent = ({ children }) => (
   </div>
 );
 const Root = () => null;
-const ToggleButtonComponent = () => null;
+const OpenButtonComponent = () => null;
 const NavigationButton = () => null;
 
 const CalendarComponent = () => null;
-const CalendarTitleComponent = () => null;
+const CalendarTextComponent = () => null;
 const CalendarNavigationButtonComponent = () => null;
 const CalendarNavigatorComponent = () => null;
 const CalendarCell = () => null;
@@ -49,11 +49,11 @@ const defaultProps = {
   rootComponent: Root,
   overlayComponent: OverlayComponent,
   navigationButtonComponent: NavigationButton,
-  toggleButtonComponent: ToggleButtonComponent,
+  openButtonComponent: OpenButtonComponent,
 
   calendarComponent: CalendarComponent,
   calendarNavigatorComponent: CalendarNavigatorComponent,
-  calendarTitleComponent: CalendarTitleComponent,
+  calendarTextComponent: CalendarTextComponent,
   calendarNavigationButtonComponent: CalendarNavigationButtonComponent,
   calendarCellComponent: CalendarCell,
   calendarRowComponent: CalendarRow,
@@ -64,7 +64,7 @@ const defaultProps = {
 describe('DateNavigator', () => {
   beforeEach(() => {
     monthCellsData.mockImplementation(() => [[{ startDate: '2018-04-07' }]]);
-    viewBoundTitle.mockImplementation(() => 'July 2018');
+    viewBoundText.mockImplementation(() => 'July 2018');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -95,8 +95,8 @@ describe('DateNavigator', () => {
     )).find(Root);
     const {
       navigationButtonComponent,
-      toggleButtonComponent,
-      navigatorTitle,
+      openButtonComponent,
+      navigatorText,
       onNavigate,
     } = root.props();
 
@@ -106,9 +106,9 @@ describe('DateNavigator', () => {
       .toBeTruthy();
     expect(navigationButtonComponent)
       .toBe(NavigationButton);
-    expect(toggleButtonComponent)
-      .toBe(ToggleButtonComponent);
-    expect(navigatorTitle)
+    expect(openButtonComponent)
+      .toBe(OpenButtonComponent);
+    expect(navigatorText)
       .toBe('July 2018');
     expect(defaultDeps.action.changeCurrentDate)
       .toBeCalledWith({ amount: 3, step: 'month' }, expect.any(Object), expect.any(Object));
@@ -126,7 +126,7 @@ describe('DateNavigator', () => {
     const {
       currentDate,
       firstDayOfWeek,
-      titleComponent,
+      textComponent,
       navigationButtonComponent,
       rowComponent,
       cellComponent,
@@ -141,7 +141,7 @@ describe('DateNavigator', () => {
     expect(calendar.exists()).toBeTruthy();
     expect(currentDate).toBe('2018-07-05');
     expect(firstDayOfWeek).toBe(1);
-    expect(titleComponent).toBe(CalendarTitleComponent);
+    expect(textComponent).toBe(CalendarTextComponent);
     expect(navigationButtonComponent).toBe(CalendarNavigationButtonComponent);
     expect(rowComponent).toBe(CalendarRow);
     expect(cellComponent).toBe(CalendarCell);

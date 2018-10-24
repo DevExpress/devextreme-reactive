@@ -11,7 +11,7 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
   line,
@@ -104,7 +104,7 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
 
           <LineSeries
@@ -144,6 +144,7 @@ class Demo extends React.PureComponent {
             textComponent={Text}
             className={classes.title}
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>
       </Paper>

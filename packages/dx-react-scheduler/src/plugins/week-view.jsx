@@ -112,7 +112,7 @@ export class WeekView extends React.PureComponent {
       cellDuration,
       excludedDays,
       name: viewName,
-      containerComponent: Container,
+      appointmentLayerComponent: AppointmentLayer,
     } = this.props;
     const { timeTableRef } = this.state;
 
@@ -221,7 +221,7 @@ export class WeekView extends React.PureComponent {
                     tableRef={this.timeTableRef}
                     cellsData={viewCellsData}
                   />
-                  <Container>
+                  <AppointmentLayer>
                     {rects.map(({
                       dataItem, type, ...geometry
                     }, index) => (
@@ -232,7 +232,7 @@ export class WeekView extends React.PureComponent {
                         style={getAppointmentStyle(geometry)}
                       />
                     ))}
-                  </Container>
+                  </AppointmentLayer>
                 </React.Fragment>
               );
             }}
@@ -268,7 +268,7 @@ WeekView.propTypes = {
   timeTableLayoutComponent: PropTypes.func.isRequired,
   timeTableRowComponent: PropTypes.func.isRequired,
   timeTableCellComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
+  appointmentLayerComponent: PropTypes.func.isRequired,
   startDayHour: PropTypes.number,
   endDayHour: PropTypes.number,
   cellDuration: PropTypes.number,
@@ -290,7 +290,7 @@ WeekView.defaultProps = {
 
 WeekView.components = {
   layoutComponent: 'Layout',
-  containerComponent: 'Container',
+  appointmentLayerComponent: 'AppointmentLayer',
   dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
   timeScaleLayoutComponent: 'TimeScaleLayout',
   timeScaleCellComponent: 'TimeScaleCell',

@@ -22,8 +22,7 @@ describe('Slice', () => {
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
-    const { transform, d, value } = tree.find('path').props();
-    expect(transform).toBe('translate(1 2)');
+    const { d, value } = tree.find('path').props();
     expect(d).toBe('M11 11');
     expect(value).toBeUndefined();
   });

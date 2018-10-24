@@ -4,7 +4,7 @@ The Chart component can collect line, spline, area and bar series in stacks. Sta
 
 ## Basic Setup
 
-Add the `Stack` plugin to the Grid to draw several series side-by-side. The following example demonstrates how to draw bar series:
+Add the `Stack` plugin to draw several series side-by-side. The following example demonstrates how to draw bar series:
 
 .embedded-demo({ "path": "chart-basic/band-axis", "showThemeSelector": true })
 

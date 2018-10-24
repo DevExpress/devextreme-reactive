@@ -7,7 +7,7 @@ import {
   ValueAxis,
   ValueGrid,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 
 const data = [
   { year: '1950', population: 2.525 },
@@ -38,7 +38,7 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis />
-          <ValueAxis max={7} lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis max={7} lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
 
           <BarSeries
@@ -46,6 +46,7 @@ export default class Demo extends React.PureComponent {
             argumentField="year"
           />
           <Title text="World population" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
+          <Animation />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

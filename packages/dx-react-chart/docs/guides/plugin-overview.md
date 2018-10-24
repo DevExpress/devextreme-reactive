@@ -30,6 +30,10 @@ The following plugins render additional elements:
 - `Legend` - renders a legend
 - `Title` - renders a title
 
+The following plugins implement additional features:
+
+- `Animation` - animates all the chart's series when they first appear on-screen
+
 ## Data Processing Plugins
 
 - `Scale` - extends user data with service information that is required to render axes and series

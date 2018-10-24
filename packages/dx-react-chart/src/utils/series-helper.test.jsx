@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { findSeriesByName, addSeries } from '@devexpress/dx-chart-core';
+import { findSeriesByName, addSeries, getValueDomainName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { withSeriesPlugin } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
   addSeries: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  getValueDomainName: jest.fn(),
 }));
 
 describe('Base series', () => {
@@ -28,6 +30,7 @@ describe('Base series', () => {
       styles: 'styles',
     });
     addSeries.mockReturnValue('series');
+    getValueDomainName.mockReturnValue('value_domain');
   });
 
   afterEach(() => {
@@ -39,9 +42,10 @@ describe('Base series', () => {
       data: 'data',
       series: 'series',
       palette: 'test-palette',
-      scales: 'test-scales',
+      scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
       stacks: ['one', 'two'],
       scaleExtension: 'scaleExtension',
+      getAnimatedStyle: 'test-animated-style-getter',
     },
     template: {
       series: {},
@@ -78,6 +82,8 @@ describe('Base series', () => {
       coordinates: coords,
       color: 'color',
       styles: 'styles',
+      scales: { xScale: 'argument-scale', yScale: 'value-scale' },
+      getAnimatedStyle: 'test-animated-style-getter',
     });
   });
 

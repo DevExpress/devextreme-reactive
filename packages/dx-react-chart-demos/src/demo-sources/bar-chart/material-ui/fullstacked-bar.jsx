@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 
 import { oilProduction as data } from '../../../demo-data/data-vizualization';
@@ -68,7 +68,7 @@ class Demo extends React.PureComponent {
           <ValueAxis
             tickFormat={format}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 
@@ -102,6 +102,7 @@ class Demo extends React.PureComponent {
             argumentField="year"
             stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Oil Production" className={classes.title} />
           <Stack offset={stackOffsetExpand} />

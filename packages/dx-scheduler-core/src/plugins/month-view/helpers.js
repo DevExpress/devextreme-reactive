@@ -21,7 +21,7 @@ export const sliceAppointmentByWeek = (timeBounds, appointment, step) => {
       if (pieceTo.isAfter(apptEnd)) {
         pieceTo = apptEnd.clone();
       }
-      if (!pieceFrom.isSame(pieceTo)) {
+      if (!pieceFrom.isSameOrAfter(pieceTo)) {
         pieces.push({ start: pieceFrom, end: pieceTo, ...restFields });
         pieceFrom = pieceTo.clone().add(1, 'second');
       }

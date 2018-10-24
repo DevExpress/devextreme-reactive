@@ -236,6 +236,20 @@ describe('TableFilterRow', () => {
       .toMatchObject({ config: null });
   });
 
+  it('should pass undefined as an empty value to EditorComponent', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(defaultProps.editorComponent).prop('value'))
+      .toBeUndefined();
+  });
+
   it('can render filter selector', () => {
     let tree = mount((
       <PluginHost>

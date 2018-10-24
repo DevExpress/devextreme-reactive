@@ -10,7 +10,7 @@ import {
 import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
 import {
-  getValueDomainName, createScale, getWidth, setScalePadding,
+  createScale, getWidth, setScalePadding, getValueDomainName,
 } from '../../utils/scale';
 
 const getX = ({ x }) => x;

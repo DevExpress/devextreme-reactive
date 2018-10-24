@@ -34,6 +34,7 @@ describe('Area series', () => {
     ...defaultProps,
     points: coords,
     seriesComponent: SeriesComponent,
+    path: dArea,
     customProperty: 'custom',
   });
 

@@ -1,16 +1,13 @@
-import { getPiePointTransformer, createPieHitTester } from '@devexpress/dx-chart-core';
-import { makeSeries, withComponents } from '../utils';
+import {
+  getPiePointTransformer as getPointTransformer,
+  createPieHitTester as createHitTester,
+} from '@devexpress/dx-chart-core';
+import { declareSeries } from '../utils';
 import { SliceCollection as Path } from '../templates/series/slice-collection';
 import { Slice as Point } from '../templates/series/slice';
 
-export const PieSeries = withComponents({ Path, Point })(makeSeries(
-  'PieSeries',
-  'arc',
-  null, // TODO: d3Func is not used.
-  getPiePointTransformer,
-  {
-    seriesComponent: 'Path',
-    pointComponent: 'Point',
-  },
-  createPieHitTester,
-));
+export const PieSeries = declareSeries('PieSeries', {
+  components: { Path, Point },
+  getPointTransformer,
+  createHitTester,
+});

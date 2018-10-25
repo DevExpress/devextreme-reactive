@@ -24,7 +24,6 @@ const getRenderProps = (series) => {
     symbolName,
     isStartedFromZero,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    getPointTransformer,
     createHitTester,
     ...restProps
   } = series;

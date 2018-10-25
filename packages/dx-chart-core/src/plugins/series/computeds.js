@@ -146,13 +146,14 @@ export const addSeries = (series, data, palette, props) => {
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
 // Make "scales" persist first.
 const scalePoints = (series, scales, ...args) => {
-  const transform = series.getPointTransformer({
+  const { getPointTransformer, ...rest } = series;
+  const transform = getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.axisName)],
   }, ...args);
   return {
-    ...series,
+    ...rest,
     points: series.points.map(transform),
   };
 };

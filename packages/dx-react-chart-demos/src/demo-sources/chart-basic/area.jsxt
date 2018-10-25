@@ -36,7 +36,6 @@ export default class Demo extends React.PureComponent {
             valueField="us"
             argumentField="year"
           />
-
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

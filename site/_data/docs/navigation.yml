@@ -197,10 +197,14 @@
         path: /react/chart/docs/guides/stacked-series
       - title: Palette
         path: /react/chart/docs/guides/palette
+      - title: Animation
+        path: /react/chart/docs/guides/animation
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: API Reference
     items:
+      - title: Animation
+        path: /react/chart/docs/reference/animation
       - title: AreaSeries
         path: /react/chart/docs/reference/area-series
       - title: ArgumentAxis

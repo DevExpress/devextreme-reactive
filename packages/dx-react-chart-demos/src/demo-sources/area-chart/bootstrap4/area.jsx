@@ -9,7 +9,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 
 const data = [
@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
           className="pr-3"
         >
           <ArgumentAxis />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
 
           <AreaSeries
@@ -70,6 +70,7 @@ export default class Demo extends React.PureComponent {
             valueField="ios"
             argumentField="year"
           />
+          <Animation />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
           <Legend
             position="bottom"

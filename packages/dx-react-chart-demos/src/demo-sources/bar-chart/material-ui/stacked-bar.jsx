@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
@@ -65,7 +65,7 @@ class Demo extends React.PureComponent {
           <ValueAxis
             max={2400}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 
@@ -99,6 +99,7 @@ class Demo extends React.PureComponent {
             argumentField="country"
             stack="a"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className={classes.title} />
           <Stack />

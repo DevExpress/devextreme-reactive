@@ -20,4 +20,10 @@ describe('Tick', () => {
     const { customProperty } = tree.find('path').props();
     expect(customProperty).toBeTruthy();
   });
+
+  it('should pass the className to the root element', () => {
+    const tree = shallow(<Tick {...defaultProps} className />);
+    const { className } = tree.find('path').props();
+    expect(className).toBeTruthy();
+  });
 });

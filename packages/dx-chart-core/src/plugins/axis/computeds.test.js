@@ -31,7 +31,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal' }, scale, 'top', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: -15, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: -10, text: 1, dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -40,7 +40,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal' }, scale, 'bottom', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: 15, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: 10, text: 1, dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -54,7 +54,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'vertical' }, scale, 'left', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: -15, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
+          text: 1, xText: -10, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
         }],
       });
     });
@@ -63,7 +63,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'vertical' }, scale, 'right', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 1, xText: 15, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
+          text: 1, xText: 10, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
         }],
       });
     });
@@ -79,7 +79,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal' }, scale, 'top', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: -15, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: -10, text: 'format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
         }],
       });
 
@@ -92,7 +92,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal', tickFormat: userFormat }, scale, 'top', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: -15, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: -10, text: 'user format 1', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
         }],
       });
 
@@ -118,7 +118,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal' }, scale, 'bottom', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: 15, text: 'a', dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: 10, text: 'a', dominantBaseline: 'hanging', textAnchor: 'middle', y1: 0, y2: 5, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -127,7 +127,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'horizontal' }, scale, 'top', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          xText: 25, yText: -15, text: 'a', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
+          xText: 25, yText: -10, text: 'a', dominantBaseline: 'baseline', textAnchor: 'middle', y1: -5, y2: 0, x1: 25, x2: 25, key: 0,
         }],
       });
     });
@@ -136,7 +136,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'vertical' }, scale, 'left', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 'a', xText: -15, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
+          text: 'a', xText: -10, yText: 25, x1: -5, x2: 0, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'end', key: 0,
         }],
       });
     });
@@ -145,7 +145,7 @@ describe('AxisCoordinates', () => {
       const coordinates = axisCoordinates({ orientation: 'vertical' }, scale, 'right', tickSize, indentFromAxis);
       expect(coordinates).toEqual({
         ticks: [{
-          text: 'a', xText: 15, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
+          text: 'a', xText: 10, yText: 25, x1: 0, x2: 5, y1: 25, y2: 25, dominantBaseline: 'middle', textAnchor: 'start', key: 0,
         }],
       });
     });

@@ -29,17 +29,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 
-import { tasks } from '../../../demo-data/tasks';
+import { tasks, priorities } from '../../../demo-data/tasks';
 
-const priorities = {
-  low: { id: 1, color: '#81c784', activeColor: '#43a047' },
-  medium: { id: 2, color: '#4fc3f7', activeColor: '#039be5' },
-  high: { id: 3, color: '#ff8a65', activeColor: '#f4511e' },
-};
-
-const getPriorityById = priorityId => (
-  Object.entries(priorities).find(([, { id }]) => id === priorityId)[0]
-);
+const getPriorityById = priorityId => priorities.find(({ id }) => id === priorityId).title;
 
 const createClassesByPriorityId = (
   priorityId,
@@ -55,49 +47,77 @@ const createClassesByPriorityId = (
 };
 
 const styles = theme => ({
-  ...Object.entries(priorities)
-    .reduce((acc, [priority, { color, activeColor }]) => {
-      acc[`${priority}PriorityBackground`] = { background: color };
-      acc[`${priority}PriorityColor`] = { color };
-      acc[`${priority}PriorityHover`] = { '&:hover': { background: activeColor } };
-      return acc;
-    }, {}),
+  ...priorities.reduce((acc, { title, color, activeColor }) => {
+    acc[`${title}PriorityBackground`] = { background: color };
+    acc[`${title}PriorityColor`] = { color };
+    acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
+    return acc;
+  }, {}),
   conentItem: {
     paddingLeft: 0,
   },
   conentItemValue: {
-    textTransform: 'capitalize',
     padding: 0,
   },
   conentItemIcon: {
     marginRight: theme.spacing.unit,
   },
+  flexibleSpace: {
+    margin: '0 auto 0 0',
+  },
+  prioritySelector: {
+    marginLeft: theme.spacing.unit * 2,
+    minWidth: 120,
+  },
+  priorityBullet: {
+    borderRadius: '50%',
+    width: theme.spacing.unit * 2,
+    height: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+  },
 });
 
-const PrioritySelector = () => (
-  <FormControl style={{ width: 150 }}>
-    <Select
-      value=""
-      inputProps={{
-        name: 'priority',
-        id: 'priority',
-      }}
-      displayEmpty
-      disableUnderline
-    >
-      <MenuItem value="" disabled>Priority</MenuItem>
-      <MenuItem value={null}>All</MenuItem>
-      <MenuItem value={1}>Low</MenuItem>
-      <MenuItem value={2}>Medium</MenuItem>
-      <MenuItem value={3}>High</MenuItem>
-    </Select>
-  </FormControl>
+const PrioritySelectorItem = withStyles(styles, { name: 'PrioritySelectorItem' })(
+  ({ classes, priority: { id, title } }) => {
+    const priorityClasses = createClassesByPriorityId(id, classes, { background: true });
+    return (
+      <MenuItem value={id} key={id.toString()}>
+        <span className={`${priorityClasses} ${classes.priorityBullet}`} />
+        {title}
+      </MenuItem>
+    );
+  },
 );
 
-const FlexibleSpace = () => (
-  <Toolbar.FlexibleSpace style={{ margin: '0 auto 0 0' }}>
-    <PrioritySelector />
-  </Toolbar.FlexibleSpace>
+const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
+  ({ classes }) => (
+    <FormControl className={classes.prioritySelector}>
+      <Select
+        value=""
+        inputProps={{
+          name: 'priority',
+          id: 'priority',
+        }}
+        displayEmpty
+        disableUnderline
+      >
+        <MenuItem value="" disabled>Priority</MenuItem>
+        <MenuItem value={null}>
+          <span className={classes.priorityBullet} />
+          All
+        </MenuItem>
+        {priorities.map(priority => <PrioritySelectorItem priority={priority} />)}
+      </Select>
+    </FormControl>
+  ),
+);
+
+const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
+  ({ classes }) => (
+    <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
+      <PrioritySelector />
+    </Toolbar.FlexibleSpace>
+  ),
 );
 
 const Priority = ({ id, classes }) => {

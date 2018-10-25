@@ -98,3 +98,24 @@ export const tasks = [
     endDate: '2018-04-26 14:00',
   },
 ];
+
+export const priorities = [
+  {
+    id: 1,
+    title: 'Low',
+    color: '#81c784',
+    activeColor: '#43a047',
+  },
+  {
+    id: 2,
+    title: 'Medium',
+    color: '#4fc3f7',
+    activeColor: '#039be5',
+  },
+  {
+    id: 3,
+    title: 'High',
+    color: '#ff8a65',
+    activeColor: '#f4511e',
+  },
+];

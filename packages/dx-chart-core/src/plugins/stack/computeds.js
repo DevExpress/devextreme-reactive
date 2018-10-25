@@ -5,8 +5,8 @@ import { scaleBand } from 'd3-scale';
 // knowledge about "getPointTransformer" and "path" functions behavior.
 
 const getStackedPointTransformer = (getPointTransformer) => {
-  const wrapper = (series, ...args) => {
-    const transform = getPointTransformer(series, ...args);
+  const wrapper = (series) => {
+    const transform = getPointTransformer(series);
     const { valueScale } = series;
     return (point) => {
       const ret = transform(point);
@@ -93,11 +93,9 @@ const applyStacking = (seriesList, dataItems, offset, order) => {
 
 const getGroupName = (series, i) => series.stack || `group-${i}`;
 
-const getGroupedPointTransformer = (
-  getPointTransformer, groupCount, groupOffset,
-) => {
-  const wrapper = (series, ...args) => {
-    const transform = getPointTransformer(series, ...args);
+const getGroupedPointTransformer = (getPointTransformer, groupCount, groupOffset) => {
+  const wrapper = (series) => {
+    const transform = getPointTransformer(series);
     const { barWidth } = series;
     const widthCoeff = 1 / groupCount;
     const offsetCoeff = -(1 - barWidth) / 2 + groupOffset + widthCoeff * (1 - barWidth) / 2;

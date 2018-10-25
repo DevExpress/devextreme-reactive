@@ -419,7 +419,7 @@ describe('scaleSeriesPoints', () => {
       points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
     };
 
-    const result = scaleSeriesPoints([series1, series2], scales, 'a', 'b');
+    const result = scaleSeriesPoints([series1, series2], scales);
 
     expect(result[0].points).toEqual(
       [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
@@ -428,10 +428,10 @@ describe('scaleSeriesPoints', () => {
       [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
     );
     expect(getPointTransformer1).toBeCalledWith(
-      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' }, 'a', 'b',
+      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' },
     );
     expect(getPointTransformer2).toBeCalledWith(
-      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' }, 'a', 'b',
+      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' },
     );
   });
 });

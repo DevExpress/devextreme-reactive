@@ -193,9 +193,9 @@ describe('Stack', () => {
         makeSeries('2', { stack: 's1', getPointTransformer: mock, isStartedFromZero: true }),
       ], 'test-data', 'test-offset', 'test-order');
 
-      const transform = result[0].getPointTransformer({ valueScale }, 'a', 'b');
+      const transform = result[0].getPointTransformer({ valueScale });
 
-      expect(mock).toBeCalledWith({ valueScale }, 'a', 'b');
+      expect(mock).toBeCalledWith({ valueScale });
       expect(transform({ value0: 'v1' })).toEqual({
         value0: 'v1',
         tag: '#t',

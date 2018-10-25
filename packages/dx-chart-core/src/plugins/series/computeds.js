@@ -85,7 +85,7 @@ export const getBarPointTransformer = ({
     width,
   });
 };
-// Used by for Bar grouping.
+// Used for Bar grouping.
 getBarPointTransformer.isBroad = true;
 
 export const findSeriesByName = (
@@ -144,22 +144,20 @@ export const addSeries = (series, data, palette, props) => {
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
-// Make "scales" persist first.
-const scalePoints = (series, scales, ...args) => {
+// Make "scales" persistent first.
+const scalePoints = (series, scales) => {
   const { getPointTransformer, ...rest } = series;
   const transform = getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.axisName)],
-  }, ...args);
+  });
   return {
     ...rest,
     points: series.points.map(transform),
   };
 };
 
-// `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
-// TODO: Remove `...args` when Bar case is resolved.
-export const scaleSeriesPoints = (series, scales, ...args) => series.map(
-  seriesItem => scalePoints(seriesItem, scales, ...args),
+export const scaleSeriesPoints = (series, scales) => series.map(
+  seriesItem => scalePoints(seriesItem, scales),
 );

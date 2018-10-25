@@ -104,9 +104,8 @@ describe('#declareSeries', () => {
       pointComponent: TestComponentPoint,
     });
     expect(getComputedState(tree)).toEqual({
+      ...defaultDeps.getter,
       series: 'extended-series',
-      data: 'test-data',
-      palette: 'test-palette',
     });
   });
 

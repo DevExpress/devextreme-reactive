@@ -12,3 +12,7 @@ export const BarSeries = declareSeries('BarSeries', {
   getPointTransformer,
   createHitTester,
 });
+
+BarSeries.defaultProps = {
+  barWidth: 0.9,
+};

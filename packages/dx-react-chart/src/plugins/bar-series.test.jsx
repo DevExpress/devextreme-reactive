@@ -48,6 +48,7 @@ describe('Bar series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
+      getAnimatedStyle: jest.fn(),
     },
     template: {
       series: {},

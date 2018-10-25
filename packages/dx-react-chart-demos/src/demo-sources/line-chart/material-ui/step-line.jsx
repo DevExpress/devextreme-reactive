@@ -10,7 +10,7 @@ import {
   ValueGrid,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Scale } from '@devexpress/dx-react-chart';
+import { Scale, Animation } from '@devexpress/dx-react-chart';
 import { line, curveStep } from 'd3-shape';
 
 import { australianMedals as data } from '../../../demo-data/data-vizualization';
@@ -85,7 +85,7 @@ class Demo extends React.PureComponent {
           data={chartData}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
 
           <LineSeries
@@ -114,6 +114,7 @@ class Demo extends React.PureComponent {
             text="Australian Medal Count"
             className={classes.title}
           />
+          <Animation />
           <Scale />
         </Chart>
       </Paper>

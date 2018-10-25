@@ -12,6 +12,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   addSeries: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
+  checkZeroStart: jest.fn(),
 }));
 
 describe('Scatter series', () => {
@@ -49,6 +50,7 @@ describe('Scatter series', () => {
     getter: {
       layouts: { pane: {} },
       scales: {},
+      getAnimatedStyle: jest.fn(),
     },
     template: {
       series: {},

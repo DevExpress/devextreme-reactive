@@ -9,7 +9,7 @@ import {
   Legend,
   ValueGrid,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
@@ -42,7 +42,7 @@ export default class Demo extends React.PureComponent {
           <ValueAxis
             max={2400}
             lineComponent={EmptyComponent}
-            tickSize={0}
+            tickComponent={EmptyComponent}
           />
           <ValueGrid />
 
@@ -76,6 +76,7 @@ export default class Demo extends React.PureComponent {
             argumentField="country"
             stack="one"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className="w-100 text-center mb-2" />
           <Stack />

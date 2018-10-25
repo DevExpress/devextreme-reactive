@@ -18,6 +18,7 @@ describe('Basis Data', () => {
       data,
       series: [],
       axes: [],
+      getAnimatedStyle: expect.any(Function),
     });
   });
 });

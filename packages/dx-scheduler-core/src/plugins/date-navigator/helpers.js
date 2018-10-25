@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const calculateTitleByDays = (startViewDate, endViewDate) => {
+const calculateTextByDays = (startViewDate, endViewDate) => {
   const momentStartViewDate = moment(startViewDate);
   const momentEndViewDate = moment(endViewDate);
 
@@ -16,7 +16,7 @@ const calculateTitleByDays = (startViewDate, endViewDate) => {
   return `${momentStartViewDate.format('D MMM YY')} - ${momentEndViewDate.format('D MMM YY')}`;
 };
 
-const calculateTitleByMonths = (currentDate, intervalCount) => {
+const calculateTextByMonths = (currentDate, intervalCount) => {
   const momentCurrentDate = moment(currentDate);
 
   if (intervalCount === 1) {
@@ -29,8 +29,8 @@ const calculateTitleByMonths = (currentDate, intervalCount) => {
   return `${momentCurrentDate.format('MMM YY')} - ${lastMonth.format('MMM YY')}`;
 };
 
-export const viewBoundTitle = (startViewDate, endViewDate, step, currentDate, intervalCount) => (
+export const viewBoundText = (startViewDate, endViewDate, step, currentDate, intervalCount) => (
   step !== 'month'
-    ? calculateTitleByDays(startViewDate, endViewDate)
-    : calculateTitleByMonths(currentDate, intervalCount)
+    ? calculateTextByDays(startViewDate, endViewDate)
+    : calculateTextByMonths(currentDate, intervalCount)
 );

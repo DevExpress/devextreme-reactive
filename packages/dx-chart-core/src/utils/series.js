@@ -1,6 +1,10 @@
 import { area } from 'd3-shape';
 import { dArea, dLine, dSpline } from '../plugins/series/computeds';
 
+const isPointInRect = (x, y, x1, x2, y1, y2) => x1 <= x && x <= x2 && y1 <= y && y <= y2;
+
+const LINE_TOLERANCE = 10;
+
 // This function is called from event handlers (when DOM is available) -
 // *window.document* can be accessed safely.
 const createContext = () => document.createElement('canvas').getContext('2d'); // eslint-disable-line no-undef
@@ -13,7 +17,19 @@ const createCanvasAbusingHitTesterCreator = makePath => (coordinates) => {
   const path = makePath();
   path.context(ctx);
   path(coordinates);
-  return ([x, y]) => (ctx.isPointInPath(x, y) ? {} : null);
+  return ([px, py]) => {
+    const hit = ctx.isPointInPath(px, py) ? {} : null;
+    if (hit) {
+      const point = coordinates.find(({ x, y }) => isPointInRect(
+        px, py,
+        x - LINE_TOLERANCE, x + LINE_TOLERANCE, y - LINE_TOLERANCE, y + LINE_TOLERANCE,
+      ));
+      if (point) {
+        hit.point = point.index;
+      }
+    }
+    return hit;
+  };
 };
 
 export const createAreaHitTester = createCanvasAbusingHitTesterCreator(() => {
@@ -28,8 +44,8 @@ export const createLineHitTester = createCanvasAbusingHitTesterCreator(() => {
   const path = area();
   const getY = dLine.y();
   path.x(dLine.x());
-  path.y1(point => getY(point) - 10);
-  path.y0(point => getY(point) + 10);
+  path.y1(point => getY(point) - LINE_TOLERANCE);
+  path.y0(point => getY(point) + LINE_TOLERANCE);
   return path;
 });
 
@@ -37,13 +53,11 @@ export const createSplineHitTester = createCanvasAbusingHitTesterCreator(() => {
   const path = area();
   const getY = dSpline.y();
   path.x(dSpline.x());
-  path.y1(point => getY(point) - 10);
-  path.y0(point => getY(point) + 10);
+  path.y1(point => getY(point) - LINE_TOLERANCE);
+  path.y0(point => getY(point) + LINE_TOLERANCE);
   path.curve(dSpline.curve());
   return path;
 });
-
-const isPointInRect = (x, y, x1, x2, y1, y2) => x1 <= x && x <= x2 && y1 <= y && y <= y2;
 
 export const createBarHitTester = coordinates => ([px, py]) => {
   const point = coordinates.find(({

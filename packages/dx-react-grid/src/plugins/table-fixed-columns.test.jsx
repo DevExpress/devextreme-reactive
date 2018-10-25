@@ -5,6 +5,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-c
 import { PluginHost, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   FIXED_COLUMN_LEFT_SIDE,
+  FIXED_COLUMN_RIGHT_SIDE,
   getFixedColumnKeys,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
@@ -14,6 +15,7 @@ import { TableFixedColumns } from './table-fixed-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   FIXED_COLUMN_LEFT_SIDE: 'LEFT',
+  FIXED_COLUMN_RIGHT_SIDE: 'RIGHT',
   getFixedColumnKeys: jest.fn(),
   tableColumnsWithFixed: jest.fn(),
   tableHeaderRowsWithFixed: jest.fn(),
@@ -181,6 +183,44 @@ describe('TableFixedColumns', () => {
 
     tree.find(defaultProps.listenerCellComponent).prop('onSizeChange')({ width: 200 });
     tree.update();
+    expect(tree.find(defaultProps.cellComponent).props())
+      .toMatchObject({
+        position: 200,
+      });
+  });
+
+  it('should render right columns in correct order', () => {
+    getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
+    tableColumnsWithFixed.mockImplementation(() => [
+      { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
+      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
+    ]);
+    isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
+    const rightColumns = ['a', 'b'];
+
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Template name="root">
+          <TemplatePlaceholder
+            name="tableCell"
+            params={{ tableColumn: { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_RIGHT_SIDE }, tableRow: { type: 'row' } }}
+          />
+          <TemplatePlaceholder
+            name="tableCell"
+            params={{ tableColumn: { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_RIGHT_SIDE }, tableRow: { type: 'fixed' } }}
+          />
+        </Template>
+        <TableFixedColumns
+          {...defaultProps}
+          rightColumns={rightColumns}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.listenerCellComponent).prop('onSizeChange')({ width: 200 });
+    tree.update();
+
     expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         position: 200,

@@ -86,7 +86,7 @@ export class TableFixedColumns extends React.PureComponent {
                 const { fixed: side } = tableColumn;
                 const targetArray = side === FIXED_COLUMN_LEFT_SIDE
                   ? getFixedColumnKeys(tableColumns, leftColumns)
-                  : getFixedColumnKeys(tableColumns, rightColumns);
+                  : getFixedColumnKeys(tableColumns, rightColumns).reverse();
 
                 const fixedIndex = targetArray.indexOf(tableColumn.key);
                 const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);

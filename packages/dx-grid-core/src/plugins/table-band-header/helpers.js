@@ -10,7 +10,7 @@ export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
   || tableRow.type === TABLE_HEADING_TYPE;
 export const isNoDataColumn = columnType => columnType !== TABLE_DATA_TYPE;
 
-export const getColumnMeta = (
+export const getColumnBandInfo = (
   columnName, bands, tableRowLevel,
   level = 0, title = null, result = null,
 ) => bands.reduce((acc, column) => {
@@ -20,7 +20,7 @@ export const getColumnMeta = (
     return acc;
   }
   if (column.children !== undefined) {
-    return getColumnMeta(
+    return getColumnBandInfo(
       columnName,
       column.children,
       tableRowLevel,
@@ -32,19 +32,97 @@ export const getColumnMeta = (
   return acc;
 }, result || { level, title });
 
+export const getCurrentColumnBandInfo = (
+  { currentColumnIndex, currentTableColumn, currentRowLevel },
+  { tableColumns, columnBands },
+) => {
+  const currentRealTableColumn = tableColumns[currentColumnIndex];
+  return currentTableColumn.type === TABLE_DATA_TYPE || currentTableColumn.type === TABLE_STUB_TYPE
+    ? getColumnBandInfo(currentRealTableColumn.column.name, columnBands, currentRowLevel)
+    : { level: 0, title: '' };
+};
+
+const getColumnIndex = (currentTableColumn, tableColumns) => (
+  currentTableColumn.type === TABLE_STUB_TYPE
+    ? currentTableColumn.rightColumnIndex
+    : tableColumns.findIndex(column => column.key === currentTableColumn.key)
+);
+
+const bandCellWillBeMerged = (
+  {
+    currentTableColumn, currentColumnIndex,
+    currentColumnBand, currentRowLevel,
+    previousTableColumn, isCurrentColumnFixed,
+  },
+  columnBands,
+) => {
+  if (currentColumnIndex <= 0 || previousTableColumn.type !== TABLE_DATA_TYPE) return false;
+
+  const isPrevColumnFixed = !!previousTableColumn.fixed;
+  const prevColumnBand = getColumnBandInfo(
+    previousTableColumn.column.name,
+    columnBands,
+    currentRowLevel,
+  );
+
+  return (prevColumnBand.title === currentColumnBand.title
+    && !currentTableColumn.rightColumnIndex
+    && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed)));
+};
+
+const columnRenderedInOtherRow = ({ currentColumnBand, currentRowLevel }) => (
+  currentColumnBand.level < currentRowLevel
+);
+
+const columnBelongsToCurrentRow = ({ currentColumnBand, currentRowLevel }) => (
+  currentColumnBand.level === currentRowLevel
+);
+
+const beforeBorderVisible = ({ currentColumnIndex, currentTableColumn, previousTableColumn }) => (
+  currentColumnIndex > 0
+  && currentTableColumn.type === TABLE_DATA_TYPE
+  && isNoDataColumn(previousTableColumn.type)
+);
+
+const getCurrentColumnInfo = (tableInfo, currentTableColumn, tableRow) => {
+  const currentColumnInfo = { currentTableColumn, tableRow };
+  currentColumnInfo.currentRowLevel = tableRow.level === undefined
+    ? tableInfo.maxLevel - 1 : tableRow.level;
+  currentColumnInfo.currentColumnIndex = getColumnIndex(currentTableColumn, tableInfo.tableColumns);
+  currentColumnInfo.currentColumnBand = getCurrentColumnBandInfo(currentColumnInfo, tableInfo);
+  currentColumnInfo.isCurrentColumnFixed = !!currentTableColumn.fixed;
+
+  return currentColumnInfo;
+};
+
+const calculateMaxLevel = tableHeaderRows => (
+  tableHeaderRows
+    .filter(column => column.type === TABLE_BAND_TYPE)
+    .length + 1
+);
+const getTableHeaderInfo = (tableColumns, tableHeaderRows, columnBands) => (
+  {
+    tableColumns, tableHeaderRows, columnBands, maxLevel: calculateMaxLevel(tableHeaderRows),
+  }
+);
+
 export const getColSpan = (
-  currentColumnIndex, tableColumns, columnBands,
-  currentRowLevel, currentColumnTitle, isCurrentColumnFixed,
+  {
+    currentColumnIndex, currentRowLevel, currentColumnBand, isCurrentColumnFixed,
+  },
+  { tableColumns, columnBands },
 ) => {
   let isOneChain = true;
-  return tableColumns.slice(currentColumnIndex + 1)
+  return tableColumns
+    .slice(currentColumnIndex + 1)
     .reduce((acc, tableColumn) => {
       if (tableColumn.type !== TABLE_DATA_TYPE) return acc;
-      const columnMeta = getColumnMeta(tableColumn.column.name, columnBands, currentRowLevel);
+
+      const columnMeta = getColumnBandInfo(tableColumn.column.name, columnBands, currentRowLevel);
       if (isCurrentColumnFixed && !tableColumn.fixed) {
         isOneChain = false;
       }
-      if (isOneChain && columnMeta.title === currentColumnTitle) {
+      if (isOneChain && columnMeta.title === currentColumnBand.title) {
         return acc + 1;
       }
       isOneChain = false;
@@ -52,74 +130,56 @@ export const getColSpan = (
     }, 1);
 };
 
-export const getBandComponent = (
-  { tableColumn: currentTableColumn, tableRow, rowSpan },
-  tableHeaderRows, tableColumns, columnBands,
-) => {
-  if (rowSpan) return { type: BAND_DUPLICATE_RENDER, payload: null };
-
-  const maxLevel = tableHeaderRows.filter(column => column.type === TABLE_BAND_TYPE).length + 1;
-  const currentRowLevel = tableRow.level === undefined
-    ? maxLevel - 1 : tableRow.level;
-  const currentColumnIndex = currentTableColumn.type === TABLE_STUB_TYPE
-    ? currentTableColumn.rightColumnIndex
-    : tableColumns.findIndex(column => column.key === currentTableColumn.key);
-  const currentRealTableColumn = tableColumns[currentColumnIndex];
-  const currentColumnMeta = currentTableColumn.type === TABLE_DATA_TYPE
-    || currentTableColumn.type === TABLE_STUB_TYPE
-    ? getColumnMeta(currentRealTableColumn.column.name, columnBands, currentRowLevel)
-    : { level: 0, title: '' };
-
-  if (currentColumnMeta.level < currentRowLevel) {
-    return { type: BAND_EMPTY_CELL, payload: null };
+const createBandHeaderCell = ({ currentRowLevel, beforeBorder }, { tableHeaderRows, maxLevel }) => (
+  {
+    type: BAND_HEADER_CELL,
+    payload: {
+      tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
+      rowSpan: maxLevel - currentRowLevel,
+      ...beforeBorder && { beforeBorder },
+    },
   }
+);
 
-  const previousTableColumn = tableColumns[currentColumnIndex - 1];
-  let beforeBorder = false;
-  if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
-    && isNoDataColumn(previousTableColumn.type)) {
-    beforeBorder = true;
-  }
-  if (currentColumnMeta.level === currentRowLevel) {
-    return {
-      type: BAND_HEADER_CELL,
-      payload: {
-        tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
-        rowSpan: maxLevel - currentRowLevel,
-        ...beforeBorder && { beforeBorder },
-      },
-    };
-  }
-
-  const isCurrentColumnFixed = !!currentTableColumn.fixed;
-  if (currentColumnIndex > 0 && previousTableColumn.type === TABLE_DATA_TYPE) {
-    const isPrevColumnFixed = !!previousTableColumn.fixed;
-    const prevColumnMeta = getColumnMeta(
-      previousTableColumn.column.name,
-      columnBands,
-      currentRowLevel,
-    );
-    if (prevColumnMeta.title === currentColumnMeta.title
-      && !currentTableColumn.rightColumnIndex
-      && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed))) {
-      return { type: null, payload: null };
-    }
-  }
-
+const createBandGroupCell = (currentColumnInfo, tableHeaderInfo) => {
+  const { beforeBorder } = currentColumnInfo;
   return {
     type: BAND_GROUP_CELL,
     payload: {
       colSpan: getColSpan(
-        currentColumnIndex,
-        tableColumns,
-        columnBands,
-        currentRowLevel,
-        currentColumnMeta.title,
-        isCurrentColumnFixed,
+        currentColumnInfo,
+        tableHeaderInfo,
       ),
-      value: currentColumnMeta.title,
-      column: currentColumnMeta,
+      value: currentColumnInfo.currentColumnBand.title,
+      column: currentColumnInfo.currentColumnBand,
       ...beforeBorder && { beforeBorder },
     },
   };
+};
+
+export const getBandComponent = (
+  { tableColumn: currentTableColumn, tableRow, rowSpan },
+  tableHeaderRows, tableColumns, columnBands,
+) => {
+  if (rowSpan) {
+    return { type: BAND_DUPLICATE_RENDER, payload: null };
+  }
+
+  const tableHeaderInfo = getTableHeaderInfo(tableColumns, tableHeaderRows, columnBands);
+  const currentColumnInfo = getCurrentColumnInfo(tableHeaderInfo, currentTableColumn, tableRow);
+  if (columnRenderedInOtherRow(currentColumnInfo)) {
+    return { type: BAND_EMPTY_CELL, payload: null };
+  }
+
+  currentColumnInfo.previousTableColumn = tableColumns[currentColumnInfo.currentColumnIndex - 1];
+  currentColumnInfo.beforeBorder = beforeBorderVisible(currentColumnInfo);
+  if (columnBelongsToCurrentRow(currentColumnInfo)) {
+    return createBandHeaderCell(currentColumnInfo, tableHeaderInfo);
+  }
+
+  if (bandCellWillBeMerged(currentColumnInfo, columnBands)) {
+    return { type: null, payload: null };
+  }
+
+  return createBandGroupCell(currentColumnInfo, tableHeaderInfo);
 };

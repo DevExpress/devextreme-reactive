@@ -9,7 +9,8 @@ import {
   isBandedTableRow,
   isBandedOrHeaderRow,
   getColSpan,
-  getColumnMeta,
+  getColumnBandInfo,
+  getCurrentColumnBandInfo,
   getBandComponent,
 } from './helpers';
 
@@ -80,131 +81,177 @@ describe('TableBandHeader Plugin helpers', () => {
     });
   });
 
-  describe('#getColumnMeta', () => {
+  describe('#getColumnBandInfo', () => {
     it('should return correct column meta for the first level children', () => {
-      expect(getColumnMeta('d', columnBands, 1))
+      expect(getColumnBandInfo('d', columnBands, 1))
         .toEqual({ title: 'Band A', level: 1 });
     });
 
     it('should return correct column meta for the deeper children levels', () => {
-      expect(getColumnMeta('a', columnBands, 2))
+      expect(getColumnBandInfo('a', columnBands, 2))
         .toEqual({ title: 'Band B', level: 2 });
+    });
+  });
+
+  describe('getCurrentColumnBandInfo', () => {
+    it('should return band info for data columns', () => {
+      const bandInfo = getCurrentColumnBandInfo({
+        currentColumnIndex: 0,
+        currentTableColumn: { type: TABLE_DATA_TYPE },
+        currentRowLevel: 0,
+      },
+      { tableColumns, columnBands });
+
+      expect(bandInfo).toEqual({ level: 2, title: 'Band A' });
+    });
+
+    it('should return band info for stub column if it substitutes a band column', () => {
+      const bandInfo = getCurrentColumnBandInfo({
+        currentColumnIndex: 2,
+        currentTableColumn: { type: TABLE_STUB_TYPE },
+        currentRowLevel: 0,
+      },
+      { tableColumns, columnBands });
+
+      expect(bandInfo).toEqual({ level: 1, title: 'Band A' });
+    });
+
+    it('should return empty band for other column types', () => {
+      const bandInfo = getCurrentColumnBandInfo({
+        currentColumnIndex: 0,
+        currentTableColumn: { type: TABLE_NODATA_TYPE },
+        currentRowLevel: 0,
+      },
+      { tableColumns, columnBands });
+
+      expect(bandInfo).toEqual({ level: 0, title: '' });
     });
   });
 
   describe('#getColSpan', () => {
     it('should work correctly for the first row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentColumnIndex = 0;
-      const currentRowLevel = 0;
-
-      expect(getColSpan(
-        currentColumnIndex,
+      const currentColumnInfo = {
+        currentColumnIndex: 0,
+        currentRowLevel: 0,
+        currentColumnBand: { title: 'Band A' },
+      };
+      const tableHeaderInfo = {
         tableColumns,
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(4);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(4);
     });
 
     it('should work correctly for nested row level bands', () => {
-      const currentColumnTitle = 'Band B';
-      const currentColumnIndex = 0;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
+      const currentColumnInfo = {
+        currentColumnIndex: 0,
+        currentRowLevel: 1,
+        currentColumnBand: { title: 'Band B' },
+      };
+      const tableHeaderInfo = {
         tableColumns,
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(2);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(2);
     });
 
     it('should work for nested row level non-band elements', () => {
-      const currentColumnTitle = 'Band A';
-      const currentColumnIndex = 2;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
+      const currentColumnInfo = {
+        currentColumnIndex: 2,
+        currentRowLevel: 1,
+        currentColumnBand: { title: 'Band A' },
+      };
+      const tableHeaderInfo = {
         tableColumns,
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(1);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(1);
     });
 
     it('should work with alternate titles', () => {
-      const currentColumnTitle = 'Band B';
-      const currentColumnIndex = 3;
-      const currentRowLevel = 1;
-
-      expect(getColSpan(
-        currentColumnIndex,
+      const currentColumnInfo = {
+        currentColumnIndex: 3,
+        currentRowLevel: 1,
+        currentColumnBand: { title: 'Band B' },
+      };
+      const tableHeaderInfo = {
         tableColumns,
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-      )).toBe(1);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(1);
     });
 
     it('should consider fixed columns for the first row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 0;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
+      const currentColumnInfo = {
+        currentColumnIndex: 0,
+        currentRowLevel: 0,
+        isCurrentColumnFixed: true,
+        currentColumnBand: { title: 'Band A' },
+      };
+      const tableHeaderInfo = {
+        tableColumns: [
           { ...tableColumns[0], fixed: 'before' },
           ...tableColumns.slice(1),
         ],
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(1);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(1);
     });
 
     it('should consider fixed columns for nested row level bands', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 1;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
+      const currentColumnInfo = {
+        currentColumnIndex: 0,
+        currentRowLevel: 1,
+        isCurrentColumnFixed: true,
+        currentColumnBand: { title: 'Band A' },
+      };
+      const tableHeaderInfo = {
+        tableColumns: [
           { ...tableColumns[0], fixed: 'before' },
           ...tableColumns.slice(1),
         ],
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(1);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(1);
     });
 
     it('should consider multiple fixed columns', () => {
-      const currentColumnTitle = 'Band A';
-      const currentRowLevel = 0;
-      const currentColumnIndex = 0;
-      const isCurrentColumnFixed = true;
-
-      expect(getColSpan(
-        currentColumnIndex,
-        [
+      const currentColumnInfo = {
+        currentColumnIndex: 0,
+        currentRowLevel: 0,
+        isCurrentColumnFixed: true,
+        currentColumnBand: { title: 'Band A' },
+      };
+      const tableHeaderInfo = {
+        tableColumns: [
           { ...tableColumns[0], fixed: 'before' },
           { ...tableColumns[1], fixed: 'before' },
           ...tableColumns.slice(2),
         ],
         columnBands,
-        currentRowLevel,
-        currentColumnTitle,
-        isCurrentColumnFixed,
-      )).toBe(2);
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(2);
+    });
+
+    it('should calculate colspan for partially hidden band column when virtual scrolling is enabled', () => {
+      const currentColumnInfo = {
+        currentColumnIndex: 1,
+        currentRowLevel: 0,
+        currentColumnBand: { title: 'Band B' },
+      };
+      const tableHeaderInfo = {
+        tableColumns,
+        columnBands,
+      };
+
+      expect(getColSpan(currentColumnInfo, tableHeaderInfo)).toBe(1);
     });
   });
 
@@ -222,7 +269,7 @@ describe('TableBandHeader Plugin helpers', () => {
         tableRow: {},
       };
 
-      expect(getBandComponent(params, {}, {}, {}, []))
+      expect(getBandComponent(params, {}, {}, {}))
         .toEqual({ type: BAND_DUPLICATE_RENDER, payload: null });
     });
 
@@ -238,7 +285,7 @@ describe('TableBandHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({ type: BAND_EMPTY_CELL, payload: null });
     });
 
@@ -254,7 +301,7 @@ describe('TableBandHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
           type: BAND_HEADER_CELL,
           payload: {
@@ -276,7 +323,7 @@ describe('TableBandHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
           type: BAND_GROUP_CELL,
           payload: {
@@ -299,7 +346,7 @@ describe('TableBandHeader Plugin helpers', () => {
         },
       };
 
-      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands, []))
+      expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
         .toEqual({
           type: null,
           payload: null,

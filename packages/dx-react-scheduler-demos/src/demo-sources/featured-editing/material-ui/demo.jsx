@@ -4,7 +4,6 @@ import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Toolbar,
-  AllDayPanel,
   DayView,
   WeekView,
   ViewSwitcher,
@@ -24,108 +23,97 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import LocationOn from '@material-ui/icons/LocationOn';
-import Notifications from '@material-ui/icons/Notifications';
 import Notes from '@material-ui/icons/Notes';
-import Palette from '@material-ui/icons/Palette';
-import Lens from '@material-ui/icons/Lens';
-
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Create from '@material-ui/icons/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
-const containerStyles = (theme) => {
-  console.log(theme);
-  return ({
-    container: {
-      width: '545px',
-      padding: 0,
-      paddingBottom: theme.spacing.unit * 2,
+const containerStyles = theme => ({
+  container: {
+    width: `${theme.spacing.unit * 68}px`,
+    padding: 0,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  content: {
+    padding: theme.spacing.unit * 2,
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: `0 ${theme.spacing.unit * 2}px`,
+  },
+  button: {
+    marginLeft: theme.spacing.unit * 2,
+  },
+  picker: {
+    marginRight: theme.spacing.unit * 2,
+    '&:last-child': {
+      marginRight: 0,
     },
-    tabContainer: {
-      padding: theme.spacing.unit * 2,
-    },
-    staticArea: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      padding: `0 ${theme.spacing.unit * 2}px`,
-      paddingBottom: 16,
-      // backgroundColor: theme.palette.background.default,
-    },
-    paper: {
-      borderRadius: 0,
-    },
-    title: {
-      width: '100%',
-    },
-    topLevel: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    bottomLevel: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    buttonGroup: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      // paddingBottom: theme.spacing.unit,
-      padding: `0 ${theme.spacing.unit * 2}px`,
-    },
-    button: {
-      marginLeft: theme.spacing.unit * 2,
-    },
+  },
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: `${theme.spacing.unit}px 0px`,
+  },
+  icon: {
+    margin: `${theme.spacing.unit * 2}px 0`,
+    marginRight: `${theme.spacing.unit * 2}px`,
+  },
+  textField: {
+    width: '100%',
+  },
+});
 
-    picker: {
-      marginTop: theme.spacing.unit * 2,
-      marginRight: theme.spacing.unit * 2,
-      '&:last-child': {
-        marginRight: 0,
-      },
-    },
-    wrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      padding: `${theme.spacing.unit}px 0px`,
-
-    },
-    icon: {
-      margin: `${theme.spacing.unit * 2}px 0`,
-    },
-    location: {
-      width: '470px',
-    },
-    color: {
-      marginRight: theme.spacing.unit,
-    },
-  // notes: {
-  //   width: '450px',
-  //   height: '100px',
-  // },
-  });
-};
-class appointmentFormContainerBasic extends React.PureComponent {
+class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: 0,
+      appointmentChanges: {},
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.getAppointmentData = () => {
+      const { appointmentData } = this.props;
+      return appointmentData;
+    };
+    this.getAppointmentChanges = () => {
+      const { appointmentChanges } = this.state;
+      return appointmentChanges;
+    };
+
+    this.changeAppointment = this.changeAppointment.bind(this);
+    this.commitAppointment = this.commitAppointment.bind(this);
   }
 
-  handleChange(event, value) {
-    this.setState({ value });
+  changeAppointment({ field, changes }) {
+    const { appointmentChanges } = this.state;
+
+    const nextChanges = {
+      ...appointmentChanges,
+      [field]: changes,
+    };
+    this.setState({
+      appointmentChanges: nextChanges,
+    });
+  }
+
+  commitAppointment(type) {
+    const { commitChanges } = this.props;
+    const appointment = {
+      ...this.getAppointmentData(),
+      ...this.getAppointmentChanges(),
+    };
+
+    commitChanges({
+      [type]: appointment,
+    });
+    this.setState({
+      appointmentChanges: {},
+    });
   }
 
   render() {
@@ -133,178 +121,112 @@ class appointmentFormContainerBasic extends React.PureComponent {
       classes,
       visible,
       visibleChange,
+      appointmentData,
     } = this.props;
-    const { value } = this.state;
+    const { appointmentChanges } = this.state;
+
+    const displayAppointmentData = {
+      ...appointmentData,
+      ...appointmentChanges,
+    };
+
+    const isNewAppointment = appointmentData.title === undefined;
+    const applyChanges = isNewAppointment
+      ? () => this.commitAppointment('added')
+      : () => this.commitAppointment('changed');
 
     return (
       <AppointmentForm.Popup
         visible={visible}
+        onBackdropClick={() => {
+          visibleChange();
+        }}
       >
         <AppointmentForm.Container className={classes.container}>
-          <Paper className={classes.paper}>
-            <AppointmentForm.StaticArea className={classes.staticArea}>
-              <div className={classes.topLevel}>
-                <TextField
-                  label="Title"
-                  className={classes.title}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div className={classes.bottomLevel}>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                  <InlineDateTimePicker
-                    className={classes.picker}
-                    keyboard
-                    label="Start Date"
-                    value="2018-01-01T00:00:00.000Z"
-                // onChange={this.handleDateChange}
-                    variant="outlined"
-                    format="DD/MM/yyyy"
-                    mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-                    onChange={() => undefined}
-                  />
-                  <InlineDateTimePicker
-                    className={classes.picker}
-                    keyboard
-                    label="End Date"
-                    value="2018-01-01T00:00:00.000Z"
-                // onChange={this.handleDateChange}
-                    variant="outlined"
-                    format="DD/MM/yyyy"
-                    mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-                    onChange={() => undefined}
-                  />
-                </MuiPickersUtilsProvider>
-                {/* <TextField
+          <div className={classes.content}>
+            <div className={classes.wrapper}>
+              <Create className={classes.icon} color="action" />
+              <TextField
+                label="Title"
+                className={classes.textField}
                 variant="outlined"
-                label="End Date"
-                type="datetime-local"
-                defaultValue="2017-05-24T10:30"
-                className={classes.picker}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              /> */}
-              </div>
-            </AppointmentForm.StaticArea>
-            {/* <AppBar position="static" color="default"> */}
-            <Tabs
-              value={value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              fullWidth
-            >
-              <Tab label="General" />
-              <Tab label="Notes" />
-            </Tabs>
-            {/* </AppBar> */}
-          </Paper>
-          {value === 0 && (
-          <div className={classes.tabContainer}>
+                value={displayAppointmentData.title || ''}
+                onChange={({ target }) => this.changeAppointment({ field: 'title', changes: target.value })}
+              />
+            </div>
+            <div className={classes.wrapper}>
+              <CalendarToday className={classes.icon} color="action" />
+              <MuiPickersUtilsProvider utils={MomentUtils}>
+                <InlineDateTimePicker
+                  className={classes.picker}
+                  keyboard
+                  label="Start Date"
+                  value={displayAppointmentData.startDate}
+                  onChange={date => this.changeAppointment({ field: 'startDate', changes: date.toDate() })}
+                  variant="outlined"
+                  format="DD/MM/YYYY HH:mm"
+                  mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]}
+                />
+                <InlineDateTimePicker
+                  className={classes.picker}
+                  keyboard
+                  label="End Date"
+                  value={displayAppointmentData.endDate}
+                  onChange={date => this.changeAppointment({ field: 'endDate', changes: date.toDate() })}
+                  variant="outlined"
+                  format="DD/MM/YYYY HH:mm"
+                  mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
               <TextField
-                label="Location"
-                className={classes.location}
-            // value={this.state.name}
-            // onChange={this.handleChange('name')}
+                label="Address"
+                className={classes.textField}
+                value={displayAppointmentData.address || ''}
+                onChange={({ target }) => this.changeAppointment({ field: 'address', changes: target.value })}
                 variant="outlined"
               />
             </div>
 
-            <div className={classes.wrapper}>
-              <Notifications className={classes.icon} color="action" />
-              <TextField
-                label="Notification"
-                className={classes.location}
-            // value={this.state.name}
-            // onChange={this.handleChange('name')}
-                variant="outlined"
-              />
-            </div>
-
-            <div className={classes.wrapper}>
-              <Palette className={classes.icon} color="action" />
-              <FormControl variant="outlined">
-                <InputLabel
-                  htmlFor="outlined-age-simple"
-                  ref={(ref) => {
-                    this.InputLabelRef = ref;
-                  }}
-                >
-                  Color
-                </InputLabel>
-                <Select
-              // value={this.state.age}
-              // onChange={this.handleChange}
-                  className={classes.location}
-                  labelWidth={37}
-                  input={(
-                    <OutlinedInput
-                  // labelWidth={this.state.labelWidth}
-                      id="outlined-age-simple"
-                    />
-                )}
-                >
-                  <MenuItem value="#E91E63">
-                    <Lens className={classes.color} style={{ fill: '#E91E63' }} />
-                      Pink
-                  </MenuItem>
-                  <MenuItem value="#9C27B0">
-                    <Lens className={classes.color} style={{ fill: '#9C27B0' }} />
-                      Purple
-                  </MenuItem>
-                  <MenuItem value="#03A9F4">
-                    <Lens className={classes.color} style={{ fill: '#03A9F4' }} />
-                      Light Blue
-                  </MenuItem>
-                  <MenuItem value="#FFEB3B">
-                    <Lens className={classes.color} style={{ fill: '#FFEB3B' }} />
-                      Yellow
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-          </div>
-          )}
-          {value === 1 && (
-          <div className={classes.tabContainer}>
             <div className={classes.wrapper}>
               <Notes className={classes.icon} color="action" />
               <TextField
                 label="Notes"
-                className={classes.location}
+                className={classes.textField}
                 multiline
-                rows="9"
-            // value={this.state.name}
-            // onChange={this.handleChange('name')}
+                rows="6"
+                value={displayAppointmentData.notes || ''}
+                onChange={({ target }) => this.changeAppointment({ field: 'notes', changes: target.value })}
                 variant="outlined"
               />
             </div>
           </div>
-          )}
           <div className={classes.buttonGroup}>
+            {!isNewAppointment && (
             <Button
               variant="outlined"
               color="secondary"
               className={classes.button}
               onClick={() => {
                 visibleChange();
+                // this.deleteAppointment();
+                this.commitAppointment('deleted');
               }}
             >
               Delete
-            </Button>
+            </Button>)}
             <Button
               variant="outlined"
               color="primary"
               className={classes.button}
               onClick={() => {
                 visibleChange();
+                applyChanges();
               }}
             >
-              Save
+              {isNewAppointment ? 'Create' : 'Save'}
             </Button>
           </div>
         </AppointmentForm.Container>
@@ -313,16 +235,13 @@ class appointmentFormContainerBasic extends React.PureComponent {
   }
 }
 
-const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(appointmentFormContainerBasic);
+const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(AppointmentFormContainerBasic);
 
 const styles = theme => ({
   addButton: {
     position: 'absolute',
     bottom: theme.spacing.unit * 3,
     right: theme.spacing.unit * 3,
-  },
-  popper: {
-    paddingRight: theme.spacing.unit,
   },
 });
 
@@ -335,13 +254,27 @@ class Demo extends React.PureComponent {
       currentDate: '2018-06-28',
       deletedAppointmentId: null,
       confirmationVisible: false,
-      open: true, // !
+      open: false,
+      editingAppointmentId: undefined,
+      addedAppointment: {},
     };
 
-    this.commitChanges = this.commitChanges.bind(this);
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
     this.openForm = this.openForm.bind(this);
+
+    this.commitChanges = this.commitChanges.bind(this);
+    this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
+    this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
+  }
+
+  onEditingAppointmentIdChange(editingAppointmentId) {
+    this.setState({ editingAppointmentId });
+  }
+
+  onAddedAppointmentChange(addedAppointment) {
+    this.setState({ addedAppointment });
+    this.onEditingAppointmentIdChange(undefined);
   }
 
   setDeletedAppointmentId(id) {
@@ -381,20 +314,28 @@ class Demo extends React.PureComponent {
     }
     if (changed) {
       data = data.map(appointment => (
-        changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+        changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
     }
     if (deleted) {
-      this.setDeletedAppointmentId(deleted);
+      this.setDeletedAppointmentId(deleted.id);
       this.toggleConfirmationVisible();
     }
-    this.setState({ data });
+    this.setState({ data, addedAppointment: {} });
   }
 
   render() {
     const {
-      currentDate, data, confirmationVisible, open,
+      currentDate,
+      data,
+      confirmationVisible,
+      open,
+      editingAppointmentId,
+      addedAppointment,
     } = this.state;
     const { classes } = this.props;
+
+    const currentAppointment = data
+      .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
 
     return (
       <Paper>
@@ -406,25 +347,29 @@ class Demo extends React.PureComponent {
           />
           <EditingState
             onCommitChanges={this.commitChanges}
+            onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
+            onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
 
-          <WeekView
+          <DayView
             startDayHour={9}
             endDayHour={19}
           />
-          <DayView
+          <WeekView
             startDayHour={9}
             endDayHour={19}
           />
           <Appointments />
           <Toolbar />
-          <AllDayPanel />
           <ViewSwitcher />
           <AppointmentForm
             popupComponent={() => (
               <AppointmentFormContainer
                 visible={open}
                 visibleChange={this.openForm}
+                commitChanges={this.commitChanges}
+                appointmentData={currentAppointment}
+                onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
               />
             )}
             visible={open}
@@ -454,20 +399,18 @@ class Demo extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Tooltip
-          title="Add Appointment"
-          placement="left"
-          disableFocusListener
+        <Button
+          variant="fab"
+          color="secondary"
+          className={classes.addButton}
+          onClick={() => {
+            this.openForm();
+            this.onEditingAppointmentIdChange(undefined);
+            this.onAddedAppointmentChange({});
+          }}
         >
-          <Button
-            variant="fab"
-            color="secondary"
-            className={classes.addButton}
-            onClick={this.openForm}
-          >
-            <AddIcon />
-          </Button>
-        </Tooltip>
+          <AddIcon />
+        </Button>
       </Paper>
     );
   }

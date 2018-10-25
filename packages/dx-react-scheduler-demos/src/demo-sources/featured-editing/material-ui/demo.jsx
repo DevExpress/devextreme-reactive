@@ -10,11 +10,9 @@ import {
   Appointments,
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
-
 import { InlineDateTimePicker } from 'material-ui-pickers';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -90,10 +88,8 @@ class AppointmentFormContainerBasic extends React.PureComponent {
   }
 
   changeAppointment({ field, changes }) {
-    const { appointmentChanges } = this.state;
-
     const nextChanges = {
-      ...appointmentChanges,
+      ...this.getAppointmentChanges(),
       [field]: changes,
     };
     this.setState({
@@ -107,7 +103,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-
     commitChanges({
       [type]: appointment,
     });
@@ -135,71 +130,62 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ? () => this.commitAppointment('added')
       : () => this.commitAppointment('changed');
 
+    const textEditorProps = field => ({
+      variant: 'outlined',
+      onChange: ({ target }) => this.changeAppointment({ field: [field], changes: target.value }),
+      value: displayAppointmentData[field] || '',
+      label: field[0].toUpperCase() + field.slice(1),
+      className: classes.textField,
+    });
+
+    const pickerEditorProps = field => ({
+      className: classes.picker,
+      keyboard: true,
+      value: displayAppointmentData[field],
+      onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
+      variant: 'outlined',
+      format: 'DD/MM/YYYY HH:mm',
+      mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
+    });
+
     return (
       <AppointmentForm.Popup
         visible={visible}
-        onBackdropClick={() => {
-          visibleChange();
-        }}
+        onBackdropClick={visibleChange}
       >
         <AppointmentForm.Container className={classes.container}>
           <div className={classes.content}>
             <div className={classes.wrapper}>
               <Create className={classes.icon} color="action" />
               <TextField
-                label="Title"
-                className={classes.textField}
-                variant="outlined"
-                value={displayAppointmentData.title || ''}
-                onChange={({ target }) => this.changeAppointment({ field: 'title', changes: target.value })}
+                {...textEditorProps('title')}
               />
             </div>
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <InlineDateTimePicker
-                  className={classes.picker}
-                  keyboard
                   label="Start Date"
-                  value={displayAppointmentData.startDate}
-                  onChange={date => this.changeAppointment({ field: 'startDate', changes: date.toDate() })}
-                  variant="outlined"
-                  format="DD/MM/YYYY HH:mm"
-                  mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]}
+                  {...pickerEditorProps('startDate')}
                 />
                 <InlineDateTimePicker
-                  className={classes.picker}
-                  keyboard
                   label="End Date"
-                  value={displayAppointmentData.endDate}
-                  onChange={date => this.changeAppointment({ field: 'endDate', changes: date.toDate() })}
-                  variant="outlined"
-                  format="DD/MM/YYYY HH:mm"
-                  mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/]}
+                  {...pickerEditorProps('endDate')}
                 />
               </MuiPickersUtilsProvider>
             </div>
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
               <TextField
-                label="Address"
-                className={classes.textField}
-                value={displayAppointmentData.address || ''}
-                onChange={({ target }) => this.changeAppointment({ field: 'address', changes: target.value })}
-                variant="outlined"
+                {...textEditorProps('address')}
               />
             </div>
-
             <div className={classes.wrapper}>
               <Notes className={classes.icon} color="action" />
               <TextField
-                label="Notes"
-                className={classes.textField}
+                {...textEditorProps('notes')}
                 multiline
                 rows="6"
-                value={displayAppointmentData.notes || ''}
-                onChange={({ target }) => this.changeAppointment({ field: 'notes', changes: target.value })}
-                variant="outlined"
               />
             </div>
           </div>
@@ -211,7 +197,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               className={classes.button}
               onClick={() => {
                 visibleChange();
-                // this.deleteAppointment();
                 this.commitAppointment('deleted');
               }}
             >
@@ -252,16 +237,16 @@ class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       currentDate: '2018-06-28',
-      deletedAppointmentId: null,
       confirmationVisible: false,
-      open: false,
+      editingFormVisible: false,
+      deletedAppointmentId: undefined,
       editingAppointmentId: undefined,
       addedAppointment: {},
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
-    this.openForm = this.openForm.bind(this);
+    this.toggleEditingFormVisible = this.toggleEditingFormVisible.bind(this);
 
     this.commitChanges = this.commitChanges.bind(this);
     this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
@@ -281,10 +266,10 @@ class Demo extends React.PureComponent {
     this.setState({ deletedAppointmentId: id });
   }
 
-  openForm() {
-    const { open } = this.state;
+  toggleEditingFormVisible() {
+    const { editingFormVisible } = this.state;
     this.setState({
-      open: !open,
+      editingFormVisible: !editingFormVisible,
     });
   }
 
@@ -328,7 +313,7 @@ class Demo extends React.PureComponent {
       currentDate,
       data,
       confirmationVisible,
-      open,
+      editingFormVisible,
       editingAppointmentId,
       addedAppointment,
     } = this.state;
@@ -350,7 +335,6 @@ class Demo extends React.PureComponent {
             onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
-
           <DayView
             startDayHour={9}
             endDayHour={19}
@@ -365,15 +349,15 @@ class Demo extends React.PureComponent {
           <AppointmentForm
             popupComponent={() => (
               <AppointmentFormContainer
-                visible={open}
-                visibleChange={this.openForm}
+                visible={editingFormVisible}
+                visibleChange={this.toggleEditingFormVisible}
                 commitChanges={this.commitChanges}
                 appointmentData={currentAppointment}
                 onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
               />
             )}
-            visible={open}
-            onVisibilityChange={this.openForm}
+            visible={editingFormVisible}
+            onVisibilityChange={this.toggleEditingFormVisible}
           />
         </Scheduler>
 
@@ -390,10 +374,10 @@ class Demo extends React.PureComponent {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary">
+            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
               Cancel
             </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary">
+            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
               Delete
             </Button>
           </DialogActions>
@@ -404,7 +388,7 @@ class Demo extends React.PureComponent {
           color="secondary"
           className={classes.addButton}
           onClick={() => {
-            this.openForm();
+            this.toggleEditingFormVisible();
             this.onEditingAppointmentIdChange(undefined);
             this.onAddedAppointmentChange({});
           }}

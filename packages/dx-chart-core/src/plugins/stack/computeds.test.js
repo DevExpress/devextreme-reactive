@@ -1,6 +1,6 @@
 import { stack } from 'd3-shape';
 import { scaleBand } from 'd3-scale';
-import { getStackedSeries, getStacks } from './computeds';
+import { getStackedSeries } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
@@ -330,13 +330,6 @@ describe('Stack', () => {
         ['s1'],
         ['group-5'],
       ]);
-    });
-  });
-
-  describe('getStacks', () => {
-    it('should return stacks', () => {
-      const series = [{ stack: 'one' }, { stack: null }, { stack: 'two' }, { stack: 'one' }];
-      expect(getStacks(series)).toEqual(['one', 'two']);
     });
   });
 });

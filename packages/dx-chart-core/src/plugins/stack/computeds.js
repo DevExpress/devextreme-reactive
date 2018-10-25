@@ -144,7 +144,3 @@ export const getStackedSeries = (seriesList, dataItems, offset, order) => {
   const groupedSeriesList = applyGrouping(stackedSeriesList);
   return groupedSeriesList;
 };
-
-export const getStacks = series => Array.from(
-  new Set(series.map(({ stack: seriesStack }) => seriesStack).filter(x => x)),
-);

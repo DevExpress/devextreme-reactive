@@ -43,11 +43,48 @@ export class TableFixedColumns extends React.PureComponent {
   }
 
   calculatePosition(array, index) {
+    const { tableColumnDimensions } = this.state;
     return index === 0
       ? 0
       : array
         .slice(0, index)
-        .reduce((acc, target) => acc + this.tableColumnDimensions[target] || 0, 0);
+        .reduce((acc, target) => acc + tableColumnDimensions[target] || 0, 0);
+  }
+
+  calculateFixedColumnProps({ tableColumn }, tableColumns) {
+    const {
+      leftColumns,
+      rightColumns,
+    } = this.props;
+    const { fixed: side } = tableColumn;
+    const targetArray = side === FIXED_COLUMN_LEFT_SIDE
+      ? getFixedColumnKeys(tableColumns, leftColumns)
+      : getFixedColumnKeys(tableColumns, rightColumns).reverse();
+
+    const fixedIndex = targetArray.indexOf(tableColumn.key);
+    const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
+
+    const isBoundary = fixedSide => (
+      fixedIndex === targetArray.length - 1 && fixedSide === side
+    );
+    const isStandAlone = (shift) => {
+      const neighborTableColumn = tableColumns[index + shift];
+      return neighborTableColumn && targetArray.indexOf(neighborTableColumn.key) === -1;
+    };
+
+    const showRightDivider = isBoundary(FIXED_COLUMN_LEFT_SIDE)
+      || (index !== tableColumns.length - 1 && isStandAlone(1));
+    const showLeftDivider = isBoundary(FIXED_COLUMN_RIGHT_SIDE)
+      || (index !== 0 && isStandAlone(-1));
+
+    const position = this.calculatePosition(targetArray, fixedIndex);
+
+    return {
+      showRightDivider,
+      showLeftDivider,
+      position,
+      side,
+    };
   }
 
   render() {
@@ -58,9 +95,6 @@ export class TableFixedColumns extends React.PureComponent {
       listenerRowComponent: ListenerRow,
       listenerCellComponent: ListenerCell,
     } = this.props;
-    const {
-      tableColumnDimensions,
-    } = this.state;
 
     const tableColumnsComputed = ({ tableColumns }) => tableColumnsWithFixed(
       tableColumns,
@@ -82,36 +116,12 @@ export class TableFixedColumns extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({ tableColumns }) => {
-                const { tableColumn } = params;
-                const { fixed: side } = tableColumn;
-                const targetArray = side === FIXED_COLUMN_LEFT_SIDE
-                  ? getFixedColumnKeys(tableColumns, leftColumns)
-                  : getFixedColumnKeys(tableColumns, rightColumns).reverse();
-
-                const fixedIndex = targetArray.indexOf(tableColumn.key);
-                const index = tableColumns.findIndex(({ key }) => key === tableColumn.key);
-
-                const isBoundary = fixedSide => (fixedIndex === targetArray.length - 1
-                  && fixedSide === side);
-                const isStandAlone = (shift) => {
-                  const neighborTableColumn = tableColumns[index + shift];
-                  if (!neighborTableColumn) return false;
-                  if (targetArray.indexOf(neighborTableColumn.key) === -1) {
-                    return true;
-                  }
-                  return false;
-                };
-
-                const showRightDivider = isBoundary(FIXED_COLUMN_LEFT_SIDE)
-                  || (index !== tableColumns.length - 1 && isStandAlone(1));
-                const showLeftDivider = isBoundary(FIXED_COLUMN_RIGHT_SIDE)
-                  || (index !== 0 && isStandAlone(-1));
-
-                const position = fixedIndex === 0
-                  ? 0
-                  : targetArray
-                    .slice(0, fixedIndex)
-                    .reduce((acc, target) => acc + tableColumnDimensions[target] || 0, 0);
+                const {
+                  side,
+                  showLeftDivider,
+                  showRightDivider,
+                  position,
+                } = this.calculateFixedColumnProps(params, tableColumns);
 
                 return (
                   <Cell

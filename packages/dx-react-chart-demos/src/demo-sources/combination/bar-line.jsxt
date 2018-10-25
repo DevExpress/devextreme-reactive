@@ -111,7 +111,6 @@ export default class Demo extends React.PureComponent {
             valueField="price"
             argumentField="year"
             axisName="price"
-            stack={null}
           />
           <Animation />
           <Legend />

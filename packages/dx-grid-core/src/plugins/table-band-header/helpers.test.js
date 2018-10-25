@@ -1,8 +1,9 @@
 import {
   TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
 } from './constants';
-import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_DATA_TYPE, TABLE_NODATA_TYPE } from '../table/constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 import {
   isNoDataColumn,
   isBandedTableRow,
@@ -476,6 +477,59 @@ describe('TableBandHeader Plugin helpers', () => {
               tableRow: { type: TABLE_HEADING_TYPE },
               rowSpan: 1,
               beforeBorder: true,
+            },
+          });
+      });
+    });
+
+    describe('with virtual table', () => {
+      it('should return band header cell for a stub column', () => {
+        const params = {
+          tableColumn: {
+            type: TABLE_STUB_TYPE,
+            key: 'stub_0_0',
+            rightColumnIndex: 0,
+            column: { },
+          },
+          tableRow: {
+            level: 0,
+          },
+        };
+        const extendedTableColumns = [
+          { key: 'col0', column: { name: 'column 0' }, type: TABLE_DATA_TYPE },
+          ...tableColumns,
+        ];
+
+        expect(getBandComponent(params, tableHeaderRows, extendedTableColumns, columnBands))
+          .toEqual({
+            type: BAND_HEADER_CELL,
+            payload: {
+              rowSpan: 3,
+              tableRow: { type: TABLE_HEADING_TYPE },
+            },
+          });
+      });
+
+      it('should return a group cell for a partially hidden band title', () => {
+        const params = {
+          tableColumn: {
+            type: TABLE_STUB_TYPE,
+            key: 'stub_0_1',
+            rightColumnIndex: 1,
+            column: { },
+          },
+          tableRow: {
+            level: 0,
+          },
+        };
+
+        expect(getBandComponent(params, tableHeaderRows, tableColumns, columnBands))
+          .toEqual({
+            type: BAND_GROUP_CELL,
+            payload: {
+              colSpan: 3,
+              value: 'Band A',
+              column: { title: 'Band A', level: 2 },
             },
           });
       });

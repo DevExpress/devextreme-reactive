@@ -347,12 +347,12 @@ describe('VirtualTableLayout utils', () => {
       const getColSpan = column => column.colSpan;
 
       const result = [
-        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0` }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0`, rightColumnIndex: 0 }, colSpan: 1 },
         { column: columns[1], colSpan: 4 },
         { column: columns[3], colSpan: 1 },
         { column: columns[4], colSpan: 1 },
         { column: columns[5], colSpan: 1 },
-        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_7` }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_7`, rightColumnIndex: 7 }, colSpan: 1 },
       ];
 
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
@@ -388,12 +388,49 @@ describe('VirtualTableLayout utils', () => {
       const result = [
         { column: columns[0], colSpan: 1 },
         { column: columns[1], colSpan: 1 },
-        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_2_3` }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_2_3`, rightColumnIndex: 3 }, colSpan: 1 },
         { column: columns[4], colSpan: 3 },
         { column: columns[5], colSpan: 1 },
         { column: columns[6], colSpan: 1 },
-        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_8` }, colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_8`, rightColumnIndex: 8 }, colSpan: 1 },
         { column: columns[9], colSpan: 1 },
+      ];
+
+      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+        .toEqual(result);
+    });
+
+    it('should correctly set rightColumnIndex', () => {
+      const columns = [
+        { key: 0, colSpan: 1 },
+        { key: 1, colSpan: 1 },
+        { key: 2, colSpan: 1 },
+        { key: 3, colSpan: 1 },
+        { key: 4, colSpan: 3 },
+        { key: 5, colSpan: 1 },
+        { key: 6, colSpan: 1 },
+        { key: 7, colSpan: 1 },
+        { key: 8, colSpan: 1 },
+        { key: 9, colSpan: 1 },
+      ];
+      const spanBoundary = [[4, 8]];
+      const boundaries = [
+        [0, 3], // stub (for colspan [0, 3])
+        [4, 4], // visible
+        [5, 5], // visible
+        [6, 6], // visible
+        [7, 8], // visible
+        [8, 9], // stub (for colspan [8, 9])
+      ];
+      const getColSpan = column => column.colSpan;
+
+      const result = [
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_3`, rightColumnIndex: 3 }, colSpan: 1 },
+        { column: columns[4], colSpan: 3 },
+        { column: columns[5], colSpan: 1 },
+        { column: columns[6], colSpan: 1 },
+        { column: columns[7], colSpan: 1 },
+        { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_8_9`, rightColumnIndex: 9 }, colSpan: 1 },
       ];
 
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))

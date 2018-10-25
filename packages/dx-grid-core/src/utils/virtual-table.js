@@ -195,6 +195,7 @@ export const getCollapsedCells = (columns, spanBoundaries, boundaries, getColSpa
         column: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
           type: TABLE_STUB_TYPE,
+          rightColumnIndex: boundary[1],
         },
         colSpan: 1,
       });

@@ -3,6 +3,7 @@ import {
 } from './constants';
 import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
 export const isBandedTableRow = tableRow => (tableRow.type === TABLE_BAND_TYPE);
 export const isBandedOrHeaderRow = tableRow => isBandedTableRow(tableRow)
@@ -60,13 +61,19 @@ export const getBandComponent = (
   const maxLevel = tableHeaderRows.filter(column => column.type === TABLE_BAND_TYPE).length + 1;
   const currentRowLevel = tableRow.level === undefined
     ? maxLevel - 1 : tableRow.level;
+  const currentColumnIndex = currentTableColumn.type === TABLE_STUB_TYPE
+    ? currentTableColumn.rightColumnIndex
+    : tableColumns.findIndex(column => column.key === currentTableColumn.key);
+  const currentRealTableColumn = tableColumns[currentColumnIndex];
   const currentColumnMeta = currentTableColumn.type === TABLE_DATA_TYPE
-    ? getColumnMeta(currentTableColumn.column.name, columnBands, currentRowLevel)
+    || currentTableColumn.type === TABLE_STUB_TYPE
+    ? getColumnMeta(currentRealTableColumn.column.name, columnBands, currentRowLevel)
     : { level: 0, title: '' };
 
-  if (currentColumnMeta.level < currentRowLevel) return { type: BAND_EMPTY_CELL, payload: null };
-  const currentColumnIndex = tableColumns
-    .findIndex(column => column.key === currentTableColumn.key);
+  if (currentColumnMeta.level < currentRowLevel) {
+    return { type: BAND_EMPTY_CELL, payload: null };
+  }
+
   const previousTableColumn = tableColumns[currentColumnIndex - 1];
   let beforeBorder = false;
   if (currentColumnIndex > 0 && currentTableColumn.type === TABLE_DATA_TYPE
@@ -93,6 +100,7 @@ export const getBandComponent = (
       currentRowLevel,
     );
     if (prevColumnMeta.title === currentColumnMeta.title
+      && !currentTableColumn.rightColumnIndex
       && (!isPrevColumnFixed || (isPrevColumnFixed && isCurrentColumnFixed))) {
       return { type: null, payload: null };
     }

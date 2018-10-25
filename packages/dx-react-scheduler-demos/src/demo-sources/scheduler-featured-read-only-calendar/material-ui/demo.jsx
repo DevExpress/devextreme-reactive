@@ -78,10 +78,10 @@ const styles = theme => ({
 });
 
 const PrioritySelectorItem = withStyles(styles, { name: 'PrioritySelectorItem' })(
-  ({ classes, priority: { id, title } }) => {
+  ({ classes, id, title }) => {
     const priorityClasses = createClassesByPriorityId(id, classes, { background: true });
     return (
-      <MenuItem value={id} key={id.toString()}>
+      <MenuItem value={id}>
         <span className={`${priorityClasses} ${classes.priorityBullet}`} />
         {title}
       </MenuItem>
@@ -106,7 +106,7 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
           <span className={classes.priorityBullet} />
           All
         </MenuItem>
-        {priorities.map(priority => <PrioritySelectorItem priority={priority} />)}
+        {priorities.map(({ id, title }) => <PrioritySelectorItem id={id} title={title} key={id} />)}
       </Select>
     </FormControl>
   ),

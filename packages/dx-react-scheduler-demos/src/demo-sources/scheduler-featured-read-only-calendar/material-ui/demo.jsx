@@ -67,7 +67,7 @@ const styles = theme => ({
   },
   prioritySelector: {
     marginLeft: theme.spacing.unit * 2,
-    minWidth: 120,
+    minWidth: 140,
   },
   priorityBullet: {
     borderRadius: '50%',
@@ -75,49 +75,49 @@ const styles = theme => ({
     height: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
   },
+  defaultBullet: {
+    background: theme.palette.background.default,
+  },
 });
 
-const PrioritySelectorItem = withStyles(styles, { name: 'PrioritySelectorItem' })(
-  ({ classes, id, title }) => {
-    const priorityClasses = createClassesByPriorityId(id, classes, { background: true });
-    return (
-      <MenuItem value={id}>
-        <span className={`${priorityClasses} ${classes.priorityBullet}`} />
-        {title}
-      </MenuItem>
-    );
-  },
-);
-
 const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
-  ({ classes }) => (
-    <FormControl className={classes.prioritySelector}>
-      <Select
-        value=""
-        inputProps={{
-          name: 'priority',
-          id: 'priority',
-        }}
-        displayEmpty
-        disableUnderline
-      >
-        <MenuItem value="" disabled>Priority</MenuItem>
-        <MenuItem value={null}>
-          <span className={classes.priorityBullet} />
-          All
-        </MenuItem>
-        {priorities.map(({ id, title }) => <PrioritySelectorItem id={id} title={title} key={id} />)}
-      </Select>
-    </FormControl>
-  ),
+  ({ classes, onChange, priority }) => {
+    return (
+      <FormControl className={classes.prioritySelector}>
+        <Select
+          value={priority}
+          onChange={(e) => {
+            onChange(e.target.value);
+          }}
+          disableUnderline
+        >
+          <MenuItem value={null}>
+            <span className={`${classes.priorityBullet} ${classes.defaultBullet}`} />
+            All Tasks
+          </MenuItem>
+          {priorities.map(({ id, title }) => {
+            const priorityClasses = createClassesByPriorityId(id, classes, { background: true });
+            return (
+              <MenuItem value={id} key={id.toString()}>
+                <span className={`${priorityClasses} ${classes.priorityBullet}`} />
+                {title}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+    )
+  }
 );
 
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes }) => (
-    <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
-      <PrioritySelector />
-    </Toolbar.FlexibleSpace>
-  ),
+  ({ classes, currentPriority, priorityChange }) => {
+    return (
+      <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
+        <PrioritySelector priority={currentPriority} onChange={priorityChange} />
+      </Toolbar.FlexibleSpace>
+    );
+  },
 );
 
 const Priority = ({ id, classes }) => {
@@ -201,6 +201,7 @@ export default class Demo extends React.PureComponent {
       currentDate: '2018-04-23',
       currentViewName: 'Week',
       data: tasks,
+      currentPriority: 0,
     };
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
@@ -208,17 +209,31 @@ export default class Demo extends React.PureComponent {
     this.currentDateChange = (currentDate) => {
       this.setState({ currentDate });
     };
+    this.priorityChange = (value) => {
+      this.setState({ currentPriority: value });
+    };
+    this.flexibleSpace = () => {
+      const { currentPriority } = this.state;
+      return (
+        <FlexibleSpace
+          currentPriority={currentPriority}
+          priorityChange={this.priorityChange}
+        />
+      );
+    };
   }
 
   render() {
     const {
-      data,
-      currentDate, currentViewName,
+      data, currentDate, currentViewName, currentPriority,
     } = this.state;
 
     return (
       <Paper>
-        <Scheduler data={data}>
+        <Scheduler data={data.filter(task => (
+          !currentPriority || task.priorityId === currentPriority
+        ))}
+        >
           <ViewState
             currentDate={currentDate}
             currentViewName={currentViewName}
@@ -229,7 +244,7 @@ export default class Demo extends React.PureComponent {
           <DayView startDayHour={8} endDayHour={18} />
           <Appointments appointmentComponent={Appointment} />
           <Toolbar
-            flexibleSpaceComponent={FlexibleSpace}
+            flexibleSpaceComponent={this.flexibleSpace}
           />
           <DateNavigator />
           <ViewSwitcher />

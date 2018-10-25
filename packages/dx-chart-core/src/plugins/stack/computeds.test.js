@@ -240,7 +240,7 @@ describe('Stack', () => {
       expect(result[2]).not.toBe(series3);
 
       expect(mockScale.domain).toBeCalledWith(['group-1', 'group-2']);
-      expect(mockScale.range).toBeCalledWith([1, 0]);
+      expect(mockScale.range).toBeCalledWith([0, 1]);
       expect(mockScale.mock.calls).toEqual([
         ['group-1'],
         ['group-2'],

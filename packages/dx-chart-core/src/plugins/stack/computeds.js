@@ -124,7 +124,7 @@ const applyGrouping = (seriesList) => {
   if (groups.size < 2) {
     return seriesList;
   }
-  const scale = scaleBand().domain(Array.from(groups)).range([1, 0]);
+  const scale = scaleBand().domain(Array.from(groups)).range([0, 1]);
   return seriesList.map((seriesItem, i) => {
     if (!seriesItem.getPointTransformer.isBroad) {
       return seriesItem;

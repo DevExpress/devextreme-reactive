@@ -25,65 +25,95 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 import { tasks } from '../../../demo-data/tasks';
 
 const priorities = {
-  1: 'low',
-  2: 'medium',
-  3: 'high',
+  low: { id: 1, color: '#81c784', activeColor: '#43a047' },
+  medium: { id: 2, color: '#4fc3f7', activeColor: '#039be5' },
+  high: { id: 3, color: '#ff8a65', activeColor: '#f4511e' },
 };
 
-const styles = (theme) => {
-  const priorityClasses = Object.entries({ low: '#81C784', medium: '#4FC3F7', high: '#FF8A65' })
-    .reduce((acc, [priority, color]) => {
+const getPriorityById = priorityId => (
+  Object.entries(priorities).find(([, { id }]) => id === priorityId)[0]
+);
+
+const createClassesByPriorityId = (
+  priorityId,
+  classes,
+  { background = false, color = false, hover = false },
+) => {
+  const priority = getPriorityById(priorityId);
+  const result = [];
+  if (background) result.push(classes[`${priority}PriorityBackground`]);
+  if (color) result.push(classes[`${priority}PriorityColor`]);
+  if (hover) result.push(classes[`${priority}PriorityHover`]);
+  return result.join(' ');
+};
+
+const styles = theme => ({
+  ...Object.entries(priorities)
+    .reduce((acc, [priority, { color, activeColor }]) => {
       acc[`${priority}PriorityBackground`] = { background: color };
       acc[`${priority}PriorityColor`] = { color };
+      acc[`${priority}PriorityHover`] = { '&:hover': { background: activeColor } };
       return acc;
-    }, {});
+    }, {}),
+  conentItem: {
+    paddingLeft: 0,
+  },
+  conentItemValue: {
+    textTransform: 'capitalize',
+    padding: 0,
+  },
+  conentItemIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
 
-  return {
-    ...priorityClasses,
-    lowPriorityHover: {
-      '&:hover': {
-        background: '#43A047',
-      },
-    },
-    mediumPriorityHover: {
-      '&:hover': {
-        background: '#039BE5',
-      },
-    },
-    highPriorityHover: {
-      '&:hover': {
-        background: '#F4511E',
-      },
-    },
-    conentItem: {
-      paddingLeft: 0,
-    },
-    conentItemValue: {
-      textTransform: 'capitalize',
-      padding: 0,
-    },
-    conentItemIcon: {
-      marginRight: theme.spacing.unit,
-    },
-  };
-};
+const PrioritySelector = () => (
+  <FormControl style={{ width: 150 }}>
+    <Select
+      value=""
+      inputProps={{
+        name: 'priority',
+        id: 'priority',
+      }}
+      displayEmpty
+      disableUnderline
+    >
+      <MenuItem value="" disabled>Priority</MenuItem>
+      <MenuItem value={null}>All</MenuItem>
+      <MenuItem value={1}>Low</MenuItem>
+      <MenuItem value={2}>Medium</MenuItem>
+      <MenuItem value={3}>High</MenuItem>
+    </Select>
+  </FormControl>
+);
+
+const FlexibleSpace = () => (
+  <Toolbar.FlexibleSpace style={{ margin: '0 auto 0 0' }}>
+    <PrioritySelector />
+  </Toolbar.FlexibleSpace>
+);
 
 const Priority = ({ id, classes }) => {
-  const priority = priorities[id];
+  const priority = getPriorityById(id);
+  const priorityClasses = createClassesByPriorityId(id, classes, { color: true });
   let icon = <LowPriority />;
   if (id === 2) icon = <Event />;
   else if (id === 3) icon = <PriorityHigh />;
+
   return (
     <React.Fragment>
-      <ListItemIcon className={`${classes.conentItemIcon} ${classes[`${priority}PriorityColor`]}`}>
+      <ListItemIcon className={`${classes.conentItemIcon} ${priorityClasses}`}>
         {icon}
       </ListItemIcon>
       <ListItemText className={classes.conentItemValue}>
-        <span className={classes[`${priority}PriorityColor`]}>{` ${priorities[id]} priority`}</span>
+        <span className={priorityClasses}>{` ${priority} priority`}</span>
       </ListItemText>
     </React.Fragment>
   );
@@ -91,13 +121,14 @@ const Priority = ({ id, classes }) => {
 
 const Appointment = withStyles(styles, { name: 'Appointment' })(
   ({ classes, data, ...restProps }) => {
-    const priority = priorities[data.priorityId];
-    const className = classes[`${priority}PriorityBackground`];
-    const hoverClassName = classes[`${priority}PriorityHover`];
+    const priorityClasses = createClassesByPriorityId(
+      data.priorityId, classes,
+      { background: true, hover: true },
+    );
     return (
       <Appointments.Appointment
         data={data}
-        className={`${className} ${hoverClassName}`}
+        className={priorityClasses}
         {...restProps}
       />
     );
@@ -106,12 +137,14 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(
 
 const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
   ({ classes, appointmentData, ...restProps }) => {
-    const priority = priorities[appointmentData.priorityId];
-    const className = classes[`${priority}PriorityBackground`];
+    const priorityClasses = createClassesByPriorityId(
+      appointmentData.priorityId, classes,
+      { background: true },
+    );
     return (
       <AppointmentTooltip.Header
         appointmentData={appointmentData}
-        className={className}
+        className={priorityClasses}
         {...restProps}
       />
     );
@@ -175,7 +208,9 @@ export default class Demo extends React.PureComponent {
           <WeekView startDayHour={8} endDayHour={18} excludedDays={[0, 6]} />
           <DayView startDayHour={8} endDayHour={18} />
           <Appointments appointmentComponent={Appointment} />
-          <Toolbar />
+          <Toolbar
+            flexibleSpaceComponent={FlexibleSpace}
+          />
           <DateNavigator />
           <ViewSwitcher />
           <AllDayPanel />

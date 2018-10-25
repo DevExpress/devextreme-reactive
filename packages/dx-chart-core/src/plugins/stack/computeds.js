@@ -1,16 +1,22 @@
 import { stack } from 'd3-shape';
+import { scaleBand } from 'd3-scale';
 
-// "Stack" plugin relies on "data" and "series" plugins and
-// knowledge about "calculateCoordinates" and "d3Func" functions behavior.
+// "Stack" plugin relies on "data" and "series" getters and
+// knowledge about "getPointTransformer" and "path" functions behavior.
 
-const getStackedPointTransformer = getPointTransformer => (series, ...args) => {
-  const transform = getPointTransformer(series, ...args);
-  const { valueScale } = series;
-  return (point) => {
-    const ret = transform(point);
-    ret.y1 = valueScale(point.value0);
-    return ret;
+const getStackedPointTransformer = (getPointTransformer) => {
+  const wrapper = (series, ...args) => {
+    const transform = getPointTransformer(series, ...args);
+    const { valueScale } = series;
+    return (point) => {
+      const ret = transform(point);
+      ret.y1 = valueScale(point.value0);
+      return ret;
+    };
   };
+  // Preserve static fields of original transformer.
+  Object.assign(wrapper, getPointTransformer);
+  return wrapper;
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
@@ -64,7 +70,6 @@ const buildStackedSeries = (series, { stack: seriesStack, position }, stackedDat
   });
   const stackedSeries = {
     ...series,
-    stack: seriesStack,
     points,
   };
   if (series.isStartedFromZero) {
@@ -74,14 +79,70 @@ const buildStackedSeries = (series, { stack: seriesStack, position }, stackedDat
   return stackedSeries;
 };
 
-export const getStackedSeries = (seriesList, dataItems, offset, order) => {
+const applyStacking = (seriesList, dataItems, offset, order) => {
   const { stacks, seriesInfo } = collectStacks(seriesList);
+  if (Object.keys(stacks).length === 0) {
+    return seriesList;
+  }
   const stackedData = getStackedData(stacks, dataItems, offset, order);
-  const stackedSeriesList = seriesList.map((seriesItem) => {
+  return seriesList.map((seriesItem) => {
     const info = seriesInfo[seriesItem.symbolName];
     return info ? buildStackedSeries(seriesItem, info, stackedData) : seriesItem;
   });
-  return stackedSeriesList;
+};
+
+const getGroupName = (series, i) => series.stack || `group-${i}`;
+
+const getGroupedPointTransformer = (
+  getPointTransformer, groupCount, groupOffset,
+) => {
+  const wrapper = (series, ...args) => {
+    const transform = getPointTransformer(series, ...args);
+    const { barWidth } = series;
+    const widthCoeff = 1 / groupCount;
+    const offsetCoeff = -(1 - barWidth) / 2 + groupOffset + widthCoeff * (1 - barWidth) / 2;
+    return (point) => {
+      const ret = transform(point);
+      ret.x += (ret.width / barWidth) * offsetCoeff;
+      ret.width *= widthCoeff;
+      return ret;
+    };
+  };
+  // Preserve static fields of original transformer.
+  Object.assign(wrapper, getPointTransformer);
+  return wrapper;
+};
+
+const applyGrouping = (seriesList) => {
+  const groups = new Set();
+  seriesList.forEach((seriesItem, i) => {
+    if (seriesItem.getPointTransformer.isBroad) {
+      groups.add(getGroupName(seriesItem, i));
+    }
+  });
+  // There cannot be single group.
+  if (groups.size < 2) {
+    return seriesList;
+  }
+  const scale = scaleBand().domain(Array.from(groups)).range([1, 0]);
+  return seriesList.map((seriesItem, i) => {
+    if (!seriesItem.getPointTransformer.isBroad) {
+      return seriesItem;
+    }
+    const getPointTransformer = getGroupedPointTransformer(
+      seriesItem.getPointTransformer, groups.size, scale(getGroupName(seriesItem, i)),
+    );
+    return {
+      ...seriesItem,
+      getPointTransformer,
+    };
+  });
+};
+
+export const getStackedSeries = (seriesList, dataItems, offset, order) => {
+  const stackedSeriesList = applyStacking(seriesList, dataItems, offset, order);
+  const groupedSeriesList = applyGrouping(stackedSeriesList);
+  return groupedSeriesList;
 };
 
 export const getStacks = series => Array.from(

@@ -205,14 +205,14 @@ export const appointments = [
     location: 'Room 2',
   }, {
     title: 'Book Flights to San Fran for Sales Trip',
-    startDate: new Date(2018, 4, 26, 0, 0),
-    endDate: new Date(2018, 4, 27, 0, 0),
+    startDate: new Date(2018, 5, 26, 0, 0),
+    endDate: new Date(2018, 5, 27, 0, 0),
     id: 34,
     location: 'Room 1',
   }, {
     title: 'Customer Workshop',
-    startDate: new Date(2018, 4, 29, 10, 0),
-    endDate: new Date(2018, 4, 30, 14, 30),
+    startDate: new Date(2018, 5, 29, 10, 0),
+    endDate: new Date(2018, 5, 30, 14, 30),
     id: 35,
     location: 'Room 1',
   }, {

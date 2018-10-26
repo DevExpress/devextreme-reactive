@@ -37,8 +37,11 @@ export const getCurrentColumnBandInfo = (
   { tableColumns, columnBands },
 ) => {
   const currentRealTableColumn = tableColumns[currentColumnIndex];
-  return currentTableColumn.type === TABLE_DATA_TYPE
-  || currentRealTableColumn.type === TABLE_DATA_TYPE
+  const columnMayBeInBand = currentTableColumn.type === TABLE_DATA_TYPE
+    || (currentTableColumn.type === TABLE_STUB_TYPE
+      && currentRealTableColumn.type === TABLE_DATA_TYPE);
+
+  return columnMayBeInBand
     ? getColumnBandInfo(currentRealTableColumn.column.name, columnBands, currentRowLevel)
     : { level: 0, title: '' };
 };

@@ -177,7 +177,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
               <TextField
-                {...textEditorProps('address')}
+                {...textEditorProps('location')}
               />
             </div>
             <div className={classes.wrapper}>
@@ -236,7 +236,7 @@ class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
-      currentDate: '2018-06-28',
+      currentDate: '2018-06-27',
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,

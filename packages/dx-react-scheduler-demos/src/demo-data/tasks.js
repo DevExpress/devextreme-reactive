@@ -62,7 +62,7 @@ export const tasks = [
     allDay: true,
   },
   {
-    title: 'Prepare 2017 Marketing Plan',
+    title: 'Prepare 2019 Marketing Plan',
     priorityId: 1,
     startDate: '2018-04-25 11:00',
     endDate: '2018-04-25 13:30',

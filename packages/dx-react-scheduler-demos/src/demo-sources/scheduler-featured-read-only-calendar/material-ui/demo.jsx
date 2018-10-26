@@ -14,6 +14,7 @@ import {
   AllDayPanel,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { connectProps } from '@devexpress/dx-react-core';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
@@ -125,8 +126,8 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
 );
 
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, currentPriority, priorityChange, ...restProps }) => (
-    <Toolbar.FlexibleSpace className={classes.flexibleSpace} {...restProps}>
+  ({ classes, currentPriority, priorityChange }) => (
+    <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
       <PrioritySelector priority={currentPriority} onChange={priorityChange} />
     </Toolbar.FlexibleSpace>
   ),
@@ -219,15 +220,17 @@ export default class Demo extends React.PureComponent {
     this.priorityChange = (value) => {
       this.setState({ currentPriority: value });
     };
-    this.flexibleSpace = () => {
+    this.flexibleSpace = connectProps(FlexibleSpace, () => {
       const { currentPriority } = this.state;
-      return (
-        <FlexibleSpace
-          currentPriority={currentPriority}
-          priorityChange={this.priorityChange}
-        />
-      );
-    };
+      return {
+        currentPriority,
+        priorityChange: this.priorityChange,
+      };
+    });
+  }
+
+  componentDidUpdate() {
+    this.flexibleSpace.update();
   }
 
   render() {

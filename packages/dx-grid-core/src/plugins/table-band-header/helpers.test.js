@@ -93,7 +93,7 @@ describe('TableBandHeader Plugin helpers', () => {
     });
   });
 
-  describe('getCurrentColumnBandInfo', () => {
+  describe('#getCurrentColumnBandInfo', () => {
     it('should return band info for data columns', () => {
       const bandInfo = getCurrentColumnBandInfo({
         currentColumnIndex: 0,

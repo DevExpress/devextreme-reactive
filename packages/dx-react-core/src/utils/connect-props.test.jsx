@@ -21,7 +21,7 @@ describe('connectProps', () => {
       .toEqual({ a: 2, b: 1 });
   });
 
-  it('should update a wrapped enhanced', () => {
+  it('should update a wrapped component', () => {
     const props = { a: 1 };
     const getAdditionalProps = jest.fn();
     getAdditionalProps.mockImplementation(() => props);

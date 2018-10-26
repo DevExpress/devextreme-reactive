@@ -6,6 +6,7 @@ import { PluginHost, Template, TemplatePlaceholder } from '@devexpress/dx-react-
 import {
   FIXED_COLUMN_LEFT_SIDE,
   FIXED_COLUMN_RIGHT_SIDE,
+  TABLE_DATA_TYPE,
   getFixedColumnKeys,
   tableColumnsWithFixed,
   tableHeaderRowsWithFixed,
@@ -14,8 +15,7 @@ import {
 import { TableFixedColumns } from './table-fixed-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  FIXED_COLUMN_LEFT_SIDE: 'LEFT',
-  FIXED_COLUMN_RIGHT_SIDE: 'RIGHT',
+  ...require.requireActual('@devexpress/dx-grid-core'),
   getFixedColumnKeys: jest.fn(),
   tableColumnsWithFixed: jest.fn(),
   tableHeaderRowsWithFixed: jest.fn(),
@@ -94,7 +94,7 @@ describe('TableFixedColumns', () => {
 
   it('can render fixed cells', () => {
     tableColumnsWithFixed.mockImplementation(() => [
-      { column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+      { column: { name: 'a', xx: 'yyy' }, fixed: FIXED_COLUMN_LEFT_SIDE },
     ]);
     const leftColumns = ['a'];
     const deps = {
@@ -155,8 +155,12 @@ describe('TableFixedColumns', () => {
   it('takes column widths into account', () => {
     getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
     tableColumnsWithFixed.mockImplementation(() => [
-      { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_LEFT_SIDE },
-      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_LEFT_SIDE },
+      {
+        key: 'a', column: { name: 'a' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_LEFT_SIDE,
+      },
+      {
+        key: 'b', column: { name: 'b' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_LEFT_SIDE,
+      },
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
     const leftColumns = ['a', 'b'];
@@ -192,8 +196,12 @@ describe('TableFixedColumns', () => {
   it('should render right columns in correct order', () => {
     getFixedColumnKeys.mockImplementation(() => ['a', 'b']);
     tableColumnsWithFixed.mockImplementation(() => [
-      { key: 'a', column: { name: 'a' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
-      { key: 'b', column: { name: 'b' }, fixed: FIXED_COLUMN_RIGHT_SIDE },
+      {
+        key: 'a', column: { name: 'a' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_RIGHT_SIDE,
+      },
+      {
+        key: 'b', column: { name: 'b' }, type: TABLE_DATA_TYPE, fixed: FIXED_COLUMN_RIGHT_SIDE,
+      },
     ]);
     isFixedTableRow.mockImplementation(tableRow => tableRow.type === 'fixed');
     const rightColumns = ['a', 'b'];

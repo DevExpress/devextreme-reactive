@@ -1,4 +1,4 @@
-import { getAreaPointTransformer } from '@devexpress/dx-chart-core';
+import { getAreaPointTransformer, createScatterHitTester } from '@devexpress/dx-chart-core';
 import { makeSeries, withComponents } from '../utils';
 import { PointCollection as Path } from '../templates/series/point-collection';
 import { Point } from '../templates/series/point';
@@ -12,4 +12,5 @@ export const ScatterSeries = withComponents({ Path, Point })(makeSeries(
     seriesComponent: 'Path',
     pointComponent: 'Point',
   },
+  createScatterHitTester,
 ));

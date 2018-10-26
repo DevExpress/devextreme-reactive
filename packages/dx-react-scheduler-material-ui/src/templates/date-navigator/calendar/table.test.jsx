@@ -73,7 +73,7 @@ describe('Calendar', () => {
       const tree = mount((
         <Table
           {...defaultProps}
-          headerCells={['2018-07-12', '2018-07-13']}
+          headerCells={[{ startDate: '2018-07-12' }, { startDate: '2018-07-13' }]}
         />
       ));
 

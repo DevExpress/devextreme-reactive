@@ -59,7 +59,7 @@ const styles = theme => ({
   conentItemValue: {
     padding: 0,
   },
-  conentItemIcon: {
+  contentItemIcon: {
     marginRight: theme.spacing.unit,
   },
   flexibleSpace: {
@@ -69,75 +69,68 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 2,
     minWidth: 140,
   },
+  prioritySelectorItem: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   priorityBullet: {
     borderRadius: '50%',
     width: theme.spacing.unit * 2,
     height: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
+    display: 'inline-block',
   },
   defaultBullet: {
-    background: theme.palette.background.default,
+    background: theme.palette.divider,
   },
 });
 
-const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
-  ({ classes, onChange, priority }) => {
-    return (
-      <FormControl className={classes.prioritySelector}>
-        <Select
-          value={priority}
-          onChange={(e) => {
-            onChange(e.target.value);
-          }}
-          disableUnderline
-        >
-          <MenuItem value={null}>
-            <span className={`${classes.priorityBullet} ${classes.defaultBullet}`} />
-            All Tasks
-          </MenuItem>
-          {priorities.map(({ id, title }) => {
-            const priorityClasses = createClassesByPriorityId(id, classes, { background: true });
-            return (
-              <MenuItem value={id} key={id.toString()}>
-                <span className={`${priorityClasses} ${classes.priorityBullet}`} />
-                {title}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    )
+const PrioritySelectorItem = ({ id, classes }) => {
+  let bulletClass = classes.defaultBullet;
+  let text = 'All Tasks';
+  if (id) {
+    bulletClass = createClassesByPriorityId(id, classes, { background: true });
+    text = getPriorityById(id);
   }
+  return (
+    <div className={classes.prioritySelectorItem}>
+      <span className={`${classes.priorityBullet} ${bulletClass}`} />
+      {text}
+    </div>
+  );
+};
+
+const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
+  ({ classes, onChange, priority }) => (
+    <FormControl className={classes.prioritySelector}>
+      <Select
+        disableUnderline
+        value={priority}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        renderValue={value => <PrioritySelectorItem id={value} classes={classes} />}
+      >
+        <MenuItem value={0}>
+          <PrioritySelectorItem id={0} classes={classes} />
+        </MenuItem>
+        {priorities.map(({ id }) => (
+          <MenuItem value={id} key={id.toString()}>
+            <PrioritySelectorItem id={id} classes={classes} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  ),
 );
 
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, currentPriority, priorityChange }) => {
-    return (
-      <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
-        <PrioritySelector priority={currentPriority} onChange={priorityChange} />
-      </Toolbar.FlexibleSpace>
-    );
-  },
+  ({ classes, currentPriority, priorityChange, ...restProps }) => (
+    <Toolbar.FlexibleSpace className={classes.flexibleSpace} {...restProps}>
+      <PrioritySelector priority={currentPriority} onChange={priorityChange} />
+    </Toolbar.FlexibleSpace>
+  ),
 );
-
-const Priority = ({ id, classes }) => {
-  const priority = getPriorityById(id);
-  const priorityClasses = createClassesByPriorityId(id, classes, { color: true });
-  let icon = <LowPriority />;
-  if (id === 2) icon = <Event />;
-  else if (id === 3) icon = <PriorityHigh />;
-
-  return (
-    <React.Fragment>
-      <ListItemIcon className={`${classes.conentItemIcon} ${priorityClasses}`}>
-        {icon}
-      </ListItemIcon>
-      <ListItemText className={classes.conentItemValue}>
-        <span className={priorityClasses}>{` ${priority} priority`}</span>
-      </ListItemText>
-    </React.Fragment>
-  );
-};
 
 const Appointment = withStyles(styles, { name: 'Appointment' })(
   ({ classes, data, ...restProps }) => {
@@ -172,25 +165,39 @@ const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
 );
 
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  ({ classes, appointmentData, ...restProps }) => (
-    <AppointmentTooltip.Content {...restProps}>
-      <List>
-        <ListItem className={classes.conentItem}>
-          <Priority id={appointmentData.priorityId} classes={classes} />
-        </ListItem>
-        <ListItem className={classes.conentItem}>
-          <ListItemIcon className={`${classes.conentItemIcon}`}>
-            <AccessTime />
-          </ListItemIcon>
-          <ListItemText className={classes.conentItemValue}>
-            {moment(appointmentData.startDate).format('h:mm A')}
-            {' - '}
-            {moment(appointmentData.endDate).format('h:mm A')}
-          </ListItemText>
-        </ListItem>
-      </List>
-    </AppointmentTooltip.Content>
-  ),
+  ({ classes, appointmentData, ...restProps }) => {
+    const priority = getPriorityById(appointmentData.priorityId);
+    const priorityClasses = createClassesByPriorityId(
+      appointmentData.priorityId, classes, { color: true },
+    );
+    let icon = <LowPriority />;
+    if (appointmentData.priorityId === 2) icon = <Event />;
+    else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
+    return (
+      <AppointmentTooltip.Content {...restProps}>
+        <List>
+          <ListItem className={classes.conentItem}>
+            <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>
+              {icon}
+            </ListItemIcon>
+            <ListItemText className={classes.conentItemValue}>
+              <span className={priorityClasses}>{` ${priority} priority`}</span>
+            </ListItemText>
+          </ListItem>
+          <ListItem className={classes.conentItem}>
+            <ListItemIcon className={`${classes.contentItemIcon}`}>
+              <AccessTime />
+            </ListItemIcon>
+            <ListItemText className={classes.conentItemValue}>
+              {moment(appointmentData.startDate).format('h:mm A')}
+              {' - '}
+              {moment(appointmentData.endDate).format('h:mm A')}
+            </ListItemText>
+          </ListItem>
+        </List>
+      </AppointmentTooltip.Content>
+    );
+  },
 );
 
 export default class Demo extends React.PureComponent {

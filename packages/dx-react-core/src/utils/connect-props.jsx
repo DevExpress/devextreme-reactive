@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const connectProps = (Component, getAdditionalProps) => {
+export const connectProps = (WrappedComponent, getAdditionalProps) => {
   let storedAdditionalProps = getAdditionalProps();
   const components = new Set();
   class RenderComponent extends React.PureComponent {
@@ -13,7 +13,7 @@ export const connectProps = (Component, getAdditionalProps) => {
     }
 
     render() {
-      return <Component {...this.props} {...storedAdditionalProps} />;
+      return <WrappedComponent {...this.props} {...storedAdditionalProps} />;
     }
   }
   RenderComponent.update = () => {

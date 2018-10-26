@@ -25,6 +25,8 @@
         path: /react/core/docs/reference/template-placeholder
       - title: TemplateConnector
         path: /react/core/docs/reference/template-connector
+      - title: connectProps
+        path: /react/core/docs/reference/connect-props
   - title: Related Docs
     items:
       - title: React Grid

@@ -15,7 +15,7 @@ export { DropTarget } from './drag-drop/target';
 export { Sizer } from './sizer';
 export { RefHolder } from './ref-holder';
 
-export { connectProps } from './connect-props';
+export { connectProps } from './utils/connect-props';
 
 export { createStateHelper } from './utils/state-helper';
 export { withComponents } from './utils/with-components';

@@ -49,7 +49,7 @@ const calculateAxisCoordinates = (
         y2: position === TOP ? 0 : tickSize,
         text: getFormat(scale, tickFormat)(tick),
         xText: coordinates,
-        yText: position === TOP ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+        yText: position === TOP ? -indentFromAxis : indentFromAxis,
         key: index,
       };
     }
@@ -61,7 +61,7 @@ const calculateAxisCoordinates = (
       x1: position === LEFT ? -tickSize : 0,
       x2: position === LEFT ? 0 : tickSize,
       text: getFormat(scale, tickFormat)(tick),
-      xText: position === LEFT ? -tickSize - indentFromAxis : tickSize + indentFromAxis,
+      xText: position === LEFT ? -indentFromAxis : indentFromAxis,
       yText: coordinates,
       key: index,
     };

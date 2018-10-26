@@ -3,10 +3,10 @@ import * as PropTypes from 'prop-types';
 
 export const Root = ({
   navigationButtonComponent: NavigationButton,
-  toggleButtonComponent: ToggleButton,
-  navigatorTitle,
+  openButtonComponent: OpenButton,
+  navigatorText,
   targetRef,
-  onToggle,
+  onVisibilityToggle,
   onNavigate,
   ...restProps
 }) => (
@@ -15,28 +15,29 @@ export const Root = ({
     {...restProps}
   >
     <NavigationButton
-      back
+      type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <ToggleButton
-      onToggle={onToggle}
-      title={navigatorTitle}
+    <OpenButton
+      onVisibilityToggle={onVisibilityToggle}
+      text={navigatorText}
     />
     <NavigationButton
+      type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
   </div>
 );
 
 Root.propTypes = {
-  onToggle: PropTypes.func.isRequired,
+  onVisibilityToggle: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   targetRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
-  navigatorTitle: PropTypes.string,
+  openButtonComponent: PropTypes.func.isRequired,
+  navigatorText: PropTypes.string,
 };
 
 Root.defaultProps = {
-  navigatorTitle: '',
+  navigatorText: '',
 };

@@ -4,14 +4,14 @@ import { Root } from './root';
 
 describe('DateNavigator', () => {
   describe('Root', () => {
-    const ToggleButton = () => null;
+    const OpenButton = () => null;
     const NavigationButton = () => null;
     const defaultProps = {
-      onToggle: () => {},
+      onVisibilityToggle: () => {},
       onNavigate: () => {},
       targetRef: () => {},
       navigationButtonComponent: NavigationButton,
-      toggleButtonComponent: ToggleButton,
+      openButtonComponent: OpenButton,
     };
     let shallow;
     beforeAll(() => {
@@ -25,23 +25,23 @@ describe('DateNavigator', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render toggle button', () => {
-      const onToggle = jest.fn();
-      const toggleButton = shallow((
+    it('should render open button', () => {
+      const onVisibilityToggle = jest.fn();
+      const openButton = shallow((
         <Root
           {...defaultProps}
-          navigatorTitle="a"
-          onToggle={onToggle}
+          navigatorText="a"
+          onVisibilityToggle={onVisibilityToggle}
         />
-      )).find(ToggleButton);
+      )).find(OpenButton);
 
-      toggleButton.props().onToggle();
+      openButton.props().onVisibilityToggle();
 
-      expect(toggleButton.exists())
+      expect(openButton.exists())
         .toBeTruthy();
-      expect(toggleButton.props().title)
+      expect(openButton.props().text)
         .toBe('a');
-      expect(onToggle)
+      expect(onVisibilityToggle)
         .toBeCalled();
     });
     it('should render navigation buttons', () => {
@@ -60,10 +60,10 @@ describe('DateNavigator', () => {
 
       expect(buttons)
         .toHaveLength(2);
-      expect(prev.props().back)
-        .toBeTruthy();
-      expect(next.props().back)
-        .toBeFalsy();
+      expect(prev.props().type)
+        .toBe('back');
+      expect(next.props().type)
+        .toBe('forward');
       expect(onNavigate.mock.calls[0][0].back)
         .toBeTruthy();
       expect(onNavigate.mock.calls[1][0].back)

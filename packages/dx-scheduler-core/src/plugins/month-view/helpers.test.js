@@ -100,12 +100,22 @@ describe('MonthView Helpers', () => {
     });
 
     it('should not return "zero-duration" appointments', () => {
-      const slicedAppointment = sliceAppointmentByWeek(
+      const slicedAppointments = sliceAppointmentByWeek(
         { left: moment('2018-06-25'), right: moment('2018-08-05') },
         { start: moment('2018-06-22'), end: moment('2018-07-02') },
         7,
       );
-      expect(slicedAppointment)
+      expect(slicedAppointments)
+        .toHaveLength(1);
+    });
+
+    it('should slice appointment that ends with milliseconds', () => {
+      const slicedAppointments = sliceAppointmentByWeek(
+        { left: moment('2018-06-24'), right: moment('2018-08-04') },
+        { start: moment('2018-07-21 09:00:00'), end: moment('2018-07-21T23:59:59.599') },
+        7,
+      );
+      expect(slicedAppointments)
         .toHaveLength(1);
     });
   });

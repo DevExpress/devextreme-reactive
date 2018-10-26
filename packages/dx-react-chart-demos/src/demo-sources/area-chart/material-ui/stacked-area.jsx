@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import FormControl from '@material-ui/core/FormControl';
-import { Stack, Scale } from '@devexpress/dx-react-chart';
+import { Stack, Scale, Animation } from '@devexpress/dx-react-chart';
 import { stackOffsetExpand } from 'd3-shape';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
@@ -94,7 +94,11 @@ class Demo extends React.PureComponent {
           className={classes.chart}
         >
           <ArgumentAxis tickFormat={format} />
-          <ValueAxis tickFormat={valueFormat} lineComponent={EmptyComponent} tickSize={0} />
+          <ValueAxis
+            tickFormat={valueFormat}
+            lineComponent={EmptyComponent}
+            tickComponent={EmptyComponent}
+          />
           <ValueGrid />
           <AreaSeries
             name="Liquids"
@@ -126,6 +130,7 @@ class Demo extends React.PureComponent {
             argumentField="year"
             stack="a"
           />
+          <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Carbon Emission Estimates" className={classes.title} />
           <Scale />

@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   monthCellsData,
-  viewBoundTitle,
+  viewBoundText,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -28,7 +28,7 @@ export class DateNavigator extends React.PureComponent {
       visible: false,
     };
 
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.setTargetRef = this.setTargetRef.bind(this);
   }
@@ -37,7 +37,7 @@ export class DateNavigator extends React.PureComponent {
     this.target = target;
   }
 
-  handleToggle() {
+  handleVisibilityToggle() {
     const { visible } = this.state;
     this.setState({ visible: !visible });
   }
@@ -50,14 +50,14 @@ export class DateNavigator extends React.PureComponent {
     const {
       rootComponent: Root,
       overlayComponent: Overlay,
-      toggleButtonComponent: ToggleButton,
+      openButtonComponent: OpenButton,
       navigationButtonComponent: NavigationButton,
       calendarComponent: Calendar,
       calendarRowComponent: CalendarRow,
       calendarCellComponent: CalendarCell,
       calendarHeaderRowComponent: CalendarHeaderRow,
       calendarHeaderCellComponent: CalendarHeaderCell,
-      calendarTitleComponent: CalendarTitle,
+      calendarTextComponent: CalendarText,
       calendarNavigationButtonComponent: CalendarNavigationButton,
       calendarNavigatorComponent: CalendarNavigator,
     } = this.props;
@@ -81,7 +81,7 @@ export class DateNavigator extends React.PureComponent {
               changeCurrentDate,
             }) => {
               const navigateAction = navigate(changeCurrentDate, currentView, intervalCount);
-              const navigatorTitle = viewBoundTitle(
+              const navigatorText = viewBoundText(
                 startViewDate,
                 endViewDate,
                 currentView,
@@ -92,10 +92,10 @@ export class DateNavigator extends React.PureComponent {
                 <React.Fragment>
                   <Root
                     navigationButtonComponent={NavigationButton}
-                    toggleButtonComponent={ToggleButton}
-                    navigatorTitle={navigatorTitle}
+                    openButtonComponent={OpenButton}
+                    navigatorText={navigatorText}
                     targetRef={this.setTargetRef}
-                    onToggle={this.handleToggle}
+                    onVisibilityToggle={this.handleVisibilityToggle}
                     onNavigate={navigateAction}
                   />
                   <Overlay
@@ -107,7 +107,7 @@ export class DateNavigator extends React.PureComponent {
                       currentDate={currentDate}
                       firstDayOfWeek={firstDayOfWeek}
                       getCells={monthCellsData}
-                      titleComponent={CalendarTitle}
+                      textComponent={CalendarText}
                       navigationButtonComponent={CalendarNavigationButton}
                       rowComponent={CalendarRow}
                       cellComponent={CalendarCell}
@@ -131,14 +131,14 @@ export class DateNavigator extends React.PureComponent {
 DateNavigator.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   overlayComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  openButtonComponent: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   calendarComponent: PropTypes.func.isRequired,
   calendarRowComponent: PropTypes.func.isRequired,
   calendarCellComponent: PropTypes.func.isRequired,
   calendarHeaderRowComponent: PropTypes.func.isRequired,
   calendarHeaderCellComponent: PropTypes.func.isRequired,
-  calendarTitleComponent: PropTypes.func.isRequired,
+  calendarTextComponent: PropTypes.func.isRequired,
   calendarNavigationButtonComponent: PropTypes.func.isRequired,
   calendarNavigatorComponent: PropTypes.func.isRequired,
 };
@@ -146,14 +146,14 @@ DateNavigator.propTypes = {
 DateNavigator.components = {
   rootComponent: 'Root',
   overlayComponent: 'Overlay',
-  toggleButtonComponent: 'ToggleButton',
+  openButtonComponent: 'OpenButton',
   navigationButtonComponent: 'NavigationButton',
   calendarComponent: 'Calendar',
   calendarRowComponent: 'CalendarRow',
   calendarCellComponent: 'CalendarCell',
   calendarHeaderRowComponent: 'CalendarHeaderRow',
   calendarHeaderCellComponent: 'CalendarHeaderCell',
-  calendarTitleComponent: 'CalendarTitle',
+  calendarTextComponent: 'CalendarText',
   calendarNavigatorComponent: 'CalendarNavigator',
   calendarNavigationButtonComponent: 'CalendarNavigationButton',
 };

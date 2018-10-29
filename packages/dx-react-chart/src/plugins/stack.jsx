@@ -1,16 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Plugin, Getter } from '@devexpress/dx-react-core';
-import {
-  getStackedSeries,
-  getStacks as getStacksCore,
-} from '@devexpress/dx-chart-core';
+import { getStackedSeries } from '@devexpress/dx-chart-core';
 import {
   stackOrderNone,
   stackOffsetDiverging,
 } from 'd3-shape';
-
-const getStacks = ({ series }) => getStacksCore(series);
 
 export class Stack extends React.PureComponent {
   render() {
@@ -19,7 +14,6 @@ export class Stack extends React.PureComponent {
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
-        <Getter name="stacks" computed={getStacks} />
       </Plugin>
     );
   }

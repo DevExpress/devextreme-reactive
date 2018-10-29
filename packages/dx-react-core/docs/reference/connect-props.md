@@ -4,10 +4,10 @@ A function that applies additional properties to a React component.
 
 ## Arguments
 
-Name | Type | Default | Description
------|------|---------|------------
-WrappedComponent | ComponentType&lt;object&gt; | | A React component that accepts properties.
-getAdditionalProps | () => object | | A function that returns component properties.
+Name | Type | Description
+-----|------|------------
+WrappedComponent | ComponentType&lt;object&gt; | A React component that accepts properties.
+getAdditionalProps | () => object | A function that returns component properties.
 
 ## Return Value
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { createRenderComponent } from '@devexpress/dx-react-core';
+import { connectProps } from '@devexpress/dx-react-core';
 
 export const makeVirtualTable = (Table, {
   VirtualLayout,
@@ -19,27 +19,16 @@ export const makeVirtualTable = (Table, {
         headTableComponent,
         footerTableComponent,
       } = props;
-      this.layoutRenderComponent = createRenderComponent(VirtualLayout, {
+      this.layoutRenderComponent = connectProps(VirtualLayout, () => ({
         height,
         estimatedRowHeight,
         headTableComponent,
         footerTableComponent,
-      });
+      }));
     }
 
     componentDidUpdate() {
-      const {
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      } = this.props;
-      this.layoutRenderComponent.update({
-        height,
-        estimatedRowHeight,
-        headTableComponent,
-        footerTableComponent,
-      });
+      this.layoutRenderComponent.update();
     }
 
     render() {
@@ -51,7 +40,7 @@ export const makeVirtualTable = (Table, {
       } = this.props;
 
       return (
-        <Table layoutComponent={this.layoutRenderComponent.component} {...restProps} />
+        <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
       );
     }
   }

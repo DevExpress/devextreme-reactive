@@ -18,18 +18,16 @@ describe('Legend', () => {
 
     it('should return points for Pie series', () => {
       const SliceCollection = () => null;
-      const series = { seriesComponent: SliceCollection };
-      const getSeriesPoints = jest.fn().mockReturnValue([
-        { id: 'item 1', color: 'c1' },
-        { id: 'item 2', color: 'c2' },
-      ]);
-      const items = getLegendItems([series], 'test-data', getSeriesPoints);
+      const series = {
+        seriesComponent: SliceCollection,
+        points: [{ id: 'item 1', color: 'c1' }, { id: 'item 2', color: 'c2' }],
+      };
+      const items = getLegendItems([series]);
 
       expect(items).toEqual([
         { text: 'item 1', color: 'c1' },
         { text: 'item 2', color: 'c2' },
       ]);
-      expect(getSeriesPoints).toBeCalledWith(series, 'test-data');
     });
 
     it('should not mistake single series for Pie', () => {

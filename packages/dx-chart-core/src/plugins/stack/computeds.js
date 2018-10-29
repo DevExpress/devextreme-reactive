@@ -1,93 +1,144 @@
 import { stack } from 'd3-shape';
+import { scaleBand } from 'd3-scale';
 
-// "Stack" plugin relies on "data" and "series" plugins and
-// knowledge about "calculateCoordinates" and "d3Func" functions behavior.
+// "Stack" plugin relies on "data" and "series" getters and
+// knowledge about "getPointTransformer" and "path" functions behavior.
 
-const getStackedPointTransformer = ({
-  getPointTransformer, valueField0,
-}) => (series, data, ...args) => {
-  const transform = getPointTransformer(series, data, ...args);
-  const { valueScale } = series;
-  return (point) => {
-    const ret = transform(point);
-    ret.y1 = valueScale(data[point.index][valueField0]);
-    return ret;
+const getStackedPointTransformer = (getPointTransformer) => {
+  const wrapper = (series) => {
+    const transform = getPointTransformer(series);
+    const { valueScale } = series;
+    return (point) => {
+      const ret = transform(point);
+      ret.y1 = valueScale(point.value0);
+      return ret;
+    };
   };
+  // Preserve static fields of original transformer.
+  Object.assign(wrapper, getPointTransformer);
+  return wrapper;
 };
 
 // TODO: Temporary - see corresponding note in *computeDomains*.
-const getValueDomainCalculator = ({ valueField, valueField0, stackKey }) => (data) => {
+const getValueDomain = (points) => {
   const items = [];
-  data.forEach((dataItem) => {
-    if (dataItem[stackKey] !== undefined) {
-      items.push(dataItem[valueField], dataItem[valueField0]);
-    }
+  points.forEach((point) => {
+    items.push(point.value, point.value0);
   });
   return items;
 };
 
-export const buildStackedSeries = (seriesList) => {
+const collectStacks = (seriesList) => {
   const stacks = {};
+  const seriesInfo = {};
+  seriesList.forEach((seriesItem) => {
+    const { stack: seriesStack } = seriesItem;
+    if (!seriesStack) {
+      return;
+    }
+
+    if (!stacks[seriesStack]) {
+      stacks[seriesStack] = [];
+    }
+    const stackKeys = stacks[seriesStack];
+    const position = stackKeys.length;
+    stackKeys.push(seriesItem.valueField);
+    seriesInfo[seriesItem.symbolName] = { stack: seriesStack, position };
+  });
+  // Stack cannot consist of single series.
+  Object.keys(stacks).forEach((name) => {
+    if (stacks[name].length === 1) {
+      delete stacks[name];
+    }
+  });
+  return { stacks, seriesInfo };
+};
+
+const getStackedData = (stacks, dataItems, offset, order) => {
+  const result = {};
+  Object.entries(stacks).forEach(([name, keys]) => {
+    result[name] = stack().keys(keys).order(order).offset(offset)(dataItems);
+  });
+  return result;
+};
+
+const buildStackedSeries = (series, { stack: seriesStack, position }, stackedData) => {
+  const dataItems = stackedData[seriesStack][position];
+  const points = series.points.map((point) => {
+    const [value0, value] = dataItems[point.index];
+    return { ...point, value, value0 };
+  });
+  const stackedSeries = {
+    ...series,
+    points,
+  };
+  if (series.isStartedFromZero) {
+    stackedSeries.getPointTransformer = getStackedPointTransformer(series.getPointTransformer);
+    stackedSeries.getValueDomain = getValueDomain;
+  }
+  return stackedSeries;
+};
+
+const applyStacking = (seriesList, dataItems, offset, order) => {
+  const { stacks, seriesInfo } = collectStacks(seriesList);
+  if (Object.keys(stacks).length === 0) {
+    return seriesList;
+  }
+  const stackedData = getStackedData(stacks, dataItems, offset, order);
+  return seriesList.map((seriesItem) => {
+    const info = seriesInfo[seriesItem.symbolName];
+    return info ? buildStackedSeries(seriesItem, info, stackedData) : seriesItem;
+  });
+};
+
+const getGroupName = (series, i) => series.stack || `group-${i}`;
+
+const getGroupedPointTransformer = (getPointTransformer, groupCount, groupOffset) => {
+  const wrapper = (series) => {
+    const transform = getPointTransformer(series);
+    const { barWidth } = series;
+    const widthCoeff = 1 / groupCount;
+    const offsetCoeff = -(1 - barWidth) / 2 + groupOffset + widthCoeff * (1 - barWidth) / 2;
+    return (point) => {
+      const ret = transform(point);
+      ret.x += (ret.width / barWidth) * offsetCoeff;
+      ret.width *= widthCoeff;
+      return ret;
+    };
+  };
+  // Preserve static fields of original transformer.
+  Object.assign(wrapper, getPointTransformer);
+  return wrapper;
+};
+
+const applyGrouping = (seriesList) => {
+  const groups = new Set();
+  seriesList.forEach((seriesItem, i) => {
+    if (seriesItem.getPointTransformer.isBroad) {
+      groups.add(getGroupName(seriesItem, i));
+    }
+  });
+  // There cannot be single group.
+  if (groups.size < 2) {
+    return seriesList;
+  }
+  const scale = scaleBand().domain(Array.from(groups)).range([0, 1]);
   return seriesList.map((seriesItem, i) => {
-    const { stack: seriesStack = `stack${i}` } = seriesItem;
-    if (seriesStack === null) {
+    if (!seriesItem.getPointTransformer.isBroad) {
       return seriesItem;
     }
-    const position = stacks[seriesStack] || 0;
-    stacks[seriesStack] = position + 1;
-    const stackedSeriesItem = {
+    const getPointTransformer = getGroupedPointTransformer(
+      seriesItem.getPointTransformer, groups.size, scale(getGroupName(seriesItem, i)),
+    );
+    return {
       ...seriesItem,
-      valueField: `stack_${seriesStack}_${position}`,
-      stack: seriesStack,
-      stackKey: seriesItem.valueField,
-      stackPosition: position,
+      getPointTransformer,
     };
-    if (stackedSeriesItem.isStartedFromZero) {
-      stackedSeriesItem.valueField0 = `${stackedSeriesItem.valueField}_0`;
-      stackedSeriesItem.getPointTransformer = getStackedPointTransformer(stackedSeriesItem);
-      stackedSeriesItem.getValueDomain = getValueDomainCalculator(stackedSeriesItem);
-    }
-    return stackedSeriesItem;
   });
 };
 
-const getStackedData = (offset, order, dataItems, seriesList) => {
-  const stacks = seriesList.reduce((total, { stack: seriesStack, stackKey }) => (seriesStack ? {
-    ...total,
-    [seriesStack]: (total[seriesStack] || []).concat(stackKey),
-  } : total), {});
-  return Object.entries(stacks).reduce((result, [name, keys]) => Object.assign(result, {
-    [name]: stack().keys(keys).order(order).offset(offset)(dataItems),
-  }), {});
+export const getStackedSeries = (seriesList, dataItems, offset, order) => {
+  const stackedSeriesList = applyStacking(seriesList, dataItems, offset, order);
+  const groupedSeriesList = applyGrouping(stackedSeriesList);
+  return groupedSeriesList;
 };
-
-export const buildStackedDataProcessor = (offset, order) => (dataItems, seriesList) => {
-  const stacks = getStackedData(offset, order, dataItems, seriesList);
-  return dataItems.map((dataItem, i) => {
-    const newData = {};
-    seriesList.forEach((seriesItem) => {
-      const stackData = stacks[seriesItem.stack];
-      if (stackData && dataItem[seriesItem.stackKey] !== undefined) {
-        const [value0, value] = stackData[seriesItem.stackPosition][i];
-        newData[seriesItem.valueField] = value;
-        if (seriesItem.valueField0) {
-          newData[seriesItem.valueField0] = value0;
-        }
-      }
-    });
-    return Object.keys(newData).length ? { ...dataItem, ...newData } : dataItem;
-  });
-};
-
-// The only purpose of this function is to prevent some props from being passed to DOM.
-// It should be removed when that issue is resolved.
-export const clearStackedSeries = seriesList => seriesList.map((seriesItem) => {
-  const {
-    stackKey, stackPosition, valueField0, ...restProps
-  } = seriesItem;
-  return restProps;
-});
-
-export const getStacks = series => Array.from(
-  new Set(series.map(({ stack: seriesStack }) => seriesStack).filter(x => x)),
-);

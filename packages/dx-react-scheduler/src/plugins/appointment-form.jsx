@@ -44,8 +44,14 @@ export class AppointmentForm extends React.PureComponent {
     const stateHelper = createStateHelper(
       this,
       {
-        visible: () => props.onVisibilityChange,
-        appointmentData: () => props.onAppointmentDataChange,
+        visible: () => {
+          const { onVisibilityChange } = this.props;
+          return onVisibilityChange;
+        },
+        appointmentData: () => {
+          const { onAppointmentDataChange } = this.props;
+          return onAppointmentDataChange;
+        },
       },
     );
 

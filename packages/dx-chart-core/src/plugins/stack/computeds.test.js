@@ -1,342 +1,335 @@
 import { stack } from 'd3-shape';
-import {
-  buildStackedSeries, buildStackedDataProcessor, clearStackedSeries, getStacks,
-} from './computeds';
+import { scaleBand } from 'd3-scale';
+import { getStackedSeries } from './computeds';
 
 jest.mock('d3-shape', () => ({
   stack: jest.fn(),
 }));
 
-describe('Stack', () => {
-  describe('buildStackedSeries', () => {
-    it('should process series', () => {
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1' },
-        { stack: 's1', valueField: 'val2' },
-        { stack: 's1', valueField: 'val3' },
-      ]);
+jest.mock('d3-scale', () => ({
+  scaleBand: jest.fn(),
+}));
 
-      expect(series).toEqual([
-        {
-          stack: 's1', valueField: 'stack_s1_0', stackKey: 'val1', stackPosition: 0,
-        },
-        {
-          stack: 's1', valueField: 'stack_s1_1', stackKey: 'val2', stackPosition: 1,
-        },
-        {
-          stack: 's1', valueField: 'stack_s1_2', stackKey: 'val3', stackPosition: 2,
-        },
+describe('Stack', () => {
+  describe('getStackedSeries', () => {
+    const mockStack = jest.fn();
+    mockStack.keys = jest.fn().mockReturnValue(mockStack);
+    mockStack.offset = jest.fn().mockReturnValue(mockStack);
+    mockStack.order = jest.fn().mockReturnValue(mockStack);
+    stack.mockReturnValue(mockStack);
+
+    const mockScale = jest.fn();
+    mockScale.domain = jest.fn().mockReturnValue(mockScale);
+    mockScale.range = jest.fn().mockReturnValue(mockScale);
+    scaleBand.mockReturnValue(mockScale);
+
+    const makeSeries = (id, extra) => ({
+      symbolName: id,
+      points: [],
+      getPointTransformer: () => null,
+      ...extra,
+    });
+
+    afterAll(jest.resetAllMocks);
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      mockStack.mockReset();
+    });
+
+    it('should update series', () => {
+      mockStack.mockReturnValue([
+        [['1a', '1b'], ['1c', '1d'], null, null],
+        [null, ['2a', '2b'], ['2c', '2d'], ['2e', '2f']],
+        [['3a', '3b'], null, ['3c', '3d'], null],
       ]);
+      const series1 = makeSeries('1', {
+        stack: 's1',
+        valueField: 'val1',
+        points: [{ tag: '1-1', index: 0 }, { tag: '1-2', index: 1 }],
+      });
+      const series2 = makeSeries('2', {
+        stack: 's1',
+        valueField: 'val2',
+        points: [{ tag: '2-1', index: 1 }, { tag: '2-2', index: 2 }, { tag: '2-3', index: 3 }],
+      });
+      const series3 = makeSeries('3', {
+        stack: 's1',
+        valueField: 'val3',
+        points: [{ tag: '3-1', index: 0 }, { tag: '3-2', index: 2 }],
+      });
+
+      const result = getStackedSeries([series1, series2, series3],
+        'test-data', 'test-offset', 'test-order');
+
+      expect(result[0]).toEqual({
+        ...series1,
+        points: [
+          { ...series1.points[0], value0: '1a', value: '1b' },
+          { ...series1.points[1], value0: '1c', value: '1d' },
+        ],
+      });
+      expect(result[1]).toEqual({
+        ...series2,
+        points: [
+          { ...series2.points[0], value0: '2a', value: '2b' },
+          { ...series2.points[1], value0: '2c', value: '2d' },
+          { ...series2.points[2], value0: '2e', value: '2f' },
+        ],
+      });
+      expect(result[2]).toEqual({
+        ...series3,
+        points: [
+          { ...series3.points[0], value0: '3a', value: '3b' },
+          { ...series3.points[1], value0: '3c', value: '3d' },
+        ],
+      });
+      expect(stack.mock.calls.length).toEqual(1);
+      expect(mockStack.keys).toBeCalledWith(['val1', 'val2', 'val3']);
+      expect(mockStack.offset).toBeCalledWith('test-offset');
+      expect(mockStack.order).toBeCalledWith('test-order');
+      expect(mockStack).toBeCalledWith('test-data');
+    });
+
+    it('should return series as-is if there are no stacks', () => {
+      const list = [
+        makeSeries('1'),
+        makeSeries('2'),
+        makeSeries('3'),
+      ];
+
+      const result = getStackedSeries(list, 'test-data', 'test-offset', 'test-order');
+
+      expect(result).toBe(list);
     });
 
     it('should handle several stacks', () => {
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1' },
-        { stack: 's2', valueField: 'val2' },
-        { stack: 's1', valueField: 'val3' },
-        { valueField: 'val4' },
-        { stack: 's2', valueField: 'val5' },
-        { valueField: 'val6' },
+      mockStack.mockReturnValueOnce([
+        [['1a', '1b']],
+        [['2a', '2b']],
+      ]);
+      mockStack.mockReturnValueOnce([
+        [['3a', '3b']],
+        [['4a', '4b']],
       ]);
 
-      expect(series).toEqual([
-        {
-          stack: 's1', valueField: 'stack_s1_0', stackKey: 'val1', stackPosition: 0,
-        },
-        {
-          stack: 's2', valueField: 'stack_s2_0', stackKey: 'val2', stackPosition: 0,
-        },
-        {
-          stack: 's1', valueField: 'stack_s1_1', stackKey: 'val3', stackPosition: 1,
-        },
-        {
-          stack: 'stack3', valueField: 'stack_stack3_0', stackKey: 'val4', stackPosition: 0,
-        },
-        {
-          stack: 's2', valueField: 'stack_s2_1', stackKey: 'val5', stackPosition: 1,
-        },
-        {
-          stack: 'stack5', valueField: 'stack_stack5_0', stackKey: 'val6', stackPosition: 0,
-        },
+      const result = getStackedSeries([
+        makeSeries('1', { stack: 's1', valueField: 'val1', points: [{ index: 0 }] }),
+        makeSeries('2', { stack: 's2', valueField: 'val2', points: [{ index: 0 }] }),
+        makeSeries('3', { stack: 's1', valueField: 'val3', points: [{ index: 0 }] }),
+        makeSeries('4', { stack: 's2', valueField: 'val4', points: [{ index: 0 }] }),
+      ], 'test-data', 'test-offset', 'test-order');
+
+      expect(result[0].points).toEqual([{ index: 0, value0: '1a', value: '1b' }]);
+      expect(result[1].points).toEqual([{ index: 0, value0: '3a', value: '3b' }]);
+      expect(result[2].points).toEqual([{ index: 0, value0: '2a', value: '2b' }]);
+      expect(result[3].points).toEqual([{ index: 0, value0: '4a', value: '4b' }]);
+      expect(stack.mock.calls.length).toEqual(2);
+      expect(mockStack.keys.mock.calls).toEqual([
+        [['val1', 'val3']],
+        [['val2', 'val4']],
       ]);
     });
 
-    it('should ignore series with stack:null', () => {
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1' },
-        { stack: null, valueField: 'val2' },
-        { stack: 's1', valueField: 'val3' },
-        { stack: null, valueField: 'val4' },
-      ]);
+    it('should ignore series without *stack* prop', () => {
+      mockStack.mockReturnValue([]);
+      const series1 = makeSeries('1');
+      const series2 = makeSeries('2', { stack: 's1' });
+      const series3 = makeSeries('3');
+      const series4 = makeSeries('4', { stack: 's1' });
 
-      expect(series).toEqual([
-        {
-          stack: 's1', valueField: 'stack_s1_0', stackKey: 'val1', stackPosition: 0,
-        },
-        {
-          stack: null, valueField: 'val2',
-        },
-        {
-          stack: 's1', valueField: 'stack_s1_1', stackKey: 'val3', stackPosition: 1,
-        },
-        {
-          stack: null, valueField: 'val4',
-        },
-      ]);
-    });
+      const result = getStackedSeries(
+        [series1, series2, series3, series4], 'test-data', 'test-offset', 'test-order',
+      );
 
-    it('should not wrap *getPointTransformer* by default', () => {
-      const getPointTransformer = jest.fn();
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1', getPointTransformer },
-        { stack: 's1', valueField: 'val2', getPointTransformer },
-        { stack: 's2', valueField: 'val3', getPointTransformer },
-      ]);
-
-      expect(series[0].getPointTransformer).toEqual(getPointTransformer);
-      expect(series[1].getPointTransformer).toEqual(getPointTransformer);
-      expect(series[2].getPointTransformer).toEqual(getPointTransformer);
-    });
-
-    it('should add *valueField0* for starting from zero series', () => {
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1' },
-        { stack: 's1', valueField: 'val2' },
-        {
-          stack: 's2', valueField: 'val3', isStartedFromZero: true,
-        },
-        {
-          stack: 's2', valueField: 'val4', isStartedFromZero: true,
-        },
-        {
-          stack: 's3', valueField: 'val5', isStartedFromZero: true,
-        },
-      ]);
-
-      expect(series[2].valueField0).toEqual('stack_s2_0_0');
-      expect(series[3].valueField0).toEqual('stack_s2_1_0');
-      expect(series[4].valueField0).toEqual('stack_s3_0_0');
+      expect(result[0]).toBe(series1);
+      expect(result[1]).not.toBe(series2);
+      expect(result[2]).toBe(series3);
+      expect(result[3]).not.toBe(series4);
     });
 
     it('should wrap *getPointTransformer* for starting from zero series', () => {
-      const getPointTransformer = jest.fn();
-      const series = buildStackedSeries([
-        { stack: 's1', valueField: 'val1', getPointTransformer },
-        { stack: 's1', valueField: 'val2', getPointTransformer },
-        {
-          stack: 's2', valueField: 'val3', getPointTransformer, isStartedFromZero: true,
-        },
-        {
-          stack: 's2', valueField: 'val4', getPointTransformer, isStartedFromZero: true,
-        },
-        {
-          stack: 's3', valueField: 'val5', getPointTransformer, isStartedFromZero: true,
-        },
+      mockStack.mockReturnValue([]);
+      const getPointTransformer = () => null;
+      getPointTransformer.a = 'A';
+      getPointTransformer.b = 'B';
+
+      const result = getStackedSeries([
+        makeSeries('1', { stack: 's1', getPointTransformer }),
+        makeSeries('2', { stack: 's1', getPointTransformer }),
+        makeSeries('3', { stack: 's1', getPointTransformer, isStartedFromZero: true }),
+        makeSeries('4', { stack: 's1', getPointTransformer, isStartedFromZero: true }),
+        makeSeries('5', { stack: 's1', getPointTransformer, isStartedFromZero: true }),
       ]);
 
-      expect(series[0].getPointTransformer).toEqual(getPointTransformer);
-      expect(series[1].getPointTransformer).toEqual(getPointTransformer);
-      expect(series[2].getPointTransformer).not.toEqual(getPointTransformer);
-      expect(series[3].getPointTransformer).not.toEqual(getPointTransformer);
-      expect(series[4].getPointTransformer).not.toEqual(getPointTransformer);
+      expect(result[0].getPointTransformer).toBe(getPointTransformer);
+      expect(result[1].getPointTransformer).toBe(getPointTransformer);
+      expect(result[2].getPointTransformer).not.toBe(getPointTransformer);
+      expect(result[3].getPointTransformer).not.toBe(getPointTransformer);
+      expect(result[4].getPointTransformer).not.toBe(getPointTransformer);
+
+      expect(result[2].getPointTransformer.a).toEqual('A');
+      expect(result[2].getPointTransformer.b).toEqual('B');
+      expect(result[3].getPointTransformer.a).toEqual('A');
+      expect(result[3].getPointTransformer.b).toEqual('B');
+      expect(result[4].getPointTransformer.a).toEqual('A');
+      expect(result[4].getPointTransformer.b).toEqual('B');
 
       // TODO: Temporary - see note for *getValueDomainCalculator*.
-      expect(series[0].getValueDomain).toBeUndefined();
-      expect(series[1].getValueDomain).toBeUndefined();
-      expect(series[2].getValueDomain).toEqual(expect.any(Function));
-      expect(series[3].getValueDomain).toEqual(expect.any(Function));
-      expect(series[4].getValueDomain).toEqual(expect.any(Function));
+      expect(result[0].getValueDomain).toBeUndefined();
+      expect(result[1].getValueDomain).toBeUndefined();
+      expect(result[2].getValueDomain).toEqual(expect.any(Function));
+      expect(result[3].getValueDomain).toEqual(expect.any(Function));
+      expect(result[4].getValueDomain).toEqual(expect.any(Function));
     });
 
     it('should update *y1* in wrapped *getPointTransformer*', () => {
-      const data = [
-        { stack_s1_0_0: '1-val1' },
-        { stack_s1_0_0: '2-val1' },
-        { stack_s1_0_0: '3-val1' },
-        { stack_s1_0_0: '4-val1' },
-      ];
-      const mock = jest.fn().mockReturnValue(point => ({
-        ...point,
-        status: 'transformed',
-      }));
+      mockStack.mockReturnValue([]);
+      const mock = jest.fn().mockReturnValue(point => ({ ...point, tag: '#t' }));
       const valueScale = value => `${value}#`;
-      const series = buildStackedSeries([
-        {
-          stack: 's1', valueField: 'val1', getPointTransformer: mock, isStartedFromZero: true,
-        },
-      ]);
 
-      const transform = series[0].getPointTransformer({ ...series[0], valueScale }, data, 'a', 'b');
-      expect(mock).toBeCalledWith({ ...series[0], valueScale }, data, 'a', 'b');
-      expect(transform({ index: 1 })).toEqual({
-        index: 1,
-        status: 'transformed',
-        y1: '2-val1#',
+      const result = getStackedSeries([
+        makeSeries('1', { stack: 's1', getPointTransformer: mock, isStartedFromZero: true }),
+        makeSeries('2', { stack: 's1', getPointTransformer: mock, isStartedFromZero: true }),
+      ], 'test-data', 'test-offset', 'test-order');
+
+      const transform = result[0].getPointTransformer({ valueScale });
+
+      expect(mock).toBeCalledWith({ valueScale });
+      expect(transform({ value0: 'v1' })).toEqual({
+        value0: 'v1',
+        tag: '#t',
+        y1: 'v1#',
       });
-      expect(transform({ index: 3 })).toEqual({
-        index: 3,
-        status: 'transformed',
-        y1: '4-val1#',
+      expect(transform({ value0: 'v2' })).toEqual({
+        value0: 'v2',
+        tag: '#t',
+        y1: 'v2#',
       });
     });
 
     // TODO: Temporary - see note for *getValueDomainCalculator*.
     it('should collect values in *getValueDomain*', () => {
-      const data = [
-        { stack_s1_0_0: 1, stack_s1_0: 2, val1: 1 },
-        { stack_s1_0_0: 3, stack_s1_0: 4, val1: 1 },
-        { stack_s1_0_0: 5, stack_s1_0: 6 },
-        { stack_s1_0_0: 7, stack_s1_0: 8, val1: 1 },
-      ];
-      const series = buildStackedSeries([
-        {
-          stack: 's1', valueField: 'val1', isStartedFromZero: true,
-        },
-      ]);
+      mockStack.mockReturnValue([]);
 
-      expect(series[0].getValueDomain(data)).toEqual([2, 1, 4, 3, 8, 7]);
-    });
-  });
+      const result = getStackedSeries([
+        makeSeries('1', { stack: 's1', isStartedFromZero: true }),
+        makeSeries('2', { stack: 's1', isStartedFromZero: true }),
+      ], 'test-data', 'test-offset', 'test-order');
 
-  describe('buildStackedDataProcessor', () => {
-    const stackFunc = jest.fn();
-    stackFunc.keys = jest.fn().mockReturnValue(stackFunc);
-    stackFunc.order = jest.fn().mockReturnValue(stackFunc);
-    stackFunc.offset = jest.fn().mockReturnValue(stackFunc);
-
-    beforeEach(() => {
-      stack.mockReturnValue(stackFunc);
+      expect(result[0].getValueDomain([
+        { value: 2, value0: 1 },
+        { value: 4, value0: 3 },
+        { value: 8, value0: 7 },
+      ])).toEqual([2, 1, 4, 3, 8, 7]);
     });
 
-    afterEach(() => {
-      jest.clearAllMocks();
-      stack.mockReset();
+    it('should arrange groups', () => {
+      const getPointTransformer = () => null;
+      getPointTransformer.isBroad = true;
+      getPointTransformer.a = 'A';
+      getPointTransformer.b = 'B';
+      const series1 = makeSeries('1');
+      const series2 = makeSeries('2', { getPointTransformer });
+      const series3 = makeSeries('3', { getPointTransformer });
+
+      const result = getStackedSeries([series1, series2, series3]);
+
+      expect(result[0]).toBe(series1);
+      expect(result[1]).not.toBe(series2);
+      expect(result[2]).not.toBe(series3);
+
+      expect(mockScale.domain).toBeCalledWith(['group-1', 'group-2']);
+      expect(mockScale.range).toBeCalledWith([0, 1]);
+      expect(mockScale.mock.calls).toEqual([
+        ['group-1'],
+        ['group-2'],
+      ]);
+
+      expect(result[1].getPointTransformer).not.toBe(getPointTransformer);
+      expect(result[2].getPointTransformer).not.toBe(getPointTransformer);
+
+      expect(result[1].getPointTransformer.a).toEqual('A');
+      expect(result[1].getPointTransformer.b).toEqual('B');
+      expect(result[2].getPointTransformer.a).toEqual('A');
+      expect(result[2].getPointTransformer.b).toEqual('B');
     });
 
-    it('should add fields to original data items', () => {
-      const offset = jest.fn();
-      const order = jest.fn();
-      stackFunc.mockReturnValueOnce([
-        [[0, 1], [0, 2], [0, 3], [0, 4]],
-        [[1, 5], [1, 6], [1, 7], [1, 8]],
-      ]);
-      stackFunc.mockReturnValueOnce([
-        [[2, 11], [2, 12], [2, 13], [2, 14]],
-      ]);
-      const processData = buildStackedDataProcessor(offset, order);
-      const data = [
-        {
-          arg: 1, val1: '1-1', val2: '1-2', val3: '1-3',
-        },
-        {
-          arg: 2, val1: '2-1', val2: '2-2', val3: '2-3',
-        },
-        {
-          arg: 3, val1: '3-1', val2: '3-2', val3: '3-3',
-        },
-        {
-          arg: 4, val1: '4-1', val2: '4-2', val3: '4-3',
-        },
+    it('should return series as-is if there no groups', () => {
+      const list = [
+        makeSeries('1'),
+        makeSeries('2'),
+        makeSeries('3'),
       ];
 
-      const processedData = processData(data, [
-        {
-          stack: 's1', stackKey: 'val1', stackPosition: 0, valueField: 's1_val0',
-        },
-        {
-          stack: 's1', stackKey: 'val2', stackPosition: 1, valueField: 's1_val1', valueField0: 's1_val1_0',
-        },
-        {
-          stack: 's2', stackKey: 'val3', stackPosition: 0, valueField: 's2_val0', valueField0: 's2_val0_0',
-        },
-        { stack: null },
-      ]);
+      const result = getStackedSeries(list);
 
-      expect(stackFunc.keys.mock.calls).toEqual([[['val1', 'val2']], [['val3']]]);
-      expect(stackFunc.order.mock.calls).toEqual([[order], [order]]);
-      expect(stackFunc.offset.mock.calls).toEqual([[offset], [offset]]);
-      expect(stackFunc.mock.calls).toEqual([[data], [data]]);
-      expect(processedData).toEqual([
-        {
-          ...data[0], s1_val0: 1, s1_val1_0: 1, s1_val1: 5, s2_val0_0: 2, s2_val0: 11,
-        },
-        {
-          ...data[1], s1_val0: 2, s1_val1_0: 1, s1_val1: 6, s2_val0_0: 2, s2_val0: 12,
-        },
-        {
-          ...data[2], s1_val0: 3, s1_val1_0: 1, s1_val1: 7, s2_val0_0: 2, s2_val0: 13,
-        },
-        {
-          ...data[3], s1_val0: 4, s1_val1_0: 1, s1_val1: 8, s2_val0_0: 2, s2_val0: 14,
-        },
-      ]);
+      expect(result).toBe(list);
     });
 
-    it('should ignore stacked data when there is no original value', () => {
-      stackFunc.mockReturnValueOnce([
-        [[0, 1], [0, 2], [0, 3], [0, 4]],
-        [[0, 5], [0, 6], [0, 7], [0, 8]],
-      ]);
-      const processData = buildStackedDataProcessor(jest.fn(), jest.fn());
-      const data = [
-        {
-          arg: 1, val2: '1-2',
-        },
-        {
-          arg: 2, val1: '2-1', val2: '2-2',
-        },
-        {
-          arg: 3, val1: '3-1',
-        },
-        {
-          arg: 4,
-        },
-      ];
+    it('should update *x* and *width* in wrapped *getPointTransformer*', () => {
+      const getPointTransformer = jest.fn();
+      getPointTransformer.isBroad = true;
+      getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '1' }));
+      getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '2' }));
+      getPointTransformer.mockReturnValueOnce(point => ({ ...point, tag: '3' }));
 
-      const processedData = processData(data, [
-        {
-          stack: 's1', stackKey: 'val1', stackPosition: 0, valueField: 's1_val0',
-        },
-        {
-          stack: 's1', stackKey: 'val2', stackPosition: 1, valueField: 's1_val1',
-        },
-      ]);
+      mockScale.mockReturnValueOnce(0.2);
+      mockScale.mockReturnValueOnce(0.6);
+      mockScale.mockReturnValueOnce(0.8);
 
-      expect(processedData).toEqual([
-        { ...data[0], s1_val1: 5 },
-        { ...data[1], s1_val0: 2, s1_val1: 6 },
-        { ...data[2], s1_val0: 3 },
-        { ...data[3] },
-      ]);
+      const series1 = makeSeries('1', { getPointTransformer });
+      const series2 = makeSeries('2', { getPointTransformer });
+      const series3 = makeSeries('3', { getPointTransformer });
+
+      const result = getStackedSeries([series1, series2, series3]);
+
+      const transform1 = result[0].getPointTransformer({ barWidth: 0.5 });
+      expect(transform1({ index: 1, x: 150, width: 60 })).toEqual({
+        index: 1,
+        tag: '1',
+        x: 154,
+        width: 20,
+      });
+
+      const transform2 = result[1].getPointTransformer({ barWidth: 0.8 });
+      expect(transform2({ index: 2, x: 150, width: 60 })).toEqual({
+        index: 2,
+        tag: '2',
+        x: 190,
+        width: 20,
+      });
+
+      const transform3 = result[2].getPointTransformer({ barWidth: 0.4 });
+      expect(transform3({ index: 3, x: 150, width: 60 })).toEqual({
+        index: 3,
+        tag: '3',
+        x: 240,
+        width: 20,
+      });
     });
-  });
 
-  describe('clearStackedSeries', () => {
-    it('should clear props', () => {
-      const series = clearStackedSeries([
-        {
-          stack: 's1', valueField: 'val1', stackKey: 'val1', stackPosition: 0,
-        },
-        {
-          stack: 's1', valueField: 'val2', stackKey: 'val2', stackPosition: 1, valueField0: 'val3',
-        },
-        {
-          stack: null,
-        },
+    it('should process stack as single group', () => {
+      mockStack.mockReturnValue([]);
+      const getPointTransformer = () => null;
+      getPointTransformer.isBroad = true;
+
+      getStackedSeries([
+        makeSeries('1', { getPointTransformer }),
+        makeSeries('2', { stack: 's1', getPointTransformer }),
+        makeSeries('3'),
+        makeSeries('4', { stack: 's1' }),
+        makeSeries('5', { stack: 's1', getPointTransformer }),
+        makeSeries('6', { getPointTransformer }),
+      ], 'test-data', 'test-offset', 'test-order');
+
+      expect(mockScale.domain).toBeCalledWith(['group-0', 's1', 'group-5']);
+      expect(mockScale.mock.calls).toEqual([
+        ['group-0'],
+        ['s1'],
+        ['s1'],
+        ['group-5'],
       ]);
-
-      expect(series).toEqual([
-        { stack: 's1', valueField: 'val1' },
-        { stack: 's1', valueField: 'val2' },
-        { stack: null },
-      ]);
-    });
-  });
-
-  describe('getStacks', () => {
-    it('should return stacks', () => {
-      const series = [{ stack: 'one' }, { stack: null }, { stack: 'two' }, { stack: 'one' }];
-      expect(getStacks(series)).toEqual(['one', 'two']);
     });
   });
 });

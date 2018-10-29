@@ -8,6 +8,7 @@ import { Axis } from './axis';
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
   axesData: jest.fn(),
+  HORIZONTAL: 'horizontal',
 }));
 
 describe('Axis', () => {
@@ -24,17 +25,32 @@ describe('Axis', () => {
   const TickComponent = () => null;
   const LabelComponent = () => null;
   const LineComponent = () => null;
+  const getterForAxis = (position, orientation) => ({
+    getter: {
+      domains: { name: { orientation, type: 'someType' } },
+      layouts: {
+        [`${position}-axis`]: {
+          x: 3, y: 4, width: 250, height: 150,
+        },
+      },
+    },
+    template: {
+      [`${position}-axis`]: {},
+    },
+  });
   const defaultDeps = {
     getter: {
       domains: { name: { orientation: 'horizontal', type: 'someType' } },
       scales: { name: mockScale },
-      setBBox: jest.fn(),
       layouts: {
         'bottom-axis': {
           x: 1, y: 2, width: 200, height: 100,
         },
       },
       axes: [{}],
+    },
+    action: {
+      changeBBox: jest.fn(),
     },
     template: {
       'bottom-axis': {},
@@ -101,6 +117,81 @@ describe('Axis', () => {
     expect(children).toEqual(expect.any(Object));
   });
 
+  it('should pass correct bbox for group, vertical-left position', () => {
+    const element = {
+      getBBox: jest.fn(() => ({
+        x: -30, y: 0, width: 20, height: 30,
+      })),
+    };
+    const tree = mount((
+      <PluginHost>
+        <Axis {...{ ...defaultProps, position: 'left' }} />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('left', 'vertical'))}
+      </PluginHost>
+    ));
+    const { refsHandler } = tree.find(RootComponent).props();
+
+    refsHandler(element);
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
+      .toMatchObject({ placeholder: 'left-axis', bBox: { width: 30, height: 30 } });
+  });
+
+  it('should pass correct bbox for group, vertical-right position', () => {
+    const element = {
+      getBBox: jest.fn(() => ({
+        x: 10, y: 0, width: 30, height: 30,
+      })),
+    };
+    const tree = mount((
+      <PluginHost>
+        <Axis {...{ ...defaultProps, position: 'right' }} />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('right', 'vertical'))}
+      </PluginHost>
+    ));
+    const { refsHandler } = tree.find(RootComponent).props();
+
+    refsHandler(element);
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
+      .toMatchObject({ placeholder: 'right-axis', bBox: { width: 40, height: 30 } });
+  });
+
+  it('should pass correct bbox for group, horizontal-top position', () => {
+    const element = {
+      getBBox: jest.fn(() => ({
+        x: 0, y: -40, width: 30, height: 30,
+      })),
+    };
+    const tree = mount((
+      <PluginHost>
+        <Axis {...{ ...defaultProps, position: 'top' }} />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('top', 'horizontal'))}
+      </PluginHost>
+    ));
+    const { refsHandler } = tree.find(RootComponent).props();
+
+    refsHandler(element);
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
+      .toMatchObject({ placeholder: 'top-axis', bBox: { width: 30, height: 40 } });
+  });
+
+  it('should pass correct bbox for group, horizontal-bottom position', () => {
+    const element = {
+      getBBox: jest.fn(() => ({
+        x: 0, y: 10, width: 30, height: 20,
+      })),
+    };
+    const tree = mount((
+      <PluginHost>
+        <Axis {...defaultProps} />
+        {pluginDepsToComponents(defaultDeps)}
+      </PluginHost>
+    ));
+    const { refsHandler } = tree.find(RootComponent).props();
+
+    refsHandler(element);
+    expect(defaultDeps.action.changeBBox.mock.calls[0][0])
+      .toMatchObject({ placeholder: 'bottom-axis', bBox: { width: 30, height: 30 } });
+  });
 
   it('should render argument axis', () => {
     const tree = mount((

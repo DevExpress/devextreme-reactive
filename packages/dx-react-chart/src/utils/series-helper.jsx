@@ -8,11 +8,9 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  findSeriesByName, addSeries,
+  findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-
-// TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
-const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
+import { withComponents } from './series-component';
 
 // May be it is better to say what props are passed along rather then what are NOT passed?
 const getRenderProps = (series) => {
@@ -23,57 +21,45 @@ const getRenderProps = (series) => {
     argumentField,
     valueField,
     palette,
-    stack,
     symbolName,
-    isStartedFromZero: _,
+    isStartedFromZero,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    getPointTransformer,
+    createHitTester,
     ...restProps
   } = series;
 
   return restProps;
 };
 
-export const withSeriesPlugin = (
-  Series,
-  pluginName,
-  pathType, // TODO: Replace it with bool - `isStartedFromZero`.
-  getPointTransformer,
-) => {
+export const declareSeries = (pluginName, { components, ...parameters }) => {
   class Component extends React.PureComponent {
     render() {
-      const { name: seriesName } = this.props;
-      const symbolName = Symbol(seriesName);
-      const getSeriesDataComputed = ({ series, palette }) => addSeries(series, palette, {
+      const { name } = this.props;
+      const symbolName = Symbol(name);
+      const seriesItem = {
+        ...parameters,
         ...this.props,
-        getPointTransformer,
-        isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
-      });
+      };
+      const getSeries = ({ series, data, palette }) => addSeries(series, data, palette, seriesItem);
       return (
         <Plugin name={pluginName}>
-          <Getter name="series" computed={getSeriesDataComputed} />
+          <Getter name="series" computed={getSeries} />
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({
-                getSeriesPoints,
-                series,
-                scales,
-                stacks,
-                data,
-                scaleExtension,
-              }) => {
+              {({ series, scales, getAnimatedStyle }) => {
                 const currentSeries = findSeriesByName(symbolName, series);
-                const coordinates = getSeriesPoints(
-                  currentSeries, data, scales,
-                  // TODO: The following are BarSeries specifics - remove them.
-                  stacks, scaleExtension,
-                );
-                const props = getRenderProps(currentSeries);
+                const currentScales = {
+                  xScale: scales[ARGUMENT_DOMAIN],
+                  yScale: scales[getValueDomainName(currentSeries.axisName)],
+                };
+                const { seriesComponent: Series, points, ...props } = getRenderProps(currentSeries);
                 return (
                   <Series
-                    coordinates={coordinates}
+                    coordinates={points}
+                    scales={currentScales}
+                    getAnimatedStyle={getAnimatedStyle}
                     {...props}
                   />
                 );
@@ -94,5 +80,12 @@ export const withSeriesPlugin = (
   Component.defaultProps = {
     name: 'defaultSeriesName',
   };
-  return Component;
+  Component.components = {};
+  if (components.Path) {
+    Component.components.seriesComponent = 'Path';
+  }
+  if (components.Point) {
+    Component.components.pointComponent = 'Point';
+  }
+  return withComponents(components)(Component);
 };

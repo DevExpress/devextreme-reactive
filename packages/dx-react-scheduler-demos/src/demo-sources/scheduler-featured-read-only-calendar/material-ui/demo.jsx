@@ -102,13 +102,13 @@ const PrioritySelectorItem = ({ id, classes }) => {
 };
 
 const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
-  ({ classes, onChange, priority }) => (
+  ({ classes, priorityChange, priority }) => (
     <FormControl className={classes.prioritySelector}>
       <Select
         disableUnderline
         value={priority}
         onChange={(e) => {
-          onChange(e.target.value);
+          priorityChange(e.target.value);
         }}
         renderValue={value => <PrioritySelectorItem id={value} classes={classes} />}
       >
@@ -126,9 +126,9 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
 );
 
 const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, currentPriority, priorityChange }) => (
+  ({ classes, priority, priorityChange }) => (
     <Toolbar.FlexibleSpace className={classes.flexibleSpace}>
-      <PrioritySelector priority={currentPriority} onChange={priorityChange} />
+      <PrioritySelector priority={priority} priorityChange={priorityChange} />
     </Toolbar.FlexibleSpace>
   ),
 );
@@ -223,7 +223,7 @@ export default class Demo extends React.PureComponent {
     this.flexibleSpace = connectProps(FlexibleSpace, () => {
       const { currentPriority } = this.state;
       return {
-        currentPriority,
+        priority: currentPriority,
         priorityChange: this.priorityChange,
       };
     });

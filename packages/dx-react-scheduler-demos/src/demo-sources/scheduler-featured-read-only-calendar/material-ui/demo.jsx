@@ -32,6 +32,9 @@ import FormControl from '@material-ui/core/FormControl';
 
 import { tasks, priorities } from '../../../demo-data/tasks';
 
+const filterTasks = (items, priorityId) => items.filter(task => (
+  !priorityId || task.priorityId === priorityId
+));
 const getPriorityById = priorityId => priorities.find(({ id }) => id === priorityId).title;
 
 const createClassesByPriorityId = (
@@ -240,10 +243,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
-        <Scheduler data={data.filter(task => (
-          !currentPriority || task.priorityId === currentPriority
-        ))}
-        >
+        <Scheduler data={filterTasks(data, currentPriority)}>
           <ViewState
             currentDate={currentDate}
             currentViewName={currentViewName}

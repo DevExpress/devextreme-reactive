@@ -207,7 +207,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       currentDate: '2018-04-23',
-      currentViewName: 'Week',
+      currentViewName: 'Work Week',
       data: tasks,
       currentPriority: 0,
     };
@@ -250,12 +250,15 @@ export default class Demo extends React.PureComponent {
             onCurrentViewNameChange={this.currentViewNameChange}
             onCurrentDateChange={this.currentDateChange}
           />
-          <WeekView startDayHour={8} endDayHour={18} excludedDays={[0, 6]} />
+          <WeekView
+            startDayHour={8}
+            endDayHour={18}
+            excludedDays={[0, 6]}
+            name="Work Week"
+          />
           <DayView startDayHour={8} endDayHour={18} />
           <Appointments appointmentComponent={Appointment} />
-          <Toolbar
-            flexibleSpaceComponent={this.flexibleSpace}
-          />
+          <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
           <DateNavigator />
           <ViewSwitcher />
           <AllDayPanel />

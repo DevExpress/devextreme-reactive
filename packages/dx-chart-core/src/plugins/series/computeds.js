@@ -9,9 +9,7 @@ import {
 } from 'd3-shape';
 import { scaleOrdinal } from 'd3-scale';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import {
-  createScale, getWidth, setScalePadding, getValueDomainName,
-} from '../../utils/scale';
+import { getWidth, getValueDomainName } from '../../utils/scale';
 
 const getX = ({ x }) => x;
 const getY = ({ y }) => y;
@@ -72,39 +70,23 @@ export const getAreaPointTransformer = ({ argumentScale, valueScale }) => {
   });
 };
 
-// TODO: Take group settings from *series*; move settings calculation to Stack plugin
-// (since it handles bar grouping by now)
-const getGroupSettings = (argumentScale, barWidth, stack, stacks, scaleExtension) => {
-  const width = getWidth(argumentScale);
-  const groupsScale = setScalePadding(createScale(
-    {
-      domain: stacks,
-    },
-    width,
-    width,
-    scaleExtension.find(item => item.type === 'band').constructor,
-  ), 1 - barWidth);
-  return {
-    groupOffset: groupsScale(stack),
-    groupWidth: getWidth(groupsScale),
-  };
-};
-
 export const getBarPointTransformer = ({
-  argumentScale, valueScale, barWidth = 0.9, stack,
-}, stacks = [undefined], scaleExtension) => {
+  argumentScale, valueScale, barWidth,
+}) => {
   const y1 = valueScale(0);
-  const { groupWidth, groupOffset } = getGroupSettings(
-    argumentScale, barWidth, stack, stacks, scaleExtension,
-  );
+  const categoryWidth = getWidth(argumentScale);
+  const offset = categoryWidth * (1 - barWidth) / 2;
+  const width = categoryWidth * barWidth;
   return point => ({
     ...point,
-    x: argumentScale(point.argument) + groupOffset,
+    x: argumentScale(point.argument) + offset,
     y: valueScale(point.value),
     y1,
-    width: groupWidth,
+    width,
   });
 };
+// Used for Bar grouping.
+getBarPointTransformer.isBroad = true;
 
 export const findSeriesByName = (
   name, series,
@@ -162,21 +144,20 @@ export const addSeries = (series, data, palette, props) => {
 };
 
 // TODO: Memoization is much needed here by the same reason as in "createPoints".
-// Make "scales" persist first.
-const scalePoints = (series, scales, ...args) => {
-  const transform = series.getPointTransformer({
+// Make "scales" persistent first.
+const scalePoints = (series, scales) => {
+  const { getPointTransformer, ...rest } = series;
+  const transform = getPointTransformer({
     ...series,
     argumentScale: scales[ARGUMENT_DOMAIN],
     valueScale: scales[getValueDomainName(series.axisName)],
-  }, ...args);
+  });
   return {
-    ...series,
+    ...rest,
     points: series.points.map(transform),
   };
 };
 
-// `...args` are added because of Bar case where `stacks` and `scaleExtension` are required.
-// TODO: Remove `...args` when Bar case is resolved.
-export const scaleSeriesPoints = (series, scales, ...args) => series.map(
-  seriesItem => scalePoints(seriesItem, scales, ...args),
+export const scaleSeriesPoints = (series, scales) => series.map(
+  seriesItem => scalePoints(seriesItem, scales),
 );

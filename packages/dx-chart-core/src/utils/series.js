@@ -94,3 +94,43 @@ export const createPieHitTester = coordinates => ([px, py]) => {
   });
   return point ? { point: point.index } : null;
 };
+
+const buildFilter = (targets) => {
+  const result = {};
+  targets.forEach(({ series, point }) => {
+    result[series] = result[series] || { points: {} };
+    if (point >= 0) {
+      result[series].points[point] = true;
+    } else {
+      result[series].self = true;
+    }
+  });
+  return result;
+};
+
+export const changeSeriesState = (seriesList, targets, state) => {
+  if (targets.length === 0) {
+    return seriesList;
+  }
+  const filter = buildFilter(targets);
+  let matches = 0;
+  const result = seriesList.map((seriesItem) => {
+    const obj = filter[seriesItem.name];
+    if (!obj) {
+      return seriesItem;
+    }
+    matches += 1;
+    const props = {};
+    if (obj.self) {
+      props.state = state;
+    }
+    if (Object.keys(obj.points).length) {
+      props.points = seriesItem.points.map(
+        point => (obj.points[point.index] ? { ...point, state } : point),
+      );
+    }
+    return { ...seriesItem, ...props };
+  });
+  // This is to prevent false rerenders.
+  return matches > 0 ? result : seriesList;
+};

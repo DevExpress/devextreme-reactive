@@ -6,10 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = ({ palette, typography, spacing }) => ({
   appointment: {
     overflow: 'hidden',
-    backgroundColor: palette.primary[300],
     boxSizing: 'border-box',
-    borderRight: `1px solid ${palette.background.paper}`,
-    borderBottom: `1px solid ${palette.background.paper}`,
+    borderRight: '1px solid transparent',
+    borderBottom: '1px solid transparent',
+    backgroundClip: 'padding-box',
+    backgroundColor: palette.primary[300],
     ...typography.caption,
     '&:hover': {
       backgroundColor: palette.primary[400],

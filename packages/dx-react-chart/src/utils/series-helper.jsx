@@ -10,9 +10,7 @@ import {
 import {
   findSeriesByName, addSeries, getValueDomainName, ARGUMENT_DOMAIN,
 } from '@devexpress/dx-chart-core';
-
-// TODO: Remove it - just pass `true` or `false` to `withSeriesPlugin`.
-const isStartedFromZero = pathType => pathType === 'area' || pathType === 'bar';
+import { withComponents } from './series-component';
 
 // May be it is better to say what props are passed along rather then what are NOT passed?
 const getRenderProps = (series) => {
@@ -23,12 +21,9 @@ const getRenderProps = (series) => {
     argumentField,
     valueField,
     palette,
-    stack,
     symbolName,
-    isStartedFromZero: _,
+    isStartedFromZero,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
-    points,
-    getPointTransformer,
     createHitTester,
     ...restProps
   } = series;
@@ -36,24 +31,14 @@ const getRenderProps = (series) => {
   return restProps;
 };
 
-export const withSeriesPlugin = (
-  Series,
-  pluginName,
-  pathType, // TODO: Replace it with bool - `isStartedFromZero`.
-  getPointTransformer,
-  // Hit tester belongs to Tracker plugin and should not be part of basic code.
-  // TODO: Is there a way to remove it from here?
-  createHitTester,
-) => {
+export const declareSeries = (pluginName, { components, ...parameters }) => {
   class Component extends React.PureComponent {
     render() {
       const { name } = this.props;
       const symbolName = Symbol(name);
       const seriesItem = {
+        ...parameters,
         ...this.props,
-        getPointTransformer,
-        createHitTester,
-        isStartedFromZero: isStartedFromZero(pathType),
         symbolName,
       };
       const getSeries = ({ series, data, palette }) => addSeries(series, data, palette, seriesItem);
@@ -69,10 +54,10 @@ export const withSeriesPlugin = (
                   xScale: scales[ARGUMENT_DOMAIN],
                   yScale: scales[getValueDomainName(currentSeries.axisName)],
                 };
-                const props = getRenderProps(currentSeries);
+                const { seriesComponent: Series, points, ...props } = getRenderProps(currentSeries);
                 return (
                   <Series
-                    coordinates={currentSeries.points}
+                    coordinates={points}
                     scales={currentScales}
                     getAnimatedStyle={getAnimatedStyle}
                     {...props}
@@ -95,5 +80,12 @@ export const withSeriesPlugin = (
   Component.defaultProps = {
     name: 'defaultSeriesName',
   };
-  return Component;
+  Component.components = {};
+  if (components.Path) {
+    Component.components.seriesComponent = 'Path';
+  }
+  if (components.Point) {
+    Component.components.pointComponent = 'Point';
+  }
+  return withComponents(components)(Component);
 };

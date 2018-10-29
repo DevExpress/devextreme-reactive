@@ -19,7 +19,7 @@ const TextBase = ({
   ...restProps
 }) => (
   <Typography
-    variant="title"
+    variant="h6"
     color="inherit"
     className={classNames({
       [classes.text]: true,

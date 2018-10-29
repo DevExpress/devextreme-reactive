@@ -54,10 +54,10 @@ const styles = theme => ({
     acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
     return acc;
   }, {}),
-  conentItem: {
+  contentItem: {
     paddingLeft: 0,
   },
-  conentItemValue: {
+  contentItemValue: {
     padding: 0,
   },
   contentItemIcon: {
@@ -166,7 +166,7 @@ const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
 );
 
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  ({ classes, appointmentData, ...restProps }) => {
+  ({ classes, appointmentData }) => {
     const priority = getPriorityById(appointmentData.priorityId);
     const priorityClasses = createClassesByPriorityId(
       appointmentData.priorityId, classes, { color: true },
@@ -175,21 +175,21 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
     if (appointmentData.priorityId === 2) icon = <Event />;
     else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
     return (
-      <AppointmentTooltip.Content {...restProps}>
+      <AppointmentTooltip.Content>
         <List>
-          <ListItem className={classes.conentItem}>
+          <ListItem className={classes.contentItem}>
             <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>
               {icon}
             </ListItemIcon>
-            <ListItemText className={classes.conentItemValue}>
+            <ListItemText className={classes.contentItemValue}>
               <span className={priorityClasses}>{` ${priority} priority`}</span>
             </ListItemText>
           </ListItem>
-          <ListItem className={classes.conentItem}>
+          <ListItem className={classes.contentItem}>
             <ListItemIcon className={`${classes.contentItemIcon}`}>
               <AccessTime />
             </ListItemIcon>
-            <ListItemText className={classes.conentItemValue}>
+            <ListItemText className={classes.contentItemValue}>
               {moment(appointmentData.startDate).format('h:mm A')}
               {' - '}
               {moment(appointmentData.endDate).format('h:mm A')}

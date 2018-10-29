@@ -7,6 +7,7 @@ export const Scheduler = ({
   data,
   rootComponent,
   children,
+  appointmentFields,
   getAppointmentTitle,
   getAppointmentStartDate,
   getAppointmentEndDate,
@@ -17,6 +18,7 @@ export const Scheduler = ({
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
+      appointmentFields={appointmentFields}
       getAppointmentTitle={getAppointmentTitle}
       getAppointmentStartDate={getAppointmentStartDate}
       getAppointmentEndDate={getAppointmentEndDate}
@@ -31,6 +33,7 @@ Scheduler.propTypes = {
   data: PropTypes.array,
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
+  appointmentFields: PropTypes.object,
   getAppointmentTitle: PropTypes.func,
   getAppointmentStartDate: PropTypes.func,
   getAppointmentEndDate: PropTypes.func,
@@ -41,6 +44,7 @@ Scheduler.propTypes = {
 Scheduler.defaultProps = {
   children: undefined,
   data: [],
+  appointmentFields: {},
   getAppointmentTitle: appointment => appointment.title,
   getAppointmentStartDate: appointment => appointment.startDate,
   getAppointmentEndDate: appointment => appointment.endDate,

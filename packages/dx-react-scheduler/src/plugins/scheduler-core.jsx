@@ -5,16 +5,20 @@ import {
 } from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
 
+const defaultAppointmentFields = {
+  title: appointment => appointment.title,
+  startDate: appointment => appointment.startDate,
+  endDate: appointment => appointment.endDate,
+  allDay: appointment => appointment.allDay,
+  id: appointment => appointment.id,
+};
+
 export class SchedulerCore extends React.PureComponent {
   render() {
     const {
       data,
       rootComponent: Root,
-      getAppointmentTitle,
-      getAppointmentStartDate,
-      getAppointmentEndDate,
-      getAppointmentAllDay,
-      getAppointmentId,
+      appointmentFields,
     } = this.props;
 
     const appointmentsComputed = getters => appointments(
@@ -23,15 +27,22 @@ export class SchedulerCore extends React.PureComponent {
       getters.getAppointmentEndDate,
       getters.getAppointmentAllDay,
     );
+
+    const appointmentFunctions = {
+      ...defaultAppointmentFields,
+      ...appointmentFields,
+    };
+
+    const getAppointmentField = (appointment, fieldName) => {
+      return appointmentFunctions[fieldName](appointment);
+    };
+
     return (
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="getAppointmentTitle" value={getAppointmentTitle} />
-        <Getter name="getAppointmentStartDate" value={getAppointmentStartDate} />
-        <Getter name="getAppointmentEndDate" value={getAppointmentEndDate} />
-        <Getter name="getAppointmentAllDay" value={getAppointmentAllDay} />
-        <Getter name="getAppointmentId" value={getAppointmentId} />
+        <Getter name="getAppointmentField" value={getAppointmentField} />
+
         <Getter name="appointments" computed={appointmentsComputed} />
         <Template name="root">
           <Root>
@@ -48,9 +59,10 @@ export class SchedulerCore extends React.PureComponent {
 SchedulerCore.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  getAppointmentTitle: PropTypes.func.isRequired,
-  getAppointmentStartDate: PropTypes.func.isRequired,
-  getAppointmentEndDate: PropTypes.func.isRequired,
-  getAppointmentAllDay: PropTypes.func.isRequired,
-  getAppointmentId: PropTypes.func.isRequired,
+  appointmentFields: PropTypes.object.isRequired,
+  // getAppointmentTitle: PropTypes.func.isRequired,
+  // getAppointmentStartDate: PropTypes.func.isRequired,
+  // getAppointmentEndDate: PropTypes.func.isRequired,
+  // getAppointmentAllDay: PropTypes.func.isRequired,
+  // getAppointmentId: PropTypes.func.isRequired,
 };

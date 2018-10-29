@@ -1,6 +1,6 @@
 # ViewState Plugin Reference
 
-A plugin that manages the view state. It controls the total page count depending on the total row count and the specified page size, controls the currently selected page number and changes it in response to the corresponding actions.
+A plugin that manages the view state. It controls what view will be displayed and what date will be current.
 
 ## Import
 

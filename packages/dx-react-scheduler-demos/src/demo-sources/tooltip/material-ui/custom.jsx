@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import appointments from '../../../demo-data/today-appointments';
 
 const style = theme => ({
-  head: {
+  header: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -33,32 +33,31 @@ const style = theme => ({
   },
 });
 
-const Head = withStyles(style, { name: 'Head' })(({
-  children, appointment, classes, ...restProps
+const Header = withStyles(style, { name: 'Header' })(({
+  children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Head
+  <AppointmentTooltip.Header
     {...restProps}
-    appointment={appointment}
-    className={classes.head}
+    className={classes.header}
   >
     <span role="img" aria-label="Clock" className={classes.icon}>🕒</span>
     <div className={classes.title}>
-      {appointment.title}
+      {appointmentData.title}
     </div>
-  </AppointmentTooltip.Head>
+  </AppointmentTooltip.Header>
 ));
 
 const Content = withStyles(style, { name: 'Content' })(({
-  children, appointment, classes, ...restProps
+  children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Content appointment={appointment} {...restProps}>
+  <AppointmentTooltip.Content {...restProps}>
     {children}
     <Button
       variant="outlined"
       color="primary"
       className={classes.button}
       // eslint-disable-next-line no-alert
-      onClick={() => alert(JSON.stringify(appointment))}
+      onClick={() => alert(JSON.stringify(appointmentData))}
     >
       Details
     </Button>
@@ -89,7 +88,7 @@ export default class Demo extends React.PureComponent {
           <Appointments />
 
           <AppointmentTooltip
-            headComponent={Head}
+            headerComponent={Header}
             contentComponent={Content}
           />
         </Scheduler>

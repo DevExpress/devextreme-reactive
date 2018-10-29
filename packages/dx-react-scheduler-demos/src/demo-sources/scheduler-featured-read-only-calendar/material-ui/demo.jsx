@@ -251,12 +251,15 @@ export default class Demo extends React.PureComponent {
             onCurrentDateChange={this.currentDateChange}
           />
           <WeekView
-            startDayHour={8}
-            endDayHour={18}
+            startDayHour={9}
+            endDayHour={19}
             excludedDays={[0, 6]}
             name="Work Week"
           />
-          <DayView startDayHour={8} endDayHour={18} />
+          <DayView
+            startDayHour={9}
+            endDayHour={19}
+          />
           <Appointments appointmentComponent={Appointment} />
           <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
           <DateNavigator />

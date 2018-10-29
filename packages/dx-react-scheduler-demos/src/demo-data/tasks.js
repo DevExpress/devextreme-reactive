@@ -1,5 +1,47 @@
 export const tasks = [
   {
+    title: 'Recall Rebate Form',
+    priorityId: 2,
+    startDate: '2018-04-17 09:30',
+    endDate: '2018-04-17 10:00',
+  },
+  {
+    title: 'Create Report on Customer Feedback',
+    priorityId: 2,
+    startDate: '2018-04-17 10:30',
+    endDate: '2018-04-17 12:00',
+  },
+  {
+    title: 'Review Customer Feedback Report',
+    priorityId: 2,
+    startDate: '2018-04-17 12:15',
+    endDate: '2018-04-17 13:30',
+  },
+  {
+    title: 'Google AdWords Strategy',
+    priorityId: 2,
+    startDate: '2018-04-20 09:30',
+    endDate: '2018-04-20 11:30',
+  },
+  {
+    title: 'Rollout of New Website and Marketing Brochures',
+    priorityId: 2,
+    startDate: '2018-04-19 10:30',
+    endDate: '2018-04-19 12:30',
+  },
+  {
+    title: 'Create New Shipping Return Labels',
+    priorityId: 3,
+    startDate: '2018-04-19 13:00',
+    endDate: '2018-04-19 14:30',
+  },
+  {
+    title: 'Update Sales Strategy Documents',
+    priorityId: 1,
+    startDate: '2018-04-18 11:00',
+    endDate: '2018-04-18 11:30',
+  },
+  {
     title: 'Website Re-Design Plan',
     priorityId: 2,
     startDate: '2018-04-27 09:30',
@@ -96,6 +138,72 @@ export const tasks = [
     priorityId: 3,
     startDate: '2018-04-26 12:20',
     endDate: '2018-04-26 14:00',
+  },
+  {
+    title: 'Non-Compete Agreements',
+    priorityId: 1,
+    startDate: '2018-04-30 12:20',
+    endDate: '2018-04-30 13:00',
+  },
+  {
+    title: 'Approve Hiring of John Jeffers',
+    priorityId: 3,
+    startDate: '2018-04-30 13:30',
+    endDate: '2018-04-30 14:00',
+  },
+  {
+    title: 'Review Training Course for any Ommissions',
+    priorityId: 3,
+    startDate: '2018-04-30 09:30',
+    endDate: '2018-04-30 10:00',
+  },
+  {
+    title: 'Update NDA Agreement',
+    priorityId: 2,
+    startDate: '2018-05-01 12:00',
+    endDate: '2018-05-01 15:00',
+  },
+  {
+    title: 'Update Employee Files with New NDA',
+    priorityId: 2,
+    startDate: '2018-05-02 09:00',
+    endDate: '2018-05-02 10:00',
+  },
+  {
+    title: 'Submit Questions Regarding New NDA',
+    priorityId: 2,
+    startDate: '2018-05-02 10:15',
+    endDate: '2018-05-02 10:45',
+  },
+  {
+    title: 'Submit Signed NDA',
+    priorityId: 2,
+    startDate: '2018-05-02 10:45',
+    endDate: '2018-05-02 11:15',
+  },
+  {
+    title: 'Review Revenue Projections',
+    priorityId: 1,
+    startDate: '2018-05-02 12:00',
+    endDate: '2018-05-02 12:30',
+  },
+  {
+    title: 'Comment on Revenue Projections',
+    priorityId: 1,
+    startDate: '2018-05-02 13:00',
+    endDate: '2018-05-02 14:00',
+  },
+  {
+    title: 'Provide New Health Insurance Docs',
+    priorityId: 2,
+    startDate: '2018-05-03 10:00',
+    endDate: '2018-05-03 11:30',
+  },
+  {
+    title: 'Review Changes to Health Insurance Coverage',
+    priorityId: 2,
+    startDate: '2018-05-03 11:45',
+    endDate: '2018-05-03 13:30',
   },
 ];
 

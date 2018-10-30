@@ -8,12 +8,13 @@ import { SchedulerCore } from './scheduler-core';
 const defaultProps = {
   data: [1, 2, 3],
   rootComponent: () => null,
-  // getAppointmentTitle: () => 'a',
-  // getAppointmentEndDate: () => '2018-07-05',
-  // getAppointmentStartDate: () => '2018-07-06',
-  // getAppointmentAllDay: () => undefined,
-  // getAppointmentId: () => undefined,
-  appointmentFields: () => ({}),
+  appointmentMapping: () => ({
+    title: 'title',
+    startDate: 'start',
+    endDate: 'end',
+    id: 'id',
+    allDay: 'allDay',
+  }),
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -30,64 +31,24 @@ describe('Scheduler Core', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide the "getAppointmentId" getter', () => {
+  it('should provide the appointmentMapping getter', () => {
     const tree = mount((
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          getAppointmentId={() => 10}
+          appointmentMapping={() => ({
+            title: 'title',
+            id: 10,
+          })}
         />
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).getAppointmentId())
+    expect(getComputedState(tree).appointmentMapping().id)
       .toBe(10);
-  });
-
-  it('should provide the "getAppointmentTitle" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-          getAppointmentTitle={() => 'a'}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentTitle())
-      .toBe('a');
-  });
-
-  it('should provide the "getAppointmentStartDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-          getAppointmentStartDate={() => '2018-07-05'}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentStartDate())
-      .toBe('2018-07-05');
-  });
-
-  it('should provide the "getAppointmentEndDate" getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-          getAppointmentEndDate={() => '2018-07-05'}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).getAppointmentEndDate())
-      .toBe('2018-07-05');
+    expect(getComputedState(tree).appointmentMapping().title)
+      .toBe('title');
   });
 
   it('should provide the "appointment" getter', () => {

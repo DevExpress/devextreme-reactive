@@ -8,22 +8,12 @@ export const Scheduler = ({
   rootComponent,
   children,
   appointmentMapping,
-  getAppointmentTitle,
-  getAppointmentStartDate,
-  getAppointmentEndDate,
-  getAppointmentAllDay,
-  getAppointmentId,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
       appointmentMapping={appointmentMapping}
-      getAppointmentTitle={getAppointmentTitle}
-      getAppointmentStartDate={getAppointmentStartDate}
-      getAppointmentEndDate={getAppointmentEndDate}
-      getAppointmentAllDay={getAppointmentAllDay}
-      getAppointmentId={getAppointmentId}
     />
     {children}
   </PluginHost>
@@ -34,20 +24,10 @@ Scheduler.propTypes = {
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
   appointmentMapping: PropTypes.func,
-  getAppointmentTitle: PropTypes.func,
-  getAppointmentStartDate: PropTypes.func,
-  getAppointmentEndDate: PropTypes.func,
-  getAppointmentAllDay: PropTypes.func,
-  getAppointmentId: PropTypes.func,
 };
 
 Scheduler.defaultProps = {
   children: undefined,
   data: [],
   appointmentMapping: appointment => appointment,
-  getAppointmentTitle: appointment => appointment.title,
-  getAppointmentStartDate: appointment => appointment.startDate,
-  getAppointmentEndDate: appointment => appointment.endDate,
-  getAppointmentAllDay: appointment => appointment.allDay,
-  getAppointmentId: appointment => appointment.id,
 };

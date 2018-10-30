@@ -11,19 +11,10 @@ export class SchedulerCore extends React.PureComponent {
       data,
       rootComponent: Root,
       appointmentMapping,
-
-      getAppointmentTitle,
-      getAppointmentStartDate,
-      getAppointmentEndDate,
-      getAppointmentAllDay,
-      getAppointmentId,
     } = this.props;
 
     const appointmentsComputed = getters => appointments(
       data,
-      // getters.getAppointmentStartDate,
-      // getters.getAppointmentEndDate,
-      // getters.getAppointmentAllDay,
       getters.appointmentMapping,
     );
 
@@ -31,12 +22,6 @@ export class SchedulerCore extends React.PureComponent {
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="getAppointmentTitle" value={getAppointmentTitle} />
-        <Getter name="getAppointmentStartDate" value={getAppointmentStartDate} />
-        <Getter name="getAppointmentEndDate" value={getAppointmentEndDate} />
-        <Getter name="getAppointmentAllDay" value={getAppointmentAllDay} />
-        <Getter name="getAppointmentId" value={getAppointmentId} />
-
         <Getter name="appointmentMapping" value={appointmentMapping} />
         <Getter name="appointments" computed={appointmentsComputed} />
         <Template name="root">
@@ -55,9 +40,4 @@ SchedulerCore.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
   appointmentMapping: PropTypes.func.isRequired,
-  getAppointmentTitle: PropTypes.func.isRequired,
-  getAppointmentStartDate: PropTypes.func.isRequired,
-  getAppointmentEndDate: PropTypes.func.isRequired,
-  getAppointmentAllDay: PropTypes.func.isRequired,
-  getAppointmentId: PropTypes.func.isRequired,
 };

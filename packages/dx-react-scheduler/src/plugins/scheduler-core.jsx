@@ -5,44 +5,39 @@ import {
 } from '@devexpress/dx-react-core';
 import { appointments } from '@devexpress/dx-scheduler-core';
 
-const defaultAppointmentFields = {
-  title: appointment => appointment.title,
-  startDate: appointment => appointment.startDate,
-  endDate: appointment => appointment.endDate,
-  allDay: appointment => appointment.allDay,
-  id: appointment => appointment.id,
-};
-
 export class SchedulerCore extends React.PureComponent {
   render() {
     const {
       data,
       rootComponent: Root,
-      appointmentFields,
+      appointmentMapping,
+
+      getAppointmentTitle,
+      getAppointmentStartDate,
+      getAppointmentEndDate,
+      getAppointmentAllDay,
+      getAppointmentId,
     } = this.props;
 
     const appointmentsComputed = getters => appointments(
       data,
-      getters.getAppointmentStartDate,
-      getters.getAppointmentEndDate,
-      getters.getAppointmentAllDay,
+      // getters.getAppointmentStartDate,
+      // getters.getAppointmentEndDate,
+      // getters.getAppointmentAllDay,
+      getters.appointmentMapping,
     );
-
-    const appointmentFunctions = {
-      ...defaultAppointmentFields,
-      ...appointmentFields,
-    };
-
-    const getAppointmentField = (appointment, fieldName) => {
-      return appointmentFunctions[fieldName](appointment);
-    };
 
     return (
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="getAppointmentField" value={getAppointmentField} />
+        <Getter name="getAppointmentTitle" value={getAppointmentTitle} />
+        <Getter name="getAppointmentStartDate" value={getAppointmentStartDate} />
+        <Getter name="getAppointmentEndDate" value={getAppointmentEndDate} />
+        <Getter name="getAppointmentAllDay" value={getAppointmentAllDay} />
+        <Getter name="getAppointmentId" value={getAppointmentId} />
 
+        <Getter name="appointmentMapping" value={appointmentMapping} />
         <Getter name="appointments" computed={appointmentsComputed} />
         <Template name="root">
           <Root>
@@ -59,10 +54,10 @@ export class SchedulerCore extends React.PureComponent {
 SchedulerCore.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  appointmentFields: PropTypes.object.isRequired,
-  // getAppointmentTitle: PropTypes.func.isRequired,
-  // getAppointmentStartDate: PropTypes.func.isRequired,
-  // getAppointmentEndDate: PropTypes.func.isRequired,
-  // getAppointmentAllDay: PropTypes.func.isRequired,
-  // getAppointmentId: PropTypes.func.isRequired,
+  appointmentMapping: PropTypes.func.isRequired,
+  getAppointmentTitle: PropTypes.func.isRequired,
+  getAppointmentStartDate: PropTypes.func.isRequired,
+  getAppointmentEndDate: PropTypes.func.isRequired,
+  getAppointmentAllDay: PropTypes.func.isRequired,
+  getAppointmentId: PropTypes.func.isRequired,
 };

@@ -8,11 +8,12 @@ import { SchedulerCore } from './scheduler-core';
 const defaultProps = {
   data: [1, 2, 3],
   rootComponent: () => null,
-  getAppointmentTitle: () => 'a',
-  getAppointmentEndDate: () => '2018-07-05',
-  getAppointmentStartDate: () => '2018-07-06',
-  getAppointmentAllDay: () => undefined,
-  getAppointmentId: () => undefined,
+  // getAppointmentTitle: () => 'a',
+  // getAppointmentEndDate: () => '2018-07-05',
+  // getAppointmentStartDate: () => '2018-07-06',
+  // getAppointmentAllDay: () => undefined,
+  // getAppointmentId: () => undefined,
+  appointmentFields: () => ({}),
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

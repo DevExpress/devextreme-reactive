@@ -52,6 +52,13 @@ const getAppointmentStartDate = appointment => appointment.StartDate;
 const getAppointmentEndDate = appointment => appointment.EndDate;
 const getAppointmentTitle = appointment => appointment.Text;
 
+const appointmentMapping = appointment => ({
+  ...appointment,
+  startDate: appointment.StartDate,
+  endDate: appointment.EndDate,
+  title: appointment.Text,
+});
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -108,6 +115,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          appointmentMapping={appointmentMapping}
           getAppointmentStartDate={getAppointmentStartDate}
           getAppointmentEndDate={getAppointmentEndDate}
           getAppointmentTitle={getAppointmentTitle}

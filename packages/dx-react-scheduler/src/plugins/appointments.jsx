@@ -19,16 +19,18 @@ export class Appointments extends React.PureComponent {
           {({ onClick, onDoubleClick, ...params }) => (
             <TemplateConnector>
               {({
-                getAppointmentTitle,
-                getAppointmentStartDate,
-                getAppointmentEndDate,
+                // getAppointmentTitle,
+                // getAppointmentStartDate,
+                // getAppointmentEndDate,
+                appointmentMapping,
               }) => (
                 <Appointment
                   {...params}
                   {...createClickHandlers(onClick, onDoubleClick)}
-                  getAppointmentTitle={getAppointmentTitle}
-                  getAppointmentEndDate={getAppointmentEndDate}
-                  getAppointmentStartDate={getAppointmentStartDate}
+                  // getAppointmentTitle={getAppointmentTitle}
+                  // getAppointmentEndDate={getAppointmentEndDate}
+                  // getAppointmentStartDate={getAppointmentStartDate}
+                  appointmentMapping={appointmentMapping}
                 />
               )}
             </TemplateConnector>

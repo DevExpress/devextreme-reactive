@@ -6,11 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   text: {
-    ...theme.typography.body1,
+    ...theme.typography.body2,
     display: 'inline-block',
   },
   title: {
-    ...theme.typography.title,
+    ...theme.typography.h6,
     padding: theme.spacing.unit * 1.75,
     color: theme.palette.background.default,
     overflow: 'hidden',

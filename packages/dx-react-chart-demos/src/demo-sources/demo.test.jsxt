@@ -14,6 +14,8 @@ jest.spyOn(Element.prototype, 'getBBox').mockImplementation(() => ({
 }));
 
 window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));
+// eslint-disable-next-line
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 it('should not fail', () => {
   expect(() => { mount(<Demo />); })

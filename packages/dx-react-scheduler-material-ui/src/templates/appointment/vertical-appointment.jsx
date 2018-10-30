@@ -24,8 +24,6 @@ const styles = {
 
 const VerticalAppointmentBase = ({
   classes,
-  // getAppointmentTitle,
-  // getAppointmentStartDate, getAppointmentEndDate,
   appointmentMapping,
   data,
   children,
@@ -59,17 +57,13 @@ const VerticalAppointmentBase = ({
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  // getAppointmentTitle: PropTypes.func,
-  // getAppointmentStartDate: PropTypes.func,
-  // getAppointmentEndDate: PropTypes.func,
+  appointmentMapping: PropTypes.func,
   children: PropTypes.node,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  // getAppointmentStartDate: () => { },
-  // getAppointmentEndDate: () => { },
-  // getAppointmentTitle: () => { },
+  appointmentMapping: () => undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

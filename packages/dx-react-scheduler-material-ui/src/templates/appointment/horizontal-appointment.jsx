@@ -13,9 +13,6 @@ const styles = {
 
 const HorizontalAppointmentBase = ({
   classes,
-  // getAppointmentTitle,
-  // getAppointmentStartDate,
-  // getAppointmentEndDate,
   appointmentMapping,
   data,
   children,
@@ -27,7 +24,6 @@ const HorizontalAppointmentBase = ({
   >
     {children || (
       <div className={classes.title}>
-        {/* {getAppointmentTitle(data)} */}
         {appointmentMapping(data).title}
       </div>
     )}
@@ -37,17 +33,13 @@ const HorizontalAppointmentBase = ({
 HorizontalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  appointmentMapping: PropTypes.func,
   children: PropTypes.node,
-  // getAppointmentTitle: PropTypes.func,
-  // getAppointmentStartDate: PropTypes.func,
-  // getAppointmentEndDate: PropTypes.func,
 };
 
 HorizontalAppointmentBase.defaultProps = {
+  appointmentMapping: () => undefined,
   children: undefined,
-  // getAppointmentStartDate: () => {},
-  // getAppointmentEndDate: () => {},
-  // getAppointmentTitle: () => {},
 };
 
 export const HorizontalAppointment = withStyles(styles, { name: 'HorizontalAppointment' })(HorizontalAppointmentBase);

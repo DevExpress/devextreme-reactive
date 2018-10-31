@@ -107,7 +107,7 @@ describe('Horizontal rect helpers', () => {
       );
 
       expect(top).toBe(132);
-      expect(left).toBe(13);
+      expect(left).toBe(11);
       expect(height).toBe(68);
       expect(width).toBe(99);
       expect(parentWidth).toBe(250);
@@ -131,9 +131,9 @@ describe('Horizontal rect helpers', () => {
       );
 
       expect(top).toBe(132);
-      expect(left).toBe(12);
+      expect(left).toBe(11);
       expect(height).toBe(68);
-      expect(width).toBe(398);
+      expect(width).toBe(399);
       expect(parentWidth).toBe(250);
     });
     it('should correct call with multiline property', () => {

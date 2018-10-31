@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { DEFAULT, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import { HOVERED, SELECTED } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
@@ -29,7 +29,6 @@ RawBar.defaultProps = {
 };
 
 export const Bar = withStates({
-  [DEFAULT]: props => props,
   [HOVERED]: withPattern(
     RawBar,
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`,

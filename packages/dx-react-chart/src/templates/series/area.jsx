@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {
-  getAreaAnimationStyle, DEFAULT, HOVERED, SELECTED,
-} from '@devexpress/dx-chart-core';
+import { getAreaAnimationStyle, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 
@@ -43,7 +41,6 @@ RawArea.defaultProps = {
 };
 
 export const Area = withStates({
-  [DEFAULT]: props => props,
   [HOVERED]: withPattern(
     RawArea,
     ({ index }) => `series-${index}-hover`,

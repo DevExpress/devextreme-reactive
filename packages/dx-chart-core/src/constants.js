@@ -14,6 +14,5 @@ export const BAND = 'band';
 export const ARGUMENT_DOMAIN = 'argument-domain';
 export const VALUE_DOMAIN = 'value-domain';
 
-export const DEFAULT = 'default';
 export const HOVERED = 'hovered';
 export const SELECTED = 'selected';

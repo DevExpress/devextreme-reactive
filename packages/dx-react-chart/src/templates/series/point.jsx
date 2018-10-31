@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { DEFAULT, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
+import { HOVERED, SELECTED } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 
 class RawPoint extends React.PureComponent {
@@ -33,7 +33,6 @@ RawPoint.defaultProps = {
 };
 
 export const Point = withStates({
-  [DEFAULT]: props => props,
   [HOVERED]: ({ color, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,

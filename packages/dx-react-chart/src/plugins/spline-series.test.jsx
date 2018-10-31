@@ -35,6 +35,7 @@ describe('Spline series', () => {
     ...defaultProps,
     points: coords,
     seriesComponent: SeriesComponent,
+    path: dSpline,
     customProperty: 'custom',
   });
 

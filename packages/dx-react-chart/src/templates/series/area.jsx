@@ -17,6 +17,7 @@ export class Area extends React.PureComponent {
       <path
         d={path(coordinates)}
         fill={color}
+        opacity={0.5}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}
       />

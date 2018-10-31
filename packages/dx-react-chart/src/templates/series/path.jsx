@@ -16,6 +16,8 @@ export class Path extends React.PureComponent {
     return (
       <path
         d={path(coordinates)}
+        fill="none"
+        strokeWidth={2}
         stroke={color}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}

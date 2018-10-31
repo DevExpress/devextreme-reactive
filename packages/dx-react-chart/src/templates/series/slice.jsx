@@ -10,6 +10,7 @@ export class Slice extends React.PureComponent {
     return (
       <path
         fill={color}
+        stroke="none"
         d={d}
         {...restProps}
       />

@@ -8,6 +8,7 @@ describe('Point', () => {
     y: 2,
     d: 'M11 11',
     value: 10,
+    color: 'red',
   };
 
   it('should render path element', () => {
@@ -16,16 +17,13 @@ describe('Point', () => {
         {...defaultProps}
       />
     ));
-    expect(tree.find('path').exists()).toBeTruthy();
-  });
 
-  it('should render path element with props', () => {
-    const tree = shallow((
-      <Point {...defaultProps} />
-    ));
-    const { transform, d } = tree.find('path').props();
-    expect(transform).toBe('translate(1 2)');
-    expect(d).toBe('M11 11');
+    expect(tree.find('path').props()).toEqual({
+      d: 'M11 11',
+      fill: 'red',
+      stroke: 'none',
+      transform: 'translate(1 2)',
+    });
   });
 
   it('should render path element with custom styles', () => {
@@ -44,15 +42,11 @@ describe('Point', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Point {...defaultProps} customProperty />);
+    const tree = shallow((
+      <Point {...defaultProps} customProperty />
+    ));
     const { customProperty } = tree.find('path').props();
+
     expect(customProperty).toBeTruthy();
-  });
-
-  it('should apply color', () => {
-    const tree = shallow(<Point {...defaultProps} color="color" />);
-
-    expect(tree.find('path').props().fill)
-      .toBe('color');
   });
 });

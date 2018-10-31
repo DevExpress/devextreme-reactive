@@ -7,24 +7,21 @@ describe('Slice', () => {
     x: 1,
     y: 2,
     d: 'M11 11',
-    themeColor: 'color',
     value: 15,
+    color: 'red',
   };
 
   it('should render path element', () => {
     const tree = shallow((
       <Slice {...defaultProps} />
     ));
-    expect(tree.find('path').exists()).toBeTruthy();
-  });
 
-  it('should render path element with props', () => {
-    const tree = shallow((
-      <Slice {...defaultProps} />
-    ));
-    const { d, value } = tree.find('path').props();
-    expect(d).toBe('M11 11');
-    expect(value).toBeUndefined();
+    expect(tree.find('path').props()).toEqual({
+      d: 'M11 11',
+      fill: 'red',
+      stroke: 'none',
+      style: {},
+    });
   });
 
   it('should render path element with custom styles', () => {
@@ -39,8 +36,17 @@ describe('Slice', () => {
       />
     ));
     const { style } = tree.find('path').props();
-    expect(style).toEqual({
-      ...customStyle,
-    });
+
+    expect(style).toEqual(customStyle);
+  });
+
+
+  it('should pass the rest property to the root element', () => {
+    const tree = shallow((
+      <Slice {...defaultProps} customProperty />
+    ));
+    const { customProperty } = tree.find('path').props();
+
+    expect(customProperty).toBeTruthy();
   });
 });

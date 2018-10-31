@@ -8,10 +8,6 @@
   fill: currentColor;
 }
 
-.dx-c-bs4-fill-none {
-  fill: none;
-}
-
 .dx-c-bs4-stroke-current-color {
   stroke: currentColor;
 }
@@ -27,12 +23,3 @@
 .dx-c-bs4-axis-opacity {
   opacity: 0.15;
 }
-
-.dx-c-bs4-series-path{
-  stroke-width: 2;
-}
-
-.dx-c-bs4-series-opacity{
-  opacity: 0.5;
-}
-

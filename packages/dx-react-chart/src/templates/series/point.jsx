@@ -9,6 +9,7 @@ export class Point extends React.PureComponent {
     return (
       <path
         fill={color}
+        stroke="none"
         transform={`translate(${x} ${y})`}
         {...restProps}
       />

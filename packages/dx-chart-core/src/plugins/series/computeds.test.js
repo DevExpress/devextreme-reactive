@@ -333,6 +333,7 @@ describe('addSeries', () => {
       {
         name: 'test',
         uniqueName: 'test',
+        index: 2,
         points: [],
         color: 'c3',
         palette,
@@ -385,6 +386,7 @@ describe('addSeries', () => {
       { uniqueName: 's1' },
       {
         ...props,
+        index: 1,
         uniqueName: 'test',
         points: [
           { argument: 'a', value: 1, index: 0 },

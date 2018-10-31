@@ -134,12 +134,16 @@ const createPoints = (argumentField, valueField, data) => {
 
 export const addSeries = (series, data, palette, props) => {
   const points = createPoints(props.argumentField, props.valueField, data);
+  // It is used to generate unique series dependent attribute names for patterns.
+  // *symbolName* cannot be used as it cannot be part of DOM attribute name.
+  const index = series.length;
   return addItem(series, {
     ...props,
+    index,
     points,
     uniqueName: props.name,
     palette, // TODO: For Pie only. Find a better place for it.
-    color: props.color || palette[series.length % palette.length],
+    color: props.color || palette[index % palette.length],
   });
 };
 

@@ -39,10 +39,10 @@ Describes properties passed to a component that renders the series.
 
 Field | Type | Description
 ------|------|------------
-x | number | The x coordinate of the top left corner of the series' rendering area.
-y | number | The y coordinate of the top left corner of the series' rendering area.
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
 path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
+color | string | A series color.
+style | object | Series styles.
 
 ## Plugin Components
 

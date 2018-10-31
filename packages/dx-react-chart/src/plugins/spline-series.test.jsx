@@ -11,6 +11,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   addSeries: jest.fn(),
   ARGUMENT_DOMAIN: 'test_argument_domain',
   getValueDomainName: () => 'test_value_domain',
+  checkZeroStart: jest.fn(),
 }));
 
 
@@ -34,6 +35,7 @@ describe('Spline series', () => {
     ...defaultProps,
     points: coords,
     seriesComponent: SeriesComponent,
+    path: dSpline,
     customProperty: 'custom',
   });
 
@@ -63,6 +65,10 @@ describe('Spline series', () => {
 
     expect(seriesCoordinates).toBe(coords);
     expect(path).toBe(dSpline);
-    expect(restProps).toEqual({ customProperty: 'custom' });
+    expect(restProps).toEqual({
+      customProperty: 'custom',
+      getAnimatedStyle: undefined,
+      scales: {},
+    });
   });
 });

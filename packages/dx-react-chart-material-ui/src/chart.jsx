@@ -4,8 +4,9 @@ import {
   Chart as ChartBase, withComponents, Palette,
 } from '@devexpress/dx-react-chart';
 import { Root } from './templates/layout';
+import { Label } from './templates/label';
 
-const palette = ['#40C4FF', '#FF5252', '#00C853', '#FFEB3B', '#FF4081', '#E040FB'];
+const palette = ['#42A5F5', '#FF7043', '#9CCC65', '#FFCA28', '#26A69A', '#EC407A'];
 
 const ChartWithPalette = ({ children, ...props }) => (
   <ChartBase
@@ -23,3 +24,4 @@ ChartWithPalette.propTypes = {
 };
 
 export const Chart = withComponents({ Root })(ChartWithPalette);
+Chart.Label = Label;

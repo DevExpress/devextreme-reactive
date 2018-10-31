@@ -6,6 +6,8 @@ describe('Path', () => {
   const defaultProps = {
     path: jest.fn(value => value),
     coordinates: [{ x: 1, y: 2 }, { x: 2, y: 4 }],
+    seriesName: 'seriesName',
+    getAnimatedStyle: jest.fn(style => style),
   };
 
   it('should render root element', () => {

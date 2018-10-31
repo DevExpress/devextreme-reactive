@@ -16,6 +16,11 @@ import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
 import { withPatchedProps, withComponents } from '../utils';
 
+const getZeroCoord = () => 0;
+const getCorrectSize = position => ((position === 'left' || position === 'top') ? coord => -coord : (coord, side) => side + coord);
+const getCorrection = position => ((position === 'left' || position === 'top') ? coord => coord : getZeroCoord);
+const getCurrentSize = (_, side) => side;
+
 class RawAxis extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -26,7 +31,9 @@ class RawAxis extends React.PureComponent {
     this.createRefsHandler = this.createRefsHandler.bind(this);
   }
 
-  createRefsHandler(placeholder, changeBBox, orientation) {
+  createRefsHandler(placeholder, changeBBox, {
+    getWidth, getHeight, getXCorrection, getYCorrection,
+  }) {
     return (el) => {
       if (!el) {
         return;
@@ -40,15 +47,15 @@ class RawAxis extends React.PureComponent {
       changeBBox({
         placeholder,
         bBox: {
-          width,
-          height,
+          width: getWidth(x, width),
+          height: getHeight(y, height),
         },
       });
       this.setState({
         width,
         height,
-        xCorrection: orientation !== HORIZONTAL ? x : 0,
-        yCorrection: orientation !== HORIZONTAL ? 0 : y,
+        xCorrection: getXCorrection(x),
+        yCorrection: getYCorrection(y),
       });
     };
   }
@@ -112,7 +119,6 @@ class RawAxis extends React.PureComponent {
                 0,
                 0,
               );
-
               // Isn't it too late to adjust sizes?
               const postCalculatedScale = scale.copy().range(
                 orientation === HORIZONTAL ? [0, widthPostCalculated] : [heightPostCalculated, 0],
@@ -152,7 +158,16 @@ class RawAxis extends React.PureComponent {
                       refsHandler={this.createRefsHandler(
                         placeholder,
                         changeBBox,
-                        orientation,
+                        {
+                          getWidth: orientation !== HORIZONTAL
+                            ? getCorrectSize(position) : getCurrentSize,
+                          getHeight: orientation === HORIZONTAL
+                            ? getCorrectSize(position) : getCurrentSize,
+                          getXCorrection: orientation !== HORIZONTAL
+                            ? getCorrection(position) : getZeroCoord,
+                          getYCorrection: orientation === HORIZONTAL
+                            ? getCorrection(position) : getZeroCoord,
+                        },
                       )}
                       x={-xCorrection}
                       y={-yCorrection}

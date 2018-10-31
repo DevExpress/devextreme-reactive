@@ -1,5 +1,20 @@
 export const appointments = [
   {
+    title: '12 - 13',
+    startDate: new Date(2018, 6, 12, 0, 0),
+    endDate: new Date(2018, 6, 13, 0, 0),
+  }, {
+    title: '13-14',
+    startDate: new Date(2018, 6, 13, 0, 0),
+    endDate: new Date(2018, 6, 14, 0, 0),
+  }, {
+    title: '12-14',
+    startDate: new Date(2018, 6, 12, 0, 0),
+    endDate: new Date(2018, 6, 14, 0, 0),
+  },
+
+
+  {
     title: 'Website Re-Design Plan',
     startDate: new Date(2018, 6, 23, 9, 30),
     endDate: new Date(2018, 6, 23, 11, 30),

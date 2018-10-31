@@ -23,6 +23,9 @@ describe('Utils', () => {
     { start: moment('2018-07-02 12:00'), end: moment('2018-07-02 15:00') },
     { start: moment('2018-07-02 12:00'), end: moment('2018-07-03 09:30') },
     { start: moment('2018-07-01 12:00'), end: moment('2018-07-02 00:00') },
+    { start: moment('2018-07-01 00:00'), end: moment('2018-07-03 00:00') },
+    { start: moment('2018-07-01 00:00'), end: moment('2018-07-02 00:00') },
+    { start: moment('2018-07-02 00:00'), end: moment('2018-07-03 00:00') },
   ];
   const sortedAppointmentsBase = [
     appointmentsBase[2], appointmentsBase[4], appointmentsBase[3],
@@ -199,6 +202,23 @@ describe('Utils', () => {
             items: [
               { ...appointmentsBase[8], offset: 0 },
               { ...appointmentsBase[6], offset: 1 },
+            ],
+            reduceValue: 2,
+          },
+        ]);
+    });
+
+    it('should calculate appointment offset depend on day 2', () => {
+      const groups = [
+        [{ ...appointmentsBase[10] }, { ...appointmentsBase[11] }, { ...appointmentsBase[12] }],
+      ];
+      expect(adjustAppointments(groups, true))
+        .toEqual([
+          {
+            items: [
+              { ...appointmentsBase[10], offset: 0 },
+              { ...appointmentsBase[11], offset: 1 },
+              { ...appointmentsBase[12], offset: 1 },
             ],
             reduceValue: 2,
           },

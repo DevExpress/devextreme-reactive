@@ -15,6 +15,7 @@ export class SliceCollection extends React.PureComponent {
       scales,
       innerRadius,
       outerRadius,
+      state,
       ...restProps
     } = this.props;
     return (

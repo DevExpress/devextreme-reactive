@@ -12,6 +12,7 @@ export class BarCollection extends React.PureComponent {
       style,
       scales,
       getAnimatedStyle,
+      state,
       ...restProps
     } = this.props;
     return (coordinates.map(item => (

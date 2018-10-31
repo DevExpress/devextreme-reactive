@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { DEFAULT, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
-import { Pattern } from '../pattern';
 import { withStates } from '../../utils/with-states';
+import { withPattern } from '../../utils/with-pattern';
 
 class RawSlice extends React.PureComponent {
   render() {
@@ -35,47 +35,16 @@ RawSlice.defaultProps = {
   color: undefined,
 };
 
-const getPatternIdUrl = (prefix, id) => {
-  const value = `${prefix}-${id}`;
-  return [value, `url(#${value})`];
-};
-
 export const Slice = withStates({
   [DEFAULT]: props => props,
-  [HOVERED]: ({
-    color, index, seriesIndex, ...restProps
-  }) => {
-    const [patternId, patternUrl] = getPatternIdUrl(`series-${seriesIndex}-point-hover`, index);
-    return (
-      <React.Fragment>
-        <RawSlice
-          fill={patternUrl}
-          {...restProps}
-        />
-        <Pattern
-          id={patternId}
-          color={color}
-          opacity={0.75}
-        />
-      </React.Fragment>
-    );
-  },
-  [SELECTED]: ({
-    color, index, seriesIndex, ...restProps
-  }) => {
-    const [patternId, patternUrl] = getPatternIdUrl(`series-${seriesIndex}-point-selection`, index);
-    return (
-      <React.Fragment>
-        <RawSlice
-          fill={patternUrl}
-          {...restProps}
-        />
-        <Pattern
-          id={patternId}
-          color={color}
-          opacity={0.85}
-        />
-      </React.Fragment>
-    );
-  },
+  [HOVERED]: withPattern(
+    RawSlice,
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`,
+    { opacity: 0.75 },
+  ),
+  [SELECTED]: withPattern(
+    RawSlice,
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`,
+    { opacity: 0.85 },
+  ),
 })(RawSlice);

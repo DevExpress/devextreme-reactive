@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import {
   getAreaAnimationStyle, DEFAULT, HOVERED, SELECTED,
 } from '@devexpress/dx-chart-core';
-import { Pattern } from '../pattern';
 import { withStates } from '../../utils/with-states';
+import { withPattern } from '../../utils/with-pattern';
 
 class RawArea extends React.PureComponent {
   render() {
@@ -42,47 +42,16 @@ RawArea.defaultProps = {
   style: undefined,
 };
 
-const getPatternIdUrl = (prefix, id) => {
-  const value = `${prefix}-${id}`;
-  return [value, `url(#${value})`];
-};
-
 export const Area = withStates({
-  [DEFAULT]: props => ({ key: 'element', ...props }),
-  [HOVERED]: ({ color, index, ...restProps }) => {
-    const [patternId, patternUrl] = getPatternIdUrl('series-hover', index);
-    return (
-      <React.Fragment>
-        <Pattern
-          key="pattern"
-          id={patternId}
-          color={color}
-          opacity={0.75}
-        />
-        <RawArea
-          key="element"
-          color={patternUrl}
-          {...restProps}
-        />
-      </React.Fragment>
-    );
-  },
-  [SELECTED]: ({ color, index, ...restProps }) => {
-    const [patternId, patternUrl] = getPatternIdUrl('series-selection', index);
-    return (
-      <React.Fragment>
-        <Pattern
-          key="pattern"
-          id={patternId}
-          color={color}
-          opacity={0.85}
-        />
-        <RawArea
-          key="element"
-          color={patternUrl}
-          {...restProps}
-        />
-      </React.Fragment>
-    );
-  },
+  [DEFAULT]: props => props,
+  [HOVERED]: withPattern(
+    RawArea,
+    ({ index }) => `series-${index}-hover`,
+    { opacity: 0.75 },
+  ),
+  [SELECTED]: withPattern(
+    RawArea,
+    ({ index }) => `series-${index}-selection`,
+    { opacity: 0.85 },
+  ),
 })(RawArea);

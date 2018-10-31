@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { DEFAULT, HOVERED, SELECTED } from '@devexpress/dx-chart-core';
-import { Pattern } from '../pattern';
 import { withStates } from '../../utils/with-states';
+import { withPattern } from '../../utils/with-pattern';
 
 class RawBar extends React.PureComponent {
   render() {
@@ -28,47 +28,16 @@ RawBar.defaultProps = {
   color: undefined,
 };
 
-const getPatternIdUrl = (prefix, id) => {
-  const value = `${prefix}-${id}`;
-  return [value, `url(#${value})`];
-};
-
 export const Bar = withStates({
   [DEFAULT]: props => props,
-  [HOVERED]: ({
-    color, index, seriesIndex, ...restProps
-  }) => {
-    const [patternId, patternUrl] = getPatternIdUrl(`series-${seriesIndex}-point-hover`, index);
-    return (
-      <React.Fragment>
-        <RawBar
-          fill={patternUrl}
-          {...restProps}
-        />
-        <Pattern
-          id={patternId}
-          color={color}
-          opacity={0.75}
-        />
-      </React.Fragment>
-    );
-  },
-  [SELECTED]: ({
-    color, index, seriesIndex, ...restProps
-  }) => {
-    const [patternId, patternUrl] = getPatternIdUrl(`series-${seriesIndex}-point-selection`, index);
-    return (
-      <React.Fragment>
-        <RawBar
-          fill={patternUrl}
-          {...restProps}
-        />
-        <Pattern
-          id={patternId}
-          color={color}
-          opacity={0.85}
-        />
-      </React.Fragment>
-    );
-  },
+  [HOVERED]: withPattern(
+    RawBar,
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`,
+    { opacity: 0.75 },
+  ),
+  [SELECTED]: withPattern(
+    RawBar,
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`,
+    { opacity: 0.85 },
+  ),
 })(RawBar);

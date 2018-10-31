@@ -10,6 +10,7 @@ import {
   Appointments,
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { connectProps } from '@devexpress/dx-react-core';
 import { InlineDateTimePicker } from 'material-ui-pickers';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
@@ -251,6 +252,26 @@ class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
     this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
+    this.appointmentForm = connectProps(AppointmentFormContainer, () => {
+      const {
+        editingFormVisible, editingAppointmentId, data, addedAppointment,
+      } = this.state;
+
+      const currentAppointment = data
+        .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
+
+      return {
+        visible: editingFormVisible,
+        appointmentData: currentAppointment,
+        commitChanges: this.commitChanges,
+        visibleChange: this.toggleEditingFormVisible,
+        onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
+      };
+    });
+  }
+
+  componentDidUpdate() {
+    this.appointmentForm.update();
   }
 
   onEditingAppointmentIdChange(editingAppointmentId) {
@@ -314,13 +335,8 @@ class Demo extends React.PureComponent {
       data,
       confirmationVisible,
       editingFormVisible,
-      editingAppointmentId,
-      addedAppointment,
     } = this.state;
     const { classes } = this.props;
-
-    const currentAppointment = data
-      .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
 
     return (
       <Paper>
@@ -347,15 +363,7 @@ class Demo extends React.PureComponent {
           <Toolbar />
           <ViewSwitcher />
           <AppointmentForm
-            popupComponent={() => (
-              <AppointmentFormContainer
-                visible={editingFormVisible}
-                visibleChange={this.toggleEditingFormVisible}
-                commitChanges={this.commitChanges}
-                appointmentData={currentAppointment}
-                onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
-              />
-            )}
+            popupComponent={this.appointmentForm}
             visible={editingFormVisible}
             onVisibilityChange={this.toggleEditingFormVisible}
           />

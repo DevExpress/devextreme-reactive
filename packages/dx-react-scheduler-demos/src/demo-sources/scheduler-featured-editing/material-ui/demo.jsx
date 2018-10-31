@@ -126,7 +126,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...appointmentChanges,
     };
 
-    const isNewAppointment = appointmentData.title === undefined;
+    const isNewAppointment = appointmentData.id === undefined;
     const applyChanges = isNewAppointment
       ? () => this.commitAppointment('added')
       : () => this.commitAppointment('changed');
@@ -243,11 +243,13 @@ class Demo extends React.PureComponent {
       deletedAppointmentId: undefined,
       editingAppointmentId: undefined,
       addedAppointment: {},
+      startDayHour: 9,
+      endDayHour: 19,
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
-    this.toggleEditingFormVisible = this.toggleEditingFormVisible.bind(this);
+    this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
 
     this.commitChanges = this.commitChanges.bind(this);
     this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
@@ -264,7 +266,7 @@ class Demo extends React.PureComponent {
         visible: editingFormVisible,
         appointmentData: currentAppointment,
         commitChanges: this.commitChanges,
-        visibleChange: this.toggleEditingFormVisible,
+        visibleChange: this.toggleEditingFormVisibility,
         onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
       };
     });
@@ -287,7 +289,7 @@ class Demo extends React.PureComponent {
     this.setState({ deletedAppointmentId: id });
   }
 
-  toggleEditingFormVisible() {
+  toggleEditingFormVisibility() {
     const { editingFormVisible } = this.state;
     this.setState({
       editingFormVisible: !editingFormVisible,
@@ -335,6 +337,8 @@ class Demo extends React.PureComponent {
       data,
       confirmationVisible,
       editingFormVisible,
+      startDayHour,
+      endDayHour,
     } = this.state;
     const { classes } = this.props;
 
@@ -352,12 +356,12 @@ class Demo extends React.PureComponent {
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
           <DayView
-            startDayHour={9}
-            endDayHour={19}
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
           />
           <WeekView
-            startDayHour={9}
-            endDayHour={19}
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
           />
           <Appointments />
           <Toolbar />
@@ -365,7 +369,7 @@ class Demo extends React.PureComponent {
           <AppointmentForm
             popupComponent={this.appointmentForm}
             visible={editingFormVisible}
-            onVisibilityChange={this.toggleEditingFormVisible}
+            onVisibilityChange={this.toggleEditingFormVisibility}
           />
         </Scheduler>
 
@@ -396,9 +400,12 @@ class Demo extends React.PureComponent {
           color="secondary"
           className={classes.addButton}
           onClick={() => {
-            this.toggleEditingFormVisible();
+            this.setState({ editingFormVisible: true });
             this.onEditingAppointmentIdChange(undefined);
-            this.onAddedAppointmentChange({});
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
           }}
         >
           <AddIcon />

@@ -26,6 +26,7 @@ describe('Utils', () => {
     { start: moment('2018-07-01 00:00'), end: moment('2018-07-03 00:00') },
     { start: moment('2018-07-01 00:00'), end: moment('2018-07-02 00:00') },
     { start: moment('2018-07-02 00:00'), end: moment('2018-07-03 00:00') },
+    { start: moment('2018-07-01 00:00'), end: moment('2018-07-02 00:00:01') },
   ];
   const sortedAppointmentsBase = [
     appointmentsBase[2], appointmentsBase[4], appointmentsBase[3],
@@ -208,7 +209,7 @@ describe('Utils', () => {
         ]);
     });
 
-    it('should calculate appointment offset depend on day 2', () => {
+    it('should calculate appointment offset depend on midnight', () => {
       const groups = [
         [{ ...appointmentsBase[10] }, { ...appointmentsBase[11] }, { ...appointmentsBase[12] }],
       ];
@@ -221,6 +222,23 @@ describe('Utils', () => {
               { ...appointmentsBase[12], offset: 1 },
             ],
             reduceValue: 2,
+          },
+        ]);
+    });
+
+    it('should calculate appointment offset when appointment ends after midnight', () => {
+      const groups = [
+        [{ ...appointmentsBase[10] }, { ...appointmentsBase[13] }, { ...appointmentsBase[12] }],
+      ];
+      expect(adjustAppointments(groups, true))
+        .toEqual([
+          {
+            items: [
+              { ...appointmentsBase[10], offset: 0 },
+              { ...appointmentsBase[13], offset: 1 },
+              { ...appointmentsBase[12], offset: 2 },
+            ],
+            reduceValue: 3,
           },
         ]);
     });

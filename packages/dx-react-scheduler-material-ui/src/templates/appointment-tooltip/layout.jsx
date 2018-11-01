@@ -34,9 +34,7 @@ const LayoutBase = ({
   showOpenButton,
   showCloseButton,
   showDeleteButton,
-  getAppointmentEndDate,
-  getAppointmentStartDate,
-  getAppointmentTitle,
+  mapAppointmentData,
   visible, onHide,
   commandButtonIds,
   onOpenButtonClick,
@@ -49,6 +47,8 @@ const LayoutBase = ({
     onHide();
     onOpenButtonClick();
   };
+  const { title, startDate, endDate } = mapAppointmentData(data);
+
   return (
     <Popover
       open={visible}
@@ -71,16 +71,16 @@ const LayoutBase = ({
           </div>
         </div>
         <div className={classes.title}>
-          {getAppointmentTitle(data)}
+          {title}
         </div>
       </Header>
       <Content appointmentData={data}>
         <div className={classes.text}>
-          {moment(getAppointmentStartDate(data)).format('h:mm A')}
+          {moment(startDate).format('h:mm A')}
         </div>
         {' - '}
         <div className={classes.text}>
-          {moment(getAppointmentEndDate(data)).format('h:mm A')}
+          {moment(endDate).format('h:mm A')}
         </div>
       </Content>
     </Popover>
@@ -94,10 +94,8 @@ LayoutBase.propTypes = {
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
-  getAppointmentEndDate: PropTypes.func.isRequired,
-  getAppointmentStartDate: PropTypes.func.isRequired,
-  getAppointmentTitle: PropTypes.func.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
+  mapAppointmentData: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,

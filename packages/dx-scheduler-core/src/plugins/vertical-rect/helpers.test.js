@@ -103,10 +103,10 @@ describe('Vertical rect helpers', () => {
         },
       );
 
-      expect(top).toBe(50);
-      expect(left).toBe(10);
-      expect(height).toBe(100);
-      expect(width).toBe(85);
+      expect(top).toBe(51);
+      expect(left).toBe(11);
+      expect(height).toBe(99);
+      expect(width).toBe(84);
       expect(parentWidth).toBe(250);
     });
   });

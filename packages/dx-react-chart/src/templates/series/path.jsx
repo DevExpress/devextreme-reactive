@@ -40,9 +40,6 @@ RawPath.defaultProps = {
   style: undefined,
 };
 
-// Shouldn't *RawPath* have something like *thickness*  property so that HOVERED and SELECTED
-// states would address it rather then *strokeWidth* property?
-
 export const Path = withStates({
   [HOVERED]: props => ({ strokeWidth: 4, ...props }),
   [SELECTED]: props => ({ strokeWidth: 4, ...props }),

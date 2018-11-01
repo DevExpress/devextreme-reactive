@@ -40,6 +40,6 @@ export const Slice = withStates({
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawSlice),
   [SELECTED]: withPattern(
-    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.85 },
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawSlice),
 })(RawSlice);

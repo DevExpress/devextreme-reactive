@@ -33,6 +33,6 @@ export const Bar = withStates({
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
   )(RawBar),
   [SELECTED]: withPattern(
-    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.85 },
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawBar),
 })(RawBar);

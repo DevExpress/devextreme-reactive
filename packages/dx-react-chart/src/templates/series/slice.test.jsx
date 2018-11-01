@@ -74,7 +74,7 @@ describe('Slice', () => {
   it('should use patterns', () => {
     expect(withPattern.mock.calls).toEqual([
       [expect.any(Function), { opacity: 0.75 }],
-      [expect.any(Function), { opacity: 0.85 }],
+      [expect.any(Function), { opacity: 0.5 }],
     ]);
     expect(withPattern.mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
       .toEqual('series-1-point-2-hover');

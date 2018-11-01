@@ -45,6 +45,6 @@ export const Area = withStates({
     ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
   )(RawArea),
   [SELECTED]: withPattern(
-    ({ index }) => `series-${index}-selection`, { opacity: 0.85 },
+    ({ index }) => `series-${index}-selection`, { opacity: 0.5 },
   )(RawArea),
 })(RawArea);

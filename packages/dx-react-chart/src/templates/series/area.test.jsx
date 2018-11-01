@@ -73,7 +73,7 @@ describe('Area', () => {
   it('should use patterns', () => {
     expect(withPattern.mock.calls).toEqual([
       [expect.any(Function), { opacity: 0.75 }],
-      [expect.any(Function), { opacity: 0.85 }],
+      [expect.any(Function), { opacity: 0.5 }],
     ]);
     expect(withPattern.mock.calls[0][0]({ index: 2 })).toEqual('series-2-hover');
     expect(withPattern.mock.calls[1][0]({ index: 3 })).toEqual('series-3-selection');

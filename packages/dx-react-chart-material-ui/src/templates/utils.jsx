@@ -6,7 +6,7 @@ import classNames from 'classnames';
 export const getBorderColor = theme => (
   theme.palette.type === 'light'
     ? lighten(fade(theme.palette.divider, 1), 0.88)
-    : darken(fade(theme.palette.divider, 1), 0.8)
+    : darken(fade(theme.palette.divider, 1), 0.68)
 );
 
 export const withClassName = (...args) => {

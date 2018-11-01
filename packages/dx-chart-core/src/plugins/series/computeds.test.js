@@ -150,24 +150,15 @@ describe('getAreaPointTransformer', () => {
 
 describe('getBarPointTransformer', () => {
   it('should return data', () => {
-    const argumentScale = jest.fn().mockReturnValue(10);
-    argumentScale.bandwidth = () => 8;
+    const argumentScale = jest.fn().mockReturnValue(11);
+    argumentScale.bandwidth = () => 20;
     const valueScale = jest.fn();
     valueScale.mockReturnValueOnce(4);
     valueScale.mockReturnValueOnce(9);
-    const groupScale = jest.fn().mockReturnValue(7);
-    groupScale.bandwidth = () => 12;
-    groupScale.domain = jest.fn().mockReturnValue(groupScale);
-    groupScale.range = jest.fn().mockReturnValue(groupScale);
-    groupScale.paddingInner = jest.fn().mockReturnValue(groupScale);
-    groupScale.paddingOuter = jest.fn().mockReturnValue(groupScale);
 
-    const transform = getBarPointTransformer(
-      {
-        barWidth: 0.4, stack: 'stack-1', argumentScale, valueScale,
-      },
-      'test-stacks', [{ type: 'band', constructor: () => groupScale }],
-    );
+    const transform = getBarPointTransformer({
+      barWidth: 0.4, argumentScale, valueScale,
+    });
     expect(
       transform({ argument: 'arg', value: 'val', index: 1 }),
     ).toEqual({
@@ -177,15 +168,14 @@ describe('getBarPointTransformer', () => {
       x: 17,
       y: 9,
       y1: 4,
-      width: 12,
+      width: 8,
     });
     expect(argumentScale.mock.calls).toEqual([['arg']]);
     expect(valueScale.mock.calls).toEqual([[0], ['val']]);
-    expect(groupScale).toBeCalledWith('stack-1');
-    expect(groupScale.domain).toBeCalledWith('test-stacks');
-    expect(groupScale.range).toBeCalledWith([8, 0]);
-    expect(groupScale.paddingInner).toBeCalledWith(0.6);
-    expect(groupScale.paddingOuter).toBeCalledWith(0.3);
+  });
+
+  it('should be marked with *isBroad* flag', () => {
+    expect(getBarPointTransformer.isBroad).toEqual(true);
   });
 });
 
@@ -429,7 +419,7 @@ describe('scaleSeriesPoints', () => {
       points: [{ name: 'b1' }, { name: 'b2' }, { name: 'b3' }],
     };
 
-    const result = scaleSeriesPoints([series1, series2], scales, 'a', 'b');
+    const result = scaleSeriesPoints([series1, series2], scales);
 
     expect(result[0].points).toEqual(
       [{ name: 'a1', tag: '#1' }, { name: 'a2', tag: '#1' }],
@@ -438,10 +428,10 @@ describe('scaleSeriesPoints', () => {
       [{ name: 'b1', tag: '#2' }, { name: 'b2', tag: '#2' }, { name: 'b3', tag: '#2' }],
     );
     expect(getPointTransformer1).toBeCalledWith(
-      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' }, 'a', 'b',
+      { ...series1, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale-1' },
     );
     expect(getPointTransformer2).toBeCalledWith(
-      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' }, 'a', 'b',
+      { ...series2, argumentScale: 'test-arg-scale', valueScale: 'test-val-scale' },
     );
   });
 });

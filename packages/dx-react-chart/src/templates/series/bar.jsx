@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 export class Bar extends React.PureComponent {
   render() {
     const {
-      argument, value, index, color, ...restProps
+      argument, value, index, barWidth, color, ...restProps
     } = this.props;
     return (
       <rect fill={color} {...restProps} />

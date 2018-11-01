@@ -2,7 +2,7 @@ import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
 import { getMonthCellIndexByDate } from '../month-view/helpers';
 
 const TOP_CELL_OFFSET = 0.32;
-const CELL_BOUND_OFFSET_PX = 2;
+const CELL_BOUND_OFFSET_PX = 1;
 
 const getCellRect = (date, viewCellsData, cellElements, takePrev, multiline) => {
   const cellIndex = multiline

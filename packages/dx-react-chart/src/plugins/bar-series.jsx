@@ -1,16 +1,18 @@
-import { getBarPointTransformer, createBarHitTester } from '@devexpress/dx-chart-core';
-import { makeSeries, withComponents } from '../utils';
+import {
+  getBarPointTransformer as getPointTransformer,
+  createBarHitTester as createHitTester,
+} from '@devexpress/dx-chart-core';
+import { declareSeries } from '../utils';
 import { BarCollection as Path } from '../templates/series/bar-collection';
 import { Bar as Point } from '../templates/series/bar';
 
-export const BarSeries = withComponents({ Path, Point })(makeSeries(
-  'BarSeries',
-  'bar',
-  null, // TODO: d3Func is not used.
-  getBarPointTransformer,
-  {
-    seriesComponent: 'Path',
-    pointComponent: 'Point',
-  },
-  createBarHitTester,
-));
+export const BarSeries = declareSeries('BarSeries', {
+  components: { Path, Point },
+  isStartedFromZero: true,
+  getPointTransformer,
+  createHitTester,
+});
+
+BarSeries.defaultProps = {
+  barWidth: 0.9,
+};

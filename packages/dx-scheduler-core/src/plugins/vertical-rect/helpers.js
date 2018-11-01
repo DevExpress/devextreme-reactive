@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 const CELL_GAP = 0.15;
+const CELL_BOUND_OFFSET_PX = 1;
 
 export const getCellByDate = (viewCellsData, date, takePrev = false) => {
   const cellIndex = viewCellsData[0].findIndex(timeCell => moment(date).isSame(timeCell.startDate, 'date'));
@@ -62,10 +63,10 @@ export const getVerticalRectByDates = (
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;
 
   return {
-    width: firstCellRect.width - (firstCellRect.width * CELL_GAP),
-    top: top - firstCellRect.parentRect.top,
-    left: firstCellRect.left - firstCellRect.parentRect.left,
+    width: firstCellRect.width - (firstCellRect.width * CELL_GAP) - CELL_BOUND_OFFSET_PX,
+    top: top - firstCellRect.parentRect.top + CELL_BOUND_OFFSET_PX,
+    left: firstCellRect.left - firstCellRect.parentRect.left + CELL_BOUND_OFFSET_PX,
     parentWidth: firstCellRect.parentRect.width,
-    height,
+    height: height - CELL_BOUND_OFFSET_PX,
   };
 };

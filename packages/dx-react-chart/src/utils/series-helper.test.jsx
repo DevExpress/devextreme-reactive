@@ -2,8 +2,8 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName, addSeries, getValueDomainName } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
-import { withSeriesPlugin } from './series-helper';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
+import { declareSeries } from './series-helper';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   findSeriesByName: jest.fn(),
@@ -12,45 +12,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getValueDomainName: jest.fn(),
 }));
 
-describe('Base series', () => {
+describe('#declareSeries', () => {
   const coords = 'test-coordinates';
-
-  const defaultProps = {
-    name: 'name',
-    axisName: 'axisName',
-    valueField: 'valueField',
-    argumentField: 'argumentField',
-  };
-
-  beforeEach(() => {
-    findSeriesByName.mockReturnValue({
-      ...defaultProps,
-      points: coords,
-      color: 'color',
-      styles: 'styles',
-    });
-    addSeries.mockReturnValue('series');
-    getValueDomainName.mockReturnValue('value_domain');
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  const defaultDeps = {
-    getter: {
-      data: 'data',
-      series: 'series',
-      palette: 'test-palette',
-      scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
-      stacks: ['one', 'two'],
-      scaleExtension: 'scaleExtension',
-      getAnimatedStyle: 'test-animated-style-getter',
-    },
-    template: {
-      series: {},
-    },
-  };
 
   const testGetPointTransformer = () => null;
 
@@ -60,12 +23,47 @@ describe('Base series', () => {
     </div>
   );
 
-  const WrappedComponent = withSeriesPlugin(
-    TestComponentPath,
-    'TestComponent',
-    'pathType',
-    testGetPointTransformer,
-  );
+  const TestComponentPoint = () => null;
+
+  const defaultProps = {
+    name: 'name',
+    axisName: 'axisName',
+    valueField: 'valueField',
+    argumentField: 'argumentField',
+  };
+
+  findSeriesByName.mockReturnValue({
+    ...defaultProps,
+    seriesComponent: TestComponentPath,
+    points: coords,
+    color: 'color',
+    styles: 'styles',
+  });
+  addSeries.mockReturnValue('extended-series');
+  getValueDomainName.mockReturnValue('value_domain');
+
+  afterEach(jest.clearAllMocks);
+
+  const defaultDeps = {
+    getter: {
+      series: 'test-series',
+      data: 'test-data',
+      palette: 'test-palette',
+      scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
+      getAnimatedStyle: 'test-animated-style-getter',
+    },
+    template: {
+      series: {},
+    },
+  };
+
+  const WrappedComponent = declareSeries('TestComponent', {
+    components: {
+      Path: TestComponentPath,
+      Point: TestComponentPoint,
+    },
+    getPointTransformer: testGetPointTransformer,
+  });
 
   it('should render test component', () => {
     const tree = mount((
@@ -88,7 +86,7 @@ describe('Base series', () => {
   });
 
   it('should add series to list', () => {
-    mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -97,10 +95,26 @@ describe('Base series', () => {
         />
       </PluginHost>
     ));
-    expect(addSeries).toHaveBeenCalledWith('series', 'data', 'test-palette', expect.objectContaining({
+
+    expect(addSeries).toBeCalledWith('test-series', 'test-data', 'test-palette', {
       ...defaultProps,
-      isStartedFromZero: false,
+      symbolName: expect.anything(),
       getPointTransformer: testGetPointTransformer,
-    }));
+      seriesComponent: TestComponentPath,
+      pointComponent: TestComponentPoint,
+    });
+    expect(getComputedState(tree)).toEqual({
+      ...defaultDeps.getter,
+      series: 'extended-series',
+    });
+  });
+
+  it('should set components', () => {
+    expect(WrappedComponent.components).toEqual({
+      seriesComponent: 'Path',
+      pointComponent: 'Point',
+    });
+    expect(WrappedComponent.Path).toEqual(TestComponentPath);
+    expect(WrappedComponent.Point).toEqual(TestComponentPoint);
   });
 });

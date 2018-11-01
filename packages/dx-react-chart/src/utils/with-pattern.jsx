@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Pattern } from '../templates/pattern';
 
-export const withPattern = (Target, getPatternId, props) => ({ color, ...restProps }) => {
+// Function is returned (not PureComponent descendant) because
+// result is invoked as function (not as React component).
+export const withPattern = (getPatternId, props) => Target => ({ color, ...restProps }) => {
   const patternId = getPatternId(restProps);
   return (
     <React.Fragment>

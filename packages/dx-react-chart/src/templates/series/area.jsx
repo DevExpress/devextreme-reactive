@@ -42,13 +42,9 @@ RawArea.defaultProps = {
 
 export const Area = withStates({
   [HOVERED]: withPattern(
-    RawArea,
-    ({ index }) => `series-${index}-hover`,
-    { opacity: 0.75 },
-  ),
+    ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
+  )(RawArea),
   [SELECTED]: withPattern(
-    RawArea,
-    ({ index }) => `series-${index}-selection`,
-    { opacity: 0.85 },
-  ),
+    ({ index }) => `series-${index}-selection`, { opacity: 0.85 },
+  )(RawArea),
 })(RawArea);

@@ -37,13 +37,9 @@ RawSlice.defaultProps = {
 
 export const Slice = withStates({
   [HOVERED]: withPattern(
-    RawSlice,
-    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`,
-    { opacity: 0.75 },
-  ),
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
+  )(RawSlice),
   [SELECTED]: withPattern(
-    RawSlice,
-    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`,
-    { opacity: 0.85 },
-  ),
+    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.85 },
+  )(RawSlice),
 })(RawSlice);

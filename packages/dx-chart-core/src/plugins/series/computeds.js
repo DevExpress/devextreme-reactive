@@ -136,6 +136,7 @@ export const addSeries = (series, data, palette, props) => {
   const points = createPoints(props.argumentField, props.valueField, data);
   // It is used to generate unique series dependent attribute names for patterns.
   // *symbolName* cannot be used as it cannot be part of DOM attribute name.
+  // TODO: Consider making *name* unique and then use it instead of *index*.
   const index = series.length;
   return addItem(series, {
     ...props,

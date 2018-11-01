@@ -1,14 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-const defaultStateFunc = props => props;
-
 export const withStates = states => (Component) => {
   class ComponentWithStates extends React.PureComponent {
     render() {
       const { state, ...restProps } = this.props;
-      const stateFunc = states[state] || defaultStateFunc;
-      const result = stateFunc(restProps);
+      const stateFunc = states[state];
+      const result = stateFunc ? stateFunc(restProps) : restProps;
       return React.isValidElement(result) ? result : <Component {...result} />;
     }
   }

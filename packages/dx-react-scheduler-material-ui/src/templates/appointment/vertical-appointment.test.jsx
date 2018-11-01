@@ -78,7 +78,10 @@ describe('VerticalAppointment', () => {
 
     it('should render children', () => {
       const child = mount((
-        <VerticalAppointment {...defaultProps}>
+        <VerticalAppointment
+          {...defaultProps}
+          mapAppointmentData={mapAppointmentData}
+        >
           <div className="child" />
         </VerticalAppointment>
       ));

@@ -55,7 +55,7 @@ const VerticalAppointmentBase = ({
       )}
     </Appointment>
   );
-}
+};
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,

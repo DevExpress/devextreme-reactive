@@ -10,6 +10,12 @@ Use the following statement to import a plugin with embedded theme components:
 import { Toolbar } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
+If you want to use custom components, you can import the themeless plugin:
+
+```js
+import { Toolbar } from '@devexpress/dx-react-scheduler';
+```
+
 ## User Reference
 
 ### Dependencies

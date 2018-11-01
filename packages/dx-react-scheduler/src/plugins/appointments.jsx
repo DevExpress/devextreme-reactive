@@ -9,6 +9,7 @@ export class Appointments extends React.PureComponent {
   render() {
     const {
       appointmentComponent: Appointment,
+      appointmentContentComponent: AppointmentContent,
     } = this.props;
 
     return (
@@ -16,16 +17,26 @@ export class Appointments extends React.PureComponent {
         <Template
           name="appointment"
         >
-          {({ onClick, onDoubleClick, ...params }) => (
+          {({
+            onClick, onDoubleClick,
+            data, type,
+            ...params
+          }) => (
             <TemplateConnector>
               {({
                 mapAppointmentData,
               }) => (
                 <Appointment
+                  data={data}
                   {...params}
                   {...createClickHandlers(onClick, onDoubleClick)}
-                  mapAppointmentData={mapAppointmentData}
-                />
+                >
+                  <AppointmentContent
+                    mapAppointmentData={mapAppointmentData}
+                    data={data}
+                    type={type}
+                  />
+                </Appointment>
               )}
             </TemplateConnector>
           )}
@@ -37,8 +48,10 @@ export class Appointments extends React.PureComponent {
 
 Appointments.propTypes = {
   appointmentComponent: PropTypes.func.isRequired,
+  appointmentContentComponent: PropTypes.func.isRequired,
 };
 
 Appointments.components = {
   appointmentComponent: 'Appointment',
+  appointmentContentComponent: 'AppointmentContent',
 };

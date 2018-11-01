@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
-import { Appointment } from './appointment';
 
 const styles = {
   title: {
@@ -27,15 +26,10 @@ const VerticalAppointmentBase = ({
   mapAppointmentData,
   data,
   children,
-  ...restProps
 }) => {
   const { title, startDate, endDate } = mapAppointmentData(data);
   return (
-    <Appointment
-      data={data}
-      {...restProps}
-    >
-      {children || (
+    children || (
       <React.Fragment>
         <div className={classes.title}>
           {title}
@@ -52,8 +46,7 @@ const VerticalAppointmentBase = ({
           </div>
         </div>
       </React.Fragment>
-      )}
-    </Appointment>
+    )
   );
 };
 

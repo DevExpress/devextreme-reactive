@@ -41,7 +41,7 @@ const getFormattedLine = (line, level = 1) => {
 };
 
 const getBlockEnd = (source) => {
-  const end = source.findIndex(el => el.indexOf('### ') === 0 || el.indexOf('## ') === 0 || el.indexOf('# ') === 0);
+  const end = source.findIndex(el => el.indexOf('## ') === 0 || el.indexOf('# ') === 0);
   return end === -1 ? source.length : end;
 };
 
@@ -58,9 +58,10 @@ const parseFile = (source) => {
     .filter(element => element !== 'none');
 
   let argumentsBlock = source.slice(source.indexOf('### Arguments') + 1);
+
   argumentsBlock = argumentsBlock
-    .slice(0, getBlockEnd(argumentsBlock))
-    .filter(element => element !== 'none');
+    .slice(0, argumentsBlock.indexOf('### Return Value') + 1)
+    .filter(line => line.match(/.+\|.+\|.+/));
 
   let returnValueBlock = source.slice(source.indexOf('### Return Value') + 1);
   returnValueBlock = returnValueBlock
@@ -139,7 +140,6 @@ const generateTypeScriptForFunction = (argumentsBlock, returnValueBlock, descrip
     acc.push(`${parts[0]}: ${parts[1]}`);
     return acc;
   }, []).join(', ');
-  console.log(getFormattedLine);
   return `/** ${descripton} */\nexport function ${functionName}(${argumentsString}): ${formattedReturnValue};\n`;
 };
 

@@ -5,6 +5,10 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
+  transformIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+  ],
   moduleNameMapper: {
     '\\.(css|svg)$': path.join(__dirname, './stub-module.js'),
   },

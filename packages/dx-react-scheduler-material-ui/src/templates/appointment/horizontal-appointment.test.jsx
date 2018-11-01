@@ -35,7 +35,11 @@ describe('HorizontalAppointment', () => {
   describe('HorizontalAppointment', () => {
     it('should pass rest props to the root element', () => {
       mount((
-        <HorizontalAppointment {...defaultProps} customProp="custom prop" />
+        <HorizontalAppointment
+          {...defaultProps}
+          customProp="custom prop"
+          mapAppointmentData={() => ({ title: 'title' })}
+        />
       ));
 
       const { customProp } = Appointment.mock.calls[0][0];
@@ -48,7 +52,7 @@ describe('HorizontalAppointment', () => {
       const tree = mount((
         <HorizontalAppointment
           {...defaultProps}
-          getAppointmentTitle={() => 'title'}
+          mapAppointmentData={() => ({ title: 'title' })}
         />
       ));
 

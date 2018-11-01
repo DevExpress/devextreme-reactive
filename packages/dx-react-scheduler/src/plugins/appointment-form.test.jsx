@@ -14,11 +14,12 @@ describe('AppointmentForm', () => {
       main: {},
     },
     getter: {
-      getAppointmentTitle: jest.fn(),
-      getAppointmentStartDate: jest.fn(),
-      getAppointmentEndDate: jest.fn(),
-      getAppointmentAllDay: jest.fn(),
-      getAppointmentId: jest.fn(),
+      mapAppointmentData: jest.fn().mockImplementation(() => ({
+        title: undefined,
+        startDate: undefined,
+        endDate: undefined,
+        allDay: undefined,
+      })),
       setAppointmentTitle: jest.fn(),
       setAppointmentStartDate: jest.fn(),
       setAppointmentEndDate: jest.fn(),
@@ -206,7 +207,7 @@ describe('AppointmentForm', () => {
     commitButton.prop('onExecute')();
     expect(defaultDeps.action.commitChangedAppointment)
       .toBeCalled();
-    expect(defaultDeps.getter.getAppointmentId)
+    expect(defaultDeps.getter.mapAppointmentData)
       .toBeCalled();
   });
 

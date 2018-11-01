@@ -1,5 +1,7 @@
 # React Scheduler - Getting Started
 
+Project status: **CTP**
+
 ## Overview
 
 DevExtreme React Scheduler is a component that represents scheduled data and allows a user to manage it. Scheduler can render data on different views such as day, week and month. Support for controlled and uncontrolled state modes allows you to manage Scheduler state manually or using a state management library like Redux. The DevExtreme Scheduler component has a composable and extendable plugin-based architecture in which plugins provide additional elements: a date navigator, a view switcher, an appointment tooltip and form. Currently, it is provided with Material-UI rendering and theming.
@@ -53,11 +55,13 @@ const App = () => (
 );
 ```
 
+<!--
 ## Try Out The React Scheduler
 
 Follow the link below to try out the React Scheduler:
 
 - [CodeSandbox for Material-UI](https://codesandbox.io/s/link-to-react-scheduler-mui)
+-->
 
 ## License
 

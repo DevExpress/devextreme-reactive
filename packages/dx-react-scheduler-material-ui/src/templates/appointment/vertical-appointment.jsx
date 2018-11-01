@@ -24,46 +24,49 @@ const styles = {
 
 const VerticalAppointmentBase = ({
   classes,
-  appointmentMapping,
+  mapAppointmentData,
   data,
   children,
   ...restProps
-}) => (
-  <Appointment
-    data={data}
-    {...restProps}
-  >
-    {children || (
-    <React.Fragment>
-      <div className={classes.title}>
-        {appointmentMapping(data).title}
-      </div>
-      <div className={classes.textContainer}>
-        <div className={classes.time}>
-          {moment(appointmentMapping(data).startDate).format('h:mm A')}
+}) => {
+  const { title, startDate, endDate } = mapAppointmentData(data);
+  return (
+    <Appointment
+      data={data}
+      {...restProps}
+    >
+      {children || (
+      <React.Fragment>
+        <div className={classes.title}>
+          {title}
         </div>
-        <div className={classes.time}>
-          {' - '}
+        <div className={classes.textContainer}>
+          <div className={classes.time}>
+            {moment(startDate).format('h:mm A')}
+          </div>
+          <div className={classes.time}>
+            {' - '}
+          </div>
+          <div className={classes.time}>
+            {moment(endDate).format('h:mm A')}
+          </div>
         </div>
-        <div className={classes.time}>
-          {moment(appointmentMapping(data).endDate).format('h:mm A')}
-        </div>
-      </div>
-    </React.Fragment>
-    )}
-  </Appointment>
-);
+      </React.Fragment>
+      )}
+    </Appointment>
+  );
+}
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  appointmentMapping: PropTypes.func,
+  mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  appointmentMapping: () => undefined,
+  mapAppointmentData: () => undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

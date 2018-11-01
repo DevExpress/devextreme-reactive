@@ -38,7 +38,7 @@ describe('HorizontalAppointment', () => {
         <HorizontalAppointment
           {...defaultProps}
           customProp="custom prop"
-          appointmentMapping={() => ({ title: 'title' })}
+          mapAppointmentData={() => ({ title: 'title' })}
         />
       ));
 
@@ -52,7 +52,7 @@ describe('HorizontalAppointment', () => {
       const tree = mount((
         <HorizontalAppointment
           {...defaultProps}
-          appointmentMapping={() => ({ title: 'title' })}
+          mapAppointmentData={() => ({ title: 'title' })}
         />
       ));
 

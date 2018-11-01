@@ -107,7 +107,7 @@ export class AppointmentForm extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              appointmentMapping,
+              mapAppointmentData,
 
               setAppointmentTitle,
               setAppointmentStartDate,
@@ -133,6 +133,9 @@ export class AppointmentForm extends React.PureComponent {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+              const {
+                title, startDate, endDate, allDay, id,
+              } = mapAppointmentData(changedAppointment);
 
               return (
                 <Popup
@@ -143,7 +146,7 @@ export class AppointmentForm extends React.PureComponent {
                       <TitleEditor
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
-                        value={appointmentMapping(changedAppointment).title}
+                        value={title}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
                             isNew,
@@ -156,7 +159,7 @@ export class AppointmentForm extends React.PureComponent {
                       <StartDateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
-                        value={appointmentMapping(changedAppointment).startDate}
+                        value={startDate}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
                             isNew,
@@ -169,7 +172,7 @@ export class AppointmentForm extends React.PureComponent {
                       <EndDateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
-                        value={appointmentMapping(changedAppointment).endDate}
+                        value={endDate}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
                             isNew,
@@ -182,7 +185,7 @@ export class AppointmentForm extends React.PureComponent {
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayLabel')}
-                        value={appointmentMapping(changedAppointment).allDay}
+                        value={allDay}
                         {...changeAppointment && {
                           onValueChange: changeAppointmentField(
                             isNew,
@@ -219,7 +222,7 @@ export class AppointmentForm extends React.PureComponent {
                                 commitAddedAppointment();
                               } else {
                                 commitChangedAppointment({
-                                  appointmentId: appointmentMapping(changedAppointment).id,
+                                  appointmentId: id,
                                 });
                               }
                             }
@@ -239,7 +242,7 @@ export class AppointmentForm extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                appointmentMapping,
+                mapAppointmentData,
               }, {
                 startEditAppointment,
               }) => (
@@ -249,7 +252,7 @@ export class AppointmentForm extends React.PureComponent {
                     onOpenButtonClick: () => {
                       this.openFormHandler(params.appointmentMeta.data);
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: appointmentMapping(params.appointmentMeta.data).id,
+                        appointmentId: mapAppointmentData(params.appointmentMeta.data).id,
                       });
                     },
                   }}
@@ -263,7 +266,7 @@ export class AppointmentForm extends React.PureComponent {
           {params => (
             <TemplateConnector>
               {({
-                appointmentMapping,
+                mapAppointmentData,
               }, {
                 startEditAppointment,
               }) => (
@@ -273,7 +276,7 @@ export class AppointmentForm extends React.PureComponent {
                     onDoubleClick: () => {
                       this.openFormHandler(params.data);
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: appointmentMapping(params.data).id,
+                        appointmentId: mapAppointmentData(params.data).id,
                       });
                     },
                   }}

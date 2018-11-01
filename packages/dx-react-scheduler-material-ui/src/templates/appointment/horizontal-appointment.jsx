@@ -13,7 +13,7 @@ const styles = {
 
 const HorizontalAppointmentBase = ({
   classes,
-  appointmentMapping,
+  mapAppointmentData,
   data,
   children,
   ...restProps
@@ -24,7 +24,7 @@ const HorizontalAppointmentBase = ({
   >
     {children || (
       <div className={classes.title}>
-        {appointmentMapping(data).title}
+        {mapAppointmentData(data).title}
       </div>
     )}
   </Appointment>
@@ -33,12 +33,12 @@ const HorizontalAppointmentBase = ({
 HorizontalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  appointmentMapping: PropTypes.func,
+  mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
 };
 
 HorizontalAppointmentBase.defaultProps = {
-  appointmentMapping: () => undefined,
+  mapAppointmentData: () => undefined,
   children: undefined,
 };
 

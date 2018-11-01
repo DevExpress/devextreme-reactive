@@ -19,12 +19,12 @@ export class Appointments extends React.PureComponent {
           {({ onClick, onDoubleClick, ...params }) => (
             <TemplateConnector>
               {({
-                appointmentMapping,
+                mapAppointmentData,
               }) => (
                 <Appointment
                   {...params}
                   {...createClickHandlers(onClick, onDoubleClick)}
-                  appointmentMapping={appointmentMapping}
+                  mapAppointmentData={mapAppointmentData}
                 />
               )}
             </TemplateConnector>

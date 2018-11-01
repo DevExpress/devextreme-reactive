@@ -48,7 +48,7 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
   ),
 );
 
-const appointmentMapping = appointment => ({
+const mapAppointmentData = appointment => ({
   ...appointment,
   startDate: appointment.StartDate,
   endDate: appointment.EndDate,
@@ -111,7 +111,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          appointmentMapping={appointmentMapping}
+          mapAppointmentData={mapAppointmentData}
         >
           <ViewState
             currentDate={currentDate}

@@ -11,7 +11,7 @@ describe('VerticalAppointment', () => {
   const defaultProps = {
     data: {},
   };
-  const appointmentMapping = () => ({
+  const mapAppointmentData = () => ({
     title: 'title',
     startDate: new Date('2018-07-27 13:10'),
     endDate: new Date('2018-07-27 17:10'),
@@ -39,7 +39,7 @@ describe('VerticalAppointment', () => {
         <VerticalAppointment
           {...defaultProps}
           customProp="custom prop"
-          appointmentMapping={appointmentMapping}
+          mapAppointmentData={mapAppointmentData}
         />
       ));
       const { customProp } = Appointment.mock.calls[0][0];
@@ -52,7 +52,7 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          appointmentMapping={appointmentMapping}
+          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -64,7 +64,7 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          appointmentMapping={appointmentMapping}
+          mapAppointmentData={mapAppointmentData}
         />
       ));
 

@@ -14,7 +14,7 @@ describe('AppointmentForm', () => {
       main: {},
     },
     getter: {
-      appointmentMapping: jest.fn().mockImplementation(() => ({
+      mapAppointmentData: jest.fn().mockImplementation(() => ({
         title: undefined,
         startDate: undefined,
         endDate: undefined,
@@ -207,7 +207,7 @@ describe('AppointmentForm', () => {
     commitButton.prop('onExecute')();
     expect(defaultDeps.action.commitChangedAppointment)
       .toBeCalled();
-    expect(defaultDeps.getter.appointmentMapping)
+    expect(defaultDeps.getter.mapAppointmentData)
       .toBeCalled();
   });
 

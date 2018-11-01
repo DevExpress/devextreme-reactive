@@ -8,7 +8,7 @@ import { SchedulerCore } from './scheduler-core';
 const defaultProps = {
   data: [1, 2, 3],
   rootComponent: () => null,
-  appointmentMapping: () => ({
+  mapAppointmentData: () => ({
     title: 'title',
     startDate: 'start',
     endDate: 'end',
@@ -31,12 +31,12 @@ describe('Scheduler Core', () => {
     jest.resetAllMocks();
   });
 
-  it('should provide the appointmentMapping getter', () => {
+  it('should provide the mapAppointmentData getter', () => {
     const tree = mount((
       <PluginHost>
         <SchedulerCore
           {...defaultProps}
-          appointmentMapping={() => ({
+          mapAppointmentData={() => ({
             title: 'title',
             id: 10,
           })}
@@ -45,9 +45,9 @@ describe('Scheduler Core', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).appointmentMapping().id)
+    expect(getComputedState(tree).mapAppointmentData().id)
       .toBe(10);
-    expect(getComputedState(tree).appointmentMapping().title)
+    expect(getComputedState(tree).mapAppointmentData().title)
       .toBe('title');
   });
 

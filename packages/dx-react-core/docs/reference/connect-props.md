@@ -9,7 +9,7 @@ A function that creates a new component that allows you to pass additional propt
 Name | Type | Description
 -----|------|------------
 WrappedComponent | ComponentType&lt;any&gt; | The react component to wrap.
-getAdditionalProps | () => object | A callback function that returns properties to pass.
+getAdditionalProps | () => object | A function that returns properties to pass.
 
 ### Return Value
 

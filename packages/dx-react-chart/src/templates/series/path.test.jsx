@@ -1,6 +1,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { withStates } from '../../utils/with-states';
 import { Path } from './path';
+
+jest.mock('@devexpress/dx-chart-core', () => ({
+  HOVERED: 'test_hovered',
+  SELECTED: 'test_selected',
+}));
+
+jest.mock('../../utils/with-states', () => ({
+  withStates: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('Path', () => {
   const defaultProps = {
@@ -48,5 +58,16 @@ describe('Path', () => {
     const { customProperty } = tree.find('path').props();
 
     expect(customProperty).toBeTruthy();
+  });
+
+  it('should have hovered and selected states', () => {
+    expect(withStates).toBeCalledWith({
+      test_hovered: expect.any(Function),
+      test_selected: expect.any(Function),
+    });
+    expect(withStates.mock.calls[0][0].test_hovered({ a: 1, b: 2 }))
+      .toEqual({ a: 1, b: 2, strokeWidth: 4 });
+    expect(withStates.mock.calls[0][0].test_selected({ a: 1, b: 2 }))
+      .toEqual({ a: 1, b: 2, strokeWidth: 4 });
   });
 });

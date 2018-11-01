@@ -9,9 +9,11 @@ describe('#appointments', () => {
   it('should work without the "allDay" appointment field', () => {
     const result = appointments(
       data,
-      appointment => appointment.starts.at,
-      appointment => appointment.ends.at,
-      appointment => appointment.allDay,
+      appointment => ({
+        startDate: appointment.starts.at,
+        endDate: appointment.ends.at,
+        allDay: appointment.allDay,
+      }),
     );
 
     expect(result).toEqual([
@@ -34,9 +36,11 @@ describe('#appointments', () => {
     ];
     const result = appointments(
       dataWithAllDay,
-      appointment => appointment.starts.at,
-      appointment => appointment.ends.at,
-      appointment => appointment.allDay,
+      appointment => ({
+        startDate: appointment.starts.at,
+        endDate: appointment.ends.at,
+        allDay: appointment.allDay,
+      }),
     );
 
     expect(result).toEqual([

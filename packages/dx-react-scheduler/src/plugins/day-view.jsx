@@ -185,7 +185,6 @@ export class DayView extends React.PureComponent {
               endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
-              debugger
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, [],
@@ -206,7 +205,6 @@ export class DayView extends React.PureComponent {
                   cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
-
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>

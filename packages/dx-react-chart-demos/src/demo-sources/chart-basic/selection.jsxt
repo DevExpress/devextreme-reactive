@@ -1,15 +1,14 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
   ArgumentAxis,
   ValueAxis,
   ValueGrid,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 
 import {
-  Scale, EventTracker, HoverState, SelectionState,
+  Scale, EventTracker, SelectionState,
 } from '@devexpress/dx-react-chart';
 
 const data = [
@@ -46,7 +45,7 @@ export default class Demo extends React.PureComponent {
           {' '}
           {selection.length ? data[selection[0].point].population : undefined}
         </span>
-        <Paper>
+        <<%&wrapperTag%>>
           <Chart
             data={chartData}
           >
@@ -60,10 +59,9 @@ export default class Demo extends React.PureComponent {
             />
             <Scale />
             <EventTracker onClick={this.click} />
-            <HoverState />
             <SelectionState selection={selection} />
           </Chart>
-        </Paper>
+        </<%&wrapperTag%>>
       </div>
     );
   }

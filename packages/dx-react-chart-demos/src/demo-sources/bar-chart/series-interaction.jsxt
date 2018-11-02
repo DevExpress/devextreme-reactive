@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
@@ -8,7 +7,7 @@ import {
   ValueGrid,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-material-ui';
+} from '@devexpress/dx-react-chart-<%&themeName%>';
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
@@ -42,7 +41,7 @@ export default class Demo extends React.PureComponent {
     const { annualVehiclesSales: chartData, selection } = this.state;
 
     return (
-      <Paper>
+      <<%&wrapperTag%>>
         <Chart
           data={chartData}
         >
@@ -72,7 +71,7 @@ export default class Demo extends React.PureComponent {
           <HoverState />
           <SelectionState selection={selection} />
         </Chart>
-      </Paper>
+      </<%&wrapperTag%>>
     );
   }
 }

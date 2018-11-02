@@ -33,6 +33,9 @@ The following plugins render additional elements:
 The following plugins implement additional features:
 
 - `Animation` - animates all the chart's series when they first appear on-screen
+- `EventTracker` - handles series click and hover
+- `HoverState` - enables series hover
+- `SelectionState` - enables series selection
 
 ## Data Processing Plugins
 

@@ -24,7 +24,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data,
-      hover: [],
+      hover: undefined,
     };
 
     this.changeHover = hover => this.setState({ hover });

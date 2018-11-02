@@ -185,6 +185,7 @@ export class DayView extends React.PureComponent {
               endViewDate, currentView, currentDate,
               viewCellsData,
             }) => {
+              debugger
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               const intervals = calculateWeekDateIntervals(
                 appointments, startViewDate, endViewDate, [],

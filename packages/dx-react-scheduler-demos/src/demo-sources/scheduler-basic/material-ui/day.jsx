@@ -13,7 +13,15 @@ export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: appointments,
+      // data: appointments,
+      data: [
+        {
+          title: 'Website Re-Design Plan',
+          startDate: new Date(2018, 5, 28, 9, 30),
+          endDate: new Date(2018, 5, 28, 11, 30),
+          id: 0,
+        },
+      ],
       currentDate: '2018-06-28',
     };
   }

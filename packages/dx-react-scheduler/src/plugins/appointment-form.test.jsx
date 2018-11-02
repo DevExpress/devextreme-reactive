@@ -14,12 +14,6 @@ describe('AppointmentForm', () => {
       main: {},
     },
     getter: {
-      mapAppointmentData: jest.fn().mockImplementation(() => ({
-        title: undefined,
-        startDate: undefined,
-        endDate: undefined,
-        allDay: undefined,
-      })),
       setAppointmentTitle: jest.fn(),
       setAppointmentStartDate: jest.fn(),
       setAppointmentEndDate: jest.fn(),
@@ -49,6 +43,12 @@ describe('AppointmentForm', () => {
     titleComponent: () => null,
     commandButtonComponent: () => null,
     allDayComponent: () => null,
+    appointmentData: {
+      title: undefined,
+      startDate: undefined,
+      endDate: undefined,
+      allDay: undefined,
+    },
   };
 
   it('should render Popup component', () => {
@@ -122,7 +122,7 @@ describe('AppointmentForm', () => {
       .toBeCalled();
   });
 
-  it('should render start date editor', () => {
+  it('should render startDate date editor', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -206,8 +206,6 @@ describe('AppointmentForm', () => {
 
     commitButton.prop('onExecute')();
     expect(defaultDeps.action.commitChangedAppointment)
-      .toBeCalled();
-    expect(defaultDeps.getter.mapAppointmentData)
       .toBeCalled();
   });
 

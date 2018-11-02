@@ -110,8 +110,7 @@ export default class Demo extends React.PureComponent {
     return (
       <Paper>
         <Scheduler
-          data={data}
-          mapAppointmentData={mapAppointmentData}
+          data={data.map(mapAppointmentData)}
         >
           <ViewState
             currentDate={currentDate}

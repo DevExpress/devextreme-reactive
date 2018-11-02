@@ -11,11 +11,6 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 
 describe('AppointmentTooltip', () => {
   const defaultDeps = {
-    getter: {
-      mapAppointmentData: jest.fn().mockImplementation(() => ({
-        id: 1,
-      })),
-    },
     template: {
       main: {},
     },
@@ -26,6 +21,9 @@ describe('AppointmentTooltip', () => {
     headerComponent: () => null,
     contentComponent: () => null,
     commandButtonComponent: () => null,
+    appointmentMeta: {
+      id: 1,
+    },
   };
 
   beforeEach(() => {

@@ -18,9 +18,11 @@ jest.mock('@devexpress/dx-core', () => ({
 
 const defaultDeps = {
   getter: {
-    getAppointmentTitle: () => 'a',
-    getAppointmentEndDate: () => '2018-07-05',
-    getAppointmentStartDate: () => '2018-07-06',
+    mapAppointmentData: jest.fn().mockImplementation(() => ({
+      title: 'a',
+      endDate: '2018-07-05',
+      startDate: '2018-07-06',
+    })),
   },
   template: {
     appointment: {
@@ -62,7 +64,7 @@ describe('Appointments', () => {
     const {
       appointment: appointmentData,
       style, type,
-      getAppointmentTitle, getAppointmentEndDate, getAppointmentStartDate,
+      mapAppointmentData,
     } = appointment.props();
 
     expect(appointment).toHaveLength(1);
@@ -75,9 +77,9 @@ describe('Appointments', () => {
       position: 'absolute',
     });
     expect(appointmentData).toBe('data');
-    expect(getAppointmentTitle()).toBe('a');
-    expect(getAppointmentEndDate()).toBe('2018-07-05');
-    expect(getAppointmentStartDate()).toBe('2018-07-06');
+    expect(mapAppointmentData().title).toBe('a');
+    expect(mapAppointmentData().endDate).toBe('2018-07-05');
+    expect(mapAppointmentData().startDate).toBe('2018-07-06');
   });
 
   it('should pass correct event handlers', () => {

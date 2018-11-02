@@ -25,7 +25,7 @@ const SortingIcon = ({ direction }) => (
 const SortLabel = ({ onSort, children, direction }) => (
   <Button
     size="small"
-    variant="raised"
+    variant="contained"
     onClick={onSort}
   >
     {children}

@@ -5,6 +5,12 @@ import {
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 
+const pluginDependencies = [
+  { name: 'DayView', optional: true },
+  { name: 'WeekView', optional: true },
+  { name: 'MonthView', optional: true },
+];
+
 export class Appointments extends React.PureComponent {
   render() {
     const {
@@ -13,7 +19,10 @@ export class Appointments extends React.PureComponent {
     } = this.props;
 
     return (
-      <Plugin name="Appointments">
+      <Plugin
+        name="Appointments"
+        dependencies={pluginDependencies}
+      >
         <Template
           name="appointment"
         >

@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-const styles = {
+const styles = ({ palette, spacing }) => ({
   title: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -19,18 +20,27 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-};
+  content: {
+    color: palette.background.default,
+    padding: spacing.unit / 2,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+});
 
 const VerticalAppointmentBase = ({
   classes,
   mapAppointmentData,
   data,
   children,
+  className,
+  ...restProps
 }) => {
   const { title, startDate, endDate } = mapAppointmentData(data);
   return (
     children || (
-      <React.Fragment>
+      <div className={classNames(classes.content, className)} {...restProps}>
         <div className={classes.title}>
           {title}
         </div>
@@ -45,7 +55,7 @@ const VerticalAppointmentBase = ({
             {moment(endDate).format('h:mm A')}
           </div>
         </div>
-      </React.Fragment>
+      </div>
     )
   );
 };
@@ -55,11 +65,13 @@ VerticalAppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
   mapAppointmentData: () => undefined,
+  className: undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

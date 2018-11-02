@@ -19,17 +19,18 @@ export class Appointments extends React.PureComponent {
         >
           {({
             onClick, onDoubleClick,
-            data, type,
-            ...params
+            data, type, style,
+            ...restParams
           }) => (
             <TemplateConnector>
               {({
                 mapAppointmentData,
               }) => (
                 <Appointment
+                  style={style}
                   data={data}
-                  {...params}
                   {...createClickHandlers(onClick, onDoubleClick)}
+                  {...restParams}
                 >
                   <AppointmentContent
                     mapAppointmentData={mapAppointmentData}

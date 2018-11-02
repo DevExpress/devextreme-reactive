@@ -5,10 +5,13 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 
-const Appointment = () => null;
+// eslint-disable-next-line react/prop-types
+const Appointment = ({ children }) => <div>{ children }</div>;
+const AppointmentContent = () => null;
 
 const defaultProps = {
   appointmentComponent: Appointment,
+  appointmentContentComponent: AppointmentContent,
 };
 
 jest.mock('@devexpress/dx-core', () => ({
@@ -26,8 +29,6 @@ const defaultDeps = {
   },
   template: {
     appointment: {
-      type: 'horizontal',
-      appointment: 'data',
       onClick: 'onClick',
       onDoubleClick: 'onDoubleClick',
       style: {
@@ -37,6 +38,8 @@ const defaultDeps = {
         left: '20%',
         position: 'absolute',
       },
+      type: 'horizontal',
+      data: 'data',
     },
   },
 };
@@ -52,23 +55,23 @@ describe('Appointments', () => {
     jest.resetAllMocks();
   });
   it('should render appointments', () => {
-    const appointment = mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Appointments
           {...defaultProps}
         />
       </PluginHost>
-    )).find(Appointment);
-
+    ));
+    const appointment = tree.find(Appointment);
+    const appointmentContent = tree.find(AppointmentContent);
+    const { style, data: appointmentData } = appointment.props();
     const {
-      appointment: appointmentData,
-      style, type,
-      mapAppointmentData,
-    } = appointment.props();
-
+      data: appointmentContentData, type, mapAppointmentData,
+    } = appointmentContent.props();
     expect(appointment).toHaveLength(1);
-    expect(type).toBe('horizontal');
+    expect(appointmentContent).toHaveLength(1);
+
     expect(style).toEqual({
       height: 150,
       width: '60%',
@@ -76,7 +79,10 @@ describe('Appointments', () => {
       left: '20%',
       position: 'absolute',
     });
+
     expect(appointmentData).toBe('data');
+    expect(appointmentContentData).toBe('data');
+    expect(type).toBe('horizontal');
     expect(mapAppointmentData().title).toBe('a');
     expect(mapAppointmentData().endDate).toBe('2018-07-05');
     expect(mapAppointmentData().startDate).toBe('2018-07-06');

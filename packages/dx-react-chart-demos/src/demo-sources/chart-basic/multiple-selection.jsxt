@@ -50,29 +50,29 @@ export default class Demo extends React.PureComponent {
 
     return (
       <div>
-      <span>
+        <span>
           Total bars selected:
           {' '}
           {selection.length}
         </span>
-      <Paper>
-        <Chart
-          data={chartData}
-        >
-          <ArgumentAxis type="band" />
-          <ValueAxis />
-          <ValueGrid />
+        <Paper>
+          <Chart
+            data={chartData}
+          >
+            <ArgumentAxis type="band" />
+            <ValueAxis />
+            <ValueGrid />
 
-          <BarSeries
-            valueField="population"
-            argumentField="year"
-          />
-          <Scale />
-          <EventTracker onClick={this.click} />
-          <HoverState />
-          <SelectionState selection={selection} />
-        </Chart>
-      </Paper>
+            <BarSeries
+              valueField="population"
+              argumentField="year"
+            />
+            <Scale />
+            <EventTracker onClick={this.click} />
+            <HoverState />
+            <SelectionState selection={selection} />
+          </Chart>
+        </Paper>
       </div>
     );
   }

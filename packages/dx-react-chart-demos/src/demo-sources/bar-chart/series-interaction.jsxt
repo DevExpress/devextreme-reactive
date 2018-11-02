@@ -12,10 +12,6 @@ import {
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
-import {
-  symbol,
-  symbolCircle,
-} from 'd3-shape';
 
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 

@@ -42,8 +42,9 @@ export default class Demo extends React.PureComponent {
     return (
       <div>
       <span>
-          Selected bar index:
-          {selection.length ? selection[0].point : undefined}
+          Selected value:
+          {' '}
+          {selection.length ? data[selection[0].point].population : undefined}
         </span>
       <Paper>
         <Chart

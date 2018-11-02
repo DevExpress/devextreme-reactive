@@ -52,6 +52,7 @@ export default class Demo extends React.PureComponent {
       <div>
       <span>
           Total bars selected:
+          {' '}
           {selection.length}
         </span>
       <Paper>

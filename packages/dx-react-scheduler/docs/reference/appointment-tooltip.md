@@ -54,7 +54,7 @@ showOpenButton | boolean | Allow to display the tooltip open button.
 showCloseButton | boolean | Allow to display the tooltip close button.
 showDeleteButton | boolean | Allow to display the tooltip delete button.
 commandButtonIds | Array&lt;string&gt; | A list of command button identifiers.
-mapAppointmentData | () => [Scheduler.MapAppointmentData](./scheduler/#schedulermapappointmentdata) | Map function used to get an appointment fields.
+mapAppointmentData | () => [AppointmentModel](./scheduler/#appointmentmodel) | Map function used to get an appointment fields.
 onOpenButtonClick | () => void | An event that initiates open appointment form.
 onDeleteButtonClick | () => void | An event that initiates delete an appointment.
 appointmentMeta | [AppointmentMeta](#appointmentmeta) | Specifies the appointment tooltip meta data that should be display.
@@ -91,12 +91,12 @@ onExecute | () => void | An event initiating the command execution.
 
 ### AppointmentMeta
 
-An object representing a appointment tooltip meta data.
+An object representing an appointment tooltip meta data.
 
 Field | Type | Description
 ------|------|------------
 target | ReactInstance | A React component instance or a DOM element that is used for appointment tooltip positioning.
-data | object | Specifies a appointment data for display in appointment tooltip.
+data | object | Specifies an appointment data for display in appointment tooltip.
 
 ## Plugin Components
 

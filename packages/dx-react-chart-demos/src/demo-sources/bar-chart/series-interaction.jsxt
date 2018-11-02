@@ -1,0 +1,82 @@
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import {
+  Chart,
+  BarSeries,
+  ArgumentAxis,
+  ValueAxis,
+  ValueGrid,
+  Title,
+  Legend,
+} from '@devexpress/dx-react-chart-material-ui';
+import {
+  Stack, Scale, EventTracker, HoverState, SelectionState,
+} from '@devexpress/dx-react-chart';
+import {
+  symbol,
+  symbolCircle,
+} from 'd3-shape';
+
+import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
+
+const EmptyComponent = () => null;
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      annualVehiclesSales,
+      selection: [],
+    };
+
+    this.click = ({ targets }) => {
+      const { selection: state } = this.state;
+
+      if (state.length && targets.length
+        && state[0].series === targets[0].series && state[0].point === targets[0].point) {
+        this.setState({ selection: [] });
+      } else {
+        this.setState({ selection: targets });
+      }
+    };
+  }
+
+  render() {
+    const { annualVehiclesSales: chartData, selection } = this.state;
+
+    return (
+      <Paper>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis type="band" />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueGrid />
+
+          <Title
+            text="USA and Chinese annual sales of plug-in electric vehicles"
+            style={{ textAlign: 'center', width: '100%' }}
+          />
+
+          <BarSeries
+            name="USA"
+            valueField="USA"
+            argumentField="year"
+          />
+          <BarSeries
+            name="China"
+            valueField="China"
+            argumentField="year"
+          />
+          <Stack />
+          <Scale />
+          <Legend />
+          <EventTracker onClick={this.click} />
+          <HoverState />
+          <SelectionState selection={selection} />
+        </Chart>
+      </Paper>
+    );
+  }
+}

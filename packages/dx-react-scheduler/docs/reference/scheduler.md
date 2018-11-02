@@ -23,12 +23,12 @@ import { Scheduler } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;object&gt; | | An array containing custom data. A user defines the access to this data.
-mapAppointmentData? | (appointment: object) => [Scheduler.MapAppointment](#schedulerrootprops) | | Specifies the map function used to get an appointment fields.
+mapAppointmentData? | (appointment: object) => [AppointmentModel](#appointmentModel) | | Specifies the map function used to get an appointment fields.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the scheduler root layout.
 
 ## Interfaces
 
-### Scheduler.MapAppointment
+### AppointmentModel
 
 Describes an object that should be returned by mapAppointmentData function.
 

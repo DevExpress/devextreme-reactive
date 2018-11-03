@@ -8,8 +8,8 @@ const styles = theme => ({
     margin: '0 auto',
     padding: `${theme.spacing.unit * 5}px 0`,
     fontFamily: theme.typography.fontFamily,
-    color: theme.typography.subheading.color,
-    fontSize: theme.typography.subheading.fontSize,
+    color: theme.typography.subtitle1.color,
+    fontSize: theme.typography.subtitle1.fontSize,
   },
 });
 

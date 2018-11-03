@@ -19,7 +19,7 @@ describe('Text', () => {
     expect(component)
       .toBe('h3');
     expect(variant)
-      .toBe('headline');
+      .toBe('h5');
     expect(text)
       .toBe('chart');
   });

@@ -12,7 +12,6 @@ import {
   setAppointmentData,
   isAllDayCell,
   callActionIfExists,
-  changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
@@ -107,11 +106,6 @@ export class AppointmentForm extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              setAppointmentTitle,
-              setAppointmentStartDate,
-              setAppointmentEndDate,
-              setAppointmentAllDay,
-
               addedAppointment,
               appointmentChanges,
               editingAppointmentId,
@@ -131,6 +125,9 @@ export class AppointmentForm extends React.PureComponent {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
+              const changeAppointmentField = isNew
+                ? changeAddedAppointment
+                : changeAppointment;
 
               return (
                 <Popup
@@ -143,12 +140,7 @@ export class AppointmentForm extends React.PureComponent {
                         label={getMessage('titleLabel')}
                         value={changedAppointment.title}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentTitle,
-                          ),
+                          onValueChange: title => changeAppointmentField({ change: { title } }),
                         }}
                       />
                       <StartDateEditor
@@ -156,12 +148,8 @@ export class AppointmentForm extends React.PureComponent {
                         label={getMessage('startDateLabel')}
                         value={changedAppointment.startDate}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentStartDate,
-                          ),
+                          onValueChange:
+                            startDate => changeAppointmentField({ change: { startDate } }),
                         }}
                       />
                       <EndDateEditor
@@ -169,12 +157,7 @@ export class AppointmentForm extends React.PureComponent {
                         label={getMessage('endDateLabel')}
                         value={changedAppointment.endDate}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentEndDate,
-                          ),
+                          onValueChange: endDate => changeAppointmentField({ change: { endDate } }),
                         }}
                       />
                       <AllDayEditor
@@ -182,12 +165,7 @@ export class AppointmentForm extends React.PureComponent {
                         text={getMessage('allDayLabel')}
                         value={changedAppointment.allDay}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentAllDay,
-                          ),
+                          onValueChange: allDay => changeAppointmentField({ change: { allDay } }),
                         }}
                       />
                     </ScrollableArea>

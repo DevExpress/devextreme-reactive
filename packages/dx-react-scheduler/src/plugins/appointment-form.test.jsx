@@ -14,10 +14,6 @@ describe('AppointmentForm', () => {
       main: {},
     },
     getter: {
-      setAppointmentTitle: jest.fn(),
-      setAppointmentStartDate: jest.fn(),
-      setAppointmentEndDate: jest.fn(),
-      setAppointmentAllDay: jest.fn(),
       appointmentChanges: jest.fn(),
       editingAppointmentId: 10,
     },
@@ -118,8 +114,6 @@ describe('AppointmentForm', () => {
     textEditor.prop('onValueChange')();
     expect(defaultDeps.action.changeAppointment)
       .toBeCalled();
-    expect(defaultDeps.getter.setAppointmentTitle)
-      .toBeCalled();
   });
 
   it('should render startDate date editor', () => {
@@ -139,8 +133,6 @@ describe('AppointmentForm', () => {
     startDateEditor.prop('onValueChange')();
     expect(defaultDeps.action.changeAppointment)
       .toBeCalled();
-    expect(defaultDeps.getter.setAppointmentStartDate)
-      .toBeCalled();
   });
 
   it('should render end date editor', () => {
@@ -159,8 +151,6 @@ describe('AppointmentForm', () => {
 
     endDateEditor.prop('onValueChange')();
     expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-    expect(defaultDeps.getter.setAppointmentEndDate)
       .toBeCalled();
   });
 
@@ -182,8 +172,6 @@ describe('AppointmentForm', () => {
 
     allDayEditor.prop('onValueChange')();
     expect(defaultDeps.action.changeAppointment)
-      .toBeCalled();
-    expect(defaultDeps.getter.setAppointmentAllDay)
       .toBeCalled();
   });
 

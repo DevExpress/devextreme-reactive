@@ -1,6 +1,6 @@
 # ViewState Plugin Reference
 
-A plugin that manages the view state. It controls what view will be displayed and what date will be current.
+A plugin that manages the view state. It specifies the current date and the currently displayed view.
 
 ## Import
 
@@ -20,9 +20,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-currentDate? | number &#124; string &#124; Date | | Specifies the current date.
-defaultCurrentDate? | number &#124; string &#124; Date | | Specifies the initial date in uncontrolled mode.
+currentDate? | number &#124; string &#124; Date | | The current date.
+defaultCurrentDate? | number &#124; string &#124; Date | | The initial date in the uncontrolled mode.
 onCurrentDateChange? | (currentDate: Date) => void | | Handles current date changes.
-currentViewName? | string | | Specifies the current view name. Show what view is display.
-defaultCurrentViewName? | string | | Specifies the initial view name in uncontrolled mode.
-onCurrentViewNameChange? | (viewName: string) => void | | Handles view name changes.
+currentViewName? | string | | The displayed view's name.
+defaultCurrentViewName? | string | | The initially displayed view's name in the uncontrolled mode.
+onCurrentViewNameChange? | (viewName: string) => void | | Handles the displayed view's name changes.

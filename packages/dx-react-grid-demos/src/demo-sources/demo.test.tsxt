@@ -15,8 +15,9 @@ jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => 
 }));
 
 window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));
-
 window.getComputedStyle = jest.fn().mockImplementation(() => ({}));
+(window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
  it('should not fail', () => {
   expect(() => { mount(<Demo />); })
     .not.toThrow();

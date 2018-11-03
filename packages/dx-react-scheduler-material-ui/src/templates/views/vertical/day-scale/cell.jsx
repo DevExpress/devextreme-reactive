@@ -16,7 +16,7 @@ const styles = theme => ({
     margin: 0,
   },
   dayOfMonth: {
-    ...theme.typography.display1,
+    ...theme.typography.h4,
   },
 });
 

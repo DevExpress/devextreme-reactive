@@ -34,10 +34,10 @@ const Text = (props) => {
   const { text, subtext, ...restProps } = props;
   return (
     <div {...restProps}>
-      <Typography component="h3" variant="headline">
+      <Typography component="h3" variant="h5">
         {text}
       </Typography>
-      <Typography variant="subheading">{subtext}</Typography>
+      <Typography variant="subtitle1">{subtext}</Typography>
     </div>
   );
 };

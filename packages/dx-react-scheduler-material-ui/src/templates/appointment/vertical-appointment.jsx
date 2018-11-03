@@ -24,51 +24,49 @@ const styles = {
 
 const VerticalAppointmentBase = ({
   classes,
-  getAppointmentTitle,
-  getAppointmentStartDate, getAppointmentEndDate,
+  mapAppointmentData,
   data,
   children,
   ...restProps
-}) => (
-  <Appointment
-    data={data}
-    {...restProps}
-  >
-    {children || (
-    <React.Fragment>
-      <div className={classes.title}>
-        {getAppointmentTitle(data)}
-      </div>
-      <div className={classes.textContainer}>
-        <div className={classes.time}>
-          {moment(getAppointmentStartDate(data)).format('h:mm A')}
+}) => {
+  const { title, startDate, endDate } = mapAppointmentData(data);
+  return (
+    <Appointment
+      data={data}
+      {...restProps}
+    >
+      {children || (
+      <React.Fragment>
+        <div className={classes.title}>
+          {title}
         </div>
-        <div className={classes.time}>
-          {' - '}
+        <div className={classes.textContainer}>
+          <div className={classes.time}>
+            {moment(startDate).format('h:mm A')}
+          </div>
+          <div className={classes.time}>
+            {' - '}
+          </div>
+          <div className={classes.time}>
+            {moment(endDate).format('h:mm A')}
+          </div>
         </div>
-        <div className={classes.time}>
-          {moment(getAppointmentEndDate(data)).format('h:mm A')}
-        </div>
-      </div>
-    </React.Fragment>
-    )}
-  </Appointment>
-);
+      </React.Fragment>
+      )}
+    </Appointment>
+  );
+};
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  getAppointmentTitle: PropTypes.func,
-  getAppointmentStartDate: PropTypes.func,
-  getAppointmentEndDate: PropTypes.func,
+  mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  getAppointmentStartDate: () => { },
-  getAppointmentEndDate: () => { },
-  getAppointmentTitle: () => { },
+  mapAppointmentData: () => undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

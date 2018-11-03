@@ -8,12 +8,18 @@ const lightTheme = createMuiTheme({
     type: 'light',
     primary: blue,
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: blue,
+  },
+  typography: {
+    useNextVariants: true,
   },
 });
 

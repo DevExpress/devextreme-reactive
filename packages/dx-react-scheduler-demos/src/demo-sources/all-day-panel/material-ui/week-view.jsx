@@ -36,7 +36,6 @@ export default class Demo extends React.PureComponent {
           <WeekView
             startDayHour={9}
             endDayHour={19}
-            firstDayOfWeek={1}
           />
           <Toolbar />
           <DateNavigator />

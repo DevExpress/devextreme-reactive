@@ -1,6 +1,6 @@
 # Scheduler Reference
 
-The Scheduler is a root container component designed to process and display data specified via the `data` property. The Scheduler's functionality (data visualization and data processing) is implemented in several plugins specified as child components.
+The Scheduler is a root container component designed to process and display the specified data. The Scheduler's functionality (data visualization and processing) is implemented in several plugins specified as child components.
 
 ## Import
 
@@ -22,36 +22,36 @@ import { Scheduler } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;object&gt; | | An array containing custom data. A user defines the access to this data.
-mapAppointmentData? | (appointment: object) => [AppointmentModel](#appointmentModel) | | Specifies the map function used to get an appointment fields.
-rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the scheduler root layout.
+data | Array&lt;object&gt; | | An array of appointment data objects.
+mapAppointmentData? | (appointment: object) => [AppointmentModel](#appointmentModel) | | A map function used to get an appointment data.
+rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
 
 ## Interfaces
 
 ### AppointmentModel
 
-Describes an object that should be returned by mapAppointmentData function.
+Describes an appointment data object that should be returned by `mapAppointmentData` function.
 
 Field | Type | Description
 ------|------|------------
-title | string | An appointment title text.
-startDate | Date | An appointment start date.
-endDate | Date | An appointment end date.
-allDay | boolean | An appointment all day flag.
-id | number &#124; string | An appointment all day flag.
+title | string | The title.
+startDate | Date | The start date.
+endDate | Date | The end date.
+allDay | boolean | The all day flag.
+id | number &#124; string | The identifier.
 
 ### Scheduler.RootProps
 
-Describes properties passed to a component that renders the scheduler root layout.
+Describes properties passed to a component that renders the root layout.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node to be placed in the root layout.
+children? | ReactNode | A React node used to render the root layout.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-Scheduler.Root | [Scheduler.RootProps](#schedulerrootprops) | A component that renders the scheduler root layout.
+Scheduler.Root | [Scheduler.RootProps](#schedulerrootprops) | A component that renders the root layout.
 
 Additional properties are added to the component's root element.

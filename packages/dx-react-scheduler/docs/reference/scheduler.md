@@ -22,8 +22,7 @@ import { Scheduler } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;object&gt; | | An array of appointment data objects.
-mapAppointmentData? | (appointment: object) => [AppointmentModel](#appointmentModel) | | A map function used to get an appointment data.
+data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
 
 ## Interfaces
@@ -34,11 +33,12 @@ Describes an appointment data object that should be returned by `mapAppointmentD
 
 Field | Type | Description
 ------|------|------------
-title | string | The title.
 startDate | Date | The start date.
 endDate | Date | The end date.
-allDay | boolean | The all day flag.
-id | number &#124; string | The identifier.
+title? | string | The title.
+allDay? | boolean | The all day flag.
+id? | number &#124; string | The identifier.
+[propertyName: string] | any | Any number of other properties.
 
 ### Scheduler.RootProps
 

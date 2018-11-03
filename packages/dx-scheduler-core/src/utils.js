@@ -91,7 +91,7 @@ export const findOverlappedAppointments = (sortedAppointments, byDay = false) =>
 };
 
 const isMidnight = date => date.isSame(date.clone().startOf('day'));
-const byDayConditional = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate, 'day'))
+const maxBoundaryPredicate = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate, 'day'))
   || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate, 'day')));
 
 export const adjustAppointments = (groups, byDay = false) => groups.map((items) => {
@@ -107,7 +107,7 @@ export const adjustAppointments = (groups, byDay = false) => groups.map((items) 
       for (let index = startIndex + 1; index < groupLength; index += 1) {
         if (appointments[index].offset === undefined) {
           if ((!byDay && maxBoundary.isSameOrBefore(appointments[index].start))
-            || (byDay && byDayConditional(maxBoundary, appointments[index].start))) {
+            || (byDay && maxBoundaryPredicate(maxBoundary, appointments[index].start))) {
             maxBoundary = appointments[index].end;
             appointments[index].offset = offset;
           }

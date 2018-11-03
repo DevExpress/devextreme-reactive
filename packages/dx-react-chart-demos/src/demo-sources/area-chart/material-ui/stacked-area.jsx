@@ -137,7 +137,7 @@ class Demo extends React.PureComponent {
           <Stack offset={offset} />
         </Chart>
         <div className={classes.div}>
-          <Typography component="h5" variant="headline" className={classes.typography}>Series Type</Typography>
+          <Typography component="h5" variant="h5" className={classes.typography}>Series Type</Typography>
           <FormControl>
             <NativeSelect onChange={this.changeSeriesType} defaultValue={1}>
               <option value={1}>Stacked Area</option>

@@ -21,8 +21,9 @@ const data = [
   { year: '2010', population: 6.930 },
 ];
 
-const compare = ({ series, point },
-  { series: targetSeries, point: targetPoint }) => series === targetSeries && point === targetPoint;
+const compare = (
+  { series, point }, { series: targetSeries, point: targetPoint },
+) => series === targetSeries && point === targetPoint;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -34,12 +35,12 @@ export default class Demo extends React.PureComponent {
     };
 
     this.click = ({ targets }) => {
-      if (targets.length) {
-        this.setState(({ selection: list }) => {
-          const filterEl = list.filter(el => !compare(el, targets[0]));
+      const target = targets[0];
+      if (target) {
+        this.setState(({ selection }) => {
+          const filtered = selection.filter(el => !compare(el, target));
           return {
-            selection: filterEl.length < list.length
-              ? filterEl : [...filterEl, targets[0]],
+            selection: filtered.length < selection.length ? filtered : [...filtered, target],
           };
         });
       }

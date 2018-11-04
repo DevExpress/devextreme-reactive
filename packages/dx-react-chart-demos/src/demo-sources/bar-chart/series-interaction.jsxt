@@ -15,33 +15,31 @@ import {
 import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
 
 const EmptyComponent = () => null;
-const compare = ({ series, point },
-  { series: targetSeries, point: targetPoint }) => series === targetSeries && point === targetPoint;
+const compare = (
+  { series, point }, { series: targetSeries, point: targetPoint },
+) => series === targetSeries && point === targetPoint;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      annualVehiclesSales,
+      data: annualVehiclesSales,
       selection: [],
     };
 
     this.click = ({ targets }) => {
-      if (targets.length) {
-        this.setState(({ selection: list }) => {
-          const filterEl = list.filter(el => !compare(el, targets[0]));
-          return {
-            selection: filterEl.length < list.length
-              ? filterEl : [...filterEl, targets[0]],
-          };
-        });
+      const target = targets[0];
+      if (target) {
+        this.setState(({ selection }) => ({
+          selection: selection[0] && compare(selection[0], target) ? [] : [target],
+        }));
       }
     };
   }
 
   render() {
-    const { annualVehiclesSales: chartData, selection } = this.state;
+    const { data: chartData, selection } = this.state;
 
     return (
       <<%&wrapperTag%>>

@@ -9,12 +9,14 @@ export class SliceCollection extends React.PureComponent {
       pointComponent: Point,
       path, // Not used - see note above.
       coordinates,
+      index,
       uniqueName,
       style,
       getAnimatedStyle,
       scales,
       innerRadius,
       outerRadius,
+      state,
       ...restProps
     } = this.props;
     return (
@@ -23,6 +25,7 @@ export class SliceCollection extends React.PureComponent {
           <Point
             key={item.index.toString()}
             style={getAnimatedStyle(style, getPieAnimationStyle, scales, item)}
+            seriesIndex={index}
             {...restProps}
             {...item}
           />

@@ -27,11 +27,11 @@ import { AllDayPanel } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ComponentType&lt;[AllDayPanel.LayoutProps](#alldaypanellayoutprops)&gt; | | A component that renders the All Day Panel layout component.
-cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | | A component that renders the All Day Panel cell component.
-rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | | A component that renders the All Day Panel row component.
-titleCellComponent | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | | A component that renders the All Day Panel title cell component.
-appointmentLayerComponent | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | | A component that renders the All Day Panel appointment layer component.
+layoutComponent | ComponentType&lt;[AllDayPanel.LayoutProps](#alldaypanellayoutprops)&gt; | | A component that renders an All Day panel layout.
+cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | | A component that renders an All Day panel cell.
+rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | | A component that renders an All Day panel row.
+titleCellComponent | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | | A component that renders a title cell.
+appointmentLayerComponent | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | | A component that renders the appointment layer.
 messages? | [AllDayPanel.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces
@@ -42,67 +42,67 @@ Describes a cell data configuration object.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell start time.
-endDate | Date | Specifies the cell end time.
+startDate | Date | The cell's start time.
+endDate | Date | The cell's end time.
 
 ### AllDayPanel.LayoutProps
 
-Describes properties passed to a component that renders the All Day Panel layout element.
+Describes properties passed to a component that renders an All Day panel layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | Specifies the cells meta data.
-allDayPanelRef | (ref: ReactInstance) => void | A function that accepts the All Dat Panel root React element.
-cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders the All Day Panel cell component.
-rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders the All Day Panel row component.
+cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | The cells' meta data.
+allDayPanelRef | (ref: ReactInstance) => void | A function that accepts the All Day panel's root React element.
+cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
+rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
 
 ### AllDayPanel.CellProps
 
-Describes properties passed to a component that renders the All Day Panel cell element.
+Describes properties passed to a component that renders an All Day panel cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell a start time.
-endDate | Date | Specifies the cell end time.
+startDate | Date | The cell's start time.
+endDate | Date | The cell's end time.
 
 ### AllDayPanel.RowProps
 
-Describes properties passed to a component that renders the All Day Panel row element.
+Describes properties passed to a component that renders an All Day panel row.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node used to render the row content.
+children? | ReactNode | A React node used to render the row's content.
 
 ### AllDayPanel.TitleCellProps
 
-Describes properties passed to a component that renders the All Day Panel title cell element.
+Describes properties passed to a component that renders a title cell.
 
 Field | Type | Description
 ------|------|------------
-getMessage | ([messageKey](#localization-messages): string) => string | Returns a specified localization message.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the key.
 
 ### AllDayPanel.AppointmentLayerProps
 
-Describes properties passed to a component that renders the All Day Panel appointment layer element.
+Describes properties passed to a component that renders the appointment layer.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node used to render the row content.
+children? | ReactNode | A React node used to render the row's content.
 
 ## Localization Messages
 
 Field | Type | Default | Description
 ------|------|---------|------------
-allDay? | string | 'All Day' | The title cell component text.
+allDay? | string | 'All Day' | The All Day panel's title.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-AllDayPanel.Layout | ComponentType&lt;[AllDayPanel.LayoutProps](#alldaypanellayoutprops)&gt; | A component that renders the All Day Panel layout component.
-AllDayPanel.Cell | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders the All Day Panel cell component.
-AllDayPanel.Row | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders the All Day Panel row component.
-AllDayPanel.TitleCell | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | A component that renders the All Day Panel title cell component.
-AllDayPanel.AppointmentLayer | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | A component that renders the All Day Panel appointment layer component.
+AllDayPanel.Layout | ComponentType&lt;[AllDayPanel.LayoutProps](#alldaypanellayoutprops)&gt; | A component that renders an All Day panel layout.
+AllDayPanel.Cell | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
+AllDayPanel.Row | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
+AllDayPanel.TitleCell | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | A component that renders a title cell.
+AllDayPanel.AppointmentLayer | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

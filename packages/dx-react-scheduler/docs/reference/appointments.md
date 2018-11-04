@@ -23,6 +23,7 @@ import { Appointments } from '@devexpress/dx-react-scheduler';
 - [DayView](day-view.md) [Optional]
 - [WeekView](week-view.md) [Optional]
 - [MonthView](month-view.md) [Optional]
+- [AllDayPanel](all-day-panel.md) [Optional]
 
 ### Properties
 
@@ -43,7 +44,7 @@ children | ReactNode | A React node used to render the appointment content.
 style | object | An object used to render the appointment geometry.
 data | object | An object that represents an appointment data.
 onClick? | (e: object) => void | A function that handles an appointment click.
-onDblClick? | (e: object) => void | A function that handles an appointment double click.
+onDoubleClick? | (e: object) => void | A function that handles an appointment double click.
 
 ### Appointments.AppointmentContentProps
 

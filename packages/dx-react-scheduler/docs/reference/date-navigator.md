@@ -43,7 +43,7 @@ Field | Type | Description
 navigationButtonComponent | ComponentType&lt;[DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops)&gt; | A component that renders the date navigator's navitation button.
 openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops)&gt; | A component that renders a button that open a data navigator overlay element.
 navigatorText? | string | A date navigator text.
-target | ReactInstance | A React component instance or a DOM element that is used for date navigator overlay positioning.
+rootRef | (ref: ReactInstance) => void | A function that accepts the root component's React element.
 onVisibilityToggle | () => void | An event that initiates overlay showing or hiding.
 onNavigate | ({ back: boolean }) => void | An event than initiates navigation to the next date.
 

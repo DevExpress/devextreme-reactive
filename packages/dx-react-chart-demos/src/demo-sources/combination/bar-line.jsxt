@@ -76,35 +76,30 @@ export default class Demo extends React.PureComponent {
             valueField="usa"
             argumentField="year"
             axisName="oil"
-            stack="oil"
           />
           <BarSeries
             name="Saudi Arabia"
             valueField="saudiArabia"
             argumentField="year"
             axisName="oil"
-            stack="oil"
           />
           <BarSeries
             name="Iran"
             valueField="iran"
             argumentField="year"
             axisName="oil"
-            stack="oil"
           />
           <BarSeries
             name="Mexico"
             valueField="mexico"
             argumentField="year"
             axisName="oil"
-            stack="oil"
           />
           <BarSeries
             name="Russia"
             valueField="russia"
             argumentField="year"
             axisName="oil"
-            stack="oil"
           />
           <LineSeries
             name="Oil Price"
@@ -114,7 +109,11 @@ export default class Demo extends React.PureComponent {
           />
           <Animation />
           <Legend />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['USA', 'Saudi Arabia', 'Iran', 'Mexico', 'Russia'] },
+            ]}
+          />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

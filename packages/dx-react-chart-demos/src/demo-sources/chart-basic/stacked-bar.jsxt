@@ -25,21 +25,25 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <BarSeries
+            name="Young"
             valueField="young"
             argumentField="state"
-            stack="a"
           />
           <BarSeries
+            name="Middle"
             valueField="middle"
             argumentField="state"
-            stack="a"
           />
           <BarSeries
+            name="Older"
             valueField="older"
             argumentField="state"
-            stack="a"
           />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Young', 'Middle', 'Older'] },
+            ]}
+          />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

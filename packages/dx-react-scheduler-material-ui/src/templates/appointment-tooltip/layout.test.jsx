@@ -12,9 +12,11 @@ describe('Appointment Tooltip', () => {
     showOpenButton: false,
     showCloseButton: false,
     showDeleteButton: false,
-    getAppointmentStartDate: () => new Date('2018-08-17 10:00'),
-    getAppointmentEndDate: () => new Date('2018-08-17 11:00'),
-    getAppointmentTitle: () => 'title',
+    mapAppointmentData: () => ({
+      startDate: new Date('2018-08-17 10:00'),
+      endDate: new Date('2018-08-17 11:00'),
+      title: 'title',
+    }),
     commandButtonIds: {
       open: 'open',
       close: 'close',

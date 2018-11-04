@@ -11,6 +11,11 @@ describe('VerticalAppointment', () => {
   const defaultProps = {
     data: {},
   };
+  const mapAppointmentData = () => ({
+    title: 'title',
+    startDate: new Date('2018-07-27 13:10'),
+    endDate: new Date('2018-07-27 17:10'),
+  });
 
   let classes;
   let mount;
@@ -31,7 +36,11 @@ describe('VerticalAppointment', () => {
   describe('VerticalAppointment', () => {
     it('should pass rest props to the root element', () => {
       mount((
-        <VerticalAppointment {...defaultProps} customProp="custom prop" />
+        <VerticalAppointment
+          {...defaultProps}
+          customProp="custom prop"
+          mapAppointmentData={mapAppointmentData}
+        />
       ));
       const { customProp } = Appointment.mock.calls[0][0];
 
@@ -41,7 +50,10 @@ describe('VerticalAppointment', () => {
 
     it('should render title', () => {
       const tree = mount((
-        <VerticalAppointment {...defaultProps} getAppointmentTitle={() => 'title'} />
+        <VerticalAppointment
+          {...defaultProps}
+          mapAppointmentData={mapAppointmentData}
+        />
       ));
 
       expect(tree.find(`.${classes.title}`).text())
@@ -52,8 +64,7 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          getAppointmentStartDate={() => new Date('2018-07-27 13:10')}
-          getAppointmentEndDate={() => new Date('2018-07-27 17:10')}
+          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -67,7 +78,10 @@ describe('VerticalAppointment', () => {
 
     it('should render children', () => {
       const child = mount((
-        <VerticalAppointment {...defaultProps}>
+        <VerticalAppointment
+          {...defaultProps}
+          mapAppointmentData={mapAppointmentData}
+        >
           <div className="child" />
         </VerticalAppointment>
       ));

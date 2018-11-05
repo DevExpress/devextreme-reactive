@@ -33,7 +33,7 @@ export const TitleCellBase = ({
 }) => (
   <div className={classNames(classes.container, className)} {...restProps}>
     <div className={classes.content}>
-      <Typography className={classes.title} variant="body2">
+      <Typography className={classes.title} variant="body1">
         {getMessage('allDay')}
       </Typography>
     </div>

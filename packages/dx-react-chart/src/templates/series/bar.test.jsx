@@ -1,6 +1,20 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { withStates } from '../../utils/with-states';
+import { withPattern } from '../../utils/with-pattern';
 import { Bar } from './bar';
+
+jest.mock('@devexpress/dx-chart-core', () => ({
+  HOVERED: 'test_hovered',
+  SELECTED: 'test_selected',
+}));
+
+jest.mock('../../utils/with-states', () => ({
+  withStates: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-pattern', () => ({
+  withPattern: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('Bar', () => {
   const defaultProps = {
@@ -8,6 +22,7 @@ describe('Bar', () => {
     y: 2,
     width: 10,
     height: 20,
+    color: 'red',
     value: 15,
   };
 
@@ -17,15 +32,14 @@ describe('Bar', () => {
         {...defaultProps}
       />
     ));
-    const {
-      x, y, width, height, value,
-    } = tree.find('rect').props();
 
-    expect(x).toBe(1);
-    expect(y).toBe(2);
-    expect(width).toBe(10);
-    expect(height).toBe(20);
-    expect(value).toBeUndefined();
+    expect(tree.find('rect').props()).toEqual({
+      x: 1,
+      y: 2,
+      width: 10,
+      height: 20,
+      fill: 'red',
+    });
   });
 
   it('should apply custom styles if any', () => {
@@ -45,15 +59,29 @@ describe('Bar', () => {
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Bar {...defaultProps} customProperty />);
+    const tree = shallow((
+      <Bar {...defaultProps} customProperty />
+    ));
     const { customProperty } = tree.find('rect').props();
+
     expect(customProperty).toBeTruthy();
   });
 
-  it('should apply color', () => {
-    const tree = shallow(<Bar {...defaultProps} color="color" />);
+  it('should have hovered and selected states', () => {
+    expect(withStates).toBeCalledWith({
+      test_hovered: Bar,
+      test_selected: Bar,
+    });
+  });
 
-    expect(tree.find('rect').props().fill)
-      .toBe('color');
+  it('should use patterns', () => {
+    expect(withPattern.mock.calls).toEqual([
+      [expect.any(Function), { opacity: 0.75 }],
+      [expect.any(Function), { opacity: 0.5 }],
+    ]);
+    expect(withPattern.mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
+      .toEqual('series-1-point-2-hover');
+    expect(withPattern.mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
+      .toEqual('series-2-point-3-selection');
   });
 });

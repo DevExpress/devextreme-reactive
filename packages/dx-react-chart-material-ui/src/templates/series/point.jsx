@@ -1,10 +1,26 @@
-import { ScatterSeries } from '@devexpress/dx-react-chart';
-import { withClassName } from '../utils';
+import { ScatterSeries, withPatchedProps } from '@devexpress/dx-react-chart';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-const styles = () => ({
-  root: {
-    stroke: 'none',
+const styles = theme => ({
+  point: {
+    fill: theme.palette.background.paper,
   },
 });
 
-export const Point = withClassName(styles)(ScatterSeries.Point);
+const setClassName = ({ classes, ...restProps }) => {
+  if (restProps.state) {
+    const { className, ...rest } = restProps;
+    return {
+      className: classNames(classes.point, className),
+      ...rest,
+    };
+  }
+  return restProps;
+};
+
+export const Point = withStyles(styles)(
+  withPatchedProps(setClassName)(
+    ScatterSeries.Point,
+  ),
+);

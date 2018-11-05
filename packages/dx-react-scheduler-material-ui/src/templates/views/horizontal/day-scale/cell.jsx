@@ -17,7 +17,7 @@ const styles = theme => ({
     padding: theme.spacing.unit,
   },
   dayOfMonth: {
-    ...theme.typography.display1,
+    ...theme.typography.h4,
   },
 });
 

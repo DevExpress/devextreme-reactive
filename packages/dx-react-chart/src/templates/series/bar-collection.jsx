@@ -9,15 +9,18 @@ export class BarCollection extends React.PureComponent {
       pointComponent: Point,
       path, // Not used - see note above.
       coordinates,
+      index,
       style,
       scales,
       getAnimatedStyle,
+      state,
       ...restProps
     } = this.props;
     return (coordinates.map(item => (
       <Point
         key={item.index.toString()}
         style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
+        seriesIndex={index}
         {...restProps}
         {...dBar(item)}
         {...item}

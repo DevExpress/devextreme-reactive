@@ -10,7 +10,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { AppointmentForm } from '@devexpress/dx-react-scheduler';
@@ -33,9 +33,9 @@ containerComponent | ComponentType&lt;[AppointmentForm.ContainerProps](#appointm
 scrollableAreaComponent | ComponentType&lt;[AppointmentForm.ScrollableAreaProps](#appointmentformscrollableareaprops)&gt; | | A component that renders the appointment form's scrollable area.
 staticAreaComponent | ComponentType&lt;[AppointmentForm.StaticAreaProps](#appointmentformstaticareaprops)&gt; | | A component that renders the appointment form's static area.
 visible? | boolean | | Specifies the appointment form's visibility.
-onVisibilityChange? | (visible: boolean) => void | | Handles the appointment form visibility changes.
+onVisibilityChange? | (visible: boolean) => void | | Handles changes to the appointment form's visibility.
 appointmentData? | object | | Specifies the appointment's data that the form displays.
-onAppointmentDataChange? | (appointmentData: object) => void | | Handles the appointment's data changes.
+onAppointmentDataChange? | (appointmentData: object) => void | | Handles changes to the appointment's data.
 readOnly? | boolean | false | Specifies the appointment form is read-only.
 messages? | [AppointmentForm.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
@@ -43,7 +43,7 @@ messages? | [AppointmentForm.LocalizationMessages](#localization-messages) | | A
 
 ### AppointmentForm.PopupProps
 
-Describes properties passed to a component that renders the appointment form's popup.
+Properties passed to a component that renders the appointment form's popup.
 
 Field | Type | Description
 ------|------|------------
@@ -52,7 +52,7 @@ children | ReactNode | A React node used to render the popup content.
 
 ### AppointmentForm.ContainerProps
 
-Describes properties passed to a component that renders the appointment form's container.
+Properties passed to a component that renders the appointment form's container.
 
 Field | Type | Description
 ------|------|------------
@@ -60,7 +60,7 @@ children | ReactNode | A React node used to render the container content.
 
 ### AppointmentForm.ScrollableAreaProps
 
-Describes properties passed to a component that renders the appointment form's scrollable area.
+Properties passed to a component that renders the appointment form's scrollable area.
 
 Field | Type | Description
 ------|------|------------
@@ -68,7 +68,7 @@ children | ReactNode | A React node used to render the scrollable area content.
 
 ### AppointmentForm.StaticAreaProps
 
-Describes properties passed to a component that renders the appointment form's static area.
+Properties passed to a component that renders the appointment form's static area.
 
 Field | Type | Description
 ------|------|------------

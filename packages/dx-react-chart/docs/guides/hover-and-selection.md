@@ -6,7 +6,7 @@ The React Chart's series support click, hover, and selection events that are imp
 
 - [EventTracker](../reference/event-tracker.md) - allows you to handle a click on a point or series
 - [HoverState](../reference/hover-state.md) - implements the *hovered* state for points and series
-- [SelectionState](../reference/selection-state.md) - implements point and series selection
+- [SelectionState](../reference/selection-state.md) -  implements the *selected* state for points and series
 
 ## Basic Setup
 

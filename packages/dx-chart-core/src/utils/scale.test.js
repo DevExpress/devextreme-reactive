@@ -1,6 +1,4 @@
-import {
-  createScale, getWidth, setScalePadding, getValueDomainName,
-} from './scale';
+import { createScale, getWidth, getValueDomainName } from './scale';
 
 const domainOptions = { domain: [0, 100], type: 'linear', orientation: 'horizontal' };
 const width = 500;
@@ -57,15 +55,6 @@ describe('Get offset', () => {
 
   it('should return offset not zero, scale is band', () => {
     expect(getWidth({ bandwidth: () => 4 })).toBe(4);
-  });
-});
-
-describe('Set scale padding', () => {
-  it('should set inner and outer paddings', () => {
-    setScalePadding(bandMockScale, 0.3);
-
-    expect(bandMockScale.paddingInner).toBeCalledWith(0.3);
-    expect(bandMockScale.paddingOuter).toBeCalledWith(0.3 / 2);
   });
 });
 

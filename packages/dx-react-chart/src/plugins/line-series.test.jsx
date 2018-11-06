@@ -34,6 +34,7 @@ describe('Line series', () => {
     ...defaultProps,
     points: coords,
     seriesComponent: SeriesComponent,
+    path: dLine,
     customProperty: 'custom',
   });
 

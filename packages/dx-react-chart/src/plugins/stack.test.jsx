@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-react-core/test-utils';
 import { stackOrderNone, stackOffsetDiverging } from 'd3-shape';
-import { getStackedSeries, getStacks } from '@devexpress/dx-chart-core';
+import { getStackedSeries } from '@devexpress/dx-chart-core';
 import { Stack } from './stack';
 
 jest.mock('d3-shape', () => ({
@@ -13,19 +13,45 @@ jest.mock('d3-shape', () => ({
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   getStackedSeries: jest.fn().mockReturnValue('stacked-series'),
-  getStacks: jest.fn().mockReturnValue('stacks'),
 }));
 
 describe('Stack', () => {
   afterEach(jest.clearAllMocks);
 
+  const deps = {
+    getter: {
+      series: 'test-series',
+      data: 'test-data',
+    },
+  };
+
   it('should provide options', () => {
-    const deps = {
-      getter: {
-        series: 'test-series',
-        data: 'test-data',
-      },
-    };
+    const testStacks = [{ series: ['a'] }, { series: ['b'] }];
+    const testOffset = () => null;
+    const testOrder = () => null;
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <Stack
+          stacks={testStacks}
+          offset={testOffset}
+          order={testOrder}
+        />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree)).toEqual({
+      data: 'test-data',
+      series: 'stacked-series',
+    });
+    expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
+      stacks: testStacks,
+      offset: testOffset,
+      order: testOrder,
+    });
+  });
+
+  it('should provide default options', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(deps)}
@@ -36,10 +62,11 @@ describe('Stack', () => {
     expect(getComputedState(tree)).toEqual({
       data: 'test-data',
       series: 'stacked-series',
-      stacks: 'stacks',
     });
-    expect(getStackedSeries)
-      .toBeCalledWith('test-series', 'test-data', stackOffsetDiverging, stackOrderNone);
-    expect(getStacks).toBeCalledWith('stacked-series');
+    expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
+      stacks: [],
+      offset: stackOffsetDiverging,
+      order: stackOrderNone,
+    });
   });
 });

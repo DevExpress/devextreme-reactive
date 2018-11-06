@@ -1,0 +1,78 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  BarSeries,
+  ArgumentAxis,
+  ValueAxis,
+  ValueGrid,
+  Title,
+  Legend,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import {
+  Stack, Scale, EventTracker, HoverState, SelectionState,
+} from '@devexpress/dx-react-chart';
+
+import { annualVehiclesSales } from '../../../demo-data/data-vizualization';
+
+const EmptyComponent = () => null;
+const compare = (
+  { series, point }, { series: targetSeries, point: targetPoint },
+) => series === targetSeries && point === targetPoint;
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: annualVehiclesSales,
+      selection: [],
+    };
+
+    this.click = ({ targets }) => {
+      const target = targets[0];
+      if (target) {
+        this.setState(({ selection }) => ({
+          selection: selection[0] && compare(selection[0], target) ? [] : [target],
+        }));
+      }
+    };
+  }
+
+  render() {
+    const { data: chartData, selection } = this.state;
+
+    return (
+      <<%&wrapperTag%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis type="band" />
+          <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
+          <ValueGrid />
+
+          <Title
+            text="USA and Chinese annual sales of plug-in electric vehicles"
+            style={{ textAlign: 'center', width: '100%' }}
+          />
+
+          <BarSeries
+            name="USA"
+            valueField="USA"
+            argumentField="year"
+          />
+          <BarSeries
+            name="China"
+            valueField="China"
+            argumentField="year"
+          />
+          <Stack />
+          <Scale />
+          <Legend />
+          <EventTracker onClick={this.click} />
+          <HoverState />
+          <SelectionState selection={selection} />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

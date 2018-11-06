@@ -15,6 +15,7 @@ const styles = theme => ({
   },
   text: {
     ...theme.typography.caption,
+    whiteSpace: 'nowrap',
   },
 });
 

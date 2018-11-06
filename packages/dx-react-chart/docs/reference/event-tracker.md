@@ -1,6 +1,6 @@
 # EventTracker Plugin Reference
 
-The `EventTracker` plugin allows you to handle a click on the point or series.
+The `EventTracker` plugin allows you to handle a click on the chart's plot.
 
 ## Import
 
@@ -27,13 +27,13 @@ The click event data.
 Field | Type | Description
 ------|------|------------
 location | Array&lt;number&gt; | The clicked point's coordinates `[x, y]` (relative to the chart's plot).
-targets | Array&lt;[SeriesRef](#seriesref)&gt; | An array of clicked series and points.
+targets | Array&lt;[SeriesRef](#seriesref)&gt; | An array of clicked series.
 
 ### SeriesRef
 
-The object that points at a clicked series or point.
+The object that points at a clicked series.
 
 Field | Type | Description
 ------|------|------------
 series | string | Series name.
-index? | number | The point's index within the `data` array (`undefined` if the object points at a series).
+index? | number | The point's index within the `data` array (`undefined` if no series' points are clicked).

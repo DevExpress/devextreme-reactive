@@ -36,4 +36,4 @@ Contains data to identify series or point.
 Field | Type | Description
 ------|------|------------
 series | string | Series name.
-index? | number | Point index within a series (`undefined` if target is not a point).
+index? | number | Index in `data` array cooresponding to a point (`undefined` if target is not a point).

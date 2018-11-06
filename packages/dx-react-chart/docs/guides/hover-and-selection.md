@@ -15,12 +15,6 @@ The `SelectionState` plugin allows to turn series to *selected* state.
 
 Import the plugins listed above to enable Chart interactivity.
 
-.embedded-demo({ "path": "bar-chart/series-interaction", "showThemeSelector": true })
-
-### Click
-
-Handle the `EventTracker` plugin's `onClick` event to process series click.
-
 ### Hover in Uncontrolled Mode
 
 In the uncontrolled mode, specify initial hover target in the `HoverState` plugin's `defaultHover` property.
@@ -35,7 +29,7 @@ In the controlled mode, specify hover target in the `HoverState` plugin's `hover
 
 ### Selection
 
-Use the `SelectionState` plugin's `selection` property to specify selected series and points.
+Use the `SelectionState` plugin's `selection` property to specify selected series and points. Handle the `EventTracker` plugin's `onClick` event to process series click and change selection.
 
 By controlling how the `selection` property value is changed different selection modes can be achieved.
 

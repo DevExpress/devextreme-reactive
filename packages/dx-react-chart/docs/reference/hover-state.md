@@ -1,6 +1,6 @@
 # HoverState Plugin Reference
 
-The `HoverState` plugin implements series' and point's hover state.
+The `HoverState` plugin  implements the *hovered* state for points and series
 
 ## Import
 

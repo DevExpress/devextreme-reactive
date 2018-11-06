@@ -1,6 +1,6 @@
 # SelectionState Plugin Reference
 
-The `SelectionState` plugin implements point and series selection.
+The `SelectionState` plugin implements the *selected* state for points and series.
 
 ## Import
 

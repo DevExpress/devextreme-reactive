@@ -28,15 +28,15 @@ import { AppointmentForm } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
+visible? | boolean | | Specifies the appointment form's visibility.
+onVisibilityChange? | (visible: boolean) => void | | Handles changes to the appointment form's visibility.
+appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | | Specifies the appointment's data that the form displays.
+onAppointmentDataChange? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => void | | Handles changes to the appointment's data.
+readOnly? | boolean | false | Specifies the appointment form is read-only.
 popupComponent | ComponentType&lt;[AppointmentForm.PopupProps](#appointmentformpopupprops)&gt; | | A component that renders the appointment form's popup.
 containerComponent | ComponentType&lt;[AppointmentForm.ContainerProps](#appointmentformcontainerprops)&gt; | | A component that renders the appointment form's container.
 scrollableAreaComponent | ComponentType&lt;[AppointmentForm.ScrollableAreaProps](#appointmentformscrollableareaprops)&gt; | | A component that renders the appointment form's scrollable area.
 staticAreaComponent | ComponentType&lt;[AppointmentForm.StaticAreaProps](#appointmentformstaticareaprops)&gt; | | A component that renders the appointment form's static area.
-visible? | boolean | | Specifies the appointment form's visibility.
-onVisibilityChange? | (visible: boolean) => void | | Handles changes to the appointment form's visibility.
-appointmentData? | object | | Specifies the appointment's data that the form displays.
-onAppointmentDataChange? | (appointmentData: object) => void | | Handles changes to the appointment's data.
-readOnly? | boolean | false | Specifies the appointment form is read-only.
 messages? | [AppointmentForm.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
 
 ## Interfaces

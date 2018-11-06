@@ -25,7 +25,7 @@ export const TableSummaryItem = ({
 );
 
 TableSummaryItem.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   type: PropTypes.string.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
@@ -33,6 +33,7 @@ TableSummaryItem.propTypes = {
 };
 
 TableSummaryItem.defaultProps = {
+  value: null,
   className: undefined,
   children: undefined,
 };

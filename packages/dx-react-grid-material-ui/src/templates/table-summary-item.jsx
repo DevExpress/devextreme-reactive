@@ -38,7 +38,7 @@ const TableSummaryItemBase = ({
 );
 
 TableSummaryItemBase.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   type: PropTypes.string.isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
@@ -47,6 +47,7 @@ TableSummaryItemBase.propTypes = {
 };
 
 TableSummaryItemBase.defaultProps = {
+  value: null,
   children: undefined,
   className: undefined,
 };

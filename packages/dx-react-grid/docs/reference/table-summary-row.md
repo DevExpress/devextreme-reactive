@@ -81,9 +81,9 @@ Describes properties passed to a component that renders a summary item.
 
 Field | Type | Description
 ------|------|------------
-value | number | The summary value
+value? | number | The summary value
 type | [SummaryType](summary-state.md#summarytype) | The summary type
-children | ReactNode | A React node used to render the summary value.
+children? | ReactNode | A React node used to render the summary value.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the summary caption.
 
 ## Localization Messages

@@ -1,6 +1,6 @@
 # EventTracker Plugin Reference
 
-The `EventTracker` plugin is used to handle series click.
+The `EventTracker` plugin allows you to handle a click on the point or series.
 
 ## Import
 
@@ -16,24 +16,24 @@ import { EventTracker } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-onClick? | (target: [ClickData](#clickdata)) => void | | A function that gets an object containing click event data.
+onClick? | (target: [ClickData](#clickdata)) => void | | A function that is executed when the chart's plot is clicked.
 
 ## Interfaces
 
 ### ClickData
 
-Contains click event data.
+The click event data.
 
 Field | Type | Description
 ------|------|------------
-location | Array&lt;number&gt; | Coordinates `[x, y]` of a clicked point (relative to the area containing series).
-targets | Array&lt;[SeriesRef](#seriesref)&gt; | List of clicked items.
+location | Array&lt;number&gt; | The clicked point's coordinates `[x, y]` (relative to the chart's plot).
+targets | Array&lt;[SeriesRef](#seriesref)&gt; | An array of clicked series and points.
 
 ### SeriesRef
 
-Contains data to identify series or point.
+The object that points at a clicked series or point.
 
 Field | Type | Description
 ------|------|------------
 series | string | Series name.
-index? | number | Index in `data` array corresponding to a point (`undefined` if target is not a point).
+index? | number | The point's index within the `data` array (`undefined` if the object points at a series).

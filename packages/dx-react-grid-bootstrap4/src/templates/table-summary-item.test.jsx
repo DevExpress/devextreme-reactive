@@ -20,7 +20,7 @@ describe('TableSummaryItem', () => {
       .toBeTruthy();
   });
 
-  it('should pass style to the root element', () => {
+  it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableSummaryItem
         {...defaultProps}
@@ -32,7 +32,7 @@ describe('TableSummaryItem', () => {
       .toMatchObject({ color: 'gray' });
   });
 
-  it('should pass rest props to the root element', () => {
+  it('should pass the className prop to the root element', () => {
     const tree = shallow((
       <TableSummaryItem
         {...defaultProps}
@@ -40,7 +40,7 @@ describe('TableSummaryItem', () => {
       />
     ));
 
-    expect(tree.is('.custom-class'))
+    expect(tree.is('.custom-class.dx-g-bs4-table-summary-item'))
       .toBeTruthy();
   });
 

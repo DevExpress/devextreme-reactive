@@ -22,13 +22,13 @@ Name | Type | Default | Description
 -----|------|---------|------------
 editingAppointmentId? | number &#124; string | | ID of the appointment being edited.
 defaultEditingAppointmentId? | number &#124; string | | ID of the appointment initially added to the `editingAppointmentId` in uncontrolled mode.
-onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles adding or removing a appointment to/from the `editingAppointmentId`.
+onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles adding or removing an appointment to/from the `editingAppointmentId`.
 addedAppointment? | object | | Created but not committed appointment.
 defaultAddedAppointment? | object | | Appointment initially added to the `addedAppointment` in uncontrolled mode.
-onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles adding or removing a appointment to/from the `addedAppointment`.
+onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles adding or removing an appointment to/from the `addedAppointment`.
 appointmentChanges? | { [key: string]: object } | | Not committed appointment changes.
 defaultAppointmentChanges? | { [key: string]: object } | | Appointment changes initially added to the `appointmentChanges` in uncontrolled mode.
-onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles adding or removing a appointment changes to/from the `appointmentChanges`.
+onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles adding or removing an appointment changes to/from the `appointmentChanges`.
 onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles appointment changes committing.
 
 ## Interfaces

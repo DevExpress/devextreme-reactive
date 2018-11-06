@@ -73,36 +73,35 @@ class Demo extends React.PureComponent {
             name="Hydro-electric"
             valueField="hydro"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Oil"
             valueField="oil"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Natural gas"
             valueField="gas"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Coal"
             valueField="coal"
             argumentField="country"
-            stack="a"
           />
           <BarSeries
             name="Nuclear"
             valueField="nuclear"
             argumentField="country"
-            stack="a"
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Energy Consumption in 2004 (Millions of Tons, Oil Equivalent)" className={classes.title} />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Hydro-electric', 'Oil', 'Natural gas', 'Coal', 'Nuclear'] },
+            ]}
+          />
           <Scale />
         </Chart>
       </Paper>

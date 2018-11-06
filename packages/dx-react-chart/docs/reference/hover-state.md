@@ -1,6 +1,6 @@
 # HoverState Plugin Reference
 
-The `HoverState` plugin is used to handle series hover state.
+The `HoverState` plugin implements series' and point's hover state.
 
 ## Import
 
@@ -16,6 +16,6 @@ import { HoverState } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultHover? | [SeriesRef](./event-tracker.md#seriesref) | | Specifies initial hover target in the uncontrolled mode.
-hover? | [SeriesRef](./event-tracker.md#seriesref) | | Specifies hover.
-onHoverChange? | (target: [SeriesRef](./event-tracker.md#seriesref)) => void | | A function that gets hovered target.
+defaultHover? | [SeriesRef](./event-tracker.md#seriesref) | | Specifies a series or point that is initially displayed hovered.
+hover? | [SeriesRef](./event-tracker.md#seriesref) | | Specifies a series or point that is hovered.
+onHoverChange? | (target: [SeriesRef](./event-tracker.md#seriesref)) => void | | A function that is executed when the hover target is changed.

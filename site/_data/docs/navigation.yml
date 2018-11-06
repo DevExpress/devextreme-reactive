@@ -258,6 +258,14 @@
         path: /react/scheduler/docs/guides/getting-started
   - title: API Reference
     items:
+      - title: AppointmentForm
+        path: /react/scheduler/docs/reference/appointment-form
+      - title: ViewState
+        path: /react/scheduler/docs/reference/view-state
+      - title: WeekView
+        path: /react/scheduler/docs/reference/week-view
+      - title: ViewSwitcher
+        path: /react/scheduler/docs/reference/view-switcher
       - title: Toolbar
         path: /react/scheduler/docs/reference/toolbar
   - title: Related Docs

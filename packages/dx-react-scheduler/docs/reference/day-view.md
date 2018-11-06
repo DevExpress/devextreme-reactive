@@ -42,7 +42,7 @@ dayScaleEmptyCellComponent | ComponentType&lt;[DayView.DayScaleEmptyCellProps](#
 timeTableLayoutComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | | A component that renders a time table layout.
 timeTableCellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | | A component that renders a time table cell.
 timeTableRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a time table row.
-appointmentLayerComponent | ComponentType&lt;[DayView.AppointmentLayerProps](#dayviewappointmentlayerprops)&gt; | | A component that renders a appointment layer.
+appointmentLayerComponent | ComponentType&lt;[DayView.AppointmentLayerProps](#dayviewappointmentlayerprops)&gt; | | A component that renders the appointment layer.
 
 ## Interfaces
 
@@ -136,7 +136,7 @@ children? | ReactNode | A React node used to render the time table cell content.
 
 ### DayView.AppointmentLayerProps
 
-Describes properties passed to a component that renders a appointment layer.
+Describes properties passed to a component that renders the appointment layer.
 
 Field | Type | Description
 ------|------|------------
@@ -163,6 +163,6 @@ DayView.DayScaleEmptyCell | ComponentType&lt;[DayView.DayScaleEmptyCellProps](#d
 DayView.TimeTableLayout | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
 DayView.TimeTableCell | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | A component that renders a time table cell.
 DayView.Row | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a day view's generic row.
-DayView.AppointmentLayer | ComponentType&lt;[DayView.AppointmentLayerProps](#dayviewappointmentlayerprops)&gt; | A component that renders a appointment layer.
+DayView.AppointmentLayer | ComponentType&lt;[DayView.AppointmentLayerProps](#dayviewappointmentlayerprops)&gt; | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

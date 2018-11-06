@@ -1,6 +1,6 @@
 # SelectionState Plugin Reference
 
-The `SelectionState` plugin is used to handle series selection state.
+The `SelectionState` plugin implements point and series selection.
 
 ## Import
 
@@ -16,4 +16,4 @@ import { SelectionState } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-selection? | Array&lt;[SeriesRef](./event-tracker.md#seriesref)&gt; | [] | Specifies list of selected series and points.
+selection? | Array&lt;[SeriesRef](./event-tracker.md#seriesref)&gt; | [] | An array of selected series and points.

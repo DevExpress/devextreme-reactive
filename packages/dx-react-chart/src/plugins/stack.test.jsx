@@ -18,13 +18,40 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 describe('Stack', () => {
   afterEach(jest.clearAllMocks);
 
+  const deps = {
+    getter: {
+      series: 'test-series',
+      data: 'test-data',
+    },
+  };
+
   it('should provide options', () => {
-    const deps = {
-      getter: {
-        series: 'test-series',
-        data: 'test-data',
-      },
-    };
+    const testStacks = [{ series: ['a'] }, { series: ['b'] }];
+    const testOffset = () => null;
+    const testOrder = () => null;
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <Stack
+          stacks={testStacks}
+          offset={testOffset}
+          order={testOrder}
+        />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree)).toEqual({
+      data: 'test-data',
+      series: 'stacked-series',
+    });
+    expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
+      stacks: testStacks,
+      offset: testOffset,
+      order: testOrder,
+    });
+  });
+
+  it('should provide default options', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(deps)}
@@ -36,7 +63,10 @@ describe('Stack', () => {
       data: 'test-data',
       series: 'stacked-series',
     });
-    expect(getStackedSeries)
-      .toBeCalledWith('test-series', 'test-data', stackOffsetDiverging, stackOrderNone);
+    expect(getStackedSeries).toBeCalledWith('test-series', 'test-data', {
+      stacks: [],
+      offset: stackOffsetDiverging,
+      order: stackOrderNone,
+    });
   });
 });

@@ -13,6 +13,7 @@ export class PointCollection extends React.PureComponent {
       style,
       getAnimatedStyle,
       scales,
+      state,
       ...restProps
     } = this.props;
     const getAttributes = pointAttributes(point);

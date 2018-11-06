@@ -50,42 +50,41 @@ export default class Demo extends React.PureComponent {
             name="Male: 0-14"
             valueField="maleyoung"
             argumentField="state"
-            stack="male"
           />
           <BarSeries
             name="Male: 15-64"
             valueField="malemiddle"
             argumentField="state"
-            stack="male"
           />
           <BarSeries
             name="Male: 65 and older"
             valueField="maleolder"
             argumentField="state"
-            stack="male"
           />
           <BarSeries
             name="Female: 0-14"
             valueField="femaleyoung"
             argumentField="state"
-            stack="female"
           />
           <BarSeries
             name="Female: 15-64"
             valueField="femalemiddle"
             argumentField="state"
-            stack="female"
           />
           <BarSeries
             name="Female: 65 and older"
             valueField="femaleolder"
             argumentField="state"
-            stack="female"
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} />
           <Title text="Population: Age Structure" style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }} />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Male: 0-14', 'Male: 15-64', 'Male: 65 and older'] },
+              { series: ['Female: 0-14', 'Female: 15-64', 'Female: 65 and older'] },
+            ]}
+          />
           <Scale />
         </Chart>
       </<%&wrapperTag%>>

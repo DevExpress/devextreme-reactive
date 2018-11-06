@@ -104,37 +104,37 @@ class Demo extends React.PureComponent {
             name="Liquids"
             valueField="liquids"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Solids"
             valueField="solids"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Gas"
             valueField="gas"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Cement Production"
             valueField="cementProduction"
             argumentField="year"
-            stack="a"
           />
           <AreaSeries
             name="Gas Flaring"
             valueField="gasFlaring"
             argumentField="year"
-            stack="a"
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Carbon Emission Estimates" className={classes.title} />
           <Scale />
-          <Stack offset={offset} />
+          <Stack
+            stacks={[{
+              series: ['Liquids', 'Solids', 'Gas', 'Cement Production', 'Gas Flaring'],
+            }]}
+            offset={offset}
+          />
         </Chart>
         <div className={classes.div}>
           <Typography component="h5" variant="h5" className={classes.typography}>Series Type</Typography>

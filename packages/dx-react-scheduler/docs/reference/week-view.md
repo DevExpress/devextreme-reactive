@@ -1,7 +1,5 @@
 # WeekView Plugin Reference
 
-
-
 A plugin that renders the Scheduler's week view. This plugin arranges appointments from top to bottom. If their time intervals overlap, their width is decreased and they are placed next to each other.
 
 ## Import
@@ -130,12 +128,13 @@ rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A c
 
 ### WeekView.TimeTableCellProps
 
-Describes properties passed to a component that renders a time scale cell.
+Describes properties passed to a component that renders a time table cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell a start time.
-endDate | Date | Specifies the cell end time.
+startDate? | Date | Specifies the cell a start time.
+endDate? | Date | Specifies the cell end time.
+children? | ReactNode | A React node used to render the time table cell content.
 
 ### WeekView.AppointmentLayerProps
 

@@ -40,21 +40,22 @@ export default class Demo extends React.PureComponent {
             name="Young"
             valueField="young"
             argumentField="state"
-            stack="a"
           />
           <AreaSeries
             name="Middle"
             valueField="middle"
             argumentField="state"
-            stack="a"
           />
           <AreaSeries
             name="Older"
             valueField="older"
             argumentField="state"
-            stack="a"
           />
-          <Stack />
+          <Stack
+            stacks={[
+              { series: ['Young', 'Middle', 'Older'] },
+            ]}
+          />
           <Scale extensions={[{ type: 'band', constructor: scalePoint }]} />
         </Chart>
       </<%&wrapperTag%>>

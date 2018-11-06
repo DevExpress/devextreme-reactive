@@ -44,7 +44,8 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "seamless-immutable": "^7.1.4",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "material-ui-pickers": "^1.0.0-rc.17"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "1.8.0",

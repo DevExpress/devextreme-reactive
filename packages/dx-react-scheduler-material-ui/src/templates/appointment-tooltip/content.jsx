@@ -9,7 +9,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   text: {
-    ...theme.typography.body1,
+    ...theme.typography.body2,
     display: 'inline-block',
   },
 });

@@ -72,6 +72,11 @@
     items:
       - title: Multiple Axes
         path: /react/chart/demos/combination/multiple-axes
+/react/scheduler:
+  - title: Demos
+    items:
+      - title: Data Editing
+        path: /react/scheduler/demos/featured/data-editing
 /vue/grid:
   - title: DEMOS
     items:

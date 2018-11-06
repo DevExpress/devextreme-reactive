@@ -102,7 +102,7 @@ class Demo extends React.PureComponent {
           ))}
         </div>
         <div className={classes.div}>
-          <Typography component="h5" variant="headline" className={classes.typography}>Scheme</Typography>
+          <Typography component="h5" variant="h5" className={classes.typography}>Scheme</Typography>
           <FormControl>
             <NativeSelect onChange={this.changeScheme} defaultValue={0}>
               <option value={0}>schemeCategory10</option>

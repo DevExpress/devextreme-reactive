@@ -14,7 +14,7 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
-      currentDate: '2018-06-28',
+      currentDate: '2018-06-27',
     };
   }
 

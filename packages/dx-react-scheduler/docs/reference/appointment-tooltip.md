@@ -55,8 +55,8 @@ showCloseButton | boolean | Specifies the Close button's visibility.
 showDeleteButton | boolean | Specifies the Delete button's visibility.
 commandButtonIds | Array&lt;string&gt; | A command button's identifier list.
 mapAppointmentData | () => [AppointmentModel](./scheduler/#appointmentmodel) | A map function used to get appointment's data.
-onOpenButtonClick | () => void | An event that opens the appointment form.
-onDeleteButtonClick | () => void | An event that deletes an appointment.
+onOpenButtonClick | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
+onDeleteButtonClick | () => void | An event raised when the Open button is clicked. The event handler should delete an appointment.
 appointmentMeta | [AppointmentMeta](#appointmentmeta) | The appointment's meta data to display.
 visible | boolean | Specifies the tooltip's visibility.
 onHide | () => void | An event that hides the tooltip.

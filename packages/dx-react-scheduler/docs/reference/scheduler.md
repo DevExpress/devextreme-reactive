@@ -33,8 +33,8 @@ Describes an appointment data object that should be returned by `mapAppointmentD
 
 Field | Type | Description
 ------|------|------------
-startDate | Date &#124; string | The start date.
-endDate | Date &#124; string | The end date.
+startDate | Date &#124; string &#124; number | The start date.
+endDate | Date &#124; string &#124; number | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.

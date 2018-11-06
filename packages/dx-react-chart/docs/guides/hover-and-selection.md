@@ -1,6 +1,6 @@
 # React Chart - Hover and Selection
 
-The React Chart's series support click, hover, and selection events that are implemented in the related plugins.
+The React Chart supports click and hover events on its plot and allows you to select series and points.
 
 ## Related Plugins
 

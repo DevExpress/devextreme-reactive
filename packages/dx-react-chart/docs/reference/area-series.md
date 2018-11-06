@@ -42,7 +42,6 @@ Field | Type | Description
 coordinates | Array&lt;{ x: number, y: number, y1: number }&gt; | Coordinates of the series' points.
 path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
 color | string | A series color.
-style | object | Series styles.
 
 ## Plugin Components
 

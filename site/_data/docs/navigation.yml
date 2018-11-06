@@ -33,6 +33,8 @@
         path: /react/grid/docs/guides/getting-started
       - title: React Chart
         path: /react/chart/docs/guides/getting-started
+      - title: React Scheduler
+        path: /react/scheduler/docs/guides/getting-started
 /react/grid:
   - title: Guides
     items:
@@ -182,6 +184,8 @@
         path: /react/core/docs/guides/fundamentals
       - title: React Chart
         path: /react/chart/docs/guides/getting-started
+      - title: React Scheduler
+        path: /react/scheduler/docs/guides/getting-started
 /react/chart:
   - title: Guides
     items:
@@ -245,6 +249,33 @@
         path: /react/core/docs/guides/fundamentals
       - title: React Grid
         path: /react/grid/docs/guides/getting-started
+      - title: React Scheduler
+        path: /react/scheduler/docs/guides/getting-started
+/react/scheduler:
+  - title: Guides
+    items:
+      - title: Getting Started
+        path: /react/scheduler/docs/guides/getting-started
+  - title: API Reference
+    items:
+      - title: AppointmentForm
+        path: /react/scheduler/docs/reference/appointment-form
+      - title: ViewState
+        path: /react/scheduler/docs/reference/view-state
+      - title: WeekView
+        path: /react/scheduler/docs/reference/week-view
+      - title: ViewSwitcher
+        path: /react/scheduler/docs/reference/view-switcher
+      - title: Toolbar
+        path: /react/scheduler/docs/reference/toolbar
+  - title: Related Docs
+    items:
+      - title: React Core
+        path: /react/core/docs/guides/fundamentals
+      - title: React Grid
+        path: /react/grid/docs/guides/getting-started
+      - title: React Chart
+        path: /react/chart/docs/guides/getting-started
 /vue/grid:
   - title: Guides
     items:

@@ -10,7 +10,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { Appointments } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { Appointments } from '@devexpress/dx-react-scheduler';
@@ -30,25 +30,25 @@ import { Appointments } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
-appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders an appointment content.
+appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders an appointment's content.
 
 ## Interfaces
 
 ### Appointments.AppointmentProps
 
-Describes properties passed to a component that renders an appointment.
+Properties passed to a component that renders an appointment.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the appointment content.
-style | object | An object used to render the appointment geometry.
-data | object | An object that represents an appointment data.
-onClick? | (e: object) => void | A function that handles an appointment click.
-onDoubleClick? | (e: object) => void | A function that handles an appointment double click.
+children | ReactNode | A React node used to render the appointment's content.
+style | object | An object that configures the appointment's geometry and position.
+data | object | An object that specifies the appointment's data.
+onClick? | (e: object) => void | A function that handles a click on the appointment.
+onDoubleClick? | (e: object) => void | A function that handles a double click on the appointment.
 
 ### Appointments.AppointmentContentProps
 
-Describes properties passed to a component that renders an appointment content.
+Properties passed to a component that renders the appointment's content.
 
 Field | Type | Description
 ------|------|------------
@@ -60,4 +60,4 @@ data | object | An object that represents an appointment data.
 Name | Properties | Description
 -----|------------|------------
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
-Appointments.ContentAppointment | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders an appointment content.
+Appointments.ContentAppointment | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders an appointment's content.

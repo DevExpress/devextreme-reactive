@@ -126,12 +126,13 @@ rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A com
 
 ### DayView.TimeTableCellProps
 
-Describes properties passed to a component that renders a day view time scale cell.
+Describes properties passed to a component that renders a day view time table cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies a start time boundary for a cell.
-endDate | Date | Specifies an end time boundary for a cell.
+startDate? | Date | Specifies a start time boundary for a cell.
+endDate? | Date | Specifies an end time boundary for a cell.
+children? | ReactNode | A React node used to render the time table cell content.
 
 ### DayView.AppointmentLayerProps
 

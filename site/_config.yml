@@ -76,6 +76,25 @@ defaults:
       type: pages
     values:
       layout: docs
+  # React Scheduler
+  - scope:
+      path: react/scheduler
+    values:
+      product_name: React Scheduler
+      product_link: /react/scheduler
+      demos_script_link: /react/scheduler/demos
+      logo_file: scheduler-logo.svg
+      initial_guide: /getting-started
+  - scope:
+      path: react/scheduler/demos
+      type: pages
+    values:
+      layout: demos
+  - scope:
+      path: react/scheduler/docs
+      type: pages
+    values:
+      layout: docs
   # Vue
   - scope:
       path: vue

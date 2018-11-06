@@ -93,14 +93,12 @@ export class AppointmentTooltip extends React.PureComponent {
         <Template name="main">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              mapAppointmentData,
-            }, {
+            {(getters, {
               commitDeletedAppointment,
             }) => {
               const onDeleteButtonClick = () => {
                 commitDeletedAppointment({
-                  deletedAppointmentId: mapAppointmentData(appointmentMeta.data).id,
+                  deletedAppointmentId: appointmentMeta.data.id,
                 });
                 this.toggleVisibility();
               };
@@ -118,7 +116,6 @@ export class AppointmentTooltip extends React.PureComponent {
                     visible,
                     onHide: this.toggleVisibility,
                     commandButtonIds,
-                    mapAppointmentData,
                     ...commitDeletedAppointment && {
                       onDeleteButtonClick,
                     },

@@ -13,6 +13,7 @@ describe('AppointmentTooltip', () => {
   const defaultDeps = {
     template: {
       main: {},
+      appointment: {},
     },
     plugins: ['Appointments'],
   };
@@ -22,7 +23,10 @@ describe('AppointmentTooltip', () => {
     contentComponent: () => null,
     commandButtonComponent: () => null,
     appointmentMeta: {
-      id: 1,
+      data: {
+        id: 1,
+      },
+      target: {},
     },
   };
 
@@ -68,9 +72,6 @@ describe('AppointmentTooltip', () => {
       action: {
         commitDeletedAppointment: jest.fn(),
       },
-      getter: {
-        getAppointmentId: jest.fn(),
-      },
     };
     const tree = mount((
       <PluginHost>
@@ -91,6 +92,31 @@ describe('AppointmentTooltip', () => {
 
     templatePlaceholder.props().params.onDeleteButtonClick();
     expect(deps.action.commitDeletedAppointment)
+      .toBeCalled();
+  });
+
+  it('should pass onClick to appointment template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentTooltip
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const appointmentTemplate = tree
+      .find('Template')
+      .filterWhere(node => node.props().name === 'appointment');
+
+    expect(appointmentTemplate.props().children().props.params.onClick)
+      .toEqual(expect.any(Function));
+
+    appointmentTemplate.props().children().props.params.onClick({
+      target: 'target',
+      data: 'data',
+    });
+    expect(setAppointmentMeta)
       .toBeCalled();
   });
 });

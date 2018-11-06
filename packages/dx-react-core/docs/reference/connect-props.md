@@ -1,6 +1,6 @@
 # connectProps
 
-A function that creates a new component that allows you to pass additional propties to the wrapped component.
+A function that creates a new component that allows you to pass additional properties to the wrapped component.
 
 ## User reference
 

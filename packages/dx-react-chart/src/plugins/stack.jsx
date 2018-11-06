@@ -9,8 +9,9 @@ import {
 
 export class Stack extends React.PureComponent {
   render() {
-    const { offset, order } = this.props;
-    const getSeries = ({ series, data }) => getStackedSeries(series, data, offset, order);
+    const { stacks, offset, order } = this.props;
+    const params = { stacks, offset, order };
+    const getSeries = ({ series, data }) => getStackedSeries(series, data, params);
     return (
       <Plugin name="Stack">
         <Getter name="series" computed={getSeries} />
@@ -20,11 +21,15 @@ export class Stack extends React.PureComponent {
 }
 
 Stack.propTypes = {
+  stacks: PropTypes.arrayOf(PropTypes.shape({
+    series: PropTypes.arrayOf(PropTypes.string).isRequired,
+  })),
   offset: PropTypes.func,
   order: PropTypes.func,
 };
 
 Stack.defaultProps = {
+  stacks: [],
   offset: stackOffsetDiverging,
   order: stackOrderNone,
 };

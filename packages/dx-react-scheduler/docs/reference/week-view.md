@@ -57,7 +57,6 @@ Field | Type | Description
 startDate | Date | Specifies the cell start time.
 endDate | Date | Specifies the cell end time.
 
-
 ### WeekView.LayoutProps
 
 Describes properties passed to a component that renders a week view layout.

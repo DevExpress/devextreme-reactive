@@ -65,7 +65,7 @@ Describes properties passed to a component that renders a day scale layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies a meta data for view cells.
+cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies the cells meta data.
 cellComponent | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a day scale row.
 
@@ -84,7 +84,7 @@ Describes properties passed to a component that renders a time table layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies a meta data for view cells.
+cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies the cells meta data.
 tableRef | (ref: ReactInstance) => void | A function that accepts the table's root React element.
 cellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a time table row.
@@ -118,7 +118,7 @@ children? | ReactNode | A React node used to render the row content.
 
 Name | Properties | Description
 -----|------------|------------
-MonthView.Layout | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | A component that renders a  month view layout.
+MonthView.Layout | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | A component that renders a month view layout.
 MonthView.DayScaleLayout | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
 MonthView.DayScaleCell | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 MonthView.TimeTableLayout | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | A component that renders a time table layout.

@@ -10,7 +10,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { Scheduler } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { Scheduler } from '@devexpress/dx-react-scheduler';
@@ -29,7 +29,7 @@ rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; 
 
 ### AppointmentModel
 
-Describes an appointment data object that should be returned by `mapAppointmentData` function.
+Describes an appointment data object that the `mapAppointmentData` function should return.
 
 Field | Type | Description
 ------|------|------------
@@ -38,7 +38,7 @@ endDate | Date &#124; string &#124; number | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
-[propertyName: string] | any | Any number of other properties.
+[propertyName: string] | any | Any other properties.
 
 ### Scheduler.RootProps
 

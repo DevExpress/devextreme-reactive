@@ -40,7 +40,7 @@ Describes properties passed to a component that renders the series.
 Field | Type | Description
 ------|------|------------
 coordinates | Array&lt;{ x: number, y: number }&gt; | Coordinates of the series' points.
-path | (coordinates: Array&lt;any&gt;) => string | A function used to calculate the series' path.
+path | (coordinates: Array&lt;{ x: number, y: number }&gt;) => string | A function used to calculate the series' path.
 color | string | A series color.
 
 ## Plugin Components

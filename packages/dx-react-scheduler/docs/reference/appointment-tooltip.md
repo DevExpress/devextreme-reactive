@@ -36,7 +36,7 @@ onVisibilityChange? | (visible: boolean) => void | | Handles the tooltip's visib
 onAppointmentMetaChange? | (appointmentMeta: [AppointmentMeta](#appointmentmeta)) => void | | Handles the meta data changes.
 layoutComponent | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | | A component that renders a tooltip layout.
 headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | | A component that renders a header.
-contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | | A component that renders a  content.
+contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | | A component that renders a content.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | | A component that renders a command button.
 
 ## Interfaces
@@ -71,7 +71,7 @@ commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps
 
 ### AppointmentTooltip.HeaderProps
 
-Describes properties passed to a component that renders a tooltip header.
+Describes properties passed to a component that renders a header.
 
 Field | Type | Description
 ------|------|------------
@@ -80,7 +80,7 @@ children? | ReactNode | A React node used to render a tooltip header.
 
 ### AppointmentTooltip.ContentProps
 
-Describes properties passed to a component that renders a tooltip content.
+Describes properties passed to a component that renders a content.
 
 Field | Type | Description
 ------|------|------------
@@ -89,7 +89,7 @@ children? | ReactNode | A React node used to render a tooltip content.
 
 ### AppointmentTooltip.CommandButtonProps
 
-Describes properties passed to a component that renders a tooltip's command button.
+Describes properties passed to a component that renders a command button.
 
 Field | Type | Description
 ------|------|------------

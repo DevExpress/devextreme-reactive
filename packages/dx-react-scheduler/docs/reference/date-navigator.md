@@ -10,7 +10,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { DateNavigator } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin to use custom components:
 
 ```js
 import { DateNavigator } from '@devexpress/dx-react-scheduler';
@@ -29,52 +29,52 @@ Name | Type | Default | Description
 -----|------|---------|------------
 rootComponent | ComponentType&lt;[DateNavigator.RootProps](#datenavigatorrootprops)&gt; | | A component that renders the date navigator's root element.
 overlayComponent | ComponentType&lt;[DateNavigator.OverlayProps](#datenavigatoroverlayprops)&gt; | | A component that renders the date navigator's overlay element.
-openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops)&gt; | | A component that renders a button that opens a data navigator overlay element.
-navigationButtonComponent | ComponentType&lt;[DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops)&gt; | | A component that renders the date navigator's navitation button.
+openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops)&gt; | | A component that renders a button that invokes the date navigator.
+navigationButtonComponent | ComponentType&lt;[DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops)&gt; | | A component that renders a date navigator's navigation button.
 
 ## Interfaces
 
 ### DateNavigator.RootProps
 
-Describes properties passed to a component that renders the date navigator's root element.
+Properties passed to a component that renders the date navigator's root element.
 
 Field | Type | Description
 ------|------|------------
-navigationButtonComponent | ComponentType&lt;[DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops)&gt; | A component that renders the date navigator's navitation button.
-openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops)&gt; | A component that renders a button that open a data navigator overlay element.
-navigatorText? | string | A date navigator text.
-rootRef | (ref: ReactInstance) => void | A function that accepts the root component's React element.
-onVisibilityToggle | () => void | An event that initiates overlay showing or hiding.
-onNavigate | ({ back: boolean }) => void | An event than initiates navigation to the next date.
+navigationButtonComponent | ComponentType&lt;[DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops)&gt; | A component that renders a date navigator's navigation button.
+openButtonComponent | ComponentType&lt;[DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops)&gt; | A component that renders a button that invokes the date navigator.
+navigatorText? | string | A text displayed in the date navigator.
+rootRef | (ref: ReactInstance) => void | A function that accepts the date navigator's root element.
+onVisibilityToggle | () => void | An event raised when the date navigator should be shown or hidden.
+onNavigate | ({ back: boolean }) => void | An event raised when a navigation button is clicked. The event handler should switch the date navigator to the next (`back` is false) or previous (`back` is true) date.
 
 ### DateNavigator.OverlayProps
 
-Describes properties passed to a component that renders the date navigator's overlay element.
+Properties passed to a component that renders the date navigator's overlay element.
 
 Field | Type | Description
 ------|------|------------
 visible? | boolean | Specifies whether the overlay is visible.
-target? | ReactInstance | A React component instance or a DOM element that is used for overlay positioning.
-onHide | () => void | An event that initiates overlay hiding.
-children | ReactNode | A React node used to render overlay content.
+target? | ReactInstance | A React component instance or a DOM element that is used to position the overlay element.
+onHide | () => void | An event raised when the date navigator should be hidden.
+children | ReactNode | A React node used to render the overlay content.
 
 ### DateNavigator.OpenButtonProps
 
-Describes properties passed to a component that renders the date navigator's open button element.
+Properties passed to a component that renders the date navigator's open button.
 
 Field | Type | Description
 ------|------|------------
-onVisibilityToggle | () => void | An event that initiates overlay showing or hiding.
-text? | string | A button text.
+onVisibilityToggle | () => void | An event raised when the date navigator should be shown or hidden.
+text? | string | The button's text.
 
 ### DateNavigator.NavigationButtonProps
 
-Describes properties passed to a component that renders the date navigator's navigation button element.
+Properties passed to a component that renders a date navigator's navigation button.
 
 Field | Type | Description
 ------|------|------------
-type | 'forward' &#124; 'back' | A navigation button type.
-onClick? | (e: object) => void | An event that handles a button click.
+type | 'forward' &#124; 'back' | The button's type.
+onClick? | (e: object) => void | An event raised when the button is clicked.
 
 ## Plugin Components
 
@@ -82,7 +82,7 @@ Name | Properties | Description
 -----|------------|------------
 DateNavigator.Root | [DateNavigator.RootProps](#datenavigatorrootprops) | A component that renders the date navigator's root element.
 DateNavigator.Overlay | [DateNavigator.OverlayProps](#datenavigatoroverlayprops) | A component that renders the date navigator's overlay element.
-DateNavigator.OpenButton | [DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops) | A component that renders the date navigator's open button element.
-DateNavigator.NavigationButton | [DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops) | A component that renders the date navigator's navigation button element.
+DateNavigator.OpenButton | [DateNavigator.OpenButtonProps](#datenavigatoropenbuttonprops) | A component that renders a button that invokes the date navigator.
+DateNavigator.NavigationButton | [DateNavigator.NavigationButtonProps](#datenavigatornavigationbuttonprops) | A component that renders a date navigator's navigation button.
 
 Additional properties are added to the component's root element.

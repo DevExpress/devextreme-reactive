@@ -24,8 +24,8 @@ const styles = theme => ({
 export class HorizontalViewLayoutBase extends React.PureComponent {
   render() {
     const {
-      navbarComponent: Navbar,
-      mainComponent: Main,
+      dayScaleComponent: Navbar,
+      timeTableComponent: Main,
       classes,
     } = this.props;
 
@@ -54,8 +54,8 @@ export class HorizontalViewLayoutBase extends React.PureComponent {
 }
 
 HorizontalViewLayoutBase.propTypes = {
-  navbarComponent: PropTypes.func.isRequired,
-  mainComponent: PropTypes.func.isRequired,
+  dayScaleComponent: PropTypes.func.isRequired,
+  timeTableComponent: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

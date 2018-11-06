@@ -110,8 +110,8 @@ export class MonthView extends React.PureComponent {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <ViewLayout
-                  navbarComponent={this.dayScalePlaceholder}
-                  mainComponent={this.timeTablePlaceholder}
+                  dayScaleComponent={this.dayScalePlaceholder}
+                  timeTableComponent={this.timeTablePlaceholder}
                 />
               );
             }}

@@ -1,0 +1,418 @@
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  Toolbar,
+  DayView,
+  WeekView,
+  ViewSwitcher,
+  Appointments,
+  AppointmentForm,
+} from '@devexpress/dx-react-scheduler-material-ui';
+import { connectProps } from '@devexpress/dx-react-core';
+import { InlineDateTimePicker } from 'material-ui-pickers';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Notes from '@material-ui/icons/Notes';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Create from '@material-ui/icons/Create';
+
+import { appointments } from '../../../demo-data/appointments';
+
+const containerStyles = theme => ({
+  container: {
+    width: `${theme.spacing.unit * 68}px`,
+    padding: 0,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  content: {
+    padding: theme.spacing.unit * 2,
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: `0 ${theme.spacing.unit * 2}px`,
+  },
+  button: {
+    marginLeft: theme.spacing.unit * 2,
+  },
+  picker: {
+    marginRight: theme.spacing.unit * 2,
+    '&:last-child': {
+      marginRight: 0,
+    },
+  },
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: `${theme.spacing.unit}px 0px`,
+  },
+  icon: {
+    margin: `${theme.spacing.unit * 2}px 0`,
+    marginRight: `${theme.spacing.unit * 2}px`,
+  },
+  textField: {
+    width: '100%',
+  },
+});
+
+class AppointmentFormContainerBasic extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      appointmentChanges: {},
+    };
+
+    this.getAppointmentData = () => {
+      const { appointmentData } = this.props;
+      return appointmentData;
+    };
+    this.getAppointmentChanges = () => {
+      const { appointmentChanges } = this.state;
+      return appointmentChanges;
+    };
+
+    this.changeAppointment = this.changeAppointment.bind(this);
+    this.commitAppointment = this.commitAppointment.bind(this);
+  }
+
+  changeAppointment({ field, changes }) {
+    const nextChanges = {
+      ...this.getAppointmentChanges(),
+      [field]: changes,
+    };
+    this.setState({
+      appointmentChanges: nextChanges,
+    });
+  }
+
+  commitAppointment(type) {
+    const { commitChanges } = this.props;
+    const appointment = {
+      ...this.getAppointmentData(),
+      ...this.getAppointmentChanges(),
+    };
+    commitChanges({
+      [type]: appointment,
+    });
+    this.setState({
+      appointmentChanges: {},
+    });
+  }
+
+  render() {
+    const {
+      classes,
+      visible,
+      visibleChange,
+      appointmentData,
+    } = this.props;
+    const { appointmentChanges } = this.state;
+
+    const displayAppointmentData = {
+      ...appointmentData,
+      ...appointmentChanges,
+    };
+
+    const isNewAppointment = appointmentData.id === undefined;
+    const applyChanges = isNewAppointment
+      ? () => this.commitAppointment('added')
+      : () => this.commitAppointment('changed');
+
+    const textEditorProps = field => ({
+      variant: 'outlined',
+      onChange: ({ target }) => this.changeAppointment({ field: [field], changes: target.value }),
+      value: displayAppointmentData[field] || '',
+      label: field[0].toUpperCase() + field.slice(1),
+      className: classes.textField,
+    });
+
+    const pickerEditorProps = field => ({
+      className: classes.picker,
+      keyboard: true,
+      value: displayAppointmentData[field],
+      onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
+      variant: 'outlined',
+      format: 'DD/MM/YYYY HH:mm',
+      mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
+    });
+
+    return (
+      <AppointmentForm.Popup
+        visible={visible}
+        onBackdropClick={visibleChange}
+      >
+        <AppointmentForm.Container className={classes.container}>
+          <div className={classes.content}>
+            <div className={classes.wrapper}>
+              <Create className={classes.icon} color="action" />
+              <TextField
+                {...textEditorProps('title')}
+              />
+            </div>
+            <div className={classes.wrapper}>
+              <CalendarToday className={classes.icon} color="action" />
+              <MuiPickersUtilsProvider utils={MomentUtils}>
+                <InlineDateTimePicker
+                  label="Start Date"
+                  {...pickerEditorProps('startDate')}
+                />
+                <InlineDateTimePicker
+                  label="End Date"
+                  {...pickerEditorProps('endDate')}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
+            <div className={classes.wrapper}>
+              <LocationOn className={classes.icon} color="action" />
+              <TextField
+                {...textEditorProps('location')}
+              />
+            </div>
+            <div className={classes.wrapper}>
+              <Notes className={classes.icon} color="action" />
+              <TextField
+                {...textEditorProps('notes')}
+                multiline
+                rows="6"
+              />
+            </div>
+          </div>
+          <div className={classes.buttonGroup}>
+            {!isNewAppointment && (
+            <Button
+              variant="outlined"
+              color="secondary"
+              className={classes.button}
+              onClick={() => {
+                visibleChange();
+                this.commitAppointment('deleted');
+              }}
+            >
+              Delete
+            </Button>)}
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.button}
+              onClick={() => {
+                visibleChange();
+                applyChanges();
+              }}
+            >
+              {isNewAppointment ? 'Create' : 'Save'}
+            </Button>
+          </div>
+        </AppointmentForm.Container>
+      </AppointmentForm.Popup>
+    );
+  }
+}
+
+const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(AppointmentFormContainerBasic);
+
+const styles = theme => ({
+  addButton: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 3,
+    right: theme.spacing.unit * 3,
+  },
+});
+
+/* eslint-disable-next-line react/no-multi-comp */
+class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: appointments,
+      currentDate: '2018-06-27',
+      confirmationVisible: false,
+      editingFormVisible: false,
+      deletedAppointmentId: undefined,
+      editingAppointmentId: undefined,
+      addedAppointment: {},
+      startDayHour: 9,
+      endDayHour: 19,
+    };
+
+    this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
+    this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
+    this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
+
+    this.commitChanges = this.commitChanges.bind(this);
+    this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
+    this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
+    this.appointmentForm = connectProps(AppointmentFormContainer, () => {
+      const {
+        editingFormVisible, editingAppointmentId, data, addedAppointment,
+      } = this.state;
+
+      const currentAppointment = data
+        .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
+
+      return {
+        visible: editingFormVisible,
+        appointmentData: currentAppointment,
+        commitChanges: this.commitChanges,
+        visibleChange: this.toggleEditingFormVisibility,
+        onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
+      };
+    });
+  }
+
+  componentDidUpdate() {
+    this.appointmentForm.update();
+  }
+
+  onEditingAppointmentIdChange(editingAppointmentId) {
+    this.setState({ editingAppointmentId });
+  }
+
+  onAddedAppointmentChange(addedAppointment) {
+    this.setState({ addedAppointment });
+    this.onEditingAppointmentIdChange(undefined);
+  }
+
+  setDeletedAppointmentId(id) {
+    this.setState({ deletedAppointmentId: id });
+  }
+
+  toggleEditingFormVisibility() {
+    const { editingFormVisible } = this.state;
+    this.setState({
+      editingFormVisible: !editingFormVisible,
+    });
+  }
+
+  toggleConfirmationVisible() {
+    const { confirmationVisible } = this.state;
+    this.setState({ confirmationVisible: !confirmationVisible });
+  }
+
+  commitDeletedAppointment() {
+    const { data, deletedAppointmentId } = this.state;
+    const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+    this.setState({ data: nextData, deletedAppointmentId: null });
+    this.toggleConfirmationVisible();
+  }
+
+  commitChanges({ added, changed, deleted }) {
+    let { data } = this.state;
+    if (added) {
+      const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+      data = [
+        ...data,
+        {
+          id: startingAddedId,
+          ...added,
+        },
+      ];
+    }
+    if (changed) {
+      data = data.map(appointment => (
+        changed.id === appointment.id ? { ...appointment, ...changed } : appointment));
+    }
+    if (deleted) {
+      this.setDeletedAppointmentId(deleted.id);
+      this.toggleConfirmationVisible();
+    }
+    this.setState({ data, addedAppointment: {} });
+  }
+
+  render() {
+    const {
+      currentDate,
+      data,
+      confirmationVisible,
+      editingFormVisible,
+      startDayHour,
+      endDayHour,
+    } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <Paper>
+        <Scheduler
+          data={data}
+        >
+          <ViewState
+            currentDate={currentDate}
+          />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+            onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
+            onAddedAppointmentChange={this.onAddedAppointmentChange}
+          />
+          <DayView
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
+          />
+          <WeekView
+            startDayHour={startDayHour}
+            endDayHour={endDayHour}
+          />
+          <Appointments />
+          <Toolbar />
+          <ViewSwitcher />
+          <AppointmentForm
+            popupComponent={this.appointmentForm}
+            visible={editingFormVisible}
+            onVisibilityChange={this.toggleEditingFormVisibility}
+          />
+        </Scheduler>
+
+        <Dialog
+          open={confirmationVisible}
+          onClose={this.cancelDelete}
+        >
+          <DialogTitle>
+            Delete Appointment
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
+              Cancel
+            </Button>
+            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Button
+          variant="fab"
+          color="secondary"
+          className={classes.addButton}
+          onClick={() => {
+            this.setState({ editingFormVisible: true });
+            this.onEditingAppointmentIdChange(undefined);
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Button>
+      </Paper>
+    );
+  }
+}
+
+export default withStyles(styles, { name: 'EditingDemo' })(Demo);

@@ -45,6 +45,8 @@ const getBlockEnd = (source) => {
   return end === -1 ? source.length : end;
 };
 
+const firstLetterToLowercase = str => str.charAt(0).toLowerCase() + str.slice(1);
+
 const parseFile = (source) => {
   let description = cleanElement(source
     .slice(1, source.findIndex(el => el.indexOf('## ') === 0))
@@ -53,6 +55,17 @@ const parseFile = (source) => {
   let propertiesBlock = source.slice(source.indexOf('### Properties') + 1);
   propertiesBlock = propertiesBlock
     .slice(0, getBlockEnd(propertiesBlock))
+    .filter(element => element !== 'none');
+
+  let argumentsBlock = source.slice(source.indexOf('### Arguments') + 1);
+
+  argumentsBlock = argumentsBlock
+    .slice(0, argumentsBlock.indexOf('### Return Value') + 1)
+    .filter(line => line.match(/.+\|.+\|.+/));
+
+  let returnValueBlock = source.slice(source.indexOf('### Return Value') + 1);
+  returnValueBlock = returnValueBlock
+    .slice(0, getBlockEnd(returnValueBlock))
     .filter(element => element !== 'none');
 
   let interfacesBlock = source.slice(source.indexOf('## Interfaces') + 1);
@@ -95,6 +108,8 @@ const parseFile = (source) => {
   return {
     description,
     properties: propertiesBlock,
+    argumentsBlock: argumentsBlock,
+    returnValueBlock: returnValueBlock,
     interfaces: interfacesBlock,
     pluginComponents: componentsBlock,
     staticFields: staticFieldsBlock,
@@ -116,6 +131,16 @@ const getInterfaceExport = ({
     + `${indent}export interface ${name}${extensionText} {\n`
     + `${propertiesText}`
     + `${indent}}\n`;
+};
+
+const generateTypeScriptForFunction = (argumentsBlock, returnValueBlock, descripton, functionName) => {
+  const formattedReturnValue = tsReplace(cleanElement(returnValueBlock[1].split('|')[0]));
+  const argumentsString = argumentsBlock.reduce((acc, line) => {
+    const parts = line.split('|').map(part => tsReplace(cleanElement(part)));
+    acc.push(`${parts[0]}: ${parts[1]}`);
+    return acc;
+  }, []).join(', ');
+  return `/** ${descripton} */\nexport function ${functionName}(${argumentsString}): ${formattedReturnValue};\n`;
 };
 
 const generateTypeScript = (data, componentName) => {
@@ -251,8 +276,18 @@ const generateTypeScriptForPackage = (packageName) => {
       .filter(line => !!line && !/^(-+|Name|Field)\s?\|/.test(line));
     const fileData = parseFile(fileContent);
 
-    indexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
-    indexContent += generateTypeScript(fileData, componentName);
+    if(fileData.argumentsBlock && fileData.argumentsBlock.length) {
+      indexContent += `\n// ${'-'.repeat(97)}\n// ${firstLetterToLowercase(componentName)}\n// ${'-'.repeat(97)}\n\n`;
+      indexContent += generateTypeScriptForFunction(
+        fileData.argumentsBlock,
+        fileData.returnValueBlock,
+        fileData.description,
+        firstLetterToLowercase(componentName)
+      );
+    } else {
+      indexContent += `\n// ${'-'.repeat(97)}\n// ${componentName}\n// ${'-'.repeat(97)}\n\n`;
+      indexContent += generateTypeScript(fileData, componentName);
+    }
 
     if (!themes.length) return;
 

@@ -12,7 +12,7 @@ Use the following statement to import a plugin with embedded theme components:
 import { WeekView } from '@devexpress/dx-react-scheduler-material-ui';
 ```
 
-If you want to use custom components, you can import the themeless plugin:
+You can import the themeless plugin if you want to use custom components:
 
 ```js
 import { WeekView } from '@devexpress/dx-react-scheduler';
@@ -28,7 +28,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name? | string | `Week` | The view name. It is required if you use several `WeekView` plugins.
+name? | string | `Week` | The view name. Required if you use several `WeekView` plugins.
 excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed on the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
 firstDayOfWeek? | number | 0 | Specifies the first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.

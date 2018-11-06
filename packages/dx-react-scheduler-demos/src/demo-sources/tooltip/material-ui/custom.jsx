@@ -18,7 +18,7 @@ const style = theme => ({
     alignItems: 'center',
   },
   title: {
-    ...theme.typography.title,
+    ...theme.typography.h6,
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     color: theme.palette.background.default,

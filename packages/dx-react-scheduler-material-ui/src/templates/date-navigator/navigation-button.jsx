@@ -10,7 +10,6 @@ export const NavigationButton = ({
   ...restProps
 }) => (
   <IconButton
-    color="inherit"
     onClick={onClick}
     {...restProps}
   >

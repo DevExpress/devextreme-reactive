@@ -41,13 +41,11 @@ const LayoutBase = ({
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func,
-  rowComponent: PropTypes.func,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  cellComponent: () => null,
-  rowComponent: () => null,
   className: undefined,
 };
 

@@ -25,6 +25,16 @@ export const born = [
   },
 ];
 
+export const annualVehiclesSales = [
+  { year: 2011, USA: 171763, China: 5070 },
+  { year: 2012, USA: 53240, China: 9900 },
+  { year: 2013, USA: 96700, China: 15340 },
+  { year: 2014, USA: 118780, China: 73170 },
+  { year: 2015, USA: 113870, China: 307380 },
+  { year: 2016, USA: 159620, China: 336000 },
+  { year: 2017, USA: 194479, China: 600174 },
+];
+
 export const australianMedals = [
   {
     year: 1896, gold: 2, silver: 0, bronze: 0,

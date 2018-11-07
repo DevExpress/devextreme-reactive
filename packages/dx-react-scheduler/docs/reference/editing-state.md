@@ -1,6 +1,6 @@
 # EditingState Plugin Reference
 
-A plugin that manages scheduler appointment's editing state.
+A plugin that manages the scheduler appointment editing state.
 
 ## Import
 
@@ -22,14 +22,14 @@ Name | Type | Default | Description
 -----|------|---------|------------
 editingAppointmentId? | number &#124; string | | The identifier of an appointment being edited.
 defaultEditingAppointmentId? | number &#124; string | | The initial value of the `editingAppointmentId` property in uncontrolled mode.
-onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles changes to the `editingAppointmentId` property's value.
-addedAppointment? | object | | Created but not committed appointment.
+onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles changes to the `editingAppointmentId` property value.
+addedAppointment? | object | | A created but not committed appointment.
 defaultAddedAppointment? | object | | The initial value of the `addedAppointment` property in uncontrolled mode.
-onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles changes to the `addedAppointment` property's value.
+onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles changes to the `addedAppointment` property value.
 appointmentChanges? | { [key: string]: object } | | Uncommitted appointment changes.
 defaultAppointmentChanges? | { [key: string]: object } | | The initial value of the `appointmentChanges` property in uncontrolled mode.
-onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles changes to the `appointmentChanges` property's value.
-onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles appointment changes committing.
+onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles changes to the `appointmentChanges` property value.
+onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles commiting appointment changes.
 
 ## Interfaces
 

@@ -258,6 +258,8 @@
         path: /react/scheduler/docs/guides/getting-started
   - title: API Reference
     items:
+      - title: AllDayPanel
+        path: /react/scheduler/docs/reference/all-day-panel
       - title: AppointmentForm
         path: /react/scheduler/docs/reference/appointment-form
       - title: ViewState

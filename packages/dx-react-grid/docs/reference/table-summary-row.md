@@ -84,7 +84,7 @@ Field | Type | Description
 value? | number | The summary value
 type | [SummaryType](summary-state.md#summarytype) | The summary type
 children? | ReactNode | A React node used to render the summary value.
-getMessage | ([messageKey](#localization-messages): string) => string | Returns the summary caption.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
 
 ## Localization Messages
 

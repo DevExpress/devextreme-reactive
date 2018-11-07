@@ -80,7 +80,7 @@ const parseFile = (source) => {
       }
       if (!line.match(/.+\|.+\|.+/)) {
         if (line.indexOf('Type: ') === 0) {
-          acc[lastItemIndex].type = cleanElement(line.match(/\`([.\w]+)\`/)[1]);
+          acc[lastItemIndex].type = cleanElement(line.match(/\`(.+)\`/)[1]);
         } else if (line.indexOf('Extends ') === 0) {
           acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {

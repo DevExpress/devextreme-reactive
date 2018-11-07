@@ -48,7 +48,7 @@ An appointment's meta data object.
 Field | Type | Description
 ------|------|------------
 target | ReactInstance | A React component instance or a DOM element that is used to position the tooltip.
-data | [AppointmentModel](./scheduler/#appointmentmodel) | The appointment's displayed metadata.
+data | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
 
 ### AppointmentTooltip.LayoutProps
 

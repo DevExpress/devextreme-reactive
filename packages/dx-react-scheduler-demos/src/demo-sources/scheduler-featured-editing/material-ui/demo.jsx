@@ -21,10 +21,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import LocationOn from '@material-ui/icons/LocationOn';
 import Notes from '@material-ui/icons/Notes';
+import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 
@@ -38,6 +40,14 @@ const containerStyles = theme => ({
   },
   content: {
     padding: theme.spacing.unit * 2,
+    paddingTop: 0,
+  },
+  header: {
+    overflow: 'hidden',
+    paddingTop: theme.spacing.unit / 2,
+  },
+  closeButton: {
+    float: 'right',
   },
   buttonGroup: {
     display: 'flex',
@@ -155,6 +165,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onBackdropClick={visibleChange}
       >
         <AppointmentForm.Container className={classes.container}>
+          <div className={classes.header}>
+            <IconButton className={classes.closeButton} onClick={visibleChange}>
+              <Close color="action" />
+            </IconButton>
+          </div>
           <div className={classes.content}>
             <div className={classes.wrapper}>
               <Create className={classes.icon} color="action" />
@@ -355,11 +370,11 @@ class Demo extends React.PureComponent {
             onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
-          <DayView
+          <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />
-          <WeekView
+          <DayView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />

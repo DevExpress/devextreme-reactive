@@ -9,8 +9,12 @@ const styles = theme => ({
   cell: {
     border: 0,
     padding: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit / 4,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     '&:last-child': {
       padding: theme.spacing.unit,
+      paddingLeft: theme.spacing.unit / 4,
     },
   },
   text: {

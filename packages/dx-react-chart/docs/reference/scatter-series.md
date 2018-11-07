@@ -44,7 +44,7 @@ y | number | The point's y coordinate.
 d | string | The point's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
 value | number | The point's value.
 color | string | A series color.
-style | object | Series styles.
+index | number | Point index.
 
 ### ScatterSeries.SeriesProps
 

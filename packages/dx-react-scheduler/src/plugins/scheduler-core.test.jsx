@@ -8,13 +8,6 @@ import { SchedulerCore } from './scheduler-core';
 const defaultProps = {
   data: [1, 2, 3],
   rootComponent: () => null,
-  mapAppointmentData: () => ({
-    title: 'title',
-    startDate: 'start',
-    endDate: 'end',
-    id: 'id',
-    allDay: 'allDay',
-  }),
 };
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -24,31 +17,11 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 describe('Scheduler Core', () => {
   beforeEach(() => {
     appointments.mockImplementation(() => [
-      { start: '2018-07-24', end: '2018-07-25' },
+      { startDate: '2018-07-24', endDate: '2018-07-25' },
     ]);
   });
   afterEach(() => {
     jest.resetAllMocks();
-  });
-
-  it('should provide the mapAppointmentData getter', () => {
-    const tree = mount((
-      <PluginHost>
-        <SchedulerCore
-          {...defaultProps}
-          mapAppointmentData={() => ({
-            title: 'title',
-            id: 10,
-          })}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(getComputedState(tree).mapAppointmentData().id)
-      .toBe(10);
-    expect(getComputedState(tree).mapAppointmentData().title)
-      .toBe('title');
   });
 
   it('should provide the "appointment" getter', () => {
@@ -63,7 +36,7 @@ describe('Scheduler Core', () => {
 
     expect(getComputedState(tree).appointments)
       .toEqual([
-        { start: '2018-07-24', end: '2018-07-25' },
+        { startDate: '2018-07-24', endDate: '2018-07-25' },
       ]);
   });
 

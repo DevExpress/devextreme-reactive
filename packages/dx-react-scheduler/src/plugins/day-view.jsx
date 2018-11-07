@@ -205,7 +205,6 @@ export class DayView extends React.PureComponent {
                   cellElements: stateTimeTableRef.querySelectorAll('td'),
                 },
               ) : [];
-
               const { appointmentPlaceholder: AppointmentPlaceholder } = this;
               return (
                 <React.Fragment>

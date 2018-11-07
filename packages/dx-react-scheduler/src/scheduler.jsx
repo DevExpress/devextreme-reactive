@@ -7,13 +7,11 @@ export const Scheduler = ({
   data,
   rootComponent,
   children,
-  mapAppointmentData,
 }) => (
   <PluginHost>
     <SchedulerCore
       data={data}
       rootComponent={rootComponent}
-      mapAppointmentData={mapAppointmentData}
     />
     {children}
   </PluginHost>
@@ -23,11 +21,9 @@ Scheduler.propTypes = {
   data: PropTypes.array,
   rootComponent: PropTypes.func.isRequired,
   children: PropTypes.node,
-  mapAppointmentData: PropTypes.func,
 };
 
 Scheduler.defaultProps = {
   children: undefined,
   data: [],
-  mapAppointmentData: appointment => appointment,
 };

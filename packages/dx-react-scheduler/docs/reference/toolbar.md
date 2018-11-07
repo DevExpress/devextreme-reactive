@@ -37,7 +37,7 @@ Describes properties passed to a component that renders the toolbar's root eleme
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node to be placed in the toolbar.
+children? | ReactNode | A React node that should be placed in the toolbar.
 
 ### Toolbar.FlexibleSpaceProps
 
@@ -45,7 +45,7 @@ Describes properties passed to a component that renders the the toolbar's empty 
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node to be placed inside the empty area.
+children? | ReactNode | A React node that should be placed inside the empty area.
 
 ## Plugin Components
 

@@ -19,6 +19,10 @@ DevExtreme Reactive is a set of business React components that deeply integrate 
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
+## React Scheduler (CTP)
+
+[Website](https://devexpress.github.io/devextreme-reactive/react/scheduler/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/)
+
 *Note: You can also use the [alternative project](https://github.com/DevExpress/devextreme-react) with 65+ React components. Refer to the comparison [blog post](https://community.devexpress.com/blogs/oliver/archive/2018/04/20/devextreme-new-react-wrappers-vs-native-react-components.aspx) for more information.*
 
 ## License

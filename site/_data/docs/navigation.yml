@@ -260,6 +260,8 @@
     items:
       - title: AppointmentForm
         path: /react/scheduler/docs/reference/appointment-form
+      - title: AppointmentTooltip
+        path: /react/scheduler/docs/reference/appointment-tooltip
       - title: ViewState
         path: /react/scheduler/docs/reference/view-state
       - title: WeekView

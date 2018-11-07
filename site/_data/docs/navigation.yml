@@ -268,6 +268,8 @@
     items:
       - title: Scheduler
         path: /react/scheduler/docs/reference/scheduler
+      - title: Appointments
+        path: /react/scheduler/docs/reference/appointments
       - title: AppointmentForm
         path: /react/scheduler/docs/reference/appointment-form
       - title: AppointmentTooltip

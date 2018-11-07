@@ -5,10 +5,13 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 
-const Appointment = () => null;
+// eslint-disable-next-line react/prop-types
+const Appointment = ({ children }) => <div>{ children }</div>;
+const AppointmentContent = () => null;
 
 const defaultProps = {
   appointmentComponent: Appointment,
+  appointmentContentComponent: AppointmentContent,
 };
 
 jest.mock('@devexpress/dx-core', () => ({
@@ -20,7 +23,7 @@ const defaultDeps = {
   template: {
     appointment: {
       type: 'horizontal',
-      appointment: {
+      data: {
         title: 'a',
         endDate: '2018-07-05',
         startDate: '2018-07-06',
@@ -49,22 +52,22 @@ describe('Appointments', () => {
     jest.resetAllMocks();
   });
   it('should render appointments', () => {
-    const appointment = mount((
+    const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Appointments
           {...defaultProps}
         />
       </PluginHost>
-    )).find(Appointment);
-
-    const {
-      appointment: appointmentData,
-      style, type,
-    } = appointment.props();
+    ));
+    const appointment = tree.find(Appointment);
+    const appointmentContent = tree.find(AppointmentContent);
+    const { style, data: appointmentData } = appointment.props();
+    const { type, data: appointmentContentData } = appointmentContent.props();
 
     expect(appointment).toHaveLength(1);
-    expect(type).toBe('horizontal');
+    expect(appointmentContent).toHaveLength(1);
+
     expect(style).toEqual({
       height: 150,
       width: '60%',
@@ -72,9 +75,13 @@ describe('Appointments', () => {
       left: '20%',
       position: 'absolute',
     });
+    expect(type).toBe('horizontal');
     expect(appointmentData.title).toBe('a');
     expect(appointmentData.endDate).toBe('2018-07-05');
     expect(appointmentData.startDate).toBe('2018-07-06');
+    expect(appointmentContentData.title).toBe('a');
+    expect(appointmentContentData.endDate).toBe('2018-07-05');
+    expect(appointmentContentData.startDate).toBe('2018-07-06');
   });
 
   it('should pass correct event handlers', () => {

@@ -25,6 +25,7 @@ const styles = theme => ({
 });
 
 const AppointmentBase = ({
+  children,
   data,
   onClick,
   classes,
@@ -34,20 +35,19 @@ const AppointmentBase = ({
 }) => (
   <Appointments.Appointment
     {...restProps}
-    data={data}
   >
-    <IconButton
-      className={classes.button}
-      onClick={({ target }) => {
-        toggleVisibility();
-        onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
-      }}
-    >
-      <InfoIcon fontSize="small" />
-    </IconButton>
-    <div className={classes.text}>
-      {data.title}
-    </div>
+    <React.Fragment>
+      <IconButton
+        className={classes.button}
+        onClick={({ target }) => {
+          toggleVisibility();
+          onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
+        }}
+      >
+        <InfoIcon fontSize="small" />
+      </IconButton>
+      {children}
+    </React.Fragment>
   </Appointments.Appointment>
 );
 

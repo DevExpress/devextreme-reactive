@@ -8,7 +8,7 @@ Add the `Stack` plugin to draw several bar series side-by-side as shown in the f
 
 .embedded-demo({ "path": "chart-basic/band-axis", "showThemeSelector": true })
 
-You should also specify the `stacks` property to draw series one under another:
+Also, specify the `stacks` property to draw series one under another:
 
 .embedded-demo({ "path": "chart-basic/bar-line", "showThemeSelector": true })
 

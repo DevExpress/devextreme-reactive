@@ -274,6 +274,8 @@
         path: /react/scheduler/docs/reference/view-switcher
       - title: Toolbar
         path: /react/scheduler/docs/reference/toolbar
+      - title: DateNavigator
+        path: /react/scheduler/docs/reference/date-navigator
   - title: Related Docs
     items:
       - title: React Core

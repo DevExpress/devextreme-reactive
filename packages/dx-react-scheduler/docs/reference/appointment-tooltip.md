@@ -1,6 +1,6 @@
 # AppointmentTooltip Plugin Reference
 
-The `AppointmentTooltip` plugin allows you to display a brief information about an appointment.
+The `AppointmentTooltip` plugin allows you to display information about an appointment in a tooltip.
 
 ## Import
 
@@ -34,9 +34,9 @@ visible? | boolean | | Specifies the tooltip's visibility.
 appointmentMeta? | [AppointmentMeta](#appointmentmeta) | | The appointment's displayed metadata.
 onVisibilityChange? | (visible: boolean) => void | | Handles the tooltip's visibility chages.
 onAppointmentMetaChange? | (appointmentMeta: [AppointmentMeta](#appointmentmeta)) => void | | Handles the meta data changes.
-layoutComponent | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | | A component that renders a tooltip layout.
-headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | | A component that renders a header.
-contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | | A component that renders a content.
+layoutComponent | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | | A component that renders the tooltip layout.
+headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | | A component that renders the header.
+contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | | A component that renders the tooltip content.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | | A component that renders a command button.
 
 ## Interfaces
@@ -65,27 +65,27 @@ onDeleteButtonClick? | () => void | An event raised when the Open button is clic
 appointmentMeta? | [AppointmentMeta](#appointmentmeta) | The appointment's displayed metadata.
 visible? | boolean | Specifies the tooltip's visibility.
 onHide? | () => void | An event that hides the tooltip.
-headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders a header.
-contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders a content.
+headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders the tooltip header.
+contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders the tooltip content.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
 
 ### AppointmentTooltip.HeaderProps
 
-Describes properties passed to a component that renders a header.
+Describes properties passed to a component that renders the tooltip header.
 
 Field | Type | Description
 ------|------|------------
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
-children? | ReactNode | A React node used to render a tooltip header.
+children? | ReactNode | A React node used to render the tooltip header.
 
 ### AppointmentTooltip.ContentProps
 
-Describes properties passed to a component that renders a content.
+Describes properties passed to a component that renders the tooltip content.
 
 Field | Type | Description
 ------|------|------------
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
-children? | ReactNode | A React node used to render a tooltip content.
+children? | ReactNode | A React node used to render the tooltip content.
 
 ### AppointmentTooltip.CommandButtonProps
 
@@ -100,9 +100,9 @@ onExecute? | () => void | An event that executes the command.
 
 Name | Properties | Description
 -----|------------|------------
-AppointmentTooltip.Layout | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | A component that renders a tooltip layout.
-AppointmentTooltip.Header | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders a header.
-AppointmentTooltip.Content | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders a content.
+AppointmentTooltip.Layout | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | A component that renders the tooltip layout.
+AppointmentTooltip.Header | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders the tooltip header.
+AppointmentTooltip.Content | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders the tooltip content.
 AppointmentTooltip.CommandButton | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
 
 Additional properties are added to a component's root element.

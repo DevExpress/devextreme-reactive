@@ -270,6 +270,8 @@
         path: /react/scheduler/docs/reference/scheduler
       - title: AppointmentForm
         path: /react/scheduler/docs/reference/appointment-form
+      - title: EditingState
+        path: /react/scheduler/docs/reference/editing-state
       - title: ViewState
         path: /react/scheduler/docs/reference/view-state
       - title: DayView

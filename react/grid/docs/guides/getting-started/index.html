@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Grid - Getting Started - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,8 +12,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1541596785">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1541596785">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -65,7 +66,7 @@
 
 <h2 id="overview">Overview</h2>
 
-<p>DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material UI rendering and theming out of the box.</p>
+<p>DevExtreme React Grid is a component that displays table data from a local or remote source. It supports paging, sorting, filtering, grouping and other data shaping options, row selection, and data editing. Support for controlled and uncontrolled state modes allows you to use the Grid in a regular or Redux-based application. The DevExtreme Grid component has a composable and extendable plugin-based architecture and is provided with Twitter Bootstrap and Material-UI rendering and theming out of the box.</p>
 
 <h2 id="installation">Installation</h2>
 
@@ -74,28 +75,22 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-core @devexpress/dx-react-grid
 </code></pre></div></div>
 
-<p><em>Note: <a href="https://www.npmjs.com/package/react">react</a> &gt;=16.3.0 and <a href="https://www.npmjs.com/package/react">react-dom</a> &gt;=16.3.0 are peer dependencies.</em></p>
-
-<p>This package does not contain visual components. In the examples below, visual components are rendered using the Material UI package. However, you can use any of the following:</p>
+<p>This package does not contain visual components. In the examples below, visual components are rendered using the Material-UI package. However, you can use any of the following:</p>
 
 <ul>
   <li>
-    <p>Material UI</p>
+    <p>Material-UI</p>
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-material-ui
 </code></pre></div>    </div>
 
-    <p><em>Note: <a href="https://www.npmjs.com/package/@material-ui/core">@material-ui/core</a> &gt;=1.1.0 and <a href="https://www.npmjs.com/package/@material-ui/icons">@material-ui/icons</a> &gt;=1.1.0 are peer dependencies.</em></p>
-
-    <p>Make sure that the <a href="https://material-ui.com/">Material UI</a> dependencies are installed and properly configured. Check the Material UI’s <a href="https://material-ui.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
+    <p>Make sure that the <a href="https://material-ui.com/">Material-UI</a> dependencies are installed and properly configured. Check the Material-UI’s <a href="https://material-ui.com/getting-started/installation">Getting Started</a> article for configuration details.</p>
   </li>
   <li>
     <p>Bootstrap 4</p>
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-bootstrap4
 </code></pre></div>    </div>
-
-    <p><em>Note: <a href="https://www.npmjs.com/package/reactstrap">reactstrap</a> &gt;=6.3.0 is a peer dependency.</em></p>
 
     <p>Make sure that <a href="https://reactstrap.github.io/">reactstrap</a> dependencies are installed and properly configured. Check the reactstrap’s <a href="https://reactstrap.github.io/">Getting Started</a> article for configuration details. Also you need add to your project the <a href="https://useiconic.com/open">OpenIconic</a> icons.</p>
 
@@ -111,8 +106,6 @@
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm i --save @devexpress/dx-react-grid-bootstrap3
 </code></pre></div>    </div>
-
-    <p><em>Note: <a href="https://www.npmjs.com/package/react-bootstrap">react-bootstrap</a> &gt;=0.32.1 is a peer dependency.</em></p>
 
     <p>Make sure that the <a href="https://react-bootstrap.github.io">React-Bootstrap</a> dependencies are installed and properly configured. Check the React-Bootstrap’s <a href="https://react-bootstrap.github.io/getting-started/introduction">Getting Started</a> article for configuration details.</p>
 
@@ -162,7 +155,7 @@
 <p>Follow the links below to try out the React Grid:</p>
 
 <ul>
-  <li><a href="https://codesandbox.io/s/13qvz1qqzl">CodeSandbox for Material UI</a></li>
+  <li><a href="https://codesandbox.io/s/13qvz1qqzl">CodeSandbox for Material-UI</a></li>
   <li><a href="https://codesandbox.io/s/rymyjlonpq">CodeSandbox for Bootstrap4</a></li>
   <li><a href="https://codesandbox.io/s/7o46mkowx">CodeSandbox for Bootstrap3</a></li>
 </ul>
@@ -181,9 +174,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
             Version
-            <span>1.8.0</span>
+            <span>1.9.0</span>
           </a>
         </li>
       </ul>
@@ -780,7 +773,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -790,7 +783,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1538652338"></script>
+<script src="/devextreme-reactive/react/grid/demos/dist/index.js?v=1541596785"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -810,7 +803,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -842,7 +835,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1541596785"></script>
     <script>
         trackingCookie.notice();
     </script>

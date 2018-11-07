@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    
     <title>React Chart - Plugin Overview - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,8 +12,8 @@
     <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1538652338">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1538652338">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1541596785">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1541596785">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <script>
@@ -102,6 +103,15 @@
   <li><code class="highlighter-rouge">Title</code> - renders a title</li>
 </ul>
 
+<p>The following plugins implement additional features:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Animation</code> - animates all chart series when they first appear on-screen</li>
+  <li><code class="highlighter-rouge">EventTracker</code> - allows you to handle a click on a point or series</li>
+  <li><code class="highlighter-rouge">HoverState</code> - implements the <em>hovered</em> state for points and series</li>
+  <li><code class="highlighter-rouge">SelectionState</code> -  implements the <em>selected</em> state for points and series</li>
+</ul>
+
 <h2 id="data-processing-plugins">Data Processing Plugins</h2>
 
 <ul>
@@ -113,7 +123,7 @@
 
 <p>The plugin order is important. UI plugins are rendered in the same order as they are defined in the Chart component. For example, if the <code class="highlighter-rouge">BarSeries</code> plugin precedes the <code class="highlighter-rouge">LineSeries</code>, the line series overlays the bar series.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1538652338&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/chart-basic/combination-series&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/chart/demos/dist/index.js?v=1541596785&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -124,7 +134,7 @@
 <p>The Chart’s plugins use special components to render the UI. You can implement your component suite or use a predefined suite:</p>
 
 <ul>
-  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui">DevExtreme React Chart for Material UI</a> - renders the Chart’s UI elements based on <a href="http://www.material-ui.com">Material UI</a> components.</li>
+  <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-material-ui">DevExtreme React Chart for Material-UI</a> - renders the Chart’s UI elements based on <a href="https://material-ui.com/">Material-UI</a> components.</li>
   <li><a href="https://github.com/DevExpress/devextreme-reactive/tree/master/packages/dx-react-chart-bootstrap4">DevExtreme React Chart for Bootstrap 4</a> - renders the Chart’s UI elements based on <a href="http://getbootstrap.com/">Bootstrap 4</a> components.</li>
 </ul>
 
@@ -138,9 +148,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.8.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#1.9.0">
             Version
-            <span>1.8.0</span>
+            <span>1.9.0</span>
           </a>
         </li>
       </ul>
@@ -203,7 +213,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/guides/typescript/">TypeScript</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
           
 
         
@@ -211,7 +221,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/guides/palette/">Palette</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/hover-and-selection/">Hover and Selection</a></li>
           
 
         
@@ -234,6 +252,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/animation/">Animation</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/area-series/">AreaSeries</a></li>
           
 
@@ -243,6 +269,14 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-axis/">ArgumentAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/argument-grid/">ArgumentGrid</a></li>
           
 
         
@@ -266,7 +300,15 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/chart/docs/reference/grid/">Grid</a></li>
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/event-tracker/">EventTracker</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/hover-state/">HoverState</a></li>
           
 
         
@@ -322,6 +364,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/selection-state/">SelectionState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/chart/docs/reference/spline-series/">SplineSeries</a></li>
           
 
@@ -347,6 +397,14 @@
 
           
           <li><a href="/devextreme-reactive/react/chart/docs/reference/value-axis/">ValueAxis</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/reference/value-grid/">ValueGrid</a></li>
           
 
         
@@ -377,7 +435,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/vue/grid/docs/guides/getting-started/">Vue Grid</a></li>
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">React Scheduler</a></li>
           
 
         
@@ -387,7 +445,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1538652338"></script>
+<script src="/devextreme-reactive/react/chart/demos/dist/index.js?v=1541596785"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 
 <script type="text/javascript">
@@ -407,7 +465,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/chart/demos/overview/multiple-axes/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -439,7 +497,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1538652338"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1541596785"></script>
     <script>
         trackingCookie.notice();
     </script>

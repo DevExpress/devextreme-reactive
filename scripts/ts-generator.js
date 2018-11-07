@@ -340,3 +340,4 @@ const generateTypeScriptForPackage = (packageName) => {
 generateTypeScriptForPackage('dx-react-core');
 generateTypeScriptForPackage('dx-react-grid');
 generateTypeScriptForPackage('dx-react-chart');
+generateTypeScriptForPackage('dx-react-scheduler');

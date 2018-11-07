@@ -31,46 +31,40 @@ const styles = ({ palette, spacing }) => ({
 
 const VerticalAppointmentBase = ({
   classes,
-  mapAppointmentData,
   data,
   children,
   className,
   ...restProps
-}) => {
-  const { title, startDate, endDate } = mapAppointmentData(data);
-  return (
-    children || (
-      <div className={classNames(classes.content, className)} {...restProps}>
-        <div className={classes.title}>
-          {title}
+}) => (
+  children || (
+    <div className={classNames(classes.content, className)} {...restProps}>
+      <div className={classes.title}>
+        {data.title}
+      </div>
+      <div className={classes.textContainer}>
+        <div className={classes.time}>
+          {moment(data.startDate).format('h:mm A')}
         </div>
-        <div className={classes.textContainer}>
-          <div className={classes.time}>
-            {moment(startDate).format('h:mm A')}
-          </div>
-          <div className={classes.time}>
-            {' - '}
-          </div>
-          <div className={classes.time}>
-            {moment(endDate).format('h:mm A')}
-          </div>
+        <div className={classes.time}>
+          {' - '}
+        </div>
+        <div className={classes.time}>
+          {moment(data.endDate).format('h:mm A')}
         </div>
       </div>
-    )
-  );
-};
+    </div>
+  )
+);
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  mapAppointmentData: () => undefined,
   className: undefined,
 };
 

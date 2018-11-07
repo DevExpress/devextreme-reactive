@@ -20,15 +20,14 @@ jest.mock('@devexpress/dx-core', () => ({
 }));
 
 const defaultDeps = {
-  getter: {
-    mapAppointmentData: jest.fn().mockImplementation(() => ({
-      title: 'a',
-      endDate: '2018-07-05',
-      startDate: '2018-07-06',
-    })),
-  },
   template: {
     appointment: {
+      type: 'horizontal',
+      data: {
+        title: 'a',
+        endDate: '2018-07-05',
+        startDate: '2018-07-06',
+      },
       onClick: 'onClick',
       onDoubleClick: 'onDoubleClick',
       style: {
@@ -38,8 +37,6 @@ const defaultDeps = {
         left: '20%',
         position: 'absolute',
       },
-      type: 'horizontal',
-      data: 'data',
     },
   },
 };
@@ -66,9 +63,8 @@ describe('Appointments', () => {
     const appointment = tree.find(Appointment);
     const appointmentContent = tree.find(AppointmentContent);
     const { style, data: appointmentData } = appointment.props();
-    const {
-      data: appointmentContentData, type, mapAppointmentData,
-    } = appointmentContent.props();
+    const { type, data: appointmentContentData } = appointmentContent.props();
+
     expect(appointment).toHaveLength(1);
     expect(appointmentContent).toHaveLength(1);
 
@@ -79,13 +75,13 @@ describe('Appointments', () => {
       left: '20%',
       position: 'absolute',
     });
-
-    expect(appointmentData).toBe('data');
-    expect(appointmentContentData).toBe('data');
     expect(type).toBe('horizontal');
-    expect(mapAppointmentData().title).toBe('a');
-    expect(mapAppointmentData().endDate).toBe('2018-07-05');
-    expect(mapAppointmentData().startDate).toBe('2018-07-06');
+    expect(appointmentData.title).toBe('a');
+    expect(appointmentData.endDate).toBe('2018-07-05');
+    expect(appointmentData.startDate).toBe('2018-07-06');
+    expect(appointmentContentData.title).toBe('a');
+    expect(appointmentContentData.endDate).toBe('2018-07-05');
+    expect(appointmentContentData.startDate).toBe('2018-07-06');
   });
 
   it('should pass correct event handlers', () => {

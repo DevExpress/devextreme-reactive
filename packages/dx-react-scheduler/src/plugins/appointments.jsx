@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Plugin, Template, TemplateConnector,
+  Plugin, Template,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 
@@ -31,24 +31,17 @@ export class Appointments extends React.PureComponent {
             data, type, style,
             ...restParams
           }) => (
-            <TemplateConnector>
-              {({
-                mapAppointmentData,
-              }) => (
-                <Appointment
-                  style={style}
-                  data={data}
-                  {...createClickHandlers(onClick, onDoubleClick)}
-                  {...restParams}
-                >
-                  <AppointmentContent
-                    mapAppointmentData={mapAppointmentData}
-                    data={data}
-                    type={type}
-                  />
-                </Appointment>
-              )}
-            </TemplateConnector>
+            <Appointment
+              style={style}
+              data={data}
+              {...createClickHandlers(onClick, onDoubleClick)}
+              {...restParams}
+            >
+              <AppointmentContent
+                data={data}
+                type={type}
+              />
+            </Appointment>
           )}
         </Template>
       </Plugin>

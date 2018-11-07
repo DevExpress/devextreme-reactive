@@ -4,8 +4,9 @@ import { HorizontalAppointment } from './horizontal-appointment';
 
 describe('HorizontalAppointment', () => {
   const defaultProps = {
-    data: {},
-    mapAppointmentData: () => ({}),
+    data: {
+      title: 'title',
+    },
   };
 
   let classes;
@@ -23,7 +24,6 @@ describe('HorizontalAppointment', () => {
       const tree = mount((
         <HorizontalAppointment
           {...defaultProps}
-          mapAppointmentData={() => ({ title: 'title' })}
         />
       ));
 

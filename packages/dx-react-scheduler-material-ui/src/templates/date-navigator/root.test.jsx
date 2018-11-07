@@ -9,7 +9,7 @@ describe('DateNavigator', () => {
     const defaultProps = {
       onVisibilityToggle: () => {},
       onNavigate: () => {},
-      targetRef: () => {},
+      rootRef: () => {},
       navigationButtonComponent: NavigationButton,
       openButtonComponent: OpenButton,
     };

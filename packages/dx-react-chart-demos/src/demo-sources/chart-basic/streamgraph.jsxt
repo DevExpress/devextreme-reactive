@@ -64,35 +64,30 @@ export default class Demo extends React.PureComponent {
             valueField="mysteries"
             argumentField="year"
             seriesComponent={Area}
-            stack="a"
           />
           <AreaSeries
             name="Science Fiction"
             valueField="scienceFiction"
             argumentField="year"
             seriesComponent={Area}
-            stack="a"
           />
           <AreaSeries
             name="Romance"
             valueField="romance"
             argumentField="year"
             seriesComponent={Area}
-            stack="a"
           />
           <AreaSeries
             name="Fantasy"
             valueField="fantasy"
             argumentField="year"
             seriesComponent={Area}
-            stack="a"
           />
           <AreaSeries
             name="Thrillers"
             valueField="thrillers"
             argumentField="year"
             seriesComponent={Area}
-            stack="a"
           />
           <Legend />
           <Title
@@ -100,6 +95,9 @@ export default class Demo extends React.PureComponent {
             style={{ textAlign: 'center', width: '100%' }}
           />
           <Stack
+            stacks={[
+              { series: ['Mysteries', 'Science Fiction', 'Romance', 'Fantasy', 'Thrillers'] },
+            ]}
             offset={stackOffsetWiggle}
             order={stackOrderInsideOut}
           />

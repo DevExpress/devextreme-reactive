@@ -4,14 +4,12 @@ import { VerticalAppointment } from './vertical-appointment';
 
 describe('VerticalAppointment', () => {
   const defaultProps = {
-    data: {},
-    mapAppointmentData: () => ({}),
+    data: {
+      title: 'title',
+      startDate: new Date('2018-07-27 13:10'),
+      endDate: new Date('2018-07-27 17:10'),
+    },
   };
-  const mapAppointmentData = () => ({
-    title: 'title',
-    startDate: new Date('2018-07-27 13:10'),
-    endDate: new Date('2018-07-27 17:10'),
-  });
 
   let classes;
   let mount;
@@ -24,7 +22,6 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -36,7 +33,6 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -52,7 +48,6 @@ describe('VerticalAppointment', () => {
       const child = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         >
           <div className="child" />
         </VerticalAppointment>

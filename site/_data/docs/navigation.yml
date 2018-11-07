@@ -266,6 +266,8 @@
         path: /react/scheduler/docs/guides/getting-started
   - title: API Reference
     items:
+      - title: AllDayPanel
+        path: /react/scheduler/docs/reference/all-day-panel
       - title: Scheduler
         path: /react/scheduler/docs/reference/scheduler
       - title: Appointments

@@ -77,7 +77,13 @@ const defaultProps = {
   treeColumnContentComponent: ({ children }) => children,
   treeColumnIndentComponent: () => null,
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
-  itemComponent: ({ children }) => <div>{children}</div>,
+  itemComponent: ({ children, type, getMessage }) => (
+    <div>
+      {getMessage(type)}
+      =
+      {children}
+    </div>
+  ),
 };
 
 describe('TableSummaryRow', () => {
@@ -230,7 +236,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.totalSummaryValues,
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('Count:\xa0\xa010');
+      .toBe('Count=10');
   });
 
   it('should render group summary cell on user-defined column and group summary row intersection', () => {
@@ -263,7 +269,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.groupSummaryValues.g,
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('Sum:\xa0\xa020');
+      .toBe('Sum=20');
   });
 
   it('should render tree summary cell on user-defined column and tree summary row intersection', () => {
@@ -296,7 +302,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.treeSummaryValues[1],
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('Max:\xa0\xa030');
+      .toBe('Max=30');
   });
 
   it('should render tree summary cell on tree column and tree summary row intersection', () => {
@@ -341,6 +347,69 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.treeSummaryValues[1],
       );
     expect(tree.find(defaultProps.itemComponent).text())
-      .toBe('Max:\xa0\xa030');
+      .toBe('Max=30');
+  });
+
+  describe('format value', () => {
+    it('should render formatted value if valueFormatter is used', () => {
+      getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
+      isTotalSummaryTableCell.mockImplementation(() => true);
+      const { itemComponent, ...restProps } = defaultProps;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableSummaryRow
+            {...restProps}
+            itemComponent={() => null}
+          />
+        </PluginHost>
+      ));
+
+      const valueFormatterTemplatePlaceholder = tree
+        .find('TemplatePlaceholder').at(0)
+        .findWhere(node => node.prop('name') === 'valueFormatter');
+
+      expect(valueFormatterTemplatePlaceholder.prop('params'))
+        .toMatchObject({
+          column: defaultDeps.template.tableCell.tableColumn.column,
+          value: 30,
+        });
+    });
+
+    const assertSummaryValueIsUnformatted = (props) => {
+      isTotalSummaryTableCell.mockImplementation(() => true);
+      const { itemComponent, ...restProps } = props;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableSummaryRow
+            {...restProps}
+            itemComponent={() => null}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree
+        .find('TemplatePlaceholder')
+        .findWhere(node => node.prop('name') === 'valueFormatter').exists())
+        .toBeFalsy();
+    };
+
+    it('should render unformatted value if formatlessSummaryTypes contains the summary type', () => {
+      getColumnSummaries.mockImplementation(() => [{ type: 'max', value: 30 }]);
+
+      assertSummaryValueIsUnformatted({
+        formatlessSummaryTypes: ['max'],
+        ...defaultProps,
+      });
+    });
+
+    it('should render unformatted value for "count" summary type', () => {
+      getColumnSummaries.mockImplementation(() => [{ type: 'count', value: 30 }]);
+
+      assertSummaryValueIsUnformatted({
+        ...defaultProps,
+      });
+    });
   });
 });

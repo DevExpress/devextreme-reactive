@@ -3,9 +3,15 @@ import { shallow } from 'enzyme';
 import { TableSummaryItem } from './table-summary-item';
 
 describe('TableSummaryItem', () => {
+  const defaultProps = {
+    getMessage: () => 'message',
+    value: 11,
+    type: 'summaryType',
+  };
+
   it('should render children if passed', () => {
     const tree = shallow((
-      <TableSummaryItem>
+      <TableSummaryItem {...defaultProps}>
         <span className="test" />
       </TableSummaryItem>
     ));
@@ -17,6 +23,7 @@ describe('TableSummaryItem', () => {
   it('should pass style to the root element', () => {
     const tree = shallow((
       <TableSummaryItem
+        {...defaultProps}
         style={{ color: 'gray' }}
       />
     ));
@@ -27,10 +34,28 @@ describe('TableSummaryItem', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableSummaryItem className="custom-class" />
+      <TableSummaryItem
+        {...defaultProps}
+        className="custom-class"
+      />
     ));
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should use getMessage to format a summary caption', () => {
+    const tree = shallow((
+      <TableSummaryItem
+        getMessage={type => `${type.toUpperCase()}`}
+        value={10}
+        type="total"
+      >
+        <span>10</span>
+      </TableSummaryItem>
+    ));
+
+    expect(tree.text())
+      .toBe('TOTAL:\xa0\xa010');
   });
 });

@@ -5,13 +5,13 @@ export const Root = ({
   navigationButtonComponent: NavigationButton,
   openButtonComponent: OpenButton,
   navigatorText,
-  targetRef,
+  rootRef,
   onVisibilityToggle,
   onNavigate,
   ...restProps
 }) => (
   <div
-    ref={targetRef}
+    ref={rootRef}
     {...restProps}
   >
     <NavigationButton
@@ -32,7 +32,7 @@ export const Root = ({
 Root.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
-  targetRef: PropTypes.func.isRequired,
+  rootRef: PropTypes.func.isRequired,
   navigationButtonComponent: PropTypes.func.isRequired,
   openButtonComponent: PropTypes.func.isRequired,
   navigatorText: PropTypes.string,

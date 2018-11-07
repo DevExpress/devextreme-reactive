@@ -20,15 +20,15 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-editingAppointmentId? | number &#124; string | | ID of the appointment being edited.
-defaultEditingAppointmentId? | number &#124; string | | ID of the appointment initially added to the `editingAppointmentId` in uncontrolled mode.
-onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles adding or removing an appointment to/from the `editingAppointmentId`.
+editingAppointmentId? | number &#124; string | | The identifier of an appointment being edited.
+defaultEditingAppointmentId? | number &#124; string | | The initial value of the `editingAppointmentId` property in uncontrolled mode.
+onEditingAppointmentIdChange? | (editingAppointmentId: number &#124; string) => void | | Handles changes to the `editingAppointmentId` property's value.
 addedAppointment? | object | | Created but not committed appointment.
-defaultAddedAppointment? | object | | Appointment initially added to the `addedAppointment` in uncontrolled mode.
-onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles adding or removing an appointment to/from the `addedAppointment`.
-appointmentChanges? | { [key: string]: object } | | Not committed appointment changes.
-defaultAppointmentChanges? | { [key: string]: object } | | Appointment changes initially added to the `appointmentChanges` in uncontrolled mode.
-onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles adding or removing an appointment changes to/from the `appointmentChanges`.
+defaultAddedAppointment? | object | | The initial value of the `addedAppointment` property in uncontrolled mode.
+onAddedAppointmentChange? | (addedAppointment: object) => void | | Handles changes to the `addedAppointment` property's value.
+appointmentChanges? | { [key: string]: object } | | Uncommitted appointment changes.
+defaultAppointmentChanges? | { [key: string]: object } | | The initial value of the `appointmentChanges` property in uncontrolled mode.
+onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles changes to the `appointmentChanges` property's value.
 onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles appointment changes committing.
 
 ## Interfaces
@@ -40,5 +40,5 @@ Describes uncommitted changes made to the scheduler data.
 Field | Type | Description
 ------|------|------------
 added? | [AppointmentModel](./scheduler.md#appointmentmodel) | An appointment to be created.
-changed? | { [key: number &#124; string]: object } | An object that stores changes made to existing data. Specifies changes made to a appointment. The item's key specifies the associated appointment's ID.
-deleted? | number &#124; string | ID representing appointment to be deleted.
+changed? | { [key: number &#124; string]: object } | Changes made to an appointment. The item's key specifies the associated appointment's ID.
+deleted? | number &#124; string | The identifier of an appointment to be deleted.

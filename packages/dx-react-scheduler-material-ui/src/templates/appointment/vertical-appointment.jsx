@@ -24,49 +24,43 @@ const styles = {
 
 const VerticalAppointmentBase = ({
   classes,
-  mapAppointmentData,
   data,
   children,
   ...restProps
-}) => {
-  const { title, startDate, endDate } = mapAppointmentData(data);
-  return (
-    <Appointment
-      data={data}
-      {...restProps}
-    >
-      {children || (
+}) => (
+  <Appointment
+    data={data}
+    {...restProps}
+  >
+    {children || (
       <React.Fragment>
         <div className={classes.title}>
-          {title}
+          {data.title}
         </div>
         <div className={classes.textContainer}>
           <div className={classes.time}>
-            {moment(startDate).format('h:mm A')}
+            {moment(data.startDate).format('h:mm A')}
           </div>
           <div className={classes.time}>
             {' - '}
           </div>
           <div className={classes.time}>
-            {moment(endDate).format('h:mm A')}
+            {moment(data.endDate).format('h:mm A')}
           </div>
         </div>
       </React.Fragment>
-      )}
-    </Appointment>
-  );
-};
+    )}
+  </Appointment>
+);
 
 VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  mapAppointmentData: PropTypes.func,
   children: PropTypes.node,
 };
 
 VerticalAppointmentBase.defaultProps = {
   children: undefined,
-  mapAppointmentData: () => undefined,
 };
 
 export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);

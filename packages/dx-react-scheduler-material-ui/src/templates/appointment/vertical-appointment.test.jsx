@@ -9,13 +9,12 @@ jest.mock('./appointment', () => ({
 
 describe('VerticalAppointment', () => {
   const defaultProps = {
-    data: {},
+    data: {
+      title: 'title',
+      startDate: new Date('2018-07-27 13:10'),
+      endDate: new Date('2018-07-27 17:10'),
+    },
   };
-  const mapAppointmentData = () => ({
-    title: 'title',
-    startDate: new Date('2018-07-27 13:10'),
-    endDate: new Date('2018-07-27 17:10'),
-  });
 
   let classes;
   let mount;
@@ -39,7 +38,6 @@ describe('VerticalAppointment', () => {
         <VerticalAppointment
           {...defaultProps}
           customProp="custom prop"
-          mapAppointmentData={mapAppointmentData}
         />
       ));
       const { customProp } = Appointment.mock.calls[0][0];
@@ -52,7 +50,6 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -64,7 +61,6 @@ describe('VerticalAppointment', () => {
       const tree = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         />
       ));
 
@@ -80,7 +76,6 @@ describe('VerticalAppointment', () => {
       const child = mount((
         <VerticalAppointment
           {...defaultProps}
-          mapAppointmentData={mapAppointmentData}
         >
           <div className="child" />
         </VerticalAppointment>

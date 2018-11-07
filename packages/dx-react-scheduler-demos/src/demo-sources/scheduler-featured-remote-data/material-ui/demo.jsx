@@ -107,11 +107,13 @@ export default class Demo extends React.PureComponent {
       currentDate, currentViewName,
     } = this.state;
 
+    const formattedData = data
+      ? data.map(mapAppointmentData) : [];
+
     return (
       <Paper>
         <Scheduler
-          data={data}
-          mapAppointmentData={mapAppointmentData}
+          data={formattedData}
         >
           <ViewState
             currentDate={currentDate}

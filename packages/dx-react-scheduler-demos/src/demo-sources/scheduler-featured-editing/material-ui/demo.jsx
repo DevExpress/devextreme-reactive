@@ -355,11 +355,11 @@ class Demo extends React.PureComponent {
             onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
-          <DayView
+          <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />
-          <WeekView
+          <DayView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />

@@ -46,6 +46,8 @@
         path: /react/chart/demos/bar/fullstacked-bar
       - title: Component Customization
         path: /react/chart/demos/bar/component-customization
+      - title: Series Interaction
+        path: /react/chart/demos/bar/series-interaction
   - title: Line Chart
     items:
       - title: Simple Line

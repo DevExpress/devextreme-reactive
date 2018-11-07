@@ -12,7 +12,6 @@ import {
   setAppointmentData,
   isAllDayCell,
   callActionIfExists,
-  changeAppointmentField,
   COMMIT_COMMAND_BUTTON,
   CANCEL_COMMAND_BUTTON,
 } from '@devexpress/dx-scheduler-core';
@@ -107,13 +106,6 @@ export class AppointmentForm extends React.PureComponent {
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              mapAppointmentData,
-
-              setAppointmentTitle,
-              setAppointmentStartDate,
-              setAppointmentEndDate,
-              setAppointmentAllDay,
-
               addedAppointment,
               appointmentChanges,
               editingAppointmentId,
@@ -133,9 +125,9 @@ export class AppointmentForm extends React.PureComponent {
                 ...appointmentData,
                 ...isNew ? addedAppointment : appointmentChanges,
               };
-              const {
-                title, startDate, endDate, allDay, id,
-              } = mapAppointmentData(changedAppointment);
+              const changeAppointmentField = isNew
+                ? changeAddedAppointment
+                : changeAppointment;
 
               return (
                 <Popup
@@ -146,53 +138,34 @@ export class AppointmentForm extends React.PureComponent {
                       <TitleEditor
                         readOnly={readOnly}
                         label={getMessage('titleLabel')}
-                        value={title}
+                        value={changedAppointment.title}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentTitle,
-                          ),
+                          onValueChange: title => changeAppointmentField({ change: { title } }),
                         }}
                       />
                       <StartDateEditor
                         readOnly={readOnly}
                         label={getMessage('startDateLabel')}
-                        value={startDate}
+                        value={changedAppointment.startDate}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentStartDate,
-                          ),
+                          onValueChange:
+                            startDate => changeAppointmentField({ change: { startDate } }),
                         }}
                       />
                       <EndDateEditor
                         readOnly={readOnly}
                         label={getMessage('endDateLabel')}
-                        value={endDate}
+                        value={changedAppointment.endDate}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentEndDate,
-                          ),
+                          onValueChange: endDate => changeAppointmentField({ change: { endDate } }),
                         }}
                       />
                       <AllDayEditor
                         readOnly={readOnly}
                         text={getMessage('allDayLabel')}
-                        value={allDay}
+                        value={changedAppointment.allDay}
                         {...changeAppointment && {
-                          onValueChange: changeAppointmentField(
-                            isNew,
-                            changeAddedAppointment,
-                            changeAppointment,
-                            setAppointmentAllDay,
-                          ),
+                          onValueChange: allDay => changeAppointmentField({ change: { allDay } }),
                         }}
                       />
                     </ScrollableArea>
@@ -222,7 +195,7 @@ export class AppointmentForm extends React.PureComponent {
                                 commitAddedAppointment();
                               } else {
                                 commitChangedAppointment({
-                                  appointmentId: id,
+                                  appointmentId: changedAppointment.id,
                                 });
                               }
                             }
@@ -241,9 +214,7 @@ export class AppointmentForm extends React.PureComponent {
         <Template name="tooltip">
           {params => (
             <TemplateConnector>
-              {({
-                mapAppointmentData,
-              }, {
+              {(getters, {
                 startEditAppointment,
               }) => (
                 <TemplatePlaceholder
@@ -252,7 +223,7 @@ export class AppointmentForm extends React.PureComponent {
                     onOpenButtonClick: () => {
                       this.openFormHandler(params.appointmentMeta.data);
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: mapAppointmentData(params.appointmentMeta.data).id,
+                        appointmentId: params.appointmentMeta.data.id,
                       });
                     },
                   }}
@@ -265,9 +236,7 @@ export class AppointmentForm extends React.PureComponent {
         <Template name="appointment">
           {params => (
             <TemplateConnector>
-              {({
-                mapAppointmentData,
-              }, {
+              {(getters, {
                 startEditAppointment,
               }) => (
                 <TemplatePlaceholder
@@ -276,7 +245,7 @@ export class AppointmentForm extends React.PureComponent {
                     onDoubleClick: () => {
                       this.openFormHandler(params.data);
                       callActionIfExists(startEditAppointment, {
-                        appointmentId: mapAppointmentData(params.data).id,
+                        appointmentId: params.data.id,
                       });
                     },
                   }}

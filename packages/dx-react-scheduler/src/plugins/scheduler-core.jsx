@@ -10,20 +10,13 @@ export class SchedulerCore extends React.PureComponent {
     const {
       data,
       rootComponent: Root,
-      mapAppointmentData,
     } = this.props;
-
-    const appointmentsComputed = getters => appointments(
-      data,
-      getters.mapAppointmentData,
-    );
 
     return (
       <Plugin
         name="SchedulerCore"
       >
-        <Getter name="mapAppointmentData" value={mapAppointmentData} />
-        <Getter name="appointments" computed={appointmentsComputed} />
+        <Getter name="appointments" value={appointments(data)} />
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />
@@ -39,5 +32,4 @@ export class SchedulerCore extends React.PureComponent {
 SchedulerCore.propTypes = {
   data: PropTypes.array.isRequired,
   rootComponent: PropTypes.func.isRequired,
-  mapAppointmentData: PropTypes.func.isRequired,
 };

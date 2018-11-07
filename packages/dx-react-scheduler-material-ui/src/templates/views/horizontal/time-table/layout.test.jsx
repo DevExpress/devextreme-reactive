@@ -15,6 +15,8 @@ describe('Horizontal view TimeTable', () => {
         { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
       ],
     ],
+    cellComponent: () => undefined,
+    rowComponent: () => undefined,
   };
   let classes;
   let shallow;

@@ -30,7 +30,7 @@ import { Appointments } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 appointmentComponent | ComponentType&lt;[Appointments.AppointmentProps](#appointmentsappointmentprops)&gt; | | A component that renders an appointment.
-appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders an appointment's content.
+appointmentContentComponent | ComponentType&lt;[Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops)&gt; | | A component that renders the appointment content.
 
 ## Interfaces
 
@@ -40,24 +40,24 @@ Properties passed to a component that renders an appointment.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the appointment's content.
-style | object | An object that configures the appointment's geometry and position.
-data | object | An object that specifies the appointment's data.
+children | ReactNode | A React node used to render the appointment content.
+style | object | An object that configures the appointment geometry and position.
+data | object | An object that specifies the appointment data.
 onClick? | (e: object) => void | A function that handles a click on the appointment.
 onDoubleClick? | (e: object) => void | A function that handles a double click on the appointment.
 
 ### Appointments.AppointmentContentProps
 
-Properties passed to a component that renders the appointment's content.
+Properties passed to a component that renders the appointment content.
 
 Field | Type | Description
 ------|------|------------
 children | ReactNode | A React node used to render the appointment content.
-data | object | An object that represents an appointment data.
+data | object | An object that represents appointment data.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
 Appointments.Appointment | [Appointments.AppointmentProps](#appointmentsappointmentprops) | A component that renders an appointment.
-Appointments.ContentAppointment | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders an appointment's content.
+Appointments.ContentAppointment | [Appointments.AppointmentContentProps](#appointmentsappointmentcontentprops) | A component that renders the appointment content.

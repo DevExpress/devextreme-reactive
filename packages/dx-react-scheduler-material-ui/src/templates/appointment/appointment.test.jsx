@@ -42,17 +42,6 @@ describe('Appointment', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render content', () => {
-      const content = shallow((
-        <Appointment {...defaultProps}>
-          <div />
-        </Appointment>
-      )).find(`.${classes.content}`);
-
-      expect(content.exists())
-        .toBeTruthy();
-    });
-
     it('should render children', () => {
       const child = shallow((
         <Appointment {...defaultProps}>

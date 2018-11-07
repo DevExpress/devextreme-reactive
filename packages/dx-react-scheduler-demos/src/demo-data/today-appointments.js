@@ -1,18 +1,19 @@
 import moment from 'moment';
 import { appointments } from './appointments';
 
-let date = 1;
+const currentDate = moment();
+let date = currentDate.date();
+
 const makeTodayAppointment = (startDate, endDate) => {
-  const currentDate = moment();
   const days = moment(startDate).diff(endDate, 'days');
   const nextStartDate = moment(startDate)
     .year(currentDate.year())
     .month(currentDate.month())
-    .day(date);
+    .date(date);
   const nextEndDate = moment(endDate)
     .year(currentDate.year())
     .month(currentDate.month())
-    .day(date + days);
+    .date(date + days);
 
   return {
     startDate: nextStartDate.toDate(),

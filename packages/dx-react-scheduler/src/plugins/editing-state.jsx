@@ -71,7 +71,7 @@ export class EditingState extends React.PureComponent {
       const { onCommitChanges } = this.props;
       const { addedAppointment: stateAddedAppointment } = this.state;
       onCommitChanges({
-        added: this.makeAppointment(stateAddedAppointment),
+        added: stateAddedAppointment,
       });
       this.cancelAddedAppointment();
     };
@@ -79,23 +79,6 @@ export class EditingState extends React.PureComponent {
     this.commitDeletedAppointment = ({ deletedAppointmentId }) => {
       const { onCommitChanges } = this.props;
       onCommitChanges({ deleted: deletedAppointmentId });
-    };
-
-    this.makeAppointment = ({
-      startDate, endDate, title, allDay,
-    }) => {
-      const {
-        setAppointmentEndDate,
-        setAppointmentStartDate,
-        setAppointmentTitle,
-        setAppointmentAllDay,
-      } = this.props;
-
-      const appointment = {};
-      const withTitle = setAppointmentTitle(appointment, title);
-      const withStartDate = setAppointmentStartDate(withTitle, startDate);
-      const withEndDate = setAppointmentEndDate(withStartDate, endDate);
-      return setAppointmentAllDay(withEndDate, allDay);
     };
   }
 
@@ -115,12 +98,6 @@ export class EditingState extends React.PureComponent {
 
   render() {
     const {
-      setAppointmentTitle,
-      setAppointmentStartDate,
-      setAppointmentEndDate,
-      setAppointmentAllDay,
-    } = this.props;
-    const {
       addedAppointment, editingAppointmentId, appointmentChanges,
     } = this.state;
 
@@ -128,11 +105,6 @@ export class EditingState extends React.PureComponent {
       <Plugin
         name="EditingState"
       >
-        <Getter name="setAppointmentTitle" value={setAppointmentTitle} />
-        <Getter name="setAppointmentStartDate" value={setAppointmentStartDate} />
-        <Getter name="setAppointmentEndDate" value={setAppointmentEndDate} />
-        <Getter name="setAppointmentAllDay" value={setAppointmentAllDay} />
-
         <Getter name="editingAppointmentId" value={editingAppointmentId} />
         <Action name="startEditAppointment" action={this.startEditAppointment} />
         <Action name="stopEditAppointment" action={this.stopEditAppointment} />
@@ -168,11 +140,6 @@ EditingState.propTypes = {
   onAppointmentChangesChange: PropTypes.func,
 
   onCommitChanges: PropTypes.func.isRequired,
-
-  setAppointmentStartDate: PropTypes.func,
-  setAppointmentEndDate: PropTypes.func,
-  setAppointmentTitle: PropTypes.func,
-  setAppointmentAllDay: PropTypes.func,
 };
 
 EditingState.defaultProps = {
@@ -187,10 +154,4 @@ EditingState.defaultProps = {
   addedAppointment: undefined,
   defaultAddedAppointment: {},
   onAddedAppointmentChange: undefined,
-
-  setAppointmentStartDate:
-    (appointment, nextStartDate) => ({ ...appointment, startDate: nextStartDate }),
-  setAppointmentEndDate: (appointment, nextEndDate) => ({ ...appointment, endDate: nextEndDate }),
-  setAppointmentTitle: (appointment, nextTitle) => ({ ...appointment, title: nextTitle }),
-  setAppointmentAllDay: (appointment, nextAllDay) => ({ ...appointment, allDay: nextAllDay }),
 };

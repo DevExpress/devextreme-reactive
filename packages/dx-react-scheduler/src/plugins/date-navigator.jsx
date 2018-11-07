@@ -30,10 +30,10 @@ export class DateNavigator extends React.PureComponent {
 
     this.handleVisibilityToggle = this.handleVisibilityToggle.bind(this);
     this.handleHide = this.handleHide.bind(this);
-    this.setTargetRef = this.setTargetRef.bind(this);
+    this.setRootRef = this.setRootRef.bind(this);
   }
 
-  setTargetRef(target) {
+  setRootRef(target) {
     this.target = target;
   }
 
@@ -94,7 +94,7 @@ export class DateNavigator extends React.PureComponent {
                     navigationButtonComponent={NavigationButton}
                     openButtonComponent={OpenButton}
                     navigatorText={navigatorText}
-                    targetRef={this.setTargetRef}
+                    rootRef={this.setRootRef}
                     onVisibilityToggle={this.handleVisibilityToggle}
                     onNavigate={navigateAction}
                   />

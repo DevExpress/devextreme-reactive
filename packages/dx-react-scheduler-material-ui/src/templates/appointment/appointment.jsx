@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = ({ palette, typography, spacing }) => ({
+const styles = ({ palette, typography }) => ({
   appointment: {
     overflow: 'hidden',
     boxSizing: 'border-box',
@@ -19,13 +19,6 @@ const styles = ({ palette, typography, spacing }) => ({
       backgroundColor: palette.primary[100],
       outline: 0,
     },
-  },
-  content: {
-    color: palette.background.default,
-    padding: spacing.unit / 2,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
 });
 
@@ -51,9 +44,7 @@ const AppointmentBase = ({
       {...onClick}
       {...restProps}
     >
-      <div className={classes.content}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };

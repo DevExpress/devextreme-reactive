@@ -43,7 +43,6 @@ y | number | The slice's y coordinate.
 d | string | The slice's [path](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).
 value | number | The slice's value.
 color | string | A series color.
-style | object | Series styles.
 index | number | Point index.
 
 ## Plugin Components

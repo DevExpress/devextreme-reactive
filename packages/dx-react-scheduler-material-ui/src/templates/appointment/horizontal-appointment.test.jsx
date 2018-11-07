@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
-import { Appointment } from './appointment';
 import { HorizontalAppointment } from './horizontal-appointment';
-
-jest.mock('./appointment', () => ({
-  Appointment: jest.fn(),
-}));
 
 describe('HorizontalAppointment', () => {
   const defaultProps = {
@@ -23,32 +18,8 @@ describe('HorizontalAppointment', () => {
   afterAll(() => {
     mount.cleanUp();
   });
-  beforeEach(() => {
-    Appointment.mockImplementation(({ children }) => (
-      <div className="appointment">
-        {children}
-      </div>
-    ));
-  });
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   describe('HorizontalAppointment', () => {
-    it('should pass rest props to the root element', () => {
-      mount((
-        <HorizontalAppointment
-          {...defaultProps}
-          customProp="custom prop"
-        />
-      ));
-
-      const { customProp } = Appointment.mock.calls[0][0];
-
-      expect(customProp)
-        .toBe('custom prop');
-    });
-
     it('should render title', () => {
       const tree = mount((
         <HorizontalAppointment
@@ -65,10 +36,30 @@ describe('HorizontalAppointment', () => {
         <HorizontalAppointment {...defaultProps}>
           <div className="child" />
         </HorizontalAppointment>
-      ));
+      )).find('.child');
 
       expect(child.exists())
         .toBeTruthy();
+    });
+
+    it('should pass className to the root element', () => {
+      const tree = mount((
+        <HorizontalAppointment {...defaultProps} className="custom-class" />
+      ));
+
+      expect(tree.find('.custom-class').exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = mount((
+        <HorizontalAppointment {...defaultProps} data={{ a: 1 }} />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

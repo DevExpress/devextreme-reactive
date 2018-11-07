@@ -6,17 +6,22 @@ import { HORIZONTAL_TYPE, VERTICAL_TYPE } from '@devexpress/dx-scheduler-core';
 import { HorizontalAppointment } from '../templates/appointment/horizontal-appointment';
 import { VerticalAppointment } from '../templates/appointment/vertical-appointment';
 
-const Appointment = ({ type, ...restProps }) => (
+import { Appointment } from '../templates/appointment/appointment';
+
+const AppointmentContent = ({ type, ...restProps }) => (
   type === HORIZONTAL_TYPE
     ? <HorizontalAppointment {...restProps} />
     : <VerticalAppointment {...restProps} />
 );
 
-Appointment.propTypes = {
+AppointmentContent.propTypes = {
   type: PropTypes.oneOf([
     HORIZONTAL_TYPE,
     VERTICAL_TYPE,
   ]).isRequired,
 };
 
-export const Appointments = withComponents({ Appointment })(AppointmentsBase);
+export const Appointments = withComponents({
+  Appointment,
+  AppointmentContent,
+})(AppointmentsBase);

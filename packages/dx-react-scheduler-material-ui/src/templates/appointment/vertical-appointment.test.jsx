@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { VerticalAppointment } from './vertical-appointment';
-import { Appointment } from './appointment';
-
-jest.mock('./appointment', () => ({
-  Appointment: jest.fn(),
-}));
 
 describe('VerticalAppointment', () => {
   const defaultProps = {
@@ -22,30 +17,7 @@ describe('VerticalAppointment', () => {
     classes = getClasses(<VerticalAppointment {...defaultProps} />);
     mount = createMount({ dive: true });
   });
-  beforeEach(() => {
-    Appointment.mockImplementation(({ children }) => (
-      <div className="appointment">
-        {children}
-      </div>
-    ));
-  });
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
   describe('VerticalAppointment', () => {
-    it('should pass rest props to the root element', () => {
-      mount((
-        <VerticalAppointment
-          {...defaultProps}
-          customProp="custom prop"
-        />
-      ));
-      const { customProp } = Appointment.mock.calls[0][0];
-
-      expect(customProp)
-        .toBe('custom prop');
-    });
-
     it('should render title', () => {
       const tree = mount((
         <VerticalAppointment
@@ -79,10 +51,30 @@ describe('VerticalAppointment', () => {
         >
           <div className="child" />
         </VerticalAppointment>
-      ));
+      )).find('.child');
 
       expect(child.exists())
         .toBeTruthy();
+    });
+
+    it('should pass className to the root element', () => {
+      const tree = mount((
+        <VerticalAppointment {...defaultProps} className="custom-class" />
+      ));
+
+      expect(tree.find('.custom-class').exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`).exists())
+        .toBeTruthy();
+    });
+
+    it('should pass rest props to the root element', () => {
+      const tree = mount((
+        <VerticalAppointment {...defaultProps} data={{ a: 1 }} />
+      ));
+
+      expect(tree.props().data)
+        .toMatchObject({ a: 1 });
     });
   });
 });

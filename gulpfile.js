@@ -95,6 +95,7 @@ gulp.task('site:clean', function() {
     'site/react/core/**/*.md',
     'site/react/grid/**/*.md',
     'site/react/chart/**/*.md',
+    'site/react/scheduler/**/*.md',
     'site/vue/grid/**/*.md',
   ], { read: false })
     .pipe(clean());
@@ -107,6 +108,8 @@ gulp.task('site:docs', function() {
       'packages/dx-react-grid/docs/*/*.md',
       'packages/dx-react-chart/demos/*/*.md',
       'packages/dx-react-chart/docs/*/*.md',
+      'packages/dx-react-scheduler/demos/*/*.md',
+      'packages/dx-react-scheduler/docs/*/*.md',
       'packages/dx-vue-grid/demos/*/*.md',
       'packages/dx-vue-grid/docs/*/*.md',
       '!packages/**/LICENSE.md',
@@ -142,6 +145,11 @@ gulp.task('site:demos:react:chart', function() {
     .pipe(gulp.dest(distPath + 'react/chart/demos/dist/'));
 });
 
+gulp.task('site:demos:react:scheduler', function() {
+  return gulp.src(['packages/dx-react-scheduler-demos/dist/*'])
+    .pipe(gulp.dest(distPath + 'react/scheduler/demos/dist/'));
+});
+
 gulp.task('site:demos:vue:grid', function() {
   return gulp.src(['packages/dx-vue-grid-demos/dist/*'])
     .pipe(gulp.dest(distPath + 'vue/grid/demos/dist/'));
@@ -154,6 +162,7 @@ gulp.task('site', function(done) {
     'site:demos:react:grid',
     'site:demos:vue:grid',
     'site:demos:react:chart',
+    'site:demos:react:scheduler',
     done
   );
 });

@@ -46,14 +46,12 @@ LayoutBase.propTypes = {
   tableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func,
-  rowComponent: PropTypes.func,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
   className: undefined,
-  cellComponent: () => null,
-  rowComponent: () => null,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

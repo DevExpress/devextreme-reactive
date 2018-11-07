@@ -79,6 +79,10 @@
     items:
       - title: Data Editing
         path: /react/scheduler/demos/featured/data-editing
+      - title: Appearance Customization
+        path: /react/scheduler/demos/featured/appearance-customization
+      - title: Remote Data
+        path: /react/scheduler/demos/featured/remote-data
 /vue/grid:
   - title: DEMOS
     items:

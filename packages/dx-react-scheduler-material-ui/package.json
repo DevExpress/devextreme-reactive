@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "@devexpress/dx-react-scheduler-material-ui",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Material-UI templates for DevExtreme React Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -42,10 +41,10 @@
     "lint:fix": "yarn run lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-react-core": "1.8.0",
-    "@devexpress/dx-react-scheduler": "1.8.0",
-    "@devexpress/dx-scheduler-core": "1.8.0",
-    "@devexpress/dx-testing": "1.8.0",
+    "@devexpress/dx-react-core": "1.9.0",
+    "@devexpress/dx-react-scheduler": "1.9.0",
+    "@devexpress/dx-scheduler-core": "1.9.0",
+    "@devexpress/dx-testing": "1.9.0",
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
     "babel-core": "^6.26.3",
@@ -85,9 +84,9 @@
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "1.8.0-beta.1",
-    "@devexpress/dx-react-scheduler": "1.8.0-beta.1",
-    "@devexpress/dx-scheduler-core": "1.8.0-beta.1",
+    "@devexpress/dx-react-core": "1.9.0",
+    "@devexpress/dx-react-scheduler": "1.9.0",
+    "@devexpress/dx-scheduler-core": "1.9.0",
     "@material-ui/core": ">=3.2.0",
     "@material-ui/icons": ">=3.0.0",
     "react": ">=16.3.0"

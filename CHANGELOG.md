@@ -1,3 +1,41 @@
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0...v1.9.0) (2018-11-07)
+
+
+### Bug Fixes
+
+* **react-chart:** fix indent from axis for label w/o tick and line components ([#1528](https://github.com/DevExpress/devextreme-reactive/issues/1528)) ([e8b2ccb](https://github.com/DevExpress/devextreme-reactive/commit/e8b2ccb))
+* **react-chart:** fix stacks processing ([#1535](https://github.com/DevExpress/devextreme-reactive/issues/1535)) ([9660d5f](https://github.com/DevExpress/devextreme-reactive/commit/9660d5f))
+* **react-grid:** correct order of fixed right columns ([#1533](https://github.com/DevExpress/devextreme-reactive/issues/1533)) ([00ccebd](https://github.com/DevExpress/devextreme-reactive/commit/00ccebd))
+* **react-grid:** pass undefined as empty value to filter editorComponent ([#1522](https://github.com/DevExpress/devextreme-reactive/issues/1522)) ([e69813f](https://github.com/DevExpress/devextreme-reactive/commit/e69813f))
+* **react-grid:** use a column filter operation as a filter selector value ([#1479](https://github.com/DevExpress/devextreme-reactive/issues/1479)) ([70e26fa](https://github.com/DevExpress/devextreme-reactive/commit/70e26fa)), closes [#1474](https://github.com/DevExpress/devextreme-reactive/issues/1474)
+* **react-grid-bootstrap3/4:** prevent sorting for disabled columns ([#1490](https://github.com/DevExpress/devextreme-reactive/issues/1490)) ([086242d](https://github.com/DevExpress/devextreme-reactive/commit/086242d))
+* **react-grid-bootstrap4:** fix position of dragged column header ([#1513](https://github.com/DevExpress/devextreme-reactive/issues/1513)) ([8e0893c](https://github.com/DevExpress/devextreme-reactive/commit/8e0893c))
+* **react-grid-bootstrap4:** prevent filter popup cut off on fixed columns ([#1576](https://github.com/DevExpress/devextreme-reactive/issues/1576)) ([979476e](https://github.com/DevExpress/devextreme-reactive/commit/979476e))
+
+
+### Features
+
+* **react-scheduler:** add the React Scheduler component
+* **react-chart:** add animation plugin ([#1469](https://github.com/DevExpress/devextreme-reactive/issues/1469)) ([3c41352](https://github.com/DevExpress/devextreme-reactive/commit/3c41352))
+* update dependencies ([#1542](https://github.com/DevExpress/devextreme-reactive/issues/1542)) ([f32f1b2](https://github.com/DevExpress/devextreme-reactive/commit/f32f1b2))
+
+
+### Code Refactoring
+
+* **react-chart:** remove "groupWidth" property from BarSeries ([0a15e87](https://github.com/DevExpress/devextreme-reactive/commit/0a15e87))
+
+### BREAKING CHANGES
+
+* **react-chart:** The `groupWidth` property configures a band scale for arguments - it is not a property of a particular bar series.
+To configure a band scale, use the `Scale` plugin as follows:
+
+```javascript
+<Scale extensions={[{ type: 'band', constructor: d3.scaleBand().paddingOuter(0.1).paddingInner(0.2) }]} />
+```
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.8.0-beta.1...v1.8.0) (2018-10-04)
 

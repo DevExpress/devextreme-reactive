@@ -51,7 +51,7 @@ Describes properties passed to a component that renders an All Day panel layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | The cells' meta data.
+cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | Cells' meta data.
 allDayPanelRef | (ref: ReactInstance) => void | A function that accepts the All Day panel's root React element.
 cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
 rowComponent | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
@@ -71,7 +71,7 @@ Describes properties passed to a component that renders an All Day panel row.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node used to render the row's content.
+children? | ReactNode | A React node used to render the row content.
 
 ### AllDayPanel.TitleCellProps
 
@@ -79,7 +79,7 @@ Describes properties passed to a component that renders a title cell.
 
 Field | Type | Description
 ------|------|------------
-getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the key.
+getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
 
 ### AllDayPanel.AppointmentLayerProps
 
@@ -87,7 +87,7 @@ Describes properties passed to a component that renders the appointment layer.
 
 Field | Type | Description
 ------|------|------------
-children? | ReactNode | A React node used to render the row's content.
+children? | ReactNode | A React node used to render the row content.
 
 ## Localization Messages
 

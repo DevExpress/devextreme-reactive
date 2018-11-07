@@ -205,6 +205,8 @@
         path: /react/chart/docs/guides/palette
       - title: Animation
         path: /react/chart/docs/guides/animation
+      - title: Hover and Selection
+        path: /react/chart/docs/guides/hover-and-selection
       - title: TypeScript
         path: /react/chart/docs/guides/typescript
   - title: API Reference
@@ -221,6 +223,10 @@
         path: /react/chart/docs/reference/bar-series
       - title: Chart
         path: /react/chart/docs/reference/chart
+      - title: EventTracker
+        path: /react/chart/docs/reference/event-tracker
+      - title: HoverState
+        path: /react/chart/docs/reference/hover-state
       - title: Legend
         path: /react/chart/docs/reference/legend
       - title: LineSeries
@@ -233,6 +239,8 @@
         path: /react/chart/docs/reference/scale
       - title: ScatterSeries
         path: /react/chart/docs/reference/scatter-series
+      - title: SelectionState
+        path: /react/chart/docs/reference/selection-state
       - title: SplineSeries
         path: /react/chart/docs/reference/spline-series
       - title: Stack

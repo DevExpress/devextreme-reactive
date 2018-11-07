@@ -54,13 +54,11 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   tableRef: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  cellComponent: PropTypes.func,
-  rowComponent: PropTypes.func,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
-  cellComponent: () => null,
-  rowComponent: () => null,
   className: undefined,
 };
 

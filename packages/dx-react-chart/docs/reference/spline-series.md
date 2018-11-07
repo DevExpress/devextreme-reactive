@@ -23,19 +23,18 @@ import { SplineSeries } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-name | string | | A series name.
+name | string | | The series name.
 valueField | string | | The name of a data field that provides series point values.
 argumentField | string | | The name of a data field that provides series point argument values.
-axisName? | string | | The associated axis.
-stack? | string | | The associated stack.
-color? | string | | A series color.
-seriesComponent | ComponentType&lt;[SplineSeries.SeriesProps](#splineseriesseriesprops)&gt; | | A component that renders the series.
+axisName? | string | | An associated axis.
+color? | string | | The series color.
+seriesComponent | ComponentType&lt;[SplineSeries.SeriesProps](#splineseriesseriesprops)&gt; | | A component that renders series.
 
 ## Interfaces
 
 ### SplineSeries.SeriesProps
 
-Describes properties passed to a component that renders the series.
+Describes properties passed to a component that renders series.
 
 Field | Type | Description
 ------|------|------------
@@ -47,4 +46,4 @@ color | string | A series color.
 
 Name | Properties | Description
 -----|------------|------------
-SplineSeries.Path | [SplineSeries.SeriesProps](#splineseriesseriesprops) | A component that renders the series.
+SplineSeries.Path | [SplineSeries.SeriesProps](#splineseriesseriesprops) | A component that renders series.

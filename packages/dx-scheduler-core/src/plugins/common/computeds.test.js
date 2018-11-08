@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  dayScale as dayScaleComputed, availableViews, viewCellsData,
+  dayScale as dayScaleComputed, availableViewNames, viewCellsData,
   startViewDate, endViewDate, timeScale,
 } from './computeds';
 import { monthCellsData } from '../month-view/computeds';
@@ -117,19 +117,19 @@ describe('#timeScale', () => {
   });
 });
 
-describe('#availableViews', () => {
+describe('#availableViewNames', () => {
   it('should return available views if views is not defined', () => {
-    expect(availableViews(undefined, 'Month'))
+    expect(availableViewNames(undefined, 'Month'))
       .toEqual(['Month']);
   });
 
   it('should return available views if view is expected', () => {
-    expect(availableViews(['Month'], 'Month'))
+    expect(availableViewNames(['Month'], 'Month'))
       .toEqual(['Month']);
   });
 
   it('should return available views if view is not expected', () => {
-    expect(availableViews(['Week'], 'Month'))
+    expect(availableViewNames(['Week'], 'Month'))
       .toEqual(['Week', 'Month']);
   });
 });

@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 export const Switcher = ({
   currentViewName,
-  availableViews,
+  availableViewNames,
   onChange,
   ...restProps
 }) => {
@@ -20,7 +20,7 @@ export const Switcher = ({
       onChange={handleChange}
       {...restProps}
     >
-      {availableViews.map(view => (
+      {availableViewNames.map(view => (
         <MenuItem value={view} key={view}>
           {view}
         </MenuItem>
@@ -32,10 +32,10 @@ export const Switcher = ({
 Switcher.propTypes = {
   onChange: PropTypes.func.isRequired,
   currentViewName: PropTypes.string,
-  availableViews: PropTypes.array,
+  availableViewNames: PropTypes.array,
 };
 
 Switcher.defaultProps = {
   currentViewName: undefined,
-  availableViews: [],
+  availableViewNames: [],
 };

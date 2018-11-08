@@ -16,7 +16,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
-  availableViews: jest.fn(),
+  availableViewNames: jest.fn(),
   endViewDate: jest.fn(),
   getHorizontalRectByDates: jest.fn(),
   calculateMonthDateIntervals: jest.fn(),

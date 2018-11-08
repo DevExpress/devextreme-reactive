@@ -48,7 +48,7 @@ export const timeScale = (
   return result;
 };
 
-export const availableViews = (views, viewName) => {
+export const availableViewNames = (views, viewName) => {
   if (!views) return [viewName];
   if (views.findIndex(view => viewName === view) === -1) {
     const nextViews = views.slice();

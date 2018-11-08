@@ -13,7 +13,13 @@ const styles = theme => ({
 });
 
 const TableSummaryItemBase = ({
-  children, classes, className, ...restProps
+  children,
+  type,
+  value,
+  getMessage,
+  classes,
+  className,
+  ...restProps
 }) => (
   <div
     className={classNames({
@@ -21,17 +27,27 @@ const TableSummaryItemBase = ({
     }, className)}
     {...restProps}
   >
-    {children}
+    {
+      <React.Fragment>
+        {getMessage(type)}
+        :&nbsp;&nbsp;
+        {children}
+      </React.Fragment>
+    }
   </div>
 );
 
 TableSummaryItemBase.propTypes = {
+  value: PropTypes.number,
+  type: PropTypes.string.isRequired,
+  getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
 TableSummaryItemBase.defaultProps = {
+  value: null,
   children: undefined,
   className: undefined,
 };

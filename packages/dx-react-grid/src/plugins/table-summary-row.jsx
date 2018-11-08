@@ -61,6 +61,15 @@ export class TableSummaryRow extends React.PureComponent {
     } = this.props;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+    const SummaryItem = ({ summary, children }) => (
+      <Item
+        getMessage={getMessage}
+        type={summary.type}
+        value={summary.value}
+      >
+        {children || String(summary.value)}
+      </Item>
+    );
 
     return (
       <React.Fragment>
@@ -68,15 +77,7 @@ export class TableSummaryRow extends React.PureComponent {
           if (summary.value === null
             || formatlessSummaryTypes.includes(summary.type)
             || defaultTypelessSummaries.includes(summary.type)) {
-            return (
-              <Item
-                key={summary.type}
-              >
-                {getMessage(summary.type)}
-                :&nbsp;&nbsp;
-                {String(summary.value)}
-              </Item>
-            );
+            return <SummaryItem key={summary.type} summary={summary} />;
           }
           return (
             <TemplatePlaceholder
@@ -88,11 +89,9 @@ export class TableSummaryRow extends React.PureComponent {
               }}
             >
               {content => (
-                <Item>
-                  {getMessage(summary.type)}
-                  :&nbsp;&nbsp;
-                  {content || String(summary.value)}
-                </Item>
+                <SummaryItem summary={summary}>
+                  {content}
+                </SummaryItem>
               )}
             </TemplatePlaceholder>
           );

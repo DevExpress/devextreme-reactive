@@ -45,32 +45,32 @@ const getBlockEnd = (source) => {
   return end === -1 ? source.length : end;
 };
 
+const extractBlock = (source, header, getEnd = getBlockEnd) => {
+  const block = source.slice(source.indexOf(header) + 1);
+  return block.slice(0, getEnd(block));
+};
+
+const isTableRow = line => line.match(/.+\|.+\|.+/);
+
+const isNotNone = line => line !== 'none';
+
 const firstLetterToLowercase = str => str.charAt(0).toLowerCase() + str.slice(1);
 
 const parseFile = (source) => {
-  let description = cleanElement(source
+  const description = cleanElement(source
     .slice(1, source.findIndex(el => el.indexOf('## ') === 0))
     .join(''));
 
-  let propertiesBlock = source.slice(source.indexOf('### Properties') + 1);
-  propertiesBlock = propertiesBlock
-    .slice(0, getBlockEnd(propertiesBlock))
-    .filter(element => element !== 'none');
+  const propertiesBlock = extractBlock(source, '### Properties')
+    .filter(isNotNone);
 
-  let argumentsBlock = source.slice(source.indexOf('### Arguments') + 1);
+  const argumentsBlock = extractBlock(source, '### Arguments', block => block.indexOf('### Return Value') + 1)
+    .filter(isTableRow);
 
-  argumentsBlock = argumentsBlock
-    .slice(0, argumentsBlock.indexOf('### Return Value') + 1)
-    .filter(line => line.match(/.+\|.+\|.+/));
+  const returnValueBlock = extractBlock(source, '### Return Value')
+    .filter(isNotNone);
 
-  let returnValueBlock = source.slice(source.indexOf('### Return Value') + 1);
-  returnValueBlock = returnValueBlock
-    .slice(0, getBlockEnd(returnValueBlock))
-    .filter(element => element !== 'none');
-
-  let interfacesBlock = source.slice(source.indexOf('## Interfaces') + 1);
-  interfacesBlock = interfacesBlock
-    .slice(0, getBlockEnd(interfacesBlock))
+  const interfacesBlock = extractBlock(source, '## Interfaces')
     .reduce((acc, line) => {
       const nameMatches = /^###\s([\w.]+)/.exec(line);
       const name = nameMatches && nameMatches[1];
@@ -78,9 +78,9 @@ const parseFile = (source) => {
       if (name) {
         return [...acc, { name, description: '', properties: [] }];
       }
-      if (!line.match(/.+\|.+\|.+/)) {
+      if (!isTableRow(line)) {
         if (line.indexOf('Type: ') === 0) {
-          acc[lastItemIndex].type = cleanElement(line.match(/\`([.\w]+)\`/)[1]);
+          acc[lastItemIndex].type = cleanElement(line.match(/\`(.+)\`/)[1]);
         } else if (line.indexOf('Extends ') === 0) {
           acc[lastItemIndex].extension = cleanElement(line.match(/\[[.\w]+\]/)[0]);
         } else {
@@ -92,18 +92,14 @@ const parseFile = (source) => {
       return acc;
     }, []);
 
-  let componentsBlock = source.slice(source.indexOf('## Plugin Components') + 1);
-  componentsBlock = componentsBlock.slice(0, getBlockEnd(componentsBlock))
-    .filter(line => line.match(/.+\|.+\|.+/));
+  const componentsBlock = extractBlock(source, '## Plugin Components')
+    .filter(isTableRow);
 
-  let staticFieldsBlock = source.slice(source.indexOf('## Static Fields') + 1);
-  staticFieldsBlock = staticFieldsBlock.slice(0, getBlockEnd(staticFieldsBlock))
-    .filter(line => line.match(/.+\|.+\|.+/));
+  const staticFieldsBlock = extractBlock(source, '## Static Fields')
+    .filter(isTableRow);
 
-  let messagesBlock = source.slice(source.indexOf('## Localization Messages') + 1);
-  messagesBlock = messagesBlock
-    .slice(0, getBlockEnd(messagesBlock))
-    .filter(line => line.match(/.+\|.+\|.+/));
+  const messagesBlock = extractBlock(source, '## Localization Messages')
+    .filter(isTableRow);
 
   return {
     description,

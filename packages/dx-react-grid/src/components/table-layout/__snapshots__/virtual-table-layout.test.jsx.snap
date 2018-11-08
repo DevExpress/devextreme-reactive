@@ -25,30 +25,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
+              "width": 120,
             },
           ]
         }
@@ -171,30 +176,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
+              "width": 120,
             },
           ]
         }
@@ -1092,30 +1102,35 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
                 "name": "a",
               },
               "key": "a",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "b",
               },
               "key": "b",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "c",
               },
               "key": "c",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "d",
               },
               "key": "d",
+              "width": 120,
             },
             Object {
               "column": Object {
                 "name": "e",
               },
               "key": "e",
+              "width": 120,
             },
           ]
         }

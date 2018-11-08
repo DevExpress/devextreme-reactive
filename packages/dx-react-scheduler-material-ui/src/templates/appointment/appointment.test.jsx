@@ -74,11 +74,10 @@ describe('Appointment', () => {
     });
 
     it('should apply clickable class if onClick event exists', () => {
-      const click = () => undefined;
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          onClick={click}
+          onClick={() => undefined}
         >
           <div />
         </Appointment>
@@ -89,11 +88,10 @@ describe('Appointment', () => {
     });
 
     it('should apply clickable class if onDoubleClick event exists', () => {
-      const dblClick = () => undefined;
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          onDoubleClick={dblClick}
+          onDoubleClick={() => undefined}
         >
           <div />
         </Appointment>

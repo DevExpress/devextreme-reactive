@@ -22,6 +22,7 @@ export const insertPlugin = (array, newItem) => {
 
 export const createClickHandlers = (click, dblClick) => {
   let timeoutId;
+  const events = {};
   const onClick = click ? (e) => {
     if (!timeoutId) {
       timeoutId = setTimeout(() => {
@@ -35,8 +36,7 @@ export const createClickHandlers = (click, dblClick) => {
     dblClick(e);
   } : undefined;
 
-  return {
-    onClick,
-    onDoubleClick,
-  };
+  if (onClick) events.onClick = onClick;
+  if (onDoubleClick) events.onDoubleClick = onDoubleClick;
+  return events;
 };

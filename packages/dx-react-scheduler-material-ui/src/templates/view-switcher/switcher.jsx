@@ -20,9 +20,9 @@ export const Switcher = ({
       onChange={handleChange}
       {...restProps}
     >
-      {availableViewNames.map(view => (
-        <MenuItem value={view} key={view}>
-          {view}
+      {availableViewNames.map(viewName => (
+        <MenuItem value={viewName} key={viewName}>
+          {viewName}
         </MenuItem>
       ))}
     </Select>
@@ -32,7 +32,7 @@ export const Switcher = ({
 Switcher.propTypes = {
   onChange: PropTypes.func.isRequired,
   currentViewName: PropTypes.string,
-  availableViewNames: PropTypes.array,
+  availableViewNames: PropTypes.arrayOf(PropTypes.string),
 };
 
 Switcher.defaultProps = {

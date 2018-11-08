@@ -31,7 +31,7 @@ describe('ViewSwitcher', () => {
       expect(defaultProps.onChange)
         .toBeCalled();
     });
-    it('should render items depend of available views', () => {
+    it('should render items depend of available view names', () => {
       const tree = shallow((
         <Switcher {...defaultProps} availableViewNames={['Week', 'Month']} />
       ));

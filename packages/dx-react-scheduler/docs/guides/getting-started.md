@@ -55,13 +55,11 @@ const App = () => (
 );
 ```
 
-<!--
 ## Try Out The React Scheduler
 
 Follow the link below to try out the React Scheduler:
 
-- [CodeSandbox for Material-UI](https://codesandbox.io/s/link-to-react-scheduler-mui)
--->
+- [CodeSandbox for Material-UI](https://codesandbox.io/s/0y4zvoxl8v)
 
 ## License
 

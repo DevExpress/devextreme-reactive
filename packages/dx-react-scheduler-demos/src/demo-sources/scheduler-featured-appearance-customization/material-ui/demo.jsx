@@ -13,6 +13,7 @@ import {
   ViewSwitcher,
   AllDayPanel,
   AppointmentTooltip,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import moment from 'moment';
@@ -268,7 +269,10 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={TooltipHeader}
             contentComponent={TooltipContent}
+            showOpenButton
+            showCloseButton
           />
+          <AppointmentForm readOnly />
         </Scheduler>
       </Paper>
     );

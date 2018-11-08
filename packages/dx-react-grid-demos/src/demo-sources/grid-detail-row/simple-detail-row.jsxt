@@ -7,7 +7,12 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import { generateRows } from '../../../demo-data/generator';
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
 
 const RowDetail = ({ row }) => (
   <div>
@@ -32,7 +37,10 @@ export default class Demo extends React.PureComponent {
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      rows: generateRows({ length: 8 }),
+      rows: generateRows({
+        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+        length: 8,
+      }),
     };
   }
 
@@ -44,6 +52,7 @@ export default class Demo extends React.PureComponent {
         <Grid
           rows={rows}
           columns={columns}
+          getRowId={getRowId}
         >
           <RowDetailState
             defaultExpandedRowIds={[2, 5]}

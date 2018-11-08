@@ -25,6 +25,7 @@ const getRenderProps = (series) => {
     isStartedFromZero,
     getValueDomain, // TODO: Temporary - see corresponding note in *computeDomains*.
     createHitTester,
+    getDElement,
     ...restProps
   } = series;
 

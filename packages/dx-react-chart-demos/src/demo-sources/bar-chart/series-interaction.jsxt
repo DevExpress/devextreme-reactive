@@ -2,11 +2,13 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
+  LineSeries,
   ArgumentAxis,
   ValueAxis,
   ValueGrid,
   Title,
   Legend,
+  Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import {
   Stack, Scale, EventTracker, HoverState, SelectionState,
@@ -46,6 +48,7 @@ export default class Demo extends React.PureComponent {
         <Chart
           data={chartData}
         >
+
           <ArgumentAxis type="band" />
           <ValueAxis lineComponent={EmptyComponent} tickComponent={EmptyComponent} />
           <ValueGrid />
@@ -55,12 +58,12 @@ export default class Demo extends React.PureComponent {
             style={{ textAlign: 'center', width: '100%' }}
           />
 
-          <BarSeries
+          <LineSeries
             name="USA"
             valueField="USA"
             argumentField="year"
           />
-          <BarSeries
+          <LineSeries
             name="China"
             valueField="China"
             argumentField="year"
@@ -71,6 +74,8 @@ export default class Demo extends React.PureComponent {
           <EventTracker onClick={this.click} />
           <HoverState />
           <SelectionState selection={selection} />
+
+          <Tooltip />
         </Chart>
       </<%&wrapperTag%>>
     );

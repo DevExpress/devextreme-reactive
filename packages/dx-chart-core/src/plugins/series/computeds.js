@@ -108,6 +108,38 @@ export const pointAttributes = ({ size = DEFAULT_POINT_SIZE }) => {
   });
 };
 
+export const getPointDElement = (pointIndex, currentSeries) => {
+  const { x, y } = currentSeries.points[pointIndex];
+  const size = DEFAULT_POINT_SIZE; // TODO get user size
+
+  return {
+    x,
+    y,
+    d: symbol().size([size ** 2]).type(symbolCircle)(),
+  };
+};
+
+export const getBarDElement = (pointIndex, currentSeries) => {
+  const {
+    x, y, y1, width,
+  } = currentSeries.points[pointIndex];
+  const height = Math.abs(y1 - y);
+  return {
+    x,
+    y,
+    d: `M0,0 ${width},0 ${width},${height} 0,${height}`,
+  };
+};
+
+export const getPieDElement = (pointIndex, currentSeries) => {
+  const {
+    d, x, y,
+  } = currentSeries.points[pointIndex];
+  return {
+    x, y, d,
+  };
+};
+
 const createNewUniqueName = name => name.replace(/\d*$/, str => (str ? +str + 1 : 0));
 
 const addItem = (list, item) => (list.find(obj => obj.uniqueName === item.uniqueName)

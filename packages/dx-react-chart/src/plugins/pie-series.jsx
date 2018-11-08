@@ -1,6 +1,7 @@
 import {
   getPiePointTransformer as getPointTransformer,
   createPieHitTester as createHitTester,
+  getPieDElement as getDElement,
 } from '@devexpress/dx-chart-core';
 import { declareSeries } from '../utils';
 import { SliceCollection as Path } from '../templates/series/slice-collection';
@@ -10,4 +11,5 @@ export const PieSeries = declareSeries('PieSeries', {
   components: { Path, Point },
   getPointTransformer,
   createHitTester,
+  getDElement,
 });

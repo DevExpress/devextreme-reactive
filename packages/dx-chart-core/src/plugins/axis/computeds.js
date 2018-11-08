@@ -24,15 +24,15 @@ const getFormat = (scale, tickFormat) => {
   return tick => tick;
 };
 
-// It is called for grid (which do not have labels) - how is it handled here?
-const calculateAxisCoordinates = (
+// It is called for grid (which does not have labels) - how is it handled here?
+export const axisCoordinates = ({
   scale,
   orientation,
   position,
   tickSize,
-  indentFromAxis,
   tickFormat,
-) => {
+  indentFromAxis,
+}) => {
   const ticks = getTicks(scale);
   const offset = getWidth(scale) / 2;
   const dominantBaseline = getDominantBaseline(orientation, position);
@@ -66,25 +66,7 @@ const calculateAxisCoordinates = (
       key: index,
     };
   };
-  return {
-    ticks: ticks.map(getTickCoordinates),
-  };
+  return ticks.map(getTickCoordinates);
 };
-
-export const axisCoordinates = (
-  domain,
-  scale,
-  position,
-  tickSize,
-  indentFromAxis,
-) => calculateAxisCoordinates(
-  scale,
-  domain.orientation,
-  position,
-  tickSize,
-  indentFromAxis,
-  // TODO: *tickFormat* belongs to axis rather then domain - take it from axis.
-  domain.tickFormat,
-);
 
 export const axesData = (axes, axisProps) => [...axes, axisProps];

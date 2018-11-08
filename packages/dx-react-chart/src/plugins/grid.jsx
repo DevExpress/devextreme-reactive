@@ -35,17 +35,16 @@ class RawGrid extends React.PureComponent {
                 width, height,
               } = layouts.pane;
 
-              const coordinates = axisCoordinates(
-                { orientation: isHorizontal ? 'horizontal' : 'vertical' },
+              const ticks = axisCoordinates({
                 scale,
-                isHorizontal ? TOP : LEFT,
-                0,
-                undefined,
-              );
+                orientation: isHorizontal ? 'horizontal' : 'vertical',
+                position: isHorizontal ? TOP : LEFT,
+                tickSize: 0,
+              });
 
               return ((
                 <React.Fragment>
-                  {coordinates.ticks.map(({
+                  {ticks.map(({
                     x1, x2, y1, y2, key,
                   }) => (
                     <LineComponent

@@ -13,24 +13,22 @@ jest.mock('@devexpress/dx-chart-core', () => ({
 }));
 
 describe('Grid', () => {
-  axisCoordinates.mockReturnValue({
-    ticks: [{
-      text: 'text1',
-      x1: 1,
-      x2: 1,
-      y1: 0,
-      y2: 100,
-      key: '1',
-    },
-    {
-      text: 'text2',
-      x1: 11,
-      x2: 11,
-      y1: 33,
-      y2: 44,
-      key: '2',
-    }],
-  });
+  axisCoordinates.mockReturnValue([{
+    text: 'text1',
+    x1: 1,
+    x2: 1,
+    y1: 0,
+    y2: 100,
+    key: '1',
+  },
+  {
+    text: 'text2',
+    x1: 11,
+    x2: 11,
+    y1: 33,
+    y2: 44,
+    key: '2',
+  }]);
 
   const ticks = [1, 2];
   const scale = jest.fn(value => value);

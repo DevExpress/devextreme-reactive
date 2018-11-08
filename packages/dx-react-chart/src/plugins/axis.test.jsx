@@ -70,32 +70,30 @@ describe('Axis', () => {
     lineComponent: LineComponent,
   };
 
-  axisCoordinates.mockReturnValue({
-    ticks: [{
-      text: 'text1',
-      x1: 1,
-      x2: 2,
-      y1: 3,
-      y2: 4,
-      xText: 'xText1',
-      yText: 'yText1',
-      dominantBaseline: 'dominantBaseline1',
-      textAnchor: 'textAnchor1',
-      key: '1',
-    },
-    {
-      text: 'text2',
-      x1: 11,
-      x2: 22,
-      y1: 33,
-      y2: 44,
-      xText: 'xText2',
-      yText: 'yText2',
-      dominantBaseline: 'dominantBaseline2',
-      textAnchor: 'textAnchor2',
-      key: '2',
-    }],
-  });
+  axisCoordinates.mockReturnValue([{
+    text: 'text1',
+    x1: 1,
+    x2: 2,
+    y1: 3,
+    y2: 4,
+    xText: 'xText1',
+    yText: 'yText1',
+    dominantBaseline: 'dominantBaseline1',
+    textAnchor: 'textAnchor1',
+    key: '1',
+  },
+  {
+    text: 'text2',
+    x1: 11,
+    x2: 22,
+    y1: 33,
+    y2: 44,
+    xText: 'xText2',
+    yText: 'yText2',
+    dominantBaseline: 'dominantBaseline2',
+    textAnchor: 'textAnchor2',
+    key: '2',
+  }]);
 
   afterEach(jest.clearAllMocks);
 
@@ -225,9 +223,14 @@ describe('Axis', () => {
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith(
-      { orientation: 'horizontal', tickFormat: mockTickFormat }, mockScale, 'bottom', 5, 10,
-    );
+    expect(axisCoordinates).toHaveBeenCalledWith({
+      scale: mockScale,
+      orientation: 'horizontal',
+      position: 'bottom',
+      tickSize: 5,
+      tickFormat: mockTickFormat,
+      indentFromAxis: 10,
+    });
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -247,13 +250,18 @@ describe('Axis', () => {
           {...defaultProps}
           name="other_domain"
           tickSize={6}
+          indentFromAxis={3}
         />
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith(
-      { orientation: 'vertical' }, mockScale, 'bottom', 6, 10,
-    );
+    expect(axisCoordinates).toHaveBeenCalledWith({
+      scale: mockScale,
+      orientation: 'vertical',
+      position: 'bottom',
+      tickSize: 6,
+      indentFromAxis: 3,
+    });
   });
 
   it('should render tick component', () => {

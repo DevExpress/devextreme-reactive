@@ -123,14 +123,15 @@ class RawAxis extends React.PureComponent {
               // Isn't it too late to adjust sizes?
               const postCalculatedScale = scale
                 .copy().range(isHorizontal ? [0, widthPostCalculated] : [heightPostCalculated, 0]);
-              const coordinates = axisCoordinates(
+              const ticks = axisCoordinates({
+                scale: postCalculatedScale,
                 // TODO: Do not recalculate *orientation*.
-                { tickFormat, orientation: isHorizontal ? 'horizontal' : 'vertical' },
-                postCalculatedScale,
+                orientation: isHorizontal ? 'horizontal' : 'vertical',
                 position,
                 tickSize,
+                tickFormat,
                 indentFromAxis,
-              );
+              });
               const {
                 xCorrection,
                 yCorrection,
@@ -172,7 +173,7 @@ class RawAxis extends React.PureComponent {
                       y={-yCorrection}
                     >
                       {
-                      coordinates.ticks.map(({
+                      ticks.map(({
                         x1, x2, y1, y2, key,
                       }) => (
                         <TickComponent
@@ -188,7 +189,7 @@ class RawAxis extends React.PureComponent {
                         width={isHorizontal ? widthPostCalculated : 0}
                         height={!isHorizontal ? heightPostCalculated : 0}
                       />
-                      {coordinates.ticks.map(({
+                      {ticks.map(({
                         text,
                         xText,
                         yText,

@@ -3,12 +3,10 @@ import * as PropTypes from 'prop-types';
 
 export class Line extends React.PureComponent {
   render() {
-    const {
-      width, height, orientation, ...restProps
-    } = this.props;
+    const { width, height, ...restProps } = this.props;
     return (
       <path
-        d={`M 0 0 L ${orientation === 'horizontal' ? width : 0} ${orientation === 'horizontal' ? 0 : height}`}
+        d={`M 0 0 L ${width} ${height}`}
         {...restProps}
       />
     );
@@ -18,5 +16,4 @@ export class Line extends React.PureComponent {
 Line.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  orientation: PropTypes.string.isRequired,
 };

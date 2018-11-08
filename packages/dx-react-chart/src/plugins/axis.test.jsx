@@ -8,7 +8,10 @@ import { Axis } from './axis';
 jest.mock('@devexpress/dx-chart-core', () => ({
   axisCoordinates: jest.fn(),
   axesData: jest.fn(),
-  HORIZONTAL: 'horizontal',
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  LEFT: 'left',
+  TOP: 'top',
+  BOTTOM: 'bottom',
 }));
 
 describe('Axis', () => {
@@ -25,9 +28,8 @@ describe('Axis', () => {
   const TickComponent = () => null;
   const LabelComponent = () => null;
   const LineComponent = () => null;
-  const getterForAxis = (position, orientation) => ({
+  const getterForAxis = position => ({
     getter: {
-      domains: { name: { orientation, type: 'someType' } },
       layouts: {
         [`${position}-axis`]: {
           x: 3, y: 4, width: 250, height: 150,
@@ -40,8 +42,10 @@ describe('Axis', () => {
   });
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal', type: 'someType' } },
-      scales: { name: mockScale },
+      scales: {
+        test_argument_domain: mockScale,
+        other_domain: mockScale,
+      },
       layouts: {
         'bottom-axis': {
           x: 1, y: 2, width: 200, height: 100,
@@ -59,44 +63,41 @@ describe('Axis', () => {
   const defaultProps = {
     min: 0,
     position: 'bottom',
-    name: 'name',
+    name: 'test_argument_domain',
     rootComponent: RootComponent,
     tickComponent: TickComponent,
     labelComponent: LabelComponent,
     lineComponent: LineComponent,
   };
 
-  beforeEach(() => {
-    axisCoordinates.mockImplementation(() => ({
-      ticks: [{
-        text: 'text1',
-        x1: 1,
-        x2: 2,
-        y1: 3,
-        y2: 4,
-        xText: 'xText1',
-        yText: 'yText1',
-        dominantBaseline: 'dominantBaseline1',
-        textAnchor: 'textAnchor1',
-        key: '1',
-      },
-      {
-        text: 'text2',
-        x1: 11,
-        x2: 22,
-        y1: 33,
-        y2: 44,
-        xText: 'xText2',
-        yText: 'yText2',
-        dominantBaseline: 'dominantBaseline2',
-        textAnchor: 'textAnchor2',
-        key: '2',
-      }],
-    }));
+  axisCoordinates.mockReturnValue({
+    ticks: [{
+      text: 'text1',
+      x1: 1,
+      x2: 2,
+      y1: 3,
+      y2: 4,
+      xText: 'xText1',
+      yText: 'yText1',
+      dominantBaseline: 'dominantBaseline1',
+      textAnchor: 'textAnchor1',
+      key: '1',
+    },
+    {
+      text: 'text2',
+      x1: 11,
+      x2: 22,
+      y1: 33,
+      y2: 44,
+      xText: 'xText2',
+      yText: 'yText2',
+      dominantBaseline: 'dominantBaseline2',
+      textAnchor: 'textAnchor2',
+      key: '2',
+    }],
   });
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+
+  afterEach(jest.clearAllMocks);
 
   it('should render root component', () => {
     const tree = mount((
@@ -125,8 +126,8 @@ describe('Axis', () => {
     };
     const tree = mount((
       <PluginHost>
-        <Axis {...{ ...defaultProps, position: 'left' }} />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('left', 'vertical'))}
+        <Axis {...defaultProps} name="other_domain" position="left" />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('left'))}
       </PluginHost>
     ));
     const { refsHandler } = tree.find(RootComponent).props();
@@ -144,8 +145,8 @@ describe('Axis', () => {
     };
     const tree = mount((
       <PluginHost>
-        <Axis {...{ ...defaultProps, position: 'right' }} />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('right', 'vertical'))}
+        <Axis {...defaultProps} name="other_domain" position="right" />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('right'))}
       </PluginHost>
     ));
     const { refsHandler } = tree.find(RootComponent).props();
@@ -163,8 +164,8 @@ describe('Axis', () => {
     };
     const tree = mount((
       <PluginHost>
-        <Axis {...{ ...defaultProps, position: 'top' }} />
-        {pluginDepsToComponents(defaultDeps, getterForAxis('top', 'horizontal'))}
+        <Axis {...defaultProps} position="top" />
+        {pluginDepsToComponents(defaultDeps, getterForAxis('top'))}
       </PluginHost>
     ));
     const { refsHandler } = tree.find(RootComponent).props();
@@ -213,16 +214,20 @@ describe('Axis', () => {
   });
 
   it('should pass axisCoordinates method correct parameters, horizontal orientation', () => {
+    const mockTickFormat = () => 0;
     mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <Axis
           {...defaultProps}
+          tickFormat={mockTickFormat}
         />
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'horizontal', type: 'someType' }, mockScale, 'bottom', 5, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith(
+      { orientation: 'horizontal', tickFormat: mockTickFormat }, mockScale, 'bottom', 5, 10,
+    );
   });
 
   it('should pass axisCoordinates method correct parameters, vertical orientation', () => {
@@ -240,12 +245,15 @@ describe('Axis', () => {
         })}
         <Axis
           {...defaultProps}
+          name="other_domain"
           tickSize={6}
         />
       </PluginHost>
     ));
 
-    expect(axisCoordinates).toHaveBeenCalledWith({ orientation: 'vertical', type: 'someType' }, mockScale, 'bottom', 6, 10);
+    expect(axisCoordinates).toHaveBeenCalledWith(
+      { orientation: 'vertical' }, mockScale, 'bottom', 6, 10,
+    );
   });
 
   it('should render tick component', () => {
@@ -298,7 +306,7 @@ describe('Axis', () => {
     });
   });
 
-  it('should render line component', () => {
+  it('should render line component, horizontal', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -309,9 +317,25 @@ describe('Axis', () => {
     ));
 
     expect(tree.find(LineComponent).props()).toEqual({
-      height: 100,
       width: 200,
-      orientation: 'horizontal',
+      height: 0,
+    });
+  });
+
+  it('should render line component, vertical', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Axis
+          {...defaultProps}
+          name="other_domain"
+        />
+      </PluginHost>
+    ));
+
+    expect(tree.find(LineComponent).props()).toEqual({
+      width: 0,
+      height: 100,
     });
   });
 

@@ -8,7 +8,7 @@ import {
   Getter,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, HORIZONTAL, LEFT, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
+  axisCoordinates, LEFT, TOP, BOTTOM, ARGUMENT_DOMAIN, getValueDomainName, axesData,
 } from '@devexpress/dx-chart-core';
 import { Root } from '../templates/axis/root';
 import { Tick } from '../templates/axis/tick';
@@ -17,8 +17,12 @@ import { Line } from '../templates/axis/line';
 import { withPatchedProps, withComponents } from '../utils';
 
 const getZeroCoord = () => 0;
-const getCorrectSize = position => ((position === 'left' || position === 'top') ? coord => -coord : (coord, side) => side + coord);
-const getCorrection = position => ((position === 'left' || position === 'top') ? coord => coord : getZeroCoord);
+const getCorrectSize = position => (
+  (position === LEFT || position === TOP) ? coord => -coord : (coord, side) => side + coord
+);
+const getCorrection = position => (
+  (position === LEFT || position === TOP) ? coord => coord : getZeroCoord
+);
 const getCurrentSize = (_, side) => side;
 
 class RawAxis extends React.PureComponent {
@@ -77,6 +81,7 @@ class RawAxis extends React.PureComponent {
   render() {
     const {
       tickSize,
+      tickFormat,
       position,
       name,
       indentFromAxis,
@@ -85,30 +90,26 @@ class RawAxis extends React.PureComponent {
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
     } = this.props;
+    const placeholder = `${position}-axis`;
+    // TODO: Remove *axes* getter as it is not used by Axis itself -
+    // it is used in domains calculation (where it shouldn't be used).
     const getAxes = ({ axes }) => axesData(axes, this.props);
     return (
       <Plugin name="Axis">
         <Getter name="axes" computed={getAxes} />
-        <Template name={`${position}-axis`}>
+        <Template name={placeholder}>
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              domains,
-              scales,
-              layouts,
-            }, {
-              changeBBox,
-            }) => {
-              // TODO: Take axis from "axes" getter rather then from closure.
-              const placeholder = `${position}-axis`;
-              const domain = domains[name];
+            {({ scales, layouts }, { changeBBox }) => {
               const scale = scales[name];
-              // TODO_DEBUG
-              if (!domain) { throw new Error(`domain is not found: ${name}`); }
-              // TODO_DEBUG
-              const { orientation } = domain;
-              const { width: widthCalculated, height: heightCalculated } = layouts[placeholder]
-                    || { width: 0, height: 0 };
+              if (!scale) {
+                return null;
+              }
+
+              const isHorizontal = name === ARGUMENT_DOMAIN;
+              const {
+                width: widthCalculated, height: heightCalculated,
+              } = layouts[placeholder] || { width: 0, height: 0 };
 
               const {
                 width: widthPostCalculated,
@@ -120,13 +121,11 @@ class RawAxis extends React.PureComponent {
                 0,
               );
               // Isn't it too late to adjust sizes?
-              const postCalculatedScale = scale.copy().range(
-                orientation === HORIZONTAL ? [0, widthPostCalculated] : [heightPostCalculated, 0],
-              );
+              const postCalculatedScale = scale
+                .copy().range(isHorizontal ? [0, widthPostCalculated] : [heightPostCalculated, 0]);
               const coordinates = axisCoordinates(
-                // TODO: Only *orientation* and *tickFormat* are taken from *domain* -
-                // take *tickFormat* directly from props.
-                domain,
+                // TODO: Do not recalculate *orientation*.
+                { tickFormat, orientation: isHorizontal ? 'horizontal' : 'vertical' },
                 postCalculatedScale,
                 position,
                 tickSize,
@@ -141,9 +140,9 @@ class RawAxis extends React.PureComponent {
                 <div
                   style={{
                     position: 'relative',
-                    width: orientation === HORIZONTAL ? undefined : widthCalculated,
-                    height: orientation === HORIZONTAL ? heightCalculated : null,
-                    flexGrow: orientation === HORIZONTAL ? 1 : undefined,
+                    width: isHorizontal ? undefined : widthCalculated,
+                    height: isHorizontal ? heightCalculated : undefined,
+                    flexGrow: isHorizontal ? 1 : undefined,
                   }}
                   ref={(node) => { this.node = node; }}
                 >
@@ -159,13 +158,13 @@ class RawAxis extends React.PureComponent {
                         placeholder,
                         changeBBox,
                         {
-                          getWidth: orientation !== HORIZONTAL
+                          getWidth: !isHorizontal
                             ? getCorrectSize(position) : getCurrentSize,
-                          getHeight: orientation === HORIZONTAL
+                          getHeight: isHorizontal
                             ? getCorrectSize(position) : getCurrentSize,
-                          getXCorrection: orientation !== HORIZONTAL
+                          getXCorrection: !isHorizontal
                             ? getCorrection(position) : getZeroCoord,
-                          getYCorrection: orientation === HORIZONTAL
+                          getYCorrection: isHorizontal
                             ? getCorrection(position) : getZeroCoord,
                         },
                       )}
@@ -186,9 +185,8 @@ class RawAxis extends React.PureComponent {
                       ))
                     }
                       <LineComponent
-                        width={widthPostCalculated}
-                        height={heightPostCalculated}
-                        orientation={orientation}
+                        width={isHorizontal ? widthPostCalculated : 0}
+                        height={!isHorizontal ? heightPostCalculated : 0}
                       />
                       {coordinates.ticks.map(({
                         text,
@@ -228,11 +226,13 @@ RawAxis.propTypes = {
   lineComponent: PropTypes.func.isRequired,
   position: PropTypes.string.isRequired,
   tickSize: PropTypes.number,
+  tickFormat: PropTypes.func,
   indentFromAxis: PropTypes.number,
 };
 
 RawAxis.defaultProps = {
   tickSize: 5,
+  tickFormat: undefined,
   indentFromAxis: 10,
 };
 
@@ -248,6 +248,10 @@ export const Axis = withComponents({
 })(RawAxis);
 
 // TODO: It is not axis who defines that argument is HORIZONTAL and value is VERTICAL.
+
+// TODO: *position* should not be *orientation* dependent -
+// if HORIZONTAL then TOP or BOTTOM, otherwise LEFT of RIGHT.
+// It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
 // TODO: Check that only BOTTOM and TOP are accepted.
 export const ArgumentAxis = withPatchedProps(props => ({

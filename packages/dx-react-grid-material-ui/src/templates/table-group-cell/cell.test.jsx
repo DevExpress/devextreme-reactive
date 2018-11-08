@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import TableCell from '@material-ui/core/TableCell';
 import { setupConsole } from '@devexpress/dx-testing';
-import { TableGroupCell } from './table-group-row-cell';
+import { Cell as TableGroupCell } from './cell';
 
 describe('TableCell', () => {
   let resetConsole;
@@ -21,21 +21,21 @@ describe('TableCell', () => {
     mount.cleanUp();
   });
 
-  it('should render column title and value', () => {
+  const defaultProps = {
+    contentComponent: () => null,
+    iconComponent: () => null,
+    expanded: true,
+    classes: {},
+    column: {},
+    row: {},
+  };
+
+  it('should render children inside content component if passed', () => {
     const tree = mount((
       <TableGroupCell
-        column={{ title: 'Title' }}
-        row={{ value: 'Value' }}
-      />
-    ));
-
-    expect(tree.text())
-      .toMatch(/Title.*Value/);
-  });
-
-  it('should render children if passed', () => {
-    const tree = mount((
-      <TableGroupCell>
+        {...defaultProps}
+        contentComponent={({ children }) => children}
+      >
         <span className="test" />
       </TableGroupCell>
     ));
@@ -44,19 +44,36 @@ describe('TableCell', () => {
       .toBeTruthy();
   });
 
-  it('should render IconButton', () => {
+  it('should render Icon', () => {
     const tree = mount((
-      <TableGroupCell />
+      <TableGroupCell {...defaultProps} />
     ));
 
-    expect(tree.find('IconButton').exists())
-      .toBeTruthy();
+    expect(tree.find(defaultProps.iconComponent).props())
+      .toMatchObject({
+        expanded: defaultProps.expanded,
+        className: classes.groupButton,
+      });
+  });
+
+  it('should render Content', () => {
+    const tree = mount((
+      <TableGroupCell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.contentComponent).props())
+      .toMatchObject({
+        column: defaultProps.column,
+        row: defaultProps.row,
+        className: classes.columnTitle,
+      });
   });
 
   it('should expand grouped row on click', () => {
     const onToggle = jest.fn();
     const tree = shallow((
       <TableGroupCell
+        {...defaultProps}
         onToggle={onToggle}
       />
     ));
@@ -68,7 +85,10 @@ describe('TableCell', () => {
 
   it('should pass the className prop to the root element', () => {
     const tree = shallow((
-      <TableGroupCell className="custom-class" />
+      <TableGroupCell
+        {...defaultProps}
+        className="custom-class"
+      />
     ));
 
     expect(tree.is('.custom-class'))
@@ -79,7 +99,10 @@ describe('TableCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableGroupCell data={{ a: 1 }} />
+      <TableGroupCell
+        {...defaultProps}
+        data={{ a: 1 }}
+      />
     ));
 
     expect(tree.props().data)

@@ -328,6 +328,34 @@ describe('VirtualTableLayout utils', () => {
       expect(getCollapsedColumns(columns, visibleBoundary, boundaries, getColumnWidth))
         .toEqual(result);
     });
+
+    it('should assign width to all columns', () => {
+      const columns = [
+        { key: 0, colWidth: 30 },
+        { key: 1, colWidth: 40 },
+        { key: 2, colWidth: 50 },
+        { key: 3, colWidth: 60 },
+        { key: 4, colWidth: 70 },
+        { key: 5, colWidth: 80 },
+        { key: 6, colWidth: 90 },
+        { key: 7, colWidth: 100 },
+      ];
+      const visibleBoundary = [[2, 5]];
+      const boundaries = [[0, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 7]];
+      const getColumnWidth = column => column.colWidth;
+
+      const result = [
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_1`, width: 70 },
+        { ...columns[2], width: 50 },
+        { ...columns[3], width: 60 },
+        { ...columns[4], width: 70 },
+        { ...columns[5], width: 80 },
+        { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_6_7`, width: 190 },
+      ];
+
+      expect(getCollapsedColumns(columns, visibleBoundary, boundaries, getColumnWidth))
+        .toEqual(result);
+    });
   });
 
   describe('#getCollapsedCells', () => {

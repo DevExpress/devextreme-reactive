@@ -74,11 +74,11 @@ describe('Appointment', () => {
     });
 
     it('should apply clickable class if onClick event exists', () => {
-      const clickMock = jest.fn();
+      const click = () => undefined;
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          onClick={clickMock}
+          onClick={click}
         >
           <div />
         </Appointment>
@@ -89,11 +89,11 @@ describe('Appointment', () => {
     });
 
     it('should apply clickable class if onDoubleClick event exists', () => {
-      const clickMock = jest.fn();
+      const dblClick = () => undefined;
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          onDoubleClick={clickMock}
+          onDoubleClick={dblClick}
         >
           <div />
         </Appointment>

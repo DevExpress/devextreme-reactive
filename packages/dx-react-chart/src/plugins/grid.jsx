@@ -7,7 +7,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import {
-  axisCoordinates, HORIZONTAL, TOP, LEFT, ARGUMENT_DOMAIN, getValueDomainName,
+  axisCoordinates, TOP, LEFT, ARGUMENT_DOMAIN, getValueDomainName,
 } from '@devexpress/dx-chart-core';
 import { Line } from '../templates/grid/line';
 import { withPatchedProps, withComponents } from '../utils';
@@ -24,22 +24,21 @@ class RawGrid extends React.PureComponent {
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({
-              domains,
-              scales,
-              layouts,
-            }) => {
-              const domain = domains[name];
+            {({ scales, layouts }) => {
               const scale = scales[name];
-              const { orientation } = domain;
+              if (!scale) {
+                return null;
+              }
+
+              const isHorizontal = name === ARGUMENT_DOMAIN;
               const {
                 width, height,
               } = layouts.pane;
 
               const coordinates = axisCoordinates(
-                domain,
+                { orientation: isHorizontal ? 'horizontal' : 'vertical' },
                 scale,
-                orientation === HORIZONTAL ? TOP : LEFT,
+                isHorizontal ? TOP : LEFT,
                 0,
                 undefined,
               );
@@ -51,9 +50,9 @@ class RawGrid extends React.PureComponent {
                   }) => (
                     <LineComponent
                       key={key}
-                      x1={orientation === HORIZONTAL ? x1 : width}
+                      x1={isHorizontal ? x1 : width}
                       x2={x2}
-                      y1={orientation === HORIZONTAL ? height : y1}
+                      y1={isHorizontal ? height : y1}
                       y2={y2}
                       {...restProps}
                     />

@@ -6,41 +6,46 @@ import { pluginDepsToComponents } from '@devexpress/dx-react-core/test-utils';
 import { Grid } from './grid';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  ...require.requireActual('@devexpress/dx-chart-core'),
   axisCoordinates: jest.fn(),
+  ARGUMENT_DOMAIN: 'test_argument_domain',
+  LEFT: 'left',
+  TOP: 'top',
 }));
 
 describe('Grid', () => {
-  beforeEach(() => {
-    axisCoordinates.mockImplementation(() => ({
-      ticks: [{
-        text: 'text1',
-        x1: 1,
-        x2: 1,
-        y1: 0,
-        y2: 100,
-        key: '1',
-      },
-      {
-        text: 'text2',
-        x1: 11,
-        x2: 11,
-        y1: 33,
-        y2: 44,
-        key: '2',
-      }],
-    }));
+  axisCoordinates.mockReturnValue({
+    ticks: [{
+      text: 'text1',
+      x1: 1,
+      x2: 1,
+      y1: 0,
+      y2: 100,
+      key: '1',
+    },
+    {
+      text: 'text2',
+      x1: 11,
+      x2: 11,
+      y1: 33,
+      y2: 44,
+      key: '2',
+    }],
   });
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-  // eslint-disable-next-line react/prop-types
+
+  const ticks = [1, 2];
+  const scale = jest.fn(value => value);
+  scale.ticks = jest.fn(() => ticks);
+
+  afterEach(jest.clearAllMocks);
+
   const LineComponent = () => null;
 
   const defaultDeps = {
     getter: {
-      domains: { name: { orientation: 'horizontal', type: 'type' } },
-      scales: { name: jest.fn() },
+      scales: {
+        test_argument_domain: jest.fn(),
+        other_domain: jest.fn(),
+      },
       layouts: {
         pane: {
           x: 1, y: 2, width: 200, height: 300,
@@ -52,19 +57,10 @@ describe('Grid', () => {
     },
   };
   const defaultProps = {
-    name: 'name',
+    name: 'test_argument_domain',
     lineComponent: LineComponent,
     styles: 'styles',
   };
-
-  beforeEach(() => {
-    const ticks = [1, 2];
-    const scale = jest.fn(value => value);
-    scale.ticks = jest.fn(() => ticks);
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
 
   it('should render ticks', () => {
     const tree = mount((
@@ -96,11 +92,10 @@ describe('Grid', () => {
   it('should render ticks, orientation vertical', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          getter: { domains: { name: { orientation: 'vertical', type: 'type' } } },
-        })}
+        {pluginDepsToComponents(defaultDeps)}
         <Grid
           {...defaultProps}
+          name="other_domain"
         />
       </PluginHost>
     ));
